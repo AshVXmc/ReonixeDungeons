@@ -1,0 +1,183 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://assets/fonts/PressStart2P-Regular.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://scenes/MainMenu.gd" type="Script" id=2]
+[ext_resource path="res://assets/fonts/buttonfont.tres" type="DynamicFont" id=3]
+
+[sub_resource type="DynamicFont" id=1]
+size = 84
+outline_size = 3
+outline_color = Color( 0.0901961, 0.466667, 0.0509804, 1 )
+font_data = ExtResource( 1 )
+
+[node name="MainMenu" type="MarginContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -1.0
+margin_right = -1.0
+rect_min_size = Vector2( 7, 0 )
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="."]
+margin_right = 1920.0
+margin_bottom = 1080.0
+color = Color( 0.0470588, 0.0470588, 0.0470588, 1 )
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+margin_right = 1920.0
+margin_bottom = 1080.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
+margin_left = 288.0
+margin_top = 390.0
+margin_right = 1632.0
+margin_bottom = 690.0
+
+[node name="CenterContainer" type="CenterContainer" parent="CenterContainer/VBoxContainer"]
+margin_right = 1344.0
+margin_bottom = 84.0
+hint_tooltip = "Reonixe Dungeons"
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="Title" type="Label" parent="CenterContainer/VBoxContainer/CenterContainer"]
+margin_right = 1344.0
+margin_bottom = 84.0
+custom_fonts/font = SubResource( 1 )
+custom_colors/font_color = Color( 0.501961, 0.270588, 0.572549, 1 )
+text = "REONIXE DUNGEONS"
+uppercase = true
+
+[node name="CenterContainer2" type="CenterContainer" parent="CenterContainer/VBoxContainer"]
+margin_top = 88.0
+margin_right = 1344.0
+margin_bottom = 300.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/VBoxContainer/CenterContainer2"]
+margin_left = 470.0
+margin_right = 874.0
+margin_bottom = 212.0
+
+[node name="StartContainer" type="CenterContainer" parent="CenterContainer/VBoxContainer/CenterContainer2/VBoxContainer"]
+margin_right = 304.0
+margin_bottom = 50.0
+size_flags_horizontal = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/VBoxContainer/CenterContainer2/VBoxContainer/StartContainer"]
+margin_right = 304.0
+margin_bottom = 50.0
+
+[node name="Arrow_Picker" type="Label" parent="CenterContainer/VBoxContainer/CenterContainer2/VBoxContainer/StartContainer/HBoxContainer"]
+margin_right = 50.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 7, 0 )
+custom_fonts/font = ExtResource( 3 )
+custom_colors/font_color = Color( 0.972549, 0.819608, 0, 1 )
+custom_constants/shadow_offset_y = 0
+custom_constants/shadow_as_outline = 5
+text = ">"
+uppercase = true
+
+[node name="Start" type="Label" parent="CenterContainer/VBoxContainer/CenterContainer2/VBoxContainer/StartContainer/HBoxContainer"]
+margin_left = 54.0
+margin_right = 304.0
+margin_bottom = 50.0
+custom_fonts/font = ExtResource( 3 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_y = 0
+text = "Start"
+
+[node name="HowtoplayContainer" type="CenterContainer" parent="CenterContainer/VBoxContainer/CenterContainer2/VBoxContainer"]
+margin_top = 54.0
+margin_right = 404.0
+margin_bottom = 104.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/VBoxContainer/CenterContainer2/VBoxContainer/HowtoplayContainer"]
+margin_right = 404.0
+margin_bottom = 50.0
+
+[node name="Arrow_Picker" type="Label" parent="CenterContainer/VBoxContainer/CenterContainer2/VBoxContainer/HowtoplayContainer/HBoxContainer"]
+margin_right = 100.0
+margin_bottom = 50.0
+custom_fonts/font = ExtResource( 3 )
+custom_colors/font_color = Color( 0.972549, 0.819608, 0, 1 )
+custom_constants/shadow_offset_y = 0
+custom_constants/shadow_as_outline = 5
+text = "> "
+uppercase = true
+
+[node name="Howtoplay" type="Label" parent="CenterContainer/VBoxContainer/CenterContainer2/VBoxContainer/HowtoplayContainer/HBoxContainer"]
+margin_left = 104.0
+margin_right = 404.0
+margin_bottom = 50.0
+custom_fonts/font = ExtResource( 3 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_y = 0
+text = "Guides"
+align = 1
+
+[node name="OptionsContainer" type="CenterContainer" parent="CenterContainer/VBoxContainer/CenterContainer2/VBoxContainer"]
+margin_top = 108.0
+margin_right = 404.0
+margin_bottom = 158.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/VBoxContainer/CenterContainer2/VBoxContainer/OptionsContainer"]
+margin_right = 404.0
+margin_bottom = 50.0
+
+[node name="Arrow_Picker" type="Label" parent="CenterContainer/VBoxContainer/CenterContainer2/VBoxContainer/OptionsContainer/HBoxContainer"]
+margin_right = 50.0
+margin_bottom = 50.0
+custom_fonts/font = ExtResource( 3 )
+custom_colors/font_color = Color( 0.972549, 0.819608, 0, 1 )
+custom_constants/shadow_offset_y = 0
+custom_constants/shadow_as_outline = 5
+text = ">"
+uppercase = true
+
+[node name="Options" type="Label" parent="CenterContainer/VBoxContainer/CenterContainer2/VBoxContainer/OptionsContainer/HBoxContainer"]
+margin_left = 54.0
+margin_right = 404.0
+margin_bottom = 50.0
+custom_fonts/font = ExtResource( 3 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_y = 0
+text = "Options"
+
+[node name="ExitContainer" type="CenterContainer" parent="CenterContainer/VBoxContainer/CenterContainer2/VBoxContainer"]
+margin_top = 162.0
+margin_right = 254.0
+margin_bottom = 212.0
+size_flags_horizontal = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/VBoxContainer/CenterContainer2/VBoxContainer/ExitContainer"]
+margin_right = 254.0
+margin_bottom = 50.0
+
+[node name="Arrow_Picker" type="Label" parent="CenterContainer/VBoxContainer/CenterContainer2/VBoxContainer/ExitContainer/HBoxContainer"]
+margin_right = 50.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 7, 0 )
+custom_fonts/font = ExtResource( 3 )
+custom_colors/font_color = Color( 0.972549, 0.819608, 0, 1 )
+custom_constants/shadow_offset_y = 0
+custom_constants/shadow_as_outline = 5
+text = ">"
+uppercase = true
+
+[node name="Exit" type="Label" parent="CenterContainer/VBoxContainer/CenterContainer2/VBoxContainer/ExitContainer/HBoxContainer"]
+margin_left = 54.0
+margin_right = 254.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 54, 0 )
+custom_fonts/font = ExtResource( 3 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_y = 0
+text = "Exit"
