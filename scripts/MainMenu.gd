@@ -11,6 +11,7 @@ var current_selection = 0
 
 func _ready():
 	set_current_selection(0)
+
 	
 	
 func handle_selection(_current_selection):

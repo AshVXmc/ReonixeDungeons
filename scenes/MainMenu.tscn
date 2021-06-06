@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://assets/fonts/PressStart2P-Regular.ttf" type="DynamicFontData" id=1]
-[ext_resource path="res://scenes/MainMenu.gd" type="Script" id=2]
+[ext_resource path="res://scripts/MainMenu.gd" type="Script" id=2]
 [ext_resource path="res://assets/fonts/buttonfont.tres" type="DynamicFont" id=3]
+[ext_resource path="res://assets/player/player_idle.png" type="Texture" id=4]
 
 [sub_resource type="DynamicFont" id=1]
 size = 84
@@ -181,3 +182,8 @@ custom_colors/font_color = Color( 1, 1, 1, 1 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_y = 0
 text = "Exit"
+
+[node name="Sprite" type="Sprite" parent="CenterContainer"]
+position = Vector2( 924.897, 204.986 )
+scale = Vector2( 15, 15 )
+texture = ExtResource( 4 )
