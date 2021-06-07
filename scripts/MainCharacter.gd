@@ -3,7 +3,7 @@ extends KinematicBody2D
 # Movement code go brrrr
 
 var velocity = Vector2(0,0);
-const SPEED : int = 180;
+const SPEED : int = 210;
 const GRAVITY : int = 45;
 const JUMP_POWER : int = -1100;
 

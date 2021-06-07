@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://scenes/MainCharacter.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/terrain/brick_floor.png" type="Texture" id=2]
@@ -6,9 +6,6 @@
 [ext_resource path="res://scripts/Level1.gd" type="Script" id=4]
 [ext_resource path="res://assets/fonts/PressStart2P-Regular.ttf" type="DynamicFontData" id=5]
 [ext_resource path="res://scripts/Panel.gd" type="Script" id=6]
-
-[sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 447.076, 31.6627 )
 
 [sub_resource type="ConcavePolygonShape2D" id=2]
 segments = PoolVector2Array( 64, 64, 0, 64, 0, 64, 0, 0, 0, 0, 64, 0, 64, 0, 64, 64 )
@@ -36,6 +33,12 @@ segments = PoolVector2Array( 64, 64, 0, 64, 0, 64, 0, 0, 0, 0, 64, 0, 64, 0, 64,
 } ]
 0/z_index = 0
 
+[sub_resource type="RectangleShape2D" id=7]
+extents = Vector2( 966.37, 32.2807 )
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 444.036, 31.6627 )
+
 [sub_resource type="DynamicFont" id=4]
 size = 48
 extra_spacing_top = 6
@@ -62,18 +65,16 @@ script = ExtResource( 4 )
 
 [node name="Floor" type="StaticBody2D" parent="."]
 position = Vector2( 511.143, 566.635 )
-__meta__ = {
-"_edit_group_": true
-}
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor"]
-shape = SubResource( 1 )
 
 [node name="Floor Tilemap" type="TileMap" parent="Floor"]
 tile_set = SubResource( 3 )
 cell_size = Vector2( 32, 32 )
 format = 1
-tile_data = PoolIntArray( -16, 0, 0, -14, 0, 0, -12, 0, 0, -10, 0, 0, -8, 0, 0, -6, 0, 0, -4, 0, 0, -2, 0, 0, -65536, 0, 0, -65534, 0, 0, -65532, 0, 0, -65530, 0, 0, -65528, 0, 0, -65526, 0, 0, -65524, 0, 0, -65522, 0, 0 )
+tile_data = PoolIntArray( -46, 0, 0, -44, 0, 0, -42, 0, 0, -40, 0, 0, -38, 0, 0, -36, 0, 0, -34, 0, 0, -32, 0, 0, -30, 0, 0, -28, 0, 0, -26, 0, 0, -24, 0, 0, -22, 0, 0, -20, 0, 0, -18, 0, 0, -16, 0, 0, -14, 0, 0, -12, 0, 0, -10, 0, 0, -8, 0, 0, -6, 0, 0, -4, 0, 0, -2, 0, 0, -65536, 0, 0, -65534, 0, 0, -65532, 0, 0, -65530, 0, 0, -65528, 0, 0, -65526, 0, 0, -65524, 0, 0, -65522, 0, 0 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor"]
+position = Vector2( -462.54, 1.4472 )
+shape = SubResource( 7 )
 
 [node name="Platform1" type="StaticBody2D" parent="."]
 position = Vector2( 1027.93, 383.114 )
@@ -109,6 +110,11 @@ tile_data = PoolIntArray( -6, 0, 0, -4, 0, 0, -2, 0, 0, -65536, 0, 0, -65534, 0,
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
 position = Vector2( 45.3726, 480.799 )
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+current = true
+drag_margin_h_enabled = true
+drag_margin_v_enabled = true
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 

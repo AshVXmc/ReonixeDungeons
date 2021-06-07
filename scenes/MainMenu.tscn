@@ -55,12 +55,12 @@ uppercase = true
 [node name="CenterContainer2" type="CenterContainer" parent="CenterContainer/VBoxContainer"]
 margin_top = 88.0
 margin_right = 1344.0
-margin_bottom = 300.0
+margin_bottom = 138.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/VBoxContainer/CenterContainer2"]
-margin_left = 470.0
-margin_right = 874.0
-margin_bottom = 212.0
+margin_left = 520.0
+margin_right = 824.0
+margin_bottom = 50.0
 
 [node name="StartContainer" type="CenterContainer" parent="CenterContainer/VBoxContainer/CenterContainer2/VBoxContainer"]
 margin_right = 304.0
@@ -92,76 +92,26 @@ custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_y = 0
 text = "Start"
 
-[node name="HowtoplayContainer" type="CenterContainer" parent="CenterContainer/VBoxContainer/CenterContainer2/VBoxContainer"]
-margin_top = 54.0
-margin_right = 404.0
-margin_bottom = 104.0
+[node name="CenterContainer3" type="CenterContainer" parent="CenterContainer/VBoxContainer"]
+margin_top = 142.0
+margin_right = 1344.0
+margin_bottom = 192.0
 
-[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/VBoxContainer/CenterContainer2/VBoxContainer/HowtoplayContainer"]
-margin_right = 404.0
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/VBoxContainer/CenterContainer3"]
+margin_left = 370.0
+margin_right = 974.0
 margin_bottom = 50.0
 
-[node name="Arrow_Picker" type="Label" parent="CenterContainer/VBoxContainer/CenterContainer2/VBoxContainer/HowtoplayContainer/HBoxContainer"]
-margin_right = 100.0
+[node name="Howtoplaycontainer" type="CenterContainer" parent="CenterContainer/VBoxContainer/CenterContainer3/VBoxContainer"]
+margin_right = 604.0
 margin_bottom = 50.0
-custom_fonts/font = ExtResource( 3 )
-custom_colors/font_color = Color( 0.972549, 0.819608, 0, 1 )
-custom_constants/shadow_offset_y = 0
-custom_constants/shadow_as_outline = 5
-text = "> "
-uppercase = true
-
-[node name="Howtoplay" type="Label" parent="CenterContainer/VBoxContainer/CenterContainer2/VBoxContainer/HowtoplayContainer/HBoxContainer"]
-margin_left = 104.0
-margin_right = 404.0
-margin_bottom = 50.0
-custom_fonts/font = ExtResource( 3 )
-custom_colors/font_color = Color( 1, 1, 1, 1 )
-custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
-custom_constants/shadow_offset_y = 0
-text = "Guides"
-align = 1
-
-[node name="OptionsContainer" type="CenterContainer" parent="CenterContainer/VBoxContainer/CenterContainer2/VBoxContainer"]
-margin_top = 108.0
-margin_right = 404.0
-margin_bottom = 158.0
-
-[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/VBoxContainer/CenterContainer2/VBoxContainer/OptionsContainer"]
-margin_right = 404.0
-margin_bottom = 50.0
-
-[node name="Arrow_Picker" type="Label" parent="CenterContainer/VBoxContainer/CenterContainer2/VBoxContainer/OptionsContainer/HBoxContainer"]
-margin_right = 50.0
-margin_bottom = 50.0
-custom_fonts/font = ExtResource( 3 )
-custom_colors/font_color = Color( 0.972549, 0.819608, 0, 1 )
-custom_constants/shadow_offset_y = 0
-custom_constants/shadow_as_outline = 5
-text = ">"
-uppercase = true
-
-[node name="Options" type="Label" parent="CenterContainer/VBoxContainer/CenterContainer2/VBoxContainer/OptionsContainer/HBoxContainer"]
-margin_left = 54.0
-margin_right = 404.0
-margin_bottom = 50.0
-custom_fonts/font = ExtResource( 3 )
-custom_colors/font_color = Color( 1, 1, 1, 1 )
-custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
-custom_constants/shadow_offset_y = 0
-text = "Options"
-
-[node name="ExitContainer" type="CenterContainer" parent="CenterContainer/VBoxContainer/CenterContainer2/VBoxContainer"]
-margin_top = 162.0
-margin_right = 254.0
-margin_bottom = 212.0
 size_flags_horizontal = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/VBoxContainer/CenterContainer2/VBoxContainer/ExitContainer"]
-margin_right = 254.0
+[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/VBoxContainer/CenterContainer3/VBoxContainer/Howtoplaycontainer"]
+margin_right = 604.0
 margin_bottom = 50.0
 
-[node name="Arrow_Picker" type="Label" parent="CenterContainer/VBoxContainer/CenterContainer2/VBoxContainer/ExitContainer/HBoxContainer"]
+[node name="Arrow_Picker" type="Label" parent="CenterContainer/VBoxContainer/CenterContainer3/VBoxContainer/Howtoplaycontainer/HBoxContainer"]
 margin_right = 50.0
 margin_bottom = 50.0
 rect_min_size = Vector2( 7, 0 )
@@ -172,11 +122,90 @@ custom_constants/shadow_as_outline = 5
 text = ">"
 uppercase = true
 
-[node name="Exit" type="Label" parent="CenterContainer/VBoxContainer/CenterContainer2/VBoxContainer/ExitContainer/HBoxContainer"]
+[node name="Howtoplay" type="Label" parent="CenterContainer/VBoxContainer/CenterContainer3/VBoxContainer/Howtoplaycontainer/HBoxContainer"]
+margin_left = 54.0
+margin_right = 604.0
+margin_bottom = 50.0
+custom_fonts/font = ExtResource( 3 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_y = 0
+text = "How to play"
+
+[node name="CenterContainer4" type="CenterContainer" parent="CenterContainer/VBoxContainer"]
+margin_top = 196.0
+margin_right = 1344.0
+margin_bottom = 246.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/VBoxContainer/CenterContainer4"]
+margin_left = 470.0
+margin_right = 874.0
+margin_bottom = 50.0
+
+[node name="Optionscontainer" type="CenterContainer" parent="CenterContainer/VBoxContainer/CenterContainer4/VBoxContainer"]
+margin_right = 404.0
+margin_bottom = 50.0
+size_flags_horizontal = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/VBoxContainer/CenterContainer4/VBoxContainer/Optionscontainer"]
+margin_right = 404.0
+margin_bottom = 50.0
+
+[node name="Arrow_Picker" type="Label" parent="CenterContainer/VBoxContainer/CenterContainer4/VBoxContainer/Optionscontainer/HBoxContainer"]
+margin_right = 50.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 7, 0 )
+custom_fonts/font = ExtResource( 3 )
+custom_colors/font_color = Color( 0.972549, 0.819608, 0, 1 )
+custom_constants/shadow_offset_y = 0
+custom_constants/shadow_as_outline = 5
+text = ">"
+uppercase = true
+
+[node name="options" type="Label" parent="CenterContainer/VBoxContainer/CenterContainer4/VBoxContainer/Optionscontainer/HBoxContainer"]
+margin_left = 54.0
+margin_right = 404.0
+margin_bottom = 50.0
+custom_fonts/font = ExtResource( 3 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_y = 0
+text = "Options"
+
+[node name="CenterContainer5" type="CenterContainer" parent="CenterContainer/VBoxContainer"]
+margin_top = 250.0
+margin_right = 1344.0
+margin_bottom = 300.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/VBoxContainer/CenterContainer5"]
+margin_left = 545.0
+margin_right = 799.0
+margin_bottom = 50.0
+
+[node name="Exitcontainer" type="CenterContainer" parent="CenterContainer/VBoxContainer/CenterContainer5/VBoxContainer"]
+margin_right = 254.0
+margin_bottom = 50.0
+size_flags_horizontal = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/VBoxContainer/CenterContainer5/VBoxContainer/Exitcontainer"]
+margin_right = 254.0
+margin_bottom = 50.0
+
+[node name="Arrow_Picker" type="Label" parent="CenterContainer/VBoxContainer/CenterContainer5/VBoxContainer/Exitcontainer/HBoxContainer"]
+margin_right = 50.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 7, 0 )
+custom_fonts/font = ExtResource( 3 )
+custom_colors/font_color = Color( 0.972549, 0.819608, 0, 1 )
+custom_constants/shadow_offset_y = 0
+custom_constants/shadow_as_outline = 5
+text = ">"
+uppercase = true
+
+[node name="exit" type="Label" parent="CenterContainer/VBoxContainer/CenterContainer5/VBoxContainer/Exitcontainer/HBoxContainer"]
 margin_left = 54.0
 margin_right = 254.0
 margin_bottom = 50.0
-rect_min_size = Vector2( 54, 0 )
 custom_fonts/font = ExtResource( 3 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )

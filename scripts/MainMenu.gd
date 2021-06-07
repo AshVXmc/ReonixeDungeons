@@ -2,9 +2,9 @@ extends MarginContainer
 
 const first_scene = preload("res://scenes/Level1.tscn")
 onready var start_selector = $CenterContainer/VBoxContainer/CenterContainer2/VBoxContainer/StartContainer/HBoxContainer/Arrow_Picker
-onready var howtoplay_selector = $CenterContainer/VBoxContainer/CenterContainer2/VBoxContainer/HowtoplayContainer/HBoxContainer/Arrow_Picker
-onready var options_selector = $CenterContainer/VBoxContainer/CenterContainer2/VBoxContainer/OptionsContainer/HBoxContainer/Arrow_Picker
-onready var exit_selector = $CenterContainer/VBoxContainer/CenterContainer2/VBoxContainer/ExitContainer/HBoxContainer/Arrow_Picker
+onready var howtoplay_selector = $CenterContainer/VBoxContainer/CenterContainer3/VBoxContainer/Howtoplaycontainer/HBoxContainer/Arrow_Picker
+onready var options_selector = $CenterContainer/VBoxContainer/CenterContainer4/VBoxContainer/Optionscontainer/HBoxContainer/Arrow_Picker
+onready var exit_selector = $CenterContainer/VBoxContainer/CenterContainer5/VBoxContainer/Exitcontainer/HBoxContainer/Arrow_Picker
 
 var current_selection = 0
 
@@ -12,7 +12,6 @@ var current_selection = 0
 func _ready():
 	set_current_selection(0)
 
-	
 	
 func handle_selection(_current_selection):
 	if _current_selection == 0:
@@ -41,6 +40,7 @@ func set_current_selection(_current_selection):
 	options_selector.text = ""
 	exit_selector.text = ""
 	
+	
 	if _current_selection == 0:
 		start_selector.text = ">"
 	elif _current_selection == 1:
@@ -48,7 +48,8 @@ func set_current_selection(_current_selection):
 	elif _current_selection == 2:
 		options_selector.text = ">"
 	elif _current_selection == 3:
-		exit_selector.text = ">"		
+		exit_selector.text = ">"
+	
 	
 	
 
