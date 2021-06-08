@@ -6,7 +6,7 @@ onready var howtoplay_selector = $CenterContainer/VBoxContainer/CenterContainer3
 onready var options_selector = $CenterContainer/VBoxContainer/CenterContainer4/VBoxContainer/Optionscontainer/HBoxContainer/Arrow_Picker
 onready var exit_selector = $CenterContainer/VBoxContainer/CenterContainer5/VBoxContainer/Exitcontainer/HBoxContainer/Arrow_Picker
 
-var current_selection = 0
+var current_selection : int = 0
 
 
 func _ready():

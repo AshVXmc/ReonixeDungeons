@@ -1,6 +1,6 @@
 extends Control
 
-var notpaused = true
+var notpaused : bool = true
 	
 func _process(delta):
 	if Input.is_action_just_pressed("ui_cancel"):

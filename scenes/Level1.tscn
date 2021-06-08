@@ -7,10 +7,10 @@
 [ext_resource path="res://assets/fonts/PressStart2P-Regular.ttf" type="DynamicFontData" id=5]
 [ext_resource path="res://scripts/Panel.gd" type="Script" id=6]
 
-[sub_resource type="ConcavePolygonShape2D" id=2]
+[sub_resource type="ConcavePolygonShape2D" id=1]
 segments = PoolVector2Array( 64, 64, 0, 64, 0, 64, 0, 0, 0, 0, 64, 0, 64, 0, 64, 64 )
 
-[sub_resource type="TileSet" id=3]
+[sub_resource type="TileSet" id=2]
 0/name = "z4INv45_5x.png 0"
 0/texture = ExtResource( 2 )
 0/tex_offset = Vector2( 0, 0 )
@@ -21,35 +21,35 @@ segments = PoolVector2Array( 64, 64, 0, 64, 0, 64, 0, 0, 0, 0, 64, 0, 64, 0, 64,
 0/navigation_offset = Vector2( 0, 0 )
 0/shape_offset = Vector2( 0, 0 )
 0/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
-0/shape = SubResource( 2 )
+0/shape = SubResource( 1 )
 0/shape_one_way = false
 0/shape_one_way_margin = 1.0
 0/shapes = [ {
 "autotile_coord": Vector2( 0, 0 ),
 "one_way": false,
 "one_way_margin": 1.0,
-"shape": SubResource( 2 ),
+"shape": SubResource( 1 ),
 "shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
 } ]
 0/z_index = 0
 
-[sub_resource type="RectangleShape2D" id=7]
-extents = Vector2( 966.37, 32.2807 )
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 990.526, 32.2807 )
 
-[sub_resource type="RectangleShape2D" id=1]
+[sub_resource type="RectangleShape2D" id=4]
 extents = Vector2( 444.036, 31.6627 )
 
-[sub_resource type="DynamicFont" id=4]
+[sub_resource type="DynamicFont" id=5]
 size = 48
 extra_spacing_top = 6
 extra_spacing_char = 3
 font_data = ExtResource( 5 )
 
-[sub_resource type="DynamicFont" id=5]
+[sub_resource type="DynamicFont" id=6]
 size = 24
 font_data = ExtResource( 5 )
 
-[sub_resource type="GDScript" id=6]
+[sub_resource type="GDScript" id=7]
 script/source = "extends Button
 
 
@@ -65,16 +65,19 @@ script = ExtResource( 4 )
 
 [node name="Floor" type="StaticBody2D" parent="."]
 position = Vector2( 511.143, 566.635 )
+__meta__ = {
+"_edit_group_": true
+}
 
 [node name="Floor Tilemap" type="TileMap" parent="Floor"]
-tile_set = SubResource( 3 )
+tile_set = SubResource( 2 )
 cell_size = Vector2( 32, 32 )
 format = 1
 tile_data = PoolIntArray( -46, 0, 0, -44, 0, 0, -42, 0, 0, -40, 0, 0, -38, 0, 0, -36, 0, 0, -34, 0, 0, -32, 0, 0, -30, 0, 0, -28, 0, 0, -26, 0, 0, -24, 0, 0, -22, 0, 0, -20, 0, 0, -18, 0, 0, -16, 0, 0, -14, 0, 0, -12, 0, 0, -10, 0, 0, -8, 0, 0, -6, 0, 0, -4, 0, 0, -2, 0, 0, -65536, 0, 0, -65534, 0, 0, -65532, 0, 0, -65530, 0, 0, -65528, 0, 0, -65526, 0, 0, -65524, 0, 0, -65522, 0, 0 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Floor"]
-position = Vector2( -462.54, 1.4472 )
-shape = SubResource( 7 )
+position = Vector2( -481.228, 1.4472 )
+shape = SubResource( 3 )
 
 [node name="Platform1" type="StaticBody2D" parent="."]
 position = Vector2( 1027.93, 383.114 )
@@ -84,10 +87,10 @@ __meta__ = {
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Platform1"]
 position = Vector2( 254.83, -0.840912 )
-shape = SubResource( 1 )
+shape = SubResource( 4 )
 
 [node name="TileMap" type="TileMap" parent="Platform1"]
-tile_set = SubResource( 3 )
+tile_set = SubResource( 2 )
 cell_size = Vector2( 32, 32 )
 format = 1
 tile_data = PoolIntArray( -6, 0, 0, -4, 0, 0, -2, 0, 0, -65536, 0, 0, -65534, 0, 0, -65532, 0, 0, -65530, 0, 0, -65528, 0, 0, -65526, 0, 0, -65524, 0, 0, -65522, 0, 0, -65520, 0, 0, -65518, 0, 0, -65516, 0, 0 )
@@ -100,21 +103,23 @@ __meta__ = {
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Platform2"]
 position = Vector2( 254.83, -0.840912 )
-shape = SubResource( 1 )
+shape = SubResource( 4 )
 
 [node name="TileMap" type="TileMap" parent="Platform2"]
-tile_set = SubResource( 3 )
+tile_set = SubResource( 2 )
 cell_size = Vector2( 32, 32 )
 format = 1
 tile_data = PoolIntArray( -6, 0, 0, -4, 0, 0, -2, 0, 0, -65536, 0, 0, -65534, 0, 0, -65532, 0, 0, -65530, 0, 0, -65528, 0, 0, -65526, 0, 0, -65524, 0, 0, -65522, 0, 0, -65520, 0, 0, -65518, 0, 0, -65516, 0, 0 )
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
-position = Vector2( 45.3726, 480.799 )
+position = Vector2( -883.676, 483.469 )
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 current = true
 drag_margin_h_enabled = true
 drag_margin_v_enabled = true
+drag_margin_left = 0.3
+drag_margin_right = 0.3
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -148,7 +153,7 @@ margin_left = -144.0
 margin_top = 23.0
 margin_right = 144.0
 margin_bottom = 71.0
-custom_fonts/font = SubResource( 4 )
+custom_fonts/font = SubResource( 5 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
 text = "Paused"
@@ -163,9 +168,9 @@ margin_left = -234.0
 margin_top = 290.494
 margin_right = 234.0
 margin_bottom = 326.494
-custom_fonts/font = SubResource( 5 )
+custom_fonts/font = SubResource( 6 )
 text = "Return to main menu"
-script = SubResource( 6 )
+script = SubResource( 7 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
