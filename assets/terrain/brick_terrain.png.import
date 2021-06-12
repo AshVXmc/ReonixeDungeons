@@ -2,11 +2,16 @@
 
 importer="texture"
 type="StreamTexture"
-valid=false
+path="res://.import/brick_terrain.png-9727116e861d9305c4cfcd91d9a2802d.stex"
+metadata={
+"vram_texture": false
+}
 
 [deps]
 
-source_file="res://assets/terrain/dungeon_brick_wall.png"
+source_file="res://assets/terrain/brick_terrain.png"
+dest_files=[ "res://.import/brick_terrain.png-9727116e861d9305c4cfcd91d9a2802d.stex" ]
+
 [params]
 
 compress/mode=0
