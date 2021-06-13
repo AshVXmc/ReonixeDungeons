@@ -5,7 +5,7 @@ extends KinematicBody2D
 var velocity = Vector2(0,0);
 const SPEED : int = 275;
 const GRAVITY : int = 45;
-const JUMP_POWER : int = -1100;
+const JUMP_POWER : int = -1400;
 
 func _physics_process(delta):
 	
