@@ -2,10 +2,10 @@ extends KinematicBody2D
 
 # Movement code go brrrr
 
-var velocity = Vector2(0,0);
-const SPEED : int = 275;
-const GRAVITY : int = 45;
-const JUMP_POWER : int = -1400;
+var velocity = Vector2(0,0)
+const SPEED : int = 275
+const GRAVITY : int = 45
+const JUMP_POWER : int = -1100
 
 func _physics_process(delta):
 	
@@ -27,13 +27,13 @@ func _physics_process(delta):
 		$Sprite.play("Walk")	
 	
 	
-	velocity.y = velocity.y + GRAVITY;
+	velocity.y = velocity.y + GRAVITY
 	
 	if Input.is_action_just_pressed("jump") and is_on_floor():
-		velocity.y = JUMP_POWER;	
+		velocity.y = JUMP_POWER
 	
 	velocity = move_and_slide(velocity,Vector2.UP)
 	
-	velocity.x = lerp(velocity.x,0,0.2);
+	velocity.x = lerp(velocity.x,0,0.2)
 
 

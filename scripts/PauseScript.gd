@@ -12,9 +12,12 @@ func _process(delta):
 			get_tree().paused = false
 			notpaused = true
 			visible = false	
+		
 			
-func _on_button_pressed():
-	get_tree().change_scene("res://scenes/MainMenu.tscn")
+		
+		
+				
+			
 					
 	
 
