@@ -2,6 +2,8 @@ extends KinematicBody2D
 
 var velocity = Vector2()
 var direction : int = 1
+var is_dead : bool = false
+
 
 const FLOOR = Vector2(0, -1)
 const SPEED : int = 100
@@ -13,12 +15,13 @@ func _ready():
 func _physics_process(delta):
 	velocity.x = SPEED * direction
 	
-	if direction == 1:
+	if direction == 1 && is_dead == false:
 		$AnimatedSprite.flip_h = false
-	else:
+	elif is_dead == false:
 		$AnimatedSprite.flip_h = true
-	$AnimatedSprite.play("slimeanim")
 	
+	if is_dead == false:	
+		$AnimatedSprite.play("slimeanim")
 	
 	velocity.y += GRAVITY
 	velocity = move_and_slide(velocity, FLOOR)
@@ -29,6 +32,13 @@ func _physics_process(delta):
 		
 	if $RayCast2D.is_colliding() == false:
 		direction = direction * -1
-		$RayCast2D.position.x *= -1	
+		$RayCast2D.position.x *= -1
 	
-	
+func _on_Area2D_area_entered(area):
+	if area.is_in_group("Sword"):
+		is_dead = true
+		$AnimatedSprite.play("death")
+		
+func _on_AnimatedSprite_animation_finished():
+	if is_dead == true:
+		queue_free()	

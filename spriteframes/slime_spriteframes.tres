@@ -5,6 +5,11 @@
 
 [resource]
 animations = [ {
+"frames": [  ],
+"loop": true,
+"name": "death",
+"speed": 5.0
+}, {
 "frames": [ ExtResource( 2 ), ExtResource( 1 ) ],
 "loop": true,
 "name": "slimeanim",

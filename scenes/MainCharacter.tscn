@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://spriteframes/MainCharacter_spriteframes.tres" type="SpriteFrames" id=1]
 [ext_resource path="res://scripts/MainCharacter.gd" type="Script" id=2]
@@ -7,17 +7,28 @@
 radius = 32.44
 height = 26.9452
 
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 14.4325, 33.7726 )
+
 [node name="Player" type="KinematicBody2D"]
 script = ExtResource( 2 )
 
 [node name="Sprite" type="AnimatedSprite" parent="."]
 scale = Vector2( 5, 5 )
 frames = ExtResource( 1 )
-flip_h = true
-__meta__ = {
-"_edit_group_": true
-}
+animation = "Attack"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 0.0800177, 4.49729 )
+position = Vector2( -5.65376, 5.05854 )
 shape = SubResource( 1 )
+
+[node name="AttackCollision" type="Area2D" parent="." groups=[
+"Sword",
+]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackCollision"]
+position = Vector2( 45.1363, 2.10602 )
+shape = SubResource( 2 )
+disabled = true
+
+[connection signal="animation_finished" from="Sprite" to="." method="_on_Sprite_animation_finished"]
