@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://scenes/MainCharacter.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/terrain/brick_terrain.png" type="Texture" id=2]
@@ -48,6 +48,25 @@ font_data = ExtResource( 5 )
 [sub_resource type="RectangleShape2D" id=6]
 extents = Vector2( 34.7123, 22.7659 )
 
+[sub_resource type="GDScript" id=7]
+script/source = "extends Area2D
+
+
+# Declare member variables here. Examples:
+# var a = 2
+# var b = \"text\"
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+#func _process(delta):
+#	pass
+"
+
 [node name="Level1" type="Node2D"]
 script = ExtResource( 4 )
 
@@ -66,7 +85,7 @@ tile_data = PoolIntArray( 1, 1, 0, 2, 2, 0, 3, 3, 0, 65550, 0, 0, 65551, 0, 0, 6
 [node name="StaticBody2D" type="StaticBody2D" parent="TileMap (One-way)"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TileMap (One-way)/StaticBody2D"]
-position = Vector2( -192.896, 306.966 )
+position = Vector2( -191.493, 306.966 )
 shape = SubResource( 3 )
 one_way_collision = true
 
@@ -82,6 +101,7 @@ one_way_collision = true
 position = Vector2( -796.146, 527.4 )
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
+position = Vector2( 0, 8 )
 current = true
 limit_left = -925
 drag_margin_h_enabled = true
@@ -90,9 +110,9 @@ drag_margin_left = 0.4
 drag_margin_right = 0.4
 editor_draw_limits = true
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="PauseLayer" type="CanvasLayer" parent="."]
 
-[node name="Pause" type="Control" parent="CanvasLayer"]
+[node name="Pause" type="Control" parent="PauseLayer"]
 pause_mode = 2
 visible = false
 margin_right = 1377.0
@@ -102,7 +122,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Panel" type="Panel" parent="CanvasLayer/Pause"]
+[node name="Panel" type="Panel" parent="PauseLayer/Pause"]
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
@@ -114,7 +134,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/Pause/Panel"]
+[node name="CenterContainer" type="CenterContainer" parent="PauseLayer/Pause/Panel"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_top = 17.0
@@ -123,7 +143,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="[Paused]" type="Label" parent="CanvasLayer/Pause/Panel/CenterContainer"]
+[node name="[Paused]" type="Label" parent="PauseLayer/Pause/Panel/CenterContainer"]
 margin_left = 274.0
 margin_top = 25.0
 margin_right = 574.0
@@ -132,7 +152,7 @@ custom_fonts/font = SubResource( 5 )
 custom_colors/font_color = Color( 0.337255, 0.498039, 0.290196, 1 )
 text = "Paused"
 
-[node name="CenterContainer2" type="CenterContainer" parent="CanvasLayer/Pause/Panel"]
+[node name="CenterContainer2" type="CenterContainer" parent="PauseLayer/Pause/Panel"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 207.0
@@ -143,7 +163,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="[to resume]" type="Label" parent="CanvasLayer/Pause/Panel/CenterContainer2"]
+[node name="[to resume]" type="Label" parent="PauseLayer/Pause/Panel/CenterContainer2"]
 margin_left = 82.0
 margin_top = 9.0
 margin_right = 532.0
@@ -152,7 +172,28 @@ custom_fonts/font = SubResource( 5 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 text = "to resume"
 
-[node name="CenterContainer3" type="CenterContainer" parent="CanvasLayer/Pause/Panel"]
+[node name="CenterContainer5" type="CenterContainer" parent="PauseLayer/Pause/Panel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 111.0
+margin_top = 198.0
+margin_right = -45.0
+margin_bottom = -98.9995
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="[to return to main menu]" type="Label" parent="PauseLayer/Pause/Panel/CenterContainer5"]
+margin_left = 46.0
+margin_top = 24.0
+margin_right = 646.0
+margin_bottom = 127.0
+custom_fonts/font = SubResource( 5 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+text = "  to return
+to main menu"
+
+[node name="CenterContainer3" type="CenterContainer" parent="PauseLayer/Pause/Panel"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 85.0
@@ -163,7 +204,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ESC" type="Label" parent="CanvasLayer/Pause/Panel/CenterContainer3"]
+[node name="ESC" type="Label" parent="PauseLayer/Pause/Panel/CenterContainer3"]
 margin_left = 29.0
 margin_top = 9.0
 margin_right = 179.0
@@ -172,12 +213,31 @@ custom_fonts/font = SubResource( 5 )
 custom_colors/font_color = Color( 0.972549, 0.819608, 0, 1 )
 text = "ESC"
 
-[node name="Slime" type="KinematicBody2D" parent="."]
+[node name="CenterContainer4" type="CenterContainer" parent="PauseLayer/Pause/Panel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 124.0
+margin_top = 214.0
+margin_right = -547.0
+margin_bottom = -166.999
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Q" type="Label" parent="PauseLayer/Pause/Panel/CenterContainer4"]
+margin_left = 63.0
+margin_top = 9.0
+margin_right = 113.0
+margin_bottom = 59.0
+custom_fonts/font = SubResource( 5 )
+custom_colors/font_color = Color( 0.972549, 0.819608, 0, 1 )
+text = "Q"
+
+[node name="Slime" type="KinematicBody2D" parent="." groups=[
+"Enemy",
+]]
 position = Vector2( -166.092, 247.574 )
 script = ExtResource( 8 )
-__meta__ = {
-"_edit_group_": true
-}
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Slime"]
 position = Vector2( 0.943878, 18.4055 )
@@ -190,15 +250,19 @@ frames = ExtResource( 6 )
 animation = "death"
 
 [node name="RayCast2D" type="RayCast2D" parent="Slime"]
-position = Vector2( 37, 15 )
+position = Vector2( 29.4234, 14.1581 )
 enabled = true
 cast_to = Vector2( 0, 28 )
 
 [node name="Area2D" type="Area2D" parent="Slime"]
+script = SubResource( 7 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Slime/Area2D"]
-position = Vector2( 0.943878, 18.4055 )
+position = Vector2( 0.663269, 18.4055 )
 shape = SubResource( 6 )
+
+[node name="Timer" type="Timer" parent="Slime"]
 
 [connection signal="animation_finished" from="Slime/AnimatedSprite" to="Slime" method="_on_AnimatedSprite_animation_finished"]
 [connection signal="area_entered" from="Slime/Area2D" to="Slime" method="_on_Area2D_area_entered"]
+[connection signal="timeout" from="Slime/Timer" to="Slime" method="_on_Timer_timeout"]

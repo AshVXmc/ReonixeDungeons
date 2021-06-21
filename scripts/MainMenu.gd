@@ -1,6 +1,5 @@
 extends MarginContainer
 
-const first_scene = preload("res://scenes/Level1.tscn")
 onready var start_selector = $CenterContainer/VBoxContainer/CenterContainer2/VBoxContainer/StartContainer/HBoxContainer/Arrow_Picker
 onready var howtoplay_selector = $CenterContainer/VBoxContainer/CenterContainer3/VBoxContainer/Howtoplaycontainer/HBoxContainer/Arrow_Picker
 onready var options_selector = $CenterContainer/VBoxContainer/CenterContainer4/VBoxContainer/Optionscontainer/HBoxContainer/Arrow_Picker
@@ -12,10 +11,9 @@ var current_selection : int = 0
 func _ready():
 	set_current_selection(0)
 
-	
 func handle_selection(_current_selection):
 	if _current_selection == 0:
-		get_parent().add_child(first_scene.instance())	
+		get_tree().change_scene("res://scenes/Level1.tscn")	
 		queue_free()
 	elif _current_selection == 1:
 		print("I hath been printed")	

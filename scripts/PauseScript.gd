@@ -12,7 +12,8 @@ func _process(delta):
 			get_tree().paused = false
 			notpaused = true
 			visible = false	
-		
+	if Input.is_action_just_pressed("ui_exit"):
+		get_tree().change_scene("res://scenes/MainMenu.tscn")	
 			
 		
 		
