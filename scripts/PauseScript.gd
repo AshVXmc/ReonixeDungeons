@@ -1,7 +1,7 @@
 extends Control
 
 var notpaused : bool = true
-	
+
 func _process(delta):
 	if Input.is_action_just_pressed("ui_cancel"):
 		if notpaused:
@@ -11,14 +11,10 @@ func _process(delta):
 		else:
 			get_tree().paused = false
 			notpaused = true
-			visible = false	
-	if Input.is_action_just_pressed("ui_exit"):
-		get_tree().change_scene("res://scenes/MainMenu.tscn")	
-			
+			visible = false	 
 		
-		
-				
+	if Input.is_action_just_pressed("ui_exit") and notpaused == false:
+			get_tree().paused = false
+			get_tree().change_scene("res://scenes/MainMenu.tscn")
 			
-					
-	
-
+			

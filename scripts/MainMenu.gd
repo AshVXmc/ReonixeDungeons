@@ -38,15 +38,16 @@ func set_current_selection(_current_selection):
 	options_selector.text = ""
 	exit_selector.text = ""
 	
+	match _current_selection:
+		0:
+			start_selector.text = ">"
+		1:
+			howtoplay_selector.text = ">"
+		2:
+			options_selector.text = ">"
+		3:
+			exit_selector.text = ">"
 	
-	if _current_selection == 0:
-		start_selector.text = ">"
-	elif _current_selection == 1:
-		howtoplay_selector.text = ">"	
-	elif _current_selection == 2:
-		options_selector.text = ">"
-	elif _current_selection == 3:
-		exit_selector.text = ">"
 	
 	
 	
