@@ -12,15 +12,17 @@ func _ready():
 	set_current_selection(0)
 
 func handle_selection(_current_selection):
-	if _current_selection == 0:
-		get_tree().change_scene("res://scenes/Level1.tscn")	
-		queue_free()
-	elif _current_selection == 1:
-		print("I hath been printed")	
-	elif _current_selection == 2:
-		print("Options to be added")
-	elif _current_selection == 3:
-		get_tree().quit()	
+	
+	match _current_selection:
+		0:
+			get_tree().change_scene("res://scenes/Level1.tscn")	
+			queue_free()	
+		1:
+			print("To be added")
+		2:
+			print("To be added")
+		3:
+			get_tree().quit()			
 		
 func _process(delta):	
 	if Input.is_action_just_pressed("ui_down") && current_selection < 3:

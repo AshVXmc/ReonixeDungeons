@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://assets/fonts/PressStart2P-Regular.ttf" type="DynamicFontData" id=1]
-[ext_resource path="res://scripts/MainMenu.gd" type="Script" id=2]
+[ext_resource path="res://scripts/MainMenuScript.gd" type="Script" id=2]
 [ext_resource path="res://assets/fonts/buttonfont.tres" type="DynamicFont" id=3]
 [ext_resource path="res://assets/player/player_idle.png" type="Texture" id=4]
 

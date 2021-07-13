@@ -35,17 +35,20 @@ func _physics_process(delta):
 				  $Sprite.play("Idle")
 		
 		# Jump controls
-		if Input.is_action_just_pressed("jump") and is_on_floor():
+		if Input.is_action_just_pressed("jump") and is_on_floor() and is_attacking == false:
 			velocity.y = JUMP_POWER
 			$Sprite.play("Idle")
 			is_attacking = false
 			
 		# Attack controls		
-		if Input.is_action_just_pressed("ui_accept"):
+		if Input.is_action_just_pressed("ui_accept") and is_attacking == false:
 			$Sprite.play("Attack")
 			is_attacking = true
 			$AttackCollision/CollisionShape2D.disabled = false
-		
+		elif Input.is_action_just_pressed("ui_accept") and is_attacking == true:
+			is_attacking = false
+			$AttackCollision/CollisionShape2D.disabled = true	
+			
 		# Movement calculations
 		velocity.y = velocity.y + GRAVITY
 		velocity = move_and_slide(velocity,Vector2.UP)
@@ -60,7 +63,7 @@ func _physics_process(delta):
 func dead():
 	is_dead = true
 	velocity = Vector2(0,0)
-	$Sprite.play("Dead")
+	$Sprite.play("Hurt")
 	$CollisionShape2D.disabled = true
 	$Timer.start()
 	

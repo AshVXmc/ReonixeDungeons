@@ -1,4 +1,3 @@
 # ReonixeDungeons
-A project made in godot (Gitlab repository)
 
-I also apologize if any of you found pieces of my spaghetti code
+A 2d platformer RPG game made with the Godot game engine.
