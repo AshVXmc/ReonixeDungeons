@@ -213,6 +213,6 @@ custom_constants/shadow_offset_y = 0
 text = "Exit"
 
 [node name="Sprite" type="Sprite" parent="CenterContainer"]
-position = Vector2( 924.897, 204.986 )
+position = Vector2( 927.142, 204.986 )
 scale = Vector2( 15, 15 )
 texture = ExtResource( 4 )
