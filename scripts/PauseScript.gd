@@ -13,7 +13,7 @@ func _process(delta):
 			notpaused = true
 			visible = false	 
 		
-	if Input.is_action_just_pressed("ui_exit") and notpaused == false:
+	if Input.is_action_just_pressed("ui_exit") and !notpaused:
 			get_tree().paused = false
 			get_tree().change_scene("res://scenes/MainMenu.tscn")
 			

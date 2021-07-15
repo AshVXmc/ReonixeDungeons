@@ -46,7 +46,12 @@ shape = SubResource( 1 )
 wait_time = 0.8
 one_shot = true
 
+[node name="AttackTimer" type="Timer" parent="."]
+wait_time = 0.8
+one_shot = true
+
 [connection signal="animation_finished" from="Sprite" to="." method="_on_Sprite_animation_finished"]
 [connection signal="area_entered" from="DamageCollision" to="." method="_on_DamageCollision_area_entered"]
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
 [connection signal="timeout" from="InvulnerabilityTimer" to="." method="_on_InvulnerabilityTimer_timeout"]
+[connection signal="timeout" from="AttackTimer" to="." method="_on_AttackTimer_timeout"]

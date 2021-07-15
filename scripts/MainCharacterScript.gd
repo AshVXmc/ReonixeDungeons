@@ -55,28 +55,30 @@ func _physics_process(_delta):
 			$Sprite.play("Attack")
 			is_attacking = true
 			$AttackCollision/CollisionShape2D.disabled = false
-		elif Input.is_action_just_pressed("ui_accept") and is_attacking:
+			$AttackTimer.start()
+		elif Input.is_action_just_pressed("ui_accept") or Input.is_action_just_pressed("left") or Input.is_action_just_pressed("right") or Input.is_action_just_pressed("jump") and is_attacking:
 			is_attacking = false
 			$AttackCollision/CollisionShape2D.disabled = true	
-			
+					
 		# Movement calculations
 		velocity.y = velocity.y + GRAVITY
 		velocity = move_and_slide(velocity,Vector2.UP)
 		velocity.x = lerp(velocity.x,0,0.2)
 		
-		# Player Death
+		# Player Damage
 		damaged()
 
 
 func damaged():
 	if get_slide_count() > 0:
 		for i in range(get_slide_count()):
-			if "Slime" in get_slide_collision(i).collider.name and inv_timer.is_stopped():
+			if "Enemy" in get_slide_collision(i).collider.name and inv_timer.is_stopped():
 				inv_timer.start() 
 				is_invulnerable = true
 				hearts -= 1
 				emit_signal("life_changed", hearts)
 				$Sprite.play("Hurt")
+				
 				if hearts <= 0:
 					dead()
 					
@@ -86,22 +88,13 @@ func dead():
 	$Sprite.play("Death")
 	$CollisionShape2D.disabled = true
 	$Timer.start()
-	
-
-# Attack animation handling + collision
-#func _on_Sprite_animation_finished():
-#	if $Sprite.animation == "Attack" and hearts <= 0:
-#		$AttackCollision/CollisionShape2D.disabled = true
-#		is_attacking = false
-#	elif $Sprite.animation == "Attack" and hearts > 0:
-#		$AttackCollision/CollisionShape2D.disabled = false
-#		is_attacking = false
 		
-		
-# Handles what happens when the timer runs out
+# Handles what happens when timers runs out
 func _on_Timer_timeout():
 	get_tree().change_scene("res://scenes/MainMenu.tscn") 
 	
 func _on_InvulnerabilityTimer_timeout():
 	is_invulnerable = false
 	
+func _on_AttackTimer_timeout():
+	is_attacking = false

@@ -271,72 +271,6 @@ custom_fonts/font = SubResource( 7 )
 custom_colors/font_color = Color( 0.972549, 0.819608, 0, 1 )
 text = "Q"
 
-[node name="Slime" type="KinematicBody2D" parent="." groups=[
-"Enemy",
-]]
-position = Vector2( -166.092, 247.574 )
-script = ExtResource( 8 )
-__meta__ = {
-"_edit_group_": true
-}
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Slime"]
-position = Vector2( 0.943878, 18.4055 )
-shape = SubResource( 8 )
-
-[node name="AnimatedSprite" type="AnimatedSprite" parent="Slime"]
-position = Vector2( 1.88777, 0.943863 )
-scale = Vector2( 5, 5 )
-frames = ExtResource( 6 )
-animation = "death"
-
-[node name="RayCast2D" type="RayCast2D" parent="Slime"]
-position = Vector2( 29.4234, 14.1581 )
-enabled = true
-cast_to = Vector2( 0, 28 )
-
-[node name="Area2D" type="Area2D" parent="Slime"]
-script = SubResource( 9 )
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Slime/Area2D"]
-position = Vector2( 0.663269, 18.4055 )
-shape = SubResource( 8 )
-
-[node name="Timer" type="Timer" parent="Slime"]
-
-[node name="Slime2" type="KinematicBody2D" parent="." groups=[
-"Enemy",
-]]
-position = Vector2( -228.318, 531.797 )
-script = ExtResource( 8 )
-__meta__ = {
-"_edit_group_": true
-}
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Slime2"]
-position = Vector2( 0.943878, 18.4055 )
-shape = SubResource( 8 )
-
-[node name="AnimatedSprite" type="AnimatedSprite" parent="Slime2"]
-position = Vector2( 1.88777, 0.943863 )
-scale = Vector2( 5, 5 )
-frames = ExtResource( 6 )
-animation = "death"
-
-[node name="RayCast2D" type="RayCast2D" parent="Slime2"]
-position = Vector2( 29.4234, 14.1581 )
-enabled = true
-cast_to = Vector2( 0, 28 )
-
-[node name="Area2D" type="Area2D" parent="Slime2"]
-script = SubResource( 9 )
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Slime2/Area2D"]
-position = Vector2( 0.663269, 18.4055 )
-shape = SubResource( 8 )
-
-[node name="Timer" type="Timer" parent="Slime2"]
-
 [node name="HeartUI" type="CanvasLayer" parent="."]
 
 [node name="Life" type="Control" parent="HeartUI"]
@@ -357,9 +291,147 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[connection signal="animation_finished" from="Slime/AnimatedSprite" to="Slime" method="_on_AnimatedSprite_animation_finished"]
-[connection signal="area_entered" from="Slime/Area2D" to="Slime" method="_on_Area2D_area_entered"]
-[connection signal="timeout" from="Slime/Timer" to="Slime" method="_on_Timer_timeout"]
-[connection signal="animation_finished" from="Slime2/AnimatedSprite" to="Slime2" method="_on_AnimatedSprite_animation_finished"]
-[connection signal="area_entered" from="Slime2/Area2D" to="Slime2" method="_on_Area2D_area_entered"]
-[connection signal="timeout" from="Slime2/Timer" to="Slime2" method="_on_Timer_timeout"]
+[node name="Enemy" type="KinematicBody2D" parent="." groups=[
+"Enemy",
+]]
+position = Vector2( -166.092, 247.574 )
+script = ExtResource( 8 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy"]
+position = Vector2( 0.943878, 18.4055 )
+shape = SubResource( 8 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="Enemy"]
+position = Vector2( 1.88777, 0.943863 )
+scale = Vector2( 5, 5 )
+frames = ExtResource( 6 )
+animation = "death"
+
+[node name="RayCast2D" type="RayCast2D" parent="Enemy"]
+position = Vector2( 36.4234, 14.1581 )
+enabled = true
+cast_to = Vector2( 0, 28 )
+
+[node name="Area2D" type="Area2D" parent="Enemy"]
+script = SubResource( 9 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy/Area2D"]
+position = Vector2( 0.663269, 18.4055 )
+shape = SubResource( 8 )
+
+[node name="Timer" type="Timer" parent="Enemy"]
+
+[node name="Enemy2" type="KinematicBody2D" parent="." groups=[
+"Enemy",
+]]
+position = Vector2( -229.112, 533.384 )
+script = ExtResource( 8 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy2"]
+position = Vector2( 0.943878, 18.4055 )
+shape = SubResource( 8 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="Enemy2"]
+position = Vector2( 1.88777, 0.943863 )
+scale = Vector2( 5, 5 )
+frames = ExtResource( 6 )
+animation = "death"
+
+[node name="RayCast2D" type="RayCast2D" parent="Enemy2"]
+position = Vector2( 33.4234, 14.1581 )
+enabled = true
+cast_to = Vector2( 0, 28 )
+
+[node name="Area2D" type="Area2D" parent="Enemy2"]
+script = SubResource( 9 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy2/Area2D"]
+position = Vector2( 0.663269, 18.4055 )
+shape = SubResource( 8 )
+
+[node name="Timer" type="Timer" parent="Enemy2"]
+
+[node name="Enemy3" type="KinematicBody2D" parent="." groups=[
+"Enemy",
+]]
+position = Vector2( 672.731, 434.912 )
+script = ExtResource( 8 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy3"]
+position = Vector2( 0.943878, 18.4055 )
+shape = SubResource( 8 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="Enemy3"]
+position = Vector2( 1.88777, 0.943863 )
+scale = Vector2( 5, 5 )
+frames = ExtResource( 6 )
+animation = "death"
+
+[node name="RayCast2D" type="RayCast2D" parent="Enemy3"]
+position = Vector2( 33.4234, 14.1581 )
+enabled = true
+cast_to = Vector2( 0, 28 )
+
+[node name="Area2D" type="Area2D" parent="Enemy3"]
+script = SubResource( 9 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy3/Area2D"]
+position = Vector2( 0.663269, 18.4055 )
+shape = SubResource( 8 )
+
+[node name="Timer" type="Timer" parent="Enemy3"]
+
+[node name="Enemy4" type="KinematicBody2D" parent="." groups=[
+"Enemy",
+]]
+position = Vector2( 2182.98, 438.276 )
+script = ExtResource( 8 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy4"]
+position = Vector2( 0.943878, 18.4055 )
+shape = SubResource( 8 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="Enemy4"]
+position = Vector2( 1.88777, 0.943863 )
+scale = Vector2( 5, 5 )
+frames = ExtResource( 6 )
+animation = "death"
+
+[node name="RayCast2D" type="RayCast2D" parent="Enemy4"]
+position = Vector2( 33.4234, 14.1581 )
+enabled = true
+cast_to = Vector2( 0, 28 )
+
+[node name="Area2D" type="Area2D" parent="Enemy4"]
+script = SubResource( 9 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy4/Area2D"]
+position = Vector2( 0.663269, 18.4055 )
+shape = SubResource( 8 )
+
+[node name="Timer" type="Timer" parent="Enemy4"]
+
+[connection signal="animation_finished" from="Enemy/AnimatedSprite" to="Enemy" method="_on_AnimatedSprite_animation_finished"]
+[connection signal="area_entered" from="Enemy/Area2D" to="Enemy" method="_on_Area2D_area_entered"]
+[connection signal="timeout" from="Enemy/Timer" to="Enemy" method="_on_Timer_timeout"]
+[connection signal="animation_finished" from="Enemy2/AnimatedSprite" to="Enemy2" method="_on_AnimatedSprite_animation_finished"]
+[connection signal="area_entered" from="Enemy2/Area2D" to="Enemy2" method="_on_Area2D_area_entered"]
+[connection signal="timeout" from="Enemy2/Timer" to="Enemy2" method="_on_Timer_timeout"]
+[connection signal="animation_finished" from="Enemy3/AnimatedSprite" to="Enemy3" method="_on_AnimatedSprite_animation_finished"]
+[connection signal="area_entered" from="Enemy3/Area2D" to="Enemy3" method="_on_Area2D_area_entered"]
+[connection signal="timeout" from="Enemy3/Timer" to="Enemy3" method="_on_Timer_timeout"]
+[connection signal="animation_finished" from="Enemy4/AnimatedSprite" to="Enemy4" method="_on_AnimatedSprite_animation_finished"]
+[connection signal="area_entered" from="Enemy4/Area2D" to="Enemy4" method="_on_Area2D_area_entered"]
+[connection signal="timeout" from="Enemy4/Timer" to="Enemy4" method="_on_Timer_timeout"]
