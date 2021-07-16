@@ -1,8 +1,8 @@
 extends KinematicBody2D
 
 signal life_changed(player_hearts)
-onready var inv_timer : Timer = $InvulnerabilityTimer
 
+onready var inv_timer : Timer = $InvulnerabilityTimer
 var velocity = Vector2(0,0)
 var is_attacking : bool = false
 var is_dead : bool = false
@@ -11,6 +11,7 @@ var is_invulnerable = false
 var max_hearts : int = 5
 var hearts : int = max_hearts
 
+const TYPE : String = "Player"
 const SPEED : int = 275
 const GRAVITY : int = 45
 const JUMP_POWER : int = -1100
@@ -66,10 +67,10 @@ func _physics_process(_delta):
 		velocity.x = lerp(velocity.x,0,0.2)
 		
 		# Player Damage
-		damaged()
+		interacted()
 
 
-func damaged():
+func interacted():
 	if get_slide_count() > 0:
 		for i in range(get_slide_count()):
 			if "Enemy" in get_slide_collision(i).collider.name and inv_timer.is_stopped():
@@ -78,10 +79,13 @@ func damaged():
 				hearts -= 1
 				emit_signal("life_changed", hearts)
 				$Sprite.play("Hurt")
-				
 				if hearts <= 0:
 					dead()
+			elif "HealthPot" in get_slide_collision(i).collider.name and inv_timer.is_stopped():
+				hearts += max_hearts - hearts
+				emit_signal("life_changed", hearts)
 					
+						
 func dead():
 	is_dead = true
 	velocity = Vector2(0,0)
