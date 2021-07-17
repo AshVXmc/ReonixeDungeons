@@ -96,7 +96,7 @@ func dead():
 		
 # Handles what happens when timers runs out
 func _on_Timer_timeout():
-	get_tree().change_scene("res://scenes/MainMenu.tscn") 
+	get_tree().change_scene("res://scenes/menus/MainMenu.tscn") 
 	
 func _on_InvulnerabilityTimer_timeout():
 	is_invulnerable = false

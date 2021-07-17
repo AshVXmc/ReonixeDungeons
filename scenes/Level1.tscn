@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://scenes/MainCharacter.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/terrain/brick_terrain.png" type="Texture" id=2]
@@ -12,7 +12,8 @@
 [ext_resource path="res://scripts/LifeScript.gd" type="Script" id=10]
 [ext_resource path="res://assets/terrain/short_grass.png" type="Texture" id=11]
 [ext_resource path="res://scenes/HealthPotion.tscn" type="PackedScene" id=12]
-[ext_resource path="res://assets/terrain/brick_terrain_cracked.png" type="Texture" id=13]
+[ext_resource path="res://assets/misc/background.png" type="Texture" id=13]
+[ext_resource path="res://assets/misc/background_2.png" type="Texture" id=14]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 239.657, 18.3811 )
@@ -87,40 +88,14 @@ points = PoolVector2Array( 96, 96, 0, 96, 0, 0, 96, 0 )
 2/shapes = [  ]
 2/z_index = 0
 
-[sub_resource type="ConvexPolygonShape2D" id=7]
-points = PoolVector2Array( 0, 0, 96, 0, 96, 96, 0, 96 )
-
-[sub_resource type="TileSet" id=8]
-0/name = "brick_terrain_cracked.png 0"
-0/texture = ExtResource( 13 )
-0/tex_offset = Vector2( 0, 0 )
-0/modulate = Color( 1, 1, 1, 1 )
-0/region = Rect2( 0, 0, 96, 96 )
-0/tile_mode = 0
-0/occluder_offset = Vector2( 0, 0 )
-0/navigation_offset = Vector2( 0, 0 )
-0/shape_offset = Vector2( 0, 0 )
-0/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
-0/shape = SubResource( 7 )
-0/shape_one_way = false
-0/shape_one_way_margin = 1.0
-0/shapes = [ {
-"autotile_coord": Vector2( 0, 0 ),
-"one_way": false,
-"one_way_margin": 1.0,
-"shape": SubResource( 7 ),
-"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
-} ]
-0/z_index = 0
-
-[sub_resource type="DynamicFont" id=9]
+[sub_resource type="DynamicFont" id=7]
 size = 50
 font_data = ExtResource( 5 )
 
-[sub_resource type="RectangleShape2D" id=10]
+[sub_resource type="RectangleShape2D" id=8]
 extents = Vector2( 34.7123, 22.7659 )
 
-[sub_resource type="GDScript" id=11]
+[sub_resource type="GDScript" id=9]
 script/source = "extends Area2D
 
 
@@ -178,14 +153,8 @@ cell_size = Vector2( 96, 96 )
 format = 1
 tile_data = PoolIntArray( -65546, 3, 0, -65545, 3, 0, -65544, 3, 0, -10, 3, 0, -9, 3, 0, -8, 3, 0, 65526, 3, 0, 65527, 3, 0, 65528, 3, 0, 131061, 0, 0, 131062, 0, 0, 131063, 0, 0, 131064, 0, 0, 131065, 0, 0, 131066, 0, 0, 131067, 0, 0, 131068, 0, 0, 196597, 0, 0, 196598, 0, 0, 262133, 0, 0, 262134, 0, 0, 327669, 0, 0, 327670, 0, 0, 262146, 2, 0, 262168, 2, 0, 393205, 0, 0, 393206, 0, 0, 393210, 2, 0, 393215, 2, 0, 327681, 1, 0, 327682, 1, 0, 327683, 1, 0, 327684, 1, 0, 327685, 1, 0, 327686, 1, 0, 327687, 1, 0, 327688, 1, 0, 327689, 1, 0, 327690, 1, 0, 327691, 1, 0, 327692, 1, 0, 327700, 1, 0, 327701, 1, 0, 327702, 1, 0, 327703, 1, 0, 327704, 1, 0, 327705, 1, 0, 327706, 1, 0, 327707, 1, 0, 458741, 0, 0, 458742, 0, 0, 458743, 1, 0, 458744, 1, 0, 458745, 1, 0, 458746, 1, 0, 458747, 1, 0, 458748, 1, 0, 458749, 1, 0, 458750, 1, 0, 458751, 1, 0, 393216, 1, 0, 393217, 0, 0, 393218, 0, 0, 393219, 0, 0, 393220, 0, 0, 393221, 0, 0, 393222, 0, 0, 393223, 0, 0, 393224, 0, 0, 393225, 0, 0, 393226, 0, 0, 393227, 0, 0, 393228, 0, 0, 393230, 2, 0, 393233, 2, 0, 393236, 0, 0, 393237, 0, 0, 393238, 0, 0, 393239, 0, 0, 393240, 0, 0, 393241, 0, 0, 393242, 0, 0, 393243, 0, 0, 524277, 0, 0, 524278, 0, 0, 524279, 0, 0, 524280, 0, 0, 524281, 0, 0, 524282, 0, 0, 524283, 0, 0, 524284, 0, 0, 524285, 0, 0, 524286, 0, 0, 524287, 0, 0, 458752, 0, 0, 458753, 0, 0, 458754, 0, 0, 458755, 0, 0, 458756, 0, 0, 458757, 0, 0, 458758, 0, 0, 458759, 0, 0, 458760, 0, 0, 458761, 0, 0, 458762, 0, 0, 458763, 0, 0, 458764, 0, 0, 458765, 1, 0, 458766, 1, 0, 458767, 1, 0, 458768, 1, 0, 458769, 1, 0, 458770, 1, 0, 458771, 1, 0, 458772, 0, 0, 458773, 0, 0, 458774, 0, 0, 458775, 0, 0, 458776, 0, 0, 458777, 0, 0, 458778, 0, 0, 458779, 0, 0, 589813, 0, 0, 589814, 0, 0, 589815, 0, 0, 589816, 0, 0, 589817, 0, 0, 589818, 0, 0, 589819, 0, 0, 589820, 0, 0, 589821, 0, 0, 589822, 0, 0, 589823, 0, 0, 524288, 0, 0, 524289, 0, 0, 524290, 0, 0, 524291, 0, 0, 524292, 0, 0, 524293, 0, 0, 524294, 0, 0, 524295, 0, 0, 524296, 0, 0, 524297, 0, 0, 524298, 0, 0, 524299, 0, 0, 524300, 0, 0, 524301, 0, 0, 524302, 0, 0, 524303, 0, 0, 524304, 0, 0, 524305, 0, 0, 524306, 0, 0, 524307, 0, 0, 524308, 0, 0, 524309, 0, 0, 524310, 0, 0, 524311, 0, 0, 524312, 0, 0, 524313, 0, 0, 524314, 0, 0, 524315, 0, 0, 655349, 0, 0, 655350, 0, 0, 655351, 0, 0, 655352, 0, 0, 655353, 0, 0, 655354, 0, 0, 655355, 0, 0, 655356, 0, 0, 655357, 0, 0, 655358, 0, 0, 655359, 0, 0, 589824, 0, 0, 589825, 0, 0, 589826, 0, 0, 589827, 0, 0, 589828, 0, 0, 589829, 0, 0, 589830, 0, 0, 589831, 0, 0, 589832, 0, 0, 589833, 0, 0, 589834, 0, 0, 589835, 0, 0, 589836, 0, 0, 589837, 0, 0, 589838, 0, 0, 589839, 0, 0, 589840, 0, 0, 589841, 0, 0, 589842, 0, 0, 589843, 0, 0, 589844, 0, 0, 589845, 0, 0, 589846, 0, 0, 589847, 0, 0, 589848, 0, 0, 589849, 0, 0, 589850, 0, 0, 589851, 0, 0, 720885, 0, 0, 720886, 0, 0, 720887, 0, 0, 720888, 0, 0, 720889, 0, 0, 720890, 0, 0, 720891, 0, 0, 720892, 0, 0, 720893, 0, 0, 720894, 0, 0, 720895, 0, 0, 655360, 0, 0, 655361, 0, 0, 655362, 0, 0, 655363, 0, 0, 655364, 0, 0, 655365, 0, 0, 655366, 0, 0, 655367, 0, 0, 655368, 0, 0, 655369, 0, 0, 655370, 0, 0, 655371, 0, 0, 655372, 0, 0, 655373, 0, 0, 655374, 0, 0, 655375, 0, 0, 655376, 0, 0, 655377, 0, 0, 655378, 0, 0, 655379, 0, 0, 655380, 0, 0, 655381, 0, 0, 655382, 0, 0, 655383, 0, 0, 655384, 0, 0, 655385, 0, 0, 655386, 0, 0, 655387, 0, 0 )
 
-[node name="TileMap (Destructable)" type="TileMap" parent="."]
-tile_set = SubResource( 8 )
-cell_size = Vector2( 96, 96 )
-format = 1
-tile_data = PoolIntArray( -65545, 0, 0, -65544, 0, 0, -65543, 0, 0, -65542, 0, 0, -9, 0, 0, -8, 0, 0, -7, 0, 0, -6, 0, 0, 65527, 0, 0, 65528, 0, 0, 65529, 0, 0, 65530, 0, 0 )
-
 [node name="Player" parent="." instance=ExtResource( 1 )]
-position = Vector2( -796.146, 527.4 )
+position = Vector2( -764.362, 275.248 )
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position = Vector2( 0, 8 )
@@ -235,7 +204,7 @@ margin_left = 274.0
 margin_top = 25.0
 margin_right = 574.0
 margin_bottom = 75.0
-custom_fonts/font = SubResource( 9 )
+custom_fonts/font = SubResource( 7 )
 custom_colors/font_color = Color( 0.337255, 0.498039, 0.290196, 1 )
 text = "Paused"
 
@@ -255,7 +224,7 @@ margin_left = 82.0
 margin_top = 9.0
 margin_right = 532.0
 margin_bottom = 59.0
-custom_fonts/font = SubResource( 9 )
+custom_fonts/font = SubResource( 7 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 text = "to resume"
 
@@ -275,7 +244,7 @@ margin_left = 46.0
 margin_top = 24.0
 margin_right = 646.0
 margin_bottom = 127.0
-custom_fonts/font = SubResource( 9 )
+custom_fonts/font = SubResource( 7 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 text = "  to return
 to main menu"
@@ -296,7 +265,7 @@ margin_left = 29.0
 margin_top = 9.0
 margin_right = 179.0
 margin_bottom = 59.0
-custom_fonts/font = SubResource( 9 )
+custom_fonts/font = SubResource( 7 )
 custom_colors/font_color = Color( 0.972549, 0.819608, 0, 1 )
 text = "ESC"
 
@@ -316,7 +285,7 @@ margin_left = 63.0
 margin_top = 9.0
 margin_right = 113.0
 margin_bottom = 59.0
-custom_fonts/font = SubResource( 9 )
+custom_fonts/font = SubResource( 7 )
 custom_colors/font_color = Color( 0.972549, 0.819608, 0, 1 )
 text = "Q"
 
@@ -351,7 +320,7 @@ __meta__ = {
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy"]
 position = Vector2( 0.943878, 18.4055 )
-shape = SubResource( 10 )
+shape = SubResource( 8 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="Enemy"]
 position = Vector2( 1.88777, 0.943863 )
@@ -368,7 +337,7 @@ cast_to = Vector2( 0, 28 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy/Area2D"]
 position = Vector2( 0.663269, 18.4055 )
-shape = SubResource( 10 )
+shape = SubResource( 8 )
 
 [node name="Timer" type="Timer" parent="Enemy"]
 
@@ -383,7 +352,7 @@ __meta__ = {
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy2"]
 position = Vector2( 0.943878, 18.4055 )
-shape = SubResource( 10 )
+shape = SubResource( 8 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="Enemy2"]
 position = Vector2( 1.88777, 0.943863 )
@@ -397,11 +366,11 @@ enabled = true
 cast_to = Vector2( 0, 28 )
 
 [node name="Area2D" type="Area2D" parent="Enemy2"]
-script = SubResource( 11 )
+script = SubResource( 9 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy2/Area2D"]
 position = Vector2( 0.663269, 18.4055 )
-shape = SubResource( 10 )
+shape = SubResource( 8 )
 
 [node name="Timer" type="Timer" parent="Enemy2"]
 
@@ -416,7 +385,7 @@ __meta__ = {
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy3"]
 position = Vector2( 0.943878, 18.4055 )
-shape = SubResource( 10 )
+shape = SubResource( 8 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="Enemy3"]
 position = Vector2( 1.88777, 0.943863 )
@@ -430,11 +399,11 @@ enabled = true
 cast_to = Vector2( 0, 28 )
 
 [node name="Area2D" type="Area2D" parent="Enemy3"]
-script = SubResource( 11 )
+script = SubResource( 9 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy3/Area2D"]
 position = Vector2( 0.663269, 18.4055 )
-shape = SubResource( 10 )
+shape = SubResource( 8 )
 
 [node name="Timer" type="Timer" parent="Enemy3"]
 
@@ -449,7 +418,7 @@ __meta__ = {
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy4"]
 position = Vector2( 0.943878, 18.4055 )
-shape = SubResource( 10 )
+shape = SubResource( 8 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="Enemy4"]
 position = Vector2( 1.88777, 0.943863 )
@@ -463,16 +432,35 @@ enabled = true
 cast_to = Vector2( 0, 28 )
 
 [node name="Area2D" type="Area2D" parent="Enemy4"]
-script = SubResource( 11 )
+script = SubResource( 9 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy4/Area2D"]
 position = Vector2( 0.663269, 18.4055 )
-shape = SubResource( 10 )
+shape = SubResource( 8 )
 
 [node name="Timer" type="Timer" parent="Enemy4"]
 
 [node name="HealthPot" parent="." instance=ExtResource( 12 )]
 position = Vector2( -570.305, 550.142 )
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="Background1" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_mirroring = Vector2( 1920, 1064.42 )
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/Background1"]
+position = Vector2( 35.636, 538.103 )
+scale = Vector2( 20, 33.2634 )
+texture = ExtResource( 13 )
+centered = false
+
+[node name="Background2" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_mirroring = Vector2( 1920, 640 )
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/Background2"]
+scale = Vector2( 20, 20 )
+texture = ExtResource( 14 )
+centered = false
 
 [connection signal="animation_finished" from="Enemy/AnimatedSprite" to="Enemy" method="_on_AnimatedSprite_animation_finished"]
 [connection signal="area_entered" from="Enemy/Area2D" to="Enemy" method="_on_Area2D_area_entered"]
