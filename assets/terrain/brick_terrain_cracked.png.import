@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/ymBGUh3_4x.png-c5f883978d118801f8275f900c5b55d2.stex"
+path="res://.import/brick_terrain_cracked.png-9a2f87726260d50b335af6c3483e14b0.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://tilesets/ymBGUh3_4x.png"
-dest_files=[ "res://.import/ymBGUh3_4x.png-c5f883978d118801f8275f900c5b55d2.stex" ]
+source_file="res://assets/terrain/brick_terrain_cracked.png"
+dest_files=[ "res://.import/brick_terrain_cracked.png-9a2f87726260d50b335af6c3483e14b0.stex" ]
 
 [params]
 

@@ -3,13 +3,13 @@ extends KinematicBody2D
 signal life_changed(player_hearts)
 
 onready var inv_timer : Timer = $InvulnerabilityTimer
-var velocity = Vector2(0,0)
+var velocity : Vector2 = Vector2(0,0)
 var is_attacking : bool = false
 var is_dead : bool = false
 var is_invulnerable = false
 
 var max_hearts : int = 5
-var hearts : int = max_hearts
+var hearts : float = max_hearts
 
 const TYPE : String = "Player"
 const SPEED : int = 275
@@ -73,17 +73,18 @@ func _physics_process(_delta):
 func interacted():
 	if get_slide_count() > 0:
 		for i in range(get_slide_count()):
-			if "Enemy" in get_slide_collision(i).collider.name and inv_timer.is_stopped():
-				inv_timer.start() 
-				is_invulnerable = true
-				hearts -= 1
-				emit_signal("life_changed", hearts)
-				$Sprite.play("Hurt")
-				if hearts <= 0:
-					dead()
-			elif "HealthPot" in get_slide_collision(i).collider.name and inv_timer.is_stopped():
-				hearts += max_hearts - hearts
-				emit_signal("life_changed", hearts)
+			if inv_timer.is_stopped():
+				if "Enemy" in get_slide_collision(i).collider.name:
+					inv_timer.start() 
+					is_invulnerable = true
+					hearts -= 0.5
+					emit_signal("life_changed", hearts)
+					$Sprite.play("Hurt")
+					if hearts <= 0:
+						dead()
+				elif "HealthPot" in get_slide_collision(i).collider.name:
+					hearts += max_hearts - hearts
+					emit_signal("life_changed", hearts)
 					
 						
 func dead():
@@ -102,3 +103,4 @@ func _on_InvulnerabilityTimer_timeout():
 	
 func _on_AttackTimer_timeout():
 	is_attacking = false
+	$AttackCollision/CollisionShape2D.disabled = true	
