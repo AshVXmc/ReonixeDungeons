@@ -47,7 +47,7 @@ wait_time = 0.8
 one_shot = true
 
 [node name="AttackTimer" type="Timer" parent="."]
-wait_time = 1.2
+wait_time = 0.8
 one_shot = true
 
 [connection signal="animation_finished" from="Sprite" to="." method="_on_Sprite_animation_finished"]

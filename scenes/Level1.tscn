@@ -166,9 +166,9 @@ drag_margin_left = 0.4
 drag_margin_right = 0.4
 editor_draw_limits = true
 
-[node name="PauseLayer" type="CanvasLayer" parent="."]
+[node name="PauseUI" type="CanvasLayer" parent="."]
 
-[node name="Pause" type="Control" parent="PauseLayer"]
+[node name="Pause" type="Control" parent="PauseUI"]
 pause_mode = 2
 visible = false
 margin_right = 1377.0
@@ -178,7 +178,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Panel" type="Panel" parent="PauseLayer/Pause"]
+[node name="Panel" type="Panel" parent="PauseUI/Pause"]
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
@@ -190,7 +190,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="CenterContainer" type="CenterContainer" parent="PauseLayer/Pause/Panel"]
+[node name="CenterContainer" type="CenterContainer" parent="PauseUI/Pause/Panel"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_top = 17.0
@@ -199,7 +199,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="[Paused]" type="Label" parent="PauseLayer/Pause/Panel/CenterContainer"]
+[node name="[Paused]" type="Label" parent="PauseUI/Pause/Panel/CenterContainer"]
 margin_left = 274.0
 margin_top = 25.0
 margin_right = 574.0
@@ -208,7 +208,7 @@ custom_fonts/font = SubResource( 7 )
 custom_colors/font_color = Color( 0.337255, 0.498039, 0.290196, 1 )
 text = "Paused"
 
-[node name="CenterContainer2" type="CenterContainer" parent="PauseLayer/Pause/Panel"]
+[node name="CenterContainer2" type="CenterContainer" parent="PauseUI/Pause/Panel"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 207.0
@@ -219,7 +219,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="[to resume]" type="Label" parent="PauseLayer/Pause/Panel/CenterContainer2"]
+[node name="[to resume]" type="Label" parent="PauseUI/Pause/Panel/CenterContainer2"]
 margin_left = 82.0
 margin_top = 9.0
 margin_right = 532.0
@@ -228,7 +228,7 @@ custom_fonts/font = SubResource( 7 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 text = "to resume"
 
-[node name="CenterContainer5" type="CenterContainer" parent="PauseLayer/Pause/Panel"]
+[node name="CenterContainer5" type="CenterContainer" parent="PauseUI/Pause/Panel"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 111.0
@@ -239,7 +239,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="[to return to main menu]" type="Label" parent="PauseLayer/Pause/Panel/CenterContainer5"]
+[node name="[to return to main menu]" type="Label" parent="PauseUI/Pause/Panel/CenterContainer5"]
 margin_left = 46.0
 margin_top = 24.0
 margin_right = 646.0
@@ -249,7 +249,7 @@ custom_colors/font_color = Color( 1, 1, 1, 1 )
 text = "  to return
 to main menu"
 
-[node name="CenterContainer3" type="CenterContainer" parent="PauseLayer/Pause/Panel"]
+[node name="CenterContainer3" type="CenterContainer" parent="PauseUI/Pause/Panel"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 85.0
@@ -260,7 +260,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ESC" type="Label" parent="PauseLayer/Pause/Panel/CenterContainer3"]
+[node name="ESC" type="Label" parent="PauseUI/Pause/Panel/CenterContainer3"]
 margin_left = 29.0
 margin_top = 9.0
 margin_right = 179.0
@@ -269,7 +269,7 @@ custom_fonts/font = SubResource( 7 )
 custom_colors/font_color = Color( 0.972549, 0.819608, 0, 1 )
 text = "ESC"
 
-[node name="CenterContainer4" type="CenterContainer" parent="PauseLayer/Pause/Panel"]
+[node name="CenterContainer4" type="CenterContainer" parent="PauseUI/Pause/Panel"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 124.0
@@ -280,7 +280,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Q" type="Label" parent="PauseLayer/Pause/Panel/CenterContainer4"]
+[node name="Q" type="Label" parent="PauseUI/Pause/Panel/CenterContainer4"]
 margin_left = 63.0
 margin_top = 9.0
 margin_right = 113.0

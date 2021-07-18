@@ -18,7 +18,8 @@ func handle_selection(_current_selection):
 			get_tree().change_scene("res://scenes/Level1.tscn")	
 			queue_free()	
 		1:
-			print("To be added")
+			get_tree().change_scene("res://scenes/menus/HowToPlayMenu.tscn")
+			queue_free()
 		2:
 			print("To be added")
 		3:
