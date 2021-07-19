@@ -7,8 +7,9 @@ var velocity : Vector2 = Vector2(0,0)
 var is_attacking : bool = false
 var is_dead : bool = false
 var is_invulnerable = false
-
-var max_hearts : int = 5
+var collision : KinematicCollision2D
+var collided : bool = false
+var max_hearts : float = 5
 var hearts : float = max_hearts
 
 const TYPE : String = "Player"
@@ -19,7 +20,8 @@ const JUMP_POWER : int = -1100
 func _ready():
 	connect("life_changed", get_parent().get_node("HeartUI/Life"), "on_player_life_changed")
 	emit_signal("life_changed", max_hearts)
-	
+		
+
 func _physics_process(_delta):
 	# Makes sure the player is alive to use any movement controls
 	if !is_dead and !is_invulnerable:
@@ -85,7 +87,7 @@ func interacted():
 				elif "HealthPot" in get_slide_collision(i).collider.name:
 					hearts += max_hearts - hearts
 					emit_signal("life_changed", hearts)
-					
+
 						
 func dead():
 	is_dead = true
@@ -104,3 +106,4 @@ func _on_InvulnerabilityTimer_timeout():
 func _on_AttackTimer_timeout():
 	is_attacking = false
 	$AttackCollision/CollisionShape2D.disabled = true	
+

@@ -1,0 +1,17 @@
+[gd_resource type="SpriteFrames" load_steps=3 format=2]
+
+[ext_resource path="res://assets/chests/chest_silver_open.png" type="Texture" id=1]
+[ext_resource path="res://assets/chests/chest_silver_closed.png" type="Texture" id=2]
+
+[resource]
+animations = [ {
+"frames": [ ExtResource( 2 ), ExtResource( 1 ) ],
+"loop": true,
+"name": "Opened",
+"speed": 3.0
+}, {
+"frames": [ ExtResource( 2 ) ],
+"loop": true,
+"name": "Idle",
+"speed": 5.0
+} ]
