@@ -1,26 +1,33 @@
 extends KinematicBody2D
 
 signal life_changed(player_hearts)
+signal mana_changed(player_mana)
 
 onready var inv_timer : Timer = $InvulnerabilityTimer
+onready var fb_timer : Timer = $FireballTimer
 var velocity : Vector2 = Vector2(0,0)
 var is_attacking : bool = false
 var is_dead : bool = false
 var is_invulnerable = false
 var collision : KinematicCollision2D
 var collided : bool = false
+
 var max_hearts : float = 5
 var hearts : float = max_hearts
+var max_mana : float = 3
+var mana : float = max_mana
 
 const TYPE : String = "Player"
 const SPEED : int = 275
 const GRAVITY : int = 45
 const JUMP_POWER : int = -1100
+const FIREBALL = preload("res://scenes/Fireball.tscn")
 
 func _ready():
 	connect("life_changed", get_parent().get_node("HeartUI/Life"), "on_player_life_changed")
+	connect("mana_changed", get_parent().get_node("ManaUI/Mana"), "on_player_mana_changed")
 	emit_signal("life_changed", max_hearts)
-		
+	emit_signal("mana_changed", max_mana)	
 
 func _physics_process(_delta):
 	# Makes sure the player is alive to use any movement controls
@@ -30,6 +37,8 @@ func _physics_process(_delta):
 			velocity.x = SPEED;
 			$Sprite.play("Walk")
 			$Sprite.flip_h = false
+			if sign($Position2D.position.x) == -1:
+				$Position2D.position.x *= -1
 			if Input.is_action_just_released("right"):
 				$Sprite.play("Walk")
 			
@@ -40,6 +49,8 @@ func _physics_process(_delta):
 			velocity.x = -SPEED;
 			$Sprite.play("Walk")
 			$Sprite.flip_h = true
+			if sign($Position2D.position.x) == 1:
+				$Position2D.position.x *= -1
 			
 			# Collision flipping (Left)
 			get_node("AttackCollision").set_scale(Vector2(-1,1))
@@ -53,13 +64,32 @@ func _physics_process(_delta):
 			$Sprite.play("Idle")
 			is_attacking = false
 			
+		if Input.is_action_just_pressed("ui_shoot")	and !is_attacking and mana > 0:
+			var fireball = FIREBALL.instance()
+			if sign($Position2D.position.x) == -1:
+				fireball.flip_fireball(-1)
+			else:
+				fireball.flip_fireball(1)	
+			get_parent().add_child(fireball)
+			fireball.position = $Position2D.global_position
+			
+			mana -= 0.5
+			emit_signal("mana_changed", mana)
+			
+			is_attacking = false
+			$AttackCollision/CollisionShape2D.disabled = true
+			
+			if mana <= max_mana:
+				$FireballTimer.start()
+				
+			
 		# Attack controls		
-		if Input.is_action_just_pressed("ui_accept") and !is_attacking:
+		if Input.is_action_just_pressed("ui_attack") and !is_attacking:
 			$Sprite.play("Attack")
 			is_attacking = true
 			$AttackCollision/CollisionShape2D.disabled = false
 			$AttackTimer.start()
-		elif Input.is_action_just_pressed("ui_accept") or Input.is_action_just_pressed("left") or Input.is_action_just_pressed("right") or Input.is_action_just_pressed("jump") and is_attacking:
+		elif Input.is_action_just_pressed("ui_attack") or Input.is_action_just_pressed("left") or Input.is_action_just_pressed("right") or Input.is_action_just_pressed("jump") or Input.is_action_just_pressed("ui_shoot") and is_attacking:
 			is_attacking = false
 			$AttackCollision/CollisionShape2D.disabled = true	
 					
@@ -107,3 +137,11 @@ func _on_AttackTimer_timeout():
 	is_attacking = false
 	$AttackCollision/CollisionShape2D.disabled = true	
 
+func _on_FireballTimer_timeout():
+	if mana < max_mana:
+		mana += 0.5
+		$FireballTimer.start()
+	
+			
+			
+	emit_signal("mana_changed", mana)

@@ -53,7 +53,15 @@ one_shot = true
 wait_time = 0.8
 one_shot = true
 
+[node name="FireballTimer" type="Timer" parent="."]
+process_mode = 0
+wait_time = 6.0
+
+[node name="Position2D" type="Position2D" parent="."]
+position = Vector2( 97.0043, 6.16888 )
+
 [connection signal="animation_finished" from="Sprite" to="." method="_on_Sprite_animation_finished"]
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
 [connection signal="timeout" from="InvulnerabilityTimer" to="." method="_on_InvulnerabilityTimer_timeout"]
 [connection signal="timeout" from="AttackTimer" to="." method="_on_AttackTimer_timeout"]
+[connection signal="timeout" from="FireballTimer" to="." method="_on_FireballTimer_timeout"]

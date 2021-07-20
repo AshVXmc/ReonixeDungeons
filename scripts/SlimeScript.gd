@@ -41,7 +41,7 @@ func _physics_process(delta):
 					
 	
 func _on_Area2D_area_entered(area):
-	if area.is_in_group("Sword") and health > 0:
+	if area.is_in_group("Sword") or area.is_in_group("Fireball") and health > 0:
 		health -= 1
 	elif health <= 0:
 		is_dead = true

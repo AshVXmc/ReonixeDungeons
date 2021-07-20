@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://spriteframes/Fireball_spriteframes.tres" type="SpriteFrames" id=1]
+[ext_resource path="res://scripts/FireballScript.gd" type="Script" id=2]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 44.0956, 30.3171 )
+
+[node name="Fireball" type="Area2D" groups=[
+"Fireball",
+]]
+script = ExtResource( 2 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+scale = Vector2( 6, 6 )
+frames = ExtResource( 1 )
+animation = "Shoot"
+frame = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 10.0113, -0.667419 )
+shape = SubResource( 1 )
+
+[node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="."]
+
+[connection signal="area_entered" from="." to="." method="_on_Fireball_area_entered"]
+[connection signal="body_entered" from="." to="." method="_on_Fireball_body_entered"]
+[connection signal="screen_exited" from="VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_exited"]
