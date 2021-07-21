@@ -7,4 +7,6 @@ Collectibles are types of cakes
 - Key lime pie
 - Fruit cake
 
+https://raw.githubusercontent.com/skeeto/Prelude-of-the-Chambered/master/res/tex/sprites.png
+
 (Just putting this here so i don't forget it)

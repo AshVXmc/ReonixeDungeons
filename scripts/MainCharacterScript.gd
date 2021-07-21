@@ -2,6 +2,7 @@ extends KinematicBody2D
 
 signal life_changed(player_hearts)
 signal mana_changed(player_mana)
+signal healthpot_obtained(player_healthpot)
 
 onready var inv_timer : Timer = $InvulnerabilityTimer
 onready var fb_timer : Timer = $FireballTimer
@@ -16,6 +17,7 @@ var max_hearts : float = 5
 var hearts : float = max_hearts
 var max_mana : float = 3
 var mana : float = max_mana
+var healthpot_amount : int = 0
 
 const TYPE : String = "Player"
 const SPEED : int = 275
@@ -26,8 +28,10 @@ const FIREBALL = preload("res://scenes/Fireball.tscn")
 func _ready():
 	connect("life_changed", get_parent().get_node("HeartUI/Life"), "on_player_life_changed")
 	connect("mana_changed", get_parent().get_node("ManaUI/Mana"), "on_player_mana_changed")
+	connect("healthpot_obtained", get_parent().get_node("HealthPotUI/HealthPotControl"), "on_player_healthpot_obtained")
 	emit_signal("life_changed", max_hearts)
 	emit_signal("mana_changed", max_mana)	
+	emit_signal("healthpot_obtained", healthpot_amount)
 
 func _physics_process(_delta):
 	# Makes sure the player is alive to use any movement controls
@@ -82,6 +86,15 @@ func _physics_process(_delta):
 			if mana <= max_mana:
 				$FireballTimer.start()
 				
+		if Input.is_action_just_pressed("ui_heal"):
+			if healthpot_amount > 0:
+				healthpot_amount -= 1
+				emit_signal("healthpot_obtained", healthpot_amount)
+				hearts += max_hearts - hearts
+				
+				hearts += max_hearts - hearts
+				emit_signal("life_changed", hearts)	
+				
 			
 		# Attack controls		
 		if Input.is_action_just_pressed("ui_attack") and !is_attacking:
@@ -98,27 +111,24 @@ func _physics_process(_delta):
 		velocity = move_and_slide(velocity,Vector2.UP)
 		velocity.x = lerp(velocity.x,0,0.2)
 		
-		# Player Damage
-		interacted()
+		if is_invulnerable == true:
+			$Area2D/CollisionShape2D.disabled = true
 
 
-func interacted():
-	if get_slide_count() > 0:
-		for i in range(get_slide_count()):
-			if inv_timer.is_stopped():
-				if "Enemy" in get_slide_collision(i).collider.name:
-					inv_timer.start() 
-					is_invulnerable = true
-					hearts -= 0.5
-					emit_signal("life_changed", hearts)
-					$Sprite.play("Hurt")
-					if hearts <= 0:
-						dead()
-				elif "HealthPot" in get_slide_collision(i).collider.name:
-					hearts += max_hearts - hearts
-					emit_signal("life_changed", hearts)
-
-						
+func _on_Area2D_area_entered(area):
+	if area.is_in_group("HealthPot"):
+		healthpot_amount += 1
+		emit_signal("healthpot_obtained", healthpot_amount)
+	if inv_timer.is_stopped():
+		if area.is_in_group("Enemy"):
+			inv_timer.start() 
+			is_invulnerable = true
+			hearts -= 0.5
+			emit_signal("life_changed", hearts)
+			$Sprite.play("Hurt")
+			if hearts <= 0:
+				dead()
+	
 func dead():
 	is_dead = true
 	velocity = Vector2(0,0)
@@ -132,16 +142,16 @@ func _on_Timer_timeout():
 	
 func _on_InvulnerabilityTimer_timeout():
 	is_invulnerable = false
+	$Sprite.play("Idle")
 	
 func _on_AttackTimer_timeout():
 	is_attacking = false
 	$AttackCollision/CollisionShape2D.disabled = true	
+	
 
 func _on_FireballTimer_timeout():
 	if mana < max_mana:
 		mana += 0.5
 		$FireballTimer.start()
-	
-			
-			
 	emit_signal("mana_changed", mana)
+

@@ -10,7 +10,7 @@ height = 0.0
 [sub_resource type="CircleShape2D" id=2]
 radius = 290.864
 
-[node name="KinematicBody2D" type="KinematicBody2D"]
+[node name="Bat" type="KinematicBody2D"]
 script = ExtResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
