@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=2]
+[gd_scene load_steps=32 format=2]
 
 [ext_resource path="res://scenes/MainCharacter.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/terrain/brick_terrain.png" type="Texture" id=2]
@@ -20,6 +20,7 @@
 [ext_resource path="res://assets/fonts/buttonfont.tres" type="DynamicFont" id=18]
 [ext_resource path="res://scripts/HealthPotControlScript.gd" type="Script" id=19]
 [ext_resource path="res://scenes/enemies/Bat.tscn" type="PackedScene" id=20]
+[ext_resource path="res://assets/UI/hotbar.png" type="Texture" id=21]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 238.692, 0.443298 )
@@ -154,7 +155,7 @@ tile_data = PoolIntArray( -131083, 0, 0, -131082, 0, 0, -131081, 0, 0, -131080, 
 position = Vector2( -782.171, 527.751 )
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
-position = Vector2( -4, -213.491 )
+position = Vector2( -6.82843, -131.467 )
 current = true
 limit_left = -925
 drag_margin_h_enabled = true
@@ -162,6 +163,61 @@ drag_margin_v_enabled = true
 drag_margin_left = 0.4
 drag_margin_right = 0.4
 editor_draw_limits = true
+
+[node name="HotbarUI" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="HotbarUI"]
+margin_right = 40.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="HotbarUI/Control"]
+margin_left = 1535.0
+margin_top = 8.0
+margin_right = 1909.0
+margin_bottom = 115.0
+texture = ExtResource( 21 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HealthPotUI" type="CanvasLayer" parent="."]
+
+[node name="HealthPotControl" type="Control" parent="HealthPotUI"]
+margin_left = 148.0
+margin_right = 188.0
+margin_bottom = 40.0
+script = ExtResource( 19 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="HealthPotUI/HealthPotControl"]
+margin_left = 1405.35
+margin_top = 26.5029
+margin_right = 1421.35
+margin_bottom = 43.5029
+rect_scale = Vector2( 4, 4 )
+texture = ExtResource( 17 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="HealthPotUI/HealthPotControl"]
+margin_left = 1452.91
+margin_top = 66.8263
+margin_right = 1502.91
+margin_bottom = 169.826
+rect_scale = Vector2( 0.75, 0.75 )
+custom_fonts/font = ExtResource( 18 )
+text = "0
+"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="PauseUI" type="CanvasLayer" parent="."]
 
@@ -328,41 +384,6 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="HealthPotUI" type="CanvasLayer" parent="."]
-
-[node name="HealthPotControl" type="Control" parent="HealthPotUI"]
-margin_left = 148.0
-margin_right = 188.0
-margin_bottom = 40.0
-script = ExtResource( 19 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="TextureRect" type="TextureRect" parent="HealthPotUI/HealthPotControl"]
-margin_left = 1661.82
-margin_top = 14.7564
-margin_right = 1677.82
-margin_bottom = 31.7564
-rect_scale = Vector2( 4.5, 4.5 )
-texture = ExtResource( 17 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Label" type="Label" parent="HealthPotUI/HealthPotControl"]
-margin_left = 1578.64
-margin_top = 24.5183
-margin_right = 1628.64
-margin_bottom = 127.518
-rect_scale = Vector2( 1.5, 1.5 )
-custom_fonts/font = ExtResource( 18 )
-text = "0
-"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
 [node name="Slime" type="KinematicBody2D" parent="."]
 position = Vector2( -309.982, 514.876 )
 script = ExtResource( 8 )
@@ -405,6 +426,9 @@ motion_mirroring = Vector2( 1920, 640 )
 scale = Vector2( 20, 20 )
 texture = ExtResource( 13 )
 centered = false
+__meta__ = {
+"_editor_description_": ""
+}
 
 [node name="DestructableWall" parent="." instance=ExtResource( 15 )]
 position = Vector2( -431.158, 46.5142 )
@@ -416,7 +440,7 @@ position = Vector2( -526.995, 46.1338 )
 position = Vector2( -580.261, 544.786 )
 
 [node name="Bat" parent="." instance=ExtResource( 20 )]
-position = Vector2( -36, 204 )
+position = Vector2( -71.3177, 7.23022 )
 
 [connection signal="animation_finished" from="Slime/AnimatedSprite" to="Slime" method="_on_AnimatedSprite_animation_finished"]
 [connection signal="area_entered" from="Slime/Area2D" to="Slime" method="_on_Area2D_area_entered"]

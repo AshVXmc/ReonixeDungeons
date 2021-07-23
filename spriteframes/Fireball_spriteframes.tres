@@ -1,7 +1,9 @@
-[gd_resource type="SpriteFrames" load_steps=3 format=2]
+[gd_resource type="SpriteFrames" load_steps=5 format=2]
 
 [ext_resource path="res://assets/misc/fireball.png" type="Texture" id=1]
 [ext_resource path="res://assets/misc/fireball_2.png" type="Texture" id=2]
+[ext_resource path="res://assets/misc/fireball_destroy2.png" type="Texture" id=3]
+[ext_resource path="res://assets/misc/fireball_destroy1.png" type="Texture" id=4]
 
 [resource]
 animations = [ {
@@ -9,4 +11,9 @@ animations = [ {
 "loop": true,
 "name": "Shoot",
 "speed": 10.0
+}, {
+"frames": [ ExtResource( 4 ), ExtResource( 3 ) ],
+"loop": false,
+"name": "Destroyed",
+"speed": 4.0
 } ]

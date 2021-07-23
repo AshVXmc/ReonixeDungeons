@@ -10,6 +10,7 @@ const TYPE : String = "Slime"
 const FLOOR = Vector2(0, -1)
 const SPEED : int = 100
 const GRAVITY : int = 45
+const DROPS = preload("res://scenes/items/HealthPot.tscn")
 
 func _ready():
 	pass

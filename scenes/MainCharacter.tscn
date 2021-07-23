@@ -46,7 +46,7 @@ wait_time = 0.6
 one_shot = true
 
 [node name="AttackTimer" type="Timer" parent="."]
-wait_time = 0.8
+wait_time = 0.6
 one_shot = true
 
 [node name="FireballTimer" type="Timer" parent="."]
@@ -54,7 +54,7 @@ process_mode = 0
 wait_time = 6.0
 
 [node name="Position2D" type="Position2D" parent="."]
-position = Vector2( 97.0043, 6.16888 )
+position = Vector2( 100, 0 )
 
 [connection signal="animation_finished" from="Sprite" to="." method="_on_Sprite_animation_finished"]
 [connection signal="area_entered" from="Area2D" to="." method="_on_Area2D_area_entered"]

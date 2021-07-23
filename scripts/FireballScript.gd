@@ -15,13 +15,15 @@ func flip_fireball(fb_direction : int):
 	if fb_direction == -1:
 		$AnimatedSprite.flip_h = true
 			
-
 func _on_VisibilityNotifier2D_screen_exited():
 	queue_free()
 
 func _on_Fireball_area_entered(area):
 	if area.is_in_group("Enemy"):
-		queue_free()
-
+		$DestroyedTimer.start()
+		
 func _on_Fireball_body_entered(body):
+	queue_free()
+
+func _on_DestroyedTimer_timeout():
 	queue_free()

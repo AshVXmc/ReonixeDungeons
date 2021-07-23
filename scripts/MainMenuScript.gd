@@ -12,7 +12,6 @@ func _ready():
 	set_current_selection(0)
 
 func handle_selection(_current_selection):
-	
 	match _current_selection:
 		0:
 			get_tree().change_scene("res://scenes/Level1.tscn")	
