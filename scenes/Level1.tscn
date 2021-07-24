@@ -419,7 +419,6 @@ shape = SubResource( 10 )
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 
 [node name="Background1" type="ParallaxLayer" parent="ParallaxBackground"]
-visible = false
 motion_mirroring = Vector2( 1920, 640 )
 
 [node name="Sprite" type="Sprite" parent="ParallaxBackground/Background1"]
@@ -438,6 +437,9 @@ position = Vector2( -526.995, 46.1338 )
 
 [node name="HealthPot" parent="." instance=ExtResource( 12 )]
 position = Vector2( -580.261, 544.786 )
+
+[node name="HealthPot2" parent="." instance=ExtResource( 12 )]
+position = Vector2( -433.104, 547.309 )
 
 [node name="Bat" parent="." instance=ExtResource( 20 )]
 position = Vector2( -71.3177, 7.23022 )
