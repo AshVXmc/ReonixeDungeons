@@ -7,7 +7,6 @@ onready var exit_selector  = $CenterContainer/VBoxContainer/CenterContainer5/VBo
 
 var current_selection : int = 0
 
-
 func _ready():
 	set_current_selection(0)
 

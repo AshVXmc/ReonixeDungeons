@@ -4,8 +4,8 @@
 [ext_resource path="res://scripts/MainCharacterScript.gd" type="Script" id=2]
 
 [sub_resource type="CapsuleShape2D" id=1]
-radius = 32.44
-height = 26.9452
+radius = 37.6338
+height = 17.3718
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 23.3425, 33.7726 )
@@ -19,7 +19,7 @@ frames = ExtResource( 1 )
 animation = "Death"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( -5.65376, 5.05854 )
+position = Vector2( 0, 5.05854 )
 shape = SubResource( 1 )
 
 [node name="AttackCollision" type="Area2D" parent="." groups=[
@@ -36,7 +36,7 @@ disabled = true
 ]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2( -5.65376, 5.05854 )
+position = Vector2( 0, 5.05854 )
 shape = SubResource( 1 )
 
 [node name="Timer" type="Timer" parent="."]
@@ -46,12 +46,12 @@ wait_time = 0.6
 one_shot = true
 
 [node name="AttackTimer" type="Timer" parent="."]
-wait_time = 0.6
+wait_time = 0.4
 one_shot = true
 
-[node name="FireballTimer" type="Timer" parent="."]
+[node name="ManaTimer" type="Timer" parent="."]
 process_mode = 0
-wait_time = 6.0
+wait_time = 5.0
 
 [node name="Position2D" type="Position2D" parent="."]
 position = Vector2( 100, 0 )
@@ -61,4 +61,4 @@ position = Vector2( 100, 0 )
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
 [connection signal="timeout" from="InvulnerabilityTimer" to="." method="_on_InvulnerabilityTimer_timeout"]
 [connection signal="timeout" from="AttackTimer" to="." method="_on_AttackTimer_timeout"]
-[connection signal="timeout" from="FireballTimer" to="." method="_on_FireballTimer_timeout"]
+[connection signal="timeout" from="ManaTimer" to="." method="_on_ManaTimer_timeout"]

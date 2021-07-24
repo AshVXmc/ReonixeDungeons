@@ -1,7 +1,7 @@
 extends KinematicBody2D
 
 const TYPE = "Enemy"
-const SPEED = 70
+const SPEED = 155
 var velocity = Vector2.ZERO
 var is_dead : bool = false
 var health : int = 1

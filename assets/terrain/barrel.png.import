@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/barrel.png-e7c82446b5a01cc0876376497635ed42.stex"
+path="res://.import/barrel.png-908132ca498c4feae8f799c7e05038a3.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/misc/barrel.png"
-dest_files=[ "res://.import/barrel.png-e7c82446b5a01cc0876376497635ed42.stex" ]
+source_file="res://assets/terrain/barrel.png"
+dest_files=[ "res://.import/barrel.png-908132ca498c4feae8f799c7e05038a3.stex" ]
 
 [params]
 

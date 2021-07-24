@@ -1,0 +1,17 @@
+[gd_resource type="SpriteFrames" load_steps=3 format=2]
+
+[ext_resource path="res://assets/terrain/brick_terrain_cracked.png" type="Texture" id=1]
+[ext_resource path="res://assets/terrain/brick_terrain_cracked2.png" type="Texture" id=2]
+
+[resource]
+animations = [ {
+"frames": [ ExtResource( 1 ) ],
+"loop": true,
+"name": "dur2",
+"speed": 1.0
+}, {
+"frames": [ ExtResource( 2 ) ],
+"loop": true,
+"name": "dur1",
+"speed": 1.0
+} ]

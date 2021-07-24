@@ -17,6 +17,9 @@ var hearts : float = max_hearts
 var max_mana : float = 3
 var mana : float = max_mana
 var healthpot_amount : int = 0
+var is_dashing : bool = false
+var can_dash : bool = false
+var dashdirection : Vector2 = Vector2(1,0)
 const TYPE : String = "Player"
 const SPEED : int = 275
 const GRAVITY : int = 45
@@ -34,6 +37,8 @@ func _ready():
 func _physics_process(_delta):
 	# Makes sure the player is alive to use any movement controls
 	if !is_dead and !is_invulnerable:
+		# Dash
+		dash()
 		# Movement controls
 		if Input.is_action_pressed("right") and !is_attacking:
 			velocity.x = SPEED;
@@ -74,7 +79,7 @@ func _physics_process(_delta):
 			is_attacking = false
 			$AttackCollision/CollisionShape2D.disabled = true
 			if mana <= max_mana:
-				$FireballTimer.start()
+				$ManaTimer.start()
 		# Healing controls		
 		if Input.is_action_just_pressed("slot_1"):
 			if healthpot_amount > 0:
@@ -111,7 +116,27 @@ func _on_Area2D_area_entered(area):
 		$Sprite.play("Hurt")
 		if hearts <= 0:
 			dead()
-
+		
+		
+func dash():
+	if !is_on_floor():
+		can_dash = true
+	if Input.is_action_just_pressed("left"):
+		dashdirection = Vector2(-1,0)
+	if Input.is_action_just_pressed("right"):
+		dashdirection = Vector2(1, 0)		
+		
+	if Input.is_action_just_pressed("ui_dash") and mana > 0:
+		velocity = dashdirection.normalized() * 3000
+		can_dash = false
+		is_dashing = true
+		yield(get_tree().create_timer(0.25), "timeout")
+		is_dashing = false
+		mana -= 0.5
+		emit_signal("mana_changed", mana)
+		$ManaTimer.start()
+		
+			
 # Player death	
 func dead():
 	is_dead = true
@@ -131,12 +156,13 @@ func _on_InvulnerabilityTimer_timeout():
 func _on_AttackTimer_timeout():
 	is_attacking = false
 	$AttackCollision/CollisionShape2D.disabled = true
-	$Sprite.play("Idle")	
+	$Sprite.play("Idle")
 	
-func _on_FireballTimer_timeout():
+	
+func _on_ManaTimer_timeout():
 	emit_signal("mana_changed", mana)
 	if mana < max_mana:
 		mana += 0.5
-		$FireballTimer.start()
-	
+		$ManaTimer.start()
+
 
