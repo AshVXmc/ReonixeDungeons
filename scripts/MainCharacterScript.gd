@@ -6,20 +6,25 @@ signal healthpot_obtained(player_healthpot)
 
 onready var inv_timer : Timer = $InvulnerabilityTimer
 onready var fb_timer : Timer = $FireballTimer
+var knockdir = Vector2.ZERO
 var velocity : Vector2 = Vector2(0,0)
 var is_attacking : bool = false
 var is_dead : bool = false
-var is_invulnerable = false
+var is_invulnerable : bool = false
+var is_knocked_back : bool = false
 var collision : KinematicCollision2D
 var collided : bool = false
-var max_hearts : float = 5
+var max_hearts : float = 3
 var hearts : float = max_hearts
-var max_mana : float = 3
-var mana : float = max_mana
+var max_mana : int = 4
+var mana : int = max_mana
 var healthpot_amount : int = 0
 var is_dashing : bool = false
 var can_dash : bool = false
 var dashdirection : Vector2 = Vector2(1,0)
+var repulsion : Vector2 = Vector2()
+var knockback_power : int = 200
+
 const TYPE : String = "Player"
 const SPEED : int = 275
 const GRAVITY : int = 45
@@ -33,75 +38,86 @@ func _ready():
 	emit_signal("life_changed", max_hearts)
 	emit_signal("mana_changed", max_mana)	
 	emit_signal("healthpot_obtained", healthpot_amount)
-
+	
 func _physics_process(_delta):
 	# Makes sure the player is alive to use any movement controls
 	if !is_dead and !is_invulnerable:
-		# Dash
-		dash()
-		# Movement controls
-		if Input.is_action_pressed("right") and !is_attacking:
-			velocity.x = SPEED;
-			$Sprite.play("Walk")
-			$Sprite.flip_h = false
-			if sign($Position2D.position.x) == -1:
-				$Position2D.position.x *= -1
-			if Input.is_action_just_released("right"):
+			# Dash
+			dash()
+			# Movement controls
+			if Input.is_action_pressed("right") and !is_attacking and !is_knocked_back:
+				velocity.x = SPEED;
 				$Sprite.play("Walk")
-			get_node("AttackCollision").set_scale(Vector2(1,1))
-		elif Input.is_action_pressed("left") and !is_attacking:
-			velocity.x = -SPEED;
-			$Sprite.play("Walk")
-			$Sprite.flip_h = true
-			if sign($Position2D.position.x) == 1:
-				$Position2D.position.x *= -1
-			get_node("AttackCollision").set_scale(Vector2(-1,1))
-		elif velocity.x == 0:
-			if !is_attacking:
-				$Sprite.play("Idle")
-		
-		# Jump controls
-		if Input.is_action_just_pressed("jump") and is_on_floor() and !is_attacking:
-			velocity.y = JUMP_POWER
-			$Sprite.play("Idle")
-			is_attacking = false
+				$Sprite.flip_h = false
+				if sign($Position2D.position.x) == -1:
+					$Position2D.position.x *= -1
+				if Input.is_action_just_released("right"):
+					$Sprite.play("Walk")
+				get_node("AttackCollision").set_scale(Vector2(1,1))
+			elif Input.is_action_pressed("left") and !is_attacking:
+				velocity.x = -SPEED;
+				$Sprite.play("Walk")
+				$Sprite.flip_h = true
+				if sign($Position2D.position.x) == 1:
+					$Position2D.position.x *= -1
+				get_node("AttackCollision").set_scale(Vector2(-1,1))	
+			elif velocity.x == 0:
+				if !is_attacking:
+					$Sprite.play("Idle")
 			
-		if Input.is_action_just_pressed("ui_shoot")	and !is_attacking and mana > 0:
-			var fireball = FIREBALL.instance()
-			if sign($Position2D.position.x) == -1:
-				fireball.flip_fireball(-1)
-			else:
-				fireball.flip_fireball(1)	
-			get_parent().add_child(fireball)
-			fireball.position = $Position2D.global_position
-			mana -= 0.5
-			emit_signal("mana_changed", mana)
-			is_attacking = false
-			$AttackCollision/CollisionShape2D.disabled = true
-			if mana <= max_mana:
-				$ManaTimer.start()
-		# Healing controls		
-		if Input.is_action_just_pressed("slot_1"):
-			if healthpot_amount > 0:
-				healthpot_amount -= 1
-				emit_signal("healthpot_obtained", healthpot_amount)
-				hearts += max_hearts - hearts
-				emit_signal("life_changed", hearts)	
+			# Jump controls
+			if Input.is_action_just_pressed("jump") and is_on_floor() and !is_attacking:
+				velocity.y = JUMP_POWER
+				$Sprite.play("Idle")
+				is_attacking = false
 				
-		# Attack controls		
-		if Input.is_action_just_pressed("ui_attack") and !is_attacking:
-			$Sprite.play("Attack")
-			is_attacking = true
-			$AttackCollision/CollisionShape2D.disabled = false
-			$AttackTimer.start()
+			if Input.is_action_just_pressed("ui_shoot")	and !is_attacking and mana >= 2:
+				var fireball = FIREBALL.instance()
+				if sign($Position2D.position.x) == -1:
+					fireball.flip_fireball(-1)
+				else:
+					fireball.flip_fireball(1)	
+				get_parent().add_child(fireball)
+				fireball.position = $Position2D.global_position
+				mana -= 2
+				emit_signal("mana_changed", mana)
+				is_attacking = false
+				$AttackCollision/CollisionShape2D.disabled = true
 					
-		# Movement calculations
-		velocity.y = velocity.y + GRAVITY
-		velocity = move_and_slide(velocity,Vector2.UP)
-		velocity.x = lerp(velocity.x,0,0.2)
-		
-		if is_invulnerable:
-			$Area2D/CollisionShape2D.disabled = true
+			# Healing controls		
+			if Input.is_action_just_pressed("slot_1"):
+				if healthpot_amount > 0:
+					healthpot_amount -= 1
+					emit_signal("healthpot_obtained", healthpot_amount)
+					hearts += max_hearts - hearts
+					emit_signal("life_changed", hearts)	
+					
+			# Attack controls		
+			if Input.is_action_just_pressed("ui_attack") and !is_attacking:
+				$Sprite.play("Attack")
+				is_attacking = true
+				
+				$AttackCollision/CollisionShape2D.disabled = false
+				$AttackTimer.start()
+				# Upward attack controls
+				if Input.is_action_pressed("ui_up"):
+					if !$Sprite.flip_h:
+						$AttackCollision.position += Vector2(-60,-55)
+					else:
+						$AttackCollision.position += Vector2(60,-55)	
+					$Sprite.play("AttackUp")
+					$Sprite.position += Vector2(0, -20)
+					is_attacking = true
+					$AttackCollision/CollisionShape2D.disabled = false
+					$AttackTimer.start()
+						
+			# Movement calculations
+			velocity.y = velocity.y + GRAVITY
+			velocity = move_and_slide(velocity,Vector2.UP)
+			velocity.x = lerp(velocity.x,0,0.2)
+			
+			if is_invulnerable:
+				$Area2D/CollisionShape2D.disabled = true
 
 # Damage and interaction
 func _on_Area2D_area_entered(area):
@@ -114,28 +130,41 @@ func _on_Area2D_area_entered(area):
 		hearts -= 0.5
 		emit_signal("life_changed", hearts)
 		$Sprite.play("Hurt")
+		$KnockbackTimer.start()
+		knockback(area.position.x)	
 		if hearts <= 0:
-			dead()
-		
+			dead()	
+
+func knockback(var enemyPos_x):
+	is_knocked_back = true
+	velocity.y = JUMP_POWER * 0.25
+	if position.x < enemyPos_x:
+		velocity.x = -2000
+	if position.x > enemyPos_x:
+		velocity.x = 2000
+	Input.action_release("left")
+	Input.action_release("right")
+	Input.action_release("jump")
+	Input.action_release("ui_attack")
+	Input.action_release("ui_up")
 		
 func dash():
-	if !is_on_floor():
+	if is_on_floor():
 		can_dash = true
-	if Input.is_action_just_pressed("left"):
-		dashdirection = Vector2(-1,0)
-	if Input.is_action_just_pressed("right"):
-		dashdirection = Vector2(1, 0)		
+	if !$Sprite.flip_h:
+		dashdirection = Vector2(1,0)
+	if $Sprite.flip_h:
+		dashdirection = Vector2(-1, 0)		
 		
-	if Input.is_action_just_pressed("ui_dash") and mana > 0:
+	if Input.is_action_just_pressed("ui_dash") and mana >= 1:
 		velocity = dashdirection.normalized() * 3000
 		can_dash = false
 		is_dashing = true
-		yield(get_tree().create_timer(0.25), "timeout")
-		is_dashing = false
-		mana -= 0.5
+		$DashCooldown.start()
+		mana -= 1
 		emit_signal("mana_changed", mana)
-		$ManaTimer.start()
-		
+		is_dashing = false
+
 			
 # Player death	
 func dead():
@@ -147,22 +176,24 @@ func dead():
 		
 # Handles what happens when timers runs out
 func _on_Timer_timeout():
-	get_tree().change_scene("res://scenes/menus/MainMenu.tscn") 
+	get_tree().change_scene("res://scenes/menus/MainMenu.tscn")
+	queue_free() 
 	
 func _on_InvulnerabilityTimer_timeout():
 	is_invulnerable = false
 	$Sprite.play("Idle")
 	
 func _on_AttackTimer_timeout():
+	$AttackCollision.position = Vector2(0,0)
+	$Sprite.position = Vector2(0,0)
 	is_attacking = false
 	$AttackCollision/CollisionShape2D.disabled = true
 	$Sprite.play("Idle")
-	
-	
-func _on_ManaTimer_timeout():
-	emit_signal("mana_changed", mana)
-	if mana < max_mana:
-		mana += 0.5
-		$ManaTimer.start()
 
+
+func _on_DashCooldown_timeout():
+	is_dashing = false
+	
+func _on_KnockbackTimer_timeout():
+	is_knocked_back = false
 

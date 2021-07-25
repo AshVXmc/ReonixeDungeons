@@ -7,5 +7,6 @@ A 2d platformer Metroidvania-style game with pixel art graphics. Made with the G
 3. Import the project into the engine
 4. Build and run the game
 
-## License
+## License and Extras
 License for this game and repository can be viewed [here](https://gitlab.com/AshVXmc/reonixedungeons/-/blob/main/LICENSE.txt). The license is subject to change.
+I'm working on this project for fun, so the update schedule won't always be consistent.
