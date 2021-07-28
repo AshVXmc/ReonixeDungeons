@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://scripts/SlimeScript.gd" type="Script" id=1]
-[ext_resource path="res://spriteframes/slime_spriteframes.tres" type="SpriteFrames" id=2]
+[ext_resource path="res://spriteframes/limeslime_spriteframes.tres" type="SpriteFrames" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 26.36, 15.1008 )
@@ -10,7 +10,7 @@ extents = Vector2( 26.36, 15.1008 )
 radius = 24.1874
 height = 27.7594
 
-[node name="Slime" type="KinematicBody2D"]
+[node name="LimeSlime" type="KinematicBody2D"]
 position = Vector2( 0, -13.2945 )
 script = ExtResource( 1 )
 __meta__ = {
@@ -21,19 +21,13 @@ __meta__ = {
 position = Vector2( 0.793701, -4.96062 )
 shape = SubResource( 1 )
 
-[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
-position = Vector2( 0, -29.326 )
-scale = Vector2( 5, 5 )
-frames = ExtResource( 2 )
-animation = "death"
-
 [node name="RayCast2D" type="RayCast2D" parent="."]
 position = Vector2( 32, 0 )
 enabled = true
 cast_to = Vector2( 0, 28 )
 
 [node name="Area2D" type="Area2D" parent="." groups=[
-"Enemy",
+"Enemy2",
 ]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
@@ -41,9 +35,10 @@ position = Vector2( 0.595276, -14.6835 )
 rotation = 1.5708
 shape = SubResource( 2 )
 
-[node name="HurtTimer" type="Timer" parent="."]
-wait_time = 0.3
-one_shot = true
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+position = Vector2( 0, -29.326 )
+scale = Vector2( 5, 5 )
+frames = ExtResource( 2 )
+animation = "death"
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_Area2D_area_entered"]
-[connection signal="timeout" from="HurtTimer" to="." method="_on_HurtTimer_timeout"]

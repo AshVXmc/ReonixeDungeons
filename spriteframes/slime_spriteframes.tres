@@ -13,5 +13,5 @@ animations = [ {
 "frames": [ ExtResource( 2 ), ExtResource( 1 ) ],
 "loop": true,
 "name": "slimeanim",
-"speed": 3.0
+"speed": 4.0
 } ]

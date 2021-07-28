@@ -13,7 +13,7 @@ func _ready():
 func handle_selection(_current_selection):
 	match _current_selection:
 		0:
-			get_tree().change_scene("res://scenes/Level1.tscn")	
+			get_tree().change_scene("res://scenes/Level_1.tscn")	
 			queue_free()	
 		1:
 			get_tree().change_scene("res://scenes/menus/HowToPlayMenu.tscn")

@@ -24,8 +24,8 @@ func _on_Area2D_area_entered(area):
 # Player detector
 func _on_Detector_body_entered(body):
 	if body.get("TYPE") == "Player":
-		player = body # Replace with function body.
-
+		player = body 
+		
 func _on_Detector_body_exited(body):
 	if body.get("TYPE") == "Player":
-		player = null # Replace with function body.
+		player = null 
