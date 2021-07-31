@@ -4,7 +4,6 @@ signal life_changed(player_hearts)
 signal mana_changed(player_mana)
 signal healthpot_obtained(player_healthpot)
 
-
 onready var inv_timer : Timer = $InvulnerabilityTimer
 onready var fb_timer : Timer = $FireballTimer
 var knockdir : Vector2 = Vector2.ZERO
@@ -15,11 +14,7 @@ var is_invulnerable : bool = false
 var is_knocked_back : bool = false
 var collision : KinematicCollision2D
 var collided : bool = false
-var max_hearts : float = Global.max_hearts
-var hearts : float = Global.hearts
-export var max_mana : int = 3
-export var mana : int = max_mana
-export var healthpot_amount : int = 0
+var healthpot_amount : int = Global.healthpot_amount
 var is_dashing : bool = false
 var can_dash : bool = false
 var dashdirection : Vector2 = Vector2(1,0)
@@ -36,19 +31,26 @@ func _ready():
 	connect("life_changed", get_parent().get_node("HeartUI/Life"), "on_player_life_changed")
 	connect("mana_changed", get_parent().get_node("ManaUI/Mana"), "on_player_mana_changed")
 	connect("healthpot_obtained", get_parent().get_node("HealthPotUI/HealthPotControl"), "on_player_healthpot_obtained")
-	emit_signal("life_changed", max_hearts)
-	emit_signal("mana_changed", max_mana)	
-	emit_signal("healthpot_obtained", healthpot_amount)
-	print(hearts)
-	hearts = Global.hearts
+	# HP singleton connect
 	connect("life_changed", Global, "sync_hearts")
-	emit_signal("life_changed", hearts)
-	
+	emit_signal("life_changed", Global.hearts)
+	# Mana singleton connect
+	connect("mana_changed", Global, "sync_mana")
+	emit_signal("mana_changed", Global.mana)
+	# Healthpot inventory connect
+	connect("healthpot_obtained", Global, "sync_playerHealthpots")
+	emit_signal("healthpot_obtained", Global.healthpot_amount)
+	print(position.x)
+	print(position.y)
+
 func _physics_process(_delta):
 	# Makes sure the player is alive to use any movement controls
 	if !is_dead and !is_invulnerable:
-			# Dash
+			# Function calls
+			attack()
 			dash()
+			useItems()
+			shoot()
 			# Movement controls
 			if Input.is_action_pressed("right") and !is_attacking and !is_knocked_back:
 				velocity.x = SPEED;
@@ -74,30 +76,24 @@ func _physics_process(_delta):
 				velocity.y = JUMP_POWER
 				$Sprite.play("Idle")
 				is_attacking = false
-
-			# Healing controls		
-			if Input.is_action_just_pressed("slot_1"):
-				if healthpot_amount > 0:
-					healthpot_amount -= 1
-					emit_signal("healthpot_obtained", healthpot_amount)
-					hearts += max_hearts - hearts
-					emit_signal("life_changed", hearts)	
-					
-			# Attack controls
-			attack()
-#			shoot()
+				
 			# Movement calculations
 			velocity.y = velocity.y + GRAVITY
 			velocity = move_and_slide(velocity,Vector2.UP)
 			velocity.x = lerp(velocity.x,0,0.2)
-			
 			if is_invulnerable:
 				$Area2D/CollisionShape2D.disabled = true
 
-
-
+func useItems():
+	if Input.is_action_just_pressed("slot_1"):
+			if Global.healthpot_amount > 0:
+				Global.healthpot_amount -= 1
+				emit_signal("healthpot_obtained", Global.healthpot_amount)
+				Global.hearts += Global.max_hearts - Global.hearts
+				emit_signal("life_changed", Global.hearts)
+				
 func shoot():
-	if Input.is_action_just_pressed("ui_shoot")	and !is_attacking and mana >= 2:
+	if Input.is_action_just_pressed("ui_shoot")	and !is_attacking and Global.mana >= 2:
 			var fireball = FIREBALL.instance()
 			if sign($Position2D.position.x) == -1:
 				fireball.flip_fireball(-1)
@@ -105,8 +101,8 @@ func shoot():
 				fireball.flip_fireball(1)	
 			get_parent().add_child(fireball)
 			fireball.position = $Position2D.global_position
-			mana -= 2
-			emit_signal("mana_changed", mana)
+			Global.mana -= 2
+			emit_signal("mana_changed", Global.mana)
 			is_attacking = false
 			$AttackCollision/CollisionShape2D.disabled = true
 
@@ -131,53 +127,67 @@ func attack():
 # Damage and interaction
 func _on_Area2D_area_entered(area):
 	if area.is_in_group("HealthPot"):
-		healthpot_amount += 1
-		emit_signal("healthpot_obtained", healthpot_amount)
+		Global.healthpot_amount += 1
+		emit_signal("healthpot_obtained", Global.healthpot_amount)
 	if inv_timer.is_stopped():
 		if area.is_in_group("Enemy"):
 			Global.hearts -= 0.5
 			print(Global.hearts)
 			afterDamaged()
-			knockback(area.position.x, area.position.y)	
-		elif area.is_in_group("Enemy2"):
+			knockback(area.position.x, area.position.y)
+		if area.is_in_group("Enemy2"):
 			Global.hearts -= 1
 			afterDamaged()
 			knockback(area.position.x, area.position.y)
 	if area.is_in_group("Transporter"):
 		emit_signal("level_changed")
-		
-		
+	if area.is_in_group("Spike_Level1"):
+		Global.hearts -= 0.5
+		emit_signal("life_changed")
+		afterDamaged()
+		knockback(area.position.x, area.position.y)	
+		position = Vector2(2012, 1540)
+	
 func afterDamaged():
 	inv_timer.start() 
 	is_invulnerable = true
 	emit_signal("life_changed", Global.hearts)
 	$Sprite.play("Hurt")
 	$KnockbackTimer.start()
-	if hearts <= 0:
-		dead()	
+	if Global.hearts <= 0:
+		dead()
 
 # Obtaining mana by attacking enemies
 func _on_AttackCollision_area_entered(area):
-	if area.is_in_group("Enemy") or area.is_in_group("Enemy2") and !$AttackCollision/CollisionShape2D.disabled:
-		if mana < max_mana:
-			mana += 1
-			emit_signal("mana_changed", mana)
+	var lootrng : RandomNumberGenerator = RandomNumberGenerator.new()
+	lootrng.randomize()
+	var randomint = lootrng.randi_range(1,2)
+	if area.is_in_group("Enemy") and !$AttackCollision/CollisionShape2D.disabled:
+		if Global.mana < Global.max_mana:
+			Global.mana += 1
+			emit_signal("mana_changed", Global.mana)
+	if area.is_in_group("Enemy2") and !$AttackCollision/CollisionShape2D.disabled:
+		if Global.mana < Global.max_mana:
+			Global.mana += randomint
+			emit_signal("mana_changed", Global.mana)		
+			
 	
 func knockback(enemyPos_x : float, enemyPos_y : float):
 	# Don't judge my code for this part >:(
 	is_knocked_back = true
 	if position.x < enemyPos_x and !$Sprite.flip_h:
-		velocity.x = -1500
-	if position.x > enemyPos_x and $Sprite.flip_h:
-		velocity.x = 1500
-	if position.x < enemyPos_x and $Sprite.flip_h:
 		velocity.x = 1500
 	if position.x > enemyPos_x and !$Sprite.flip_h:
+		velocity.x = -1500	
+	if position.x > enemyPos_x and $Sprite.flip_h:
+		velocity.x = 1500	
+	if position.x < enemyPos_x and $Sprite.flip_h:
 		velocity.x = -1500
+
 	if position.y < enemyPos_y:
-		velocity.y = JUMP_POWER * 0.1
+		velocity.y = JUMP_POWER * 0.2
 	if position.y > enemyPos_y:
-		velocity.y = JUMP_POWER * 0.1
+		velocity.y = JUMP_POWER * 0.2
 	if !$Sprite.flip_h:
 		dashdirection = Vector2(1,0)
 	if $Sprite.flip_h:
@@ -195,17 +205,18 @@ func dash():
 		dashdirection = Vector2(1,0)
 	if $Sprite.flip_h:
 		dashdirection = Vector2(-1, 0)		
-	if Input.is_action_just_pressed("ui_dash") and mana >= 1 and can_dash:
+	if Input.is_action_just_pressed("ui_dash") and Global.mana >= 1 and can_dash:
 		velocity.x = 0
-		velocity = dashdirection.normalized() * 3000
+		velocity = dashdirection.normalized() * 4500
 		can_dash = false
 		is_dashing = true
 		$DashCooldown.start()
-		mana -= 1
-		emit_signal("mana_changed", mana)
+		Global.mana -= 1
+		emit_signal("mana_changed", Global.mana)
 		is_dashing = false
 		Input.action_release("left")
 		Input.action_release("right")
+
 			
 # Player death	
 func dead():

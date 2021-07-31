@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/placeholder_texture.png-aadf301ae5cad73c45085f3358685cd7.stex"
+path="res://.import/goblin1.png-60ac12e4d05c33762ddc5151f7673892.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/misc/placeholder_texture.png"
-dest_files=[ "res://.import/placeholder_texture.png-aadf301ae5cad73c45085f3358685cd7.stex" ]
+source_file="res://assets/enemies/goblin1.png"
+dest_files=[ "res://.import/goblin1.png-60ac12e4d05c33762ddc5151f7673892.stex" ]
 
 [params]
 

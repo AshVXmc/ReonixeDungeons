@@ -21,11 +21,6 @@ __meta__ = {
 position = Vector2( 0.793701, -4.96062 )
 shape = SubResource( 1 )
 
-[node name="RayCast2D" type="RayCast2D" parent="."]
-position = Vector2( 32, 0 )
-enabled = true
-cast_to = Vector2( 0, 28 )
-
 [node name="Area2D" type="Area2D" parent="." groups=[
 "Enemy2",
 ]]
@@ -40,5 +35,10 @@ position = Vector2( 0, -29.326 )
 scale = Vector2( 5, 5 )
 frames = ExtResource( 2 )
 animation = "death"
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+position = Vector2( 32, 0 )
+enabled = true
+cast_to = Vector2( 0, 28 )
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_Area2D_area_entered"]

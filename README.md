@@ -12,6 +12,6 @@ License for this game and repository can be viewed [here](https://gitlab.com/Ash
 I'm working on this project for fun, so the update schedule won't always be consistent.
 
 ## Tools I use
-[BFXR](https://www.bfxr.net/) for Audio
-[Adobe photoshop](https://www.photoshop.com/en) for art
-[A pixel art scaler tool](https://lospec.com/pixel-art-scaler/) on the web
+- [BFXR](https://www.bfxr.net/) for Audio
+- [Adobe photoshop](https://www.photoshop.com/en) for art
+- [A pixel art scaler tool](https://lospec.com/pixel-art-scaler/) on the web

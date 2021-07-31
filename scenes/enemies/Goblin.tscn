@@ -1,14 +1,14 @@
 [gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://assets/misc/placeholder_texture.png" type="Texture" id=1]
+[ext_resource path="res://spriteframes/Goblin_spriteframes.tres" type="SpriteFrames" id=1]
 [ext_resource path="res://scripts/GoblinScript.gd" type="Script" id=2]
 
 [sub_resource type="CapsuleShape2D" id=1]
-radius = 45.0034
+radius = 33.5
 height = 40.2918
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 162.891, 61.4094 )
+extents = Vector2( 80.4378, 43.6666 )
 
 [node name="KinematicBody2D" type="KinematicBody2D"]
 script = ExtResource( 2 )
@@ -16,23 +16,50 @@ script = ExtResource( 2 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )
 
-[node name="Sprite" type="Sprite" parent="."]
-scale = Vector2( 6, 6 )
-texture = ExtResource( 1 )
+[node name="Sprite" type="AnimatedSprite" parent="."]
+scale = Vector2( 5, 5 )
+frames = ExtResource( 1 )
+animation = "Attacking"
 
 [node name="Left" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Left"]
-position = Vector2( -162.635, 3.05176e-05 )
+position = Vector2( -104.193, 3.29783 )
 shape = SubResource( 2 )
 
 [node name="Right" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Right"]
-position = Vector2( 161.927, 0.707123 )
+position = Vector2( 101.058, 2.26633 )
 shape = SubResource( 2 )
+
+[node name="Area2D" type="Area2D" parent="." groups=[
+"Enemy2",
+]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource( 1 )
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+position = Vector2( -34.0563, -1.26134 )
+enabled = true
+collision_mask = 3075
+collide_with_areas = true
+
+[node name="Navigation2D" type="Navigation2D" parent="."]
+
+[node name="HurtTimer" type="Timer" parent="."]
+wait_time = 0.3
+one_shot = true
+
+[node name="AttackingTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
 
 [connection signal="body_entered" from="Left" to="." method="_on_Left_body_entered"]
 [connection signal="body_exited" from="Left" to="." method="_on_Left_body_exited"]
 [connection signal="body_entered" from="Right" to="." method="_on_Right_body_entered"]
 [connection signal="body_exited" from="Right" to="." method="_on_Right_body_exited"]
+[connection signal="area_entered" from="Area2D" to="." method="_on_Area2D_area_entered"]
+[connection signal="timeout" from="HurtTimer" to="." method="_on_HurtTimer_timeout"]
+[connection signal="timeout" from="AttackingTimer" to="." method="_on_AttackingTimer_timeout"]

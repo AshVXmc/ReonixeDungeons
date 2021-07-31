@@ -14,14 +14,15 @@ func handle_selection(_current_selection):
 	match _current_selection:
 		0:
 			get_tree().change_scene("res://scenes/Level_1.tscn")	
-			queue_free()	
+			queue_free()
+			Global.reset_player_data()
 		1:
 			get_tree().change_scene("res://scenes/menus/HowToPlayMenu.tscn")
 			queue_free()
 		2:
-			print("To be added")
+			pass
 		3:
-			get_tree().quit()			
+			get_tree().quit()
 		
 func _process(delta):	
 	if Input.is_action_just_pressed("ui_down") && current_selection < 3:
@@ -38,7 +39,6 @@ func set_current_selection(_current_selection):
 	howtoplay_selector.text = ""
 	options_selector.text = ""
 	exit_selector.text = ""
-	
 	match _current_selection:
 		0:
 			start_selector.text = ">"

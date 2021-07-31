@@ -8,7 +8,7 @@ radius = 37.6338
 height = 17.3718
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 23.3425, 33.7726 )
+extents = Vector2( 34.7789, 33.7726 )
 
 [node name="Player" type="KinematicBody2D"]
 script = ExtResource( 2 )
@@ -31,7 +31,7 @@ shape = SubResource( 1 )
 ]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackCollision"]
-position = Vector2( 58.374, 6.16888 )
+position = Vector2( 63.9899, 5.05854 )
 shape = SubResource( 2 )
 disabled = true
 
@@ -49,11 +49,11 @@ position = Vector2( 100, 0 )
 [node name="Timer" type="Timer" parent="."]
 
 [node name="InvulnerabilityTimer" type="Timer" parent="."]
-wait_time = 0.6
+wait_time = 0.4
 one_shot = true
 
 [node name="AttackTimer" type="Timer" parent="."]
-wait_time = 0.4
+wait_time = 0.25
 one_shot = true
 
 [node name="DashCooldown" type="Timer" parent="."]
@@ -63,8 +63,6 @@ autostart = true
 [node name="KnockbackTimer" type="Timer" parent="."]
 one_shot = true
 autostart = true
-
-[node name="AttackCooldown" type="Timer" parent="."]
 
 [connection signal="area_entered" from="AttackCollision" to="." method="_on_AttackCollision_area_entered"]
 [connection signal="area_entered" from="Area2D" to="." method="_on_Area2D_area_entered"]

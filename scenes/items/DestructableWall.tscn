@@ -23,6 +23,7 @@ shape = SubResource( 1 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = ExtResource( 2 )
-animation = "dur1"
+animation = "dur2"
+playing = true
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_Area2D_area_entered"]
