@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://spriteframes/Barrel_spriteframes.tres" type="SpriteFrames" id=1]
-[ext_resource path="res://scripts/BarrelScript.gd" type="Script" id=2]
+[ext_resource path="res://scripts/items/BarrelScript.gd" type="Script" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 20.6775, 25.6862 )
@@ -11,6 +11,9 @@ extents = Vector2( 20.3186, 24.9305 )
 
 [node name="Rigidbody2d" type="StaticBody2D"]
 script = ExtResource( 2 )
+__meta__ = {
+"_edit_group_": true
+}
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 scale = Vector2( 3.5, 3.5 )

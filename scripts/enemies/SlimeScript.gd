@@ -44,7 +44,7 @@ func _on_Area2D_area_entered(area):
 	var loot = LOOT.instance()
 	var lootrng : RandomNumberGenerator = RandomNumberGenerator.new()
 	lootrng.randomize()
-	var randomint = lootrng.randi_range(1,5)
+	var randomint = lootrng.randi_range(1,3)
 	print(randomint)	
 	if HP <= 0:
 		if randomint == 1:

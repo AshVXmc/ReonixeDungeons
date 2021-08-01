@@ -1,14 +1,14 @@
 [gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://spriteframes/Goblin_spriteframes.tres" type="SpriteFrames" id=1]
-[ext_resource path="res://scripts/GoblinScript.gd" type="Script" id=2]
+[ext_resource path="res://scripts/enemies/GoblinScript.gd" type="Script" id=2]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 33.5
 height = 40.2918
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 80.4378, 43.6666 )
+extents = Vector2( 96.7965, 43.6666 )
 
 [node name="KinematicBody2D" type="KinematicBody2D"]
 script = ExtResource( 2 )
@@ -24,13 +24,13 @@ animation = "Attacking"
 [node name="Left" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Left"]
-position = Vector2( -104.193, 3.29783 )
+position = Vector2( -125.382, 4.88703 )
 shape = SubResource( 2 )
 
 [node name="Right" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Right"]
-position = Vector2( 101.058, 2.26633 )
+position = Vector2( 121.188, 3.32579 )
 shape = SubResource( 2 )
 
 [node name="Area2D" type="Area2D" parent="." groups=[
@@ -55,6 +55,8 @@ one_shot = true
 [node name="AttackingTimer" type="Timer" parent="."]
 wait_time = 0.5
 one_shot = true
+
+[node name="Position2D" type="Position2D" parent="."]
 
 [connection signal="body_entered" from="Left" to="." method="_on_Left_body_entered"]
 [connection signal="body_exited" from="Left" to="." method="_on_Left_body_exited"]

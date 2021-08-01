@@ -19,8 +19,7 @@ __meta__ = {
 [node name="Sprite" type="AnimatedSprite" parent="."]
 scale = Vector2( 5, 5 )
 frames = ExtResource( 1 )
-animation = "AttackUp"
-frame = 2
+animation = "AttackDown"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 0, 5.05854 )
@@ -57,12 +56,16 @@ wait_time = 0.25
 one_shot = true
 
 [node name="DashCooldown" type="Timer" parent="."]
-wait_time = 0.7
+wait_time = 0.75
 autostart = true
 
 [node name="KnockbackTimer" type="Timer" parent="."]
 one_shot = true
 autostart = true
+
+[node name="KnockUpTimer" type="Timer" parent="."]
+wait_time = 0.75
+one_shot = true
 
 [connection signal="area_entered" from="AttackCollision" to="." method="_on_AttackCollision_area_entered"]
 [connection signal="area_entered" from="Area2D" to="." method="_on_Area2D_area_entered"]
@@ -71,3 +74,4 @@ autostart = true
 [connection signal="timeout" from="AttackTimer" to="." method="_on_AttackTimer_timeout"]
 [connection signal="timeout" from="DashCooldown" to="." method="_on_DashCooldown_timeout"]
 [connection signal="timeout" from="KnockbackTimer" to="." method="_on_KnockbackTimer_timeout"]
+[connection signal="timeout" from="KnockUpTimer" to="." method="_on_KnockUpTimer_timeout"]

@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://spriteframes/Bat_spriteframes.tres" type="SpriteFrames" id=1]
-[ext_resource path="res://scripts/Bat.gd" type="Script" id=2]
+[ext_resource path="res://scripts/enemies/Bat.gd" type="Script" id=2]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 48.0
@@ -36,6 +36,8 @@ shape = SubResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Detector"]
 shape = SubResource( 3 )
+
+[node name="Position2D" type="Position2D" parent="."]
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_Area2D_area_entered"]
 [connection signal="body_entered" from="Detector" to="." method="_on_Detector_body_entered"]

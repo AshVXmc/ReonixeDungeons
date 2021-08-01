@@ -1,4 +1,4 @@
-[gd_resource type="SpriteFrames" load_steps=10 format=2]
+[gd_resource type="SpriteFrames" load_steps=13 format=2]
 
 [ext_resource path="res://assets/player/player_walk1.png" type="Texture" id=1]
 [ext_resource path="res://assets/player/player_idle.png" type="Texture" id=2]
@@ -9,6 +9,9 @@
 [ext_resource path="res://assets/player/player_hurt.png" type="Texture" id=7]
 [ext_resource path="res://assets/player/player_attack1_up.png" type="Texture" id=8]
 [ext_resource path="res://assets/player/player_attack2_up.png" type="Texture" id=9]
+[ext_resource path="res://assets/player/player_attack2_down.png" type="Texture" id=10]
+[ext_resource path="res://assets/player/player_attack1_down.png" type="Texture" id=11]
+[ext_resource path="res://assets/player/player_attack3_down.png" type="Texture" id=12]
 
 [resource]
 animations = [ {
@@ -17,28 +20,33 @@ animations = [ {
 "name": "Walk",
 "speed": 4.0
 }, {
-"frames": [ ExtResource( 8 ), ExtResource( 9 ), ExtResource( 6 ), ExtResource( 2 ), ExtResource( 1 ) ],
-"loop": false,
-"name": "AttackUp",
-"speed": 15.0
-}, {
 "frames": [ ExtResource( 2 ), ExtResource( 7 ) ],
 "loop": true,
 "name": "Death",
 "speed": 30.0
+}, {
+"frames": [ ExtResource( 1 ), ExtResource( 2 ) ],
+"loop": true,
+"name": "Idle",
+"speed": 4.0
 }, {
 "frames": [ ExtResource( 2 ), ExtResource( 7 ) ],
 "loop": true,
 "name": "Hurt",
 "speed": 24.0
 }, {
+"frames": [ ExtResource( 8 ), ExtResource( 9 ), ExtResource( 6 ), ExtResource( 2 ), ExtResource( 1 ) ],
+"loop": false,
+"name": "AttackUp",
+"speed": 15.0
+}, {
 "frames": [ ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ), ExtResource( 2 ), ExtResource( 1 ) ],
 "loop": false,
 "name": "Attack",
 "speed": 18.0
 }, {
-"frames": [ ExtResource( 1 ), ExtResource( 2 ) ],
+"frames": [ ExtResource( 11 ), ExtResource( 10 ), ExtResource( 12 ), ExtResource( 2 ), ExtResource( 1 ) ],
 "loop": true,
-"name": "Idle",
-"speed": 4.0
+"name": "AttackDown",
+"speed": 15.0
 } ]

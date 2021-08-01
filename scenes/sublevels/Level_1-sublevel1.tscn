@@ -1,0 +1,453 @@
+[gd_scene load_steps=29 format=2]
+
+[ext_resource path="res://assets/UI/heart.png" type="Texture" id=1]
+[ext_resource path="res://assets/UI/mana.png" type="Texture" id=2]
+[ext_resource path="res://assets/terrain/brick_terrain.png" type="Texture" id=3]
+[ext_resource path="res://assets/terrain/brick_terrain_floor.png" type="Texture" id=4]
+[ext_resource path="res://scenes/MainCharacter.tscn" type="PackedScene" id=5]
+[ext_resource path="res://assets/misc/health_pot.png" type="Texture" id=6]
+[ext_resource path="res://assets/terrain/short_grass.png" type="Texture" id=7]
+[ext_resource path="res://assets/terrain/background_dungeons.png" type="Texture" id=8]
+[ext_resource path="res://assets/UI/hotbar.png" type="Texture" id=9]
+[ext_resource path="res://assets/fonts/PressStart2P-Regular.ttf" type="DynamicFontData" id=10]
+[ext_resource path="res://scripts/ui/HealthPotControlScript.gd" type="Script" id=11]
+[ext_resource path="res://scripts/ui/PauseScript.gd" type="Script" id=12]
+[ext_resource path="res://scripts/LifeScript.gd" type="Script" id=13]
+[ext_resource path="res://scripts/ui/ManaScript.gd" type="Script" id=14]
+[ext_resource path="res://assets/fonts/buttonfont.tres" type="DynamicFont" id=15]
+[ext_resource path="res://assets/terrain/small_mushrooms.png" type="Texture" id=16]
+[ext_resource path="res://assets/terrain/vine1.png" type="Texture" id=17]
+[ext_resource path="res://assets/terrain/brick_terrain_top.png" type="Texture" id=18]
+[ext_resource path="res://tilesets/one_way_tilesets.tres" type="TileSet" id=19]
+[ext_resource path="res://scenes/enemies/Slime.tscn" type="PackedScene" id=20]
+[ext_resource path="res://scenes/terrain/Spike.tscn" type="PackedScene" id=21]
+[ext_resource path="res://scenes/enemies/Bat.tscn" type="PackedScene" id=22]
+[ext_resource path="res://scenes/items/Barrel.tscn" type="PackedScene" id=23]
+
+[sub_resource type="ConvexPolygonShape2D" id=1]
+points = PoolVector2Array( 96, 96, 0, 96, 0, 0, 96, 0 )
+
+[sub_resource type="ConvexPolygonShape2D" id=2]
+points = PoolVector2Array( 96, 96, 0, 96, 0, 0, 96, 0 )
+
+[sub_resource type="ConvexPolygonShape2D" id=3]
+points = PoolVector2Array( 96, 96, 0, 96, 0, 0, 96, 0 )
+
+[sub_resource type="TileSet" id=4]
+0/name = "brick_terrain.png 0"
+0/texture = ExtResource( 3 )
+0/tex_offset = Vector2( 0, 0 )
+0/modulate = Color( 1, 1, 1, 1 )
+0/region = Rect2( 0, 0, 96, 96 )
+0/tile_mode = 0
+0/occluder_offset = Vector2( 0, 0 )
+0/navigation_offset = Vector2( 0, 0 )
+0/shape_offset = Vector2( 0, 0 )
+0/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+0/shape = SubResource( 1 )
+0/shape_one_way = false
+0/shape_one_way_margin = 1.0
+0/shapes = [ {
+"autotile_coord": Vector2( 0, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 1 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+} ]
+0/z_index = 0
+1/name = "brick_terrain_floor.png 1"
+1/texture = ExtResource( 4 )
+1/tex_offset = Vector2( 0, 0 )
+1/modulate = Color( 1, 1, 1, 1 )
+1/region = Rect2( 0, 0, 96, 96 )
+1/tile_mode = 0
+1/occluder_offset = Vector2( 0, 0 )
+1/navigation_offset = Vector2( 0, 0 )
+1/shape_offset = Vector2( 0, 0 )
+1/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+1/shape = SubResource( 2 )
+1/shape_one_way = false
+1/shape_one_way_margin = 1.0
+1/shapes = [ {
+"autotile_coord": Vector2( 0, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 2 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+} ]
+1/z_index = 0
+2/name = "short_grass.png 2"
+2/texture = ExtResource( 7 )
+2/tex_offset = Vector2( 0, 0 )
+2/modulate = Color( 1, 1, 1, 1 )
+2/region = Rect2( 0, 0, 96, 96 )
+2/tile_mode = 0
+2/occluder_offset = Vector2( 0, 0 )
+2/navigation_offset = Vector2( 0, 0 )
+2/shape_offset = Vector2( 0, 0 )
+2/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+2/shape_one_way = false
+2/shape_one_way_margin = 0.0
+2/shapes = [  ]
+2/z_index = 0
+3/name = "brick_terrain_top.png 3"
+3/texture = ExtResource( 18 )
+3/tex_offset = Vector2( 0, 0 )
+3/modulate = Color( 1, 1, 1, 1 )
+3/region = Rect2( 0, 0, 96, 96 )
+3/tile_mode = 0
+3/occluder_offset = Vector2( 0, 0 )
+3/navigation_offset = Vector2( 0, 0 )
+3/shape_offset = Vector2( 0, 0 )
+3/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+3/shape = SubResource( 3 )
+3/shape_one_way = false
+3/shape_one_way_margin = 1.0
+3/shapes = [ {
+"autotile_coord": Vector2( 0, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 3 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+} ]
+3/z_index = 0
+4/name = "vine1.png 4"
+4/texture = ExtResource( 17 )
+4/tex_offset = Vector2( 0, 0 )
+4/modulate = Color( 1, 1, 1, 1 )
+4/region = Rect2( 0, 0, 96, 96 )
+4/tile_mode = 0
+4/occluder_offset = Vector2( 0, 0 )
+4/navigation_offset = Vector2( 0, 0 )
+4/shape_offset = Vector2( 0, 0 )
+4/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+4/shape_one_way = false
+4/shape_one_way_margin = 0.0
+4/shapes = [  ]
+4/z_index = 0
+5/name = "small_mushrooms.png 5"
+5/texture = ExtResource( 16 )
+5/tex_offset = Vector2( 0, 0 )
+5/modulate = Color( 1, 1, 1, 1 )
+5/region = Rect2( 0, 0, 96, 96 )
+5/tile_mode = 0
+5/occluder_offset = Vector2( 0, 0 )
+5/navigation_offset = Vector2( 0, 0 )
+5/shape_offset = Vector2( 0, 0 )
+5/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+5/shape_one_way = false
+5/shape_one_way_margin = 0.0
+5/shapes = [  ]
+5/z_index = 0
+
+[sub_resource type="DynamicFont" id=5]
+size = 50
+font_data = ExtResource( 10 )
+
+[node name="Level1-sublevel1" type="Node2D"]
+
+[node name="TIleMap" type="TileMap" parent="."]
+tile_set = SubResource( 4 )
+cell_size = Vector2( 96, 96 )
+format = 1
+tile_data = PoolIntArray( -262148, 0, 0, -262147, 0, 0, -262146, 0, 0, -262145, 0, 0, -327680, 0, 0, -327679, 0, 0, -327678, 0, 0, -327677, 0, 0, -327676, 0, 0, -327675, 0, 0, -327674, 0, 0, -327673, 0, 0, -327672, 0, 0, -327671, 0, 0, -327670, 0, 0, -327669, 0, 0, -327668, 0, 0, -327667, 0, 0, -327666, 0, 0, -327665, 0, 0, -327664, 0, 0, -327663, 0, 0, -327662, 0, 0, -327661, 0, 0, -327660, 0, 0, -327659, 0, 0, -327658, 0, 0, -327657, 0, 0, -196612, 0, 0, -196611, 0, 0, -196610, 0, 0, -196609, 0, 0, -262144, 0, 0, -262143, 0, 0, -262142, 0, 0, -262141, 0, 0, -262140, 0, 0, -262139, 0, 0, -262138, 0, 0, -262137, 0, 0, -262136, 0, 0, -262135, 0, 0, -262134, 0, 0, -262133, 0, 0, -262132, 0, 0, -262131, 0, 0, -262130, 0, 0, -262129, 0, 0, -262128, 0, 0, -262127, 0, 0, -262126, 0, 0, -262125, 0, 0, -262124, 0, 0, -262123, 0, 0, -262122, 0, 0, -262121, 0, 0, -131076, 0, 0, -131075, 0, 0, -131074, 0, 0, -131073, 0, 0, -196608, 0, 0, -196607, 0, 0, -196606, 0, 0, -196605, 0, 0, -196604, 0, 0, -196603, 0, 0, -196602, 0, 0, -196601, 0, 0, -196600, 0, 0, -196599, 0, 0, -196598, 0, 0, -196597, 0, 0, -196596, 0, 0, -196595, 0, 0, -196594, 0, 0, -196593, 0, 0, -196592, 0, 0, -196591, 0, 0, -196590, 0, 0, -196589, 0, 0, -196588, 0, 0, -196587, 0, 0, -196586, 0, 0, -196585, 0, 0, -65540, 0, 0, -65539, 0, 0, -65538, 0, 0, -65537, 0, 0, -131072, 0, 0, -131071, 3, 0, -131070, 3, 0, -131069, 3, 0, -131068, 3, 0, -131067, 3, 0, -131066, 3, 0, -131065, 3, 0, -131064, 3, 0, -131063, 3, 0, -131062, 3, 0, -131061, 3, 0, -131060, 3, 0, -131059, 3, 0, -131058, 3, 0, -131057, 3, 0, -131056, 3, 0, -131055, 3, 0, -131054, 3, 0, -131053, 3, 0, -131052, 3, 0, -131051, 0, 0, -131050, 0, 0, -131049, 0, 0, -4, 0, 0, -3, 0, 0, -2, 0, 0, -1, 0, 0, -65536, 0, 0, -65531, 4, 0, -65530, 4, 0, -65523, 4, 0, -65518, 4, 0, -65517, 4, 0, -65515, 0, 0, -65514, 0, 0, -65513, 0, 0, 65532, 0, 0, 65533, 0, 0, 65534, 0, 0, 65535, 0, 0, 0, 0, 0, 6, 4, 0, 13, 4, 0, 18, 4, 0, 19, 4, 0, 21, 0, 0, 22, 0, 0, 23, 0, 0, 131068, 0, 0, 131069, 0, 0, 131070, 0, 0, 131071, 0, 0, 65536, 0, 0, 65555, 4, 0, 65557, 0, 0, 65558, 0, 0, 65559, 0, 0, 196604, 0, 0, 196605, 0, 0, 196606, 0, 0, 196607, 0, 0, 131072, 0, 0, 131076, 2, 0, 131080, 1, 0, 131081, 1, 0, 131084, 1, 0, 131085, 1, 0, 131086, 1, 0, 131093, 0, 0, 131094, 0, 0, 131095, 0, 0, 262140, 0, 0, 262141, 0, 0, 262142, 0, 0, 262143, 0, 0, 196608, 0, 0, 196609, 1, 0, 196610, 1, 0, 196611, 1, 0, 196612, 1, 0, 196613, 1, 0, 196616, 0, 0, 196617, 0, 0, 196620, 0, 0, 196621, 0, 0, 196622, 0, 0, 196629, 0, 0, 196630, 0, 0, 196631, 0, 0, 327676, 0, 0, 327677, 0, 0, 327678, 0, 0, 327679, 0, 0, 262144, 0, 0, 262145, 0, 0, 262146, 0, 0, 262147, 0, 0, 262148, 0, 0, 262149, 0, 0, 262150, 1, 0, 262151, 1, 0, 262152, 0, 0, 262153, 0, 0, 262154, 1, 0, 262155, 1, 0, 262156, 0, 0, 262157, 0, 0, 262158, 0, 0, 262159, 1, 0, 262160, 1, 0, 262161, 1, 0, 262162, 1, 0, 262165, 0, 0, 262166, 0, 0, 262167, 0, 0, 393212, 0, 0, 393213, 0, 0, 393214, 0, 0, 393215, 0, 0, 327680, 0, 0, 327681, 3, 0, 327682, 3, 0, 327683, 3, 0, 327684, 3, 0, 327685, 3, 0, 327686, 3, 0, 327687, 3, 0, 327688, 3, 0, 327689, 3, 0, 327690, 3, 0, 327691, 3, 0, 327692, 3, 0, 327693, 3, 0, 327694, 3, 0, 327695, 3, 0, 327696, 3, 0, 327697, 3, 0, 327698, 3, 0, 327701, 0, 0, 327702, 0, 0, 327703, 0, 0, 458748, 0, 0, 458749, 0, 0, 458750, 0, 0, 458751, 0, 0, 393216, 0, 0, 393225, 0, 0, 393227, 4, 0, 393229, 4, 0, 393230, 4, 0, 393231, 4, 0, 393237, 0, 0, 393238, 0, 0, 393239, 0, 0, 524284, 0, 0, 524285, 0, 0, 524286, 0, 0, 524287, 0, 0, 458752, 0, 0, 458761, 0, 0, 458765, 4, 0, 458773, 0, 0, 458774, 0, 0, 458775, 0, 0, 589820, 0, 0, 589821, 0, 0, 589822, 0, 0, 589823, 0, 0, 524288, 0, 0, 524297, 0, 0, 524307, 1, 0, 524308, 1, 0, 524309, 0, 0, 524310, 0, 0, 524311, 0, 0, 655356, 0, 0, 655357, 0, 0, 655358, 0, 0, 655359, 0, 0, 589824, 0, 0, 589828, 1, 0, 589829, 1, 0, 589830, 1, 0, 589831, 1, 0, 589832, 1, 0, 589833, 0, 0, 589841, 1, 0, 589842, 1, 0, 589843, 0, 0, 589844, 0, 0, 589845, 0, 0, 589846, 0, 0, 589847, 0, 0, 720892, 0, 0, 720893, 0, 0, 720894, 0, 0, 720895, 0, 0, 655360, 0, 0, 655367, 3, 0, 655368, 3, 0, 655369, 3, 0, 655377, 3, 0, 655378, 3, 0, 655379, 3, 0, 655380, 3, 0, 655381, 0, 0, 655382, 0, 0, 655383, 0, 0, 786428, 0, 0, 786429, 0, 0, 786430, 0, 0, 786431, 0, 0, 720896, 0, 0, 720897, 1, 0, 720898, 1, 0, 720903, 4, 0, 720904, 4, 0, 720910, 1, 0, 720911, 1, 0, 720917, 0, 0, 720918, 0, 0, 720919, 0, 0, 851964, 0, 0, 851965, 0, 0, 851966, 0, 0, 851967, 0, 0, 786432, 0, 0, 786433, 0, 0, 786434, 0, 0, 786440, 4, 0, 786446, 0, 0, 786447, 0, 0, 786451, 5, 0, 786453, 0, 0, 786454, 0, 0, 786455, 0, 0, 917500, 0, 0, 917501, 0, 0, 917502, 0, 0, 917503, 0, 0, 851968, 0, 0, 851969, 0, 0, 851970, 0, 0, 851971, 1, 0, 851972, 1, 0, 851979, 1, 0, 851980, 1, 0, 851981, 1, 0, 851982, 0, 0, 851983, 0, 0, 851984, 1, 0, 851985, 1, 0, 851986, 1, 0, 851987, 1, 0, 851988, 1, 0, 851989, 0, 0, 851990, 0, 0, 851991, 0, 0, 983036, 0, 0, 983037, 0, 0, 983038, 0, 0, 983039, 0, 0, 917504, 0, 0, 917505, 0, 0, 917506, 0, 0, 917507, 0, 0, 917508, 0, 0, 917509, 1, 0, 917510, 1, 0, 917511, 1, 0, 917512, 1, 0, 917513, 1, 0, 917514, 1, 0, 917515, 0, 0, 917516, 0, 0, 917517, 0, 0, 917518, 0, 0, 917519, 0, 0, 917520, 0, 0, 917521, 0, 0, 917522, 0, 0, 917523, 0, 0, 917524, 0, 0, 917525, 0, 0, 917526, 0, 0, 917527, 0, 0, 1048572, 0, 0, 1048573, 0, 0, 1048574, 0, 0, 1048575, 0, 0, 983040, 0, 0, 983041, 0, 0, 983042, 0, 0, 983043, 0, 0, 983044, 0, 0, 983045, 0, 0, 983046, 0, 0, 983047, 0, 0, 983048, 0, 0, 983049, 0, 0, 983050, 0, 0, 983051, 0, 0, 983052, 0, 0, 983053, 0, 0, 983054, 0, 0, 983055, 0, 0, 983056, 0, 0, 983057, 0, 0, 983058, 0, 0, 983059, 0, 0, 983060, 0, 0, 983061, 0, 0, 983062, 0, 0, 983063, 0, 0, 1114108, 0, 0, 1114109, 0, 0, 1114110, 0, 0, 1114111, 0, 0, 1048576, 0, 0, 1048577, 0, 0, 1048578, 0, 0, 1048579, 0, 0, 1048580, 0, 0, 1048581, 0, 0, 1048582, 0, 0, 1048583, 0, 0, 1048584, 0, 0, 1048585, 0, 0, 1048586, 0, 0, 1048587, 0, 0, 1048588, 0, 0, 1048589, 0, 0, 1048590, 0, 0, 1048591, 0, 0, 1048592, 0, 0, 1048593, 0, 0, 1048594, 0, 0, 1048595, 0, 0, 1048596, 0, 0, 1048597, 0, 0, 1048598, 0, 0, 1048599, 0, 0 )
+
+[node name="TileMap (One-way)" type="TileMap" parent="."]
+tile_set = ExtResource( 19 )
+cell_size = Vector2( 96, 96 )
+format = 1
+tile_data = PoolIntArray( 393217, 0, 0, 393218, 0, 0, 393219, 0, 0, 393220, 0, 0, 393221, 0, 0, 393222, 0, 0, 393223, 0, 0, 393224, 0, 0, 458753, 0, 0, 458754, 0, 0, 458755, 0, 0, 458756, 0, 0, 458757, 0, 0, 458758, 0, 0, 458759, 0, 0, 458760, 0, 0, 524289, 0, 0, 524290, 0, 0, 524291, 0, 0, 524292, 0, 0, 524293, 0, 0, 524294, 0, 0, 524295, 0, 0, 524296, 0, 0, 589825, 0, 0, 589826, 0, 0, 589827, 0, 0 )
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="Background1" type="ParallaxLayer" parent="ParallaxBackground"]
+z_as_relative = false
+motion_mirroring = Vector2( 1920, 640 )
+
+[node name="TextureRect" type="ColorRect" parent="ParallaxBackground/Background1"]
+margin_right = 1938.0
+margin_bottom = 1355.0
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/Background1"]
+scale = Vector2( 20, 20 )
+texture = ExtResource( 8 )
+centered = false
+__meta__ = {
+"_editor_description_": ""
+}
+
+[node name="Player" parent="." instance=ExtResource( 5 )]
+position = Vector2( 473.537, 236.165 )
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+position = Vector2( -3.74255, -3.10146 )
+current = true
+limit_left = -925
+drag_margin_h_enabled = true
+drag_margin_v_enabled = true
+drag_margin_left = 0.4
+drag_margin_right = 0.4
+editor_draw_limits = true
+
+[node name="HotbarUI" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="HotbarUI"]
+margin_right = 40.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="HotbarUI/Control"]
+margin_left = 1535.0
+margin_top = 8.0
+margin_right = 1909.0
+margin_bottom = 115.0
+texture = ExtResource( 9 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HealthPotUI" type="CanvasLayer" parent="."]
+
+[node name="HealthPotControl" type="Control" parent="HealthPotUI"]
+margin_left = 148.0
+margin_right = 188.0
+margin_bottom = 40.0
+script = ExtResource( 11 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="HealthPotUI/HealthPotControl"]
+margin_left = 1405.35
+margin_top = 26.5029
+margin_right = 1421.35
+margin_bottom = 43.5029
+rect_scale = Vector2( 4, 4 )
+texture = ExtResource( 6 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="HealthPotUI/HealthPotControl"]
+margin_left = 1452.91
+margin_top = 66.8263
+margin_right = 1502.91
+margin_bottom = 169.826
+rect_scale = Vector2( 0.75, 0.75 )
+custom_fonts/font = ExtResource( 15 )
+text = "0
+"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PauseUI" type="CanvasLayer" parent="."]
+
+[node name="Pause" type="Control" parent="PauseUI"]
+pause_mode = 2
+visible = false
+margin_right = 1377.0
+margin_bottom = 845.0
+script = ExtResource( 12 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Panel" type="Panel" parent="PauseUI/Pause"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -848.0
+margin_top = -523.082
+margin_bottom = -74.0825
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CenterContainer" type="CenterContainer" parent="PauseUI/Pause/Panel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 17.0
+margin_bottom = -331.999
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="[Paused]" type="Label" parent="PauseUI/Pause/Panel/CenterContainer"]
+margin_left = 274.0
+margin_top = 25.0
+margin_right = 574.0
+margin_bottom = 75.0
+custom_fonts/font = SubResource( 5 )
+custom_colors/font_color = Color( 0.337255, 0.498039, 0.290196, 1 )
+text = "Paused"
+
+[node name="CenterContainer2" type="CenterContainer" parent="PauseUI/Pause/Panel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 207.0
+margin_top = 126.0
+margin_right = -26.0
+margin_bottom = -254.999
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="[to resume]" type="Label" parent="PauseUI/Pause/Panel/CenterContainer2"]
+margin_left = 82.0
+margin_top = 9.0
+margin_right = 532.0
+margin_bottom = 59.0
+custom_fonts/font = SubResource( 5 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+text = "to resume"
+
+[node name="CenterContainer5" type="CenterContainer" parent="PauseUI/Pause/Panel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 111.0
+margin_top = 198.0
+margin_right = -45.0
+margin_bottom = -98.9995
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="[to return to main menu]" type="Label" parent="PauseUI/Pause/Panel/CenterContainer5"]
+margin_left = 46.0
+margin_top = 24.0
+margin_right = 646.0
+margin_bottom = 127.0
+custom_fonts/font = SubResource( 5 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+text = "  to return
+to main menu"
+
+[node name="CenterContainer3" type="CenterContainer" parent="PauseUI/Pause/Panel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 85.0
+margin_top = 126.0
+margin_right = -555.0
+margin_bottom = -254.999
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ESC" type="Label" parent="PauseUI/Pause/Panel/CenterContainer3"]
+margin_left = 29.0
+margin_top = 9.0
+margin_right = 179.0
+margin_bottom = 59.0
+custom_fonts/font = SubResource( 5 )
+custom_colors/font_color = Color( 0.972549, 0.819608, 0, 1 )
+text = "ESC"
+
+[node name="CenterContainer4" type="CenterContainer" parent="PauseUI/Pause/Panel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 124.0
+margin_top = 214.0
+margin_right = -547.0
+margin_bottom = -166.999
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Q" type="Label" parent="PauseUI/Pause/Panel/CenterContainer4"]
+margin_left = 63.0
+margin_top = 9.0
+margin_right = 113.0
+margin_bottom = 59.0
+custom_fonts/font = SubResource( 5 )
+custom_colors/font_color = Color( 0.972549, 0.819608, 0, 1 )
+text = "Q"
+
+[node name="HeartUI" type="CanvasLayer" parent="."]
+
+[node name="Life" type="Control" parent="HeartUI"]
+margin_right = 92.0
+margin_bottom = 93.0
+script = ExtResource( 13 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Hearts" type="TextureRect" parent="HeartUI/Life"]
+margin_right = 95.0
+margin_bottom = 96.0
+texture = ExtResource( 1 )
+expand = true
+stretch_mode = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ManaUI" type="CanvasLayer" parent="."]
+
+[node name="Mana" type="Control" parent="ManaUI"]
+margin_left = 12.0208
+margin_top = 94.0452
+margin_right = 78.0208
+margin_bottom = 160.045
+script = ExtResource( 14 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ManaIcon" type="TextureRect" parent="ManaUI/Mana"]
+margin_right = 49.0
+margin_bottom = 50.0
+texture = ExtResource( 2 )
+expand = true
+stretch_mode = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Slime" parent="." instance=ExtResource( 20 )]
+position = Vector2( 1756.15, 1234.74 )
+
+[node name="Spike" parent="." instance=ExtResource( 21 )]
+position = Vector2( 624.399, 336.363 )
+
+[node name="Spike2" parent="." instance=ExtResource( 21 )]
+position = Vector2( 719.83, 335.966 )
+
+[node name="Spike3" parent="." instance=ExtResource( 21 )]
+position = Vector2( 1008.26, 335.743 )
+
+[node name="Spike4" parent="." instance=ExtResource( 21 )]
+position = Vector2( 1104.3, 335.743 )
+
+[node name="Spike5" parent="." instance=ExtResource( 21 )]
+position = Vector2( 1774.57, 335.743 )
+
+[node name="Spike7" parent="." instance=ExtResource( 21 )]
+position = Vector2( 1296.57, 1200.01 )
+
+[node name="Spike8" parent="." instance=ExtResource( 21 )]
+position = Vector2( 1200.29, 1200.01 )
+
+[node name="Spike10" parent="." instance=ExtResource( 21 )]
+position = Vector2( 528.252, 1296.29 )
+
+[node name="Spike11" parent="." instance=ExtResource( 21 )]
+position = Vector2( 624.251, 1296.11 )
+
+[node name="Barrel" parent="." instance=ExtResource( 23 )]
+position = Vector2( 867.089, 1315.91 )
+
+[node name="Barrel2" parent="." instance=ExtResource( 23 )]
+position = Vector2( 908.897, 1316.56 )
+
+[node name="Bat" parent="." instance=ExtResource( 22 )]
+position = Vector2( 1343.5, 820.244 )

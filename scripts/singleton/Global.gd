@@ -3,13 +3,13 @@ extends Node
 # GLOBALLY ACCESSED VARIABLES
 var max_hearts : float = 4
 var hearts : float = max_hearts
-var max_mana : int = 4
+var max_mana : int = 6
 var mana : int = max_mana
 var healthpot_amount : int = 0
 
 func reset_player_data():
-	Global.hearts = Global.max_hearts
-	Global.mana = Global.max_mana
+	Global.hearts = 4
+	Global.mana = 6
 	Global.healthpot_amount = 0
 	
 func sync_hearts(player_hearts : float):

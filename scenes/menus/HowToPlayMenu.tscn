@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://scripts/HowToPlayMenuScript.gd" type="Script" id=1]
+[ext_resource path="res://scripts/ui/HowToPlayMenuScript.gd" type="Script" id=1]
 [ext_resource path="res://assets/fonts/buttonfont.tres" type="DynamicFont" id=4]
 
 [node name="Control" type="Control"]
@@ -24,114 +24,100 @@ margin_bottom = 1077.0
 color = Color( 0, 0, 0, 1 )
 
 [node name="CenterContainer" type="CenterContainer" parent="MarginContainer/ColorRect"]
-margin_left = 48.0
-margin_top = 32.0
-margin_right = 317.0
-margin_bottom = 111.0
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -645.876
+margin_top = 60.5811
+margin_right = -376.876
+margin_bottom = 139.581
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Label" type="Label" parent="MarginContainer/ColorRect/CenterContainer"]
-margin_left = 84.0
+margin_left = 34.0
 margin_top = 14.0
-margin_right = 184.0
+margin_right = 234.0
 margin_bottom = 64.0
 custom_fonts/font = ExtResource( 4 )
 custom_colors/font_color = Color( 0.972549, 0.819608, 0, 1 )
-text = "AD"
+text = "WASD"
 
 [node name="CenterContainer6" type="CenterContainer" parent="MarginContainer/ColorRect"]
-margin_left = 253.784
-margin_top = 32.0
-margin_right = 430.784
-margin_bottom = 111.0
+margin_left = 577.053
+margin_top = 58.9391
+margin_right = 1727.05
+margin_bottom = 137.939
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Label" type="Label" parent="MarginContainer/ColorRect/CenterContainer6"]
 margin_top = 14.0
-margin_right = 350.0
+margin_right = 1150.0
 margin_bottom = 64.0
 custom_fonts/font = ExtResource( 4 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
-text = "to move"
-
-[node name="CenterContainer7" type="CenterContainer" parent="MarginContainer/ColorRect"]
-margin_left = 253.784
-margin_top = 142.0
-margin_right = 603.784
-margin_bottom = 221.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Label" type="Label" parent="MarginContainer/ColorRect/CenterContainer7"]
-margin_top = 14.0
-margin_right = 400.0
-margin_bottom = 64.0
-custom_fonts/font = ExtResource( 4 )
-custom_colors/font_color = Color( 1, 1, 1, 1 )
-text = "to climb"
+text = "to move and aim attacks"
 
 [node name="CenterContainer8" type="CenterContainer" parent="MarginContainer/ColorRect"]
-margin_left = 322.758
-margin_top = 251.892
-margin_right = 722.758
-margin_bottom = 330.892
+margin_left = 857.041
+margin_top = 157.735
+margin_right = 1376.04
+margin_bottom = 236.735
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Label" type="Label" parent="MarginContainer/ColorRect/CenterContainer8"]
+margin_left = 34.0
 margin_top = 14.0
-margin_right = 450.0
+margin_right = 484.0
 margin_bottom = 64.0
 custom_fonts/font = ExtResource( 4 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 text = "to select"
 
 [node name="CenterContainer9" type="CenterContainer" parent="MarginContainer/ColorRect"]
-margin_left = 287.082
-margin_top = 366.056
-margin_right = 737.082
-margin_bottom = 445.056
+margin_left = 837.036
+margin_top = 449.477
+margin_right = 1287.04
+margin_bottom = 528.477
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Label" type="Label" parent="MarginContainer/ColorRect/CenterContainer9"]
-margin_left = 49.0
+margin_left = 50.0
 margin_top = 14.0
-margin_right = 399.0
+margin_right = 400.0
 margin_bottom = 64.0
 custom_fonts/font = ExtResource( 4 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 text = "to jump"
 
 [node name="CenterContainer13" type="CenterContainer" parent="MarginContainer/ColorRect"]
-margin_left = 465.007
-margin_top = 440.925
-margin_right = 915.007
-margin_bottom = 572.925
+margin_left = 938.686
+margin_top = 223.167
+margin_right = 1388.69
+margin_bottom = 355.167
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Label" type="Label" parent="MarginContainer/ColorRect/CenterContainer13"]
-margin_top = 41.0
+margin_top = 40.0
 margin_right = 450.0
-margin_bottom = 91.0
+margin_bottom = 90.0
 custom_fonts/font = ExtResource( 4 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 text = "to attack"
 
 [node name="CenterContainer15" type="CenterContainer" parent="MarginContainer/ColorRect"]
-margin_left = 489.426
-margin_top = 534.0
-margin_right = 964.426
-margin_bottom = 666.0
+margin_left = 899.784
+margin_top = 327.14
+margin_right = 1374.78
+margin_bottom = 459.14
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -146,10 +132,10 @@ custom_colors/font_color = Color( 1, 1, 1, 1 )
 text = "to shoot"
 
 [node name="CenterContainer18" type="CenterContainer" parent="MarginContainer/ColorRect"]
-margin_left = 167.35
-margin_top = 650.541
-margin_right = 642.35
-margin_bottom = 782.541
+margin_left = 807.266
+margin_top = 629.352
+margin_right = 1282.27
+margin_bottom = 761.352
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -164,10 +150,10 @@ custom_colors/font_color = Color( 1, 1, 1, 1 )
 text = "to dash"
 
 [node name="CenterContainer16" type="CenterContainer" parent="MarginContainer/ColorRect"]
-margin_left = 366.655
-margin_top = 737.948
-margin_right = 966.655
-margin_bottom = 869.948
+margin_left = 858.246
+margin_top = 528.174
+margin_right = 1458.25
+margin_bottom = 660.174
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -181,71 +167,53 @@ custom_colors/font_color = Color( 1, 1, 1, 1 )
 text = "to use slots"
 
 [node name="CenterContainer10" type="CenterContainer" parent="MarginContainer/ColorRect"]
-margin_left = 283.651
-margin_top = 873.019
-margin_right = 719.651
-margin_bottom = 958.019
+margin_left = 862.118
+margin_top = 743.764
+margin_right = 1298.12
+margin_bottom = 828.764
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Label" type="Label" parent="MarginContainer/ColorRect/CenterContainer10"]
-margin_left = 42.0
+margin_left = 43.0
 margin_top = 17.0
-margin_right = 392.0
+margin_right = 393.0
 margin_bottom = 67.0
 custom_fonts/font = ExtResource( 4 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 text = "to exit"
 
-[node name="CenterContainer2" type="CenterContainer" parent="MarginContainer/ColorRect"]
-margin_left = 50.3784
-margin_top = 127.0
-margin_right = 319.378
-margin_bottom = 239.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Label" type="Label" parent="MarginContainer/ColorRect/CenterContainer2"]
-margin_left = 84.0
-margin_top = 31.0
-margin_right = 184.0
-margin_bottom = 81.0
-custom_fonts/font = ExtResource( 4 )
-custom_colors/font_color = Color( 0.972549, 0.819608, 0, 1 )
-text = "WS"
-
 [node name="CenterContainer3" type="CenterContainer" parent="MarginContainer/ColorRect"]
-margin_left = 48.0
-margin_top = 156.0
-margin_right = 329.0
-margin_bottom = 429.0
+margin_left = 587.282
+margin_top = 113.202
+margin_right = 868.282
+margin_bottom = 276.202
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Label" type="Label" parent="MarginContainer/ColorRect/CenterContainer3"]
 margin_left = 15.0
-margin_top = 111.0
+margin_top = 56.0
 margin_right = 265.0
-margin_bottom = 161.0
+margin_bottom = 106.0
 custom_fonts/font = ExtResource( 4 )
 custom_colors/font_color = Color( 0.972549, 0.819608, 0, 1 )
 text = "ENTER"
 
 [node name="CenterContainer4" type="CenterContainer" parent="MarginContainer/ColorRect"]
-margin_left = -44.7841
-margin_top = 380.484
-margin_right = 414.216
-margin_bottom = 483.484
+margin_left = 503.909
+margin_top = 462.76
+margin_right = 922.909
+margin_bottom = 565.76
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Label" type="Label" parent="MarginContainer/ColorRect/CenterContainer4"]
-margin_left = 104.0
-margin_right = 354.0
+margin_left = 84.0
+margin_right = 334.0
 margin_bottom = 103.0
 custom_fonts/font = ExtResource( 4 )
 custom_colors/font_color = Color( 0.972549, 0.819608, 0, 1 )
@@ -253,18 +221,18 @@ text = "SPACE
 "
 
 [node name="CenterContainer12" type="CenterContainer" parent="MarginContainer/ColorRect"]
-margin_left = 2.19592
-margin_top = 473.929
-margin_right = 488.196
-margin_bottom = 601.929
+margin_left = 429.175
+margin_top = 356.275
+margin_right = 981.175
+margin_bottom = 484.275
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Label" type="Label" parent="MarginContainer/ColorRect/CenterContainer12"]
-margin_left = 43.0
+margin_left = 76.0
 margin_top = 12.0
-margin_right = 443.0
+margin_right = 476.0
 margin_bottom = 115.0
 custom_fonts/font = ExtResource( 4 )
 custom_colors/font_color = Color( 0.972549, 0.819608, 0, 1 )
@@ -272,10 +240,10 @@ text = "LMB/LEFT
 "
 
 [node name="CenterContainer14" type="CenterContainer" parent="MarginContainer/ColorRect"]
-margin_left = -0.483093
-margin_top = 575.586
-margin_right = 540.517
-margin_bottom = 678.586
+margin_left = 417.073
+margin_top = 268.031
+margin_right = 958.073
+margin_bottom = 371.031
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -290,10 +258,10 @@ text = "RMB/RIGHT
 "
 
 [node name="CenterContainer5" type="CenterContainer" parent="MarginContainer/ColorRect"]
-margin_left = -41.4018
-margin_top = 889.598
-margin_right = 417.598
-margin_bottom = 992.598
+margin_left = 560.373
+margin_top = 760.344
+margin_right = 1019.37
+margin_bottom = 863.344
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -308,10 +276,10 @@ text = "ESC
 "
 
 [node name="CenterContainer11" type="CenterContainer" parent="MarginContainer/ColorRect"]
-margin_left = -46.8844
-margin_top = 782.585
-margin_right = 412.115
-margin_bottom = 885.585
+margin_left = 427.755
+margin_top = 566.455
+margin_right = 886.754
+margin_bottom = 669.455
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -326,10 +294,10 @@ text = "1,2,3
 "
 
 [node name="CenterContainer17" type="CenterContainer" parent="MarginContainer/ColorRect"]
-margin_left = -70.1926
-margin_top = 685.114
-margin_right = 388.807
-margin_bottom = 788.114
+margin_left = 561.248
+margin_top = 668.163
+margin_right = 1020.25
+margin_bottom = 771.163
 __meta__ = {
 "_edit_use_anchors_": false
 }
