@@ -11,12 +11,11 @@ func reset_player_data():
 	Global.hearts = 4
 	Global.mana = 6
 	Global.healthpot_amount = 0
-	
+
 func sync_hearts(player_hearts : float):
 	player_hearts = Global.hearts
 func sync_mana(player_mana : int):
 	player_mana = Global.mana
 func sync_playerHealthpots(player_healthpot : int):
 	player_healthpot = Global.healthpot_amount
-	
-	
+

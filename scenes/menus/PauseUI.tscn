@@ -1,7 +1,10 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://assets/fonts/PressStart2P-Regular.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://scripts/ui/PauseScript.gd" type="Script" id=2]
+[ext_resource path="res://assets/fonts/buttonfont.tres" type="DynamicFont" id=3]
+[ext_resource path="res://assets/UI/pauseicon.png" type="Texture" id=4]
+[ext_resource path="res://assets/UI/mainmenubutton.png" type="Texture" id=5]
 
 [sub_resource type="DynamicFont" id=1]
 size = 50
@@ -34,8 +37,8 @@ __meta__ = {
 [node name="CenterContainer" type="CenterContainer" parent="Pause/Panel"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_top = 17.0
-margin_bottom = -331.999
+margin_top = 0.780426
+margin_bottom = -348.219
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -47,85 +50,37 @@ margin_right = 574.0
 margin_bottom = 75.0
 custom_fonts/font = SubResource( 1 )
 custom_colors/font_color = Color( 0.337255, 0.498039, 0.290196, 1 )
-text = "Paused"
+text = "PAUSED"
 
-[node name="CenterContainer2" type="CenterContainer" parent="Pause/Panel"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 207.0
-margin_top = 126.0
-margin_right = -26.0
-margin_bottom = -254.999
+[node name="ResumeButton" type="Button" parent="Pause"]
+margin_left = 777.866
+margin_top = 455.315
+margin_right = 927.866
+margin_bottom = 605.315
+custom_fonts/font = ExtResource( 3 )
+icon = ExtResource( 4 )
+flat = true
+expand_icon = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="[to resume]" type="Label" parent="Pause/Panel/CenterContainer2"]
-margin_left = 82.0
-margin_top = 9.0
-margin_right = 532.0
-margin_bottom = 59.0
-custom_fonts/font = SubResource( 1 )
-custom_colors/font_color = Color( 1, 1, 1, 1 )
-text = "to resume"
-
-[node name="CenterContainer5" type="CenterContainer" parent="Pause/Panel"]
-anchor_right = 1.0
+[node name="QuitButton" type="Button" parent="Pause"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
 anchor_bottom = 1.0
-margin_left = 111.0
-margin_top = 198.0
-margin_right = -45.0
-margin_bottom = -98.9995
+margin_left = 286.433
+margin_top = -390.207
+margin_right = 436.433
+margin_bottom = -240.207
+custom_fonts/font = ExtResource( 3 )
+icon = ExtResource( 5 )
+flat = true
+expand_icon = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="[to return to main menu]" type="Label" parent="Pause/Panel/CenterContainer5"]
-margin_left = 46.0
-margin_top = 24.0
-margin_right = 646.0
-margin_bottom = 127.0
-custom_fonts/font = SubResource( 1 )
-custom_colors/font_color = Color( 1, 1, 1, 1 )
-text = "  to return
-to main menu"
-
-[node name="CenterContainer3" type="CenterContainer" parent="Pause/Panel"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 85.0
-margin_top = 126.0
-margin_right = -555.0
-margin_bottom = -254.999
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="ESC" type="Label" parent="Pause/Panel/CenterContainer3"]
-margin_left = 29.0
-margin_top = 9.0
-margin_right = 179.0
-margin_bottom = 59.0
-custom_fonts/font = SubResource( 1 )
-custom_colors/font_color = Color( 0.972549, 0.819608, 0, 1 )
-text = "ESC"
-
-[node name="CenterContainer4" type="CenterContainer" parent="Pause/Panel"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 124.0
-margin_top = 214.0
-margin_right = -547.0
-margin_bottom = -166.999
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Q" type="Label" parent="Pause/Panel/CenterContainer4"]
-margin_left = 63.0
-margin_top = 9.0
-margin_right = 113.0
-margin_bottom = 59.0
-custom_fonts/font = SubResource( 1 )
-custom_colors/font_color = Color( 0.972549, 0.819608, 0, 1 )
-text = "Q"
+[connection signal="pressed" from="Pause/ResumeButton" to="Pause" method="_on_ResumeButton_pressed"]
+[connection signal="pressed" from="Pause/QuitButton" to="Pause" method="_on_QuitButton_pressed"]

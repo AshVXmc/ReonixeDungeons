@@ -32,7 +32,7 @@ func _process(delta):
 		current_selection -= 1
 		set_current_selection(current_selection)	
 	elif Input.is_action_just_pressed("ui_accept"):
-		handle_selection(current_selection)				
+		handle_selection(current_selection)
 
 func set_current_selection(_current_selection):
 	start_selector.text = ""

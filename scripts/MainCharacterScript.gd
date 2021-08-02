@@ -161,7 +161,6 @@ func knock_up():
 		velocity.y += 900
 		yield(get_tree().create_timer(0.75), "timeout")
 		
-		
 
 
 func afterDamaged():
@@ -194,13 +193,13 @@ func knockback(enemyPos_x : float, enemyPos_y : float):
 	# Don't judge my code for this part >:(
 	is_knocked_back = true
 	if position.x < enemyPos_x and !$Sprite.flip_h:
-		velocity.x = 1500
-	if position.x > enemyPos_x and !$Sprite.flip_h:
-		velocity.x = -1500	
-	if position.x > enemyPos_x and $Sprite.flip_h:
-		velocity.x = 1500	
-	if position.x < enemyPos_x and $Sprite.flip_h:
 		velocity.x = -1500
+	if position.x > enemyPos_x and !$Sprite.flip_h:
+		velocity.x = 1500	
+	if position.x > enemyPos_x and $Sprite.flip_h:
+		velocity.x = -1500	
+	if position.x < enemyPos_x and $Sprite.flip_h:
+		velocity.x = 1500
 
 	if position.y < enemyPos_y:
 		velocity.y = JUMP_POWER * 0.3
@@ -215,6 +214,7 @@ func knockback(enemyPos_x : float, enemyPos_y : float):
 	Input.action_release("jump")
 	Input.action_release("ui_attack")
 	Input.action_release("ui_up")
+
 		
 func dash():
 	if is_on_floor():

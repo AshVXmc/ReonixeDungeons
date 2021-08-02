@@ -1,8 +1,8 @@
 extends KinematicBody2D
 
-const TYPE = "Enemy"
-const SPEED = 155
-var velocity = Vector2.ZERO
+const TYPE : String = "Enemy"
+const SPEED : int = 155
+var velocity: Vector2 = Vector2.ZERO
 var is_dead : bool = false
 var health : int = 1
 var direction : int = 1

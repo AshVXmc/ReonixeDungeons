@@ -2,8 +2,8 @@ extends KinematicBody2D
 
 var velocity = Vector2()
 var HP = 2
-var direction : int = 1
 var is_dead : bool = false 
+var direction : int = 1
 const TYPE : String = "Enemy"
 const FLOOR = Vector2(0, -1)
 const SPEED : int = 100
@@ -27,8 +27,6 @@ func _physics_process(delta):
 	if is_on_wall() or !$RayCast2D.is_colliding():
 		direction *= -1
 		$RayCast2D.position.x *= -1
-	
-	
 
 func _on_Area2D_area_entered(area):
 	if area.is_in_group("Sword") and HP > 0:
