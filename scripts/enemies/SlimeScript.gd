@@ -42,8 +42,7 @@ func _on_Area2D_area_entered(area):
 	var loot = LOOT.instance()
 	var lootrng : RandomNumberGenerator = RandomNumberGenerator.new()
 	lootrng.randomize()
-	var randomint = lootrng.randi_range(1,3)
-	print(randomint)	
+	var randomint = lootrng.randi_range(1,5)	
 	if HP <= 0:
 		if randomint == 1:
 			get_parent().add_child(loot)

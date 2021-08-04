@@ -12,6 +12,7 @@ config_version=4
 
 config/name="ReonixeDungeons"
 run/main_scene="res://scenes/menus/MainMenu.tscn"
+config/use_custom_user_dir=true
 boot_splash/fullsize=false
 boot_splash/use_filter=false
 config/icon="res://icon.png"

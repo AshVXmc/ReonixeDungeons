@@ -4,7 +4,7 @@
 [ext_resource path="res://scripts/enemies/GoblinScript.gd" type="Script" id=2]
 
 [sub_resource type="CapsuleShape2D" id=1]
-radius = 33.5
+radius = 37.1649
 height = 40.2918
 
 [sub_resource type="RectangleShape2D" id=2]
@@ -38,6 +38,7 @@ shape = SubResource( 2 )
 ]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2( -0.471924, 2.35968 )
 shape = SubResource( 1 )
 
 [node name="RayCast2D" type="RayCast2D" parent="."]

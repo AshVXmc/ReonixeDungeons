@@ -33,9 +33,9 @@ margin_bottom = 1080.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
 margin_left = 288.0
-margin_top = 390.0
+margin_top = 363.0
 margin_right = 1632.0
-margin_bottom = 690.0
+margin_bottom = 717.0
 
 [node name="CenterContainer" type="CenterContainer" parent="CenterContainer/VBoxContainer"]
 margin_right = 1344.0
@@ -92,10 +92,50 @@ custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_y = 0
 text = "New Game"
 
-[node name="CenterContainer3" type="CenterContainer" parent="CenterContainer/VBoxContainer"]
+[node name="CenterContainer6" type="CenterContainer" parent="CenterContainer/VBoxContainer"]
 margin_top = 142.0
 margin_right = 1344.0
 margin_bottom = 192.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/VBoxContainer/CenterContainer6"]
+margin_left = 420.0
+margin_right = 924.0
+margin_bottom = 50.0
+
+[node name="LoadContainer" type="CenterContainer" parent="CenterContainer/VBoxContainer/CenterContainer6/VBoxContainer"]
+margin_right = 504.0
+margin_bottom = 50.0
+size_flags_horizontal = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/VBoxContainer/CenterContainer6/VBoxContainer/LoadContainer"]
+margin_right = 504.0
+margin_bottom = 50.0
+
+[node name="Arrow_Picker" type="Label" parent="CenterContainer/VBoxContainer/CenterContainer6/VBoxContainer/LoadContainer/HBoxContainer"]
+margin_right = 50.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 7, 0 )
+custom_fonts/font = ExtResource( 4 )
+custom_colors/font_color = Color( 0.972549, 0.819608, 0, 1 )
+custom_constants/shadow_offset_y = 0
+custom_constants/shadow_as_outline = 5
+text = ">"
+uppercase = true
+
+[node name="Start" type="Label" parent="CenterContainer/VBoxContainer/CenterContainer6/VBoxContainer/LoadContainer/HBoxContainer"]
+margin_left = 54.0
+margin_right = 504.0
+margin_bottom = 50.0
+custom_fonts/font = ExtResource( 4 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_y = 0
+text = "Load Game"
+
+[node name="CenterContainer3" type="CenterContainer" parent="CenterContainer/VBoxContainer"]
+margin_top = 196.0
+margin_right = 1344.0
+margin_bottom = 246.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/VBoxContainer/CenterContainer3"]
 margin_left = 370.0
@@ -133,9 +173,9 @@ custom_constants/shadow_offset_y = 0
 text = "How to play"
 
 [node name="CenterContainer4" type="CenterContainer" parent="CenterContainer/VBoxContainer"]
-margin_top = 196.0
+margin_top = 250.0
 margin_right = 1344.0
-margin_bottom = 246.0
+margin_bottom = 300.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/VBoxContainer/CenterContainer4"]
 margin_left = 470.0
@@ -173,9 +213,9 @@ custom_constants/shadow_offset_y = 0
 text = "Options"
 
 [node name="CenterContainer5" type="CenterContainer" parent="CenterContainer/VBoxContainer"]
-margin_top = 250.0
+margin_top = 304.0
 margin_right = 1344.0
-margin_bottom = 300.0
+margin_bottom = 354.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/VBoxContainer/CenterContainer5"]
 margin_left = 545.0

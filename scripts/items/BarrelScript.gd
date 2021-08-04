@@ -2,8 +2,8 @@ extends StaticBody2D
 
 var broken : bool = false
 const LOOT : PackedScene = preload("res://scenes/items/HealthPot.tscn")
-const MAX : int = 3
-const MIN : int = 1
+export var MAX : int = 3
+export var MIN : int = 1
 
 
 func _process(_delta):

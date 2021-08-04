@@ -20,6 +20,7 @@ var can_dash : bool = false
 var dashdirection : Vector2 = Vector2(1,0)
 var repulsion : Vector2 = Vector2()
 var knockback_power : int = 200
+var can_be_knocked : bool = true
 
 const TYPE : String = "Player"
 const SPEED : int = 325
@@ -50,19 +51,25 @@ func _physics_process(_delta):
 			useItems()
 			shoot()
 			# Movement controls
+			if velocity.x == 0 and !is_attacking:
+				$Sprite.play("Idle")
 			if Input.is_action_pressed("right") and !is_attacking and !is_knocked_back:
-				velocity.x = SPEED;
+				velocity.x = SPEED
 				$Sprite.play("Walk")
 				$Sprite.flip_h = false
+				if velocity.x == 0 and !is_attacking:
+					$Sprite.play("Idle")
 				if sign($Position2D.position.x) == -1:
 					$Position2D.position.x *= -1
 				if Input.is_action_just_released("right"):
 					$Sprite.play("Walk")
 				get_node("AttackCollision").set_scale(Vector2(1,1))
 			elif Input.is_action_pressed("left") and !is_attacking:
-				velocity.x = -SPEED;
+				velocity.x = -SPEED
 				$Sprite.play("Walk")
 				$Sprite.flip_h = true
+				if velocity.x == 0 and !is_attacking:
+					$Sprite.play("Idle")
 				if sign($Position2D.position.x) == 1:
 					$Position2D.position.x *= -1
 				get_node("AttackCollision").set_scale(Vector2(-1,1))	
@@ -91,7 +98,7 @@ func useItems():
 				emit_signal("life_changed", Global.hearts)
 				
 func shoot():
-	if Input.is_action_just_pressed("ui_shoot")	and !is_attacking and Global.mana >= 2:
+	if Input.is_action_just_pressed("ui_shoot")	and !is_attacking and Global.mana >= 1:
 			var fireball = FIREBALL.instance()
 			if sign($Position2D.position.x) == -1:
 				fireball.flip_fireball(-1)
@@ -99,7 +106,7 @@ func shoot():
 				fireball.flip_fireball(1)	
 			get_parent().add_child(fireball)
 			fireball.position = $Position2D.global_position
-			Global.mana -= 2
+			Global.mana -= 1
 			emit_signal("mana_changed", Global.mana)
 			is_attacking = false
 			$AttackCollision/CollisionShape2D.disabled = true
@@ -144,24 +151,22 @@ func _on_Area2D_area_entered(area):
 		if area.is_in_group("Enemy"):
 			Global.hearts -= 0.5
 			afterDamaged()
-			knockback(area.position.x, area.position.y)
+			knockback()
 		if area.is_in_group("Enemy2"):
 			Global.hearts -= 1
 			afterDamaged()
-			knockback(area.position.x, area.position.y)
+			knockback()
 	if area.is_in_group("Transporter"):
 		emit_signal("level_changed")
 	if area.is_in_group("Spike"):
 		Global.hearts -= 0.5
 		afterDamaged()
-		knock_up()
 
-func knock_up():
-	if Input.is_action_pressed("ui_down") and is_attacking and $KnockUpTimer.is_stopped():
-		velocity.y += 900
-		yield(get_tree().create_timer(0.75), "timeout")
-		
-
+func attack_knock():
+	if !$Sprite.flip_h:
+		velocity.x = -350
+	elif $Sprite.flip_h:
+		velocity.x = 350
 
 func afterDamaged():
 	inv_timer.start() 
@@ -178,44 +183,42 @@ func _on_AttackCollision_area_entered(area):
 	lootrng.randomize()
 	var randomint = lootrng.randi_range(1,2)
 	if area.is_in_group("Enemy") and !$AttackCollision/CollisionShape2D.disabled:
-		knock_up()
+		attack_knock()
 		if Global.mana < Global.max_mana:
 			Global.mana += 1
 			emit_signal("mana_changed", Global.mana)
+			
 	if area.is_in_group("Enemy2") and !$AttackCollision/CollisionShape2D.disabled:
-		knock_up()
+		attack_knock()
 		if Global.mana < Global.max_mana:
 			Global.mana += randomint
 			emit_signal("mana_changed", Global.mana)	
 			
 
-func knockback(enemyPos_x : float, enemyPos_y : float):
+func knockback():
 	# Don't judge my code for this part >:(
-	is_knocked_back = true
-	if position.x < enemyPos_x and !$Sprite.flip_h:
-		velocity.x = -1500
-	if position.x > enemyPos_x and !$Sprite.flip_h:
-		velocity.x = 1500	
-	if position.x > enemyPos_x and $Sprite.flip_h:
-		velocity.x = -1500	
-	if position.x < enemyPos_x and $Sprite.flip_h:
-		velocity.x = 1500
-
-	if position.y < enemyPos_y:
-		velocity.y = JUMP_POWER * 0.3
-	if position.y > enemyPos_y:
-		velocity.y = JUMP_POWER * 0.3
+	if can_be_knocked:
+		$KnockbackCooldownTimer.start()
+		is_knocked_back = true
+		can_be_knocked = false
 	if !$Sprite.flip_h:
 		dashdirection = Vector2(1,0)
 	if $Sprite.flip_h:
 		dashdirection = Vector2(-1, 0)	
-	Input.action_release("left")
-	Input.action_release("right")
 	Input.action_release("jump")
 	Input.action_release("ui_attack")
 	Input.action_release("ui_up")
 
-		
+func _on_LeftDetector_area_entered(area):
+	if area.is_in_group("Enemy") or area.is_in_group("Enemy2") and is_knocked_back:
+		velocity.x = 1500
+		$KnockbackCooldownTimer.start()
+		velocity.y = JUMP_POWER * 0.25
+func _on_RightDectector_area_entered(area):
+	if area.is_in_group("Enemy") or area.is_in_group("Enemy2") and is_knocked_back:
+		velocity.x = -1500
+		$KnockbackCooldownTimer.start()
+		velocity.y = JUMP_POWER * 0.25
 func dash():
 	if is_on_floor():
 		can_dash = true
@@ -224,6 +227,7 @@ func dash():
 	if $Sprite.flip_h:
 		dashdirection = Vector2(-1, 0)		
 	if Input.is_action_just_pressed("ui_dash") and Global.mana >= 1 and can_dash:
+		$Sprite.play("Dash")
 		velocity.x = 0
 		velocity = dashdirection.normalized() * 3500
 		can_dash = false
@@ -262,9 +266,21 @@ func _on_AttackTimer_timeout():
 
 func _on_DashCooldown_timeout():
 	is_dashing = false
+	$Sprite.play("Idle")
 	
 func _on_KnockbackTimer_timeout():
 	is_knocked_back = false
+	repulsion.x = knockback_power
+	velocity.x = 0
 
-func _on_KnockUpTimer_timeout():
-	pass
+func _on_KnockbackCooldownTimer_timeout():
+	can_be_knocked = true
+	Input.action_release("left")
+	Input.action_release("right")
+
+
+
+
+
+
+

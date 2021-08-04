@@ -5,13 +5,13 @@
 
 [resource]
 animations = [ {
-"frames": [ ExtResource( 2 ), ExtResource( 1 ) ],
-"loop": true,
-"name": "Opened",
-"speed": 3.0
-}, {
 "frames": [ ExtResource( 2 ) ],
 "loop": true,
 "name": "Idle",
+"speed": 1.0
+}, {
+"frames": [ ExtResource( 1 ) ],
+"loop": true,
+"name": "Opened",
 "speed": 5.0
 } ]

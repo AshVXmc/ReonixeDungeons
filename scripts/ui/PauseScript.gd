@@ -13,9 +13,17 @@ func _process(delta):
 func _on_ResumeButton_pressed():
 	get_tree().paused = false
 	notpaused = true
-	visible = false	
+	visible = false
+
+
+func _on_SaveButton_pressed():
+	Global.save_player_data()
+
 	
 func _on_QuitButton_pressed():
 	if !notpaused:
 		get_tree().paused = false
 		get_tree().change_scene("res://scenes/menus/MainMenu.tscn")
+
+
+

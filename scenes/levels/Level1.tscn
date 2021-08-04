@@ -4,7 +4,7 @@
 [ext_resource path="res://assets/misc/health_pot.png" type="Texture" id=2]
 [ext_resource path="res://scenes/MainCharacter.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scenes/menus/PauseUI.tscn" type="PackedScene" id=4]
-[ext_resource path="res://scenes/items/HealthPot.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scenes/items/ChestSilver.tscn" type="PackedScene" id=5]
 [ext_resource path="res://scripts/ui/ManaScript.gd" type="Script" id=6]
 [ext_resource path="res://scripts/LifeScript.gd" type="Script" id=7]
 [ext_resource path="res://scripts/ui/HealthPotControlScript.gd" type="Script" id=8]
@@ -243,7 +243,7 @@ __meta__ = {
 [node name="PauseUI" parent="." instance=ExtResource( 4 )]
 
 [node name="Player" parent="." instance=ExtResource( 3 )]
-position = Vector2( -791.024, 546.441 )
+position = Vector2( 121.864, 380.584 )
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position = Vector2( -3.74255, -3.10146 )
@@ -365,13 +365,13 @@ position = Vector2( 3887.84, 527.974 )
 position = Vector2( 3984.94, 527.413 )
 
 [node name="Bat" parent="." instance=ExtResource( 17 )]
-position = Vector2( 969.249, 70.0881 )
+position = Vector2( 1370.7, 61.5096 )
 
 [node name="Bat2" parent="." instance=ExtResource( 17 )]
 position = Vector2( 3416.83, 493.703 )
 
 [node name="Bat3" parent="." instance=ExtResource( 17 )]
-position = Vector2( 2225.13, 210.666 )
+position = Vector2( 2497.44, 354.829 )
 
 [node name="Bat4" parent="." instance=ExtResource( 17 )]
 position = Vector2( 960.825, 1254.17 )
@@ -384,11 +384,11 @@ position = Vector2( 1488.18, 245.527 )
 scale = Vector2( 1.5, 1.5 )
 
 [node name="Barrel5" parent="." instance=ExtResource( 18 )]
-position = Vector2( -673.919, 51.3035 )
+position = Vector2( 781.81, 341.736 )
 scale = Vector2( 1.5, 1.5 )
 
 [node name="Barrel6" parent="." instance=ExtResource( 18 )]
-position = Vector2( -608.669, 51.8542 )
+position = Vector2( 462.191, 149.853 )
 scale = Vector2( 1.5, 1.5 )
 
 [node name="Barrel2" parent="." instance=ExtResource( 18 )]
@@ -423,5 +423,5 @@ position = Vector2( -590.742, 1387.68 )
 [node name="LimeSlime" parent="." instance=ExtResource( 22 )]
 position = Vector2( 1383.95, 1525.18 )
 
-[node name="RigidBody2D" parent="." instance=ExtResource( 5 )]
-position = Vector2( -387.493, 267.603 )
+[node name="Chest" parent="." instance=ExtResource( 5 )]
+position = Vector2( -761.117, 51.646 )

@@ -4,24 +4,21 @@
 [ext_resource path="res://scripts/FireballScript.gd" type="Script" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 31.7871, 29.9609 )
+extents = Vector2( 32.7093, 24.063 )
 
 [node name="Fireball" type="Area2D" groups=[
 "Fireball",
 ]]
 script = ExtResource( 2 )
-__meta__ = {
-"_edit_group_": true
-}
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
-scale = Vector2( 5, 5 )
+scale = Vector2( 4.5, 4.5 )
 frames = ExtResource( 1 )
 animation = "Destroyed"
 frame = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 0.465371, -1.02097 )
+position = Vector2( 0.200509, 1.89254 )
 shape = SubResource( 1 )
 
 [node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="."]

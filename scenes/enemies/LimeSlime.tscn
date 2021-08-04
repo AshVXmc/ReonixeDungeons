@@ -45,5 +45,7 @@ cast_to = Vector2( 0, 28 )
 wait_time = 0.3
 one_shot = true
 
+[node name="Position2D" type="Position2D" parent="."]
+
 [connection signal="area_entered" from="Area2D" to="." method="_on_Area2D_area_entered"]
 [connection signal="timeout" from="HurtTimer" to="." method="_on_HurtTimer_timeout"]

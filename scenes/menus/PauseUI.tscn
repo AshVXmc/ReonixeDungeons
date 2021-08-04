@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://assets/fonts/PressStart2P-Regular.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://scripts/ui/PauseScript.gd" type="Script" id=2]
 [ext_resource path="res://assets/fonts/buttonfont.tres" type="DynamicFont" id=3]
 [ext_resource path="res://assets/UI/pauseicon.png" type="Texture" id=4]
 [ext_resource path="res://assets/UI/mainmenubutton.png" type="Texture" id=5]
+[ext_resource path="res://assets/UI/savebutton.png" type="Texture" id=6]
 
 [sub_resource type="DynamicFont" id=1]
 size = 50
@@ -53,12 +54,24 @@ custom_colors/font_color = Color( 0.337255, 0.498039, 0.290196, 1 )
 text = "PAUSED"
 
 [node name="ResumeButton" type="Button" parent="Pause"]
-margin_left = 777.866
-margin_top = 455.315
-margin_right = 927.866
-margin_bottom = 605.315
+margin_left = 680.647
+margin_top = 453.427
+margin_right = 830.647
+margin_bottom = 603.427
 custom_fonts/font = ExtResource( 3 )
 icon = ExtResource( 4 )
+flat = true
+expand_icon = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SaveButton" type="Button" parent="Pause"]
+margin_left = 872.34
+margin_top = 454.084
+margin_right = 1022.34
+margin_bottom = 604.084
+icon = ExtResource( 6 )
 flat = true
 expand_icon = true
 __meta__ = {
@@ -70,9 +83,9 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-margin_left = 286.433
+margin_left = 371.382
 margin_top = -390.207
-margin_right = 436.433
+margin_right = 521.382
 margin_bottom = -240.207
 custom_fonts/font = ExtResource( 3 )
 icon = ExtResource( 5 )
@@ -83,4 +96,5 @@ __meta__ = {
 }
 
 [connection signal="pressed" from="Pause/ResumeButton" to="Pause" method="_on_ResumeButton_pressed"]
+[connection signal="pressed" from="Pause/SaveButton" to="Pause" method="_on_SaveButton_pressed"]
 [connection signal="pressed" from="Pause/QuitButton" to="Pause" method="_on_QuitButton_pressed"]

@@ -1,10 +1,9 @@
-[gd_scene load_steps=27 format=2]
+[gd_scene load_steps=26 format=2]
 
 [ext_resource path="res://tilesets/one_way_tilesets.tres" type="TileSet" id=1]
 [ext_resource path="res://assets/misc/health_pot.png" type="Texture" id=2]
 [ext_resource path="res://scenes/MainCharacter.tscn" type="PackedScene" id=3]
-[ext_resource path="res://assets/fonts/PressStart2P-Regular.ttf" type="DynamicFontData" id=4]
-[ext_resource path="res://scripts/ui/PauseScript.gd" type="Script" id=5]
+[ext_resource path="res://scenes/menus/PauseUI.tscn" type="PackedScene" id=4]
 [ext_resource path="res://scripts/ui/ManaScript.gd" type="Script" id=6]
 [ext_resource path="res://scripts/LifeScript.gd" type="Script" id=7]
 [ext_resource path="res://scripts/ui/HealthPotControlScript.gd" type="Script" id=8]
@@ -17,10 +16,7 @@
 [ext_resource path="res://assets/UI/heart.png" type="Texture" id=15]
 [ext_resource path="res://assets/terrain/brick_terrain_floor.png" type="Texture" id=16]
 [ext_resource path="res://scenes/enemies/Slime.tscn" type="PackedScene" id=17]
-
-[sub_resource type="DynamicFont" id=1]
-size = 50
-font_data = ExtResource( 4 )
+[ext_resource path="res://scenes/items/ChestSilver.tscn" type="PackedScene" id=18]
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 192.419, 3.37155 )
@@ -158,129 +154,6 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="PauseUI" type="CanvasLayer" parent="."]
-
-[node name="Pause" type="Control" parent="PauseUI"]
-pause_mode = 2
-visible = false
-margin_right = 1377.0
-margin_bottom = 845.0
-script = ExtResource( 5 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Panel" type="Panel" parent="PauseUI/Pause"]
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = -848.0
-margin_top = -523.082
-margin_bottom = -74.0825
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="CenterContainer" type="CenterContainer" parent="PauseUI/Pause/Panel"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_top = 17.0
-margin_bottom = -331.999
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="[Paused]" type="Label" parent="PauseUI/Pause/Panel/CenterContainer"]
-margin_left = 274.0
-margin_top = 25.0
-margin_right = 574.0
-margin_bottom = 75.0
-custom_fonts/font = SubResource( 1 )
-custom_colors/font_color = Color( 0.337255, 0.498039, 0.290196, 1 )
-text = "Paused"
-
-[node name="CenterContainer2" type="CenterContainer" parent="PauseUI/Pause/Panel"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 207.0
-margin_top = 126.0
-margin_right = -26.0
-margin_bottom = -254.999
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="[to resume]" type="Label" parent="PauseUI/Pause/Panel/CenterContainer2"]
-margin_left = 82.0
-margin_top = 9.0
-margin_right = 532.0
-margin_bottom = 59.0
-custom_fonts/font = SubResource( 1 )
-custom_colors/font_color = Color( 1, 1, 1, 1 )
-text = "to resume"
-
-[node name="CenterContainer5" type="CenterContainer" parent="PauseUI/Pause/Panel"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 111.0
-margin_top = 198.0
-margin_right = -45.0
-margin_bottom = -98.9995
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="[to return to main menu]" type="Label" parent="PauseUI/Pause/Panel/CenterContainer5"]
-margin_left = 46.0
-margin_top = 24.0
-margin_right = 646.0
-margin_bottom = 127.0
-custom_fonts/font = SubResource( 1 )
-custom_colors/font_color = Color( 1, 1, 1, 1 )
-text = "  to return
-to main menu"
-
-[node name="CenterContainer3" type="CenterContainer" parent="PauseUI/Pause/Panel"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 85.0
-margin_top = 126.0
-margin_right = -555.0
-margin_bottom = -254.999
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="ESC" type="Label" parent="PauseUI/Pause/Panel/CenterContainer3"]
-margin_left = 29.0
-margin_top = 9.0
-margin_right = 179.0
-margin_bottom = 59.0
-custom_fonts/font = SubResource( 1 )
-custom_colors/font_color = Color( 0.972549, 0.819608, 0, 1 )
-text = "ESC"
-
-[node name="CenterContainer4" type="CenterContainer" parent="PauseUI/Pause/Panel"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 124.0
-margin_top = 214.0
-margin_right = -547.0
-margin_bottom = -166.999
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Q" type="Label" parent="PauseUI/Pause/Panel/CenterContainer4"]
-margin_left = 63.0
-margin_top = 9.0
-margin_right = 113.0
-margin_bottom = 59.0
-custom_fonts/font = SubResource( 1 )
-custom_colors/font_color = Color( 0.972549, 0.819608, 0, 1 )
-text = "Q"
-
 [node name="HeartUI" type="CanvasLayer" parent="."]
 
 [node name="Life" type="Control" parent="HeartUI"]
@@ -394,7 +267,7 @@ __meta__ = {
 }
 
 [node name="Player" parent="." instance=ExtResource( 3 )]
-position = Vector2( -688.971, 450.589 )
+position = Vector2( -688.971, 522.633 )
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position = Vector2( -3.74255, -3.10146 )
@@ -408,3 +281,8 @@ editor_draw_limits = true
 
 [node name="Slime" parent="." instance=ExtResource( 17 )]
 position = Vector2( -365.103, 532.772 )
+
+[node name="Chest" parent="." instance=ExtResource( 18 )]
+position = Vector2( 187.109, 439.396 )
+
+[node name="PauseUI" parent="." instance=ExtResource( 4 )]
