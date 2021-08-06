@@ -3,5 +3,5 @@
 [ext_resource path="res://assets/fonts/PressStart2P-Regular.ttf" type="DynamicFontData" id=1]
 
 [resource]
-size = 50
+size = 65
 font_data = ExtResource( 1 )

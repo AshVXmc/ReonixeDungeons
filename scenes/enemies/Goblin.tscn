@@ -8,9 +8,10 @@ radius = 37.1649
 height = 40.2918
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 96.7965, 43.6666 )
+extents = Vector2( 125.931, 77.4363 )
 
 [node name="KinematicBody2D" type="KinematicBody2D"]
+position = Vector2( 0.471924, 0 )
 script = ExtResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -24,13 +25,13 @@ animation = "Attacking"
 [node name="Left" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Left"]
-position = Vector2( -125.382, 4.88703 )
+position = Vector2( -151.001, -21.3921 )
 shape = SubResource( 2 )
 
 [node name="Right" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Right"]
-position = Vector2( 121.188, 3.32579 )
+position = Vector2( 142.093, -22.4814 )
 shape = SubResource( 2 )
 
 [node name="Area2D" type="Area2D" parent="." groups=[
@@ -38,7 +39,7 @@ shape = SubResource( 2 )
 ]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2( -0.471924, 2.35968 )
+position = Vector2( 3.02792e-05, 0.471939 )
 shape = SubResource( 1 )
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
@@ -47,14 +48,12 @@ enabled = true
 collision_mask = 3075
 collide_with_areas = true
 
-[node name="Navigation2D" type="Navigation2D" parent="."]
-
 [node name="HurtTimer" type="Timer" parent="."]
 wait_time = 0.3
 one_shot = true
 
 [node name="AttackingTimer" type="Timer" parent="."]
-wait_time = 0.5
+wait_time = 0.75
 one_shot = true
 
 [node name="Position2D" type="Position2D" parent="."]

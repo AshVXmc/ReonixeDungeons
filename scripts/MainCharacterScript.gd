@@ -91,10 +91,12 @@ func _physics_process(_delta):
 
 func useItems():
 	if Input.is_action_just_pressed("slot_1"):
-			if Global.healthpot_amount > 0:
+			if Global.healthpot_amount > 0 and Global.hearts < Global.healthpot_amount:
 				Global.healthpot_amount -= 1
 				emit_signal("healthpot_obtained", Global.healthpot_amount)
-				Global.hearts += Global.max_hearts - Global.hearts
+				Global.hearts += 1
+				if Global.hearts == Global.max_hearts - 0.5:
+					Global.hearts += 0.5
 				emit_signal("life_changed", Global.hearts)
 				
 func shoot():
@@ -220,24 +222,26 @@ func _on_RightDectector_area_entered(area):
 		$KnockbackCooldownTimer.start()
 		velocity.y = JUMP_POWER * 0.25
 func dash():
-	if is_on_floor():
-		can_dash = true
-	if !$Sprite.flip_h:
-		dashdirection = Vector2(1,0)
-	if $Sprite.flip_h:
-		dashdirection = Vector2(-1, 0)		
-	if Input.is_action_just_pressed("ui_dash") and Global.mana >= 1 and can_dash:
-		$Sprite.play("Dash")
-		velocity.x = 0
-		velocity = dashdirection.normalized() * 3500
-		can_dash = false
-		is_dashing = true
-		$DashCooldown.start()
-		Global.mana -= 1
-		emit_signal("mana_changed", Global.mana)
-		is_dashing = false
-		Input.action_release("left")
-		Input.action_release("right")
+	if Global.dash_unlocked:
+		if is_on_floor() and $DashUseTimer.is_stopped():
+			can_dash = true
+		if !$Sprite.flip_h:
+			dashdirection = Vector2(1,0)
+		if $Sprite.flip_h:
+			dashdirection = Vector2(-1, 0)		
+		if Input.is_action_just_pressed("ui_dash") and can_dash and $DashUseTimer.is_stopped():
+			can_dash = false
+			$DashUseTimer.start()
+			$Sprite.play("Dash")
+			velocity.x = 0
+			velocity = dashdirection.normalized() * 3000
+			can_dash = false
+			is_dashing = true
+			$DashCooldown.start()
+			emit_signal("mana_changed", Global.mana)
+			is_dashing = false
+			Input.action_release("left")
+			Input.action_release("right")
 
 			
 # Player death	
@@ -279,8 +283,5 @@ func _on_KnockbackCooldownTimer_timeout():
 	Input.action_release("right")
 
 
-
-
-
-
-
+func _on_DashUseTimer_timeout():
+	can_dash = true 

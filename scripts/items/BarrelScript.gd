@@ -2,7 +2,7 @@ extends StaticBody2D
 
 var broken : bool = false
 const LOOT : PackedScene = preload("res://scenes/items/HealthPot.tscn")
-export var MAX : int = 3
+export var MAX : int = 5
 export var MIN : int = 1
 
 
@@ -21,8 +21,6 @@ func _on_Area2D_area_entered(area):
 		var lootrng : RandomNumberGenerator = RandomNumberGenerator.new()
 		lootrng.randomize()
 		var randomint = lootrng.randi_range(MIN,MAX)
-		print(randomint)
-
 		if randomint == MIN:
 			get_parent().add_child(loot)
 			loot.position = $Position2D.global_position

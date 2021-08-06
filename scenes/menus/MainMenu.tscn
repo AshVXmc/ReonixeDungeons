@@ -33,9 +33,9 @@ margin_bottom = 1080.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
 margin_left = 288.0
-margin_top = 363.0
+margin_top = 325.0
 margin_right = 1632.0
-margin_bottom = 717.0
+margin_bottom = 754.0
 
 [node name="CenterContainer" type="CenterContainer" parent="CenterContainer/VBoxContainer"]
 margin_right = 1344.0
@@ -55,25 +55,25 @@ uppercase = true
 [node name="CenterContainer2" type="CenterContainer" parent="CenterContainer/VBoxContainer"]
 margin_top = 88.0
 margin_right = 1344.0
-margin_bottom = 138.0
+margin_bottom = 153.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/VBoxContainer/CenterContainer2"]
-margin_left = 445.0
-margin_right = 899.0
-margin_bottom = 50.0
+margin_left = 377.0
+margin_right = 966.0
+margin_bottom = 65.0
 
 [node name="StartContainer" type="CenterContainer" parent="CenterContainer/VBoxContainer/CenterContainer2/VBoxContainer"]
-margin_right = 454.0
-margin_bottom = 50.0
+margin_right = 589.0
+margin_bottom = 65.0
 size_flags_horizontal = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/VBoxContainer/CenterContainer2/VBoxContainer/StartContainer"]
-margin_right = 454.0
-margin_bottom = 50.0
+margin_right = 589.0
+margin_bottom = 65.0
 
 [node name="Arrow_Picker" type="Label" parent="CenterContainer/VBoxContainer/CenterContainer2/VBoxContainer/StartContainer/HBoxContainer"]
-margin_right = 50.0
-margin_bottom = 50.0
+margin_right = 65.0
+margin_bottom = 65.0
 rect_min_size = Vector2( 7, 0 )
 custom_fonts/font = ExtResource( 4 )
 custom_colors/font_color = Color( 0.972549, 0.819608, 0, 1 )
@@ -83,9 +83,9 @@ text = ">"
 uppercase = true
 
 [node name="Start" type="Label" parent="CenterContainer/VBoxContainer/CenterContainer2/VBoxContainer/StartContainer/HBoxContainer"]
-margin_left = 54.0
-margin_right = 454.0
-margin_bottom = 50.0
+margin_left = 69.0
+margin_right = 589.0
+margin_bottom = 65.0
 custom_fonts/font = ExtResource( 4 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
@@ -93,27 +93,27 @@ custom_constants/shadow_offset_y = 0
 text = "New Game"
 
 [node name="CenterContainer6" type="CenterContainer" parent="CenterContainer/VBoxContainer"]
-margin_top = 142.0
+margin_top = 157.0
 margin_right = 1344.0
-margin_bottom = 192.0
+margin_bottom = 222.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/VBoxContainer/CenterContainer6"]
-margin_left = 420.0
-margin_right = 924.0
-margin_bottom = 50.0
+margin_left = 345.0
+margin_right = 999.0
+margin_bottom = 65.0
 
 [node name="LoadContainer" type="CenterContainer" parent="CenterContainer/VBoxContainer/CenterContainer6/VBoxContainer"]
-margin_right = 504.0
-margin_bottom = 50.0
+margin_right = 654.0
+margin_bottom = 65.0
 size_flags_horizontal = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/VBoxContainer/CenterContainer6/VBoxContainer/LoadContainer"]
-margin_right = 504.0
-margin_bottom = 50.0
+margin_right = 654.0
+margin_bottom = 65.0
 
 [node name="Arrow_Picker" type="Label" parent="CenterContainer/VBoxContainer/CenterContainer6/VBoxContainer/LoadContainer/HBoxContainer"]
-margin_right = 50.0
-margin_bottom = 50.0
+margin_right = 65.0
+margin_bottom = 65.0
 rect_min_size = Vector2( 7, 0 )
 custom_fonts/font = ExtResource( 4 )
 custom_colors/font_color = Color( 0.972549, 0.819608, 0, 1 )
@@ -123,9 +123,9 @@ text = ">"
 uppercase = true
 
 [node name="Start" type="Label" parent="CenterContainer/VBoxContainer/CenterContainer6/VBoxContainer/LoadContainer/HBoxContainer"]
-margin_left = 54.0
-margin_right = 504.0
-margin_bottom = 50.0
+margin_left = 69.0
+margin_right = 654.0
+margin_bottom = 65.0
 custom_fonts/font = ExtResource( 4 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
@@ -133,27 +133,27 @@ custom_constants/shadow_offset_y = 0
 text = "Load Game"
 
 [node name="CenterContainer3" type="CenterContainer" parent="CenterContainer/VBoxContainer"]
-margin_top = 196.0
+margin_top = 226.0
 margin_right = 1344.0
-margin_bottom = 246.0
+margin_bottom = 291.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/VBoxContainer/CenterContainer3"]
-margin_left = 370.0
-margin_right = 974.0
-margin_bottom = 50.0
+margin_left = 280.0
+margin_right = 1064.0
+margin_bottom = 65.0
 
 [node name="Howtoplaycontainer" type="CenterContainer" parent="CenterContainer/VBoxContainer/CenterContainer3/VBoxContainer"]
-margin_right = 604.0
-margin_bottom = 50.0
+margin_right = 784.0
+margin_bottom = 65.0
 size_flags_horizontal = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/VBoxContainer/CenterContainer3/VBoxContainer/Howtoplaycontainer"]
-margin_right = 604.0
-margin_bottom = 50.0
+margin_right = 784.0
+margin_bottom = 65.0
 
 [node name="Arrow_Picker" type="Label" parent="CenterContainer/VBoxContainer/CenterContainer3/VBoxContainer/Howtoplaycontainer/HBoxContainer"]
-margin_right = 50.0
-margin_bottom = 50.0
+margin_right = 65.0
+margin_bottom = 65.0
 rect_min_size = Vector2( 7, 0 )
 custom_fonts/font = ExtResource( 4 )
 custom_colors/font_color = Color( 0.972549, 0.819608, 0, 1 )
@@ -163,9 +163,9 @@ text = ">"
 uppercase = true
 
 [node name="Howtoplay" type="Label" parent="CenterContainer/VBoxContainer/CenterContainer3/VBoxContainer/Howtoplaycontainer/HBoxContainer"]
-margin_left = 54.0
-margin_right = 604.0
-margin_bottom = 50.0
+margin_left = 69.0
+margin_right = 784.0
+margin_bottom = 65.0
 custom_fonts/font = ExtResource( 4 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
@@ -173,27 +173,27 @@ custom_constants/shadow_offset_y = 0
 text = "How to play"
 
 [node name="CenterContainer4" type="CenterContainer" parent="CenterContainer/VBoxContainer"]
-margin_top = 250.0
+margin_top = 295.0
 margin_right = 1344.0
-margin_bottom = 300.0
+margin_bottom = 360.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/VBoxContainer/CenterContainer4"]
-margin_left = 470.0
-margin_right = 874.0
-margin_bottom = 50.0
+margin_left = 410.0
+margin_right = 934.0
+margin_bottom = 65.0
 
 [node name="Optionscontainer" type="CenterContainer" parent="CenterContainer/VBoxContainer/CenterContainer4/VBoxContainer"]
-margin_right = 404.0
-margin_bottom = 50.0
+margin_right = 524.0
+margin_bottom = 65.0
 size_flags_horizontal = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/VBoxContainer/CenterContainer4/VBoxContainer/Optionscontainer"]
-margin_right = 404.0
-margin_bottom = 50.0
+margin_right = 524.0
+margin_bottom = 65.0
 
 [node name="Arrow_Picker" type="Label" parent="CenterContainer/VBoxContainer/CenterContainer4/VBoxContainer/Optionscontainer/HBoxContainer"]
-margin_right = 50.0
-margin_bottom = 50.0
+margin_right = 65.0
+margin_bottom = 65.0
 rect_min_size = Vector2( 7, 0 )
 custom_fonts/font = ExtResource( 4 )
 custom_colors/font_color = Color( 0.972549, 0.819608, 0, 1 )
@@ -203,9 +203,9 @@ text = ">"
 uppercase = true
 
 [node name="options" type="Label" parent="CenterContainer/VBoxContainer/CenterContainer4/VBoxContainer/Optionscontainer/HBoxContainer"]
-margin_left = 54.0
-margin_right = 404.0
-margin_bottom = 50.0
+margin_left = 69.0
+margin_right = 524.0
+margin_bottom = 65.0
 custom_fonts/font = ExtResource( 4 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
@@ -213,27 +213,27 @@ custom_constants/shadow_offset_y = 0
 text = "Options"
 
 [node name="CenterContainer5" type="CenterContainer" parent="CenterContainer/VBoxContainer"]
-margin_top = 304.0
+margin_top = 364.0
 margin_right = 1344.0
-margin_bottom = 354.0
+margin_bottom = 429.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/VBoxContainer/CenterContainer5"]
-margin_left = 545.0
-margin_right = 799.0
-margin_bottom = 50.0
+margin_left = 507.0
+margin_right = 836.0
+margin_bottom = 65.0
 
 [node name="Exitcontainer" type="CenterContainer" parent="CenterContainer/VBoxContainer/CenterContainer5/VBoxContainer"]
-margin_right = 254.0
-margin_bottom = 50.0
+margin_right = 329.0
+margin_bottom = 65.0
 size_flags_horizontal = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/VBoxContainer/CenterContainer5/VBoxContainer/Exitcontainer"]
-margin_right = 254.0
-margin_bottom = 50.0
+margin_right = 329.0
+margin_bottom = 65.0
 
 [node name="Arrow_Picker" type="Label" parent="CenterContainer/VBoxContainer/CenterContainer5/VBoxContainer/Exitcontainer/HBoxContainer"]
-margin_right = 50.0
-margin_bottom = 50.0
+margin_right = 65.0
+margin_bottom = 65.0
 rect_min_size = Vector2( 7, 0 )
 custom_fonts/font = ExtResource( 4 )
 custom_colors/font_color = Color( 0.972549, 0.819608, 0, 1 )
@@ -243,9 +243,9 @@ text = ">"
 uppercase = true
 
 [node name="exit" type="Label" parent="CenterContainer/VBoxContainer/CenterContainer5/VBoxContainer/Exitcontainer/HBoxContainer"]
-margin_left = 54.0
-margin_right = 254.0
-margin_bottom = 50.0
+margin_left = 69.0
+margin_right = 329.0
+margin_bottom = 65.0
 custom_fonts/font = ExtResource( 4 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
@@ -253,6 +253,6 @@ custom_constants/shadow_offset_y = 0
 text = "Exit"
 
 [node name="Sprite" type="Sprite" parent="."]
-position = Vector2( 905.153, 181.743 )
+position = Vector2( 905.153, 154.197 )
 scale = Vector2( 15, 15 )
 texture = ExtResource( 1 )

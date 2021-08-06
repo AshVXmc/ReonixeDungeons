@@ -1,0 +1,40 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://assets/misc/health_pot.png" type="Texture" id=1]
+[ext_resource path="res://scripts/ui/HealthPotControlScript.gd" type="Script" id=2]
+[ext_resource path="res://assets/fonts/buttonfont.tres" type="DynamicFont" id=3]
+
+[node name="HealthPotUI" type="CanvasLayer"]
+
+[node name="HealthPotControl" type="Control" parent="."]
+margin_left = 148.0
+margin_right = 188.0
+margin_bottom = 40.0
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="HealthPotControl"]
+margin_left = 1405.35
+margin_top = 26.5029
+margin_right = 1421.35
+margin_bottom = 43.5029
+rect_scale = Vector2( 4, 4 )
+texture = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="HealthPotControl"]
+margin_left = 1452.91
+margin_top = 66.8263
+margin_right = 1502.91
+margin_bottom = 169.826
+rect_scale = Vector2( 0.75, 0.75 )
+custom_fonts/font = ExtResource( 3 )
+text = "0
+"
+__meta__ = {
+"_edit_use_anchors_": false
+}

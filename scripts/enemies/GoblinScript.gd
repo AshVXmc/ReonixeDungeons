@@ -14,15 +14,14 @@ const LOOT = preload("res://scenes/items/HealthPot.tscn")
 func _physics_process(delta):
 	velocity.y += GRAVITY
 	velocity = move_and_slide(velocity, FLOOR)
-
 	if velocity.x == 0:
 		$Sprite.play("Idle")
 	else:
 		$Sprite.play("Attacking")	
 
-	if is_on_wall() or !$RayCast2D.is_colliding():
-		direction *= -1
-		$RayCast2D.position.x *= -1
+#	if is_on_wall() or !$RayCast2D.is_colliding():
+#		direction *= -1
+#		$RayCast2D.position.x *= -1
 
 func _on_Area2D_area_entered(area):
 	if area.is_in_group("Sword") or area.is_in_group("Fireball") and HP > 0:
@@ -42,19 +41,20 @@ func _on_Area2D_area_entered(area):
 func _on_Left_body_entered(body):
 	$Sprite.flip_h = false
 	if body.get("TYPE") == "Player":
-		velocity.x -= 300
-
+		velocity.x -= 330
 func _on_Right_body_entered(body):
 	$Sprite.flip_h = true
 	if body.get("TYPE") == "Player":
-		velocity.x += 300
+		velocity.x += 330
 
 func _on_Left_body_exited(body):
-	player = null
+	if body.get("TYPE") == "Player":
+		player = null
 	$AttackingTimer.start()
 
 func _on_Right_body_exited(body):
-	player = null
+	if body.get("TYPE") == "Player":
+		player = null
 	$AttackingTimer.start()
 
 func _on_HurtTimer_timeout():
@@ -62,4 +62,5 @@ func _on_HurtTimer_timeout():
 
 func _on_AttackingTimer_timeout():
 	velocity.x = 0
+
 	

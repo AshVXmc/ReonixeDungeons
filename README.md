@@ -10,6 +10,7 @@ A 2d platformer Metroidvania-style game with pixel art graphics. Made with the G
 ## License and Extras
 License for this game and repository can be viewed [here](https://gitlab.com/AshVXmc/reonixedungeons/-/blob/main/LICENSE.txt). The license is subject to change.
 I'm working on this project for fun, so the update schedule won't always be consistent.
+For bugs and issues check out [this repository page](https://gitlab.com/AshVXmc/reonixedungeons/-/issues)
 
 ## Tools I use
 - [BFXR](https://www.bfxr.net/) for Audio

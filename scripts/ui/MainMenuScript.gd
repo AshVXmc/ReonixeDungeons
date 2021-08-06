@@ -27,14 +27,16 @@ func handle_selection(_current_selection):
 				if error == OK:
 					var player_data : Dictionary = savefile.get_var()
 					savefile.close()
-					
 					Global.max_hearts = player_data["MaxHealth"]
 					Global.hearts = player_data["Health"]
 					Global.max_mana = player_data["MaxMana"]
 					Global.mana = player_data["Mana"]
 					Global.healthpot_amount = player_data["Healthpot"]
+					Global.dash_unlocked = player_data["DashUnlocked"]
 					
-					get_tree().change_scene("res://scenes/levels/Level1.tscn")
+					get_tree().change_scene("res://scenes/levels/" + player_data["Level"] + ".tscn")
+				else:
+					print("ERROR LOADING SAVE FILE")
 		2:
 			get_tree().change_scene("res://scenes/menus/HowToPlayMenu.tscn")
 			queue_free()

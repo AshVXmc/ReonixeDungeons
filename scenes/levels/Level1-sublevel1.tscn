@@ -1,20 +1,17 @@
-[gd_scene load_steps=29 format=2]
+[gd_scene load_steps=25 format=2]
 
 [ext_resource path="res://assets/UI/heart.png" type="Texture" id=1]
 [ext_resource path="res://assets/UI/mana.png" type="Texture" id=2]
 [ext_resource path="res://assets/terrain/brick_terrain.png" type="Texture" id=3]
 [ext_resource path="res://assets/terrain/brick_terrain_floor.png" type="Texture" id=4]
 [ext_resource path="res://scenes/MainCharacter.tscn" type="PackedScene" id=5]
-[ext_resource path="res://assets/misc/health_pot.png" type="Texture" id=6]
+[ext_resource path="res://scenes/menus/HealthPotUI.tscn" type="PackedScene" id=6]
 [ext_resource path="res://assets/terrain/short_grass.png" type="Texture" id=7]
 [ext_resource path="res://assets/terrain/background_dungeons.png" type="Texture" id=8]
 [ext_resource path="res://assets/UI/hotbar.png" type="Texture" id=9]
-[ext_resource path="res://assets/fonts/PressStart2P-Regular.ttf" type="DynamicFontData" id=10]
-[ext_resource path="res://scripts/ui/HealthPotControlScript.gd" type="Script" id=11]
-[ext_resource path="res://scripts/ui/PauseScript.gd" type="Script" id=12]
+[ext_resource path="res://scenes/menus/PauseUI.tscn" type="PackedScene" id=10]
 [ext_resource path="res://scripts/LifeScript.gd" type="Script" id=13]
 [ext_resource path="res://scripts/ui/ManaScript.gd" type="Script" id=14]
-[ext_resource path="res://assets/fonts/buttonfont.tres" type="DynamicFont" id=15]
 [ext_resource path="res://assets/terrain/small_mushrooms.png" type="Texture" id=16]
 [ext_resource path="res://assets/terrain/vine1.png" type="Texture" id=17]
 [ext_resource path="res://assets/terrain/brick_terrain_top.png" type="Texture" id=18]
@@ -140,10 +137,6 @@ points = PoolVector2Array( 96, 96, 0, 96, 0, 0, 96, 0 )
 5/shapes = [  ]
 5/z_index = 0
 
-[sub_resource type="DynamicFont" id=5]
-size = 50
-font_data = ExtResource( 10 )
-
 [node name="Level1-sublevel1" type="Node2D"]
 
 [node name="TIleMap" type="TileMap" parent="."]
@@ -212,164 +205,6 @@ expand = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
-
-[node name="HealthPotUI" type="CanvasLayer" parent="."]
-
-[node name="HealthPotControl" type="Control" parent="HealthPotUI"]
-margin_left = 148.0
-margin_right = 188.0
-margin_bottom = 40.0
-script = ExtResource( 11 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="TextureRect" type="TextureRect" parent="HealthPotUI/HealthPotControl"]
-margin_left = 1405.35
-margin_top = 26.5029
-margin_right = 1421.35
-margin_bottom = 43.5029
-rect_scale = Vector2( 4, 4 )
-texture = ExtResource( 6 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Label" type="Label" parent="HealthPotUI/HealthPotControl"]
-margin_left = 1452.91
-margin_top = 66.8263
-margin_right = 1502.91
-margin_bottom = 169.826
-rect_scale = Vector2( 0.75, 0.75 )
-custom_fonts/font = ExtResource( 15 )
-text = "0
-"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="PauseUI" type="CanvasLayer" parent="."]
-
-[node name="Pause" type="Control" parent="PauseUI"]
-pause_mode = 2
-visible = false
-margin_right = 1377.0
-margin_bottom = 845.0
-script = ExtResource( 12 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Panel" type="Panel" parent="PauseUI/Pause"]
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = -848.0
-margin_top = -523.082
-margin_bottom = -74.0825
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="CenterContainer" type="CenterContainer" parent="PauseUI/Pause/Panel"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_top = 17.0
-margin_bottom = -331.999
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="[Paused]" type="Label" parent="PauseUI/Pause/Panel/CenterContainer"]
-margin_left = 274.0
-margin_top = 25.0
-margin_right = 574.0
-margin_bottom = 75.0
-custom_fonts/font = SubResource( 5 )
-custom_colors/font_color = Color( 0.337255, 0.498039, 0.290196, 1 )
-text = "Paused"
-
-[node name="CenterContainer2" type="CenterContainer" parent="PauseUI/Pause/Panel"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 207.0
-margin_top = 126.0
-margin_right = -26.0
-margin_bottom = -254.999
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="[to resume]" type="Label" parent="PauseUI/Pause/Panel/CenterContainer2"]
-margin_left = 82.0
-margin_top = 9.0
-margin_right = 532.0
-margin_bottom = 59.0
-custom_fonts/font = SubResource( 5 )
-custom_colors/font_color = Color( 1, 1, 1, 1 )
-text = "to resume"
-
-[node name="CenterContainer5" type="CenterContainer" parent="PauseUI/Pause/Panel"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 111.0
-margin_top = 198.0
-margin_right = -45.0
-margin_bottom = -98.9995
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="[to return to main menu]" type="Label" parent="PauseUI/Pause/Panel/CenterContainer5"]
-margin_left = 46.0
-margin_top = 24.0
-margin_right = 646.0
-margin_bottom = 127.0
-custom_fonts/font = SubResource( 5 )
-custom_colors/font_color = Color( 1, 1, 1, 1 )
-text = "  to return
-to main menu"
-
-[node name="CenterContainer3" type="CenterContainer" parent="PauseUI/Pause/Panel"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 85.0
-margin_top = 126.0
-margin_right = -555.0
-margin_bottom = -254.999
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="ESC" type="Label" parent="PauseUI/Pause/Panel/CenterContainer3"]
-margin_left = 29.0
-margin_top = 9.0
-margin_right = 179.0
-margin_bottom = 59.0
-custom_fonts/font = SubResource( 5 )
-custom_colors/font_color = Color( 0.972549, 0.819608, 0, 1 )
-text = "ESC"
-
-[node name="CenterContainer4" type="CenterContainer" parent="PauseUI/Pause/Panel"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 124.0
-margin_top = 214.0
-margin_right = -547.0
-margin_bottom = -166.999
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Q" type="Label" parent="PauseUI/Pause/Panel/CenterContainer4"]
-margin_left = 63.0
-margin_top = 9.0
-margin_right = 113.0
-margin_bottom = 59.0
-custom_fonts/font = SubResource( 5 )
-custom_colors/font_color = Color( 0.972549, 0.819608, 0, 1 )
-text = "Q"
 
 [node name="HeartUI" type="CanvasLayer" parent="."]
 
@@ -451,3 +286,7 @@ position = Vector2( 908.897, 1316.56 )
 
 [node name="Bat" parent="." instance=ExtResource( 22 )]
 position = Vector2( 1343.5, 820.244 )
+
+[node name="PauseUI" parent="." instance=ExtResource( 10 )]
+
+[node name="HealthPotUI" parent="." instance=ExtResource( 6 )]
