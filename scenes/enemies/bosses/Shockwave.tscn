@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://assets/enemies/bosses/shockwave.png" type="Texture" id=1]
+[ext_resource path="res://scripts/Shockwave.gd" type="Script" id=2]
+
+[node name="Shockwave" type="Area2D" groups=[
+"Enemy",
+]]
+script = ExtResource( 2 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PoolVector2Array( -100.645, 80.3093, -52.1378, 52.591, -4.26077, 30.5424, 60.6252, 55.1108, 104.092, 77.1595, 109.762, 92.9085, -105.054, 94.1684 )
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 4.67191, 7.34161 )
+scale = Vector2( 13.2537, 10.9177 )
+texture = ExtResource( 1 )

@@ -145,7 +145,7 @@ func attack():
 
 
 # Damage and interaction
-func _on_Area2D_area_entered(area):
+func _on_Area2D_area_entered(area : Area2D):
 	if area.is_in_group("HealthPot"):
 		Global.healthpot_amount += 1
 		emit_signal("healthpot_obtained", Global.healthpot_amount)
@@ -163,6 +163,11 @@ func _on_Area2D_area_entered(area):
 	if area.is_in_group("Spike"):
 		Global.hearts -= 0.5
 		afterDamaged()
+	if area.is_in_group("CoffeeMachine"):
+		Global.hearts += Global.max_hearts - Global.hearts
+		Global.mana += Global.max_mana - Global.mana
+		emit_signal("life_changed", Global.hearts)
+		emit_signal("mana_changed", Global.mana)
 
 func attack_knock():
 	if !$Sprite.flip_h:

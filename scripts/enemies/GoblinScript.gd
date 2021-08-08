@@ -19,10 +19,6 @@ func _physics_process(delta):
 	else:
 		$Sprite.play("Attacking")	
 
-#	if is_on_wall() or !$RayCast2D.is_colliding():
-#		direction *= -1
-#		$RayCast2D.position.x *= -1
-
 func _on_Area2D_area_entered(area):
 	if area.is_in_group("Sword") or area.is_in_group("Fireball") and HP > 0:
 		HP -= 1

@@ -18,7 +18,7 @@ func _physics_process(delta):
 	elif !is_dead:
 		$AnimatedSprite.flip_h = true
 	
-	if !is_dead:	
+	if !is_dead:
 		$AnimatedSprite.play("slimeanim")
 	
 	velocity.y += GRAVITY
