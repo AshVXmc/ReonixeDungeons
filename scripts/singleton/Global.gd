@@ -1,7 +1,7 @@
 extends Node 
 
 # GLOBALLY ACCESSED VARIABLES
-var max_hearts : float = 4
+var max_hearts : float = 3
 var hearts : float = max_hearts
 var max_mana : int = 5
 var mana : int = max_mana

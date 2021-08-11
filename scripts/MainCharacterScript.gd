@@ -23,7 +23,7 @@ var knockback_power : int = 200
 var can_be_knocked : bool = true
 
 const TYPE : String = "Player"
-const SPEED : int = 325
+const SPEED : int = 355
 const GRAVITY : int = 45
 const JUMP_POWER : int = -1100
 const FIREBALL = preload("res://scenes/Fireball.tscn")
@@ -83,7 +83,7 @@ func _physics_process(_delta):
 				is_attacking = false
 				
 			# Movement calculations
-			velocity.y = velocity.y + GRAVITY
+			velocity.y += GRAVITY
 			velocity = move_and_slide(velocity,Vector2.UP)
 			velocity.x = lerp(velocity.x,0,0.2)
 			if is_invulnerable:

@@ -6,51 +6,65 @@
 [node name="AlphaGuardian" type="KinematicBody2D"]
 script = ExtResource( 2 )
 
-[node name="RayCast2D" type="RayCast2D" parent="." groups=[
-"Enemy",
-]]
+[node name="RayCast2D" type="RayCast2D" parent="."]
 position = Vector2( 47.0902, 18.4997 )
 scale = Vector2( 1.5, 1 )
 enabled = true
 
 [node name="Area2D" type="Area2D" parent="." groups=[
+"Boss",
 "Enemy2",
 ]]
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D"]
+position = Vector2( 7.93701, 0 )
 polygon = PoolVector2Array( -31.7498, -106.883, -34.5815, -74.7909, -70.4487, -66.296, -72.3364, -4.47226, -52.987, 15.3491, -52.0431, 26.6756, -68.089, 60.6551, -66.2012, 118.231, 48.4795, 119.175, 42.8162, 52.1602, 35.7372, 13.4613, 70.1886, 12.0455, 72.0763, -28.0691, 48.0075, -64.8802, 19.6913, -73.3751, 17.3316, -111.13, -1.54587, -121.985, -17.1198, -121.985 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 scale = Vector2( 7.5, 7.5 )
 frames = ExtResource( 1 )
-animation = "New Anim"
 playing = true
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+position = Vector2( 7.93701, -0.793701 )
 polygon = PoolVector2Array( -31.7498, -106.883, -34.5815, -74.7909, -70.4487, -66.296, -72.3364, -4.47226, -52.987, 15.3491, -52.0431, 26.6756, -68.089, 60.6551, -66.2012, 118.231, 48.4795, 119.175, 42.8162, 52.1602, 35.7372, 13.4613, 70.1886, 12.0455, 72.0763, -28.0691, 48.0075, -64.8802, 19.6913, -73.3751, 17.3316, -111.13, -1.54587, -121.985, -17.1198, -121.985 )
 
 [node name="AttackTimer" type="Timer" parent="."]
-wait_time = 6.0
+wait_time = 9.5
 
 [node name="HurtTimer" type="Timer" parent="."]
 wait_time = 0.3
 one_shot = true
 
 [node name="Position2DRight" type="Position2D" parent="."]
-position = Vector2( 119.871, 0.371338 )
+position = Vector2( 121.458, 28.9446 )
 
 [node name="Position2DLeft" type="Position2D" parent="."]
-position = Vector2( -121.563, 0.371338 )
+position = Vector2( -123.15, 24.9761 )
 
 [node name="ShockTimer" type="Timer" parent="."]
+wait_time = 0.55
+one_shot = true
+
+[node name="GroundTimer" type="Timer" parent="."]
 wait_time = 0.5
 one_shot = true
 
-[node name="JumpTimer" type="Timer" parent="."]
-wait_time = 2.0
+[node name="AttackCollision" type="Area2D" parent="." groups=[
+"Enemy",
+]]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="AttackCollision"]
+polygon = PoolVector2Array( 47.5711, -86.5855, 81.283, -65.6092, 97.7644, -40.138, 108.253, -1.93114, 103.008, 32.5299, 85.7779, 63.9944, 56.5609, 82.7232, 67.7982, 46.0147, 70.0457, 7.0587, 60.3067, -37.8905, 37.0829, -89.5821 )
+disabled = true
+
+[node name="MeleeTimer" type="Timer" parent="."]
+wait_time = 4.0
+one_shot = true
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_Area2D_area_entered"]
 [connection signal="timeout" from="AttackTimer" to="." method="_on_AttackTimer_timeout"]
 [connection signal="timeout" from="HurtTimer" to="." method="_on_HurtTimer_timeout"]
 [connection signal="timeout" from="ShockTimer" to="." method="_on_ShockTimer_timeout"]
-[connection signal="timeout" from="JumpTimer" to="." method="_on_JumpTimer_timeout"]
+[connection signal="timeout" from="GroundTimer" to="." method="_on_GroundTimer_timeout"]
+[connection signal="timeout" from="MeleeTimer" to="." method="_on_MeleeTimer_timeout"]

@@ -1,22 +1,25 @@
-[gd_resource type="SpriteFrames" load_steps=3 format=2]
+[gd_resource type="SpriteFrames" load_steps=6 format=2]
 
 [ext_resource path="res://assets/enemies/bosses/alpha_guardian.png" type="Texture" id=1]
 [ext_resource path="res://assets/enemies/bosses/alpha_guardian_slam.png" type="Texture" id=2]
+[ext_resource path="res://assets/enemies/bosses/alpha_guardian_attack1.png" type="Texture" id=3]
+[ext_resource path="res://assets/enemies/bosses/alpha_guardian_attack2.png" type="Texture" id=4]
+[ext_resource path="res://assets/enemies/bosses/alpha_guardian_attack3.png" type="Texture" id=5]
 
 [resource]
 animations = [ {
+"frames": [ ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ) ],
+"loop": true,
+"name": "Attack",
+"speed": 8.0
+}, {
 "frames": [ ExtResource( 1 ) ],
 "loop": true,
-"name": "New Anim",
+"name": "Default",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 2 ) ],
 "loop": true,
 "name": "Slam",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 1 ) ],
-"loop": true,
-"name": "Default",
 "speed": 5.0
 } ]

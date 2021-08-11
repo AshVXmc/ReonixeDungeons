@@ -8,13 +8,10 @@ radius = 37.6338
 height = 17.3718
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 29.4865, 41.6961 )
+extents = Vector2( 29.4585, 39.1389 )
 
 [node name="Player" type="KinematicBody2D"]
 script = ExtResource( 2 )
-__meta__ = {
-"_edit_group_": true
-}
 
 [node name="Sprite" type="AnimatedSprite" parent="."]
 scale = Vector2( 5, 5 )
@@ -30,7 +27,7 @@ shape = SubResource( 1 )
 ]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackCollision"]
-position = Vector2( 60.8717, 0 )
+position = Vector2( 70.883, 5.05854 )
 shape = SubResource( 2 )
 disabled = true
 

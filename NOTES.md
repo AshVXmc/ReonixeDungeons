@@ -5,4 +5,7 @@ A forgotten maze of dungeons and temples, now infested with vegetation and moss.
 An cold cavern covered in glaciers and ice spikes
 
 ## Potential boss and general idea
-1. 
+1. Double shockwave and ground spikes
+
+## Lore
+A group of cultists worshipping a form of alien energy dubbed "The Gift", believing they were destined to rule the world and bring peace to with this power. 
