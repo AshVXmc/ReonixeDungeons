@@ -15,11 +15,13 @@ var player = null
 var is_attacking : bool = false
 export var HP : int = 20
 
+
+
 # ATTACK PATTERNS
 # Sends shockwaves on two directions while is on floor.
 # Dash(?)
 func _ready():
-
+	var playerposx : Node = get_parent().get_node("Player")
 	$AttackTimer.start()
 	$MeleeTimer.start()
 
@@ -59,6 +61,7 @@ func melee_attack():
 	velocity.x = 0
 	yield(get_tree().create_timer(1.25), "timeout")
 	$AttackCollision/CollisionPolygon2D.disabled = false
+	# Jumping
 	velocity.x = 450 * direction
 	velocity.y += -2200
 	if !$AnimatedSprite.flip_h:
@@ -116,10 +119,10 @@ func on_slam():
 		0:
 			double_wave_slam()
 		1:
-			smash()
+			stalagmite_smash()
 
 # Smacks club to ground and four shockwaves come up from four spots
-func smash():
+func stalagmite_smash():
 	$MeleeTimer.stop()
 	$GroundTimer.start()
 	velocity.x = 0
@@ -128,7 +131,8 @@ func smash():
 	yield(get_tree().create_timer(1), "timeout")
 	is_attacking = false
 	$MeleeTimer.start()
-# Double shockwaves go brrrrr skiddy bip dop click dip bop
+
+# Double shockwaves go brrrrr skiddy bip dop click dip bop SKREEE MEEEEP
 func double_wave_slam():
 	$MeleeTimer.stop()
 	$ShockTimer.start()
@@ -136,7 +140,7 @@ func double_wave_slam():
 	is_attacking = true
 	velocity.x = 0
 	$Area2D.add_to_group("Enemy2")
-	yield(get_tree().create_timer(1.25), "timeout")
+	yield(get_tree().create_timer(1.6), "timeout")
 	is_attacking = false
 	$Area2D.remove_from_group("Enemy2")
 	$MeleeTimer.start()

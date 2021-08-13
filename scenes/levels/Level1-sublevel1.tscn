@@ -186,6 +186,8 @@ drag_margin_left = 0.4
 drag_margin_right = 0.4
 editor_draw_limits = true
 
+[node name="PauseUI" parent="Player" instance=ExtResource( 10 )]
+
 [node name="HotbarUI" type="CanvasLayer" parent="."]
 
 [node name="Control" type="Control" parent="HotbarUI"]
@@ -286,7 +288,5 @@ position = Vector2( 908.897, 1316.56 )
 
 [node name="Bat" parent="." instance=ExtResource( 22 )]
 position = Vector2( 1343.5, 820.244 )
-
-[node name="PauseUI" parent="." instance=ExtResource( 10 )]
 
 [node name="HealthPotUI" parent="." instance=ExtResource( 6 )]

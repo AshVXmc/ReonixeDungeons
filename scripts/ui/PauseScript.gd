@@ -2,14 +2,17 @@ extends Control
 
 var notpaused : bool = true
 
+
 func _process(delta):
 	if Input.is_action_just_pressed("ui_cancel"):
 		if notpaused:
+			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 			get_tree().paused = true
 			notpaused = false
 			visible = true
 			
 func _on_ResumeButton_pressed():
+	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 	get_tree().paused = false
 	notpaused = true
 	visible = false

@@ -9,6 +9,8 @@ onready var exit_selector  = $CenterContainer/VBoxContainer/CenterContainer5/VBo
 var current_selection : int = 0
 
 func _ready():
+	
+	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 	set_current_selection(0)
 
 func handle_selection(_current_selection):

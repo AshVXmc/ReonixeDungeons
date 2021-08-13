@@ -21,7 +21,6 @@ var dashdirection : Vector2 = Vector2(1,0)
 var repulsion : Vector2 = Vector2()
 var knockback_power : int = 200
 var can_be_knocked : bool = true
-
 const TYPE : String = "Player"
 const SPEED : int = 355
 const GRAVITY : int = 45
@@ -88,16 +87,16 @@ func _physics_process(_delta):
 			velocity.x = lerp(velocity.x,0,0.2)
 			if is_invulnerable:
 				$Area2D/CollisionShape2D.disabled = true
-
 func useItems():
 	if Input.is_action_just_pressed("slot_1"):
-			if Global.healthpot_amount > 0 and Global.hearts < Global.healthpot_amount:
-				Global.healthpot_amount -= 1
-				emit_signal("healthpot_obtained", Global.healthpot_amount)
+		if Global.healthpot_amount > 0 and Global.hearts < Global.max_hearts:
+			Global.healthpot_amount -= 1
+			emit_signal("healthpot_obtained", Global.healthpot_amount)
+			if Global.hearts == Global.max_hearts - 0.5:
+				Global.hearts += 0.5
+			else:
 				Global.hearts += 1
-				if Global.hearts == Global.max_hearts - 0.5:
-					Global.hearts += 0.5
-				emit_signal("life_changed", Global.hearts)
+			emit_signal("life_changed", Global.hearts)
 				
 func shoot():
 	if Input.is_action_just_pressed("ui_shoot")	and !is_attacking and Global.mana >= 1:

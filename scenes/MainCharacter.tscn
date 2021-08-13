@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://spriteframes/MainCharacter_spriteframes.tres" type="SpriteFrames" id=1]
 [ext_resource path="res://scripts/MainCharacterScript.gd" type="Script" id=2]
+[ext_resource path="res://assets/misc/light_circle.png" type="Texture" id=3]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 37.6338
@@ -80,6 +81,11 @@ polygon = PoolVector2Array( -13.0297, -39.1703, -31.0406, -25.6622, -37.9271, -3
 [node name="DashUseTimer" type="Timer" parent="."]
 wait_time = 0.75
 one_shot = true
+
+[node name="Light2D" type="Light2D" parent="."]
+scale = Vector2( 5, 5 )
+texture = ExtResource( 3 )
+energy = 0.5
 
 [connection signal="animation_finished" from="Sprite" to="." method="_on_Sprite_animation_finished"]
 [connection signal="area_entered" from="AttackCollision" to="." method="_on_AttackCollision_area_entered"]

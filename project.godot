@@ -15,7 +15,8 @@ run/main_scene="res://scenes/menus/MainMenu.tscn"
 config/use_custom_user_dir=true
 boot_splash/fullsize=false
 boot_splash/use_filter=false
-config/icon="res://icon.png"
+config/icon="res://icon.ico"
+config/windows_native_icon="res://icon.ico"
 
 [autoload]
 
@@ -23,9 +24,9 @@ Global="*res://scripts/singleton/Global.gd"
 
 [display]
 
-window/size/width=1920
-window/size/height=1080
-window/size/test_height=1080
+window/size/width=900
+window/size/height=750
+window/size/test_height=750
 
 [editor_plugins]
 

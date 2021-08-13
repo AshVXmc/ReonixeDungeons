@@ -15,7 +15,7 @@ var dash_unlocked : bool = true
 
 
 func reset_player_data():
-	Global.hearts = 4
+	Global.hearts = 3
 	Global.mana = 5
 	Global.healthpot_amount = 0
 	Global.dash_unlocked = false
