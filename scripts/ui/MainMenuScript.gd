@@ -16,9 +16,9 @@ func _ready():
 func handle_selection(_current_selection):
 	match _current_selection:
 		0:
+			Global.reset_player_data()
 			get_tree().change_scene("res://scenes/levels/Level1.tscn")	
 			queue_free()
-			Global.reset_player_data()
 		1:
 			# Load player data
 			var savefile : File = File.new()

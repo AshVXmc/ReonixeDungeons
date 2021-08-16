@@ -4,11 +4,11 @@
 [ext_resource path="res://scripts/enemies/GoblinScript.gd" type="Script" id=2]
 
 [sub_resource type="CapsuleShape2D" id=1]
-radius = 37.1649
+radius = 29.788
 height = 40.2918
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 125.931, 77.4363 )
+extents = Vector2( 125.931, 50.3433 )
 
 [node name="KinematicBody2D" type="KinematicBody2D"]
 position = Vector2( 0.471924, 0 )
@@ -25,17 +25,17 @@ animation = "Attacking"
 [node name="Left" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Left"]
-position = Vector2( -151.001, -21.3921 )
+position = Vector2( -151.001, 1.30018 )
 shape = SubResource( 2 )
 
 [node name="Right" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Right"]
-position = Vector2( 142.093, -22.4814 )
+position = Vector2( 148.767, 2.21313 )
 shape = SubResource( 2 )
 
 [node name="Area2D" type="Area2D" parent="." groups=[
-"Enemy2",
+"Enemy",
 ]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]

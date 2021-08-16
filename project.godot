@@ -24,9 +24,11 @@ Global="*res://scripts/singleton/Global.gd"
 
 [display]
 
-window/size/width=900
-window/size/height=750
-window/size/test_height=750
+window/size/width=1080
+window/size/height=720
+window/size/always_on_top=true
+window/size/test_width=1080
+window/size/test_height=720
 
 [editor_plugins]
 

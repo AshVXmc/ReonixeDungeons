@@ -22,9 +22,9 @@ var repulsion : Vector2 = Vector2()
 var knockback_power : int = 200
 var can_be_knocked : bool = true
 const TYPE : String = "Player"
-const SPEED : int = 355
-const GRAVITY : int = 45
-const JUMP_POWER : int = -1100
+const SPEED : int = 380
+const GRAVITY : int = 40
+const JUMP_POWER : int = -1075
 const FIREBALL = preload("res://scenes/Fireball.tscn")
 
 func _ready():
@@ -162,11 +162,7 @@ func _on_Area2D_area_entered(area : Area2D):
 	if area.is_in_group("Spike"):
 		Global.hearts -= 0.5
 		afterDamaged()
-	if area.is_in_group("CoffeeMachine"):
-		Global.hearts += Global.max_hearts - Global.hearts
-		Global.mana += Global.max_mana - Global.mana
-		emit_signal("life_changed", Global.hearts)
-		emit_signal("mana_changed", Global.mana)
+
 
 func attack_knock():
 	if !$Sprite.flip_h:
@@ -185,6 +181,11 @@ func afterDamaged():
 
 # Obtaining mana by attacking enemies
 func _on_AttackCollision_area_entered(area):
+	if area.is_in_group("CoffeeMachine"):
+		Global.hearts += Global.max_hearts - Global.hearts
+		Global.mana += Global.max_mana - Global.mana
+		emit_signal("life_changed", Global.hearts)
+		emit_signal("mana_changed", Global.mana)
 	var lootrng : RandomNumberGenerator = RandomNumberGenerator.new()
 	lootrng.randomize()
 	var randomint = lootrng.randi_range(1,2)
@@ -239,10 +240,13 @@ func dash():
 			$Sprite.play("Dash")
 			velocity.x = 0
 			velocity = dashdirection.normalized() * 3000
+			velocity.y = 0
 			can_dash = false
 			is_dashing = true
-			$DashCooldown.start()
 			emit_signal("mana_changed", Global.mana)
+			yield(get_tree().create_timer(0.3), "timeout")
+			$DashCooldown.start()
+			velocity.y += GRAVITY
 			is_dashing = false
 			Input.action_release("left")
 			Input.action_release("right")

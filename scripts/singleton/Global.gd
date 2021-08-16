@@ -10,9 +10,7 @@ var macaron_amount : int = 0
 var unopened_chests : Array = ["Level1_chest"]
 const SAVE_DIR : String = "user://savedata/"
 var savepath : String = SAVE_DIR + "savefile.dat"
-
 var dash_unlocked : bool = true
-
 
 func reset_player_data():
 	Global.hearts = 3

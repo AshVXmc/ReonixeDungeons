@@ -5,7 +5,7 @@ var direction : int = 1
 var is_dead : bool = false 
 const TYPE : String = "Enemy"
 const FLOOR = Vector2(0, -1)
-const SPEED : int = 200
+const SPEED : int = 350
 const GRAVITY : int = 45
 var player = null
 export var HP : int = 2
@@ -37,26 +37,25 @@ func _on_Area2D_area_entered(area):
 func _on_Left_body_entered(body):
 	$Sprite.flip_h = false
 	if body.get("TYPE") == "Player":
-		velocity.x -= 330
+		velocity.x = -SPEED
 func _on_Right_body_entered(body):
 	$Sprite.flip_h = true
 	if body.get("TYPE") == "Player":
-		velocity.x += 330
-
+		velocity.x = SPEED
 func _on_Left_body_exited(body):
 	if body.get("TYPE") == "Player":
-		player = null
-	$AttackingTimer.start()
+		$AttackingTimer.start()
+
 
 func _on_Right_body_exited(body):
 	if body.get("TYPE") == "Player":
-		player = null
-	$AttackingTimer.start()
+		$AttackingTimer.start()
 
 func _on_HurtTimer_timeout():
 	set_modulate(Color(1,1,1,1))
 
 func _on_AttackingTimer_timeout():
 	velocity.x = 0
+	player = null
 
 	
