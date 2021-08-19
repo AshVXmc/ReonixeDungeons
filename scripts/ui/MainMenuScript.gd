@@ -40,8 +40,6 @@ func handle_selection(_current_selection):
 		2:
 			get_tree().change_scene("res://scenes/menus/HowToPlayMenu.tscn")
 			queue_free()
-		3:
-			pass
 		4:
 			get_tree().quit()
 		

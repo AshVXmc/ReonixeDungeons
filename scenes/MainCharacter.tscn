@@ -17,7 +17,7 @@ script = ExtResource( 2 )
 [node name="Sprite" type="AnimatedSprite" parent="."]
 scale = Vector2( 5, 5 )
 frames = ExtResource( 1 )
-animation = "Dash"
+animation = "Glide"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 0, 5.05854 )

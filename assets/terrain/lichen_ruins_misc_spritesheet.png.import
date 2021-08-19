@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/small_mushrooms.png-27c7890f7c60d0d44d6c007311a4eba9.stex"
+path="res://.import/lichen_ruins_misc_spritesheet.png-0a8587d928f0f1b98e9ef4e23efd1f2f.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/terrain/small_mushrooms.png"
-dest_files=[ "res://.import/small_mushrooms.png-27c7890f7c60d0d44d6c007311a4eba9.stex" ]
+source_file="res://assets/terrain/lichen_ruins_misc_spritesheet.png"
+dest_files=[ "res://.import/lichen_ruins_misc_spritesheet.png-0a8587d928f0f1b98e9ef4e23efd1f2f.stex" ]
 
 [params]
 

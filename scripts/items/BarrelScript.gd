@@ -2,7 +2,7 @@ extends StaticBody2D
 
 var broken : bool = false
 const LOOT : PackedScene = preload("res://scenes/items/HealthPot.tscn")
-export var MAX : int = 5
+export var MAX : int = 4
 export var MIN : int = 1
 
 

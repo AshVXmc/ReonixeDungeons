@@ -16,6 +16,7 @@ var collision : KinematicCollision2D
 var collided : bool = false
 var healthpot_amount : int = Global.healthpot_amount
 var is_dashing : bool = false
+var is_gliding : bool = false
 var can_dash : bool = false
 var dashdirection : Vector2 = Vector2(1,0)
 var repulsion : Vector2 = Vector2()
@@ -47,14 +48,18 @@ func _physics_process(_delta):
 			# Function calls
 			attack()
 			dash()
+			glide(1) # Glide duration in seconds
 			useItems()
 			shoot()
 			# Movement controls
-			if velocity.x == 0 and !is_attacking:
+			if velocity.x == 0 and !is_attacking and !is_gliding:
 				$Sprite.play("Idle")
 			if Input.is_action_pressed("right") and !is_attacking and !is_knocked_back:
 				velocity.x = SPEED
-				$Sprite.play("Walk")
+				if is_gliding:
+					$Sprite.play("Glide")
+				else:	
+					$Sprite.play("Walk")
 				$Sprite.flip_h = false
 				if velocity.x == 0 and !is_attacking:
 					$Sprite.play("Idle")
@@ -65,7 +70,10 @@ func _physics_process(_delta):
 				get_node("AttackCollision").set_scale(Vector2(1,1))
 			elif Input.is_action_pressed("left") and !is_attacking:
 				velocity.x = -SPEED
-				$Sprite.play("Walk")
+				if is_gliding:
+					$Sprite.play("Glide")
+				else:	
+					$Sprite.play("Walk")
 				$Sprite.flip_h = true
 				if velocity.x == 0 and !is_attacking:
 					$Sprite.play("Idle")
@@ -75,6 +83,8 @@ func _physics_process(_delta):
 			elif velocity.x == 0:
 				if !is_attacking:
 					$Sprite.play("Idle")
+				elif !is_gliding:
+					$Sprite.play("Glide")
 			# Jump controls
 			if Input.is_action_just_pressed("jump") and is_on_floor() and !is_attacking:
 				velocity.y = JUMP_POWER
@@ -82,11 +92,14 @@ func _physics_process(_delta):
 				is_attacking = false
 				
 			# Movement calculations
-			velocity.y += GRAVITY
+			if !is_dashing and !is_gliding:
+				velocity.y += GRAVITY
 			velocity = move_and_slide(velocity,Vector2.UP)
 			velocity.x = lerp(velocity.x,0,0.2)
 			if is_invulnerable:
 				$Area2D/CollisionShape2D.disabled = true
+				
+
 func useItems():
 	if Input.is_action_just_pressed("slot_1"):
 		if Global.healthpot_amount > 0 and Global.hearts < Global.max_hearts:
@@ -140,6 +153,7 @@ func attack():
 			is_attacking = true
 			$AttackCollision/CollisionShape2D.disabled = false
 			$AttackTimer.start()
+
 
 
 
@@ -243,14 +257,25 @@ func dash():
 			velocity.y = 0
 			can_dash = false
 			is_dashing = true
-			emit_signal("mana_changed", Global.mana)
-			yield(get_tree().create_timer(0.3), "timeout")
+			yield(get_tree().create_timer(0.25), "timeout")
 			$DashCooldown.start()
 			velocity.y += GRAVITY
 			is_dashing = false
 			Input.action_release("left")
 			Input.action_release("right")
 
+func glide(glide_duration : float):
+	# Press SPACE while in mid-air to temporarily glide
+	if Global.glide_unlocked and Input.is_action_just_pressed("jump") and !is_on_floor():
+		if is_on_floor():
+			is_gliding = false
+		$Sprite.play("Glide")
+		is_gliding = true
+		velocity.y = 0
+		velocity.y += GRAVITY
+		yield(get_tree().create_timer(glide_duration), "timeout")
+		is_gliding = false
+		Input.action_release("jump")
 			
 # Player death	
 func dead():

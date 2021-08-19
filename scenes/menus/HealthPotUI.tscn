@@ -16,10 +16,8 @@ __meta__ = {
 }
 
 [node name="TextureRect" type="TextureRect" parent="HealthPotControl"]
-margin_left = 1405.35
-margin_top = 26.5029
-margin_right = 1421.35
-margin_bottom = 43.5029
+margin_right = 16.0
+margin_bottom = 17.0
 rect_scale = Vector2( 4, 4 )
 texture = ExtResource( 1 )
 __meta__ = {
@@ -27,10 +25,10 @@ __meta__ = {
 }
 
 [node name="Label" type="Label" parent="HealthPotControl"]
-margin_left = 1452.91
-margin_top = 66.8263
-margin_right = 1502.91
-margin_bottom = 169.826
+margin_left = 50.0
+margin_top = 47.5
+margin_right = 100.0
+margin_bottom = 150.5
 rect_scale = Vector2( 0.75, 0.75 )
 custom_fonts/font = ExtResource( 3 )
 text = "0

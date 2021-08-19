@@ -6,18 +6,19 @@ var hearts : float = max_hearts
 var max_mana : int = 5
 var mana : int = max_mana
 var healthpot_amount : int = 0
-var macaron_amount : int = 0
 var unopened_chests : Array = ["Level1_chest"]
 const SAVE_DIR : String = "user://savedata/"
 var savepath : String = SAVE_DIR + "savefile.dat"
-var dash_unlocked : bool = true
 
+var dash_unlocked : bool = true
+var glide_unlocked : bool = true
 func reset_player_data():
 	Global.hearts = 3
 	Global.mana = 5
 	Global.healthpot_amount = 0
-	Global.dash_unlocked = false
-	Global.macaron_amount = 0
+	Global.dash_unlocked = true
+	Global.glide_unlocked = true
+	# Refresh chest status
 	unopened_chests.insert(0, "Level1_chest")
 
 func save_player_data():
@@ -33,7 +34,8 @@ func save_player_data():
 		"Mana" : Global.mana ,
 		"Healthpot": Global.healthpot_amount ,
 		"ChestUnopened": Global.unopened_chests,
-		"DashUnlocked" : Global.dash_unlocked
+		"DashUnlocked" : Global.dash_unlocked ,
+		"GlideUnlocked" : Global.glide_unlocked
 	}
 
 	var savefile : File = File.new()
