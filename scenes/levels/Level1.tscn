@@ -5,15 +5,15 @@
 [ext_resource path="res://scenes/MainCharacter.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scenes/menus/PauseUI.tscn" type="PackedScene" id=4]
 [ext_resource path="res://scenes/Light.tscn" type="PackedScene" id=5]
-[ext_resource path="res://scripts/ui/ManaScript.gd" type="Script" id=6]
-[ext_resource path="res://scripts/LifeScript.gd" type="Script" id=7]
+[ext_resource path="res://scenes/menus/HeartUI.tscn" type="PackedScene" id=6]
+[ext_resource path="res://scenes/menus/ManaUI.tscn" type="PackedScene" id=7]
 [ext_resource path="res://assets/terrain/lichen_ruins_misc_spritesheet.png" type="Texture" id=8]
 [ext_resource path="res://scenes/items/CoffeeMachine.tscn" type="PackedScene" id=9]
+[ext_resource path="res://scenes/menus/HotbarUI.tscn" type="PackedScene" id=10]
 [ext_resource path="res://assets/terrain/background_dungeons.png" type="Texture" id=11]
-[ext_resource path="res://assets/UI/hotbar.png" type="Texture" id=12]
-[ext_resource path="res://assets/UI/mana.png" type="Texture" id=13]
+[ext_resource path="res://scenes/menus/SceneTransition.tscn" type="PackedScene" id=12]
+[ext_resource path="res://scenes/items/LevelTransporter.tscn" type="PackedScene" id=13]
 [ext_resource path="res://assets/terrain/lichen_ruins_spritesheet.png" type="Texture" id=14]
-[ext_resource path="res://assets/UI/heart.png" type="Texture" id=15]
 [ext_resource path="res://assets/terrain/lichen_ruins_oneway_spritesheet.png" type="Texture" id=16]
 [ext_resource path="res://scenes/enemies/Bat.tscn" type="PackedScene" id=17]
 [ext_resource path="res://scenes/items/Barrel.tscn" type="PackedScene" id=18]
@@ -238,6 +238,9 @@ points = PoolVector2Array( 96, 96, 0, 96, 0, 0, 96, 0 )
 [node name="Level1" type="Node2D"]
 script = ExtResource( 26 )
 
+[node name="Chest" parent="." instance=ExtResource( 1 )]
+position = Vector2( -896.808, 56.4439 )
+
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
@@ -324,68 +327,6 @@ drag_margin_left = 0.4
 drag_margin_right = 0.4
 editor_draw_limits = true
 
-[node name="HotbarUI" type="CanvasLayer" parent="."]
-
-[node name="Control" type="Control" parent="HotbarUI"]
-margin_right = 40.0
-margin_bottom = 40.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="TextureRect" type="TextureRect" parent="HotbarUI/Control"]
-margin_left = 371.02
-margin_top = 5.33032
-margin_right = 745.02
-margin_bottom = 112.33
-texture = ExtResource( 12 )
-expand = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="HeartUI" type="CanvasLayer" parent="."]
-
-[node name="Life" type="Control" parent="HeartUI"]
-margin_right = 92.0
-margin_bottom = 93.0
-script = ExtResource( 7 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Hearts" type="TextureRect" parent="HeartUI/Life"]
-margin_right = 95.0
-margin_bottom = 96.0
-texture = ExtResource( 15 )
-expand = true
-stretch_mode = 2
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="ManaUI" type="CanvasLayer" parent="."]
-
-[node name="Mana" type="Control" parent="ManaUI"]
-margin_left = 12.0208
-margin_top = 94.0452
-margin_right = 78.0208
-margin_bottom = 160.045
-script = ExtResource( 6 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="ManaIcon" type="TextureRect" parent="ManaUI/Mana"]
-margin_right = 49.0
-margin_bottom = 50.0
-texture = ExtResource( 13 )
-expand = true
-stretch_mode = 2
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
 [node name="DestructableWall4" parent="." instance=ExtResource( 20 )]
 position = Vector2( 3791.7, 528.037 )
 
@@ -464,9 +405,17 @@ __meta__ = {
 "_editor_description_": ""
 }
 
+[node name="HotbarUI" parent="." instance=ExtResource( 10 )]
+
 [node name="HealthPotUI" parent="." instance=ExtResource( 2 )]
 offset = Vector2( 240, 25 )
 transform = Transform2D( 1, 0, 0, 1, 240, 25 )
 
-[node name="Chest" parent="." instance=ExtResource( 1 )]
-position = Vector2( -1282.88, 248.81 )
+[node name="HeartUI" parent="." instance=ExtResource( 6 )]
+
+[node name="ManaUI" parent="." instance=ExtResource( 7 )]
+
+[node name="SceneTransition" parent="." instance=ExtResource( 12 )]
+
+[node name="LevelTransporter" parent="." instance=ExtResource( 13 )]
+position = Vector2( 3655.67, 1015.64 )

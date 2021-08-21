@@ -51,6 +51,18 @@ custom_fonts/font = ExtResource( 4 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 text = "to exit"
 
+[node name="Label16" type="Label" parent="Control"]
+margin_left = 486.652
+margin_top = 505.079
+margin_right = 886.652
+margin_bottom = 545.079
+custom_fonts/font = ExtResource( 4 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+text = "Debug toggle"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="Label10" type="Label" parent="Control"]
 margin_left = 256.196
 margin_top = 179.065
@@ -70,6 +82,17 @@ custom_fonts/font = ExtResource( 4 )
 custom_colors/font_color = Color( 0.972549, 0.819608, 0, 1 )
 text = "ESC
 "
+
+[node name="Label15" type="Label" parent="Control"]
+anchor_top = 0.5
+anchor_bottom = 0.5
+margin_left = 325.843
+margin_top = 144.016
+margin_right = 445.843
+margin_bottom = 227.016
+custom_fonts/font = ExtResource( 4 )
+custom_colors/font_color = Color( 0.972549, 0.819608, 0, 1 )
+text = "TAB"
 
 [node name="Label12" type="Label" parent="Control"]
 margin_left = 424.361

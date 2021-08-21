@@ -9,15 +9,14 @@ var healthpot_amount : int = 0
 var unopened_chests : Array = ["Level1_chest"]
 const SAVE_DIR : String = "user://savedata/"
 var savepath : String = SAVE_DIR + "savefile.dat"
-
-var dash_unlocked : bool = true
-var glide_unlocked : bool = true
+var dash_unlocked : bool = false
+var glide_unlocked : bool = false
 func reset_player_data():
 	Global.hearts = 3
 	Global.mana = 5
 	Global.healthpot_amount = 0
-	Global.dash_unlocked = true
-	Global.glide_unlocked = true
+	Global.dash_unlocked = false
+	Global.glide_unlocked = false
 	# Refresh chest status
 	unopened_chests.insert(0, "Level1_chest")
 
@@ -53,4 +52,5 @@ func sync_mana(player_mana : int):
 	player_mana = Global.mana
 func sync_playerHealthpots(player_healthpot : int):
 	player_healthpot = Global.healthpot_amount
+
 

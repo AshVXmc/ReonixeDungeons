@@ -19,16 +19,13 @@ animations = [ {
 } ]
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 8.96883, 6.05448 )
+extents = Vector2( 10.3028, 6.05448 )
 
 [node name="Chest" type="AnimatedSprite"]
 scale = Vector2( 5, 5 )
 frames = SubResource( 1 )
 animation = "Idle"
 script = ExtResource( 2 )
-__meta__ = {
-"_edit_group_": true
-}
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_mask = 0
@@ -42,5 +39,15 @@ shape = SubResource( 2 )
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = ExtResource( 1 )
 animation = "Opened"
+
+[node name="Label" type="Label" parent="."]
+margin_left = -14.0158
+margin_top = -23.0927
+margin_right = 25.9842
+margin_bottom = -9.09273
+text = "OPEN"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_Area2D_area_entered"]

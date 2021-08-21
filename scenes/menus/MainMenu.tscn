@@ -1,8 +1,10 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://assets/fonts/FFFFORWA.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://assets/fonts/PressStart2P-Regular.ttf" type="DynamicFontData" id=2]
 [ext_resource path="res://scripts/ui/MainMenuScript.gd" type="Script" id=3]
 [ext_resource path="res://assets/fonts/buttonfont.tres" type="DynamicFont" id=4]
+[ext_resource path="res://scenes/menus/SceneTransition.tscn" type="PackedScene" id=5]
 
 [sub_resource type="DynamicFont" id=1]
 size = 50
@@ -11,6 +13,10 @@ extra_spacing_char = 5
 font_data = ExtResource( 1 )
 
 [sub_resource type="DynamicFont" id=2]
+size = 22
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=3]
 size = 30
 extra_spacing_space = 20
 font_data = ExtResource( 1 )
@@ -36,9 +42,9 @@ margin_bottom = 720.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
 margin_left = 298.0
-margin_top = 110.0
+margin_top = 131.0
 margin_right = 782.0
-margin_bottom = 609.0
+margin_bottom = 589.0
 
 [node name="CenterContainer7" type="CenterContainer" parent="CenterContainer/VBoxContainer"]
 margin_right = 484.0
@@ -267,30 +273,55 @@ custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_y = 0
 text = "Exit"
 
-[node name="CenterContainer8" type="CenterContainer" parent="CenterContainer/VBoxContainer"]
+[node name="CenterContainer9" type="CenterContainer" parent="CenterContainer/VBoxContainer"]
 margin_top = 367.0
 margin_right = 484.0
-margin_bottom = 499.0
+margin_bottom = 367.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/VBoxContainer/CenterContainer9"]
+margin_left = 242.0
+margin_right = 242.0
+
+[node name="Exitcontainer" type="CenterContainer" parent="CenterContainer/VBoxContainer/CenterContainer9/VBoxContainer"]
+size_flags_horizontal = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/VBoxContainer/CenterContainer9/VBoxContainer/Exitcontainer"]
+
+[node name="nosavedata" type="Label" parent="CenterContainer/VBoxContainer/CenterContainer9/VBoxContainer/Exitcontainer/HBoxContainer"]
+visible = false
+margin_right = 660.0
+margin_bottom = 72.0
+custom_fonts/font = SubResource( 2 )
+custom_colors/font_color = Color( 1, 0, 0, 1 )
+text = "
+
+No save data available to load"
+
+[node name="CenterContainer8" type="CenterContainer" parent="CenterContainer/VBoxContainer"]
+margin_top = 371.0
+margin_right = 484.0
+margin_bottom = 458.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/VBoxContainer/CenterContainer8"]
 margin_left = 72.0
 margin_right = 412.0
-margin_bottom = 132.0
+margin_bottom = 87.0
 
 [node name="Exitcontainer" type="CenterContainer" parent="CenterContainer/VBoxContainer/CenterContainer8/VBoxContainer"]
 margin_right = 340.0
-margin_bottom = 132.0
+margin_bottom = 87.0
 size_flags_horizontal = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/VBoxContainer/CenterContainer8/VBoxContainer/Exitcontainer"]
 margin_right = 340.0
-margin_bottom = 132.0
+margin_bottom = 87.0
 
 [node name="INDEV" type="Label" parent="CenterContainer/VBoxContainer/CenterContainer8/VBoxContainer/Exitcontainer/HBoxContainer"]
 margin_right = 340.0
-margin_bottom = 132.0
-custom_fonts/font = SubResource( 2 )
+margin_bottom = 87.0
+custom_fonts/font = SubResource( 3 )
 custom_colors/font_color = Color( 0.388235, 0.741176, 0, 1 )
 text = "
-
 INDEV Pre-Alpha"
+
+[node name="SceneTransition" parent="." instance=ExtResource( 5 )]

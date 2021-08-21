@@ -1,6 +1,6 @@
 extends AnimatedSprite
 
-const chestID : String = "Level1_chest"
+var chestID : String = "Level1_chest"
 const LOOT : PackedScene = preload("res://scenes/items/HealthPot.tscn")
 var loot = LOOT.instance()
 
@@ -14,7 +14,6 @@ func _on_Area2D_area_entered(area):
 	if area.is_in_group("Player") and Global.unopened_chests.has(chestID):
 		# Mark as opened
 		Global.mark_opened(chestID)
-		
 		$AnimatedSprite.play("Opened")
 		get_parent().add_child(loot)
 		loot.position = $Position2D.global_position

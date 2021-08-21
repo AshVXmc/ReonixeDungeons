@@ -8,25 +8,26 @@ onready var inv_timer : Timer = $InvulnerabilityTimer
 onready var fb_timer : Timer = $FireballTimer
 var knockdir : Vector2 = Vector2.ZERO
 var velocity : Vector2 = Vector2(0,0)
-var is_attacking : bool = false
-var is_dead : bool = false
-var is_invulnerable : bool = false
-var is_knocked_back : bool = false
-var collision : KinematicCollision2D
-var collided : bool = false
 var healthpot_amount : int = Global.healthpot_amount
-var is_dashing : bool = false
-var is_gliding : bool = false
-var can_dash : bool = false
+var collision : KinematicCollision2D
+const TYPE : String = "Player"
 var dashdirection : Vector2 = Vector2(1,0)
 var repulsion : Vector2 = Vector2()
 var knockback_power : int = 200
 var can_be_knocked : bool = true
-const TYPE : String = "Player"
 const SPEED : int = 380
 const GRAVITY : int = 40
 const JUMP_POWER : int = -1075
 const FIREBALL = preload("res://scenes/Fireball.tscn")
+
+var is_attacking : bool = false
+var is_dead : bool = false
+var is_invulnerable : bool = false
+var is_knocked_back : bool = false
+var collided : bool = false
+var is_dashing : bool = false
+var is_gliding : bool = false
+var can_dash : bool = false
 
 func _ready():
 	connect("life_changed", get_parent().get_node("HeartUI/Life"), "on_player_life_changed")
