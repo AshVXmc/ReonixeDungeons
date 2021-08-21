@@ -39,9 +39,8 @@ func handle_selection(_current_selection):
 					Global.healthpot_amount = player_data["Healthpot"]
 					Global.dash_unlocked = player_data["DashUnlocked"]
 					Global.glide_unlocked = player_data["GlideUnlocked"]
-					$SceneTransition/ColorRect.visible = true
 					$SceneTransition.transition()
-					yield(get_tree().create_timer(1), "timeout")
+					yield(get_tree().create_timer(0.9), "timeout")
 					get_tree().change_scene("res://scenes/levels/" + player_data["Level"] + ".tscn")
 				else:
 					print("ERROR LOADING SAVE FILE")

@@ -7,15 +7,15 @@
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
-"frames": [ ExtResource( 4 ) ],
-"loop": true,
-"name": "Idle",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 4 ), ExtResource( 3 ) ],
 "loop": true,
 "name": "Opened",
 "speed": 3.0
+}, {
+"frames": [ ExtResource( 4 ) ],
+"loop": true,
+"name": "Idle",
+"speed": 5.0
 } ]
 
 [sub_resource type="RectangleShape2D" id=2]
@@ -41,6 +41,7 @@ frames = ExtResource( 1 )
 animation = "Opened"
 
 [node name="Label" type="Label" parent="."]
+visible = false
 margin_left = -14.0158
 margin_top = -23.0927
 margin_right = 25.9842

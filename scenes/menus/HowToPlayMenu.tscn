@@ -52,13 +52,13 @@ custom_colors/font_color = Color( 1, 1, 1, 1 )
 text = "to exit"
 
 [node name="Label16" type="Label" parent="Control"]
-margin_left = 486.652
-margin_top = 505.079
-margin_right = 886.652
-margin_bottom = 545.079
+margin_left = 290.814
+margin_top = 508.666
+margin_right = 1010.81
+margin_bottom = 548.666
 custom_fonts/font = ExtResource( 4 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
-text = "Debug toggle"
+text = "toggle FPS counter"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -86,13 +86,16 @@ text = "ESC
 [node name="Label15" type="Label" parent="Control"]
 anchor_top = 0.5
 anchor_bottom = 0.5
-margin_left = 325.843
-margin_top = 144.016
-margin_right = 445.843
-margin_bottom = 227.016
+margin_left = 147.667
+margin_top = 149.765
+margin_right = 347.667
+margin_bottom = 232.765
 custom_fonts/font = ExtResource( 4 )
 custom_colors/font_color = Color( 0.972549, 0.819608, 0, 1 )
 text = "TAB"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Label12" type="Label" parent="Control"]
 margin_left = 424.361
