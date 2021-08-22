@@ -57,7 +57,7 @@ func _physics_process(_delta):
 				$Sprite.play("Idle")
 			if Input.is_action_pressed("right") and !is_attacking and !is_knocked_back:
 				velocity.x = SPEED
-				if is_gliding:
+				if is_gliding and Global.glide_unlocked:
 					$Sprite.play("Glide")
 				else:	
 					$Sprite.play("Walk")
@@ -71,7 +71,7 @@ func _physics_process(_delta):
 				get_node("AttackCollision").set_scale(Vector2(1,1))
 			elif Input.is_action_pressed("left") and !is_attacking:
 				velocity.x = -SPEED
-				if is_gliding:
+				if is_gliding and Global.glide_unlocked:
 					$Sprite.play("Glide")
 				else:	
 					$Sprite.play("Walk")
@@ -84,7 +84,7 @@ func _physics_process(_delta):
 			elif velocity.x == 0:
 				if !is_attacking:
 					$Sprite.play("Idle")
-				elif !is_gliding:
+				if !is_gliding and Global.glide_unlocked:
 					$Sprite.play("Glide")
 			# Jump controls
 			if Input.is_action_just_pressed("jump") and is_on_floor() and !is_attacking:

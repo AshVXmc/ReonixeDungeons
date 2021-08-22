@@ -6,11 +6,12 @@ var hearts : float = max_hearts
 var max_mana : int = 5
 var mana : int = max_mana
 var healthpot_amount : int = 0
-var unopened_chests : Array = ["Level1_chest"]
+var unopened_chests := ["Level1_chest"]
 const SAVE_DIR : String = "user://savedata/"
 var savepath : String = SAVE_DIR + "savefile.dat"
 var dash_unlocked : bool = false
 var glide_unlocked : bool = false
+
 func reset_player_data():
 	Global.hearts = 3
 	Global.mana = 5
@@ -18,7 +19,11 @@ func reset_player_data():
 	Global.dash_unlocked = false
 	Global.glide_unlocked = false
 	# Refresh chest status
-	unopened_chests.insert(0, "Level1_chest")
+	
+
+func reset_chest_data():
+	if !Global.unopened_chests.has("Level1_chest"):
+		Global.unopened_chests.insert(0, "Level1_chest")
 
 func save_player_data():
 	var dir : Directory = Directory.new()
@@ -32,9 +37,9 @@ func save_player_data():
 		"MaxMana" : Global.max_mana ,
 		"Mana" : Global.mana ,
 		"Healthpot": Global.healthpot_amount ,
-		"ChestUnopened": Global.unopened_chests,
 		"DashUnlocked" : Global.dash_unlocked ,
-		"GlideUnlocked" : Global.glide_unlocked
+		"GlideUnlocked" : Global.glide_unlocked,
+		"ChestUnopened": Global.unopened_chests
 	}
 
 	var savefile : File = File.new()
@@ -42,9 +47,6 @@ func save_player_data():
 	if error == OK:
 		savefile.store_var(load_data)
 		savefile.close()
-	
-func mark_opened(opened_chest : String):
-	unopened_chests.erase(opened_chest)
 
 func sync_hearts(player_hearts : float):
 	player_hearts = Global.hearts
@@ -52,5 +54,6 @@ func sync_mana(player_mana : int):
 	player_mana = Global.mana
 func sync_playerHealthpots(player_healthpot : int):
 	player_healthpot = Global.healthpot_amount
+	
 
 

@@ -17,7 +17,7 @@ func handle_selection(_current_selection):
 	match _current_selection:
 		0:
 			Global.reset_player_data()
-			
+			Global.reset_chest_data()
 			$SceneTransition/ColorRect.visible = true
 			$SceneTransition.transition()
 			yield(get_tree().create_timer(1), "timeout")
@@ -39,8 +39,9 @@ func handle_selection(_current_selection):
 					Global.healthpot_amount = player_data["Healthpot"]
 					Global.dash_unlocked = player_data["DashUnlocked"]
 					Global.glide_unlocked = player_data["GlideUnlocked"]
+					Global.unopened_chests = player_data["ChestUnopened"]
 					$SceneTransition.transition()
-					yield(get_tree().create_timer(0.9), "timeout")
+					yield(get_tree().create_timer(0.95), "timeout")
 					get_tree().change_scene("res://scenes/levels/" + player_data["Level"] + ".tscn")
 				else:
 					print("ERROR LOADING SAVE FILE")
