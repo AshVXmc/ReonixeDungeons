@@ -1,0 +1,40 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://assets/misc/life_wine.png" type="Texture" id=1]
+[ext_resource path="res://scripts/ui/LifeWineControl.gd" type="Script" id=2]
+[ext_resource path="res://assets/fonts/buttonfont.tres" type="DynamicFont" id=3]
+
+[node name="LifeWineUI" type="CanvasLayer"]
+
+[node name="LifeWineControl" type="Control" parent="."]
+margin_left = 148.0
+margin_right = 188.0
+margin_bottom = 40.0
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="LifeWineControl"]
+margin_left = 598.848
+margin_top = 17.017
+margin_right = 614.848
+margin_bottom = 37.017
+rect_scale = Vector2( 4, 4 )
+texture = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="LifeWineControl"]
+margin_left = 647.658
+margin_top = 77.7164
+margin_right = 697.658
+margin_bottom = 180.716
+rect_scale = Vector2( 0.75, 0.75 )
+custom_fonts/font = ExtResource( 3 )
+text = "0
+"
+__meta__ = {
+"_edit_use_anchors_": false
+}

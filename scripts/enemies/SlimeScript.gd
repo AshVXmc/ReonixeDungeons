@@ -1,7 +1,7 @@
 extends KinematicBody2D
 
-var velocity = Vector2()
-var HP = 2
+var velocity : Vector2 = Vector2()
+export var HP : int = 2
 var is_dead : bool = false 
 var direction : int = 1
 const TYPE : String = "Enemy"
@@ -42,7 +42,7 @@ func _on_Area2D_area_entered(area):
 	var loot = LOOT.instance()
 	var lootrng : RandomNumberGenerator = RandomNumberGenerator.new()
 	lootrng.randomize()
-	var randomint = lootrng.randi_range(1,5)	
+	var randomint = lootrng.randi_range(1,5)
 	if HP <= 0:
 		if randomint == 1:
 			get_parent().add_child(loot)

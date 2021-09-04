@@ -1,7 +1,7 @@
 extends KinematicBody2D
 
 const TYPE : String = "Enemy"
-const SPEED : int = 250
+const SPEED : int = 285
 const GRAVITY : int = 95
 const MAX : int = 3
 const MIN : int = 1
@@ -13,15 +13,14 @@ var direction : int = -1
 var is_dead : bool = false 
 var player = null
 var is_attacking : bool = false
-export var HP : int = 20
-
-
+export var maxHP : float = 34
+export var HP : float = 34
 
 # ATTACK PATTERNS
 # Sends shockwaves on two directions while is on floor.
-# Dash(?)
+# Summons stalagmite-like spikes  
+
 func _ready():
-	var playerposx : Node = get_parent().get_node("Player")
 	$AttackTimer.start()
 	$MeleeTimer.start()
 
@@ -31,8 +30,28 @@ func _on_AttackTimer_timeout():
 func _on_MeleeTimer_timeout():
 	melee_attack()
 
-# warning-ignore:unused_argument
-func _physics_process(delta):
+func _process(_delta):
+	# Healthbar (rounded up floats)
+	var currentHealthdisplay : int = int(ceil((HP / maxHP) * 100))
+	$Label.text = str(currentHealthdisplay) + "%"
+
+	# Label color update
+	# 50% - 100% = Green, 20% - 50% = Yellow, 1% - 20% red
+	# doesn't work for some reason
+	if currentHealthdisplay <= 100 and currentHealthdisplay >= 50:
+		# GREEN
+		get_node("Label").set("font_color",Color(16,227,48))
+	elif currentHealthdisplay <= 49 and currentHealthdisplay >= 20:
+		# YELLOW
+		get_node("Label").set("font_color",Color(227,206,16))
+	elif currentHealthdisplay <= 19 and currentHealthdisplay > 0:
+		# RED
+		get_node("Label").set("font_color",Color(214,13,13))
+	 
+	
+	
+
+func _physics_process(_delta):
 	if HP <= 0:
 		queue_free()
 	# attack collision flipping
@@ -57,6 +76,7 @@ func _physics_process(delta):
 		$RayCast2D.position.x *= -1
 
 func melee_attack():
+	var playerposx : Node = get_parent().get_node("Player")
 	is_attacking = true
 	velocity.x = 0
 	yield(get_tree().create_timer(1.25), "timeout")
@@ -85,11 +105,8 @@ func melee_attack():
 	is_attacking = false	
 		
 
-	
-	
-	
 # Teleports upward and slams downwards (from one of the three pillar spots)
-# Note: test this on the arena scene so it doesn't produce a null instance error
+# Note: test this on the Level scene so it doesn't produce a null instance error (Position nodes)
 func downwards_slam():
 	var rng : RandomNumberGenerator = RandomNumberGenerator.new()
 	var pos1 : Position2D = get_parent().get_node("Position2D1")
@@ -139,23 +156,21 @@ func double_wave_slam():
 	$AnimatedSprite.play("Slam")
 	is_attacking = true
 	velocity.x = 0
-	$Area2D.add_to_group("Enemy2")
 	yield(get_tree().create_timer(1.6), "timeout")
 	is_attacking = false
-	$Area2D.remove_from_group("Enemy2")
 	$MeleeTimer.start()
 
 func _on_Area2D_area_entered(area):
 	if area.is_in_group("Sword") or area.is_in_group("Fireball") and HP > 0:
 		HP -= 1
-		set_modulate(Color(2,0.5,0.3,1))
+		$AnimatedSprite.set_modulate(Color(2,0.5,0.3,1))
 		$HurtTimer.start()
 		
 	if area.is_in_group("Player"):
 		velocity.x = 0
 		
 func _on_HurtTimer_timeout():
-	set_modulate(Color(1,1,1,1))
+	$AnimatedSprite.set_modulate(Color(1,1,1,1))
 
 
 func _on_ShockTimer_timeout():

@@ -1,8 +1,10 @@
 extends KinematicBody2D
 
 signal life_changed(player_hearts)
+signal maxhearts_changed(player_maxhearts)
 signal mana_changed(player_mana)
 signal healthpot_obtained(player_healthpot)
+signal lifewine_obtained(player_lifewine)
 
 onready var inv_timer : Timer = $InvulnerabilityTimer
 onready var fb_timer : Timer = $FireballTimer
@@ -30,26 +32,40 @@ var is_gliding : bool = false
 var can_dash : bool = false
 
 func _ready():
+# warning-ignore:return_value_discarded
 	connect("life_changed", get_parent().get_node("HeartUI/Life"), "on_player_life_changed")
+# warning-ignore:return_value_discarded
 	connect("mana_changed", get_parent().get_node("ManaUI/Mana"), "on_player_mana_changed")
+# warning-ignore:return_value_discarded
 	connect("healthpot_obtained", get_parent().get_node("HealthPotUI/HealthPotControl"), "on_player_healthpot_obtained")
+# warning-ignore:return_value_discarded
+	connect("lifewine_obtained", get_parent().get_node("LifeWineUI/LifeWineControl"), "on_player_lifewine_obtained")
 	# HP singleton connect
+# warning-ignore:return_value_discarded
 	connect("life_changed", Global, "sync_hearts")
 	emit_signal("life_changed", Global.hearts)
 	# Mana singleton connect
+# warning-ignore:return_value_discarded
 	connect("mana_changed", Global, "sync_mana")
 	emit_signal("mana_changed", Global.mana)
 	# Healthpot inventory connect
+# warning-ignore:return_value_discarded
 	connect("healthpot_obtained", Global, "sync_playerHealthpots")
 	emit_signal("healthpot_obtained", Global.healthpot_amount)
+	# Lifewine inventory connect
+# warning-ignore:return_value_discarded
+	connect("lifewine_obtained", Global, "sync_playerLifeWines")
+	emit_signal("lifewine_obtained", Global.lifewine_amount)
 
+
+	
 func _physics_process(_delta):
 	# Makes sure the player is alive to use any movement controls
 	if !is_dead and !is_invulnerable:
 			# Function calls
 			attack()
 			dash()
-			glide(1) # Glide duration in seconds
+			glide() # Glide duration in seconds
 			useItems()
 			shoot()
 			# Movement controls
@@ -57,10 +73,7 @@ func _physics_process(_delta):
 				$Sprite.play("Idle")
 			if Input.is_action_pressed("right") and !is_attacking and !is_knocked_back:
 				velocity.x = SPEED
-				if is_gliding and Global.glide_unlocked:
-					$Sprite.play("Glide")
-				else:	
-					$Sprite.play("Walk")
+				$Sprite.play("Glide") if is_gliding else $Sprite.play("Walk")
 				$Sprite.flip_h = false
 				if velocity.x == 0 and !is_attacking:
 					$Sprite.play("Idle")
@@ -71,10 +84,7 @@ func _physics_process(_delta):
 				get_node("AttackCollision").set_scale(Vector2(1,1))
 			elif Input.is_action_pressed("left") and !is_attacking:
 				velocity.x = -SPEED
-				if is_gliding and Global.glide_unlocked:
-					$Sprite.play("Glide")
-				else:	
-					$Sprite.play("Walk")
+				$Sprite.play("Glide") if is_gliding else $Sprite.play("Walk")
 				$Sprite.flip_h = true
 				if velocity.x == 0 and !is_attacking:
 					$Sprite.play("Idle")
@@ -84,7 +94,7 @@ func _physics_process(_delta):
 			elif velocity.x == 0:
 				if !is_attacking:
 					$Sprite.play("Idle")
-				if !is_gliding and Global.glide_unlocked:
+				if is_gliding and Global.glide_unlocked:
 					$Sprite.play("Glide")
 			# Jump controls
 			if Input.is_action_just_pressed("jump") and is_on_floor() and !is_attacking:
@@ -100,18 +110,31 @@ func _physics_process(_delta):
 			if is_invulnerable:
 				$Area2D/CollisionShape2D.disabled = true
 				
+			if Input.is_action_just_pressed("ui_use"):
+				$ToggleArea/CollisionShape2D.disabled = false
+				yield(get_tree().create_timer(0.4), "timeout")
+				$ToggleArea/CollisionShape2D.disabled = true
 
 func useItems():
+	# Health potions
 	if Input.is_action_just_pressed("slot_1"):
 		if Global.healthpot_amount > 0 and Global.hearts < Global.max_hearts:
 			Global.healthpot_amount -= 1
+			# State update
 			emit_signal("healthpot_obtained", Global.healthpot_amount)
 			if Global.hearts == Global.max_hearts - 0.5:
 				Global.hearts += 0.5
 			else:
 				Global.hearts += 1
 			emit_signal("life_changed", Global.hearts)
-				
+	# Life wines (Increase maximum health)
+	if Input.is_action_just_pressed("slot_2"):
+		if Global.lifewine_amount >= 1:
+			Global.lifewine_amount -= 1
+			emit_signal("lifewine_obtained", Global.lifewine_amount)
+			Global.max_hearts += 1
+			emit_signal("life_changed")
+			
 func shoot():
 	if Input.is_action_just_pressed("ui_shoot")	and !is_attacking and Global.mana >= 1:
 			var fireball = FIREBALL.instance()
@@ -127,7 +150,7 @@ func shoot():
 			$AttackCollision/CollisionShape2D.disabled = true
 
 func attack():
-	if Input.is_action_just_pressed("ui_attack") and !is_attacking:
+	if Input.is_action_just_pressed("ui_attack") and !is_attacking and !is_gliding:
 		$Sprite.play("Attack")
 		is_attacking = true
 		$AttackCollision/CollisionShape2D.disabled = false
@@ -160,9 +183,14 @@ func attack():
 
 # Damage and interaction
 func _on_Area2D_area_entered(area : Area2D):
+#	if area.is_in_group("Campfire"):
+#		Global.hearts += Global.max_hearts - Global.hearts
 	if area.is_in_group("HealthPot"):
 		Global.healthpot_amount += 1
 		emit_signal("healthpot_obtained", Global.healthpot_amount)
+	if area.is_in_group("LifeWine"):
+		Global.lifewine_amount += 1
+		emit_signal("lifewine_obtained", Global.lifewine_amount)
 	if inv_timer.is_stopped():
 		if area.is_in_group("Enemy"):
 			Global.hearts -= 0.5
@@ -180,10 +208,11 @@ func _on_Area2D_area_entered(area : Area2D):
 
 
 func attack_knock():
+	var KNOCK_POWER : int = 175
 	if !$Sprite.flip_h:
-		velocity.x = -350
-	elif $Sprite.flip_h:
-		velocity.x = 350
+		velocity.x = -KNOCK_POWER
+	else:
+		velocity.x = KNOCK_POWER
 
 func afterDamaged():
 	inv_timer.start() 
@@ -249,7 +278,9 @@ func dash():
 			dashdirection = Vector2(1,0)
 		if $Sprite.flip_h:
 			dashdirection = Vector2(-1, 0)		
-		if Input.is_action_just_pressed("ui_dash") and can_dash and $DashUseTimer.is_stopped():
+		if Input.is_action_just_pressed("ui_dash") and can_dash and $DashUseTimer.is_stopped() and Global.mana > 0:
+			Global.mana -= 1
+			emit_signal("mana_changed", Global.mana)
 			can_dash = false
 			$DashUseTimer.start()
 			$Sprite.play("Dash")
@@ -265,18 +296,26 @@ func dash():
 			Input.action_release("left")
 			Input.action_release("right")
 
-func glide(glide_duration : float):
+func glide():
 	# Press SPACE while in mid-air to temporarily glide
-	if Global.glide_unlocked and Input.is_action_just_pressed("jump") and !is_on_floor():
+	if Global.glide_unlocked and Input.is_action_just_pressed("jump") and !is_on_floor() and Global.mana >= 3:
 		if is_on_floor():
 			is_gliding = false
-		$Sprite.play("Glide")
+
 		is_gliding = true
+		if is_gliding:	
+			$Sprite.play("Glide")
 		velocity.y = 0
 		velocity.y += GRAVITY
-		yield(get_tree().create_timer(glide_duration), "timeout")
+		Global.mana -= 3
+		emit_signal("mana_changed", Global.mana)
+		if Input.is_action_just_released("jump"):
+			is_gliding = false
+			velocity.y += GRAVITY * 2
+		yield(get_tree().create_timer(1), "timeout")
 		is_gliding = false
 		Input.action_release("jump")
+
 			
 # Player death	
 func dead():
@@ -286,8 +325,12 @@ func dead():
 	$CollisionShape2D.disabled = true
 	$Timer.start()
 
+func on_campfire_toggled():
+	Global.hearts += Global.max_hearts - Global.hearts
+	emit_signal("life_changed", Global.hearts)
 # Handles what happens when timers runs out
 func _on_Timer_timeout():
+# warning-ignore:return_value_discarded
 	get_tree().change_scene("res://scenes/menus/MainMenu.tscn")
 	queue_free() 
 	
@@ -315,7 +358,6 @@ func _on_KnockbackCooldownTimer_timeout():
 	can_be_knocked = true
 	Input.action_release("left")
 	Input.action_release("right")
-
 
 func _on_DashUseTimer_timeout():
 	can_dash = true 

@@ -7,4 +7,4 @@ func on_player_healthpot_obtained(player_healthpot : int):
 	else:
 		$Label.visible = true
 		$TextureRect.visible = true
-		$Label.text = player_healthpot as String
+		$Label.text = str(player_healthpot)

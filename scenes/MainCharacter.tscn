@@ -18,6 +18,7 @@ script = ExtResource( 2 )
 scale = Vector2( 5, 5 )
 frames = ExtResource( 1 )
 animation = "Glide"
+playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 0, 5.05854 )
@@ -86,6 +87,15 @@ one_shot = true
 scale = Vector2( 5, 5 )
 texture = ExtResource( 3 )
 energy = 0.5
+
+[node name="ToggleArea" type="Area2D" parent="." groups=[
+"PlayerToggle",
+]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ToggleArea"]
+position = Vector2( 0, 5.05854 )
+shape = SubResource( 1 )
+disabled = true
 
 [connection signal="animation_finished" from="Sprite" to="." method="_on_Sprite_animation_finished"]
 [connection signal="area_entered" from="AttackCollision" to="." method="_on_AttackCollision_area_entered"]

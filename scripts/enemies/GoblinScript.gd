@@ -1,5 +1,6 @@
 extends KinematicBody2D
 
+export var HP : int = 2
 var velocity = Vector2()
 var direction : int = 1
 var is_dead : bool = false 
@@ -8,16 +9,20 @@ const FLOOR = Vector2(0, -1)
 const SPEED : int = 350
 const GRAVITY : int = 45
 var player = null
-export var HP : int = 2
+
 const LOOT = preload("res://scenes/items/HealthPot.tscn")
+onready var AREA_LEFT : Area2D = $Left
+onready var AREA_RIGHT : Area2D = $Right
+onready var PLAYER = get_parent().get_node("Player").get_node("Area2D")
 
 func _physics_process(delta):
 	velocity.y += GRAVITY
 	velocity = move_and_slide(velocity, FLOOR)
-	if velocity.x == 0:
-		$Sprite.play("Idle")
-	else:
-		$Sprite.play("Attacking")	
+	$Sprite.play("Idle") if velocity.x == 0 else $Sprite.play("Attacking")
+	
+	if AREA_LEFT.overlaps_area(PLAYER):
+		$Sprite.flip_h = false
+		velocity.x = -SPEED
 
 func _on_Area2D_area_entered(area):
 	if area.is_in_group("Sword") or area.is_in_group("Fireball") and HP > 0:
@@ -34,22 +39,22 @@ func _on_Area2D_area_entered(area):
 				loot.position = $Position2D.global_position
 			queue_free()
 
-func _on_Left_body_entered(body):
-	$Sprite.flip_h = false
-	if body.get("TYPE") == "Player":
-		velocity.x = -SPEED
-func _on_Right_body_entered(body):
-	$Sprite.flip_h = true
-	if body.get("TYPE") == "Player":
-		velocity.x = SPEED
-func _on_Left_body_exited(body):
-	if body.get("TYPE") == "Player":
-		$AttackingTimer.start()
-
-
-func _on_Right_body_exited(body):
-	if body.get("TYPE") == "Player":
-		$AttackingTimer.start()
+#func _on_Left_body_entered(body):
+#	$Sprite.flip_h = false
+#	if body.get("TYPE") == "Player":
+#		velocity.x = -SPEED
+#func _on_Right_body_entered(body):
+#	$Sprite.flip_h = true
+#	if body.get("TYPE") == "Player":
+#		velocity.x = SPEED
+#func _on_Left_body_exited(body):
+#	if body.get("TYPE") == "Player":
+#		$AttackingTimer.start()
+#
+#
+#func _on_Right_body_exited(body):
+#	if body.get("TYPE") == "Player":
+#		$AttackingTimer.start()
 
 func _on_HurtTimer_timeout():
 	set_modulate(Color(1,1,1,1))

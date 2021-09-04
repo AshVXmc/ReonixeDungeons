@@ -16,6 +16,7 @@ func _ready():
 func handle_selection(_current_selection):
 	match _current_selection:
 		0:
+			# NEW GAME
 			Global.reset_player_data()
 			Global.reset_chest_data()
 			$SceneTransition/ColorRect.visible = true
@@ -40,8 +41,9 @@ func handle_selection(_current_selection):
 					Global.dash_unlocked = player_data["DashUnlocked"]
 					Global.glide_unlocked = player_data["GlideUnlocked"]
 					Global.unopened_chests = player_data["ChestUnopened"]
+					$SceneTransition/ColorRect.visible = true
 					$SceneTransition.transition()
-					yield(get_tree().create_timer(0.95), "timeout")
+					yield(get_tree().create_timer(1), "timeout")
 					get_tree().change_scene("res://scenes/levels/" + player_data["Level"] + ".tscn")
 				else:
 					print("ERROR LOADING SAVE FILE")
@@ -52,9 +54,11 @@ func handle_selection(_current_selection):
 					savedatalabel.visible = false
 				
 		2:
+			# HOW TO PLAY MANUAL
 			get_tree().change_scene("res://scenes/menus/HowToPlayMenu.tscn")
 			queue_free()
 		4:
+			# EXIT
 			get_tree().quit()
 		
 func _process(delta):	

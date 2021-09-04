@@ -1,0 +1,6 @@
+1. Export with the "Embed PCK" option turned ON
+2. Open resource hacker
+3. Select the "Icon Group" folder
+4. Select Action -> Change Icon
+5. Save and quit
+6. Type "run" in the start bar and select ie4uinit.exe -show

@@ -10,7 +10,7 @@ height = 40.2918
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 125.931, 50.3433 )
 
-[node name="KinematicBody2D" type="KinematicBody2D"]
+[node name="Goblin" type="KinematicBody2D"]
 position = Vector2( 0.471924, 0 )
 script = ExtResource( 2 )
 
@@ -58,10 +58,6 @@ one_shot = true
 
 [node name="Position2D" type="Position2D" parent="."]
 
-[connection signal="body_entered" from="Left" to="." method="_on_Left_body_entered"]
-[connection signal="body_exited" from="Left" to="." method="_on_Left_body_exited"]
-[connection signal="body_entered" from="Right" to="." method="_on_Right_body_entered"]
-[connection signal="body_exited" from="Right" to="." method="_on_Right_body_exited"]
 [connection signal="area_entered" from="Area2D" to="." method="_on_Area2D_area_entered"]
 [connection signal="timeout" from="HurtTimer" to="." method="_on_HurtTimer_timeout"]
 [connection signal="timeout" from="AttackingTimer" to="." method="_on_AttackingTimer_timeout"]

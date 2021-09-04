@@ -10,6 +10,7 @@ An cold cavern covered in glaciers and ice spikes
 ## Lore
 A group of cultists worshipping a form of alien energy dubbed "The Gift", believing they were destined to rule the world and bring peace to with this power. 
 
-BAGELS
+## Gemstones
+Power-ups that can be equipped into the player's robe talisman 
 
 

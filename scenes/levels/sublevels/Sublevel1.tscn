@@ -1,35 +1,31 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=19 format=2]
 
-[ext_resource path="res://assets/UI/heart.png" type="Texture" id=1]
-[ext_resource path="res://assets/UI/mana.png" type="Texture" id=2]
-[ext_resource path="res://scenes/MainCharacter.tscn" type="PackedScene" id=5]
-[ext_resource path="res://scenes/menus/HealthPotUI.tscn" type="PackedScene" id=6]
-[ext_resource path="res://assets/terrain/short_grass.png" type="Texture" id=7]
-[ext_resource path="res://assets/terrain/background_dungeons.png" type="Texture" id=8]
-[ext_resource path="res://assets/UI/hotbar.png" type="Texture" id=9]
-[ext_resource path="res://scenes/menus/PauseUI.tscn" type="PackedScene" id=10]
-[ext_resource path="res://assets/terrain/lichen_ruins_spritesheet.png" type="Texture" id=11]
-[ext_resource path="res://scripts/LifeScript.gd" type="Script" id=13]
-[ext_resource path="res://scripts/ui/ManaScript.gd" type="Script" id=14]
-[ext_resource path="res://assets/terrain/small_mushrooms.png" type="Texture" id=16]
-[ext_resource path="res://assets/terrain/vine1.png" type="Texture" id=17]
-[ext_resource path="res://scenes/enemies/Slime.tscn" type="PackedScene" id=20]
-[ext_resource path="res://scenes/terrain/Spike.tscn" type="PackedScene" id=21]
-[ext_resource path="res://scenes/enemies/Bat.tscn" type="PackedScene" id=22]
-[ext_resource path="res://scenes/items/Barrel.tscn" type="PackedScene" id=23]
+[ext_resource path="res://scripts/ui/ManaScript.gd" type="Script" id=1]
+[ext_resource path="res://scripts/LifeScript.gd" type="Script" id=2]
+[ext_resource path="res://assets/terrain/lichen_ruins_spritesheet.png" type="Texture" id=3]
+[ext_resource path="res://assets/terrain/background_dungeons.png" type="Texture" id=4]
+[ext_resource path="res://assets/UI/mana.png" type="Texture" id=5]
+[ext_resource path="res://assets/UI/heart.png" type="Texture" id=6]
+[ext_resource path="res://assets/UI/hotbar.png" type="Texture" id=7]
+[ext_resource path="res://scenes/terrain/ReloadSceneSpike.tscn" type="PackedScene" id=8]
+[ext_resource path="res://scenes/enemies/Slime.tscn" type="PackedScene" id=9]
+[ext_resource path="res://scenes/MainCharacter.tscn" type="PackedScene" id=10]
+[ext_resource path="res://scenes/menus/PauseUI.tscn" type="PackedScene" id=11]
+[ext_resource path="res://scenes/items/Barrel.tscn" type="PackedScene" id=12]
+[ext_resource path="res://scenes/enemies/Bat.tscn" type="PackedScene" id=13]
+[ext_resource path="res://scenes/menus/HealthPotUI.tscn" type="PackedScene" id=14]
 
-[sub_resource type="ConvexPolygonShape2D" id=4]
+[sub_resource type="ConvexPolygonShape2D" id=1]
 points = PoolVector2Array( 96, 96, 0, 96, 0, 0, 96, 0 )
 
-[sub_resource type="ConvexPolygonShape2D" id=5]
+[sub_resource type="ConvexPolygonShape2D" id=2]
 points = PoolVector2Array( 96, 96, 0, 96, 0, 0, 96, 0 )
 
-[sub_resource type="ConvexPolygonShape2D" id=6]
+[sub_resource type="ConvexPolygonShape2D" id=3]
 points = PoolVector2Array( 96, 96, 0, 96, 0, 0, 96, 0 )
 
-[sub_resource type="TileSet" id=7]
+[sub_resource type="TileSet" id=4]
 2/name = "short_grass.png 2"
-2/texture = ExtResource( 7 )
 2/tex_offset = Vector2( 0, 0 )
 2/modulate = Color( 1, 1, 1, 1 )
 2/region = Rect2( 0, 0, 96, 96 )
@@ -43,7 +39,6 @@ points = PoolVector2Array( 96, 96, 0, 96, 0, 0, 96, 0 )
 2/shapes = [  ]
 2/z_index = 0
 4/name = "vine1.png 4"
-4/texture = ExtResource( 17 )
 4/tex_offset = Vector2( 0, 0 )
 4/modulate = Color( 1, 1, 1, 1 )
 4/region = Rect2( 0, 0, 96, 96 )
@@ -57,7 +52,6 @@ points = PoolVector2Array( 96, 96, 0, 96, 0, 0, 96, 0 )
 4/shapes = [  ]
 4/z_index = 0
 5/name = "small_mushrooms.png 5"
-5/texture = ExtResource( 16 )
 5/tex_offset = Vector2( 0, 0 )
 5/modulate = Color( 1, 1, 1, 1 )
 5/region = Rect2( 0, 0, 96, 96 )
@@ -71,7 +65,7 @@ points = PoolVector2Array( 96, 96, 0, 96, 0, 0, 96, 0 )
 5/shapes = [  ]
 5/z_index = 0
 6/name = "lichen_ruins_spritesheet.png 6"
-6/texture = ExtResource( 11 )
+6/texture = ExtResource( 3 )
 6/tex_offset = Vector2( 0, 0 )
 6/modulate = Color( 1, 1, 1, 1 )
 6/region = Rect2( 0, 0, 96, 96 )
@@ -80,19 +74,19 @@ points = PoolVector2Array( 96, 96, 0, 96, 0, 0, 96, 0 )
 6/navigation_offset = Vector2( 0, 0 )
 6/shape_offset = Vector2( 0, 0 )
 6/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
-6/shape = SubResource( 4 )
+6/shape = SubResource( 1 )
 6/shape_one_way = false
 6/shape_one_way_margin = 1.0
 6/shapes = [ {
 "autotile_coord": Vector2( 0, 0 ),
 "one_way": false,
 "one_way_margin": 1.0,
-"shape": SubResource( 4 ),
+"shape": SubResource( 1 ),
 "shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
 } ]
 6/z_index = 0
 7/name = "lichen_ruins_spritesheet.png 7"
-7/texture = ExtResource( 11 )
+7/texture = ExtResource( 3 )
 7/tex_offset = Vector2( 0, 0 )
 7/modulate = Color( 1, 1, 1, 1 )
 7/region = Rect2( 192, 0, 96, 96 )
@@ -101,19 +95,19 @@ points = PoolVector2Array( 96, 96, 0, 96, 0, 0, 96, 0 )
 7/navigation_offset = Vector2( 0, 0 )
 7/shape_offset = Vector2( 0, 0 )
 7/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
-7/shape = SubResource( 5 )
+7/shape = SubResource( 2 )
 7/shape_one_way = false
 7/shape_one_way_margin = 1.0
 7/shapes = [ {
 "autotile_coord": Vector2( 0, 0 ),
 "one_way": false,
 "one_way_margin": 1.0,
-"shape": SubResource( 5 ),
+"shape": SubResource( 2 ),
 "shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
 } ]
 7/z_index = 0
 8/name = "lichen_ruins_spritesheet.png 8"
-8/texture = ExtResource( 11 )
+8/texture = ExtResource( 3 )
 8/tex_offset = Vector2( 0, 0 )
 8/modulate = Color( 1, 1, 1, 1 )
 8/region = Rect2( 288, 0, 96, 96 )
@@ -122,19 +116,19 @@ points = PoolVector2Array( 96, 96, 0, 96, 0, 0, 96, 0 )
 8/navigation_offset = Vector2( 0, 0 )
 8/shape_offset = Vector2( 0, 0 )
 8/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
-8/shape = SubResource( 6 )
+8/shape = SubResource( 3 )
 8/shape_one_way = false
 8/shape_one_way_margin = 1.0
 8/shapes = [ {
 "autotile_coord": Vector2( 0, 0 ),
 "one_way": false,
 "one_way_margin": 1.0,
-"shape": SubResource( 6 ),
+"shape": SubResource( 3 ),
 "shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
 } ]
 8/z_index = 0
 9/name = "lichen_ruins_spritesheet.png 9"
-9/texture = ExtResource( 11 )
+9/texture = ExtResource( 3 )
 9/tex_offset = Vector2( 0, 0 )
 9/modulate = Color( 1, 1, 1, 1 )
 9/region = Rect2( 96, 0, 96, 96 )
@@ -151,7 +145,7 @@ points = PoolVector2Array( 96, 96, 0, 96, 0, 0, 96, 0 )
 [node name="Level1-sublevel1" type="Node2D"]
 
 [node name="TIleMap" type="TileMap" parent="."]
-tile_set = SubResource( 7 )
+tile_set = SubResource( 4 )
 cell_size = Vector2( 96, 96 )
 format = 1
 tile_data = PoolIntArray( -262148, 0, 0, -262147, 0, 0, -262146, 0, 0, -262145, 0, 0, -327680, 0, 0, -327679, 0, 0, -327678, 0, 0, -327677, 0, 0, -327676, 0, 0, -327675, 0, 0, -327674, 0, 0, -327673, 0, 0, -327672, 0, 0, -327671, 0, 0, -327670, 0, 0, -327669, 0, 0, -327668, 0, 0, -327667, 0, 0, -327666, 0, 0, -327665, 0, 0, -327664, 0, 0, -327663, 0, 0, -327662, 0, 0, -327661, 0, 0, -327660, 0, 0, -327659, 0, 0, -327658, 0, 0, -327657, 0, 0, -196612, 0, 0, -196611, 0, 0, -196610, 0, 0, -196609, 0, 0, -262144, 0, 0, -262143, 0, 0, -262142, 0, 0, -262141, 0, 0, -262140, 0, 0, -262139, 0, 0, -262138, 0, 0, -262137, 0, 0, -262136, 0, 0, -262135, 0, 0, -262134, 0, 0, -262133, 0, 0, -262132, 0, 0, -262131, 0, 0, -262130, 0, 0, -262129, 0, 0, -262128, 0, 0, -262127, 0, 0, -262126, 0, 0, -262125, 0, 0, -262124, 0, 0, -262123, 0, 0, -262122, 0, 0, -262121, 0, 0, -131076, 0, 0, -131075, 6, 0, -131074, 6, 0, -131073, 6, 0, -196608, 6, 0, -196607, 6, 0, -196606, 6, 0, -196605, 6, 0, -196604, 6, 0, -196603, 6, 0, -196602, 6, 0, -196601, 6, 0, -196600, 6, 0, -196599, 6, 0, -196598, 6, 0, -196597, 6, 0, -196596, 6, 0, -196595, 6, 0, -196594, 6, 0, -196593, 6, 0, -196592, 6, 0, -196591, 6, 0, -196590, 6, 0, -196589, 6, 0, -196588, 6, 0, -196587, 6, 0, -196586, 6, 0, -196585, 6, 0, -65540, 0, 0, -65539, 6, 0, -65538, 6, 0, -65537, 6, 0, -131072, 6, 0, -131071, 8, 0, -131070, 8, 0, -131069, 8, 0, -131068, 8, 0, -131067, 8, 0, -131066, 8, 0, -131065, 8, 0, -131064, 8, 0, -131063, 8, 0, -131062, 8, 0, -131061, 8, 0, -131060, 8, 0, -131059, 8, 0, -131058, 8, 0, -131057, 8, 0, -131056, 8, 0, -131055, 8, 0, -131054, 8, 0, -131053, 8, 0, -131052, 8, 0, -131051, 6, 0, -131050, 6, 0, -131049, 6, 0, -4, 0, 0, -3, 6, 0, -2, 6, 0, -1, 6, 0, -65536, 6, 0, -65531, 4, 0, -65530, 4, 0, -65523, 4, 0, -65518, 4, 0, -65517, 4, 0, -65515, 6, 0, -65514, 6, 0, -65513, 6, 0, 65533, 6, 0, 65534, 6, 0, 65535, 6, 0, 0, 6, 0, 6, 4, 0, 13, 4, 0, 18, 4, 0, 19, 4, 0, 21, 6, 0, 22, 6, 0, 23, 6, 0, 131069, 6, 0, 131070, 6, 0, 131071, 6, 0, 65536, 6, 0, 65555, 4, 0, 65557, 6, 0, 65558, 6, 0, 65559, 6, 0, 196605, 6, 0, 196606, 6, 0, 196607, 6, 0, 131072, 6, 0, 131076, 2, 0, 131080, 7, 0, 131081, 7, 0, 131084, 7, 0, 131085, 7, 0, 131086, 7, 0, 131093, 6, 0, 131094, 6, 0, 131095, 6, 0, 262141, 6, 0, 262142, 6, 0, 262143, 6, 0, 196608, 6, 0, 196609, 7, 0, 196610, 7, 0, 196611, 7, 0, 196612, 7, 0, 196613, 7, 0, 196616, 6, 0, 196617, 6, 0, 196620, 6, 0, 196621, 6, 0, 196622, 6, 0, 196629, 6, 0, 196630, 6, 0, 196631, 6, 0, 327677, 6, 0, 327678, 6, 0, 327679, 6, 0, 262144, 6, 0, 262145, 6, 0, 262146, 0, 0, 262147, 0, 0, 262148, 0, 0, 262149, 0, 0, 262150, 0, 0, 262151, 0, 0, 262152, 0, 0, 262153, 6, 0, 262154, 6, 0, 262155, 6, 0, 262156, 6, 0, 262157, 6, 0, 262158, 6, 0, 262159, 7, 0, 262160, 7, 0, 262161, 7, 0, 262162, 7, 0, 262165, 6, 0, 262166, 6, 0, 262167, 6, 0, 393212, 0, 0, 393213, 6, 0, 393214, 6, 0, 393215, 6, 0, 327680, 6, 0, 327681, 8, 0, 327682, 8, 0, 327683, 8, 0, 327684, 8, 0, 327685, 8, 0, 327686, 8, 0, 327687, 8, 0, 327688, 6, 0, 327689, 3, 0, 327690, 3, 0, 327691, 3, 0, 327692, 3, 0, 327693, 3, 0, 327694, 3, 0, 327695, 3, 0, 327696, 3, 0, 327697, 3, 0, 327698, 3, 0, 327701, 6, 0, 327702, 6, 0, 327703, 6, 0, 458748, 0, 0, 458749, 6, 0, 458750, 6, 0, 458751, 6, 0, 393216, 6, 0, 393217, 9, 0, 393218, 9, 0, 393219, 9, 0, 393220, 9, 0, 393221, 9, 0, 393222, 9, 0, 393223, 9, 0, 393224, 6, 0, 393225, 0, 0, 393227, 4, 0, 393229, 4, 0, 393230, 4, 0, 393231, 4, 0, 393237, 6, 0, 393238, 6, 0, 393239, 6, 0, 524284, 0, 0, 524285, 6, 0, 524286, 6, 0, 524287, 6, 0, 458752, 6, 0, 458753, 9, 0, 458754, 9, 0, 458755, 9, 0, 458756, 9, 0, 458757, 9, 0, 458758, 9, 0, 458759, 9, 0, 458760, 6, 0, 458761, 0, 0, 458765, 4, 0, 458773, 6, 0, 458774, 6, 0, 458775, 6, 0, 589820, 0, 0, 589821, 6, 0, 589822, 6, 0, 589823, 6, 0, 524288, 6, 0, 524289, 9, 0, 524290, 9, 0, 524291, 9, 0, 524292, 9, 0, 524293, 9, 0, 524294, 9, 0, 524295, 9, 0, 524296, 6, 0, 524297, 0, 0, 524307, 7, 0, 524308, 7, 0, 524309, 6, 0, 524310, 6, 0, 524311, 6, 0, 655356, 0, 0, 655357, 6, 0, 655358, 6, 0, 655359, 6, 0, 589824, 6, 0, 589825, 9, 0, 589826, 9, 0, 589827, 9, 0, 589828, 7, 0, 589829, 7, 0, 589830, 7, 0, 589831, 7, 0, 589832, 6, 0, 589833, 0, 0, 589841, 7, 0, 589842, 7, 0, 589843, 6, 0, 589844, 6, 0, 589845, 6, 0, 589846, 6, 0, 589847, 6, 0, 720892, 0, 0, 720893, 6, 0, 720894, 6, 0, 720895, 6, 0, 655360, 6, 0, 655364, 8, 0, 655365, 8, 0, 655366, 8, 0, 655367, 8, 0, 655368, 8, 0, 655369, 3, 0, 655377, 6, 0, 655378, 6, 0, 655380, 3, 0, 655381, 6, 0, 655382, 6, 0, 655383, 6, 0, 786428, 0, 0, 786429, 6, 0, 786430, 6, 0, 786431, 6, 0, 720896, 6, 0, 720897, 7, 0, 720898, 7, 0, 720903, 4, 0, 720904, 4, 0, 720910, 7, 0, 720911, 7, 0, 720917, 6, 0, 720918, 6, 0, 720919, 6, 0, 851964, 0, 0, 851965, 6, 0, 851966, 6, 0, 851967, 6, 0, 786432, 6, 0, 786433, 6, 0, 786434, 6, 0, 786440, 4, 0, 786446, 6, 0, 786447, 6, 0, 786451, 5, 0, 786453, 6, 0, 786454, 6, 0, 786455, 6, 0, 917500, 0, 0, 917501, 6, 0, 917502, 6, 0, 917503, 6, 0, 851968, 6, 0, 851969, 6, 0, 851970, 6, 0, 851971, 7, 0, 851972, 7, 0, 851979, 7, 0, 851980, 7, 0, 851981, 7, 0, 851982, 6, 0, 851983, 6, 0, 851984, 7, 0, 851985, 7, 0, 851986, 7, 0, 851987, 7, 0, 851988, 7, 0, 851989, 6, 0, 851990, 6, 0, 851991, 6, 0, 983036, 0, 0, 983037, 6, 0, 983038, 6, 0, 983039, 6, 0, 917504, 6, 0, 917505, 6, 0, 917506, 6, 0, 917507, 6, 0, 917508, 6, 0, 917509, 7, 0, 917510, 7, 0, 917511, 7, 0, 917512, 7, 0, 917513, 7, 0, 917514, 7, 0, 917515, 6, 0, 917516, 6, 0, 917517, 6, 0, 917518, 6, 0, 917519, 6, 0, 917520, 6, 0, 917521, 6, 0, 917522, 6, 0, 917523, 6, 0, 917524, 6, 0, 917525, 6, 0, 917526, 6, 0, 917527, 6, 0, 1048572, 0, 0, 1048573, 6, 0, 1048574, 6, 0, 1048575, 6, 0, 983040, 6, 0, 983041, 6, 0, 983042, 6, 0, 983043, 6, 0, 983044, 6, 0, 983045, 6, 0, 983046, 6, 0, 983047, 6, 0, 983048, 6, 0, 983049, 6, 0, 983050, 6, 0, 983051, 6, 0, 983052, 6, 0, 983053, 6, 0, 983054, 6, 0, 983055, 6, 0, 983056, 6, 0, 983057, 6, 0, 983058, 6, 0, 983059, 6, 0, 983060, 6, 0, 983061, 6, 0, 983062, 6, 0, 983063, 6, 0, 1114108, 0, 0, 1114109, 0, 0, 1114110, 0, 0, 1114111, 0, 0, 1048576, 0, 0, 1048577, 0, 0, 1048578, 0, 0, 1048579, 0, 0, 1048580, 0, 0, 1048581, 0, 0, 1048582, 0, 0, 1048583, 0, 0, 1048584, 0, 0, 1048585, 0, 0, 1048586, 0, 0, 1048587, 0, 0, 1048588, 0, 0, 1048589, 0, 0, 1048590, 0, 0, 1048591, 0, 0, 1048592, 0, 0, 1048593, 0, 0, 1048594, 0, 0, 1048595, 0, 0, 1048596, 0, 0, 1048597, 0, 0, 1048598, 0, 0, 1048599, 0, 0 )
@@ -172,13 +166,13 @@ __meta__ = {
 
 [node name="Sprite" type="Sprite" parent="ParallaxBackground/Background1"]
 scale = Vector2( 20, 20 )
-texture = ExtResource( 8 )
+texture = ExtResource( 4 )
 centered = false
 __meta__ = {
 "_editor_description_": ""
 }
 
-[node name="Player" parent="." instance=ExtResource( 5 )]
+[node name="Player" parent="." instance=ExtResource( 10 )]
 position = Vector2( 473.537, 236.165 )
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
@@ -191,7 +185,7 @@ drag_margin_left = 0.4
 drag_margin_right = 0.4
 editor_draw_limits = true
 
-[node name="PauseUI" parent="Player" instance=ExtResource( 10 )]
+[node name="PauseUI" parent="Player" instance=ExtResource( 11 )]
 
 [node name="HotbarUI" type="CanvasLayer" parent="."]
 
@@ -207,7 +201,7 @@ margin_left = 1535.0
 margin_top = 8.0
 margin_right = 1909.0
 margin_bottom = 115.0
-texture = ExtResource( 9 )
+texture = ExtResource( 7 )
 expand = true
 __meta__ = {
 "_edit_use_anchors_": false
@@ -218,7 +212,7 @@ __meta__ = {
 [node name="Life" type="Control" parent="HeartUI"]
 margin_right = 92.0
 margin_bottom = 93.0
-script = ExtResource( 13 )
+script = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -226,7 +220,7 @@ __meta__ = {
 [node name="Hearts" type="TextureRect" parent="HeartUI/Life"]
 margin_right = 95.0
 margin_bottom = 96.0
-texture = ExtResource( 1 )
+texture = ExtResource( 6 )
 expand = true
 stretch_mode = 2
 __meta__ = {
@@ -240,7 +234,7 @@ margin_left = 12.0208
 margin_top = 94.0452
 margin_right = 78.0208
 margin_bottom = 160.045
-script = ExtResource( 14 )
+script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -248,50 +242,50 @@ __meta__ = {
 [node name="ManaIcon" type="TextureRect" parent="ManaUI/Mana"]
 margin_right = 49.0
 margin_bottom = 50.0
-texture = ExtResource( 2 )
+texture = ExtResource( 5 )
 expand = true
 stretch_mode = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Slime" parent="." instance=ExtResource( 20 )]
+[node name="Slime" parent="." instance=ExtResource( 9 )]
 position = Vector2( 1756.15, 1234.74 )
 
-[node name="Spike" parent="." instance=ExtResource( 21 )]
+[node name="Spike" parent="." instance=ExtResource( 8 )]
 position = Vector2( 624.399, 336.363 )
 
-[node name="Spike2" parent="." instance=ExtResource( 21 )]
+[node name="Spike2" parent="." instance=ExtResource( 8 )]
 position = Vector2( 719.83, 335.966 )
 
-[node name="Spike3" parent="." instance=ExtResource( 21 )]
+[node name="Spike3" parent="." instance=ExtResource( 8 )]
 position = Vector2( 1008.26, 335.743 )
 
-[node name="Spike4" parent="." instance=ExtResource( 21 )]
+[node name="Spike4" parent="." instance=ExtResource( 8 )]
 position = Vector2( 1104.3, 335.743 )
 
-[node name="Spike5" parent="." instance=ExtResource( 21 )]
+[node name="Spike5" parent="." instance=ExtResource( 8 )]
 position = Vector2( 1774.57, 335.743 )
 
-[node name="Spike7" parent="." instance=ExtResource( 21 )]
+[node name="Spike7" parent="." instance=ExtResource( 8 )]
 position = Vector2( 1296.57, 1200.01 )
 
-[node name="Spike8" parent="." instance=ExtResource( 21 )]
+[node name="Spike8" parent="." instance=ExtResource( 8 )]
 position = Vector2( 1200.29, 1200.01 )
 
-[node name="Spike10" parent="." instance=ExtResource( 21 )]
+[node name="Spike10" parent="." instance=ExtResource( 8 )]
 position = Vector2( 528.252, 1296.29 )
 
-[node name="Spike11" parent="." instance=ExtResource( 21 )]
+[node name="Spike11" parent="." instance=ExtResource( 8 )]
 position = Vector2( 624.251, 1296.11 )
 
-[node name="Barrel" parent="." instance=ExtResource( 23 )]
+[node name="Barrel" parent="." instance=ExtResource( 12 )]
 position = Vector2( 867.089, 1315.91 )
 
-[node name="Barrel2" parent="." instance=ExtResource( 23 )]
+[node name="Barrel2" parent="." instance=ExtResource( 12 )]
 position = Vector2( 908.897, 1316.56 )
 
-[node name="Bat" parent="." instance=ExtResource( 22 )]
+[node name="Bat" parent="." instance=ExtResource( 13 )]
 position = Vector2( 1343.5, 820.244 )
 
-[node name="HealthPotUI" parent="." instance=ExtResource( 6 )]
+[node name="HealthPotUI" parent="." instance=ExtResource( 14 )]
