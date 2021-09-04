@@ -1,0 +1,7 @@
+1. Open git bash in folder
+2. git add .
+3. git commit -m "message here"
+4. git push origin main   (main is the branch in use)
+5. Done
+
+NOTE: May have to try a few times
