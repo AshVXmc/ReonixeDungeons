@@ -19,3 +19,10 @@ My WIP [itch.io profile page](https://ashvxmc.itch.io/)
 - [BFXR](https://www.bfxr.net/) for Audio
 - [Adobe photoshop](https://www.photoshop.com/en) for art
 - [A pixel art scaler tool](https://lospec.com/pixel-art-scaler/) on the web
+
+## How to push files (Self note)
+1. Git Bash on the folder
+2. `git add .`
+3. `git commit -m "commit message"`
+4. `git push origin main` 
+5. Wait until the project syncs with the repo

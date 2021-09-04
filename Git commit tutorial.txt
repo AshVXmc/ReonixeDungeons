@@ -4,4 +4,4 @@
 4. git push origin main   (main is the branch in use)
 5. Done
 
-NOTE: May have to try a few times
+NOTE: May have to wait a bit for the gitlab repo to receive the push
