@@ -17,10 +17,10 @@ func _on_Area2D_area_entered(area):
 		$Area2D/CollisionShape2D.queue_free()
 		$CollisionShape2D_rigid.queue_free()
 		
-		var loot = LOOT.instance()
-		var lootrng : RandomNumberGenerator = RandomNumberGenerator.new()
-		lootrng.randomize()
-		var randomint = lootrng.randi_range(MIN,MAX)
-		if randomint == MIN:
-			get_parent().add_child(loot)
-			loot.position = $Position2D.global_position
+#		var loot = LOOT.instance()
+#		var lootrng : RandomNumberGenerator = RandomNumberGenerator.new()
+#		lootrng.randomize()
+#		var randomint = lootrng.randi_range(MIN,MAX)
+#		if randomint == MIN:
+#			get_parent().add_child(loot)
+#			loot.position = $Position2D.global_position

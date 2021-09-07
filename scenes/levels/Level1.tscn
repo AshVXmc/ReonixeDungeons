@@ -131,7 +131,7 @@ __meta__ = {
 [node name="PauseUI" parent="." instance=ExtResource( 4 )]
 
 [node name="Player" parent="." instance=ExtResource( 3 )]
-position = Vector2( 1668.51, 427.771 )
+position = Vector2( -1037.69, 1329.43 )
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position = Vector2( 9.72693, -184.94 )

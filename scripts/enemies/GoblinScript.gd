@@ -6,7 +6,7 @@ var direction : int = 1
 var is_dead : bool = false 
 const TYPE : String = "Enemy"
 const FLOOR = Vector2(0, -1)
-const SPEED : int = 350
+const SPEED : int = 275
 const GRAVITY : int = 45
 var player = null
 
@@ -22,7 +22,14 @@ func _physics_process(delta):
 	
 	if AREA_LEFT.overlaps_area(PLAYER):
 		$Sprite.flip_h = false
-		velocity.x = -SPEED
+		if !$Sprite.flip_h:
+			yield(get_tree().create_timer(0.8),"timeout")
+			velocity.x = -SPEED
+	if AREA_RIGHT.overlaps_area(PLAYER):
+		$Sprite.flip_h = true
+		if $Sprite.flip_h:
+			yield(get_tree().create_timer(0.8),"timeout")
+			velocity.x = SPEED
 
 func _on_Area2D_area_entered(area):
 	if area.is_in_group("Sword") or area.is_in_group("Fireball") and HP > 0:
@@ -39,22 +46,6 @@ func _on_Area2D_area_entered(area):
 				loot.position = $Position2D.global_position
 			queue_free()
 
-#func _on_Left_body_entered(body):
-#	$Sprite.flip_h = false
-#	if body.get("TYPE") == "Player":
-#		velocity.x = -SPEED
-#func _on_Right_body_entered(body):
-#	$Sprite.flip_h = true
-#	if body.get("TYPE") == "Player":
-#		velocity.x = SPEED
-#func _on_Left_body_exited(body):
-#	if body.get("TYPE") == "Player":
-#		$AttackingTimer.start()
-#
-#
-#func _on_Right_body_exited(body):
-#	if body.get("TYPE") == "Player":
-#		$AttackingTimer.start()
 
 func _on_HurtTimer_timeout():
 	set_modulate(Color(1,1,1,1))

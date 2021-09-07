@@ -1,4 +1,4 @@
-[gd_resource type="SpriteFrames" load_steps=16 format=2]
+[gd_resource type="SpriteFrames" load_steps=17 format=2]
 
 [ext_resource path="res://assets/player/player_walk1.png" type="Texture" id=1]
 [ext_resource path="res://assets/player/player_idle.png" type="Texture" id=2]
@@ -15,51 +15,57 @@
 [ext_resource path="res://assets/player/player_walk3.png" type="Texture" id=13]
 [ext_resource path="res://assets/player/player_dash.png" type="Texture" id=14]
 [ext_resource path="res://assets/player/player_glide.png" type="Texture" id=15]
+[ext_resource path="res://assets/player/player_healing1.png" type="Texture" id=16]
 
 [resource]
 animations = [ {
-"frames": [ ExtResource( 15 ) ],
+"frames": [ ExtResource( 2 ), ExtResource( 7 ) ],
 "loop": true,
-"name": "Glide",
-"speed": 5.0
+"name": "Hurt",
+"speed": 24.0
 }, {
 "frames": [ ExtResource( 14 ) ],
 "loop": false,
 "name": "Dash",
 "speed": 1.0
 }, {
-"frames": [ ExtResource( 1 ), ExtResource( 3 ), ExtResource( 13 ) ],
-"loop": true,
-"name": "Walk",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 2 ), ExtResource( 7 ) ],
 "loop": true,
 "name": "Death",
 "speed": 30.0
-}, {
-"frames": [ ExtResource( 8 ), ExtResource( 9 ), ExtResource( 6 ), ExtResource( 2 ), ExtResource( 1 ) ],
-"loop": false,
-"name": "AttackUp",
-"speed": 15.0
-}, {
-"frames": [ ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ), ExtResource( 2 ), ExtResource( 1 ) ],
-"loop": false,
-"name": "Attack",
-"speed": 18.0
-}, {
-"frames": [ ExtResource( 2 ), ExtResource( 7 ) ],
-"loop": true,
-"name": "Hurt",
-"speed": 24.0
 }, {
 "frames": [ ExtResource( 11 ), ExtResource( 10 ), ExtResource( 12 ), ExtResource( 2 ), ExtResource( 1 ) ],
 "loop": true,
 "name": "AttackDown",
 "speed": 15.0
 }, {
+"frames": [ ExtResource( 16 ) ],
+"loop": true,
+"name": "Healing",
+"speed": 1.0
+}, {
+"frames": [ ExtResource( 8 ), ExtResource( 9 ), ExtResource( 6 ), ExtResource( 2 ), ExtResource( 1 ) ],
+"loop": false,
+"name": "AttackUp",
+"speed": 15.0
+}, {
+"frames": [ ExtResource( 1 ), ExtResource( 3 ), ExtResource( 13 ) ],
+"loop": true,
+"name": "Walk",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ), ExtResource( 2 ), ExtResource( 1 ) ],
+"loop": false,
+"name": "Attack",
+"speed": 18.0
+}, {
 "frames": [ ExtResource( 2 ), ExtResource( 1 ) ],
 "loop": true,
 "name": "Idle",
 "speed": 5.0
+}, {
+"frames": [ ExtResource( 15 ) ],
+"loop": true,
+"name": "Glide",
+"speed": 1.0
 } ]

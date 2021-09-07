@@ -17,7 +17,7 @@ func reset_player_data():
 	# Default player data
 	Global.hearts = 3
 	Global.mana = 6
-	Global.healthpot_amount = 0
+	Global.healthpot_amount = 3
 	Global.lifewine_amount = 0
 	Global.dash_unlocked = false
 	Global.glide_unlocked = false

@@ -30,6 +30,7 @@ var collided : bool = false
 var is_dashing : bool = false
 var is_gliding : bool = false
 var can_dash : bool = false
+var is_healing : bool = false
 
 func _ready():
 # warning-ignore:return_value_discarded
@@ -61,7 +62,7 @@ func _ready():
 	
 func _physics_process(_delta):
 	# Makes sure the player is alive to use any movement controls
-	if !is_dead and !is_invulnerable:
+	if !is_dead and !is_invulnerable and !is_healing:
 			# Function calls
 			attack()
 			dash()
@@ -114,19 +115,17 @@ func _physics_process(_delta):
 				$ToggleArea/CollisionShape2D.disabled = false
 				yield(get_tree().create_timer(0.4), "timeout")
 				$ToggleArea/CollisionShape2D.disabled = true
+				
+	if is_healing:
+		$Sprite.play("Healing")
+	if velocity.x != 0 or velocity.y != 0:
+		$HealingTimer.stop()
+		is_healing = false
 
 func useItems():
 	# Health potions
 	if Input.is_action_just_pressed("slot_1"):
-		if Global.healthpot_amount > 0 and Global.hearts < Global.max_hearts:
-			Global.healthpot_amount -= 1
-			# State update
-			emit_signal("healthpot_obtained", Global.healthpot_amount)
-			if Global.hearts == Global.max_hearts - 0.5:
-				Global.hearts += 0.5
-			else:
-				Global.hearts += 1
-			emit_signal("life_changed", Global.hearts)
+		heal()
 	# Life wines (Increase maximum health)
 	if Input.is_action_just_pressed("slot_2"):
 		if Global.lifewine_amount >= 1:
@@ -138,12 +137,10 @@ func useItems():
 func shoot():
 	if Input.is_action_just_pressed("ui_shoot")	and !is_attacking and Global.mana >= 1:
 			var fireball = FIREBALL.instance()
-			if sign($Position2D.position.x) == -1:
-				fireball.flip_fireball(-1)
-			else:
-				fireball.flip_fireball(1)	
+			fireball.flip_fireball(-1) if sign($Position2D.position.x) == -1 else fireball.flip_fireball(1)	
 			get_parent().add_child(fireball)
 			fireball.position = $Position2D.global_position
+			
 			Global.mana -= 1
 			emit_signal("mana_changed", Global.mana)
 			is_attacking = false
@@ -157,10 +154,7 @@ func attack():
 		$AttackTimer.start()
 		# Upward attack controls
 		if Input.is_action_pressed("ui_up"):
-			if !$Sprite.flip_h:
-				$AttackCollision.position += Vector2(-60,-55)
-			else:
-				$AttackCollision.position += Vector2(60,-55)	
+			$AttackCollision.position += Vector2(-60,-55) if !$Sprite.flip_h else Vector2(60,-55)
 			$Sprite.play("AttackUp")
 			$Sprite.position += Vector2(0, -20)
 			is_attacking = true
@@ -168,10 +162,7 @@ func attack():
 			$AttackTimer.start()
 		# Downwards attack controls + tiny knock-up
 		if Input.is_action_pressed("ui_down"):
-			if !$Sprite.flip_h:
-				$AttackCollision.position += Vector2(-60,55)
-			else:
-				$AttackCollision.position += Vector2(60,55)	
+			$AttackCollision.position += Vector2(-60,55) if !$Sprite.flip_h else Vector2(60,55)
 			$Sprite.play("AttackDown")
 			$Sprite.position += Vector2(0, 20)
 			is_attacking = true
@@ -209,10 +200,7 @@ func _on_Area2D_area_entered(area : Area2D):
 
 func attack_knock():
 	var KNOCK_POWER : int = 175
-	if !$Sprite.flip_h:
-		velocity.x = -KNOCK_POWER
-	else:
-		velocity.x = KNOCK_POWER
+	velocity.x = -KNOCK_POWER if !$Sprite.flip_h else KNOCK_POWER
 
 func afterDamaged():
 	inv_timer.start() 
@@ -252,10 +240,7 @@ func knockback():
 		$KnockbackCooldownTimer.start()
 		is_knocked_back = true
 		can_be_knocked = false
-	if !$Sprite.flip_h:
-		dashdirection = Vector2(1,0)
-	if $Sprite.flip_h:
-		dashdirection = Vector2(-1, 0)	
+	dashdirection = Vector2(-1, 0) if $Sprite.flip_h else Vector2(1,0)
 	Input.action_release("jump")
 	Input.action_release("ui_attack")
 	Input.action_release("ui_up")
@@ -316,6 +301,15 @@ func glide():
 		is_gliding = false
 		Input.action_release("jump")
 
+func heal():
+	is_healing = true
+	$HealingTimer.start()
+	if $Area2D.is_in_group("Enemy") or $Area2D.is_in_group("Enemy2"):
+		$HealingTimer.stop()
+		is_healing = false
+	
+
+	
 			
 # Player death	
 func dead():
@@ -361,3 +355,13 @@ func _on_KnockbackCooldownTimer_timeout():
 
 func _on_DashUseTimer_timeout():
 	can_dash = true 
+
+
+func _on_HealingTimer_timeout():
+	is_healing = false
+	if Global.healthpot_amount > 0 and Global.hearts < Global.max_hearts:
+		Global.healthpot_amount -= 1
+		Global.hearts += 0.5 if Global.hearts == Global.max_hearts - 0.5 else 1
+		# State update
+		emit_signal("healthpot_obtained", Global.healthpot_amount)
+		emit_signal("life_changed", Global.hearts)
