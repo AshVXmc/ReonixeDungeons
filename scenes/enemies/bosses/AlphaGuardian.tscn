@@ -1,19 +1,25 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://spriteframes/alphaboss_spriteframes.tres" type="SpriteFrames" id=1]
 [ext_resource path="res://scripts/enemies/AlphaGuardian.gd" type="Script" id=2]
-[ext_resource path="res://assets/fonts/PressStart2P-Regular.ttf" type="DynamicFontData" id=3]
+[ext_resource path="res://assets/fonts/FFFFORWA.ttf" type="DynamicFontData" id=3]
 
-[sub_resource type="DynamicFont" id=1]
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 43.0855, 92.0537 )
+
+[sub_resource type="DynamicFont" id=2]
 size = 40
 outline_color = Color( 0, 0, 0, 1 )
 font_data = ExtResource( 3 )
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 334.297, 112.032 )
 
 [node name="AlphaGuardian" type="KinematicBody2D"]
 script = ExtResource( 2 )
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
-position = Vector2( 47.0902, 18.4997 )
+position = Vector2( -39.4116, 40.5312 )
 scale = Vector2( 1.5, 1 )
 enabled = true
 __meta__ = {
@@ -34,9 +40,10 @@ scale = Vector2( 7.5, 7.5 )
 frames = ExtResource( 1 )
 playing = true
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
-position = Vector2( 7.93701, -0.793701 )
-polygon = PoolVector2Array( -31.7498, -106.883, -34.5815, -74.7909, -70.4487, -66.296, -72.3364, -4.47226, -52.987, 15.3491, -52.0431, 26.6756, -68.089, 60.6551, -66.2012, 118.231, 48.4795, 119.175, 42.8162, 52.1602, 35.7372, 13.4613, 70.1886, 12.0455, 72.0763, -28.0691, 48.0075, -64.8802, 19.6913, -73.3751, 17.3316, -111.13, -1.54587, -121.985, -17.1198, -121.985 )
+[node name="CollisionPolygon2D" type="CollisionShape2D" parent="."]
+position = Vector2( 3.31811, 27.2764 )
+shape = SubResource( 1 )
+one_way_collision = true
 
 [node name="AttackTimer" type="Timer" parent="."]
 wait_time = 9.5
@@ -76,12 +83,27 @@ margin_left = -71.4813
 margin_top = -169.062
 margin_right = 88.5187
 margin_bottom = -129.062
-custom_fonts/font = SubResource( 1 )
+custom_fonts/font = SubResource( 2 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 text = "100%"
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Left" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Left"]
+position = Vector2( -401.241, 5.42752 )
+shape = SubResource( 3 )
+
+[node name="Right" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Right"]
+position = Vector2( 397.397, 7.52553 )
+shape = SubResource( 3 )
+
+[node name="JumpTimer" type="Timer" parent="."]
+one_shot = true
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_Area2D_area_entered"]
 [connection signal="timeout" from="AttackTimer" to="." method="_on_AttackTimer_timeout"]
@@ -89,3 +111,4 @@ __meta__ = {
 [connection signal="timeout" from="ShockTimer" to="." method="_on_ShockTimer_timeout"]
 [connection signal="timeout" from="GroundTimer" to="." method="_on_GroundTimer_timeout"]
 [connection signal="timeout" from="MeleeTimer" to="." method="_on_MeleeTimer_timeout"]
+[connection signal="timeout" from="JumpTimer" to="." method="_on_JumpTimer_timeout"]

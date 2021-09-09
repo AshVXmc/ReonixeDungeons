@@ -3,7 +3,7 @@ extends Node
 # GLOBALLY ACCESSED VARIABLES
 var max_hearts : float = 3
 var hearts : float = max_hearts
-var max_mana : int = 6
+var max_mana : int = 5
 var mana : int = max_mana
 var healthpot_amount : int = 1
 var lifewine_amount : int = 1
@@ -16,10 +16,10 @@ var glide_unlocked : bool = false
 func reset_player_data():
 	# Default player data
 	Global.hearts = 3
-	Global.mana = 6
+	Global.mana = 5
 	Global.healthpot_amount = 3
 	Global.lifewine_amount = 0
-	Global.dash_unlocked = false
+	Global.dash_unlocked = true
 	Global.glide_unlocked = false
 	
 

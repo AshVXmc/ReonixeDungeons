@@ -118,9 +118,6 @@ func _physics_process(_delta):
 				
 	if is_healing:
 		$Sprite.play("Healing")
-	if velocity.x != 0 or velocity.y != 0:
-		$HealingTimer.stop()
-		is_healing = false
 
 func useItems():
 	# Health potions
@@ -250,6 +247,8 @@ func _on_LeftDetector_area_entered(area):
 		velocity.x = 1500
 		$KnockbackCooldownTimer.start()
 		velocity.y = JUMP_POWER * 0.25
+		is_healing = false
+		$HealingTimer.stop()
 func _on_RightDectector_area_entered(area):
 	if area.is_in_group("Enemy") or area.is_in_group("Enemy2") and is_knocked_back:
 		velocity.x = -1500
@@ -270,8 +269,8 @@ func dash():
 			$DashUseTimer.start()
 			$Sprite.play("Dash")
 			velocity.x = 0
-			velocity = dashdirection.normalized() * 3000
 			velocity.y = 0
+			velocity = dashdirection.normalized() * 3000
 			can_dash = false
 			is_dashing = true
 			yield(get_tree().create_timer(0.25), "timeout")
@@ -304,13 +303,12 @@ func glide():
 func heal():
 	is_healing = true
 	$HealingTimer.start()
+	Input.action_release("left")
+	Input.action_release("right")
 	if $Area2D.is_in_group("Enemy") or $Area2D.is_in_group("Enemy2"):
 		$HealingTimer.stop()
 		is_healing = false
-	
 
-	
-			
 # Player death	
 func dead():
 	is_dead = true
@@ -356,12 +354,13 @@ func _on_KnockbackCooldownTimer_timeout():
 func _on_DashUseTimer_timeout():
 	can_dash = true 
 
-
 func _on_HealingTimer_timeout():
 	is_healing = false
-	if Global.healthpot_amount > 0 and Global.hearts < Global.max_hearts:
-		Global.healthpot_amount -= 1
-		Global.hearts += 0.5 if Global.hearts == Global.max_hearts - 0.5 else 1
-		# State update
-		emit_signal("healthpot_obtained", Global.healthpot_amount)
+	if Global.healthpot_amount > 0:
+		if Global.max_hearts - Global.hearts == 0.5:
+			Global.hearts += 0.5
+		else:
+			Global.hearts += 1
 		emit_signal("life_changed", Global.hearts)
+		Global.healthpot_amount -= 1
+		emit_signal("healthpot_obtained", Global.healthpot_amount)

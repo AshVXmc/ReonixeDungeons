@@ -234,8 +234,8 @@ format = 1
 [node name="HotbarUI" parent="." instance=ExtResource( 6 )]
 
 [node name="HealthPotUI" parent="." instance=ExtResource( 13 )]
-offset = Vector2( 240, 12 )
-transform = Transform2D( 1, 0, 0, 1, 240, 12 )
+offset = Vector2( 240, 20 )
+transform = Transform2D( 1, 0, 0, 1, 240, 20 )
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 
@@ -278,10 +278,10 @@ editor_draw_limits = true
 [node name="PauseUI" parent="." instance=ExtResource( 12 )]
 
 [node name="AlphaGuardian" parent="." instance=ExtResource( 15 )]
-position = Vector2( -5.03967, 501.449 )
+position = Vector2( -4.14877, 501.449 )
 
 [node name="Position2D1" type="Position2D" parent="."]
-position = Vector2( -433.521, -75.3563 )
+position = Vector2( -433.521, -79.3563 )
 
 [node name="Position2D2" type="Position2D" parent="."]
 position = Vector2( 48.0154, -74.2339 )

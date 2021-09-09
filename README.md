@@ -26,4 +26,5 @@ My WIP [itch.io profile page](https://ashvxmc.itch.io/)
 2. `git add .`
 3. `git commit -m "commit message"`
 4. `git push origin main` 
-5. Wait until the project syncs with the repo
+5. `git push --mirror github`
+6. Wait until the project syncs with the repo

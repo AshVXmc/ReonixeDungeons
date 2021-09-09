@@ -8,7 +8,7 @@ const TYPE : String = "Enemy"
 const FLOOR = Vector2(0, -1)
 const SPEED : int = 275
 const GRAVITY : int = 45
-var player = null
+var is_staggered : bool = false
 
 const LOOT = preload("res://scenes/items/HealthPot.tscn")
 onready var AREA_LEFT : Area2D = $Left
@@ -20,21 +20,24 @@ func _physics_process(delta):
 	velocity = move_and_slide(velocity, FLOOR)
 	$Sprite.play("Idle") if velocity.x == 0 else $Sprite.play("Attacking")
 	
-	if AREA_LEFT.overlaps_area(PLAYER):
-		$Sprite.flip_h = false
-		if !$Sprite.flip_h:
-			yield(get_tree().create_timer(0.8),"timeout")
-			velocity.x = -SPEED
-	if AREA_RIGHT.overlaps_area(PLAYER):
-		$Sprite.flip_h = true
-		if $Sprite.flip_h:
-			yield(get_tree().create_timer(0.8),"timeout")
-			velocity.x = SPEED
+	if !is_staggered:
+		if AREA_LEFT.overlaps_area(PLAYER):
+			$Sprite.flip_h = false
+			if !$Sprite.flip_h:
+				yield(get_tree().create_timer(0.8),"timeout")
+				velocity.x = -SPEED
+		if AREA_RIGHT.overlaps_area(PLAYER):
+			$Sprite.flip_h = true
+			if $Sprite.flip_h:
+				yield(get_tree().create_timer(0.8),"timeout")
+				velocity.x = SPEED
 
 func _on_Area2D_area_entered(area):
 	if area.is_in_group("Sword") or area.is_in_group("Fireball") and HP > 0:
 		HP -= 1
+		velocity.x = 0
 		set_modulate(Color(2,0.5,0.3,1))
+		is_staggered = true
 		$HurtTimer.start()
 		if HP <= 0:
 			var loot = LOOT.instance()
@@ -49,9 +52,9 @@ func _on_Area2D_area_entered(area):
 
 func _on_HurtTimer_timeout():
 	set_modulate(Color(1,1,1,1))
+	is_staggered = false
 
 func _on_AttackingTimer_timeout():
 	velocity.x = 0
-	player = null
 
 	

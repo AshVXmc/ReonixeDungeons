@@ -98,6 +98,7 @@ shape = SubResource( 1 )
 disabled = true
 
 [node name="HealingTimer" type="Timer" parent="."]
+process_mode = 0
 one_shot = true
 
 [connection signal="animation_finished" from="Sprite" to="." method="_on_Sprite_animation_finished"]

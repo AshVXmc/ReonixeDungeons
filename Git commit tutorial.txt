@@ -2,6 +2,7 @@
 2. git add .
 3. git commit -m "message here"
 4. git push origin main   (main is the branch in use)
+5. git push --mirror github (update the mirror)
 5. Done
 
 NOTE: May have to wait a bit for the gitlab repo to receive the push
