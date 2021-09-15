@@ -1,3 +1,5 @@
+class_name Slime
+
 extends KinematicBody2D
 
 var velocity : Vector2 = Vector2()

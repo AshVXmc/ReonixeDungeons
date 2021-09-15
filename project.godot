@@ -8,6 +8,16 @@
 
 config_version=4
 
+_global_script_classes=[ {
+"base": "KinematicBody2D",
+"class": "Slime",
+"language": "GDScript",
+"path": "res://scripts/enemies/SlimeScript.gd"
+} ]
+_global_script_class_icons={
+"Slime": ""
+}
+
 [application]
 
 config/name="ReonixeDungeons"
