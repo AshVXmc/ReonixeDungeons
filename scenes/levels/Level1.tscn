@@ -229,8 +229,6 @@ __meta__ = {
 [node name="FPSCounter" parent="." instance=ExtResource( 15 )]
 
 [node name="HealthPotUI" parent="." instance=ExtResource( 2 )]
-offset = Vector2( 240, 25 )
-transform = Transform2D( 1, 0, 0, 1, 240, 25 )
 
 [node name="HeartUI" parent="." instance=ExtResource( 6 )]
 

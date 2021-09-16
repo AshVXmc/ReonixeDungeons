@@ -1,6 +1,15 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://tilesets/Default.tres" type="TileSet" id=1]
+[ext_resource path="res://scenes/menus/HotbarUI.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scenes/menus/GildedGoldUI.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/menus/HeartUI.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scenes/menus/ManaUI.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scenes/menus/HealthPotUI.tscn" type="PackedScene" id=6]
+[ext_resource path="res://scenes/enemies/LargeSlime.tscn" type="PackedScene" id=7]
+[ext_resource path="res://scenes/MainCharacter.tscn" type="PackedScene" id=8]
+[ext_resource path="res://scenes/menus/LifeWineUI.tscn" type="PackedScene" id=9]
+[ext_resource path="res://scenes/menus/PauseUI.tscn" type="PackedScene" id=10]
 
 [node name="Node2D" type="Node2D"]
 
@@ -9,3 +18,23 @@ tile_set = ExtResource( 1 )
 cell_size = Vector2( 96, 96 )
 format = 1
 tile_data = PoolIntArray( 262144, 6, 0, 262145, 6, 0, 262146, 6, 0, 262147, 6, 0, 262148, 6, 0, 262149, 6, 0, 262150, 6, 0, 262151, 6, 0, 262152, 6, 0, 262153, 6, 0, 262154, 6, 0, 327680, 6, 0, 327681, 6, 0, 327682, 6, 0, 327683, 6, 0, 327684, 6, 0, 327685, 6, 0, 327686, 6, 0, 327687, 6, 0, 327688, 6, 0, 327689, 6, 0, 327690, 6, 0, 393216, 6, 0, 393217, 6, 0, 393218, 6, 0, 393219, 6, 0, 393220, 6, 0, 393221, 6, 0, 393222, 6, 0, 393223, 6, 0, 393224, 6, 0, 393225, 6, 0, 393226, 6, 0, 458752, 6, 0, 458753, 6, 0, 458754, 6, 0, 458755, 6, 0, 458756, 6, 0, 458757, 6, 0, 458758, 6, 0, 458759, 6, 0, 458760, 6, 0, 458761, 6, 0, 458762, 6, 0 )
+
+[node name="LargeSlime" parent="." instance=ExtResource( 7 )]
+position = Vector2( 516.54, 272.413 )
+
+[node name="Player" parent="." instance=ExtResource( 8 )]
+position = Vector2( 138.593, 299.813 )
+
+[node name="HotbarUI" parent="." instance=ExtResource( 2 )]
+
+[node name="HealthPotUI" parent="." instance=ExtResource( 6 )]
+
+[node name="GildedGoldUI" parent="." instance=ExtResource( 3 )]
+
+[node name="HeartUI" parent="." instance=ExtResource( 4 )]
+
+[node name="LifeWineUI" parent="." instance=ExtResource( 9 )]
+
+[node name="ManaUI" parent="." instance=ExtResource( 5 )]
+
+[node name="Margin container" parent="." instance=ExtResource( 10 )]

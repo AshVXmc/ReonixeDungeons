@@ -1,0 +1,61 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://assets/enemies/slime1.png" type="Texture" id=1]
+[ext_resource path="res://assets/enemies/slime2.png" type="Texture" id=2]
+[ext_resource path="res://scripts/enemies/LargeSlime.gd" type="Script" id=3]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 26.36, 15.1008 )
+
+[sub_resource type="SpriteFrames" id=2]
+animations = [ {
+"frames": [ ExtResource( 1 ), ExtResource( 2 ) ],
+"loop": true,
+"name": "slimeanim",
+"speed": 4.0
+}, {
+"frames": [  ],
+"loop": true,
+"name": "death",
+"speed": 5.0
+} ]
+
+[sub_resource type="CapsuleShape2D" id=3]
+radius = 30.1289
+height = 40.9357
+
+[node name="LargeSlime" type="KinematicBody2D"]
+script = ExtResource( 3 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0.793701, -4.96062 )
+shape = SubResource( 1 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+position = Vector2( 0, -55.326 )
+scale = Vector2( 8, 8 )
+frames = SubResource( 2 )
+animation = "death"
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+position = Vector2( 32, 0 )
+enabled = true
+cast_to = Vector2( 0, 28 )
+
+[node name="Area2D" type="Area2D" parent="." groups=[
+"Enemy",
+]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2( 0.595276, -19.5834 )
+rotation = 1.5708
+shape = SubResource( 3 )
+
+[node name="HurtTimer" type="Timer" parent="."]
+wait_time = 0.3
+one_shot = true
+
+[node name="Position2D" type="Position2D" parent="."]
+position = Vector2( 0, -14 )
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_Area2D_area_entered"]

@@ -234,8 +234,6 @@ format = 1
 [node name="HotbarUI" parent="." instance=ExtResource( 6 )]
 
 [node name="HealthPotUI" parent="." instance=ExtResource( 13 )]
-offset = Vector2( 240, 20 )
-transform = Transform2D( 1, 0, 0, 1, 240, 20 )
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 
