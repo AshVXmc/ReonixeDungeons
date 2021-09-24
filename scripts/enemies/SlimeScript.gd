@@ -41,10 +41,13 @@ func _on_Area2D_area_entered(area):
 		set_modulate(Color(2,0.5,0.3,1))
 		velocity.x = 0
 		$HurtTimer.start()
+	drop_loot()
+
+func drop_loot():
 	var loot = LOOT.instance()
 	var lootrng : RandomNumberGenerator = RandomNumberGenerator.new()
 	lootrng.randomize()
-	var randomint = lootrng.randi_range(1,5)
+	var randomint = lootrng.randi_range(1,4)
 	if HP <= 0:
 		if randomint == 1:
 			get_parent().add_child(loot)

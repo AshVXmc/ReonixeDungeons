@@ -137,7 +137,6 @@ func shoot():
 			fireball.flip_fireball(-1) if sign($Position2D.position.x) == -1 else fireball.flip_fireball(1)	
 			get_parent().add_child(fireball)
 			fireball.position = $Position2D.global_position
-			
 			Global.mana -= 1
 			emit_signal("mana_changed", Global.mana)
 			is_attacking = false

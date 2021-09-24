@@ -54,13 +54,13 @@ custom_colors/font_color = Color( 1, 1, 1, 1 )
 text = "to exit"
 
 [node name="Label16" type="Label" parent="Control"]
-margin_left = 290.814
-margin_top = 508.666
-margin_right = 1010.81
-margin_bottom = 548.666
+margin_left = 287.639
+margin_top = 515.016
+margin_right = 1007.64
+margin_bottom = 555.016
 custom_fonts/font = ExtResource( 4 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
-text = "toggle FPS counter"
+text = "toggle Debug mode"
 __meta__ = {
 "_edit_use_anchors_": false
 }

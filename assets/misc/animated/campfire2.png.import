@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/campfire3.png-6ed24a0c34cb0a43def8c49d8a441ca1.stex"
+path="res://.import/campfire2.png-5563986d59541aed0b9f2377cd434b5a.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/misc/items/campfire3.png"
-dest_files=[ "res://.import/campfire3.png-6ed24a0c34cb0a43def8c49d8a441ca1.stex" ]
+source_file="res://assets/misc/animated/campfire2.png"
+dest_files=[ "res://.import/campfire2.png-5563986d59541aed0b9f2377cd434b5a.stex" ]
 
 [params]
 

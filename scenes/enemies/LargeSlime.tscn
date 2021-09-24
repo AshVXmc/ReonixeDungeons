@@ -9,15 +9,15 @@ extents = Vector2( 26.36, 15.1008 )
 
 [sub_resource type="SpriteFrames" id=2]
 animations = [ {
-"frames": [ ExtResource( 1 ), ExtResource( 2 ) ],
-"loop": true,
-"name": "slimeanim",
-"speed": 4.0
-}, {
 "frames": [  ],
 "loop": true,
 "name": "death",
 "speed": 5.0
+}, {
+"frames": [ ExtResource( 1 ), ExtResource( 2 ) ],
+"loop": true,
+"name": "slimeanim",
+"speed": 4.0
 } ]
 
 [sub_resource type="CapsuleShape2D" id=3]
@@ -57,5 +57,11 @@ one_shot = true
 
 [node name="Position2D" type="Position2D" parent="."]
 position = Vector2( 0, -14 )
+
+[node name="SpawnSlime1" type="Position2D" parent="."]
+position = Vector2( -33.0729, -6.92957 )
+
+[node name="SpawnSlime2" type="Position2D" parent="."]
+position = Vector2( 32.443, -7.09474 )
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_Area2D_area_entered"]

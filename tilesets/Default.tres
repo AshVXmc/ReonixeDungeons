@@ -1,8 +1,8 @@
 [gd_resource type="TileSet" load_steps=7 format=2]
 
-[ext_resource path="res://assets/terrain/lichen_ruins_misc_spritesheet.png" type="Texture" id=1]
-[ext_resource path="res://assets/terrain/lichen_ruins_spritesheet.png" type="Texture" id=2]
-[ext_resource path="res://assets/terrain/lichen_ruins_oneway_spritesheet.png" type="Texture" id=3]
+[ext_resource path="res://assets/terrain/lichen_ruins_spritesheet.png" type="Texture" id=1]
+[ext_resource path="res://assets/terrain/lichen_ruins_oneway_spritesheet.png" type="Texture" id=2]
+[ext_resource path="res://assets/terrain/lichen_ruins_misc_spritesheet.png" type="Texture" id=3]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
 points = PoolVector2Array( 96, 96, 0, 96, 0, 0, 96, 0 )
@@ -15,7 +15,7 @@ points = PoolVector2Array( 96, 96, 0, 96, 0, 0, 96, 0 )
 
 [resource]
 6/name = "lichen_ruins_spritesheet.png 6"
-6/texture = ExtResource( 2 )
+6/texture = ExtResource( 1 )
 6/tex_offset = Vector2( 0, 0 )
 6/modulate = Color( 1, 1, 1, 1 )
 6/region = Rect2( 0, 0, 96, 96 )
@@ -36,7 +36,7 @@ points = PoolVector2Array( 96, 96, 0, 96, 0, 0, 96, 0 )
 } ]
 6/z_index = 0
 7/name = "lichen_ruins_spritesheet.png 7"
-7/texture = ExtResource( 2 )
+7/texture = ExtResource( 1 )
 7/tex_offset = Vector2( 0, 0 )
 7/modulate = Color( 1, 1, 1, 1 )
 7/region = Rect2( 192, 0, 96, 96 )
@@ -57,7 +57,7 @@ points = PoolVector2Array( 96, 96, 0, 96, 0, 0, 96, 0 )
 } ]
 7/z_index = 0
 8/name = "lichen_ruins_spritesheet.png 8"
-8/texture = ExtResource( 2 )
+8/texture = ExtResource( 1 )
 8/tex_offset = Vector2( 0, 0 )
 8/modulate = Color( 1, 1, 1, 1 )
 8/region = Rect2( 288, 0, 96, 96 )
@@ -77,7 +77,7 @@ points = PoolVector2Array( 96, 96, 0, 96, 0, 0, 96, 0 )
 "shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
 } ]
 8/z_index = 0
-9/name = "lichen_ruins_oneway_spritesheet.png 9"
+9/name = "lichen_ruins_misc_spritesheet.png 9"
 9/texture = ExtResource( 3 )
 9/tex_offset = Vector2( 0, 0 )
 9/modulate = Color( 1, 1, 1, 1 )
@@ -91,7 +91,7 @@ points = PoolVector2Array( 96, 96, 0, 96, 0, 0, 96, 0 )
 9/shape_one_way_margin = 0.0
 9/shapes = [  ]
 9/z_index = 0
-10/name = "lichen_ruins_oneway_spritesheet.png 10"
+10/name = "lichen_ruins_misc_spritesheet.png 10"
 10/texture = ExtResource( 3 )
 10/tex_offset = Vector2( 0, 0 )
 10/modulate = Color( 1, 1, 1, 1 )
@@ -105,7 +105,7 @@ points = PoolVector2Array( 96, 96, 0, 96, 0, 0, 96, 0 )
 10/shape_one_way_margin = 0.0
 10/shapes = [  ]
 10/z_index = 0
-11/name = "lichen_ruins_oneway_spritesheet.png 11"
+11/name = "lichen_ruins_misc_spritesheet.png 11"
 11/texture = ExtResource( 3 )
 11/tex_offset = Vector2( 0, 0 )
 11/modulate = Color( 1, 1, 1, 1 )
@@ -119,8 +119,8 @@ points = PoolVector2Array( 96, 96, 0, 96, 0, 0, 96, 0 )
 11/shape_one_way_margin = 0.0
 11/shapes = [  ]
 11/z_index = 0
-12/name = "lichen_ruins_misc_spritesheet.png 12"
-12/texture = ExtResource( 1 )
+12/name = "lichen_ruins_oneway_spritesheet.png 12"
+12/texture = ExtResource( 2 )
 12/tex_offset = Vector2( 0, 0 )
 12/modulate = Color( 1, 1, 1, 1 )
 12/region = Rect2( 0, 0, 96, 96 )
@@ -133,8 +133,8 @@ points = PoolVector2Array( 96, 96, 0, 96, 0, 0, 96, 0 )
 12/shape_one_way_margin = 0.0
 12/shapes = [  ]
 12/z_index = 0
-13/name = "lichen_ruins_misc_spritesheet.png 13"
-13/texture = ExtResource( 1 )
+13/name = "lichen_ruins_oneway_spritesheet.png 13"
+13/texture = ExtResource( 2 )
 13/tex_offset = Vector2( 0, 0 )
 13/modulate = Color( 1, 1, 1, 1 )
 13/region = Rect2( 96, 0, 96, 96 )
@@ -147,8 +147,8 @@ points = PoolVector2Array( 96, 96, 0, 96, 0, 0, 96, 0 )
 13/shape_one_way_margin = 0.0
 13/shapes = [  ]
 13/z_index = 0
-14/name = "lichen_ruins_misc_spritesheet.png 14"
-14/texture = ExtResource( 1 )
+14/name = "lichen_ruins_oneway_spritesheet.png 14"
+14/texture = ExtResource( 2 )
 14/tex_offset = Vector2( 0, 0 )
 14/modulate = Color( 1, 1, 1, 1 )
 14/region = Rect2( 192, 0, 96, 96 )
@@ -162,7 +162,7 @@ points = PoolVector2Array( 96, 96, 0, 96, 0, 0, 96, 0 )
 14/shapes = [  ]
 14/z_index = 0
 15/name = "lichen_ruins_oneway_spritesheet.png 15"
-15/texture = ExtResource( 3 )
+15/texture = ExtResource( 2 )
 15/tex_offset = Vector2( 0, 0 )
 15/modulate = Color( 1, 1, 1, 1 )
 15/region = Rect2( 288, 0, 96, 96 )
@@ -176,7 +176,7 @@ points = PoolVector2Array( 96, 96, 0, 96, 0, 0, 96, 0 )
 15/shapes = [  ]
 15/z_index = 0
 16/name = "lichen_ruins_oneway_spritesheet.png 16"
-16/texture = ExtResource( 3 )
+16/texture = ExtResource( 2 )
 16/tex_offset = Vector2( 0, 0 )
 16/modulate = Color( 1, 1, 1, 1 )
 16/region = Rect2( 384, 0, 96, 96 )
@@ -190,7 +190,7 @@ points = PoolVector2Array( 96, 96, 0, 96, 0, 0, 96, 0 )
 16/shapes = [  ]
 16/z_index = 0
 17/name = "lichen_ruins_oneway_spritesheet.png 17"
-17/texture = ExtResource( 3 )
+17/texture = ExtResource( 2 )
 17/tex_offset = Vector2( 0, 0 )
 17/modulate = Color( 1, 1, 1, 1 )
 17/region = Rect2( 0, 96, 96, 96 )
