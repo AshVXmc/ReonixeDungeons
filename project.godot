@@ -10,12 +10,36 @@ config_version=4
 
 _global_script_classes=[ {
 "base": "KinematicBody2D",
+"class": "AlphaGuardian",
+"language": "GDScript",
+"path": "res://scripts/enemies/AlphaGuardian.gd"
+}, {
+"base": "Slime",
+"class": "LargeSlime",
+"language": "GDScript",
+"path": "res://scripts/enemies/LargeSlime.gd"
+}, {
+"base": "KinematicBody2D",
+"class": "Player",
+"language": "GDScript",
+"path": "res://scripts/MainCharacterScript.gd"
+}, {
+"base": "KinematicBody2D",
 "class": "Slime",
 "language": "GDScript",
 "path": "res://scripts/enemies/SlimeScript.gd"
+}, {
+"base": "KinematicBody2D",
+"class": "Spider",
+"language": "GDScript",
+"path": "res://scripts/enemies/Spider.gd"
 } ]
 _global_script_class_icons={
-"Slime": ""
+"AlphaGuardian": "",
+"LargeSlime": "",
+"Player": "",
+"Slime": "",
+"Spider": ""
 }
 
 [application]

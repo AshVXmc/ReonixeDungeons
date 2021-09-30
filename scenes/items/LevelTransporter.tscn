@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://scripts/items/LevelTransporterScript.gd" type="Script" id=1]
-[ext_resource path="res://assets/placeholders/placeholder_texture.png" type="Texture" id=2]
+[ext_resource path="res://assets/terrain/door.png" type="Texture" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 63.3124, 50.4134 )
@@ -23,6 +23,7 @@ shape = SubResource( 1 )
 shape = SubResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 1.49829, -8.25084 )
 scale = Vector2( 5, 5 )
 texture = ExtResource( 2 )
 

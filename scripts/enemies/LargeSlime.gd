@@ -1,4 +1,4 @@
-extends Slime
+class_name LargeSlime extends Slime
 
 onready var area = $Area2D
 onready var SLIME = preload("res://scenes/enemies/Slime.tscn")

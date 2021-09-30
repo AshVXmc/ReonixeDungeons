@@ -1,4 +1,4 @@
-extends KinematicBody2D
+class_name AlphaGuardian extends KinematicBody2D
 
 const TYPE : String = "Enemy"
 const SPEED : int = 285

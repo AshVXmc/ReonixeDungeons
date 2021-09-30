@@ -1,4 +1,4 @@
-extends KinematicBody2D
+class_name Player extends KinematicBody2D
 
 signal life_changed(player_hearts)
 signal maxhearts_changed(player_maxhearts)

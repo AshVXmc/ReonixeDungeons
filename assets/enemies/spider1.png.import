@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/crawler1.png-ab6381e1581ec3c1892e0819cd19400d.stex"
+path="res://.import/spider1.png-d46ca70e1a9a82f3c1aea3c28a47f658.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/enemies/crawler1.png"
-dest_files=[ "res://.import/crawler1.png-ab6381e1581ec3c1892e0819cd19400d.stex" ]
+source_file="res://assets/enemies/spider1.png"
+dest_files=[ "res://.import/spider1.png-d46ca70e1a9a82f3c1aea3c28a47f658.stex" ]
 
 [params]
 
