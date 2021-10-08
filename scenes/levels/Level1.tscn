@@ -371,34 +371,6 @@ position = Vector2( 960.825, 1254.17 )
 [node name="Bat5" parent="." instance=ExtResource( 17 )]
 position = Vector2( 2807.59, 1347.24 )
 
-[node name="Barrel" parent="." instance=ExtResource( 18 )]
-position = Vector2( 1286.01, 245.527 )
-scale = Vector2( 1.5, 1.5 )
-
-[node name="Barrel5" parent="." instance=ExtResource( 18 )]
-position = Vector2( 396.507, 439.251 )
-scale = Vector2( 1.5, 1.5 )
-
-[node name="Barrel6" parent="." instance=ExtResource( 18 )]
-position = Vector2( -283.253, 534.453 )
-scale = Vector2( 1.5, 1.5 )
-
-[node name="Barrel7" parent="." instance=ExtResource( 18 )]
-position = Vector2( -221.253, 534.453 )
-scale = Vector2( 1.5, 1.5 )
-
-[node name="Barrel2" parent="." instance=ExtResource( 18 )]
-position = Vector2( 2205.53, 1590.14 )
-scale = Vector2( 1.5, 1.5 )
-
-[node name="Barrel3" parent="." instance=ExtResource( 18 )]
-position = Vector2( 3999.91, 1013.54 )
-scale = Vector2( 1.5, 1.5 )
-
-[node name="Barrel4" parent="." instance=ExtResource( 18 )]
-position = Vector2( 4164.83, 1013.4 )
-scale = Vector2( 1.5, 1.5 )
-
 [node name="Slime" parent="." instance=ExtResource( 19 )]
 position = Vector2( -705.172, 568.034 )
 
@@ -479,3 +451,6 @@ position = Vector2( -2064.64, 1488.21 )
 
 [node name="LargeSlime" parent="." instance=ExtResource( 16 )]
 position = Vector2( 1920.68, 1619.54 )
+
+[node name="Barrel" parent="." instance=ExtResource( 18 )]
+position = Vector2( -936.133, 538.782 )

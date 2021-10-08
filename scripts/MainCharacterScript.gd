@@ -1,7 +1,6 @@
 class_name Player extends KinematicBody2D
 
 signal life_changed(player_hearts)
-signal maxhearts_changed(player_maxhearts)
 signal mana_changed(player_mana)
 signal healthpot_obtained(player_healthpot)
 signal lifewine_obtained(player_lifewine)
@@ -121,15 +120,11 @@ func _physics_process(_delta):
 
 func useItems():
 	# Health potions
-	if Input.is_action_just_pressed("slot_1"):
+	if Input.is_action_just_pressed("slot_1") and Global.hearts < Global.max_hearts:
 		heal()
 	# Life wines (Increase maximum health)
-	if Input.is_action_just_pressed("slot_2"):
-		if Global.lifewine_amount >= 1:
-			Global.lifewine_amount -= 1
-			emit_signal("lifewine_obtained", Global.lifewine_amount)
-			Global.max_hearts += 1
-			emit_signal("life_changed")
+	if Input.is_action_just_pressed("slot_2") and Global.hearts < Global.max_hearts:
+		full_heal()
 			
 func shoot():
 	if Input.is_action_just_pressed("ui_shoot")	and !is_attacking and Global.mana >= 1:
@@ -300,13 +295,25 @@ func glide():
 		Input.action_release("jump")
 
 func heal():
-	is_healing = true
-	$HealingTimer.start()
-	Input.action_release("left")
-	Input.action_release("right")
-	if $Area2D.is_in_group("Enemy") or $Area2D.is_in_group("Enemy2"):
-		$HealingTimer.stop()
-		is_healing = false
+	if !is_healing:
+		is_healing = true
+		$HealingTimer.start()
+		Input.action_release("left")
+		Input.action_release("right")
+		if $Area2D.is_in_group("Enemy") or $Area2D.is_in_group("Enemy2"):
+			$HealingTimer.stop()
+			is_healing = false
+
+func full_heal():
+	if !is_healing:
+		is_healing = true
+		$FullHealTimer.start()
+		Input.action_release("left")
+		Input.action_release("right")
+		if $Area2D.is_in_group("Enemy") or $Area2D.is_in_group("Enemy2"):
+			$FullHealTimer.stop()
+			is_healing = false
+
 
 # Player death	
 func dead():
@@ -363,3 +370,28 @@ func _on_HealingTimer_timeout():
 		emit_signal("life_changed", Global.hearts)
 		Global.healthpot_amount -= 1
 		emit_signal("healthpot_obtained", Global.healthpot_amount)
+
+func _on_FullHealTimer_timeout():
+	is_healing = false
+	if Global.lifewine_amount > 0 and Global.hearts < Global.max_hearts:
+		Global.hearts += Global.max_hearts - Global.hearts
+		emit_signal("life_changed", Global.hearts)
+		Global.lifewine_amount -= 1
+		emit_signal("lifewine_obtained", Global.lifewine_amount)
+
+func on_lootbag_obtained(rand_num : int):
+	match rand_num:
+		1:
+			Global.healthpot_amount += 1
+			emit_signal("healthpot_obtained", Global.healthpot_amount)
+		2:
+			Global.healthpot_amount += 1
+			emit_signal("healthpot_obtained", Global.healthpot_amount)
+		3:
+			Global.healthpot_amount += 1
+			emit_signal("healthpot_obtained", Global.healthpot_amount)
+		4:
+			Global.lifewine_amount += 1
+			emit_signal("lifewine_obtained", Global.lifewine_amount)		
+
+

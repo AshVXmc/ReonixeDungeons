@@ -10,15 +10,18 @@ var lifewine_amount : int = 1
 var unopened_chests := ["Level1_chest"]
 const SAVE_DIR : String = "user://savedata/"
 var savepath : String = SAVE_DIR + "savefile.dat"
+var player_position_x : float
+var player_position_y : float
 var dash_unlocked : bool = false
 var glide_unlocked : bool = false
+
 
 func reset_player_data():
 	# Default player data
 	Global.hearts = 3
 	Global.mana = 5
 	Global.healthpot_amount = 3
-	Global.lifewine_amount = 0
+	Global.lifewine_amount = 1
 	Global.dash_unlocked = true
 	Global.glide_unlocked = false
 	

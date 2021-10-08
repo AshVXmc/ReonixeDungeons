@@ -7,7 +7,7 @@ var is_dead : bool = false
 var health : int = 1
 var direction : int = 1
 var player = null
-const LOOT : PackedScene = preload("res://scenes/items/HealthPot.tscn")
+const LOOT : PackedScene = preload("res://scenes/items/LootBag.tscn")
 
 func _physics_process(delta):
 	if !is_dead:

@@ -67,6 +67,19 @@ autostart = true
 wait_time = 0.5
 one_shot = true
 
+[node name="HealingTimer" type="Timer" parent="."]
+process_mode = 0
+one_shot = true
+
+[node name="FullHealTimer" type="Timer" parent="."]
+process_mode = 0
+wait_time = 1.75
+one_shot = true
+
+[node name="DashUseTimer" type="Timer" parent="."]
+wait_time = 0.75
+one_shot = true
+
 [node name="LeftDetector" type="Area2D" parent="."]
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="LeftDetector"]
@@ -78,10 +91,6 @@ polygon = PoolVector2Array( -13.0297, -39.1703, -31.0406, -25.6622, -37.9271, -3
 position = Vector2( 0, 9.53517 )
 rotation = 3.14159
 polygon = PoolVector2Array( -13.0297, -39.1703, -31.0406, -25.6622, -37.9271, -3.14862, -37.6622, 18.0406, -30.246, 35.2569, -14.8838, 47.1758, -1.11079, 51.4137, -0.316193, -41.0244 )
-
-[node name="DashUseTimer" type="Timer" parent="."]
-wait_time = 0.75
-one_shot = true
 
 [node name="Light2D" type="Light2D" parent="."]
 scale = Vector2( 5, 5 )
@@ -97,10 +106,6 @@ position = Vector2( 0, 5.05854 )
 shape = SubResource( 1 )
 disabled = true
 
-[node name="HealingTimer" type="Timer" parent="."]
-process_mode = 0
-one_shot = true
-
 [connection signal="animation_finished" from="Sprite" to="." method="_on_Sprite_animation_finished"]
 [connection signal="area_entered" from="AttackCollision" to="." method="_on_AttackCollision_area_entered"]
 [connection signal="area_entered" from="Area2D" to="." method="_on_Area2D_area_entered"]
@@ -110,7 +115,8 @@ one_shot = true
 [connection signal="timeout" from="DashCooldown" to="." method="_on_DashCooldown_timeout"]
 [connection signal="timeout" from="KnockbackTimer" to="." method="_on_KnockbackTimer_timeout"]
 [connection signal="timeout" from="KnockbackCooldownTimer" to="." method="_on_KnockbackCooldownTimer_timeout"]
+[connection signal="timeout" from="HealingTimer" to="." method="_on_HealingTimer_timeout"]
+[connection signal="timeout" from="FullHealTimer" to="." method="_on_FullHealTimer_timeout"]
+[connection signal="timeout" from="DashUseTimer" to="." method="_on_DashUseTimer_timeout"]
 [connection signal="area_entered" from="LeftDetector" to="." method="_on_LeftDetector_area_entered"]
 [connection signal="area_entered" from="RightDectector" to="." method="_on_RightDectector_area_entered"]
-[connection signal="timeout" from="DashUseTimer" to="." method="_on_DashUseTimer_timeout"]
-[connection signal="timeout" from="HealingTimer" to="." method="_on_HealingTimer_timeout"]

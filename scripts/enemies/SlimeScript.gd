@@ -10,7 +10,7 @@ const TYPE : String = "Enemy"
 const FLOOR = Vector2(0, -1)
 const SPEED : int = 100
 const GRAVITY : int = 45
-const LOOT : PackedScene = preload("res://scenes/items/HealthPot.tscn")
+const LOOT : PackedScene = preload("res://scenes/items/LootBag.tscn")
 var rng : RandomNumberGenerator = RandomNumberGenerator.new()
 
 func _physics_process(delta):

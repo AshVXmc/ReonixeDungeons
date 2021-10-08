@@ -1,8 +1,10 @@
 extends Control
 
+signal player_position(posx, posy)
 var notpaused : bool = true
 
 func _ready():
+	connect("player_position", Global, "get_player_position")
 	self.visible = false
 
 func _process(delta):
