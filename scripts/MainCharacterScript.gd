@@ -19,7 +19,7 @@ var can_be_knocked : bool = true
 const SPEED : int = 380
 const GRAVITY : int = 40
 const JUMP_POWER : int = -1075
-const FIREBALL = preload("res://scenes/Fireball.tscn")
+const FIREBALL : PackedScene = preload("res://scenes/Fireball.tscn")
 
 var is_attacking : bool = false
 var is_dead : bool = false

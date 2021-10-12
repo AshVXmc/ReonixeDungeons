@@ -9,11 +9,10 @@ Click here for the [Github Repo](https://github.com/AshVXmc/ReonixeDungeons) (mi
 4. Build and run the game
 
 ## License and Extras
-License for this game and repository can be viewed [here](https://gitlab.com/AshVXmc/reonixedungeons/-/blob/main/LICENSE.txt). The license is subject to change.
+License for this game and repository can be viewed [here](https://github.com/AshVXmc/ReonixeDungeons/blob/main/LICENSE). The license is subject to change.
 I'm working on this project for fun, so the update schedule won't always be consistent.
 
-For bugs and issues check out [this repository page](https://gitlab.com/AshVXmc/reonixedungeons/-/issues)
-My WIP [itch.io profile page](https://ashvxmc.itch.io/)
+For bugs and issues check out [this repository page](https://gitlab.com/AshVXmc/reonixedungeons/-/issues) and my WIP [itch.io profile page](https://ashvxmc.itch.io/).
 
 ## Tools I use
 - [Godot game engine](https://godotengine.org/)
