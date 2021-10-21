@@ -67,19 +67,19 @@ __meta__ = {
 }
 
 [node name="ColorRect" type="ColorRect" parent="."]
-margin_right = 1200.0
-margin_bottom = 900.0
+margin_right = 1080.0
+margin_bottom = 720.0
 color = Color( 0.0470588, 0.0470588, 0.0470588, 1 )
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
-margin_right = 1200.0
-margin_bottom = 900.0
+margin_right = 1080.0
+margin_bottom = 720.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
-margin_left = 427.0
-margin_top = 206.0
-margin_right = 772.0
-margin_bottom = 694.0
+margin_left = 367.0
+margin_top = 116.0
+margin_right = 712.0
+margin_bottom = 604.0
 
 [node name="CenterContainer7" type="CenterContainer" parent="CenterContainer/VBoxContainer"]
 margin_right = 345.0

@@ -2,8 +2,7 @@ extends CanvasLayer
 
 var frametimes := []
 var FPS : float = 0
-var isvisible = false
-
+var isvisible : bool = false
 
 func _process(delta):
 	var current := OS.get_ticks_msec()
@@ -15,9 +14,6 @@ func _process(delta):
 	$Label.text = "FPS:" + str(FPS)
 	
 	if Input.is_action_just_pressed("ui_debug"):
-		if !$Label.visible:
-			$Label.visible = true
-		else:
-			$Label.visible = false
+		$Label.visible = true if !$Label.visible else false
 
 	
