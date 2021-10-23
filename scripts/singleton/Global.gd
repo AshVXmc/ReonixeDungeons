@@ -7,6 +7,7 @@ var max_mana : int = 5
 var mana : int = max_mana
 var healthpot_amount : int = 1
 var lifewine_amount : int = 1
+var manapot_amount : int = 1
 var unopened_chests := ["Level1_chest"]
 const SAVE_DIR : String = "user://savedata/"
 var savepath : String = SAVE_DIR + "savefile.dat"
@@ -22,6 +23,7 @@ func reset_player_data():
 	Global.mana = 5
 	Global.healthpot_amount = 3
 	Global.lifewine_amount = 1
+	Global.manapot_amount = 1
 	Global.dash_unlocked = true
 	Global.glide_unlocked = false
 	
@@ -45,6 +47,8 @@ func save_player_data():
 		"MaxMana" : Global.max_mana ,
 		"Mana" : Global.mana ,
 		"Healthpot": Global.healthpot_amount ,
+		"LifeWine" : Global.lifewine_amount,
+		"Manapot":  Global.manapot_amount,
 		"DashUnlocked" : Global.dash_unlocked ,
 		"GlideUnlocked" : Global.glide_unlocked,
 		"ChestUnopened": Global.unopened_chests
@@ -64,6 +68,9 @@ func sync_playerHealthpots(player_healthpot : int):
 	player_healthpot = Global.healthpot_amount
 func sync_playerLifeWines(player_lifewine : int):
 	player_lifewine = Global.lifewine_amount
+func sync_playerManapots(player_manapot : int):
+	player_manapot = Global.manapot_amount
+	
 	
 
 

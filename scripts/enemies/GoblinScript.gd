@@ -1,6 +1,7 @@
 extends KinematicBody2D
 
 export var HP : int = 2
+export var flipped : bool = false
 var velocity = Vector2()
 var direction : int = 1
 var is_dead : bool = false 
@@ -10,14 +11,17 @@ const SPEED : int = 275
 const GRAVITY : int = 45
 var is_staggered : bool = false
 
-const LOOT = preload("res://scenes/items/HealthPot.tscn")
+const LOOT = preload("res://scenes/items/LootBag.tscn")
 onready var AREA_LEFT : Area2D = $Left
 onready var AREA_RIGHT : Area2D = $Right
 onready var PLAYER = get_parent().get_node("Player").get_node("Area2D")
 
 func _physics_process(delta):
+	if flipped:
+		$Sprite.flip_h = true
 	velocity.y += GRAVITY
-	velocity = move_and_slide(velocity, FLOOR)
+	if !is_staggered:
+		velocity = move_and_slide(velocity, FLOOR)
 	$Sprite.play("Idle") if velocity.x == 0 else $Sprite.play("Attacking")
 	
 	if !is_staggered:
@@ -48,6 +52,10 @@ func _on_Area2D_area_entered(area):
 				get_parent().add_child(loot)
 				loot.position = $Position2D.global_position
 			queue_free()
+	if area.is_in_group("Player"):
+		is_staggered = true
+		yield(get_tree().create_timer(1), "timeout")
+		is_staggered = false
 
 
 func _on_HurtTimer_timeout():

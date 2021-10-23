@@ -73,7 +73,12 @@ one_shot = true
 
 [node name="FullHealTimer" type="Timer" parent="."]
 process_mode = 0
-wait_time = 1.75
+wait_time = 2.0
+one_shot = true
+
+[node name="ManaHealTimer" type="Timer" parent="."]
+process_mode = 0
+wait_time = 2.0
 one_shot = true
 
 [node name="DashUseTimer" type="Timer" parent="."]
@@ -117,6 +122,7 @@ disabled = true
 [connection signal="timeout" from="KnockbackCooldownTimer" to="." method="_on_KnockbackCooldownTimer_timeout"]
 [connection signal="timeout" from="HealingTimer" to="." method="_on_HealingTimer_timeout"]
 [connection signal="timeout" from="FullHealTimer" to="." method="_on_FullHealTimer_timeout"]
+[connection signal="timeout" from="ManaHealTimer" to="." method="_on_ManaHealTimer_timeout"]
 [connection signal="timeout" from="DashUseTimer" to="." method="_on_DashUseTimer_timeout"]
 [connection signal="area_entered" from="LeftDetector" to="." method="_on_LeftDetector_area_entered"]
 [connection signal="area_entered" from="RightDectector" to="." method="_on_RightDectector_area_entered"]

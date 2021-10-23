@@ -1,7 +1,7 @@
 extends AnimatedSprite
 
 export var chestID : String
-export var LOOT : PackedScene = preload("res://scenes/items/HealthPot.tscn")
+export var LOOT : PackedScene = preload("res://scenes/items/LootBag.tscn")
 var loot = LOOT.instance()
 var hasbeenopened = false
 

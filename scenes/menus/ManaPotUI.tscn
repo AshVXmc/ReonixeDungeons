@@ -1,0 +1,40 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://assets/misc/mana_pot.png" type="Texture" id=1]
+[ext_resource path="res://scripts/ui/ManaPotControlScript.gd" type="Script" id=2]
+[ext_resource path="res://assets/fonts/buttonfont.tres" type="DynamicFont" id=3]
+
+[node name="ManaPotUI" type="CanvasLayer"]
+
+[node name="ManaPotControl" type="Control" parent="."]
+margin_left = 148.0
+margin_right = 188.0
+margin_bottom = 40.0
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="ManaPotControl"]
+margin_left = 728.266
+margin_top = 25.9238
+margin_right = 744.266
+margin_bottom = 42.9237
+rect_scale = Vector2( 4, 4 )
+texture = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="ManaPotControl"]
+margin_left = 771.682
+margin_top = 79.2145
+margin_right = 821.682
+margin_bottom = 182.215
+rect_scale = Vector2( 0.75, 0.75 )
+custom_fonts/font = ExtResource( 3 )
+text = "0
+"
+__meta__ = {
+"_edit_use_anchors_": false
+}

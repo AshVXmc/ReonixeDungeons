@@ -4,6 +4,7 @@ signal life_changed(player_hearts)
 signal mana_changed(player_mana)
 signal healthpot_obtained(player_healthpot)
 signal lifewine_obtained(player_lifewine)
+signal manapot_obtained(player_manapot)
 
 onready var inv_timer : Timer = $InvulnerabilityTimer
 onready var fb_timer : Timer = $FireballTimer
@@ -40,6 +41,7 @@ func _ready():
 	connect("healthpot_obtained", get_parent().get_node("HealthPotUI/HealthPotControl"), "on_player_healthpot_obtained")
 # warning-ignore:return_value_discarded
 	connect("lifewine_obtained", get_parent().get_node("LifeWineUI/LifeWineControl"), "on_player_lifewine_obtained")
+	connect("manapot_obtained", get_parent().get_node("ManaPotUI/ManaPotControl"), "on_player_manapot_obtained")
 	# HP singleton connect
 # warning-ignore:return_value_discarded
 	connect("life_changed", Global, "sync_hearts")
@@ -56,6 +58,8 @@ func _ready():
 # warning-ignore:return_value_discarded
 	connect("lifewine_obtained", Global, "sync_playerLifeWines")
 	emit_signal("lifewine_obtained", Global.lifewine_amount)
+	connect("manapot_obtained", Global, "sync_playerManapots")
+	emit_signal("manapot_obtained", Global.manapot_amount)
 
 
 	
@@ -121,10 +125,12 @@ func _physics_process(_delta):
 func useItems():
 	# Health potions
 	if Input.is_action_just_pressed("slot_1") and Global.hearts < Global.max_hearts:
-		heal()
+		heal_player("HealthPot")
 	# Life wines (Increase maximum health)
 	if Input.is_action_just_pressed("slot_2") and Global.hearts < Global.max_hearts:
-		full_heal()
+		heal_player("LifeWine")
+	if Input.is_action_just_pressed("slot_3") and Global.mana < Global.max_hearts:
+		heal_player("ManaPot")
 			
 func shoot():
 	if Input.is_action_just_pressed("ui_shoot")	and !is_attacking and Global.mana >= 1:
@@ -294,26 +300,28 @@ func glide():
 		is_gliding = false
 		Input.action_release("jump")
 
-func heal():
+
+func heal_player(item : String):
 	if !is_healing:
 		is_healing = true
-		$HealingTimer.start()
-		Input.action_release("left")
-		Input.action_release("right")
-		if $Area2D.is_in_group("Enemy") or $Area2D.is_in_group("Enemy2"):
-			$HealingTimer.stop()
-			is_healing = false
-
-func full_heal():
-	if !is_healing:
-		is_healing = true
-		$FullHealTimer.start()
-		Input.action_release("left")
-		Input.action_release("right")
-		if $Area2D.is_in_group("Enemy") or $Area2D.is_in_group("Enemy2"):
-			$FullHealTimer.stop()
-			is_healing = false
-
+		match item:
+			"HealthPot":
+				$HealingTimer.start()
+				if $Area2D.is_in_group("Enemy") or $Area2D.is_in_group("Enemy2"):
+					$HealingTimer.stop()
+					is_healing = false
+			"LifeWine":
+				$FullHealTimer.start()
+				if $Area2D.is_in_group("Enemy") or $Area2D.is_in_group("Enemy2"):
+					$FullHealTimer.stop()
+					is_healing = false
+			"ManaPot":
+				$ManaHealTimer.start()
+				if $Area2D.is_in_group("Enemy") or $Area2D.is_in_group("Enemy2"):
+					$ManaHealTimer.stop()
+					is_healing = false
+	Input.action_release("left")
+	Input.action_release("right")
 
 # Player death	
 func dead():
@@ -379,19 +387,26 @@ func _on_FullHealTimer_timeout():
 		Global.lifewine_amount -= 1
 		emit_signal("lifewine_obtained", Global.lifewine_amount)
 
-func on_lootbag_obtained(rand_num : int):
-	match rand_num:
-		1:
-			Global.healthpot_amount += 1
-			emit_signal("healthpot_obtained", Global.healthpot_amount)
-		2:
-			Global.healthpot_amount += 1
-			emit_signal("healthpot_obtained", Global.healthpot_amount)
-		3:
-			Global.healthpot_amount += 1
-			emit_signal("healthpot_obtained", Global.healthpot_amount)
-		4:
-			Global.lifewine_amount += 1
-			emit_signal("lifewine_obtained", Global.lifewine_amount)		
+func on_lootbag_obtained():
+	var rng : RandomNumberGenerator = RandomNumberGenerator.new()
+	rng.randomize()
+	var num  = rng.randi_range(1,10)
+	if num <= 4:
+		Global.healthpot_amount += 1
+		emit_signal("healthpot_obtained", Global.healthpot_amount)
+	elif num >= 5 and num <= 8:
+		pass
+#		Global.healthpot_amount += 1
+#		emit_signal("healthpot_obtained", Global.healthpot_amount)
+	else:
+		Global.lifewine_amount += 1
+		emit_signal("lifewine_obtained", Global.lifewine_amount)
 
 
+func _on_ManaHealTimer_timeout():
+	is_healing = false
+	if Global.manapot_amount > 0 and Global.mana < Global.max_mana:
+		Global.mana += Global.max_mana - Global.mana
+		emit_signal("mana_changed", Global.mana)
+		Global.manapot_amount -= 1
+		emit_signal("manapot_obtained", Global.manapot_amount)
