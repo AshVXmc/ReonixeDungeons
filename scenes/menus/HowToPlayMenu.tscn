@@ -1,7 +1,12 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://scripts/ui/HowToPlayMenuScript.gd" type="Script" id=1]
-[ext_resource path="res://assets/fonts/buttonfont.tres" type="DynamicFont" id=4]
+[ext_resource path="res://assets/UI/buttons_gui.png" type="Texture" id=2]
+[ext_resource path="res://assets/fonts/FFFFORWA.ttf" type="DynamicFontData" id=3]
+
+[sub_resource type="DynamicFont" id=1]
+size = 40
+font_data = ExtResource( 3 )
 
 [node name="CanvasLayer" type="CanvasLayer"]
 script = ExtResource( 1 )
@@ -23,175 +28,40 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label6" type="Label" parent="Control"]
-margin_left = 480.527
-margin_top = 376.724
-margin_right = 800.527
-margin_bottom = 416.724
-custom_fonts/font = ExtResource( 4 )
-custom_colors/font_color = Color( 1, 1, 1, 1 )
-text = "to shoot"
+[node name="TextureRect" type="TextureRect" parent="Control"]
+margin_left = 59.3652
+margin_top = 58.4555
+margin_right = 1162.37
+margin_bottom = 465.455
+texture = ExtResource( 2 )
+expand = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label7" type="Label" parent="Control"]
-margin_left = 491.279
-margin_top = 251.206
-margin_right = 971.279
-margin_bottom = 291.206
-custom_fonts/font = ExtResource( 4 )
-custom_colors/font_color = Color( 1, 1, 1, 1 )
-text = "to use slots"
+[node name="left" type="Label" parent="Control"]
+margin_left = 65.5899
+margin_top = 117.725
+margin_right = 175.59
+margin_bottom = 172.725
+custom_fonts/font = SubResource( 1 )
+text = "Left"
 
-[node name="Label8" type="Label" parent="Control"]
-margin_left = 509.96
-margin_top = 441.079
-margin_right = 789.962
-margin_bottom = 481.079
-custom_fonts/font = ExtResource( 4 )
-custom_colors/font_color = Color( 1, 1, 1, 1 )
-text = "to exit"
+[node name="right" type="Label" parent="Control"]
+margin_left = 314.495
+margin_top = 114.68
+margin_right = 449.495
+margin_bottom = 169.68
+custom_fonts/font = SubResource( 1 )
+text = "Right"
 
-[node name="Label16" type="Label" parent="Control"]
-margin_left = 287.639
-margin_top = 515.016
-margin_right = 1007.64
-margin_bottom = 555.016
-custom_fonts/font = ExtResource( 4 )
-custom_colors/font_color = Color( 1, 1, 1, 1 )
-text = "toggle Debug mode"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Label10" type="Label" parent="Control"]
-margin_left = 256.196
-margin_top = 179.065
-margin_right = 456.196
-margin_bottom = 262.065
-custom_fonts/font = ExtResource( 4 )
-custom_colors/font_color = Color( 0.972549, 0.819608, 0, 1 )
-text = "SPACE
-"
-
-[node name="Label11" type="Label" parent="Control"]
-margin_left = 375.311
-margin_top = 442.422
-margin_right = 495.311
-margin_bottom = 525.422
-custom_fonts/font = ExtResource( 4 )
-custom_colors/font_color = Color( 0.972549, 0.819608, 0, 1 )
-text = "ESC
-"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Label15" type="Label" parent="Control"]
-margin_left = 189.795
-margin_top = 511.396
-margin_right = 309.795
-margin_bottom = 594.396
-custom_fonts/font = ExtResource( 4 )
-custom_colors/font_color = Color( 0.972549, 0.819608, 0, 1 )
-text = "F3
-"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Label12" type="Label" parent="Control"]
-margin_left = 424.361
-margin_top = 379.65
-margin_right = 464.361
-margin_bottom = 419.65
-custom_fonts/font = ExtResource( 4 )
-custom_colors/font_color = Color( 0.972549, 0.819608, 0, 1 )
-text = "F"
-
-[node name="Label13" type="Label" parent="Control"]
-margin_left = 265.19
-margin_top = 253.718
-margin_right = 465.19
-margin_bottom = 336.718
-custom_fonts/font = ExtResource( 4 )
-custom_colors/font_color = Color( 0.972549, 0.819608, 0, 1 )
-text = "1,2,3
-"
-
-[node name="Label14" type="Label" parent="Control"]
-margin_left = 427.0
-margin_top = 317.0
-margin_right = 467.0
-margin_bottom = 400.0
-custom_fonts/font = ExtResource( 4 )
-custom_colors/font_color = Color( 0.972549, 0.819608, 0, 1 )
-text = "C
-"
-
-[node name="Label5" type="Label" parent="Control"]
-margin_left = 479.417
-margin_top = 314.874
-margin_right = 759.421
-margin_bottom = 354.874
-custom_fonts/font = ExtResource( 4 )
-custom_colors/font_color = Color( 1, 1, 1, 1 )
-text = "to dash"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Label" type="Label" parent="Control"]
-margin_left = 34.6533
-margin_top = 40.4547
-margin_right = 194.653
-margin_bottom = 80.4547
-custom_fonts/font = ExtResource( 4 )
-custom_colors/font_color = Color( 0.972549, 0.819608, 0, 1 )
-text = "WASD"
-
-[node name="Label9" type="Label" parent="Control"]
-margin_left = 230.653
-margin_top = 110.455
-margin_right = 430.653
-margin_bottom = 150.455
-custom_fonts/font = ExtResource( 4 )
-custom_colors/font_color = Color( 0.972549, 0.819608, 0, 1 )
-text = "ENTER"
-
-[node name="Label2" type="Label" parent="Control"]
-margin_left = 223.442
-margin_top = 39.9169
-margin_right = 1143.44
-margin_bottom = 79.9169
-custom_fonts/font = ExtResource( 4 )
-custom_colors/font_color = Color( 1, 1, 1, 1 )
-text = "to move and aim sword"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Label3" type="Label" parent="Control"]
-margin_left = 453.471
-margin_top = 113.239
-margin_right = 813.471
-margin_bottom = 153.239
-custom_fonts/font = ExtResource( 4 )
-custom_colors/font_color = Color( 1, 1, 1, 1 )
-text = "to attack"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Label4" type="Label" parent="Control"]
-margin_left = 484.338
-margin_top = 180.472
-margin_right = 764.339
-margin_bottom = 220.472
-custom_fonts/font = ExtResource( 4 )
-custom_colors/font_color = Color( 1, 1, 1, 1 )
-text = "to jump"
+[node name="dash" type="Label" parent="Control"]
+margin_left = 302.723
+margin_top = 434.221
+margin_right = 437.723
+margin_bottom = 489.221
+custom_fonts/font = SubResource( 1 )
+text = "Dash"
 __meta__ = {
 "_edit_use_anchors_": false
 }

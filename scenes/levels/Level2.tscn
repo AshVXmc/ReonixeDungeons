@@ -2,7 +2,7 @@
 
 [ext_resource path="res://tilesets/Default.tres" type="TileSet" id=1]
 [ext_resource path="res://scenes/menus/HotbarUI.tscn" type="PackedScene" id=2]
-[ext_resource path="res://scenes/menus/GildedGoldUI.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/menus/ManaPotUI.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scenes/menus/HeartUI.tscn" type="PackedScene" id=4]
 [ext_resource path="res://scenes/menus/ManaUI.tscn" type="PackedScene" id=5]
 [ext_resource path="res://scenes/menus/HealthPotUI.tscn" type="PackedScene" id=6]
@@ -26,8 +26,6 @@ position = Vector2( 96.6404, 118.518 )
 
 [node name="HealthPotUI" parent="." instance=ExtResource( 6 )]
 
-[node name="GildedGoldUI" parent="." instance=ExtResource( 3 )]
-
 [node name="HeartUI" parent="." instance=ExtResource( 4 )]
 
 [node name="LifeWineUI" parent="." instance=ExtResource( 9 )]
@@ -38,3 +36,5 @@ position = Vector2( 96.6404, 118.518 )
 
 [node name="Spider" parent="." instance=ExtResource( 7 )]
 position = Vector2( 588.69, 523.408 )
+
+[node name="ManaPotUI" parent="." instance=ExtResource( 3 )]

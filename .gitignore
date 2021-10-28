@@ -16,3 +16,6 @@ data_*/
 
 # Ignore rcedit.exe file
 rcedit-x64.exe
+
+# Ignore build
+build/

@@ -127,9 +127,9 @@ func useItems():
 	if Input.is_action_just_pressed("slot_1") and Global.hearts < Global.max_hearts:
 		heal_player("HealthPot")
 	# Life wines (Increase maximum health)
-	if Input.is_action_just_pressed("slot_2") and Global.hearts < Global.max_hearts:
+	elif Input.is_action_just_pressed("slot_2") and Global.hearts < Global.max_hearts:
 		heal_player("LifeWine")
-	if Input.is_action_just_pressed("slot_3") and Global.mana < Global.max_hearts:
+	elif Input.is_action_just_pressed("slot_3") and Global.mana < Global.max_hearts:
 		heal_player("ManaPot")
 			
 func shoot():
@@ -218,17 +218,11 @@ func _on_AttackCollision_area_entered(area):
 	var lootrng : RandomNumberGenerator = RandomNumberGenerator.new()
 	lootrng.randomize()
 	var randomint = lootrng.randi_range(1,2)
-	if area.is_in_group("Enemy") and !$AttackCollision/CollisionShape2D.disabled:
-		attack_knock()
-		if Global.mana < Global.max_mana:
-			Global.mana += 1
-			emit_signal("mana_changed", Global.mana)
-			
-	if area.is_in_group("Enemy2") and !$AttackCollision/CollisionShape2D.disabled:
+	if area.is_in_group("Enemy") or area.is_in_group("Enemy2") and !$AttackCollision/CollisionShape2D.disabled:
 		attack_knock()
 		if Global.mana < Global.max_mana:
 			Global.mana += randomint
-			emit_signal("mana_changed", Global.mana)	
+			emit_signal("mana_changed", Global.mana)
 			
 
 func knockback():

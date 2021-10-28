@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://assets/fonts/PressStart2P-Regular.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://scripts/ui/PauseScript.gd" type="Script" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://assets/UI/pauseicon.png" type="Texture" id=4]
 [ext_resource path="res://assets/UI/mainmenubutton.png" type="Texture" id=5]
 [ext_resource path="res://assets/UI/savebutton.png" type="Texture" id=6]
+[ext_resource path="res://assets/fonts/Born2bSportyV2.ttf" type="DynamicFontData" id=7]
 
 [sub_resource type="DynamicFont" id=1]
 size = 25
@@ -20,8 +21,8 @@ size = 25
 font_data = ExtResource( 1 )
 
 [sub_resource type="DynamicFont" id=4]
-size = 40
-font_data = ExtResource( 1 )
+size = 75
+font_data = ExtResource( 7 )
 
 [sub_resource type="DynamicFont" id=5]
 size = 50
@@ -67,9 +68,9 @@ __meta__ = {
 }
 
 [node name="SaveButton" type="Button" parent="Pause"]
-margin_left = 354.611
+margin_left = 362.611
 margin_top = 127.109
-margin_right = 504.611
+margin_right = 512.611
 margin_bottom = 277.109
 icon = ExtResource( 6 )
 flat = true
@@ -104,9 +105,9 @@ custom_fonts/font = SubResource( 1 )
 text = "Resume"
 
 [node name="Label3" type="Label" parent="Pause"]
-margin_left = 381.33
+margin_left = 387.33
 margin_top = 288.825
-margin_right = 481.33
+margin_right = 487.33
 margin_bottom = 313.825
 custom_fonts/font = SubResource( 2 )
 text = "Save"
@@ -124,10 +125,10 @@ __meta__ = {
 
 [node name="Saved" type="Label" parent="Pause"]
 visible = false
-margin_left = 321.047
-margin_top = -46.2746
-margin_right = 561.047
-margin_bottom = -6.27464
+margin_left = 319.712
+margin_top = -72.9714
+margin_right = 559.712
+margin_bottom = 3.02859
 custom_fonts/font = SubResource( 4 )
 custom_colors/font_color = Color( 0.027451, 0.890196, 0, 1 )
 text = "Saved!"
@@ -136,9 +137,9 @@ __meta__ = {
 }
 
 [node name="[Paused]" type="Label" parent="Pause"]
-margin_left = 302.56
+margin_left = 286.56
 margin_top = 39.4365
-margin_right = 602.56
+margin_right = 586.56
 margin_bottom = 89.4365
 custom_fonts/font = SubResource( 5 )
 custom_colors/font_color = Color( 0.337255, 0.498039, 0.290196, 1 )

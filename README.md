@@ -8,6 +8,15 @@ Click here for the [Github Repo](https://github.com/AshVXmc/ReonixeDungeons) (mi
 3. Import the project into the engine
 4. Build and run the game
 
+## Controls
+**A and D** to move left and right
+**SPACE** to jump
+**ENTER** to attack and/or confirm
+**C** to dash
+**F** to shoot fireballs
+**ESCAPE** to pause the game
+**1, 2, and 3** to use item slots
+
 ## License and Extras
 License for this game and repository can be viewed [here](https://github.com/AshVXmc/ReonixeDungeons/blob/main/LICENSE). The license is subject to change.
 I'm working on this project for fun, so the update schedule won't always be consistent.

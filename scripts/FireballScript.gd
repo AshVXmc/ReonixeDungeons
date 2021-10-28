@@ -20,9 +20,11 @@ func _on_VisibilityNotifier2D_screen_exited():
 
 func _on_Fireball_area_entered(area):
 	if area.is_in_group("Enemy"):
+		$AnimatedSprite.play("Destroyed")
 		queue_free()
-		
+
 func _on_Fireball_body_entered(body):
+	$AnimatedSprite.play("Destroyed")
 	queue_free()
 
 func _on_DestroyedTimer_timeout():
