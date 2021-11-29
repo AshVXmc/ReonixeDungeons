@@ -41,6 +41,7 @@ func handle_selection(_current_selection):
 					Global.dash_unlocked = player_data["DashUnlocked"]
 					Global.glide_unlocked = player_data["GlideUnlocked"]
 					Global.unopened_chests = player_data["ChestUnopened"]
+					Global.player_position = player_data["PlayerPos"]
 					$SceneTransition/ColorRect.visible = true
 					$SceneTransition.transition()
 					yield(get_tree().create_timer(1), "timeout")
@@ -88,7 +89,7 @@ func set_current_selection(_current_selection):
 			options_selector.text = ">"
 		4:
 			exit_selector.text = ">"
-	
+
 	
 	
 	

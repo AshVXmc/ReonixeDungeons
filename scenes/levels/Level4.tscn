@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://scripts/ui/ManaScript.gd" type="Script" id=1]
 [ext_resource path="res://scripts/LifeScript.gd" type="Script" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://assets/terrain/lichen_ruins_oneway_spritesheet.png" type="Texture" id=7]
 [ext_resource path="res://assets/misc/background_2.png" type="Texture" id=8]
 [ext_resource path="res://assets/UI/mana.png" type="Texture" id=9]
+[ext_resource path="res://scenes/Light.tscn" type="PackedScene" id=10]
 [ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=11]
 [ext_resource path="res://scenes/menus/PauseUI.tscn" type="PackedScene" id=12]
 [ext_resource path="res://scenes/menus/HealthPotUI.tscn" type="PackedScene" id=13]
@@ -216,3 +217,10 @@ __meta__ = {
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2"]
 shape = SubResource( 2 )
 one_way_collision = true
+
+[node name="Light2D" parent="." instance=ExtResource( 10 )]
+visible = false
+position = Vector2( 42.8474, 55.0338 )
+scale = Vector2( 39.0286, 28.2626 )
+energy = 0.65
+mode = 1

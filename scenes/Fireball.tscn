@@ -10,6 +10,7 @@ extents = Vector2( 32.7093, 24.063 )
 "Fireball",
 ]]
 script = ExtResource( 2 )
+SPEED = 400
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 scale = Vector2( 4.5, 4.5 )

@@ -1,7 +1,7 @@
 extends Area2D
 
 const TYPE : String = "Fireball"
-const SPEED : int = 400
+export var SPEED : int = 500
 var velocity = Vector2()
 var direction : int = 1
 

@@ -1,4 +1,4 @@
-class_name Player extends KinematicBody2D
+class_name Player extends PlayerUtils
 
 signal life_changed(player_hearts)
 signal mana_changed(player_mana)
@@ -33,36 +33,8 @@ var can_dash : bool = false
 var is_healing : bool = false
 
 func _ready():
-# warning-ignore:return_value_discarded
-	connect("life_changed", get_parent().get_node("HeartUI/Life"), "on_player_life_changed")
-# warning-ignore:return_value_discarded
-	connect("mana_changed", get_parent().get_node("ManaUI/Mana"), "on_player_mana_changed")
-# warning-ignore:return_value_discarded
-	connect("healthpot_obtained", get_parent().get_node("HealthPotUI/HealthPotControl"), "on_player_healthpot_obtained")
-# warning-ignore:return_value_discarded
-	connect("lifewine_obtained", get_parent().get_node("LifeWineUI/LifeWineControl"), "on_player_lifewine_obtained")
-	connect("manapot_obtained", get_parent().get_node("ManaPotUI/ManaPotControl"), "on_player_manapot_obtained")
-	# HP singleton connect
-# warning-ignore:return_value_discarded
-	connect("life_changed", Global, "sync_hearts")
-	emit_signal("life_changed", Global.hearts)
-	# Mana singleton connect
-# warning-ignore:return_value_discarded
-	connect("mana_changed", Global, "sync_mana")
-	emit_signal("mana_changed", Global.mana)
-	# Healthpot inventory connect
-# warning-ignore:return_value_discarded
-	connect("healthpot_obtained", Global, "sync_playerHealthpots")
-	emit_signal("healthpot_obtained", Global.healthpot_amount)
-	# Lifewine inventory connect
-# warning-ignore:return_value_discarded
-	connect("lifewine_obtained", Global, "sync_playerLifeWines")
-	emit_signal("lifewine_obtained", Global.lifewine_amount)
-	connect("manapot_obtained", Global, "sync_playerManapots")
-	emit_signal("manapot_obtained", Global.manapot_amount)
+	connect_signals()
 
-
-	
 func _physics_process(_delta):
 	# Makes sure the player is alive to use any movement controls
 	if !is_dead and !is_invulnerable and !is_healing:
@@ -121,16 +93,6 @@ func _physics_process(_delta):
 				
 	if is_healing:
 		$Sprite.play("Healing")
-
-func useItems():
-	# Health potions
-	if Input.is_action_just_pressed("slot_1") and Global.hearts < Global.max_hearts:
-		heal_player("HealthPot")
-	# Life wines (Increase maximum health)
-	elif Input.is_action_just_pressed("slot_2") and Global.hearts < Global.max_hearts:
-		heal_player("LifeWine")
-	elif Input.is_action_just_pressed("slot_3") and Global.mana < Global.max_hearts:
-		heal_player("ManaPot")
 			
 func shoot():
 	if Input.is_action_just_pressed("ui_shoot")	and !is_attacking and Global.mana >= 1:
@@ -165,9 +127,6 @@ func attack():
 			is_attacking = true
 			$AttackCollision/CollisionShape2D.disabled = false
 			$AttackTimer.start()
-
-
-
 
 # Damage and interaction
 func _on_Area2D_area_entered(area : Area2D):
@@ -295,6 +254,16 @@ func glide():
 		Input.action_release("jump")
 
 
+func useItems():
+	# Health potions
+	if Input.is_action_just_pressed("slot_1") and Global.hearts < Global.max_hearts:
+		heal_player("HealthPot")
+	# Life wines (Increase maximum health)
+	elif Input.is_action_just_pressed("slot_2") and Global.hearts < Global.max_hearts:
+		heal_player("LifeWine")
+	elif Input.is_action_just_pressed("slot_3") and Global.mana < Global.max_hearts:
+		heal_player("ManaPot")
+
 func heal_player(item : String):
 	if !is_healing:
 		is_healing = true
@@ -328,6 +297,22 @@ func dead():
 func on_campfire_toggled():
 	Global.hearts += Global.max_hearts - Global.hearts
 	emit_signal("life_changed", Global.hearts)
+	
+func on_lootbag_obtained():
+	var rng : RandomNumberGenerator = RandomNumberGenerator.new()
+	rng.randomize()
+	var num  = rng.randi_range(1,10)
+	if num <= 4:
+		Global.healthpot_amount += 1
+		emit_signal("healthpot_obtained", Global.healthpot_amount)
+	elif num >= 5 and num <= 8:
+		pass
+#		Global.healthpot_amount += 1
+#		emit_signal("healthpot_obtained", Global.healthpot_amount)
+	else:
+		Global.lifewine_amount += 1
+		emit_signal("lifewine_obtained", Global.lifewine_amount)
+
 # Handles what happens when timers runs out
 func _on_Timer_timeout():
 # warning-ignore:return_value_discarded
@@ -380,22 +365,6 @@ func _on_FullHealTimer_timeout():
 		emit_signal("life_changed", Global.hearts)
 		Global.lifewine_amount -= 1
 		emit_signal("lifewine_obtained", Global.lifewine_amount)
-
-func on_lootbag_obtained():
-	var rng : RandomNumberGenerator = RandomNumberGenerator.new()
-	rng.randomize()
-	var num  = rng.randi_range(1,10)
-	if num <= 4:
-		Global.healthpot_amount += 1
-		emit_signal("healthpot_obtained", Global.healthpot_amount)
-	elif num >= 5 and num <= 8:
-		pass
-#		Global.healthpot_amount += 1
-#		emit_signal("healthpot_obtained", Global.healthpot_amount)
-	else:
-		Global.lifewine_amount += 1
-		emit_signal("lifewine_obtained", Global.lifewine_amount)
-
 
 func _on_ManaHealTimer_timeout():
 	is_healing = false

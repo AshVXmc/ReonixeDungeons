@@ -1,11 +1,12 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://spriteframes/alphaboss_spriteframes.tres" type="SpriteFrames" id=1]
 [ext_resource path="res://scripts/enemies/AlphaGuardian.gd" type="Script" id=2]
 [ext_resource path="res://assets/fonts/FFFFORWA.ttf" type="DynamicFontData" id=3]
+[ext_resource path="res://assets/misc/laser.png" type="Texture" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 43.0855, 92.0537 )
+extents = Vector2( 52.3807, 68.0487 )
 
 [sub_resource type="DynamicFont" id=2]
 size = 40
@@ -13,7 +14,7 @@ outline_color = Color( 0, 0, 0, 1 )
 font_data = ExtResource( 3 )
 
 [sub_resource type="RectangleShape2D" id=3]
-extents = Vector2( 334.297, 112.032 )
+extents = Vector2( 179.627, 46.3498 )
 
 [node name="AlphaGuardian" type="KinematicBody2D"]
 script = ExtResource( 2 )
@@ -26,10 +27,7 @@ __meta__ = {
 "_edit_group_": true
 }
 
-[node name="Area2D" type="Area2D" parent="." groups=[
-"Boss",
-"Enemy",
-]]
+[node name="Area2D" type="Area2D" parent="." groups=["Boss", "Enemy"]]
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D"]
 position = Vector2( 7.93701, 0 )
@@ -38,15 +36,16 @@ polygon = PoolVector2Array( -31.7498, -106.883, -34.5815, -74.7909, -70.4487, -6
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 scale = Vector2( 7.5, 7.5 )
 frames = ExtResource( 1 )
+animation = "Destroyed"
 playing = true
 
 [node name="CollisionPolygon2D" type="CollisionShape2D" parent="."]
-position = Vector2( 3.31811, 27.2764 )
+position = Vector2( -0.924535, 52.0251 )
 shape = SubResource( 1 )
 one_way_collision = true
 
 [node name="AttackTimer" type="Timer" parent="."]
-wait_time = 9.5
+wait_time = 7.5
 
 [node name="HurtTimer" type="Timer" parent="."]
 wait_time = 0.3
@@ -66,49 +65,43 @@ one_shot = true
 wait_time = 0.5
 one_shot = true
 
-[node name="AttackCollision" type="Area2D" parent="." groups=[
-"Enemy",
-]]
+[node name="AttackCollision" type="Area2D" parent="." groups=["Enemy"]]
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="AttackCollision"]
 polygon = PoolVector2Array( 47.5711, -86.5855, 81.283, -65.6092, 97.7644, -40.138, 108.253, -1.93114, 103.008, 32.5299, 85.7779, 63.9944, 56.5609, 82.7232, 67.7982, 46.0147, 70.0457, 7.0587, 60.3067, -37.8905, 37.0829, -89.5821 )
 disabled = true
-
-[node name="MeleeTimer" type="Timer" parent="."]
-wait_time = 4.0
-one_shot = true
 
 [node name="Label" type="Label" parent="."]
 margin_left = -71.4813
 margin_top = -169.062
 margin_right = 88.5187
 margin_bottom = -129.062
-custom_fonts/font = SubResource( 2 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_fonts/font = SubResource( 2 )
 text = "100%"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Left" type="Area2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Left"]
-position = Vector2( -401.241, 5.42752 )
-shape = SubResource( 3 )
-
-[node name="Right" type="Area2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Right"]
-position = Vector2( 397.397, 7.52553 )
-shape = SubResource( 3 )
-
 [node name="JumpTimer" type="Timer" parent="."]
 one_shot = true
+
+[node name="LaserArea" type="Area2D" parent="." groups=["Enemy"]]
+position = Vector2( 300.004, -21.3574 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LaserArea"]
+position = Vector2( -29.3665, 22.6923 )
+shape = SubResource( 3 )
+
+[node name="Sprite" type="Sprite" parent="LaserArea"]
+position = Vector2( -26.5164, 23.6881 )
+rotation = 3.14159
+scale = Vector2( 7.64386, 8.91076 )
+texture = ExtResource( 4 )
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_Area2D_area_entered"]
 [connection signal="timeout" from="AttackTimer" to="." method="_on_AttackTimer_timeout"]
 [connection signal="timeout" from="HurtTimer" to="." method="_on_HurtTimer_timeout"]
 [connection signal="timeout" from="ShockTimer" to="." method="_on_ShockTimer_timeout"]
 [connection signal="timeout" from="GroundTimer" to="." method="_on_GroundTimer_timeout"]
-[connection signal="timeout" from="MeleeTimer" to="." method="_on_MeleeTimer_timeout"]
 [connection signal="timeout" from="JumpTimer" to="." method="_on_JumpTimer_timeout"]

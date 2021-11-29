@@ -14,8 +14,6 @@ export_presets.cfg
 .mono/
 data_*/
 
-# Ignore rcedit.exe file
+# Misc stuff
 rcedit-x64.exe
-
-# Ignore build
 build/

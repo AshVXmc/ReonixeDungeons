@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=2]
+[gd_scene load_steps=43 format=2]
 
 [ext_resource path="res://scenes/items/ChestSilver.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/menus/HealthPotUI.tscn" type="PackedScene" id=2]
@@ -29,6 +29,7 @@
 [ext_resource path="res://assets/terrain/lichen_ruins_misc_spritesheet.png" type="Texture" id=27]
 [ext_resource path="res://tilesets/one_way_tilesets.tres" type="TileSet" id=28]
 [ext_resource path="res://scenes/menus/ManaPotUI.tscn" type="PackedScene" id=29]
+[ext_resource path="res://scenes/levels/Level2.tscn" type="PackedScene" id=30]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
 points = PoolVector2Array( 96, 96, 0, 96, 0, 0, 96, 0 )
@@ -389,7 +390,9 @@ position = Vector2( -1768.78, 214.919 )
 position = Vector2( 9.72693, -184.94 )
 current = true
 limit_left = -2650
+limit_top = -468
 limit_right = 6000
+limit_bottom = 2000
 drag_margin_h_enabled = true
 drag_margin_v_enabled = true
 drag_margin_left = 0.4
@@ -418,7 +421,7 @@ position = Vector2( 2807.59, 1347.24 )
 position = Vector2( -705.172, 568.034 )
 
 [node name="Slime2" parent="." instance=ExtResource( 19 )]
-position = Vector2( 3877.51, 1046.06 )
+position = Vector2( 3883.12, 1140.35 )
 
 [node name="Slime3" parent="." instance=ExtResource( 19 )]
 position = Vector2( -632.123, 85.9266 )
@@ -468,6 +471,7 @@ __meta__ = {
 
 [node name="LevelTransporter" parent="." instance=ExtResource( 13 )]
 position = Vector2( 5657.3, 1068.87 )
+Destination = ExtResource( 30 )
 
 [node name="LifeWineUI" parent="." instance=ExtResource( 23 )]
 
@@ -499,3 +503,6 @@ position = Vector2( -936.133, 538.782 )
 
 [node name="Goblin" parent="." instance=ExtResource( 21 )]
 position = Vector2( 5531.01, 334.25 )
+
+[node name="Goblin3" parent="." instance=ExtResource( 21 )]
+position = Vector2( 4756.3, 1102.33 )

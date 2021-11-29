@@ -1,4 +1,4 @@
-extends CanvasLayer
+class_name DialogueScreen extends CanvasLayer
 
 export(String, FILE, "*.json") var dialoguesfile
 var dialogues = []

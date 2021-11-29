@@ -1,7 +1,7 @@
 extends Area2D
 
 const TYPE : String = "Shockwave"
-const SPEED : int = 800
+const SPEED : int = 850
 var velocity = Vector2()
 var direction : int = 1
 

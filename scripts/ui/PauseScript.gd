@@ -1,11 +1,14 @@
 extends Control
 
-signal player_position(posx, posy)
+signal playerpos(ppos)
 var notpaused : bool = true
+onready var player : KinematicBody2D = get_parent().get_parent().get_node("Player")
 
 func _ready():
-	connect("player_position", Global, "get_player_position")
+	connect("playerpos", Global, "player_position")
 	self.visible = false
+#	print(player.position.x)
+#	print(player.position.y)
 
 func _process(delta):
 	if Input.is_action_just_pressed("ui_cancel"):
@@ -24,6 +27,7 @@ func _on_ResumeButton_pressed():
 
 func _on_SaveButton_pressed():
 	Global.save_player_data()
+	emit_signal("playerpos",player.position)
 	if !$Saved.visible:
 		$Saved.visible = true
 		yield(get_tree().create_timer(1.5), "timeout")

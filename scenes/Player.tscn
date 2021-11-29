@@ -24,18 +24,14 @@ playing = true
 position = Vector2( 0, 5.05854 )
 shape = SubResource( 1 )
 
-[node name="AttackCollision" type="Area2D" parent="." groups=[
-"Sword",
-]]
+[node name="AttackCollision" type="Area2D" parent="." groups=["Sword"]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackCollision"]
 position = Vector2( 70.883, 5.05854 )
 shape = SubResource( 2 )
 disabled = true
 
-[node name="Area2D" type="Area2D" parent="." groups=[
-"Player",
-]]
+[node name="Area2D" type="Area2D" parent="." groups=["Player"]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2( 0, 5.05854 )
@@ -102,9 +98,7 @@ scale = Vector2( 5, 5 )
 texture = ExtResource( 3 )
 energy = 0.5
 
-[node name="ToggleArea" type="Area2D" parent="." groups=[
-"PlayerToggle",
-]]
+[node name="ToggleArea" type="Area2D" parent="." groups=["PlayerToggle"]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ToggleArea"]
 position = Vector2( 0, 5.05854 )

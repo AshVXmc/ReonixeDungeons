@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://assets/fonts/FFFFORWA.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://assets/fonts/PressStart2P-Regular.ttf" type="DynamicFontData" id=2]
@@ -6,6 +6,38 @@
 [ext_resource path="res://assets/themes/MainMenuFonts.tres" type="DynamicFont" id=4]
 [ext_resource path="res://scenes/menus/SceneTransition.tscn" type="PackedScene" id=5]
 [ext_resource path="res://assets/fonts/Born2bSportyV2.ttf" type="DynamicFontData" id=6]
+[ext_resource path="res://assets/misc/background_2.png" type="Texture" id=7]
+[ext_resource path="res://scripts/ui/TitleFloat.gd" type="Script" id=8]
+
+[sub_resource type="Animation" id=13]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Title:rect_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ) ]
+}
+
+[sub_resource type="Animation" id=14]
+resource_name = "TitleFloat"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Title:rect_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 0.812252, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( 0, -10 ), Vector2( 0, 0 ) ]
+}
 
 [sub_resource type="DynamicFont" id=1]
 size = 45
@@ -69,7 +101,13 @@ __meta__ = {
 [node name="ColorRect" type="ColorRect" parent="."]
 margin_right = 1080.0
 margin_bottom = 720.0
-color = Color( 0.0470588, 0.0470588, 0.0470588, 1 )
+color = Color( 0, 0, 0, 1 )
+
+[node name="Backdrop" type="TextureRect" parent="."]
+margin_right = 1080.0
+margin_bottom = 720.0
+texture = ExtResource( 7 )
+expand = true
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
 margin_right = 1080.0
@@ -101,12 +139,18 @@ margin_bottom = 143.0
 [node name="Title" type="Label" parent="CenterContainer/VBoxContainer/CenterContainer7/VBoxContainer/StartContainer/HBoxContainer"]
 margin_right = 345.0
 margin_bottom = 143.0
-custom_fonts/font = ExtResource( 4 )
 custom_colors/font_color = Color( 0.0313726, 0.2, 0.72549, 1 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_y = 0
+custom_fonts/font = ExtResource( 4 )
 text = "Reonixe
 Dungeons"
+script = ExtResource( 8 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CenterContainer/VBoxContainer/CenterContainer7/VBoxContainer/StartContainer/HBoxContainer/Title"]
+root_node = NodePath("../..")
+anims/RESET = SubResource( 13 )
+anims/TitleFloat = SubResource( 14 )
 
 [node name="CenterContainer2" type="CenterContainer" parent="CenterContainer/VBoxContainer"]
 margin_top = 147.0
@@ -131,10 +175,10 @@ margin_bottom = 46.0
 margin_right = 20.0
 margin_bottom = 46.0
 rect_min_size = Vector2( 7, 0 )
-custom_fonts/font = SubResource( 1 )
 custom_colors/font_color = Color( 0.972549, 0.819608, 0, 1 )
 custom_constants/shadow_offset_y = 0
 custom_constants/shadow_as_outline = 5
+custom_fonts/font = SubResource( 1 )
 text = ">"
 uppercase = true
 
@@ -142,10 +186,10 @@ uppercase = true
 margin_left = 24.0
 margin_right = 188.0
 margin_bottom = 46.0
-custom_fonts/font = SubResource( 2 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_y = 0
+custom_fonts/font = SubResource( 2 )
 text = "New Game"
 
 [node name="CenterContainer6" type="CenterContainer" parent="CenterContainer/VBoxContainer"]
@@ -171,10 +215,10 @@ margin_bottom = 46.0
 margin_right = 20.0
 margin_bottom = 46.0
 rect_min_size = Vector2( 7, 0 )
-custom_fonts/font = SubResource( 3 )
 custom_colors/font_color = Color( 0.972549, 0.819608, 0, 1 )
 custom_constants/shadow_offset_y = 0
 custom_constants/shadow_as_outline = 5
+custom_fonts/font = SubResource( 3 )
 text = ">"
 uppercase = true
 
@@ -182,10 +226,10 @@ uppercase = true
 margin_left = 24.0
 margin_right = 203.0
 margin_bottom = 46.0
-custom_fonts/font = SubResource( 4 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_y = 0
+custom_fonts/font = SubResource( 4 )
 text = "Load Game"
 
 [node name="CenterContainer3" type="CenterContainer" parent="CenterContainer/VBoxContainer"]
@@ -211,10 +255,10 @@ margin_bottom = 46.0
 margin_right = 20.0
 margin_bottom = 46.0
 rect_min_size = Vector2( 7, 0 )
-custom_fonts/font = SubResource( 5 )
 custom_colors/font_color = Color( 0.972549, 0.819608, 0, 1 )
 custom_constants/shadow_offset_y = 0
 custom_constants/shadow_as_outline = 5
+custom_fonts/font = SubResource( 5 )
 text = ">"
 uppercase = true
 
@@ -222,10 +266,10 @@ uppercase = true
 margin_left = 24.0
 margin_right = 219.0
 margin_bottom = 46.0
-custom_fonts/font = SubResource( 6 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_y = 0
+custom_fonts/font = SubResource( 6 )
 text = "How to play"
 
 [node name="CenterContainer4" type="CenterContainer" parent="CenterContainer/VBoxContainer"]
@@ -251,10 +295,10 @@ margin_bottom = 46.0
 margin_right = 20.0
 margin_bottom = 46.0
 rect_min_size = Vector2( 7, 0 )
-custom_fonts/font = SubResource( 7 )
 custom_colors/font_color = Color( 0.972549, 0.819608, 0, 1 )
 custom_constants/shadow_offset_y = 0
 custom_constants/shadow_as_outline = 5
+custom_fonts/font = SubResource( 7 )
 text = ">"
 uppercase = true
 
@@ -262,10 +306,10 @@ uppercase = true
 margin_left = 24.0
 margin_right = 146.0
 margin_bottom = 46.0
-custom_fonts/font = SubResource( 8 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_y = 0
+custom_fonts/font = SubResource( 8 )
 text = "Options"
 
 [node name="CenterContainer5" type="CenterContainer" parent="CenterContainer/VBoxContainer"]
@@ -291,10 +335,10 @@ margin_bottom = 46.0
 margin_right = 20.0
 margin_bottom = 46.0
 rect_min_size = Vector2( 7, 0 )
-custom_fonts/font = SubResource( 9 )
 custom_colors/font_color = Color( 0.972549, 0.819608, 0, 1 )
 custom_constants/shadow_offset_y = 0
 custom_constants/shadow_as_outline = 5
+custom_fonts/font = SubResource( 9 )
 text = ">"
 uppercase = true
 
@@ -302,10 +346,10 @@ uppercase = true
 margin_left = 24.0
 margin_right = 86.0
 margin_bottom = 46.0
-custom_fonts/font = SubResource( 10 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_y = 0
+custom_fonts/font = SubResource( 10 )
 text = "Exit"
 
 [node name="CenterContainer9" type="CenterContainer" parent="CenterContainer/VBoxContainer"]
@@ -326,8 +370,8 @@ size_flags_horizontal = 2
 visible = false
 margin_right = 660.0
 margin_bottom = 72.0
-custom_fonts/font = SubResource( 11 )
 custom_colors/font_color = Color( 1, 0, 0, 1 )
+custom_fonts/font = SubResource( 11 )
 text = "
 
 No save data available to load"
@@ -354,8 +398,8 @@ margin_bottom = 87.0
 [node name="INDEV" type="Label" parent="CenterContainer/VBoxContainer/CenterContainer8/VBoxContainer/Exitcontainer/HBoxContainer"]
 margin_right = 311.0
 margin_bottom = 87.0
-custom_fonts/font = SubResource( 12 )
 custom_colors/font_color = Color( 0.388235, 0.741176, 0, 1 )
+custom_fonts/font = SubResource( 12 )
 text = "
 Pre-Alpha 0.0.1"
 

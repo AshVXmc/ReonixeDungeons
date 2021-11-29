@@ -11,11 +11,9 @@ var manapot_amount : int = 1
 var unopened_chests := ["Level1_chest"]
 const SAVE_DIR : String = "user://savedata/"
 var savepath : String = SAVE_DIR + "savefile.dat"
-var player_position_x : float
-var player_position_y : float
+var player_position : Vector2
 var dash_unlocked : bool = false
 var glide_unlocked : bool = false
-
 
 func reset_player_data():
 	# Default player data
@@ -51,7 +49,8 @@ func save_player_data():
 		"Manapot":  Global.manapot_amount,
 		"DashUnlocked" : Global.dash_unlocked ,
 		"GlideUnlocked" : Global.glide_unlocked,
-		"ChestUnopened": Global.unopened_chests
+		"ChestUnopened": Global.unopened_chests,
+		"PlayerPos" : Global.player_position
 	}
 
 	var savefile : File = File.new()
@@ -71,6 +70,9 @@ func sync_playerLifeWines(player_lifewine : int):
 func sync_playerManapots(player_manapot : int):
 	player_manapot = Global.manapot_amount
 	
+func player_position(ppos : Vector2):
+	Global.player_position = ppos
+	print(player_position)
 	
 
 
