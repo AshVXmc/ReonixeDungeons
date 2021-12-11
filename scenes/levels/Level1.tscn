@@ -383,8 +383,12 @@ mode = 1
 
 [node name="PauseUI" parent="." instance=ExtResource( 4 )]
 
+[node name="LevelTransporter" parent="." instance=ExtResource( 13 )]
+position = Vector2( 5657.3, 1068.87 )
+Destination = ExtResource( 30 )
+
 [node name="Player" parent="." instance=ExtResource( 3 )]
-position = Vector2( -1768.78, 214.919 )
+position = Vector2( 5255.22, 998.919 )
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position = Vector2( 9.72693, -184.94 )
@@ -467,12 +471,6 @@ __meta__ = {
 
 [node name="ManaPotUI" parent="." instance=ExtResource( 29 )]
 
-[node name="SceneTransition" parent="." instance=ExtResource( 12 )]
-
-[node name="LevelTransporter" parent="." instance=ExtResource( 13 )]
-position = Vector2( 5657.3, 1068.87 )
-Destination = ExtResource( 30 )
-
 [node name="LifeWineUI" parent="." instance=ExtResource( 23 )]
 
 [node name="SpikePosition" type="Position2D" parent="."]
@@ -506,3 +504,5 @@ position = Vector2( 5531.01, 334.25 )
 
 [node name="Goblin3" parent="." instance=ExtResource( 21 )]
 position = Vector2( 4756.3, 1102.33 )
+
+[node name="SceneTransition" parent="." instance=ExtResource( 12 )]
