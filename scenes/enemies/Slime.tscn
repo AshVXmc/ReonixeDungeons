@@ -25,15 +25,14 @@ shape = SubResource( 1 )
 position = Vector2( 0, -29.326 )
 scale = Vector2( 5, 5 )
 frames = ExtResource( 2 )
+animation = "slimedeath"
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
 position = Vector2( 32, 0 )
 enabled = true
 cast_to = Vector2( 0, 28 )
 
-[node name="Area2D" type="Area2D" parent="." groups=[
-"Enemy",
-]]
+[node name="Area2D" type="Area2D" parent="." groups=["Enemy"]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2( 0.595276, -14.6835 )

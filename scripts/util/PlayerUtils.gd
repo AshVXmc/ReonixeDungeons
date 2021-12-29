@@ -10,6 +10,7 @@ func connect_signals() -> void:
 # warning-ignore:return_value_discarded
 	connect("lifewine_obtained", get_parent().get_node("LifeWineUI/LifeWineControl"), "on_player_lifewine_obtained")
 	connect("manapot_obtained", get_parent().get_node("ManaPotUI/ManaPotControl"), "on_player_manapot_obtained")
+	connect("opals_obtained", get_parent().get_node("OpalsUI/OpalsControl"), "on_player_opals_obtained")
 	# HP singleton connect
 # warning-ignore:return_value_discarded
 	connect("life_changed", Global, "sync_hearts")
@@ -26,6 +27,11 @@ func connect_signals() -> void:
 # warning-ignore:return_value_discarded
 	connect("lifewine_obtained", Global, "sync_playerLifeWines")
 	emit_signal("lifewine_obtained", Global.lifewine_amount)
+	
 	connect("manapot_obtained", Global, "sync_playerManapots")
 	emit_signal("manapot_obtained", Global.manapot_amount)
+	
+	connect("opals_obtained", Global, "sync_playerOpals")
+	emit_signal("opals_obtained", Global.opals_amount)
+
 

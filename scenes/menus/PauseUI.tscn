@@ -1,6 +1,5 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=10 format=2]
 
-[ext_resource path="res://assets/fonts/MEGAMAN10.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://scripts/ui/PauseScript.gd" type="Script" id=2]
 [ext_resource path="res://assets/fonts/buttonfont.tres" type="DynamicFont" id=3]
 [ext_resource path="res://assets/UI/pauseicon.png" type="Texture" id=4]
@@ -18,7 +17,7 @@ font_data = ExtResource( 7 )
 
 [sub_resource type="DynamicFont" id=3]
 size = 85
-font_data = ExtResource( 1 )
+font_data = ExtResource( 7 )
 
 [node name="Margin container" type="CanvasLayer"]
 
@@ -47,10 +46,12 @@ __meta__ = {
 }
 
 [node name="ResumeButton" type="Button" parent="Pause"]
-margin_left = 97.332
-margin_top = 127.859
-margin_right = 247.332
-margin_bottom = 277.859
+anchor_top = 0.5
+anchor_bottom = 0.5
+margin_left = 76.0
+margin_top = -75.0
+margin_right = 226.0
+margin_bottom = 75.0
 custom_fonts/font = ExtResource( 3 )
 icon = ExtResource( 4 )
 flat = true
@@ -60,10 +61,14 @@ __meta__ = {
 }
 
 [node name="SaveButton" type="Button" parent="Pause"]
-margin_left = 362.611
-margin_top = 127.109
-margin_right = 512.611
-margin_bottom = 277.109
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -75.0
+margin_top = -75.0
+margin_right = 75.0
+margin_bottom = 75.0
 icon = ExtResource( 6 )
 flat = true
 expand_icon = true
@@ -72,14 +77,14 @@ __meta__ = {
 }
 
 [node name="QuitButton" type="Button" parent="Pause"]
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-margin_left = 210.958
-margin_top = -233.505
-margin_right = 360.958
-margin_bottom = -83.5047
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = -220.0
+margin_top = -75.0002
+margin_right = -70.0
+margin_bottom = 75.0002
 custom_fonts/font = ExtResource( 3 )
 icon = ExtResource( 5 )
 flat = true
@@ -89,34 +94,37 @@ __meta__ = {
 }
 
 [node name="Label" type="Label" parent="Pause"]
-margin_left = 109.064
-margin_top = 283.225
-margin_right = 259.064
-margin_bottom = 329.225
+margin_left = 77.4022
+margin_top = 258.102
+margin_right = 227.402
+margin_bottom = 304.102
 custom_fonts/font = SubResource( 1 )
 text = "Resume"
+align = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Label2" type="Label" parent="Pause"]
-margin_left = 396.128
-margin_top = 283.348
-margin_right = 546.128
-margin_bottom = 329.348
+margin_left = 348.65
+margin_top = 257.074
+margin_right = 498.65
+margin_bottom = 303.074
 custom_fonts/font = SubResource( 1 )
 text = "Save"
+align = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Label3" type="Label" parent="Pause"]
-margin_left = 671.764
-margin_top = 283.348
-margin_right = 821.764
-margin_bottom = 329.348
+margin_left = 623.326
+margin_top = 261.13
+margin_right = 773.326
+margin_bottom = 307.13
 custom_fonts/font = SubResource( 1 )
 text = "Exit"
+align = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -135,13 +143,15 @@ __meta__ = {
 }
 
 [node name="[Paused]" type="Label" parent="Pause"]
-margin_left = 286.56
-margin_top = 15.4365
-margin_right = 586.56
-margin_bottom = 72.4365
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -150.0
+margin_top = 9.0
+margin_right = 150.0
+margin_bottom = 95.0
 custom_colors/font_color = Color( 0.337255, 0.498039, 0.290196, 1 )
 custom_fonts/font = SubResource( 3 )
-text = "PAUSED"
+text = "Paused"
 align = 1
 __meta__ = {
 "_edit_use_anchors_": false

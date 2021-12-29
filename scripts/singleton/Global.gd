@@ -5,9 +5,10 @@ var max_hearts : float = 3
 var hearts : float = max_hearts
 var max_mana : int = 5
 var mana : int = max_mana
-var healthpot_amount : int = 1
-var lifewine_amount : int = 1
-var manapot_amount : int = 1
+var healthpot_amount : int = 0
+var lifewine_amount : int = 0
+var manapot_amount : int = 0
+var opals_amount : int = 0
 var unopened_chests := ["Level1_chest"]
 const SAVE_DIR : String = "user://savedata/"
 var savepath : String = SAVE_DIR + "savefile.dat"
@@ -19,9 +20,10 @@ func reset_player_data():
 	# Default player data
 	Global.hearts = 3
 	Global.mana = 5
-	Global.healthpot_amount = 3
-	Global.lifewine_amount = 1
-	Global.manapot_amount = 1
+	Global.healthpot_amount = 0
+	Global.lifewine_amount = 0
+	Global.manapot_amount = 0
+	Global.opals_amount = 0
 	Global.dash_unlocked = true
 	Global.glide_unlocked = false
 	
@@ -47,6 +49,7 @@ func save_player_data():
 		"Healthpot": Global.healthpot_amount ,
 		"LifeWine" : Global.lifewine_amount,
 		"Manapot":  Global.manapot_amount,
+		"Opals" : Global.opals_amount ,
 		"DashUnlocked" : Global.dash_unlocked ,
 		"GlideUnlocked" : Global.glide_unlocked,
 		"ChestUnopened": Global.unopened_chests,
@@ -69,7 +72,8 @@ func sync_playerLifeWines(player_lifewine : int):
 	player_lifewine = Global.lifewine_amount
 func sync_playerManapots(player_manapot : int):
 	player_manapot = Global.manapot_amount
-	
+func sync_playerOpals(player_opals : int):
+	player_opals = Global.opals_amount
 func player_position(ppos : Vector2):
 	Global.player_position = ppos
 	print(player_position)

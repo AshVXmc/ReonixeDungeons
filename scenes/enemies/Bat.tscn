@@ -25,9 +25,7 @@ frames = ExtResource( 1 )
 animation = "Idle"
 frame = 1
 
-[node name="Area2D" type="Area2D" parent="." groups=[
-"Enemy",
-]]
+[node name="Area2D" type="Area2D" parent="." groups=["Enemy"]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource( 2 )

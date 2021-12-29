@@ -11,7 +11,6 @@ func _ready():
 
 func _process(delta):
 	self.play("idle")
-	# IT WORKS YEAAAHHHHHHHHHHHHHH
 	if AREA.overlaps_area(PLAYER):
 		if Input.is_action_just_pressed("ui_use"):
 			emit_signal("campfire_heal")

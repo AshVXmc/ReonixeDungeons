@@ -1,31 +1,20 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://spriteframes/chestsilver_spriteframes.tres" type="SpriteFrames" id=1]
 [ext_resource path="res://scripts/items/ChestSilverScripts.gd" type="Script" id=2]
-[ext_resource path="res://assets/chests/chest_silver_open.png" type="Texture" id=3]
-[ext_resource path="res://assets/chests/chest_silver_closed.png" type="Texture" id=4]
-
-[sub_resource type="SpriteFrames" id=1]
-animations = [ {
-"frames": [ ExtResource( 4 ) ],
-"loop": true,
-"name": "Idle",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 4 ), ExtResource( 3 ) ],
-"loop": true,
-"name": "Opened",
-"speed": 3.0
-} ]
+[ext_resource path="res://assets/fonts/FFFFORWA.ttf" type="DynamicFontData" id=3]
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 10.3028, 6.05448 )
 
-[node name="Chest" type="AnimatedSprite"]
+[sub_resource type="DynamicFont" id=3]
+size = 8
+font_data = ExtResource( 3 )
+
+[node name="Chest" type="Node2D"]
 scale = Vector2( 5, 5 )
-frames = SubResource( 1 )
-animation = "Idle"
 script = ExtResource( 2 )
+LOOT = null
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_mask = 0
@@ -41,14 +30,15 @@ frames = ExtResource( 1 )
 animation = "Opened"
 
 [node name="Label" type="Label" parent="."]
-visible = false
-margin_left = -14.0158
-margin_top = -23.0927
-margin_right = 25.9842
-margin_bottom = -9.09273
-text = "OPEN"
+margin_left = -17.9098
+margin_top = -21.0729
+margin_right = 37.0902
+margin_bottom = -6.07293
+custom_fonts/font = SubResource( 3 )
+text = "Open [E]"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_Area2D_area_entered"]
+[connection signal="area_exited" from="Area2D" to="." method="_on_Area2D_area_exited"]

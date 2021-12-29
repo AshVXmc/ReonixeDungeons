@@ -22,7 +22,7 @@ func handle_selection(_current_selection):
 			$SceneTransition/ColorRect.visible = true
 			$SceneTransition.transition()
 			yield(get_tree().create_timer(1), "timeout")
-			get_tree().change_scene("res://scenes/levels/Level1.tscn")
+			get_tree().change_scene("res://scenes/levels/lichen_caves/Level1.tscn")
 			queue_free()
 			
 		1:

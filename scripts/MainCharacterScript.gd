@@ -5,6 +5,7 @@ signal mana_changed(player_mana)
 signal healthpot_obtained(player_healthpot)
 signal lifewine_obtained(player_lifewine)
 signal manapot_obtained(player_manapot)
+signal opals_obtained(player_opals)
 
 onready var inv_timer : Timer = $InvulnerabilityTimer
 onready var fb_timer : Timer = $FireballTimer
@@ -31,6 +32,7 @@ var is_dashing : bool = false
 var is_gliding : bool = false
 var can_dash : bool = false
 var is_healing : bool = false
+var is_shopping : bool = false
 
 func _ready():
 	connect_signals()
@@ -299,19 +301,35 @@ func on_campfire_toggled():
 	emit_signal("life_changed", Global.hearts)
 	
 func on_lootbag_obtained():
-	var rng : RandomNumberGenerator = RandomNumberGenerator.new()
-	rng.randomize()
-	var num  = rng.randi_range(1,10)
+	var lootrng : RandomNumberGenerator = RandomNumberGenerator.new()
+	var opalrng : RandomNumberGenerator = RandomNumberGenerator.new()
+	lootrng.randomize()
+	opalrng.randomize()
+	var num  = lootrng.randi_range(1,10)
+	var opalnum = opalrng.randi_range(5,10)
 	if num <= 4:
 		Global.healthpot_amount += 1
 		emit_signal("healthpot_obtained", Global.healthpot_amount)
 	elif num >= 5 and num <= 8:
 		pass
-#		Global.healthpot_amount += 1
-#		emit_signal("healthpot_obtained", Global.healthpot_amount)
+		Global.manapot_amount += 1
+		emit_signal("manapot_obtained", Global.manapot_amount)
 	else:
 		Global.lifewine_amount += 1
 		emit_signal("lifewine_obtained", Global.lifewine_amount)
+		
+	Global.opals_amount += opalnum
+	emit_signal("opals_obtained", Global.opals_amount)
+		
+
+func on_Item_bought(item_name : String, item_price : int):
+	Global.opals_amount -= item_price
+	emit_signal("opals_obtained", Global.opals_amount)
+	match item_name:
+		"HealthPot":
+			Global.healthpot_amount += 1
+			emit_signal("healthpot_obtained", Global.healthpot_amount)
+	
 
 # Handles what happens when timers runs out
 func _on_Timer_timeout():

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/background_dungeons.png-bdae2141bf082db37a98c93a38ad8e07.stex"
+path="res://.import/morning_glory.png-70cb4afa23af592e8779f54150d9bab6.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/terrain/background_dungeons.png"
-dest_files=[ "res://.import/background_dungeons.png-bdae2141bf082db37a98c93a38ad8e07.stex" ]
+source_file="res://assets/terrain/morning_glory.png"
+dest_files=[ "res://.import/morning_glory.png-70cb4afa23af592e8779f54150d9bab6.stex" ]
 
 [params]
 

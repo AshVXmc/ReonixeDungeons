@@ -1,35 +1,37 @@
-[gd_scene load_steps=43 format=2]
+[gd_scene load_steps=45 format=2]
 
-[ext_resource path="res://scenes/items/ChestSilver.tscn" type="PackedScene" id=1]
-[ext_resource path="res://scenes/menus/HealthPotUI.tscn" type="PackedScene" id=2]
-[ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=3]
-[ext_resource path="res://scenes/menus/PauseUI.tscn" type="PackedScene" id=4]
-[ext_resource path="res://scenes/Light.tscn" type="PackedScene" id=5]
-[ext_resource path="res://scenes/menus/HeartUI.tscn" type="PackedScene" id=6]
-[ext_resource path="res://scenes/menus/ManaUI.tscn" type="PackedScene" id=7]
-[ext_resource path="res://assets/terrain/lichen_ruins_spritesheet.png" type="Texture" id=8]
-[ext_resource path="res://scenes/items/Campfire.tscn" type="PackedScene" id=9]
-[ext_resource path="res://scenes/menus/HotbarUI.tscn" type="PackedScene" id=10]
-[ext_resource path="res://assets/terrain/background_dungeons.png" type="Texture" id=11]
-[ext_resource path="res://scenes/menus/SceneTransition.tscn" type="PackedScene" id=12]
-[ext_resource path="res://scenes/items/LevelTransporter.tscn" type="PackedScene" id=13]
-[ext_resource path="res://scenes/items/GenericSpike.tscn" type="PackedScene" id=14]
-[ext_resource path="res://scenes/menus/FPSCounter.tscn" type="PackedScene" id=15]
-[ext_resource path="res://scenes/enemies/LargeSlime.tscn" type="PackedScene" id=16]
-[ext_resource path="res://scenes/enemies/Bat.tscn" type="PackedScene" id=17]
-[ext_resource path="res://scenes/items/Barrel.tscn" type="PackedScene" id=18]
-[ext_resource path="res://scenes/enemies/Slime.tscn" type="PackedScene" id=19]
-[ext_resource path="res://scenes/items/DestructableWall.tscn" type="PackedScene" id=20]
-[ext_resource path="res://scenes/enemies/Goblin.tscn" type="PackedScene" id=21]
-[ext_resource path="res://scenes/enemies/LimeSlime.tscn" type="PackedScene" id=22]
-[ext_resource path="res://scenes/menus/LifeWineUI.tscn" type="PackedScene" id=23]
-[ext_resource path="res://scenes/dialogue/DialogueScreen.tscn" type="PackedScene" id=24]
-[ext_resource path="res://assets/terrain/lichen_ruins_oneway_spritesheet.png" type="Texture" id=25]
-[ext_resource path="res://scripts/Level1.gd" type="Script" id=26]
-[ext_resource path="res://assets/terrain/lichen_ruins_misc_spritesheet.png" type="Texture" id=27]
-[ext_resource path="res://tilesets/one_way_tilesets.tres" type="TileSet" id=28]
-[ext_resource path="res://scenes/menus/ManaPotUI.tscn" type="PackedScene" id=29]
-[ext_resource path="res://scenes/levels/Level2.tscn" type="PackedScene" id=30]
+[ext_resource path="res://scripts/Level1.gd" type="Script" id=1]
+[ext_resource path="res://scenes/items/Campfire.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scenes/items/GenericSpike.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/menus/ManaPotUI.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scenes/menus/LifeWineUI.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scenes/items/LevelTransporter.tscn" type="PackedScene" id=6]
+[ext_resource path="res://scenes/items/DestructableWall.tscn" type="PackedScene" id=7]
+[ext_resource path="res://scenes/dialogue/DialogueScreen.tscn" type="PackedScene" id=8]
+[ext_resource path="res://scenes/items/Barrel.tscn" type="PackedScene" id=9]
+[ext_resource path="res://scenes/enemies/Slime.tscn" type="PackedScene" id=10]
+[ext_resource path="res://scenes/menus/HeartUI.tscn" type="PackedScene" id=11]
+[ext_resource path="res://scenes/enemies/LimeSlime.tscn" type="PackedScene" id=12]
+[ext_resource path="res://scenes/enemies/LargeSlime.tscn" type="PackedScene" id=13]
+[ext_resource path="res://scenes/menus/SceneTransition.tscn" type="PackedScene" id=14]
+[ext_resource path="res://scenes/items/ChestSilver.tscn" type="PackedScene" id=15]
+[ext_resource path="res://scenes/menus/PauseUI.tscn" type="PackedScene" id=16]
+[ext_resource path="res://scenes/enemies/Goblin.tscn" type="PackedScene" id=17]
+[ext_resource path="res://scenes/levels/lichen_caves/Level2.tscn" type="PackedScene" id=18]
+[ext_resource path="res://scenes/menus/HealthPotUI.tscn" type="PackedScene" id=19]
+[ext_resource path="res://scenes/Light.tscn" type="PackedScene" id=20]
+[ext_resource path="res://scenes/menus/FPSCounter.tscn" type="PackedScene" id=21]
+[ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=22]
+[ext_resource path="res://scenes/menus/ManaUI.tscn" type="PackedScene" id=23]
+[ext_resource path="res://scenes/menus/HotbarUI.tscn" type="PackedScene" id=24]
+[ext_resource path="res://scenes/enemies/Bat.tscn" type="PackedScene" id=25]
+[ext_resource path="res://assets/terrain/background_dungeons.png" type="Texture" id=26]
+[ext_resource path="res://assets/terrain/lichen_ruins_spritesheet.png" type="Texture" id=27]
+[ext_resource path="res://assets/terrain/lichen_ruins_misc_spritesheet.png" type="Texture" id=28]
+[ext_resource path="res://assets/terrain/lichen_ruins_oneway_spritesheet.png" type="Texture" id=29]
+[ext_resource path="res://tilesets/one_way_tilesets.tres" type="TileSet" id=30]
+[ext_resource path="res://scenes/menus/OpalsUI.tscn" type="PackedScene" id=31]
+[ext_resource path="res://scenes/items/LootBag.tscn" type="PackedScene" id=32]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
 points = PoolVector2Array( 96, 96, 0, 96, 0, 0, 96, 0 )
@@ -42,7 +44,7 @@ points = PoolVector2Array( 96, 96, 0, 96, 0, 0, 96, 0 )
 
 [sub_resource type="TileSet" id=4]
 6/name = "lichen_ruins_spritesheet.png 6"
-6/texture = ExtResource( 8 )
+6/texture = ExtResource( 27 )
 6/tex_offset = Vector2( 0, 0 )
 6/modulate = Color( 1, 1, 1, 1 )
 6/region = Rect2( 0, 0, 96, 96 )
@@ -63,7 +65,7 @@ points = PoolVector2Array( 96, 96, 0, 96, 0, 0, 96, 0 )
 } ]
 6/z_index = 0
 7/name = "lichen_ruins_spritesheet.png 7"
-7/texture = ExtResource( 8 )
+7/texture = ExtResource( 27 )
 7/tex_offset = Vector2( 0, 0 )
 7/modulate = Color( 1, 1, 1, 1 )
 7/region = Rect2( 192, 0, 96, 96 )
@@ -84,7 +86,7 @@ points = PoolVector2Array( 96, 96, 0, 96, 0, 0, 96, 0 )
 } ]
 7/z_index = 0
 8/name = "lichen_ruins_spritesheet.png 8"
-8/texture = ExtResource( 8 )
+8/texture = ExtResource( 27 )
 8/tex_offset = Vector2( 0, 0 )
 8/modulate = Color( 1, 1, 1, 1 )
 8/region = Rect2( 288, 0, 96, 96 )
@@ -105,7 +107,7 @@ points = PoolVector2Array( 96, 96, 0, 96, 0, 0, 96, 0 )
 } ]
 8/z_index = 0
 9/name = "lichen_ruins_misc_spritesheet.png 9"
-9/texture = ExtResource( 27 )
+9/texture = ExtResource( 28 )
 9/tex_offset = Vector2( 0, 0 )
 9/modulate = Color( 1, 1, 1, 1 )
 9/region = Rect2( 0, 0, 96, 96 )
@@ -119,7 +121,7 @@ points = PoolVector2Array( 96, 96, 0, 96, 0, 0, 96, 0 )
 9/shapes = [  ]
 9/z_index = 0
 10/name = "lichen_ruins_misc_spritesheet.png 10"
-10/texture = ExtResource( 27 )
+10/texture = ExtResource( 28 )
 10/tex_offset = Vector2( 0, 0 )
 10/modulate = Color( 1, 1, 1, 1 )
 10/region = Rect2( 96, 0, 96, 96 )
@@ -133,7 +135,7 @@ points = PoolVector2Array( 96, 96, 0, 96, 0, 0, 96, 0 )
 10/shapes = [  ]
 10/z_index = 0
 11/name = "lichen_ruins_misc_spritesheet.png 11"
-11/texture = ExtResource( 27 )
+11/texture = ExtResource( 28 )
 11/tex_offset = Vector2( 0, 0 )
 11/modulate = Color( 1, 1, 1, 1 )
 11/region = Rect2( 192, 0, 96, 96 )
@@ -147,7 +149,7 @@ points = PoolVector2Array( 96, 96, 0, 96, 0, 0, 96, 0 )
 11/shapes = [  ]
 11/z_index = 0
 12/name = "lichen_ruins_oneway_spritesheet.png 12"
-12/texture = ExtResource( 25 )
+12/texture = ExtResource( 29 )
 12/tex_offset = Vector2( 0, 0 )
 12/modulate = Color( 1, 1, 1, 1 )
 12/region = Rect2( 0, 0, 96, 96 )
@@ -161,7 +163,7 @@ points = PoolVector2Array( 96, 96, 0, 96, 0, 0, 96, 0 )
 12/shapes = [  ]
 12/z_index = 0
 13/name = "lichen_ruins_oneway_spritesheet.png 13"
-13/texture = ExtResource( 25 )
+13/texture = ExtResource( 29 )
 13/tex_offset = Vector2( 0, 0 )
 13/modulate = Color( 1, 1, 1, 1 )
 13/region = Rect2( 96, 0, 96, 96 )
@@ -175,7 +177,7 @@ points = PoolVector2Array( 96, 96, 0, 96, 0, 0, 96, 0 )
 13/shapes = [  ]
 13/z_index = 0
 14/name = "lichen_ruins_oneway_spritesheet.png 14"
-14/texture = ExtResource( 25 )
+14/texture = ExtResource( 29 )
 14/tex_offset = Vector2( 0, 0 )
 14/modulate = Color( 1, 1, 1, 1 )
 14/region = Rect2( 192, 0, 96, 96 )
@@ -189,7 +191,7 @@ points = PoolVector2Array( 96, 96, 0, 96, 0, 0, 96, 0 )
 14/shapes = [  ]
 14/z_index = 0
 15/name = "lichen_ruins_oneway_spritesheet.png 15"
-15/texture = ExtResource( 25 )
+15/texture = ExtResource( 29 )
 15/tex_offset = Vector2( 0, 0 )
 15/modulate = Color( 1, 1, 1, 1 )
 15/region = Rect2( 288, 0, 96, 96 )
@@ -203,7 +205,7 @@ points = PoolVector2Array( 96, 96, 0, 96, 0, 0, 96, 0 )
 15/shapes = [  ]
 15/z_index = 0
 16/name = "lichen_ruins_oneway_spritesheet.png 16"
-16/texture = ExtResource( 25 )
+16/texture = ExtResource( 29 )
 16/tex_offset = Vector2( 0, 0 )
 16/modulate = Color( 1, 1, 1, 1 )
 16/region = Rect2( 384, 0, 96, 96 )
@@ -217,7 +219,7 @@ points = PoolVector2Array( 96, 96, 0, 96, 0, 0, 96, 0 )
 16/shapes = [  ]
 16/z_index = 0
 17/name = "lichen_ruins_oneway_spritesheet.png 17"
-17/texture = ExtResource( 25 )
+17/texture = ExtResource( 29 )
 17/tex_offset = Vector2( 0, 0 )
 17/modulate = Color( 1, 1, 1, 1 )
 17/region = Rect2( 0, 96, 96, 96 )
@@ -231,7 +233,7 @@ points = PoolVector2Array( 96, 96, 0, 96, 0, 0, 96, 0 )
 17/shapes = [  ]
 17/z_index = 0
 18/name = "lichen_ruins_spritesheet.png 18"
-18/texture = ExtResource( 8 )
+18/texture = ExtResource( 27 )
 18/tex_offset = Vector2( 0, 0 )
 18/modulate = Color( 1, 1, 1, 1 )
 18/region = Rect2( 96, 0, 96, 96 )
@@ -270,13 +272,14 @@ extents = Vector2( 50.3079, 9.26111 )
 extents = Vector2( 144.137, 12.2612 )
 
 [node name="Level1" type="Node2D"]
-script = ExtResource( 26 )
+script = ExtResource( 1 )
 
-[node name="Chest1" parent="." instance=ExtResource( 1 )]
-position = Vector2( -2081.01, 824.152 )
+[node name="Chest1" parent="." instance=ExtResource( 15 )]
+position = Vector2( -2145.44, 824.152 )
+LOOT = ExtResource( 32 )
 
 [node name="TileMap (Back)" type="TileMap" parent="."]
-tile_set = ExtResource( 28 )
+tile_set = ExtResource( 30 )
 cell_size = Vector2( 96, 96 )
 format = 1
 tile_data = PoolIntArray( -262096, 0, 0, -262095, 0, 0, -262094, 0, 0, -262093, 0, 0, -262092, 0, 0, -262091, 0, 0, -262090, 0, 0, -262089, 0, 0, -262088, 0, 0, -262087, 0, 0, -262086, 0, 0, -262085, 0, 0, -262084, 0, 0, -196560, 0, 0, -196559, 0, 0, -196558, 0, 0, -196557, 0, 0, -196556, 0, 0, -196555, 0, 0, -196554, 0, 0, -196553, 0, 0, -196552, 0, 0, -196551, 0, 0, -196550, 0, 0, -196549, 0, 0, -196548, 0, 0, -131024, 0, 0, -131023, 0, 0, -131022, 0, 0, -131021, 0, 0, -131020, 0, 0, -131019, 0, 0, -131018, 0, 0, -131017, 0, 0, -131016, 0, 0, -131015, 0, 0, -131014, 0, 0, -131013, 0, 0, -131012, 0, 0, -65488, 0, 0, -65487, 0, 0, -65486, 0, 0, -65485, 0, 0, -65484, 0, 0, -65483, 0, 0, -65482, 0, 0, -65481, 0, 0, -65480, 0, 0, -65479, 0, 0, -65478, 0, 0, -65477, 0, 0, -65476, 0, 0, 48, 0, 0, 49, 0, 0, 50, 0, 0, 51, 0, 0, 52, 0, 0, 53, 0, 0, 54, 0, 0, 55, 0, 0, 56, 0, 0, 57, 0, 0, 58, 0, 0, 59, 0, 0, 60, 0, 0, 65584, 0, 0, 65585, 0, 0, 65586, 0, 0, 65587, 0, 0, 65588, 0, 0, 65589, 0, 0, 65590, 0, 0, 65591, 0, 0, 65592, 0, 0, 65593, 0, 0, 65594, 0, 0, 65595, 0, 0, 65596, 0, 0, 131120, 0, 0, 131121, 0, 0, 131122, 0, 0, 131123, 0, 0, 131124, 0, 0, 131125, 0, 0, 131126, 0, 0, 131127, 0, 0, 131128, 0, 0, 131129, 0, 0, 131130, 0, 0, 131131, 0, 0, 131132, 0, 0, 196656, 0, 0, 196657, 0, 0, 196661, 0, 0, 196662, 0, 0, 196663, 0, 0, 196664, 0, 0, 196665, 0, 0, 196666, 0, 0, 196667, 0, 0, 196668, 0, 0 )
@@ -366,29 +369,20 @@ position = Vector2( 3311.22, 877.539 )
 shape = SubResource( 12 )
 one_way_collision = true
 
-[node name="LICHEN_RUINS" type="CanvasLayer" parent="."]
-
-[node name="Control" type="Control" parent="LICHEN_RUINS"]
-margin_right = 40.0
-margin_bottom = 40.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Light2D" parent="." instance=ExtResource( 5 )]
-position = Vector2( 1751.34, 747.09 )
+[node name="Light2D" parent="." instance=ExtResource( 20 )]
+position = Vector2( 1725.87, 747.09 )
 scale = Vector2( 123.492, 44.8937 )
 energy = 0.65
 mode = 1
 
-[node name="PauseUI" parent="." instance=ExtResource( 4 )]
+[node name="PauseUI" parent="." instance=ExtResource( 16 )]
 
-[node name="LevelTransporter" parent="." instance=ExtResource( 13 )]
+[node name="LevelTransporter" parent="." instance=ExtResource( 6 )]
 position = Vector2( 5657.3, 1068.87 )
-Destination = ExtResource( 30 )
+Destination = ExtResource( 18 )
 
-[node name="Player" parent="." instance=ExtResource( 3 )]
-position = Vector2( 5255.22, 998.919 )
+[node name="Player" parent="." instance=ExtResource( 22 )]
+position = Vector2( -2451.38, 1039.92 )
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position = Vector2( 9.72693, -184.94 )
@@ -403,37 +397,37 @@ drag_margin_left = 0.4
 drag_margin_right = 0.4
 editor_draw_limits = true
 
-[node name="DestructableWall4" parent="." instance=ExtResource( 20 )]
+[node name="DestructableWall4" parent="." instance=ExtResource( 7 )]
 position = Vector2( 4464.34, 335.471 )
 
-[node name="DestructableWall5" parent="." instance=ExtResource( 20 )]
+[node name="DestructableWall5" parent="." instance=ExtResource( 7 )]
 position = Vector2( 4560.34, 335.471 )
 
-[node name="Bat" parent="." instance=ExtResource( 17 )]
-position = Vector2( 807.96, 101.293 )
+[node name="Bat" parent="." instance=ExtResource( 25 )]
+position = Vector2( 1243.12, 153.352 )
 
-[node name="Bat3" parent="." instance=ExtResource( 17 )]
+[node name="Bat3" parent="." instance=ExtResource( 25 )]
 position = Vector2( 3262.71, 287.676 )
 
-[node name="Bat4" parent="." instance=ExtResource( 17 )]
+[node name="Bat4" parent="." instance=ExtResource( 25 )]
 position = Vector2( 960.825, 1254.17 )
 
-[node name="Bat5" parent="." instance=ExtResource( 17 )]
+[node name="Bat5" parent="." instance=ExtResource( 25 )]
 position = Vector2( 2807.59, 1347.24 )
 
-[node name="Slime" parent="." instance=ExtResource( 19 )]
+[node name="Slime" parent="." instance=ExtResource( 10 )]
 position = Vector2( -705.172, 568.034 )
 
-[node name="Slime2" parent="." instance=ExtResource( 19 )]
+[node name="Slime2" parent="." instance=ExtResource( 10 )]
 position = Vector2( 3883.12, 1140.35 )
 
-[node name="Slime3" parent="." instance=ExtResource( 19 )]
+[node name="Slime3" parent="." instance=ExtResource( 10 )]
 position = Vector2( -632.123, 85.9266 )
 
-[node name="Goblin2" parent="." instance=ExtResource( 21 )]
+[node name="Goblin2" parent="." instance=ExtResource( 17 )]
 position = Vector2( -590.742, 1387.68 )
 
-[node name="LimeSlime" parent="." instance=ExtResource( 22 )]
+[node name="LimeSlime" parent="." instance=ExtResource( 12 )]
 position = Vector2( 1383.95, 1525.18 )
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
@@ -453,56 +447,58 @@ __meta__ = {
 
 [node name="Sprite" type="Sprite" parent="ParallaxBackground/Background1"]
 scale = Vector2( 20, 20 )
-texture = ExtResource( 11 )
+texture = ExtResource( 26 )
 centered = false
 __meta__ = {
 "_editor_description_": ""
 }
 
-[node name="HotbarUI" parent="." instance=ExtResource( 10 )]
+[node name="HotbarUI" parent="." instance=ExtResource( 24 )]
 
-[node name="FPSCounter" parent="." instance=ExtResource( 15 )]
+[node name="FPSCounter" parent="." instance=ExtResource( 21 )]
 
-[node name="HealthPotUI" parent="." instance=ExtResource( 2 )]
+[node name="HealthPotUI" parent="." instance=ExtResource( 19 )]
 
-[node name="HeartUI" parent="." instance=ExtResource( 6 )]
+[node name="HeartUI" parent="." instance=ExtResource( 11 )]
 
-[node name="ManaUI" parent="." instance=ExtResource( 7 )]
+[node name="ManaUI" parent="." instance=ExtResource( 23 )]
 
-[node name="ManaPotUI" parent="." instance=ExtResource( 29 )]
+[node name="ManaPotUI" parent="." instance=ExtResource( 4 )]
 
-[node name="LifeWineUI" parent="." instance=ExtResource( 23 )]
+[node name="LifeWineUI" parent="." instance=ExtResource( 5 )]
+
+[node name="OpalsUI" parent="." instance=ExtResource( 31 )]
 
 [node name="SpikePosition" type="Position2D" parent="."]
 position = Vector2( -1317.56, 1545.51 )
 
-[node name="DialogueScreen" parent="." instance=ExtResource( 24 )]
+[node name="DialogueScreen" parent="." instance=ExtResource( 8 )]
 
-[node name="Campfire" parent="." instance=ExtResource( 9 )]
+[node name="Campfire" parent="." instance=ExtResource( 2 )]
 position = Vector2( 2670.29, 438.513 )
 
-[node name="GenericSpike" parent="." instance=ExtResource( 14 )]
+[node name="GenericSpike" parent="." instance=ExtResource( 3 )]
 position = Vector2( -1582.93, 1583.79 )
 
-[node name="GenericSpike3" parent="." instance=ExtResource( 14 )]
+[node name="GenericSpike3" parent="." instance=ExtResource( 3 )]
 position = Vector2( -1970.22, 1488.25 )
 
-[node name="GenericSpike5" parent="." instance=ExtResource( 14 )]
+[node name="GenericSpike5" parent="." instance=ExtResource( 3 )]
 position = Vector2( -2352.42, 1392.24 )
 
-[node name="GenericSpike4" parent="." instance=ExtResource( 14 )]
+[node name="GenericSpike4" parent="." instance=ExtResource( 3 )]
 position = Vector2( -2064.64, 1488.21 )
 
-[node name="LargeSlime" parent="." instance=ExtResource( 16 )]
+[node name="LargeSlime" parent="." instance=ExtResource( 13 )]
 position = Vector2( 1920.68, 1619.54 )
 
-[node name="Barrel" parent="." instance=ExtResource( 18 )]
+[node name="Barrel" parent="." instance=ExtResource( 9 )]
 position = Vector2( -936.133, 538.782 )
 
-[node name="Goblin" parent="." instance=ExtResource( 21 )]
+[node name="Goblin" parent="." instance=ExtResource( 17 )]
 position = Vector2( 5531.01, 334.25 )
 
-[node name="Goblin3" parent="." instance=ExtResource( 21 )]
+[node name="Goblin3" parent="." instance=ExtResource( 17 )]
 position = Vector2( 4756.3, 1102.33 )
 
-[node name="SceneTransition" parent="." instance=ExtResource( 12 )]
+[node name="SceneTransition" parent="." instance=ExtResource( 14 )]
