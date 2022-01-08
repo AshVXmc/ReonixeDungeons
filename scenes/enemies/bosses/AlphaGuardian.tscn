@@ -1,9 +1,8 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://spriteframes/alphaboss_spriteframes.tres" type="SpriteFrames" id=1]
 [ext_resource path="res://scripts/enemies/AlphaGuardian.gd" type="Script" id=2]
 [ext_resource path="res://assets/fonts/FFFFORWA.ttf" type="DynamicFontData" id=3]
-[ext_resource path="res://assets/misc/laser.png" type="Texture" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 52.3807, 68.0487 )
@@ -12,9 +11,6 @@ extents = Vector2( 52.3807, 68.0487 )
 size = 40
 outline_color = Color( 0, 0, 0, 1 )
 font_data = ExtResource( 3 )
-
-[sub_resource type="RectangleShape2D" id=3]
-extents = Vector2( 179.627, 46.3498 )
 
 [node name="AlphaGuardian" type="KinematicBody2D"]
 script = ExtResource( 2 )
@@ -83,25 +79,8 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="JumpTimer" type="Timer" parent="."]
-one_shot = true
-
-[node name="LaserArea" type="Area2D" parent="." groups=["Enemy"]]
-position = Vector2( 300.004, -21.3574 )
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="LaserArea"]
-position = Vector2( -29.3665, 22.6923 )
-shape = SubResource( 3 )
-
-[node name="Sprite" type="Sprite" parent="LaserArea"]
-position = Vector2( -26.5164, 23.6881 )
-rotation = 3.14159
-scale = Vector2( 7.64386, 8.91076 )
-texture = ExtResource( 4 )
-
 [connection signal="area_entered" from="Area2D" to="." method="_on_Area2D_area_entered"]
 [connection signal="timeout" from="AttackTimer" to="." method="_on_AttackTimer_timeout"]
 [connection signal="timeout" from="HurtTimer" to="." method="_on_HurtTimer_timeout"]
 [connection signal="timeout" from="ShockTimer" to="." method="_on_ShockTimer_timeout"]
 [connection signal="timeout" from="GroundTimer" to="." method="_on_GroundTimer_timeout"]
-[connection signal="timeout" from="JumpTimer" to="." method="_on_JumpTimer_timeout"]

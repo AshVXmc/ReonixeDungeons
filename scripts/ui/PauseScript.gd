@@ -7,8 +7,6 @@ onready var player : KinematicBody2D = get_parent().get_parent().get_node("Playe
 func _ready():
 	connect("playerpos", Global, "player_position")
 	self.visible = false
-#	print(player.position.x)
-#	print(player.position.y)
 
 func _process(delta):
 	if Input.is_action_just_pressed("ui_cancel"):

@@ -28,7 +28,6 @@ __meta__ = {
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="Main" type="Control" parent="CanvasLayer"]
-visible = false
 margin_right = 40.0
 margin_bottom = 40.0
 script = ExtResource( 3 )
@@ -116,5 +115,46 @@ position = Vector2( 202.234, 92.6534 )
 scale = Vector2( 3, 3 )
 texture = ExtResource( 4 )
 
+[node name="ManaPot" type="ColorRect" parent="CanvasLayer/Main"]
+margin_left = 459.24
+margin_top = 289.476
+margin_right = 579.24
+margin_bottom = 409.476
+color = Color( 0.00392157, 0.639216, 0.917647, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Sprite" type="Sprite" parent="CanvasLayer/Main/ManaPot"]
+position = Vector2( 57.9401, 57.9401 )
+scale = Vector2( 6, 6 )
+texture = ExtResource( 2 )
+
+[node name="ManaPotButton" type="Button" parent="CanvasLayer/Main/ManaPot"]
+margin_left = 126.796
+margin_top = -0.318176
+margin_right = 246.796
+margin_bottom = 59.6818
+custom_fonts/font = SubResource( 2 )
+text = "Buy"
+expand_icon = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="CanvasLayer/Main/ManaPot"]
+margin_left = 139.871
+margin_top = 69.4901
+margin_right = 179.871
+margin_bottom = 120.49
+custom_fonts/font = SubResource( 3 )
+text = "10"
+
+[node name="Opal" type="Sprite" parent="CanvasLayer/Main/ManaPot"]
+position = Vector2( 202.234, 92.6534 )
+scale = Vector2( 3, 3 )
+texture = ExtResource( 4 )
+
 [connection signal="pressed" from="CanvasLayer/Main/Exit" to="CanvasLayer/Main" method="_on_Exit_pressed"]
 [connection signal="pressed" from="CanvasLayer/Main/HealthPot/HealthPotButton" to="CanvasLayer/Main" method="_on_HealthPotButton_pressed"]
+[connection signal="pressed" from="CanvasLayer/Main/ManaPot/ManaPotButton" to="CanvasLayer/Main" method="_on_HealthPotButton_pressed"]

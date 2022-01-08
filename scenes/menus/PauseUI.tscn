@@ -29,9 +29,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 margin_left = -421.0
-margin_top = -178.5
-margin_right = 421.0
-margin_bottom = 178.5
+margin_top = -178.0
+margin_right = 435.0
+margin_bottom = 231.0
 script = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -41,6 +41,16 @@ __meta__ = {
 margin_right = 857.0
 margin_bottom = 408.0
 color = Color( 0.0196078, 0.0196078, 0.0196078, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Blur" type="ColorRect" parent="Pause"]
+margin_left = -614.0
+margin_top = -365.0
+margin_right = 1566.0
+margin_bottom = 804.0
+color = Color( 0.0196078, 0.0196078, 0.0196078, 0.470588 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -95,9 +105,9 @@ __meta__ = {
 
 [node name="Label" type="Label" parent="Pause"]
 margin_left = 77.4022
-margin_top = 258.102
+margin_top = 278.102
 margin_right = 227.402
-margin_bottom = 304.102
+margin_bottom = 324.102
 custom_fonts/font = SubResource( 1 )
 text = "Resume"
 align = 1
@@ -107,9 +117,9 @@ __meta__ = {
 
 [node name="Label2" type="Label" parent="Pause"]
 margin_left = 348.65
-margin_top = 257.074
+margin_top = 276.074
 margin_right = 498.65
-margin_bottom = 303.074
+margin_bottom = 322.074
 custom_fonts/font = SubResource( 1 )
 text = "Save"
 align = 1
@@ -118,10 +128,10 @@ __meta__ = {
 }
 
 [node name="Label3" type="Label" parent="Pause"]
-margin_left = 623.326
-margin_top = 261.13
-margin_right = 773.326
-margin_bottom = 307.13
+margin_left = 628.326
+margin_top = 277.13
+margin_right = 778.326
+margin_bottom = 323.13
 custom_fonts/font = SubResource( 1 )
 text = "Exit"
 align = 1

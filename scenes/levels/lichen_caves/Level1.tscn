@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=2]
+[gd_scene load_steps=46 format=2]
 
 [ext_resource path="res://scripts/Level1.gd" type="Script" id=1]
 [ext_resource path="res://scenes/items/Campfire.tscn" type="PackedScene" id=2]
@@ -17,7 +17,6 @@
 [ext_resource path="res://scenes/items/ChestSilver.tscn" type="PackedScene" id=15]
 [ext_resource path="res://scenes/menus/PauseUI.tscn" type="PackedScene" id=16]
 [ext_resource path="res://scenes/enemies/Goblin.tscn" type="PackedScene" id=17]
-[ext_resource path="res://scenes/levels/lichen_caves/Level2.tscn" type="PackedScene" id=18]
 [ext_resource path="res://scenes/menus/HealthPotUI.tscn" type="PackedScene" id=19]
 [ext_resource path="res://scenes/Light.tscn" type="PackedScene" id=20]
 [ext_resource path="res://scenes/menus/FPSCounter.tscn" type="PackedScene" id=21]
@@ -250,6 +249,12 @@ points = PoolVector2Array( 96, 96, 0, 96, 0, 0, 96, 0 )
 [sub_resource type="RectangleShape2D" id=5]
 extents = Vector2( 197.942, 5.63525 )
 
+[sub_resource type="RectangleShape2D" id=13]
+extents = Vector2( 191.118, 10.6005 )
+
+[sub_resource type="RectangleShape2D" id=14]
+extents = Vector2( 145.093, 10.6005 )
+
 [sub_resource type="RectangleShape2D" id=6]
 extents = Vector2( 144.557, 11.5394 )
 
@@ -273,6 +278,22 @@ extents = Vector2( 144.137, 12.2612 )
 
 [node name="Level1" type="Node2D"]
 script = ExtResource( 1 )
+
+[node name="HotbarUI" parent="." instance=ExtResource( 24 )]
+
+[node name="FPSCounter" parent="." instance=ExtResource( 21 )]
+
+[node name="HealthPotUI" parent="." instance=ExtResource( 19 )]
+
+[node name="HeartUI" parent="." instance=ExtResource( 11 )]
+
+[node name="ManaUI" parent="." instance=ExtResource( 23 )]
+
+[node name="ManaPotUI" parent="." instance=ExtResource( 4 )]
+
+[node name="LifeWineUI" parent="." instance=ExtResource( 5 )]
+
+[node name="OpalsUI" parent="." instance=ExtResource( 31 )]
 
 [node name="Chest1" parent="." instance=ExtResource( 15 )]
 position = Vector2( -2145.44, 824.152 )
@@ -298,6 +319,27 @@ __meta__ = {
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
 position = Vector2( 198.668, 103.229 )
 shape = SubResource( 5 )
+one_way_collision = true
+
+[node name="StaticBody2D11" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D11"]
+position = Vector2( 4895.58, -85.3615 )
+shape = SubResource( 13 )
+one_way_collision = true
+
+[node name="StaticBody2D12" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D12"]
+position = Vector2( 5521.52, -180.108 )
+shape = SubResource( 14 )
+one_way_collision = true
+
+[node name="StaticBody2D13" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D13"]
+position = Vector2( 5425.63, 108.066 )
+shape = SubResource( 14 )
 one_way_collision = true
 
 [node name="StaticBody2D8" type="StaticBody2D" parent="."]
@@ -370,6 +412,7 @@ shape = SubResource( 12 )
 one_way_collision = true
 
 [node name="Light2D" parent="." instance=ExtResource( 20 )]
+visible = false
 position = Vector2( 1725.87, 747.09 )
 scale = Vector2( 123.492, 44.8937 )
 energy = 0.65
@@ -379,10 +422,10 @@ mode = 1
 
 [node name="LevelTransporter" parent="." instance=ExtResource( 6 )]
 position = Vector2( 5657.3, 1068.87 )
-Destination = ExtResource( 18 )
+Destination = "res://scenes/levels/lichen_caves/Level2.tscn"
 
 [node name="Player" parent="." instance=ExtResource( 22 )]
-position = Vector2( -2451.38, 1039.92 )
+position = Vector2( 5308.62, 992.248 )
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position = Vector2( 9.72693, -184.94 )
@@ -452,22 +495,6 @@ centered = false
 __meta__ = {
 "_editor_description_": ""
 }
-
-[node name="HotbarUI" parent="." instance=ExtResource( 24 )]
-
-[node name="FPSCounter" parent="." instance=ExtResource( 21 )]
-
-[node name="HealthPotUI" parent="." instance=ExtResource( 19 )]
-
-[node name="HeartUI" parent="." instance=ExtResource( 11 )]
-
-[node name="ManaUI" parent="." instance=ExtResource( 23 )]
-
-[node name="ManaPotUI" parent="." instance=ExtResource( 4 )]
-
-[node name="LifeWineUI" parent="." instance=ExtResource( 5 )]
-
-[node name="OpalsUI" parent="." instance=ExtResource( 31 )]
 
 [node name="SpikePosition" type="Position2D" parent="."]
 position = Vector2( -1317.56, 1545.51 )

@@ -46,8 +46,6 @@ func handle_selection(_current_selection):
 					$SceneTransition.transition()
 					yield(get_tree().create_timer(1), "timeout")
 					get_tree().change_scene("res://scenes/levels/" + player_data["Level"] + ".tscn")
-				else:
-					print("ERROR LOADING SAVE FILE")
 			else:
 				if !savedatalabel.visible:
 					savedatalabel.visible = true

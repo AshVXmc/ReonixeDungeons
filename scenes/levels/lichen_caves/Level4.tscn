@@ -1,14 +1,14 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=20 format=2]
 
-[ext_resource path="res://scripts/ui/ManaScript.gd" type="Script" id=1]
-[ext_resource path="res://scripts/LifeScript.gd" type="Script" id=2]
+[ext_resource path="res://scenes/menus/FPSCounter.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/menus/ManaPotUI.tscn" type="PackedScene" id=2]
 [ext_resource path="res://tilesets/one_way_tilesets.tres" type="TileSet" id=3]
-[ext_resource path="res://assets/UI/heart.png" type="Texture" id=4]
+[ext_resource path="res://scenes/menus/HeartUI.tscn" type="PackedScene" id=4]
 [ext_resource path="res://tilesets/Default.tres" type="TileSet" id=5]
 [ext_resource path="res://scenes/menus/HotbarUI.tscn" type="PackedScene" id=6]
 [ext_resource path="res://assets/terrain/lichen_ruins_oneway_spritesheet.png" type="Texture" id=7]
 [ext_resource path="res://assets/misc/background_2.png" type="Texture" id=8]
-[ext_resource path="res://assets/UI/mana.png" type="Texture" id=9]
+[ext_resource path="res://scenes/menus/ManaUI.tscn" type="PackedScene" id=9]
 [ext_resource path="res://scenes/Light.tscn" type="PackedScene" id=10]
 [ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=11]
 [ext_resource path="res://scenes/menus/PauseUI.tscn" type="PackedScene" id=12]
@@ -16,6 +16,7 @@
 [ext_resource path="res://scripts/Level4.gd" type="Script" id=14]
 [ext_resource path="res://scenes/enemies/bosses/AlphaGuardian.tscn" type="PackedScene" id=15]
 [ext_resource path="res://scenes/menus/LifeWineUI.tscn" type="PackedScene" id=16]
+[ext_resource path="res://scenes/menus/OpalsUI.tscn" type="PackedScene" id=17]
 
 [sub_resource type="TileSet" id=1]
 0/name = "lichen_ruins_oneway_spritesheet.png 0"
@@ -67,6 +68,22 @@ extents = Vector2( 97.2755, 11.2575 )
 [node name="Level4" type="Node2D"]
 script = ExtResource( 14 )
 
+[node name="HotbarUI" parent="." instance=ExtResource( 6 )]
+
+[node name="FPSCounter" parent="." instance=ExtResource( 1 )]
+
+[node name="HealthPotUI" parent="." instance=ExtResource( 13 )]
+
+[node name="HeartUI" parent="." instance=ExtResource( 4 )]
+
+[node name="ManaUI" parent="." instance=ExtResource( 9 )]
+
+[node name="ManaPotUI" parent="." instance=ExtResource( 2 )]
+
+[node name="LifeWineUI2" parent="." instance=ExtResource( 16 )]
+
+[node name="OpalsUI" parent="." instance=ExtResource( 17 )]
+
 [node name="TIleMap" type="TileMap" parent="."]
 tile_set = ExtResource( 5 )
 cell_size = Vector2( 96, 96 )
@@ -79,56 +96,10 @@ cell_size = Vector2( 96, 96 )
 format = 1
 tile_data = PoolIntArray( 327671, 0, 0, 327672, 1, 0, 262152, 2, 0, 262153, 0, 0 )
 
-[node name="HeartUI" type="CanvasLayer" parent="."]
-
-[node name="Life" type="Control" parent="HeartUI"]
-margin_right = 92.0
-margin_bottom = 93.0
-script = ExtResource( 2 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Hearts" type="TextureRect" parent="HeartUI/Life"]
-margin_right = 95.0
-margin_bottom = 96.0
-texture = ExtResource( 4 )
-expand = true
-stretch_mode = 2
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="ManaUI" type="CanvasLayer" parent="."]
-
-[node name="Mana" type="Control" parent="ManaUI"]
-margin_left = 12.0208
-margin_top = 94.0452
-margin_right = 78.0208
-margin_bottom = 160.045
-script = ExtResource( 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="ManaIcon" type="TextureRect" parent="ManaUI/Mana"]
-margin_right = 49.0
-margin_bottom = 50.0
-texture = ExtResource( 9 )
-expand = true
-stretch_mode = 2
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
 [node name="TileMap (One-way)" type="TileMap" parent="."]
 tile_set = ExtResource( 3 )
 cell_size = Vector2( 96, 96 )
 format = 1
-
-[node name="HotbarUI" parent="." instance=ExtResource( 6 )]
-
-[node name="HealthPotUI" parent="." instance=ExtResource( 13 )]
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 

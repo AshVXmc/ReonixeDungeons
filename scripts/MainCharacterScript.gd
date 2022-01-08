@@ -1,4 +1,4 @@
-class_name Player extends PlayerUtils
+class_name Player extends KinematicBody2D
 
 signal life_changed(player_hearts)
 signal mana_changed(player_mana)
@@ -35,63 +35,94 @@ var is_healing : bool = false
 var is_shopping : bool = false
 
 func _ready():
-	connect_signals()
+		# warning-ignore:return_value_discarded
+	connect("life_changed", get_parent().get_node("HeartUI/Life"), "on_player_life_changed")
+# warning-ignore:return_value_discarded
+	connect("mana_changed", get_parent().get_node("ManaUI/Mana"), "on_player_mana_changed")
+# warning-ignore:return_value_discarded
+	connect("healthpot_obtained", get_parent().get_node("HealthPotUI/HealthPotControl"), "on_player_healthpot_obtained")
+# warning-ignore:return_value_discarded
+	connect("lifewine_obtained", get_parent().get_node("LifeWineUI/LifeWineControl"), "on_player_lifewine_obtained")
+	connect("manapot_obtained", get_parent().get_node("ManaPotUI/ManaPotControl"), "on_player_manapot_obtained")
+	connect("opals_obtained", get_parent().get_node("OpalsUI/OpalsControl"), "on_player_opals_obtained")
+	# HP singleton connect
+# warning-ignore:return_value_discarded
+	connect("life_changed", Global, "sync_hearts")
+	emit_signal("life_changed", Global.hearts)
+	# Mana singleton connect
+# warning-ignore:return_value_discarded
+	connect("mana_changed", Global, "sync_mana")
+	emit_signal("mana_changed", Global.mana)
+	# Healthpot inventory connect
+# warning-ignore:return_value_discarded
+	connect("healthpot_obtained", Global, "sync_playerHealthpots")
+	emit_signal("healthpot_obtained", Global.healthpot_amount)
+	# Lifewine inventory connect
+# warning-ignore:return_value_discarded
+	connect("lifewine_obtained", Global, "sync_playerLifeWines")
+	emit_signal("lifewine_obtained", Global.lifewine_amount)
+	
+	connect("manapot_obtained", Global, "sync_playerManapots")
+	emit_signal("manapot_obtained", Global.manapot_amount)
+	
+	connect("opals_obtained", Global, "sync_playerOpals")
+	emit_signal("opals_obtained", Global.opals_amount)
 
 func _physics_process(_delta):
 	# Makes sure the player is alive to use any movement controls
 	if !is_dead and !is_invulnerable and !is_healing:
-			# Function calls
-			attack()
-			dash()
-			glide() # Glide duration in seconds
-			useItems()
-			shoot()
-			# Movement controls
-			if velocity.x == 0 and !is_attacking and !is_gliding:
+		# Function calls
+		attack()
+		dash()
+		glide() # Glide duration in seconds
+		useItems()
+		shoot()
+		# Movement controls
+		if velocity.x == 0 and !is_attacking and !is_gliding:
+			$Sprite.play("Idle")
+		if Input.is_action_pressed("right") and !is_attacking and !is_knocked_back:
+			velocity.x = SPEED
+			$Sprite.play("Glide") if is_gliding else $Sprite.play("Walk")
+			$Sprite.flip_h = false
+			if velocity.x == 0 and !is_attacking:
 				$Sprite.play("Idle")
-			if Input.is_action_pressed("right") and !is_attacking and !is_knocked_back:
-				velocity.x = SPEED
-				$Sprite.play("Glide") if is_gliding else $Sprite.play("Walk")
-				$Sprite.flip_h = false
-				if velocity.x == 0 and !is_attacking:
-					$Sprite.play("Idle")
-				if sign($Position2D.position.x) == -1:
-					$Position2D.position.x *= -1
-				if Input.is_action_just_released("right"):
-					$Sprite.play("Walk")
-				get_node("AttackCollision").set_scale(Vector2(1,1))
-			elif Input.is_action_pressed("left") and !is_attacking:
-				velocity.x = -SPEED
-				$Sprite.play("Glide") if is_gliding else $Sprite.play("Walk")
-				$Sprite.flip_h = true
-				if velocity.x == 0 and !is_attacking:
-					$Sprite.play("Idle")
-				if sign($Position2D.position.x) == 1:
-					$Position2D.position.x *= -1
-				get_node("AttackCollision").set_scale(Vector2(-1,1))	
-			elif velocity.x == 0:
-				if !is_attacking:
-					$Sprite.play("Idle")
-				if is_gliding and Global.glide_unlocked:
-					$Sprite.play("Glide")
-			# Jump controls
-			if Input.is_action_just_pressed("jump") and is_on_floor() and !is_attacking:
-				velocity.y = JUMP_POWER
+			if sign($Position2D.position.x) == -1:
+				$Position2D.position.x *= -1
+			if Input.is_action_just_released("right"):
+				$Sprite.play("Walk")
+			get_node("AttackCollision").set_scale(Vector2(1,1))
+		elif Input.is_action_pressed("left") and !is_attacking:
+			velocity.x = -SPEED
+			$Sprite.play("Glide") if is_gliding else $Sprite.play("Walk")
+			$Sprite.flip_h = true
+			if velocity.x == 0 and !is_attacking:
 				$Sprite.play("Idle")
-				is_attacking = false
-				
-			# Movement calculations
-			if !is_dashing and !is_gliding:
-				velocity.y += GRAVITY
-			velocity = move_and_slide(velocity,Vector2.UP)
-			velocity.x = lerp(velocity.x,0,0.2)
-			if is_invulnerable:
-				$Area2D/CollisionShape2D.disabled = true
-				
-			if Input.is_action_just_pressed("ui_use"):
-				$ToggleArea/CollisionShape2D.disabled = false
-				yield(get_tree().create_timer(0.4), "timeout")
-				$ToggleArea/CollisionShape2D.disabled = true
+			if sign($Position2D.position.x) == 1:
+				$Position2D.position.x *= -1
+			get_node("AttackCollision").set_scale(Vector2(-1,1))	
+		elif velocity.x == 0:
+			if !is_attacking:
+				$Sprite.play("Idle")
+			if is_gliding and Global.glide_unlocked:
+				$Sprite.play("Glide")
+		# Jump controls
+		if Input.is_action_just_pressed("jump") and is_on_floor() and !is_attacking:
+			velocity.y = JUMP_POWER
+			$Sprite.play("Idle")
+			is_attacking = false
+			
+		# Movement calculations
+		if !is_dashing and !is_gliding:
+			velocity.y += GRAVITY
+		velocity = move_and_slide(velocity,Vector2.UP)
+		velocity.x = lerp(velocity.x,0,0.2)
+		if is_invulnerable:
+			$Area2D/CollisionShape2D.disabled = true
+			
+		if Input.is_action_just_pressed("ui_use"):
+			$ToggleArea/CollisionShape2D.disabled = false
+			yield(get_tree().create_timer(0.4), "timeout")
+			$ToggleArea/CollisionShape2D.disabled = true
 				
 	if is_healing:
 		$Sprite.play("Healing")
@@ -258,12 +289,12 @@ func glide():
 
 func useItems():
 	# Health potions
-	if Input.is_action_just_pressed("slot_1") and Global.hearts < Global.max_hearts:
+	if Input.is_action_just_pressed("slot_1") and Global.hearts < Global.max_hearts and Global.healthpot_amount > 0:
 		heal_player("HealthPot")
 	# Life wines (Increase maximum health)
-	elif Input.is_action_just_pressed("slot_2") and Global.hearts < Global.max_hearts:
+	elif Input.is_action_just_pressed("slot_2") and Global.hearts < Global.max_hearts and Global.lifewine_amount > 0:
 		heal_player("LifeWine")
-	elif Input.is_action_just_pressed("slot_3") and Global.mana < Global.max_hearts:
+	elif Input.is_action_just_pressed("slot_3") and Global.mana < Global.max_mana and Global.manapot_amount > 0: 
 		heal_player("ManaPot")
 
 func heal_player(item : String):

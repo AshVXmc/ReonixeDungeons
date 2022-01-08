@@ -7,7 +7,8 @@
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 63.3124, 50.4134 )
 
-[sub_resource type="DynamicFont" id=3]
+[sub_resource type="DynamicFont" id=2]
+size = 64
 font_data = ExtResource( 3 )
 
 [node name="LevelTransporter" type="Node2D"]
@@ -25,14 +26,16 @@ position = Vector2( 1.49829, -8.25084 )
 scale = Vector2( 5, 5 )
 texture = ExtResource( 2 )
 
-[node name="Label" type="Label" parent="."]
-visible = false
-margin_left = -46.911
-margin_top = -84.5494
-margin_right = 53.089
-margin_bottom = -62.5494
-custom_fonts/font = SubResource( 3 )
-text = "ENTER [E]"
+[node name="Label" type="RichTextLabel" parent="."]
+margin_left = -39.251
+margin_top = -86.4801
+margin_right = 295.749
+margin_bottom = 3.51985
+rect_scale = Vector2( 0.25, 0.25 )
+custom_fonts/bold_font = SubResource( 2 )
+bbcode_enabled = true
+bbcode_text = "[b]Enter [/b] [img=64]res://assets/UI/icon_E.png[/img]"
+text = "Enter  "
 __meta__ = {
 "_edit_use_anchors_": false
 }
