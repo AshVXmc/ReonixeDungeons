@@ -1,6 +1,6 @@
 [gd_scene load_steps=46 format=2]
 
-[ext_resource path="res://scripts/Level1.gd" type="Script" id=1]
+[ext_resource path="res://scripts/Level.gd" type="Script" id=1]
 [ext_resource path="res://scenes/items/Campfire.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scenes/items/GenericSpike.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scenes/menus/ManaPotUI.tscn" type="PackedScene" id=4]
@@ -425,7 +425,7 @@ position = Vector2( 5657.3, 1068.87 )
 Destination = "res://scenes/levels/lichen_caves/Level2.tscn"
 
 [node name="Player" parent="." instance=ExtResource( 22 )]
-position = Vector2( 5308.62, 992.248 )
+position = Vector2( 2452.06, 378.222 )
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position = Vector2( 9.72693, -184.94 )
@@ -447,10 +447,10 @@ position = Vector2( 4464.34, 335.471 )
 position = Vector2( 4560.34, 335.471 )
 
 [node name="Bat" parent="." instance=ExtResource( 25 )]
-position = Vector2( 1243.12, 153.352 )
+position = Vector2( 811.925, 124.843 )
 
 [node name="Bat3" parent="." instance=ExtResource( 25 )]
-position = Vector2( 3262.71, 287.676 )
+position = Vector2( 5247.22, -255.596 )
 
 [node name="Bat4" parent="." instance=ExtResource( 25 )]
 position = Vector2( 960.825, 1254.17 )
@@ -462,7 +462,7 @@ position = Vector2( 2807.59, 1347.24 )
 position = Vector2( -705.172, 568.034 )
 
 [node name="Slime2" parent="." instance=ExtResource( 10 )]
-position = Vector2( 3883.12, 1140.35 )
+position = Vector2( 4001.38, 564.459 )
 
 [node name="Slime3" parent="." instance=ExtResource( 10 )]
 position = Vector2( -632.123, 85.9266 )

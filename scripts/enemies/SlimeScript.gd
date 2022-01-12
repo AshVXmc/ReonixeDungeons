@@ -1,6 +1,4 @@
-class_name Slime
-
-extends KinematicBody2D
+class_name Slime extends KinematicBody2D
 
 var velocity : Vector2 = Vector2()
 export var HP : int = 2
@@ -14,6 +12,7 @@ const LOOT : PackedScene = preload("res://scenes/items/LootBag.tscn")
 var rng : RandomNumberGenerator = RandomNumberGenerator.new()
 
 func _physics_process(delta):
+	
 	if direction == 1 and !is_dead:
 		$AnimatedSprite.flip_h = false
 	elif !is_dead:
@@ -55,8 +54,3 @@ func _on_HurtTimer_timeout():
 	velocity.x = SPEED * direction
 	set_modulate(Color(1,1,1,1))
 	
-#func dead():
-#	is_dead = true
-#	$Area2D/CollisionShape2D.disabled = true
-#	$CollisionShape2D.disabled = true
-#	$AnimatedSprite.play("slimedeath")

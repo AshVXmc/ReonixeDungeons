@@ -146,7 +146,7 @@ func attack():
 		$AttackTimer.start()
 		# Upward attack controls
 		if Input.is_action_pressed("ui_up"):
-			$AttackCollision.position += Vector2(-60,-55) if !$Sprite.flip_h else Vector2(60,-55)
+			$AttackCollision.position += Vector2(-60,-60) if !$Sprite.flip_h else Vector2(60,-55)
 			$Sprite.play("AttackUp")
 			$Sprite.position += Vector2(0, -20)
 			is_attacking = true
@@ -154,7 +154,7 @@ func attack():
 			$AttackTimer.start()
 		# Downwards attack controls + tiny knock-up
 		if Input.is_action_pressed("ui_down"):
-			$AttackCollision.position += Vector2(-60,55) if !$Sprite.flip_h else Vector2(60,55)
+			$AttackCollision.position += Vector2(-60,60) if !$Sprite.flip_h else Vector2(60,55)
 			$Sprite.play("AttackDown")
 			$Sprite.position += Vector2(0, 20)
 			is_attacking = true
@@ -163,8 +163,6 @@ func attack():
 
 # Damage and interaction
 func _on_Area2D_area_entered(area : Area2D):
-#	if area.is_in_group("Campfire"):
-#		Global.hearts += Global.max_hearts - Global.hearts
 	if area.is_in_group("HealthPot"):
 		Global.healthpot_amount += 1
 		emit_signal("healthpot_obtained", Global.healthpot_amount)
@@ -172,7 +170,7 @@ func _on_Area2D_area_entered(area : Area2D):
 		Global.lifewine_amount += 1
 		emit_signal("lifewine_obtained", Global.lifewine_amount)
 	if inv_timer.is_stopped():
-		if area.is_in_group("Enemy"):
+		if area.is_in_group("Enemy") or area.is_in_group("Fireball"):
 			Global.hearts -= 0.5
 			afterDamaged()
 			knockback()
@@ -218,7 +216,6 @@ func _on_AttackCollision_area_entered(area):
 			
 
 func knockback():
-	# Don't judge my code for this part >:(
 	if can_be_knocked:
 		$KnockbackCooldownTimer.start()
 		is_knocked_back = true
@@ -240,6 +237,7 @@ func _on_RightDectector_area_entered(area):
 		velocity.x = -1500
 		$KnockbackCooldownTimer.start()
 		velocity.y = JUMP_POWER * 0.25
+
 func dash():
 	if Global.dash_unlocked:
 		if is_on_floor() and $DashUseTimer.is_stopped():
@@ -271,7 +269,6 @@ func glide():
 	if Global.glide_unlocked and Input.is_action_just_pressed("jump") and !is_on_floor() and Global.mana >= 3:
 		if is_on_floor():
 			is_gliding = false
-
 		is_gliding = true
 		if is_gliding:	
 			$Sprite.play("Glide")
@@ -328,8 +325,11 @@ func dead():
 	$Timer.start()
 
 func on_campfire_toggled():
+	is_healing = true
+	yield(get_tree().create_timer(2), "timeout")
 	Global.hearts += Global.max_hearts - Global.hearts
 	emit_signal("life_changed", Global.hearts)
+	is_healing = false
 	
 func on_lootbag_obtained():
 	var lootrng : RandomNumberGenerator = RandomNumberGenerator.new()

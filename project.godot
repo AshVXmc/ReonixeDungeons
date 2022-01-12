@@ -19,6 +19,21 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/DialogueScreen.gd"
 }, {
+"base": "Area2D",
+"class": "Fireball",
+"language": "GDScript",
+"path": "res://scripts/FireballScript.gd"
+}, {
+"base": "KinematicBody2D",
+"class": "Goblin",
+"language": "GDScript",
+"path": "res://scripts/enemies/GoblinScript.gd"
+}, {
+"base": "KinematicBody2D",
+"class": "JesterGoblin",
+"language": "GDScript",
+"path": "res://scripts/enemies/JesterGoblin.gd"
+}, {
 "base": "Slime",
 "class": "LargeSlime",
 "language": "GDScript",
@@ -32,7 +47,7 @@ _global_script_classes=[ {
 "base": "KinematicBody2D",
 "class": "Player",
 "language": "GDScript",
-"path": "res://scripts/MainCharacterScript.gd"
+"path": "res://scripts/Player.gd"
 }, {
 "base": "KinematicBody2D",
 "class": "Slime",
@@ -47,6 +62,9 @@ _global_script_classes=[ {
 _global_script_class_icons={
 "AlphaGuardian": "",
 "DialogueScreen": "",
+"Fireball": "",
+"Goblin": "",
+"JesterGoblin": "",
 "LargeSlime": "",
 "LootBag": "",
 "Player": "",

@@ -1,8 +1,7 @@
-[gd_resource type="SpriteFrames" load_steps=4 format=2]
+[gd_resource type="SpriteFrames" load_steps=3 format=2]
 
 [ext_resource path="res://assets/enemies/slime2.png" type="Texture" id=1]
 [ext_resource path="res://assets/enemies/slime1.png" type="Texture" id=2]
-[ext_resource path="res://assets/enemies/slime_death.png" type="Texture" id=3]
 
 [resource]
 animations = [ {
@@ -10,9 +9,4 @@ animations = [ {
 "loop": true,
 "name": "slimeanim",
 "speed": 4.0
-}, {
-"frames": [ ExtResource( 3 ) ],
-"loop": true,
-"name": "slimedeath",
-"speed": 5.0
 } ]

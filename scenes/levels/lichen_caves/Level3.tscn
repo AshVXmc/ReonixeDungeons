@@ -1,0 +1,81 @@
+[gd_scene load_steps=14 format=2]
+
+[ext_resource path="res://scenes/menus/HotbarUI.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scenes/menus/ManaPotUI.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/menus/HeartUI.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scenes/menus/ManaUI.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scenes/menus/HealthPotUI.tscn" type="PackedScene" id=6]
+[ext_resource path="res://scenes/menus/FPSCounter.tscn" type="PackedScene" id=7]
+[ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=8]
+[ext_resource path="res://scenes/menus/LifeWineUI.tscn" type="PackedScene" id=9]
+[ext_resource path="res://scenes/menus/OpalsUI.tscn" type="PackedScene" id=10]
+[ext_resource path="res://assets/terrain/background_dungeons.png" type="Texture" id=11]
+[ext_resource path="res://scenes/menus/ShopUI.tscn" type="PackedScene" id=12]
+[ext_resource path="res://scenes/menus/PauseUI.tscn" type="PackedScene" id=13]
+[ext_resource path="res://scenes/Light.tscn" type="PackedScene" id=14]
+
+[node name="Level2" type="Node2D"]
+
+[node name="Player" parent="." instance=ExtResource( 8 )]
+position = Vector2( 96.6404, 118.518 )
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+position = Vector2( 9.72693, -184.94 )
+current = true
+limit_left = -2650
+limit_top = -468
+limit_right = 6000
+limit_bottom = 2000
+drag_margin_h_enabled = true
+drag_margin_v_enabled = true
+drag_margin_left = 0.4
+drag_margin_right = 0.4
+editor_draw_limits = true
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="Background1" type="ParallaxLayer" parent="ParallaxBackground"]
+z_as_relative = false
+motion_mirroring = Vector2( 1920, 640 )
+
+[node name="TextureRect" type="ColorRect" parent="ParallaxBackground/Background1"]
+margin_right = 1938.0
+margin_bottom = 1355.0
+color = Color( 0.0588235, 0.133333, 0.0509804, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/Background1"]
+scale = Vector2( 20, 20 )
+texture = ExtResource( 11 )
+centered = false
+__meta__ = {
+"_editor_description_": ""
+}
+
+[node name="PauseUI" parent="." instance=ExtResource( 13 )]
+
+[node name="HotbarUI" parent="." instance=ExtResource( 2 )]
+
+[node name="FPSCounter" parent="." instance=ExtResource( 7 )]
+
+[node name="HealthPotUI" parent="." instance=ExtResource( 6 )]
+
+[node name="HeartUI" parent="." instance=ExtResource( 4 )]
+
+[node name="ManaUI" parent="." instance=ExtResource( 5 )]
+
+[node name="ManaPotUI" parent="." instance=ExtResource( 3 )]
+
+[node name="LifeWineUI" parent="." instance=ExtResource( 9 )]
+
+[node name="OpalsUI" parent="." instance=ExtResource( 10 )]
+
+[node name="ShopUI" parent="." instance=ExtResource( 12 )]
+
+[node name="Light2D" parent="." instance=ExtResource( 14 )]
+position = Vector2( 1751.34, 747.09 )
+scale = Vector2( 123.492, 44.8937 )
+energy = 0.65
+mode = 1

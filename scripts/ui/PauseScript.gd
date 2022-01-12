@@ -1,25 +1,25 @@
 extends Control
 
 signal playerpos(ppos)
-var notpaused : bool = true
+onready var gameover : Control = get_parent().get_node("GameOver")
 onready var player : KinematicBody2D = get_parent().get_parent().get_node("Player")
 
 func _ready():
 	connect("playerpos", Global, "player_position")
 	self.visible = false
+	gameover.visible = false
 
 func _process(delta):
 	if Input.is_action_just_pressed("ui_cancel"):
-		if notpaused:
+		if !get_tree().paused:
 			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 			get_tree().paused = true
-			notpaused = false
+#			notpaused = false
 			visible = true
 			
 func _on_ResumeButton_pressed():
 	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 	get_tree().paused = false
-	notpaused = true
 	visible = false
 
 
@@ -32,7 +32,7 @@ func _on_SaveButton_pressed():
 		$Saved.visible = false
 
 func _on_QuitButton_pressed():
-	if !notpaused:
+	if get_tree().paused:
 		get_tree().paused = false
 		get_tree().change_scene("res://scenes/menus/MainMenu.tscn")
 

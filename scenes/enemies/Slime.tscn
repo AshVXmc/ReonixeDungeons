@@ -25,7 +25,6 @@ shape = SubResource( 1 )
 position = Vector2( 0, -29.326 )
 scale = Vector2( 5, 5 )
 frames = ExtResource( 2 )
-animation = "slimedeath"
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
 position = Vector2( 32, 0 )

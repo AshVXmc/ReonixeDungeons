@@ -53,3 +53,8 @@ func drop_loot():
 			get_parent().add_child(loot)
 			loot.position = $Position2D.global_position
 		queue_free()
+
+
+func _on_HurtTimer_timeout():
+	velocity.x = SPEED * direction
+	set_modulate(Color(1,1,1,1))

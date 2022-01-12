@@ -6,9 +6,7 @@
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 32.7093, 24.063 )
 
-[node name="Fireball" type="Area2D" groups=[
-"Fireball",
-]]
+[node name="Fireball" type="Area2D" groups=["Fireball"]]
 script = ExtResource( 2 )
 SPEED = 400
 
