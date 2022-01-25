@@ -23,18 +23,16 @@ func _physics_process(delta):
 	if !is_staggered:
 		velocity = move_and_slide(velocity, FLOOR)
 	$Sprite.play("Idle") if velocity.x == 0 else $Sprite.play("Attacking")
-	
-
 	if !is_staggered:
 		if AREA_LEFT.overlaps_area(PLAYER):
 			$Sprite.flip_h = false
 			if !$Sprite.flip_h:
-				yield(get_tree().create_timer(0.8),"timeout")
+				yield(get_tree().create_timer(0.4),"timeout")
 				velocity.x = -SPEED
 		if AREA_RIGHT.overlaps_area(PLAYER):
 			$Sprite.flip_h = true
 			if $Sprite.flip_h:
-				yield(get_tree().create_timer(0.8),"timeout")
+				yield(get_tree().create_timer(0.4),"timeout")
 				velocity.x = SPEED
 
 func _on_Area2D_area_entered(area):
@@ -42,7 +40,6 @@ func _on_Area2D_area_entered(area):
 		HP -= 1
 		velocity.x = 0
 		set_modulate(Color(2,0.5,0.3,1))
-		is_staggered = true
 		$HurtTimer.start()
 		if HP <= 0:
 			var loot = LOOT.instance()

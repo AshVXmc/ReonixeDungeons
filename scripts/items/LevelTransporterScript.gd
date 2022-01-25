@@ -1,6 +1,7 @@
 extends Node2D
 
 onready var transition : CanvasLayer= get_parent().get_node("SceneTransition")
+# Dependency
 onready var colorrect : ColorRect = get_parent().get_node("SceneTransition/ColorRect")
 onready var PLAYER : Area2D = get_parent().get_node("Player").get_node("Area2D")
 export var Destination : String
@@ -8,8 +9,10 @@ const closed : StreamTexture = preload("res://assets/terrain/door.png")
 const opened : StreamTexture = preload("res://assets/terrain/door_opened.png")
 var is_opened : bool = false
 
+
 func _ready():
 	$Label.visible = false
+	connect("player_entered_door", PLAYER, "level_transport")
 
 func _process(delta):
 	if !is_opened:

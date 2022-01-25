@@ -49,6 +49,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/Player.gd"
 }, {
+"base": "Node2D",
+"class": "Sign",
+"language": "GDScript",
+"path": "res://scripts/Level.gd"
+}, {
 "base": "KinematicBody2D",
 "class": "Slime",
 "language": "GDScript",
@@ -68,6 +73,7 @@ _global_script_class_icons={
 "LargeSlime": "",
 "LootBag": "",
 "Player": "",
+"Sign": "",
 "Slime": "",
 "Spider": ""
 }

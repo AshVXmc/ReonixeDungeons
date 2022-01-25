@@ -1,9 +1,0 @@
-[gd_scene load_steps=2 format=2]
-
-[sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 151.863, 36.5005 )
-
-[node name="KinematicPlatform" type="KinematicBody2D"]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource( 1 )

@@ -6,16 +6,17 @@ var velocity = Vector2()
 var is_dead : bool = false 
 const TYPE : String = "Enemy"
 const FLOOR = Vector2(0, -1)
-const SPEED : int = 250
+const SPEED : int = 275
 const GRAVITY : int = 45
 var is_staggered : bool = false
 var spinning : bool = false
 
 const LOOT : PackedScene = preload("res://scenes/items/LootBag.tscn")
 const FIREBALL : PackedScene = preload("res://scenes/Fireball.tscn")
-onready var AREA_LEFT : Area2D = $Left
-onready var AREA_RIGHT : Area2D = $Right
 onready var PLAYER = get_parent().get_node("Player").get_node("Area2D")
+
+func _ready():
+	$StateTimer.start()
 
 func _physics_process(delta):
 	if flipped:
@@ -31,16 +32,22 @@ func _physics_process(delta):
 	
 	 
 	if !is_staggered:
-		if AREA_LEFT.overlaps_area(PLAYER):
+		if $Left.overlaps_area(PLAYER):
 			$Sprite.flip_h = false
 			if !$Sprite.flip_h:
 				yield(get_tree().create_timer(0.4),"timeout")
-				velocity.x = -SPEED
-		if AREA_RIGHT.overlaps_area(PLAYER):
+				if !spinning:
+					velocity.x = -SPEED
+				else:
+					velocity.x = -SPEED - 75
+		if $Right.overlaps_area(PLAYER):
 			$Sprite.flip_h = true
 			if $Sprite.flip_h:
 				yield(get_tree().create_timer(0.4),"timeout")
-				velocity.x = SPEED
+				if !spinning:
+					velocity.x = SPEED
+				else:
+					velocity.x = SPEED + 75
 
 func return_to_sender():
 	var fireball : Fireball = FIREBALL.instance()
@@ -56,11 +63,11 @@ func return_to_sender():
 func _on_Area2D_area_entered(area):
 	if spinning and area.is_in_group("Fireball"):
 		return_to_sender()
-	if area.is_in_group("Sword") and HP > 0:
+	if area.is_in_group("Sword") or area.is_in_group("Fireball") and HP > 0 and !spinning:
 		HP -= 1
 		velocity.x = 0
 		set_modulate(Color(2,0.5,0.3,1))
-		is_staggered = true
+#		is_staggered = true
 		$HurtTimer.start()
 		if HP <= 0:
 			var loot = LOOT.instance()
@@ -73,7 +80,7 @@ func _on_Area2D_area_entered(area):
 			queue_free()
 	if area.is_in_group("Player"):
 		is_staggered = true
-		yield(get_tree().create_timer(1.5), "timeout")
+		yield(get_tree().create_timer(1), "timeout")
 		is_staggered = false
 
 func _on_HurtTimer_timeout():
@@ -83,11 +90,14 @@ func _on_HurtTimer_timeout():
 func _on_AttackingTimer_timeout():
 	velocity.x = 0
 
-func _on_ProjectileDetector_area_entered(area):
-	if area.is_in_group("Fireball"):
-		spinning = true
-		$SpinTimer.start()
-
-
 func _on_SpinTimer_timeout():
 	spinning = false
+
+func _on_StateTimer_timeout():
+	if !spinning:
+		spinning = true
+		$Area2D.add_to_group("Spinning")
+	else:
+		spinning = false
+		$Area2D.remove_from_group("Spinning")
+	$StateTimer.start()

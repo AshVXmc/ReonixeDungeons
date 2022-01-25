@@ -1,0 +1,110 @@
+[gd_scene load_steps=20 format=2]
+
+[ext_resource path="res://tilesets/Default.tres" type="TileSet" id=1]
+[ext_resource path="res://scenes/menus/HotbarUI.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scenes/menus/ManaPotUI.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/menus/HeartUI.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scenes/menus/ManaUI.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scenes/menus/HealthPotUI.tscn" type="PackedScene" id=6]
+[ext_resource path="res://scenes/menus/FPSCounter.tscn" type="PackedScene" id=7]
+[ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=8]
+[ext_resource path="res://scenes/menus/LifeWineUI.tscn" type="PackedScene" id=9]
+[ext_resource path="res://scenes/menus/OpalsUI.tscn" type="PackedScene" id=10]
+[ext_resource path="res://assets/terrain/background_dungeons.png" type="Texture" id=11]
+[ext_resource path="res://scenes/terrain/Sign.tscn" type="PackedScene" id=12]
+[ext_resource path="res://scenes/menus/PauseUI.tscn" type="PackedScene" id=13]
+[ext_resource path="res://scenes/Light.tscn" type="PackedScene" id=14]
+[ext_resource path="res://scenes/menus/SceneTransition.tscn" type="PackedScene" id=15]
+[ext_resource path="res://scripts/Level.gd" type="Script" id=16]
+[ext_resource path="res://scenes/enemies/JesterGoblin.tscn" type="PackedScene" id=17]
+[ext_resource path="res://scenes/enemies/Goblin.tscn" type="PackedScene" id=18]
+[ext_resource path="res://scenes/items/LevelTransporter.tscn" type="PackedScene" id=19]
+
+[node name="Level2" type="Node2D"]
+script = ExtResource( 16 )
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = ExtResource( 1 )
+cell_size = Vector2( 96, 96 )
+format = 1
+tile_data = PoolIntArray( -131060, 12, 0, -131052, 12, 0, -65524, 13, 0, -65516, 13, 0, 12, 13, 0, 20, 13, 0, 65548, 13, 0, 65556, 13, 0, 131072, 7, 0, 131073, 7, 0, 131074, 7, 0, 131075, 7, 0, 131076, 7, 0, 131077, 7, 0, 131078, 7, 0, 131084, 13, 0, 131092, 13, 0, 196608, 6, 0, 196609, 6, 0, 196610, 6, 0, 196611, 6, 0, 196612, 6, 0, 196613, 6, 0, 196614, 6, 0, 196618, 7, 0, 196620, 14, 0, 196621, 10, 0, 196627, 11, 0, 196628, 14, 0, 196629, 10, 0, 196630, 7, 0, 196642, 7, 0, 262144, 6, 0, 262145, 6, 0, 262146, 6, 0, 262147, 6, 0, 262148, 6, 0, 262149, 6, 0, 262150, 6, 0, 262154, 6, 0, 262155, 7, 0, 262156, 7, 0, 262157, 7, 0, 262158, 7, 0, 262159, 7, 0, 262160, 7, 0, 262161, 7, 0, 262162, 7, 0, 262163, 7, 0, 262164, 7, 0, 262165, 7, 0, 262166, 6, 0, 262167, 7, 0, 262168, 7, 0, 262169, 7, 0, 262170, 7, 0, 262171, 7, 0, 262172, 7, 0, 262173, 7, 0, 262174, 7, 0, 262175, 7, 0, 262176, 7, 0, 262177, 7, 0, 262178, 7, 0, 327680, 6, 0, 327681, 6, 0, 327682, 6, 0, 327683, 6, 0, 327684, 6, 0, 327685, 6, 0, 327686, 6, 0, 327687, 7, 0, 327688, 7, 0, 327689, 7, 0, 327690, 7, 0, 327691, 6, 0, 327692, 6, 0, 327693, 6, 0, 327694, 6, 0, 327695, 6, 0, 327696, 6, 0, 327697, 6, 0, 327698, 6, 0, 327699, 6, 0, 327700, 6, 0, 327701, 6, 0, 327702, 6, 0, 327703, 6, 0, 327704, 6, 0, 327705, 6, 0, 327706, 6, 0, 327707, 6, 0, 327708, 6, 0, 327709, 6, 0, 327710, 6, 0, 327711, 6, 0, 327712, 6, 0, 327713, 6, 0, 327714, 6, 0, 393216, 6, 0, 393217, 6, 0, 393218, 6, 0, 393219, 6, 0, 393220, 6, 0, 393221, 6, 0, 393222, 6, 0, 393223, 6, 0, 393224, 6, 0, 393225, 6, 0, 393226, 6, 0, 393227, 6, 0, 393228, 6, 0, 393229, 6, 0, 393230, 6, 0, 393231, 6, 0, 393232, 6, 0, 393233, 6, 0, 393234, 6, 0, 393235, 6, 0, 393236, 6, 0, 393237, 6, 0, 393238, 6, 0, 393239, 6, 0, 393240, 6, 0, 393241, 6, 0, 393242, 6, 0, 393243, 6, 0, 393244, 6, 0, 393245, 6, 0, 393246, 6, 0, 393247, 6, 0, 393248, 6, 0, 393249, 6, 0, 393250, 6, 0, 458752, 6, 0, 458753, 6, 0, 458754, 6, 0, 458755, 6, 0, 458756, 6, 0, 458757, 6, 0, 458758, 6, 0, 458759, 6, 0, 458760, 6, 0, 458761, 6, 0, 458762, 6, 0, 458763, 6, 0, 458764, 6, 0, 458765, 6, 0, 458766, 6, 0, 458767, 6, 0, 458768, 6, 0, 458769, 6, 0, 458770, 6, 0, 458771, 6, 0, 458772, 6, 0, 458773, 6, 0, 458774, 6, 0, 458775, 6, 0, 458776, 6, 0, 458777, 6, 0, 458778, 6, 0, 458779, 6, 0, 458780, 6, 0, 458781, 6, 0, 458782, 6, 0, 458783, 6, 0, 458784, 6, 0, 458785, 6, 0, 458786, 6, 0 )
+
+[node name="Sign" parent="." instance=ExtResource( 12 )]
+position = Vector2( 619.841, 150.492 )
+Text = "Press and hold E to rest at campfires. Resting will take some time but it will fully replenish your health."
+
+[node name="LevelTransporter" parent="." instance=ExtResource( 19 )]
+position = Vector2( 214.427, 111.948 )
+Destination = "res://scenes/levels/Level1.tscn"
+
+[node name="Player" parent="." instance=ExtResource( 8 )]
+position = Vector2( 218.857, 128.647 )
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+position = Vector2( 9.72693, -184.94 )
+current = true
+limit_left = 0
+limit_top = -468
+limit_right = 6000
+limit_bottom = 2000
+drag_margin_h_enabled = true
+drag_margin_v_enabled = true
+drag_margin_left = 0.4
+drag_margin_right = 0.4
+editor_draw_limits = true
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="Background1" type="ParallaxLayer" parent="ParallaxBackground"]
+visible = false
+z_as_relative = false
+motion_mirroring = Vector2( 1920, 640 )
+
+[node name="TextureRect" type="ColorRect" parent="ParallaxBackground/Background1"]
+margin_right = 1938.0
+margin_bottom = 1355.0
+color = Color( 0.0588235, 0.133333, 0.0509804, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/Background1"]
+scale = Vector2( 20, 20 )
+texture = ExtResource( 11 )
+centered = false
+__meta__ = {
+"_editor_description_": ""
+}
+
+[node name="PauseUI" parent="." instance=ExtResource( 13 )]
+
+[node name="HotbarUI" parent="." instance=ExtResource( 2 )]
+
+[node name="FPSCounter" parent="." instance=ExtResource( 7 )]
+
+[node name="HealthPotUI" parent="." instance=ExtResource( 6 )]
+
+[node name="HeartUI" parent="." instance=ExtResource( 4 )]
+
+[node name="ManaUI" parent="." instance=ExtResource( 5 )]
+
+[node name="ManaPotUI" parent="." instance=ExtResource( 3 )]
+
+[node name="LifeWineUI" parent="." instance=ExtResource( 9 )]
+
+[node name="OpalsUI" parent="." instance=ExtResource( 10 )]
+
+[node name="Light2D" parent="." instance=ExtResource( 14 )]
+visible = false
+position = Vector2( 1751.34, 747.09 )
+scale = Vector2( 123.492, 44.8937 )
+energy = 0.65
+mode = 1
+
+[node name="JesterGoblin" parent="." instance=ExtResource( 17 )]
+position = Vector2( 2767.32, 313.601 )
+
+[node name="Goblin" parent="." instance=ExtResource( 18 )]
+position = Vector2( 1540.87, 302.04 )
+
+[node name="SceneTransition" parent="." instance=ExtResource( 15 )]

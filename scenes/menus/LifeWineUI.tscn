@@ -11,6 +11,7 @@ font_data = ExtResource( 3 )
 [node name="LifeWineUI" type="CanvasLayer"]
 
 [node name="LifeWineControl" type="Control" parent="."]
+visible = false
 margin_left = 148.0
 margin_right = 188.0
 margin_bottom = 40.0

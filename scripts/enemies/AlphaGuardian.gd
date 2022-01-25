@@ -1,7 +1,7 @@
 class_name AlphaGuardian extends KinematicBody2D
 
 const TYPE : String = "Enemy"
-const SPEED : int = 285
+const SPEED : int = 300
 const GRAVITY : int = 95
 const MAX : int = 3
 const MIN : int = 1
@@ -19,50 +19,46 @@ export var maxHP : float = 35
 export var HP : float = 35
 var shake : float = 5
 var is_shaking : bool = false
-var attack_stage : int
-enum Attack {
-	stalagmite_smash,
-	double_wave_slam
-}
-
-
-# ATTACK PATTERNS
-# Sends shockwaves on two directions while is on floor.
-# Summons stalagmite-like spikes  
+var jumping : bool = false
 
 func _ready():
 	$AttackTimer.start()
+	$JumpTimer.start()
 
 func _on_AttackTimer_timeout():
-	if !is_dead:
-		downwards_slam()
-
+	on_slam()
 
 func _physics_process(_delta):
 	if !is_dead:
+		# Health counter
 		var currentHealthdisplay : int = int(ceil((HP / maxHP) * 100))
 		$Label.text = str(currentHealthdisplay) + "%"
-		if velocity.x > 0 or velocity.x < 0 and !is_dead and !is_attacking:
+	
+		# Makes the body deteriorates as it takes damage
+		if !is_dead and !is_attacking:
 			if currentHealthdisplay >= 50:
 				$AnimatedSprite.play("Default")
 			elif currentHealthdisplay < 50:
 				$AnimatedSprite.play("Cracked")
-		if !is_dead:
-			if velocity.x == SPEED:
-				$AnimatedSprite.flip_h = false
-			elif velocity.x == -SPEED:
-				$AnimatedSprite.flip_h = true	
 		if HP <= 0:
 			dead()
-			
-		# attack collision flipping
+		
+		if is_attacking:
+			velocity.x = 0
+		# Attack collision flipping
 		if !$AnimatedSprite.flip_h:
 			get_node("AttackCollision").set_scale(Vector2(1,1))
 		else:
 			get_node("AttackCollision").set_scale(Vector2(-1,1))	
-
-		if is_on_floor() and !is_attacking and !is_taking_damage:
+		
+		# Auto movement
+		if is_on_floor() and !is_attacking and !is_taking_damage and !jumping:
 			velocity.x = SPEED * direction
+		if velocity.x > 0:
+			$AnimatedSprite.flip_h = false
+		else:
+			$AnimatedSprite.flip_h = true
+		
 		if is_shaking:
 			shake(1.0)
 		velocity.y += GRAVITY
@@ -77,37 +73,17 @@ func shake(power : float):
 		rand_range(-power, power) * shake \
 	))
 
-# Teleports upward and slams downwards (from one of the three pillar spots)
-# Note: test this on the Level scene so it doesn't produce a null instance error (Position nodes)
-func downwards_slam():
-	is_attacking = true
-	var rng : RandomNumberGenerator = RandomNumberGenerator.new()
-	var pos1 : Position2D = get_parent().get_node("Position2D1")
-	var pos2 : Position2D = get_parent().get_node("Position2D2")
-	var pos3 : Position2D = get_parent().get_node("Position2D3")
-	rng.randomize()
-	var randomInteger : int = rng.randi_range(MIN, MAX)
-	match randomInteger:
-		1:
-			position.x = pos1.position.x
-			position.y = pos1.position.y
-			on_slam()
-		2:
-			position.x = pos2.position.x
-			position.y = pos2.position.y
-			on_slam()
-		3:
-			position.x = pos3.position.x
-			position.y = pos3.position.y
-			on_slam()
+
 
 func on_slam():
+	is_attacking = true
 	var rng : RandomNumberGenerator = RandomNumberGenerator.new()
 	rng.randomize()
 	var randint : int = rng.randi_range(0,1)
 	match randint:
 		0:
-			double_wave_slam()
+#			double_wave_slam()
+			jump()
 		1:
 			stalagmite_smash()
 	
@@ -116,22 +92,35 @@ func on_slam():
 func stalagmite_smash():
 	$GroundTimer.start()
 	velocity.x = 0
-	$JumpTimer.start()
 	$AnimatedSprite.play("Slam")
 	is_attacking = true
+	is_shaking = true
 	yield(get_tree().create_timer(1), "timeout")
 	is_attacking = false
+	is_shaking = false
+	
 
 # Double shockwaves 
 func double_wave_slam():
 	$ShockTimer.start()
 	$AnimatedSprite.play("Slam")
 	is_attacking = true
+	is_shaking = true
 	velocity.x = 0
 	yield(get_tree().create_timer(1.6), "timeout")
 	velocity.x = 0	
 	is_attacking = false
+	is_shaking = false
 
+func jump():
+	jumping = true
+	velocity.x = 0
+	yield(get_tree().create_timer(1), "timeout")
+	jumping = false
+	velocity.y += -2200
+	velocity.y = 0
+
+	
 
 func _on_Area2D_area_entered(area):
 	if area.is_in_group("Sword") or area.is_in_group("Fireball") and HP > 0:
@@ -158,7 +147,16 @@ func _on_ShockTimer_timeout():
 	shockwaveright.position = $Position2DRight.global_position
 	shockwaveleft.flip_sw(-1)
 	shockwaveleft.position = $Position2DLeft.global_position
-	
+
+func send_shockwave(dir : String):
+	var shockwave = SHOCKWAVE.instance()
+	get_parent().add_child(shockwave)
+	match dir:
+		"Left":
+			shockwave.flip_sw(-1)
+			shockwave.position = $Position2DLeft.global_position
+		"Right":
+			shockwave.position = $Position2DRight.global_position
 
 func _on_GroundTimer_timeout():
 	var gpos1 : Position2D = get_parent().get_node("GroundPos1")
@@ -169,21 +167,21 @@ func _on_GroundTimer_timeout():
 	var groundwave2 : Node = GROUNDSHOCKWAVE.instance()
 	get_parent().add_child(groundwave1)
 	get_parent().add_child(groundwave2)
-#	var rng : RandomNumberGenerator = RandomNumberGenerator.new()
-#	rng.randomize()
-#	var randint : int = rng.randi_range(0,1)
-#	match randint:
-#		0:
-#			groundwave1.position.x = gpos1.position.x
-#			groundwave1.position.y = gpos1.position.y
-#			groundwave2.position.x = gpos3.position.x
-#			groundwave2.position.y = gpos3.position.y
-#		1:
-#
-#			groundwave1.position.x = gpos2.position.x
-#			groundwave1.position.y = gpos2.position.y
-#			groundwave2.position.x = gpos4.position.x
-#			groundwave2.position.y = gpos4.position.y
+	var rng : RandomNumberGenerator = RandomNumberGenerator.new()
+	rng.randomize()
+	var randint : int = rng.randi_range(0,1)
+	match randint:
+		0:
+			groundwave1.position.x = gpos1.position.x
+			groundwave1.position.y = gpos1.position.y
+			groundwave2.position.x = gpos3.position.x
+			groundwave2.position.y = gpos3.position.y
+		1:
+
+			groundwave1.position.x = gpos2.position.x
+			groundwave1.position.y = gpos2.position.y
+			groundwave2.position.x = gpos4.position.x
+			groundwave2.position.y = gpos4.position.y
 
 func dead():
 	is_dead = true
@@ -193,6 +191,14 @@ func dead():
 	$Label.queue_free()
 
 
-	
-	
+func _on_Left_area_exited(area):
+	pass # Replace with function body.
 
+
+func _on_Right_area_exited(area):
+	pass # Replace with function body.
+
+
+func _on_JumpTimer_timeout():
+	if $Left.overlaps_area(player) or $Right.overlaps_area(player):
+		jump()

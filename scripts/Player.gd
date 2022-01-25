@@ -67,6 +67,7 @@ func _ready():
 	
 	connect("opals_obtained", Global, "sync_playerOpals")
 	emit_signal("opals_obtained", Global.opals_amount)
+	
 
 func _physics_process(_delta):
 	# Makes sure the player is alive to use any movement controls
@@ -237,7 +238,8 @@ func _on_RightDectector_area_entered(area):
 		velocity.x = -1500
 		$KnockbackCooldownTimer.start()
 		velocity.y = JUMP_POWER * 0.25
-
+		is_healing = false
+		$HealingTimer.stop()
 func dash():
 	if Global.dash_unlocked:
 		if is_on_floor() and $DashUseTimer.is_stopped():
@@ -422,3 +424,6 @@ func _on_ManaHealTimer_timeout():
 		emit_signal("mana_changed", Global.mana)
 		Global.manapot_amount -= 1
 		emit_signal("manapot_obtained", Global.manapot_amount)
+
+func level_transport(pos):
+	self.global_position = pos

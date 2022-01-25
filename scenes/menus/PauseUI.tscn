@@ -19,7 +19,7 @@ font_data = ExtResource( 7 )
 size = 85
 font_data = ExtResource( 7 )
 
-[node name="Margin container" type="CanvasLayer"]
+[node name="PauseUI" type="CanvasLayer"]
 
 [node name="Pause" type="Control" parent="."]
 pause_mode = 2

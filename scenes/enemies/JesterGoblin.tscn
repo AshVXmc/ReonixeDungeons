@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://assets/enemies/jester_goblin.png" type="Texture" id=1]
 [ext_resource path="res://scripts/enemies/JesterGoblin.gd" type="Script" id=2]
@@ -33,9 +33,6 @@ animations = [ {
 "name": "Attacking",
 "speed": 5.0
 } ]
-
-[sub_resource type="RectangleShape2D" id=6]
-extents = Vector2( 140.219, 59.2853 )
 
 [node name="JesterGoblin" type="KinematicBody2D"]
 script = ExtResource( 2 )
@@ -82,12 +79,6 @@ scale = Vector2( 5, 5 )
 frames = SubResource( 5 )
 animation = "Idle"
 
-[node name="ProjectileDetector" type="Area2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="ProjectileDetector"]
-position = Vector2( 1.77717, -7.43407 )
-shape = SubResource( 6 )
-
 [node name="LeftPos" type="Position2D" parent="."]
 position = Vector2( -80, 0 )
 
@@ -98,8 +89,11 @@ position = Vector2( 80, 0 )
 wait_time = 2.5
 one_shot = true
 
+[node name="StateTimer" type="Timer" parent="."]
+wait_time = 2.5
+
 [connection signal="area_entered" from="Area2D" to="." method="_on_Area2D_area_entered"]
 [connection signal="timeout" from="HurtTimer" to="." method="_on_HurtTimer_timeout"]
 [connection signal="timeout" from="AttackingTimer" to="." method="_on_AttackingTimer_timeout"]
-[connection signal="area_entered" from="ProjectileDetector" to="." method="_on_ProjectileDetector_area_entered"]
 [connection signal="timeout" from="SpinTimer" to="." method="_on_SpinTimer_timeout"]
+[connection signal="timeout" from="StateTimer" to="." method="_on_StateTimer_timeout"]

@@ -1,371 +1,164 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=9 format=2]
 
-[ext_resource path="res://scripts/ui/MainMenuScript.gd" type="Script" id=3]
+[ext_resource path="res://scripts/ui/MainMenu.gd" type="Script" id=1]
+[ext_resource path="res://assets/fonts/MEGAMAN10.ttf" type="DynamicFontData" id=2]
 [ext_resource path="res://assets/themes/MainMenuFonts.tres" type="DynamicFont" id=4]
 [ext_resource path="res://scenes/menus/SceneTransition.tscn" type="PackedScene" id=5]
 [ext_resource path="res://assets/fonts/Born2bSportyV2.ttf" type="DynamicFontData" id=6]
 [ext_resource path="res://assets/misc/background_2.png" type="Texture" id=7]
-[ext_resource path="res://scripts/ui/TitleFloat.gd" type="Script" id=8]
-
-[sub_resource type="Animation" id=13]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/path = NodePath("Title:rect_position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Vector2( 0, 0 ) ]
-}
-
-[sub_resource type="Animation" id=14]
-resource_name = "TitleFloat"
-tracks/0/type = "value"
-tracks/0/path = NodePath("Title:rect_position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.5, 1 ),
-"transitions": PoolRealArray( 1, 0.812252, 1 ),
-"update": 0,
-"values": [ Vector2( 0, 0 ), Vector2( 0, -10 ), Vector2( 0, 0 ) ]
-}
-
-[sub_resource type="DynamicFont" id=1]
-size = 45
-font_data = ExtResource( 6 )
-
-[sub_resource type="DynamicFont" id=2]
-size = 45
-font_data = ExtResource( 6 )
 
 [sub_resource type="DynamicFont" id=3]
-size = 45
-font_data = ExtResource( 6 )
-
-[sub_resource type="DynamicFont" id=4]
-size = 45
-font_data = ExtResource( 6 )
-
-[sub_resource type="DynamicFont" id=5]
-size = 45
-font_data = ExtResource( 6 )
-
-[sub_resource type="DynamicFont" id=6]
-size = 45
-font_data = ExtResource( 6 )
-
-[sub_resource type="DynamicFont" id=7]
-size = 45
+size = 72
 font_data = ExtResource( 6 )
 
 [sub_resource type="DynamicFont" id=8]
-size = 45
-font_data = ExtResource( 6 )
+size = 64
+font_data = ExtResource( 2 )
 
-[sub_resource type="DynamicFont" id=9]
-size = 45
-font_data = ExtResource( 6 )
-
-[sub_resource type="DynamicFont" id=10]
-size = 45
-font_data = ExtResource( 6 )
-
-[sub_resource type="DynamicFont" id=11]
-size = 36
-font_data = ExtResource( 6 )
-
-[node name="MainMenu" type="MarginContainer"]
+[node name="MainMenu" type="Control"]
+anchor_left = 0.047
+anchor_top = 0.048
 anchor_right = 1.0
 anchor_bottom = 1.0
-rect_min_size = Vector2( 7, 0 )
-script = ExtResource( 3 )
+margin_left = -50.76
+margin_top = -34.56
+script = ExtResource( 1 )
 __meta__ = {
-"_edit_group_": true,
 "_edit_use_anchors_": false
 }
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="MarginContainer"]
 margin_right = 1080.0
 margin_bottom = 720.0
 color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[node name="Backdrop" type="TextureRect" parent="."]
+[node name="Backdrop" type="TextureRect" parent="MarginContainer"]
 margin_right = 1080.0
 margin_bottom = 720.0
 texture = ExtResource( 7 )
 expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[node name="CenterContainer" type="CenterContainer" parent="."]
-margin_right = 1080.0
-margin_bottom = 720.0
+[node name="SceneTransition" parent="." instance=ExtResource( 5 )]
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
-margin_left = 367.0
-margin_top = 161.0
-margin_right = 712.0
-margin_bottom = 558.0
-
-[node name="CenterContainer7" type="CenterContainer" parent="CenterContainer/VBoxContainer"]
-margin_right = 345.0
-margin_bottom = 143.0
-
-[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/VBoxContainer/CenterContainer7"]
-margin_right = 345.0
-margin_bottom = 143.0
-
-[node name="StartContainer" type="CenterContainer" parent="CenterContainer/VBoxContainer/CenterContainer7/VBoxContainer"]
-margin_right = 345.0
-margin_bottom = 143.0
-size_flags_horizontal = 2
-
-[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/VBoxContainer/CenterContainer7/VBoxContainer/StartContainer"]
-margin_right = 345.0
-margin_bottom = 143.0
-
-[node name="Title" type="Label" parent="CenterContainer/VBoxContainer/CenterContainer7/VBoxContainer/StartContainer/HBoxContainer"]
-margin_right = 345.0
-margin_bottom = 143.0
+[node name="Title" type="Label" parent="."]
+anchor_left = 0.5
+anchor_top = 0.257
+anchor_right = 0.5
+anchor_bottom = 0.257
+margin_left = -172.5
+margin_top = -72.04
+margin_right = 172.5
+margin_bottom = 71.96
 custom_colors/font_color = Color( 0.0313726, 0.2, 0.72549, 1 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_y = 0
 custom_fonts/font = ExtResource( 4 )
 text = " Reonixe
 Dungeons"
-script = ExtResource( 8 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="CenterContainer/VBoxContainer/CenterContainer7/VBoxContainer/StartContainer/HBoxContainer/Title"]
-root_node = NodePath("../..")
-anims/RESET = SubResource( 13 )
-anims/TitleFloat = SubResource( 14 )
-
-[node name="CenterContainer2" type="CenterContainer" parent="CenterContainer/VBoxContainer"]
-margin_top = 147.0
-margin_right = 345.0
-margin_bottom = 193.0
-
-[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/VBoxContainer/CenterContainer2"]
-margin_left = 78.0
-margin_right = 266.0
-margin_bottom = 46.0
-
-[node name="StartContainer" type="CenterContainer" parent="CenterContainer/VBoxContainer/CenterContainer2/VBoxContainer"]
-margin_right = 188.0
-margin_bottom = 46.0
-size_flags_horizontal = 2
-
-[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/VBoxContainer/CenterContainer2/VBoxContainer/StartContainer"]
-margin_right = 188.0
-margin_bottom = 46.0
-
-[node name="Arrow_Picker" type="Label" parent="CenterContainer/VBoxContainer/CenterContainer2/VBoxContainer/StartContainer/HBoxContainer"]
-margin_right = 20.0
-margin_bottom = 46.0
-rect_min_size = Vector2( 7, 0 )
-custom_colors/font_color = Color( 0.972549, 0.819608, 0, 1 )
-custom_constants/shadow_offset_y = 0
-custom_constants/shadow_as_outline = 5
-custom_fonts/font = SubResource( 1 )
-text = ">"
-uppercase = true
-
-[node name="Start" type="Label" parent="CenterContainer/VBoxContainer/CenterContainer2/VBoxContainer/StartContainer/HBoxContainer"]
-margin_left = 24.0
-margin_right = 188.0
-margin_bottom = 46.0
-custom_colors/font_color = Color( 1, 1, 1, 1 )
-custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
-custom_constants/shadow_offset_y = 0
-custom_fonts/font = SubResource( 2 )
-text = "New Game"
-
-[node name="CenterContainer6" type="CenterContainer" parent="CenterContainer/VBoxContainer"]
-margin_top = 197.0
-margin_right = 345.0
-margin_bottom = 243.0
-
-[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/VBoxContainer/CenterContainer6"]
-margin_left = 71.0
-margin_right = 274.0
-margin_bottom = 46.0
-
-[node name="LoadContainer" type="CenterContainer" parent="CenterContainer/VBoxContainer/CenterContainer6/VBoxContainer"]
-margin_right = 203.0
-margin_bottom = 46.0
-size_flags_horizontal = 2
-
-[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/VBoxContainer/CenterContainer6/VBoxContainer/LoadContainer"]
-margin_right = 203.0
-margin_bottom = 46.0
-
-[node name="Arrow_Picker" type="Label" parent="CenterContainer/VBoxContainer/CenterContainer6/VBoxContainer/LoadContainer/HBoxContainer"]
-margin_right = 20.0
-margin_bottom = 46.0
-rect_min_size = Vector2( 7, 0 )
-custom_colors/font_color = Color( 0.972549, 0.819608, 0, 1 )
-custom_constants/shadow_offset_y = 0
-custom_constants/shadow_as_outline = 5
+[node name="NewGame" type="Button" parent="."]
+anchor_left = 0.5
+anchor_top = 0.429
+anchor_right = 0.5
+anchor_bottom = 0.429
+margin_left = -140.0
+margin_top = -38.88
+margin_right = 137.0
+margin_bottom = 39.12
+custom_colors/font_color_hover = Color( 1, 0.843137, 0.0117647, 1 )
 custom_fonts/font = SubResource( 3 )
-text = ">"
-uppercase = true
+text = "New game"
+flat = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[node name="Start" type="Label" parent="CenterContainer/VBoxContainer/CenterContainer6/VBoxContainer/LoadContainer/HBoxContainer"]
-margin_left = 24.0
-margin_right = 203.0
-margin_bottom = 46.0
-custom_colors/font_color = Color( 1, 1, 1, 1 )
-custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
-custom_constants/shadow_offset_y = 0
-custom_fonts/font = SubResource( 4 )
-text = "Load Game"
+[node name="LoadGame" type="Button" parent="."]
+anchor_left = 0.5
+anchor_top = 0.547
+anchor_right = 0.5
+anchor_bottom = 0.547
+margin_left = -150.0
+margin_top = -38.84
+margin_right = 150.0
+margin_bottom = 39.16
+custom_colors/font_color_hover = Color( 1, 0.843137, 0.0117647, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Load game"
+flat = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[node name="CenterContainer3" type="CenterContainer" parent="CenterContainer/VBoxContainer"]
-margin_top = 247.0
-margin_right = 345.0
-margin_bottom = 293.0
-
-[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/VBoxContainer/CenterContainer3"]
-margin_left = 63.0
-margin_right = 282.0
-margin_bottom = 46.0
-
-[node name="Howtoplaycontainer" type="CenterContainer" parent="CenterContainer/VBoxContainer/CenterContainer3/VBoxContainer"]
-margin_right = 219.0
-margin_bottom = 46.0
-size_flags_horizontal = 2
-
-[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/VBoxContainer/CenterContainer3/VBoxContainer/Howtoplaycontainer"]
-margin_right = 219.0
-margin_bottom = 46.0
-
-[node name="Arrow_Picker" type="Label" parent="CenterContainer/VBoxContainer/CenterContainer3/VBoxContainer/Howtoplaycontainer/HBoxContainer"]
-margin_right = 20.0
-margin_bottom = 46.0
-rect_min_size = Vector2( 7, 0 )
-custom_colors/font_color = Color( 0.972549, 0.819608, 0, 1 )
-custom_constants/shadow_offset_y = 0
-custom_constants/shadow_as_outline = 5
-custom_fonts/font = SubResource( 5 )
-text = ">"
-uppercase = true
-
-[node name="Howtoplay" type="Label" parent="CenterContainer/VBoxContainer/CenterContainer3/VBoxContainer/Howtoplaycontainer/HBoxContainer"]
-margin_left = 24.0
-margin_right = 219.0
-margin_bottom = 46.0
-custom_colors/font_color = Color( 1, 1, 1, 1 )
-custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
-custom_constants/shadow_offset_y = 0
-custom_fonts/font = SubResource( 6 )
+[node name="HowToPlay" type="Button" parent="."]
+anchor_left = 0.504
+anchor_top = 0.658
+anchor_right = 0.504
+anchor_bottom = 0.658
+margin_left = -164.32
+margin_top = -38.76
+margin_right = 163.68
+margin_bottom = 39.24
+custom_colors/font_color_hover = Color( 1, 0.843137, 0.0117647, 1 )
+custom_fonts/font = SubResource( 3 )
 text = "How to play"
+flat = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[node name="CenterContainer4" type="CenterContainer" parent="CenterContainer/VBoxContainer"]
-margin_top = 297.0
-margin_right = 345.0
-margin_bottom = 343.0
-
-[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/VBoxContainer/CenterContainer4"]
-margin_left = 99.0
-margin_right = 245.0
-margin_bottom = 46.0
-
-[node name="Optionscontainer" type="CenterContainer" parent="CenterContainer/VBoxContainer/CenterContainer4/VBoxContainer"]
-margin_right = 146.0
-margin_bottom = 46.0
-size_flags_horizontal = 2
-
-[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/VBoxContainer/CenterContainer4/VBoxContainer/Optionscontainer"]
-margin_right = 146.0
-margin_bottom = 46.0
-
-[node name="Arrow_Picker" type="Label" parent="CenterContainer/VBoxContainer/CenterContainer4/VBoxContainer/Optionscontainer/HBoxContainer"]
-margin_right = 20.0
-margin_bottom = 46.0
-rect_min_size = Vector2( 7, 0 )
-custom_colors/font_color = Color( 0.972549, 0.819608, 0, 1 )
-custom_constants/shadow_offset_y = 0
-custom_constants/shadow_as_outline = 5
-custom_fonts/font = SubResource( 7 )
-text = ">"
-uppercase = true
-
-[node name="options" type="Label" parent="CenterContainer/VBoxContainer/CenterContainer4/VBoxContainer/Optionscontainer/HBoxContainer"]
-margin_left = 24.0
-margin_right = 146.0
-margin_bottom = 46.0
-custom_colors/font_color = Color( 1, 1, 1, 1 )
-custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
-custom_constants/shadow_offset_y = 0
-custom_fonts/font = SubResource( 8 )
-text = "Options"
-
-[node name="CenterContainer5" type="CenterContainer" parent="CenterContainer/VBoxContainer"]
-margin_top = 347.0
-margin_right = 345.0
-margin_bottom = 393.0
-
-[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/VBoxContainer/CenterContainer5"]
-margin_left = 129.0
-margin_right = 215.0
-margin_bottom = 46.0
-
-[node name="Exitcontainer" type="CenterContainer" parent="CenterContainer/VBoxContainer/CenterContainer5/VBoxContainer"]
-margin_right = 86.0
-margin_bottom = 46.0
-size_flags_horizontal = 2
-
-[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/VBoxContainer/CenterContainer5/VBoxContainer/Exitcontainer"]
-margin_right = 86.0
-margin_bottom = 46.0
-
-[node name="Arrow_Picker" type="Label" parent="CenterContainer/VBoxContainer/CenterContainer5/VBoxContainer/Exitcontainer/HBoxContainer"]
-margin_right = 20.0
-margin_bottom = 46.0
-rect_min_size = Vector2( 7, 0 )
-custom_colors/font_color = Color( 0.972549, 0.819608, 0, 1 )
-custom_constants/shadow_offset_y = 0
-custom_constants/shadow_as_outline = 5
-custom_fonts/font = SubResource( 9 )
-text = ">"
-uppercase = true
-
-[node name="exit" type="Label" parent="CenterContainer/VBoxContainer/CenterContainer5/VBoxContainer/Exitcontainer/HBoxContainer"]
-margin_left = 24.0
-margin_right = 86.0
-margin_bottom = 46.0
-custom_colors/font_color = Color( 1, 1, 1, 1 )
-custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
-custom_constants/shadow_offset_y = 0
-custom_fonts/font = SubResource( 10 )
+[node name="Exit" type="Button" parent="."]
+anchor_left = 0.499
+anchor_top = 0.767
+anchor_right = 0.499
+anchor_bottom = 0.767
+margin_left = -163.709
+margin_top = -39.201
+margin_right = 164.291
+margin_bottom = 38.799
+custom_colors/font_color_hover = Color( 1, 0.843137, 0.0117647, 1 )
+custom_fonts/font = SubResource( 3 )
 text = "Exit"
+flat = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[node name="CenterContainer9" type="CenterContainer" parent="CenterContainer/VBoxContainer"]
-margin_top = 397.0
-margin_right = 345.0
-margin_bottom = 397.0
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+anchor_left = 0.932
+anchor_top = 0.969
+anchor_right = 0.932
+anchor_bottom = 0.969
+margin_left = -91.1481
+margin_top = -30.7421
+margin_right = 90.85
+margin_bottom = 31.2579
+custom_colors/default_color = Color( 1, 1, 1, 1 )
+custom_fonts/bold_font = SubResource( 8 )
+bbcode_enabled = true
+bbcode_text = "[b]©2022[b]"
+text = "©2022"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/VBoxContainer/CenterContainer9"]
-margin_left = 172.0
-margin_right = 172.0
-
-[node name="Exitcontainer" type="CenterContainer" parent="CenterContainer/VBoxContainer/CenterContainer9/VBoxContainer"]
-size_flags_horizontal = 2
-
-[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/VBoxContainer/CenterContainer9/VBoxContainer/Exitcontainer"]
-
-[node name="nosavedata" type="Label" parent="CenterContainer/VBoxContainer/CenterContainer9/VBoxContainer/Exitcontainer/HBoxContainer"]
-visible = false
-margin_right = 409.0
-margin_bottom = 75.0
-custom_colors/font_color = Color( 1, 0, 0, 1 )
-custom_fonts/font = SubResource( 11 )
-text = "
-No save data available to load"
-
-[node name="SceneTransition" parent="." instance=ExtResource( 5 )]
+[connection signal="pressed" from="NewGame" to="." method="_on_NewGame_pressed"]
+[connection signal="pressed" from="LoadGame" to="." method="_on_LoadGame_pressed"]
+[connection signal="pressed" from="HowToPlay" to="." method="_on_HowToPlay_pressed"]
+[connection signal="pressed" from="Exit" to="." method="_on_Exit_pressed"]
