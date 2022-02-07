@@ -1,26 +1,48 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://assets/fonts/Born2bSportyV2.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://assets/misc/health_pot.png" type="Texture" id=2]
 [ext_resource path="res://scripts/ui/ShopUI.gd" type="Script" id=3]
 [ext_resource path="res://assets/misc/opal.png" type="Texture" id=4]
+[ext_resource path="res://assets/misc/mana_pot.png" type="Texture" id=5]
+[ext_resource path="res://assets/UI/sign_textbox.png" type="Texture" id=6]
+[ext_resource path="res://assets/misc/life_wine.png" type="Texture" id=7]
 
 [sub_resource type="DynamicFont" id=2]
 size = 50
-font_data = ExtResource( 1 )
-
-[sub_resource type="DynamicFont" id=1]
-size = 120
-extra_spacing_char = 5
 font_data = ExtResource( 1 )
 
 [sub_resource type="DynamicFont" id=3]
 size = 50
 font_data = ExtResource( 1 )
 
+[sub_resource type="DynamicFont" id=4]
+size = 30
+extra_spacing_bottom = 5
+font_data = ExtResource( 1 )
+
 [node name="ShopUI" type="Control"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_left = 7.13519
+margin_top = 2.37848
+margin_right = 7.13525
+margin_bottom = 2.37848
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Blur" type="ColorRect" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -1122.0
+margin_top = -671.5
+margin_right = 1078.0
+margin_bottom = 678.5
+color = Color( 0.0196078, 0.0196078, 0.0196078, 0.705882 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -29,32 +51,38 @@ __meta__ = {
 
 [node name="Main" type="Control" parent="CanvasLayer"]
 visible = false
-margin_right = 40.0
-margin_bottom = 40.0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -366.0
+margin_top = -230.0
+margin_right = 357.0
+margin_bottom = 171.0
 script = ExtResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Background" type="ColorRect" parent="CanvasLayer/Main"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = 426.141
-margin_top = 256.224
-margin_right = 1322.14
-margin_bottom = 785.224
-color = Color( 0, 0.113725, 0.498039, 1 )
+anchor_left = 0.616
+anchor_top = 0.653
+anchor_right = 0.616
+anchor_bottom = 0.653
+margin_left = -534.368
+margin_top = -225.853
+margin_right = 376.632
+margin_bottom = 274.147
+color = Color( 0.227451, 0, 0.498039, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Exit" type="Button" parent="CanvasLayer/Main"]
-margin_left = 1140.59
-margin_top = 727.166
-margin_right = 1325.59
-margin_bottom = 787.166
+margin_left = 580.973
+margin_top = 456.811
+margin_right = 789.973
+margin_bottom = 513.811
 custom_fonts/font = SubResource( 2 )
 text = "Exit Shop"
 expand_icon = true
@@ -62,25 +90,11 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="CanvasLayer/Main"]
-anchor_left = 0.5
-anchor_right = 0.5
-margin_left = 758.953
-margin_top = 173.349
-margin_right = 985.953
-margin_bottom = 293.349
-custom_colors/font_color = Color( 0.580392, 0, 0.811765, 1 )
-custom_fonts/font = SubResource( 1 )
-text = "SHOP"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
 [node name="HealthPot" type="ColorRect" parent="CanvasLayer/Main"]
-margin_left = 459.24
-margin_top = 289.476
-margin_right = 579.24
-margin_bottom = 409.476
+margin_left = -67.0194
+margin_top = 53.5248
+margin_right = 52.9807
+margin_bottom = 173.524
 color = Color( 0.00392157, 0.639216, 0.917647, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -117,10 +131,10 @@ scale = Vector2( 3, 3 )
 texture = ExtResource( 4 )
 
 [node name="ManaPot" type="ColorRect" parent="CanvasLayer/Main"]
-margin_left = 459.24
-margin_top = 289.476
-margin_right = 579.24
-margin_bottom = 409.476
+margin_left = -67.019
+margin_top = 192.009
+margin_right = 52.9813
+margin_bottom = 312.009
 color = Color( 0.00392157, 0.639216, 0.917647, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -129,7 +143,7 @@ __meta__ = {
 [node name="Sprite" type="Sprite" parent="CanvasLayer/Main/ManaPot"]
 position = Vector2( 57.9401, 57.9401 )
 scale = Vector2( 6, 6 )
-texture = ExtResource( 2 )
+texture = ExtResource( 5 )
 
 [node name="ManaPotButton" type="Button" parent="CanvasLayer/Main/ManaPot"]
 margin_left = 126.796
@@ -156,6 +170,73 @@ position = Vector2( 202.234, 92.6534 )
 scale = Vector2( 3, 3 )
 texture = ExtResource( 4 )
 
+[node name="LifeWine" type="ColorRect" parent="CanvasLayer/Main"]
+margin_left = 213.943
+margin_top = 53.525
+margin_right = 333.943
+margin_bottom = 173.525
+color = Color( 0.00392157, 0.639216, 0.917647, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Sprite" type="Sprite" parent="CanvasLayer/Main/LifeWine"]
+position = Vector2( 57.9401, 57.9401 )
+scale = Vector2( 6, 6 )
+texture = ExtResource( 7 )
+
+[node name="ManaPotButton" type="Button" parent="CanvasLayer/Main/LifeWine"]
+margin_left = 126.796
+margin_top = -0.318176
+margin_right = 246.796
+margin_bottom = 59.6818
+custom_fonts/font = SubResource( 2 )
+text = "Buy"
+expand_icon = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="CanvasLayer/Main/LifeWine"]
+margin_left = 137.871
+margin_top = 69.4901
+margin_right = 181.871
+margin_bottom = 120.49
+custom_fonts/font = SubResource( 3 )
+text = "25"
+
+[node name="Opal" type="Sprite" parent="CanvasLayer/Main/LifeWine"]
+position = Vector2( 202.234, 92.6534 )
+scale = Vector2( 3, 3 )
+texture = ExtResource( 4 )
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Main"]
+margin_left = -66.8512
+margin_top = 337.614
+margin_right = 333.149
+margin_bottom = 457.614
+rect_scale = Vector2( 1.5, 1.5 )
+texture = ExtResource( 6 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="FlavorText" type="RichTextLabel" parent="CanvasLayer/Main"]
+margin_left = -49.7491
+margin_top = 356.502
+margin_right = 514.251
+margin_bottom = 500.502
+custom_fonts/normal_font = SubResource( 4 )
+bbcode_enabled = true
+scroll_active = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [connection signal="pressed" from="CanvasLayer/Main/Exit" to="CanvasLayer/Main" method="_on_Exit_pressed"]
+[connection signal="mouse_entered" from="CanvasLayer/Main/HealthPot/HealthPotButton" to="CanvasLayer/Main" method="_on_HealthPotButton_mouse_entered"]
+[connection signal="mouse_exited" from="CanvasLayer/Main/HealthPot/HealthPotButton" to="CanvasLayer/Main" method="_on_HealthPotButton_mouse_exited"]
 [connection signal="pressed" from="CanvasLayer/Main/HealthPot/HealthPotButton" to="CanvasLayer/Main" method="_on_HealthPotButton_pressed"]
 [connection signal="pressed" from="CanvasLayer/Main/ManaPot/ManaPotButton" to="CanvasLayer/Main" method="_on_HealthPotButton_pressed"]
+[connection signal="pressed" from="CanvasLayer/Main/LifeWine/ManaPotButton" to="CanvasLayer/Main" method="_on_HealthPotButton_pressed"]

@@ -20,7 +20,7 @@ height = 40.2918
 animations = [ {
 "frames": [ ExtResource( 1 ) ],
 "loop": true,
-"name": "Idle",
+"name": "Attacking",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 4 ), ExtResource( 3 ) ],
@@ -30,7 +30,7 @@ animations = [ {
 }, {
 "frames": [ ExtResource( 1 ) ],
 "loop": true,
-"name": "Attacking",
+"name": "Idle",
 "speed": 5.0
 } ]
 

@@ -4,7 +4,7 @@
 [ext_resource path="res://scripts/enemies/Bat.gd" type="Script" id=2]
 
 [sub_resource type="CapsuleShape2D" id=1]
-radius = 48.0
+radius = 38.9119
 height = 0.0
 
 [sub_resource type="CircleShape2D" id=2]
@@ -23,7 +23,6 @@ shape = SubResource( 1 )
 scale = Vector2( 5, 5 )
 frames = ExtResource( 1 )
 animation = "Idle"
-frame = 1
 
 [node name="Area2D" type="Area2D" parent="." groups=["Enemy"]]
 

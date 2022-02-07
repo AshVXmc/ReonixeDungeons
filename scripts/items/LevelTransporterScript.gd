@@ -12,7 +12,6 @@ var is_opened : bool = false
 
 func _ready():
 	$Label.visible = false
-	connect("player_entered_door", PLAYER, "level_transport")
 
 func _process(delta):
 	if !is_opened:

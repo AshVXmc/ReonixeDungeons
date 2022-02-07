@@ -7,7 +7,7 @@ var direction : int = 1
 var is_dead : bool = false 
 const TYPE : String = "Enemy"
 const FLOOR = Vector2(0, -1)
-const SPEED : int = 275
+const SPEED : int = 350
 const GRAVITY : int = 45
 var is_staggered : bool = false
 
@@ -17,6 +17,7 @@ onready var AREA_RIGHT : Area2D = $Right
 onready var PLAYER = get_parent().get_node("Player").get_node("Area2D")
 
 func _physics_process(delta):
+	
 	if flipped:
 		$Sprite.flip_h = true
 	velocity.y += GRAVITY
@@ -39,8 +40,8 @@ func _on_Area2D_area_entered(area):
 	if area.is_in_group("Sword") or area.is_in_group("Fireball") and HP > 0:
 		HP -= 1
 		velocity.x = 0
-		set_modulate(Color(2,0.5,0.3,1))
-		$HurtTimer.start()
+		if $HurtTimer.is_stopped():
+			$HurtTimer.start()
 		if HP <= 0:
 			var loot = LOOT.instance()
 			var lootrng : RandomNumberGenerator = RandomNumberGenerator.new()
@@ -55,10 +56,9 @@ func _on_Area2D_area_entered(area):
 		yield(get_tree().create_timer(1), "timeout")
 		is_staggered = false
 
-
 func _on_HurtTimer_timeout():
-	set_modulate(Color(1,1,1,1))
 	is_staggered = false
 
 func _on_AttackingTimer_timeout():
 	velocity.x = 0
+

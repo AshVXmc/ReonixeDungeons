@@ -34,6 +34,7 @@ var can_dash : bool = false
 var is_healing : bool = false
 var is_shopping : bool = false
 
+
 func _ready():
 		# warning-ignore:return_value_discarded
 	connect("life_changed", get_parent().get_node("HeartUI/Life"), "on_player_life_changed")
@@ -187,7 +188,7 @@ func _on_Area2D_area_entered(area : Area2D):
 
 
 func attack_knock():
-	var KNOCK_POWER : int = 175
+	var KNOCK_POWER : int = 125
 	velocity.x = -KNOCK_POWER if !$Sprite.flip_h else KNOCK_POWER
 
 func afterDamaged():
@@ -241,7 +242,7 @@ func _on_RightDectector_area_entered(area):
 		is_healing = false
 		$HealingTimer.stop()
 func dash():
-	if Global.dash_unlocked:
+#	if Global.dash_unlocked:
 		if is_on_floor() and $DashUseTimer.is_stopped():
 			can_dash = true
 		if !$Sprite.flip_h:
@@ -362,7 +363,6 @@ func on_Item_bought(item_name : String, item_price : int):
 		"HealthPot":
 			Global.healthpot_amount += 1
 			emit_signal("healthpot_obtained", Global.healthpot_amount)
-	
 
 # Handles what happens when timers runs out
 func _on_Timer_timeout():
@@ -425,5 +425,3 @@ func _on_ManaHealTimer_timeout():
 		Global.manapot_amount -= 1
 		emit_signal("manapot_obtained", Global.manapot_amount)
 
-func level_transport(pos):
-	self.global_position = pos

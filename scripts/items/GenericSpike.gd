@@ -1,6 +1,7 @@
 extends StaticBody2D
 
 export var pos_name : String
+export var pos_amount : int = 1
 onready var pos = get_parent().get_node("SpikePosition")
 onready var player = get_parent().get_node("Player")
 

@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://assets/misc/mana_pot.png" type="Texture" id=1]
 [ext_resource path="res://scripts/ui/ManaPotControlScript.gd" type="Script" id=2]
 [ext_resource path="res://assets/fonts/Born2bSportyV2.ttf" type="DynamicFontData" id=3]
+[ext_resource path="res://assets/UI/hotbar.png" type="Texture" id=4]
 
 [sub_resource type="DynamicFont" id=1]
 size = 60
@@ -19,11 +20,21 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="TextureRect2" type="TextureRect" parent="ManaPotControl"]
+margin_left = 491.664
+margin_right = 507.664
+margin_bottom = 16.0
+rect_scale = Vector2( 6, 6 )
+texture = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="TextureRect" type="TextureRect" parent="ManaPotControl"]
-margin_left = 728.266
-margin_top = 25.9238
-margin_right = 744.266
-margin_bottom = 42.9237
+margin_left = 507.111
+margin_top = 14.0829
+margin_right = 523.111
+margin_bottom = 31.0828
 rect_scale = Vector2( 4, 4 )
 texture = ExtResource( 1 )
 __meta__ = {
@@ -31,10 +42,12 @@ __meta__ = {
 }
 
 [node name="Label" type="Label" parent="ManaPotControl"]
-margin_left = 770.682
-margin_top = 71.2145
-margin_right = 820.682
-margin_bottom = 194.214
+anchor_left = -3.735
+anchor_right = -3.735
+margin_left = 703.427
+margin_top = 60.0
+margin_right = 753.427
+margin_bottom = 183.0
 rect_scale = Vector2( 0.75, 0.75 )
 custom_fonts/font = SubResource( 1 )
 text = "0

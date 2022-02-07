@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://scenes/enemies/bosses/AlphaGuardian.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/menus/HeartUI.tscn" type="PackedScene" id=2]
@@ -9,9 +9,8 @@
 [ext_resource path="res://scenes/menus/ManaUI.tscn" type="PackedScene" id=7]
 [ext_resource path="res://scenes/menus/HealthPotUI.tscn" type="PackedScene" id=8]
 [ext_resource path="res://scenes/menus/OpalsUI.tscn" type="PackedScene" id=9]
-[ext_resource path="res://scenes/Light.tscn" type="PackedScene" id=10]
 [ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=11]
-[ext_resource path="res://scenes/menus/HotbarUI.tscn" type="PackedScene" id=12]
+[ext_resource path="res://scenes/Light.tscn" type="PackedScene" id=12]
 [ext_resource path="res://scripts/Level4.gd" type="Script" id=13]
 [ext_resource path="res://assets/misc/background_2.png" type="Texture" id=14]
 [ext_resource path="res://tilesets/one_way_tilesets.tres" type="TileSet" id=15]
@@ -121,7 +120,7 @@ position = Vector2( 771.666, 483.309 )
 
 [node name="LifeWineUI" parent="." instance=ExtResource( 4 )]
 
-[node name="Light2D" parent="." instance=ExtResource( 10 )]
+[node name="Light2D" parent="." instance=ExtResource( 12 )]
 visible = false
 position = Vector2( 42.8474, 55.0338 )
 scale = Vector2( 39.0286, 28.2626 )

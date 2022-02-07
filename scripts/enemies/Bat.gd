@@ -1,12 +1,13 @@
-extends KinematicBody2D
+class_name Bat extends KinematicBody2D
 
 const TYPE : String = "Enemy"
-const SPEED : int = 155
+var SPEED : int = 180
 var velocity: Vector2 = Vector2.ZERO
 var is_dead : bool = false
 var health : int = 1
 var direction : int = 1
 var player = null
+var drops_loot : bool = true
 const LOOT : PackedScene = preload("res://scenes/items/LootBag.tscn")
 
 func _physics_process(delta):
@@ -17,22 +18,25 @@ func _physics_process(delta):
 			velocity = position.direction_to(player.position) * SPEED
 			velocity = move_and_slide(velocity)
 
+
 func _on_Area2D_area_entered(area):
 	if area.is_in_group("Sword") or area.is_in_group("Fireball"):
-		var loot = LOOT.instance()
-		var lootrng : RandomNumberGenerator = RandomNumberGenerator.new()
-		lootrng.randomize()
-		var randomint = lootrng.randi_range(1,3)
-		if randomint == 1:
-			get_parent().add_child(loot)
-			loot.position = $Position2D.global_position
+		if drops_loot:
+			var loot = LOOT.instance()
+			var lootrng : RandomNumberGenerator = RandomNumberGenerator.new()
+			lootrng.randomize()
+			var randomint = lootrng.randi_range(1,3)
+			if randomint == 1:
+				get_parent().add_child(loot)
+				loot.position = $Position2D.global_position
 		queue_free()
 
 # Player detector
 func _on_Detector_body_entered(body):
 	if body.get("TYPE") == "Player":
 		player = body 
-		
+
 func _on_Detector_body_exited(body):
 	if body.get("TYPE") == "Player":
 		player = null 
+

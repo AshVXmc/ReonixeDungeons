@@ -8,7 +8,6 @@
 extents = Vector2( 10.3028, 6.05448 )
 
 [sub_resource type="DynamicFont" id=3]
-size = 8
 font_data = ExtResource( 3 )
 
 [node name="Chest" type="Node2D"]
@@ -29,16 +28,18 @@ shape = SubResource( 2 )
 frames = ExtResource( 1 )
 animation = "Opened"
 
-[node name="Label" type="Label" parent="."]
-margin_left = -17.9098
-margin_top = -21.0729
-margin_right = 37.0902
-margin_bottom = -6.07293
-custom_fonts/font = SubResource( 3 )
-text = "Open [E]"
-__meta__ = {
-"_edit_use_anchors_": false
-}
+[node name="Label" type="RichTextLabel" parent="."]
+margin_left = -16.0
+margin_top = -20.0
+margin_right = 51.0
+margin_bottom = 2.0
+rect_scale = Vector2( 0.5, 0.5 )
+custom_fonts/normal_font = SubResource( 3 )
+bbcode_enabled = true
+bbcode_text = "Open[img=16
+]res://assets/UI/icon_E.png[/img]"
+text = "Open"
+scroll_active = false
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_Area2D_area_entered"]
 [connection signal="area_exited" from="Area2D" to="." method="_on_Area2D_area_exited"]

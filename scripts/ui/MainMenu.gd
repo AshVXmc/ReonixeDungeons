@@ -1,5 +1,7 @@
 extends Control
 
+func _ready():
+	$NoSaveData.visible = false
 
 func _on_NewGame_pressed():
 	Global.reset_player_data()
@@ -31,7 +33,9 @@ func _on_LoadGame_pressed():			# Load player data
 			yield(get_tree().create_timer(1), "timeout")
 			get_tree().change_scene("res://scenes/levels/" + player_data["Level"] + ".tscn")
 	elif !savefile.file_exists(Global.savepath):
-		print("NO SAVE DATA")
+		$NoSaveData.visible = true
+		yield(get_tree().create_timer(1.5), "timeout")
+		$NoSaveData.visible = false
 
 func _on_HowToPlay_pressed():
 	get_tree().change_scene("res://scenes/menus/HowToPlayMenu.tscn")

@@ -8,7 +8,9 @@ onready var AREA : Area2D = $Area2D
 onready var PLAYER = get_parent().get_node("Player").get_node("Area2D")
 
 func _ready():
-	print(Global.unopened_chests)
+#	Debug
+#	print(Global.unopened_chests)
+
 	chestID =  get_tree().current_scene.name + "_chest"
 	$Label.visible = false
 

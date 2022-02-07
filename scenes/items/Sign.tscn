@@ -37,8 +37,8 @@ margin_right = 85.795
 margin_bottom = -43.4807
 custom_fonts/bold_font = SubResource( 2 )
 bbcode_enabled = true
-bbcode_text = "[b]Read [/b] [img=32]res://assets/UI/icon_E.png[/img]"
-text = "Read  "
+bbcode_text = "[b]Read[/b] [img=32]res://assets/UI/icon_E.png[/img]"
+text = "Read "
 scroll_active = false
 __meta__ = {
 "_edit_use_anchors_": false

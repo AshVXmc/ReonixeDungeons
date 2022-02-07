@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://assets/misc/health_pot.png" type="Texture" id=1]
 [ext_resource path="res://scripts/ui/HealthPotControlScript.gd" type="Script" id=2]
 [ext_resource path="res://assets/fonts/Born2bSportyV2.ttf" type="DynamicFontData" id=3]
+[ext_resource path="res://assets/UI/hotbar.png" type="Texture" id=4]
 
 [sub_resource type="DynamicFont" id=1]
 size = 60
@@ -19,11 +20,21 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="TextureRect2" type="TextureRect" parent="HealthPotControl"]
+margin_left = 319.027
+margin_right = 335.027
+margin_bottom = 16.0
+rect_scale = Vector2( 6, 6 )
+texture = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="TextureRect" type="TextureRect" parent="HealthPotControl"]
-margin_left = 466.021
-margin_top = 22.0463
-margin_right = 482.021
-margin_bottom = 39.0462
+margin_left = 332.885
+margin_top = 11.5
+margin_right = 348.885
+margin_bottom = 28.4999
 rect_scale = Vector2( 4, 4 )
 texture = ExtResource( 1 )
 __meta__ = {
@@ -31,10 +42,12 @@ __meta__ = {
 }
 
 [node name="Label" type="Label" parent="HealthPotControl"]
-margin_left = 512.682
-margin_top = 71.2145
-margin_right = 562.682
-margin_bottom = 194.214
+anchor_left = -3.732
+anchor_right = -3.732
+margin_left = 534.504
+margin_top = 60.0
+margin_right = 584.504
+margin_bottom = 183.0
 rect_scale = Vector2( 0.75, 0.75 )
 custom_fonts/font = SubResource( 1 )
 text = "0

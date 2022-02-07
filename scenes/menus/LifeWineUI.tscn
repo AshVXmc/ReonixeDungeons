@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://assets/misc/life_wine.png" type="Texture" id=1]
 [ext_resource path="res://scripts/ui/LifeWineControl.gd" type="Script" id=2]
 [ext_resource path="res://assets/fonts/Born2bSportyV2.ttf" type="DynamicFontData" id=3]
+[ext_resource path="res://assets/UI/hotbar.png" type="Texture" id=4]
 
 [sub_resource type="DynamicFont" id=1]
 size = 60
@@ -11,7 +12,6 @@ font_data = ExtResource( 3 )
 [node name="LifeWineUI" type="CanvasLayer"]
 
 [node name="LifeWineControl" type="Control" parent="."]
-visible = false
 margin_left = 148.0
 margin_right = 188.0
 margin_bottom = 40.0
@@ -20,11 +20,21 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="TextureRect2" type="TextureRect" parent="LifeWineControl"]
+margin_left = 404.53
+margin_right = 420.53
+margin_bottom = 16.0
+rect_scale = Vector2( 6, 6 )
+texture = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="TextureRect" type="TextureRect" parent="LifeWineControl"]
-margin_left = 598.848
-margin_top = 17.017
-margin_right = 614.848
-margin_bottom = 37.017
+margin_left = 420.094
+margin_top = 6.82335
+margin_right = 436.094
+margin_bottom = 26.8234
 rect_scale = Vector2( 4, 4 )
 texture = ExtResource( 1 )
 __meta__ = {
@@ -32,10 +42,10 @@ __meta__ = {
 }
 
 [node name="Label" type="Label" parent="LifeWineControl"]
-margin_left = 642.682
-margin_top = 71.2145
-margin_right = 692.682
-margin_bottom = 194.214
+margin_left = 472.408
+margin_top = 60.0
+margin_right = 522.408
+margin_bottom = 183.0
 rect_scale = Vector2( 0.75, 0.75 )
 custom_fonts/font = SubResource( 1 )
 text = "0

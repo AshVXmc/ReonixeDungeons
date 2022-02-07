@@ -3,9 +3,7 @@
 [ext_resource path="res://assets/enemies/bosses/shockwave.png" type="Texture" id=1]
 [ext_resource path="res://scripts/enemies/Shockwave.gd" type="Script" id=2]
 
-[node name="Shockwave" type="Area2D" groups=[
-"Enemy",
-]]
+[node name="Shockwave" type="Area2D" groups=["Enemy"]]
 position = Vector2( -1.5874, 21.4299 )
 script = ExtResource( 2 )
 __meta__ = {

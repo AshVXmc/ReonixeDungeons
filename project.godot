@@ -14,10 +14,20 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/enemies/AlphaGuardian.gd"
 }, {
+"base": "KinematicBody2D",
+"class": "Bat",
+"language": "GDScript",
+"path": "res://scripts/enemies/Bat.gd"
+}, {
 "base": "CanvasLayer",
 "class": "DialogueScreen",
 "language": "GDScript",
 "path": "res://scripts/DialogueScreen.gd"
+}, {
+"base": "Bat",
+"class": "Familiar",
+"language": "GDScript",
+"path": "res://scripts/enemies/Familiar.gd"
 }, {
 "base": "Area2D",
 "class": "Fireball",
@@ -45,9 +55,19 @@ _global_script_classes=[ {
 "path": "res://scripts/items/LootBag.gd"
 }, {
 "base": "KinematicBody2D",
+"class": "MaskedGoblin",
+"language": "GDScript",
+"path": "res://scripts/enemies/MaskedGoblin.gd"
+}, {
+"base": "KinematicBody2D",
 "class": "Player",
 "language": "GDScript",
 "path": "res://scripts/Player.gd"
+}, {
+"base": "Area2D",
+"class": "Shuriken",
+"language": "GDScript",
+"path": "res://scripts/enemies/Shuriken.gd"
 }, {
 "base": "Node2D",
 "class": "Sign",
@@ -63,19 +83,29 @@ _global_script_classes=[ {
 "class": "Spider",
 "language": "GDScript",
 "path": "res://scripts/enemies/Spider.gd"
+}, {
+"base": "KinematicBody2D",
+"class": "WitchGoblin",
+"language": "GDScript",
+"path": "res://scripts/enemies/WitchGoblin.gd"
 } ]
 _global_script_class_icons={
 "AlphaGuardian": "",
+"Bat": "",
 "DialogueScreen": "",
+"Familiar": "",
 "Fireball": "",
 "Goblin": "",
 "JesterGoblin": "",
 "LargeSlime": "",
 "LootBag": "",
+"MaskedGoblin": "",
 "Player": "",
+"Shuriken": "",
 "Sign": "",
 "Slime": "",
-"Spider": ""
+"Spider": "",
+"WitchGoblin": ""
 }
 
 [application]
@@ -222,6 +252,11 @@ ui_use={
 ui_debug={
 "deadzone": 0.5,
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777246,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
+}
+lantern_toggle={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":81,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
  ]
 }
 

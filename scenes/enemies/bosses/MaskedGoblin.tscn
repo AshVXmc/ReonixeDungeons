@@ -1,0 +1,112 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://scripts/enemies/MaskedGoblin.gd" type="Script" id=1]
+[ext_resource path="res://assets/enemies/minibosses/masked_goblin_2.png" type="Texture" id=2]
+[ext_resource path="res://assets/enemies/minibosses/masked_goblin_1.png" type="Texture" id=3]
+[ext_resource path="res://assets/UI/healthbar_full.png" type="Texture" id=4]
+
+[sub_resource type="CapsuleShape2D" id=1]
+radius = 32.3549
+height = 22.9521
+
+[sub_resource type="SpriteFrames" id=2]
+animations = [ {
+"frames": [ ExtResource( 2 ), ExtResource( 3 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 50.7446, 50 )
+
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 323.341, 76.9879 )
+
+[node name="MaskedGoblin" type="KinematicBody2D"]
+scale = Vector2( 1.2, 1.2 )
+script = ExtResource( 1 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 5, 6 )
+shape = SubResource( 1 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+scale = Vector2( 5, 5 )
+frames = SubResource( 2 )
+
+[node name="Area2D" type="Area2D" parent="." groups=["Enemy"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2( 3.39843, -0.979891 )
+shape = SubResource( 3 )
+
+[node name="Left" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Left"]
+position = Vector2( -355.486, -27.3338 )
+shape = SubResource( 4 )
+
+[node name="Right" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Right"]
+position = Vector2( 362.518, -27.435 )
+shape = SubResource( 4 )
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+position = Vector2( -32.3726, 7.15712 )
+scale = Vector2( 1.5, 1 )
+enabled = true
+collision_mask = 3075
+collide_with_areas = true
+
+[node name="HurtTimer" type="Timer" parent="."]
+wait_time = 0.8
+one_shot = true
+
+[node name="AttackingTimer" type="Timer" parent="."]
+wait_time = 1.6
+one_shot = true
+
+[node name="ShootTimer" type="Timer" parent="."]
+wait_time = 3.0
+
+[node name="LeftPos" type="Position2D" parent="."]
+position = Vector2( -55.8333, 0 )
+
+[node name="LeftUp" type="Position2D" parent="."]
+position = Vector2( -55.8333, -55 )
+
+[node name="RightPos" type="Position2D" parent="."]
+position = Vector2( 60.8333, 0 )
+
+[node name="RightUp" type="Position2D" parent="."]
+position = Vector2( 60, -55 )
+
+[node name="UpPos" type="Position2D" parent="."]
+position = Vector2( 3.3333, -81.6667 )
+
+[node name="HealthBar" type="TextureProgress" parent="."]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -45.0769
+margin_top = -83.2493
+margin_right = -25.0769
+margin_bottom = -77.2493
+rect_scale = Vector2( 5, 5 )
+max_value = 20.0
+value = 20.0
+texture_progress = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BufferTimer" type="Timer" parent="."]
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_Area2D_area_entered"]
+[connection signal="area_exited" from="Left" to="." method="_on_Left_area_exited"]
+[connection signal="area_exited" from="Right" to="." method="_on_Right_area_exited"]
+[connection signal="timeout" from="HurtTimer" to="." method="_on_HurtTimer_timeout"]
+[connection signal="timeout" from="AttackingTimer" to="." method="_on_AttackingTimer_timeout"]
+[connection signal="timeout" from="ShootTimer" to="." method="_on_ShootTimer_timeout"]
+[connection signal="timeout" from="BufferTimer" to="." method="_on_BufferTimer_timeout"]

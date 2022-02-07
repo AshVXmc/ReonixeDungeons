@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://scripts/ui/MainMenu.gd" type="Script" id=1]
 [ext_resource path="res://assets/fonts/MEGAMAN10.ttf" type="DynamicFontData" id=2]
@@ -15,12 +15,14 @@ font_data = ExtResource( 6 )
 size = 64
 font_data = ExtResource( 2 )
 
+[sub_resource type="DynamicFont" id=9]
+size = 45
+font_data = ExtResource( 6 )
+
 [node name="MainMenu" type="Control"]
-anchor_left = 0.047
 anchor_top = 0.048
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = -50.76
 margin_top = -34.56
 script = ExtResource( 1 )
 __meta__ = {
@@ -154,6 +156,23 @@ custom_fonts/bold_font = SubResource( 8 )
 bbcode_enabled = true
 bbcode_text = "[b]©2022[b]"
 text = "©2022"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="NoSaveData" type="Label" parent="."]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.861
+anchor_right = 0.5
+anchor_bottom = 0.861
+margin_left = -418.0
+margin_top = -22.92
+margin_right = 418.0
+margin_bottom = 23.08
+custom_colors/font_color = Color( 1, 0, 0, 1 )
+custom_fonts/font = SubResource( 9 )
+text = "No save data detected. Please start a new game."
 __meta__ = {
 "_edit_use_anchors_": false
 }
