@@ -17,6 +17,9 @@ Click here for the [Github Repo](https://github.com/AshVXmc/ReonixeDungeons) (mi
 - **F** to shoot fireballs
 - **ESCAPE** to pause the game
 - **1, 2, and 3** to use item slots
+- **/** to access the debug console
+- **F3** to toggle the FPS counter
+
 
 ## License and Extras
 License for this game and repository can be viewed [here](https://github.com/AshVXmc/ReonixeDungeons/blob/main/LICENSE). The license is subject to change.
@@ -29,6 +32,9 @@ For bugs and issues check out [this repository page](https://gitlab.com/AshVXmc/
 - [BFXR](https://www.bfxr.net/) for Audio
 - [Adobe photoshop](https://www.photoshop.com/en) for art
 - [A pixel art scaler tool](https://lospec.com/pixel-art-scaler/) on the web
+
+## Debug console commands
+TODO
 
 ## How to push files (Self note)
 1. Git Bash on the folder

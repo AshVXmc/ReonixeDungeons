@@ -27,7 +27,6 @@ func _on_LoadGame_pressed():			# Load player data
 			Global.dash_unlocked = player_data["DashUnlocked"]
 			Global.glide_unlocked = player_data["GlideUnlocked"]
 			Global.unopened_chests = player_data["ChestUnopened"]
-			Global.player_position = player_data["PlayerPos"]
 			$SceneTransition/ColorRect.visible = true
 			$SceneTransition.transition()
 			yield(get_tree().create_timer(1), "timeout")

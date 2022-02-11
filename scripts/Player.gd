@@ -35,6 +35,7 @@ var is_healing : bool = false
 var is_shopping : bool = false
 
 
+
 func _ready():
 		# warning-ignore:return_value_discarded
 	connect("life_changed", get_parent().get_node("HeartUI/Life"), "on_player_life_changed")
@@ -66,13 +67,14 @@ func _ready():
 	connect("manapot_obtained", Global, "sync_playerManapots")
 	emit_signal("manapot_obtained", Global.manapot_amount)
 	
+	
 	connect("opals_obtained", Global, "sync_playerOpals")
 	emit_signal("opals_obtained", Global.opals_amount)
 	
 
 func _physics_process(_delta):
 	# Makes sure the player is alive to use any movement controls
-	if !is_dead and !is_invulnerable and !is_healing:
+	if !is_dead and !is_invulnerable and !is_healing and !is_shopping:
 		# Function calls
 		attack()
 		dash()
@@ -135,8 +137,9 @@ func shoot():
 			fireball.flip_fireball(-1) if sign($Position2D.position.x) == -1 else fireball.flip_fireball(1)	
 			get_parent().add_child(fireball)
 			fireball.position = $Position2D.global_position
-			Global.mana -= 1
-			emit_signal("mana_changed", Global.mana)
+			if !Global.godmode:
+				Global.mana -= 1
+				emit_signal("mana_changed", Global.mana)
 			is_attacking = false
 			$AttackCollision/CollisionShape2D.disabled = true
 
@@ -171,20 +174,22 @@ func _on_Area2D_area_entered(area : Area2D):
 	if area.is_in_group("LifeWine"):
 		Global.lifewine_amount += 1
 		emit_signal("lifewine_obtained", Global.lifewine_amount)
-	if inv_timer.is_stopped():
-		if area.is_in_group("Enemy") or area.is_in_group("Fireball"):
+	if !Global.godmode:
+		if inv_timer.is_stopped():
+			if area.is_in_group("Enemy") or area.is_in_group("Fireball"):
+				Global.hearts -= 0.5
+				afterDamaged()
+				knockback()
+			if area.is_in_group("Enemy2"):
+				Global.hearts -= 1
+				afterDamaged()
+				knockback()
+		if area.is_in_group("Spike"):
 			Global.hearts -= 0.5
 			afterDamaged()
-			knockback()
-		if area.is_in_group("Enemy2"):
-			Global.hearts -= 1
-			afterDamaged()
-			knockback()
+
 	if area.is_in_group("Transporter"):
 		emit_signal("level_changed")
-	if area.is_in_group("Spike"):
-		Global.hearts -= 0.5
-		afterDamaged()
 
 
 func attack_knock():
@@ -207,9 +212,9 @@ func _on_AttackCollision_area_entered(area):
 		Global.mana += Global.max_mana - Global.mana
 		emit_signal("life_changed", Global.hearts)
 		emit_signal("mana_changed", Global.mana)
-	var lootrng : RandomNumberGenerator = RandomNumberGenerator.new()
-	lootrng.randomize()
-	var randomint = lootrng.randi_range(1,2)
+	var rng : RandomNumberGenerator = RandomNumberGenerator.new()
+	rng.randomize()
+	var randomint = rng.randi_range(1,2)
 	if area.is_in_group("Enemy") or area.is_in_group("Enemy2") and !$AttackCollision/CollisionShape2D.disabled:
 		attack_knock()
 		if Global.mana < Global.max_mana:
@@ -250,8 +255,9 @@ func dash():
 		if $Sprite.flip_h:
 			dashdirection = Vector2(-1, 0)		
 		if Input.is_action_just_pressed("ui_dash") and can_dash and $DashUseTimer.is_stopped() and Global.mana > 0:
-			Global.mana -= 1
-			emit_signal("mana_changed", Global.mana)
+			if !Global.godmode:
+				Global.mana -= 1
+				emit_signal("mana_changed", Global.mana)
 			can_dash = false
 			$DashUseTimer.start()
 			$Sprite.play("Dash")
@@ -277,8 +283,9 @@ func glide():
 			$Sprite.play("Glide")
 		velocity.y = 0
 		velocity.y += GRAVITY
-		Global.mana -= 3
-		emit_signal("mana_changed", Global.mana)
+		if !Global.godmode:
+			Global.mana -= 3
+			emit_signal("mana_changed", Global.mana)
 		if Input.is_action_just_released("jump"):
 			is_gliding = false
 			velocity.y += GRAVITY * 2
@@ -340,15 +347,15 @@ func on_lootbag_obtained():
 	lootrng.randomize()
 	opalrng.randomize()
 	var num  = lootrng.randi_range(1,10)
-	var opalnum = opalrng.randi_range(5,10)
-	if num <= 4:
+	var opalnum = opalrng.randi_range(5,15)
+	if num <= 4 and Global.healthpot_amount < Global.max_item_storage:
 		Global.healthpot_amount += 1
 		emit_signal("healthpot_obtained", Global.healthpot_amount)
-	elif num >= 5 and num <= 8:
+	elif num >= 5 and num <= 8 and Global.manapot_amount < Global.max_item_storage:
 		pass
 		Global.manapot_amount += 1
 		emit_signal("manapot_obtained", Global.manapot_amount)
-	else:
+	elif Global.lifewine_amount < Global.max_item_storage:
 		Global.lifewine_amount += 1
 		emit_signal("lifewine_obtained", Global.lifewine_amount)
 		
@@ -363,7 +370,42 @@ func on_Item_bought(item_name : String, item_price : int):
 		"HealthPot":
 			Global.healthpot_amount += 1
 			emit_signal("healthpot_obtained", Global.healthpot_amount)
+		"ManaPot":
+			Global.manapot_amount += 1
+			emit_signal("manapot_obtained", Global.manapot_amount)
+		"LifeWine":
+			Global.lifewine_amount += 1
+		"ItemPouch_1":
+			pass
 
+
+func debug_commands(cmd : String):
+	match cmd:
+		"opened":
+			is_shopping = true
+		"closed":
+			is_shopping = false
+		"fullhealth":
+			Global.hearts += Global.max_hearts - Global.hearts
+			emit_signal("life_changed", Global.hearts)
+		"fullmana":
+			Global.mana += Global.max_mana - Global.mana
+			emit_signal("mana_changed", Global.mana)
+		"fullopals":
+			Global.opals_amount += 999 - Global.opals_amount
+			emit_signal("opals_obtained", Global.opals_amount)
+		"killall":
+			for enemy in get_tree().get_nodes_in_group("Enemy"):
+				enemy.queue_free()
+		"fullhpots":
+			Global.healthpot_amount += Global.max_item_storage - Global.healthpot_amount
+			emit_signal("healthpot_obtained", Global.healthpot_amount)
+		"fullmpots":
+			Global.manapot_amount += Global.max_item_storage - Global.manapot_amount
+			emit_signal("manapot_obtained", Global.manapot_amount)
+		"fullwine":
+			Global.lifewine_amount += Global.max_item_storage - Global.lifewine_amount
+			emit_signal("lifewine_obtained", Global.lifewine_amount)
 # Handles what happens when timers runs out
 func _on_Timer_timeout():
 # warning-ignore:return_value_discarded

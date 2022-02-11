@@ -8,23 +8,27 @@ var mana : int = max_mana
 var healthpot_amount : int = 0
 var lifewine_amount : int = 0
 var manapot_amount : int = 0
-var opals_amount : int = 1
+var opals_amount : int = 0
 var unopened_chests := ["Level1_chest"]
 const SAVE_DIR : String = "user://savedata/"
 var savepath : String = SAVE_DIR + "savefile.dat"
 var dash_unlocked : bool = false
 var glide_unlocked : bool = false
+var max_item_storage : int = 3
+# Unsaved conditions
+var godmode : bool = false
 
 func reset_player_data():
 	# Default player data
-	Global.hearts = 3
+	Global.hearts = 2
 	Global.mana = 4
-	Global.healthpot_amount = 1
+	Global.healthpot_amount = 2
 	Global.lifewine_amount = 1
 	Global.manapot_amount = 1
 	Global.opals_amount = 0
 	Global.dash_unlocked = false
 	Global.glide_unlocked = false
+	Global.max_item_storage = 3
 	
 
 func reset_chest_data():
@@ -51,7 +55,8 @@ func save_player_data():
 		"Opals" : Global.opals_amount ,
 		"DashUnlocked" : Global.dash_unlocked ,
 		"GlideUnlocked" : Global.glide_unlocked,
-		"ChestUnopened": Global.unopened_chests
+		"ChestUnopened": Global.unopened_chests,
+		"MaxItemStorage":  Global.max_item_storage
 	}
 
 	var savefile : File = File.new()

@@ -13,7 +13,7 @@ func _process(delta):
 	FPS = frametimes.size()
 	$Label.text = "FPS:" + str(FPS)
 	
-	if Input.is_action_just_pressed("ui_debug"):
+	if Input.is_action_just_pressed("ui_fpscounter"):
 		$Label.visible = true if !$Label.visible else false
 
 	

@@ -3,6 +3,7 @@ extends Control
 signal item_bought(item_name, item_price)
 var heart : String = "[img=32]res://assets/UI/heart.png[/img]"
 var mana : String = "[img=32]res://assets/UI/mana.png[/img]"
+var maxstorage : String = str(Global.max_item_storage)
 
 func _ready():
 	connect("item_bought", get_parent().get_parent().get_parent().get_node("Player"), "on_Item_bought")
@@ -19,6 +20,10 @@ func _ready():
 		3:
 			$FlavorText.bbcode_text = "Shop more. Live longer. That's my motto."
 
+#func _on_Exit_pressed():
+#	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
+#	get_tree().paused = false
+#	self.visible = false
 
 
 func _process(delta):
@@ -28,21 +33,43 @@ func _process(delta):
 #		self.visible = true
 	
 func _on_HealthPotButton_pressed():
-#	print("code worked")
-	if Global.opals_amount >= 10:
-		emit_signal("item_bought", "HealthPot", 10)
+	if Global.opals_amount >= 20:
+		if Global.healthpot_amount == Global.max_item_storage:
+			$FlavorText.bbcode_text = "You can't hold more than " + maxstorage + " of this"
+		else:
+			$FlavorText.bbcode_text = "Thank you for your purchase."
+			emit_signal("item_bought", "HealthPot", 20)
 		
 func _on_HealthPotButton_mouse_entered():
-	$FlavorText.bbcode_text = "A flask filled with hearty red liquid, tastes like sweetened lemon juice. Heals for 1" + heart + ", and takes one second to consume."
-
+	$FlavorText.bbcode_text = "A flask filled with hearty red liquid, tastes like sweetened lemon juice. Heals for 1" + heart + ", and takes one second to consume. You can hold " + maxstorage + " of this at a time." 
 
 func _on_HealthPotButton_mouse_exited():
 	$FlavorText.bbcode_text = ""
 
+func _on_ManaPotButton_pressed():
+	if Global.opals_amount >= 20:
+		if Global.manapot_amount == Global.max_item_storage:
+			$FlavorText.bbcode_text = "You can't hold more than " + maxstorage + " of this"
+		else:
+			$FlavorText.bbcode_text = "Thank you for your purchase."
+			emit_signal("item_bought", "ManaPot", 20)
 
+func _on_ManaPotButton_mouse_entered():
+	$FlavorText.bbcode_text = "Magical, glowing and swirling blue liquid that restores your Mana" + mana + "to full. This takes two seconds to consume. You can hold " + maxstorage + " of this at a time."
 
-#func _on_Exit_pressed():
-#	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
-#	get_tree().paused = false
-#	self.visible = false
+func _on_ManaPotButton_mouse_exited():
+	$FlavorText.bbcode_text = ""
 
+func _on_LifeWineButton_pressed():
+	if Global.opals_amount >= 45:
+		if Global.healthpot_amount == Global.max_item_storage:
+			$FlavorText.bbcode_text = "You can't hold more than " + maxstorage + " of this"
+		else:
+			$FlavorText.bbcode_text = "Thank you for your purchase."
+			emit_signal("item_bought", "HealthPot", 20)
+
+func _on_LifeWineButton_mouse_entered():
+	pass # Replace with function body.
+
+func _on_LifeWineButton_mouse_exited():
+	pass # Replace with function body.

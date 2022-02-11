@@ -7,7 +7,7 @@ var direction : int = 1
 var is_dead : bool = false 
 const TYPE : String = "Enemy"
 const FLOOR = Vector2(0, -1)
-const SPEED : int = 350
+const SPEED : int = 280
 const GRAVITY : int = 45
 var is_staggered : bool = false
 

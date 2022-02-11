@@ -4,6 +4,7 @@ signal playerpos(ppos)
 onready var gameover : Control = get_parent().get_node("GameOver")
 onready var player : KinematicBody2D = get_parent().get_parent().get_node("Player")
 
+
 func _ready():
 	connect("playerpos", Global, "player_position")
 	self.visible = false
@@ -14,7 +15,6 @@ func _process(delta):
 		if !get_tree().paused:
 			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 			get_tree().paused = true
-#			notpaused = false
 			visible = true
 			
 func _on_ResumeButton_pressed():

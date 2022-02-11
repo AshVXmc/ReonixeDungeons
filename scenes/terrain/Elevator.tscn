@@ -1,0 +1,65 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://assets/terrain/elevator_opened.png" type="Texture" id=1]
+[ext_resource path="res://scripts/terrain/Elevator.gd" type="Script" id=2]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 39.8138, 9.72553 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 2.26907, 27.2299 )
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 15.4164, 20.898 )
+
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 39.545, 2.45902 )
+
+[sub_resource type="RectangleShape2D" id=5]
+extents = Vector2( 39.4944, 2.47208 )
+
+[node name="Elevator" type="KinematicBody2D"]
+scale = Vector2( 2.25, 2.25 )
+script = ExtResource( 2 )
+
+[node name="Sprite" type="Sprite" parent="."]
+scale = Vector2( 5, 5 )
+texture = ExtResource( 1 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0.0298195, 50.17 )
+shape = SubResource( 1 )
+
+[node name="LeftBarrier" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftBarrier"]
+position = Vector2( -37.3911, 2.3257 )
+shape = SubResource( 2 )
+
+[node name="RightBarrier" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RightBarrier"]
+position = Vector2( 37.3408, 2.27225 )
+shape = SubResource( 2 )
+
+[node name="Detector" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Detector"]
+position = Vector2( -0.277401, 13.7461 )
+shape = SubResource( 3 )
+
+[node name="TopBarrier" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TopBarrier"]
+position = Vector2( -0.272722, -32.7479 )
+shape = SubResource( 4 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2( 0.288291, 37.3572 )
+shape = SubResource( 5 )
+
+[node name="Timer" type="Timer" parent="."]
+
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

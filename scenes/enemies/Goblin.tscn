@@ -30,7 +30,7 @@ extents = Vector2( 180.973, 50.3433 )
 radius = 41.8011
 height = 40.2918
 
-[node name="Goblin" type="KinematicBody2D"]
+[node name="Goblin" type="KinematicBody2D" groups=["Enemy"]]
 position = Vector2( 0.471924, 0 )
 script = ExtResource( 2 )
 

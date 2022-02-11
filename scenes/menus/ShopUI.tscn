@@ -17,7 +17,7 @@ size = 50
 font_data = ExtResource( 1 )
 
 [sub_resource type="DynamicFont" id=4]
-size = 30
+size = 26
 extra_spacing_bottom = 5
 font_data = ExtResource( 1 )
 
@@ -50,7 +50,6 @@ __meta__ = {
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="Main" type="Control" parent="CanvasLayer"]
-visible = false
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -95,6 +94,7 @@ margin_left = -67.0194
 margin_top = 53.5248
 margin_right = 52.9807
 margin_bottom = 173.524
+rect_scale = Vector2( 0.75, 0.75 )
 color = Color( 0.00392157, 0.639216, 0.917647, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -123,7 +123,7 @@ margin_top = 69.4901
 margin_right = 179.871
 margin_bottom = 120.49
 custom_fonts/font = SubResource( 3 )
-text = "10"
+text = "20"
 
 [node name="Opal" type="Sprite" parent="CanvasLayer/Main/HealthPot"]
 position = Vector2( 202.234, 92.6534 )
@@ -132,9 +132,10 @@ texture = ExtResource( 4 )
 
 [node name="ManaPot" type="ColorRect" parent="CanvasLayer/Main"]
 margin_left = -67.019
-margin_top = 192.009
+margin_top = 161.009
 margin_right = 52.9813
-margin_bottom = 312.009
+margin_bottom = 281.009
+rect_scale = Vector2( 0.75, 0.75 )
 color = Color( 0.00392157, 0.639216, 0.917647, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -163,7 +164,10 @@ margin_top = 69.4901
 margin_right = 179.871
 margin_bottom = 120.49
 custom_fonts/font = SubResource( 3 )
-text = "10"
+text = "20"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Opal" type="Sprite" parent="CanvasLayer/Main/ManaPot"]
 position = Vector2( 202.234, 92.6534 )
@@ -171,10 +175,11 @@ scale = Vector2( 3, 3 )
 texture = ExtResource( 4 )
 
 [node name="LifeWine" type="ColorRect" parent="CanvasLayer/Main"]
-margin_left = 213.943
-margin_top = 53.525
-margin_right = 333.943
-margin_bottom = 173.525
+margin_left = -67.3317
+margin_top = 262.826
+margin_right = 52.6683
+margin_bottom = 382.826
+rect_scale = Vector2( 0.75, 0.75 )
 color = Color( 0.00392157, 0.639216, 0.917647, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -185,7 +190,7 @@ position = Vector2( 57.9401, 57.9401 )
 scale = Vector2( 6, 6 )
 texture = ExtResource( 7 )
 
-[node name="ManaPotButton" type="Button" parent="CanvasLayer/Main/LifeWine"]
+[node name="LifeWineButton" type="Button" parent="CanvasLayer/Main/LifeWine"]
 margin_left = 126.796
 margin_top = -0.318176
 margin_right = 246.796
@@ -203,7 +208,7 @@ margin_top = 69.4901
 margin_right = 181.871
 margin_bottom = 120.49
 custom_fonts/font = SubResource( 3 )
-text = "25"
+text = "45"
 
 [node name="Opal" type="Sprite" parent="CanvasLayer/Main/LifeWine"]
 position = Vector2( 202.234, 92.6534 )
@@ -211,10 +216,10 @@ scale = Vector2( 3, 3 )
 texture = ExtResource( 4 )
 
 [node name="TextureRect" type="TextureRect" parent="CanvasLayer/Main"]
-margin_left = -66.8512
-margin_top = 337.614
-margin_right = 333.149
-margin_bottom = 457.614
+margin_left = -67.0
+margin_top = 364.0
+margin_right = 333.0
+margin_bottom = 467.0
 rect_scale = Vector2( 1.5, 1.5 )
 texture = ExtResource( 6 )
 expand = true
@@ -223,10 +228,10 @@ __meta__ = {
 }
 
 [node name="FlavorText" type="RichTextLabel" parent="CanvasLayer/Main"]
-margin_left = -49.7491
-margin_top = 356.502
-margin_right = 514.251
-margin_bottom = 500.502
+margin_left = -50.0
+margin_top = 381.0
+margin_right = 514.0
+margin_bottom = 501.0
 custom_fonts/normal_font = SubResource( 4 )
 bbcode_enabled = true
 scroll_active = false
@@ -238,5 +243,9 @@ __meta__ = {
 [connection signal="mouse_entered" from="CanvasLayer/Main/HealthPot/HealthPotButton" to="CanvasLayer/Main" method="_on_HealthPotButton_mouse_entered"]
 [connection signal="mouse_exited" from="CanvasLayer/Main/HealthPot/HealthPotButton" to="CanvasLayer/Main" method="_on_HealthPotButton_mouse_exited"]
 [connection signal="pressed" from="CanvasLayer/Main/HealthPot/HealthPotButton" to="CanvasLayer/Main" method="_on_HealthPotButton_pressed"]
-[connection signal="pressed" from="CanvasLayer/Main/ManaPot/ManaPotButton" to="CanvasLayer/Main" method="_on_HealthPotButton_pressed"]
-[connection signal="pressed" from="CanvasLayer/Main/LifeWine/ManaPotButton" to="CanvasLayer/Main" method="_on_HealthPotButton_pressed"]
+[connection signal="mouse_entered" from="CanvasLayer/Main/ManaPot/ManaPotButton" to="CanvasLayer/Main" method="_on_ManaPotButton_mouse_entered"]
+[connection signal="mouse_exited" from="CanvasLayer/Main/ManaPot/ManaPotButton" to="CanvasLayer/Main" method="_on_ManaPotButton_mouse_exited"]
+[connection signal="pressed" from="CanvasLayer/Main/ManaPot/ManaPotButton" to="CanvasLayer/Main" method="_on_ManaPotButton_pressed"]
+[connection signal="mouse_entered" from="CanvasLayer/Main/LifeWine/LifeWineButton" to="CanvasLayer/Main" method="_on_LifeWineButton_mouse_entered"]
+[connection signal="mouse_exited" from="CanvasLayer/Main/LifeWine/LifeWineButton" to="CanvasLayer/Main" method="_on_LifeWineButton_mouse_exited"]
+[connection signal="pressed" from="CanvasLayer/Main/LifeWine/LifeWineButton" to="CanvasLayer/Main" method="_on_LifeWineButton_pressed"]

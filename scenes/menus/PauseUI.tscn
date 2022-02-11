@@ -29,9 +29,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 margin_left = -421.0
-margin_top = -178.0
+margin_top = -230.0
 margin_right = 435.0
-margin_bottom = 231.0
+margin_bottom = 255.0
 script = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -39,17 +39,17 @@ __meta__ = {
 
 [node name="ColorRect" type="ColorRect" parent="Pause"]
 margin_right = 857.0
-margin_bottom = 408.0
+margin_bottom = 472.0
 color = Color( 0.0196078, 0.0196078, 0.0196078, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Blur" type="ColorRect" parent="Pause"]
-margin_left = -614.0
-margin_top = -365.0
-margin_right = 1566.0
-margin_bottom = 804.0
+margin_left = -666.0
+margin_top = -275.0
+margin_right = 1514.0
+margin_bottom = 894.0
 color = Color( 0.0196078, 0.0196078, 0.0196078, 0.470588 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -59,9 +59,9 @@ __meta__ = {
 anchor_top = 0.5
 anchor_bottom = 0.5
 margin_left = 76.0
-margin_top = -75.0
+margin_top = -142.5
 margin_right = 226.0
-margin_bottom = 75.0
+margin_bottom = 7.5
 custom_fonts/font = ExtResource( 3 )
 icon = ExtResource( 4 )
 flat = true
@@ -76,9 +76,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 margin_left = -75.0
-margin_top = -75.0
+margin_top = -142.5
 margin_right = 75.0
-margin_bottom = 75.0
+margin_bottom = 7.5
 icon = ExtResource( 6 )
 flat = true
 expand_icon = true
@@ -92,9 +92,9 @@ anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
 margin_left = -220.0
-margin_top = -75.0002
+margin_top = -142.5
 margin_right = -70.0
-margin_bottom = 75.0002
+margin_bottom = 7.50038
 custom_fonts/font = ExtResource( 3 )
 icon = ExtResource( 5 )
 flat = true
@@ -105,9 +105,9 @@ __meta__ = {
 
 [node name="Label" type="Label" parent="Pause"]
 margin_left = 77.4022
-margin_top = 278.102
+margin_top = 254.102
 margin_right = 227.402
-margin_bottom = 324.102
+margin_bottom = 300.102
 custom_fonts/font = SubResource( 1 )
 text = "Resume"
 align = 1
@@ -117,9 +117,9 @@ __meta__ = {
 
 [node name="Label2" type="Label" parent="Pause"]
 margin_left = 348.65
-margin_top = 276.074
+margin_top = 256.074
 margin_right = 498.65
-margin_bottom = 322.074
+margin_bottom = 302.074
 custom_fonts/font = SubResource( 1 )
 text = "Save"
 align = 1
@@ -128,10 +128,10 @@ __meta__ = {
 }
 
 [node name="Label3" type="Label" parent="Pause"]
-margin_left = 628.326
-margin_top = 277.13
-margin_right = 778.326
-margin_bottom = 323.13
+margin_left = 634.326
+margin_top = 255.13
+margin_right = 784.326
+margin_bottom = 301.13
 custom_fonts/font = SubResource( 1 )
 text = "Exit"
 align = 1

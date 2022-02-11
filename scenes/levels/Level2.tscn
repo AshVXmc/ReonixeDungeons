@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://tilesets/Default.tres" type="TileSet" id=1]
 [ext_resource path="res://scenes/items/ManaShrine.tscn" type="PackedScene" id=2]
@@ -19,7 +19,6 @@
 [ext_resource path="res://scenes/enemies/JesterGoblin.tscn" type="PackedScene" id=17]
 [ext_resource path="res://scenes/enemies/Goblin.tscn" type="PackedScene" id=18]
 [ext_resource path="res://scenes/items/LevelTransporter.tscn" type="PackedScene" id=19]
-[ext_resource path="res://scenes/menus/ShopUI.tscn" type="PackedScene" id=20]
 [ext_resource path="res://scenes/items/Campfire.tscn" type="PackedScene" id=21]
 
 [node name="Level2" type="Node2D"]
@@ -38,8 +37,6 @@ Text = "Press and hold E to rest at campfires. Resting will take some time but i
 [node name="LevelTransporterStart" parent="." instance=ExtResource( 19 )]
 position = Vector2( 214.427, 111.948 )
 Destination = "res://scenes/levels/Level1.tscn"
-
-[node name="ShopUI" parent="." instance=ExtResource( 20 )]
 
 [node name="ManaShrine" parent="." instance=ExtResource( 2 )]
 position = Vector2( 1249.09, 361.329 )
@@ -88,8 +85,6 @@ __meta__ = {
 
 [node name="PauseUI" parent="." instance=ExtResource( 13 )]
 
-[node name="FPSCounter" parent="." instance=ExtResource( 7 )]
-
 [node name="HealthPotUI" parent="." instance=ExtResource( 6 )]
 
 [node name="HeartUI" parent="." instance=ExtResource( 4 )]
@@ -116,3 +111,5 @@ position = Vector2( 2767.32, 313.601 )
 position = Vector2( 1540.87, 302.04 )
 
 [node name="SceneTransition" parent="." instance=ExtResource( 15 )]
+
+[node name="FPSCounter" parent="." instance=ExtResource( 7 )]

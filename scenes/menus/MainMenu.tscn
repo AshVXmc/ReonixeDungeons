@@ -1,7 +1,7 @@
 [gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://scripts/ui/MainMenu.gd" type="Script" id=1]
-[ext_resource path="res://assets/fonts/MEGAMAN10.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://assets/fonts/FFFFORWA.ttf" type="DynamicFontData" id=2]
 [ext_resource path="res://assets/themes/MainMenuFonts.tres" type="DynamicFont" id=4]
 [ext_resource path="res://scenes/menus/SceneTransition.tscn" type="PackedScene" id=5]
 [ext_resource path="res://assets/fonts/Born2bSportyV2.ttf" type="DynamicFontData" id=6]
@@ -11,8 +11,10 @@
 size = 72
 font_data = ExtResource( 6 )
 
-[sub_resource type="DynamicFont" id=8]
-size = 64
+[sub_resource type="DynamicFont" id=10]
+size = 32
+outline_size = 5
+outline_color = Color( 0, 0.105882, 0.309804, 1 )
 font_data = ExtResource( 2 )
 
 [sub_resource type="DynamicFont" id=9]
@@ -20,10 +22,8 @@ size = 45
 font_data = ExtResource( 6 )
 
 [node name="MainMenu" type="Control"]
-anchor_top = 0.048
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_top = -34.56
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -131,9 +131,9 @@ anchor_top = 0.767
 anchor_right = 0.499
 anchor_bottom = 0.767
 margin_left = -163.709
-margin_top = -39.201
+margin_top = -38.201
 margin_right = 164.291
-margin_bottom = 38.799
+margin_bottom = 39.799
 custom_colors/font_color_hover = Color( 1, 0.843137, 0.0117647, 1 )
 custom_fonts/font = SubResource( 3 )
 text = "Exit"
@@ -142,20 +142,18 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="RichTextLabel" type="RichTextLabel" parent="."]
+[node name="Label" type="Label" parent="."]
 anchor_left = 0.932
 anchor_top = 0.969
 anchor_right = 0.932
 anchor_bottom = 0.969
-margin_left = -91.1481
-margin_top = -30.7421
-margin_right = 90.85
-margin_bottom = 31.2579
-custom_colors/default_color = Color( 1, 1, 1, 1 )
-custom_fonts/bold_font = SubResource( 8 )
-bbcode_enabled = true
-bbcode_text = "[b]©2022[b]"
-text = "©2022"
+margin_left = -256.452
+margin_top = -40.0045
+margin_right = 55.5479
+margin_bottom = 6.99554
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_fonts/font = SubResource( 10 )
+text = "Pre-alpha build"
 __meta__ = {
 "_edit_use_anchors_": false
 }

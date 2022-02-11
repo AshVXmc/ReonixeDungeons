@@ -10,7 +10,7 @@ extents = Vector2( 26.36, 15.1008 )
 radius = 24.1874
 height = 27.7594
 
-[node name="Slime" type="KinematicBody2D"]
+[node name="Slime" type="KinematicBody2D" groups=["Enemy"]]
 position = Vector2( 0, -13.2945 )
 script = ExtResource( 1 )
 __meta__ = {

@@ -8,14 +8,14 @@
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
-"frames": [ ExtResource( 2 ) ],
-"loop": true,
-"name": "default",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 3 ), ExtResource( 4 ), ExtResource( 1 ) ],
 "loop": true,
 "name": "summoning",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 2 ) ],
+"loop": true,
+"name": "default",
 "speed": 5.0
 } ]
 
@@ -30,7 +30,7 @@ height = 9.06714
 [sub_resource type="RectangleShape2D" id=4]
 extents = Vector2( 35.5444, 23.3822 )
 
-[node name="WitchGoblin" type="KinematicBody2D"]
+[node name="WitchGoblin" type="KinematicBody2D" groups=["Enemy"]]
 scale = Vector2( 5, 5 )
 script = ExtResource( 5 )
 
@@ -52,7 +52,6 @@ shape = SubResource( 3 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Left"]
 position = Vector2( -43.4761, -10.5656 )
-scale = Vector2( 1, 1 )
 shape = SubResource( 4 )
 
 [node name="Right" type="Area2D" parent="."]
