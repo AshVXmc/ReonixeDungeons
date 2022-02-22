@@ -1,12 +1,17 @@
 class_name Spider extends KinematicBody2D
 
-export var HP : int = 2
+
+enum clingside {Down, Left, Right}
+export (clingside) var Cling
+
+var HP : int = 2
 var velocity : Vector2 = Vector2()
 var is_dead : bool = false 
 var direction : int = 1
 var jumping : int = 1
 const TYPE : String = "Enemy"
-const FLOOR = Vector2(0, 1)
+const FLOOR_DOWN = Vector2(0, 1)
+const FLOOR_LEFT = Vector2(-1, 0)
 const SPEED : int = -100
 const GRAVITY : int = -45
 const LOOT : PackedScene = preload("res://scenes/items/LootBag.tscn")
@@ -14,21 +19,30 @@ const LOOT : PackedScene = preload("res://scenes/items/LootBag.tscn")
 func _ready():
 	$JumpTimer.start()
 func _physics_process(delta):
-	velocity.x = SPEED * direction
-	velocity.y += GRAVITY
-	if direction == 1 and !is_dead:
-		$AnimatedSprite.flip_h = false
-	elif !is_dead:
-		$AnimatedSprite.flip_h = true
+	if Cling == clingside.Down:
+		if direction == 1 and !is_dead:
+			$AnimatedSprite.flip_h = false
+		elif !is_dead:
+			$AnimatedSprite.flip_h = true
 	if !is_dead:
 		$AnimatedSprite.play("slimeanim")
 	
-	
-	velocity = move_and_slide(velocity, FLOOR)
+	match Cling:
+		clingside.Down:
+			rotation_degrees = 180
+			velocity.x = SPEED * direction
+			velocity.y += GRAVITY
+			velocity = move_and_slide(velocity, FLOOR_DOWN)
+		clingside.Left:
+			rotation_degrees = 90
+			velocity.y = SPEED * direction
+			velocity = move_and_slide(velocity, FLOOR_LEFT)
+		
 	
 	if is_on_wall() or !$RayCast2D.is_colliding():
-		direction *= -1
-		$RayCast2D.position.x *= -1
+		if Cling == clingside.Down:
+			direction *= -1
+			$RayCast2D.position.x *= -1
 
 func _on_Area2D_area_entered(area):
 	if area.is_in_group("Sword") and HP > 0:

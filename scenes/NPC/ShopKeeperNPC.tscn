@@ -36,9 +36,9 @@ position = Vector2( 0.267738, 1.03817 )
 shape = SubResource( 2 )
 
 [node name="Label" type="RichTextLabel" parent="."]
-margin_left = -74.7331
+margin_left = -64.6309
 margin_top = -116.965
-margin_right = 86.2669
+margin_right = 96.3691
 margin_bottom = -68.9653
 custom_fonts/bold_font = SubResource( 3 )
 bbcode_enabled = true

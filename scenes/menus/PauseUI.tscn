@@ -1,9 +1,10 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=12 format=2]
 
+[ext_resource path="res://themes/Blur.tres" type="Material" id=1]
 [ext_resource path="res://scripts/ui/PauseScript.gd" type="Script" id=2]
 [ext_resource path="res://assets/fonts/buttonfont.tres" type="DynamicFont" id=3]
 [ext_resource path="res://assets/UI/pauseicon.png" type="Texture" id=4]
-[ext_resource path="res://assets/UI/mainmenubutton.png" type="Texture" id=5]
+[ext_resource path="res://assets/UI/quiticon.png" type="Texture" id=5]
 [ext_resource path="res://assets/UI/savebutton.png" type="Texture" id=6]
 [ext_resource path="res://assets/fonts/Born2bSportyV2.ttf" type="DynamicFontData" id=7]
 
@@ -11,12 +12,15 @@
 size = 45
 font_data = ExtResource( 7 )
 
-[sub_resource type="DynamicFont" id=2]
+[sub_resource type="DynamicFont" id=3]
 size = 75
 font_data = ExtResource( 7 )
 
-[sub_resource type="DynamicFont" id=3]
-size = 85
+[sub_resource type="DynamicFont" id=4]
+font_data = ExtResource( 7 )
+
+[sub_resource type="DynamicFont" id=5]
+size = 55
 font_data = ExtResource( 7 )
 
 [node name="PauseUI" type="CanvasLayer"]
@@ -29,28 +33,34 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 margin_left = -421.0
-margin_top = -230.0
+margin_top = -232.0
 margin_right = 435.0
-margin_bottom = 255.0
+margin_bottom = 239.0
 script = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ColorRect" type="ColorRect" parent="Pause"]
-margin_right = 857.0
-margin_bottom = 472.0
-color = Color( 0.0196078, 0.0196078, 0.0196078, 1 )
+[node name="Blur" type="ColorRect" parent="Pause"]
+material = ExtResource( 1 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -1090.0
+margin_top = -584.5
+margin_right = 1090.0
+margin_bottom = 584.5
+color = Color( 1, 1, 1, 0 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Blur" type="ColorRect" parent="Pause"]
-margin_left = -666.0
-margin_top = -275.0
-margin_right = 1514.0
-margin_bottom = 894.0
-color = Color( 0.0196078, 0.0196078, 0.0196078, 0.470588 )
+[node name="ColorRect" type="ColorRect" parent="Pause"]
+margin_top = -9.0
+margin_right = 850.0
+margin_bottom = 469.0
+color = Color( 0.0196078, 0.0196078, 0.0196078, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -128,26 +138,13 @@ __meta__ = {
 }
 
 [node name="Label3" type="Label" parent="Pause"]
-margin_left = 634.326
+margin_left = 630.326
 margin_top = 255.13
-margin_right = 784.326
+margin_right = 802.326
 margin_bottom = 301.13
 custom_fonts/font = SubResource( 1 )
-text = "Exit"
+text = "Main menu"
 align = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Saved" type="Label" parent="Pause"]
-visible = false
-margin_left = 319.712
-margin_top = -72.9714
-margin_right = 559.712
-margin_bottom = 3.02859
-custom_colors/font_color = Color( 0.027451, 0.890196, 0, 1 )
-custom_fonts/font = SubResource( 2 )
-text = "Saved!"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -167,13 +164,47 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="GameOver" type="Control" parent="."]
-margin_right = 40.0
-margin_bottom = 40.0
+[node name="Lighting" type="CheckBox" parent="Pause"]
+margin_left = 177.659
+margin_top = 390.0
+margin_right = 251.659
+margin_bottom = 414.0
+rect_scale = Vector2( 3, 3 )
+custom_fonts/font = SubResource( 4 )
+text = "Lighting"
+expand_icon = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Vsync" type="CheckBox" parent="Pause"]
+margin_left = 445.0
+margin_top = 390.0
+margin_right = 519.0
+margin_bottom = 414.0
+rect_scale = Vector2( 3, 3 )
+custom_fonts/font = SubResource( 4 )
+text = "V-sync"
+expand_icon = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SaveLabel" type="Label" parent="Pause"]
+anchor_left = 0.5
+anchor_top = 0.727
+anchor_right = 0.502
+anchor_bottom = 0.727
+margin_left = -63.3439
+margin_top = -27.917
+margin_right = 64.9441
+margin_bottom = 28.083
+custom_colors/font_color = Color( 0.290196, 1, 0, 1 )
+custom_fonts/font = SubResource( 5 )
+text = "Saved!"
+
 [connection signal="pressed" from="Pause/ResumeButton" to="Pause" method="_on_ResumeButton_pressed"]
 [connection signal="pressed" from="Pause/SaveButton" to="Pause" method="_on_SaveButton_pressed"]
 [connection signal="pressed" from="Pause/QuitButton" to="Pause" method="_on_QuitButton_pressed"]
+[connection signal="toggled" from="Pause/Lighting" to="Pause" method="_on_Lighting_toggled"]
+[connection signal="toggled" from="Pause/Vsync" to="Pause" method="_on_Vsync_toggled"]

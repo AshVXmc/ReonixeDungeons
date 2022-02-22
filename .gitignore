@@ -18,4 +18,4 @@ data_*/
 rcedit-x64.exe
 build/
 assets/placeholder
-debug_commands.txt
+*.txt

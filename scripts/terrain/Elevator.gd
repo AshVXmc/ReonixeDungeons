@@ -4,7 +4,7 @@ enum dir { UP, DOWN }
 export (dir) var direction
 export (int) var Time
 var velocity = Vector2()
-var Speed : int = 600
+var Speed : int = 1000 # 600
 var moving : bool = false
 onready var closed = preload("res://assets/terrain/elevator_closed.png")
 onready var opened = preload("res://assets/terrain/elevator_opened.png")

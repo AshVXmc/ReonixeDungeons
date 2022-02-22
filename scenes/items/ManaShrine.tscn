@@ -38,4 +38,5 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[connection signal="area_entered" from="Area2D" to="." method="_on_Area2D_area_entered"]
 [connection signal="area_exited" from="Area2D" to="." method="_on_Area2D_area_exited"]

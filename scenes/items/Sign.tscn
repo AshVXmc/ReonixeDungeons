@@ -46,6 +46,8 @@ __meta__ = {
 
 [node name="SignUI" type="Control" parent="."]
 visible = false
+margin_top = 51.0
+margin_bottom = 51.0
 rect_scale = Vector2( 1.5, 1.5 )
 __meta__ = {
 "_edit_use_anchors_": false

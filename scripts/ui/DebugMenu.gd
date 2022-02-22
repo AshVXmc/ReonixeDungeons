@@ -1,10 +1,10 @@
 class_name DebugMenu extends Control
 signal debugcmd(cmd)
-var frametimes : Array = []
-var FPS : float = 0
+var numbers : String = "1234567891011121314151617181920"
 
 func _ready():
 	self.visible = false
+	
 	connect("debugcmd", get_parent().get_parent().get_node("Player"), "debug_commands")
 func _process(delta):
 	if visible:
@@ -52,12 +52,22 @@ func parse_command():
 		"fullmpots":
 			emit_signal("debugcmd", "fullmpots")
 			$Output.text = "Maxed out Mpots"
-		"fullwine":
-			emit_signal("debugcmd", "fullwine")
+		"fullwines":
+			emit_signal("debugcmd", "fullwines")
 			$Output.text = "Maxed out Lwines"
-		# Invulnerable to damage and abilities don't drain mana
+		"fullcrystals":
+			emit_signal("debugcmd", "fullcrystals")
+			$Output.text = "Maxed out Crystals"
+		# Invulnerable to damage and knockback ,abilities don't drain mana
 		"godmode":
 			Global.godmode = true if !Global.godmode else false
 			$Output.text = "Godmode set to " + str(Global.godmode)
 		_:
 			$Output.text = "Invalid command"
+	
+	# Teleport to level
+	if command.to_lower() in numbers:
+		get_tree().change_scene("res://scenes/levels/Level" + command.to_lower() + ".tscn")
+func clear_enemies():
+	emit_signal("debugcmd", "killall")
+

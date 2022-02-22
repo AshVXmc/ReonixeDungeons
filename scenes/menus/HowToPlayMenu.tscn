@@ -1,12 +1,11 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://scripts/ui/HowToPlayMenuScript.gd" type="Script" id=1]
-[ext_resource path="res://assets/UI/buttons_gui.png" type="Texture" id=2]
-[ext_resource path="res://assets/fonts/FFFFORWA.ttf" type="DynamicFontData" id=3]
+[ext_resource path="res://assets/fonts/Born2bSportyV2.ttf" type="DynamicFontData" id=2]
 
 [sub_resource type="DynamicFont" id=1]
-size = 40
-font_data = ExtResource( 3 )
+size = 54
+font_data = ExtResource( 2 )
 
 [node name="CanvasLayer" type="CanvasLayer"]
 script = ExtResource( 1 )
@@ -28,40 +27,51 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="TextureRect" type="TextureRect" parent="Control"]
-margin_left = 59.3652
-margin_top = 58.4555
-margin_right = 1162.37
-margin_bottom = 465.455
-texture = ExtResource( 2 )
-expand = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
+[node name="Heading" type="RichTextLabel" parent="Control"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -131.0
+margin_top = 22.0
+margin_right = 129.0
+margin_bottom = 92.0
+custom_fonts/normal_font = SubResource( 1 )
+bbcode_enabled = true
+bbcode_text = "[color=red]Controls[/color]"
+text = "Controls"
+scroll_active = false
 
-[node name="left" type="Label" parent="Control"]
-margin_left = 65.5899
-margin_top = 117.725
-margin_right = 175.59
-margin_bottom = 172.725
-custom_fonts/font = SubResource( 1 )
-text = "Left"
-
-[node name="right" type="Label" parent="Control"]
-margin_left = 314.495
-margin_top = 114.68
-margin_right = 449.495
-margin_bottom = 169.68
-custom_fonts/font = SubResource( 1 )
-text = "Right"
-
-[node name="dash" type="Label" parent="Control"]
-margin_left = 302.723
-margin_top = 434.221
-margin_right = 437.723
-margin_bottom = 489.221
-custom_fonts/font = SubResource( 1 )
-text = "Dash"
+[node name="Instructions" type="RichTextLabel" parent="Control"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -312.0
+margin_top = -265.0
+margin_right = 278.0
+margin_bottom = 303.0
+custom_fonts/normal_font = SubResource( 1 )
+bbcode_enabled = true
+bbcode_text = "[color=yellow]A and D[/color] to move
+[color=yellow]Enter[/color] to attack 
+[color=yellow]W and S[/color] to aim up and down
+[color=yellow]E[/color] to confirm
+[color=yellow]F[/color] to shoot
+[color=yellow]C[/color] to dash
+[color=yellow]Numbers[/color] to use items
+[color=yellow]ESC[/color] to pause and exit
+[color=yellow]TAB[/color] to toggle FPS counter
+[color=yellow]/[/color] to toggle debug console"
+text = "A and D to move
+Enter to attack 
+W and S to aim up and down
+E to confirm
+F to shoot
+C to dash
+Numbers to use items
+ESC to pause and exit
+TAB to toggle FPS counter
+/ to toggle debug console"
+scroll_active = false
 __meta__ = {
 "_edit_use_anchors_": false
 }

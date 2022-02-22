@@ -1,0 +1,177 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://assets/fonts/Born2bSportyV2.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://scripts/ui/GameOver.gd" type="Script" id=2]
+[ext_resource path="res://themes/Blur.tres" type="Material" id=3]
+[ext_resource path="res://assets/UI/restarticon.png" type="Texture" id=4]
+[ext_resource path="res://assets/UI/loadsaveicon.png" type="Texture" id=5]
+[ext_resource path="res://assets/UI/quiticon.png" type="Texture" id=6]
+
+[sub_resource type="DynamicFont" id=1]
+size = 75
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 45
+font_data = ExtResource( 1 )
+
+[node name="GameOverUI" type="CanvasLayer"]
+
+[node name="GameOver" type="Control" parent="."]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -540.0
+margin_top = -360.0
+margin_right = -500.0
+margin_bottom = -320.0
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Blur" type="ColorRect" parent="GameOver"]
+material = ExtResource( 3 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -856.655
+margin_top = -355.397
+margin_right = 1323.35
+margin_bottom = 813.603
+color = Color( 1, 1, 1, 0 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="GameOver"]
+anchor_left = 2.699
+anchor_top = 2.751
+anchor_right = 2.699
+anchor_bottom = 2.751
+margin_left = -0.0167084
+margin_top = 0.0150604
+margin_right = 849.983
+margin_bottom = 461.015
+color = Color( 0.0196078, 0.0196078, 0.0196078, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="[GameOver]" type="Label" parent="GameOver"]
+anchor_left = 13.6
+anchor_top = 3.75
+anchor_right = 13.6
+anchor_bottom = 3.75
+margin_left = -166.0
+margin_top = -29.0
+margin_right = 134.0
+margin_bottom = 57.0
+custom_colors/font_color = Color( 0.87451, 0, 0, 1 )
+custom_fonts/font = SubResource( 1 )
+text = "Game Over"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RestartLabel" type="Label" parent="GameOver"]
+anchor_left = 7.697
+anchor_top = 9.846
+anchor_right = 7.697
+anchor_bottom = 9.846
+margin_left = -64.009
+margin_top = -23.84
+margin_right = 63.991
+margin_bottom = 22.16
+custom_fonts/font = SubResource( 2 )
+text = "Restart"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RestartButton" type="Button" parent="GameOver"]
+anchor_left = 7.682
+anchor_top = 7.125
+anchor_right = 7.682
+anchor_bottom = 7.125
+margin_left = -75.0
+margin_top = -75.0
+margin_right = 75.0
+margin_bottom = 75.0
+icon = ExtResource( 4 )
+flat = true
+expand_icon = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LoadSaveLabel" type="Label" parent="GameOver"]
+anchor_left = 13.366
+anchor_top = 9.846
+anchor_right = 13.366
+anchor_bottom = 9.846
+margin_left = -86.994
+margin_top = -23.84
+margin_right = 87.006
+margin_bottom = 22.16
+custom_fonts/font = SubResource( 2 )
+text = "Load save"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LoadSaveButton" type="Button" parent="GameOver"]
+anchor_left = 13.39
+anchor_top = 7.125
+anchor_right = 13.39
+anchor_bottom = 7.125
+margin_left = -75.0042
+margin_top = -75.0
+margin_right = 74.9958
+margin_bottom = 75.0
+icon = ExtResource( 5 )
+flat = true
+expand_icon = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ExitLabel" type="Label" parent="GameOver"]
+anchor_left = 19.041
+anchor_top = 9.825
+anchor_right = 19.041
+anchor_bottom = 9.825
+margin_left = -86.994
+margin_top = -23.0
+margin_right = 87.006
+margin_bottom = 23.0
+custom_fonts/font = SubResource( 2 )
+text = "Main menu"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ExitButton" type="Button" parent="GameOver"]
+anchor_left = 18.99
+anchor_top = 7.125
+anchor_right = 18.99
+anchor_bottom = 7.125
+margin_left = -75.0043
+margin_top = -75.0
+margin_right = 74.9957
+margin_bottom = 75.0
+icon = ExtResource( 6 )
+flat = true
+expand_icon = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="visibility_changed" from="GameOver" to="GameOver" method="_on_GameOver_visibility_changed"]
+[connection signal="pressed" from="GameOver/RestartButton" to="GameOver" method="_on_RestartButton_pressed"]
+[connection signal="pressed" from="GameOver/LoadSaveButton" to="GameOver" method="_on_LoadSaveButton_pressed"]
+[connection signal="pressed" from="GameOver/ExitButton" to="GameOver" method="_on_ExitButton_pressed"]

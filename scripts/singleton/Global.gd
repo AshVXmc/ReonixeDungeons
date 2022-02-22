@@ -9,27 +9,35 @@ var healthpot_amount : int = 0
 var lifewine_amount : int = 0
 var manapot_amount : int = 0
 var opals_amount : int = 0
+var crystals_amount : int = 0
 var unopened_chests := ["Level1_chest"]
+var soul_token_amount : int = 0
 const SAVE_DIR : String = "user://savedata/"
-var savepath : String = SAVE_DIR + "savefile.dat"
 var dash_unlocked : bool = false
 var glide_unlocked : bool = false
 var max_item_storage : int = 3
 # Unsaved conditions
 var godmode : bool = false
+# Save path
+var savepath : String = SAVE_DIR + "savefile.dat"
+
+# Settings
+var lighting : bool = true
+var vsync : bool = true
 
 func reset_player_data():
 	# Default player data
 	Global.hearts = 2
 	Global.mana = 4
-	Global.healthpot_amount = 2
-	Global.lifewine_amount = 1
-	Global.manapot_amount = 1
+	Global.healthpot_amount = 0
+	Global.lifewine_amount = 0
+	Global.manapot_amount = 0
 	Global.opals_amount = 0
+	Global.crystals_amount = 0
+	Global.soul_token_amount = 0
 	Global.dash_unlocked = false
 	Global.glide_unlocked = false
 	Global.max_item_storage = 3
-	
 
 func reset_chest_data():
 	# Clears the array cache and refill anually
@@ -39,6 +47,7 @@ func reset_chest_data():
 #		Global.unopened_chests.insert(1, "Level2_chest")
 
 func save_player_data():
+	pass
 	var dir : Directory = Directory.new()
 	if !dir.dir_exists(SAVE_DIR):
 		dir.make_dir_recursive(SAVE_DIR)
@@ -53,10 +62,14 @@ func save_player_data():
 		"LifeWine" : Global.lifewine_amount,
 		"Manapot":  Global.manapot_amount,
 		"Opals" : Global.opals_amount ,
+		"RevivementCrystals" : Global.crystals_amount,
+		"SoulTokens": Global.soul_token_amount,
 		"DashUnlocked" : Global.dash_unlocked ,
 		"GlideUnlocked" : Global.glide_unlocked,
 		"ChestUnopened": Global.unopened_chests,
-		"MaxItemStorage":  Global.max_item_storage
+		"MaxItemStorage":  Global.max_item_storage, 
+		"Lighting" : Global.lighting,
+		"Vsync" : Global.vsync
 	}
 
 	var savefile : File = File.new()
@@ -77,6 +90,11 @@ func sync_playerManapots(player_manapot : int):
 	player_manapot = Global.manapot_amount
 func sync_playerOpals(player_opals : int):
 	player_opals = Global.opals_amount
+func sync_playerCrystals(player_crystals : int):
+	player_crystals = Global.crystals_amount
+# Unused
+#func sync_playerSoultokens(player_soul_tokens : int):
+#	player_soul_tokens = Global.soul_token_amount
 
 	
 

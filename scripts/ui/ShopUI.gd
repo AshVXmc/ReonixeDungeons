@@ -20,10 +20,9 @@ func _ready():
 		3:
 			$FlavorText.bbcode_text = "Shop more. Live longer. That's my motto."
 
-#func _on_Exit_pressed():
-#	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
-#	get_tree().paused = false
-#	self.visible = false
+func _on_Exit_pressed():
+	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
+	get_parent().get_parent().queue_free()
 
 
 func _process(delta):
@@ -41,7 +40,7 @@ func _on_HealthPotButton_pressed():
 			emit_signal("item_bought", "HealthPot", 20)
 		
 func _on_HealthPotButton_mouse_entered():
-	$FlavorText.bbcode_text = "A flask filled with hearty red liquid, tastes like sweetened lemon juice. Heals for 1" + heart + ", and takes one second to consume. You can hold " + maxstorage + " of this at a time." 
+	$FlavorText.bbcode_text = "A flask filled with hearty red liquid, tastes like... blood?. Heals for 1" + heart + ", and takes one second to consume. You can hold " + maxstorage + " of this at a time." 
 
 func _on_HealthPotButton_mouse_exited():
 	$FlavorText.bbcode_text = ""
@@ -55,7 +54,7 @@ func _on_ManaPotButton_pressed():
 			emit_signal("item_bought", "ManaPot", 20)
 
 func _on_ManaPotButton_mouse_entered():
-	$FlavorText.bbcode_text = "Magical, glowing and swirling blue liquid that restores your Mana" + mana + "to full. This takes two seconds to consume. You can hold " + maxstorage + " of this at a time."
+	$FlavorText.bbcode_text = "Magical, glowing and swirling blue liquid that restores your Mana" + mana + "to full. Takes two seconds to consume. You can hold " + maxstorage + " of this at a time."
 
 func _on_ManaPotButton_mouse_exited():
 	$FlavorText.bbcode_text = ""
@@ -69,7 +68,21 @@ func _on_LifeWineButton_pressed():
 			emit_signal("item_bought", "HealthPot", 20)
 
 func _on_LifeWineButton_mouse_entered():
-	pass # Replace with function body.
+	$FlavorText.bbcode_text = "High-quality red wine with a thick bouquet, and restores your" + heart + "to full. Takes 2.5 seconds to consume. You can hold " + maxstorage + "of this at a time."
 
 func _on_LifeWineButton_mouse_exited():
+	$FlavorText.bbcode_text = ""
+
+# Item storage levels: 3, 5, 8
+
+func _on_ItemPouchButton_pressed():
+	if Global.opals_amount >= 100 and $ItemPouch/SpriteLabel.text == "I":
+		Global.max_item_storage = 5
+
+
+func _on_ItemPouchButton_mouse_entered():
+	pass # Replace with function body.
+
+
+func _on_ItemPouchButton_mouse_exited():
 	pass # Replace with function body.

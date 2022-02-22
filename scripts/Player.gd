@@ -6,6 +6,7 @@ signal healthpot_obtained(player_healthpot)
 signal lifewine_obtained(player_lifewine)
 signal manapot_obtained(player_manapot)
 signal opals_obtained(player_opals)
+signal crystals_obtained(player_crystals)
 
 onready var inv_timer : Timer = $InvulnerabilityTimer
 onready var fb_timer : Timer = $FireballTimer
@@ -34,8 +35,6 @@ var can_dash : bool = false
 var is_healing : bool = false
 var is_shopping : bool = false
 
-
-
 func _ready():
 		# warning-ignore:return_value_discarded
 	connect("life_changed", get_parent().get_node("HeartUI/Life"), "on_player_life_changed")
@@ -45,9 +44,12 @@ func _ready():
 	connect("healthpot_obtained", get_parent().get_node("HealthPotUI/HealthPotControl"), "on_player_healthpot_obtained")
 # warning-ignore:return_value_discarded
 	connect("lifewine_obtained", get_parent().get_node("LifeWineUI/LifeWineControl"), "on_player_lifewine_obtained")
+# warning-ignore:return_value_discarded
 	connect("manapot_obtained", get_parent().get_node("ManaPotUI/ManaPotControl"), "on_player_manapot_obtained")
+# warning-ignore:return_value_discarded
 	connect("opals_obtained", get_parent().get_node("OpalsUI/OpalsControl"), "on_player_opals_obtained")
-	# HP singleton connect
+# warning-ignore:return_value_discarded
+	connect("crystals_obtained", get_parent().get_node("RevivementCrystal/RevivementCrystalControl"), "on_player_crystal_obtained")
 # warning-ignore:return_value_discarded
 	connect("life_changed", Global, "sync_hearts")
 	emit_signal("life_changed", Global.hearts)
@@ -64,13 +66,18 @@ func _ready():
 	connect("lifewine_obtained", Global, "sync_playerLifeWines")
 	emit_signal("lifewine_obtained", Global.lifewine_amount)
 	
+# warning-ignore:return_value_discarded
 	connect("manapot_obtained", Global, "sync_playerManapots")
 	emit_signal("manapot_obtained", Global.manapot_amount)
 	
 	
+# warning-ignore:return_value_discarded
 	connect("opals_obtained", Global, "sync_playerOpals")
 	emit_signal("opals_obtained", Global.opals_amount)
 	
+# warning-ignore:return_value_discarded
+	connect("crystals_obtained", Global, "sync_playerCrystals")
+	emit_signal("crystals_obtained", Global.crystals_amount)
 
 func _physics_process(_delta):
 	# Makes sure the player is alive to use any movement controls
@@ -86,6 +93,7 @@ func _physics_process(_delta):
 			$Sprite.play("Idle")
 		if Input.is_action_pressed("right") and !is_attacking and !is_knocked_back:
 			velocity.x = SPEED
+# warning-ignore:standalone_ternary
 			$Sprite.play("Glide") if is_gliding else $Sprite.play("Walk")
 			$Sprite.flip_h = false
 			if velocity.x == 0 and !is_attacking:
@@ -97,6 +105,7 @@ func _physics_process(_delta):
 			get_node("AttackCollision").set_scale(Vector2(1,1))
 		elif Input.is_action_pressed("left") and !is_attacking:
 			velocity.x = -SPEED
+# warning-ignore:standalone_ternary
 			$Sprite.play("Glide") if is_gliding else $Sprite.play("Walk")
 			$Sprite.flip_h = true
 			if velocity.x == 0 and !is_attacking:
@@ -115,6 +124,7 @@ func _physics_process(_delta):
 			$Sprite.play("Idle")
 			is_attacking = false
 			
+		
 		# Movement calculations
 		if !is_dashing and !is_gliding:
 			velocity.y += GRAVITY
@@ -134,6 +144,7 @@ func _physics_process(_delta):
 func shoot():
 	if Input.is_action_just_pressed("ui_shoot")	and !is_attacking and Global.mana >= 1:
 			var fireball = FIREBALL.instance()
+# warning-ignore:standalone_ternary
 			fireball.flip_fireball(-1) if sign($Position2D.position.x) == -1 else fireball.flip_fireball(1)	
 			get_parent().add_child(fireball)
 			fireball.position = $Position2D.global_position
@@ -203,7 +214,14 @@ func afterDamaged():
 	$Sprite.play("Hurt")
 	$KnockbackTimer.start()
 	if Global.hearts <= 0:
-		dead()
+		if Global.crystals_amount > 0:
+			Global.crystals_amount -= 1
+			emit_signal("crystals_obtained", Global.crystals_amount)
+			Global.hearts += 1
+			emit_signal("life_changed", Global.hearts)
+		else:	
+			dead()
+
 
 # Obtaining mana by attacking enemies
 func _on_AttackCollision_area_entered(area):
@@ -223,7 +241,7 @@ func _on_AttackCollision_area_entered(area):
 			
 
 func knockback():
-	if can_be_knocked:
+	if can_be_knocked and !Global.godmode:
 		$KnockbackCooldownTimer.start()
 		is_knocked_back = true
 		can_be_knocked = false
@@ -330,15 +348,24 @@ func heal_player(item : String):
 func dead():
 	is_dead = true
 	velocity = Vector2(0,0)
-	$Sprite.play("Death")
 	$CollisionShape2D.disabled = true
-	$Timer.start()
+	get_parent().get_node("GameOverUI/GameOver").visible = true
+	
+#	$Timer.start()
+
 
 func on_campfire_toggled():
 	is_healing = true
 	yield(get_tree().create_timer(2), "timeout")
 	Global.hearts += Global.max_hearts - Global.hearts
 	emit_signal("life_changed", Global.hearts)
+	is_healing = false
+
+func on_manashrine_toggled():
+	is_healing = true
+	yield(get_tree().create_timer(2), "timeout")
+	Global.mana += Global.max_mana - Global.mana
+	emit_signal("mana_changed", Global.mana)
 	is_healing = false
 	
 func on_lootbag_obtained():
@@ -403,9 +430,12 @@ func debug_commands(cmd : String):
 		"fullmpots":
 			Global.manapot_amount += Global.max_item_storage - Global.manapot_amount
 			emit_signal("manapot_obtained", Global.manapot_amount)
-		"fullwine":
+		"fullwines":
 			Global.lifewine_amount += Global.max_item_storage - Global.lifewine_amount
 			emit_signal("lifewine_obtained", Global.lifewine_amount)
+		"fullcrystals":
+			Global.crystals_amount += Global.max_item_storage - Global.crystals_amount
+			emit_signal("crystals_obtained", Global.crystals_amount)
 # Handles what happens when timers runs out
 func _on_Timer_timeout():
 # warning-ignore:return_value_discarded
@@ -413,8 +443,9 @@ func _on_Timer_timeout():
 	queue_free() 
 	
 func _on_InvulnerabilityTimer_timeout():
-	is_invulnerable = false
-	$Sprite.play("Idle")
+	if !is_dead:
+		is_invulnerable = false
+		$Sprite.play("Idle")
 	
 func _on_AttackTimer_timeout():
 	$AttackCollision.position = Vector2(0,0)

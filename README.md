@@ -34,7 +34,7 @@ For bugs and issues check out [this repository page](https://gitlab.com/AshVXmc/
 - [A pixel art scaler tool](https://lospec.com/pixel-art-scaler/) on the web
 
 ## Debug console commands
-TODO
+View this [script](https://github.com/AshVXmc/ReonixeDungeons/blob/main/scripts/ui/DebugMenu.gd) for more details on cheat console commands.
 
 ## How to push files (Self note)
 1. Git Bash on the folder

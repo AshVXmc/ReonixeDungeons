@@ -1,7 +1,8 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://scripts/ui/MainMenu.gd" type="Script" id=1]
 [ext_resource path="res://assets/fonts/FFFFORWA.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://assets/UI/popup_textbox.png" type="Texture" id=3]
 [ext_resource path="res://assets/themes/MainMenuFonts.tres" type="DynamicFont" id=4]
 [ext_resource path="res://scenes/menus/SceneTransition.tscn" type="PackedScene" id=5]
 [ext_resource path="res://assets/fonts/Born2bSportyV2.ttf" type="DynamicFontData" id=6]
@@ -19,6 +20,14 @@ font_data = ExtResource( 2 )
 
 [sub_resource type="DynamicFont" id=9]
 size = 45
+font_data = ExtResource( 6 )
+
+[sub_resource type="DynamicFont" id=11]
+size = 42
+font_data = ExtResource( 6 )
+
+[sub_resource type="DynamicFont" id=12]
+size = 64
 font_data = ExtResource( 6 )
 
 [node name="MainMenu" type="Control"]
@@ -175,7 +184,80 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Popup1" type="Control" parent="."]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -540.0
+margin_top = -360.0
+margin_right = 540.0
+margin_bottom = 360.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="Popup1"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.521
+margin_left = -320.0
+margin_top = -94.0
+margin_right = -280.0
+margin_bottom = -94.12
+rect_scale = Vector2( 16, 16 )
+texture = ExtResource( 3 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Popup1"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 313.569
+margin_top = 302.753
+margin_right = -308.431
+margin_bottom = -315.247
+custom_fonts/font = SubResource( 11 )
+text = "No save data detected.
+Start a new game?"
+align = 1
+
+[node name="Yes" type="Button" parent="Popup1"]
+anchor_left = 0.384
+anchor_top = 0.666
+anchor_right = 0.384
+anchor_bottom = 0.666
+margin_left = -90.3285
+margin_top = -76.27
+margin_right = 89.6715
+margin_bottom = -1.26996
+custom_colors/font_color = Color( 0.45098, 0.94902, 0, 1 )
+custom_fonts/font = SubResource( 12 )
+text = "Yes"
+
+[node name="No" type="Button" parent="Popup1"]
+anchor_left = 0.622
+anchor_top = 0.666
+anchor_right = 0.622
+anchor_bottom = 0.666
+margin_left = -90.3686
+margin_top = -75.27
+margin_right = 89.6314
+margin_bottom = -0.269958
+custom_colors/font_color = Color( 0.94902, 0, 0, 1 )
+custom_fonts/font = SubResource( 12 )
+text = "No"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [connection signal="pressed" from="NewGame" to="." method="_on_NewGame_pressed"]
 [connection signal="pressed" from="LoadGame" to="." method="_on_LoadGame_pressed"]
 [connection signal="pressed" from="HowToPlay" to="." method="_on_HowToPlay_pressed"]
 [connection signal="pressed" from="Exit" to="." method="_on_Exit_pressed"]
+[connection signal="pressed" from="Popup1/Yes" to="." method="_on_Yes_pressed"]
+[connection signal="pressed" from="Popup1/No" to="." method="_on_No_pressed"]

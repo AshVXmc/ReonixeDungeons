@@ -1,21 +1,21 @@
-extends Control
+class_name GameOver extends Control
 
+signal game_over()
 func _ready():
-	$Popup1.visible = false
+	# Kills all enemies after game over to prevent unexpected bugs 
+	connect("game_over", get_parent().get_parent().get_node("DebugMenu/Control"), "clear_enemies")
+	visible = false
 
-func _on_NewGame_pressed():
-	new_game()
-
-func new_game():
+func _on_RestartButton_pressed():
+	print("Goobar")
 	Global.reset_player_data()
-	Global.reset_chest_data()
-	$SceneTransition/ColorRect.visible = true
-	$SceneTransition.transition()
-	yield(get_tree().create_timer(1), "timeout")
 	get_tree().change_scene("res://scenes/levels/Level1.tscn")
-	queue_free()
+#	queue_free()
+	
+func _process(delta):
+	pass
 
-func _on_LoadGame_pressed():
+func _on_LoadSaveButton_pressed():
 	var savefile : File = File.new()
 	if savefile.file_exists(Global.savepath):
 		var error = savefile.open(Global.savepath, File.READ)
@@ -35,23 +35,15 @@ func _on_LoadGame_pressed():
 			Global.max_item_storage = player_data["MaxItemStorage"]
 			Global.lighting = player_data["Lighting"]
 			Global.vsync = player_data["Vsync"]
-			$SceneTransition/ColorRect.visible = true
-			$SceneTransition.transition()
+			get_parent().get_parent().get_node("SceneTransition/ColorRect").visible = true
+			get_parent().get_parent().get_node("SceneTransition").transition()
 			yield(get_tree().create_timer(1), "timeout")
 			get_tree().change_scene("res://scenes/levels/" + player_data["Level"] + ".tscn")
 
-func _on_HowToPlay_pressed():
-	get_tree().change_scene("res://scenes/menus/HowToPlayMenu.tscn")
-	queue_free()
+
+func _on_ExitButton_pressed():
+	get_tree().change_scene("res://scenes/menus/MainMenu.tscn")
 
 
-func _on_Exit_pressed():
-	get_tree().quit()
-
-
-func _on_Yes_pressed():
-	new_game()
-
-
-func _on_No_pressed():
-	$Popup1.visible = false
+func _on_GameOver_visibility_changed():
+	emit_signal("game_over")
