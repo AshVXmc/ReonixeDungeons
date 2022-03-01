@@ -6,6 +6,7 @@ func _ready():
 	connect("game_over", get_parent().get_parent().get_node("DebugMenu/Control"), "clear_enemies")
 	visible = false
 
+
 func _on_RestartButton_pressed():
 	print("Goobar")
 	Global.reset_player_data()
@@ -14,6 +15,10 @@ func _on_RestartButton_pressed():
 	
 func _process(delta):
 	pass
+#	if visible:
+#		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+#	else:
+#		Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 
 func _on_LoadSaveButton_pressed():
 	var savefile : File = File.new()

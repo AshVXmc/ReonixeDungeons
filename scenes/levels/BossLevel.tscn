@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://scenes/enemies/bosses/MaskedGoblin.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/menus/HeartUI.tscn" type="PackedScene" id=2]
@@ -11,12 +11,11 @@
 [ext_resource path="res://scenes/items/Sign.tscn" type="PackedScene" id=10]
 [ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=11]
 [ext_resource path="res://scenes/Light.tscn" type="PackedScene" id=12]
-[ext_resource path="res://scripts/Level4.gd" type="Script" id=13]
+[ext_resource path="res://scripts/util/Level4.gd" type="Script" id=13]
 [ext_resource path="res://assets/misc/background_2.png" type="Texture" id=14]
 [ext_resource path="res://tilesets/one_way_tilesets.tres" type="TileSet" id=15]
 [ext_resource path="res://tilesets/Default.tres" type="TileSet" id=16]
 [ext_resource path="res://scenes/terrain/GenericSpike.tscn" type="PackedScene" id=17]
-[ext_resource path="res://scenes/terrain/GenericSpikeSecondary.tscn" type="PackedScene" id=18]
 
 [node name="Level4" type="Node2D"]
 script = ExtResource( 13 )
@@ -127,19 +126,3 @@ position = Vector2( -729.969, 530 )
 
 [node name="SpikePositionSecondary" type="Position2D" parent="."]
 position = Vector2( 822.08, 530 )
-
-[node name="GenericSpike5" parent="." instance=ExtResource( 18 )]
-position = Vector2( 912.089, 528.25 )
-rotation = 4.71239
-
-[node name="GenericSpike6" parent="." instance=ExtResource( 18 )]
-position = Vector2( 912.089, 433.25 )
-rotation = 4.71239
-
-[node name="GenericSpike7" parent="." instance=ExtResource( 18 )]
-position = Vector2( 912.089, 338.25 )
-rotation = 4.71239
-
-[node name="GenericSpike8" parent="." instance=ExtResource( 18 )]
-position = Vector2( 912.089, 243.25 )
-rotation = 4.71239

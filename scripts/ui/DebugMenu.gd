@@ -2,15 +2,16 @@ class_name DebugMenu extends Control
 signal debugcmd(cmd)
 var numbers : String = "1234567891011121314151617181920"
 
+
 func _ready():
 	self.visible = false
 	
 	connect("debugcmd", get_parent().get_parent().get_node("Player"), "debug_commands")
 func _process(delta):
-	if visible:
-		Input.MOUSE_MODE_VISIBLE
-	else:
-		Input.MOUSE_MODE_HIDDEN
+#	if visible:
+#		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+#	else:
+#		Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 	if Input.is_action_just_pressed("ui_debug"):
 		if !visible:
 			visible = true
@@ -20,7 +21,7 @@ func _process(delta):
 		else:
 			visible = false
 			emit_signal("debugcmd", "closed")
-	if Input.is_action_just_pressed("ui_accept"):
+	if Input.is_action_just_pressed("ui_select"):
 		parse_command()
 	if Input.is_action_just_pressed("ui_cancel"):
 		visible = false
@@ -61,13 +62,17 @@ func parse_command():
 		# Invulnerable to damage and knockback ,abilities don't drain mana
 		"godmode":
 			Global.godmode = true if !Global.godmode else false
-			$Output.text = "Godmode set to " + str(Global.godmode)
+			$Output.text = "Entered Godmode" if Global.godmode else "Exited Godmode"
 		_:
 			$Output.text = "Invalid command"
 	
-	# Teleport to level
+	# Teleport to a level
 	if command.to_lower() in numbers:
 		get_tree().change_scene("res://scenes/levels/Level" + command.to_lower() + ".tscn")
 func clear_enemies():
 	emit_signal("debugcmd", "killall")
 
+
+
+func _on_Control_visibility_changed():
+		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)

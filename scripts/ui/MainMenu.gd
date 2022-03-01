@@ -2,6 +2,7 @@ extends Control
 
 func _ready():
 	$Popup1.visible = false
+	$SaveLabel.visible = false
 
 func _on_NewGame_pressed():
 	new_game()
@@ -38,8 +39,11 @@ func _on_LoadGame_pressed():
 			$SceneTransition/ColorRect.visible = true
 			$SceneTransition.transition()
 			yield(get_tree().create_timer(1), "timeout")
-			get_tree().change_scene("res://scenes/levels/" + player_data["Level"] + ".tscn")
-
+			get_tree().change_scene(Global.levelpath)
+	else:
+		$SaveLabel.visible = true
+		yield(get_tree().create_timer(2), "timeout")
+		$SaveLabel.visible = false
 func _on_HowToPlay_pressed():
 	get_tree().change_scene("res://scenes/menus/HowToPlayMenu.tscn")
 	queue_free()

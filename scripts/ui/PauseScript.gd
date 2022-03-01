@@ -16,17 +16,20 @@ func _ready():
 func _process(delta):
 	if Input.is_action_just_pressed("ui_cancel"):
 		if !get_tree().paused:
-#			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 			get_tree().paused = true
 			visible = true
+#		if visible:
+#			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+#		else:
+#			Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 			
 func _on_ResumeButton_pressed():
-#	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 	get_tree().paused = false
 	visible = false
 
 
 func _on_SaveButton_pressed():
+	Global.levelpath = get_parent().get_parent().filename
 	Global.save_player_data()
 	emit_signal("playerpos",player.position)
 	if !$SaveLabel.visible:

@@ -10,7 +10,7 @@
 extents = Vector2( 50.375, 43.125 )
 
 [sub_resource type="DynamicFont" id=2]
-size = 32
+size = 36
 font_data = ExtResource( 3 )
 
 [sub_resource type="DynamicFont" id=3]

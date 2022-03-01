@@ -10,6 +10,8 @@ func _ready():
 		OS.vsync_enabled = true
 	else:
 		OS.vsync_enabled = false
+
+
 	
 
 	

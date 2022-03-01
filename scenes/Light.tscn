@@ -5,5 +5,5 @@
 [node name="Light2D" type="Light2D"]
 scale = Vector2( 5, 5 )
 texture = ExtResource( 1 )
-energy = 0.52
+energy = 0.2
 shadow_enabled = true

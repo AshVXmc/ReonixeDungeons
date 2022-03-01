@@ -34,6 +34,7 @@ var is_gliding : bool = false
 var can_dash : bool = false
 var is_healing : bool = false
 var is_shopping : bool = false
+var is_shielded : bool = false
 
 func _ready():
 		# warning-ignore:return_value_discarded
@@ -241,14 +242,15 @@ func _on_AttackCollision_area_entered(area):
 			
 
 func knockback():
-	if can_be_knocked and !Global.godmode:
-		$KnockbackCooldownTimer.start()
-		is_knocked_back = true
-		can_be_knocked = false
-	dashdirection = Vector2(-1, 0) if $Sprite.flip_h else Vector2(1,0)
-	Input.action_release("jump")
-	Input.action_release("ui_attack")
-	Input.action_release("ui_up")
+	if !Global.godmode:
+		if can_be_knocked:
+			$KnockbackCooldownTimer.start()
+			is_knocked_back = true
+			can_be_knocked = false
+		dashdirection = Vector2(-1, 0) if $Sprite.flip_h else Vector2(1,0)
+		Input.action_release("jump")
+		Input.action_release("ui_attack")
+		Input.action_release("ui_up")
 
 func _on_LeftDetector_area_entered(area):
 	if area.is_in_group("Enemy") or area.is_in_group("Enemy2") and is_knocked_back:
@@ -277,6 +279,9 @@ func dash():
 				Global.mana -= 1
 				emit_signal("mana_changed", Global.mana)
 			can_dash = false
+			Input.action_release("left")
+			Input.action_release("right")
+			Input.action_release("jump")
 			$DashUseTimer.start()
 			$Sprite.play("Dash")
 			velocity.x = 0
@@ -288,8 +293,6 @@ func dash():
 			$DashCooldown.start()
 			velocity.y += GRAVITY
 			is_dashing = false
-			Input.action_release("left")
-			Input.action_release("right")
 
 func glide():
 	# Press SPACE while in mid-air to temporarily glide
@@ -297,12 +300,10 @@ func glide():
 		if is_on_floor():
 			is_gliding = false
 		is_gliding = true
-		if is_gliding:	
-			$Sprite.play("Glide")
 		velocity.y = 0
 		velocity.y += GRAVITY
 		if !Global.godmode:
-			Global.mana -= 3
+			Global.mana -= 2
 			emit_signal("mana_changed", Global.mana)
 		if Input.is_action_just_released("jump"):
 			is_gliding = false
@@ -349,6 +350,8 @@ func dead():
 	is_dead = true
 	velocity = Vector2(0,0)
 	$CollisionShape2D.disabled = true
+	$Sprite.visible = false
+	$Light2D.visible = false
 	get_parent().get_node("GameOverUI/GameOver").visible = true
 	
 #	$Timer.start()
@@ -405,6 +408,10 @@ func on_Item_bought(item_name : String, item_price : int):
 		"ItemPouch_1":
 			pass
 
+# Tool function for easy opal signals
+func get_opals(opals : int):
+	Global.opals_amount += opals
+	emit_signal("opals_obtained", Global.opals_amount)
 
 func debug_commands(cmd : String):
 	match cmd:

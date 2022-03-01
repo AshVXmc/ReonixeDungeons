@@ -63,3 +63,4 @@ position = Vector2( -33.0729, -6.92957 )
 position = Vector2( 32.443, -7.09474 )
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_Area2D_area_entered"]
+[connection signal="timeout" from="HurtTimer" to="." method="_on_HurtTimer_timeout"]

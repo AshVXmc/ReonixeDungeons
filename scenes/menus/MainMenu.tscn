@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://scripts/ui/MainMenu.gd" type="Script" id=1]
 [ext_resource path="res://assets/fonts/FFFFORWA.ttf" type="DynamicFontData" id=2]
@@ -28,6 +28,10 @@ font_data = ExtResource( 6 )
 
 [sub_resource type="DynamicFont" id=12]
 size = 64
+font_data = ExtResource( 6 )
+
+[sub_resource type="DynamicFont" id=13]
+size = 45
 font_data = ExtResource( 6 )
 
 [node name="MainMenu" type="Control"]
@@ -254,6 +258,20 @@ text = "No"
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="SaveLabel" type="Label" parent="."]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.872
+anchor_right = 0.5
+anchor_bottom = 0.879
+margin_left = -196.43
+margin_top = -22.9849
+margin_right = 195.57
+margin_bottom = 17.975
+custom_colors/font_color = Color( 0.835294, 0, 0, 1 )
+custom_fonts/font = SubResource( 13 )
+text = "No save data detected."
 
 [connection signal="pressed" from="NewGame" to="." method="_on_NewGame_pressed"]
 [connection signal="pressed" from="LoadGame" to="." method="_on_LoadGame_pressed"]

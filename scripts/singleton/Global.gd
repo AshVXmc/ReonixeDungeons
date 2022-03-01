@@ -16,6 +16,7 @@ const SAVE_DIR : String = "user://savedata/"
 var dash_unlocked : bool = false
 var glide_unlocked : bool = false
 var max_item_storage : int = 3
+var levelpath : String
 # Unsaved conditions
 var godmode : bool = false
 # Save path
@@ -47,13 +48,12 @@ func reset_chest_data():
 #		Global.unopened_chests.insert(1, "Level2_chest")
 
 func save_player_data():
-	pass
 	var dir : Directory = Directory.new()
 	if !dir.dir_exists(SAVE_DIR):
 		dir.make_dir_recursive(SAVE_DIR)
 
 	var load_data : Dictionary = {
-		"Level" : get_tree().get_current_scene().get_name() ,
+		"Level" : Global.levelpath,
 		"MaxHealth": Global.max_hearts ,
 		"Health" : Global.hearts ,
 		"MaxMana" : Global.max_mana ,

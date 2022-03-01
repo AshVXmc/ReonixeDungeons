@@ -28,11 +28,16 @@ func _on_Area2D_area_entered(area : Area2D):
 		HP -= 1
 		set_modulate(Color(2,0.5,0.3,1))
 		velocity.x = 0
+#		yield(get_tree().create_timer(0.5), "timeout")
+#		set_modulate(Color(1,1,1,1))
+		
 		$HurtTimer.start()
 	elif area.is_in_group("Fireball") and HP > 0:
 		HP -= 1
 		set_modulate(Color(2,0.5,0.3,1))
 		velocity.x = 0
+#		yield(get_tree().create_timer(0.5), "timeout")
+#		set_modulate(Color(1,1,1,1))
 		$HurtTimer.start()
 	drop_loot()
 

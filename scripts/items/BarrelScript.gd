@@ -1,10 +1,12 @@
 extends AnimatedSprite
 
 var broken : bool = false
-const LOOT : PackedScene = preload("res://scenes/items/LootBag.tscn")
 export var MAX : int = 5
 export var MIN : int = 1
+signal give_opals(opals)
 
+func _ready():
+	connect("give_opals", get_parent().get_node("Player"), "get_opals")
 
 func _process(_delta):
 	if !broken:
@@ -16,10 +18,9 @@ func _on_Area2D_area_entered(area):
 		self.play("Break")
 		$Area2D/CollisionShape2D.queue_free()
 		
-#		var loot = LOOT.instance()
-#		var lootrng : RandomNumberGenerator = RandomNumberGenerator.new()
-#		lootrng.randomize()
-#		var randomint = lootrng.randi_range(MIN,MAX)
-#		if randomint == MIN:
-#			get_parent().add_child(loot)
-#			loot.position = $Position2D.global_position
+		var rng := RandomNumberGenerator.new()
+		rng.randomize()
+		var opalamount : int = rng.randi_range(MIN,MAX)
+		emit_signal("give_opals", opalamount)
+		
+		

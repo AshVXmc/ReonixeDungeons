@@ -58,10 +58,8 @@ __meta__ = {
 position = Vector2( 0, -1.28571 )
 shape = SubResource( 4 )
 
-[node name="Save" type="CanvasLayer" parent="."]
-
 [node name="Light2D" type="Light2D" parent="."]
-scale = Vector2( 5, 5 )
+position = Vector2( -1.95817, -1.00177 )
 texture = ExtResource( 7 )
 energy = 0.5
 

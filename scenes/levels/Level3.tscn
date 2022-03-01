@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=2]
+[gd_scene load_steps=27 format=2]
 
 [ext_resource path="res://assets/terrain/lichen_ruins_oneway_spritesheet.png" type="Texture" id=1]
 [ext_resource path="res://scenes/items/LevelTransporter.tscn" type="PackedScene" id=2]
@@ -15,12 +15,13 @@
 [ext_resource path="res://scenes/menus/PauseUI.tscn" type="PackedScene" id=13]
 [ext_resource path="res://scenes/Light.tscn" type="PackedScene" id=14]
 [ext_resource path="res://scenes/NPC/ShopKeeperNPC.tscn" type="PackedScene" id=15]
-[ext_resource path="res://scripts/Level.gd" type="Script" id=16]
+[ext_resource path="res://scripts/util/Level.gd" type="Script" id=16]
 [ext_resource path="res://assets/terrain/lichen_ruins_misc_spritesheet.png" type="Texture" id=17]
 [ext_resource path="res://assets/terrain/lichen_ruins_spritesheet.png" type="Texture" id=18]
 [ext_resource path="res://scenes/items/Sign.tscn" type="PackedScene" id=19]
 [ext_resource path="res://scenes/enemies/Spider.tscn" type="PackedScene" id=20]
 [ext_resource path="res://scenes/menus/RevivementCrystalUI.tscn" type="PackedScene" id=21]
+[ext_resource path="res://scenes/menus/GameOver.tscn" type="PackedScene" id=22]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
 points = PoolVector2Array( 96, 96, 0, 96, 0, 0, 96, 0 )
@@ -225,28 +226,6 @@ points = PoolVector2Array( 96, 96, 0, 96, 0, 0, 96, 0 )
 [node name="Level3" type="Node2D"]
 script = ExtResource( 16 )
 
-[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
-
-[node name="Background1" type="ParallaxLayer" parent="ParallaxBackground"]
-z_as_relative = false
-motion_mirroring = Vector2( 1920, 640 )
-
-[node name="TextureRect" type="ColorRect" parent="ParallaxBackground/Background1"]
-margin_right = 1938.0
-margin_bottom = 1355.0
-color = Color( 0.0588235, 0.133333, 0.0509804, 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Sprite" type="Sprite" parent="ParallaxBackground/Background1"]
-scale = Vector2( 20, 20 )
-texture = ExtResource( 11 )
-centered = false
-__meta__ = {
-"_editor_description_": ""
-}
-
 [node name="PauseUI" parent="." instance=ExtResource( 13 )]
 
 [node name="HealthPotUI" parent="." instance=ExtResource( 6 )]
@@ -261,9 +240,36 @@ __meta__ = {
 
 [node name="OpalsUI" parent="." instance=ExtResource( 10 )]
 
+[node name="GameOverUI" parent="." instance=ExtResource( 22 )]
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="Background1" type="ParallaxLayer" parent="ParallaxBackground"]
+visible = false
+z_as_relative = false
+motion_mirroring = Vector2( 1920, 640 )
+
+[node name="TextureRect" type="ColorRect" parent="ParallaxBackground/Background1"]
+margin_right = 1938.0
+margin_bottom = 1355.0
+color = Color( 0.113725, 0.145098, 0.113725, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/Background1"]
+scale = Vector2( 20, 20 )
+texture = ExtResource( 11 )
+centered = false
+__meta__ = {
+"_editor_description_": ""
+}
+
 [node name="RevivementCrystal" parent="." instance=ExtResource( 21 )]
 
 [node name="DebugMenu" parent="." instance=ExtResource( 12 )]
+
+[node name="FPSCounter" parent="." instance=ExtResource( 7 )]
 
 [node name="Light2D" parent="." instance=ExtResource( 14 )]
 visible = false
@@ -310,5 +316,3 @@ position = Vector2( 1062.33, 303.428 )
 
 [node name="Spider2" parent="." instance=ExtResource( 20 )]
 position = Vector2( 1612.9, 117.712 )
-
-[node name="FPSCounter" parent="." instance=ExtResource( 7 )]
