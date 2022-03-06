@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://spriteframes/Fireball_spriteframes.tres" type="SpriteFrames" id=1]
-[ext_resource path="res://scripts/util/FireballScript.gd" type="Script" id=2]
+[ext_resource path="res://scripts/util/Fireball.gd" type="Script" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 32.7093, 24.063 )

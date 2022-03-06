@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://scripts/ui/ManaScript.gd" type="Script" id=1]
 [ext_resource path="res://assets/UI/mana.png" type="Texture" id=2]
+[ext_resource path="res://assets/UI/mana_slot.png" type="Texture" id=3]
 
 [node name="ManaUI" type="CanvasLayer"]
 
@@ -11,6 +12,16 @@ margin_top = 94.0452
 margin_right = 78.0208
 margin_bottom = 160.045
 script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ManaSlot" type="TextureRect" parent="Mana"]
+margin_right = 48.0
+margin_bottom = 48.0
+texture = ExtResource( 3 )
+expand = true
+stretch_mode = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }

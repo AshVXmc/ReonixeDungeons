@@ -22,7 +22,8 @@ var can_be_knocked : bool = true
 const SPEED : int = 380
 const GRAVITY : int = 40
 const JUMP_POWER : int = -1075
-const FIREBALL : PackedScene = preload("res://scenes/Fireball.tscn")
+const FIREBALL : PackedScene = preload("res://scenes/misc/Fireball.tscn")
+const FIRESAW : PackedScene = preload("res://scenes/misc/FireSaw.tscn")
 
 var is_attacking : bool = false
 var is_dead : bool = false
@@ -34,10 +35,10 @@ var is_gliding : bool = false
 var can_dash : bool = false
 var is_healing : bool = false
 var is_shopping : bool = false
-var is_shielded : bool = false
+var is_frozen : bool = false
 
 func _ready():
-		# warning-ignore:return_value_discarded
+# warning-ignore:return_value_discarded
 	connect("life_changed", get_parent().get_node("HeartUI/Life"), "on_player_life_changed")
 # warning-ignore:return_value_discarded
 	connect("mana_changed", get_parent().get_node("ManaUI/Mana"), "on_player_mana_changed")
@@ -54,35 +55,28 @@ func _ready():
 # warning-ignore:return_value_discarded
 	connect("life_changed", Global, "sync_hearts")
 	emit_signal("life_changed", Global.hearts)
-	# Mana singleton connect
 # warning-ignore:return_value_discarded
 	connect("mana_changed", Global, "sync_mana")
 	emit_signal("mana_changed", Global.mana)
-	# Healthpot inventory connect
 # warning-ignore:return_value_discarded
 	connect("healthpot_obtained", Global, "sync_playerHealthpots")
 	emit_signal("healthpot_obtained", Global.healthpot_amount)
-	# Lifewine inventory connect
 # warning-ignore:return_value_discarded
 	connect("lifewine_obtained", Global, "sync_playerLifeWines")
 	emit_signal("lifewine_obtained", Global.lifewine_amount)
-	
 # warning-ignore:return_value_discarded
 	connect("manapot_obtained", Global, "sync_playerManapots")
 	emit_signal("manapot_obtained", Global.manapot_amount)
-	
-	
 # warning-ignore:return_value_discarded
 	connect("opals_obtained", Global, "sync_playerOpals")
 	emit_signal("opals_obtained", Global.opals_amount)
-	
 # warning-ignore:return_value_discarded
 	connect("crystals_obtained", Global, "sync_playerCrystals")
 	emit_signal("crystals_obtained", Global.crystals_amount)
 
 func _physics_process(_delta):
 	# Makes sure the player is alive to use any movement controls
-	if !is_dead and !is_invulnerable and !is_healing and !is_shopping:
+	if !is_dead and !is_invulnerable and !is_healing and !is_shopping and !is_frozen:
 		# Function calls
 		attack()
 		dash()
@@ -90,11 +84,11 @@ func _physics_process(_delta):
 		useItems()
 		shoot()
 		# Movement controls
-		if velocity.x == 0 and !is_attacking and !is_gliding:
+		if velocity.x == 0 and !is_attacking and !is_gliding and !is_frozen:
 			$Sprite.play("Idle")
 		if Input.is_action_pressed("right") and !is_attacking and !is_knocked_back:
 			velocity.x = SPEED
-# warning-ignore:standalone_ternary
+		# warning-ignore:standalone_ternary
 			$Sprite.play("Glide") if is_gliding else $Sprite.play("Walk")
 			$Sprite.flip_h = false
 			if velocity.x == 0 and !is_attacking:
@@ -120,12 +114,11 @@ func _physics_process(_delta):
 			if is_gliding and Global.glide_unlocked:
 				$Sprite.play("Glide")
 		# Jump controls
-		if Input.is_action_just_pressed("jump") and is_on_floor() and !is_attacking:
+		if Input.is_action_just_pressed("jump") and is_on_floor() and !is_attacking and !is_frozen:
 			velocity.y = JUMP_POWER
 			$Sprite.play("Idle")
 			is_attacking = false
 			
-		
 		# Movement calculations
 		if !is_dashing and !is_gliding:
 			velocity.y += GRAVITY
@@ -133,20 +126,21 @@ func _physics_process(_delta):
 		velocity.x = lerp(velocity.x,0,0.2)
 		if is_invulnerable:
 			$Area2D/CollisionShape2D.disabled = true
-			
 		if Input.is_action_just_pressed("ui_use"):
 			$ToggleArea/CollisionShape2D.disabled = false
 			yield(get_tree().create_timer(0.4), "timeout")
 			$ToggleArea/CollisionShape2D.disabled = true
-				
 	if is_healing:
 		$Sprite.play("Healing")
-			
+	if is_frozen:
+		$Sprite.play("Frozen")
+	$FreezeMask.visible = true if is_frozen else false
+
 func shoot():
-	if Input.is_action_just_pressed("ui_shoot")	and !is_attacking and Global.mana >= 1:
-			var fireball = FIREBALL.instance()
-# warning-ignore:standalone_ternary
-			fireball.flip_fireball(-1) if sign($Position2D.position.x) == -1 else fireball.flip_fireball(1)	
+	if Input.is_action_just_pressed("ui_shoot")	and !is_attacking and !is_frozen and Global.mana >= 1:
+			var fireball : Fireball = FIREBALL.instance()
+			# warning-ignore:standalone_ternary
+			fireball.flip_projectile(-1) if sign($Position2D.position.x) == -1 else fireball.flip_projectile(1)	
 			get_parent().add_child(fireball)
 			fireball.position = $Position2D.global_position
 			if !Global.godmode:
@@ -154,9 +148,19 @@ func shoot():
 				emit_signal("mana_changed", Global.mana)
 			is_attacking = false
 			$AttackCollision/CollisionShape2D.disabled = true
-
+	
+	if Input.is_action_just_pressed("firesaw") and !is_attacking and !is_frozen and Global.mana >= 3:
+		var firesaw : FireSaw = FIRESAW.instance()
+		get_parent().add_child(firesaw)
+		firesaw.position = self.global_position
+		if !Global.godmode:
+			Global.mana -= 3
+			emit_signal("mana_changed", Global.mana)
+		is_attacking = false
+		$AttackCollision/CollisionShape2D.disabled = true
+		
 func attack():
-	if Input.is_action_just_pressed("ui_attack") and !is_attacking and !is_gliding:
+	if Input.is_action_just_pressed("ui_attack") and !is_attacking and !is_gliding and !is_frozen:
 		$Sprite.play("Attack")
 		is_attacking = true
 		$AttackCollision/CollisionShape2D.disabled = false
@@ -188,7 +192,7 @@ func _on_Area2D_area_entered(area : Area2D):
 		emit_signal("lifewine_obtained", Global.lifewine_amount)
 	if !Global.godmode:
 		if inv_timer.is_stopped():
-			if area.is_in_group("Enemy") or area.is_in_group("Fireball"):
+			if area.is_in_group("Enemy") or area.is_in_group("DeflectedProjectile"):
 				Global.hearts -= 0.5
 				afterDamaged()
 				knockback()
@@ -220,26 +224,20 @@ func afterDamaged():
 			emit_signal("crystals_obtained", Global.crystals_amount)
 			Global.hearts += 1
 			emit_signal("life_changed", Global.hearts)
+			is_invulnerable = true
+			yield(get_tree().create_timer(1), "timeout")
+			is_invulnerable = false
 		else:	
 			dead()
 
 
 # Obtaining mana by attacking enemies
 func _on_AttackCollision_area_entered(area):
-	if area.is_in_group("CoffeeMachine"):
-		Global.hearts += Global.max_hearts - Global.hearts
-		Global.mana += Global.max_mana - Global.mana
-		emit_signal("life_changed", Global.hearts)
-		emit_signal("mana_changed", Global.mana)
-	var rng : RandomNumberGenerator = RandomNumberGenerator.new()
-	rng.randomize()
-	var randomint = rng.randi_range(1,2)
-	if area.is_in_group("Enemy") or area.is_in_group("Enemy2") and !$AttackCollision/CollisionShape2D.disabled:
+	if area.is_in_group("Enemy")and !$AttackCollision/CollisionShape2D.disabled:
 		attack_knock()
 		if Global.mana < Global.max_mana:
-			Global.mana += randomint
+			Global.mana += 1
 			emit_signal("mana_changed", Global.mana)
-			
 
 func knockback():
 	if !Global.godmode:
@@ -267,7 +265,7 @@ func _on_RightDectector_area_entered(area):
 		is_healing = false
 		$HealingTimer.stop()
 func dash():
-#	if Global.dash_unlocked:
+	if Global.dash_unlocked and !is_frozen:
 		if is_on_floor() and $DashUseTimer.is_stopped():
 			can_dash = true
 		if !$Sprite.flip_h:
@@ -296,7 +294,7 @@ func dash():
 
 func glide():
 	# Press SPACE while in mid-air to temporarily glide
-	if Global.glide_unlocked and Input.is_action_just_pressed("jump") and !is_on_floor() and Global.mana >= 3:
+	if Global.glide_unlocked and Input.is_action_just_pressed("jump") and !is_on_floor() and Global.mana >= 2:
 		if is_on_floor():
 			is_gliding = false
 		is_gliding = true
@@ -314,14 +312,14 @@ func glide():
 
 
 func useItems():
-	# Health potions
-	if Input.is_action_just_pressed("slot_1") and Global.hearts < Global.max_hearts and Global.healthpot_amount > 0:
-		heal_player("HealthPot")
-	# Life wines (Increase maximum health)
-	elif Input.is_action_just_pressed("slot_2") and Global.hearts < Global.max_hearts and Global.lifewine_amount > 0:
-		heal_player("LifeWine")
-	elif Input.is_action_just_pressed("slot_3") and Global.mana < Global.max_mana and Global.manapot_amount > 0: 
-		heal_player("ManaPot")
+	if !is_frozen:
+		if Input.is_action_just_pressed("slot_1") and Global.hearts < Global.max_hearts and Global.healthpot_amount > 0:
+			heal_player("HealthPot")
+		# Life wines (Increase maximum health)
+		elif Input.is_action_just_pressed("slot_2") and Global.hearts < Global.max_hearts and Global.lifewine_amount > 0:
+			heal_player("LifeWine")
+		elif Input.is_action_just_pressed("slot_3") and Global.mana < Global.max_mana and Global.manapot_amount > 0: 
+			heal_player("ManaPot")
 
 func heal_player(item : String):
 	if !is_healing:
@@ -345,7 +343,7 @@ func heal_player(item : String):
 	Input.action_release("left")
 	Input.action_release("right")
 
-# Player death	
+
 func dead():
 	is_dead = true
 	velocity = Vector2(0,0)
@@ -353,9 +351,6 @@ func dead():
 	$Sprite.visible = false
 	$Light2D.visible = false
 	get_parent().get_node("GameOverUI/GameOver").visible = true
-	
-#	$Timer.start()
-
 
 func on_campfire_toggled():
 	is_healing = true
@@ -419,6 +414,8 @@ func debug_commands(cmd : String):
 			is_shopping = true
 		"closed":
 			is_shopping = false
+		"freeze":
+			is_frozen = true if !is_frozen else false
 		"fullhealth":
 			Global.hearts += Global.max_hearts - Global.hearts
 			emit_signal("life_changed", Global.hearts)
@@ -443,11 +440,9 @@ func debug_commands(cmd : String):
 		"fullcrystals":
 			Global.crystals_amount += Global.max_item_storage - Global.crystals_amount
 			emit_signal("crystals_obtained", Global.crystals_amount)
-# Handles what happens when timers runs out
-func _on_Timer_timeout():
-# warning-ignore:return_value_discarded
-	get_tree().change_scene("res://scenes/menus/MainMenu.tscn")
-	queue_free() 
+
+func door_opening():
+	is_shopping = true
 	
 func _on_InvulnerabilityTimer_timeout():
 	if !is_dead:
@@ -504,4 +499,5 @@ func _on_ManaHealTimer_timeout():
 		emit_signal("mana_changed", Global.mana)
 		Global.manapot_amount -= 1
 		emit_signal("manapot_obtained", Global.manapot_amount)
+
 

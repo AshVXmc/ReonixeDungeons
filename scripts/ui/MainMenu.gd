@@ -32,7 +32,7 @@ func _on_LoadGame_pressed():
 			Global.healthpot_amount = player_data["Healthpot"]
 			Global.dash_unlocked = player_data["DashUnlocked"]
 			Global.glide_unlocked = player_data["GlideUnlocked"]
-			Global.unopened_chests = player_data["ChestUnopened"]
+			Global.opened_chests = player_data["ChestOpened"]
 			Global.max_item_storage = player_data["MaxItemStorage"]
 			Global.lighting = player_data["Lighting"]
 			Global.vsync = player_data["Vsync"]

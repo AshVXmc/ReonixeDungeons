@@ -12,7 +12,7 @@ var is_staggered : bool = false
 var spinning : bool = false
 
 const LOOT : PackedScene = preload("res://scenes/items/LootBag.tscn")
-const FIREBALL : PackedScene = preload("res://scenes/Fireball.tscn")
+const FIREBALL : PackedScene = preload("res://scenes/misc/Fireball.tscn")
 onready var PLAYER = get_parent().get_node("Player").get_node("Area2D")
 
 func _ready():
@@ -52,10 +52,12 @@ func _physics_process(delta):
 func return_to_sender():
 	var fireball : Fireball = FIREBALL.instance()
 	if velocity.x > 0:
+		fireball.add_to_group("DeflectedProjectile")
 		get_parent().add_child(fireball)
 		fireball.flip_fireball(1)
 		fireball.position = $RightPos.global_position
 	else:
+		fireball.add_to_group("DeflectedProjectile")
 		get_parent().add_child(fireball)
 		fireball.flip_fireball(-1)
 		fireball.position = $LeftPos.global_position

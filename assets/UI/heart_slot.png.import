@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/coffee_machine.png-745e8c2b2985a38d019c4522ad25f2e5.stex"
+path="res://.import/heart_slot.png-a4ec506a702c9a1f344ad06acdf54ff6.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/misc/coffee_machine.png"
-dest_files=[ "res://.import/coffee_machine.png-745e8c2b2985a38d019c4522ad25f2e5.stex" ]
+source_file="res://assets/UI/heart_slot.png"
+dest_files=[ "res://.import/heart_slot.png-a4ec506a702c9a1f344ad06acdf54ff6.stex" ]
 
 [params]
 
@@ -28,6 +28,7 @@ process/fix_alpha_border=true
 process/premult_alpha=false
 process/HDR_as_SRGB=false
 process/invert_color=false
+process/normal_map_invert_y=false
 stream=false
 size_limit=0
 detect_3d=false

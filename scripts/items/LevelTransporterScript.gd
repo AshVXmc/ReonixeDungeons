@@ -9,16 +9,18 @@ const closed : StreamTexture = preload("res://assets/terrain/door.png")
 const opened : StreamTexture = preload("res://assets/terrain/door_opened.png")
 var is_opened : bool = false
 
+signal door_opened()
 
 func _ready():
 	$Label.visible = false
-
+	connect("door_opened", get_parent().get_node("Player"), "door_opening")
 func _process(delta):
 	if !is_opened:
 		$Sprite.set_texture(closed)
 	if $Area2D.overlaps_area(PLAYER):
 		$Label.visible = true
 		if Input.is_action_just_pressed("ui_use"):
+			emit_signal("door_opened")
 			is_opened = true
 			$Sprite.set_texture(opened)
 			colorrect.visible = true

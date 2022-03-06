@@ -18,16 +18,16 @@ func _physics_process(delta):
 func override_speed(ovr_speed : int):
 	SPEED = ovr_speed
 
-func flip_fireball(fb_direction : int):
-	direction = fb_direction
-	if fb_direction == -1:
+func flip_projectile(p_direction : int):
+	direction = p_direction
+	if p_direction == -1:
 		$AnimatedSprite.flip_h = true
 			
 func _on_VisibilityNotifier2D_screen_exited():
 	queue_free()
 
 func _on_Fireball_area_entered(area):
-	if area.is_in_group("Enemy"):
+	if area.is_in_group("Enemy") or area.is_in_group("Enemy2") or area.is_in_group("DestructableObject"):
 		destroyed = true
 		$AnimatedSprite.play("Destroyed")
 		$CollisionShape2D.disabled = true

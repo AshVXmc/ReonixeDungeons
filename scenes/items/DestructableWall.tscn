@@ -13,9 +13,7 @@ script = ExtResource( 1 )
 position = Vector2( -0.857164, 0.118032 )
 shape = SubResource( 1 )
 
-[node name="Area2D" type="Area2D" parent="." groups=[
-"Destructable",
-]]
+[node name="Area2D" type="Area2D" parent="." groups=["DestructableObject"]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2( -0.460314, -0.278819 )

@@ -19,10 +19,15 @@
 
 [resource]
 animations = [ {
-"frames": [ ExtResource( 2 ), ExtResource( 7 ) ],
+"frames": [ ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ), ExtResource( 2 ), ExtResource( 1 ) ],
+"loop": false,
+"name": "Attack",
+"speed": 18.0
+}, {
+"frames": [ ExtResource( 11 ), ExtResource( 10 ), ExtResource( 12 ), ExtResource( 2 ), ExtResource( 1 ) ],
 "loop": true,
-"name": "Hurt",
-"speed": 24.0
+"name": "AttackDown",
+"speed": 15.0
 }, {
 "frames": [ ExtResource( 14 ) ],
 "loop": false,
@@ -34,10 +39,20 @@ animations = [ {
 "name": "Death",
 "speed": 30.0
 }, {
-"frames": [ ExtResource( 11 ), ExtResource( 10 ), ExtResource( 12 ), ExtResource( 2 ), ExtResource( 1 ) ],
+"frames": [ ExtResource( 1 ), ExtResource( 3 ), ExtResource( 13 ) ],
 "loop": true,
-"name": "AttackDown",
-"speed": 15.0
+"name": "Walk",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 15 ) ],
+"loop": true,
+"name": "Glide",
+"speed": 1.0
+}, {
+"frames": [ ExtResource( 2 ), ExtResource( 1 ) ],
+"loop": true,
+"name": "Idle",
+"speed": 5.0
 }, {
 "frames": [ ExtResource( 16 ) ],
 "loop": true,
@@ -49,23 +64,13 @@ animations = [ {
 "name": "AttackUp",
 "speed": 15.0
 }, {
-"frames": [ ExtResource( 1 ), ExtResource( 3 ), ExtResource( 13 ) ],
+"frames": [ ExtResource( 2 ), ExtResource( 7 ) ],
 "loop": true,
-"name": "Walk",
+"name": "Hurt",
+"speed": 24.0
+}, {
+"frames": [ ExtResource( 2 ) ],
+"loop": true,
+"name": "Frozen",
 "speed": 5.0
-}, {
-"frames": [ ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ), ExtResource( 2 ), ExtResource( 1 ) ],
-"loop": false,
-"name": "Attack",
-"speed": 18.0
-}, {
-"frames": [ ExtResource( 2 ), ExtResource( 1 ) ],
-"loop": true,
-"name": "Idle",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 15 ) ],
-"loop": true,
-"name": "Glide",
-"speed": 1.0
 } ]

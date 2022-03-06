@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://spriteframes/MainCharacter_spriteframes.tres" type="SpriteFrames" id=1]
 [ext_resource path="res://scripts/util/Player.gd" type="Script" id=2]
 [ext_resource path="res://assets/misc/light_circle.png" type="Texture" id=3]
+[ext_resource path="res://assets/misc/frozen_block.png" type="Texture" id=4]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 37.6338
@@ -17,8 +18,13 @@ script = ExtResource( 2 )
 [node name="Sprite" type="AnimatedSprite" parent="."]
 scale = Vector2( 5, 5 )
 frames = ExtResource( 1 )
-animation = "Healing"
+animation = "Frozen"
 playing = true
+
+[node name="FreezeMask" type="Sprite" parent="."]
+visible = false
+scale = Vector2( 6, 6 )
+texture = ExtResource( 4 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 0, 5.05854 )
@@ -39,9 +45,6 @@ shape = SubResource( 1 )
 
 [node name="Position2D" type="Position2D" parent="."]
 position = Vector2( 100, 0 )
-
-[node name="Timer" type="Timer" parent="."]
-wait_time = 0.5
 
 [node name="InvulnerabilityTimer" type="Timer" parent="."]
 wait_time = 0.4
@@ -81,6 +84,9 @@ one_shot = true
 wait_time = 0.75
 one_shot = true
 
+[node name="GlideTimer" type="Timer" parent="."]
+wait_time = 0.75
+
 [node name="LeftDetector" type="Area2D" parent="."]
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="LeftDetector"]
@@ -108,7 +114,6 @@ disabled = true
 [connection signal="animation_finished" from="Sprite" to="." method="_on_Sprite_animation_finished"]
 [connection signal="area_entered" from="AttackCollision" to="." method="_on_AttackCollision_area_entered"]
 [connection signal="area_entered" from="Area2D" to="." method="_on_Area2D_area_entered"]
-[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
 [connection signal="timeout" from="InvulnerabilityTimer" to="." method="_on_InvulnerabilityTimer_timeout"]
 [connection signal="timeout" from="AttackTimer" to="." method="_on_AttackTimer_timeout"]
 [connection signal="timeout" from="DashCooldown" to="." method="_on_DashCooldown_timeout"]
@@ -118,5 +123,6 @@ disabled = true
 [connection signal="timeout" from="FullHealTimer" to="." method="_on_FullHealTimer_timeout"]
 [connection signal="timeout" from="ManaHealTimer" to="." method="_on_ManaHealTimer_timeout"]
 [connection signal="timeout" from="DashUseTimer" to="." method="_on_DashUseTimer_timeout"]
+[connection signal="timeout" from="GlideTimer" to="." method="_on_GlideTimer_timeout"]
 [connection signal="area_entered" from="LeftDetector" to="." method="_on_LeftDetector_area_entered"]
 [connection signal="area_entered" from="RightDectector" to="." method="_on_RightDectector_area_entered"]

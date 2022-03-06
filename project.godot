@@ -40,9 +40,14 @@ _global_script_classes=[ {
 "path": "res://scripts/enemies/Familiar.gd"
 }, {
 "base": "Area2D",
+"class": "FireSaw",
+"language": "GDScript",
+"path": "res://scripts/util/FireSaw.gd"
+}, {
+"base": "Area2D",
 "class": "Fireball",
 "language": "GDScript",
-"path": "res://scripts/util/FireballScript.gd"
+"path": "res://scripts/util/Fireball.gd"
 }, {
 "base": "Control",
 "class": "GameOver",
@@ -121,6 +126,7 @@ _global_script_class_icons={
 "DialogueScreen": "",
 "Elevator": "",
 "Familiar": "",
+"FireSaw": "",
 "Fireball": "",
 "GameOver": "",
 "GenericSpike": "",
@@ -199,7 +205,8 @@ texture={
 
 ui_accept={
 "deadzone": 0.5,
-"events": [  ]
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777221,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
 }
 ui_select={
 "deadzone": 0.5,

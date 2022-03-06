@@ -43,8 +43,8 @@ margin_left = 146.167
 margin_top = 41.9733
 margin_right = 653.167
 margin_bottom = 167.973
-custom_fonts/font = SubResource( 1 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_fonts/font = SubResource( 1 )
 text = "Hearts represent your life force.
 When it drops to zero, you'll die.
 Replenish hearts using health potions."
@@ -68,8 +68,8 @@ margin_left = 147.849
 margin_top = 200.062
 margin_right = 735.849
 margin_bottom = 369.062
-custom_fonts/font = SubResource( 1 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_fonts/font = SubResource( 1 )
 text = "Mana is a mystical magic energy used
 to cast abilities and spells. Replenish
 mana by striking enemies and using
@@ -94,8 +94,8 @@ margin_left = 144.285
 margin_top = 413.878
 margin_right = 651.285
 margin_bottom = 539.878
-custom_fonts/font = SubResource( 1 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_fonts/font = SubResource( 1 )
 text = "Opals are the universal minted currency.
 Useful for trading items in shops. Obtain
 opals from enemy loot or quests."

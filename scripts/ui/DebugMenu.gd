@@ -44,6 +44,10 @@ func parse_command():
 		"glide":
 			Global.glide_unlocked = true if !Global.glide_unlocked else false
 			$Output.text = "Glide set to " + str(Global.glide_unlocked)
+		# Gives the frozen effect
+		"freeze":
+			emit_signal("debugcmd", "freeze")
+			$Output.text = "Freeze toggled"
 		"killall":
 			emit_signal("debugcmd", "killall")
 			$Output.text = "Killed all enemies"
@@ -62,6 +66,8 @@ func parse_command():
 		# Invulnerable to damage and knockback ,abilities don't drain mana
 		"godmode":
 			Global.godmode = true if !Global.godmode else false
+			emit_signal("debugcmd", "fullhealth")
+			emit_signal("debugcmd", "fullmana")
 			$Output.text = "Entered Godmode" if Global.godmode else "Exited Godmode"
 		_:
 			$Output.text = "Invalid command"

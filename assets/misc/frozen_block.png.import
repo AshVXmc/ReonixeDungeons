@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/ankh.png-7fbbb8270af1422e03d13b7942a775a0.stex"
+path="res://.import/frozen_block.png-a6db8e3598bf1daa1c61f82bcd193c50.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/misc/ankh.png"
-dest_files=[ "res://.import/ankh.png-7fbbb8270af1422e03d13b7942a775a0.stex" ]
+source_file="res://assets/misc/frozen_block.png"
+dest_files=[ "res://.import/frozen_block.png-a6db8e3598bf1daa1c61f82bcd193c50.stex" ]
 
 [params]
 

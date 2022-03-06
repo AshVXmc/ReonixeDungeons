@@ -202,6 +202,9 @@ margin_bottom = 28.083
 custom_colors/font_color = Color( 0.290196, 1, 0, 1 )
 custom_fonts/font = SubResource( 5 )
 text = "Saved!"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [connection signal="pressed" from="Pause/ResumeButton" to="Pause" method="_on_ResumeButton_pressed"]
 [connection signal="pressed" from="Pause/SaveButton" to="Pause" method="_on_SaveButton_pressed"]
