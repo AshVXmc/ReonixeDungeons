@@ -1,8 +1,7 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://spriteframes/MainCharacter_spriteframes.tres" type="SpriteFrames" id=1]
 [ext_resource path="res://scripts/util/Player.gd" type="Script" id=2]
-[ext_resource path="res://assets/misc/light_circle.png" type="Texture" id=3]
 [ext_resource path="res://assets/misc/frozen_block.png" type="Texture" id=4]
 
 [sub_resource type="CapsuleShape2D" id=1]
@@ -45,6 +44,9 @@ shape = SubResource( 1 )
 
 [node name="Position2D" type="Position2D" parent="."]
 position = Vector2( 100, 0 )
+
+[node name="DashParticlePosition" type="Position2D" parent="."]
+position = Vector2( -49.2104, 0 )
 
 [node name="InvulnerabilityTimer" type="Timer" parent="."]
 wait_time = 0.4
@@ -99,17 +101,15 @@ position = Vector2( 0, 9.53517 )
 rotation = 3.14159
 polygon = PoolVector2Array( -13.0297, -39.1703, -31.0406, -25.6622, -37.9271, -3.14862, -37.6622, 18.0406, -30.246, 35.2569, -14.8838, 47.1758, -1.11079, 51.4137, -0.316193, -41.0244 )
 
-[node name="Light2D" type="Light2D" parent="."]
-scale = Vector2( 5, 5 )
-texture = ExtResource( 3 )
-energy = 0.7
-
 [node name="ToggleArea" type="Area2D" parent="." groups=["PlayerToggle"]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ToggleArea"]
 position = Vector2( 0, 5.05854 )
 shape = SubResource( 1 )
 disabled = true
+
+[node name="ParticlePosition" type="Position2D" parent="."]
+position = Vector2( 0, 50 )
 
 [connection signal="animation_finished" from="Sprite" to="." method="_on_Sprite_animation_finished"]
 [connection signal="area_entered" from="AttackCollision" to="." method="_on_AttackCollision_area_entered"]

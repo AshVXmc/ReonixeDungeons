@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://assets/particles/smoke_particle.png" type="Texture" id=1]
+[ext_resource path="res://scripts/particles/JumpParticle.gd" type="Script" id=2]
+
+[node name="JumpParticle" type="CPUParticles2D"]
+rotation = 4.71239
+scale = Vector2( 3, 3 )
+lifetime = 0.5
+texture = ExtResource( 1 )
+spread = 90.0
+gravity = Vector2( 0, 0 )
+initial_velocity = 25.0
+script = ExtResource( 2 )
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.5
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

@@ -24,6 +24,8 @@ const GRAVITY : int = 40
 const JUMP_POWER : int = -1075
 const FIREBALL : PackedScene = preload("res://scenes/misc/Fireball.tscn")
 const FIRESAW : PackedScene = preload("res://scenes/misc/FireSaw.tscn")
+const JUMP_PARTICLE : PackedScene = preload("res://scenes/particles/JumpParticle.tscn")
+const DASH_PARTICLE : PackedScene = preload("res://scenes/particles/DashParticle.tscn")
 
 var is_attacking : bool = false
 var is_dead : bool = false
@@ -95,6 +97,8 @@ func _physics_process(_delta):
 				$Sprite.play("Idle")
 			if sign($Position2D.position.x) == -1:
 				$Position2D.position.x *= -1
+			if sign($DashParticlePosition.position.x) == 1:
+				$DashParticlePosition.position.x *= -1
 			if Input.is_action_just_released("right"):
 				$Sprite.play("Walk")
 			get_node("AttackCollision").set_scale(Vector2(1,1))
@@ -107,6 +111,8 @@ func _physics_process(_delta):
 				$Sprite.play("Idle")
 			if sign($Position2D.position.x) == 1:
 				$Position2D.position.x *= -1
+			if sign($DashParticlePosition.position.x) == -1:
+				$DashParticlePosition.position.x *= -1
 			get_node("AttackCollision").set_scale(Vector2(-1,1))	
 		elif velocity.x == 0:
 			if !is_attacking:
@@ -115,6 +121,12 @@ func _physics_process(_delta):
 				$Sprite.play("Glide")
 		# Jump controls
 		if Input.is_action_just_pressed("jump") and is_on_floor() and !is_attacking and !is_frozen:
+			# Particles
+			var jump_particle : JumpParticle = JUMP_PARTICLE.instance()
+			jump_particle.emitting = true
+			get_parent().add_child(jump_particle)
+			jump_particle.position = $ParticlePosition.global_position
+			
 			velocity.y = JUMP_POWER
 			$Sprite.play("Idle")
 			is_attacking = false
@@ -273,6 +285,14 @@ func dash():
 		if $Sprite.flip_h:
 			dashdirection = Vector2(-1, 0)		
 		if Input.is_action_just_pressed("ui_dash") and can_dash and $DashUseTimer.is_stopped() and Global.mana > 0:
+			# Particles
+			var dash_particle = DASH_PARTICLE.instance()
+			get_parent().add_child(dash_particle)
+			if !$Sprite.flip_h:
+				dash_particle.rotation_degrees = 180
+			dash_particle.position = $DashParticlePosition.global_position
+			dash_particle.emitting = true
+			dash_particle.one_shot = true
 			if !Global.godmode:
 				Global.mana -= 1
 				emit_signal("mana_changed", Global.mana)
@@ -345,11 +365,11 @@ func heal_player(item : String):
 
 
 func dead():
+	get_parent().get_node("DebugMenu").get_node("Control").visible = false
 	is_dead = true
 	velocity = Vector2(0,0)
 	$CollisionShape2D.disabled = true
 	$Sprite.visible = false
-	$Light2D.visible = false
 	get_parent().get_node("GameOverUI/GameOver").visible = true
 
 func on_campfire_toggled():

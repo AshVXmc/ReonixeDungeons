@@ -1,10 +1,11 @@
-extends Node2D
+class_name SilverChest extends Node2D
 
 export var chestID : int
 export var Opals : int
 var hasbeenopened = false
 onready var AREA : Area2D = $Area2D
 onready var PLAYER = get_parent().get_node("Player").get_node("Area2D")
+const OPENED_PARTICLES = preload("res://scenes/particles/ChestParticle.tscn")
 
 signal give_opals(amount)
 func _ready():
@@ -21,8 +22,11 @@ func _process(_delta):
 	if AREA.overlaps_area(PLAYER) and Input.is_action_just_pressed("ui_use") and !Global.opened_chests.has(chestID) and !hasbeenopened:
 		Global.opened_chests.append(chestID)
 		emit_signal("give_opals", Opals)
-
-
+		# Particles that show up when the chest is opened
+		var opened_particles = OPENED_PARTICLES.instance()
+		get_parent().add_child(opened_particles)
+		opened_particles.position = global_position
+		opened_particles.one_shot = true
 
 func _on_Area2D_area_entered(area):
 	if area.is_in_group("Player") and !$Label.visible and !Global.opened_chests.has(chestID):

@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://themes/Blur.tres" type="Material" id=1]
 [ext_resource path="res://scripts/ui/PauseScript.gd" type="Script" id=2]
@@ -7,6 +7,11 @@
 [ext_resource path="res://assets/UI/quiticon.png" type="Texture" id=5]
 [ext_resource path="res://assets/UI/savebutton.png" type="Texture" id=6]
 [ext_resource path="res://assets/fonts/Born2bSportyV2.ttf" type="DynamicFontData" id=7]
+[ext_resource path="res://assets/UI/popup_textbox.png" type="Texture" id=8]
+
+[sub_resource type="DynamicFont" id=6]
+size = 64
+font_data = ExtResource( 7 )
 
 [sub_resource type="DynamicFont" id=1]
 size = 45
@@ -24,6 +29,39 @@ size = 55
 font_data = ExtResource( 7 )
 
 [node name="PauseUI" type="CanvasLayer"]
+
+[node name="OutOfFocus" type="Control" parent="."]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -540.0
+margin_top = -360.0
+margin_right = -500.0
+margin_bottom = -320.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="OutOfFocus"]
+margin_left = 349.0
+margin_top = 310.0
+margin_right = 749.0
+margin_bottom = 430.0
+texture = ExtResource( 8 )
+expand = true
+
+[node name="Label" type="Label" parent="OutOfFocus"]
+margin_left = 374.902
+margin_top = 338.861
+margin_right = 722.902
+margin_bottom = 402.861
+custom_fonts/font = SubResource( 6 )
+text = "Click to Focus!"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Pause" type="Control" parent="."]
 pause_mode = 2

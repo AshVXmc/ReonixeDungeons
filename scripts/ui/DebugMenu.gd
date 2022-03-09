@@ -21,10 +21,12 @@ func _process(delta):
 		else:
 			visible = false
 			emit_signal("debugcmd", "closed")
-	if Input.is_action_just_pressed("ui_select"):
-		parse_command()
-	if Input.is_action_just_pressed("ui_cancel"):
-		visible = false
+	if visible:
+		if Input.is_action_just_pressed("ui_select"):
+			parse_command()
+		if Input.is_action_just_pressed("ui_cancel"):
+			visible = false
+	
 
 func parse_command():
 	var command : String = $LineEdit.text
@@ -75,9 +77,6 @@ func parse_command():
 	# Teleport to a level
 	if command.to_lower() in numbers:
 		get_tree().change_scene("res://scenes/levels/Level" + command.to_lower() + ".tscn")
-func clear_enemies():
-	emit_signal("debugcmd", "killall")
-
 
 
 func _on_Control_visibility_changed():

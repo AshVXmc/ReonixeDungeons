@@ -13,6 +13,15 @@ func _ready():
 	self.visible = false
 	$SaveLabel.visible = false
 
+func _notification(what):
+	if what == MainLoop.NOTIFICATION_WM_FOCUS_IN:
+		get_tree().paused = false
+		$Blur.visible = false
+		get_parent().get_node("OutOfFocus").visible = false
+	elif what == MainLoop.NOTIFICATION_WM_FOCUS_OUT:
+		$Blur.visible = true
+		get_parent().get_node("OutOfFocus").visible = true
+		get_tree().paused = true
 func _process(delta):
 	if Input.is_action_just_pressed("ui_cancel"):
 		if !get_tree().paused:

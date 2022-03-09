@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://scripts/ui/HowToPlayMenuScript.gd" type="Script" id=1]
 [ext_resource path="res://assets/fonts/Born2bSportyV2.ttf" type="DynamicFontData" id=2]
@@ -10,6 +10,10 @@
 
 [sub_resource type="DynamicFont" id=2]
 size = 64
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=3]
+size = 36
 font_data = ExtResource( 2 )
 
 [sub_resource type="DynamicFont" id=1]
@@ -53,14 +57,14 @@ scroll_active = false
 
 [node name="Instructions" type="RichTextLabel" parent="Control"]
 anchor_left = 0.512
-anchor_top = 0.559
-anchor_right = 0.512
-anchor_bottom = 0.559
+anchor_top = 0.548
+anchor_right = 0.514
+anchor_bottom = 0.548
 margin_left = -521.984
-margin_top = -315.598
-margin_right = 2.01599
-margin_bottom = 300.402
-custom_fonts/normal_font = SubResource( 1 )
+margin_top = -307.656
+margin_right = -99.148
+margin_bottom = 257.344
+custom_fonts/normal_font = SubResource( 3 )
 bbcode_enabled = true
 bbcode_text = "[color=yellow]A or Left Arrow[/color] to move left
 [color=yellow]D or Right Arrow[/color] to move right
@@ -74,7 +78,8 @@ bbcode_text = "[color=yellow]A or Left Arrow[/color] to move left
 [color=yellow]C[/color] to dash
 [color=yellow]Numbers[/color] to use items
 [color=yellow]ESC[/color] to pause
-[color=yellow]TAB[/color] to toggle FPS counter
+[color=yellow]F3[/color] to toggle FPS counter
+[color=yellow]F11[/color] to screenshot
 [color=yellow]/[/color] to toggle debug console"
 text = "A or Left Arrow to move left
 D or Right Arrow to move right
@@ -88,7 +93,8 @@ R to summon firesaw
 C to dash
 Numbers to use items
 ESC to pause
-TAB to toggle FPS counter
+F3 to toggle FPS counter
+F11 to screenshot
 / to toggle debug console"
 fit_content_height = true
 scroll_active = false

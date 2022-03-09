@@ -2,6 +2,7 @@
 
 [ext_resource path="res://scenes/enemies/bosses/AlphaGuardian.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/menus/HeartUI.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scripts/util/Level.gd" type="Script" id=3]
 [ext_resource path="res://scenes/menus/LifeWineUI.tscn" type="PackedScene" id=4]
 [ext_resource path="res://scenes/menus/ManaPotUI.tscn" type="PackedScene" id=5]
 [ext_resource path="res://scenes/menus/PauseUI.tscn" type="PackedScene" id=6]
@@ -10,7 +11,6 @@
 [ext_resource path="res://scenes/menus/OpalsUI.tscn" type="PackedScene" id=9]
 [ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=11]
 [ext_resource path="res://scenes/misc/Light.tscn" type="PackedScene" id=12]
-[ext_resource path="res://scripts/util/Level4.gd" type="Script" id=13]
 [ext_resource path="res://assets/misc/background_2.png" type="Texture" id=14]
 [ext_resource path="res://tilesets/one_way_tilesets.tres" type="TileSet" id=15]
 [ext_resource path="res://tilesets/Default.tres" type="TileSet" id=16]
@@ -22,7 +22,7 @@ extents = Vector2( 47.7336, 7.95237 )
 extents = Vector2( 96.0129, 7.95237 )
 
 [node name="Level10" type="Node2D"]
-script = ExtResource( 13 )
+script = ExtResource( 3 )
 
 [node name="HotbarUI" parent="." instance=ExtResource( 12 )]
 

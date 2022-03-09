@@ -5,7 +5,7 @@
 [ext_resource path="res://assets/enemies/bat_1.png" type="Texture" id=3]
 
 [sub_resource type="CapsuleShape2D" id=1]
-radius = 38.9119
+radius = 26.8546
 height = 0.0
 
 [sub_resource type="SpriteFrames" id=4]
@@ -20,7 +20,7 @@ animations = [ {
 radius = 50.249
 
 [sub_resource type="CircleShape2D" id=3]
-radius = 400.307
+radius = 450.0
 
 [node name="Bat" type="KinematicBody2D" groups=["Enemy"]]
 script = ExtResource( 2 )

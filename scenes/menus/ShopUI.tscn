@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://assets/fonts/Born2bSportyV2.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://assets/misc/health_pot.png" type="Texture" id=2]
@@ -8,6 +8,8 @@
 [ext_resource path="res://assets/UI/popup_textbox.png" type="Texture" id=6]
 [ext_resource path="res://assets/misc/life_wine.png" type="Texture" id=7]
 [ext_resource path="res://assets/misc/item_pouch.png" type="Texture" id=8]
+[ext_resource path="res://themes/Blur.tres" type="Material" id=9]
+[ext_resource path="res://assets/misc/revivement_crystal.png" type="Texture" id=10]
 
 [sub_resource type="DynamicFont" id=2]
 size = 50
@@ -18,7 +20,7 @@ size = 50
 font_data = ExtResource( 1 )
 
 [sub_resource type="DynamicFont" id=5]
-size = 60
+size = 45
 font_data = ExtResource( 1 )
 
 [sub_resource type="DynamicFont" id=4]
@@ -37,20 +39,6 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Blur" type="ColorRect" parent="."]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -1118.64
-margin_top = -621.046
-margin_right = 1081.36
-margin_bottom = 728.954
-color = Color( 0.0196078, 0.0196078, 0.0196078, 0.705882 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="Main" type="Control" parent="CanvasLayer"]
@@ -63,6 +51,21 @@ margin_top = -230.0
 margin_right = 357.0
 margin_bottom = 171.0
 script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Blur" type="ColorRect" parent="CanvasLayer/Main"]
+material = ExtResource( 9 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -1074.8
+margin_top = -492.04
+margin_right = 1105.2
+margin_bottom = 676.96
+color = Color( 1, 1, 1, 0 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -136,9 +139,9 @@ texture = ExtResource( 4 )
 
 [node name="ManaPot" type="ColorRect" parent="CanvasLayer/Main"]
 margin_left = -67.019
-margin_top = 161.009
+margin_top = 160.0
 margin_right = 52.9813
-margin_bottom = 281.009
+margin_bottom = 280.0
 rect_scale = Vector2( 0.75, 0.75 )
 color = Color( 0.00392157, 0.639216, 0.917647, 1 )
 __meta__ = {
@@ -231,8 +234,8 @@ __meta__ = {
 }
 
 [node name="Sprite" type="Sprite" parent="CanvasLayer/Main/ItemPouch"]
-position = Vector2( 57.9401, 57.9401 )
-scale = Vector2( 6, 6 )
+position = Vector2( 58.939, 42.957 )
+scale = Vector2( 4.7, 4.7 )
 texture = ExtResource( 8 )
 
 [node name="ItemPouchButton" type="Button" parent="CanvasLayer/Main/ItemPouch"]
@@ -259,19 +262,63 @@ __meta__ = {
 }
 
 [node name="SpriteLabel" type="Label" parent="CanvasLayer/Main/ItemPouch"]
-margin_left = 80.9153
-margin_top = 71.8397
-margin_right = 124.915
-margin_bottom = 131.84
-custom_colors/font_color = Color( 1, 0, 0, 1 )
+margin_left = 5.00111
+margin_top = 78.8318
+margin_right = 109.001
+margin_bottom = 138.832
+custom_colors/font_color = Color( 1, 1, 1, 1 )
 custom_fonts/font = SubResource( 5 )
-text = "I"
+text = "Tier 1"
 align = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Opal" type="Sprite" parent="CanvasLayer/Main/ItemPouch"]
+position = Vector2( 211.567, 92.6534 )
+scale = Vector2( 3, 3 )
+texture = ExtResource( 4 )
+
+[node name="RevivementCrystal" type="ColorRect" parent="CanvasLayer/Main"]
+margin_left = 146.243
+margin_top = 160.0
+margin_right = 266.243
+margin_bottom = 280.0
+rect_scale = Vector2( 0.75, 0.75 )
+color = Color( 0.00392157, 0.639216, 0.917647, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Sprite" type="Sprite" parent="CanvasLayer/Main/RevivementCrystal"]
+position = Vector2( 57.0534, 56.1564 )
+scale = Vector2( 6, 6 )
+texture = ExtResource( 10 )
+
+[node name="CrystalButton" type="Button" parent="CanvasLayer/Main/RevivementCrystal"]
+margin_left = 126.796
+margin_top = -0.318176
+margin_right = 246.796
+margin_bottom = 59.6818
+custom_fonts/font = SubResource( 2 )
+text = "Buy"
+expand_icon = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="CanvasLayer/Main/RevivementCrystal"]
+margin_left = 133.871
+margin_top = 69.4901
+margin_right = 199.871
+margin_bottom = 120.49
+custom_fonts/font = SubResource( 3 )
+text = "120"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Opal" type="Sprite" parent="CanvasLayer/Main/RevivementCrystal"]
 position = Vector2( 211.567, 92.6534 )
 scale = Vector2( 3, 3 )
 texture = ExtResource( 4 )
@@ -313,3 +360,6 @@ __meta__ = {
 [connection signal="mouse_entered" from="CanvasLayer/Main/ItemPouch/ItemPouchButton" to="CanvasLayer/Main" method="_on_ItemPouchButton_mouse_entered"]
 [connection signal="mouse_exited" from="CanvasLayer/Main/ItemPouch/ItemPouchButton" to="CanvasLayer/Main" method="_on_ItemPouchButton_mouse_exited"]
 [connection signal="pressed" from="CanvasLayer/Main/ItemPouch/ItemPouchButton" to="CanvasLayer/Main" method="_on_ItemPouchButton_pressed"]
+[connection signal="mouse_entered" from="CanvasLayer/Main/RevivementCrystal/CrystalButton" to="CanvasLayer/Main" method="_on_CrystalButton_mouse_entered"]
+[connection signal="mouse_exited" from="CanvasLayer/Main/RevivementCrystal/CrystalButton" to="CanvasLayer/Main" method="_on_CrystalButton_mouse_exited"]
+[connection signal="pressed" from="CanvasLayer/Main/RevivementCrystal/CrystalButton" to="CanvasLayer/Main" method="_on_CrystalButton_pressed"]

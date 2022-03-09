@@ -9,15 +9,15 @@ extents = Vector2( 26.36, 15.1008 )
 
 [sub_resource type="SpriteFrames" id=2]
 animations = [ {
-"frames": [ ExtResource( 1 ), ExtResource( 2 ) ],
-"loop": true,
-"name": "slimeanim",
-"speed": 4.0
-}, {
 "frames": [  ],
 "loop": true,
 "name": "death",
 "speed": 5.0
+}, {
+"frames": [ ExtResource( 1 ), ExtResource( 2 ) ],
+"loop": true,
+"name": "slimeanim",
+"speed": 4.0
 } ]
 
 [sub_resource type="CapsuleShape2D" id=3]
@@ -42,7 +42,7 @@ position = Vector2( 32, 0 )
 enabled = true
 cast_to = Vector2( 0, 28 )
 
-[node name="Area2D" type="Area2D" parent="." groups=["Enemy"]]
+[node name="Area2D" type="Area2D" parent="." groups=["Enemy2"]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2( 0.595276, -19.5834 )

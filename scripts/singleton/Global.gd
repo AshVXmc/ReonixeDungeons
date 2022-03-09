@@ -39,6 +39,7 @@ func reset_player_data():
 	Global.glide_unlocked = false
 	Global.firesaw_unlocked = false
 	Global.max_item_storage = 3
+	Global.lighting = true
 
 
 func reset_chest_data():

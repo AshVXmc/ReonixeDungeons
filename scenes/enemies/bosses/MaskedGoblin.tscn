@@ -1,9 +1,10 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://scripts/enemies/MaskedGoblin.gd" type="Script" id=1]
 [ext_resource path="res://assets/enemies/minibosses/masked_goblin_2.png" type="Texture" id=2]
 [ext_resource path="res://assets/enemies/minibosses/masked_goblin_1.png" type="Texture" id=3]
 [ext_resource path="res://assets/UI/healthbar_full.png" type="Texture" id=4]
+[ext_resource path="res://assets/UI/healthbar_empty.png" type="Texture" id=5]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 32.3549
@@ -18,10 +19,10 @@ animations = [ {
 } ]
 
 [sub_resource type="RectangleShape2D" id=3]
-extents = Vector2( 50.7446, 50 )
+extents = Vector2( 40.3233, 45.9278 )
 
 [sub_resource type="RectangleShape2D" id=4]
-extents = Vector2( 323.341, 76.9879 )
+extents = Vector2( 339.768, 76.9879 )
 
 [node name="MaskedGoblin" type="KinematicBody2D"]
 scale = Vector2( 1.2, 1.2 )
@@ -38,19 +39,19 @@ frames = SubResource( 2 )
 [node name="Area2D" type="Area2D" parent="." groups=["Enemy"]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2( 3.39843, -0.979891 )
+position = Vector2( 4.30923, 3.09228 )
 shape = SubResource( 3 )
 
 [node name="Left" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Left"]
-position = Vector2( -355.486, -27.3338 )
+position = Vector2( -375, -30 )
 shape = SubResource( 4 )
 
 [node name="Right" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Right"]
-position = Vector2( 362.518, -27.435 )
+position = Vector2( 384.542, -30 )
 shape = SubResource( 4 )
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
@@ -61,7 +62,7 @@ collision_mask = 3075
 collide_with_areas = true
 
 [node name="HurtTimer" type="Timer" parent="."]
-wait_time = 0.8
+wait_time = 1.25
 one_shot = true
 
 [node name="AttackingTimer" type="Timer" parent="."]
@@ -86,7 +87,7 @@ position = Vector2( 60, -55 )
 [node name="UpPos" type="Position2D" parent="."]
 position = Vector2( 3.3333, -81.6667 )
 
-[node name="HealthBar" type="TextureProgress" parent="."]
+[node name="BackBar" type="TextureProgress" parent="."]
 anchor_left = 0.5
 anchor_right = 0.5
 margin_left = -45.0769
@@ -96,6 +97,21 @@ margin_bottom = -77.2493
 rect_scale = Vector2( 5, 5 )
 max_value = 20.0
 value = 20.0
+texture_progress = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HealthBar" type="TextureProgress" parent="."]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -45.0769
+margin_top = -83.2493
+margin_right = -25.0769
+margin_bottom = -77.2493
+rect_scale = Vector2( 5, 5 )
+max_value = 16.0
+value = 16.0
 texture_progress = ExtResource( 4 )
 __meta__ = {
 "_edit_use_anchors_": false

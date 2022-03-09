@@ -68,7 +68,7 @@ func _on_LifeWineButton_pressed():
 			emit_signal("item_bought", "HealthPot", 20)
 
 func _on_LifeWineButton_mouse_entered():
-	$FlavorText.bbcode_text = "High-quality red wine with a thick bouquet, and restores your" + heart + "to full. Takes 2.5 seconds to consume. You can hold " + maxstorage + "of this at a time."
+	$FlavorText.bbcode_text = "High-quality red wine with a thick bouquet, and restores your" + heart + "to full. Takes 2.5 seconds to consume. You can hold " + maxstorage + " of this at a time."
 
 func _on_LifeWineButton_mouse_exited():
 	$FlavorText.bbcode_text = ""
@@ -86,3 +86,16 @@ func _on_ItemPouchButton_mouse_entered():
 
 func _on_ItemPouchButton_mouse_exited():
 	pass # Replace with function body.
+
+
+func _on_CrystalButton_pressed():
+	pass # Replace with function body.
+
+func _on_CrystalButton_mouse_entered():
+	$FlavorText.bbcode_text = "This magical artifact revives you after death but its essence gets destroyed after use. You can hold " + maxstorage + " of this at a time."
+	
+func _on_CrystalButton_mouse_exited():
+	$FlavorText.bbcode_text = ""
+
+
+

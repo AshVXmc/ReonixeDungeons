@@ -1,12 +1,12 @@
 class_name MaskedGoblin extends KinematicBody2D
 
-const max_HP : int = 20
-export var HP : int = 20
+const max_HP : int = 14
+export var HP : int = 14
 export var flipped : bool = false
 var velocity = Vector2()
 var direction : int = 1
 const FLOOR = Vector2(0, -1)
-var SPEED : int = 375
+var SPEED : int = 300
 const GRAVITY : int = 45
 const SHURIKEN : PackedScene = preload("res://scenes/enemies/bosses/Shuriken.tscn")
 var is_staggered : bool = false
@@ -92,32 +92,50 @@ func leap():
 func ranged_attack():
 	is_staggered = true
 	velocity.x = 0
-	# shuriken load
+
+	if !$AnimatedSprite.flip_h:
+		barrage(true)
+	else:
+		barrage(false)
+		
+	yield(get_tree().create_timer(1), "timeout")
+	is_staggered = false
+	$ShootTimer.start()
+	
+func barrage(left : bool):
 	var sh1 : Shuriken = SHURIKEN.instance()
 	var sh2 : Shuriken = SHURIKEN.instance()
 	var sh3 : Shuriken = SHURIKEN.instance()
-	var sh4 : Shuriken = SHURIKEN.instance()
-	var sh5 : Shuriken = SHURIKEN.instance()
-	# left
-	sh1.flip_shuriken_direction(-1)
+	
+	sh1.flip_shuriken_direction(-1) if left else false
 	get_parent().add_child(sh1)
-	sh1.position = $LeftPos.global_position
-	# right
+	sh1.position = $LeftPos.global_position if left else $RightPos.global_position
+	
+	yield(get_tree().create_timer(1), "timeout")
+	
+	sh2.flip_shuriken_direction(-1) if left else false
 	get_parent().add_child(sh2)
-	sh2.position = $RightPos.global_position
-	# up
+	sh2.position = $LeftPos.global_position if left else $RightPos.global_position
+	
+	yield(get_tree().create_timer(1), "timeout")
+	
 	sh3.is_up = true
 	get_parent().add_child(sh3)
 	sh3.position = $UpPos.global_position
-	# Attacks get more dangerous on half health
-	if HP <= max_HP / 2:
-		# right upper
-		get_parent().add_child(sh4)
-		sh4.position = $RightUp.global_position
-		# left upper
-		get_parent().add_child(sh5)
-		sh5.position = $LeftUp.global_position
-	yield(get_tree().create_timer(1), "timeout")
+#
+#	sh3.flip_shuriken_direction(-1) if left else false
+#	get_parent().add_child(sh3)
+#	sh3.position = $LeftPos.global_position if left else $RightPos.global_position
+# Scrap idea?
+# Attacks get more dangerous on half health
+#	if HP <= max_HP / 2:
+#		# right upper
+#		get_parent().add_child(sh4)
+#		sh4.position = $RightUp.global_position
+#		# left upper
+#		get_parent().add_child(sh5)
+#		sh5.position = $LeftUp.global_position
+	yield(get_tree().create_timer(1.2), "timeout")
 	is_staggered = false
 	$ShootTimer.start()
 
