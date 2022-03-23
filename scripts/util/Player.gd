@@ -26,7 +26,7 @@ const FIREBALL : PackedScene = preload("res://scenes/misc/Fireball.tscn")
 const FIRESAW : PackedScene = preload("res://scenes/misc/FireSaw.tscn")
 const JUMP_PARTICLE : PackedScene = preload("res://scenes/particles/JumpParticle.tscn")
 const DASH_PARTICLE : PackedScene = preload("res://scenes/particles/DashParticle.tscn")
-
+const SWORD_PARTICLE : PackedScene = preload("res://scenes/particles/SwordSwingParticle.tscn")
 var is_attacking : bool = false
 var is_dead : bool = false
 var is_invulnerable : bool = false
@@ -161,7 +161,7 @@ func shoot():
 			is_attacking = false
 			$AttackCollision/CollisionShape2D.disabled = true
 	
-	if Input.is_action_just_pressed("firesaw") and !is_attacking and !is_frozen and Global.mana >= 3:
+	if Input.is_action_just_pressed("firesaw") and Global.firesaw_unlocked and !is_attacking and !is_frozen and Global.mana >= 3:
 		var firesaw : FireSaw = FIRESAW.instance()
 		get_parent().add_child(firesaw)
 		firesaw.position = self.global_position
@@ -174,6 +174,12 @@ func shoot():
 func attack():
 	if Input.is_action_just_pressed("ui_attack") and !is_attacking and !is_gliding and !is_frozen:
 		$Sprite.play("Attack")
+		if $Sprite.flip_h:
+			$SwordSprite.visible = true
+			$AnimationPlayer.play("SwordSwingLeft")
+		else:
+			$SwordSprite.visible = true
+			$AnimationPlayer.play("SwordSwingRight")
 		is_attacking = true
 		$AttackCollision/CollisionShape2D.disabled = false
 		$AttackTimer.start()
@@ -181,7 +187,10 @@ func attack():
 		if Input.is_action_pressed("ui_up"):
 			$AttackCollision.position += Vector2(-60,-60) if !$Sprite.flip_h else Vector2(60,-55)
 			$Sprite.play("AttackUp")
-			$Sprite.position += Vector2(0, -20)
+			
+			$SwordSprite.visible = true
+			$AnimationPlayer.play("SwordSwingUpper")
+#			$Sprite.position += Vector2(0, -20)
 			is_attacking = true
 			$AttackCollision/CollisionShape2D.disabled = false
 			$AttackTimer.start()
@@ -189,7 +198,10 @@ func attack():
 		if Input.is_action_pressed("ui_down"):
 			$AttackCollision.position += Vector2(-60,60) if !$Sprite.flip_h else Vector2(60,55)
 			$Sprite.play("AttackDown")
-			$Sprite.position += Vector2(0, 20)
+			
+			$SwordSprite.visible = true
+			$AnimationPlayer.play("SwordSwingLower")
+#			$Sprite.position += Vector2(0, 20)
 			is_attacking = true
 			$AttackCollision/CollisionShape2D.disabled = false
 			$AttackTimer.start()
@@ -314,14 +326,14 @@ func dash():
 
 func glide():
 	# Press SPACE while in mid-air to temporarily glide
-	if Global.glide_unlocked and Input.is_action_just_pressed("jump") and !is_on_floor() and Global.mana >= 2:
+	if Global.glide_unlocked and Input.is_action_just_pressed("jump") and !is_on_floor() and Global.mana >= 1:
 		if is_on_floor():
 			is_gliding = false
 		is_gliding = true
 		velocity.y = 0
 		velocity.y += GRAVITY
 		if !Global.godmode:
-			Global.mana -= 2
+			Global.mana -= 1
 			emit_signal("mana_changed", Global.mana)
 		if Input.is_action_just_released("jump"):
 			is_gliding = false
@@ -423,10 +435,7 @@ func on_Item_bought(item_name : String, item_price : int):
 		"ItemPouch_1":
 			pass
 
-# Tool function for easy opal signals
-func get_opals(opals : int):
-	Global.opals_amount += opals
-	emit_signal("opals_obtained", Global.opals_amount)
+
 
 func debug_commands(cmd : String):
 	match cmd:
@@ -460,10 +469,23 @@ func debug_commands(cmd : String):
 		"fullcrystals":
 			Global.crystals_amount += Global.max_item_storage - Global.crystals_amount
 			emit_signal("crystals_obtained", Global.crystals_amount)
-
+# Utility functions
 func door_opening():
 	is_shopping = true
 	
+func toggle_shopping(value : bool):
+	is_shopping = value
+
+func freeze_player(time : float):
+	is_frozen = true
+	yield(get_tree().create_timer(time), "timeout")
+	is_frozen = false
+
+func get_opals(opals : int):
+	Global.opals_amount += opals
+	emit_signal("opals_obtained", Global.opals_amount)
+
+# Timers
 func _on_InvulnerabilityTimer_timeout():
 	if !is_dead:
 		is_invulnerable = false
@@ -521,3 +543,9 @@ func _on_ManaHealTimer_timeout():
 		emit_signal("manapot_obtained", Global.manapot_amount)
 
 
+
+
+func _on_AnimationPlayer_animation_finished(anim_name):
+	
+	$SwordSprite.visible = false
+	print("sword anim finished")

@@ -46,6 +46,8 @@ func parse_command():
 		"glide":
 			Global.glide_unlocked = true if !Global.glide_unlocked else false
 			$Output.text = "Glide set to " + str(Global.glide_unlocked)
+		"firesaw":
+			Global.firesaw_unlocked = true if !Global.firesaw_unlocked else false
 		# Gives the frozen effect
 		"freeze":
 			emit_signal("debugcmd", "freeze")
@@ -71,6 +73,16 @@ func parse_command():
 			emit_signal("debugcmd", "fullhealth")
 			emit_signal("debugcmd", "fullmana")
 			$Output.text = "Entered Godmode" if Global.godmode else "Exited Godmode"
+		"unlockall":
+			Global.dash_unlocked = true
+			Global.firesaw_unlocked = true
+			Global.glide_unlocked = true
+			$Output.text = "Abilities unlocked"
+		"lockall":
+			Global.dash_unlocked = false
+			Global.firesaw_unlocked = false
+			Global.glide_unlocked = false
+			$Output.text = "Abilities locked"
 		_:
 			$Output.text = "Invalid command"
 	

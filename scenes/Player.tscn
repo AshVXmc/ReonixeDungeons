@@ -1,8 +1,10 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://spriteframes/MainCharacter_spriteframes.tres" type="SpriteFrames" id=1]
 [ext_resource path="res://scripts/util/Player.gd" type="Script" id=2]
+[ext_resource path="res://assets/player/sword.png" type="Texture" id=3]
 [ext_resource path="res://assets/misc/frozen_block.png" type="Texture" id=4]
+[ext_resource path="res://scenes/particles/FireBurstParticle.tscn" type="PackedScene" id=5]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 37.6338
@@ -11,19 +13,227 @@ height = 17.3718
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 33.1168, 39.1389 )
 
+[sub_resource type="Animation" id=4]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("SwordSprite:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 50.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("SwordSprite:flip_h")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ true ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("SwordSprite:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -24.266, 9.22076 ) ]
+}
+
+[sub_resource type="Animation" id=5]
+resource_name = "SwordSwingLeft"
+length = 0.15
+tracks/0/type = "value"
+tracks/0/path = NodePath("SwordSprite:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ -50.0, -125.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("SwordSprite:flip_h")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("SwordSprite:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -24.266, 9.22076 ) ]
+}
+
+[sub_resource type="Animation" id=7]
+resource_name = "SwordSwingLower"
+length = 0.15
+tracks/0/type = "value"
+tracks/0/path = NodePath("SwordSprite:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ -125.0, -225.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("SwordSprite:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 40 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("SwordSprite:flip_h")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "SwordSwingRight"
+length = 0.15
+tracks/0/type = "value"
+tracks/0/path = NodePath("SwordSprite:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 50.0, 125.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("SwordSprite:flip_h")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, false ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("SwordSprite:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 17, 5 ) ]
+}
+
+[sub_resource type="Animation" id=6]
+resource_name = "SwordSwingUpper"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("SwordSprite:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ -50.0, 50.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("SwordSprite:flip_h")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("SwordSprite:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -1.43051e-06, -22.6691 ) ]
+}
+
 [node name="Player" type="KinematicBody2D"]
 script = ExtResource( 2 )
+
+[node name="FreezeMask" type="Sprite" parent="."]
+visible = false
+scale = Vector2( 6, 6 )
+texture = ExtResource( 4 )
+
+[node name="SwordSprite" type="Sprite" parent="."]
+visible = false
+position = Vector2( -24.266, 9.22076 )
+rotation = 0.872665
+scale = Vector2( 3, 3 )
+texture = ExtResource( 3 )
+offset = Vector2( 0, -12 )
+flip_h = true
 
 [node name="Sprite" type="AnimatedSprite" parent="."]
 scale = Vector2( 5, 5 )
 frames = ExtResource( 1 )
 animation = "Frozen"
 playing = true
-
-[node name="FreezeMask" type="Sprite" parent="."]
-visible = false
-scale = Vector2( 6, 6 )
-texture = ExtResource( 4 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 0, 5.05854 )
@@ -32,7 +242,7 @@ shape = SubResource( 1 )
 [node name="AttackCollision" type="Area2D" parent="." groups=["Sword"]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackCollision"]
-position = Vector2( 70.2806, 5.059 )
+position = Vector2( 70.2806, 5.05854 )
 shape = SubResource( 2 )
 disabled = true
 
@@ -111,6 +321,28 @@ disabled = true
 [node name="ParticlePosition" type="Position2D" parent="."]
 position = Vector2( 0, 50 )
 
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/RESET = SubResource( 4 )
+anims/SwordSwingLeft = SubResource( 5 )
+anims/SwordSwingLower = SubResource( 7 )
+anims/SwordSwingRight = SubResource( 3 )
+anims/SwordSwingUpper = SubResource( 6 )
+
+[node name="FireBurstPosition" type="Position2D" parent="."]
+position = Vector2( 48, 0 )
+scale = Vector2( 127.023, 0.426896 )
+
+[node name="FireBurstArea" type="Area2D" parent="." groups=["Fireball"]]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="FireBurstArea"]
+polygon = PoolVector2Array( 48.2045, -7.99997, 400.54, -110.589, 398.858, 108.044, 46.5227, 9.65884 )
+
+[node name="FireBurstParticle" parent="." instance=ExtResource( 5 )]
+position = Vector2( 48, 0 )
+
+[node name="FireBurstTimer" type="Timer" parent="."]
+wait_time = 0.2
+
 [connection signal="animation_finished" from="Sprite" to="." method="_on_Sprite_animation_finished"]
 [connection signal="area_entered" from="AttackCollision" to="." method="_on_AttackCollision_area_entered"]
 [connection signal="area_entered" from="Area2D" to="." method="_on_Area2D_area_entered"]
@@ -126,3 +358,4 @@ position = Vector2( 0, 50 )
 [connection signal="timeout" from="GlideTimer" to="." method="_on_GlideTimer_timeout"]
 [connection signal="area_entered" from="LeftDetector" to="." method="_on_LeftDetector_area_entered"]
 [connection signal="area_entered" from="RightDectector" to="." method="_on_RightDectector_area_entered"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]

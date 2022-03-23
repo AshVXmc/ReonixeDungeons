@@ -1,7 +1,7 @@
 class_name MaskedGoblin extends KinematicBody2D
 
-const max_HP : int = 14
-export var HP : int = 14
+const max_HP : int = 15
+export var HP : int = 15
 export var flipped : bool = false
 var velocity = Vector2()
 var direction : int = 1
@@ -47,7 +47,7 @@ func _physics_process(delta):
 				velocity.x = SPEED
 			if velocity.x == 0:
 				velocity.x = -SPEED * 2
-	if is_staggered or is_staggered:
+	if is_staggered:
 		velocity.x = 0
 
 func update_healthbar_value():
@@ -122,19 +122,7 @@ func barrage(left : bool):
 	sh3.is_up = true
 	get_parent().add_child(sh3)
 	sh3.position = $UpPos.global_position
-#
-#	sh3.flip_shuriken_direction(-1) if left else false
-#	get_parent().add_child(sh3)
-#	sh3.position = $LeftPos.global_position if left else $RightPos.global_position
-# Scrap idea?
-# Attacks get more dangerous on half health
-#	if HP <= max_HP / 2:
-#		# right upper
-#		get_parent().add_child(sh4)
-#		sh4.position = $RightUp.global_position
-#		# left upper
-#		get_parent().add_child(sh5)
-#		sh5.position = $LeftUp.global_position
+
 	yield(get_tree().create_timer(1.2), "timeout")
 	is_staggered = false
 	$ShootTimer.start()

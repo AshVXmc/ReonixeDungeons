@@ -40,6 +40,10 @@ func _on_LoadGame_pressed():
 			$SceneTransition.transition()
 			yield(get_tree().create_timer(1), "timeout")
 			get_tree().change_scene(Global.levelpath)
+		else:
+			$SaveLabel.visible = true
+			yield(get_tree().create_timer(2), "timeout")
+			$SaveLabel.visible = false
 	else:
 		$SaveLabel.visible = true
 		yield(get_tree().create_timer(2), "timeout")

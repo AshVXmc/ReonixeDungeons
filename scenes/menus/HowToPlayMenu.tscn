@@ -1,14 +1,12 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://scripts/ui/HowToPlayMenuScript.gd" type="Script" id=1]
 [ext_resource path="res://assets/fonts/Born2bSportyV2.ttf" type="DynamicFontData" id=2]
-[ext_resource path="res://assets/UI/heart.png" type="Texture" id=3]
-[ext_resource path="res://assets/UI/mana.png" type="Texture" id=4]
-[ext_resource path="res://assets/misc/health_pot.png" type="Texture" id=5]
-[ext_resource path="res://assets/misc/opal.png" type="Texture" id=6]
-[ext_resource path="res://assets/misc/revivement_crystal.png" type="Texture" id=7]
+[ext_resource path="res://assets/UI/quiticon.png" type="Texture" id=3]
+[ext_resource path="res://assets/UI/nexticon.png" type="Texture" id=4]
+[ext_resource path="res://assets/UI/previousicon.png" type="Texture" id=5]
 
-[sub_resource type="DynamicFont" id=2]
+[sub_resource type="DynamicFont" id=4]
 size = 64
 font_data = ExtResource( 2 )
 
@@ -16,12 +14,9 @@ font_data = ExtResource( 2 )
 size = 36
 font_data = ExtResource( 2 )
 
-[sub_resource type="DynamicFont" id=1]
-size = 36
-font_data = ExtResource( 2 )
-
 [node name="CanvasLayer" type="CanvasLayer"]
 script = ExtResource( 1 )
+Page = 1
 
 [node name="Control" type="Control" parent="."]
 anchor_right = 1.0
@@ -45,25 +40,28 @@ anchor_left = 0.5
 anchor_top = 0.072
 anchor_right = 0.5
 anchor_bottom = 0.072
-margin_left = -169.5
-margin_top = -34.984
-margin_right = 169.5
-margin_bottom = 35.016
-custom_fonts/normal_font = SubResource( 2 )
+margin_left = -233.273
+margin_top = -39.984
+margin_right = 234.727
+margin_bottom = 30.016
+custom_fonts/normal_font = SubResource( 4 )
 bbcode_enabled = true
-bbcode_text = "[color=red]General Guide[/color]"
-text = "General Guide"
+bbcode_text = "[color=red]General Guide[/color] (1/5) "
+text = "General Guide (1/5) "
 scroll_active = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Instructions" type="RichTextLabel" parent="Control"]
 anchor_left = 0.512
 anchor_top = 0.548
 anchor_right = 0.514
 anchor_bottom = 0.548
-margin_left = -521.984
-margin_top = -307.656
-margin_right = -99.148
-margin_bottom = 257.344
+margin_left = -250.641
+margin_top = -312.092
+margin_right = 204.195
+margin_bottom = 285.908
 custom_fonts/normal_font = SubResource( 3 )
 bbcode_enabled = true
 bbcode_text = "[color=yellow]A or Left Arrow[/color] to move left
@@ -76,6 +74,7 @@ bbcode_text = "[color=yellow]A or Left Arrow[/color] to move left
 [color=yellow]F[/color] to shoot fireballs
 [color=yellow]R[/color] to summon firesaw
 [color=yellow]C[/color] to dash
+[color=yellow]Hold Space[/color] to glide
 [color=yellow]Numbers[/color] to use items
 [color=yellow]ESC[/color] to pause
 [color=yellow]F3[/color] to toggle FPS counter
@@ -91,106 +90,59 @@ E to confirm
 F to shoot fireballs
 R to summon firesaw
 C to dash
+Hold Space to glide
 Numbers to use items
 ESC to pause
 F3 to toggle FPS counter
 F11 to screenshot
 / to toggle debug console"
-fit_content_height = true
 scroll_active = false
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Text1" type="RichTextLabel" parent="Control"]
-anchor_left = 0.765
-anchor_top = 0.353
-anchor_right = 0.765
-anchor_bottom = 0.353
-margin_left = -227.73
-margin_top = -164.866
-margin_right = 255.27
-margin_bottom = 501.134
-custom_fonts/normal_font = SubResource( 1 )
-bbcode_enabled = true
-bbcode_text = "[color=red]Hearts[/color] indicate your life force. Taking damage reduces it. 
-[color=#4AF3FF]Mana[/color] is used to activate
-various [color=#7dff26]Abilities[/color]. Strike down enemies with melee attacks to gain [color=#4AF3FF]Mana[/color].
-[color=purple]Potions[/color] can be useful to quickly restore health and mana, but you can only carry a small amount at a time.
-[color=#232db0]Opals[/color] are the official currency, they can be used to buy goods from [color=#fca000]Shopkeepers[/color].
-[color=#d703fc]Crystals[/color] can save you from death, but it will be destroyed after each use.
-"
-text = "Hearts indicate your life force. Taking damage reduces it. 
-Mana is used to activate
-various Abilities. Strike down enemies with melee attacks to gain Mana.
-Potions can be useful to quickly restore health and mana, but you can only carry a small amount at a time.
-Opals are the official currency, they can be used to buy goods from Shopkeepers.
-Crystals can save you from death, but it will be destroyed after each use.
-"
-fit_content_height = true
-scroll_active = false
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Heart" type="TextureRect" parent="Control"]
-anchor_left = 0.502
-anchor_top = 0.213
-anchor_right = 0.502
-anchor_bottom = 0.213
-margin_left = -48.1641
-margin_top = -57.786
-margin_right = 47.8359
-margin_bottom = 38.214
-texture = ExtResource( 3 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Mana" type="TextureRect" parent="Control"]
-anchor_left = 0.501
-anchor_top = 0.353
-anchor_right = 0.501
-anchor_bottom = 0.353
-margin_left = -47.082
-margin_top = -47.882
-margin_right = 0.918091
-margin_bottom = 0.117981
+[node name="QuitButton" type="TextureButton" parent="Control"]
+margin_right = 40.0
+margin_bottom = 40.0
 rect_scale = Vector2( 2, 2 )
-texture = ExtResource( 4 )
+texture_normal = ExtResource( 3 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[node name="Opal" type="TextureRect" parent="Control"]
-anchor_left = 0.5
-anchor_top = 0.704
-anchor_right = 0.5
-anchor_bottom = 0.704
-margin_left = -39.8108
-margin_top = -39.7737
-margin_right = -23.8108
-margin_bottom = -23.7737
-rect_scale = Vector2( 5, 5 )
-texture = ExtResource( 6 )
+[node name="NextButton" type="TextureButton" parent="Control"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -82.0
+margin_top = -82.0
+margin_right = -42.0
+margin_bottom = -42.0
+rect_scale = Vector2( 2, 2 )
+texture_normal = ExtResource( 4 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[node name="Opal2" type="TextureRect" parent="Control"]
-anchor_left = 0.5
-anchor_top = 0.853
-anchor_right = 0.5
-anchor_bottom = 0.853
-margin_left = -41.0
-margin_top = -39.866
-margin_right = -25.0
-margin_bottom = -23.866
-rect_scale = Vector2( 5, 5 )
-texture = ExtResource( 7 )
+[node name="PrevButton" type="TextureButton" parent="Control"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -162.05
+margin_top = -82.0
+margin_right = -122.05
+margin_bottom = -42.0
+rect_scale = Vector2( 2, 2 )
+texture_normal = ExtResource( 5 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[node name="Potion" type="TextureRect" parent="Control"]
-anchor_left = 0.502
-anchor_top = 0.529
-anchor_right = 0.502
-anchor_bottom = 0.529
-margin_left = -40.1641
-margin_top = -44.938
-margin_right = -24.1641
-margin_bottom = -26.938
-rect_scale = Vector2( 5, 5 )
-texture = ExtResource( 5 )
+[connection signal="pressed" from="Control/QuitButton" to="." method="_on_QuitButton_pressed"]
+[connection signal="pressed" from="Control/NextButton" to="." method="_on_NextButton_pressed"]
+[connection signal="pressed" from="Control/PrevButton" to="." method="_on_PrevButton_pressed"]

@@ -36,10 +36,10 @@ position = Vector2( 0.267738, 1.03817 )
 shape = SubResource( 2 )
 
 [node name="Label" type="RichTextLabel" parent="."]
-margin_left = -64.6309
-margin_top = -116.965
-margin_right = 96.3691
-margin_bottom = -68.9653
+margin_left = -65.0
+margin_top = -117.0
+margin_right = 60.0
+margin_bottom = -69.0
 custom_fonts/bold_font = SubResource( 3 )
 bbcode_enabled = true
 bbcode_text = "[b]Talk[/b] [img=32]res://assets/UI/icon_E.png[/img]"
@@ -48,3 +48,6 @@ scroll_active = false
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_Area2D_area_entered"]
+[connection signal="area_exited" from="Area2D" to="." method="_on_Area2D_area_exited"]

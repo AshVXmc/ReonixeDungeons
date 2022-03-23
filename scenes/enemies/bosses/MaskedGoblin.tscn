@@ -110,8 +110,8 @@ margin_top = -83.2493
 margin_right = -25.0769
 margin_bottom = -77.2493
 rect_scale = Vector2( 5, 5 )
-max_value = 16.0
-value = 16.0
+max_value = 15.0
+value = 15.0
 texture_progress = ExtResource( 4 )
 __meta__ = {
 "_edit_use_anchors_": false

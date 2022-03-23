@@ -31,10 +31,10 @@ font_data = ExtResource( 1 )
 [node name="ShopUI" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 7.13519
-margin_top = 2.37848
-margin_right = 7.13525
-margin_bottom = 2.37848
+margin_left = 7.0
+margin_top = 5.0
+margin_right = 7.0
+margin_bottom = 3.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -61,10 +61,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -1074.8
-margin_top = -492.04
-margin_right = 1105.2
-margin_bottom = 676.96
+margin_left = -1084.31
+margin_top = -413.552
+margin_right = 1095.69
+margin_bottom = 755.448
 color = Color( 1, 1, 1, 0 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -76,9 +76,9 @@ anchor_top = 0.653
 anchor_right = 0.616
 anchor_bottom = 0.653
 margin_left = -534.368
-margin_top = -225.853
+margin_top = -202.853
 margin_right = 376.632
-margin_bottom = 274.147
+margin_bottom = 297.147
 color = Color( 0.227451, 0, 0.498039, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -97,10 +97,10 @@ __meta__ = {
 }
 
 [node name="HealthPot" type="ColorRect" parent="CanvasLayer/Main"]
-margin_left = -67.0
-margin_top = 53.0
-margin_right = 53.0001
-margin_bottom = 172.999
+margin_left = -64.1716
+margin_top = 68.5564
+margin_right = 55.8285
+margin_bottom = 188.555
 rect_scale = Vector2( 0.75, 0.75 )
 color = Color( 0.00392157, 0.639216, 0.917647, 1 )
 __meta__ = {
@@ -138,10 +138,10 @@ scale = Vector2( 3, 3 )
 texture = ExtResource( 4 )
 
 [node name="ManaPot" type="ColorRect" parent="CanvasLayer/Main"]
-margin_left = -67.019
-margin_top = 160.0
-margin_right = 52.9813
-margin_bottom = 280.0
+margin_left = -64.1906
+margin_top = 175.556
+margin_right = 55.8097
+margin_bottom = 295.556
 rect_scale = Vector2( 0.75, 0.75 )
 color = Color( 0.00392157, 0.639216, 0.917647, 1 )
 __meta__ = {
@@ -182,10 +182,10 @@ scale = Vector2( 3, 3 )
 texture = ExtResource( 4 )
 
 [node name="LifeWine" type="ColorRect" parent="CanvasLayer/Main"]
-margin_left = -67.3317
-margin_top = 262.826
-margin_right = 52.6683
-margin_bottom = 382.826
+margin_left = -64.5033
+margin_top = 278.382
+margin_right = 55.4967
+margin_bottom = 398.382
 rect_scale = Vector2( 0.75, 0.75 )
 color = Color( 0.00392157, 0.639216, 0.917647, 1 )
 __meta__ = {
@@ -223,10 +223,10 @@ scale = Vector2( 3, 3 )
 texture = ExtResource( 4 )
 
 [node name="ItemPouch" type="ColorRect" parent="CanvasLayer/Main"]
-margin_left = 146.243
-margin_top = 53.0
-margin_right = 266.243
-margin_bottom = 173.0
+margin_left = 149.071
+margin_top = 68.5564
+margin_right = 269.071
+margin_bottom = 188.556
 rect_scale = Vector2( 0.75, 0.75 )
 color = Color( 0.00392157, 0.639216, 0.917647, 1 )
 __meta__ = {
@@ -280,10 +280,10 @@ scale = Vector2( 3, 3 )
 texture = ExtResource( 4 )
 
 [node name="RevivementCrystal" type="ColorRect" parent="CanvasLayer/Main"]
-margin_left = 146.243
-margin_top = 160.0
-margin_right = 266.243
-margin_bottom = 280.0
+margin_left = 149.071
+margin_top = 175.556
+margin_right = 269.071
+margin_bottom = 295.556
 rect_scale = Vector2( 0.75, 0.75 )
 color = Color( 0.00392157, 0.639216, 0.917647, 1 )
 __meta__ = {
@@ -324,10 +324,10 @@ scale = Vector2( 3, 3 )
 texture = ExtResource( 4 )
 
 [node name="TextureRect" type="TextureRect" parent="CanvasLayer/Main"]
-margin_left = -67.0
-margin_top = 364.0
-margin_right = 333.0
-margin_bottom = 467.0
+margin_left = -65.5858
+margin_top = 389.728
+margin_right = 334.414
+margin_bottom = 492.728
 rect_scale = Vector2( 1.5, 1.5 )
 texture = ExtResource( 6 )
 expand = true
@@ -337,9 +337,9 @@ __meta__ = {
 
 [node name="FlavorText" type="RichTextLabel" parent="CanvasLayer/Main"]
 margin_left = -50.0
-margin_top = 381.0
+margin_top = 407.657
 margin_right = 514.0
-margin_bottom = 501.0
+margin_bottom = 527.657
 custom_fonts/normal_font = SubResource( 4 )
 bbcode_enabled = true
 scroll_active = false

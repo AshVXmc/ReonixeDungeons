@@ -31,15 +31,20 @@ func _on_LoadSaveButton_pressed():
 			Global.hearts = player_data["Health"]
 			Global.max_mana = player_data["MaxMana"]
 			Global.mana = player_data["Mana"]
+			
 			Global.opals_amount = player_data["Opals"]
 			Global.crystals_amount = player_data["RevivementCrystals"]
 			Global.healthpot_amount = player_data["Healthpot"]
+			
 			Global.dash_unlocked = player_data["DashUnlocked"]
 			Global.glide_unlocked = player_data["GlideUnlocked"]
-			Global.unopened_chests = player_data["ChestUnopened"]
+			Global.firesaw_unlocked = player_data["FireSawUnlocked"]
+			Global.opened_chests = player_data["ChestOpened"]
+			
 			Global.max_item_storage = player_data["MaxItemStorage"]
 			Global.lighting = player_data["Lighting"]
 			Global.vsync = player_data["Vsync"]
+			
 			get_parent().get_parent().get_node("SceneTransition/ColorRect").visible = true
 			get_parent().get_parent().get_node("SceneTransition").transition()
 			yield(get_tree().create_timer(1), "timeout")
