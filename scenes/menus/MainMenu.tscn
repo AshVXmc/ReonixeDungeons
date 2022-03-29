@@ -1,22 +1,30 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://scripts/ui/MainMenu.gd" type="Script" id=1]
-[ext_resource path="res://assets/fonts/FFFFORWA.ttf" type="DynamicFontData" id=2]
 [ext_resource path="res://assets/UI/popup_textbox.png" type="Texture" id=3]
 [ext_resource path="res://assets/themes/MainMenuFonts.tres" type="DynamicFont" id=4]
 [ext_resource path="res://scenes/menus/SceneTransition.tscn" type="PackedScene" id=5]
 [ext_resource path="res://assets/fonts/Born2bSportyV2.ttf" type="DynamicFontData" id=6]
 [ext_resource path="res://assets/misc/background_2.png" type="Texture" id=7]
 
+[sub_resource type="Animation" id=14]
+resource_name = "MoveBackground"
+tracks/0/type = "value"
+tracks/0/path = NodePath("ParallaxBackground/ParallaxLayer/Backdrop:rect_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray(  ),
+"transitions": PoolRealArray(  ),
+"update": 0,
+"values": [  ]
+}
+
 [sub_resource type="DynamicFont" id=3]
 size = 72
 font_data = ExtResource( 6 )
-
-[sub_resource type="DynamicFont" id=10]
-size = 32
-outline_size = 5
-outline_color = Color( 0, 0.105882, 0.309804, 1 )
-font_data = ExtResource( 2 )
 
 [sub_resource type="DynamicFont" id=9]
 size = 45
@@ -49,15 +57,22 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ColorRect" type="ColorRect" parent="MarginContainer"]
-margin_right = 1080.0
-margin_bottom = 720.0
+[node name="ParallaxBackground" type="ParallaxBackground" parent="MarginContainer"]
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="MarginContainer/ParallaxBackground"]
+motion_mirroring = Vector2( 1080, 720 )
+
+[node name="ColorRect" type="ColorRect" parent="MarginContainer/ParallaxBackground/ParallaxLayer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = 1073.0
+margin_bottom = 736.0
 color = Color( 0, 0, 0, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Backdrop" type="TextureRect" parent="MarginContainer"]
+[node name="Backdrop" type="TextureRect" parent="MarginContainer/ParallaxBackground/ParallaxLayer"]
 margin_right = 1080.0
 margin_bottom = 720.0
 texture = ExtResource( 7 )
@@ -66,6 +81,12 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="AnimationPlayer" type="AnimationPlayer" parent="MarginContainer"]
+anims/MoveBackground = SubResource( 14 )
+
+[node name="Camera2D" type="Camera2D" parent="MarginContainer"]
+position = Vector2( 540, 360 )
+
 [node name="SceneTransition" parent="." instance=ExtResource( 5 )]
 
 [node name="Title" type="Label" parent="."]
@@ -73,10 +94,10 @@ anchor_left = 0.5
 anchor_top = 0.257
 anchor_right = 0.5
 anchor_bottom = 0.257
-margin_left = -172.5
-margin_top = -72.04
-margin_right = 172.5
-margin_bottom = 71.96
+margin_left = -168.5
+margin_top = -87.04
+margin_right = 176.5
+margin_bottom = 56.96
 custom_colors/font_color = Color( 0.0313726, 0.2, 0.72549, 1 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_y = 0
@@ -89,14 +110,15 @@ __meta__ = {
 
 [node name="NewGame" type="Button" parent="."]
 anchor_left = 0.5
-anchor_top = 0.429
+anchor_top = 0.447
 anchor_right = 0.5
-anchor_bottom = 0.429
-margin_left = -140.0
-margin_top = -38.88
-margin_right = 137.0
-margin_bottom = 39.12
+anchor_bottom = 0.447
+margin_left = -165.398
+margin_top = -61.291
+margin_right = 166.602
+margin_bottom = 16.709
 custom_colors/font_color_hover = Color( 1, 0.843137, 0.0117647, 1 )
+custom_colors/font_color_pressed = Color( 1, 0.843137, 0.0117647, 1 )
 custom_fonts/font = SubResource( 3 )
 text = "New game"
 flat = true
@@ -109,11 +131,12 @@ anchor_left = 0.5
 anchor_top = 0.547
 anchor_right = 0.5
 anchor_bottom = 0.547
-margin_left = -150.0
-margin_top = -38.84
-margin_right = 150.0
-margin_bottom = 39.16
+margin_left = -173.811
+margin_top = -60.0532
+margin_right = 181.189
+margin_bottom = 17.9468
 custom_colors/font_color_hover = Color( 1, 0.843137, 0.0117647, 1 )
+custom_colors/font_color_pressed = Color( 1, 0.843137, 0.0117647, 1 )
 custom_fonts/font = SubResource( 3 )
 text = "Load game"
 flat = true
@@ -126,11 +149,12 @@ anchor_left = 0.504
 anchor_top = 0.658
 anchor_right = 0.504
 anchor_bottom = 0.658
-margin_left = -164.32
-margin_top = -38.76
-margin_right = 163.68
-margin_bottom = 39.24
+margin_left = -194.481
+margin_top = -59.9732
+margin_right = 188.519
+margin_bottom = 18.0268
 custom_colors/font_color_hover = Color( 1, 0.843137, 0.0117647, 1 )
+custom_colors/font_color_pressed = Color( 1, 0.843137, 0.0117647, 1 )
 custom_fonts/font = SubResource( 3 )
 text = "How to play"
 flat = true
@@ -138,35 +162,38 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Exit" type="Button" parent="."]
+[node name="Logs" type="Button" parent="."]
 anchor_left = 0.499
 anchor_top = 0.767
 anchor_right = 0.499
 anchor_bottom = 0.767
-margin_left = -163.709
-margin_top = -38.201
-margin_right = 164.291
-margin_bottom = 39.799
+margin_left = -196.289
+margin_top = -59.4142
+margin_right = 204.711
+margin_bottom = 18.5858
 custom_colors/font_color_hover = Color( 1, 0.843137, 0.0117647, 1 )
+custom_colors/font_color_pressed = Color( 1, 0.843137, 0.0117647, 1 )
 custom_fonts/font = SubResource( 3 )
-text = "Exit"
+text = "Update logs"
 flat = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="."]
-anchor_left = 0.932
-anchor_top = 0.969
-anchor_right = 0.932
-anchor_bottom = 0.969
-margin_left = -256.452
-margin_top = -40.0045
-margin_right = 55.5479
-margin_bottom = 6.99554
-custom_colors/font_color = Color( 1, 1, 1, 1 )
-custom_fonts/font = SubResource( 10 )
-text = "Pre-alpha build"
+[node name="Exit" type="Button" parent="."]
+anchor_left = 0.499
+anchor_top = 0.87
+anchor_right = 0.5
+anchor_bottom = 0.87
+margin_left = -159.709
+margin_top = -55.035
+margin_right = 167.211
+margin_bottom = 22.965
+custom_colors/font_color_hover = Color( 1, 0.843137, 0.0117647, 1 )
+custom_colors/font_color_pressed = Color( 1, 0.843137, 0.0117647, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Exit"
+flat = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -266,16 +293,20 @@ anchor_top = 0.872
 anchor_right = 0.5
 anchor_bottom = 0.879
 margin_left = -196.43
-margin_top = -22.9849
+margin_top = 21.0151
 margin_right = 195.57
-margin_bottom = 17.975
+margin_bottom = 61.975
 custom_colors/font_color = Color( 0.835294, 0, 0, 1 )
 custom_fonts/font = SubResource( 13 )
 text = "No save data detected."
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [connection signal="pressed" from="NewGame" to="." method="_on_NewGame_pressed"]
 [connection signal="pressed" from="LoadGame" to="." method="_on_LoadGame_pressed"]
 [connection signal="pressed" from="HowToPlay" to="." method="_on_HowToPlay_pressed"]
+[connection signal="pressed" from="Logs" to="." method="_on_Logs_pressed"]
 [connection signal="pressed" from="Exit" to="." method="_on_Exit_pressed"]
 [connection signal="pressed" from="Popup1/Yes" to="." method="_on_Yes_pressed"]
 [connection signal="pressed" from="Popup1/No" to="." method="_on_No_pressed"]

@@ -124,6 +124,7 @@ position = Vector2( 327.514, 12.3056 )
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position = Vector2( 9.72693, -62.0423 )
 current = true
+zoom = Vector2( 1.2, 1.2 )
 limit_left = -2000
 limit_top = -468
 limit_right = 4300
@@ -138,7 +139,7 @@ editor_draw_limits = true
 position = Vector2( 1487.55, 179.256 )
 
 [node name="Bat" parent="." instance=ExtResource( 24 )]
-position = Vector2( 2393.09, -47.1434 )
+position = Vector2( 2211.87, -66.0208 )
 
 [node name="Slime2" parent="." instance=ExtResource( 23 )]
 position = Vector2( 1789.47, 1137.91 )

@@ -14,8 +14,10 @@ var opened_chests := []
 var soul_token_amount : int = 0
 const SAVE_DIR : String = "user://savedata/"
 var dash_unlocked : bool = false # 1 mana per use
-var glide_unlocked : bool = false # 2 mana per use
+var glide_unlocked : bool = false # 1 mana per use
 var firesaw_unlocked : bool = false # 3 mana per use
+var fireburst_unlocked : bool = false # 1 mana per second of usage
+
 var max_item_storage : int = 3
 var levelpath : String
 
@@ -38,9 +40,10 @@ func reset_player_data():
 	Global.dash_unlocked = false
 	Global.glide_unlocked = false
 	Global.firesaw_unlocked = false
+	Global.fireburst_unlocked = false
 	Global.max_item_storage = 3
 	Global.lighting = true
-
+	Global.levelpath = ""
 
 func reset_chest_data():
 	# Clears the array cache and refill 
@@ -68,6 +71,7 @@ func save_player_data():
 		"DashUnlocked" : Global.dash_unlocked ,
 		"GlideUnlocked" : Global.glide_unlocked,
 		"FireSawUnlocked": Global.firesaw_unlocked,
+		"FireBurstUnlocked": Global.fireburst_unlocked,
 		"ChestOpened": Global.opened_chests,
 		"MaxItemStorage":  Global.max_item_storage, 
 		"Lighting" : Global.lighting,

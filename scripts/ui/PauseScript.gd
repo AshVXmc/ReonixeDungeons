@@ -25,6 +25,7 @@ func _notification(what):
 func _process(delta):
 	if Input.is_action_just_pressed("ui_cancel"):
 		if !get_tree().paused:
+			get_parent().get_parent().get_node("DebugMenu").get_node("Control").visible = false
 			get_tree().paused = true
 			visible = true
 #		if visible:

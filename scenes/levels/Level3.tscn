@@ -297,11 +297,12 @@ Text = "Navigate the terrain wisely and take your time. Remember that if you're 
 position = Vector2( 601.153, -1228.48 )
 
 [node name="Player" parent="." instance=ExtResource( 8 )]
-position = Vector2( 326.486, -1226.72 )
+position = Vector2( 789.045, 391.537 )
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position = Vector2( -11.2494, 7.93805 )
 current = true
+zoom = Vector2( 1.2, 1.2 )
 limit_left = 0
 limit_top = -2000
 limit_right = 2000

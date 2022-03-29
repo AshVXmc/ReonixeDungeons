@@ -39,6 +39,7 @@ func _on_LoadSaveButton_pressed():
 			Global.dash_unlocked = player_data["DashUnlocked"]
 			Global.glide_unlocked = player_data["GlideUnlocked"]
 			Global.firesaw_unlocked = player_data["FireSawUnlocked"]
+			Global.fireburst_unlocked = player_data["FireBurstUnlocked"]
 			Global.opened_chests = player_data["ChestOpened"]
 			
 			Global.max_item_storage = player_data["MaxItemStorage"]
@@ -48,8 +49,9 @@ func _on_LoadSaveButton_pressed():
 			get_parent().get_parent().get_node("SceneTransition/ColorRect").visible = true
 			get_parent().get_parent().get_node("SceneTransition").transition()
 			yield(get_tree().create_timer(1), "timeout")
-			get_tree().change_scene("res://scenes/levels/" + player_data["Level"] + ".tscn")
-
+			visible = false
+			get_tree().change_scene(player_data["Level"])
+			
 
 func _on_ExitButton_pressed():
 	get_tree().change_scene("res://scenes/menus/MainMenu.tscn")

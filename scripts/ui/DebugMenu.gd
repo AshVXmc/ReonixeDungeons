@@ -31,42 +31,12 @@ func _process(delta):
 func parse_command():
 	var command : String = $LineEdit.text
 	match command.to_lower():
-		"fullhealth":
-			emit_signal("debugcmd", "fullhealth")
-			$Output.text = "Restored health"
-		"fullmana":
-			emit_signal("debugcmd", "fullmana")
-			$Output.text = "Restored mana"
-		"fullopals":
-			emit_signal("debugcmd", "fullopals")
-			$Output.text = "Maxed out opals"
-		"dash":
-			Global.dash_unlocked = true if !Global.dash_unlocked else false
-			$Output.text = "Dash set to " + str(Global.dash_unlocked)
-		"glide":
-			Global.glide_unlocked = true if !Global.glide_unlocked else false
-			$Output.text = "Glide set to " + str(Global.glide_unlocked)
-		"firesaw":
-			Global.firesaw_unlocked = true if !Global.firesaw_unlocked else false
-		# Gives the frozen effect
 		"freeze":
 			emit_signal("debugcmd", "freeze")
 			$Output.text = "Freeze toggled"
 		"killall":
 			emit_signal("debugcmd", "killall")
 			$Output.text = "Killed all enemies"
-		"fullhpots":
-			emit_signal("debugcmd", "fullhpots")
-			$Output.text = "Maxed out HPots"
-		"fullmpots":
-			emit_signal("debugcmd", "fullmpots")
-			$Output.text = "Maxed out Mpots"
-		"fullwines":
-			emit_signal("debugcmd", "fullwines")
-			$Output.text = "Maxed out Lwines"
-		"fullcrystals":
-			emit_signal("debugcmd", "fullcrystals")
-			$Output.text = "Maxed out Crystals"
 		# Invulnerable to damage and knockback ,abilities don't drain mana
 		"godmode":
 			Global.godmode = true if !Global.godmode else false
@@ -77,12 +47,20 @@ func parse_command():
 			Global.dash_unlocked = true
 			Global.firesaw_unlocked = true
 			Global.glide_unlocked = true
+			Global.fireburst_unlocked = true
 			$Output.text = "Abilities unlocked"
 		"lockall":
 			Global.dash_unlocked = false
 			Global.firesaw_unlocked = false
 			Global.glide_unlocked = false
+			Global.fireburst_unlocked = true
 			$Output.text = "Abilities locked"
+		"fillall":
+			emit_signal("debugcmd", "fillall")
+			$Output.text = "Filled all items"
+		"healall":
+			emit_signal("debugcmd","healall")
+			$Output.text = "Healed all stats"
 		_:
 			$Output.text = "Invalid command"
 	

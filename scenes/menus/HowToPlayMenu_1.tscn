@@ -2,8 +2,8 @@
 
 [ext_resource path="res://scripts/ui/HowToPlayMenuScript.gd" type="Script" id=1]
 [ext_resource path="res://assets/fonts/Born2bSportyV2.ttf" type="DynamicFontData" id=2]
-[ext_resource path="res://assets/UI/quiticon.png" type="Texture" id=3]
-[ext_resource path="res://assets/UI/nexticon.png" type="Texture" id=4]
+[ext_resource path="res://assets/UI/nexticon.png" type="Texture" id=3]
+[ext_resource path="res://assets/UI/quiticon.png" type="Texture" id=4]
 [ext_resource path="res://assets/UI/previousicon.png" type="Texture" id=5]
 
 [sub_resource type="DynamicFont" id=4]
@@ -46,8 +46,8 @@ margin_right = 234.727
 margin_bottom = 30.016
 custom_fonts/normal_font = SubResource( 4 )
 bbcode_enabled = true
-bbcode_text = "[color=red]General Guide[/color] (1/5) "
-text = "General Guide (1/5) "
+bbcode_text = "[color=red]General Guide[/color] (1) "
+text = "General Guide (1) "
 scroll_active = false
 __meta__ = {
 "_edit_use_anchors_": false
@@ -105,7 +105,7 @@ __meta__ = {
 margin_right = 40.0
 margin_bottom = 40.0
 rect_scale = Vector2( 2, 2 )
-texture_normal = ExtResource( 3 )
+texture_normal = ExtResource( 4 )
 expand = true
 __meta__ = {
 "_edit_use_anchors_": false
@@ -121,7 +121,7 @@ margin_top = -82.0
 margin_right = -42.0
 margin_bottom = -42.0
 rect_scale = Vector2( 2, 2 )
-texture_normal = ExtResource( 4 )
+texture_normal = ExtResource( 3 )
 expand = true
 __meta__ = {
 "_edit_use_anchors_": false

@@ -1,10 +1,11 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://spriteframes/MainCharacter_spriteframes.tres" type="SpriteFrames" id=1]
 [ext_resource path="res://scripts/util/Player.gd" type="Script" id=2]
 [ext_resource path="res://assets/player/sword.png" type="Texture" id=3]
 [ext_resource path="res://assets/misc/frozen_block.png" type="Texture" id=4]
 [ext_resource path="res://scenes/particles/FireBurstParticle.tscn" type="PackedScene" id=5]
+[ext_resource path="res://assets/player/gliding_wings.png" type="Texture" id=6]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 37.6338
@@ -214,11 +215,19 @@ tracks/2/keys = {
 
 [node name="Player" type="KinematicBody2D"]
 script = ExtResource( 2 )
+__meta__ = {
+"_edit_group_": true
+}
 
 [node name="FreezeMask" type="Sprite" parent="."]
 visible = false
 scale = Vector2( 6, 6 )
 texture = ExtResource( 4 )
+
+[node name="GliderWings" type="Sprite" parent="."]
+visible = false
+scale = Vector2( 5, 6 )
+texture = ExtResource( 6 )
 
 [node name="SwordSprite" type="Sprite" parent="."]
 visible = false
@@ -333,11 +342,14 @@ position = Vector2( 48, 0 )
 scale = Vector2( 127.023, 0.426896 )
 
 [node name="FireBurstArea" type="Area2D" parent="." groups=["Fireball"]]
+visible = false
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="FireBurstArea"]
 polygon = PoolVector2Array( 48.2045, -7.99997, 400.54, -110.589, 398.858, 108.044, 46.5227, 9.65884 )
+disabled = true
 
 [node name="FireBurstParticle" parent="." instance=ExtResource( 5 )]
+visible = false
 position = Vector2( 48, 0 )
 
 [node name="FireBurstTimer" type="Timer" parent="."]

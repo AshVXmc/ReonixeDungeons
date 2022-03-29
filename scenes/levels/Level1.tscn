@@ -189,6 +189,7 @@ position = Vector2( -1718.06, 324.359 )
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position = Vector2( 9.72693, -62.0423 )
 current = true
+zoom = Vector2( 1.2, 1.2 )
 limit_left = -2000
 limit_top = -468
 limit_right = 4300
@@ -218,7 +219,7 @@ position = Vector2( 779.191, 1166.72 )
 position = Vector2( -705.172, 568.034 )
 
 [node name="Slime2" parent="." instance=ExtResource( 10 )]
-position = Vector2( 2931.99, 1614.74 )
+position = Vector2( 2188.1, 1614.56 )
 
 [node name="Slime3" parent="." instance=ExtResource( 10 )]
 position = Vector2( -675.561, 177.04 )
@@ -227,4 +228,4 @@ position = Vector2( -675.561, 177.04 )
 position = Vector2( -467.247, 1428.74 )
 
 [node name="Slime5" parent="." instance=ExtResource( 10 )]
-position = Vector2( 2349.1, 1618.3 )
+position = Vector2( 2287.65, 1618.3 )

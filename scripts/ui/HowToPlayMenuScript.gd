@@ -1,7 +1,7 @@
 extends CanvasLayer
 
 export var Page : int 
-const final_page : int = 5
+const final_page : int = 6
 const first_page : int = 1
 
 func _ready():
@@ -19,24 +19,10 @@ func _on_QuitButton_pressed():
 	get_tree().change_scene("res://scenes/menus/MainMenu.tscn")	
 	queue_free()
 
-
 func _on_NextButton_pressed():
-	match Page:
-		1:
-			get_tree().change_scene("res://scenes/menus/HowToPlayMenu_2.tscn")
-			queue_free()
-		2:
-			get_tree().change_scene("res://scenes/menus/HowToPlayMenu_3.tscn")
-			queue_free()
-
+	if Page != final_page:
+		get_tree().change_scene("res://scenes/menus/HowToPlayMenu_"+ str(Page + 1) +".tscn")
 
 func _on_PrevButton_pressed():
-	match Page:
-		1:
-			pass
-		2:
-			get_tree().change_scene("res://scenes/menus/HowToPlayMenu.tscn")
-			queue_free()
-		3:
-			get_tree().change_scene("res://scenes/menus/HowToPlayMenu_2.tscn")
-			queue_free()
+	if Page != first_page:
+		get_tree().change_scene("res://scenes/menus/HowToPlayMenu_"+ str(Page - 1) +".tscn")

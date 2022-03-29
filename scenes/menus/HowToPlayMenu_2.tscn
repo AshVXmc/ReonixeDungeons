@@ -51,8 +51,8 @@ margin_right = 255.0
 margin_bottom = 30.016
 custom_fonts/normal_font = SubResource( 2 )
 bbcode_enabled = true
-bbcode_text = "[color=red]General Guide[/color] (2/5) "
-text = "General Guide (2/5) "
+bbcode_text = "[color=red]General Guide[/color] (2) "
+text = "General Guide (2) "
 scroll_active = false
 __meta__ = {
 "_edit_use_anchors_": false

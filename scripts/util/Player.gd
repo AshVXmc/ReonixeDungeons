@@ -27,6 +27,7 @@ const FIRESAW : PackedScene = preload("res://scenes/misc/FireSaw.tscn")
 const JUMP_PARTICLE : PackedScene = preload("res://scenes/particles/JumpParticle.tscn")
 const DASH_PARTICLE : PackedScene = preload("res://scenes/particles/DashParticle.tscn")
 const SWORD_PARTICLE : PackedScene = preload("res://scenes/particles/SwordSwingParticle.tscn")
+const FIRE_PARTICLE : PackedScene = preload("res://scenes/particles/FlameParticle.tscn")
 var is_attacking : bool = false
 var is_dead : bool = false
 var is_invulnerable : bool = false
@@ -38,6 +39,8 @@ var can_dash : bool = false
 var is_healing : bool = false
 var is_shopping : bool = false
 var is_frozen : bool = false
+var is_using_firesaw : bool = false
+var glider_equipped : bool = false
 
 func _ready():
 # warning-ignore:return_value_discarded
@@ -147,6 +150,11 @@ func _physics_process(_delta):
 	if is_frozen:
 		$Sprite.play("Frozen")
 	$FreezeMask.visible = true if is_frozen else false
+	if glider_equipped and !is_gliding:
+		$GliderWings.visible = true
+	elif !glider_equipped or is_gliding:
+		$GliderWings.visible = false
+	
 
 func shoot():
 	if Input.is_action_just_pressed("ui_shoot")	and !is_attacking and !is_frozen and Global.mana >= 1:
@@ -161,15 +169,26 @@ func shoot():
 			is_attacking = false
 			$AttackCollision/CollisionShape2D.disabled = true
 	
-	if Input.is_action_just_pressed("firesaw") and Global.firesaw_unlocked and !is_attacking and !is_frozen and Global.mana >= 3:
-		var firesaw : FireSaw = FIRESAW.instance()
-		get_parent().add_child(firesaw)
-		firesaw.position = self.global_position
+	if Input.is_action_just_pressed("firesaw") and Global.firesaw_unlocked and !is_attacking and !is_frozen and Global.mana >= 3 and !is_using_firesaw:
+		is_using_firesaw = true
+		var firesaw = FIRESAW.instance()
+		var fireparticle = FIRE_PARTICLE.instance()
+		add_child(firesaw)
+		add_child(fireparticle)
+		fireparticle.emitting = true
+		fireparticle.one_shot = false
 		if !Global.godmode:
 			Global.mana -= 3
 			emit_signal("mana_changed", Global.mana)
 		is_attacking = false
 		$AttackCollision/CollisionShape2D.disabled = true
+		yield(get_tree().create_timer(5),"timeout")
+		is_using_firesaw = false
+		remove_child(fireparticle)
+	
+	if Input.is_action_pressed("fireburst"):
+		pass
+	
 		
 func attack():
 	if Input.is_action_just_pressed("ui_attack") and !is_attacking and !is_gliding and !is_frozen:
@@ -218,10 +237,12 @@ func _on_Area2D_area_entered(area : Area2D):
 		if inv_timer.is_stopped():
 			if area.is_in_group("Enemy") or area.is_in_group("DeflectedProjectile"):
 				Global.hearts -= 0.5
+				is_gliding = false
 				afterDamaged()
 				knockback()
 			if area.is_in_group("Enemy2"):
 				Global.hearts -= 1
+				is_gliding = false
 				afterDamaged()
 				knockback()
 		if area.is_in_group("Spike"):
@@ -325,22 +346,30 @@ func dash():
 			is_dashing = false
 
 func glide():
+	if Global.glide_unlocked and Input.is_action_just_pressed("toggle_glider"):
+		if !glider_equipped:
+			glider_equipped = true
+		elif glider_equipped:
+			glider_equipped = false
 	# Press SPACE while in mid-air to temporarily glide
 	if Global.glide_unlocked and Input.is_action_just_pressed("jump") and !is_on_floor() and Global.mana >= 1:
-		if is_on_floor():
+		if glider_equipped:
+			is_gliding = true
+			if is_on_floor() or is_on_wall():
+				is_gliding = false
+			if Input.is_action_just_released("jump"):
+				is_gliding = false
+				velocity.y += GRAVITY * 3
+			if is_gliding:
+				velocity.y = 0
+				velocity.y += GRAVITY
+			if !Global.godmode:
+				Global.mana -= 1
+				emit_signal("mana_changed", Global.mana)
+
+			yield(get_tree().create_timer(1), "timeout")
 			is_gliding = false
-		is_gliding = true
-		velocity.y = 0
-		velocity.y += GRAVITY
-		if !Global.godmode:
-			Global.mana -= 1
-			emit_signal("mana_changed", Global.mana)
-		if Input.is_action_just_released("jump"):
-			is_gliding = false
-			velocity.y += GRAVITY * 2
-		yield(get_tree().create_timer(1), "timeout")
-		is_gliding = false
-		Input.action_release("jump")
+			Input.action_release("jump")
 
 
 func useItems():
@@ -445,30 +474,25 @@ func debug_commands(cmd : String):
 			is_shopping = false
 		"freeze":
 			is_frozen = true if !is_frozen else false
-		"fullhealth":
-			Global.hearts += Global.max_hearts - Global.hearts
-			emit_signal("life_changed", Global.hearts)
-		"fullmana":
-			Global.mana += Global.max_mana - Global.mana
-			emit_signal("mana_changed", Global.mana)
-		"fullopals":
+		"fillall":
 			Global.opals_amount += 999 - Global.opals_amount
 			emit_signal("opals_obtained", Global.opals_amount)
+			Global.healthpot_amount += Global.max_item_storage - Global.healthpot_amount
+			emit_signal("healthpot_obtained", Global.healthpot_amount)
+			Global.manapot_amount += Global.max_item_storage - Global.manapot_amount
+			emit_signal("manapot_obtained", Global.manapot_amount)
+			Global.lifewine_amount += Global.max_item_storage - Global.lifewine_amount
+			emit_signal("lifewine_obtained", Global.lifewine_amount)
+			Global.crystals_amount += Global.max_item_storage - Global.crystals_amount
+			emit_signal("crystals_obtained", Global.crystals_amount)
+		"healall":
+			Global.hearts += Global.max_hearts - Global.hearts
+			emit_signal("life_changed", Global.hearts)
+			Global.mana += Global.max_mana - Global.mana
+			emit_signal("mana_changed", Global.mana)
 		"killall":
 			for enemy in get_tree().get_nodes_in_group("Enemy"):
 				enemy.queue_free()
-		"fullhpots":
-			Global.healthpot_amount += Global.max_item_storage - Global.healthpot_amount
-			emit_signal("healthpot_obtained", Global.healthpot_amount)
-		"fullmpots":
-			Global.manapot_amount += Global.max_item_storage - Global.manapot_amount
-			emit_signal("manapot_obtained", Global.manapot_amount)
-		"fullwines":
-			Global.lifewine_amount += Global.max_item_storage - Global.lifewine_amount
-			emit_signal("lifewine_obtained", Global.lifewine_amount)
-		"fullcrystals":
-			Global.crystals_amount += Global.max_item_storage - Global.crystals_amount
-			emit_signal("crystals_obtained", Global.crystals_amount)
 # Utility functions
 func door_opening():
 	is_shopping = true
@@ -546,6 +570,5 @@ func _on_ManaHealTimer_timeout():
 
 
 func _on_AnimationPlayer_animation_finished(anim_name):
-	
 	$SwordSprite.visible = false
-	print("sword anim finished")
+

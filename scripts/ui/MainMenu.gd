@@ -4,6 +4,12 @@ func _ready():
 	$Popup1.visible = false
 	$SaveLabel.visible = false
 
+func _process(delta):
+	$NewGame.text = "> New game" if $NewGame.is_hovered() else "New game" 
+	$LoadGame.text = "> Load game" if $LoadGame.is_hovered() else "Load game"
+	$HowToPlay.text = "> How to play" if $HowToPlay.is_hovered() else "How to play"
+	$Logs.text = "> Update logs" if $Logs.is_hovered() else "Update logs"
+	$Exit.text = "> Exit" if $Exit.is_hovered() else "Exit"
 func _on_NewGame_pressed():
 	new_game()
 
@@ -15,6 +21,7 @@ func new_game():
 	yield(get_tree().create_timer(1), "timeout")
 	get_tree().change_scene("res://scenes/levels/Level1.tscn")
 	queue_free()
+
 
 func _on_LoadGame_pressed():
 	var savefile : File = File.new()
@@ -36,8 +43,10 @@ func _on_LoadGame_pressed():
 			Global.max_item_storage = player_data["MaxItemStorage"]
 			Global.lighting = player_data["Lighting"]
 			Global.vsync = player_data["Vsync"]
+			Global.levelpath = player_data["Level"]
 			$SceneTransition/ColorRect.visible = true
 			$SceneTransition.transition()
+			print(Global.levelpath)
 			yield(get_tree().create_timer(1), "timeout")
 			get_tree().change_scene(Global.levelpath)
 		else:
@@ -49,7 +58,7 @@ func _on_LoadGame_pressed():
 		yield(get_tree().create_timer(2), "timeout")
 		$SaveLabel.visible = false
 func _on_HowToPlay_pressed():
-	get_tree().change_scene("res://scenes/menus/HowToPlayMenu.tscn")
+	get_tree().change_scene("res://scenes/menus/HowToPlayMenu_1.tscn")
 	queue_free()
 
 
@@ -63,3 +72,8 @@ func _on_Yes_pressed():
 
 func _on_No_pressed():
 	$Popup1.visible = false
+
+
+func _on_Logs_pressed():
+	get_tree().change_scene("res://scenes/menus/Logs.tscn")
+	queue_free()
