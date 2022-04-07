@@ -21,13 +21,17 @@ var knockback_power : int = 200
 var can_be_knocked : bool = true
 const SPEED : int = 380
 const GRAVITY : int = 40
-const JUMP_POWER : int = -1075
+var JUMP_POWER : int = -1075
 const FIREBALL : PackedScene = preload("res://scenes/misc/Fireball.tscn")
 const FIRESAW : PackedScene = preload("res://scenes/misc/FireSaw.tscn")
 const JUMP_PARTICLE : PackedScene = preload("res://scenes/particles/JumpParticle.tscn")
 const DASH_PARTICLE : PackedScene = preload("res://scenes/particles/DashParticle.tscn")
 const SWORD_PARTICLE : PackedScene = preload("res://scenes/particles/SwordSwingParticle.tscn")
 const FIRE_PARTICLE : PackedScene = preload("res://scenes/particles/FlameParticle.tscn")
+const GROUND_POUND_PARTICLE : PackedScene = preload("res://scenes/particles/GroundPoundParticle.tscn")
+const SUPER_SLASH_PROJECTILE : PackedScene = preload("res://scenes/misc/SuperSlashProjectile.tscn")
+onready var FULL_CHARGE_METER = preload("res://assets/UI/chargebar_full.png")
+onready var CHARGING_CHARGE_METER = preload("res://assets/UI/chargebar_charging.png")
 var is_attacking : bool = false
 var is_dead : bool = false
 var is_invulnerable : bool = false
@@ -41,8 +45,14 @@ var is_shopping : bool = false
 var is_frozen : bool = false
 var is_using_firesaw : bool = false
 var glider_equipped : bool = false
+var is_ground_pounding : bool = false
+var cam_shake : bool = false
+var is_charging : bool = false
 
 func _ready():
+	$ChargeBar.value = 0
+	$SwordSprite.visible = false
+	$ChargeBar.visible = false
 # warning-ignore:return_value_discarded
 	connect("life_changed", get_parent().get_node("HeartUI/Life"), "on_player_life_changed")
 # warning-ignore:return_value_discarded
@@ -84,67 +94,69 @@ func _physics_process(_delta):
 	if !is_dead and !is_invulnerable and !is_healing and !is_shopping and !is_frozen:
 		# Function calls
 		attack()
-		dash()
-		glide() # Glide duration in seconds
-		useItems()
-		shoot()
-		# Movement controls
-		if velocity.x == 0 and !is_attacking and !is_gliding and !is_frozen:
-			$Sprite.play("Idle")
-		if Input.is_action_pressed("right") and !is_attacking and !is_knocked_back:
-			velocity.x = SPEED
-		# warning-ignore:standalone_ternary
-			$Sprite.play("Glide") if is_gliding else $Sprite.play("Walk")
-			$Sprite.flip_h = false
-			if velocity.x == 0 and !is_attacking:
+		if !is_charging:
+			dash()
+			glide() # Glide duration in seconds
+			useItems()
+			shoot()
+			ground_pound()
+			# Movement controls
+			if velocity.x == 0 and !is_attacking and !is_gliding and !is_frozen:
 				$Sprite.play("Idle")
-			if sign($Position2D.position.x) == -1:
-				$Position2D.position.x *= -1
-			if sign($DashParticlePosition.position.x) == 1:
-				$DashParticlePosition.position.x *= -1
-			if Input.is_action_just_released("right"):
-				$Sprite.play("Walk")
-			get_node("AttackCollision").set_scale(Vector2(1,1))
-		elif Input.is_action_pressed("left") and !is_attacking:
-			velocity.x = -SPEED
-# warning-ignore:standalone_ternary
-			$Sprite.play("Glide") if is_gliding else $Sprite.play("Walk")
-			$Sprite.flip_h = true
-			if velocity.x == 0 and !is_attacking:
+			if Input.is_action_pressed("right") and !is_attacking and !is_knocked_back:
+				velocity.x = SPEED
+			# warning-ignore:standalone_ternary
+				$Sprite.play("Glide") if is_gliding else $Sprite.play("Walk")
+				$Sprite.flip_h = false
+				if velocity.x == 0 and !is_attacking and is_gliding:
+					$Sprite.play("Idle")
+				if sign($Position2D.position.x) == -1:
+					$Position2D.position.x *= -1
+				if sign($DashParticlePosition.position.x) == 1:
+					$DashParticlePosition.position.x *= -1
+				if Input.is_action_just_released("right"):
+					$Sprite.play("Walk")
+				get_node("AttackCollision").set_scale(Vector2(1,1))
+			elif Input.is_action_pressed("left") and !is_attacking:
+				velocity.x = -SPEED
+	# warning-ignore:standalone_ternary
+				$Sprite.play("Glide") if is_gliding else $Sprite.play("Walk")
+				$Sprite.flip_h = true
+				if velocity.x == 0 and !is_attacking and !is_gliding:
+					$Sprite.play("Idle")
+				if sign($Position2D.position.x) == 1:
+					$Position2D.position.x *= -1
+				if sign($DashParticlePosition.position.x) == -1:
+					$DashParticlePosition.position.x *= -1
+				get_node("AttackCollision").set_scale(Vector2(-1,1))	
+			elif velocity.x == 0:
+				if !is_attacking:
+					$Sprite.play("Idle")
+				if is_gliding and Global.glide_unlocked:
+					$Sprite.play("Glide")
+			# Jump controls
+			if Input.is_action_just_pressed("jump") and is_on_floor() and !is_attacking and !is_frozen:
+				# Particles
+				var jump_particle : JumpParticle = JUMP_PARTICLE.instance()
+				jump_particle.emitting = true
+				get_parent().add_child(jump_particle)
+				jump_particle.position = $ParticlePosition.global_position
+				
+				velocity.y = JUMP_POWER
 				$Sprite.play("Idle")
-			if sign($Position2D.position.x) == 1:
-				$Position2D.position.x *= -1
-			if sign($DashParticlePosition.position.x) == -1:
-				$DashParticlePosition.position.x *= -1
-			get_node("AttackCollision").set_scale(Vector2(-1,1))	
-		elif velocity.x == 0:
-			if !is_attacking:
-				$Sprite.play("Idle")
-			if is_gliding and Global.glide_unlocked:
-				$Sprite.play("Glide")
-		# Jump controls
-		if Input.is_action_just_pressed("jump") and is_on_floor() and !is_attacking and !is_frozen:
-			# Particles
-			var jump_particle : JumpParticle = JUMP_PARTICLE.instance()
-			jump_particle.emitting = true
-			get_parent().add_child(jump_particle)
-			jump_particle.position = $ParticlePosition.global_position
-			
-			velocity.y = JUMP_POWER
-			$Sprite.play("Idle")
-			is_attacking = false
-			
-		# Movement calculations
-		if !is_dashing and !is_gliding:
-			velocity.y += GRAVITY
-		velocity = move_and_slide(velocity,Vector2.UP)
-		velocity.x = lerp(velocity.x,0,0.2)
-		if is_invulnerable:
-			$Area2D/CollisionShape2D.disabled = true
-		if Input.is_action_just_pressed("ui_use"):
-			$ToggleArea/CollisionShape2D.disabled = false
-			yield(get_tree().create_timer(0.4), "timeout")
-			$ToggleArea/CollisionShape2D.disabled = true
+				is_attacking = false
+				
+			# Movement calculations
+			if !is_dashing and !is_gliding:
+				velocity.y += GRAVITY
+			velocity = move_and_slide(velocity,Vector2.UP)
+			velocity.x = lerp(velocity.x,0,0.2)
+			if is_invulnerable:
+				$Area2D/CollisionShape2D.disabled = true
+			if Input.is_action_just_pressed("ui_use"):
+				$ToggleArea/CollisionShape2D.disabled = false
+				yield(get_tree().create_timer(0.4), "timeout")
+				$ToggleArea/CollisionShape2D.disabled = true
 	if is_healing:
 		$Sprite.play("Healing")
 	if is_frozen:
@@ -152,9 +164,19 @@ func _physics_process(_delta):
 	$FreezeMask.visible = true if is_frozen else false
 	if glider_equipped and !is_gliding:
 		$GliderWings.visible = true
-	elif !glider_equipped or is_gliding:
+	if !glider_equipped or is_gliding:
 		$GliderWings.visible = false
+	if is_gliding:
+		$Sprite.play("Glide")
+		$GliderWings.visible = false
+	if cam_shake:
+		$Camera2D.set_offset(Vector2( \
+			rand_range(-1, 1) * 3, \
+			rand_range(-1, 1) * 3 \
+		))
+	charge_meter()
 	
+
 
 func shoot():
 	if Input.is_action_just_pressed("ui_shoot")	and !is_attacking and !is_frozen and Global.mana >= 1:
@@ -189,7 +211,34 @@ func shoot():
 	if Input.is_action_pressed("fireburst"):
 		pass
 	
+func ground_pound():
+	if !is_on_floor() and Input.is_action_just_pressed("ui_down"):
+		is_ground_pounding = true
+		velocity.y = 3000
+		$SwordSpreadArea/CollisionPolygon2D.disabled = false
+		yield(get_tree().create_timer(0.2), "timeout")
+		gp_effect()
+		cam_shake = true
+		is_ground_pounding = false
+		yield(get_tree().create_timer(0.35), "timeout")
+		$SwordSpreadArea/CollisionPolygon2D.disabled = true
+		cam_shake = false
+func gp_effect():
+		var gp_particle1 = GROUND_POUND_PARTICLE.instance()
+		var gp_particle2 = GROUND_POUND_PARTICLE.instance()
+		get_parent().add_child(gp_particle1)
+		gp_particle1.position = $GroundPoundPositionRight.global_position
+		gp_particle1.rotation_degrees = -40
+		gp_particle1.emitting = true
+		gp_particle1.one_shot = true
 		
+		get_parent().add_child(gp_particle2)
+		gp_particle2.position = $GroundPoundPositionLeft.global_position
+		gp_particle2.rotation_degrees = 220
+		gp_particle2.emitting = true
+		gp_particle2.one_shot = true
+
+			
 func attack():
 	if Input.is_action_just_pressed("ui_attack") and !is_attacking and !is_gliding and !is_frozen:
 		$Sprite.play("Attack")
@@ -202,6 +251,7 @@ func attack():
 		is_attacking = true
 		$AttackCollision/CollisionShape2D.disabled = false
 		$AttackTimer.start()
+		
 		# Upward attack controls
 		if Input.is_action_pressed("ui_up"):
 			$AttackCollision.position += Vector2(-60,-60) if !$Sprite.flip_h else Vector2(60,-55)
@@ -224,7 +274,56 @@ func attack():
 			is_attacking = true
 			$AttackCollision/CollisionShape2D.disabled = false
 			$AttackTimer.start()
+func charge_meter():
+	if $ChargeBar.value == $ChargeBar.max_value:
+		$ChargeBar.texture_progress = FULL_CHARGE_METER
+	else:
+		$ChargeBar.texture_progress = CHARGING_CHARGE_METER
+	if is_on_floor():
+		if Input.is_action_pressed("charge"):
+			# Max value is 100
+			$ChargeBar.visible = true
+			$ChargeBar.value += 1.5
+			is_charging = true
+		if Input.is_action_just_released("charge"):
+			# Min value is 0 (Empty)
+			$ChargeBar.visible = false
+			$ChargeBar.value = $ChargeBar.min_value
+			is_charging = false
+	# Charge abilities
+	if $ChargeBar.value == $ChargeBar.max_value and is_charging:
+		if Input.is_action_just_pressed("ui_attack") and Global.mana >= 1:
+			$ChargeBar.visible = false
+			$ChargeBar.value = $ChargeBar.min_value
+			is_charging = false
+			Input.action_release("charge")
+			Global.mana -= 1
+			emit_signal("mana_changed", Global.mana)
+			var ss_projectile = SUPER_SLASH_PROJECTILE.instance()
+			get_parent().add_child(ss_projectile)
+			if $Sprite.flip_h:
+				ss_projectile.flip_projectile(-1)
+			ss_projectile.position = $Position2D.global_position
+			var dash_particle = DASH_PARTICLE.instance()
+			get_parent().add_child(dash_particle)
+			dash_particle.position = $Position2D.global_position
+			dash_particle.emitting = true
+			dash_particle.one_shot = true
+		if Input.is_action_just_pressed("jump") and Global.mana >= 1 and glider_equipped and is_on_floor() and !is_attacking and !is_frozen:
+			if !Global.godmode:
+				Global.mana -= 1
+				emit_signal("mana_changed", Global.mana)
+			Input.action_release("charge")
+			is_charging = false
+			$ChargeBar.visible = false
+			$ChargeBar.value = $ChargeBar.min_value
+			velocity.y = JUMP_POWER * 1.5
+			$Sprite.play("Idle")
+			is_attacking = false
+			
+		
 
+		
 # Damage and interaction
 func _on_Area2D_area_entered(area : Area2D):
 	if area.is_in_group("HealthPot"):
@@ -238,15 +337,18 @@ func _on_Area2D_area_entered(area : Area2D):
 			if area.is_in_group("Enemy") or area.is_in_group("DeflectedProjectile"):
 				Global.hearts -= 0.5
 				is_gliding = false
+				Input.action_release("charge")
 				afterDamaged()
 				knockback()
 			if area.is_in_group("Enemy2"):
 				Global.hearts -= 1
 				is_gliding = false
+				Input.action_release("charge")
 				afterDamaged()
 				knockback()
 		if area.is_in_group("Spike"):
 			Global.hearts -= 0.5
+			Input.action_release("charge")
 			afterDamaged()
 
 	if area.is_in_group("Transporter"):
@@ -352,24 +454,22 @@ func glide():
 		elif glider_equipped:
 			glider_equipped = false
 	# Press SPACE while in mid-air to temporarily glide
-	if Global.glide_unlocked and Input.is_action_just_pressed("jump") and !is_on_floor() and Global.mana >= 1:
-		if glider_equipped:
+	if Global.glide_unlocked and Input.is_action_just_pressed("jump") and !is_on_floor() and Global.mana >= 1 and glider_equipped:
+			if !Global.godmode:
+				$GlideTimer.start(0)
 			is_gliding = true
-			if is_on_floor() or is_on_wall():
-				is_gliding = false
-			if Input.is_action_just_released("jump"):
+			if is_on_floor() or is_on_wall() or is_on_ceiling():
+				$GlideTimer.stop()
 				is_gliding = false
 				velocity.y += GRAVITY * 3
 			if is_gliding:
 				velocity.y = 0
-				velocity.y += GRAVITY
-			if !Global.godmode:
-				Global.mana -= 1
-				emit_signal("mana_changed", Global.mana)
-
-			yield(get_tree().create_timer(1), "timeout")
-			is_gliding = false
-			Input.action_release("jump")
+				velocity.y += GRAVITY * 1.5
+	# Stop gliding
+	if Input.is_action_just_released("jump"):
+		$GlideTimer.stop()
+		is_gliding = false
+		velocity.y += GRAVITY * 3
 
 
 func useItems():
@@ -572,3 +672,16 @@ func _on_ManaHealTimer_timeout():
 func _on_AnimationPlayer_animation_finished(anim_name):
 	$SwordSprite.visible = false
 
+
+
+func _on_GlideTimer_timeout():
+	if is_gliding and glider_equipped:
+		Global.mana -= 1
+		emit_signal("mana_changed", Global.mana)
+
+	if Global.mana >= 1 and glider_equipped:
+		$GlideTimer.start()
+	else:
+		is_gliding = false
+		Input.action_release("jump")
+		

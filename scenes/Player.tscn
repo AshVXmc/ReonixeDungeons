@@ -1,11 +1,14 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://spriteframes/MainCharacter_spriteframes.tres" type="SpriteFrames" id=1]
-[ext_resource path="res://scripts/util/Player.gd" type="Script" id=2]
+[ext_resource path="res://scripts/misc/Player.gd" type="Script" id=2]
 [ext_resource path="res://assets/player/sword.png" type="Texture" id=3]
 [ext_resource path="res://assets/misc/frozen_block.png" type="Texture" id=4]
 [ext_resource path="res://scenes/particles/FireBurstParticle.tscn" type="PackedScene" id=5]
 [ext_resource path="res://assets/player/gliding_wings.png" type="Texture" id=6]
+[ext_resource path="res://assets/UI/chargebar_charging.png" type="Texture" id=7]
+[ext_resource path="res://assets/UI/healthbar_empty.png" type="Texture" id=8]
+[ext_resource path="res://scenes/particles/ChargingParticle.tscn" type="PackedScene" id=9]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 37.6338
@@ -51,6 +54,18 @@ tracks/2/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 0,
 "values": [ Vector2( -24.266, 9.22076 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("SwordSprite:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ true ]
 }
 
 [sub_resource type="Animation" id=5]
@@ -215,9 +230,8 @@ tracks/2/keys = {
 
 [node name="Player" type="KinematicBody2D"]
 script = ExtResource( 2 )
-__meta__ = {
-"_edit_group_": true
-}
+
+[node name="ChargingParticle" parent="." instance=ExtResource( 9 )]
 
 [node name="FreezeMask" type="Sprite" parent="."]
 visible = false
@@ -230,7 +244,6 @@ scale = Vector2( 5, 6 )
 texture = ExtResource( 6 )
 
 [node name="SwordSprite" type="Sprite" parent="."]
-visible = false
 position = Vector2( -24.266, 9.22076 )
 rotation = 0.872665
 scale = Vector2( 3, 3 )
@@ -306,7 +319,6 @@ wait_time = 0.75
 one_shot = true
 
 [node name="GlideTimer" type="Timer" parent="."]
-wait_time = 0.75
 
 [node name="LeftDetector" type="Area2D" parent="."]
 
@@ -329,6 +341,12 @@ disabled = true
 
 [node name="ParticlePosition" type="Position2D" parent="."]
 position = Vector2( 0, 50 )
+
+[node name="GroundPoundPositionRight" type="Position2D" parent="."]
+position = Vector2( 40, 50 )
+
+[node name="GroundPoundPositionLeft" type="Position2D" parent="."]
+position = Vector2( -40, 50 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/RESET = SubResource( 4 )
@@ -354,6 +372,24 @@ position = Vector2( 48, 0 )
 
 [node name="FireBurstTimer" type="Timer" parent="."]
 wait_time = 0.2
+
+[node name="SwordSpreadArea" type="Area2D" parent="." groups=["Sword2"]]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="SwordSpreadArea"]
+polygon = PoolVector2Array( -4.49139, 2.44882, -70.4112, -26.2582, -183.113, -74.1032, -185.239, 49.2306, 175.193, 47.1042, 174.13, -74.1032 )
+disabled = true
+
+[node name="ChargeBar" type="TextureProgress" parent="."]
+margin_left = -49.2104
+margin_top = -83.4949
+margin_right = -29.2104
+margin_bottom = -77.4949
+rect_scale = Vector2( 5, 5 )
+texture_under = ExtResource( 8 )
+texture_progress = ExtResource( 7 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [connection signal="animation_finished" from="Sprite" to="." method="_on_Sprite_animation_finished"]
 [connection signal="area_entered" from="AttackCollision" to="." method="_on_AttackCollision_area_entered"]

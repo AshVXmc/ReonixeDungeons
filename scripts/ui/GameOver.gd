@@ -8,7 +8,6 @@ func _ready():
 
 
 func _on_RestartButton_pressed():
-	print("Goobar")
 	Global.reset_player_data()
 	get_tree().change_scene("res://scenes/levels/Level1.tscn")
 #	queue_free()
@@ -51,7 +50,14 @@ func _on_LoadSaveButton_pressed():
 			yield(get_tree().create_timer(1), "timeout")
 			visible = false
 			get_tree().change_scene(player_data["Level"])
-			
+		else:
+			$NoSaveData.visible = true
+			yield(get_tree().create_timer(2), "timeout")
+			$NoSaveData.visible = false
+	else:
+		$NoSaveData.visible = true
+		yield(get_tree().create_timer(2), "timeout")
+		$NoSaveData.visible = false
 
 func _on_ExitButton_pressed():
 	get_tree().change_scene("res://scenes/menus/MainMenu.tscn")

@@ -10,4 +10,4 @@ func _on_AnimationPlayer_animation_finished(anim_name):
 		emit_signal("transitioned")
 		$AnimationPlayer.play("FADE")
 	if anim_name == "FADE":
-		print("Transition finished")
+		pass

@@ -38,7 +38,7 @@ func reset_player_data():
 	Global.crystals_amount = 0
 	Global.soul_token_amount = 0
 	Global.dash_unlocked = false
-	Global.glide_unlocked = false
+	Global.glide_unlocked = true
 	Global.firesaw_unlocked = false
 	Global.fireburst_unlocked = false
 	Global.max_item_storage = 3

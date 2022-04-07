@@ -32,7 +32,7 @@ _global_script_classes=[ {
 "base": "CanvasLayer",
 "class": "DialogueScreen",
 "language": "GDScript",
-"path": "res://scripts/util/DialogueScreen.gd"
+"path": "res://scripts/misc/DialogueScreen.gd"
 }, {
 "base": "Area2D",
 "class": "ExplodingFruit",
@@ -47,12 +47,12 @@ _global_script_classes=[ {
 "base": "Area2D",
 "class": "FireSaw",
 "language": "GDScript",
-"path": "res://scripts/util/FireSaw.gd"
+"path": "res://scripts/misc/FireSaw.gd"
 }, {
 "base": "Area2D",
 "class": "Fireball",
 "language": "GDScript",
-"path": "res://scripts/util/Fireball.gd"
+"path": "res://scripts/misc/Fireball.gd"
 }, {
 "base": "Area2D",
 "class": "FrostFruit",
@@ -122,7 +122,7 @@ _global_script_classes=[ {
 "base": "KinematicBody2D",
 "class": "Player",
 "language": "GDScript",
-"path": "res://scripts/util/Player.gd"
+"path": "res://scripts/misc/Player.gd"
 }, {
 "base": "Node2D",
 "class": "Shopkeeper",
@@ -137,7 +137,7 @@ _global_script_classes=[ {
 "base": "Node2D",
 "class": "Sign",
 "language": "GDScript",
-"path": "res://scripts/util/Level.gd"
+"path": "res://scripts/misc/Level.gd"
 }, {
 "base": "Node2D",
 "class": "SilverChest",
@@ -153,6 +153,11 @@ _global_script_classes=[ {
 "class": "Spider",
 "language": "GDScript",
 "path": "res://scripts/enemies/Spider.gd"
+}, {
+"base": "Area2D",
+"class": "SuperSlashProjectile",
+"language": "GDScript",
+"path": "res://scripts/misc/SuperSlashProjectile.gd"
 }, {
 "base": "KinematicBody2D",
 "class": "WitchGoblin",
@@ -189,6 +194,7 @@ _global_script_class_icons={
 "SilverChest": "",
 "Slime": "",
 "Spider": "",
+"SuperSlashProjectile": "",
 "WitchGoblin": ""
 }
 
@@ -205,6 +211,10 @@ config/windows_native_icon="res://icon.ico"
 [autoload]
 
 Global="*res://scripts/singleton/Global.gd"
+
+[debug]
+
+gdscript/warnings/return_value_discarded=false
 
 [display]
 
@@ -312,7 +322,6 @@ ui_attack={
 slot_1={
 "deadzone": 0.5,
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":49,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
-, Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":81,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
  ]
 }
 slot_2={
@@ -361,6 +370,11 @@ fireburst={
  ]
 }
 toggle_glider={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":71,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
+}
+charge={
 "deadzone": 0.5,
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":81,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
  ]

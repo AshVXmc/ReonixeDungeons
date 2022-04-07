@@ -23,7 +23,7 @@ func _notification(what):
 		get_parent().get_node("OutOfFocus").visible = true
 		get_tree().paused = true
 func _process(delta):
-	if Input.is_action_just_pressed("ui_cancel"):
+	if Input.is_action_just_pressed("ui_cancel") and !get_parent().get_parent().get_node("Player").is_shopping:
 		if !get_tree().paused:
 			get_parent().get_parent().get_node("DebugMenu").get_node("Control").visible = false
 			get_tree().paused = true
@@ -34,6 +34,7 @@ func _process(delta):
 #			Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 			
 func _on_ResumeButton_pressed():
+	print("resumed game")
 	get_tree().paused = false
 	visible = false
 

@@ -39,23 +39,26 @@ func _physics_process(delta):
 func _on_Area2D_area_entered(area):
 	if area.is_in_group("Sword") or area.is_in_group("Fireball") and HP > 0:
 		HP -= 1
-		velocity.x = 0
-		if $HurtTimer.is_stopped():
-			$HurtTimer.start()
-		if HP <= 0:
-			var loot = LOOT.instance()
-			var lootrng : RandomNumberGenerator = RandomNumberGenerator.new()
-			lootrng.randomize()
-			var randomint = lootrng.randi_range(1,3)
-			if randomint == 1:
-				get_parent().add_child(loot)
-				loot.position = $Position2D.global_position
-			queue_free()
+	elif area.is_in_group("Sword2"):
+		HP -= 2
 	if area.is_in_group("Player"):
 		is_staggered = true
 		yield(get_tree().create_timer(1), "timeout")
 		is_staggered = false
 
+func parse_damage():
+	velocity.x = 0
+	if $HurtTimer.is_stopped():
+		$HurtTimer.start()
+	if HP <= 0:
+		var loot = LOOT.instance()
+		var lootrng : RandomNumberGenerator = RandomNumberGenerator.new()
+		lootrng.randomize()
+		var randomint = lootrng.randi_range(1,3)
+		if randomint == 1:
+			get_parent().add_child(loot)
+			loot.position = $Position2D.global_position
+		queue_free()
 func _on_HurtTimer_timeout():
 	is_staggered = false
 

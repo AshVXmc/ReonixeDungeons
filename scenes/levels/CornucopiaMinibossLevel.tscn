@@ -2,7 +2,7 @@
 
 [ext_resource path="res://assets/UI/healthbar_full.png" type="Texture" id=1]
 [ext_resource path="res://scenes/menus/HeartUI.tscn" type="PackedScene" id=2]
-[ext_resource path="res://scripts/util/Level.gd" type="Script" id=3]
+[ext_resource path="res://scripts/misc/Level.gd" type="Script" id=3]
 [ext_resource path="res://scenes/menus/LifeWineUI.tscn" type="PackedScene" id=4]
 [ext_resource path="res://scenes/menus/ManaPotUI.tscn" type="PackedScene" id=5]
 [ext_resource path="res://scenes/menus/DebugMenu.tscn" type="PackedScene" id=6]

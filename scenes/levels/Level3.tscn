@@ -15,7 +15,7 @@
 [ext_resource path="res://scenes/menus/PauseUI.tscn" type="PackedScene" id=13]
 [ext_resource path="res://scenes/misc/Light.tscn" type="PackedScene" id=14]
 [ext_resource path="res://scenes/NPC/ShopKeeperNPC.tscn" type="PackedScene" id=15]
-[ext_resource path="res://scripts/util/Level.gd" type="Script" id=16]
+[ext_resource path="res://scripts/misc/Level.gd" type="Script" id=16]
 [ext_resource path="res://assets/terrain/lichen_ruins_misc_spritesheet.png" type="Texture" id=17]
 [ext_resource path="res://assets/terrain/lichen_ruins_spritesheet.png" type="Texture" id=18]
 [ext_resource path="res://scenes/items/Sign.tscn" type="PackedScene" id=19]
@@ -293,11 +293,8 @@ Destination = "res://scenes/levels/Level2.tscn"
 position = Vector2( 1041.74, 55.9296 )
 Text = "Navigate the terrain wisely and take your time. Remember that if you're low on health and mana, avoid dangerous enemies as soon as possible until you find weaker enemies to strike for mana. Press W while attacking to strike upwards."
 
-[node name="Shopkeeper" parent="." instance=ExtResource( 15 )]
-position = Vector2( 601.153, -1228.48 )
-
 [node name="Player" parent="." instance=ExtResource( 8 )]
-position = Vector2( 789.045, 391.537 )
+position = Vector2( 409.99, -1245.04 )
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position = Vector2( -11.2494, 7.93805 )
@@ -312,6 +309,9 @@ drag_margin_v_enabled = true
 drag_margin_left = 0.4
 drag_margin_right = 0.4
 editor_draw_limits = true
+
+[node name="Shopkeeper" parent="." instance=ExtResource( 15 )]
+position = Vector2( 601.153, -1228.48 )
 
 [node name="Spider" parent="." instance=ExtResource( 20 )]
 position = Vector2( 505.589, -176.986 )

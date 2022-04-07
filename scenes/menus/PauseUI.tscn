@@ -65,7 +65,6 @@ __meta__ = {
 
 [node name="Pause" type="Control" parent="."]
 pause_mode = 2
-visible = false
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -95,9 +94,9 @@ __meta__ = {
 }
 
 [node name="ColorRect" type="ColorRect" parent="Pause"]
-margin_top = -9.0
+margin_top = 30.0
 margin_right = 850.0
-margin_bottom = 469.0
+margin_bottom = 508.0
 color = Color( 0.0196078, 0.0196078, 0.0196078, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -106,10 +105,10 @@ __meta__ = {
 [node name="ResumeButton" type="Button" parent="Pause"]
 anchor_top = 0.5
 anchor_bottom = 0.5
-margin_left = 76.0
-margin_top = -142.5
-margin_right = 226.0
-margin_bottom = 7.5
+margin_left = 74.2183
+margin_top = -112.209
+margin_right = 224.218
+margin_bottom = 37.7905
 custom_fonts/font = ExtResource( 3 )
 icon = ExtResource( 4 )
 flat = true
@@ -123,10 +122,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -75.0
-margin_top = -142.5
-margin_right = 75.0
-margin_bottom = 7.5
+margin_left = -76.7817
+margin_top = -112.209
+margin_right = 73.2183
+margin_bottom = 37.7905
 icon = ExtResource( 6 )
 flat = true
 expand_icon = true
@@ -139,10 +138,10 @@ anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-margin_left = -220.0
-margin_top = -142.5
-margin_right = -70.0
-margin_bottom = 7.50038
+margin_left = -221.782
+margin_top = -112.209
+margin_right = -71.7817
+margin_bottom = 37.7909
 custom_fonts/font = ExtResource( 3 )
 icon = ExtResource( 5 )
 flat = true
@@ -152,10 +151,10 @@ __meta__ = {
 }
 
 [node name="Label" type="Label" parent="Pause"]
-margin_left = 77.4022
-margin_top = 254.102
-margin_right = 227.402
-margin_bottom = 300.102
+margin_left = 75.6205
+margin_top = 284.393
+margin_right = 225.62
+margin_bottom = 330.393
 custom_fonts/font = SubResource( 1 )
 text = "Resume"
 align = 1
@@ -164,10 +163,10 @@ __meta__ = {
 }
 
 [node name="Label2" type="Label" parent="Pause"]
-margin_left = 348.65
-margin_top = 256.074
-margin_right = 498.65
-margin_bottom = 302.074
+margin_left = 346.868
+margin_top = 286.365
+margin_right = 496.868
+margin_bottom = 332.365
 custom_fonts/font = SubResource( 1 )
 text = "Save"
 align = 1
@@ -176,10 +175,10 @@ __meta__ = {
 }
 
 [node name="Label3" type="Label" parent="Pause"]
-margin_left = 630.326
-margin_top = 255.13
-margin_right = 802.326
-margin_bottom = 301.13
+margin_left = 628.544
+margin_top = 285.421
+margin_right = 800.544
+margin_bottom = 331.421
 custom_fonts/font = SubResource( 1 )
 text = "Main menu"
 align = 1
@@ -190,10 +189,10 @@ __meta__ = {
 [node name="[Paused]" type="Label" parent="Pause"]
 anchor_left = 0.5
 anchor_right = 0.5
-margin_left = -150.0
-margin_top = 9.0
-margin_right = 150.0
-margin_bottom = 95.0
+margin_left = -151.782
+margin_top = 39.2905
+margin_right = 148.218
+margin_bottom = 125.291
 custom_colors/font_color = Color( 0.337255, 0.498039, 0.290196, 1 )
 custom_fonts/font = SubResource( 3 )
 text = "Paused"
@@ -203,10 +202,10 @@ __meta__ = {
 }
 
 [node name="Lighting" type="CheckBox" parent="Pause"]
-margin_left = 177.659
-margin_top = 390.0
-margin_right = 251.659
-margin_bottom = 414.0
+margin_left = 175.877
+margin_top = 420.291
+margin_right = 249.877
+margin_bottom = 444.291
 rect_scale = Vector2( 3, 3 )
 custom_fonts/font = SubResource( 4 )
 text = "Lighting"
@@ -216,10 +215,10 @@ __meta__ = {
 }
 
 [node name="Vsync" type="CheckBox" parent="Pause"]
-margin_left = 445.0
-margin_top = 390.0
-margin_right = 519.0
-margin_bottom = 414.0
+margin_left = 443.218
+margin_top = 420.291
+margin_right = 517.218
+margin_bottom = 444.291
 rect_scale = Vector2( 3, 3 )
 custom_fonts/font = SubResource( 4 )
 text = "V-sync"
@@ -233,10 +232,10 @@ anchor_left = 0.5
 anchor_top = 0.727
 anchor_right = 0.502
 anchor_bottom = 0.727
-margin_left = -63.3439
-margin_top = -27.917
-margin_right = 64.9441
-margin_bottom = 28.083
+margin_left = -65.1256
+margin_top = 2.37354
+margin_right = 63.1624
+margin_bottom = 58.3735
 custom_colors/font_color = Color( 0.290196, 1, 0, 1 )
 custom_fonts/font = SubResource( 5 )
 text = "Saved!"

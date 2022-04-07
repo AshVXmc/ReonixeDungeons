@@ -67,24 +67,28 @@ func _on_Area2D_area_entered(area):
 		return_to_sender()
 	if area.is_in_group("Sword") or area.is_in_group("Fireball") and HP > 0 and !spinning:
 		HP -= 1
-		velocity.x = 0
-		set_modulate(Color(2,0.5,0.3,1))
-#		is_staggered = true
-		$HurtTimer.start()
-		if HP <= 0:
-			var loot = LOOT.instance()
-			var lootrng : RandomNumberGenerator = RandomNumberGenerator.new()
-			lootrng.randomize()
-			var randomint = lootrng.randi_range(1,3)
-			if randomint == 1:
-				get_parent().add_child(loot)
-				loot.position = $Position2D.global_position
-			queue_free()
+		parse_damage()
+	elif area.is_in_group("Sword2"):
+		HP -= 2
+		parse_damage()
 	if area.is_in_group("Player"):
 		is_staggered = true
 		yield(get_tree().create_timer(1), "timeout")
 		is_staggered = false
 
+func parse_damage():
+	velocity.x = 0
+	set_modulate(Color(2,0.5,0.3,1))
+	$HurtTimer.start()
+	if HP <= 0:
+		var loot = LOOT.instance()
+		var lootrng : RandomNumberGenerator = RandomNumberGenerator.new()
+		lootrng.randomize()
+		var randomint = lootrng.randi_range(1,3)
+		if randomint == 1:
+			get_parent().add_child(loot)
+			loot.position = $Position2D.global_position
+		queue_free()
 func _on_HurtTimer_timeout():
 	set_modulate(Color(1,1,1,1))
 	is_staggered = false

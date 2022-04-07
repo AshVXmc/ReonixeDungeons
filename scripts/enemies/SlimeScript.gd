@@ -1,7 +1,7 @@
 class_name Slime extends KinematicBody2D
 
 var velocity : Vector2 = Vector2()
-export var HP : int = 3
+export var HP : int = 2
 var is_dead : bool = false 
 var direction : int = 1
 const TYPE : String = "Enemy"
@@ -27,16 +27,22 @@ func _physics_process(delta):
 			$RayCast2D.position.x *= -1
 
 func _on_Area2D_area_entered(area):
-	if area.is_in_group("Sword") and HP > 0:
-		HP -= 1
-		set_modulate(Color(2,0.5,0.3,1))
-		velocity.x = 0
-		$HurtTimer.start()
-	elif area.is_in_group("Fireball") and HP > 0:
-		HP -= 1
-		set_modulate(Color(2,0.5,0.3,1))
-		velocity.x = 0
-		$HurtTimer.start()
+	if HP > 0:
+		if area.is_in_group("Sword"):
+			HP -= 1
+			set_modulate(Color(2,0.5,0.3,1))
+			velocity.x = 0
+			$HurtTimer.start()
+		elif area.is_in_group("Fireball"):
+			HP -= 1
+			set_modulate(Color(2,0.5,0.3,1))
+			velocity.x = 0
+			$HurtTimer.start()
+		elif area.is_in_group("Sword2"):
+			HP -= 2
+			set_modulate(Color(2,0.5,0.3,1))
+			velocity.x = 0
+			$HurtTimer.start()
 	drop_loot()
 
 func drop_loot():

@@ -20,6 +20,11 @@ height = 40.2918
 animations = [ {
 "frames": [ ExtResource( 1 ) ],
 "loop": true,
+"name": "Idle",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 1 ) ],
+"loop": true,
 "name": "Attacking",
 "speed": 5.0
 }, {
@@ -27,11 +32,6 @@ animations = [ {
 "loop": true,
 "name": "Spin",
 "speed": 10.0
-}, {
-"frames": [ ExtResource( 1 ) ],
-"loop": true,
-"name": "Idle",
-"speed": 5.0
 } ]
 
 [node name="JesterGoblin" type="KinematicBody2D" groups=["Enemy"]]
