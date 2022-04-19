@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://scenes/enemies/bosses/AlphaGuardian.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/menus/HeartUI.tscn" type="PackedScene" id=2]
@@ -9,11 +9,17 @@
 [ext_resource path="res://scenes/menus/ManaUI.tscn" type="PackedScene" id=7]
 [ext_resource path="res://scenes/menus/HealthPotUI.tscn" type="PackedScene" id=8]
 [ext_resource path="res://scenes/menus/OpalsUI.tscn" type="PackedScene" id=9]
+[ext_resource path="res://scenes/menus/GameOver.tscn" type="PackedScene" id=10]
 [ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=11]
 [ext_resource path="res://scenes/misc/Light.tscn" type="PackedScene" id=12]
+[ext_resource path="res://scenes/menus/SceneTransition.tscn" type="PackedScene" id=13]
 [ext_resource path="res://assets/misc/background_2.png" type="Texture" id=14]
 [ext_resource path="res://tilesets/one_way_tilesets.tres" type="TileSet" id=15]
 [ext_resource path="res://tilesets/Default.tres" type="TileSet" id=16]
+[ext_resource path="res://scenes/menus/FPSCounter.tscn" type="PackedScene" id=17]
+[ext_resource path="res://scenes/menus/DebugMenu.tscn" type="PackedScene" id=18]
+[ext_resource path="res://scenes/menus/RevivementCrystalUI.tscn" type="PackedScene" id=19]
+[ext_resource path="res://assets/terrain/background_dungeons.png" type="Texture" id=20]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 47.7336, 7.95237 )
@@ -23,20 +29,6 @@ extents = Vector2( 96.0129, 7.95237 )
 
 [node name="Level10" type="Node2D"]
 script = ExtResource( 3 )
-
-[node name="HotbarUI" parent="." instance=ExtResource( 12 )]
-
-[node name="HealthPotUI" parent="." instance=ExtResource( 8 )]
-
-[node name="HeartUI" parent="." instance=ExtResource( 2 )]
-
-[node name="ManaUI" parent="." instance=ExtResource( 7 )]
-
-[node name="ManaPotUI" parent="." instance=ExtResource( 5 )]
-
-[node name="LifeWineUI2" parent="." instance=ExtResource( 4 )]
-
-[node name="OpalsUI" parent="." instance=ExtResource( 9 )]
 
 [node name="TIleMap" type="TileMap" parent="."]
 tile_set = ExtResource( 16 )
@@ -77,7 +69,7 @@ __meta__ = {
 position = Vector2( -573.222, 498.141 )
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
-position = Vector2( 41.4179, -212.638 )
+position = Vector2( 41.4179, -36.638 )
 current = true
 zoom = Vector2( 1.2, 1.2 )
 limit_left = -920
@@ -136,3 +128,49 @@ one_way_collision = true
 position = Vector2( -767.786, 199.78 )
 shape = SubResource( 2 )
 one_way_collision = true
+
+[node name="HealthPotUI" parent="." instance=ExtResource( 8 )]
+
+[node name="HeartUI" parent="." instance=ExtResource( 2 )]
+
+[node name="ManaUI" parent="." instance=ExtResource( 7 )]
+
+[node name="ManaPotUI" parent="." instance=ExtResource( 5 )]
+
+[node name="LifeWineUI2" parent="." instance=ExtResource( 4 )]
+
+[node name="OpalsUI" parent="." instance=ExtResource( 9 )]
+
+[node name="RevivementCrystal" parent="." instance=ExtResource( 19 )]
+
+[node name="ParallaxBackground2" type="ParallaxBackground" parent="."]
+
+[node name="Background1" type="ParallaxLayer" parent="ParallaxBackground2"]
+z_as_relative = false
+motion_mirroring = Vector2( 1920, 640 )
+
+[node name="TextureRect" type="ColorRect" parent="ParallaxBackground2/Background1"]
+margin_right = 1938.0
+margin_bottom = 1355.0
+color = Color( 0.113725, 0.145098, 0.113725, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground2/Background1"]
+scale = Vector2( 20, 20 )
+texture = ExtResource( 20 )
+centered = false
+__meta__ = {
+"_editor_description_": ""
+}
+
+[node name="GameOverUI" parent="." instance=ExtResource( 10 )]
+
+[node name="SceneTransition" parent="." instance=ExtResource( 13 )]
+
+[node name="DebugMenu" parent="." instance=ExtResource( 18 )]
+
+[node name="FPSCounter" parent="." instance=ExtResource( 17 )]
+
+[node name="PauseUI2" parent="." instance=ExtResource( 6 )]

@@ -155,7 +155,7 @@ func _physics_process(_delta):
 				$Area2D/CollisionShape2D.disabled = true
 			if Input.is_action_just_pressed("ui_use"):
 				$ToggleArea/CollisionShape2D.disabled = false
-				yield(get_tree().create_timer(0.4), "timeout")
+				yield(get_tree().create_timer(1), "timeout")
 				$ToggleArea/CollisionShape2D.disabled = true
 	if is_healing:
 		$Sprite.play("Healing")
@@ -575,8 +575,6 @@ func debug_commands(cmd : String):
 		"freeze":
 			is_frozen = true if !is_frozen else false
 		"fillall":
-			Global.opals_amount += 999 - Global.opals_amount
-			emit_signal("opals_obtained", Global.opals_amount)
 			Global.healthpot_amount += Global.max_item_storage - Global.healthpot_amount
 			emit_signal("healthpot_obtained", Global.healthpot_amount)
 			Global.manapot_amount += Global.max_item_storage - Global.manapot_amount
@@ -585,6 +583,9 @@ func debug_commands(cmd : String):
 			emit_signal("lifewine_obtained", Global.lifewine_amount)
 			Global.crystals_amount += Global.max_item_storage - Global.crystals_amount
 			emit_signal("crystals_obtained", Global.crystals_amount)
+		"opalall":
+			Global.opals_amount += 999 - Global.opals_amount
+			emit_signal("opals_obtained", Global.opals_amount)
 		"healall":
 			Global.hearts += Global.max_hearts - Global.hearts
 			emit_signal("life_changed", Global.hearts)

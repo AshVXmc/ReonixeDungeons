@@ -74,6 +74,7 @@ func drop_loot():
 			get_parent().add_child(loot)
 			loot.position = $Position2D.global_position
 		queue_free()
+		Global.enemies_killed += 1
 
 
 func _on_HurtTimer_timeout():

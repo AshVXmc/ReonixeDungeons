@@ -65,13 +65,16 @@ func _on_Area2D_area_entered(area):
 		velocity.x = 0
 		$HurtTimer.start()
 		if HP <= 0:
-			queue_free()
+			dead()
 	if area.is_in_group("Player") and !is_knocked_back:
 		is_staggered = true
 		yield(get_tree().create_timer(1), "timeout")
 		is_staggered = false
 
-	
+func dead():
+	queue_free()
+	if !Global.masked_goblin_defeated:
+		Global.masked_goblin_defeated = true
 func _on_HurtTimer_timeout():
 	is_staggered = false
 

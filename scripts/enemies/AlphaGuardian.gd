@@ -61,7 +61,8 @@ func _physics_process(_delta):
 		
 		if is_shaking:
 			shake(1.0)
-		velocity.y += GRAVITY
+		if !jumping:
+			velocity.y += GRAVITY
 		velocity = move_and_slide(velocity , Vector2.UP)
 		if is_on_wall() or $RayCast2D.is_colliding():
 			direction *= -1
@@ -77,27 +78,10 @@ func shake(power : float):
 
 func on_slam():
 	is_attacking = true
-	var rng : RandomNumberGenerator = RandomNumberGenerator.new()
-	rng.randomize()
-	var randint : int = rng.randi_range(0,1)
-	match randint:
-		0:
-#			double_wave_slam()
-			jump()
-		1:
-			stalagmite_smash()
+	double_wave_slam()
 	
 
-# Smacks club to ground and four shockwaves come up from four spots
-func stalagmite_smash():
-	$GroundTimer.start()
-	velocity.x = 0
-	$AnimatedSprite.play("Slam")
-	is_attacking = true
-	is_shaking = true
-	yield(get_tree().create_timer(1), "timeout")
-	is_attacking = false
-	is_shaking = false
+
 	
 
 # Double shockwaves 
@@ -115,10 +99,12 @@ func double_wave_slam():
 func jump():
 	jumping = true
 	velocity.x = 0
-	yield(get_tree().create_timer(1), "timeout")
-	jumping = false
-	velocity.y += -2200
 	velocity.y = 0
+	yield(get_tree().create_timer(1), "timeout")
+	velocity.y += GRAVITY * -2
+	yield(get_tree().create_timer(1.5), "timeout")
+	velocity.y = 0
+	jumping = false
 
 	
 
@@ -200,5 +186,5 @@ func _on_Right_area_exited(area):
 
 
 func _on_JumpTimer_timeout():
-	if $Left.overlaps_area(player) or $Right.overlaps_area(player):
-		jump()
+#	if $Left.overlaps_area(player) or $Right.overlaps_area(player):
+	jump()

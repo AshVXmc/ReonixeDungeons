@@ -1,4 +1,4 @@
-extends Control
+class_name MainMenu extends Control
 
 func _ready():
 	$Popup1.visible = false
@@ -19,7 +19,7 @@ func new_game():
 	$SceneTransition/ColorRect.visible = true
 	$SceneTransition.transition()
 	yield(get_tree().create_timer(1), "timeout")
-	get_tree().change_scene("res://scenes/levels/Level1.tscn")
+	get_tree().change_scene("res://scenes/levels/HubLevel.tscn")
 	queue_free()
 
 
@@ -44,6 +44,8 @@ func _on_LoadGame_pressed():
 			Global.lighting = player_data["Lighting"]
 			Global.vsync = player_data["Vsync"]
 			Global.levelpath = player_data["Level"]
+			Global.enemies_killed = player_data["EnemiesKilled"]
+			Global.masked_goblin_defeated = player_data["MaskedGoblinDefeated"]
 			$SceneTransition/ColorRect.visible = true
 			$SceneTransition.transition()
 			print(Global.levelpath)

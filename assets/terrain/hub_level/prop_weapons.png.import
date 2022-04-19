@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/saw.png-816f4becffd6c72d740cb8849d7e5417.stex"
+path="res://.import/prop_weapons.png-9935b9809493ceb113ec636ed8723297.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/terrain/saw.png"
-dest_files=[ "res://.import/saw.png-816f4becffd6c72d740cb8849d7e5417.stex" ]
+source_file="res://assets/terrain/hub_level/prop_weapons.png"
+dest_files=[ "res://.import/prop_weapons.png-9935b9809493ceb113ec636ed8723297.stex" ]
 
 [params]
 
@@ -28,6 +28,7 @@ process/fix_alpha_border=true
 process/premult_alpha=false
 process/HDR_as_SRGB=false
 process/invert_color=false
+process/normal_map_invert_y=false
 stream=false
 size_limit=0
 detect_3d=false

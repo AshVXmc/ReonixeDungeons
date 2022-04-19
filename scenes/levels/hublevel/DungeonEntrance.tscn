@@ -1,0 +1,43 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://scripts/terrain/DungeonEntrance.gd" type="Script" id=1]
+[ext_resource path="res://assets/terrain/hub_level/dungeon_entrance.png" type="Texture" id=2]
+[ext_resource path="res://assets/fonts/FFFFORWA.ttf" type="DynamicFontData" id=3]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 55.0921, 60.3552 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 64
+font_data = ExtResource( 3 )
+
+[node name="DungeonEntrance" type="Node2D"]
+scale = Vector2( 2, 2 )
+script = ExtResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 1.49829, -8.25084 )
+scale = Vector2( 5, 5 )
+texture = ExtResource( 2 )
+
+[node name="Area2D" type="Area2D" parent="." groups=["Transporter"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2( 1, 30 )
+shape = SubResource( 1 )
+
+[node name="Label" type="RichTextLabel" parent="."]
+margin_left = -50.8921
+margin_top = -59.8374
+margin_right = 427.108
+margin_bottom = 137.163
+rect_scale = Vector2( 0.25, 0.25 )
+custom_fonts/bold_font = SubResource( 2 )
+bbcode_enabled = true
+bbcode_text = "[b]Enter the dungeon [/b] [img=72]res://assets/UI/icon_E.png[/img]"
+text = "Enter the dungeon  "
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="area_exited" from="Area2D" to="." method="_on_Area2D_area_exited"]

@@ -1,0 +1,306 @@
+[gd_scene load_steps=41 format=2]
+
+[ext_resource path="res://tilesets/HubLevelTileset.tres" type="TileSet" id=1]
+[ext_resource path="res://assets/terrain/deep_woods/background_deep_woods.png" type="Texture" id=2]
+[ext_resource path="res://scenes/menus/ManaPotUI.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/menus/HeartUI.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scenes/menus/ManaUI.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scenes/menus/HealthPotUI.tscn" type="PackedScene" id=6]
+[ext_resource path="res://scenes/menus/FPSCounter.tscn" type="PackedScene" id=7]
+[ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=8]
+[ext_resource path="res://scenes/menus/LifeWineUI.tscn" type="PackedScene" id=9]
+[ext_resource path="res://scenes/menus/OpalsUI.tscn" type="PackedScene" id=10]
+[ext_resource path="res://scenes/levels/hublevel/DungeonEntrance.tscn" type="PackedScene" id=11]
+[ext_resource path="res://scenes/menus/DebugMenu.tscn" type="PackedScene" id=12]
+[ext_resource path="res://scenes/menus/PauseUI.tscn" type="PackedScene" id=13]
+[ext_resource path="res://scenes/misc/Light.tscn" type="PackedScene" id=14]
+[ext_resource path="res://scenes/menus/SceneTransition.tscn" type="PackedScene" id=15]
+[ext_resource path="res://scripts/misc/HubLevel.gd" type="Script" id=16]
+[ext_resource path="res://assets/terrain/deep_woods/tree_1.png" type="Texture" id=17]
+[ext_resource path="res://scenes/levels/hublevel/Portal.tscn" type="PackedScene" id=18]
+[ext_resource path="res://scenes/levels/hublevel/MonumentOfVictories.tscn" type="PackedScene" id=19]
+[ext_resource path="res://scenes/NPC/ShopKeeperNPC.tscn" type="PackedScene" id=20]
+[ext_resource path="res://scenes/menus/RevivementCrystalUI.tscn" type="PackedScene" id=21]
+[ext_resource path="res://scenes/menus/GameOver.tscn" type="PackedScene" id=22]
+[ext_resource path="res://assets/terrain/hub_level/prop_potionrack.png" type="Texture" id=23]
+[ext_resource path="res://assets/terrain/hub_level/prop_cashiertable.png" type="Texture" id=24]
+[ext_resource path="res://assets/misc/light_circle.png" type="Texture" id=25]
+[ext_resource path="res://assets/terrain/hub_level/prop_weapons.png" type="Texture" id=26]
+[ext_resource path="res://assets/terrain/hub_level/prop_chest.png" type="Texture" id=27]
+[ext_resource path="res://scenes/items/HouseDoorTransporter.tscn" type="PackedScene" id=28]
+[ext_resource path="res://assets/particles/smoke_particle.png" type="Texture" id=29]
+[ext_resource path="res://assets/terrain/hub_level/shop.png" type="Texture" id=30]
+[ext_resource path="res://assets/terrain/hub_level/prop_librarytable.png" type="Texture" id=31]
+[ext_resource path="res://assets/terrain/hub_level/prop_bookshelf_1.png" type="Texture" id=32]
+[ext_resource path="res://assets/terrain/hub_level/prop_bookshelf_2.png" type="Texture" id=33]
+[ext_resource path="res://scenes/levels/hublevel/TravellerJournal.tscn" type="PackedScene" id=34]
+[ext_resource path="res://assets/terrain/hub_level/chandelier.png" type="Texture" id=35]
+[ext_resource path="res://assets/terrain/deep_woods/deep_woods_spritesheet.png" type="Texture" id=36]
+[ext_resource path="res://assets/terrain/hub_level/prop_bookshelf_4.png" type="Texture" id=37]
+[ext_resource path="res://assets/terrain/hub_level/prop_bookshelf_3.png" type="Texture" id=38]
+
+[sub_resource type="TileSet" id=1]
+0/name = "deep_woods_spritesheet.png 0"
+0/texture = ExtResource( 36 )
+0/tex_offset = Vector2( 0, 0 )
+0/modulate = Color( 1, 1, 1, 1 )
+0/region = Rect2( 288, 192, 96, 96 )
+0/tile_mode = 0
+0/occluder_offset = Vector2( 0, 0 )
+0/navigation_offset = Vector2( 0, 0 )
+0/shape_offset = Vector2( 0, 0 )
+0/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+0/shape_one_way = false
+0/shape_one_way_margin = 0.0
+0/shapes = [  ]
+0/z_index = 0
+1/name = "deep_woods_spritesheet.png 1"
+1/texture = ExtResource( 36 )
+1/tex_offset = Vector2( 0, 0 )
+1/modulate = Color( 1, 1, 1, 1 )
+1/region = Rect2( 384, 192, 96, 96 )
+1/tile_mode = 0
+1/occluder_offset = Vector2( 0, 0 )
+1/navigation_offset = Vector2( 0, 0 )
+1/shape_offset = Vector2( 0, 0 )
+1/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+1/shape_one_way = false
+1/shape_one_way_margin = 0.0
+1/shapes = [  ]
+1/z_index = 0
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 380.757, 10.4603 )
+
+[node name="HubLevel" type="Node2D"]
+script = ExtResource( 16 )
+
+[node name="ColorRect" type="ColorRect" parent="."]
+margin_left = -112.217
+margin_top = -1584.4
+margin_right = 4397.78
+margin_bottom = -66.4026
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PauseUI" parent="." instance=ExtResource( 13 )]
+
+[node name="HealthPotUI" parent="." instance=ExtResource( 6 )]
+
+[node name="HeartUI" parent="." instance=ExtResource( 4 )]
+
+[node name="ManaUI" parent="." instance=ExtResource( 5 )]
+
+[node name="ManaPotUI" parent="." instance=ExtResource( 3 )]
+
+[node name="LifeWineUI" parent="." instance=ExtResource( 9 )]
+
+[node name="OpalsUI" parent="." instance=ExtResource( 10 )]
+
+[node name="GameOverUI" parent="." instance=ExtResource( 22 )]
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="Background1" type="ParallaxLayer" parent="ParallaxBackground"]
+z_as_relative = false
+motion_mirroring = Vector2( 1920, 0 )
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/Background1"]
+scale = Vector2( 20.1855, 15 )
+texture = ExtResource( 2 )
+centered = false
+__meta__ = {
+"_editor_description_": ""
+}
+
+[node name="FPSCounter" parent="." instance=ExtResource( 7 )]
+
+[node name="RevivementCrystal" parent="." instance=ExtResource( 21 )]
+
+[node name="DebugMenu" parent="." instance=ExtResource( 12 )]
+
+[node name="SceneTransition" parent="." instance=ExtResource( 15 )]
+
+[node name="Light2D" parent="." instance=ExtResource( 14 )]
+visible = false
+position = Vector2( 1751.34, 769.09 )
+scale = Vector2( 123.492, 44.8937 )
+energy = 0.65
+mode = 1
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = ExtResource( 1 )
+cell_size = Vector2( 96, 96 )
+cell_tile_origin = 1
+format = 1
+tile_data = PoolIntArray( -786406, 7, 0, -786405, 7, 0, -786404, 7, 0, -786403, 7, 0, -786402, 7, 0, -786401, 7, 0, -786400, 7, 0, -786399, 7, 0, -786398, 7, 0, -786397, 7, 0, -786396, 7, 0, -786395, 7, 0, -786394, 7, 0, -786393, 7, 0, -720893, 7, 0, -720892, 7, 0, -720891, 7, 0, -720890, 7, 0, -720889, 7, 0, -720888, 7, 0, -720887, 7, 0, -720886, 7, 0, -720885, 7, 0, -720884, 7, 0, -720883, 7, 0, -720882, 7, 0, -720881, 7, 0, -720870, 7, 0, -720869, 8, 0, -720868, 8, 0, -720867, 8, 0, -720866, 8, 0, -720865, 8, 0, -720864, 8, 0, -720863, 8, 0, -720862, 8, 0, -720861, 8, 0, -720860, 8, 0, -720859, 8, 0, -720858, 8, 0, -720857, 7, 0, -655357, 7, 0, -655356, 8, 0, -655355, 8, 0, -655354, 8, 0, -655353, 8, 0, -655352, 8, 0, -655351, 8, 0, -655350, 8, 0, -655349, 8, 0, -655348, 8, 0, -655347, 8, 0, -655346, 8, 0, -655345, 7, 0, -655334, 7, 0, -655333, 8, 0, -655332, 9, 0, -655331, 8, 0, -655330, 8, 0, -655329, 8, 0, -655328, 8, 0, -655327, 8, 0, -655326, 8, 0, -655325, 8, 0, -655324, 8, 0, -655323, 9, 0, -655322, 8, 0, -655321, 7, 0, -589821, 7, 0, -589820, 8, 0, -589819, 9, 0, -589818, 8, 0, -589817, 9, 0, -589816, 8, 0, -589815, 8, 0, -589814, 9, 0, -589813, 8, 0, -589812, 8, 0, -589811, 9, 0, -589810, 8, 0, -589809, 7, 0, -589798, 7, 0, -589797, 8, 0, -589796, 8, 0, -589795, 8, 0, -589794, 8, 0, -589793, 8, 0, -589792, 8, 0, -589791, 8, 0, -589790, 8, 0, -589789, 8, 0, -589788, 8, 0, -589787, 8, 0, -589786, 8, 0, -589785, 7, 0, -524285, 7, 0, -524284, 8, 0, -524283, 8, 0, -524282, 8, 0, -524281, 8, 0, -524280, 8, 0, -524279, 8, 0, -524278, 8, 0, -524277, 8, 0, -524276, 8, 0, -524275, 8, 0, -524274, 8, 0, -524273, 7, 0, -524262, 7, 0, -524261, 8, 0, -524260, 9, 0, -524259, 8, 0, -524258, 8, 0, -524257, 8, 0, -524256, 8, 0, -524255, 8, 0, -524254, 8, 0, -524253, 8, 0, -524252, 8, 0, -524251, 8, 0, -524250, 8, 0, -524249, 7, 0, -458749, 7, 0, -458748, 7, 0, -458747, 7, 0, -458746, 7, 0, -458745, 7, 0, -458744, 7, 0, -458743, 7, 0, -458742, 7, 0, -458741, 7, 0, -458740, 7, 0, -458739, 7, 0, -458738, 7, 0, -458737, 7, 0, -458726, 7, 0, -458725, 8, 0, -458724, 8, 0, -458723, 8, 0, -458722, 8, 0, -458721, 8, 0, -458720, 8, 0, -458719, 8, 0, -458718, 8, 0, -458717, 8, 0, -458716, 8, 0, -458715, 8, 0, -458714, 8, 0, -458713, 7, 0, -393190, 7, 0, -393189, 7, 0, -393188, 7, 0, -393187, 7, 0, -393186, 7, 0, -393185, 7, 0, -393184, 7, 0, -393183, 7, 0, -393182, 7, 0, -393181, 7, 0, -393180, 7, 0, -393179, 7, 0, -393178, 7, 0, -393177, 7, 0, -1, 1, 0, -65536, 1, 0, -65535, 1, 0, -65534, 1, 0, -65533, 1, 0, -65532, 1, 0, -65531, 1, 0, -65530, 1, 0, -65529, 1, 0, -65528, 1, 0, -65527, 1, 0, -65526, 1, 0, -65525, 1, 0, -65524, 1, 0, -65523, 1, 0, -65522, 1, 0, -65521, 1, 0, -65520, 1, 0, -65519, 1, 0, -65518, 1, 0, -65517, 1, 0, -65516, 1, 0, -65515, 1, 0, -65514, 1, 0, -65513, 1, 0, -65512, 1, 0, -65511, 1, 0, -65510, 1, 0, -65509, 1, 0, -65508, 1, 0, -65507, 1, 0, -65506, 1, 0, -65505, 1, 0, -65504, 1, 0, -65503, 1, 0, -65502, 1, 0, -65501, 1, 0, -65500, 1, 0, -65499, 1, 0, -65498, 1, 0, -65497, 1, 0, -65496, 1, 0, 65535, 1, 0, 40, 1, 0, 131071, 1, 0, 65576, 1, 0, 196607, 1, 0, 131112, 1, 0, 262143, 1, 0, 196648, 1, 0, 327679, 1, 0, 262184, 1, 0, 393215, 1, 0, 327720, 1, 0, 458751, 1, 0, 393216, 10, 0, 393217, 10, 0, 393218, 10, 0, 393219, 10, 0, 393220, 10, 0, 393221, 11, 0, 393222, 10, 0, 393223, 10, 0, 393224, 10, 0, 393225, 12, 0, 393226, 10, 0, 393227, 10, 0, 393228, 11, 0, 393229, 10, 0, 393230, 10, 0, 393231, 10, 0, 393232, 10, 0, 393235, 10, 0, 393236, 10, 0, 393237, 10, 0, 393238, 11, 0, 393239, 10, 0, 393240, 10, 0, 393241, 12, 0, 393242, 10, 0, 393243, 10, 0, 393244, 11, 0, 393245, 10, 0, 393246, 10, 0, 393247, 10, 0, 393248, 10, 0, 393249, 10, 0, 393250, 10, 0, 393251, 10, 0, 393252, 10, 0, 393253, 10, 0, 393254, 10, 0, 393255, 10, 0, 393256, 1, 0, 524287, 1, 0, 458752, 0, 0, 458753, 0, 0, 458754, 0, 0, 458755, 0, 0, 458756, 0, 0, 458757, 0, 0, 458758, 0, 0, 458759, 0, 0, 458760, 0, 0, 458761, 0, 0, 458762, 0, 0, 458763, 0, 0, 458764, 0, 0, 458765, 0, 0, 458766, 0, 0, 458767, 0, 0, 458768, 0, 0, 458769, 0, 0, 458770, 0, 0, 458771, 0, 0, 458772, 0, 0, 458773, 0, 0, 458774, 0, 0, 458775, 0, 0, 458776, 0, 0, 458777, 0, 0, 458778, 0, 0, 458779, 0, 0, 458780, 0, 0, 458781, 0, 0, 458782, 0, 0, 458783, 0, 0, 458784, 0, 0, 458785, 0, 0, 458786, 0, 0, 458787, 0, 0, 458788, 0, 0, 458789, 0, 0, 458790, 0, 0, 458791, 0, 0, 458792, 1, 0, 589823, 1, 0, 524288, 1, 0, 524289, 1, 0, 524290, 1, 0, 524291, 1, 0, 524292, 1, 0, 524293, 1, 0, 524294, 1, 0, 524295, 1, 0, 524296, 1, 0, 524297, 1, 0, 524298, 1, 0, 524299, 1, 0, 524300, 1, 0, 524301, 1, 0, 524302, 1, 0, 524303, 1, 0, 524304, 1, 0, 524305, 1, 0, 524306, 1, 0, 524307, 1, 0, 524308, 1, 0, 524309, 1, 0, 524310, 1, 0, 524311, 1, 0, 524312, 1, 0, 524313, 1, 0, 524314, 1, 0, 524315, 1, 0, 524316, 1, 0, 524317, 1, 0, 524318, 1, 0, 524319, 1, 0, 524320, 1, 0, 524321, 1, 0, 524322, 1, 0, 524323, 1, 0, 524324, 1, 0, 524325, 1, 0, 524326, 1, 0, 524327, 1, 0, 524328, 1, 0, 655359, 1, 0, 589824, 1, 0, 589825, 1, 0, 589826, 1, 0, 589827, 1, 0, 589828, 1, 0, 589829, 1, 0, 589830, 1, 0, 589831, 1, 0, 589832, 1, 0, 589833, 1, 0, 589834, 1, 0, 589835, 1, 0, 589836, 1, 0, 589837, 1, 0, 589838, 1, 0, 589839, 1, 0, 589840, 1, 0, 589841, 1, 0, 589842, 1, 0, 589843, 1, 0, 589844, 1, 0, 589845, 1, 0, 589846, 1, 0, 589847, 1, 0, 589848, 1, 0, 589849, 1, 0, 589850, 1, 0, 589851, 1, 0, 589852, 1, 0, 589853, 1, 0, 589854, 1, 0, 589855, 1, 0, 589856, 1, 0, 589857, 1, 0, 589858, 1, 0, 589859, 1, 0, 589860, 1, 0, 589861, 1, 0, 589862, 1, 0, 589863, 1, 0, 589864, 1, 0, 720895, 1, 0, 655360, 1, 0, 655361, 1, 0, 655362, 1, 0, 655363, 1, 0, 655364, 1, 0, 655365, 1, 0, 655366, 1, 0, 655367, 1, 0, 655368, 1, 0, 655369, 1, 0, 655370, 1, 0, 655371, 1, 0, 655372, 1, 0, 655373, 1, 0, 655374, 1, 0, 655375, 1, 0, 655376, 1, 0, 655377, 1, 0, 655378, 1, 0, 655379, 1, 0, 655380, 1, 0, 655381, 1, 0, 655382, 1, 0, 655383, 1, 0, 655384, 1, 0, 655385, 1, 0, 655386, 1, 0, 655387, 1, 0, 655388, 1, 0, 655389, 1, 0, 655390, 1, 0, 655391, 1, 0, 655392, 1, 0, 655393, 1, 0, 655394, 1, 0, 655395, 1, 0, 655396, 1, 0, 655397, 1, 0, 655398, 1, 0, 655399, 1, 0, 655400, 1, 0, 786431, 1, 0, 720896, 1, 0, 720897, 1, 0, 720898, 1, 0, 720899, 1, 0, 720900, 1, 0, 720901, 1, 0, 720902, 1, 0, 720903, 1, 0, 720904, 1, 0, 720905, 1, 0, 720906, 1, 0, 720907, 1, 0, 720908, 1, 0, 720909, 1, 0, 720910, 1, 0, 720911, 1, 0, 720912, 1, 0, 720913, 1, 0, 720914, 1, 0, 720915, 1, 0, 720916, 1, 0, 720917, 1, 0, 720918, 1, 0, 720919, 1, 0, 720920, 1, 0, 720921, 1, 0, 720922, 1, 0, 720923, 1, 0, 720924, 1, 0, 720925, 1, 0, 720926, 1, 0, 720927, 1, 0, 720928, 1, 0, 720929, 1, 0, 720930, 1, 0, 720931, 1, 0, 720932, 1, 0, 720933, 1, 0, 720934, 1, 0, 720935, 1, 0, 720936, 1, 0 )
+
+[node name="DungeonEntrance" parent="." instance=ExtResource( 11 )]
+position = Vector2( 3208.3, 488.095 )
+
+[node name="Tree" type="Sprite" parent="."]
+position = Vector2( 3504.14, 512 )
+scale = Vector2( 10, 10 )
+texture = ExtResource( 17 )
+
+[node name="Tree2" type="Sprite" parent="."]
+position = Vector2( 2974.61, 509.444 )
+scale = Vector2( 10, 10 )
+texture = ExtResource( 17 )
+flip_h = true
+
+[node name="Portal" parent="." instance=ExtResource( 18 )]
+position = Vector2( 3604.14, 523 )
+
+[node name="MonumentOfVictories" parent="." instance=ExtResource( 19 )]
+position = Vector2( 1587.87, 432.386 )
+
+[node name="Shopkeeper" parent="." instance=ExtResource( 20 )]
+position = Vector2( 846.16, -757 )
+
+[node name="HubShopBuilding" type="Node2D" parent="."]
+
+[node name="ShopProp1" type="Sprite" parent="HubShopBuilding"]
+position = Vector2( 658.908, -750 )
+scale = Vector2( 8, 8 )
+texture = ExtResource( 23 )
+
+[node name="ShopProp2" type="Sprite" parent="HubShopBuilding"]
+position = Vector2( 1230.94, -747 )
+scale = Vector2( 8, 8 )
+texture = ExtResource( 26 )
+
+[node name="ShopProp3" type="Sprite" parent="HubShopBuilding"]
+position = Vector2( 847.764, -733.806 )
+scale = Vector2( 8, 8 )
+texture = ExtResource( 24 )
+
+[node name="ShopLight2D" type="Light2D" parent="HubShopBuilding/ShopProp3"]
+position = Vector2( 7.73, -2.80025 )
+scale = Vector2( 0.234474, 0.224273 )
+texture = ExtResource( 25 )
+energy = 0.4
+
+[node name="ShopProp4" type="Sprite" parent="HubShopBuilding"]
+position = Vector2( 1013.55, -735.384 )
+scale = Vector2( 8, 8 )
+texture = ExtResource( 27 )
+
+[node name="IndoorShopDoor" parent="." instance=ExtResource( 28 )]
+position = Vector2( 460, -750 )
+Position_X = 1930.0
+Position_Y = 570.0
+
+[node name="OutdoorShopDoor" parent="." instance=ExtResource( 28 )]
+position = Vector2( 1930, 570 )
+scale = Vector2( 2.4, 2.4 )
+Position_X = 460.0
+Position_Y = -725.0
+
+[node name="ShopBuilding" type="Sprite" parent="."]
+position = Vector2( 2056.49, 512.046 )
+scale = Vector2( 12, 12 )
+texture = ExtResource( 30 )
+
+[node name="SmokeParticles" type="CPUParticles2D" parent="ShopBuilding"]
+position = Vector2( -12.4542, -10.9296 )
+scale = Vector2( 0.666667, 0.666667 )
+amount = 4
+lifetime = 2.0
+randomness = 0.6
+texture = ExtResource( 29 )
+direction = Vector2( 1, -1 )
+spread = 0.0
+gravity = Vector2( 0, -20 )
+
+[node name="HubLibrary" type="Node2D" parent="."]
+
+[node name="ShopLight2D" type="Light2D" parent="HubLibrary"]
+position = Vector2( 26332.5, -6499.85 )
+scale = Vector2( 15.0063, 14.3534 )
+texture = ExtResource( 25 )
+energy = 0.4
+
+[node name="ShopLight2D2" type="Light2D" parent="HubLibrary"]
+position = Vector2( 3168.65, -971.535 )
+scale = Vector2( 1.87579, 1.79418 )
+texture = ExtResource( 25 )
+energy = 0.4
+
+[node name="Chandelier" type="Sprite" parent="HubLibrary"]
+position = Vector2( 3169.65, -971.847 )
+scale = Vector2( 8, 8 )
+texture = ExtResource( 35 )
+
+[node name="Prop1" type="Sprite" parent="HubLibrary"]
+position = Vector2( 2939.84, -638.952 )
+scale = Vector2( 8, 8 )
+texture = ExtResource( 31 )
+
+[node name="Prop2" type="Sprite" parent="HubLibrary"]
+position = Vector2( 3154.61, -656.454 )
+scale = Vector2( 10, 10 )
+texture = ExtResource( 32 )
+
+[node name="Prop3" type="Sprite" parent="HubLibrary"]
+position = Vector2( 3473.26, -656.952 )
+scale = Vector2( 10, 10 )
+texture = ExtResource( 33 )
+
+[node name="Prop4" type="Sprite" parent="HubLibrary"]
+position = Vector2( 3369.65, -880 )
+scale = Vector2( 10, 10 )
+texture = ExtResource( 32 )
+flip_h = true
+
+[node name="Prop5" type="Sprite" parent="HubLibrary"]
+position = Vector2( 3314.61, -656.454 )
+scale = Vector2( 10, 10 )
+texture = ExtResource( 38 )
+
+[node name="Prop6" type="Sprite" parent="HubLibrary"]
+position = Vector2( 2966.45, -879 )
+scale = Vector2( 10, 10 )
+texture = ExtResource( 37 )
+flip_h = true
+
+[node name="Prop7" type="Sprite" parent="HubLibrary"]
+position = Vector2( 3633.09, -657 )
+scale = Vector2( 10, 10 )
+texture = ExtResource( 37 )
+flip_h = true
+
+[node name="TileMap2" type="TileMap" parent="."]
+tile_set = SubResource( 1 )
+cell_size = Vector2( 96, 96 )
+format = 1
+tile_data = PoolIntArray( -589795, 1, 0, -589794, 1, 0, -589793, 1, 0, -589792, 1, 0, -589791, 1, 0, -589790, 1, 0, -589789, 1, 0, -589788, 1, 0 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="TileMap2"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TileMap2/StaticBody2D"]
+position = Vector2( 3171.56, -789.546 )
+shape = SubResource( 2 )
+one_way_collision = true
+
+[node name="TravellerJournal" parent="." instance=ExtResource( 34 )]
+position = Vector2( 3171.14, -852.083 )
+
+[node name="Player" parent="." instance=ExtResource( 8 )]
+position = Vector2( 2684.83, -639.866 )
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+position = Vector2( -24.7189, -50.43 )
+current = true
+zoom = Vector2( 1.2, 1.2 )
+limit_left = 0
+limit_top = -2000
+limit_right = 3835
+limit_bottom = 1750
+drag_margin_h_enabled = true
+drag_margin_v_enabled = true
+drag_margin_left = 0.4
+drag_margin_right = 0.4
+editor_draw_limits = true

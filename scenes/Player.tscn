@@ -230,8 +230,12 @@ tracks/2/keys = {
 
 [node name="Player" type="KinematicBody2D"]
 script = ExtResource( 2 )
+__meta__ = {
+"_edit_group_": true
+}
 
 [node name="ChargingParticle" parent="." instance=ExtResource( 9 )]
+visible = false
 
 [node name="FreezeMask" type="Sprite" parent="."]
 visible = false
@@ -380,6 +384,7 @@ polygon = PoolVector2Array( -4.49139, 2.44882, -70.4112, -26.2582, -183.113, -74
 disabled = true
 
 [node name="ChargeBar" type="TextureProgress" parent="."]
+visible = false
 margin_left = -49.2104
 margin_top = -83.4949
 margin_right = -29.2104

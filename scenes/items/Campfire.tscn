@@ -40,14 +40,14 @@ position = Vector2( 0.00587682, 0.214286 )
 shape = SubResource( 2 )
 
 [node name="Label" type="RichTextLabel" parent="."]
-margin_left = -16.8037
-margin_top = -22.2873
-margin_right = 167.196
-margin_bottom = 32.7127
+margin_left = -20.4037
+margin_top = -26.0873
+margin_right = 163.596
+margin_bottom = 28.9127
 rect_scale = Vector2( 0.25, 0.25 )
 custom_fonts/bold_font = SubResource( 5 )
 bbcode_enabled = true
-bbcode_text = "[b]Rest [/b] [img=32]res://assets/UI/icon_E.png[/img]"
+bbcode_text = "[b]Rest [/b] [img=40]res://assets/UI/icon_E.png[/img]"
 text = "Rest  "
 __meta__ = {
 "_edit_use_anchors_": false

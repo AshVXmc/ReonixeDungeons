@@ -9,15 +9,15 @@ extents = Vector2( 26.36, 15.1008 )
 
 [sub_resource type="SpriteFrames" id=2]
 animations = [ {
-"frames": [  ],
-"loop": true,
-"name": "death",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 1 ), ExtResource( 2 ) ],
 "loop": true,
 "name": "slimeanim",
 "speed": 4.0
+}, {
+"frames": [  ],
+"loop": true,
+"name": "death",
+"speed": 5.0
 } ]
 
 [sub_resource type="CapsuleShape2D" id=3]

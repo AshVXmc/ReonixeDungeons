@@ -22,6 +22,7 @@ func drop_loot():
 		slime1.position = $SpawnSlime1.global_position
 		slime2.position = $SpawnSlime2.global_position
 		queue_free()
+		Global.enemies_killed += 1
 		
 func _on_Area2D_area_entered(area : Area2D):
 	if area.is_in_group("Sword") and HP > 0:

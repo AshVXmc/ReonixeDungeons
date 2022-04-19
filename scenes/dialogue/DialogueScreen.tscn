@@ -1,20 +1,21 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://assets/UI/quiticon.png" type="Texture" id=1]
 [ext_resource path="res://scripts/misc/DialogueScreen.gd" type="Script" id=2]
 [ext_resource path="res://assets/fonts/Born2bSportyV2.ttf" type="DynamicFontData" id=3]
 [ext_resource path="res://assets/UI/sign_textbox.png" type="Texture" id=4]
-
-[sub_resource type="DynamicFont" id=3]
-size = 64
-font_data = ExtResource( 3 )
+[ext_resource path="res://assets/UI/popup_textbox.png" type="Texture" id=5]
 
 [sub_resource type="DynamicFont" id=1]
-size = 40
+size = 48
 font_data = ExtResource( 3 )
 
 [sub_resource type="DynamicFont" id=2]
 size = 32
+font_data = ExtResource( 3 )
+
+[sub_resource type="DynamicFont" id=3]
+size = 48
 font_data = ExtResource( 3 )
 
 [node name="DialogueScreen" type="CanvasLayer"]
@@ -40,34 +41,20 @@ anchor_top = 0.321
 anchor_right = 0.518
 anchor_bottom = 0.321
 margin_left = -447.114
-margin_top = -115.818
+margin_top = -65.8714
 margin_right = 447.886
-margin_bottom = 83.182
+margin_bottom = 133.129
 texture = ExtResource( 4 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Button1" type="Button" parent="Control/NinePatchRect"]
-anchor_left = 0.5
-anchor_top = 0.522
-anchor_right = 0.5
-anchor_bottom = 0.522
-margin_left = -342.07
-margin_top = 106.364
-margin_right = -142.07
-margin_bottom = 186.364
-custom_fonts/font = SubResource( 3 )
-text = "TEXT1"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
 [node name="Talking" type="Label" parent="Control/NinePatchRect"]
-margin_left = 666.624
-margin_top = 144.991
-margin_right = 869.624
-margin_bottom = 184.991
+margin_left = 651.332
+margin_top = 143.274
+margin_right = 870.332
+margin_bottom = 191.274
+custom_colors/font_color = Color( 1, 1, 1, 1 )
 custom_fonts/font = SubResource( 1 )
 text = "Talker Name"
 __meta__ = {
@@ -77,7 +64,7 @@ __meta__ = {
 [node name="Dialogue" type="Label" parent="Control/NinePatchRect"]
 margin_left = 33.0
 margin_top = 29.0
-margin_right = 854.0
+margin_right = 823.0
 margin_bottom = 144.0
 custom_fonts/font = SubResource( 2 )
 text = "Dialogue"
@@ -98,5 +85,37 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[connection signal="pressed" from="Control/NinePatchRect/Button1" to="." method="on_Button1_pressed"]
+[node name="Button1" type="TextureButton" parent="Control/NinePatchRect"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -340.5
+margin_top = 115.5
+margin_right = -180.5
+margin_bottom = 187.5
+texture_normal = ExtResource( 5 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Text" type="Label" parent="Control/NinePatchRect/Button1"]
+anchor_left = -0.695
+anchor_top = -2.931
+anchor_right = -0.695
+anchor_bottom = -2.931
+margin_left = 119.677
+margin_top = 223.396
+margin_right = 260.677
+margin_bottom = 271.396
+custom_fonts/font = SubResource( 3 )
+text = "Text"
+align = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [connection signal="pressed" from="Control/NinePatchRect/CloseButton" to="." method="_on_CloseButton_pressed"]
+[connection signal="pressed" from="Control/NinePatchRect/Button1" to="." method="_on_Button1_pressed"]

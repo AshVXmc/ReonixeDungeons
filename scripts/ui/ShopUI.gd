@@ -1,4 +1,4 @@
-extends Control
+class_name ShopUI extends Control
 
 signal item_bought(item_name, item_price)
 var heart : String = "[img=32]res://assets/UI/heart.png[/img]"
@@ -6,6 +6,7 @@ var mana : String = "[img=32]res://assets/UI/mana.png[/img]"
 var maxstorage : String = str(Global.max_item_storage)
 
 func _ready():
+	visible = false
 	connect("item_bought", get_parent().get_parent().get_parent().get_node("Player"), "on_Item_bought")
 	var rng : RandomNumberGenerator = RandomNumberGenerator.new()
 	rng.randomize()
@@ -19,10 +20,6 @@ func _ready():
 			$FlavorText.bbcode_text = "Consider all of your purchases an investment."
 		3:
 			$FlavorText.bbcode_text = "Shop more. Live longer. That's my motto."
-
-func _on_Exit_pressed():
-	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
-	get_parent().get_parent().queue_free()
 
 
 func _process(delta):
@@ -99,3 +96,8 @@ func _on_CrystalButton_mouse_exited():
 
 
 
+
+
+func _on_CloseButton_pressed():
+	visible = false
+	get_parent().get_parent().get_parent().get_parent().get_node("Player").is_shopping = false

@@ -58,9 +58,19 @@ func parse_command():
 		"fillall":
 			emit_signal("debugcmd", "fillall")
 			$Output.text = "Filled all items"
+		"opalall":
+			emit_signal("debugcmd", "opalall")
+			$Output.text = "Filled opals"
 		"healall":
 			emit_signal("debugcmd","healall")
 			$Output.text = "Healed all stats"
+		"bossall":
+			Global.masked_goblin_defeated = true
+			$Output.text = "Killed all bosses"
+		"killcount":
+			$Output.text = "Kill count: " + str(Global.enemies_killed)
+		"returntohub":
+			get_tree().change_scene("res://scenes/levels/HubLevel.tscn")
 		_:
 			$Output.text = "Invalid command"
 	

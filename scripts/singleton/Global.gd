@@ -17,13 +17,15 @@ var dash_unlocked : bool = false # 1 mana per use
 var glide_unlocked : bool = false # 1 mana per use
 var firesaw_unlocked : bool = false # 3 mana per use
 var fireburst_unlocked : bool = false # 1 mana per second of usage
-
 var max_item_storage : int = 3
 var levelpath : String
-
 var savepath : String = SAVE_DIR + "savefile.dat"
 var lighting : bool = true
 var vsync : bool = true
+
+var enemies_killed : int
+# Boss Victories
+var masked_goblin_defeated : bool
 
 # Unsaved conditions
 var godmode : bool = false
@@ -44,7 +46,10 @@ func reset_player_data():
 	Global.max_item_storage = 3
 	Global.lighting = true
 	Global.levelpath = ""
-
+	
+	Global.enemies_killed = 0
+	Global.masked_goblin_defeated = false
+	
 func reset_chest_data():
 	# Clears the array cache and refill 
 	if !Global.opened_chests.empty():
@@ -75,7 +80,9 @@ func save_player_data():
 		"ChestOpened": Global.opened_chests,
 		"MaxItemStorage":  Global.max_item_storage, 
 		"Lighting" : Global.lighting,
-		"Vsync" : Global.vsync
+		"Vsync" : Global.vsync,
+		"EnemiesKilled": Global.enemies_killed ,
+		"MaskedGoblinDefeated" : Global.masked_goblin_defeated
 	}
 
 	var savefile : File = File.new()
@@ -98,10 +105,7 @@ func sync_playerOpals(player_opals : int):
 	player_opals = Global.opals_amount
 func sync_playerCrystals(player_crystals : int):
 	player_crystals = Global.crystals_amount
-# Unused
-#func sync_playerSoultokens(player_soul_tokens : int):
-#	player_soul_tokens = Global.soul_token_amount
 
-	
+
 
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://assets/fonts/Born2bSportyV2.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://assets/misc/health_pot.png" type="Texture" id=2]
@@ -10,6 +10,7 @@
 [ext_resource path="res://assets/misc/item_pouch.png" type="Texture" id=8]
 [ext_resource path="res://themes/Blur.tres" type="Material" id=9]
 [ext_resource path="res://assets/misc/revivement_crystal.png" type="Texture" id=10]
+[ext_resource path="res://assets/UI/quiticon.png" type="Texture" id=11]
 
 [sub_resource type="DynamicFont" id=2]
 size = 50
@@ -42,6 +43,7 @@ __meta__ = {
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="Main" type="Control" parent="CanvasLayer"]
+visible = false
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -61,10 +63,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -1084.31
-margin_top = -413.552
-margin_right = 1095.69
-margin_bottom = 755.448
+margin_left = -1081.5
+margin_top = -410.5
+margin_right = 1098.5
+margin_bottom = 758.5
 color = Color( 1, 1, 1, 0 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -80,18 +82,6 @@ margin_top = -202.853
 margin_right = 376.632
 margin_bottom = 297.147
 color = Color( 0.227451, 0, 0.498039, 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Exit" type="Button" parent="CanvasLayer/Main"]
-margin_left = 579.973
-margin_top = 456.811
-margin_right = 788.973
-margin_bottom = 513.811
-custom_fonts/font = SubResource( 2 )
-text = "Exit Shop"
-expand_icon = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -223,6 +213,7 @@ scale = Vector2( 3, 3 )
 texture = ExtResource( 4 )
 
 [node name="ItemPouch" type="ColorRect" parent="CanvasLayer/Main"]
+visible = false
 margin_left = 149.071
 margin_top = 68.5564
 margin_right = 269.071
@@ -280,6 +271,7 @@ scale = Vector2( 3, 3 )
 texture = ExtResource( 4 )
 
 [node name="RevivementCrystal" type="ColorRect" parent="CanvasLayer/Main"]
+visible = false
 margin_left = 149.071
 margin_top = 175.556
 margin_right = 269.071
@@ -347,7 +339,18 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[connection signal="pressed" from="CanvasLayer/Main/Exit" to="CanvasLayer/Main" method="_on_Exit_pressed"]
+[node name="CloseButton" type="TextureButton" parent="CanvasLayer/Main"]
+margin_left = 761.814
+margin_top = 59.3945
+margin_right = 801.814
+margin_bottom = 99.3944
+rect_scale = Vector2( 1.5, 1.5 )
+texture_normal = ExtResource( 11 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [connection signal="mouse_entered" from="CanvasLayer/Main/HealthPot/HealthPotButton" to="CanvasLayer/Main" method="_on_HealthPotButton_mouse_entered"]
 [connection signal="mouse_exited" from="CanvasLayer/Main/HealthPot/HealthPotButton" to="CanvasLayer/Main" method="_on_HealthPotButton_mouse_exited"]
 [connection signal="pressed" from="CanvasLayer/Main/HealthPot/HealthPotButton" to="CanvasLayer/Main" method="_on_HealthPotButton_pressed"]
@@ -363,3 +366,4 @@ __meta__ = {
 [connection signal="mouse_entered" from="CanvasLayer/Main/RevivementCrystal/CrystalButton" to="CanvasLayer/Main" method="_on_CrystalButton_mouse_entered"]
 [connection signal="mouse_exited" from="CanvasLayer/Main/RevivementCrystal/CrystalButton" to="CanvasLayer/Main" method="_on_CrystalButton_mouse_exited"]
 [connection signal="pressed" from="CanvasLayer/Main/RevivementCrystal/CrystalButton" to="CanvasLayer/Main" method="_on_CrystalButton_pressed"]
+[connection signal="pressed" from="CanvasLayer/Main/CloseButton" to="CanvasLayer/Main" method="_on_CloseButton_pressed"]
