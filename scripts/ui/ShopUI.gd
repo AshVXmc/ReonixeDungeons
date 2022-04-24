@@ -7,7 +7,7 @@ var maxstorage : String = str(Global.max_item_storage)
 
 func _ready():
 	visible = false
-	connect("item_bought", get_parent().get_parent().get_parent().get_node("Player"), "on_Item_bought")
+	connect("item_bought", get_parent().get_parent().get_parent().get_parent().get_node("Player"), "on_Item_bought")
 	var rng : RandomNumberGenerator = RandomNumberGenerator.new()
 	rng.randomize()
 	var num : int = rng.randi_range(0,3)
@@ -65,7 +65,7 @@ func _on_LifeWineButton_pressed():
 			emit_signal("item_bought", "HealthPot", 20)
 
 func _on_LifeWineButton_mouse_entered():
-	$FlavorText.bbcode_text = "High-quality red wine with a thick bouquet, and restores your" + heart + "to full. Takes 2.5 seconds to consume. You can hold " + maxstorage + " of this at a time."
+	$FlavorText.bbcode_text = "High-quality red wine with a thick bouquet, and restores your" + heart + "and" + mana + "to full. Takes 2.5 seconds to consume. You can hold " + maxstorage + " of this at a time."
 
 func _on_LifeWineButton_mouse_exited():
 	$FlavorText.bbcode_text = ""

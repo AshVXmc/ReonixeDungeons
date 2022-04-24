@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/campfire.png-ef1d86a2a128be2e288f25788a067805.stex"
+path="res://.import/loot_bag_tier3.png-12a7ec8ce085166ad02654a2084fd928.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/misc/animated/campfire.png"
-dest_files=[ "res://.import/campfire.png-ef1d86a2a128be2e288f25788a067805.stex" ]
+source_file="res://assets/misc/loot_bag_tier3.png"
+dest_files=[ "res://.import/loot_bag_tier3.png-12a7ec8ce085166ad02654a2084fd928.stex" ]
 
 [params]
 

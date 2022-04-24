@@ -21,8 +21,8 @@ __meta__ = {
 }
 
 [node name="TextureRect2" type="TextureRect" parent="LifeWineControl"]
-margin_left = 404.53
-margin_right = 420.53
+margin_left = 404.0
+margin_right = 420.0
 margin_bottom = 16.0
 rect_scale = Vector2( 6, 6 )
 texture = ExtResource( 4 )
@@ -42,10 +42,10 @@ __meta__ = {
 }
 
 [node name="Label" type="Label" parent="LifeWineControl"]
-margin_left = 472.408
-margin_top = 60.0
-margin_right = 522.408
-margin_bottom = 183.0
+margin_left = 458.138
+margin_top = 50.0
+margin_right = 508.138
+margin_bottom = 173.0
 rect_scale = Vector2( 0.75, 0.75 )
 custom_fonts/font = SubResource( 1 )
 text = "0

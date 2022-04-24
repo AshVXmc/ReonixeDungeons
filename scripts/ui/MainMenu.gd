@@ -37,6 +37,8 @@ func _on_LoadGame_pressed():
 			Global.opals_amount = player_data["Opals"]
 			Global.crystals_amount = player_data["RevivementCrystals"]
 			Global.healthpot_amount = player_data["Healthpot"]
+			Global.common_monster_dust_amount = player_data["CommonMonsterDust"]
+			Global.goblin_scales_amount = player_data["GoblinScales"]
 			Global.dash_unlocked = player_data["DashUnlocked"]
 			Global.glide_unlocked = player_data["GlideUnlocked"]
 			Global.opened_chests = player_data["ChestOpened"]
@@ -46,9 +48,9 @@ func _on_LoadGame_pressed():
 			Global.levelpath = player_data["Level"]
 			Global.enemies_killed = player_data["EnemiesKilled"]
 			Global.masked_goblin_defeated = player_data["MaskedGoblinDefeated"]
+			Global.activated_portals = player_data["ActivatedPortals"]
 			$SceneTransition/ColorRect.visible = true
 			$SceneTransition.transition()
-			print(Global.levelpath)
 			yield(get_tree().create_timer(1), "timeout")
 			get_tree().change_scene(Global.levelpath)
 		else:

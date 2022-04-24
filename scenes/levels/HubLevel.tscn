@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=2]
+[gd_scene load_steps=45 format=2]
 
 [ext_resource path="res://tilesets/HubLevelTileset.tres" type="TileSet" id=1]
 [ext_resource path="res://assets/terrain/deep_woods/background_deep_woods.png" type="Texture" id=2]
@@ -38,6 +38,10 @@
 [ext_resource path="res://assets/terrain/deep_woods/deep_woods_spritesheet.png" type="Texture" id=36]
 [ext_resource path="res://assets/terrain/hub_level/prop_bookshelf_4.png" type="Texture" id=37]
 [ext_resource path="res://assets/terrain/hub_level/prop_bookshelf_3.png" type="Texture" id=38]
+[ext_resource path="res://scenes/NPC/LibrarianNPC.tscn" type="PackedScene" id=39]
+[ext_resource path="res://scenes/menus/CommonMonsterDustUI.tscn" type="PackedScene" id=40]
+[ext_resource path="res://scenes/levels/hublevel/Cauldron.tscn" type="PackedScene" id=41]
+[ext_resource path="res://scenes/menus/GoblinScalesUI.tscn" type="PackedScene" id=42]
 
 [sub_resource type="TileSet" id=1]
 0/name = "deep_woods_spritesheet.png 0"
@@ -99,6 +103,10 @@ __meta__ = {
 
 [node name="OpalsUI" parent="." instance=ExtResource( 10 )]
 
+[node name="CommonMonsterDustUI" parent="." instance=ExtResource( 40 )]
+
+[node name="GoblinScalesUI" parent="." instance=ExtResource( 42 )]
+
 [node name="GameOverUI" parent="." instance=ExtResource( 22 )]
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
@@ -152,7 +160,7 @@ texture = ExtResource( 17 )
 flip_h = true
 
 [node name="Portal" parent="." instance=ExtResource( 18 )]
-position = Vector2( 3604.14, 523 )
+position = Vector2( 148, 516.818 )
 
 [node name="MonumentOfVictories" parent="." instance=ExtResource( 19 )]
 position = Vector2( 1587.87, 432.386 )
@@ -193,12 +201,6 @@ position = Vector2( 460, -750 )
 Position_X = 1930.0
 Position_Y = 570.0
 
-[node name="OutdoorShopDoor" parent="." instance=ExtResource( 28 )]
-position = Vector2( 1930, 570 )
-scale = Vector2( 2.4, 2.4 )
-Position_X = 460.0
-Position_Y = -725.0
-
 [node name="ShopBuilding" type="Sprite" parent="."]
 position = Vector2( 2056.49, 512.046 )
 scale = Vector2( 12, 12 )
@@ -214,6 +216,21 @@ texture = ExtResource( 29 )
 direction = Vector2( 1, -1 )
 spread = 0.0
 gravity = Vector2( 0, -20 )
+
+[node name="OutdoorShopDoor" parent="." instance=ExtResource( 28 )]
+position = Vector2( 1930, 570 )
+scale = Vector2( 2.4, 2.4 )
+Position_X = 460.0
+Position_Y = -725.0
+
+[node name="LibraryBuilding" type="Sprite" parent="."]
+visible = false
+position = Vector2( 2056.49, 512.046 )
+scale = Vector2( 12, 12 )
+texture = ExtResource( 30 )
+
+[node name="Librarian" parent="." instance=ExtResource( 39 )]
+position = Vector2( 2932.96, -655.422 )
 
 [node name="HubLibrary" type="Node2D" parent="."]
 
@@ -288,8 +305,11 @@ one_way_collision = true
 [node name="TravellerJournal" parent="." instance=ExtResource( 34 )]
 position = Vector2( 3171.14, -852.083 )
 
+[node name="Cauldron" parent="." instance=ExtResource( 41 )]
+position = Vector2( 1343.35, 570 )
+
 [node name="Player" parent="." instance=ExtResource( 8 )]
-position = Vector2( 2684.83, -639.866 )
+position = Vector2( 329.559, 598.095 )
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position = Vector2( -24.7189, -50.43 )

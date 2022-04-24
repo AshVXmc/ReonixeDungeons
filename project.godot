@@ -9,6 +9,11 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Node2D",
+"class": "AlchemyGuidebook",
+"language": "GDScript",
+"path": "res://scripts/terrain/AlchemyGuidebook.gd"
+}, {
 "base": "KinematicBody2D",
 "class": "AlphaGuardian",
 "language": "GDScript",
@@ -18,6 +23,11 @@ _global_script_classes=[ {
 "class": "Bat",
 "language": "GDScript",
 "path": "res://scripts/enemies/Bat.gd"
+}, {
+"base": "Node2D",
+"class": "Cauldron",
+"language": "GDScript",
+"path": "res://scripts/items/Cauldron.gd"
 }, {
 "base": "KinematicBody2D",
 "class": "CornucopiaGoblin",
@@ -134,10 +144,20 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/misc/Level.gd"
 }, {
+"base": "Node2D",
+"class": "Librarian",
+"language": "GDScript",
+"path": "res://scripts/NPCs/LibrarianNPC.gd"
+}, {
 "base": "RigidBody2D",
 "class": "LootBag",
 "language": "GDScript",
 "path": "res://scripts/items/LootBag.gd"
+}, {
+"base": "RigidBody2D",
+"class": "LootBagTier2",
+"language": "GDScript",
+"path": "res://scripts/items/LootBagTier2.gd"
 }, {
 "base": "Control",
 "class": "MainMenu",
@@ -210,8 +230,10 @@ _global_script_classes=[ {
 "path": "res://scripts/enemies/WitchGoblin.gd"
 } ]
 _global_script_class_icons={
+"AlchemyGuidebook": "",
 "AlphaGuardian": "",
 "Bat": "",
+"Cauldron": "",
 "CornucopiaGoblin": "",
 "DebugMenu": "",
 "DialogueScreen": "",
@@ -235,7 +257,9 @@ _global_script_class_icons={
 "JumpParticle": "",
 "LargeSlime": "",
 "Level": "",
+"Librarian": "",
 "LootBag": "",
+"LootBagTier2": "",
 "MainMenu": "",
 "MaskedGoblin": "",
 "MonumentOfVictories": "",

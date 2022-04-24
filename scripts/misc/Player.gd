@@ -7,6 +7,8 @@ signal lifewine_obtained(player_lifewine)
 signal manapot_obtained(player_manapot)
 signal opals_obtained(player_opals)
 signal crystals_obtained(player_crystals)
+signal common_monster_dust_obtained(player_common_monster_dust)
+signal goblin_scales_obtained(player_goblin_scales)
 
 onready var inv_timer : Timer = $InvulnerabilityTimer
 onready var fb_timer : Timer = $FireballTimer
@@ -67,6 +69,8 @@ func _ready():
 	connect("opals_obtained", get_parent().get_node("OpalsUI/OpalsControl"), "on_player_opals_obtained")
 # warning-ignore:return_value_discarded
 	connect("crystals_obtained", get_parent().get_node("RevivementCrystal/RevivementCrystalControl"), "on_player_crystal_obtained")
+	connect("common_monster_dust_obtained", get_parent().get_node("CommonMonsterDustUI/CommonMonsterDust"), "on_player_common_monster_dust_obtained")
+	connect("goblin_scales_obtained", get_parent().get_node("GoblinScalesUI/GoblinScales"), "on_player_goblin_scales_obtained")
 # warning-ignore:return_value_discarded
 	connect("life_changed", Global, "sync_hearts")
 	emit_signal("life_changed", Global.hearts)
@@ -88,7 +92,12 @@ func _ready():
 # warning-ignore:return_value_discarded
 	connect("crystals_obtained", Global, "sync_playerCrystals")
 	emit_signal("crystals_obtained", Global.crystals_amount)
-
+	
+	connect("common_monster_dust_obtained", Global, "sync_playerCommonMonsterDust")
+	emit_signal("common_monster_dust_obtained", Global.common_monster_dust_amount)
+	
+	connect("goblin_scales_obtained", Global, "sync_playerGoblinScales")
+	emit_signal("goblin_scales_obtained", Global.goblin_scales_amount)
 func _physics_process(_delta):
 	# Makes sure the player is alive to use any movement controls
 	if !is_dead and !is_invulnerable and !is_healing and !is_shopping and !is_frozen:
@@ -527,27 +536,41 @@ func on_manashrine_toggled():
 	emit_signal("mana_changed", Global.mana)
 	is_healing = false
 	
-func on_lootbag_obtained():
-	var lootrng : RandomNumberGenerator = RandomNumberGenerator.new()
-	var opalrng : RandomNumberGenerator = RandomNumberGenerator.new()
-	lootrng.randomize()
-	opalrng.randomize()
-	var num  = lootrng.randi_range(1,10)
-	var opalnum = opalrng.randi_range(5,15)
-	if num <= 4 and Global.healthpot_amount < Global.max_item_storage:
-		Global.healthpot_amount += 1
-		emit_signal("healthpot_obtained", Global.healthpot_amount)
-	elif num >= 5 and num <= 8 and Global.manapot_amount < Global.max_item_storage:
-		pass
-		Global.manapot_amount += 1
-		emit_signal("manapot_obtained", Global.manapot_amount)
-	elif Global.lifewine_amount < Global.max_item_storage:
-		Global.lifewine_amount += 1
-		emit_signal("lifewine_obtained", Global.lifewine_amount)
-		
-	Global.opals_amount += opalnum
-	emit_signal("opals_obtained", Global.opals_amount)
-		
+func on_lootbag_obtained(tier : int):
+	match tier:
+		1:
+			# Drops a small amout of opals and common dust
+			var lootrng : RandomNumberGenerator = RandomNumberGenerator.new()
+			var num  = lootrng.randi_range(1,3)
+			lootrng.randomize()
+			Global.common_monster_dust_amount += num
+			emit_signal("common_monster_dust_obtained", Global.common_monster_dust_amount)
+			
+			var opalrng : RandomNumberGenerator = RandomNumberGenerator.new()
+			opalrng.randomize()
+			var opalnum = opalrng.randi_range(5,20)
+			Global.opals_amount += opalnum
+			emit_signal("opals_obtained", Global.opals_amount)
+		2:
+			# Drops a small amout of opals, common dust and goblin scales
+			var lootrng : RandomNumberGenerator = RandomNumberGenerator.new()
+			var num  = lootrng.randi_range(1,5)
+			lootrng.randomize()
+			Global.common_monster_dust_amount += num
+			emit_signal("common_monster_dust_obtained", Global.common_monster_dust_amount)
+			
+			var opalrng : RandomNumberGenerator = RandomNumberGenerator.new()
+			opalrng.randomize()
+			var opalnum = opalrng.randi_range(5,20)
+			Global.opals_amount += opalnum
+			emit_signal("opals_obtained", Global.opals_amount)
+			
+			var scalesrng : RandomNumberGenerator = RandomNumberGenerator.new()
+			scalesrng.randomize()
+			var scalesnum = scalesrng.randi_range(1,3)
+			Global.goblin_scales_amount += scalesnum
+			emit_signal("goblin_scales_obtained", Global.goblin_scales_amount)
+			
 
 func on_Item_bought(item_name : String, item_price : int):
 	Global.opals_amount -= item_price
@@ -561,9 +584,27 @@ func on_Item_bought(item_name : String, item_price : int):
 			emit_signal("manapot_obtained", Global.manapot_amount)
 		"LifeWine":
 			Global.lifewine_amount += 1
+			emit_signal("lifewine_obtained", Global.lifewine_amount)
 		"ItemPouch_1":
 			pass
-
+func on_Item_crafted(item_name : String, common_dust : int, goblin_scales : int):
+	print("signal sent")
+	Global.common_monster_dust_amount -= common_dust
+	Global.goblin_scales_amount -= goblin_scales
+	emit_signal("common_monster_dust_obtained", Global.common_monster_dust_amount)
+	emit_signal("goblin_scales_obtained", Global.goblin_scales_amount)
+	match item_name:
+		"HealthPot":
+			Global.healthpot_amount += 1
+			emit_signal("healthpot_obtained", Global.healthpot_amount)
+		"ManaPot":
+			Global.manapot_amount += 1
+			emit_signal("manapot_obtained", Global.manapot_amount)
+		"LifeWine":
+			Global.lifewine_amount += 1
+			emit_signal("lifewine_obtained", Global.lifewine_amount)
+		"ItemPouch_1":
+			pass
 
 
 func debug_commands(cmd : String):
@@ -583,6 +624,11 @@ func debug_commands(cmd : String):
 			emit_signal("lifewine_obtained", Global.lifewine_amount)
 			Global.crystals_amount += Global.max_item_storage - Global.crystals_amount
 			emit_signal("crystals_obtained", Global.crystals_amount)
+		"fillingr":
+			Global.common_monster_dust_amount += 99
+			emit_signal("common_monster_dust_obtained", Global.common_monster_dust_amount)
+			Global.goblin_scales_amount += 99
+			emit_signal("goblin_scales_obtained", Global.goblin_scales_amount)
 		"opalall":
 			Global.opals_amount += 999 - Global.opals_amount
 			emit_signal("opals_obtained", Global.opals_amount)
@@ -656,6 +702,8 @@ func _on_FullHealTimer_timeout():
 	if Global.lifewine_amount > 0 and Global.hearts < Global.max_hearts:
 		Global.hearts += Global.max_hearts - Global.hearts
 		emit_signal("life_changed", Global.hearts)
+		Global.mana += Global.max_mana - Global.mana
+		emit_signal("mana_changed", Global.mana)
 		Global.lifewine_amount -= 1
 		emit_signal("lifewine_obtained", Global.lifewine_amount)
 

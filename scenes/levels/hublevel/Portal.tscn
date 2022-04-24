@@ -1,9 +1,11 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=12 format=2]
 
-[ext_resource path="res://assets/terrain/hub_level/portal_closed.png" type="Texture" id=1]
+[ext_resource path="res://assets/terrain/hub_level/portal_opened.png" type="Texture" id=1]
 [ext_resource path="res://scripts/terrain/Portal.gd" type="Script" id=2]
 [ext_resource path="res://assets/fonts/FFFFORWA.ttf" type="DynamicFontData" id=3]
-[ext_resource path="res://scenes/dialogue/DialogueScreen.tscn" type="PackedScene" id=6]
+[ext_resource path="res://assets/UI/quiticon.png" type="Texture" id=4]
+[ext_resource path="res://assets/UI/popup_textbox_square.png" type="Texture" id=5]
+[ext_resource path="res://assets/fonts/Born2bSportyV2.ttf" type="DynamicFontData" id=6]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 116.736, 134.134 )
@@ -12,8 +14,21 @@ extents = Vector2( 116.736, 134.134 )
 size = 36
 font_data = ExtResource( 3 )
 
+[sub_resource type="DynamicFont" id=3]
+size = 48
+font_data = ExtResource( 6 )
+
+[sub_resource type="DynamicFont" id=4]
+size = 32
+font_data = ExtResource( 6 )
+
+[sub_resource type="DynamicFont" id=5]
+size = 32
+font_data = ExtResource( 6 )
+
 [node name="Portal" type="Node2D"]
 script = ExtResource( 2 )
+Portal_ID = 1
 
 [node name="Sprite" type="Sprite" parent="."]
 scale = Vector2( 15, 15 )
@@ -27,9 +42,9 @@ shape = SubResource( 1 )
 
 [node name="Label" type="RichTextLabel" parent="."]
 margin_left = -120.0
-margin_top = -180.878
+margin_top = -155.878
 margin_right = 122.0
-margin_bottom = -126.878
+margin_bottom = -101.878
 custom_fonts/bold_font = SubResource( 2 )
 custom_fonts/normal_font = SubResource( 2 )
 bbcode_enabled = true
@@ -40,6 +55,97 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="DialogueScreen" parent="." instance=ExtResource( 6 )]
+[node name="Plaque" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="Plaque"]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.33
+anchor_right = 0.5
+anchor_bottom = 0.33
+margin_left = -540.0
+margin_top = -237.6
+margin_right = 534.0
+margin_bottom = 484.4
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="NinePatchRect" type="NinePatchRect" parent="Plaque/Control"]
+anchor_left = 0.518
+anchor_top = 0.321
+anchor_right = 0.518
+anchor_bottom = 0.321
+margin_left = -283.787
+margin_top = -5.22173
+margin_right = 276.213
+margin_bottom = 431.778
+texture = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Header" type="RichTextLabel" parent="Plaque/Control/NinePatchRect"]
+margin_left = 61.5767
+margin_right = 529.577
+margin_bottom = 48.0
+custom_fonts/normal_font = SubResource( 3 )
+bbcode_enabled = true
+bbcode_text = "=== [color=#cf9013]Ancient Portal[/color] ==="
+text = "=== Ancient Portal ==="
+scroll_active = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Text" type="RichTextLabel" parent="Plaque/Control/NinePatchRect"]
+margin_left = 103.0
+margin_top = 49.0
+margin_right = 458.0
+margin_bottom = 86.0
+custom_fonts/normal_font = SubResource( 4 )
+bbcode_enabled = true
+bbcode_text = "Select a level to teleport to."
+text = "Select a level to teleport to."
+scroll_active = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CloseButton" type="TextureButton" parent="Plaque/Control/NinePatchRect"]
+margin_left = 500.056
+margin_right = 540.056
+margin_bottom = 40.0
+rect_scale = Vector2( 1.5, 1.5 )
+texture_normal = ExtResource( 4 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HubLevel" type="Button" parent="Plaque/Control/NinePatchRect"]
+margin_left = 62.0
+margin_top = 86.0
+margin_right = 180.0
+margin_bottom = 146.0
+custom_fonts/font = SubResource( 5 )
+text = "Hub Level"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Level5" type="Button" parent="Plaque/Control/NinePatchRect"]
+margin_left = 215.0
+margin_top = 86.0
+margin_right = 341.0
+margin_bottom = 146.0
+custom_fonts/font = SubResource( 5 )
+text = "Level 5"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [connection signal="area_exited" from="Area2D" to="." method="_on_Area2D_area_exited"]
+[connection signal="pressed" from="Plaque/Control/NinePatchRect/CloseButton" to="." method="_on_CloseButton_pressed"]
+[connection signal="pressed" from="Plaque/Control/NinePatchRect/HubLevel" to="." method="_on_HubLevel_pressed"]
+[connection signal="pressed" from="Plaque/Control/NinePatchRect/Level5" to="." method="_on_Level5_pressed"]

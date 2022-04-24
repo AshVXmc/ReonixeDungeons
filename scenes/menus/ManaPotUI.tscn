@@ -44,10 +44,10 @@ __meta__ = {
 [node name="Label" type="Label" parent="ManaPotControl"]
 anchor_left = -3.735
 anchor_right = -3.735
-margin_left = 703.427
-margin_top = 60.0
-margin_right = 753.427
-margin_bottom = 183.0
+margin_left = 695.859
+margin_top = 50.0
+margin_right = 745.859
+margin_bottom = 173.0
 rect_scale = Vector2( 0.75, 0.75 )
 custom_fonts/font = SubResource( 1 )
 text = "0

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/campfire.png-ef1d86a2a128be2e288f25788a067805.stex"
+path="res://.import/cauldron_bubble_particle.png-b3af8d37f418a02a19f1cccb39db3ab8.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/misc/animated/campfire.png"
-dest_files=[ "res://.import/campfire.png-ef1d86a2a128be2e288f25788a067805.stex" ]
+source_file="res://assets/particles/cauldron_bubble_particle.png"
+dest_files=[ "res://.import/cauldron_bubble_particle.png-b3af8d37f418a02a19f1cccb39db3ab8.stex" ]
 
 [params]
 

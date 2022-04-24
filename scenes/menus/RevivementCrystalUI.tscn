@@ -43,10 +43,10 @@ __meta__ = {
 [node name="Label" type="Label" parent="RevivementCrystalControl"]
 anchor_left = -3.732
 anchor_right = -3.732
-margin_left = 936.589
-margin_top = 60.0
-margin_right = 986.589
-margin_bottom = 183.0
+margin_left = 925.91
+margin_top = 51.3326
+margin_right = 975.91
+margin_bottom = 174.333
 rect_scale = Vector2( 0.75, 0.75 )
 custom_fonts/font = SubResource( 1 )
 text = "0

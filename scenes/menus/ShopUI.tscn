@@ -172,6 +172,7 @@ scale = Vector2( 3, 3 )
 texture = ExtResource( 4 )
 
 [node name="LifeWine" type="ColorRect" parent="CanvasLayer/Main"]
+visible = false
 margin_left = -64.5033
 margin_top = 278.382
 margin_right = 55.4967

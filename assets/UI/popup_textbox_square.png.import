@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/campfire.png-ef1d86a2a128be2e288f25788a067805.stex"
+path="res://.import/popup_textbox_square.png-2d03b59d4ce340738e786ae9ea9087ae.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/misc/animated/campfire.png"
-dest_files=[ "res://.import/campfire.png-ef1d86a2a128be2e288f25788a067805.stex" ]
+source_file="res://assets/UI/popup_textbox_square.png"
+dest_files=[ "res://.import/popup_textbox_square.png-2d03b59d4ce340738e786ae9ea9087ae.stex" ]
 
 [params]
 

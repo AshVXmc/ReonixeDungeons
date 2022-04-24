@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://assets/misc/health_pot.png" type="Texture" id=1]
-[ext_resource path="res://scripts/ui/HealthPotControlScript.gd" type="Script" id=2]
+[ext_resource path="res://assets/misc/common_monster_dust.png" type="Texture" id=1]
+[ext_resource path="res://scripts/ui/CommonMonsterDustControlScript.gd" type="Script" id=2]
 [ext_resource path="res://assets/fonts/Born2bSportyV2.ttf" type="DynamicFontData" id=3]
 [ext_resource path="res://assets/UI/hotbar.png" type="Texture" id=4]
 
@@ -9,9 +9,9 @@
 size = 60
 font_data = ExtResource( 3 )
 
-[node name="HealthPotUI" type="CanvasLayer"]
+[node name="CommonMonsterDustUI" type="CanvasLayer"]
 
-[node name="HealthPotControl" type="Control" parent="."]
+[node name="CommonMonsterDust" type="Control" parent="."]
 margin_left = 148.0
 margin_right = 188.0
 margin_bottom = 40.0
@@ -20,37 +20,39 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="TextureRect2" type="TextureRect" parent="HealthPotControl"]
+[node name="TextureRect2" type="TextureRect" parent="CommonMonsterDust"]
 margin_left = 319.027
+margin_top = 88.0
 margin_right = 335.027
-margin_bottom = 16.0
+margin_bottom = 104.0
 rect_scale = Vector2( 6, 6 )
 texture = ExtResource( 4 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="TextureRect" type="TextureRect" parent="HealthPotControl"]
-margin_left = 332.885
-margin_top = 11.5
-margin_right = 348.885
-margin_bottom = 28.4999
-rect_scale = Vector2( 4, 4 )
+[node name="TextureRect" type="TextureRect" parent="CommonMonsterDust"]
+margin_left = 327.209
+margin_top = 84.8167
+margin_right = 343.209
+margin_bottom = 101.817
+rect_scale = Vector2( 5, 5 )
 texture = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="HealthPotControl"]
+[node name="Label" type="Label" parent="CommonMonsterDust"]
 anchor_left = -3.732
 anchor_right = -3.732
-margin_left = 521.28
-margin_top = 50.0
-margin_right = 576.28
-margin_bottom = 110.0
+margin_left = 515.504
+margin_top = 148.0
+margin_right = 565.504
+margin_bottom = 271.0
 rect_scale = Vector2( 0.75, 0.75 )
 custom_fonts/font = SubResource( 1 )
 text = "0"
+align = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }

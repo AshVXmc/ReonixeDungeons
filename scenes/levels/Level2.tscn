@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=2]
+[gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://tilesets/Default.tres" type="TileSet" id=1]
 [ext_resource path="res://scenes/menus/RevivementCrystalUI.tscn" type="PackedScene" id=2]
@@ -24,6 +24,8 @@
 [ext_resource path="res://scenes/terrain/GenericSpikeCorner.tscn" type="PackedScene" id=22]
 [ext_resource path="res://scenes/enemies/Slime.tscn" type="PackedScene" id=23]
 [ext_resource path="res://scenes/enemies/Bat.tscn" type="PackedScene" id=24]
+[ext_resource path="res://scenes/menus/CommonMonsterDustUI.tscn" type="PackedScene" id=25]
+[ext_resource path="res://scenes/menus/GoblinScalesUI.tscn" type="PackedScene" id=26]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 96.7989, 10 )
@@ -45,6 +47,8 @@ script = ExtResource( 16 )
 [node name="LifeWineUI" parent="." instance=ExtResource( 9 )]
 
 [node name="OpalsUI" parent="." instance=ExtResource( 10 )]
+
+[node name="CommonMonsterDustUI" parent="." instance=ExtResource( 25 )]
 
 [node name="RevivementCrystal" parent="." instance=ExtResource( 2 )]
 
@@ -186,3 +190,5 @@ one_way_collision = true
 
 [node name="Slime3" parent="." instance=ExtResource( 23 )]
 position = Vector2( 2503.2, 1333.95 )
+
+[node name="GoblinScalesUI" parent="." instance=ExtResource( 26 )]

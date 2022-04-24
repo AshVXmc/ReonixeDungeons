@@ -9,6 +9,8 @@ var healthpot_amount : int = 0
 var lifewine_amount : int = 0
 var manapot_amount : int = 0
 var opals_amount : int = 0
+var common_monster_dust_amount : int = 0
+var goblin_scales_amount : int = 0
 var crystals_amount : int = 0
 var opened_chests := []
 var soul_token_amount : int = 0
@@ -17,11 +19,12 @@ var dash_unlocked : bool = false # 1 mana per use
 var glide_unlocked : bool = false # 1 mana per use
 var firesaw_unlocked : bool = false # 3 mana per use
 var fireburst_unlocked : bool = false # 1 mana per second of usage
-var max_item_storage : int = 3
+var max_item_storage : int = 5
 var levelpath : String
 var savepath : String = SAVE_DIR + "savefile.dat"
 var lighting : bool = true
 var vsync : bool = true
+var activated_portals : Array 
 
 var enemies_killed : int
 # Boss Victories
@@ -30,6 +33,7 @@ var masked_goblin_defeated : bool
 # Unsaved conditions
 var godmode : bool = false
 
+	
 func reset_player_data():
 	Global.hearts = 2
 	Global.mana = 5
@@ -38,17 +42,19 @@ func reset_player_data():
 	Global.manapot_amount = 0
 	Global.opals_amount = 0
 	Global.crystals_amount = 0
+	Global.common_monster_dust_amount = 0
+	Global.goblin_scales_amount = 0
 	Global.soul_token_amount = 0
 	Global.dash_unlocked = false
 	Global.glide_unlocked = true
 	Global.firesaw_unlocked = false
 	Global.fireburst_unlocked = false
-	Global.max_item_storage = 3
+	Global.max_item_storage = 5
 	Global.lighting = true
 	Global.levelpath = ""
-	
 	Global.enemies_killed = 0
 	Global.masked_goblin_defeated = false
+	Global.activated_portals.clear()
 	
 func reset_chest_data():
 	# Clears the array cache and refill 
@@ -71,6 +77,8 @@ func save_player_data():
 		"LifeWine" : Global.lifewine_amount,
 		"Manapot":  Global.manapot_amount,
 		"Opals" : Global.opals_amount ,
+		"CommonMonsterDust": Global.common_monster_dust_amount,
+		"GoblinScales": Global.goblin_scales_amount,
 		"RevivementCrystals" : Global.crystals_amount,
 		"SoulTokens": Global.soul_token_amount,
 		"DashUnlocked" : Global.dash_unlocked ,
@@ -82,7 +90,8 @@ func save_player_data():
 		"Lighting" : Global.lighting,
 		"Vsync" : Global.vsync,
 		"EnemiesKilled": Global.enemies_killed ,
-		"MaskedGoblinDefeated" : Global.masked_goblin_defeated
+		"MaskedGoblinDefeated" : Global.masked_goblin_defeated,
+		"ActivatedPortals": Global.activated_portals
 	}
 
 	var savefile : File = File.new()
@@ -105,6 +114,10 @@ func sync_playerOpals(player_opals : int):
 	player_opals = Global.opals_amount
 func sync_playerCrystals(player_crystals : int):
 	player_crystals = Global.crystals_amount
+func sync_playerCommonMonsterDust(player_common_monster_dust : int):
+	player_common_monster_dust = Global.common_monster_dust_amount
+func sync_playerGoblinScales(player_goblin_scales: int):
+	player_goblin_scales = Global.goblin_scales_amount
 
 
 

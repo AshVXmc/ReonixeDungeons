@@ -58,6 +58,9 @@ func parse_command():
 		"fillall":
 			emit_signal("debugcmd", "fillall")
 			$Output.text = "Filled all items"
+		"fillingr":
+			emit_signal("debugcmd", "fillingr")
+			$Output.text = "Filled Ingredients"
 		"opalall":
 			emit_signal("debugcmd", "opalall")
 			$Output.text = "Filled opals"

@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://assets/misc/loot_bag.png" type="Texture" id=1]
-[ext_resource path="res://scripts/items/LootBag.gd" type="Script" id=2]
+[ext_resource path="res://assets/misc/loot_bag_tier2.png" type="Texture" id=1]
+[ext_resource path="res://scripts/items/LootBagTier2.gd" type="Script" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 17.4623, 21.9839 )
@@ -9,7 +9,7 @@ extents = Vector2( 17.4623, 21.9839 )
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 24.1585, 28.1075 )
 
-[node name="LootBag" type="RigidBody2D"]
+[node name="LootBagTier2" type="RigidBody2D"]
 mass = 5.10204
 gravity_scale = 9.8
 script = ExtResource( 2 )
