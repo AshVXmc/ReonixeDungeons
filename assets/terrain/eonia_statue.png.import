@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/purple_fruit_2.png-06b8ee9610818455bbe3c7e977377d39.stex"
+path="res://.import/eonia_statue.png-a2fb7ceb1604232d49971a9e4c057a12.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/enemies/minibosses/purple_fruit_2.png"
-dest_files=[ "res://.import/purple_fruit_2.png-06b8ee9610818455bbe3c7e977377d39.stex" ]
+source_file="res://assets/terrain/eonia_statue.png"
+dest_files=[ "res://.import/eonia_statue.png-a2fb7ceb1604232d49971a9e4c057a12.stex" ]
 
 [params]
 

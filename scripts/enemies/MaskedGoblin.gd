@@ -1,26 +1,37 @@
 class_name MaskedGoblin extends KinematicBody2D
 
-const max_HP : int = 15
-export var HP : int = 15
+const max_HP : int = 20
+export var HP : int = 20
 export var flipped : bool = false
 var velocity = Vector2()
 var direction : int = 1
 const FLOOR = Vector2(0, -1)
-var SPEED : int = 300
+var SPEED : int = 350
 const GRAVITY : int = 45
 const SHURIKEN : PackedScene = preload("res://scenes/enemies/bosses/Shuriken.tscn")
+const SMOKE_PARTICLE = preload("res://scenes/particles/SmokeParticle.tscn")
+const SLOWING_POISON = preload("res://scenes/enemies/bosses/SlowingPoison.tscn")
+const DEATH_PARTICLE = preload("res://scenes/particles/DeathSmokeParticle.tscn")
 var is_staggered : bool = false
 var is_knocked_back :bool = false
+var is_invulnerable : bool = false
 var repulsion = Vector2()
+var invisible : bool
 onready var PLAYER = get_parent().get_node("Player").get_node("Area2D")
 onready var hb_full = preload("res://assets/UI/healthbar_full.png")
 onready var hb_half = preload("res://assets/UI/healthbar_half.png")
 onready var hb_critical = preload("res://assets/UI/healthbar_critical.png")
-onready var telepos 
+signal dead(time)
+var dead : bool = false
 
 func _ready():
+
+	connect("dead", get_parent(), "death")
 	$HealthBar.texture_progress = hb_full
 	$ShootTimer.start()
+	$ChargingParticle.visible = false
+	$SlowPoisonParticle.visible = false
+	$ShieldBubble.visible = false
 
 func _physics_process(delta):
 	# Health bar stuff
@@ -28,10 +39,22 @@ func _physics_process(delta):
 	# Main movement code
 	if flipped:
 		$AnimatedSprite.flip_h = true
-	velocity.y += GRAVITY
-	$AnimatedSprite.play("default")
-	if !is_staggered:
+	if invisible:
+		$AnimatedSprite.visible = false
+		$HealthBar.visible = false
+	else:
+		$AnimatedSprite.visible = true
+		$HealthBar.visible = true
+	if is_invulnerable:
+		$ShieldBubble.visible = true
+	else:
+		$ShieldBubble.visible = false
+	if !dead:
+		velocity.y += GRAVITY
 		velocity = move_and_slide(velocity, FLOOR)
+	$AnimatedSprite.play("default")
+	if !is_staggered and !dead:
+		
 		if $Left.overlaps_area(PLAYER):
 			$AnimatedSprite.flip_h = false
 			if !$AnimatedSprite.flip_h and !is_knocked_back:
@@ -47,7 +70,8 @@ func _physics_process(delta):
 				velocity.x = SPEED
 			if velocity.x == 0:
 				velocity.x = -SPEED * 2
-	if is_staggered:
+		
+	if is_staggered or dead:
 		velocity.x = 0
 
 func update_healthbar_value():
@@ -59,22 +83,66 @@ func update_healthbar_value():
 
 func _on_Area2D_area_entered(area):
 	if area.is_in_group("Sword") or area.is_in_group("Fireball") and HP > 0 and !is_knocked_back:
-		HP -= 1
-		$HealthBar.value -= 1
-		is_staggered = true
-		velocity.x = 0
-		$HurtTimer.start()
+		invisible = false
+		$SmokeBombTimer.stop()
+		if !is_invulnerable:
+			HP -= 1
+			$HealthBar.value -= 1
+			is_staggered = true
+			velocity.x = 0
+			$HurtTimer.start()
 		if HP <= 0:
+			invisible = false
 			dead()
+
+
 	if area.is_in_group("Player") and !is_knocked_back:
+		if invisible:
+			invisible = false
+			$SmokeBombTimer.stop()
 		is_staggered = true
 		yield(get_tree().create_timer(1), "timeout")
 		is_staggered = false
 
 func dead():
-	queue_free()
+	is_staggered = true
+	dead = true
+	$Area2D/CollisionShape2D.disabled = true
+	$Left/CollisionShape2D.disabled = true
+	$Right/CollisionShape2D.disabled = true
+	$ShootTimer.stop()
+	$HurtTimer.stop()
+	$AttackingTimer.stop()
+	$BufferTimer.stop()
+	$SmokeBombTimer.stop()
+	$AnimatedSprite.visible = true
+	death_animation()
+
+func death_animation():
+	$AnimationPlayer.play("Death")
+
+	var p1 = DEATH_PARTICLE.instance()
+	var p2 = DEATH_PARTICLE.instance()
+	var p3 = DEATH_PARTICLE.instance()
+	get_parent().add_child(p1)
+	p1.emitting = true
+	p1.one_shot = true
+	p1.position = global_position
+	yield(get_tree().create_timer(0.5), "timeout")
+	get_parent().add_child(p2)
+	p2.emitting = true
+	p2.one_shot = true
+	p2.position = global_position
+	get_parent().add_child(p3)
+	p3.emitting = true
+	p3.one_shot = true
+	p3.position = global_position
+	yield(get_tree().create_timer(0.75), "timeout")
+	get_parent().get_node("Plaque/Control").visible = true
+	emit_signal("dead", get_parent().get_node("CountdownTimer").time_left)
 	if !Global.masked_goblin_defeated:
 		Global.masked_goblin_defeated = true
+	queue_free()
 func _on_HurtTimer_timeout():
 	is_staggered = false
 
@@ -85,50 +153,118 @@ func _on_AttackingTimer_timeout():
 # SIGN TIP:
 # The player can attack shurikens to gain mana
 func _on_ShootTimer_timeout():
-	ranged_attack()
+	attack()
 
 func leap():
-	velocity.y = -1500
+	velocity.y = -1000
 	yield(get_tree().create_timer(0.4), "timeout")
 	velocity.y = 0
 	
-func ranged_attack():
+func attack():
 	is_staggered = true
 	velocity.x = 0
-
-	if !$AnimatedSprite.flip_h:
-		barrage(true)
-	else:
-		barrage(false)
-		
-	yield(get_tree().create_timer(1), "timeout")
-	is_staggered = false
-	$ShootTimer.start()
+	var rng = RandomNumberGenerator.new()
+	rng.randomize()
+	var randint = rng.randi_range(1,3)
+	match randint:
+		1:
+			spread_attack(true) if !$AnimatedSprite.flip_h else spread_attack(false)
+			yield(get_tree().create_timer(1), "timeout")
+			is_staggered = false
+			$ShootTimer.start()
+			var rng2 = RandomNumberGenerator.new()
+			rng2.randomize()
+			var randint2 = rng2.randi_range(1, 2)
+			if !invisible:
+				match randint2:
+					1:
+						smoke_bomb()
+					2:
+						leap()
+		2:
+			barrage(true) if !$AnimatedSprite.flip_h else barrage(false)
+			yield(get_tree().create_timer(1), "timeout")
+			is_staggered = false
+			$ShootTimer.start()
+			var rng2 = RandomNumberGenerator.new()
+			rng2.randomize()
+			var randint2 = rng2.randi_range(1, 2)
+			if !invisible:
+				match randint2:
+					1:
+						smoke_bomb()
+					2:
+						leap()
+		3:
+			throw_slowing_poison()
 	
+func smoke_bomb():
+	is_staggered = true
+	var smoke1 = SMOKE_PARTICLE.instance()
+	var smoke2 = SMOKE_PARTICLE.instance()
+	get_parent().add_child(smoke1)
+	smoke1.position = global_position
+	smoke1.emitting = true
+	smoke1.one_shot = true
+	yield(get_tree().create_timer(0.25), "timeout")
+	get_parent().add_child(smoke2)
+	smoke2.position = global_position
+	smoke2.emitting = true
+	smoke2.one_shot = true
+	yield(get_tree().create_timer(0.25), "timeout")
+	invisible = true
+	$SmokeBombTimer.start()
+
 func barrage(left : bool):
 	var sh1 : Shuriken = SHURIKEN.instance()
-	var sh2 : Shuriken = SHURIKEN.instance()
 	var sh3 : Shuriken = SHURIKEN.instance()
+
 	
 	sh1.flip_shuriken_direction(-1) if left else false
 	get_parent().add_child(sh1)
 	sh1.position = $LeftPos.global_position if left else $RightPos.global_position
-	
-	yield(get_tree().create_timer(1), "timeout")
-	
-	sh2.flip_shuriken_direction(-1) if left else false
-	get_parent().add_child(sh2)
-	sh2.position = $LeftPos.global_position if left else $RightPos.global_position
-	
-	yield(get_tree().create_timer(1), "timeout")
-	
+	yield(get_tree().create_timer(0.5), "timeout")
 	sh3.is_up = true
 	get_parent().add_child(sh3)
 	sh3.position = $UpPos.global_position
+	yield(get_tree().create_timer(0.25), "timeout")
 
-	yield(get_tree().create_timer(1.2), "timeout")
 	is_staggered = false
 	$ShootTimer.start()
+func spread_attack(left : bool):
+	var sh1 : Shuriken = SHURIKEN.instance()
+	var sh2 : Shuriken = SHURIKEN.instance()
+	var sh3 : Shuriken = SHURIKEN.instance()
+	var sh4 : Shuriken = SHURIKEN.instance()
+	var sh5 : Shuriken = SHURIKEN.instance()
+	sh1.flip_shuriken_direction(-1) if left else false
+	get_parent().add_child(sh1)
+	sh1.position = $LeftPos.global_position if left else $RightPos.global_position
+	
+	sh2.flip_shuriken_direction(-1) if left else false
+	sh2.right_up = true
+	get_parent().add_child(sh2)
+	sh2.position = $LeftPos.global_position if left else $RightPos.global_position
+	
+	sh3.flip_shuriken_direction(-1) if left else false
+	sh3.left_up = true
+	get_parent().add_child(sh3)
+	sh3.position = $LeftPos.global_position if left else $RightPos.global_position
+	sh4.flip_shuriken_direction(-1) if left else false
+	sh4.left_up_2 = true
+	get_parent().add_child(sh4)
+	sh4.position = $LeftPos.global_position if left else $RightPos.global_position
+	sh5.flip_shuriken_direction(-1) if left else false
+	sh5.right_up_2 = true
+	get_parent().add_child(sh5)
+	sh5.position = $LeftPos.global_position if left else $RightPos.global_position
+	
+	
+func throw_slowing_poison():
+	var slowing_poison = SLOWING_POISON.instance()
+	get_parent().add_child(slowing_poison)
+	slowing_poison.position = $SlowingPoisonPos.global_position
+	
 
 func _on_Left_area_exited(area):
 	yield(get_tree().create_timer(1.2), "timeout")
@@ -141,3 +277,7 @@ func _on_Right_area_exited(area):
 
 func _on_BufferTimer_timeout():
 	is_knocked_back = false
+
+
+func _on_SmokeBombTimer_timeout():
+	invisible = false

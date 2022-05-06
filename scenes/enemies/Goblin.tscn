@@ -6,9 +6,8 @@
 [ext_resource path="res://assets/enemies/goblin1_attack.png" type="Texture" id=4]
 [ext_resource path="res://assets/enemies/goblin2.png" type="Texture" id=5]
 
-[sub_resource type="CapsuleShape2D" id=1]
-radius = 29.788
-height = 40.2918
+[sub_resource type="RectangleShape2D" id=5]
+extents = Vector2( 22.2061, 46.6171 )
 
 [sub_resource type="SpriteFrames" id=4]
 animations = [ {
@@ -27,15 +26,16 @@ animations = [ {
 extents = Vector2( 180.973, 50.3433 )
 
 [sub_resource type="CapsuleShape2D" id=3]
-radius = 41.8011
-height = 40.2918
+radius = 38.2036
+height = 36.6317
 
 [node name="Goblin" type="KinematicBody2D" groups=["Enemy"]]
 position = Vector2( 0.471924, 0 )
 script = ExtResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource( 1 )
+position = Vector2( 3.08331, 3.07173 )
+shape = SubResource( 5 )
 
 [node name="Sprite" type="AnimatedSprite" parent="."]
 scale = Vector2( 5, 5 )
@@ -57,7 +57,7 @@ shape = SubResource( 2 )
 [node name="Area2D" type="Area2D" parent="." groups=["Enemy"]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2( 3.02792e-05, -6.86967 )
+position = Vector2( 3.46481, -6.01947 )
 shape = SubResource( 3 )
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
@@ -68,7 +68,7 @@ collision_mask = 3075
 collide_with_areas = true
 
 [node name="HurtTimer" type="Timer" parent="."]
-wait_time = 0.3
+wait_time = 0.5
 one_shot = true
 
 [node name="AttackingTimer" type="Timer" parent="."]

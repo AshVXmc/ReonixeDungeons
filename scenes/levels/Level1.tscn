@@ -61,6 +61,8 @@ script = ExtResource( 1 )
 
 [node name="OpalsUI" parent="." instance=ExtResource( 31 )]
 
+[node name="GoblinScalesUI" parent="." instance=ExtResource( 18 )]
+
 [node name="CommonMonsterDustUI" parent="." instance=ExtResource( 17 )]
 
 [node name="RevivementCrystal" parent="." instance=ExtResource( 12 )]
@@ -191,7 +193,7 @@ position = Vector2( -1400.05, 343.607 )
 Text = "Welcome to Reonixe Dungeons! Press ENTER to attack enemies from a close range. Observe your surroundings and proceed with caution, Don't charge on more enemies than you can handle. "
 
 [node name="Player" parent="." instance=ExtResource( 22 )]
-position = Vector2( -552.637, 1223.4 )
+position = Vector2( -1589.95, 304.437 )
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position = Vector2( 9.72693, -62.0423 )
@@ -236,5 +238,3 @@ position = Vector2( -467.247, 1428.74 )
 
 [node name="Slime5" parent="." instance=ExtResource( 10 )]
 position = Vector2( 2287.65, 1618.3 )
-
-[node name="GoblinScalesUI" parent="." instance=ExtResource( 18 )]

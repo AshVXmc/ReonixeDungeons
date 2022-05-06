@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/red_fruit.png-3a1c24bf7c27a566a93b813d9d802256.stex"
+path="res://.import/prop_potionrack - Copy.png-a9a9a0e8341a18256051b5b906e09ff9.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/enemies/minibosses/red_fruit.png"
-dest_files=[ "res://.import/red_fruit.png-3a1c24bf7c27a566a93b813d9d802256.stex" ]
+source_file="res://assets/terrain/hub_level/prop_potionrack - Copy.png"
+dest_files=[ "res://.import/prop_potionrack - Copy.png-a9a9a0e8341a18256051b5b906e09ff9.stex" ]
 
 [params]
 

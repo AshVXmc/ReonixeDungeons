@@ -2,16 +2,15 @@ class_name DungeonPortal extends Node2D
 
 # Input text
 onready var PLAYER = get_parent().get_node("Player").get_node("Area2D")
-onready var deactivated = preload("res://assets/terrain/hub_level/portal_closed.png")
-onready var activated = preload("res://assets/terrain/hub_level/portal_opened.png")
 export var Portal_ID : int 
 # 0 = Hub portal
 # 1 = Level 5
 
 func _ready():
+	$AnimatedSprite.play("default")
 	$Label.visible = false
 	$Plaque/Control.visible = false
-
+	$Particles2D.visible = false
 
 func _process(delta):
 	if !Global.activated_portals.has("Level5"):
@@ -27,11 +26,8 @@ func _process(delta):
 func _on_Area2D_area_exited(area):
 	$Label.visible = false
 
-
-
-
 func _on_Area2D_area_entered(area):
-	pass # Replace with function body.
+	pass
 
 
 func _on_CloseButton_pressed():
@@ -39,15 +35,18 @@ func _on_CloseButton_pressed():
 	get_parent().get_node("Player").is_shopping = false
 
 func _on_HubLevel_pressed():
-	get_parent().get_node("SceneTransition/ColorRect").visible = true
-	get_parent().get_node("SceneTransition").transition()
-	yield(get_tree().create_timer(1), "timeout")
-	get_tree().change_scene("res://scenes/levels/HubLevel.tscn")
+	teleport_to_level("res://scenes/levels/HubLevel.tscn")
 
 
 func _on_Level5_pressed():
-	get_parent().get_node("SceneTransition/Colorrect").visible = true
+	teleport_to_level("res://scenes/levels/Level5.tscn")
+
+func teleport_to_level(level_path : String):
+	$Plaque/Control.visible = false
+	$Particles2D.visible = true
+	$Particles2D.emitting = true
+	$Particles2D.one_shot = false
+	get_parent().get_node("SceneTransition/ColorRect").visible = true
 	get_parent().get_node("SceneTransition").transition()
 	yield(get_tree().create_timer(1), "timeout")
-	get_tree().change_scene("res://scenes/levels/Level5.tscn")
-
+	get_tree().change_scene(level_path)

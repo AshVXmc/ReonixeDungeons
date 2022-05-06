@@ -1,8 +1,8 @@
-[gd_scene load_steps=27 format=2]
+[gd_scene load_steps=32 format=2]
 
 [ext_resource path="res://scenes/enemies/bosses/MaskedGoblin.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/menus/HeartUI.tscn" type="PackedScene" id=2]
-[ext_resource path="res://scripts/misc/Level.gd" type="Script" id=3]
+[ext_resource path="res://scripts/misc/MaskedGoblinLevel.gd" type="Script" id=3]
 [ext_resource path="res://scenes/menus/LifeWineUI.tscn" type="PackedScene" id=4]
 [ext_resource path="res://scenes/menus/ManaPotUI.tscn" type="PackedScene" id=5]
 [ext_resource path="res://scenes/menus/DebugMenu.tscn" type="PackedScene" id=6]
@@ -24,14 +24,25 @@
 [ext_resource path="res://scenes/menus/PauseUI.tscn" type="PackedScene" id=22]
 [ext_resource path="res://scenes/enemies/LimeSlime.tscn" type="PackedScene" id=23]
 [ext_resource path="res://scenes/menus/GoblinScalesUI.tscn" type="PackedScene" id=24]
+[ext_resource path="res://scenes/items/LevelTransporter.tscn" type="PackedScene" id=25]
+[ext_resource path="res://assets/fonts/Born2bSportyV2.ttf" type="DynamicFontData" id=26]
+[ext_resource path="res://assets/UI/popup_textbox_square.png" type="Texture" id=28]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 93.5454, 9.42744 )
+extents = Vector2( 143.263, 9.42744 )
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 143.93, 9.42744 )
 
-[node name="Level4" type="Node2D"]
+[sub_resource type="DynamicFont" id=3]
+size = 48
+font_data = ExtResource( 26 )
+
+[sub_resource type="DynamicFont" id=4]
+size = 48
+font_data = ExtResource( 26 )
+
+[node name="MaskedGoblinLevel" type="Node2D"]
 script = ExtResource( 3 )
 
 [node name="PauseUI" parent="." instance=ExtResource( 22 )]
@@ -47,6 +58,8 @@ script = ExtResource( 3 )
 [node name="LifeWineUI" parent="." instance=ExtResource( 4 )]
 
 [node name="OpalsUI" parent="." instance=ExtResource( 9 )]
+
+[node name="GoblinScalesUI" parent="." instance=ExtResource( 24 )]
 
 [node name="CommonMonsterDustUI" parent="." instance=ExtResource( 21 )]
 
@@ -93,7 +106,11 @@ tile_data = PoolIntArray( -327676, 0, 0, -327675, 0, 0, -327674, 0, 0, -327673, 
 tile_set = ExtResource( 15 )
 cell_size = Vector2( 96, 96 )
 format = 1
-tile_data = PoolIntArray( 196603, 0, 0, 196604, 0, 0, 196605, 0, 0, 131075, 0, 0, 131076, 0, 0, 131077, 0, 0, 262139, 0, 0, 262140, 0, 0, 262141, 0, 0, 196611, 0, 0, 196612, 0, 0, 196613, 0, 0, 327671, 1, 0, 327672, 2, 0, 327675, 0, 0, 327676, 0, 0, 327677, 0, 0, 262147, 0, 0, 262148, 0, 0, 262149, 0, 0, 262152, 3, 0, 262153, 1, 0, 393211, 0, 0, 393212, 0, 0, 393213, 0, 0, 327683, 0, 0, 327684, 0, 0, 327685, 0, 0 )
+tile_data = PoolIntArray( 196603, 0, 0, 196604, 0, 0, 196605, 0, 0, 131075, 0, 0, 131076, 0, 0, 131077, 0, 0, 262139, 0, 0, 262140, 0, 0, 262141, 0, 0, 196611, 0, 0, 196612, 0, 0, 196613, 0, 0, 327671, 1, 0, 327672, 1, 0, 327673, 2, 0, 327675, 0, 0, 327676, 0, 0, 327677, 0, 0, 262147, 0, 0, 262148, 0, 0, 262149, 0, 0, 262151, 3, 0, 262152, 1, 0, 262153, 1, 0, 393211, 0, 0, 393212, 0, 0, 393213, 0, 0, 327683, 0, 0, 327684, 0, 0, 327685, 0, 0 )
+
+[node name="LevelTransporter" parent="." instance=ExtResource( 25 )]
+visible = false
+position = Vector2( 46.0346, 493.682 )
 
 [node name="Player" parent="." instance=ExtResource( 11 )]
 position = Vector2( -573.222, 498.141 )
@@ -101,6 +118,7 @@ position = Vector2( -573.222, 498.141 )
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position = Vector2( 41.4179, -100.638 )
 current = true
+zoom = Vector2( 1.2, 1.2 )
 limit_left = -920
 limit_top = -225
 limit_right = 975
@@ -119,7 +137,7 @@ energy = 0.65
 mode = 1
 
 [node name="MaskedGoblin" parent="." instance=ExtResource( 1 )]
-position = Vector2( 223.954, 509.852 )
+position = Vector2( -65.3141, 503.125 )
 
 [node name="Sign" parent="." instance=ExtResource( 10 )]
 visible = false
@@ -178,7 +196,7 @@ position = Vector2( 786.444, 508.618 )
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2( -765.257, 393.7 )
+position = Vector2( -717.345, 394.7 )
 shape = SubResource( 1 )
 one_way_collision = true
 
@@ -186,7 +204,7 @@ one_way_collision = true
 position = Vector2( 1626.61, 0 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2"]
-position = Vector2( -762.257, 393.7 )
+position = Vector2( -811.15, 393.7 )
 shape = SubResource( 1 )
 one_way_collision = true
 
@@ -210,4 +228,80 @@ position = Vector2( -333.081, 179.464 )
 [node name="LimeSlime2" parent="." instance=ExtResource( 23 )]
 position = Vector2( 433.599, 180.282 )
 
-[node name="GoblinScalesUI" parent="." instance=ExtResource( 24 )]
+[node name="Plaque" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="Plaque"]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.33
+anchor_right = 0.5
+anchor_bottom = 0.33
+margin_left = -540.0
+margin_top = -237.6
+margin_right = 534.0
+margin_bottom = 484.4
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="NinePatchRect" type="NinePatchRect" parent="Plaque/Control"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -320.0
+margin_top = -174.0
+margin_right = 320.0
+margin_bottom = 306.0
+texture = ExtResource( 28 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Header" type="RichTextLabel" parent="Plaque/Control/NinePatchRect"]
+margin_left = 63.0
+margin_top = 2.0
+margin_right = 573.0
+margin_bottom = 50.0
+custom_fonts/normal_font = SubResource( 3 )
+bbcode_enabled = true
+bbcode_text = "======= [color=#ff5e00]Boss Slain[/color] ======="
+text = "======= Boss Slain ======="
+scroll_active = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Text" type="RichTextLabel" parent="Plaque/Control/NinePatchRect"]
+margin_left = 105.0
+margin_top = 62.0
+margin_right = 538.0
+margin_bottom = 111.0
+custom_colors/default_color = Color( 0.219608, 0.960784, 0, 1 )
+custom_fonts/normal_font = SubResource( 4 )
+bbcode_enabled = true
+bbcode_text = "Masked Goblin Defeated"
+text = "Masked Goblin Defeated"
+scroll_active = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Time" type="RichTextLabel" parent="Plaque/Control/NinePatchRect"]
+margin_left = 151.163
+margin_top = 122.245
+margin_right = 492.163
+margin_bottom = 171.245
+custom_colors/default_color = Color( 1, 1, 0.0235294, 1 )
+custom_fonts/normal_font = SubResource( 4 )
+bbcode_enabled = true
+bbcode_text = "Time: 000 seconds"
+text = "Time: 000 seconds"
+scroll_active = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CountdownTimer" type="Timer" parent="."]
+wait_time = 9999.0
+autostart = true

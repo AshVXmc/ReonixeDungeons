@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=2]
+[gd_scene load_steps=30 format=2]
 
 [ext_resource path="res://tilesets/Default.tres" type="TileSet" id=1]
 [ext_resource path="res://scenes/menus/RevivementCrystalUI.tscn" type="PackedScene" id=2]
@@ -26,6 +26,7 @@
 [ext_resource path="res://scenes/enemies/Bat.tscn" type="PackedScene" id=24]
 [ext_resource path="res://scenes/menus/CommonMonsterDustUI.tscn" type="PackedScene" id=25]
 [ext_resource path="res://scenes/menus/GoblinScalesUI.tscn" type="PackedScene" id=26]
+[ext_resource path="res://scenes/enemies/Goblin.tscn" type="PackedScene" id=27]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 96.7989, 10 )
@@ -123,7 +124,7 @@ position = Vector2( 1680, 240 )
 rotation = 1.5708
 
 [node name="Player" parent="." instance=ExtResource( 8 )]
-position = Vector2( 327.514, 12.3056 )
+position = Vector2( 582.226, 1207.95 )
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position = Vector2( 9.72693, -62.0423 )
@@ -192,3 +193,6 @@ one_way_collision = true
 position = Vector2( 2503.2, 1333.95 )
 
 [node name="GoblinScalesUI" parent="." instance=ExtResource( 26 )]
+
+[node name="Goblin" parent="." instance=ExtResource( 27 )]
+position = Vector2( 1070.26, 1252.58 )

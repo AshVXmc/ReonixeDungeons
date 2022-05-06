@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/purple_fruit_1.png-0e156730a029db9ef16b0c7252304f64.stex"
+path="res://.import/cornucopia_goblin_upwards.png-8b06f35fc3c87c49bc00313c49482c63.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/enemies/minibosses/purple_fruit_1.png"
-dest_files=[ "res://.import/purple_fruit_1.png-0e156730a029db9ef16b0c7252304f64.stex" ]
+source_file="res://assets/enemies/bosses/cornucopia_goblin_upwards.png"
+dest_files=[ "res://.import/cornucopia_goblin_upwards.png-8b06f35fc3c87c49bc00313c49482c63.stex" ]
 
 [params]
 

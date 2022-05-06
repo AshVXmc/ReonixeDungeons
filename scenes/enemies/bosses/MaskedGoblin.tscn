@@ -1,14 +1,30 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://scripts/enemies/MaskedGoblin.gd" type="Script" id=1]
-[ext_resource path="res://assets/enemies/minibosses/masked_goblin_2.png" type="Texture" id=2]
-[ext_resource path="res://assets/enemies/minibosses/masked_goblin_1.png" type="Texture" id=3]
+[ext_resource path="res://assets/enemies/bosses/masked_goblin_2.png" type="Texture" id=2]
+[ext_resource path="res://assets/enemies/bosses/masked_goblin_1.png" type="Texture" id=3]
 [ext_resource path="res://assets/UI/healthbar_full.png" type="Texture" id=4]
 [ext_resource path="res://assets/UI/healthbar_empty.png" type="Texture" id=5]
+[ext_resource path="res://scenes/particles/ChargingParticle.tscn" type="PackedScene" id=6]
+[ext_resource path="res://assets/particles/poison_smoke_particle.png" type="Texture" id=7]
+[ext_resource path="res://assets/misc/shield_bubble.png" type="Texture" id=8]
 
 [sub_resource type="CapsuleShape2D" id=1]
-radius = 32.3549
-height = 22.9521
+radius = 26.3763
+height = 36.0283
+
+[sub_resource type="ParticlesMaterial" id=5]
+emission_shape = 1
+emission_sphere_radius = 128.0
+flag_disable_z = true
+spread = 180.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 45.0
+angular_velocity = 250.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+linear_accel = 100.0
+scale = 5.0
 
 [sub_resource type="SpriteFrames" id=2]
 animations = [ {
@@ -19,10 +35,41 @@ animations = [ {
 } ]
 
 [sub_resource type="RectangleShape2D" id=3]
-extents = Vector2( 40.3233, 45.9278 )
+extents = Vector2( 36.4195, 45.9278 )
 
 [sub_resource type="RectangleShape2D" id=4]
 extents = Vector2( 339.768, 76.9879 )
+
+[sub_resource type="Animation" id=6]
+resource_name = "Death"
+length = 1.25
+tracks/0/type = "value"
+tracks/0/path = NodePath("AnimatedSprite:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 0, 0, 0, 1 ) ]
+}
+
+[sub_resource type="Animation" id=7]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("AnimatedSprite:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
 
 [node name="MaskedGoblin" type="KinematicBody2D"]
 scale = Vector2( 1.2, 1.2 )
@@ -32,6 +79,16 @@ script = ExtResource( 1 )
 position = Vector2( 5, 6 )
 shape = SubResource( 1 )
 
+[node name="ChargingParticle" parent="." instance=ExtResource( 6 )]
+visible = false
+amount = 10
+
+[node name="SlowPoisonParticle" type="Particles2D" parent="."]
+visible = false
+amount = 50
+process_material = SubResource( 5 )
+texture = ExtResource( 7 )
+
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 scale = Vector2( 5, 5 )
 frames = SubResource( 2 )
@@ -39,7 +96,7 @@ frames = SubResource( 2 )
 [node name="Area2D" type="Area2D" parent="." groups=["Enemy"]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2( 4.30923, 3.09228 )
+position = Vector2( 3.87592, 3.09228 )
 shape = SubResource( 3 )
 
 [node name="Left" type="Area2D" parent="."]
@@ -62,7 +119,7 @@ collision_mask = 3075
 collide_with_areas = true
 
 [node name="HurtTimer" type="Timer" parent="."]
-wait_time = 1.25
+wait_time = 0.7
 one_shot = true
 
 [node name="AttackingTimer" type="Timer" parent="."]
@@ -87,7 +144,7 @@ position = Vector2( 60, -55 )
 [node name="UpPos" type="Position2D" parent="."]
 position = Vector2( 3.3333, -81.6667 )
 
-[node name="BackBar" type="TextureProgress" parent="."]
+[node name="HealthBar" type="TextureProgress" parent="."]
 anchor_left = 0.5
 anchor_right = 0.5
 margin_left = -45.0769
@@ -97,27 +154,32 @@ margin_bottom = -77.2493
 rect_scale = Vector2( 5, 5 )
 max_value = 20.0
 value = 20.0
-texture_progress = ExtResource( 5 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="HealthBar" type="TextureProgress" parent="."]
-anchor_left = 0.5
-anchor_right = 0.5
-margin_left = -45.0769
-margin_top = -83.2493
-margin_right = -25.0769
-margin_bottom = -77.2493
-rect_scale = Vector2( 5, 5 )
-max_value = 15.0
-value = 15.0
+texture_under = ExtResource( 5 )
 texture_progress = ExtResource( 4 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="BufferTimer" type="Timer" parent="."]
+wait_time = 0.2
+
+[node name="SmokeBombTimer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+
+[node name="SlowingPoisonPos" type="Position2D" parent="."]
+position = Vector2( -68.556, -15.4013 )
+
+[node name="ShieldBubble" type="Sprite" parent="."]
+visible = false
+modulate = Color( 1, 1, 1, 0.490196 )
+position = Vector2( 3.33333, 0 )
+scale = Vector2( 6, 6 )
+texture = ExtResource( 8 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/Death = SubResource( 6 )
+anims/RESET = SubResource( 7 )
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_Area2D_area_entered"]
 [connection signal="area_exited" from="Left" to="." method="_on_Left_area_exited"]
@@ -126,3 +188,4 @@ __meta__ = {
 [connection signal="timeout" from="AttackingTimer" to="." method="_on_AttackingTimer_timeout"]
 [connection signal="timeout" from="ShootTimer" to="." method="_on_ShootTimer_timeout"]
 [connection signal="timeout" from="BufferTimer" to="." method="_on_BufferTimer_timeout"]
+[connection signal="timeout" from="SmokeBombTimer" to="." method="_on_SmokeBombTimer_timeout"]

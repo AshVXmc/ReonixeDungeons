@@ -19,9 +19,9 @@ var collision : KinematicCollision2D
 const TYPE : String = "Player"
 var dashdirection : Vector2 = Vector2(1,0)
 var repulsion : Vector2 = Vector2()
-var knockback_power : int = 200
+var knockback_power : int = 150
 var can_be_knocked : bool = true
-const SPEED : int = 380
+var SPEED : int = 380
 const GRAVITY : int = 40
 var JUMP_POWER : int = -1075
 const FIREBALL : PackedScene = preload("res://scenes/misc/Fireball.tscn")
@@ -50,6 +50,8 @@ var glider_equipped : bool = false
 var is_ground_pounding : bool = false
 var cam_shake : bool = false
 var is_charging : bool = false
+var slowed : bool = false
+
 
 func _ready():
 	$ChargeBar.value = 0
@@ -184,6 +186,7 @@ func _physics_process(_delta):
 			rand_range(-1, 1) * 3 \
 		))
 	charge_meter()
+
 	
 
 
@@ -284,6 +287,7 @@ func attack():
 			$AttackCollision/CollisionShape2D.disabled = false
 			$AttackTimer.start()
 func charge_meter():
+	$ChargingParticle.visible = true if is_charging else false
 	if $ChargeBar.value == $ChargeBar.max_value:
 		$ChargeBar.texture_progress = FULL_CHARGE_METER
 	else:
@@ -359,7 +363,8 @@ func _on_Area2D_area_entered(area : Area2D):
 			Global.hearts -= 0.5
 			Input.action_release("charge")
 			afterDamaged()
-
+	if area.is_in_group("SlowingPoison"):
+		slow_player(2.0)
 	if area.is_in_group("Transporter"):
 		emit_signal("level_changed")
 
@@ -652,6 +657,15 @@ func freeze_player(time : float):
 	yield(get_tree().create_timer(time), "timeout")
 	is_frozen = false
 
+func slow_player(time : float):
+	slowed = true
+	set_modulate(Color(10, 0, 10, 1))
+	SPEED = 380 / 2
+	yield(get_tree().create_timer(time), "timeout")
+	slowed = false
+	set_modulate(Color(1,1,1,1))
+	SPEED = 380
+	
 func get_opals(opals : int):
 	Global.opals_amount += opals
 	emit_signal("opals_obtained", Global.opals_amount)

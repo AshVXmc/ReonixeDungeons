@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://assets/enemies/minibosses/shuriken.png" type="Texture" id=1]
+[ext_resource path="res://assets/enemies/bosses/shuriken.png" type="Texture" id=1]
 [ext_resource path="res://scripts/enemies/Shuriken.gd" type="Script" id=2]
 
 [sub_resource type="Animation" id=1]
@@ -59,8 +59,12 @@ tracks/1/keys = {
 }
 
 [node name="Shuriken" type="Area2D"]
+position = Vector2( 77.912, 266.699 )
 scale = Vector2( 1.4, 1.4 )
 script = ExtResource( 2 )
+__meta__ = {
+"_edit_group_": true
+}
 
 [node name="Sprite" type="Sprite" parent="."]
 scale = Vector2( 4, 4 )

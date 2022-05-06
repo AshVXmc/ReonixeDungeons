@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://assets/terrain/hub_level/portal_opened.png" type="Texture" id=1]
 [ext_resource path="res://scripts/terrain/Portal.gd" type="Script" id=2]
@@ -6,6 +6,18 @@
 [ext_resource path="res://assets/UI/quiticon.png" type="Texture" id=4]
 [ext_resource path="res://assets/UI/popup_textbox_square.png" type="Texture" id=5]
 [ext_resource path="res://assets/fonts/Born2bSportyV2.ttf" type="DynamicFontData" id=6]
+[ext_resource path="res://assets/terrain/hub_level/portal_opened_3.png" type="Texture" id=7]
+[ext_resource path="res://assets/terrain/hub_level/portal_opened_2.png" type="Texture" id=8]
+[ext_resource path="res://assets/terrain/hub_level/portal_opened_4.png" type="Texture" id=9]
+[ext_resource path="res://assets/particles/portal_particle.png" type="Texture" id=10]
+
+[sub_resource type="SpriteFrames" id=6]
+animations = [ {
+"frames": [ ExtResource( 1 ), ExtResource( 8 ), ExtResource( 7 ), ExtResource( 9 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 116.736, 134.134 )
@@ -26,13 +38,25 @@ font_data = ExtResource( 6 )
 size = 32
 font_data = ExtResource( 6 )
 
+[sub_resource type="ParticlesMaterial" id=7]
+lifetime_randomness = 0.1
+emission_shape = 1
+emission_sphere_radius = 1.0
+flag_disable_z = true
+direction = Vector3( 0, 0, 0 )
+spread = 180.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 25.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+
 [node name="Portal" type="Node2D"]
 script = ExtResource( 2 )
 Portal_ID = 1
 
-[node name="Sprite" type="Sprite" parent="."]
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 scale = Vector2( 15, 15 )
-texture = ExtResource( 1 )
+frames = SubResource( 6 )
 
 [node name="Area2D" type="Area2D" parent="."]
 
@@ -144,6 +168,15 @@ text = "Level 5"
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Particles2D" type="Particles2D" parent="."]
+visible = false
+position = Vector2( 0, 9 )
+scale = Vector2( 5, 5 )
+amount = 12
+explosiveness = 0.25
+process_material = SubResource( 7 )
+texture = ExtResource( 10 )
 
 [connection signal="area_exited" from="Area2D" to="." method="_on_Area2D_area_exited"]
 [connection signal="pressed" from="Plaque/Control/NinePatchRect/CloseButton" to="." method="_on_CloseButton_pressed"]
