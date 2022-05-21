@@ -8,8 +8,8 @@ func _ready():
 	$Label.visible = false
 	$AnimationPlayer.play("Idle")
 	# Dialogue configuration
-	$DialogueScreen.talker.text = "Shopkeeper"
-	$DialogueScreen.dialogue.text = "H-hi, welcome to the library. We don't get many visitors here, but feel free to look around and write in your journal about your adventures."
+	$DialogueScreen.talker.text = "Librarian"
+	$DialogueScreen.dialogue.text = "Welcome to the library!  We provide you with extensive guides for your adventures and a private journal for you to write in. Feel free to come in at any time of the day!"
 	$DialogueScreen/Control/NinePatchRect/Button1.visible = false
 
 
@@ -23,7 +23,8 @@ func _on_Area2D_area_entered(area):
 		$Label.visible = true
 		
 func _on_Area2D_area_exited(area):
-	$Label.visible = false
+	if $Label.visible:
+		$Label.visible = false
 
 
 

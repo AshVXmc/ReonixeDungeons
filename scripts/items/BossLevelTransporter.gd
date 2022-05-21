@@ -9,11 +9,19 @@ const closed : StreamTexture = preload("res://assets/terrain/boss_door.png")
 const opened : StreamTexture = preload("res://assets/terrain/boss_door_opened.png")
 var is_opened : bool = false
 
+# Select screen export variables
+export var Boss_Name : String
+export var Boss_Subname : String 
+export var Description : String
+
 signal door_opened()
 
 func _ready():
 	$Label.visible = false
 	connect("door_opened", get_parent().get_node("Player"), "door_opening")
+	$Plaque/Control/NinePatchRect/BossName.text = Boss_Name
+	$Plaque/Control/NinePatchRect/BossSubname.text = Boss_Subname
+	$Plaque/Control/NinePatchRect/Description.text = Description
 func _process(delta):
 	if !is_opened:
 		$Sprite.set_texture(closed)
@@ -31,3 +39,7 @@ func _process(delta):
 
 func _on_Area2D_area_exited(area):
 	$Label.visible = false
+
+
+func _on_EnterButton_pressed():
+	pass # Replace with function body.

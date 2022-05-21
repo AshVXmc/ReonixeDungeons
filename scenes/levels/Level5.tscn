@@ -315,6 +315,9 @@ position = Vector2( 244.933, 135.238 )
 
 [node name="BossLevelTransporter" parent="." instance=ExtResource( 25 )]
 position = Vector2( 1634.2, 206.217 )
+Boss_Name = "The Masked Goblin"
+Boss_Subname = "Sixth member of the Dominion Order"
+Description = "A foul goblin donning a mysterious mask with a red sigil. Being part of the Dominion order, He was sent to retrieve the divine talisman. He throws razor-sharp shurikens and clouds of slowing smoke to quickly overwhelm you. Swiftlyparry his projectiles and avoid his smoke and wait for the correct time to strike."
 
 [node name="Player" parent="." instance=ExtResource( 8 )]
 position = Vector2( 959.149, 95.4532 )

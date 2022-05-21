@@ -1,5 +1,7 @@
 class_name WitchGoblin extends KinematicBody2D
 
+export var HP : int = 3
+const LOOT = preload("res://scenes/items/LootBag.tscn")
 const FAMILIAR = preload("res://scenes/enemies/Familiar.tscn")
 const GRAVITY : int = 45
 const FLOOR = Vector2(0, -1)
@@ -57,3 +59,31 @@ func _on_SummoningTimer_timeout():
 #
 #func _on_Right_area_exited(area):
 #	$SummoningTimer.stop()
+
+
+func _on_Area2D_area_entered(area):
+	if area.is_in_group("Sword") or area.is_in_group("Fireball") and HP > 0:
+		HP -= 1
+		parse_damage()
+	elif area.is_in_group("Sword2"):
+		HP -= 3
+		parse_damage()
+func parse_damage():
+	velocity.x = 0
+	set_modulate(Color(2,0.5,0.3,1))
+	if $HurtTimer.is_stopped():
+		$HurtTimer.start()
+	if HP <= 0:
+		var loot = LOOT.instance()
+		var lootrng : RandomNumberGenerator = RandomNumberGenerator.new()
+		lootrng.randomize()
+		var randomint = lootrng.randi_range(1,3)
+		if randomint == 1:
+			get_parent().add_child(loot)
+			loot.position = $Position2D.global_position
+		queue_free()
+		Global.enemies_killed += 1
+
+
+func _on_HurtTimer_timeout():
+	set_modulate(Color(1,1,1,1))

@@ -6,7 +6,7 @@ var is_dead : bool = false
 var direction : int = 1
 const TYPE : String = "Enemy"
 const FLOOR = Vector2(0, -1)
-const SPEED : int = 100
+var SPEED : int = 100
 const GRAVITY : int = 45
 const LOOT : PackedScene = preload("res://scenes/items/LootBag.tscn")
 var rng : RandomNumberGenerator = RandomNumberGenerator.new()
@@ -39,7 +39,7 @@ func _on_Area2D_area_entered(area):
 			velocity.x = 0
 			$HurtTimer.start()
 		elif area.is_in_group("Sword2"):
-			HP -= 2
+			HP -= 3
 			set_modulate(Color(2,0.5,0.3,1))
 			velocity.x = 0
 			$HurtTimer.start()

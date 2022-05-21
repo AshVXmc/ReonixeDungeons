@@ -28,7 +28,7 @@ radius = 7.21462
 height = 9.06714
 
 [sub_resource type="RectangleShape2D" id=4]
-extents = Vector2( 35.5444, 23.3822 )
+extents = Vector2( 57.0278, 58.8172 )
 
 [node name="WitchGoblin" type="KinematicBody2D" groups=["Enemy"]]
 scale = Vector2( 5, 5 )
@@ -51,26 +51,35 @@ shape = SubResource( 3 )
 [node name="Left" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Left"]
-position = Vector2( -43.4761, -10.5656 )
+position = Vector2( -57.2233, 6.55462 )
 shape = SubResource( 4 )
 
 [node name="Right" type="Area2D" parent="."]
 position = Vector2( 1.4, 0 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Right"]
-position = Vector2( 42.7353, -11.1886 )
+position = Vector2( 56.0786, 5.20924 )
 shape = SubResource( 4 )
 
 [node name="SummoningPos" type="Position2D" parent="."]
-position = Vector2( -7, -19 )
+position = Vector2( -5.53167, -16.3303 )
 scale = Vector2( 0.2, 0.2 )
 
 [node name="SummoningTimer" type="Timer" parent="."]
 process_mode = 0
 wait_time = 1.5
 
+[node name="Position2D" type="Position2D" parent="."]
+position = Vector2( -6.8, -1.8 )
+
+[node name="HurtTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_Area2D_area_entered"]
 [connection signal="area_entered" from="Left" to="." method="_on_Left_area_entered"]
 [connection signal="area_exited" from="Left" to="." method="_on_Left_area_exited"]
 [connection signal="area_entered" from="Right" to="." method="_on_Right_area_entered"]
 [connection signal="area_exited" from="Right" to="." method="_on_Right_area_exited"]
 [connection signal="timeout" from="SummoningTimer" to="." method="_on_SummoningTimer_timeout"]
+[connection signal="timeout" from="HurtTimer" to="." method="_on_HurtTimer_timeout"]

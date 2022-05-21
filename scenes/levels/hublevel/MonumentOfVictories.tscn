@@ -10,7 +10,7 @@
 [ext_resource path="res://assets/UI/masked_goblin_trophy.png" type="Texture" id=8]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 140.007, 170.814 )
+extents = Vector2( 104.652, 149.504 )
 
 [sub_resource type="DynamicFont" id=2]
 size = 36
@@ -39,7 +39,7 @@ texture = ExtResource( 1 )
 [node name="Area2D" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2( -0.771542, 67.0008 )
+position = Vector2( 0.87373, 88.3112 )
 shape = SubResource( 1 )
 
 [node name="Label" type="RichTextLabel" parent="."]

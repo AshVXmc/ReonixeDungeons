@@ -220,8 +220,6 @@ func shoot():
 		is_using_firesaw = false
 		remove_child(fireparticle)
 	
-	if Input.is_action_pressed("fireburst"):
-		pass
 	
 func ground_pound():
 	if !is_on_floor() and Input.is_action_just_pressed("ui_down"):
@@ -252,7 +250,7 @@ func gp_effect():
 
 			
 func attack():
-	if Input.is_action_just_pressed("ui_attack") and !is_attacking and !is_gliding and !is_frozen:
+	if Input.is_action_just_pressed("ui_attack") and !is_attacking and !is_gliding and !is_frozen and $MeleeTimer.is_stopped():
 		$Sprite.play("Attack")
 		if $Sprite.flip_h:
 			$SwordSprite.visible = true
@@ -262,10 +260,11 @@ func attack():
 			$AnimationPlayer.play("SwordSwingRight")
 		is_attacking = true
 		$AttackCollision/CollisionShape2D.disabled = false
+		$MeleeTimer.start()
 		$AttackTimer.start()
 		
 		# Upward attack controls
-		if Input.is_action_pressed("ui_up"):
+		if Input.is_action_pressed("ui_up") and $MeleeTimer.is_stopped():
 			$AttackCollision.position += Vector2(-60,-60) if !$Sprite.flip_h else Vector2(60,-55)
 			$Sprite.play("AttackUp")
 			
@@ -276,7 +275,7 @@ func attack():
 			$AttackCollision/CollisionShape2D.disabled = false
 			$AttackTimer.start()
 		# Downwards attack controls + tiny knock-up
-		if Input.is_action_pressed("ui_down"):
+		if Input.is_action_pressed("ui_down")and $MeleeTimer.is_stopped():
 			$AttackCollision.position += Vector2(-60,60) if !$Sprite.flip_h else Vector2(60,55)
 			$Sprite.play("AttackDown")
 			
@@ -296,7 +295,7 @@ func charge_meter():
 		if Input.is_action_pressed("charge"):
 			# Max value is 100
 			$ChargeBar.visible = true
-			$ChargeBar.value += 1.5
+			$ChargeBar.value += 2
 			is_charging = true
 		if Input.is_action_just_released("charge"):
 			# Min value is 0 (Empty)
@@ -311,7 +310,7 @@ func charge_meter():
 			is_charging = false
 			Input.action_release("charge")
 			Global.mana -= 1
-			emit_signal("mana_changed", Global.mana)
+			emit_signal("mana_changed", 1)
 			var ss_projectile = SUPER_SLASH_PROJECTILE.instance()
 			get_parent().add_child(ss_projectile)
 			if $Sprite.flip_h:
@@ -660,7 +659,7 @@ func freeze_player(time : float):
 func slow_player(time : float):
 	slowed = true
 	set_modulate(Color(10, 0, 10, 1))
-	SPEED = 380 / 2
+	SPEED = 380 / 3
 	yield(get_tree().create_timer(time), "timeout")
 	slowed = false
 	set_modulate(Color(1,1,1,1))
@@ -748,3 +747,7 @@ func _on_GlideTimer_timeout():
 		is_gliding = false
 		Input.action_release("jump")
 		
+
+
+func _on_MeleeTimer_timeout():
+	pass # Replace with function body.

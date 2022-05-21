@@ -9,12 +9,12 @@ var destroyed : bool = false
 func _ready():
 	$SlowPoisonParticle.visible = false
 	$AnimationPlayer.play("Spin")
-func _physics_process(delta):
-	if !destroyed:
-		velocity.x = SPEED * delta * direction
-	else:
-		velocity.x = 0
-	translate(velocity)
+#func _physics_process(delta):
+#	if !destroyed:
+#		velocity.x = SPEED * delta * direction
+#	else:
+#		velocity.x = 0
+#	translate(velocity)
 
 
 func _on_Timer_timeout():

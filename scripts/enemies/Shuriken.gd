@@ -2,7 +2,7 @@ class_name Shuriken extends Area2D
 
 export var X_rot : float = 0
 export var Y_rot : float = 0
-const SPEED : int = 550
+const SPEED : int = 600
 
 
 var velocity := Vector2(X_rot, Y_rot)

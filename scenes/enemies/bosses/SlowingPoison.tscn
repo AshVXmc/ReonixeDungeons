@@ -8,11 +8,11 @@
 extents = Vector2( 10, 8.81922 )
 
 [sub_resource type="CircleShape2D" id=2]
-radius = 229.992
+radius = 193.402
 
 [sub_resource type="ParticlesMaterial" id=3]
 emission_shape = 1
-emission_sphere_radius = 0.01
+emission_sphere_radius = 3.0
 flag_disable_z = true
 spread = 180.0
 gravity = Vector3( 0, 0, 0 )
@@ -72,9 +72,9 @@ shape = SubResource( 2 )
 disabled = true
 
 [node name="SlowPoisonParticle" type="Particles2D" parent="."]
-scale = Vector2( 1.5, 1.5 )
+scale = Vector2( 3, 3 )
 amount = 200
-lifetime = 1.5
+lifetime = 0.75
 explosiveness = 0.25
 process_material = SubResource( 3 )
 texture = ExtResource( 3 )

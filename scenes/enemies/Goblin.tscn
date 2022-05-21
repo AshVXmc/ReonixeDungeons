@@ -1,7 +1,7 @@
 [gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://assets/enemies/goblin2_attack.png" type="Texture" id=1]
-[ext_resource path="res://scripts/enemies/GoblinScript.gd" type="Script" id=2]
+[ext_resource path="res://scripts/enemies/Goblin.gd" type="Script" id=2]
 [ext_resource path="res://assets/enemies/goblin1.png" type="Texture" id=3]
 [ext_resource path="res://assets/enemies/goblin1_attack.png" type="Texture" id=4]
 [ext_resource path="res://assets/enemies/goblin2.png" type="Texture" id=5]
@@ -31,6 +31,7 @@ height = 36.6317
 
 [node name="Goblin" type="KinematicBody2D" groups=["Enemy"]]
 position = Vector2( 0.471924, 0 )
+scale = Vector2( 1.2, 1.2 )
 script = ExtResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -77,6 +78,8 @@ one_shot = true
 
 [node name="Position2D" type="Position2D" parent="."]
 
+[connection signal="area_exited" from="Left" to="." method="_on_Left_area_exited"]
+[connection signal="area_exited" from="Right" to="." method="_on_Right_area_exited"]
 [connection signal="area_entered" from="Area2D" to="." method="_on_Area2D_area_entered"]
 [connection signal="timeout" from="HurtTimer" to="." method="_on_HurtTimer_timeout"]
 [connection signal="timeout" from="AttackingTimer" to="." method="_on_AttackingTimer_timeout"]

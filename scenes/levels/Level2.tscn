@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=2]
+[gd_scene load_steps=33 format=2]
 
 [ext_resource path="res://tilesets/Default.tres" type="TileSet" id=1]
 [ext_resource path="res://scenes/menus/RevivementCrystalUI.tscn" type="PackedScene" id=2]
@@ -26,7 +26,10 @@
 [ext_resource path="res://scenes/enemies/Bat.tscn" type="PackedScene" id=24]
 [ext_resource path="res://scenes/menus/CommonMonsterDustUI.tscn" type="PackedScene" id=25]
 [ext_resource path="res://scenes/menus/GoblinScalesUI.tscn" type="PackedScene" id=26]
-[ext_resource path="res://scenes/enemies/Goblin.tscn" type="PackedScene" id=27]
+[ext_resource path="res://scenes/enemies/WitchGoblin.tscn" type="PackedScene" id=27]
+[ext_resource path="res://scenes/enemies/BowGoblin.tscn" type="PackedScene" id=28]
+[ext_resource path="res://scenes/terrain/WoodenCrate.tscn" type="PackedScene" id=29]
+[ext_resource path="res://scenes/enemies/Goblin.tscn" type="PackedScene" id=30]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 96.7989, 10 )
@@ -48,6 +51,8 @@ script = ExtResource( 16 )
 [node name="LifeWineUI" parent="." instance=ExtResource( 9 )]
 
 [node name="OpalsUI" parent="." instance=ExtResource( 10 )]
+
+[node name="GoblinScalesUI" parent="." instance=ExtResource( 26 )]
 
 [node name="CommonMonsterDustUI" parent="." instance=ExtResource( 25 )]
 
@@ -91,7 +96,7 @@ tile_data = PoolIntArray( -458761, 6, 0, -458760, 6, 0, -458759, 6, 0, -458758, 
 
 [node name="Sign" parent="." instance=ExtResource( 12 )]
 position = Vector2( 869.856, 247.751 )
-Text = "Press and hold E to rest at campfires. Resting will take some time but it will fully replenish your health. Avoid Spikes as they will deal damage to you!"
+Text = "Press and hold E to rest at campfires. Fire-related skills can be used to light up an unlit campfire. Resting will take some time but it will fully replenish your health. Avoid Spikes as they will deal damage to you!"
 
 [node name="LevelTransporterStart" parent="." instance=ExtResource( 19 )]
 position = Vector2( 321.335, 13.1768 )
@@ -123,23 +128,6 @@ position = Vector2( 1872, 240 )
 position = Vector2( 1680, 240 )
 rotation = 1.5708
 
-[node name="Player" parent="." instance=ExtResource( 8 )]
-position = Vector2( 582.226, 1207.95 )
-
-[node name="Camera2D" type="Camera2D" parent="Player"]
-position = Vector2( 9.72693, -62.0423 )
-current = true
-zoom = Vector2( 1.2, 1.2 )
-limit_left = -2000
-limit_top = -468
-limit_right = 4300
-limit_bottom = 2000
-drag_margin_h_enabled = true
-drag_margin_v_enabled = true
-drag_margin_left = 0.4
-drag_margin_right = 0.4
-editor_draw_limits = true
-
 [node name="Slime" parent="." instance=ExtResource( 23 )]
 position = Vector2( 1487.55, 179.256 )
 
@@ -147,7 +135,7 @@ position = Vector2( 1487.55, 179.256 )
 position = Vector2( 2211.87, -66.0208 )
 
 [node name="Slime2" parent="." instance=ExtResource( 23 )]
-position = Vector2( 1789.47, 1137.91 )
+position = Vector2( 2249.28, 938.731 )
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 
@@ -189,10 +177,38 @@ position = Vector2( 2736.32, 777.657 )
 shape = SubResource( 2 )
 one_way_collision = true
 
+[node name="Camp1" type="Node2D" parent="."]
+
+[node name="WoodenCrate" parent="Camp1" instance=ExtResource( 29 )]
+position = Vector2( 345.068, 1240 )
+
+[node name="Sprite" type="Sprite" parent="Camp1"]
+
 [node name="Slime3" parent="." instance=ExtResource( 23 )]
 position = Vector2( 2503.2, 1333.95 )
 
-[node name="GoblinScalesUI" parent="." instance=ExtResource( 26 )]
+[node name="BowGoblin" parent="." instance=ExtResource( 28 )]
+position = Vector2( 47.4326, 1279.46 )
 
-[node name="Goblin" parent="." instance=ExtResource( 27 )]
-position = Vector2( 1070.26, 1252.58 )
+[node name="WitchGoblin" parent="." instance=ExtResource( 27 )]
+position = Vector2( 309.298, 1067.91 )
+
+[node name="Goblin" parent="." instance=ExtResource( 30 )]
+position = Vector2( 973.243, 1286.72 )
+
+[node name="Player" parent="." instance=ExtResource( 8 )]
+position = Vector2( 728.092, 124.499 )
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+position = Vector2( 9.72693, -62.0423 )
+current = true
+zoom = Vector2( 1.2, 1.2 )
+limit_left = -2000
+limit_top = -468
+limit_right = 4300
+limit_bottom = 2000
+drag_margin_h_enabled = true
+drag_margin_v_enabled = true
+drag_margin_left = 0.4
+drag_margin_right = 0.4
+editor_draw_limits = true

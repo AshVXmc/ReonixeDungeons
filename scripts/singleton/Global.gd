@@ -18,7 +18,7 @@ const SAVE_DIR : String = "user://savedata/"
 var dash_unlocked : bool = false # 1 mana per use
 var glide_unlocked : bool = false # 1 mana per use
 var firesaw_unlocked : bool = false # 3 mana per use
-var fireburst_unlocked : bool = false # 1 mana per second of usage
+var fire_sentry_unlocked : bool = false # 1 mana per second of usage
 var max_item_storage : int = 5
 var levelpath : String
 var savepath : String = SAVE_DIR + "savefile.dat"
@@ -48,7 +48,7 @@ func reset_player_data():
 	Global.dash_unlocked = false
 	Global.glide_unlocked = true
 	Global.firesaw_unlocked = false
-	Global.fireburst_unlocked = false
+	Global.fire_sentry_unlocked = false
 	Global.max_item_storage = 5
 	Global.lighting = true
 	Global.levelpath = ""
@@ -84,7 +84,7 @@ func save_player_data():
 		"DashUnlocked" : Global.dash_unlocked ,
 		"GlideUnlocked" : Global.glide_unlocked,
 		"FireSawUnlocked": Global.firesaw_unlocked,
-		"FireBurstUnlocked": Global.fireburst_unlocked,
+		"FireSentryUnlocked": Global.fire_sentry_unlocked,
 		"ChestOpened": Global.opened_chests,
 		"MaxItemStorage":  Global.max_item_storage, 
 		"Lighting" : Global.lighting,

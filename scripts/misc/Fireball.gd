@@ -27,7 +27,7 @@ func _on_VisibilityNotifier2D_screen_exited():
 	queue_free()
 
 func _on_Fireball_area_entered(area):
-	if area.is_in_group("Enemy") or area.is_in_group("Enemy2") or area.is_in_group("DestructableObject"):
+	if area.is_in_group("Enemy") or area.is_in_group("Enemy2") or area.is_in_group("DestructableObject") or area.is_in_group("Campfire"):
 		destroyed = true
 		$AnimatedSprite.play("Destroyed")
 		$CollisionShape2D.disabled = true

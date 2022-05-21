@@ -4,10 +4,8 @@
 
 [node name="FlameParticle" type="CPUParticles2D"]
 scale = Vector2( 4, 4 )
-emitting = false
-amount = 30
-lifetime = 0.8
-one_shot = true
+amount = 50
+lifetime = 0.5
 explosiveness = 1.0
 randomness = 0.5
 texture = ExtResource( 1 )

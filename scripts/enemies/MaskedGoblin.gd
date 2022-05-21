@@ -1,12 +1,12 @@
 class_name MaskedGoblin extends KinematicBody2D
 
-const max_HP : int = 20
-export var HP : int = 20
+const max_HP : int = 25
+export var HP : int = 25
 export var flipped : bool = false
 var velocity = Vector2()
 var direction : int = 1
 const FLOOR = Vector2(0, -1)
-var SPEED : int = 350
+var SPEED : int = 320
 const GRAVITY : int = 45
 const SHURIKEN : PackedScene = preload("res://scenes/enemies/bosses/Shuriken.tscn")
 const SMOKE_PARTICLE = preload("res://scenes/particles/SmokeParticle.tscn")
@@ -25,12 +25,10 @@ signal dead(time)
 var dead : bool = false
 
 func _ready():
-
+	
 	connect("dead", get_parent(), "death")
 	$HealthBar.texture_progress = hb_full
 	$ShootTimer.start()
-	$ChargingParticle.visible = false
-	$SlowPoisonParticle.visible = false
 	$ShieldBubble.visible = false
 
 func _physics_process(delta):
@@ -53,7 +51,7 @@ func _physics_process(delta):
 		velocity.y += GRAVITY
 		velocity = move_and_slide(velocity, FLOOR)
 	$AnimatedSprite.play("default")
-	if !is_staggered and !dead:
+	if !is_staggered and !is_invulnerable and !dead:
 		
 		if $Left.overlaps_area(PLAYER):
 			$AnimatedSprite.flip_h = false
@@ -71,31 +69,66 @@ func _physics_process(delta):
 			if velocity.x == 0:
 				velocity.x = -SPEED * 2
 		
-	if is_staggered or dead:
+	if is_staggered or dead or is_invulnerable:
 		velocity.x = 0
 
 func update_healthbar_value():
 	$HealthBar.texture_progress = hb_full
 	if $HealthBar.value < $HealthBar.max_value * 0.75:
 		$HealthBar.texture_progress = hb_half
-	if $HealthBar.value < $HealthBar.max_value * 0.4:
+	if $HealthBar.value < $HealthBar.max_value * 0.25:
 		$HealthBar.texture_progress = hb_critical
 
 func _on_Area2D_area_entered(area):
-	if area.is_in_group("Sword") or area.is_in_group("Fireball") and HP > 0 and !is_knocked_back:
+	if area.is_in_group("Fireball") and HP > 0 and !is_knocked_back:
 		invisible = false
 		$SmokeBombTimer.stop()
 		if !is_invulnerable:
 			HP -= 1
 			$HealthBar.value -= 1
+			if HP % 5 == 0 and HP != 0:
+				print("HP is multiple of 5 now")
+				is_staggered = true
+				knockback_smoke()
 			is_staggered = true
 			velocity.x = 0
+			$AnimatedSprite.set_modulate(Color(2,0.5,0.3,1))
 			$HurtTimer.start()
-		if HP <= 0:
+			
+		if HP == 0:
 			invisible = false
 			dead()
-
-
+	if area.is_in_group("Sword"):
+		invisible = false
+		$SmokeBombTimer.stop()
+		if !is_invulnerable:
+			HP -= 1
+			$HealthBar.value -= 1
+			if HP % 5 == 0 and HP != 0:
+				print("HP is multiple of 5 now")
+				is_staggered = true
+				knockback_smoke()
+			is_staggered = true
+			velocity.x = 0
+			$AnimatedSprite.set_modulate(Color(2,0.5,0.3,1))
+			$HurtTimer.start()
+			
+		if HP == 0:
+			invisible = false
+			dead()
+	if area.is_in_group("Sword2"):
+		invisible = false
+		$SmokeBombTimer.stop()
+		if !is_invulnerable:
+			HP -=4
+			$HealthBar.value -= 4
+			is_staggered = true
+			velocity.x = 0
+			$AnimatedSprite.set_modulate(Color(2,0.5,0.3,1))
+			$HurtTimer.start()
+		if HP == 0:
+			invisible = false
+			dead()
 	if area.is_in_group("Player") and !is_knocked_back:
 		if invisible:
 			invisible = false
@@ -103,6 +136,7 @@ func _on_Area2D_area_entered(area):
 		is_staggered = true
 		yield(get_tree().create_timer(1), "timeout")
 		is_staggered = false
+
 
 func dead():
 	is_staggered = true
@@ -144,6 +178,7 @@ func death_animation():
 		Global.masked_goblin_defeated = true
 	queue_free()
 func _on_HurtTimer_timeout():
+	$AnimatedSprite.set_modulate(Color(1,1,1,1))
 	is_staggered = false
 
 func _on_AttackingTimer_timeout():
@@ -159,7 +194,22 @@ func leap():
 	velocity.y = -1000
 	yield(get_tree().create_timer(0.4), "timeout")
 	velocity.y = 0
-	
+
+func knockback_smoke():
+	$ShootTimer.stop()
+	is_invulnerable = true
+	is_staggered = true
+	$BossChargingParticle.visible = true
+	yield(get_tree().create_timer(1.5), "timeout")
+	$CloseBlastArea/CollisionShape2D.disabled = false
+	$BossChargingParticle.visible = false
+	$SlowPoisonBlastParticle.visible = true
+	yield(get_tree().create_timer(0.5), "timeout")
+	$ShootTimer.start()
+	is_staggered = false
+	is_invulnerable = false
+	$CloseBlastArea/CollisionShape2D.disabled = true
+	$SlowPoisonBlastParticle.visible = false
 func attack():
 	is_staggered = true
 	velocity.x = 0
@@ -264,7 +314,8 @@ func throw_slowing_poison():
 	var slowing_poison = SLOWING_POISON.instance()
 	get_parent().add_child(slowing_poison)
 	slowing_poison.position = $SlowingPoisonPos.global_position
-	
+	yield(get_tree().create_timer(0.75), "timeout")
+	barrage(true) if !$AnimatedSprite.flip_h else barrage(false)
 
 func _on_Left_area_exited(area):
 	yield(get_tree().create_timer(1.2), "timeout")

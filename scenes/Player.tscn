@@ -396,6 +396,10 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="MeleeTimer" type="Timer" parent="."]
+wait_time = 0.35
+one_shot = true
+
 [connection signal="animation_finished" from="Sprite" to="." method="_on_Sprite_animation_finished"]
 [connection signal="area_entered" from="AttackCollision" to="." method="_on_AttackCollision_area_entered"]
 [connection signal="area_entered" from="Area2D" to="." method="_on_Area2D_area_entered"]
@@ -412,3 +416,4 @@ __meta__ = {
 [connection signal="area_entered" from="LeftDetector" to="." method="_on_LeftDetector_area_entered"]
 [connection signal="area_entered" from="RightDectector" to="." method="_on_RightDectector_area_entered"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
+[connection signal="timeout" from="MeleeTimer" to="." method="_on_MeleeTimer_timeout"]

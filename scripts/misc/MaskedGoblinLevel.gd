@@ -1,7 +1,6 @@
 class_name MaskedGoblinLevel extends Node2D
 
 func _ready():
-	
 	$CountdownTimer.start()
 	$Plaque/Control.visible = false
 	$ParallaxBackground/Background1.visible = true

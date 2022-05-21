@@ -1,0 +1,146 @@
+[gd_scene load_steps=12 format=2]
+
+[ext_resource path="res://assets/enemies/bow_goblin2.png" type="Texture" id=1]
+[ext_resource path="res://scripts/enemies/BowGoblinScript.gd" type="Script" id=2]
+[ext_resource path="res://assets/enemies/bow_goblin1.png" type="Texture" id=3]
+[ext_resource path="res://assets/enemies/bow_goblin_charging1.png" type="Texture" id=4]
+
+[sub_resource type="RectangleShape2D" id=5]
+extents = Vector2( 22.2061, 46.6171 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 248.288, 80.1457 )
+
+[sub_resource type="CapsuleShape2D" id=3]
+radius = 38.2036
+height = 36.6317
+
+[sub_resource type="Animation" id=6]
+resource_name = "Idle"
+length = 1.6
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.8 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ ExtResource( 3 ), ExtResource( 1 ) ]
+}
+
+[sub_resource type="Animation" id=7]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ ExtResource( 3 ) ]
+}
+
+[sub_resource type="Animation" id=8]
+resource_name = "Shoot"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1, 2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ ExtResource( 3 ), ExtResource( 4 ), ExtResource( 3 ) ]
+}
+
+[sub_resource type="CircleShape2D" id=9]
+radius = 96.832
+
+[node name="BowGoblin" type="KinematicBody2D" groups=["Enemy"]]
+position = Vector2( 0.471924, 0 )
+scale = Vector2( 1.2, 1.2 )
+script = ExtResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 3.08331, 3.07173 )
+shape = SubResource( 5 )
+
+[node name="Sprite" type="Sprite" parent="."]
+scale = Vector2( 5, 5 )
+texture = ExtResource( 3 )
+
+[node name="Left" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Left"]
+position = Vector2( -286.071, -31.6806 )
+shape = SubResource( 2 )
+
+[node name="Right" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Right"]
+position = Vector2( 291.536, -31.6806 )
+shape = SubResource( 2 )
+
+[node name="Area2D" type="Area2D" parent="." groups=["Enemy"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2( 3.46481, -6.01947 )
+shape = SubResource( 3 )
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+position = Vector2( -32.3726, 7.15712 )
+scale = Vector2( 1.5, 1 )
+enabled = true
+collision_mask = 3075
+collide_with_areas = true
+
+[node name="HurtTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[node name="AttackingTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[node name="Position2D" type="Position2D" parent="."]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/Idle = SubResource( 6 )
+anims/RESET = SubResource( 7 )
+anims/Shoot = SubResource( 8 )
+
+[node name="LeftPos" type="Position2D" parent="."]
+position = Vector2( -50, 0 )
+
+[node name="RightPos" type="Position2D" parent="."]
+position = Vector2( 50, 0 )
+
+[node name="ShootingTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="AimPos" type="Position2D" parent="."]
+
+[node name="VulnerableArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="VulnerableArea"]
+shape = SubResource( 9 )
+
+[connection signal="area_entered" from="Left" to="." method="_on_Left_area_entered"]
+[connection signal="area_exited" from="Left" to="." method="_on_Left_area_exited"]
+[connection signal="area_entered" from="Right" to="." method="_on_Right_area_entered"]
+[connection signal="area_exited" from="Right" to="." method="_on_Right_area_exited"]
+[connection signal="area_entered" from="Area2D" to="." method="_on_Area2D_area_entered"]
+[connection signal="timeout" from="HurtTimer" to="." method="_on_HurtTimer_timeout"]
+[connection signal="timeout" from="AttackingTimer" to="." method="_on_AttackingTimer_timeout"]
+[connection signal="timeout" from="ShootingTimer" to="." method="_on_ShootingTimer_timeout"]
+[connection signal="area_exited" from="VulnerableArea" to="." method="_on_VulnerableArea_area_exited"]
