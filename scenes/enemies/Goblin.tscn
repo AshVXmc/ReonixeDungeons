@@ -32,6 +32,7 @@ height = 36.6317
 [node name="Goblin" type="KinematicBody2D" groups=["Enemy"]]
 position = Vector2( 0.471924, 0 )
 scale = Vector2( 1.2, 1.2 )
+collision_layer = 4
 script = ExtResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -41,7 +42,6 @@ shape = SubResource( 5 )
 [node name="Sprite" type="AnimatedSprite" parent="."]
 scale = Vector2( 5, 5 )
 frames = SubResource( 4 )
-animation = "Attacking"
 
 [node name="Left" type="Area2D" parent="."]
 

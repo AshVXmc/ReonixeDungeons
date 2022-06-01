@@ -1,0 +1,2 @@
+class_name GuardianGolem extends KinematicBody2D
+

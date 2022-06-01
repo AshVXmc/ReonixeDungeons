@@ -47,13 +47,11 @@ func parse_command():
 			Global.dash_unlocked = true
 			Global.firesaw_unlocked = true
 			Global.glide_unlocked = true
-			Global.fireburst_unlocked = true
 			$Output.text = "Abilities unlocked"
 		"lockall":
 			Global.dash_unlocked = false
 			Global.firesaw_unlocked = false
 			Global.glide_unlocked = false
-			Global.fireburst_unlocked = true
 			$Output.text = "Abilities locked"
 		"fillall":
 			emit_signal("debugcmd", "fillall")

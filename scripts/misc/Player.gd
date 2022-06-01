@@ -9,6 +9,7 @@ signal opals_obtained(player_opals)
 signal crystals_obtained(player_crystals)
 signal common_monster_dust_obtained(player_common_monster_dust)
 signal goblin_scales_obtained(player_goblin_scales)
+signal skill_used(skill_name)
 
 onready var inv_timer : Timer = $InvulnerabilityTimer
 onready var fb_timer : Timer = $FireballTimer
@@ -19,7 +20,7 @@ var collision : KinematicCollision2D
 const TYPE : String = "Player"
 var dashdirection : Vector2 = Vector2(1,0)
 var repulsion : Vector2 = Vector2()
-var knockback_power : int = 150
+var knockback_power : int = 160
 var can_be_knocked : bool = true
 var SPEED : int = 380
 const GRAVITY : int = 40
@@ -57,6 +58,7 @@ func _ready():
 	$ChargeBar.value = 0
 	$SwordSprite.visible = false
 	$ChargeBar.visible = false
+	connect("skill_used", get_parent().get_node("SkillsUI/Control"), "on_skill_used")
 # warning-ignore:return_value_discarded
 	connect("life_changed", get_parent().get_node("HeartUI/Life"), "on_player_life_changed")
 # warning-ignore:return_value_discarded
@@ -110,7 +112,7 @@ func _physics_process(_delta):
 			glide() # Glide duration in seconds
 			useItems()
 			shoot()
-			ground_pound()
+#			ground_pound()
 			# Movement controls
 			if velocity.x == 0 and !is_attacking and !is_gliding and !is_frozen:
 				$Sprite.play("Idle")
@@ -264,10 +266,10 @@ func attack():
 		$AttackTimer.start()
 		
 		# Upward attack controls
-		if Input.is_action_pressed("ui_up") and $MeleeTimer.is_stopped():
+		if Input.is_action_pressed("ui_up"):
 			$AttackCollision.position += Vector2(-60,-60) if !$Sprite.flip_h else Vector2(60,-55)
 			$Sprite.play("AttackUp")
-			
+			print("up attack")
 			$SwordSprite.visible = true
 			$AnimationPlayer.play("SwordSwingUpper")
 #			$Sprite.position += Vector2(0, -20)
@@ -275,7 +277,7 @@ func attack():
 			$AttackCollision/CollisionShape2D.disabled = false
 			$AttackTimer.start()
 		# Downwards attack controls + tiny knock-up
-		if Input.is_action_pressed("ui_down")and $MeleeTimer.is_stopped():
+		if Input.is_action_pressed("ui_down"):
 			$AttackCollision.position += Vector2(-60,60) if !$Sprite.flip_h else Vector2(60,55)
 			$Sprite.play("AttackDown")
 			
@@ -309,8 +311,9 @@ func charge_meter():
 			$ChargeBar.value = $ChargeBar.min_value
 			is_charging = false
 			Input.action_release("charge")
-			Global.mana -= 1
-			emit_signal("mana_changed", 1)
+			if !Global.godmode:
+				Global.mana -= 1
+				emit_signal("mana_changed", Global.mana)
 			var ss_projectile = SUPER_SLASH_PROJECTILE.instance()
 			get_parent().add_child(ss_projectile)
 			if $Sprite.flip_h:
@@ -321,6 +324,8 @@ func charge_meter():
 			dash_particle.position = $Position2D.global_position
 			dash_particle.emitting = true
 			dash_particle.one_shot = true
+		elif Global.mana < 1:
+			is_charging = false
 		if Input.is_action_just_pressed("jump") and Global.mana >= 1 and glider_equipped and is_on_floor() and !is_attacking and !is_frozen:
 			if !Global.godmode:
 				Global.mana -= 1
@@ -395,7 +400,7 @@ func afterDamaged():
 func _on_AttackCollision_area_entered(area):
 	if area.is_in_group("Enemy")and !$AttackCollision/CollisionShape2D.disabled:
 		attack_knock()
-		if Global.mana < Global.max_mana:
+		if Global.mana < Global.max_mana and $ChargeBar.value != $ChargeBar.max_value:
 			Global.mana += 1
 			emit_signal("mana_changed", Global.mana)
 

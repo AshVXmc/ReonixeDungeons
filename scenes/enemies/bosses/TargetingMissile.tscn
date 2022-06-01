@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://scripts/enemies/TargetingSlowPoison.gd" type="Script" id=1]
-[ext_resource path="res://assets/UI/crosshair.png" type="Texture" id=3]
+[ext_resource path="res://scripts/enemies/TargetingMissile.gd" type="Script" id=1]
+[ext_resource path="res://assets/UI/crosshair.png" type="Texture" id=2]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 155.0
@@ -38,7 +38,7 @@ tracks/0/keys = {
 "values": [ Color( 1, 1, 1, 1 ) ]
 }
 
-[node name="TargetingSlowPoison" type="Node2D"]
+[node name="TargetingMissile" type="Node2D"]
 position = Vector2( 234.83, 175.621 )
 script = ExtResource( 1 )
 __meta__ = {
@@ -52,7 +52,7 @@ shape = SubResource( 1 )
 
 [node name="Crosshair" type="Sprite" parent="."]
 scale = Vector2( 15, 15 )
-texture = ExtResource( 3 )
+texture = ExtResource( 2 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/Pulse = SubResource( 2 )

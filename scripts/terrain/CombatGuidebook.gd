@@ -30,12 +30,15 @@ func _process(delta):
 			$Plaque/Control/NinePatchRect/Page1.visible = false
 			$Plaque/Control/NinePatchRect/Page2.visible = false
 			$Plaque/Control/NinePatchRect/Page3.visible = true
-#	if page == 1:
-#		$Plaque/Control/NinePatchRect/PrevButton.visible = false
-##		$Plaque/Control/NinePatchRect/NextButton.visible = true
-#	elif page == Final_Page:
-##		$Plaque/Control/NinePatchRect/PrevButton.visible = true
-#		$Plaque/Control/NinePatchRect/NextButton.visible = false
+	if page == 1:
+		$Plaque/Control/NinePatchRect/PrevButton.visible = false
+	else:
+		$Plaque/Control/NinePatchRect/PrevButton.visible = true
+		
+	if page == Final_Page:
+		$Plaque/Control/NinePatchRect/NextButton.visible = false
+	else:
+		$Plaque/Control/NinePatchRect/NextButton.visible = true
 func _on_Area2D_area_exited(area):
 	$Label.visible = false
 
@@ -46,10 +49,12 @@ func _on_CloseButton_pressed():
 	get_parent().get_node("Player").is_shopping = false
 
 func _on_PrevButton_pressed():
-	page -= 1
+	if page != 0:
+		page -= 1
 	
 func _on_NextButton_pressed():
-	page += 1
+	if page != Final_Page:
+		page += 1
 
 
 

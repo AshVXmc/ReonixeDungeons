@@ -1,10 +1,8 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=9 format=2]
 
-[ext_resource path="res://assets/enemies/goblin_shield_attack2.png" type="Texture" id=1]
 [ext_resource path="res://scripts/enemies/ShieldGoblin.gd" type="Script" id=2]
-[ext_resource path="res://assets/enemies/goblin1.png" type="Texture" id=3]
-[ext_resource path="res://assets/enemies/goblin_shield_attack1.png" type="Texture" id=4]
-[ext_resource path="res://assets/enemies/goblin2.png" type="Texture" id=5]
+[ext_resource path="res://assets/enemies/goblin_shield_1.png" type="Texture" id=3]
+[ext_resource path="res://assets/enemies/goblin_shield_2.png" type="Texture" id=5]
 
 [sub_resource type="RectangleShape2D" id=5]
 extents = Vector2( 22.2061, 46.6171 )
@@ -16,7 +14,7 @@ animations = [ {
 "name": "Idle",
 "speed": 6.0
 }, {
-"frames": [ ExtResource( 4 ), ExtResource( 1 ) ],
+"frames": [ ExtResource( 3 ), ExtResource( 5 ) ],
 "loop": true,
 "name": "Attacking",
 "speed": 6.0
@@ -35,6 +33,8 @@ extents = Vector2( 77.8978, 86.4583 )
 [node name="ShieldGoblin" type="KinematicBody2D" groups=["Enemy"]]
 position = Vector2( 0.471924, 0 )
 scale = Vector2( 1.2, 1.2 )
+collision_layer = 32
+collision_mask = 11
 script = ExtResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -94,20 +94,11 @@ position = Vector2( 156.667, 0 )
 position = Vector2( -78.7455, -39.7917 )
 shape = SubResource( 6 )
 
-[node name="HurtCollisionLeft" type="Area2D" parent="."]
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="HurtCollisionLeft"]
-polygon = PoolVector2Array( -3.30994, -60.4167, -3.7266, 50.4167, -13.7266, 47.0833, -24.1433, 39.5833, -32.0599, 27.0833, -34.5599, 12.7083, -34.5599, 0, -34.5599, -11.875, -34.9766, -22.9167, -31.8516, -37.2917, -26.2266, -47.5, -16.2266, -55.8333 )
-
-[node name="HurtCollisionRight" type="Area2D" parent="."]
-rotation = 3.14159
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="HurtCollisionRight"]
-position = Vector2( -6.19006, 9.79167 )
-polygon = PoolVector2Array( -3.30994, -60.4167, -3.7266, 50.4167, -13.7266, 47.0833, -24.1433, 39.5833, -32.0599, 27.0833, -34.5599, 12.7083, -34.5599, 0, -34.5599, -11.875, -34.9766, -22.9167, -31.8516, -37.2917, -26.2266, -47.5, -16.2266, -55.8333 )
-
 [connection signal="area_exited" from="Left" to="." method="_on_Left_area_exited"]
 [connection signal="area_exited" from="Right" to="." method="_on_Right_area_exited"]
 [connection signal="area_entered" from="Area2D" to="." method="_on_Area2D_area_entered"]
 [connection signal="timeout" from="HurtTimer" to="." method="_on_HurtTimer_timeout"]
 [connection signal="timeout" from="AttackingTimer" to="." method="_on_AttackingTimer_timeout"]
+[connection signal="area_entered" from="LeftShieldDetector" to="." method="_on_LeftShieldDetector_area_entered"]
+[connection signal="area_exited" from="LeftShieldDetector" to="." method="_on_LeftShieldDetector_area_exited"]
+[connection signal="area_entered" from="RightShieldDetector" to="." method="_on_RightShieldDetector_area_entered"]

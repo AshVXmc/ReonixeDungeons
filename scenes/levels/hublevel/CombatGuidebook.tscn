@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://assets/fonts/FFFFORWA.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://scripts/terrain/CombatGuidebook.gd" type="Script" id=2]
@@ -8,6 +8,12 @@
 [ext_resource path="res://assets/UI/book_textbox.png" type="Texture" id=6]
 [ext_resource path="res://assets/UI/previousicon.png" type="Texture" id=7]
 [ext_resource path="res://assets/UI/nexticon.png" type="Texture" id=8]
+[ext_resource path="res://assets/player/player_walk2.png" type="Texture" id=9]
+[ext_resource path="res://assets/player/sword.png" type="Texture" id=10]
+[ext_resource path="res://assets/enemies/slime1.png" type="Texture" id=11]
+[ext_resource path="res://assets/UI/healthbar_full.png" type="Texture" id=12]
+[ext_resource path="res://assets/misc/super_slash_projectile.png" type="Texture" id=13]
+[ext_resource path="res://assets/misc/fireball.png" type="Texture" id=14]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 43.8902, 49.2892 )
@@ -22,6 +28,10 @@ font_data = ExtResource( 4 )
 
 [sub_resource type="DynamicFont" id=4]
 size = 32
+font_data = ExtResource( 4 )
+
+[sub_resource type="DynamicFont" id=5]
+size = 64
 font_data = ExtResource( 4 )
 
 [node name="CombatGuidebook" type="Node2D"]
@@ -55,7 +65,6 @@ __meta__ = {
 [node name="Plaque" type="CanvasLayer" parent="."]
 
 [node name="Control" type="Control" parent="Plaque"]
-visible = false
 anchor_left = 0.5
 anchor_top = 0.33
 anchor_right = 0.5
@@ -69,14 +78,14 @@ __meta__ = {
 }
 
 [node name="NinePatchRect" type="NinePatchRect" parent="Plaque/Control"]
-anchor_left = 0.518
-anchor_top = 0.321
-anchor_right = 0.518
-anchor_bottom = 0.321
-margin_left = -436.332
-margin_top = -81.762
-margin_right = 435.668
-margin_bottom = 455.238
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -436.0
+margin_top = -186.0
+margin_right = 436.0
+margin_bottom = 351.0
 texture = ExtResource( 6 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -141,47 +150,139 @@ __meta__ = {
 }
 
 [node name="Page1" type="Control" parent="Plaque/Control/NinePatchRect"]
+visible = false
 margin_right = 40.0
 margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Text" type="RichTextLabel" parent="Plaque/Control/NinePatchRect/Page1"]
 anchor_right = 0.153
 margin_left = 75.0
-margin_top = 96.0
-margin_right = 783.88
-margin_bottom = 238.0
+margin_top = 100.0
+margin_right = 369.88
+margin_bottom = 334.0
 custom_colors/default_color = Color( 0, 0, 0, 1 )
 custom_fonts/normal_font = SubResource( 4 )
 bbcode_enabled = true
-bbcode_text = "[color=#23a9de]Melee Attacks[/color] are your primary source of damage. Press [color=red]Enter[/color] or [color=red]X[/color] to strike enemies down within close range.
-[color=#23a9de]Charged Attacks[/color] are more powerful than melee attacks, but they require time"
-text = "Melee Attacks are your primary source of damage. Press Enter or X to strike enemies down within close range.
-Charged Attacks are more powerful than melee attacks, but they require time"
+bbcode_text = "[color=#23a9de]Melee Attacks[/color] are your primary source of damage. Press [color=red]Enter[/color] or [color=red]X[/color] to strike enemies down within close range. Striking hostile entities grant [color=blue]Mana[/color].
+"
+text = "Melee Attacks are your primary source of damage. Press Enter or X to strike enemies down within close range. Striking hostile entities grant Mana.
+"
 scroll_active = false
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Text2" type="RichTextLabel" parent="Plaque/Control/NinePatchRect/Page1"]
+anchor_right = 0.153
+margin_left = 399.0
+margin_top = 100.0
+margin_right = 803.88
+margin_bottom = 300.0
+custom_colors/default_color = Color( 0, 0, 0, 1 )
+custom_fonts/normal_font = SubResource( 4 )
+bbcode_enabled = true
+bbcode_text = "[color=#23a9de]Charged Attacks[/color] are more powerful than melee attacks, and has a longer reach, but they require time. Hold down [color=red]Q [/color]to charge the [color=#e6b737]Energy Meter[/color] and attack when the bar turns [color=#16e01d]green[/color]."
+text = "Charged Attacks are more powerful than melee attacks, and has a longer reach, but they require time. Hold down Q to charge the Energy Meter and attack when the bar turns green."
+scroll_active = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Sword" type="Sprite" parent="Plaque/Control/NinePatchRect/Page1"]
+position = Vector2( 215.266, 378.154 )
+rotation = 0.724312
+scale = Vector2( 4, 4 )
+texture = ExtResource( 10 )
+
+[node name="Player" type="Sprite" parent="Plaque/Control/NinePatchRect/Page1"]
+position = Vector2( 148.669, 402.154 )
+scale = Vector2( 6, 6 )
+texture = ExtResource( 9 )
+
+[node name="Bar" type="Sprite" parent="Plaque/Control/NinePatchRect/Page1"]
+position = Vector2( 474.738, 328.607 )
+scale = Vector2( 6, 6 )
+texture = ExtResource( 12 )
+
+[node name="Slime2" type="Sprite" parent="Plaque/Control/NinePatchRect/Page1"]
+modulate = Color( 0.988235, 1, 1, 1 )
+self_modulate = Color( 0.0117647, 1, 1, 1 )
+position = Vector2( 659.864, 422.636 )
+scale = Vector2( 6, 6 )
+texture = ExtResource( 11 )
+
+[node name="Wave" type="Sprite" parent="Plaque/Control/NinePatchRect/Page1"]
+position = Vector2( 590.554, 403.627 )
+scale = Vector2( 10, 10 )
+texture = ExtResource( 13 )
+
+[node name="Sword2" type="Sprite" parent="Plaque/Control/NinePatchRect/Page1"]
+position = Vector2( 529.532, 440.476 )
+rotation = 2.25497
+scale = Vector2( 4, 4 )
+texture = ExtResource( 10 )
+
+[node name="Player2" type="Sprite" parent="Plaque/Control/NinePatchRect/Page1"]
+position = Vector2( 466.939, 405.743 )
+scale = Vector2( 6, 6 )
+texture = ExtResource( 9 )
+
+[node name="Text3" type="RichTextLabel" parent="Plaque/Control/NinePatchRect/Page1"]
+anchor_right = 0.153
+margin_left = 268.959
+margin_top = 334.154
+margin_right = 284.839
+margin_bottom = 391.154
+custom_colors/default_color = Color( 0, 0, 0, 1 )
+custom_fonts/normal_font = SubResource( 5 )
+bbcode_enabled = true
+bbcode_text = "[color=red]![/color]"
+text = "!"
+scroll_active = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Slime" type="Sprite" parent="Plaque/Control/NinePatchRect/Page1"]
+position = Vector2( 277.255, 417.29 )
+scale = Vector2( 6, 6 )
+texture = ExtResource( 11 )
+
 [node name="Page2" type="Control" parent="Plaque/Control/NinePatchRect"]
-visible = false
 margin_right = 40.0
 margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Text" type="RichTextLabel" parent="Plaque/Control/NinePatchRect/Page2"]
 anchor_right = 0.153
 margin_left = 75.0
 margin_top = 96.0
-margin_right = 676.584
-margin_bottom = 169.0
+margin_right = 813.88
+margin_bottom = 300.0
 custom_colors/default_color = Color( 0, 0, 0, 1 )
 custom_fonts/normal_font = SubResource( 4 )
 bbcode_enabled = true
-bbcode_text = "Page 2"
-text = "Page 2"
+bbcode_text = "[color=#ed7118]Ranged attacks[/color] are your secondary method of dealing damage, draining one [color=blue]Mana[/color] point per cast in exchange of longer attack range. Press [color=red]F [/color]to shoot a [color=#ed7118]fireball[/color] in a straight line on the direction you are facing. The range isn't infinite however, as it will expire after a certain amount of time if it doesn't collide with any targets."
+text = "Ranged attacks are your secondary method of dealing damage, draining one Mana point per cast in exchange of longer attack range. Press F to shoot a fireball in a straight line on the direction you are facing. The range isn't infinite however, as it will expire after a certain amount of time if it doesn't collide with any targets."
 scroll_active = false
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Player" type="Sprite" parent="Plaque/Control/NinePatchRect/Page2"]
+position = Vector2( 181.966, 374.636 )
+scale = Vector2( 6, 6 )
+texture = ExtResource( 9 )
+
+[node name="Fireball" type="Sprite" parent="Plaque/Control/NinePatchRect/Page2"]
+position = Vector2( 181.966, 374.636 )
+scale = Vector2( 6, 6 )
+texture = ExtResource( 14 )
 
 [node name="Page3" type="Control" parent="Plaque/Control/NinePatchRect"]
 visible = false

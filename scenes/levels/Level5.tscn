@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=2]
+[gd_scene load_steps=32 format=2]
 
 [ext_resource path="res://assets/terrain/lichen_ruins_oneway_spritesheet.png" type="Texture" id=1]
 [ext_resource path="res://scenes/items/LevelTransporter.tscn" type="PackedScene" id=2]
@@ -26,6 +26,7 @@
 [ext_resource path="res://scenes/menus/GoblinScalesUI.tscn" type="PackedScene" id=24]
 [ext_resource path="res://scenes/items/BossLevelTransporter.tscn" type="PackedScene" id=25]
 [ext_resource path="res://tilesets/one_way_tilesets.tres" type="TileSet" id=26]
+[ext_resource path="res://scenes/menus/SkillsUI.tscn" type="PackedScene" id=27]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
 points = PoolVector2Array( 96, 96, 0, 96, 0, 0, 96, 0 )
@@ -247,6 +248,8 @@ script = ExtResource( 16 )
 [node name="GoblinScalesUI" parent="." instance=ExtResource( 24 )]
 
 [node name="CommonMonsterDustUI" parent="." instance=ExtResource( 23 )]
+
+[node name="SkillsUI" parent="." instance=ExtResource( 27 )]
 
 [node name="GameOverUI" parent="." instance=ExtResource( 22 )]
 

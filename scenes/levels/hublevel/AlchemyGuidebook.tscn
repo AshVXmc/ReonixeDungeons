@@ -73,14 +73,14 @@ __meta__ = {
 }
 
 [node name="NinePatchRect" type="NinePatchRect" parent="Plaque/Control"]
-anchor_left = 0.518
-anchor_top = 0.321
-anchor_right = 0.518
-anchor_bottom = 0.321
-margin_left = -436.332
-margin_top = -81.762
-margin_right = 435.668
-margin_bottom = 455.238
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -436.0
+margin_top = -186.0
+margin_right = 436.0
+margin_bottom = 351.0
 texture = ExtResource( 6 )
 __meta__ = {
 "_edit_use_anchors_": false

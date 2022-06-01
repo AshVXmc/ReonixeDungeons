@@ -7,10 +7,10 @@ var direction : int = 1
 var is_dead : bool = false 
 const TYPE : String = "Enemy"
 const FLOOR = Vector2(0, -1)
-const SPEED : int = 315
+const SPEED : int = 200
 const GRAVITY : int = 45
 var is_staggered : bool = false
-
+var defending : bool = false
 const LOOT = preload("res://scenes/items/LootBag.tscn")
 onready var AREA_LEFT : Area2D = $Left
 onready var AREA_RIGHT : Area2D = $Right
@@ -43,13 +43,6 @@ func _on_Area2D_area_entered(area):
 		yield(get_tree().create_timer(1), "timeout")
 		is_staggered = false
 
-func take_damage():
-	if area.is_in_group("Sword") or area.is_in_group("Fireball") and HP > 0:
-		HP -= 1
-		parse_damage()
-	elif area.is_in_group("Sword2"):
-		HP -= 3
-		parse_damage()
 func parse_damage():
 	is_staggered = true
 	velocity.x = 0
@@ -87,3 +80,15 @@ func _on_Left_area_exited(area):
 func _on_Right_area_exited(area):
 	yield(get_tree().create_timer(2), "timeout")
 	velocity.x = 0
+
+
+func _on_LeftShieldDetector_area_entered(area):
+	pass # Replace with function body.
+
+
+func _on_LeftShieldDetector_area_exited(area):
+	pass # Replace with function body.
+
+
+func _on_RightShieldDetector_area_entered(area):
+	pass # Replace with function body.

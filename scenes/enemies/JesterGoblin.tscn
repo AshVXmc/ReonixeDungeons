@@ -35,6 +35,7 @@ animations = [ {
 } ]
 
 [node name="JesterGoblin" type="KinematicBody2D" groups=["Enemy"]]
+collision_layer = 9
 script = ExtResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

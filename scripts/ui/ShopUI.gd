@@ -35,6 +35,8 @@ func _on_HealthPotButton_pressed():
 		else:
 			$FlavorText.bbcode_text = "Thank you for your purchase."
 			emit_signal("item_bought", "HealthPot", 20)
+	else:
+		$FlavorText.bbcode_text = "Sorry, you currently don't have enough opals to purchase this item."
 		
 func _on_HealthPotButton_mouse_entered():
 	$FlavorText.bbcode_text = "A flask filled with hearty red liquid, tastes like... blood?. Heals for 1" + heart + ", and takes one second to consume. You can hold " + maxstorage + " of this at a time." 
@@ -45,10 +47,12 @@ func _on_HealthPotButton_mouse_exited():
 func _on_ManaPotButton_pressed():
 	if Global.opals_amount >= 20:
 		if Global.manapot_amount == Global.max_item_storage:
-			$FlavorText.bbcode_text = "You can't hold more than " + maxstorage + " of this"
+			$FlavorText.bbcode_text = "You can't hold more than " + maxstorage + " of this! Upgrade your maximum storage capicity or consume some of them to get more."
 		else:
 			$FlavorText.bbcode_text = "Thank you for your purchase."
 			emit_signal("item_bought", "ManaPot", 20)
+	else:
+		$FlavorText.bbcode_text = "Sorry, you currently don't have enough opals to purchase this item."
 
 func _on_ManaPotButton_mouse_entered():
 	$FlavorText.bbcode_text = "Magical, glowing and swirling blue liquid that restores your Mana" + mana + "to full. Takes two seconds to consume. You can hold " + maxstorage + " of this at a time."
@@ -59,7 +63,7 @@ func _on_ManaPotButton_mouse_exited():
 func _on_LifeWineButton_pressed():
 	if Global.opals_amount >= 45:
 		if Global.healthpot_amount == Global.max_item_storage:
-			$FlavorText.bbcode_text = "You can't hold more than " + maxstorage + " of this"
+			$FlavorText.bbcode_text = "You can't hold more than " + maxstorage + " of this! Upgrade your maximum storage capicity or consume some of them to get more."
 		else:
 			$FlavorText.bbcode_text = "Thank you for your purchase."
 			emit_signal("item_bought", "HealthPot", 20)

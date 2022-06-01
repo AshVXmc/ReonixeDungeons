@@ -157,7 +157,7 @@ margin_right = 533.882
 margin_bottom = 485.984
 custom_colors/default_color = Color( 1, 1, 1, 1 )
 custom_fonts/normal_font = SubResource( 6 )
-text = "3"
+text = "6"
 scroll_active = false
 __meta__ = {
 "_edit_use_anchors_": false
@@ -175,7 +175,7 @@ margin_right = 674.882
 margin_bottom = 485.984
 custom_colors/default_color = Color( 1, 1, 1, 1 )
 custom_fonts/normal_font = SubResource( 6 )
-text = "1"
+text = "2"
 scroll_active = false
 __meta__ = {
 "_edit_use_anchors_": false
@@ -257,7 +257,7 @@ margin_right = 627.882
 margin_bottom = 566.417
 custom_colors/default_color = Color( 1, 1, 1, 1 )
 custom_fonts/normal_font = SubResource( 6 )
-text = "5"
+text = "9"
 scroll_active = false
 __meta__ = {
 "_edit_use_anchors_": false

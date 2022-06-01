@@ -1,6 +1,7 @@
 class_name Cauldron extends Node2D
 
 onready var PLAYER = get_parent().get_node("Player").get_node("Area2D")
+export var Paid : bool = false
 signal add_item_to_player(item_name, common_dust, goblin_scales)
 var green : Color = Color(35,255,0,2)
 var red : Color = Color(255,0,0,255)
@@ -32,8 +33,8 @@ func _on_CloseButton_pressed():
 
 func _on_CraftHealthPot_pressed():
 	if Global.healthpot_amount < Global.max_item_storage:
-		if Global.common_monster_dust_amount >= 3 and Global.goblin_scales_amount >= 1:
-			emit_signal("add_item_to_player","HealthPot", 3, 1)
+		if Global.common_monster_dust_amount >= 6 and Global.goblin_scales_amount >= 2:
+			emit_signal("add_item_to_player","HealthPot", 6,2)
 			$Plaque/Control/Text.add_color_override("font_color", green)
 			$Plaque/Control/Text.text = "You crafted a health potion."
 		else:
@@ -46,8 +47,8 @@ func _on_CraftHealthPot_pressed():
 
 func _on_CraftManaPot_pressed():
 	if Global.manapot_amount < Global.max_item_storage:
-		if Global.common_monster_dust_amount >= 5:
-			emit_signal("add_item_to_player","ManaPot", 5, 0)
+		if Global.common_monster_dust_amount >= 9:
+			emit_signal("add_item_to_player","ManaPot", 9, 0)
 			$Plaque/Control/Text.add_color_override("font_color", green)
 			$Plaque/Control/Text.text = "You crafted a mana potion."
 		else:

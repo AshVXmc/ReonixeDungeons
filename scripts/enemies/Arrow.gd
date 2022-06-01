@@ -1,4 +1,4 @@
-class_name Arrow extends Area2D
+class_name Arrow extends KinematicBody2D
 
 
 const SPEED : int = 500
@@ -15,6 +15,8 @@ func _physics_process(delta):
 		$Sprite.flip_h = false
 #	velocity.x = SPEED * delta * x_direction
 	translate(velocity)
+	if is_on_wall():
+		print("WALL")
 
 func flip_arrow_direction(fb_direction : int):
 	# SouthEast = 5
@@ -22,7 +24,7 @@ func flip_arrow_direction(fb_direction : int):
 
 
 func _on_Area2D_area_entered(area):
-	if area.is_in_group("Player") or area.is_in_group("Sword") or area.is_in_group("Fireball"):
+	if area.is_in_group("Player") or area.is_in_group("Sword") or area.is_in_group("Fireball") or area.is_in_group("Wall"):
 		queue_free()
 
 
@@ -30,3 +32,10 @@ func _on_Area2D_area_entered(area):
 func _on_Arrow_area_entered(area):
 	if area.is_in_group("Player") or area.is_in_group("Sword") or area.is_in_group("Fireball"):
 		queue_free()
+
+
+func _on_Timer_timeout():
+	queue_free()
+
+
+

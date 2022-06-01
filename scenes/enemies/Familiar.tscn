@@ -23,6 +23,8 @@ radius = 50.249
 radius = 598.382
 
 [node name="Familiar" type="KinematicBody2D" groups=["Enemy"]]
+collision_layer = 16
+collision_mask = 3
 script = ExtResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -52,4 +54,3 @@ autostart = true
 [connection signal="area_entered" from="Area2D" to="." method="_on_Area2D_area_entered"]
 [connection signal="body_entered" from="Detector" to="." method="_on_Detector_body_entered"]
 [connection signal="body_exited" from="Detector" to="." method="_on_Detector_body_exited"]
-[connection signal="timeout" from="DeathTimer" to="." method="_on_DeathTimer_timeout"]

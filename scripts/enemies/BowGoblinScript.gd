@@ -9,7 +9,7 @@ const TYPE : String = "Enemy"
 const FLOOR = Vector2(0, -1)
 const SPEED : int = 320
 const GRAVITY : int = 45
-
+const CHARGING_PARTICLE = preload("res://scenes/particles/ChargingParticleBow.tscn")
 const LOOT = preload("res://scenes/items/LootBag.tscn")
 const ARROW = preload("res://scenes/enemies/bosses/Arrow.tscn")
 onready var AREA_LEFT : Area2D = $Left
@@ -36,7 +36,7 @@ func _physics_process(delta):
 
 func shoot_arrow():
 	$AnimationPlayer.play("Shoot")
-	yield(get_tree().create_timer(0.4), "timeout")
+	yield(get_tree().create_timer(0.8), "timeout")
 	var arrow = ARROW.instance()
 	get_parent().add_child(arrow)
 	if $Sprite.flip_h:

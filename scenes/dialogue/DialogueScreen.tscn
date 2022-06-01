@@ -22,7 +22,6 @@ font_data = ExtResource( 3 )
 script = ExtResource( 2 )
 
 [node name="Control" type="Control" parent="."]
-visible = false
 anchor_left = 0.5
 anchor_top = 0.33
 anchor_right = 0.5
@@ -41,9 +40,9 @@ anchor_top = 0.321
 anchor_right = 0.518
 anchor_bottom = 0.368
 margin_left = -447.114
-margin_top = -65.8714
+margin_top = -18.303
 margin_right = 447.886
-margin_bottom = 99.195
+margin_bottom = 146.763
 texture = ExtResource( 4 )
 __meta__ = {
 "_edit_use_anchors_": false

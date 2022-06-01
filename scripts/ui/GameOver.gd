@@ -38,7 +38,6 @@ func _on_LoadSaveButton_pressed():
 			Global.dash_unlocked = player_data["DashUnlocked"]
 			Global.glide_unlocked = player_data["GlideUnlocked"]
 			Global.firesaw_unlocked = player_data["FireSawUnlocked"]
-			Global.fire_sentry_unlocked = player_data["FireSentryUnlocked"]
 			Global.opened_chests = player_data["ChestOpened"]
 			
 			Global.max_item_storage = player_data["MaxItemStorage"]
