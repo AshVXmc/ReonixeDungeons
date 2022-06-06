@@ -30,19 +30,21 @@ func _on_LoadSaveButton_pressed():
 			Global.hearts = player_data["Health"]
 			Global.max_mana = player_data["MaxMana"]
 			Global.mana = player_data["Mana"]
-			
 			Global.opals_amount = player_data["Opals"]
 			Global.crystals_amount = player_data["RevivementCrystals"]
 			Global.healthpot_amount = player_data["Healthpot"]
-			
+			Global.common_monster_dust_amount = player_data["CommonMonsterDust"]
+			Global.goblin_scales_amount = player_data["GoblinScales"]
 			Global.dash_unlocked = player_data["DashUnlocked"]
 			Global.glide_unlocked = player_data["GlideUnlocked"]
-			Global.firesaw_unlocked = player_data["FireSawUnlocked"]
 			Global.opened_chests = player_data["ChestOpened"]
-			
 			Global.max_item_storage = player_data["MaxItemStorage"]
 			Global.lighting = player_data["Lighting"]
 			Global.vsync = player_data["Vsync"]
+			Global.levelpath = player_data["Level"]
+			Global.enemies_killed = player_data["EnemiesKilled"]
+			Global.masked_goblin_defeated = player_data["MaskedGoblinDefeated"]
+			Global.activated_portals = player_data["ActivatedPortals"]
 			
 			get_parent().get_parent().get_node("SceneTransition/ColorRect").visible = true
 			get_parent().get_parent().get_node("SceneTransition").transition()

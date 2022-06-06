@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://spriteframes/MainCharacter_spriteframes.tres" type="SpriteFrames" id=1]
 [ext_resource path="res://scripts/misc/Player.gd" type="Script" id=2]
@@ -9,6 +9,8 @@
 [ext_resource path="res://assets/UI/chargebar_charging.png" type="Texture" id=7]
 [ext_resource path="res://assets/UI/healthbar_empty.png" type="Texture" id=8]
 [ext_resource path="res://scenes/particles/ChargingParticle.tscn" type="PackedScene" id=9]
+[ext_resource path="res://assets/UI/oxygen_bar_empty.png" type="Texture" id=10]
+[ext_resource path="res://assets/UI/oxygen_bar_full.png" type="Texture" id=11]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 37.6338
@@ -230,9 +232,6 @@ tracks/2/keys = {
 
 [node name="Player" type="KinematicBody2D"]
 script = ExtResource( 2 )
-__meta__ = {
-"_edit_group_": true
-}
 
 [node name="ChargingParticle" parent="." instance=ExtResource( 9 )]
 visible = false
@@ -385,13 +384,25 @@ disabled = true
 
 [node name="ChargeBar" type="TextureProgress" parent="."]
 visible = false
-margin_left = -49.2104
-margin_top = -83.4949
-margin_right = -29.2104
-margin_bottom = -77.4949
+margin_left = -49.805
+margin_top = -102.36
+margin_right = -29.805
+margin_bottom = -96.36
 rect_scale = Vector2( 5, 5 )
 texture_under = ExtResource( 8 )
 texture_progress = ExtResource( 7 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="OxygenBar" type="TextureProgress" parent="."]
+margin_left = -53.9286
+margin_top = -70.3163
+margin_right = -17.9286
+margin_bottom = -64.3163
+rect_scale = Vector2( 3, 3.5 )
+texture_under = ExtResource( 10 )
+texture_progress = ExtResource( 11 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -400,9 +411,16 @@ __meta__ = {
 wait_time = 0.35
 one_shot = true
 
+[node name="OxygenTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="OxygenRefillTimer" type="Timer" parent="."]
+wait_time = 0.25
+
 [connection signal="animation_finished" from="Sprite" to="." method="_on_Sprite_animation_finished"]
 [connection signal="area_entered" from="AttackCollision" to="." method="_on_AttackCollision_area_entered"]
 [connection signal="area_entered" from="Area2D" to="." method="_on_Area2D_area_entered"]
+[connection signal="area_exited" from="Area2D" to="." method="_on_Area2D_area_exited"]
 [connection signal="timeout" from="InvulnerabilityTimer" to="." method="_on_InvulnerabilityTimer_timeout"]
 [connection signal="timeout" from="AttackTimer" to="." method="_on_AttackTimer_timeout"]
 [connection signal="timeout" from="DashCooldown" to="." method="_on_DashCooldown_timeout"]
@@ -417,3 +435,5 @@ one_shot = true
 [connection signal="area_entered" from="RightDectector" to="." method="_on_RightDectector_area_entered"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
 [connection signal="timeout" from="MeleeTimer" to="." method="_on_MeleeTimer_timeout"]
+[connection signal="timeout" from="OxygenTimer" to="." method="_on_OxygenTimer_timeout"]
+[connection signal="timeout" from="OxygenRefillTimer" to="." method="_on_OxygenRefillTimer_timeout"]

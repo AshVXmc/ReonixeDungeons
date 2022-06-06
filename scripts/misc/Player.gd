@@ -28,6 +28,7 @@ var JUMP_POWER : int = -1075
 const FIREBALL : PackedScene = preload("res://scenes/misc/Fireball.tscn")
 const FIRESAW : PackedScene = preload("res://scenes/misc/FireSaw.tscn")
 const JUMP_PARTICLE : PackedScene = preload("res://scenes/particles/JumpParticle.tscn")
+const WATER_JUMP_PARTICLE : PackedScene = preload("res://scenes/particles/WaterBubbleParticle.tscn")
 const DASH_PARTICLE : PackedScene = preload("res://scenes/particles/DashParticle.tscn")
 const SWORD_PARTICLE : PackedScene = preload("res://scenes/particles/SwordSwingParticle.tscn")
 const FIRE_PARTICLE : PackedScene = preload("res://scenes/particles/FlameParticle.tscn")
@@ -52,9 +53,11 @@ var is_ground_pounding : bool = false
 var cam_shake : bool = false
 var is_charging : bool = false
 var slowed : bool = false
+var underwater : bool = false
 
 
 func _ready():
+	$OxygenBar.value = 100
 	$ChargeBar.value = 0
 	$SwordSprite.visible = false
 	$ChargeBar.visible = false
@@ -113,6 +116,10 @@ func _physics_process(_delta):
 			useItems()
 			shoot()
 #			ground_pound()
+			if underwater:
+				SPEED = 380 / 1.8
+			else:
+				SPEED = 380
 			# Movement controls
 			if velocity.x == 0 and !is_attacking and !is_gliding and !is_frozen:
 				$Sprite.play("Idle")
@@ -147,21 +154,29 @@ func _physics_process(_delta):
 					$Sprite.play("Idle")
 				if is_gliding and Global.glide_unlocked:
 					$Sprite.play("Glide")
-			# Jump controls
-			if Input.is_action_just_pressed("jump") and is_on_floor() and !is_attacking and !is_frozen:
+			# Jump controls (ground)
+			if Input.is_action_just_pressed("jump") and is_on_floor() and !is_attacking and !is_frozen and !underwater:
 				# Particles
 				var jump_particle : JumpParticle = JUMP_PARTICLE.instance()
 				jump_particle.emitting = true
 				get_parent().add_child(jump_particle)
 				jump_particle.position = $ParticlePosition.global_position
-				
 				velocity.y = JUMP_POWER
+				$Sprite.play("Idle")
+				is_attacking = false
+			# Jump controls (water)
+			if Input.is_action_just_pressed("jump") and underwater and !is_attacking and !is_frozen:
+				var water_jump_particle = WATER_JUMP_PARTICLE.instance()
+				water_jump_particle.emitting = true
+				get_parent().add_child(water_jump_particle)
+				water_jump_particle.position = $ParticlePosition.global_position
+				velocity.y = JUMP_POWER / 1.8
 				$Sprite.play("Idle")
 				is_attacking = false
 				
 			# Movement calculations
-			if !is_dashing and !is_gliding:
-				velocity.y += GRAVITY
+#			if !is_dashing and !is_gliding:
+#				velocity.y += GRAVITY
 			velocity = move_and_slide(velocity,Vector2.UP)
 			velocity.x = lerp(velocity.x,0,0.2)
 			if is_invulnerable:
@@ -170,6 +185,11 @@ func _physics_process(_delta):
 				$ToggleArea/CollisionShape2D.disabled = false
 				yield(get_tree().create_timer(1), "timeout")
 				$ToggleArea/CollisionShape2D.disabled = true
+	if !is_dashing and !is_gliding:
+		if underwater:
+			velocity.y += GRAVITY / 2
+		else:
+			velocity.y += GRAVITY
 	if is_healing:
 		$Sprite.play("Healing")
 	if is_frozen:
@@ -205,22 +225,27 @@ func shoot():
 			is_attacking = false
 			$AttackCollision/CollisionShape2D.disabled = true
 	
-	if Input.is_action_just_pressed("firesaw") and Global.firesaw_unlocked and !is_attacking and !is_frozen and Global.mana >= 3 and !is_using_firesaw:
-		is_using_firesaw = true
-		var firesaw = FIRESAW.instance()
-		var fireparticle = FIRE_PARTICLE.instance()
-		add_child(firesaw)
-		add_child(fireparticle)
-		fireparticle.emitting = true
-		fireparticle.one_shot = false
-		if !Global.godmode:
-			Global.mana -= 3
-			emit_signal("mana_changed", Global.mana)
-		is_attacking = false
-		$AttackCollision/CollisionShape2D.disabled = true
-		yield(get_tree().create_timer(5),"timeout")
-		is_using_firesaw = false
-		remove_child(fireparticle)
+	if Input.is_action_just_pressed("primary_skill"):
+		if Global.primary_skill == "FireSaw" and Global.firesaw_unlocked and !is_attacking and !is_frozen and Global.mana >= 3 and !is_using_firesaw and get_parent().get_node("SkillsUI/Control/PrimarySkill/FireSaw/FiresawTimer").is_stopped():
+			emit_signal("skill_used", "FireSaw")
+			is_using_firesaw = true
+			var firesaw = FIRESAW.instance()
+			var fireparticle = FIRE_PARTICLE.instance()
+			add_child(firesaw)
+			add_child(fireparticle)
+			fireparticle.emitting = true
+			fireparticle.one_shot = false
+			if !Global.godmode:
+				Global.mana -= 3
+				emit_signal("mana_changed", Global.mana)
+			is_attacking = false
+			$AttackCollision/CollisionShape2D.disabled = true
+			# 8 is the duration of the firesaw
+			yield(get_tree().create_timer(8),"timeout")
+			is_using_firesaw = false
+			remove_child(fireparticle)
+	if Input.is_action_just_pressed("secondary_skill"):
+		pass
 	
 	
 func ground_pound():
@@ -371,7 +396,19 @@ func _on_Area2D_area_entered(area : Area2D):
 		slow_player(2.0)
 	if area.is_in_group("Transporter"):
 		emit_signal("level_changed")
-
+	if area.is_in_group("Water"):
+		$OxygenTimer.start()
+		underwater = true
+		velocity.y = 0
+		print("is underwater")
+		
+func _on_Area2D_area_exited(area):
+	if area.is_in_group("Water"):
+		underwater = false
+		$OxygenTimer.stop()
+		if $OxygenBar.value < 100:
+			$OxygenRefillTimer.start()
+		print("not underwater")
 
 func attack_knock():
 	var KNOCK_POWER : int = 125
@@ -484,7 +521,7 @@ func glide():
 				velocity.y = 0
 				velocity.y += GRAVITY * 1.5
 	# Stop gliding
-	if Input.is_action_just_released("jump"):
+	if Input.is_action_just_released("jump") or is_on_floor():
 		$GlideTimer.stop()
 		is_gliding = false
 		velocity.y += GRAVITY * 3
@@ -756,3 +793,19 @@ func _on_GlideTimer_timeout():
 
 func _on_MeleeTimer_timeout():
 	pass # Replace with function body.
+
+
+
+
+
+func _on_OxygenTimer_timeout():
+	
+	$OxygenBar.value -= 5
+	if underwater:
+		$OxygenTimer.start()
+
+
+func _on_OxygenRefillTimer_timeout():
+	if !underwater and $OxygenBar.value < 100 and $OxygenTimer.is_stopped():
+		$OxygenBar.value += 10
+		$OxygenRefillTimer.start()

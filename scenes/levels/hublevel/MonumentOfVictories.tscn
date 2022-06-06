@@ -60,13 +60,12 @@ __meta__ = {
 [node name="Plaque" type="CanvasLayer" parent="."]
 
 [node name="Control" type="Control" parent="Plaque"]
-visible = false
 anchor_left = 0.5
 anchor_top = 0.33
 anchor_right = 0.5
 anchor_bottom = 0.33
 margin_left = -540.0
-margin_top = -237.6
+margin_top = -204.6
 margin_right = 534.0
 margin_bottom = 484.4
 __meta__ = {
@@ -79,9 +78,9 @@ anchor_top = 0.321
 anchor_right = 0.518
 anchor_bottom = 0.321
 margin_left = -436.332
-margin_top = -28.762
+margin_top = -50.169
 margin_right = 435.668
-margin_bottom = 466.238
+margin_bottom = 449.831
 texture = ExtResource( 5 )
 __meta__ = {
 "_edit_use_anchors_": false

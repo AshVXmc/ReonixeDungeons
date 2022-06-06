@@ -150,7 +150,6 @@ __meta__ = {
 }
 
 [node name="Page1" type="Control" parent="Plaque/Control/NinePatchRect"]
-visible = false
 margin_right = 40.0
 margin_bottom = 40.0
 __meta__ = {
@@ -159,16 +158,16 @@ __meta__ = {
 
 [node name="Text" type="RichTextLabel" parent="Plaque/Control/NinePatchRect/Page1"]
 anchor_right = 0.153
-margin_left = 75.0
-margin_top = 100.0
-margin_right = 369.88
-margin_bottom = 334.0
+margin_left = 54.2705
+margin_top = 96.0
+margin_right = 384.151
+margin_bottom = 330.0
 custom_colors/default_color = Color( 0, 0, 0, 1 )
 custom_fonts/normal_font = SubResource( 4 )
 bbcode_enabled = true
-bbcode_text = "[color=#23a9de]Melee Attacks[/color] are your primary source of damage. Press [color=red]Enter[/color] or [color=red]X[/color] to strike enemies down within close range. Striking hostile entities grant [color=blue]Mana[/color].
+bbcode_text = "[color=#23a9de]Melee Attacks[/color] are your primary source of damage. Press [color=red]Enter[/color] or [color=red]X[/color] to strike enemies down within close range. Striking hostile entities with normal attacks grant one [color=blue]Mana[/color].
 "
-text = "Melee Attacks are your primary source of damage. Press Enter or X to strike enemies down within close range. Striking hostile entities grant Mana.
+text = "Melee Attacks are your primary source of damage. Press Enter or X to strike enemies down within close range. Striking hostile entities with normal attacks grant one Mana.
 "
 scroll_active = false
 __meta__ = {
@@ -177,15 +176,15 @@ __meta__ = {
 
 [node name="Text2" type="RichTextLabel" parent="Plaque/Control/NinePatchRect/Page1"]
 anchor_right = 0.153
-margin_left = 399.0
-margin_top = 100.0
-margin_right = 803.88
+margin_left = 398.595
+margin_top = 96.0
+margin_right = 836.475
 margin_bottom = 300.0
 custom_colors/default_color = Color( 0, 0, 0, 1 )
 custom_fonts/normal_font = SubResource( 4 )
 bbcode_enabled = true
-bbcode_text = "[color=#23a9de]Charged Attacks[/color] are more powerful than melee attacks, and has a longer reach, but they require time. Hold down [color=red]Q [/color]to charge the [color=#e6b737]Energy Meter[/color] and attack when the bar turns [color=#16e01d]green[/color]."
-text = "Charged Attacks are more powerful than melee attacks, and has a longer reach, but they require time. Hold down Q to charge the Energy Meter and attack when the bar turns green."
+bbcode_text = "[color=#23a9de]Charged Attacks[/color] are more powerful than melee attacks, and has a longer reach, but they require time and one [color=blue]Mana[/color]. Hold down [color=red]Q [/color]to charge the [color=#e6b737]Energy Meter[/color] and attack when the bar turns [color=#16e01d]green[/color]."
+text = "Charged Attacks are more powerful than melee attacks, and has a longer reach, but they require time and one Mana. Hold down Q to charge the Energy Meter and attack when the bar turns green."
 scroll_active = false
 __meta__ = {
 "_edit_use_anchors_": false
@@ -252,6 +251,7 @@ scale = Vector2( 6, 6 )
 texture = ExtResource( 11 )
 
 [node name="Page2" type="Control" parent="Plaque/Control/NinePatchRect"]
+visible = false
 margin_right = 40.0
 margin_bottom = 40.0
 __meta__ = {

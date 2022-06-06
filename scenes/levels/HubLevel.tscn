@@ -108,6 +108,9 @@ __meta__ = {
 
 [node name="GoblinScalesUI" parent="." instance=ExtResource( 42 )]
 
+[node name="MonumentOfVictories" parent="." instance=ExtResource( 19 )]
+position = Vector2( 1587.87, 432.386 )
+
 [node name="SkillsUI" parent="." instance=ExtResource( 43 )]
 
 [node name="GameOverUI" parent="." instance=ExtResource( 22 )]
@@ -165,9 +168,6 @@ flip_h = true
 
 [node name="Portal" parent="." instance=ExtResource( 18 )]
 position = Vector2( 148, 521.818 )
-
-[node name="MonumentOfVictories" parent="." instance=ExtResource( 19 )]
-position = Vector2( 1587.87, 432.386 )
 
 [node name="Shopkeeper" parent="." instance=ExtResource( 20 )]
 position = Vector2( 835.346, -1723.59 )
@@ -235,11 +235,11 @@ texture = ExtResource( 41 )
 [node name="OutdoorLibraryDoor" parent="." instance=ExtResource( 28 )]
 position = Vector2( 1147, 576 )
 scale = Vector2( 2.4, 2.4 )
-Position_X = 2665.0
-Position_Y = -672.0
+Position_X = 3175.0
+Position_Y = -1630.0
 
 [node name="IndoorLibraryDoor" parent="." instance=ExtResource( 28 )]
-position = Vector2( 3176.93, -1633.08 )
+position = Vector2( 3175, -1630 )
 scale = Vector2( 2.4, 2.4 )
 Position_X = 1147.0
 Position_Y = 570.0

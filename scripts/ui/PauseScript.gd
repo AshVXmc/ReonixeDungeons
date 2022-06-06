@@ -40,13 +40,20 @@ func _on_ResumeButton_pressed():
 
 
 func _on_SaveButton_pressed():
-	Global.levelpath = get_parent().get_parent().filename
-	Global.save_player_data()
-	emit_signal("playerpos",player.position)
+	if get_tree().get_current_scene().get_name() != "MaskedGoblinLevel":
+		Global.levelpath = get_parent().get_parent().filename
+		Global.player_position = player.position
+		Global.is_loading_a_save = true
+		Global.save_player_data()
 	if !$SaveLabel.visible:
+		if get_tree().get_current_scene().get_name() == "MaskedGoblinLevel":
+			$SaveLabel.bbcode_text ="[color=red]Cannot save current progress.[/color]"
+		else:
+			$SaveLabel.bbcode_text ="			   [color=#2cfc03]Saved![/color]"
 		$SaveLabel.visible = true
 		yield(get_tree().create_timer(1.5), "timeout")
 		$SaveLabel.visible = false
+
 
 func _on_QuitButton_pressed():
 	if get_tree().paused:

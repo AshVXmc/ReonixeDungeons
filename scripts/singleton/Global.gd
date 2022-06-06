@@ -17,14 +17,18 @@ var soul_token_amount : int = 0
 const SAVE_DIR : String = "user://savedata/"
 var dash_unlocked : bool = false # 1 mana per use
 var glide_unlocked : bool = false # 1 mana per use
-var firesaw_unlocked : bool = false # 3 mana per use
-var fire_sentry_unlocked : bool = false # 1 mana per second of usage
+var firesaw_unlocked : bool = true # 3 mana per use
+var fire_fairy_unlocked : bool = true # 1 mana per second of usage
 var max_item_storage : int = 5
 var levelpath : String
+var is_loading_a_save : bool
+var player_position : Vector2
 var savepath : String = SAVE_DIR + "savefile.dat"
 var lighting : bool = true
 var vsync : bool = true
 var activated_portals : Array 
+var primary_skill : String
+var secondary_skill : String
 
 var enemies_killed : int
 # Boss Victories
@@ -46,14 +50,17 @@ func reset_player_data():
 	Global.goblin_scales_amount = 0
 	Global.soul_token_amount = 0
 	Global.dash_unlocked = false
-	Global.glide_unlocked = true
-	Global.firesaw_unlocked = false
-	Global.fire_sentry_unlocked = false
+	Global.glide_unlocked = false
+	Global.firesaw_unlocked = true
+	Global.fire_fairy_unlocked = true
+	Global.is_loading_a_save = false
 	Global.max_item_storage = 5
 	Global.lighting = true
 	Global.levelpath = ""
 	Global.enemies_killed = 0
 	Global.masked_goblin_defeated = false
+	Global.primary_skill = "FireSaw"
+	Global.secondary_skill = "FireFairy"
 	Global.activated_portals.clear()
 	
 func reset_chest_data():
@@ -66,7 +73,7 @@ func save_player_data():
 	var dir : Directory = Directory.new()
 	if !dir.dir_exists(SAVE_DIR):
 		dir.make_dir_recursive(SAVE_DIR)
-
+	Global.is_loading_a_save = true
 	var load_data : Dictionary = {
 		"Level" : Global.levelpath,
 		"MaxHealth": Global.max_hearts ,
@@ -84,9 +91,13 @@ func save_player_data():
 		"DashUnlocked" : Global.dash_unlocked ,
 		"GlideUnlocked" : Global.glide_unlocked,
 		"FireSawUnlocked": Global.firesaw_unlocked,
-		"FireSentryUnlocked": Global.fire_sentry_unlocked,
+		"FireFairyUnlocked": Global.fire_fairy_unlocked,
 		"ChestOpened": Global.opened_chests,
 		"MaxItemStorage":  Global.max_item_storage, 
+		
+		"IsLoadingASave": Global.is_loading_a_save,
+		"PlayerPosition": Global.player_position,
+	
 		"Lighting" : Global.lighting,
 		"Vsync" : Global.vsync,
 		"EnemiesKilled": Global.enemies_killed ,

@@ -1,6 +1,9 @@
 class_name HubLevel extends Node2D
 
 func _ready():
+	if Global.is_loading_a_save:
+		get_node("Player").position = Global.player_position
+		Global.is_loading_a_save = false
 	$ColorRect.visible = true
 	$ParallaxBackground/Background1.visible = true
 	$GameOverUI/GameOver.visible = false
