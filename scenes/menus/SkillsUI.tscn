@@ -1,10 +1,16 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://scripts/ui/SkillsUI.gd" type="Script" id=1]
 [ext_resource path="res://assets/UI/firesaw_skill_icon.png" type="Texture" id=2]
 [ext_resource path="res://assets/fonts/Born2bSportyV2.ttf" type="DynamicFontData" id=3]
+[ext_resource path="res://assets/UI/icon_empty.png" type="Texture" id=4]
+[ext_resource path="res://assets/UI/fire_fairy_skill_icon.png" type="Texture" id=5]
 
 [sub_resource type="DynamicFont" id=1]
+size = 48
+font_data = ExtResource( 3 )
+
+[sub_resource type="DynamicFont" id=2]
 size = 48
 font_data = ExtResource( 3 )
 
@@ -35,17 +41,90 @@ scale = Vector2( 4, 4 )
 texture = ExtResource( 2 )
 
 [node name="FiresawTimer" type="Timer" parent="Control/PrimarySkill/FireSaw"]
-wait_time = 12.0
+wait_time = 15.0
 one_shot = true
 
 [node name="Label" type="Label" parent="Control/PrimarySkill/FireSaw"]
-margin_left = 147.563
-margin_top = 170.133
-margin_right = 187.563
-margin_bottom = 218.133
+margin_left = 148.0
+margin_top = 170.0
+margin_right = 188.0
+margin_bottom = 218.0
 custom_fonts/font = SubResource( 1 )
-text = "10"
+text = "15"
 align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="KeyIcon" type="Sprite" parent="Control/PrimarySkill"]
+position = Vector2( 170, 146.77 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 4 )
+
+[node name="KeyBind" type="Label" parent="Control/PrimarySkill"]
+anchor_left = -3.732
+anchor_right = -3.732
+margin_left = 310.778
+margin_top = 130.169
+margin_right = 331.778
+margin_bottom = 178.169
+rect_scale = Vector2( 0.75, 0.75 )
+custom_colors/font_color = Color( 0.192157, 0.372549, 1, 1 )
+custom_fonts/font = SubResource( 2 )
+text = "R"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SecondarySkill" type="Control" parent="Control"]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="FireFairy" type="Control" parent="Control/SecondarySkill"]
+margin_right = 40.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Sprite" type="Sprite" parent="Control/SecondarySkill/FireFairy"]
+position = Vector2( 270, 190 )
+scale = Vector2( 4, 4 )
+texture = ExtResource( 5 )
+
+[node name="FirefairyTimer" type="Timer" parent="Control/SecondarySkill/FireFairy"]
+wait_time = 18.0
+one_shot = true
+
+[node name="Label" type="Label" parent="Control/SecondarySkill/FireFairy"]
+margin_left = 248.0
+margin_top = 170.0
+margin_right = 287.0
+margin_bottom = 218.0
+custom_fonts/font = SubResource( 1 )
+text = "18"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="KeyIcon" type="Sprite" parent="Control/SecondarySkill"]
+position = Vector2( 270, 146.77 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 4 )
+
+[node name="KeyBind" type="Label" parent="Control/SecondarySkill"]
+anchor_left = -3.732
+anchor_right = -3.732
+margin_left = 410.778
+margin_top = 130.169
+margin_right = 431.778
+margin_bottom = 178.169
+rect_scale = Vector2( 0.75, 0.75 )
+custom_colors/font_color = Color( 0.192157, 0.372549, 1, 1 )
+custom_fonts/font = SubResource( 2 )
+text = "V"
 __meta__ = {
 "_edit_use_anchors_": false
 }

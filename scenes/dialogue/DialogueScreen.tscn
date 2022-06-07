@@ -1,10 +1,9 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://assets/UI/quiticon.png" type="Texture" id=1]
 [ext_resource path="res://scripts/misc/DialogueScreen.gd" type="Script" id=2]
 [ext_resource path="res://assets/fonts/Born2bSportyV2.ttf" type="DynamicFontData" id=3]
-[ext_resource path="res://assets/UI/sign_textbox.png" type="Texture" id=4]
-[ext_resource path="res://assets/UI/popup_textbox.png" type="Texture" id=5]
+[ext_resource path="res://assets/UI/textbox.png" type="Texture" id=4]
 
 [sub_resource type="DynamicFont" id=1]
 size = 48
@@ -15,14 +14,13 @@ size = 32
 font_data = ExtResource( 3 )
 
 [sub_resource type="DynamicFont" id=3]
-size = 48
+size = 32
 font_data = ExtResource( 3 )
 
 [node name="DialogueScreen" type="CanvasLayer"]
 script = ExtResource( 2 )
 
 [node name="Control" type="Control" parent="."]
-visible = false
 anchor_left = 0.5
 anchor_top = 0.33
 anchor_right = 0.5
@@ -40,20 +38,24 @@ anchor_left = 0.518
 anchor_top = 0.321
 anchor_right = 0.518
 anchor_bottom = 0.368
-margin_left = -447.114
-margin_top = -18.303
-margin_right = 447.886
-margin_bottom = 146.763
+margin_left = -447.332
+margin_top = -18.761
+margin_right = 447.668
+margin_bottom = 168.112
 texture = ExtResource( 4 )
+patch_margin_left = 64
+patch_margin_top = 64
+patch_margin_right = 64
+patch_margin_bottom = 64
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Talking" type="Label" parent="Control/NinePatchRect"]
 margin_left = 651.332
-margin_top = 143.274
+margin_top = 157.274
 margin_right = 870.332
-margin_bottom = 191.274
+margin_bottom = 205.274
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 custom_fonts/font = SubResource( 1 )
 text = "Talker Name"
@@ -93,9 +95,22 @@ anchor_bottom = 0.5
 margin_left = -340.5
 margin_top = 115.5
 margin_right = -180.5
-margin_bottom = 187.5
-texture_normal = ExtResource( 5 )
+margin_bottom = 201.5
 expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="NinePatchRect" type="NinePatchRect" parent="Control/NinePatchRect/Button1"]
+margin_left = -64.0
+margin_top = 3.0
+margin_right = 286.0
+margin_bottom = 77.0
+texture = ExtResource( 4 )
+patch_margin_left = 64
+patch_margin_top = 10
+patch_margin_right = 10
+patch_margin_bottom = 64
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -105,13 +120,14 @@ anchor_left = -0.695
 anchor_top = -2.931
 anchor_right = -0.695
 anchor_bottom = -2.931
-margin_left = 119.677
-margin_top = 223.396
-margin_right = 260.677
-margin_bottom = 271.396
+margin_left = 51.2
+margin_top = 262.066
+margin_right = 390.2
+margin_bottom = 323.066
 custom_fonts/font = SubResource( 3 )
-text = "Text"
+text = "Sample option text one"
 align = 1
+valign = 1
 autowrap = true
 __meta__ = {
 "_edit_use_anchors_": false

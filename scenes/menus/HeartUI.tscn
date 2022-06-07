@@ -15,8 +15,9 @@ __meta__ = {
 }
 
 [node name="HeartSlot" type="TextureRect" parent="Life"]
+margin_top = -4.0
 margin_right = 95.0
-margin_bottom = 96.0
+margin_bottom = 92.0
 texture = ExtResource( 3 )
 expand = true
 stretch_mode = 2
@@ -25,8 +26,9 @@ __meta__ = {
 }
 
 [node name="Hearts" type="TextureRect" parent="Life"]
+margin_top = -4.0
 margin_right = 95.0
-margin_bottom = 96.0
+margin_bottom = 92.0
 texture = ExtResource( 2 )
 expand = true
 stretch_mode = 2

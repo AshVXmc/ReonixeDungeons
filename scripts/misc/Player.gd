@@ -47,7 +47,8 @@ var can_dash : bool = false
 var is_healing : bool = false
 var is_shopping : bool = false
 var is_frozen : bool = false
-var is_using_firesaw : bool = false
+var is_using_primary_skill : bool = false
+var is_using_secondary_skill : bool = false
 var glider_equipped : bool = false
 var is_ground_pounding : bool = false
 var cam_shake : bool = false
@@ -226,9 +227,9 @@ func shoot():
 			$AttackCollision/CollisionShape2D.disabled = true
 	
 	if Input.is_action_just_pressed("primary_skill"):
-		if Global.primary_skill == "FireSaw" and Global.firesaw_unlocked and !is_attacking and !is_frozen and Global.mana >= 3 and !is_using_firesaw and get_parent().get_node("SkillsUI/Control/PrimarySkill/FireSaw/FiresawTimer").is_stopped():
+		if Global.primary_skill == "FireSaw" and Global.firesaw_unlocked and !is_attacking and !is_frozen and Global.mana >= 3 and !is_using_primary_skill and get_parent().get_node("SkillsUI/Control/PrimarySkill/FireSaw/FiresawTimer").is_stopped():
 			emit_signal("skill_used", "FireSaw")
-			is_using_firesaw = true
+			is_using_primary_skill = true
 			var firesaw = FIRESAW.instance()
 			var fireparticle = FIRE_PARTICLE.instance()
 			add_child(firesaw)
@@ -242,10 +243,12 @@ func shoot():
 			$AttackCollision/CollisionShape2D.disabled = true
 			# 8 is the duration of the firesaw
 			yield(get_tree().create_timer(8),"timeout")
-			is_using_firesaw = false
+			is_using_primary_skill = false
 			remove_child(fireparticle)
 	if Input.is_action_just_pressed("secondary_skill"):
-		pass
+		if Global.secondary_skill == "FireFairy" and Global.fire_fairy_unlocked and !is_attacking and !is_frozen and Global.mana >= 3 and !is_using_secondary_skill:
+			emit_signal("skill_used", "FireFairy")
+			print("fire fairy out yeah")
 	
 	
 func ground_pound():
@@ -351,7 +354,7 @@ func charge_meter():
 			dash_particle.one_shot = true
 		elif Global.mana < 1:
 			is_charging = false
-		if Input.is_action_just_pressed("jump") and Global.mana >= 1 and glider_equipped and is_on_floor() and !is_attacking and !is_frozen:
+		if Input.is_action_just_pressed("jump") and Global.mana >= 1 and glider_equipped and is_on_floor() and !is_attacking and !is_frozen and !underwater:
 			if !Global.godmode:
 				Global.mana -= 1
 				emit_signal("mana_changed", Global.mana)
@@ -397,6 +400,10 @@ func _on_Area2D_area_entered(area : Area2D):
 	if area.is_in_group("Transporter"):
 		emit_signal("level_changed")
 	if area.is_in_group("Water"):
+		var water_jump_particle = WATER_JUMP_PARTICLE.instance()
+		water_jump_particle.emitting = true
+		get_parent().add_child(water_jump_particle)
+		water_jump_particle.position = $ParticlePosition.global_position
 		$OxygenTimer.start()
 		underwater = true
 		velocity.y = 0
@@ -404,7 +411,9 @@ func _on_Area2D_area_entered(area : Area2D):
 		
 func _on_Area2D_area_exited(area):
 	if area.is_in_group("Water"):
+		
 		underwater = false
+		yield(get_tree().create_timer(1), "timeout")
 		$OxygenTimer.stop()
 		if $OxygenBar.value < 100:
 			$OxygenRefillTimer.start()

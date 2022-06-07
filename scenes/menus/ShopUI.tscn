@@ -1,16 +1,20 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://assets/fonts/Born2bSportyV2.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://assets/misc/health_pot.png" type="Texture" id=2]
 [ext_resource path="res://scripts/ui/ShopUI.gd" type="Script" id=3]
 [ext_resource path="res://assets/misc/opal.png" type="Texture" id=4]
 [ext_resource path="res://assets/misc/mana_pot.png" type="Texture" id=5]
-[ext_resource path="res://assets/UI/popup_textbox.png" type="Texture" id=6]
+[ext_resource path="res://assets/UI/textbox.png" type="Texture" id=6]
 [ext_resource path="res://assets/misc/life_wine.png" type="Texture" id=7]
 [ext_resource path="res://assets/misc/item_pouch.png" type="Texture" id=8]
 [ext_resource path="res://themes/Blur.tres" type="Material" id=9]
 [ext_resource path="res://assets/misc/revivement_crystal.png" type="Texture" id=10]
 [ext_resource path="res://assets/UI/quiticon.png" type="Texture" id=11]
+
+[sub_resource type="DynamicFont" id=6]
+size = 48
+font_data = ExtResource( 1 )
 
 [sub_resource type="DynamicFont" id=2]
 size = 50
@@ -43,7 +47,6 @@ __meta__ = {
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="Main" type="Control" parent="CanvasLayer"]
-visible = false
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -72,25 +75,44 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Background" type="ColorRect" parent="CanvasLayer/Main"]
-anchor_left = 0.616
-anchor_top = 0.653
-anchor_right = 0.616
-anchor_bottom = 0.653
-margin_left = -534.368
-margin_top = -202.853
-margin_right = 376.632
-margin_bottom = 297.147
-color = Color( 0.227451, 0, 0.498039, 1 )
+[node name="Background" type="NinePatchRect" parent="CanvasLayer/Main"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -454.5
+margin_top = -314.0
+margin_right = 455.5
+margin_bottom = 175.0
+texture = ExtResource( 6 )
+patch_margin_left = 64
+patch_margin_top = 64
+patch_margin_right = 64
+patch_margin_bottom = 64
+
+[node name="Title" type="RichTextLabel" parent="CanvasLayer/Main"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -386.0
+margin_top = -103.0
+margin_right = 386.0
+margin_bottom = -41.0
+custom_fonts/normal_font = SubResource( 6 )
+bbcode_enabled = true
+bbcode_text = "========= [color=#5213d1]Shopkeeper's Mart[/color] ========="
+text = "========= Shopkeeper's Mart ========="
+scroll_active = false
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="HealthPot" type="ColorRect" parent="CanvasLayer/Main"]
-margin_left = -64.1716
-margin_top = 68.5564
-margin_right = 55.8285
-margin_bottom = 188.555
+margin_left = -72.0288
+margin_top = 147.598
+margin_right = 47.9713
+margin_bottom = 267.597
 rect_scale = Vector2( 0.75, 0.75 )
 color = Color( 0.00392157, 0.639216, 0.917647, 1 )
 __meta__ = {
@@ -128,10 +150,10 @@ scale = Vector2( 3, 3 )
 texture = ExtResource( 4 )
 
 [node name="ManaPot" type="ColorRect" parent="CanvasLayer/Main"]
-margin_left = -64.1906
-margin_top = 175.556
-margin_right = 55.8097
-margin_bottom = 295.556
+margin_left = -72.0478
+margin_top = 254.598
+margin_right = 47.9525
+margin_bottom = 374.598
 rect_scale = Vector2( 0.75, 0.75 )
 color = Color( 0.00392157, 0.639216, 0.917647, 1 )
 __meta__ = {
@@ -316,23 +338,26 @@ position = Vector2( 211.567, 92.6534 )
 scale = Vector2( 3, 3 )
 texture = ExtResource( 4 )
 
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Main"]
-margin_left = -65.5858
-margin_top = 389.728
-margin_right = 334.414
-margin_bottom = 492.728
+[node name="NinePatchRect" type="NinePatchRect" parent="CanvasLayer/Main"]
+margin_left = 215.0
+margin_top = 417.0
+margin_right = 601.0
+margin_bottom = 511.0
 rect_scale = Vector2( 1.5, 1.5 )
 texture = ExtResource( 6 )
-expand = true
+patch_margin_left = 64
+patch_margin_top = 32
+patch_margin_right = 64
+patch_margin_bottom = 32
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="FlavorText" type="RichTextLabel" parent="CanvasLayer/Main"]
-margin_left = -50.0
-margin_top = 407.657
-margin_right = 514.0
-margin_bottom = 527.657
+margin_left = 228.0
+margin_top = 430.0
+margin_right = 783.0
+margin_bottom = 547.0
 custom_fonts/normal_font = SubResource( 4 )
 bbcode_enabled = true
 scroll_active = false
@@ -341,10 +366,10 @@ __meta__ = {
 }
 
 [node name="CloseButton" type="TextureButton" parent="CanvasLayer/Main"]
-margin_left = 761.814
-margin_top = 59.3945
-margin_right = 801.814
-margin_bottom = 99.3944
+margin_left = 758.144
+margin_top = 87.0913
+margin_right = 798.144
+margin_bottom = 127.091
 rect_scale = Vector2( 1.5, 1.5 )
 texture_normal = ExtResource( 11 )
 expand = true

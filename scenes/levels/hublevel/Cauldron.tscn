@@ -8,7 +8,7 @@
 [ext_resource path="res://assets/particles/cauldron_bubble_particle.png" type="Texture" id=6]
 [ext_resource path="res://assets/misc/common_monster_dust.png" type="Texture" id=7]
 [ext_resource path="res://assets/misc/health_pot.png" type="Texture" id=8]
-[ext_resource path="res://assets/UI/popup_textbox_square.png" type="Texture" id=9]
+[ext_resource path="res://assets/UI/textbox.png" type="Texture" id=9]
 [ext_resource path="res://scripts/items/Cauldron.gd" type="Script" id=10]
 [ext_resource path="res://assets/misc/mana_pot.png" type="Texture" id=11]
 
@@ -33,7 +33,7 @@ size = 48
 font_data = ExtResource( 2 )
 
 [sub_resource type="DynamicFont" id=8]
-size = 48
+size = 32
 font_data = ExtResource( 2 )
 
 [sub_resource type="DynamicFont" id=6]
@@ -83,7 +83,6 @@ texture = ExtResource( 6 )
 [node name="Plaque" type="CanvasLayer" parent="."]
 
 [node name="Control" type="Control" parent="Plaque"]
-visible = false
 anchor_left = 0.5
 anchor_top = 0.33
 anchor_right = 0.5
@@ -106,15 +105,19 @@ margin_top = -26.762
 margin_right = 363.668
 margin_bottom = 453.238
 texture = ExtResource( 9 )
+patch_margin_left = 64
+patch_margin_top = 64
+patch_margin_right = 64
+patch_margin_bottom = 64
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Header" type="RichTextLabel" parent="Plaque/Control"]
 margin_left = 255.773
-margin_top = 205.0
+margin_top = 210.0
 margin_right = 883.773
-margin_bottom = 255.0
+margin_bottom = 260.0
 custom_fonts/normal_font = SubResource( 3 )
 bbcode_enabled = true
 bbcode_text = "====== [color=green]Alchemy Cauldron[/color] ======"
@@ -126,9 +129,9 @@ __meta__ = {
 
 [node name="Text" type="Label" parent="Plaque/Control"]
 margin_left = 238.0
-margin_top = 247.0
+margin_top = 255.0
 margin_right = 887.0
-margin_bottom = 283.0
+margin_bottom = 291.0
 custom_fonts/font = SubResource( 8 )
 text = "Select a potion recipe."
 align = 1

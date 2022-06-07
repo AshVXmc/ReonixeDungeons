@@ -7,7 +7,7 @@
 [ext_resource path="res://assets/UI/quiticon.png" type="Texture" id=5]
 [ext_resource path="res://assets/UI/savebutton.png" type="Texture" id=6]
 [ext_resource path="res://assets/fonts/Born2bSportyV2.ttf" type="DynamicFontData" id=7]
-[ext_resource path="res://assets/UI/popup_textbox.png" type="Texture" id=8]
+[ext_resource path="res://assets/UI/textbox.png" type="Texture" id=8]
 
 [sub_resource type="DynamicFont" id=6]
 size = 64
@@ -44,19 +44,22 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="TextureRect" type="TextureRect" parent="OutOfFocus"]
+[node name="NinePatchRect" type="NinePatchRect" parent="OutOfFocus"]
 margin_left = 349.0
 margin_top = 310.0
 margin_right = 749.0
 margin_bottom = 430.0
 texture = ExtResource( 8 )
-expand = true
+patch_margin_left = 64
+patch_margin_top = 64
+patch_margin_right = 64
+patch_margin_bottom = 64
 
 [node name="Label" type="Label" parent="OutOfFocus"]
 margin_left = 374.902
-margin_top = 338.861
+margin_top = 340.861
 margin_right = 722.902
-margin_bottom = 402.861
+margin_bottom = 404.861
 custom_fonts/font = SubResource( 6 )
 text = "Click to Focus!"
 __meta__ = {

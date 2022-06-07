@@ -27,7 +27,7 @@
 [ext_resource path="res://scenes/items/LevelTransporter.tscn" type="PackedScene" id=25]
 [ext_resource path="res://assets/fonts/Born2bSportyV2.ttf" type="DynamicFontData" id=26]
 [ext_resource path="res://scenes/menus/SkillsUI.tscn" type="PackedScene" id=27]
-[ext_resource path="res://assets/UI/popup_textbox_square.png" type="Texture" id=28]
+[ext_resource path="res://assets/UI/textbox.png" type="Texture" id=28]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 143.263, 9.42744 )
@@ -257,6 +257,10 @@ margin_top = -174.0
 margin_right = 320.0
 margin_bottom = 306.0
 texture = ExtResource( 28 )
+patch_margin_left = 64
+patch_margin_top = 64
+patch_margin_right = 64
+patch_margin_bottom = 64
 __meta__ = {
 "_edit_use_anchors_": false
 }

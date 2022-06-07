@@ -26,8 +26,8 @@ __meta__ = {
 }
 
 [node name="TextureRect2" type="TextureRect" parent="ManaPotControl"]
-margin_left = 491.664
-margin_right = 507.664
+margin_left = 494.664
+margin_right = 510.664
 margin_bottom = 16.0
 rect_scale = Vector2( 6, 6 )
 texture = ExtResource( 4 )
@@ -36,9 +36,9 @@ __meta__ = {
 }
 
 [node name="TextureRect" type="TextureRect" parent="ManaPotControl"]
-margin_left = 507.111
+margin_left = 509.111
 margin_top = 14.0829
-margin_right = 523.111
+margin_right = 525.111
 margin_bottom = 31.0828
 rect_scale = Vector2( 4, 4 )
 texture = ExtResource( 1 )
@@ -49,9 +49,9 @@ __meta__ = {
 [node name="Label" type="Label" parent="ManaPotControl"]
 anchor_left = -3.735
 anchor_right = -3.735
-margin_left = 695.859
+margin_left = 697.859
 margin_top = 50.0
-margin_right = 745.859
+margin_right = 747.859
 margin_bottom = 173.0
 rect_scale = Vector2( 0.75, 0.75 )
 custom_fonts/font = SubResource( 1 )
@@ -62,21 +62,21 @@ __meta__ = {
 }
 
 [node name="Sprite" type="Sprite" parent="ManaPotControl"]
-position = Vector2( 508, 16 )
+position = Vector2( 516, 16 )
 scale = Vector2( 2, 2 )
 texture = ExtResource( 5 )
 
 [node name="KeyBind" type="Label" parent="ManaPotControl"]
 anchor_left = -3.732
 anchor_right = -3.732
-margin_left = 648.005
+margin_left = 656.005
 margin_top = -0.218201
-margin_right = 669.005
+margin_right = 677.005
 margin_bottom = 47.7818
 rect_scale = Vector2( 0.75, 0.75 )
 custom_colors/font_color = Color( 0.192157, 0.372549, 1, 1 )
 custom_fonts/font = SubResource( 2 )
-text = "2"
+text = "3"
 __meta__ = {
 "_edit_use_anchors_": false
 }

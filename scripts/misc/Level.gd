@@ -1,10 +1,11 @@
 class_name Level extends Node2D
 
 func _ready():
-	if Global.is_loading_a_save:
-		get_node("Player").position = Global.player_position
-		Global.is_loading_a_save = false
-		print("reached")
+	# Disabling this feature, but keeping it here if needed.
+#	if Global.is_loading_a_save:
+#		get_node("Player").position = Global.player_position
+#		Global.is_loading_a_save = false
+#		print("reached")
 #		Global.save_player_data()
 	$ParallaxBackground/Background1.visible = true
 	$GameOverUI/GameOver.visible = false

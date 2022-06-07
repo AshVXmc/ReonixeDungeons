@@ -2,7 +2,7 @@
 
 [ext_resource path="res://scripts/ui/DebugMenu.gd" type="Script" id=1]
 [ext_resource path="res://assets/fonts/Born2bSportyV2.ttf" type="DynamicFontData" id=2]
-[ext_resource path="res://assets/UI/popup_textbox.png" type="Texture" id=3]
+[ext_resource path="res://assets/UI/textbox.png" type="Texture" id=3]
 
 [sub_resource type="DynamicFont" id=1]
 size = 36
@@ -33,17 +33,23 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="TextureRect" type="TextureRect" parent="Control"]
+[node name="NinePatchRect" type="NinePatchRect" parent="Control"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -139.0
+margin_left = -151.0
 margin_top = -78.0
-margin_right = 141.0
-margin_bottom = 97.0
+margin_right = 157.0
+margin_bottom = 118.0
 texture = ExtResource( 3 )
-expand = true
+patch_margin_left = 64
+patch_margin_top = 64
+patch_margin_right = 64
+patch_margin_bottom = 64
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Label" type="Label" parent="Control"]
 anchor_left = 0.5

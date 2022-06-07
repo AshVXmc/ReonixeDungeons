@@ -21,13 +21,13 @@
 [ext_resource path="res://scenes/menus/HealthPotUI.tscn" type="PackedScene" id=19]
 [ext_resource path="res://scenes/misc/Light.tscn" type="PackedScene" id=20]
 [ext_resource path="res://scenes/menus/FPSCounter.tscn" type="PackedScene" id=21]
-[ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=22]
 [ext_resource path="res://scenes/menus/ManaUI.tscn" type="PackedScene" id=23]
 [ext_resource path="res://scenes/menus/SkillsUI.tscn" type="PackedScene" id=24]
 [ext_resource path="res://scenes/enemies/Bat.tscn" type="PackedScene" id=25]
 [ext_resource path="res://assets/terrain/background_dungeons.png" type="Texture" id=26]
 [ext_resource path="res://scenes/enemies/Spider.tscn" type="PackedScene" id=27]
 [ext_resource path="res://scenes/misc/StaticFloatingPlatform.tscn" type="PackedScene" id=28]
+[ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=29]
 [ext_resource path="res://tilesets/one_way_tilesets.tres" type="TileSet" id=30]
 [ext_resource path="res://scenes/menus/OpalsUI.tscn" type="PackedScene" id=31]
 
@@ -139,8 +139,8 @@ position = Vector2( -936.133, 538.782 )
 position = Vector2( -1400.05, 343.607 )
 Text = "Welcome to Reonixe Dungeons! Press ENTER to attack enemies from a close range. Observe your surroundings and proceed with caution, Don't charge on more enemies than you can handle. "
 
-[node name="Player" parent="." instance=ExtResource( 22 )]
-position = Vector2( 256.191, 409.104 )
+[node name="Player" parent="." instance=ExtResource( 29 )]
+position = Vector2( 2757.68, 401.095 )
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position = Vector2( 9.72693, -62.0423 )

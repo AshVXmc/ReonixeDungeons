@@ -21,9 +21,9 @@ __meta__ = {
 }
 
 [node name="TextureRect2" type="TextureRect" parent="CommonMonsterDust"]
-margin_left = 319.027
+margin_left = 320.0
 margin_top = 88.0
-margin_right = 335.027
+margin_right = 336.0
 margin_bottom = 104.0
 rect_scale = Vector2( 6, 6 )
 texture = ExtResource( 4 )

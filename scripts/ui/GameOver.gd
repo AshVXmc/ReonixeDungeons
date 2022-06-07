@@ -43,6 +43,8 @@ func _on_LoadSaveButton_pressed():
 			Global.vsync = player_data["Vsync"]
 			Global.levelpath = player_data["Level"]
 			Global.enemies_killed = player_data["EnemiesKilled"]
+			Global.player_position = player_data["PlayerPosition"]
+			Global.is_loading_a_save = player_data["IsLoadingASave"]
 			Global.masked_goblin_defeated = player_data["MaskedGoblinDefeated"]
 			Global.activated_portals = player_data["ActivatedPortals"]
 			

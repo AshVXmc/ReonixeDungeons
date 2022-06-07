@@ -4,7 +4,7 @@
 [ext_resource path="res://scripts/terrain/Portal.gd" type="Script" id=2]
 [ext_resource path="res://assets/fonts/FFFFORWA.ttf" type="DynamicFontData" id=3]
 [ext_resource path="res://assets/UI/quiticon.png" type="Texture" id=4]
-[ext_resource path="res://assets/UI/popup_textbox_square.png" type="Texture" id=5]
+[ext_resource path="res://assets/UI/textbox.png" type="Texture" id=5]
 [ext_resource path="res://assets/fonts/Born2bSportyV2.ttf" type="DynamicFontData" id=6]
 [ext_resource path="res://assets/terrain/hub_level/portal_opened_3.png" type="Texture" id=7]
 [ext_resource path="res://assets/terrain/hub_level/portal_opened_2.png" type="Texture" id=8]
@@ -82,7 +82,6 @@ __meta__ = {
 [node name="Plaque" type="CanvasLayer" parent="."]
 
 [node name="Control" type="Control" parent="Plaque"]
-visible = false
 anchor_left = 0.5
 anchor_top = 0.33
 anchor_right = 0.5
@@ -105,6 +104,10 @@ margin_top = -5.22173
 margin_right = 276.213
 margin_bottom = 431.778
 texture = ExtResource( 5 )
+patch_margin_left = 64
+patch_margin_top = 64
+patch_margin_right = 64
+patch_margin_bottom = 64
 __meta__ = {
 "_edit_use_anchors_": false
 }

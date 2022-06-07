@@ -7,10 +7,10 @@
 [node name="ManaUI" type="CanvasLayer"]
 
 [node name="Mana" type="Control" parent="."]
-margin_left = 12.0208
-margin_top = 94.0452
-margin_right = 78.0208
-margin_bottom = 160.045
+margin_left = 12.0
+margin_top = 81.0
+margin_right = 78.0
+margin_bottom = 134.0
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false

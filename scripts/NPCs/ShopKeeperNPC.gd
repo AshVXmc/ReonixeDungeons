@@ -24,7 +24,7 @@ func _ready():
 	else:
 		$DialogueScreen.dialogue.text = "Ah, its you, thank goodness. I've been trying to sell some of my goods to the locals, but the only 'locals' here are the monsters. Would you like to take a look?"
 	$DialogueScreen/Control/NinePatchRect/Button1.visible = true
-	$DialogueScreen/Control/NinePatchRect/Button1/Text.text = "Shop"
+	$DialogueScreen/Control/NinePatchRect/Button1/Text.text = "I'd like to buy your wares."
 
 func _process(delta):
 	if $Area2D.overlaps_area(PLAYER) and Input.is_action_just_pressed("ui_use"):

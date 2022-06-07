@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/icon_4.png-3014d85e2ae06129be8c52455ac63465.stex"
+path="res://.import/textbox.png-b2099baebd809ab2156a0a181b93923d.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/UI/icon_4.png"
-dest_files=[ "res://.import/icon_4.png-3014d85e2ae06129be8c52455ac63465.stex" ]
+source_file="res://assets/UI/textbox.png"
+dest_files=[ "res://.import/textbox.png-b2099baebd809ab2156a0a181b93923d.stex" ]
 
 [params]
 
