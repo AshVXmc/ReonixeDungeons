@@ -11,14 +11,14 @@ extents = Vector2( 22.2061, 46.6171 )
 
 [sub_resource type="SpriteFrames" id=4]
 animations = [ {
-"frames": [ ExtResource( 3 ), ExtResource( 5 ) ],
-"loop": true,
-"name": "Idle",
-"speed": 6.0
-}, {
 "frames": [ ExtResource( 4 ), ExtResource( 1 ) ],
 "loop": true,
 "name": "Attacking",
+"speed": 6.0
+}, {
+"frames": [ ExtResource( 3 ), ExtResource( 5 ) ],
+"loop": true,
+"name": "Idle",
 "speed": 6.0
 } ]
 
@@ -33,6 +33,7 @@ height = 36.6317
 position = Vector2( 0.471924, 0 )
 scale = Vector2( 1.2, 1.2 )
 collision_layer = 4
+collision_mask = 11
 script = ExtResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

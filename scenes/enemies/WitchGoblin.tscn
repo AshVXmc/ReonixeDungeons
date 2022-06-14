@@ -8,14 +8,14 @@
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
-"frames": [ ExtResource( 2 ) ],
-"loop": true,
-"name": "default",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 3 ), ExtResource( 4 ), ExtResource( 1 ) ],
 "loop": true,
 "name": "summoning",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 2 ) ],
+"loop": true,
+"name": "default",
 "speed": 5.0
 } ]
 
@@ -33,7 +33,7 @@ extents = Vector2( 57.0278, 58.8172 )
 [node name="WitchGoblin" type="KinematicBody2D" groups=["Enemy"]]
 scale = Vector2( 5, 5 )
 collision_layer = 33
-collision_mask = 34
+collision_mask = 162
 script = ExtResource( 5 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]

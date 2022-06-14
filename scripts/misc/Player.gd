@@ -7,8 +7,12 @@ signal lifewine_obtained(player_lifewine)
 signal manapot_obtained(player_manapot)
 signal opals_obtained(player_opals)
 signal crystals_obtained(player_crystals)
+
+signal ingredient_obtained(ingredient_name, amount)
+
 signal common_monster_dust_obtained(player_common_monster_dust)
 signal goblin_scales_obtained(player_goblin_scales)
+
 signal skill_used(skill_name)
 
 onready var inv_timer : Timer = $InvulnerabilityTimer
@@ -27,6 +31,7 @@ const GRAVITY : int = 40
 var JUMP_POWER : int = -1075
 const FIREBALL : PackedScene = preload("res://scenes/misc/Fireball.tscn")
 const FIRESAW : PackedScene = preload("res://scenes/misc/FireSaw.tscn")
+const FIRE_FAIRY : PackedScene = preload("res://scenes/misc/FireFairy.tscn")
 const JUMP_PARTICLE : PackedScene = preload("res://scenes/particles/JumpParticle.tscn")
 const WATER_JUMP_PARTICLE : PackedScene = preload("res://scenes/particles/WaterBubbleParticle.tscn")
 const DASH_PARTICLE : PackedScene = preload("res://scenes/particles/DashParticle.tscn")
@@ -62,6 +67,9 @@ func _ready():
 	$ChargeBar.value = 0
 	$SwordSprite.visible = false
 	$ChargeBar.visible = false
+	connect("ingredient_obtained", get_parent().get_node("InventoryUI/Control"), "on_ingredient_obtained")
+	emit_signal("ingredient_obtained", "common_dust", Global.common_monster_dust_amount)
+	emit_signal("ingredient_obtained", "goblin_scales", Global.goblin_scales_amount)
 	connect("skill_used", get_parent().get_node("SkillsUI/Control"), "on_skill_used")
 # warning-ignore:return_value_discarded
 	connect("life_changed", get_parent().get_node("HeartUI/Life"), "on_player_life_changed")
@@ -226,7 +234,7 @@ func shoot():
 			is_attacking = false
 			$AttackCollision/CollisionShape2D.disabled = true
 	
-	if Input.is_action_just_pressed("primary_skill"):
+	if Input.is_action_just_pressed("primary_skill") and !Input.is_action_just_pressed("secondary_skill"):
 		if Global.primary_skill == "FireSaw" and Global.firesaw_unlocked and !is_attacking and !is_frozen and Global.mana >= 3 and !is_using_primary_skill and get_parent().get_node("SkillsUI/Control/PrimarySkill/FireSaw/FiresawTimer").is_stopped():
 			emit_signal("skill_used", "FireSaw")
 			is_using_primary_skill = true
@@ -242,14 +250,23 @@ func shoot():
 			is_attacking = false
 			$AttackCollision/CollisionShape2D.disabled = true
 			# 8 is the duration of the firesaw
-			yield(get_tree().create_timer(8),"timeout")
+			yield(get_tree().create_timer(firesaw.get_node("DestroyedTimer").wait_time),"timeout")
 			is_using_primary_skill = false
 			remove_child(fireparticle)
-	if Input.is_action_just_pressed("secondary_skill"):
+	
+	if Input.is_action_just_pressed("secondary_skill") and !Input.is_action_just_pressed("primary_skill"):
 		if Global.secondary_skill == "FireFairy" and Global.fire_fairy_unlocked and !is_attacking and !is_frozen and Global.mana >= 3 and !is_using_secondary_skill:
 			emit_signal("skill_used", "FireFairy")
-			print("fire fairy out yeah")
-	
+			is_using_secondary_skill = true
+			var fire_fairy = FIRE_FAIRY.instance()
+			get_parent().add_child(fire_fairy)
+			fire_fairy.position = global_position
+			if !Global.godmode:
+				Global.mana -= 3
+				emit_signal("mana_changed", Global.mana)
+			yield(get_tree().create_timer(fire_fairy.get_node("DestroyedTimer").wait_time), "timeout")
+			is_using_secondary_skill = false
+			
 	
 func ground_pound():
 	if !is_on_floor() and Input.is_action_just_pressed("ui_down"):
@@ -428,7 +445,8 @@ func afterDamaged():
 	is_invulnerable = true
 	emit_signal("life_changed", Global.hearts)
 	$Sprite.play("Hurt")
-	$KnockbackTimer.start()
+	if !Global.godmode:
+		$KnockbackTimer.start()
 	if Global.hearts <= 0:
 		if Global.crystals_amount > 0:
 			Global.crystals_amount -= 1
@@ -452,7 +470,8 @@ func _on_AttackCollision_area_entered(area):
 
 func knockback():
 	if !Global.godmode:
-		if can_be_knocked:
+		if can_be_knocked and !Global.godmode:
+			print("knocked back")
 			$KnockbackCooldownTimer.start()
 			is_knocked_back = true
 			can_be_knocked = false
@@ -462,19 +481,23 @@ func knockback():
 		Input.action_release("ui_up")
 
 func _on_LeftDetector_area_entered(area):
-	if area.is_in_group("Enemy") or area.is_in_group("Enemy2") and is_knocked_back:
-		velocity.x = 1500
-		$KnockbackCooldownTimer.start()
-		velocity.y = JUMP_POWER * 0.25
-		is_healing = false
-		$HealingTimer.stop()
+	if !Global.godmode:
+		if area.is_in_group("Enemy") or area.is_in_group("Enemy2") and is_knocked_back:
+			velocity.x = 150
+			print("left ouch")
+			$KnockbackCooldownTimer.start()
+			velocity.y = JUMP_POWER * 0.25
+			is_healing = false
+			$HealingTimer.stop()
 func _on_RightDectector_area_entered(area):
-	if area.is_in_group("Enemy") or area.is_in_group("Enemy2") and is_knocked_back:
-		velocity.x = -1500
-		$KnockbackCooldownTimer.start()
-		velocity.y = JUMP_POWER * 0.25
-		is_healing = false
-		$HealingTimer.stop()
+	if !Global.godmode:
+		if area.is_in_group("Enemy") or area.is_in_group("Enemy2") and is_knocked_back and !Global.godmode:
+			velocity.x = -1500
+			print("right ouch")
+			$KnockbackCooldownTimer.start()
+			velocity.y = JUMP_POWER * 0.25
+			is_healing = false
+			$HealingTimer.stop()
 func dash():
 	if Global.dash_unlocked and !is_frozen:
 		if is_on_floor() and $DashUseTimer.is_stopped():
@@ -501,12 +524,15 @@ func dash():
 			Input.action_release("jump")
 			$DashUseTimer.start()
 			$Sprite.play("Dash")
+			$Area2D.remove_from_group("Player")
 			velocity.x = 0
 			velocity.y = 0
 			velocity = dashdirection.normalized() * 3000
 			can_dash = false
 			is_dashing = true
+			
 			yield(get_tree().create_timer(0.25), "timeout")
+			$Area2D.add_to_group("Player")
 			$DashCooldown.start()
 			velocity.y += GRAVITY
 			is_dashing = false
@@ -599,7 +625,8 @@ func on_lootbag_obtained(tier : int):
 			var num  = lootrng.randi_range(1,3)
 			lootrng.randomize()
 			Global.common_monster_dust_amount += num
-			emit_signal("common_monster_dust_obtained", Global.common_monster_dust_amount)
+			
+			emit_signal("ingredient_obtained", "common_dust", Global.common_monster_dust_amount)
 			
 			var opalrng : RandomNumberGenerator = RandomNumberGenerator.new()
 			opalrng.randomize()
@@ -612,8 +639,7 @@ func on_lootbag_obtained(tier : int):
 			var num  = lootrng.randi_range(1,5)
 			lootrng.randomize()
 			Global.common_monster_dust_amount += num
-			emit_signal("common_monster_dust_obtained", Global.common_monster_dust_amount)
-			
+			emit_signal("ingredient_obtained", "common_dust", Global.common_monster_dust_amount)
 			var opalrng : RandomNumberGenerator = RandomNumberGenerator.new()
 			opalrng.randomize()
 			var opalnum = opalrng.randi_range(5,20)
@@ -624,7 +650,7 @@ func on_lootbag_obtained(tier : int):
 			scalesrng.randomize()
 			var scalesnum = scalesrng.randi_range(1,3)
 			Global.goblin_scales_amount += scalesnum
-			emit_signal("goblin_scales_obtained", Global.goblin_scales_amount)
+			emit_signal("ingredient_obtained", "goblin_scales", Global.goblin_scales_amount)
 			
 
 func on_Item_bought(item_name : String, item_price : int):
@@ -679,11 +705,6 @@ func debug_commands(cmd : String):
 			emit_signal("lifewine_obtained", Global.lifewine_amount)
 			Global.crystals_amount += Global.max_item_storage - Global.crystals_amount
 			emit_signal("crystals_obtained", Global.crystals_amount)
-		"fillingr":
-			Global.common_monster_dust_amount += 99
-			emit_signal("common_monster_dust_obtained", Global.common_monster_dust_amount)
-			Global.goblin_scales_amount += 99
-			emit_signal("goblin_scales_obtained", Global.goblin_scales_amount)
 		"opalall":
 			Global.opals_amount += 999 - Global.opals_amount
 			emit_signal("opals_obtained", Global.opals_amount)
@@ -738,11 +759,13 @@ func _on_DashCooldown_timeout():
 	$Sprite.play("Idle")
 	
 func _on_KnockbackTimer_timeout():
+
 	is_knocked_back = false
 	repulsion.x = knockback_power
 	velocity.x = 0
 
 func _on_KnockbackCooldownTimer_timeout():
+
 	can_be_knocked = true
 	Input.action_release("left")
 	Input.action_release("right")
@@ -778,15 +801,8 @@ func _on_ManaHealTimer_timeout():
 		emit_signal("mana_changed", Global.mana)
 		Global.manapot_amount -= 1
 		emit_signal("manapot_obtained", Global.manapot_amount)
-
-
-
-
 func _on_AnimationPlayer_animation_finished(anim_name):
 	$SwordSprite.visible = false
-
-
-
 func _on_GlideTimer_timeout():
 	if is_gliding and glider_equipped:
 		Global.mana -= 1
@@ -797,23 +813,13 @@ func _on_GlideTimer_timeout():
 	else:
 		is_gliding = false
 		Input.action_release("jump")
-		
-
-
+	
 func _on_MeleeTimer_timeout():
 	pass # Replace with function body.
-
-
-
-
-
 func _on_OxygenTimer_timeout():
-	
 	$OxygenBar.value -= 5
 	if underwater:
 		$OxygenTimer.start()
-
-
 func _on_OxygenRefillTimer_timeout():
 	if !underwater and $OxygenBar.value < 100 and $OxygenTimer.is_stopped():
 		$OxygenBar.value += 10

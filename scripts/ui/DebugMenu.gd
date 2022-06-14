@@ -1,11 +1,12 @@
 class_name DebugMenu extends Control
 signal debugcmd(cmd)
+signal update_ingr_ui(ingr_name, amount)
 var numbers : String = "1234567891011121314151617181920"
 
 
 func _ready():
 	self.visible = false
-	
+	connect("update_ingr_ui", get_parent().get_parent().get_node("InventoryUI/Control"), "on_ingredient_obtained")
 	connect("debugcmd", get_parent().get_parent().get_node("Player"), "debug_commands")
 func _process(delta):
 #	if visible:
@@ -47,6 +48,7 @@ func parse_command():
 			Global.dash_unlocked = true
 			Global.firesaw_unlocked = true
 			Global.glide_unlocked = true
+			Global.fire_fairy_unlocked = true
 			$Output.text = "Abilities unlocked"
 		"lockall":
 			Global.dash_unlocked = false
@@ -57,8 +59,11 @@ func parse_command():
 			emit_signal("debugcmd", "fillall")
 			$Output.text = "Filled all items"
 		"fillingr":
-			emit_signal("debugcmd", "fillingr")
 			$Output.text = "Filled Ingredients"
+			Global.common_monster_dust_amount = 99
+			Global.goblin_scales_amount = 99
+			emit_signal("update_ingr_ui", "common_dust", Global.common_monster_dust_amount)
+			emit_signal("update_ingr_ui", "goblin_scales", Global.common_monster_dust_amount)
 		"opalall":
 			emit_signal("debugcmd", "opalall")
 			$Output.text = "Filled opals"

@@ -30,6 +30,8 @@ var activated_portals : Array
 var primary_skill : String
 var secondary_skill : String
 
+
+
 var enemies_killed : int
 # Boss Victories
 var masked_goblin_defeated : bool
@@ -97,7 +99,9 @@ func save_player_data():
 		
 		"IsLoadingASave": Global.is_loading_a_save,
 		"PlayerPosition": Global.player_position,
-	
+		
+		"PrimarySkill" : Global.primary_skill,
+		"SecondarySkill": Global.secondary_skill,
 		"Lighting" : Global.lighting,
 		"Vsync" : Global.vsync,
 		"EnemiesKilled": Global.enemies_killed ,

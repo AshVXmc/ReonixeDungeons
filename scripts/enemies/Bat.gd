@@ -2,6 +2,7 @@ class_name Bat extends KinematicBody2D
 
 const TYPE : String = "Enemy"
 var SPEED : int = 180
+var steer_force = 100
 var velocity: Vector2 = Vector2.ZERO
 var is_dead : bool = false
 var HP : int = 2
@@ -9,15 +10,41 @@ var direction : int = 1
 var player = null
 const LOOT : PackedScene = preload("res://scenes/items/LootBag.tscn")
 var rng : RandomNumberGenerator = RandomNumberGenerator.new()
+var target = null
+var acceleration = Vector2.ZERO
 
+func _ready():
+	$AnimatedSprite.play("Idle")
+func start(_transform, _target):
+	
+	global_transform = _transform
+#	rotation += rand_range(-0.09, 0.09)
+	velocity = transform.x * SPEED
+	target = _target
+	
+func seek():
+	var steer = Vector2.ZERO
+	if target:
+		var desired = (target.position - position).normalized() * SPEED
+		steer = (desired - velocity).normalized() * steer_force
+		return steer
+	
 func _physics_process(delta):
-	if !is_dead:
-		$AnimatedSprite.play("Idle")
-		velocity = Vector2.ZERO
-		if player:
-			velocity = position.direction_to(player.position) * SPEED
-			velocity = move_and_slide(velocity)
+	target = get_player()
+	if target and get_parent().get_node("Player/Area2D").overlaps_area($Detector):
+		acceleration += seek()
+		velocity += acceleration * delta
+		velocity = velocity.clamped(SPEED)
+		position += velocity * delta
+	elif !get_parent().get_node("Player/Area2D").overlaps_area($Detector):
+		velocity.x = 0
+		velocity.y = 0
 
+
+func get_player():
+	var player = get_parent().get_node("Player")
+	
+	return player
 
 func _on_Area2D_area_entered(area):
 	if area.is_in_group("Sword") or area.is_in_group("Fireball"):

@@ -49,5 +49,6 @@ func _on_HomingOnEnemiesFireball_area_entered(area):
 	pass # Replace with function body.
 
 
-func _on_Timer_timeout():
-	queue_free()
+
+func _on_DestroyedTimer_timeout():
+	queue_free() 

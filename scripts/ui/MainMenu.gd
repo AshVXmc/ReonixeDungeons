@@ -48,6 +48,8 @@ func _on_LoadGame_pressed():
 			Global.levelpath = player_data["Level"]
 			Global.enemies_killed = player_data["EnemiesKilled"]
 			Global.player_position = player_data["PlayerPosition"]
+			Global.primary_skill = player_data["PrimarySkill"]
+			Global.secondary_skill = player_data["SecondarySkill"]
 			Global.is_loading_a_save = player_data["IsLoadingASave"]
 			Global.masked_goblin_defeated = player_data["MaskedGoblinDefeated"]
 			Global.activated_portals = player_data["ActivatedPortals"]
