@@ -27,7 +27,7 @@ func _ready():
 	$DialogueScreen/Control/NinePatchRect/Button1/Text.text = "I'd like to buy your wares."
 
 func _process(delta):
-	if $Area2D.overlaps_area(PLAYER) and Input.is_action_just_pressed("ui_use"):
+	if $Area2D.overlaps_area(PLAYER) and Input.is_action_just_pressed("ui_use") and !$ShopUI/CanvasLayer/Main.visible:
 		$DialogueScreen/Control.visible = true
 		player.is_shopping = true
 #		var shopui := SHOP_UI.instance()

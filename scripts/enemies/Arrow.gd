@@ -1,7 +1,7 @@
 class_name Arrow extends KinematicBody2D
 
 
-const SPEED : int = 500
+const SPEED : int = 400
 var velocity := Vector2()
 var x_direction : int = 1
 
@@ -24,7 +24,7 @@ func flip_arrow_direction(fb_direction : int):
 
 
 func _on_Area2D_area_entered(area):
-	if area.is_in_group("Player") or area.is_in_group("Sword") or area.is_in_group("Fireball") or area.is_in_group("Wall"):
+	if area.is_in_group("Player") or area.is_in_group("Sword") or area.is_in_group("Fireball") or area.is_in_group("Tilemap"):
 		queue_free()
 
 

@@ -124,7 +124,7 @@ margin_bottom = 178.169
 rect_scale = Vector2( 0.75, 0.75 )
 custom_colors/font_color = Color( 0.192157, 0.372549, 1, 1 )
 custom_fonts/font = SubResource( 2 )
-text = "V"
+text = "C"
 __meta__ = {
 "_edit_use_anchors_": false
 }

@@ -9,7 +9,7 @@
 extents = Vector2( 22.2061, 46.6171 )
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 248.288, 80.1457 )
+extents = Vector2( 296.385, 131.841 )
 
 [sub_resource type="CapsuleShape2D" id=3]
 radius = 38.2036
@@ -83,13 +83,13 @@ texture = ExtResource( 3 )
 [node name="Left" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Left"]
-position = Vector2( -286.071, -31.6806 )
+position = Vector2( -302.831, -83.3759 )
 shape = SubResource( 2 )
 
 [node name="Right" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Right"]
-position = Vector2( 291.536, -31.6806 )
+position = Vector2( 296.85, -83.3759 )
 shape = SubResource( 2 )
 
 [node name="Area2D" type="Area2D" parent="." groups=["Enemy"]]

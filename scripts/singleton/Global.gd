@@ -1,7 +1,7 @@
 extends Node 
 
 # GLOBALLY ACCESSED VARIABLES
-var max_hearts : float = 2
+var max_hearts : float = 3
 var hearts : float = max_hearts
 var max_mana : int = 5
 var mana : int = max_mana
@@ -27,8 +27,8 @@ var savepath : String = SAVE_DIR + "savefile.dat"
 var lighting : bool = true
 var vsync : bool = true
 var activated_portals : Array 
-var primary_skill : String
-var secondary_skill : String
+var primary_skill : String = "FireSaw"
+var secondary_skill : String = "FireFairy"
 
 
 
@@ -41,7 +41,7 @@ var godmode : bool = false
 
 	
 func reset_player_data():
-	Global.hearts = 2
+	Global.hearts = 3
 	Global.mana = 5
 	Global.healthpot_amount = 0
 	Global.lifewine_amount = 0

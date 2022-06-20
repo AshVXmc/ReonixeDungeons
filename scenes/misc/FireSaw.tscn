@@ -71,9 +71,5 @@ position = Vector2( 1.87713, -2.13573 )
 scale = Vector2( 1.09178, 1.10093 )
 polygon = PoolVector2Array( -101.395, -38.79, -160.578, 19.644, -160.578, 38.3728, -41.4622, 39.8711, -39.9639, 99.8035, 18.4701, 158.987, 39.4464, 158.987, 40.1955, 40.6203, 119.606, 40.6203, 160.809, 0.915161, 160.06, -41.7866, 40.1955, -40.2883, 40.9447, -100.221, -18.9876, -160.153, -39.9639, -160.902, -39.9639, -42.5358 )
 
-[node name="Timer" type="Timer" parent="."]
-wait_time = 0.5
-
 [connection signal="screen_exited" from="VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_exited"]
 [connection signal="timeout" from="DestroyedTimer" to="." method="_on_DestroyedTimer_timeout"]
-[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

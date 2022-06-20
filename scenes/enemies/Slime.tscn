@@ -18,6 +18,7 @@ script = ExtResource( 1 )
 __meta__ = {
 "_edit_group_": true
 }
+HP = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 0.793701, -4.96062 )

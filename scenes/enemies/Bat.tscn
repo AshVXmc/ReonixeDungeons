@@ -23,9 +23,12 @@ radius = 50.249
 radius = 450.0
 
 [node name="Bat" type="KinematicBody2D" groups=["Enemy"]]
-collision_layer = 132
-collision_mask = 139
+collision_layer = 4
+collision_mask = 11
 script = ExtResource( 2 )
+__meta__ = {
+"_edit_group_": true
+}
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )
@@ -35,7 +38,9 @@ scale = Vector2( 5, 5 )
 frames = SubResource( 4 )
 animation = "Idle"
 
-[node name="Area2D" type="Area2D" parent="." groups=["Enemy"]]
+[node name="Area2D" type="Area2D" parent="." groups=["Enemy", "Flying"]]
+collision_layer = 4
+collision_mask = 11
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource( 2 )

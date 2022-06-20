@@ -6,7 +6,7 @@
 rotation = 3.83972
 scale = Vector2( 6, 6 )
 lifetime = 0.5
-explosiveness = 1.0
+explosiveness = 0.6
 randomness = 0.85
 lifetime_randomness = 0.4
 texture = ExtResource( 1 )

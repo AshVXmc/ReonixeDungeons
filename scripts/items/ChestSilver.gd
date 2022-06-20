@@ -8,8 +8,11 @@ onready var PLAYER = get_parent().get_node("Player").get_node("Area2D")
 const OPENED_PARTICLES = preload("res://scenes/particles/ChestParticle.tscn")
 
 signal give_opals(amount)
+signal autosave()
 func _ready():
 	connect("give_opals", get_parent().get_node("Player"), "get_opals")
+	if !Global.opened_chests.has(chestID):
+		connect("autosave", get_parent().get_node("PauseUI/Pause") , "_on_SaveButton_pressed")
 	$Label.visible = false
 
 func _process(_delta):
@@ -27,7 +30,7 @@ func _process(_delta):
 		get_parent().add_child(opened_particles)
 		opened_particles.position = global_position
 		opened_particles.one_shot = true
-
+		emit_signal("autosave")
 func _on_Area2D_area_entered(area):
 	if area.is_in_group("Player") and !$Label.visible and !Global.opened_chests.has(chestID):
 		$Label.visible = true

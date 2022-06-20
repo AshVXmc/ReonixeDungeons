@@ -39,6 +39,7 @@ const SWORD_PARTICLE : PackedScene = preload("res://scenes/particles/SwordSwingP
 const FIRE_PARTICLE : PackedScene = preload("res://scenes/particles/FlameParticle.tscn")
 const GROUND_POUND_PARTICLE : PackedScene = preload("res://scenes/particles/GroundPoundParticle.tscn")
 const SUPER_SLASH_PROJECTILE : PackedScene = preload("res://scenes/misc/SuperSlashProjectile.tscn")
+const SWORD_HIT_PARTICLE : PackedScene = preload("res://scenes/particles/SwordHitParticle.tscn")
 onready var FULL_CHARGE_METER = preload("res://assets/UI/chargebar_full.png")
 onready var CHARGING_CHARGE_METER = preload("res://assets/UI/chargebar_charging.png")
 var is_attacking : bool = false
@@ -157,7 +158,7 @@ func _physics_process(_delta):
 					$Position2D.position.x *= -1
 				if sign($DashParticlePosition.position.x) == -1:
 					$DashParticlePosition.position.x *= -1
-				get_node("AttackCollision").set_scale(Vector2(-1,1))	
+				get_node("AttackCollision").set_scale(Vector2(-1,1))
 			elif velocity.x == 0:
 				if !is_attacking:
 					$Sprite.play("Idle")
@@ -216,6 +217,10 @@ func _physics_process(_delta):
 			rand_range(-1, 1) * 3, \
 			rand_range(-1, 1) * 3 \
 		))
+	if is_shopping:
+		is_invulnerable = true
+	else:
+		is_invulnerable = false
 	charge_meter()
 
 	
@@ -344,7 +349,7 @@ func charge_meter():
 			$ChargeBar.visible = true
 			$ChargeBar.value += 2
 			is_charging = true
-		if Input.is_action_just_released("charge"):
+		if Input.is_action_just_released("charge") or Input.is_action_pressed("left") or Input.is_action_pressed("right"):
 			# Min value is 0 (Empty)
 			$ChargeBar.visible = false
 			$ChargeBar.value = $ChargeBar.min_value
@@ -395,7 +400,9 @@ func _on_Area2D_area_entered(area : Area2D):
 		Global.lifewine_amount += 1
 		emit_signal("lifewine_obtained", Global.lifewine_amount)
 	if !Global.godmode:
-		if inv_timer.is_stopped():
+		if inv_timer.is_stopped() and !is_invulnerable:
+			# TODO: think about if knockback makes the experience better or worse
+			# For now, i think its better
 			if area.is_in_group("Enemy") or area.is_in_group("DeflectedProjectile"):
 				Global.hearts -= 0.5
 				is_gliding = false
@@ -437,7 +444,7 @@ func _on_Area2D_area_exited(area):
 		print("not underwater")
 
 func attack_knock():
-	var KNOCK_POWER : int = 125
+	var KNOCK_POWER : int = 150
 	velocity.x = -KNOCK_POWER if !$Sprite.flip_h else KNOCK_POWER
 
 func afterDamaged():
@@ -462,8 +469,12 @@ func afterDamaged():
 
 # Obtaining mana by attacking enemies
 func _on_AttackCollision_area_entered(area):
-	if area.is_in_group("Enemy")and !$AttackCollision/CollisionShape2D.disabled:
+	if area.is_in_group("Enemy") or area.is_in_group("Enemy2") and !$AttackCollision/CollisionShape2D.disabled:
 		attack_knock()
+		var hitparticle = SWORD_HIT_PARTICLE.instance()
+		hitparticle.emitting = true
+		get_parent().add_child(hitparticle)
+		hitparticle.position = $Position2D.global_position
 		if Global.mana < Global.max_mana and $ChargeBar.value != $ChargeBar.max_value:
 			Global.mana += 1
 			emit_signal("mana_changed", Global.mana)
@@ -483,7 +494,7 @@ func knockback():
 func _on_LeftDetector_area_entered(area):
 	if !Global.godmode:
 		if area.is_in_group("Enemy") or area.is_in_group("Enemy2") and is_knocked_back:
-			velocity.x = 150
+			velocity.x = 1500
 			print("left ouch")
 			$KnockbackCooldownTimer.start()
 			velocity.y = JUMP_POWER * 0.25
@@ -530,7 +541,6 @@ func dash():
 			velocity = dashdirection.normalized() * 3000
 			can_dash = false
 			is_dashing = true
-			
 			yield(get_tree().create_timer(0.25), "timeout")
 			$Area2D.add_to_group("Player")
 			$DashCooldown.start()

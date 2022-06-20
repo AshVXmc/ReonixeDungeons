@@ -72,7 +72,7 @@ func drop_loot():
 	if HP <= 0:
 		if randomint == 1:
 			get_parent().add_child(loot)
-			loot.position = $Position2D.global_position
+			loot.position = global_position
 		queue_free()
 		Global.enemies_killed += 1
 

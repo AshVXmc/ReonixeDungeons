@@ -81,10 +81,10 @@ extents = Vector2( 381.656, 15.5452 )
 script = ExtResource( 16 )
 
 [node name="ColorRect" type="ColorRect" parent="."]
-margin_left = -1448.59
+margin_left = -1449.0
 margin_top = -3159.0
-margin_right = 6370.41
-margin_bottom = -236.0
+margin_right = 6370.0
+margin_bottom = -315.0
 color = Color( 0, 0, 0, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -120,8 +120,8 @@ z_as_relative = false
 motion_mirroring = Vector2( 1920, 0 )
 
 [node name="Sprite" type="Sprite" parent="ParallaxBackground/Background1"]
-position = Vector2( 0, -236.092 )
-scale = Vector2( 20.1855, 15.7143 )
+position = Vector2( 0, -314.891 )
+scale = Vector2( 20.1855, 16.752 )
 texture = ExtResource( 2 )
 centered = false
 __meta__ = {
@@ -305,6 +305,7 @@ format = 1
 tile_data = PoolIntArray( -1245150, 1, 0, -1245149, 1, 0, -1245148, 1, 0, -1245147, 1, 0, -1245146, 1, 0, -1245145, 1, 0, -1245144, 1, 0, -1245143, 1, 0 )
 
 [node name="StaticBody2D" type="StaticBody2D" parent="TileMap2"]
+collision_layer = 129
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TileMap2/StaticBody2D"]
 position = Vector2( 3650.66, -1745.55 )

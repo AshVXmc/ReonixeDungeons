@@ -6,15 +6,15 @@ onready var opened = preload("res://assets/misc/item_pouch_opened.png")
 
 func _ready():
 	visible = false
-	get_parent().get_node("BagSprite").texture = closed
+	get_parent().get_node("Bag/BagSprite").texture = closed
 func _physics_process(delta):
 	if Input.is_action_just_pressed("ui_toggle_inventory"):
 		if !visible:
 			visible = true
-			get_parent().get_node("BagSprite").texture = opened
+			get_parent().get_node("Bag/BagSprite").texture = opened
 		else:
 			visible = false
-			get_parent().get_node("BagSprite").texture = closed
+			get_parent().get_node("Bag/BagSprite").texture = closed
 func on_ingredient_obtained(ingr_name : String, amount : int):
 	match ingr_name:
 		"common_dust":

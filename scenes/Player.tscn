@@ -381,6 +381,7 @@ wait_time = 0.2
 [node name="SwordSpreadArea" type="Area2D" parent="." groups=["Sword2"]]
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="SwordSpreadArea"]
+position = Vector2( 3.98944, 3.96558 )
 polygon = PoolVector2Array( -4.49139, 2.44882, -70.4112, -26.2582, -183.113, -74.1032, -185.239, 49.2306, 175.193, 47.1042, 174.13, -74.1032 )
 disabled = true
 
@@ -410,7 +411,7 @@ __meta__ = {
 }
 
 [node name="MeleeTimer" type="Timer" parent="."]
-wait_time = 0.35
+wait_time = 0.25
 one_shot = true
 
 [node name="OxygenTimer" type="Timer" parent="."]

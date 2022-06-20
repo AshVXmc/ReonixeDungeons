@@ -1,5 +1,7 @@
-extends AnimatedSprite
+extends Sprite
 
+# Barrels have a chance to be randomly converted into explosive barrels or 
+# dissapear from the map to spice up the levels a bit 
 var broken : bool = false
 export var MAX : int = 5
 export var MIN : int = 1
@@ -9,13 +11,14 @@ func _ready():
 	connect("give_opals", get_parent().get_node("Player"), "get_opals")
 
 func _process(_delta):
-	if !broken:
-		self.play("Idle")
+	pass
+#	if !broken:
+#		self.play("Idle")
 	
 func _on_Area2D_area_entered(area):
 	if area.is_in_group("Sword") or area.is_in_group("Fireball") and !broken:
 		broken = true
-		self.play("Break")
+#		self.play("Break")
 		$Area2D/CollisionShape2D.queue_free()
 		
 		var rng := RandomNumberGenerator.new()

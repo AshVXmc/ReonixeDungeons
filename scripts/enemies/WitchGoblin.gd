@@ -19,17 +19,15 @@ func _physics_process(delta):
 		$SummoningPos.position.x = initial_pos * -1
 		
 	if $Left.overlaps_area(PLAYER):
-		player_inside = true
-		$AnimatedSprite.play("summoning")
 		$AnimatedSprite.flip_h = false
 	elif $Right.overlaps_area(PLAYER):
+		$AnimatedSprite.flip_h = true
+	if $SummoningArea.overlaps_area(PLAYER):
 		player_inside = true
 		$AnimatedSprite.play("summoning")
-		$AnimatedSprite.flip_h = true
-
 	if !player_inside:
 		$SummoningTimer.stop()
-	if !$Left.overlaps_area(PLAYER) or !$Right.overlaps_area(PLAYER):
+	if !$SummoningArea.overlaps_area(PLAYER):
 		player_inside = false
 #		$AnimatedSprite.play("default")
 	
@@ -38,11 +36,11 @@ func summon_familiars():
 	get_parent().add_child(familiar)
 	familiar.position = $SummoningPos.global_position
 
-func _on_Left_area_entered(area):
-		$SummoningTimer.start()
-
-func _on_Right_area_entered(area):
-		$SummoningTimer.start()
+#func _on_Left_area_entered(area):
+#		$SummoningTimer.start()
+#
+#func _on_Right_area_entered(area):
+#		$SummoningTimer.start()
 
 
 func _on_SummoningTimer_timeout():
@@ -51,14 +49,6 @@ func _on_SummoningTimer_timeout():
 		$SummoningTimer.start()
 	else:
 		$SummoningTimer.stop()
-
-
-#func _on_Left_area_exited(area):
-#	$SummoningTimer.stop()
-#
-#
-#func _on_Right_area_exited(area):
-#	$SummoningTimer.stop()
 
 
 func _on_Area2D_area_entered(area):
@@ -87,3 +77,7 @@ func parse_damage():
 
 func _on_HurtTimer_timeout():
 	set_modulate(Color(1,1,1,1))
+
+
+func _on_SummoningArea_area_entered(area):
+	$SummoningTimer.start()
