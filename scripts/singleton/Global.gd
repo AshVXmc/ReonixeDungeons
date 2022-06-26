@@ -3,7 +3,7 @@ extends Node
 # GLOBALLY ACCESSED VARIABLES
 var max_hearts : float = 3
 var hearts : float = max_hearts
-var max_mana : int = 5
+var max_mana : int = 6
 var mana : int = max_mana
 var healthpot_amount : int = 0
 var lifewine_amount : int = 0
@@ -15,7 +15,7 @@ var crystals_amount : int = 0
 var opened_chests := []
 var soul_token_amount : int = 0
 const SAVE_DIR : String = "user://savedata/"
-var dash_unlocked : bool = false # 1 mana per use
+var dash_unlocked : bool = true # 1 mana per use
 var glide_unlocked : bool = false # 1 mana per use
 var firesaw_unlocked : bool = true # 3 mana per use
 var fire_fairy_unlocked : bool = true # 1 mana per second of usage
@@ -24,11 +24,22 @@ var levelpath : String
 var is_loading_a_save : bool
 var player_position : Vector2
 var savepath : String = SAVE_DIR + "savefile.dat"
-var lighting : bool = true
-var vsync : bool = true
-var activated_portals : Array 
-var primary_skill : String = "FireSaw"
-var secondary_skill : String = "FireFairy"
+var lighting : bool = false
+var vsync : bool = false
+var activated_portals : Array
+
+var player_skills : Dictionary = {
+	"PrimarySkill": "FireSaw",
+	"SecondarySkill": "FireFairy", 
+	"RangedSkill": "Fireball"
+}
+
+var unlocked_skills : Dictionary = {
+	"PrimarySkills": ["FireSaw"],
+	"SecondarySkills": ["FireFairy"],
+	"RangedSkills": ["Fireball"]
+}
+
 
 
 
@@ -51,7 +62,7 @@ func reset_player_data():
 	Global.common_monster_dust_amount = 0
 	Global.goblin_scales_amount = 0
 	Global.soul_token_amount = 0
-	Global.dash_unlocked = false
+	Global.dash_unlocked = true
 	Global.glide_unlocked = false
 	Global.firesaw_unlocked = true
 	Global.fire_fairy_unlocked = true
@@ -61,8 +72,10 @@ func reset_player_data():
 	Global.levelpath = ""
 	Global.enemies_killed = 0
 	Global.masked_goblin_defeated = false
-	Global.primary_skill = "FireSaw"
-	Global.secondary_skill = "FireFairy"
+	Global.player_skills["PrimarySkill"] = "FireSaw"
+	Global.player_skills["SecondarySkill"] = "FireFairy"
+	Global.player_skills["RangedSkill"] = "Fireball"
+	Global.vsync = false
 	Global.activated_portals.clear()
 	
 func reset_chest_data():
@@ -100,8 +113,9 @@ func save_player_data():
 		"IsLoadingASave": Global.is_loading_a_save,
 		"PlayerPosition": Global.player_position,
 		
-		"PrimarySkill" : Global.primary_skill,
-		"SecondarySkill": Global.secondary_skill,
+		"PrimarySkill" : Global.player_skills["PrimarySkill"],
+		"SecondarySkill": Global.player_skills["SecondarySkill"],
+		"RangedSkill" :  Global.player_skills["RangedSkill"],
 		"Lighting" : Global.lighting,
 		"Vsync" : Global.vsync,
 		"EnemiesKilled": Global.enemies_killed ,

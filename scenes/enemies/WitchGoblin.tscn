@@ -31,7 +31,7 @@ height = 9.06714
 extents = Vector2( 57.0278, 58.8172 )
 
 [sub_resource type="RectangleShape2D" id=5]
-extents = Vector2( 147.927, 66.1256 )
+extents = Vector2( 173.529, 62.6087 )
 
 [node name="WitchGoblin" type="KinematicBody2D" groups=["Enemy"]]
 scale = Vector2( 5, 5 )
@@ -72,7 +72,7 @@ scale = Vector2( 0.2, 0.2 )
 
 [node name="SummoningTimer" type="Timer" parent="."]
 process_mode = 0
-wait_time = 1.5
+wait_time = 3.0
 
 [node name="Position2D" type="Position2D" parent="."]
 position = Vector2( -6.8, -1.8 )
@@ -84,7 +84,7 @@ one_shot = true
 [node name="SummoningArea" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SummoningArea"]
-position = Vector2( 0.85086, -1.16933 )
+position = Vector2( -1.23591, 2.34752 )
 scale = Vector2( 1, 1 )
 shape = SubResource( 5 )
 

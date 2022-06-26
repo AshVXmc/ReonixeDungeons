@@ -30,18 +30,24 @@ func toggle_fire_fairy():
 	$SecondarySkill/FireFairy/FirefairyTimer.start()
 	
 func _physics_process(delta):
-	if !$PrimarySkill/FireSaw/FiresawTimer.is_stopped():
-		$PrimarySkill/FireSaw/Sprite.self_modulate.a = 0.75
+	if !$PrimarySkill/FireSaw/FiresawTimer.is_stopped() and Global.mana < 3:
+		$PrimarySkill/FireSaw/Sprite.self_modulate.a = 0.65
 		$PrimarySkill/FireSaw/Label.text = str(round($PrimarySkill/FireSaw/FiresawTimer.time_left))
 	elif $PrimarySkill/FireSaw/FiresawTimer.is_stopped():
-		$PrimarySkill/FireSaw/Sprite.self_modulate.a = 1.0
+		if Global.mana >= 3:
+			$PrimarySkill/FireSaw/Sprite.self_modulate.a = 1.0
+		else:
+			$PrimarySkill/FireSaw/Sprite.self_modulate.a = 0.65
 		$PrimarySkill/FireSaw/Label.text = ""
 	
-	if !$SecondarySkill/FireFairy/FirefairyTimer.is_stopped():
-		$SecondarySkill/FireFairy/Sprite.self_modulate.a = 0.75
+	if !$SecondarySkill/FireFairy/FirefairyTimer.is_stopped() and Global.mana < 3:
+		$SecondarySkill/FireFairy/Sprite.self_modulate.a = 0.65
 		$SecondarySkill/FireFairy/Label.text = str(round($SecondarySkill/FireFairy/FirefairyTimer.time_left))
 	elif $SecondarySkill/FireFairy/FirefairyTimer.is_stopped():
-		$SecondarySkill/FireFairy/Sprite.self_modulate.a = 1.0
+		if Global.mana >= 3:
+			$SecondarySkill/FireFairy/Sprite.self_modulate.a = 1.0
+		else:
+			$SecondarySkill/FireFairy/Sprite.self_modulate.a = 0.65
 		$SecondarySkill/FireFairy/Label.text = ""
 
 

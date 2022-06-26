@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=2]
+[gd_scene load_steps=36 format=2]
 
 [ext_resource path="res://scripts/misc/Level.gd" type="Script" id=1]
 [ext_resource path="res://scenes/menus/DebugMenu.tscn" type="PackedScene" id=2]
@@ -20,6 +20,7 @@
 [ext_resource path="res://scenes/menus/HealthPotUI.tscn" type="PackedScene" id=19]
 [ext_resource path="res://scenes/misc/Light.tscn" type="PackedScene" id=20]
 [ext_resource path="res://scenes/menus/FPSCounter.tscn" type="PackedScene" id=21]
+[ext_resource path="res://scenes/items/Campfire.tscn" type="PackedScene" id=22]
 [ext_resource path="res://scenes/menus/ManaUI.tscn" type="PackedScene" id=23]
 [ext_resource path="res://scenes/menus/SkillsUI.tscn" type="PackedScene" id=24]
 [ext_resource path="res://scenes/enemies/Bat.tscn" type="PackedScene" id=25]
@@ -142,7 +143,7 @@ position = Vector2( -1400.05, 343.607 )
 Text = "Welcome to Reonixe Dungeons! Press ENTER to attack enemies from a close range. Observe your surroundings and proceed with caution, Don't charge on more enemies than you can handle. "
 
 [node name="Player" parent="." instance=ExtResource( 29 )]
-position = Vector2( -957.696, 1133.21 )
+position = Vector2( -844.84, 523.261 )
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position = Vector2( 9.72693, -62.0423 )
@@ -168,7 +169,7 @@ position = Vector2( -1200.2, 1295.69 )
 position = Vector2( 459.298, 354.757 )
 
 [node name="Bat5" parent="." instance=ExtResource( 25 )]
-position = Vector2( -683.631, 1205.6 )
+position = Vector2( -611.588, 1315.78 )
 
 [node name="Bat3" parent="." instance=ExtResource( 25 )]
 position = Vector2( 2747.26, 301.889 )
@@ -254,3 +255,6 @@ one_way_collision = true
 position = Vector2( 526.656, 1258.28 )
 shape = SubResource( 4 )
 one_way_collision = true
+
+[node name="Campfire" parent="." instance=ExtResource( 22 )]
+position = Vector2( -1532.45, 345.11 )

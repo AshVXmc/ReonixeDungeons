@@ -10,8 +10,6 @@ signal crystals_obtained(player_crystals)
 
 signal ingredient_obtained(ingredient_name, amount)
 
-signal common_monster_dust_obtained(player_common_monster_dust)
-signal goblin_scales_obtained(player_goblin_scales)
 
 signal skill_used(skill_name)
 
@@ -24,7 +22,7 @@ var collision : KinematicCollision2D
 const TYPE : String = "Player"
 var dashdirection : Vector2 = Vector2(1,0)
 var repulsion : Vector2 = Vector2()
-var knockback_power : int = 160
+var knockback_power : int = 80
 var can_be_knocked : bool = true
 var SPEED : int = 380
 const GRAVITY : int = 40
@@ -40,6 +38,7 @@ const FIRE_PARTICLE : PackedScene = preload("res://scenes/particles/FlameParticl
 const GROUND_POUND_PARTICLE : PackedScene = preload("res://scenes/particles/GroundPoundParticle.tscn")
 const SUPER_SLASH_PROJECTILE : PackedScene = preload("res://scenes/misc/SuperSlashProjectile.tscn")
 const SWORD_HIT_PARTICLE : PackedScene = preload("res://scenes/particles/SwordHitParticle.tscn")
+const FROZEN : PackedScene = preload("res://scenes/status_effects/FrozenStatus.tscn")
 onready var FULL_CHARGE_METER = preload("res://assets/UI/chargebar_full.png")
 onready var CHARGING_CHARGE_METER = preload("res://assets/UI/chargebar_charging.png")
 var is_attacking : bool = false
@@ -86,9 +85,6 @@ func _ready():
 	connect("opals_obtained", get_parent().get_node("OpalsUI/OpalsControl"), "on_player_opals_obtained")
 # warning-ignore:return_value_discarded
 	connect("crystals_obtained", get_parent().get_node("RevivementCrystal/RevivementCrystalControl"), "on_player_crystal_obtained")
-	connect("common_monster_dust_obtained", get_parent().get_node("CommonMonsterDustUI/CommonMonsterDust"), "on_player_common_monster_dust_obtained")
-	connect("goblin_scales_obtained", get_parent().get_node("GoblinScalesUI/GoblinScales"), "on_player_goblin_scales_obtained")
-# warning-ignore:return_value_discarded
 	connect("life_changed", Global, "sync_hearts")
 	emit_signal("life_changed", Global.hearts)
 # warning-ignore:return_value_discarded
@@ -133,7 +129,7 @@ func _physics_process(_delta):
 			# Movement controls
 			if velocity.x == 0 and !is_attacking and !is_gliding and !is_frozen:
 				$Sprite.play("Idle")
-			if Input.is_action_pressed("right") and !is_attacking and !is_knocked_back:
+			if Input.is_action_pressed("right") and !is_attacking and !is_knocked_back and !is_dashing:
 				velocity.x = SPEED
 			# warning-ignore:standalone_ternary
 				$Sprite.play("Glide") if is_gliding else $Sprite.play("Walk")
@@ -147,7 +143,7 @@ func _physics_process(_delta):
 				if Input.is_action_just_released("right"):
 					$Sprite.play("Walk")
 				get_node("AttackCollision").set_scale(Vector2(1,1))
-			elif Input.is_action_pressed("left") and !is_attacking:
+			elif Input.is_action_pressed("left") and !is_attacking and !is_dashing and !is_knocked_back:
 				velocity.x = -SPEED
 	# warning-ignore:standalone_ternary
 				$Sprite.play("Glide") if is_gliding else $Sprite.play("Walk")
@@ -227,7 +223,8 @@ func _physics_process(_delta):
 
 
 func shoot():
-	if Input.is_action_just_pressed("ui_shoot")	and !is_attacking and !is_frozen and Global.mana >= 1:
+	if Input.is_action_just_pressed("ui_shoot") and !is_attacking and !is_frozen and Global.mana >= 1:
+		if Global.player_skills["RangedSkill"] == "Fireball":
 			var fireball : Fireball = FIREBALL.instance()
 			# warning-ignore:standalone_ternary
 			fireball.flip_projectile(-1) if sign($Position2D.position.x) == -1 else fireball.flip_projectile(1)	
@@ -240,7 +237,7 @@ func shoot():
 			$AttackCollision/CollisionShape2D.disabled = true
 	
 	if Input.is_action_just_pressed("primary_skill") and !Input.is_action_just_pressed("secondary_skill"):
-		if Global.primary_skill == "FireSaw" and Global.firesaw_unlocked and !is_attacking and !is_frozen and Global.mana >= 3 and !is_using_primary_skill and get_parent().get_node("SkillsUI/Control/PrimarySkill/FireSaw/FiresawTimer").is_stopped():
+		if Global.player_skills["PrimarySkill"] == "FireSaw" and Global.firesaw_unlocked and !is_attacking and !is_frozen and Global.mana >= 3 and !is_using_primary_skill and get_parent().get_node("SkillsUI/Control/PrimarySkill/FireSaw/FiresawTimer").is_stopped():
 			emit_signal("skill_used", "FireSaw")
 			is_using_primary_skill = true
 			var firesaw = FIRESAW.instance()
@@ -260,7 +257,7 @@ func shoot():
 			remove_child(fireparticle)
 	
 	if Input.is_action_just_pressed("secondary_skill") and !Input.is_action_just_pressed("primary_skill"):
-		if Global.secondary_skill == "FireFairy" and Global.fire_fairy_unlocked and !is_attacking and !is_frozen and Global.mana >= 3 and !is_using_secondary_skill:
+		if Global.player_skills["SecondarySkill"] == "FireFairy" and Global.fire_fairy_unlocked and !is_attacking and !is_frozen and Global.mana >= 3 and !is_using_secondary_skill:
 			emit_signal("skill_used", "FireFairy")
 			is_using_secondary_skill = true
 			var fire_fairy = FIRE_FAIRY.instance()
@@ -409,16 +406,19 @@ func _on_Area2D_area_entered(area : Area2D):
 				Input.action_release("charge")
 				afterDamaged()
 				knockback()
+				$CampfireTimer.stop()
 			if area.is_in_group("Enemy2"):
 				Global.hearts -= 1
 				is_gliding = false
 				Input.action_release("charge")
 				afterDamaged()
 				knockback()
+				$CampfireTimer.stop()
 		if area.is_in_group("Spike"):
 			Global.hearts -= 0.5
 			Input.action_release("charge")
 			afterDamaged()
+			$CampfireTimer.stop()
 	if area.is_in_group("SlowingPoison"):
 		slow_player(2.0)
 	if area.is_in_group("Transporter"):
@@ -453,6 +453,7 @@ func afterDamaged():
 	emit_signal("life_changed", Global.hearts)
 	$Sprite.play("Hurt")
 	if !Global.godmode:
+		
 		$KnockbackTimer.start()
 	if Global.hearts <= 0:
 		if Global.crystals_amount > 0:
@@ -470,7 +471,9 @@ func afterDamaged():
 # Obtaining mana by attacking enemies
 func _on_AttackCollision_area_entered(area):
 	if area.is_in_group("Enemy") or area.is_in_group("Enemy2") and !$AttackCollision/CollisionShape2D.disabled:
+		freeze_enemy()
 		attack_knock()
+
 		var hitparticle = SWORD_HIT_PARTICLE.instance()
 		hitparticle.emitting = true
 		get_parent().add_child(hitparticle)
@@ -479,6 +482,14 @@ func _on_AttackCollision_area_entered(area):
 			Global.mana += 1
 			emit_signal("mana_changed", Global.mana)
 
+func freeze_enemy():
+	var frozen_status = FROZEN.instance()
+	var enemy = $AttackCollision.get_overlapping_areas()
+	print(enemy)
+	for e in enemy:
+		if e.is_in_group("Enemy"):
+			e.add_child(frozen_status)
+	enemy.clear()
 func knockback():
 	if !Global.godmode:
 		if can_be_knocked and !Global.godmode:
@@ -488,6 +499,8 @@ func knockback():
 			can_be_knocked = false
 		dashdirection = Vector2(-1, 0) if $Sprite.flip_h else Vector2(1,0)
 		Input.action_release("jump")
+		Input.action_release("left")
+		Input.action_release("right")
 		Input.action_release("ui_attack")
 		Input.action_release("ui_up")
 
@@ -530,19 +543,15 @@ func dash():
 				Global.mana -= 1
 				emit_signal("mana_changed", Global.mana)
 			can_dash = false
-			Input.action_release("left")
-			Input.action_release("right")
+#			Input.action_release("left")
+#			Input.action_release("right")
 			Input.action_release("jump")
 			$DashUseTimer.start()
 			$Sprite.play("Dash")
-			$Area2D.remove_from_group("Player")
-			velocity.x = 0
 			velocity.y = 0
-			velocity = dashdirection.normalized() * 3000
-			can_dash = false
+			velocity = dashdirection.normalized() * 2500
 			is_dashing = true
 			yield(get_tree().create_timer(0.25), "timeout")
-			$Area2D.add_to_group("Player")
 			$DashCooldown.start()
 			velocity.y += GRAVITY
 			is_dashing = false
@@ -613,12 +622,7 @@ func dead():
 	$Sprite.visible = false
 	get_parent().get_node("GameOverUI/GameOver").visible = true
 
-func on_campfire_toggled():
-	is_healing = true
-	yield(get_tree().create_timer(2), "timeout")
-	Global.hearts += Global.max_hearts - Global.hearts
-	emit_signal("life_changed", Global.hearts)
-	is_healing = false
+
 
 func on_manashrine_toggled():
 	is_healing = true
@@ -834,3 +838,12 @@ func _on_OxygenRefillTimer_timeout():
 	if !underwater and $OxygenBar.value < 100 and $OxygenTimer.is_stopped():
 		$OxygenBar.value += 10
 		$OxygenRefillTimer.start()
+
+func on_campfire_toggled():
+	is_healing = true
+	$CampfireTimer.start()
+
+func _on_CampfireTimer_timeout():
+	Global.hearts += Global.max_hearts - Global.hearts
+	emit_signal("life_changed", Global.hearts)
+	is_healing = false

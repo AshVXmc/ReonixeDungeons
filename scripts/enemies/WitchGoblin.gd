@@ -36,6 +36,7 @@ func summon_familiars():
 	get_parent().add_child(familiar)
 	familiar.position = $SummoningPos.global_position
 
+
 #func _on_Left_area_entered(area):
 #		$SummoningTimer.start()
 #

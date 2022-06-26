@@ -10,6 +10,10 @@ func _ready():
 		$Lighting.pressed = false
 	else:
 		$Lighting.pressed = true
+	if Global.vsync:
+		$Vsync.pressed = true
+	else:
+		$Vsync.pressed = false
 	self.visible = false
 	$SaveLabel.visible = false
 
@@ -70,6 +74,7 @@ func _on_Lighting_toggled(button_pressed : bool):
 		get_parent().get_parent().get_node("Light2D").visible = true
 		Global.lighting = true
 		button_pressed = true
+	_on_SaveButton_pressed()
 
 
 func _on_Vsync_toggled(button_pressed):
@@ -81,4 +86,4 @@ func _on_Vsync_toggled(button_pressed):
 		OS.vsync_enabled = false
 		Global.vsync = false
 		button_pressed = false
-	Global.vsync = true if !Global.vsync else false
+	_on_SaveButton_pressed()

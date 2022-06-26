@@ -10,6 +10,8 @@ var SPEED : int = 100
 const GRAVITY : int = 45
 const LOOT : PackedScene = preload("res://scenes/items/LootBag.tscn")
 var rng : RandomNumberGenerator = RandomNumberGenerator.new()
+const FROZEN = preload("res://scenes/status_effects/FrozenStatus.tscn")
+var is_frozen : bool = false
 
 func _physics_process(delta):
 	
@@ -17,7 +19,7 @@ func _physics_process(delta):
 		$AnimatedSprite.flip_h = false
 	elif !is_dead:
 		$AnimatedSprite.flip_h = true
-	if !is_dead:
+	if !is_dead and !is_frozen:
 		velocity.x = SPEED * direction
 		$AnimatedSprite.play("slimeanim")
 		velocity.y += GRAVITY
@@ -30,19 +32,22 @@ func _on_Area2D_area_entered(area):
 	if HP > 0:
 		if area.is_in_group("Sword"):
 			HP -= 1
-			set_modulate(Color(2,0.5,0.3,1))
+			$AnimatedSprite.set_modulate(Color(2,0.5,0.3,1))
 			velocity.x = 0
 			$HurtTimer.start()
 		elif area.is_in_group("Fireball"):
 			HP -= 1
-			set_modulate(Color(2,0.5,0.3,1))
+			$AnimatedSprite.set_modulate(Color(2,0.5,0.3,1))
 			velocity.x = 0
 			$HurtTimer.start()
 		elif area.is_in_group("Sword2"):
 			HP -= 3
-			set_modulate(Color(2,0.5,0.3,1))
+			$AnimatedSprite.set_modulate(Color(2,0.5,0.3,1))
 			velocity.x = 0
 			$HurtTimer.start()
+		if area.is_in_group("Frozen"):
+			is_frozen = true
+		
 	drop_loot()
 
 func drop_loot():
@@ -59,5 +64,10 @@ func drop_loot():
 
 func _on_HurtTimer_timeout():
 	velocity.x = SPEED * direction
-	set_modulate(Color(1,1,1,1))
+	$AnimatedSprite.set_modulate(Color(1,1,1,1))
 	
+
+
+func _on_Area2D_area_exited(area):
+	if area.is_in_group("Frozen"):
+		is_frozen = false

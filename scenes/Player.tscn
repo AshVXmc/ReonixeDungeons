@@ -251,7 +251,7 @@ texture = ExtResource( 6 )
 [node name="SwordSprite" type="Sprite" parent="."]
 position = Vector2( -24.266, 9.22076 )
 rotation = 0.872665
-scale = Vector2( 3, 3 )
+scale = Vector2( 3.5, 3.5 )
 texture = ExtResource( 3 )
 offset = Vector2( 0, -12 )
 flip_h = true
@@ -286,7 +286,7 @@ position = Vector2( 100, 0 )
 position = Vector2( -49.2104, 0 )
 
 [node name="InvulnerabilityTimer" type="Timer" parent="."]
-wait_time = 0.4
+wait_time = 1.3
 one_shot = true
 
 [node name="AttackTimer" type="Timer" parent="."]
@@ -420,6 +420,10 @@ one_shot = true
 [node name="OxygenRefillTimer" type="Timer" parent="."]
 wait_time = 0.25
 
+[node name="CampfireTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
 [connection signal="animation_finished" from="Sprite" to="." method="_on_Sprite_animation_finished"]
 [connection signal="area_entered" from="AttackCollision" to="." method="_on_AttackCollision_area_entered"]
 [connection signal="area_entered" from="Area2D" to="." method="_on_Area2D_area_entered"]
@@ -440,3 +444,4 @@ wait_time = 0.25
 [connection signal="timeout" from="MeleeTimer" to="." method="_on_MeleeTimer_timeout"]
 [connection signal="timeout" from="OxygenTimer" to="." method="_on_OxygenTimer_timeout"]
 [connection signal="timeout" from="OxygenRefillTimer" to="." method="_on_OxygenRefillTimer_timeout"]
+[connection signal="timeout" from="CampfireTimer" to="." method="_on_CampfireTimer_timeout"]

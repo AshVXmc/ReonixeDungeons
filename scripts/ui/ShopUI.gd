@@ -39,7 +39,7 @@ func _on_HealthPotButton_pressed():
 		$FlavorText.bbcode_text = "Sorry, you currently don't have enough opals to purchase this item."
 		
 func _on_HealthPotButton_mouse_entered():
-	$FlavorText.bbcode_text = "A flask filled with hearty red liquid, tastes like... blood?. Heals for 1" + heart + ", and takes one second to consume. You can hold " + maxstorage + " of this at a time." 
+	$FlavorText.bbcode_text = "A flask filled with hearty red liquid synthesized from monster parts. Heals for 1" + heart + ", and takes one second to consume. You can hold " + maxstorage + " of this at a time." 
 
 func _on_HealthPotButton_mouse_exited():
 	$FlavorText.bbcode_text = ""

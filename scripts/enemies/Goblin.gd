@@ -1,6 +1,6 @@
 class_name Goblin extends KinematicBody2D
 
-export var HP : int = 4
+export var HP : int = 6
 export var flipped : bool = false
 var velocity = Vector2()
 var direction : int = 1
@@ -10,7 +10,7 @@ const FLOOR = Vector2(0, -1)
 const SPEED : int = 315
 const GRAVITY : int = 45
 var is_staggered : bool = false
-
+const FROZEN = preload("res://scenes/status_effects/FrozenStatus.tscn")
 const LOOT = preload("res://scenes/items/LootBag.tscn")
 onready var AREA_LEFT : Area2D = $Left
 onready var AREA_RIGHT : Area2D = $Right
@@ -47,6 +47,8 @@ func _on_Area2D_area_entered(area):
 		is_staggered = true
 		yield(get_tree().create_timer(1), "timeout")
 		is_staggered = false
+	if area.is_in_group("Frozen"):
+		pass
 
 func parse_damage():
 	is_staggered = true

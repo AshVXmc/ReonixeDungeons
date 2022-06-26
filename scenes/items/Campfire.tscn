@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://assets/misc/campfire.png" type="Texture" id=1]
 [ext_resource path="res://scripts/items/Campfire.gd" type="Script" id=2]
@@ -10,6 +10,7 @@
 [ext_resource path="res://assets/particles/smoke_particle.png" type="Texture" id=8]
 [ext_resource path="res://assets/misc/campfire_unlit.png" type="Texture" id=9]
 [ext_resource path="res://assets/fonts/Born2bSportyV2.ttf" type="DynamicFontData" id=10]
+[ext_resource path="res://assets/UI/textbox.png" type="Texture" id=11]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -36,6 +37,10 @@ extents = Vector2( 6.99412, 8.06929 )
 
 [sub_resource type="RectangleShape2D" id=4]
 extents = Vector2( 12.4237, 9.57402 )
+
+[sub_resource type="DynamicFont" id=7]
+size = 48
+font_data = ExtResource( 10 )
 
 [node name="Campfire" type="AnimatedSprite"]
 scale = Vector2( 5, 5 )
@@ -102,6 +107,48 @@ texture = ExtResource( 8 )
 direction = Vector2( 1, -1 )
 spread = 0.0
 gravity = Vector2( 0, -20 )
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="NinePatchRect" type="NinePatchRect" parent="CanvasLayer/Control"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -425.0
+margin_top = -120.0
+margin_right = 426.0
+margin_bottom = 327.0
+texture = ExtResource( 11 )
+patch_margin_left = 64
+patch_margin_top = 64
+patch_margin_right = 64
+patch_margin_bottom = 64
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Header" type="RichTextLabel" parent="CanvasLayer/Control/NinePatchRect"]
+margin_left = 32.0
+margin_top = 7.0
+margin_right = 824.0
+margin_bottom = 55.0
+custom_fonts/normal_font = SubResource( 7 )
+bbcode_enabled = true
+bbcode_text = "========== [color=#fc4903]Skill Customization[/color] =========="
+text = "========== Skill Customization =========="
+scroll_active = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [connection signal="area_entered" from="Area2D2" to="." method="_on_Area2D2_area_entered"]
 [connection signal="area_exited" from="Area2D2" to="." method="_on_Area2D2_area_exited"]
