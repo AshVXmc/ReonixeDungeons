@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://scripts/items/LevelTransporter.gd" type="Script" id=1]
 [ext_resource path="res://assets/terrain/door.png" type="Texture" id=2]
 [ext_resource path="res://assets/fonts/FFFFORWA.ttf" type="DynamicFontData" id=3]
+[ext_resource path="res://assets/fonts/Born2bSportyV2.ttf" type="DynamicFontData" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 63.3124, 50.4134 )
@@ -10,6 +11,10 @@ extents = Vector2( 63.3124, 50.4134 )
 [sub_resource type="DynamicFont" id=2]
 size = 64
 font_data = ExtResource( 3 )
+
+[sub_resource type="DynamicFont" id=3]
+size = 80
+font_data = ExtResource( 4 )
 
 [node name="LevelTransporter" type="Node2D"]
 scale = Vector2( 2, 2 )
@@ -27,15 +32,32 @@ scale = Vector2( 5, 5 )
 texture = ExtResource( 2 )
 
 [node name="Label" type="RichTextLabel" parent="."]
-margin_left = -39.251
-margin_top = -86.4801
-margin_right = 295.749
-margin_bottom = 3.51985
-rect_scale = Vector2( 0.25, 0.25 )
+margin_left = -72.9557
+margin_top = -103.345
+margin_right = 262.044
+margin_bottom = -13.3455
+rect_scale = Vector2( 0.5, 0.5 )
 custom_fonts/bold_font = SubResource( 2 )
 bbcode_enabled = true
-bbcode_text = "[b]Enter [/b] [img=64]res://assets/UI/icon_E.png[/img]"
+bbcode_text = "[b]Enter [/b] [img=64]res://assets/UI/icon_empty.png[/img]"
 text = "Enter  "
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Keybind" type="Label" parent="."]
+anchor_left = -3.732
+anchor_right = -3.732
+margin_left = 60.2124
+margin_top = -94.6321
+margin_right = 95.2124
+margin_bottom = -14.6321
+rect_scale = Vector2( 0.5, 0.5 )
+custom_colors/font_color = Color( 0.192157, 0.372549, 1, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "R"
+align = 1
+valign = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }

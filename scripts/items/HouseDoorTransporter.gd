@@ -11,10 +11,12 @@ signal door_opened()
 
 func _ready():
 	$Label.visible = false
+	$Keybind.visible = false
 	connect("door_opened", get_parent().get_node("Player"), "door_opening")
 func _process(delta):
 	if $Area2D.overlaps_area(PLAYER):
 		$Label.visible = true
+		$Keybind.visible = true
 		if Input.is_action_just_pressed("ui_use"):
 #			colorrect.visible = true
 #			transition.transition()
@@ -23,3 +25,4 @@ func _process(delta):
 
 func _on_Area2D_area_exited(area):
 	$Label.visible = false
+	$Keybind.visible = false

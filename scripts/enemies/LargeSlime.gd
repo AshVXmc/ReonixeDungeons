@@ -3,7 +3,6 @@ class_name LargeSlime extends Slime
 onready var area = $Area2D
 onready var SLIME = preload("res://scenes/enemies/Slime.tscn")
 const BLUE_SMOKE = preload("res://scenes/particles/BlueSmokeParticle.tscn")
-
 func _ready():
 	HP = 5
 
@@ -50,5 +49,7 @@ func _on_Area2D_area_entered(area : Area2D):
 		set_modulate(Color(2,0.5,0.3,1))
 		velocity.x = 0
 		$HurtTimer.start()
+	elif area.is_in_group("Frozen"):
+		is_frozen = true
 	drop_loot()
 

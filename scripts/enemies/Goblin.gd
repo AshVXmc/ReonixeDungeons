@@ -15,16 +15,17 @@ const LOOT = preload("res://scenes/items/LootBag.tscn")
 onready var AREA_LEFT : Area2D = $Left
 onready var AREA_RIGHT : Area2D = $Right
 onready var PLAYER = get_parent().get_node("Player").get_node("Area2D")
+var is_frozen : bool = false
 
 func _physics_process(delta):
 	
 	if flipped:
 		$Sprite.flip_h = true
 	velocity.y += GRAVITY
-	if !is_staggered:
+	if !is_staggered and !is_frozen:
 		velocity = move_and_slide(velocity, FLOOR)
 	$Sprite.play("Idle") if velocity.x == 0 else $Sprite.play("Attacking")
-	if !is_staggered:
+	if !is_staggered and !is_frozen: 
 		if AREA_LEFT.overlaps_area(PLAYER):
 			$Sprite.flip_h = false
 			if !$Sprite.flip_h:
@@ -48,12 +49,12 @@ func _on_Area2D_area_entered(area):
 		yield(get_tree().create_timer(1), "timeout")
 		is_staggered = false
 	if area.is_in_group("Frozen"):
-		pass
+		is_frozen = true
 
 func parse_damage():
 	is_staggered = true
 	velocity.x = 0
-	set_modulate(Color(2,0.5,0.3,1))
+	$Sprite.set_modulate(Color(2,0.5,0.3,1))
 	if $HurtTimer.is_stopped():
 		$HurtTimer.start()
 #	if !$Sprite.flip_h:
@@ -73,7 +74,7 @@ func parse_damage():
 		Global.enemies_killed += 1
 func _on_HurtTimer_timeout():
 	is_staggered = false
-	set_modulate(Color(1,1,1,1))
+	$Sprite.set_modulate(Color(1,1,1,1))
 
 func _on_AttackingTimer_timeout():
 	velocity.x = 0
@@ -88,3 +89,8 @@ func _on_Left_area_exited(area):
 func _on_Right_area_exited(area):
 	yield(get_tree().create_timer(2), "timeout")
 	velocity.x = 0
+
+
+func _on_Area2D_area_exited(area):
+	if area.is_in_group("Frozen"):
+		is_frozen = false

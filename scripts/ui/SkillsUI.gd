@@ -4,9 +4,14 @@ signal ability_on_cooldown(ability_name)
 
 func _ready():
 	connect("ability_on_cooldown", get_parent().get_parent().get_node("Player"), "ability_on_entering_cooldown")
-	$PrimarySkill/FireSaw/Label.text = ""
-	
-#	match Global.primary_skill:
+	match Global.player_skills["PrimarySkill"]:
+		"FireSaw":
+			$PrimarySkill/FireSaw.visible = true
+		"MeteorStrike":
+			$PrimarySkill/MeteorStrike.visible = true
+	match Global.player_skills["SecondarySkill"]:
+		"FireFairy":
+			$SecondarySkill/FireFairy.visible = true
 #	match Global.secondary_skill:
 
 
@@ -49,5 +54,8 @@ func _physics_process(delta):
 		else:
 			$SecondarySkill/FireFairy/Sprite.self_modulate.a = 0.65
 		$SecondarySkill/FireFairy/Label.text = ""
+
+
+
 
 

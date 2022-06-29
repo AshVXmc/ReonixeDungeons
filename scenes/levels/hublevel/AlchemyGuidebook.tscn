@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://assets/fonts/FFFFORWA.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://scripts/terrain/AlchemyGuidebook.gd" type="Script" id=2]
@@ -28,6 +28,10 @@ font_data = ExtResource( 4 )
 size = 32
 font_data = ExtResource( 4 )
 
+[sub_resource type="DynamicFont" id=6]
+size = 64
+font_data = ExtResource( 4 )
+
 [node name="AlchemyGuidebook" type="Node2D"]
 script = ExtResource( 2 )
 
@@ -49,7 +53,7 @@ margin_bottom = -46.6171
 custom_fonts/bold_font = SubResource( 2 )
 custom_fonts/normal_font = SubResource( 2 )
 bbcode_enabled = true
-bbcode_text = "[b]Alchemy Guide [/b][img=40]res://assets/UI/icon_E.png[/img]"
+bbcode_text = "[b]Alchemy Guide [/b][img=40]res://assets/UI/icon_Empty.png[/img]"
 text = "Alchemy Guide "
 scroll_active = false
 __meta__ = {
@@ -166,6 +170,23 @@ bbcode_enabled = true
 bbcode_text = "[color=#53ad0e]Goblins scales[/color] are dropped by goblins and their variants."
 text = "Goblins scales are dropped by goblins and their variants."
 scroll_active = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Keybind" type="Label" parent="."]
+anchor_left = -3.732
+anchor_right = -3.732
+margin_left = 51.0
+margin_top = -104.919
+margin_right = 79.0
+margin_bottom = -40.9191
+rect_scale = Vector2( 0.75, 0.75 )
+custom_colors/font_color = Color( 0.192157, 0.372549, 1, 1 )
+custom_fonts/font = SubResource( 6 )
+text = "R"
+align = 1
+valign = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }

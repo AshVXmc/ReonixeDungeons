@@ -257,4 +257,4 @@ shape = SubResource( 4 )
 one_way_collision = true
 
 [node name="Campfire" parent="." instance=ExtResource( 22 )]
-position = Vector2( -1532.45, 345.11 )
+position = Vector2( 210.148, 432.418 )

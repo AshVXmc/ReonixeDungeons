@@ -471,7 +471,6 @@ func afterDamaged():
 # Obtaining mana by attacking enemies
 func _on_AttackCollision_area_entered(area):
 	if area.is_in_group("Enemy") or area.is_in_group("Enemy2") and !$AttackCollision/CollisionShape2D.disabled:
-		freeze_enemy()
 		attack_knock()
 
 		var hitparticle = SWORD_HIT_PARTICLE.instance()
@@ -493,9 +492,8 @@ func freeze_enemy():
 func knockback():
 	if !Global.godmode:
 		if can_be_knocked and !Global.godmode:
-			print("knocked back")
-			$KnockbackCooldownTimer.start()
 			is_knocked_back = true
+			$KnockbackCooldownTimer.start()
 			can_be_knocked = false
 		dashdirection = Vector2(-1, 0) if $Sprite.flip_h else Vector2(1,0)
 		Input.action_release("jump")

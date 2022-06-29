@@ -29,6 +29,7 @@ margin_right = 40.0
 margin_bottom = 40.0
 
 [node name="FireSaw" type="Control" parent="Control/PrimarySkill"]
+visible = false
 margin_right = 40.0
 margin_bottom = 40.0
 __meta__ = {
@@ -56,6 +57,35 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="MeteorStrike" type="Control" parent="Control/PrimarySkill"]
+visible = false
+margin_right = 40.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Sprite" type="Sprite" parent="Control/PrimarySkill/MeteorStrike"]
+position = Vector2( 170, 190 )
+scale = Vector2( 4, 4 )
+texture = ExtResource( 2 )
+
+[node name="MeteorStrikeTimer" type="Timer" parent="Control/PrimarySkill/MeteorStrike"]
+wait_time = 12.0
+one_shot = true
+
+[node name="Label" type="Label" parent="Control/PrimarySkill/MeteorStrike"]
+margin_left = 148.0
+margin_top = 170.0
+margin_right = 188.0
+margin_bottom = 218.0
+custom_fonts/font = SubResource( 1 )
+text = "12"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="KeyIcon" type="Sprite" parent="Control/PrimarySkill"]
 position = Vector2( 170, 146.77 )
 scale = Vector2( 2, 2 )
@@ -71,7 +101,7 @@ margin_bottom = 178.169
 rect_scale = Vector2( 0.75, 0.75 )
 custom_colors/font_color = Color( 0.192157, 0.372549, 1, 1 )
 custom_fonts/font = SubResource( 2 )
-text = "R"
+text = "E"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -81,6 +111,7 @@ margin_right = 40.0
 margin_bottom = 40.0
 
 [node name="FireFairy" type="Control" parent="Control/SecondarySkill"]
+visible = false
 margin_right = 40.0
 margin_bottom = 40.0
 __meta__ = {

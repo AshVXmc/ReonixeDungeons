@@ -6,6 +6,7 @@ onready var player = get_parent().get_node("Player")
 
 func _ready():
 	$Label.visible = false
+	$Keybind.visible = false
 	$AnimationPlayer.play("Idle")
 	# Dialogue configuration
 	$DialogueScreen.talker.text = "Alchemist"
@@ -21,10 +22,11 @@ func _process(delta):
 func _on_Area2D_area_entered(area):
 	if area.is_in_group("Player") and !$Label.visible:
 		$Label.visible = true
-		
+		$Keybind.visible = true
 func _on_Area2D_area_exited(area):
 	if $Label.visible:
 		$Label.visible = false
+		$Keybind.visible = false
 
 
 

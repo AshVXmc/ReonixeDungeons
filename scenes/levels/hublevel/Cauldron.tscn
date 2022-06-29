@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://assets/terrain/cauldron.png" type="Texture" id=1]
 [ext_resource path="res://assets/fonts/Born2bSportyV2.ttf" type="DynamicFontData" id=2]
@@ -44,6 +44,10 @@ font_data = ExtResource( 2 )
 size = 48
 font_data = ExtResource( 2 )
 
+[sub_resource type="DynamicFont" id=10]
+size = 64
+font_data = ExtResource( 2 )
+
 [node name="Cauldron" type="Node2D"]
 script = ExtResource( 10 )
 
@@ -66,7 +70,7 @@ margin_bottom = -33.0
 custom_fonts/bold_font = SubResource( 2 )
 custom_fonts/normal_font = SubResource( 2 )
 bbcode_enabled = true
-bbcode_text = "[b]Use[/b] [img=40]res://assets/UI/icon_E.png[/img]"
+bbcode_text = "[b]Use[/b] [img=40]res://assets/UI/icon_Empty.png[/img]"
 text = "Use "
 scroll_active = false
 __meta__ = {
@@ -178,7 +182,7 @@ margin_right = 674.882
 margin_bottom = 485.984
 custom_colors/default_color = Color( 1, 1, 1, 1 )
 custom_fonts/normal_font = SubResource( 6 )
-text = "2"
+text = "3"
 scroll_active = false
 __meta__ = {
 "_edit_use_anchors_": false
@@ -317,6 +321,23 @@ margin_bottom = 245.0
 rect_scale = Vector2( 1.5, 1.5 )
 texture_normal = ExtResource( 4 )
 expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Keybind" type="Label" parent="."]
+anchor_left = -3.732
+anchor_right = -3.732
+margin_left = 36.0113
+margin_top = -87.0
+margin_right = 64.0113
+margin_bottom = -23.0
+rect_scale = Vector2( 0.75, 0.75 )
+custom_colors/font_color = Color( 0.192157, 0.372549, 1, 1 )
+custom_fonts/font = SubResource( 10 )
+text = "R"
+align = 1
+valign = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }

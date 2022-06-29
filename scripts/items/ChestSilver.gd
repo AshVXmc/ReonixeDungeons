@@ -14,6 +14,7 @@ func _ready():
 	if !Global.opened_chests.has(chestID):
 		connect("autosave", get_parent().get_node("PauseUI/Pause") , "_on_SaveButton_pressed")
 	$Label.visible = false
+	$Keybind.visible = false
 
 func _process(_delta):
 	if !Global.opened_chests.has(chestID):
@@ -34,6 +35,7 @@ func _process(_delta):
 func _on_Area2D_area_entered(area):
 	if area.is_in_group("Player") and !$Label.visible and !Global.opened_chests.has(chestID):
 		$Label.visible = true
-
+		$Keybind.visible = true
 func _on_Area2D_area_exited(area):
 	$Label.visible = false
+	$Keybind.visible = false
