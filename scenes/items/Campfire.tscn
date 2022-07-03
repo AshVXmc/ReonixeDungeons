@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://assets/misc/campfire.png" type="Texture" id=1]
 [ext_resource path="res://scripts/items/Campfire.gd" type="Script" id=2]
@@ -42,6 +42,13 @@ extents = Vector2( 15.2172, 11.9746 )
 [sub_resource type="DynamicFont" id=7]
 size = 48
 font_data = ExtResource( 10 )
+
+[sub_resource type="DynamicFont" id=10]
+size = 48
+font_data = ExtResource( 10 )
+
+[sub_resource type="StreamTexture" id=9]
+load_path = "res://.import/textbox.png-b2099baebd809ab2156a0a181b93923d.stex"
 
 [sub_resource type="DynamicFont" id=8]
 size = 48
@@ -99,7 +106,7 @@ margin_bottom = -11.3104
 rect_scale = Vector2( 0.75, 0.75 )
 custom_colors/font_color = Color( 0.192157, 0.372549, 1, 1 )
 custom_fonts/font = SubResource( 6 )
-text = "P"
+text = "T"
 align = 1
 valign = 1
 __meta__ = {
@@ -107,12 +114,14 @@ __meta__ = {
 }
 
 [node name="Area2D" type="Area2D" parent="." groups=["Campfire"]]
+position = Vector2( 0, -0.4 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2( 0.00587682, 0.214286 )
 shape = SubResource( 2 )
 
 [node name="Area2D2" type="Area2D" parent="."]
+position = Vector2( 0, -0.4 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D2"]
 position = Vector2( 0.0198755, -3.68624 )
@@ -197,6 +206,199 @@ __meta__ = {
 
 [node name="PrimarySkillSelect" type="TextureButton" parent="CanvasLayer/Control/Main"]
 anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -177.5
+margin_top = 65.0
+margin_right = 177.5
+margin_bottom = 142.0
+expand = true
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="NinePatchRect" type="NinePatchRect" parent="CanvasLayer/Control/Main/PrimarySkillSelect"]
+margin_left = 5.0
+margin_top = 1.0
+margin_right = 354.0
+margin_bottom = 75.0
+texture = ExtResource( 11 )
+patch_margin_left = 64
+patch_margin_top = 10
+patch_margin_right = 10
+patch_margin_bottom = 64
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Text" type="Label" parent="CanvasLayer/Control/Main/PrimarySkillSelect"]
+anchor_left = -0.695
+anchor_top = -2.931
+anchor_right = -0.695
+anchor_bottom = -2.931
+margin_left = 251.725
+margin_top = 233.687
+margin_right = 598.725
+margin_bottom = 294.687
+custom_fonts/font = SubResource( 10 )
+text = "Primary Skill"
+align = 1
+valign = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SecondarySkillSelect" type="TextureButton" parent="CanvasLayer/Control/Main"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -177.5
+margin_top = 157.0
+margin_right = 177.5
+margin_bottom = 234.0
+expand = true
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="NinePatchRect" type="NinePatchRect" parent="CanvasLayer/Control/Main/SecondarySkillSelect"]
+margin_left = 5.0
+margin_top = 1.0
+margin_right = 354.0
+margin_bottom = 75.0
+texture = ExtResource( 11 )
+patch_margin_left = 64
+patch_margin_top = 10
+patch_margin_right = 10
+patch_margin_bottom = 64
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Text" type="Label" parent="CanvasLayer/Control/Main/SecondarySkillSelect"]
+anchor_left = -0.695
+anchor_top = -2.931
+anchor_right = -0.695
+anchor_bottom = -2.931
+margin_left = 251.725
+margin_top = 233.687
+margin_right = 598.725
+margin_bottom = 294.687
+custom_fonts/font = SubResource( 10 )
+text = "Secondary Skill"
+align = 1
+valign = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RangedSkillSelect" type="TextureButton" parent="CanvasLayer/Control/Main"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -177.5
+margin_top = 253.0
+margin_right = 177.5
+margin_bottom = 330.0
+expand = true
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="NinePatchRect" type="NinePatchRect" parent="CanvasLayer/Control/Main/RangedSkillSelect"]
+margin_left = 5.0
+margin_top = 1.0
+margin_right = 354.0
+margin_bottom = 75.0
+texture = ExtResource( 11 )
+patch_margin_left = 64
+patch_margin_top = 10
+patch_margin_right = 10
+patch_margin_bottom = 64
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Text" type="Label" parent="CanvasLayer/Control/Main/RangedSkillSelect"]
+anchor_left = -0.695
+anchor_top = -2.931
+anchor_right = -0.695
+anchor_bottom = -2.931
+margin_left = 251.725
+margin_top = 233.687
+margin_right = 598.725
+margin_bottom = 294.687
+custom_fonts/font = SubResource( 10 )
+text = "Ranged Skill"
+align = 1
+valign = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PrimarySkill" type="Control" parent="CanvasLayer"]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -540.0
+margin_top = -360.0
+margin_right = 540.0
+margin_bottom = 360.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Main" type="NinePatchRect" parent="CanvasLayer/PrimarySkill"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -400.0
+margin_top = -507.0
+margin_right = 400.0
+margin_bottom = -27.0
+texture = SubResource( 9 )
+patch_margin_left = 64
+patch_margin_top = 64
+patch_margin_right = 64
+patch_margin_bottom = 64
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Header" type="RichTextLabel" parent="CanvasLayer/PrimarySkill/Main"]
+margin_left = 18.0
+margin_top = 7.0
+margin_right = 498.0
+margin_bottom = 55.0
+custom_fonts/normal_font = SubResource( 7 )
+bbcode_enabled = true
+bbcode_text = " == [color=#fc4903]Skill Customization[/color] =="
+text = " == Skill Customization =="
+scroll_active = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PrimaryCloseButton" type="TextureButton" parent="CanvasLayer/PrimarySkill/Main"]
+margin_left = 480.168
+margin_top = 0.389816
+margin_right = 520.168
+margin_bottom = 40.3898
+rect_scale = Vector2( 1.5, 1.5 )
+texture_normal = ExtResource( 12 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PrimarySkillSelect" type="TextureButton" parent="CanvasLayer/PrimarySkill/Main"]
+anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
@@ -208,7 +410,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Texture" type="NinePatchRect" parent="CanvasLayer/Control/Main/PrimarySkillSelect"]
+[node name="Texture" type="NinePatchRect" parent="CanvasLayer/PrimarySkill/Main/PrimarySkillSelect"]
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
@@ -226,11 +428,15 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Text" type="RichTextLabel" parent="CanvasLayer/Control/Main/PrimarySkillSelect"]
-margin_left = 42.0
-margin_top = 13.0
-margin_right = 281.0
-margin_bottom = 66.0
+[node name="Text" type="RichTextLabel" parent="CanvasLayer/PrimarySkill/Main/PrimarySkillSelect"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -119.5
+margin_top = -24.5
+margin_right = 119.5
+margin_bottom = 28.5
 custom_fonts/normal_font = SubResource( 8 )
 bbcode_enabled = true
 bbcode_text = "Primary Skill"
@@ -240,7 +446,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="SecondarySkillSelect" type="TextureButton" parent="CanvasLayer/Control/Main"]
+[node name="SecondarySkillSelect" type="TextureButton" parent="CanvasLayer/PrimarySkill/Main"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -253,7 +459,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Texture" type="NinePatchRect" parent="CanvasLayer/Control/Main/SecondarySkillSelect"]
+[node name="Texture" type="NinePatchRect" parent="CanvasLayer/PrimarySkill/Main/SecondarySkillSelect"]
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
@@ -271,11 +477,15 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Text" type="RichTextLabel" parent="CanvasLayer/Control/Main/SecondarySkillSelect"]
-margin_left = 19.0
-margin_top = 13.0
-margin_right = 307.0
-margin_bottom = 66.0
+[node name="Text" type="RichTextLabel" parent="CanvasLayer/PrimarySkill/Main/SecondarySkillSelect"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -144.0
+margin_top = -24.5
+margin_right = 144.0
+margin_bottom = 28.5
 custom_fonts/normal_font = SubResource( 8 )
 bbcode_enabled = true
 bbcode_text = "Secondary Skill"
@@ -285,7 +495,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="RangedSkill" type="TextureButton" parent="CanvasLayer/Control/Main"]
+[node name="RangedSkill" type="TextureButton" parent="CanvasLayer/PrimarySkill/Main"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -298,7 +508,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Texture" type="NinePatchRect" parent="CanvasLayer/Control/Main/RangedSkill"]
+[node name="Texture" type="NinePatchRect" parent="CanvasLayer/PrimarySkill/Main/RangedSkill"]
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
@@ -316,15 +526,19 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Text" type="RichTextLabel" parent="CanvasLayer/Control/Main/RangedSkill"]
-margin_left = 42.5451
-margin_top = 13.0
-margin_right = 264.545
-margin_bottom = 66.0
+[node name="Text" type="RichTextLabel" parent="CanvasLayer/PrimarySkill/Main/RangedSkill"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -111.0
+margin_top = -60.0
+margin_right = 111.0
+margin_bottom = -7.0
 custom_fonts/normal_font = SubResource( 8 )
 bbcode_enabled = true
-bbcode_text = "Secondary Skill"
-text = "Secondary Skill"
+bbcode_text = "Ranged SKill"
+text = "Ranged SKill"
 scroll_active = false
 __meta__ = {
 "_edit_use_anchors_": false
@@ -335,4 +549,8 @@ __meta__ = {
 [connection signal="pressed" from="CanvasLayer/Control/Main/CloseButton" to="." method="_on_CloseButton_pressed"]
 [connection signal="pressed" from="CanvasLayer/Control/Main/PrimarySkillSelect" to="." method="_on_PrimarySkillSelect_pressed"]
 [connection signal="pressed" from="CanvasLayer/Control/Main/SecondarySkillSelect" to="." method="_on_SecondarySkillSelect_pressed"]
-[connection signal="pressed" from="CanvasLayer/Control/Main/RangedSkill" to="." method="_on_RangedSkill_pressed"]
+[connection signal="pressed" from="CanvasLayer/Control/Main/RangedSkillSelect" to="." method="_on_RangedSkillSelect_pressed"]
+[connection signal="pressed" from="CanvasLayer/PrimarySkill/Main/PrimaryCloseButton" to="." method="_on_PrimaryCloseButton_pressed"]
+[connection signal="pressed" from="CanvasLayer/PrimarySkill/Main/PrimarySkillSelect" to="." method="_on_PrimarySkillSelect_pressed"]
+[connection signal="pressed" from="CanvasLayer/PrimarySkill/Main/SecondarySkillSelect" to="." method="_on_SecondarySkillSelect_pressed"]
+[connection signal="pressed" from="CanvasLayer/PrimarySkill/Main/RangedSkill" to="." method="_on_RangedSkill_pressed"]

@@ -7,6 +7,7 @@ signal campfire_heal()
 signal refill_healthpot()
 
 func _ready():
+	$CanvasLayer/Control.visible = false
 	connect("campfire_heal", get_parent().get_node("Player"), "on_campfire_toggled")
 	$Label.visible = false
 	$Keybind.visible = false
@@ -56,12 +57,20 @@ func _on_CloseButton_pressed():
 
 
 func _on_PrimarySkillSelect_pressed():
-	pass # Replace with function body.
+	$CanvasLayer/PrimarySkill.visible = true
 
 
 func _on_SecondarySkillSelect_pressed():
+	pass
+
+func _on_RangedSkillSelect_pressed():
 	pass # Replace with function body.
 
+func _on_PrimaryCloseButton_pressed():
+	$CanvasLayer/PrimarySkill.visible = false
 
-func _on_RangedSkill_pressed():
-	pass # Replace with function body.
+
+
+
+
+

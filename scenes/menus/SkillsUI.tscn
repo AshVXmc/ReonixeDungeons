@@ -1,10 +1,14 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://scripts/ui/SkillsUI.gd" type="Script" id=1]
 [ext_resource path="res://assets/UI/firesaw_skill_icon.png" type="Texture" id=2]
 [ext_resource path="res://assets/fonts/Born2bSportyV2.ttf" type="DynamicFontData" id=3]
 [ext_resource path="res://assets/UI/icon_empty.png" type="Texture" id=4]
 [ext_resource path="res://assets/UI/fire_fairy_skill_icon.png" type="Texture" id=5]
+[ext_resource path="res://assets/UI/mana_cost_4.png" type="Texture" id=6]
+[ext_resource path="res://assets/UI/mana_cost_6.png" type="Texture" id=7]
+[ext_resource path="res://assets/UI/meteor_strike_skill_icon.png" type="Texture" id=8]
+[ext_resource path="res://assets/UI/mana_cost_3.png" type="Texture" id=9]
 
 [sub_resource type="DynamicFont" id=1]
 size = 48
@@ -57,6 +61,11 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="ManaCost" type="Sprite" parent="Control/PrimarySkill/FireSaw"]
+position = Vector2( 171, 237 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 6 )
+
 [node name="MeteorStrike" type="Control" parent="Control/PrimarySkill"]
 visible = false
 margin_right = 40.0
@@ -68,7 +77,7 @@ __meta__ = {
 [node name="Sprite" type="Sprite" parent="Control/PrimarySkill/MeteorStrike"]
 position = Vector2( 170, 190 )
 scale = Vector2( 4, 4 )
-texture = ExtResource( 2 )
+texture = ExtResource( 8 )
 
 [node name="MeteorStrikeTimer" type="Timer" parent="Control/PrimarySkill/MeteorStrike"]
 wait_time = 12.0
@@ -85,6 +94,11 @@ align = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="ManaCost" type="Sprite" parent="Control/PrimarySkill/MeteorStrike"]
+position = Vector2( 171, 245 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 7 )
 
 [node name="KeyIcon" type="Sprite" parent="Control/PrimarySkill"]
 position = Vector2( 170, 146.77 )
@@ -111,7 +125,6 @@ margin_right = 40.0
 margin_bottom = 40.0
 
 [node name="FireFairy" type="Control" parent="Control/SecondarySkill"]
-visible = false
 margin_right = 40.0
 margin_bottom = 40.0
 __meta__ = {
@@ -139,6 +152,11 @@ valign = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="ManaCost" type="Sprite" parent="Control/SecondarySkill/FireFairy"]
+position = Vector2( 271, 238 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 9 )
 
 [node name="KeyIcon" type="Sprite" parent="Control/SecondarySkill"]
 position = Vector2( 270, 146.77 )

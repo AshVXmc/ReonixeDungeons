@@ -34,6 +34,7 @@ const JUMP_PARTICLE : PackedScene = preload("res://scenes/particles/JumpParticle
 const WATER_JUMP_PARTICLE : PackedScene = preload("res://scenes/particles/WaterBubbleParticle.tscn")
 const DASH_PARTICLE : PackedScene = preload("res://scenes/particles/DashParticle.tscn")
 const SWORD_PARTICLE : PackedScene = preload("res://scenes/particles/SwordSwingParticle.tscn")
+const SMALL_FIRE_PARTICLE : PackedScene = preload("res://scenes/particles/FireHitParticle.tscn")
 const FIRE_PARTICLE : PackedScene = preload("res://scenes/particles/FlameParticle.tscn")
 const GROUND_POUND_PARTICLE : PackedScene = preload("res://scenes/particles/GroundPoundParticle.tscn")
 const SUPER_SLASH_PROJECTILE : PackedScene = preload("res://scenes/misc/SuperSlashProjectile.tscn")
@@ -210,8 +211,8 @@ func _physics_process(_delta):
 		$GliderWings.visible = false
 	if cam_shake:
 		$Camera2D.set_offset(Vector2( \
-			rand_range(-1, 1) * 3, \
-			rand_range(-1, 1) * 3 \
+			rand_range(-1, 1) * 4.5, \
+			rand_range(-1, 1) * 3.5 \
 		))
 	if is_shopping:
 		is_invulnerable = true
@@ -237,7 +238,7 @@ func shoot():
 			$AttackCollision/CollisionShape2D.disabled = true
 	
 	if Input.is_action_just_pressed("primary_skill") and !Input.is_action_just_pressed("secondary_skill"):
-		if Global.player_skills["PrimarySkill"] == "FireSaw" and Global.firesaw_unlocked and !is_attacking and !is_frozen and Global.mana >= 3 and !is_using_primary_skill and get_parent().get_node("SkillsUI/Control/PrimarySkill/FireSaw/FiresawTimer").is_stopped():
+		if Global.player_skills["PrimarySkill"] == "FireSaw" and Global.firesaw_unlocked and !is_attacking and !is_frozen and Global.mana >= 4 and !is_using_primary_skill and get_parent().get_node("SkillsUI/Control/PrimarySkill/FireSaw/FiresawTimer").is_stopped():
 			emit_signal("skill_used", "FireSaw")
 			is_using_primary_skill = true
 			var firesaw = FIRESAW.instance()
@@ -247,7 +248,7 @@ func shoot():
 			fireparticle.emitting = true
 			fireparticle.one_shot = false
 			if !Global.godmode:
-				Global.mana -= 3
+				Global.mana -= 4
 				emit_signal("mana_changed", Global.mana)
 			is_attacking = false
 			$AttackCollision/CollisionShape2D.disabled = true
@@ -269,6 +270,12 @@ func shoot():
 			yield(get_tree().create_timer(fire_fairy.get_node("DestroyedTimer").wait_time), "timeout")
 			is_using_secondary_skill = false
 			
+
+#func add_fire_hit_particle(pos : Vector2):
+#	var fire_hit_particle = SMALL_FIRE_PARTICLE.instance()
+#	get_parent().add_child(fire_hit_particle)
+#	fire_hit_particle.emitting = true
+#	fire_hit_particle.position = pos 
 	
 func ground_pound():
 	if !is_on_floor() and Input.is_action_just_pressed("ui_down"):
@@ -344,7 +351,7 @@ func charge_meter():
 		if Input.is_action_pressed("charge"):
 			# Max value is 100
 			$ChargeBar.visible = true
-			$ChargeBar.value += 2
+			$ChargeBar.value += 1.5
 			is_charging = true
 		if Input.is_action_just_released("charge") or Input.is_action_pressed("left") or Input.is_action_pressed("right"):
 			# Min value is 0 (Empty)

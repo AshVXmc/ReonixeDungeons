@@ -10,6 +10,7 @@ enum Direction {
 }
 
 func _ready():
+	get_parent().get_node("Player").cam_shake = true
 	$ExplosionDelayTimer.start()
 	$DestroyedTimer.start()
 	$AnimationPlayer.play("Spin")
@@ -27,7 +28,7 @@ func explode():
 	$ExplosionParticle.emitting = true
 	$CollisionShape2D.disabled = false
 	$LeftTrails.visible = false
-	get_parent().get_node("Player").cam_shake = true
+	
 	yield(get_tree().create_timer(0.75), "timeout")
 	get_parent().get_node("Player").cam_shake = false
 	queue_free()

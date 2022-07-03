@@ -42,7 +42,7 @@ func _on_Area2D_area_entered(area):
 		HP -= 1
 		parse_damage()
 	elif area.is_in_group("Sword2"):
-		HP -= 2
+		HP -= 3
 		parse_damage()
 	if area.is_in_group("Player"):
 		is_staggered = true

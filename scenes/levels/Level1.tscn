@@ -143,7 +143,7 @@ position = Vector2( -1400.05, 343.607 )
 Text = "Welcome to Reonixe Dungeons! Press ENTER to attack enemies from a close range. Observe your surroundings and proceed with caution, Don't charge on more enemies than you can handle. "
 
 [node name="Player" parent="." instance=ExtResource( 29 )]
-position = Vector2( -844.84, 523.261 )
+position = Vector2( -1062.13, 516.137 )
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position = Vector2( 9.72693, -62.0423 )
@@ -258,3 +258,6 @@ one_way_collision = true
 
 [node name="Campfire" parent="." instance=ExtResource( 22 )]
 position = Vector2( 210.148, 432.418 )
+
+[node name="Position2D" type="Position2D" parent="."]
+position = Vector2( -1139, 144 )

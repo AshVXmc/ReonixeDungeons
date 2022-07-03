@@ -39,8 +39,8 @@
 [ext_resource path="res://assets/terrain/hub_level/prop_bookshelf_4.png" type="Texture" id=37]
 [ext_resource path="res://assets/terrain/hub_level/prop_bookshelf_3.png" type="Texture" id=38]
 [ext_resource path="res://scenes/NPC/LibrarianNPC.tscn" type="PackedScene" id=39]
-[ext_resource path="res://scenes/items/Campfire.tscn" type="PackedScene" id=40]
 [ext_resource path="res://assets/terrain/hub_level/library.png" type="Texture" id=41]
+[ext_resource path="res://scenes/enemies/Slime.tscn" type="PackedScene" id=42]
 [ext_resource path="res://scenes/menus/SkillsUI.tscn" type="PackedScene" id=43]
 [ext_resource path="res://scenes/enemies/Goblin.tscn" type="PackedScene" id=44]
 [ext_resource path="res://scenes/menus/InventoryUI.tscn" type="PackedScene" id=45]
@@ -339,5 +339,5 @@ editor_draw_limits = true
 [node name="Goblin" parent="." instance=ExtResource( 44 )]
 position = Vector2( 1290.56, 592.5 )
 
-[node name="Campfire" parent="." instance=ExtResource( 40 )]
-position = Vector2( 568.094, 630 )
+[node name="Slime" parent="." instance=ExtResource( 42 )]
+position = Vector2( 696.459, 611.569 )
