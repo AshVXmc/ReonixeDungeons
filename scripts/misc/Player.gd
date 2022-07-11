@@ -5,7 +5,7 @@ signal mana_changed(player_mana)
 signal healthpot_obtained(player_healthpot)
 signal lifewine_obtained(player_lifewine)
 signal manapot_obtained(player_manapot)
-signal opals_obtained(player_opals)
+signal opals_obtained(player_opals, amount_added)
 signal crystals_obtained(player_crystals)
 
 signal ingredient_obtained(ingredient_name, amount)
@@ -61,6 +61,8 @@ var cam_shake : bool = false
 var is_charging : bool = false
 var slowed : bool = false
 var underwater : bool = false
+
+var mana_absorption_counter : int = 1
 
 
 func _ready():
@@ -124,7 +126,7 @@ func _physics_process(_delta):
 			shoot()
 #			ground_pound()
 			if underwater:
-				SPEED = 380 / 1.8
+				SPEED = 380 / 2
 			else:
 				SPEED = 380
 			# Movement controls
@@ -225,7 +227,8 @@ func _physics_process(_delta):
 
 func shoot():
 	if Input.is_action_just_pressed("ui_shoot") and !is_attacking and !is_frozen and Global.mana >= 1:
-		if Global.player_skills["RangedSkill"] == "Fireball":
+		if Global.player_skills["RangedSkill"] == "Fireball" and $RangedAttackTimer.is_stopped():
+			$RangedAttackTimer.start()
 			var fireball : Fireball = FIREBALL.instance()
 			# warning-ignore:standalone_ternary
 			fireball.flip_projectile(-1) if sign($Position2D.position.x) == -1 else fireball.flip_projectile(1)	
@@ -258,7 +261,7 @@ func shoot():
 			remove_child(fireparticle)
 	
 	if Input.is_action_just_pressed("secondary_skill") and !Input.is_action_just_pressed("primary_skill"):
-		if Global.player_skills["SecondarySkill"] == "FireFairy" and Global.fire_fairy_unlocked and !is_attacking and !is_frozen and Global.mana >= 3 and !is_using_secondary_skill:
+		if Global.player_skills["SecondarySkill"] == "FireFairy" and Global.fire_fairy_unlocked and !is_attacking and !is_frozen and Global.mana >= 3 and !is_using_secondary_skill and get_parent().get_node("SkillsUI/Control/SecondarySkill/FireFairy/FirefairyTimer").is_stopped():
 			emit_signal("skill_used", "FireFairy")
 			is_using_secondary_skill = true
 			var fire_fairy = FIRE_FAIRY.instance()
@@ -351,7 +354,7 @@ func charge_meter():
 		if Input.is_action_pressed("charge"):
 			# Max value is 100
 			$ChargeBar.visible = true
-			$ChargeBar.value += 1.5
+			$ChargeBar.value += 1.25
 			is_charging = true
 		if Input.is_action_just_released("charge") or Input.is_action_pressed("left") or Input.is_action_pressed("right"):
 			# Min value is 0 (Empty)
@@ -405,8 +408,6 @@ func _on_Area2D_area_entered(area : Area2D):
 		emit_signal("lifewine_obtained", Global.lifewine_amount)
 	if !Global.godmode:
 		if inv_timer.is_stopped() and !is_invulnerable:
-			# TODO: think about if knockback makes the experience better or worse
-			# For now, i think its better
 			if area.is_in_group("Enemy") or area.is_in_group("DeflectedProjectile"):
 				Global.hearts -= 0.5
 				is_gliding = false
@@ -431,6 +432,7 @@ func _on_Area2D_area_entered(area : Area2D):
 	if area.is_in_group("Transporter"):
 		emit_signal("level_changed")
 	if area.is_in_group("Water"):
+		$OxygenBar.visible = true
 		var water_jump_particle = WATER_JUMP_PARTICLE.instance()
 		water_jump_particle.emitting = true
 		get_parent().add_child(water_jump_particle)
@@ -471,7 +473,7 @@ func afterDamaged():
 			is_invulnerable = true
 			yield(get_tree().create_timer(1), "timeout")
 			is_invulnerable = false
-		else:	
+		else:
 			dead()
 
 
@@ -479,12 +481,17 @@ func afterDamaged():
 func _on_AttackCollision_area_entered(area):
 	if area.is_in_group("Enemy") or area.is_in_group("Enemy2") and !$AttackCollision/CollisionShape2D.disabled:
 		attack_knock()
-
+#		freeze_enemy()
 		var hitparticle = SWORD_HIT_PARTICLE.instance()
 		hitparticle.emitting = true
 		get_parent().add_child(hitparticle)
 		hitparticle.position = $Position2D.global_position
-		if Global.mana < Global.max_mana and $ChargeBar.value != $ChargeBar.max_value:
+		if mana_absorption_counter > 0:
+			mana_absorption_counter -= 1
+		elif mana_absorption_counter == 0:
+			mana_absorption_counter = 1
+		if mana_absorption_counter == 0 and Global.mana < Global.max_mana and $ChargeBar.value != $ChargeBar.max_value:
+			
 			Global.mana += 1
 			emit_signal("mana_changed", Global.mana)
 
@@ -651,7 +658,7 @@ func on_lootbag_obtained(tier : int):
 			opalrng.randomize()
 			var opalnum = opalrng.randi_range(5,20)
 			Global.opals_amount += opalnum
-			emit_signal("opals_obtained", Global.opals_amount)
+			emit_signal("opals_obtained", Global.opals_amount, opalnum)
 		2:
 			# Drops a small amout of opals, common dust and goblin scales
 			var lootrng : RandomNumberGenerator = RandomNumberGenerator.new()
@@ -663,7 +670,7 @@ func on_lootbag_obtained(tier : int):
 			opalrng.randomize()
 			var opalnum = opalrng.randi_range(5,20)
 			Global.opals_amount += opalnum
-			emit_signal("opals_obtained", Global.opals_amount)
+			emit_signal("opals_obtained", Global.opals_amount, opalnum)
 			
 			var scalesrng : RandomNumberGenerator = RandomNumberGenerator.new()
 			scalesrng.randomize()

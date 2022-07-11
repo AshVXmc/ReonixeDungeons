@@ -61,15 +61,15 @@ __meta__ = {
 }
 
 [node name="Sprite" type="Sprite" parent="HealthPotControl"]
-position = Vector2( 336, 16 )
+position = Vector2( 344, 16 )
 scale = Vector2( 2, 2 )
 texture = ExtResource( 5 )
 
 [node name="KeyBind" type="Label" parent="HealthPotControl"]
 anchor_left = -3.732
 anchor_right = -3.732
-margin_left = 479.28
-margin_right = 492.28
+margin_left = 487.28
+margin_right = 500.28
 margin_bottom = 48.0
 rect_scale = Vector2( 0.75, 0.75 )
 custom_colors/font_color = Color( 0.192157, 0.372549, 1, 1 )

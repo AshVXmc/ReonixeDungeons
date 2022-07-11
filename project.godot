@@ -39,10 +39,10 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/items/BossLevelTransporter.gd"
 }, {
-"base": "KinematicBody2D",
+"base": "Reference",
 "class": "BowGoblin",
 "language": "GDScript",
-"path": "res://scripts/enemies/BowGoblinScript.gd"
+"path": "res://scripts/enemies/BowGoblin.gd"
 }, {
 "base": "Area2D",
 "class": "BurningStatus",
@@ -292,7 +292,7 @@ _global_script_classes=[ {
 "base": "KinematicBody2D",
 "class": "Slime",
 "language": "GDScript",
-"path": "res://scripts/enemies/SlimeScript.gd"
+"path": "res://scripts/enemies/Slime.gd"
 }, {
 "base": "Area2D",
 "class": "SlowingPoison",

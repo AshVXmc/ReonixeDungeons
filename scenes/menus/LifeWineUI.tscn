@@ -60,15 +60,15 @@ __meta__ = {
 }
 
 [node name="Sprite" type="Sprite" parent="LifeWineControl"]
-position = Vector2( 420, 16 )
+position = Vector2( 428, 16 )
 scale = Vector2( 2, 2 )
 texture = ExtResource( 5 )
 
 [node name="KeyBind" type="Label" parent="LifeWineControl"]
 anchor_left = -3.732
 anchor_right = -3.732
-margin_left = 560.28
-margin_right = 581.28
+margin_left = 568.28
+margin_right = 589.28
 margin_bottom = 48.0
 rect_scale = Vector2( 0.75, 0.75 )
 custom_colors/font_color = Color( 0.192157, 0.372549, 1, 1 )

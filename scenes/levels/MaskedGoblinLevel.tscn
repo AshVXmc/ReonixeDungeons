@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=2]
+[gd_scene load_steps=32 format=2]
 
 [ext_resource path="res://scenes/enemies/bosses/MaskedGoblin.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/menus/HeartUI.tscn" type="PackedScene" id=2]
@@ -20,10 +20,9 @@
 [ext_resource path="res://scenes/menus/GameOver.tscn" type="PackedScene" id=18]
 [ext_resource path="res://scenes/menus/SceneTransition.tscn" type="PackedScene" id=19]
 [ext_resource path="res://assets/terrain/background_dungeons.png" type="Texture" id=20]
-[ext_resource path="res://scenes/menus/CommonMonsterDustUI.tscn" type="PackedScene" id=21]
+[ext_resource path="res://scenes/menus/InventoryUI.tscn" type="PackedScene" id=21]
 [ext_resource path="res://scenes/menus/PauseUI.tscn" type="PackedScene" id=22]
 [ext_resource path="res://scenes/enemies/LimeSlime.tscn" type="PackedScene" id=23]
-[ext_resource path="res://scenes/menus/GoblinScalesUI.tscn" type="PackedScene" id=24]
 [ext_resource path="res://scenes/items/LevelTransporter.tscn" type="PackedScene" id=25]
 [ext_resource path="res://assets/fonts/Born2bSportyV2.ttf" type="DynamicFontData" id=26]
 [ext_resource path="res://scenes/menus/SkillsUI.tscn" type="PackedScene" id=27]
@@ -60,10 +59,6 @@ script = ExtResource( 3 )
 
 [node name="OpalsUI" parent="." instance=ExtResource( 9 )]
 
-[node name="GoblinScalesUI" parent="." instance=ExtResource( 24 )]
-
-[node name="CommonMonsterDustUI" parent="." instance=ExtResource( 21 )]
-
 [node name="RevivementCrystal" parent="." instance=ExtResource( 14 )]
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
@@ -90,6 +85,8 @@ __meta__ = {
 }
 
 [node name="SkillsUI" parent="." instance=ExtResource( 27 )]
+
+[node name="InventoryUI" parent="." instance=ExtResource( 21 )]
 
 [node name="GameOverUI" parent="." instance=ExtResource( 18 )]
 
@@ -312,3 +309,5 @@ __meta__ = {
 [node name="CountdownTimer" type="Timer" parent="."]
 wait_time = 9999.0
 autostart = true
+
+[node name="InventoryUI2" parent="." instance=ExtResource( 21 )]

@@ -1,7 +1,7 @@
 class_name Slime extends KinematicBody2D
 
 var velocity : Vector2 = Vector2()
-export var HP : int = 2
+export var HP : int = 5
 var is_dead : bool = false 
 var direction : int = 1
 const TYPE : String = "Enemy"

@@ -62,16 +62,16 @@ __meta__ = {
 }
 
 [node name="Sprite" type="Sprite" parent="ManaPotControl"]
-position = Vector2( 513, 16 )
+position = Vector2( 516, 16 )
 scale = Vector2( 2, 2 )
 texture = ExtResource( 5 )
 
 [node name="KeyBind" type="Label" parent="ManaPotControl"]
 anchor_left = -3.732
 anchor_right = -3.732
-margin_left = 653.005
+margin_left = 656.005
 margin_top = -0.218201
-margin_right = 674.005
+margin_right = 677.005
 margin_bottom = 47.7818
 rect_scale = Vector2( 0.75, 0.75 )
 custom_colors/font_color = Color( 0.192157, 0.372549, 1, 1 )

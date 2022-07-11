@@ -8,7 +8,6 @@ const SMALL_FIRE_PARTICLE : PackedScene = preload("res://scenes/particles/FireHi
 
 func _ready():
 	$AnimationPlayer.play("SPIN")
-	$DestroyedTimer.start()
 
 func _on_DestroyedTimer_timeout():
 	queue_free()

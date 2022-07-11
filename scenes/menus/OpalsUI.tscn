@@ -1,11 +1,15 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://assets/fonts/Born2bSportyV2.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://scripts/ui/OpalsControl.gd" type="Script" id=2]
 [ext_resource path="res://assets/misc/opal.png" type="Texture" id=3]
 
 [sub_resource type="DynamicFont" id=1]
-size = 60
+size = 64
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 48
 font_data = ExtResource( 1 )
 
 [node name="OpalsUI" type="CanvasLayer"]
@@ -31,13 +35,28 @@ __meta__ = {
 }
 
 [node name="Label" type="Label" parent="OpalsControl"]
-margin_left = -91.9511
-margin_top = 158.627
-margin_right = -41.9511
-margin_bottom = 281.627
+margin_left = -92.0
+margin_top = 158.0
+margin_right = -56.0
+margin_bottom = 289.0
 rect_scale = Vector2( 0.75, 0.75 )
 custom_fonts/font = SubResource( 1 )
 text = "0
+"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="OpalsObtainedLabel" type="Label" parent="OpalsControl"]
+visible = false
+margin_left = -130.0
+margin_top = 208.0
+margin_right = -41.0
+margin_bottom = 307.0
+rect_scale = Vector2( 0.75, 0.75 )
+custom_colors/font_color = Color( 1, 0.803922, 0.0313726, 1 )
+custom_fonts/font = SubResource( 2 )
+text = "+0
 "
 __meta__ = {
 "_edit_use_anchors_": false

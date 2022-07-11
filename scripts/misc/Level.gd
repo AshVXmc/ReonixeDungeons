@@ -20,11 +20,6 @@ func _ready():
 		OS.vsync_enabled = false
 	if get_tree().get_current_scene().get_name() == "Level5" and !Global.activated_portals.has("Level5"):
 		Global.activated_portals.append("Level5")
-	var meteor = preload("res://scenes/misc/MeteorStrike.tscn")
-	var m = meteor.instance()
-	yield(get_tree().create_timer(2.5), "timeout")
-	add_child(m)
-	m.position = $Position2D.global_position
 # warning-ignore:unused_argument
 func _process(delta):
 	# Screenshot

@@ -15,6 +15,7 @@ func _ready():
 #		player = get_parent().get_node("Player")
 	connect("shopping", get_parent().get_node("Player"), "toggle_shopping")
 	$Label.visible = false
+	$Keybind.visible = false
 	$AnimatedSprite.play("Idle")
 	# Dialogue configuration
 	$DialogueScreen.talker.text = "Shopkeeper"
@@ -46,9 +47,11 @@ func _on_Area2D_area_entered(area):
 	if area.is_in_group("Player") and !$Label.visible:
 		emit_signal("shopping")
 		$Label.visible = true
+		$Keybind.visible = true
 		
 func _on_Area2D_area_exited(area):
 	$Label.visible = false
+	$Keybind.visible = false
 
 
 

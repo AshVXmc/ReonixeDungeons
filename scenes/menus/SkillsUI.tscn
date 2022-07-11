@@ -46,7 +46,7 @@ scale = Vector2( 4, 4 )
 texture = ExtResource( 2 )
 
 [node name="FiresawTimer" type="Timer" parent="Control/PrimarySkill/FireSaw"]
-wait_time = 12.0
+wait_time = 20.0
 one_shot = true
 
 [node name="Label" type="Label" parent="Control/PrimarySkill/FireSaw"]
@@ -125,6 +125,7 @@ margin_right = 40.0
 margin_bottom = 40.0
 
 [node name="FireFairy" type="Control" parent="Control/SecondarySkill"]
+visible = false
 margin_right = 40.0
 margin_bottom = 40.0
 __meta__ = {
@@ -137,7 +138,7 @@ scale = Vector2( 4, 4 )
 texture = ExtResource( 5 )
 
 [node name="FirefairyTimer" type="Timer" parent="Control/SecondarySkill/FireFairy"]
-wait_time = 15.0
+wait_time = 8.0
 one_shot = true
 
 [node name="Label" type="Label" parent="Control/SecondarySkill/FireFairy"]

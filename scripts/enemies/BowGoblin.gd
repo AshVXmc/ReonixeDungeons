@@ -1,6 +1,6 @@
 class_name BowGoblin extends KinematicBody2D
 
-export var HP : int = 4
+export var HP : int = 6
 export var flipped : bool = false
 var velocity = Vector2()
 var direction : int = 1
@@ -15,6 +15,7 @@ const ARROW = preload("res://scenes/enemies/bosses/Arrow.tscn")
 onready var AREA_LEFT : Area2D = $Left
 onready var AREA_RIGHT : Area2D = $Right
 onready var PLAYER = get_parent().get_node("Player").get_node("Area2D")
+var is_frozen : bool = false
 
 func _physics_process(delta):
 	# Movement and physics
@@ -45,7 +46,7 @@ func shoot_arrow():
 		arrow.flip_arrow_direction(-1)
 
 		arrow.position = $LeftPos.global_position
-	if AREA_LEFT.overlaps_area(PLAYER) or AREA_RIGHT.overlaps_area(PLAYER):
+	if AREA_LEFT.overlaps_area(PLAYER) or AREA_RIGHT.overlaps_area(PLAYER) and !is_frozen:
 		$ShootingTimer.start()
 	elif $VulnerableArea.overlaps_area(PLAYER):
 		$ShootingTimer.stop()
@@ -59,8 +60,12 @@ func _on_Area2D_area_entered(area):
 		HP -= 3
 		parse_damage()
 		$ShootingTimer.stop()
+	if area.is_in_group("Frozen"):
+		$ShootingTimer.stop()
+		is_frozen = true
 
 func _on_ShootingTimer_timeout():
+	
 	shoot_arrow()
 
 

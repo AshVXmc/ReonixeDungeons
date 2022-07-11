@@ -20,28 +20,12 @@ func _process(delta):
 		$Plaque/Control.visible = true
 		get_parent().get_node("Player").is_shopping = true
 	$Plaque/Control/NinePatchRect/Header.bbcode_text = "========= [color=#754d27]Guide to Combat " + str(page) + "[/color] ========="
-	match page:
-		1:
-			$Plaque/Control/NinePatchRect/Page1.visible = true
-			$Plaque/Control/NinePatchRect/Page2.visible = false
-			$Plaque/Control/NinePatchRect/Page3.visible = false
-		2:
-			$Plaque/Control/NinePatchRect/Page1.visible = false
-			$Plaque/Control/NinePatchRect/Page2.visible = true
-			$Plaque/Control/NinePatchRect/Page3.visible = false
-		3:
-			$Plaque/Control/NinePatchRect/Page1.visible = false
-			$Plaque/Control/NinePatchRect/Page2.visible = false
-			$Plaque/Control/NinePatchRect/Page3.visible = true
-	if page == 1:
-		$Plaque/Control/NinePatchRect/PrevButton.visible = false
-	else:
-		$Plaque/Control/NinePatchRect/PrevButton.visible = true
-		
-	if page == Final_Page:
-		$Plaque/Control/NinePatchRect/NextButton.visible = false
-	else:
-		$Plaque/Control/NinePatchRect/NextButton.visible = true
+	
+	$Plaque/Control/NinePatchRect/Page1.visible = true if page == 1 else false
+	$Plaque/Control/NinePatchRect/Page2.visible = true if page == 2 else false
+	$Plaque/Control/NinePatchRect/Page3.visible = true if page == 3 else false
+	$Plaque/Control/NinePatchRect/PrevButton.visible = false if page == 1 else true
+	$Plaque/Control/NinePatchRect/NextButton.visible = false if page == Final_Page else true
 func _on_Area2D_area_exited(area):
 	$Label.visible = false
 	$Keybind.visible = false

@@ -40,7 +40,7 @@ tracks/0/keys = {
 [sub_resource type="CircleShape2D" id=2]
 radius = 51.5857
 
-[node name="FireFairy" type="Area2D" groups=["Fireball"]]
+[node name="FireFairy" type="Area2D" groups=["Sword2"]]
 position = Vector2( 262.656, 169.492 )
 script = ExtResource( 2 )
 __meta__ = {
@@ -64,6 +64,7 @@ texture = ExtResource( 1 )
 
 [node name="DestroyedTimer" type="Timer" parent="."]
 wait_time = 10.0
+one_shot = true
 autostart = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

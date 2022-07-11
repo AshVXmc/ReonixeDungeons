@@ -2,7 +2,7 @@ class_name Campfire extends AnimatedSprite
 
 onready var AREA : Area2D = $Area2D2
 onready var PLAYER = get_parent().get_node("Player").get_node("Area2D")
-export var Activated : bool = false
+export var Activated : bool = true
 signal campfire_heal()
 signal refill_healthpot()
 

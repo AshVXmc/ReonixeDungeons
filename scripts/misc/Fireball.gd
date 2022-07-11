@@ -1,7 +1,7 @@
 class_name Fireball extends Area2D
 
 const TYPE : String = "Fireball"
-var SPEED : int = 500
+var SPEED : int = 550
 var velocity = Vector2()
 var direction : int = 1
 var destroyed : bool = false

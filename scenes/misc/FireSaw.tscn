@@ -32,6 +32,7 @@ tracks/1/keys = {
 
 [sub_resource type="Animation" id=3]
 resource_name = "SPIN"
+length = 1.5
 loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:rotation_degrees")
@@ -40,14 +41,14 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 1 ),
+"times": PoolRealArray( 0, 1.5 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
 "values": [ 0.0, 360.0 ]
 }
 
 [node name="FireSaw" type="Area2D" groups=["Fireball"]]
-scale = Vector2( 1.25, 1.25 )
+scale = Vector2( 1.1, 1.1 )
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_group_": true
@@ -58,6 +59,7 @@ __meta__ = {
 [node name="DestroyedTimer" type="Timer" parent="."]
 wait_time = 8.0
 one_shot = true
+autostart = true
 
 [node name="Sprite" type="Sprite" parent="."]
 scale = Vector2( 22.5, 22.5 )

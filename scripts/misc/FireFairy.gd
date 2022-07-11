@@ -1,7 +1,7 @@
 class_name FireFairy extends Area2D
 onready var player = get_parent().get_node("Player")
-const SPEED = 400
-const steer_force = 200
+const SPEED = 450
+const steer_force = 225
 var target = null
 var velocity = Vector2.ZERO
 var acceleration = Vector2.ZERO
@@ -20,12 +20,17 @@ func seek():
 		var desired = (target.position - position).normalized() * SPEED
 		steer = (desired - velocity).normalized() * steer_force
 		return steer
+	else:
+		return 0
 
 
 func _physics_process(delta):
 	target = get_closest_enemy()
 	if target:
 		acceleration += seek()
+	if target == null:
+		yield(get_tree().create_timer(2), "timeout")
+		queue_free()
 	velocity += acceleration * delta
 	velocity = velocity.clamped(SPEED)
 #	rotation = velocity.angle()

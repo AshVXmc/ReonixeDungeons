@@ -53,7 +53,7 @@ var godmode : bool = false
 	
 func reset_player_data():
 	Global.hearts = 3
-	Global.mana = 5
+	Global.mana = 6
 	Global.healthpot_amount = 0
 	Global.lifewine_amount = 0
 	Global.manapot_amount = 0

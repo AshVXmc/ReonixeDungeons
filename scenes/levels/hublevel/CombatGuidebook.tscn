@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=25 format=2]
 
 [ext_resource path="res://assets/fonts/FFFFORWA.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://scripts/terrain/CombatGuidebook.gd" type="Script" id=2]
@@ -14,6 +14,10 @@
 [ext_resource path="res://assets/UI/healthbar_full.png" type="Texture" id=12]
 [ext_resource path="res://assets/misc/super_slash_projectile.png" type="Texture" id=13]
 [ext_resource path="res://assets/misc/fireball.png" type="Texture" id=14]
+[ext_resource path="res://assets/UI/mana.png" type="Texture" id=15]
+[ext_resource path="res://assets/UI/heart.png" type="Texture" id=16]
+[ext_resource path="res://assets/UI/heart_slot.png" type="Texture" id=17]
+[ext_resource path="res://assets/UI/mana_slot.png" type="Texture" id=18]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 43.8902, 49.2892 )
@@ -69,15 +73,11 @@ __meta__ = {
 [node name="Plaque" type="CanvasLayer" parent="."]
 
 [node name="Control" type="Control" parent="Plaque"]
-visible = false
-anchor_left = 0.5
-anchor_top = 0.33
-anchor_right = 0.5
-anchor_bottom = 0.33
-margin_left = -540.0
-margin_top = -237.6
-margin_right = 534.0
-margin_bottom = 484.4
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = 191.0
+margin_bottom = 151.0
+rect_scale = Vector2( 0.85, 0.85 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -88,9 +88,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 margin_left = -436.0
-margin_top = -186.0
+margin_top = -134.706
 margin_right = 436.0
-margin_bottom = 351.0
+margin_bottom = 402.294
 texture = ExtResource( 6 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -155,6 +155,7 @@ __meta__ = {
 }
 
 [node name="Page1" type="Control" parent="Plaque/Control/NinePatchRect"]
+visible = false
 margin_right = 40.0
 margin_bottom = 40.0
 __meta__ = {
@@ -163,16 +164,16 @@ __meta__ = {
 
 [node name="Text" type="RichTextLabel" parent="Plaque/Control/NinePatchRect/Page1"]
 anchor_right = 0.153
-margin_left = 54.2705
-margin_top = 96.0
-margin_right = 384.151
+margin_left = 54.0
+margin_top = 100.0
+margin_right = 318.88
 margin_bottom = 330.0
 custom_colors/default_color = Color( 0, 0, 0, 1 )
 custom_fonts/normal_font = SubResource( 4 )
 bbcode_enabled = true
-bbcode_text = "[color=#23a9de]Melee Attacks[/color] are your primary source of damage. Press [color=red]Enter[/color] or [color=red]X[/color] to strike enemies down within close range. Striking hostile entities with normal attacks grant one [color=blue]Mana[/color].
+bbcode_text = "[color=red]Melee Attacks[/color] are your primary source of damage. Press [color=red]Enter[/color] or [color=red]X[/color] to strike enemies down within close range.
 "
-text = "Melee Attacks are your primary source of damage. Press Enter or X to strike enemies down within close range. Striking hostile entities with normal attacks grant one Mana.
+text = "Melee Attacks are your primary source of damage. Press Enter or X to strike enemies down within close range.
 "
 scroll_active = false
 __meta__ = {
@@ -181,14 +182,14 @@ __meta__ = {
 
 [node name="Text2" type="RichTextLabel" parent="Plaque/Control/NinePatchRect/Page1"]
 anchor_right = 0.153
-margin_left = 398.595
-margin_top = 96.0
-margin_right = 836.475
+margin_left = 341.0
+margin_top = 100.0
+margin_right = 813.88
 margin_bottom = 300.0
 custom_colors/default_color = Color( 0, 0, 0, 1 )
 custom_fonts/normal_font = SubResource( 4 )
 bbcode_enabled = true
-bbcode_text = "[color=#23a9de]Charged Attacks[/color] are more powerful than melee attacks, and has a longer reach, but they require time and one [color=blue]Mana[/color]. Hold down [color=red]Q [/color]to charge the [color=#e6b737]Energy Meter[/color] and attack when the bar turns [color=#16e01d]green[/color]."
+bbcode_text = "[color=red]Charged Attacks[/color] are more powerful than melee attacks, and has a longer reach, but they require time and one [color=blue]Mana[/color]. Hold down [color=red]Q [/color]to charge the [color=#e6b120]Energy Meter[/color] and attack when the bar turns [color=#16e01d]green[/color]."
 text = "Charged Attacks are more powerful than melee attacks, and has a longer reach, but they require time and one Mana. Hold down Q to charge the Energy Meter and attack when the bar turns green."
 scroll_active = false
 __meta__ = {
@@ -202,35 +203,35 @@ scale = Vector2( 4, 4 )
 texture = ExtResource( 10 )
 
 [node name="Player" type="Sprite" parent="Plaque/Control/NinePatchRect/Page1"]
-position = Vector2( 148.669, 402.154 )
+position = Vector2( 148.669, 402 )
 scale = Vector2( 6, 6 )
 texture = ExtResource( 9 )
 
 [node name="Bar" type="Sprite" parent="Plaque/Control/NinePatchRect/Page1"]
-position = Vector2( 474.738, 328.607 )
+position = Vector2( 441.775, 325.636 )
 scale = Vector2( 6, 6 )
 texture = ExtResource( 12 )
 
 [node name="Slime2" type="Sprite" parent="Plaque/Control/NinePatchRect/Page1"]
 modulate = Color( 0.988235, 1, 1, 1 )
 self_modulate = Color( 0.0117647, 1, 1, 1 )
-position = Vector2( 659.864, 422.636 )
+position = Vector2( 626.901, 419.665 )
 scale = Vector2( 6, 6 )
 texture = ExtResource( 11 )
 
 [node name="Wave" type="Sprite" parent="Plaque/Control/NinePatchRect/Page1"]
-position = Vector2( 590.554, 403.627 )
+position = Vector2( 557.591, 400.656 )
 scale = Vector2( 10, 10 )
 texture = ExtResource( 13 )
 
 [node name="Sword2" type="Sprite" parent="Plaque/Control/NinePatchRect/Page1"]
-position = Vector2( 529.532, 440.476 )
+position = Vector2( 496.569, 437.505 )
 rotation = 2.25497
 scale = Vector2( 4, 4 )
 texture = ExtResource( 10 )
 
 [node name="Player2" type="Sprite" parent="Plaque/Control/NinePatchRect/Page1"]
-position = Vector2( 466.939, 405.743 )
+position = Vector2( 433.976, 402 )
 scale = Vector2( 6, 6 )
 texture = ExtResource( 9 )
 
@@ -256,36 +257,94 @@ scale = Vector2( 6, 6 )
 texture = ExtResource( 11 )
 
 [node name="Page2" type="Control" parent="Plaque/Control/NinePatchRect"]
-visible = false
 margin_right = 40.0
 margin_bottom = 40.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Text" type="RichTextLabel" parent="Plaque/Control/NinePatchRect/Page2"]
+[node name="Text2" type="RichTextLabel" parent="Plaque/Control/NinePatchRect/Page2"]
 anchor_right = 0.153
-margin_left = 75.0
-margin_top = 96.0
+margin_left = 54.0
+margin_top = 268.921
 margin_right = 813.88
-margin_bottom = 300.0
+margin_bottom = 371.921
 custom_colors/default_color = Color( 0, 0, 0, 1 )
 custom_fonts/normal_font = SubResource( 4 )
 bbcode_enabled = true
-bbcode_text = "[color=#ed7118]Ranged attacks[/color] are your secondary method of dealing damage, draining one [color=blue]Mana[/color] point per cast in exchange of longer attack range. Press [color=red]F [/color]to shoot a [color=#ed7118]fireball[/color] in a straight line on the direction you are facing. The range isn't infinite however, as it will expire after a certain amount of time if it doesn't collide with any targets."
-text = "Ranged attacks are your secondary method of dealing damage, draining one Mana point per cast in exchange of longer attack range. Press F to shoot a fireball in a straight line on the direction you are facing. The range isn't infinite however, as it will expire after a certain amount of time if it doesn't collide with any targets."
+bbcode_text = "[color=blue]Mana[/color] [img=28]res://assets/UI/mana.png[/img] is a kind of magical energy that can be used to cast [color=#e6b120]Abilities and Skills[/color]. For every [color=red]second[/color] melee strike you inflict on an opponent, you will gain one [color=blue]Mana[/color] point."
+text = "Mana  is a kind of magical energy that can be used to cast Abilities and Skills. For every second melee strike you inflict on an opponent, you will gain one Mana point."
 scroll_active = false
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Player" type="Sprite" parent="Plaque/Control/NinePatchRect/Page2"]
-position = Vector2( 181.966, 374.636 )
-scale = Vector2( 6, 6 )
-texture = ExtResource( 9 )
+[node name="Text" type="RichTextLabel" parent="Plaque/Control/NinePatchRect/Page2"]
+anchor_right = 0.153
+margin_left = 54.0
+margin_top = 100.0
+margin_right = 813.88
+margin_bottom = 171.0
+custom_colors/default_color = Color( 0, 0, 0, 1 )
+custom_fonts/normal_font = SubResource( 4 )
+bbcode_enabled = true
+bbcode_text = "[color=#f71e63]Hearts[/color] [img=28]res://assets/UI/heart.png[/img] are a measurement of your vitality. If your [color=#f71e63]Life meter [/color]reaches zero, you will get a game over."
+text = "Hearts  are a measurement of your vitality. If your Life meter reaches zero, you will get a game over."
+scroll_active = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ManaSlots" type="TextureRect" parent="Plaque/Control/NinePatchRect/Page2"]
+margin_left = 289.294
+margin_top = 388.647
+margin_right = 576.294
+margin_bottom = 434.647
+texture = ExtResource( 18 )
+expand = true
+stretch_mode = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Mana" type="TextureRect" parent="Plaque/Control/NinePatchRect/Page2"]
+margin_left = 289.294
+margin_top = 388.647
+margin_right = 481.294
+margin_bottom = 434.647
+texture = ExtResource( 15 )
+expand = true
+stretch_mode = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HeartSlots" type="TextureRect" parent="Plaque/Control/NinePatchRect/Page2"]
+margin_left = 289.294
+margin_top = 166.964
+margin_right = 576.294
+margin_bottom = 250.964
+texture = ExtResource( 17 )
+expand = true
+stretch_mode = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Hearts" type="TextureRect" parent="Plaque/Control/NinePatchRect/Page2"]
+margin_left = 290.0
+margin_top = 166.882
+margin_right = 530.0
+margin_bottom = 250.882
+texture = ExtResource( 16 )
+expand = true
+stretch_mode = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Fireball" type="Sprite" parent="Plaque/Control/NinePatchRect/Page2"]
-position = Vector2( 181.966, 374.636 )
+position = Vector2( 381.775, 708.678 )
 scale = Vector2( 6, 6 )
 texture = ExtResource( 14 )
 
