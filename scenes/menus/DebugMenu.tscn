@@ -5,7 +5,7 @@
 [ext_resource path="res://assets/UI/textbox.png" type="Texture" id=3]
 
 [sub_resource type="DynamicFont" id=1]
-size = 36
+size = 32
 font_data = ExtResource( 2 )
 
 [sub_resource type="DynamicFont" id=4]

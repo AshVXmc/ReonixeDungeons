@@ -39,7 +39,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/items/BossLevelTransporter.gd"
 }, {
-"base": "Reference",
+"base": "KinematicBody2D",
 "class": "BowGoblin",
 "language": "GDScript",
 "path": "res://scripts/enemies/BowGoblin.gd"
@@ -252,7 +252,7 @@ _global_script_classes=[ {
 "base": "KinematicBody2D",
 "class": "Player",
 "language": "GDScript",
-"path": "res://scripts/misc/Player.gd"
+"path": "res://scripts/player/Player.gd"
 }, {
 "base": "KinematicBody2D",
 "class": "ShieldGoblin",
@@ -283,6 +283,11 @@ _global_script_classes=[ {
 "class": "SilverChest",
 "language": "GDScript",
 "path": "res://scripts/items/ChestSilver.gd"
+}, {
+"base": "Node2D",
+"class": "SkillManager",
+"language": "GDScript",
+"path": "res://scripts/player/SkillManager.gd"
 }, {
 "base": "Control",
 "class": "SkillsUI",
@@ -380,6 +385,7 @@ _global_script_class_icons={
 "Shuriken": "",
 "Sign": "",
 "SilverChest": "",
+"SkillManager": "",
 "SkillsUI": "",
 "Slime": "",
 "SlowingPoison": "",

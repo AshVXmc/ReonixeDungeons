@@ -30,7 +30,7 @@ var activated_portals : Array
 
 var player_skills : Dictionary = {
 	"PrimarySkill": "FireSaw",
-	"SecondarySkill": "FireFairy", 
+	"SecondarySkill": "FireFairy",
 	"RangedSkill": "Fireball"
 }
 

@@ -18,7 +18,7 @@ size = 32
 font_data = ExtResource( 5 )
 
 [sub_resource type="DynamicFont" id=7]
-size = 48
+size = 80
 font_data = ExtResource( 4 )
 
 [sub_resource type="Animation" id=5]
@@ -67,10 +67,11 @@ position = Vector2( -0.328446, 2.73627 )
 shape = SubResource( 2 )
 
 [node name="Label" type="RichTextLabel" parent="."]
-margin_left = -65.0
-margin_top = -98.0
-margin_right = 115.0
-margin_bottom = -50.0
+margin_left = -91.7572
+margin_top = -126.541
+margin_right = 88.2428
+margin_bottom = -78.541
+rect_scale = Vector2( 1.5, 1.5 )
 custom_fonts/bold_font = SubResource( 3 )
 bbcode_enabled = true
 bbcode_text = "[b]Talk[/b] [img=32]res://assets/UI/icon_Empty.png[/img]"
@@ -83,10 +84,10 @@ __meta__ = {
 [node name="Keybind" type="Label" parent="."]
 anchor_left = -3.732
 anchor_right = -3.732
-margin_left = 33.6815
-margin_top = -89.3245
-margin_right = 54.6815
-margin_bottom = -41.3245
+margin_left = 56.2189
+margin_top = -116.138
+margin_right = 91.2189
+margin_bottom = -36.1383
 rect_scale = Vector2( 0.75, 0.75 )
 custom_colors/font_color = Color( 0.192157, 0.372549, 1, 1 )
 custom_fonts/font = SubResource( 7 )

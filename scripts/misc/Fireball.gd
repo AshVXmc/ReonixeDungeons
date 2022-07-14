@@ -1,5 +1,5 @@
 class_name Fireball extends Area2D
-
+const BURNING : PackedScene = preload("res://scenes/status_effects/BurningStatus.tscn")
 const TYPE : String = "Fireball"
 var SPEED : int = 550
 var velocity = Vector2()
@@ -14,7 +14,14 @@ func _physics_process(delta):
 		velocity.x = 0
 	translate(velocity)
 		
-
+func add_burning_stack():
+	var enemy = get_overlapping_areas()
+	for e in enemy:
+		if e.is_in_group("Enemy"):
+			if !e.is_in_group("Burnstack"):
+				var burning_status = BURNING.instance()
+				e.add_child(burning_status)
+	
 func override_speed(ovr_speed : int):
 	SPEED = ovr_speed
 
@@ -28,6 +35,7 @@ func _on_VisibilityNotifier2D_screen_exited():
 
 func _on_Fireball_area_entered(area):
 	if area.is_in_group("Enemy") or area.is_in_group("Enemy2") or area.is_in_group("DestructableObject") or area.is_in_group("Campfire"):
+		add_burning_stack()
 		destroyed = true
 		$AnimatedSprite.play("Destroyed")
 		$CollisionShape2D.disabled = true

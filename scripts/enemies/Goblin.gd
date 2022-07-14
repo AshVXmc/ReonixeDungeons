@@ -1,6 +1,6 @@
 class_name Goblin extends KinematicBody2D
 
-export var HP : int = 8
+export var HP : int = 10
 export var flipped : bool = false
 var velocity = Vector2()
 var direction : int = 1

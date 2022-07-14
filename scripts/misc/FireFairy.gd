@@ -26,10 +26,10 @@ func seek():
 
 func _physics_process(delta):
 	target = get_closest_enemy()
-	if target:
+	if target and target.get_node("Area2D").overlaps_area($Detector):
 		acceleration += seek()
-	if target == null:
-		yield(get_tree().create_timer(2), "timeout")
+	else:
+		yield(get_tree().create_timer(8), "timeout")
 		queue_free()
 	velocity += acceleration * delta
 	velocity = velocity.clamped(SPEED)

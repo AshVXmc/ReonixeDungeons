@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://assets/misc/fire_fairy_1.png" type="Texture" id=1]
 [ext_resource path="res://scripts/misc/FireFairy.gd" type="Script" id=2]
@@ -40,6 +40,9 @@ tracks/0/keys = {
 [sub_resource type="CircleShape2D" id=2]
 radius = 51.5857
 
+[sub_resource type="CircleShape2D" id=5]
+radius = 500.0
+
 [node name="FireFairy" type="Area2D" groups=["Sword2"]]
 position = Vector2( 262.656, 169.492 )
 script = ExtResource( 2 )
@@ -73,6 +76,11 @@ anims/RESET = SubResource( 4 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 2 )
+
+[node name="Detector" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Detector"]
+shape = SubResource( 5 )
 
 [connection signal="area_entered" from="." to="." method="_on_HomingOnEnemiesFireball_area_entered"]
 [connection signal="timeout" from="DestroyedTimer" to="." method="_on_DestroyedTimer_timeout"]
