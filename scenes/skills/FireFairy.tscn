@@ -1,9 +1,9 @@
 [gd_scene load_steps=9 format=2]
 
-[ext_resource path="res://assets/misc/fire_fairy_1.png" type="Texture" id=1]
-[ext_resource path="res://scripts/misc/FireFairy.gd" type="Script" id=2]
-[ext_resource path="res://scenes/particles/FlameParticle.tscn" type="PackedScene" id=3]
-[ext_resource path="res://assets/misc/fire_fairy_2.png" type="Texture" id=4]
+[ext_resource path="res://scenes/particles/FlameParticle.tscn" type="PackedScene" id=1]
+[ext_resource path="res://assets/misc/fire_fairy_1.png" type="Texture" id=2]
+[ext_resource path="res://assets/misc/fire_fairy_2.png" type="Texture" id=3]
+[ext_resource path="res://scripts/misc/FireFairy.gd" type="Script" id=4]
 
 [sub_resource type="Animation" id=3]
 resource_name = "Flap"
@@ -19,7 +19,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 0.4 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 1,
-"values": [ ExtResource( 1 ), ExtResource( 4 ) ]
+"values": [ ExtResource( 2 ), ExtResource( 3 ) ]
 }
 
 [sub_resource type="Animation" id=4]
@@ -34,7 +34,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ ExtResource( 1 ) ]
+"values": [ ExtResource( 2 ) ]
 }
 
 [sub_resource type="CircleShape2D" id=2]
@@ -45,12 +45,12 @@ radius = 500.0
 
 [node name="FireFairy" type="Area2D" groups=["Sword2"]]
 position = Vector2( 262.656, 169.492 )
-script = ExtResource( 2 )
+script = ExtResource( 4 )
 __meta__ = {
 "_edit_group_": true
 }
 
-[node name="FlameParticle" parent="." instance=ExtResource( 3 )]
+[node name="FlameParticle" parent="." instance=ExtResource( 1 )]
 lifetime = 0.75
 randomness = 1.0
 emission_shape = 2
@@ -63,7 +63,7 @@ hue_variation = -1.0
 
 [node name="Sprite" type="Sprite" parent="."]
 scale = Vector2( 4, 4 )
-texture = ExtResource( 1 )
+texture = ExtResource( 2 )
 
 [node name="DestroyedTimer" type="Timer" parent="."]
 wait_time = 10.0

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/switch_off.png-bef480c69abfe6b9f22b787208bee7d8.stex"
+path="res://.import/burning_bar_full.png-455490ae3543bc2fdf2e3a65c37cb436.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/terrain/switch_off.png"
-dest_files=[ "res://.import/switch_off.png-bef480c69abfe6b9f22b787208bee7d8.stex" ]
+source_file="res://assets/UI/burning_bar_full.png"
+dest_files=[ "res://.import/burning_bar_full.png-455490ae3543bc2fdf2e3a65c37cb436.stex" ]
 
 [params]
 

@@ -13,9 +13,9 @@ func _ready():
 	else:
 		$Light2D.visible = true
 	if Global.vsync:
-		OS.vsync_enabled = true
-	else:
 		OS.vsync_enabled = false
+	else:
+		OS.vsync_enabled = true
 
 # warning-ignore:unused_argument
 func _process(delta):

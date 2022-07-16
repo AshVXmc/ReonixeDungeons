@@ -80,7 +80,7 @@ scale = Vector2( 4, 4 )
 texture = ExtResource( 8 )
 
 [node name="MeteorStrikeTimer" type="Timer" parent="Control/PrimarySkill/MeteorStrike"]
-wait_time = 12.0
+wait_time = 16.0
 one_shot = true
 
 [node name="Label" type="Label" parent="Control/PrimarySkill/MeteorStrike"]
@@ -89,13 +89,47 @@ margin_top = 170.0
 margin_right = 188.0
 margin_bottom = 218.0
 custom_fonts/font = SubResource( 1 )
-text = "12"
+text = "16"
 align = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="ManaCost" type="Sprite" parent="Control/PrimarySkill/MeteorStrike"]
+position = Vector2( 171, 245 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 7 )
+
+[node name="FrostBlast" type="Control" parent="Control/PrimarySkill"]
+visible = false
+margin_right = 40.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Sprite" type="Sprite" parent="Control/PrimarySkill/FrostBlast"]
+position = Vector2( 170, 190 )
+scale = Vector2( 4, 4 )
+texture = ExtResource( 8 )
+
+[node name="MeteorStrikeTimer" type="Timer" parent="Control/PrimarySkill/FrostBlast"]
+wait_time = 16.0
+one_shot = true
+
+[node name="Label" type="Label" parent="Control/PrimarySkill/FrostBlast"]
+margin_left = 148.0
+margin_top = 170.0
+margin_right = 188.0
+margin_bottom = 218.0
+custom_fonts/font = SubResource( 1 )
+text = "16"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ManaCost" type="Sprite" parent="Control/PrimarySkill/FrostBlast"]
 position = Vector2( 171, 245 )
 scale = Vector2( 2, 2 )
 texture = ExtResource( 7 )

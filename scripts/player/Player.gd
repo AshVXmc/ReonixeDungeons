@@ -27,9 +27,7 @@ var can_be_knocked : bool = true
 var SPEED : int = 380
 const GRAVITY : int = 40
 var JUMP_POWER : int = -1075
-const FIREBALL : PackedScene = preload("res://scenes/misc/Fireball.tscn")
-const FIRESAW : PackedScene = preload("res://scenes/misc/FireSaw.tscn")
-const FIRE_FAIRY : PackedScene = preload("res://scenes/misc/FireFairy.tscn")
+
 const JUMP_PARTICLE : PackedScene = preload("res://scenes/particles/JumpParticle.tscn")
 const WATER_JUMP_PARTICLE : PackedScene = preload("res://scenes/particles/WaterBubbleParticle.tscn")
 const DASH_PARTICLE : PackedScene = preload("res://scenes/particles/DashParticle.tscn")
@@ -228,43 +226,18 @@ func _physics_process(_delta):
 
 
 func shoot():
-	if Input.is_action_just_pressed("ui_shoot") and !is_attacking and !is_frozen and Global.mana >= 1:
+	if Input.is_action_just_pressed("ui_shoot") and !is_frozen and Global.mana >= 1:
 		if Global.player_skills["RangedSkill"] == "Fireball" and $RangedAttackTimer.is_stopped():
-			$RangedAttackTimer.start()
-			var fireball : Fireball = FIREBALL.instance()
-			# warning-ignore:standalone_ternary
-			fireball.flip_projectile(-1) if sign($Position2D.position.x) == -1 else fireball.flip_projectile(1)	
-			get_parent().add_child(fireball)
-			fireball.position = $Position2D.global_position
-			if !Global.godmode:
-				Global.mana -= 1
-				emit_signal("mana_changed", Global.mana)
-			is_attacking = false
-			$AttackCollision/CollisionShape2D.disabled = true
+			emit_signal("skill_used", "Fireball")
 	
 	if Input.is_action_just_pressed("primary_skill") and !Input.is_action_just_pressed("secondary_skill"):
-		if Global.player_skills["PrimarySkill"] == "FireSaw" and Global.firesaw_unlocked and !is_attacking and !is_frozen and Global.mana >= 4 and !is_using_primary_skill and get_parent().get_node("SkillsUI/Control/PrimarySkill/FireSaw/FiresawTimer").is_stopped():
+		if Global.player_skills["PrimarySkill"] == "FireSaw" and Global.firesaw_unlocked and !is_frozen and Global.mana >= 4 and !is_using_primary_skill and get_parent().get_node("SkillsUI/Control/PrimarySkill/FireSaw/FiresawTimer").is_stopped():
 			emit_signal("skill_used", "FireSaw")
 	
 	if Input.is_action_just_pressed("secondary_skill") and !Input.is_action_just_pressed("primary_skill"):
-		if Global.player_skills["SecondarySkill"] == "FireFairy" and Global.fire_fairy_unlocked and !is_attacking and !is_frozen and Global.mana >= 3 and !is_using_secondary_skill and get_parent().get_node("SkillsUI/Control/SecondarySkill/FireFairy/FirefairyTimer").is_stopped():
+		if Global.player_skills["SecondarySkill"] == "FireFairy" and Global.fire_fairy_unlocked and !is_frozen and Global.mana >= 3 and !is_using_secondary_skill and get_parent().get_node("SkillsUI/Control/SecondarySkill/FireFairy/FirefairyTimer").is_stopped():
 			emit_signal("skill_used", "FireFairy")
-#			is_using_secondary_skill = true
-#			var fire_fairy = FIRE_FAIRY.instance()
-#			get_parent().add_child(fire_fairy)
-#			fire_fairy.position = global_position
-#			if !Global.godmode:
-#				Global.mana -= 3
-#				emit_signal("mana_changed", Global.mana)
-#			yield(get_tree().create_timer(fire_fairy.get_node("DestroyedTimer").wait_time), "timeout")
-#			is_using_secondary_skill = false
 			
-
-#func add_fire_hit_particle(pos : Vector2):
-#	var fire_hit_particle = SMALL_FIRE_PARTICLE.instance()
-#	get_parent().add_child(fire_hit_particle)
-#	fire_hit_particle.emitting = true
-#	fire_hit_particle.position = pos 
 	
 func ground_pound():
 	if !is_on_floor() and Input.is_action_just_pressed("ui_down"):
@@ -342,7 +315,7 @@ func charge_meter():
 			$ChargeBar.visible = true
 			$ChargeBar.value += 1.5
 			is_charging = true
-		if Input.is_action_just_released("charge") or Input.is_action_pressed("left") or Input.is_action_pressed("right") or Input.is_action_pressed("jump") or Input.is_action_pressed("ui_attack"):
+		if Input.is_action_just_released("charge") or Input.is_action_pressed("left") or Input.is_action_pressed("right") or Input.is_action_pressed("jump"):
 			# Min value is 0 (Empty)
 			$ChargeBar.visible = false
 			$ChargeBar.value = $ChargeBar.min_value
@@ -467,7 +440,7 @@ func afterDamaged():
 func _on_AttackCollision_area_entered(area):
 	if area.is_in_group("Enemy") or area.is_in_group("Enemy2") and !$AttackCollision/CollisionShape2D.disabled:
 		attack_knock()
-		freeze_enemy()
+#		freeze_enemy()
 		var hitparticle = SWORD_HIT_PARTICLE.instance()
 		hitparticle.emitting = true
 		get_parent().add_child(hitparticle)
@@ -477,7 +450,6 @@ func _on_AttackCollision_area_entered(area):
 		elif mana_absorption_counter == 0:
 			mana_absorption_counter = 1
 		if mana_absorption_counter == 0 and Global.mana < Global.max_mana and $ChargeBar.value != $ChargeBar.max_value:
-			
 			Global.mana += 1
 			emit_signal("mana_changed", Global.mana)
 

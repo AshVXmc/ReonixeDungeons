@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/switch_on.png-dc408ff4ad724ab607ae682e55b1aea1.stex"
+path="res://.import/sword_slash_particle_1.png-d997698eb28ad3ade46f6d1cfd613a82.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/terrain/switch_on.png"
-dest_files=[ "res://.import/switch_on.png-dc408ff4ad724ab607ae682e55b1aea1.stex" ]
+source_file="res://assets/particles/sword_slash_particle_1.png"
+dest_files=[ "res://.import/sword_slash_particle_1.png-d997698eb28ad3ade46f6d1cfd613a82.stex" ]
 
 [params]
 

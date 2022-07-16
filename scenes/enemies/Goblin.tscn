@@ -11,14 +11,14 @@ extents = Vector2( 22.2061, 46.6171 )
 
 [sub_resource type="SpriteFrames" id=4]
 animations = [ {
-"frames": [ ExtResource( 4 ), ExtResource( 1 ) ],
-"loop": true,
-"name": "Attacking",
-"speed": 6.0
-}, {
 "frames": [ ExtResource( 3 ), ExtResource( 5 ) ],
 "loop": true,
 "name": "Idle",
+"speed": 6.0
+}, {
+"frames": [ ExtResource( 4 ), ExtResource( 1 ) ],
+"loop": true,
+"name": "Attacking",
 "speed": 6.0
 } ]
 
@@ -70,7 +70,7 @@ collision_mask = 3075
 collide_with_areas = true
 
 [node name="HurtTimer" type="Timer" parent="."]
-wait_time = 0.5
+wait_time = 0.75
 one_shot = true
 
 [node name="AttackingTimer" type="Timer" parent="."]

@@ -28,12 +28,18 @@ var lighting : bool = false
 var vsync : bool = false
 var activated_portals : Array
 
+
 var player_skills : Dictionary = {
-	"PrimarySkill": "FireSaw",
-	"SecondarySkill": "FireFairy",
-	"RangedSkill": "Fireball"
 }
 
+# List of skills (Unlocked and locked)
+var list_of_skills : Dictionary = {
+	"PrimarySkill": ["FireSaw"], 
+	"SecondarySkill": ["FireFairy", "FrostBlast"],
+	"RangedSkill": ["Fireball"]
+}
+
+# List of locked skills
 var unlocked_skills : Dictionary = {
 	"PrimarySkills": ["FireSaw"],
 	"SecondarySkills": ["FireFairy"],

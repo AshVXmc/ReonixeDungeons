@@ -15,9 +15,9 @@ func _ready():
 	else:
 		$Light2D.visible = true
 	if Global.vsync:
-		OS.vsync_enabled = true
-	else:
 		OS.vsync_enabled = false
+	else:
+		OS.vsync_enabled = true
 	if get_tree().get_current_scene().get_name() == "Level5" and !Global.activated_portals.has("Level5"):
 		Global.activated_portals.append("Level5")
 # warning-ignore:unused_argument

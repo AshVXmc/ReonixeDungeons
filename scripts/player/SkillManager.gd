@@ -1,9 +1,10 @@
 class_name SkillManager extends Node2D
 
 signal mana_changed(amount)
-const FIRESAW : PackedScene = preload("res://scenes/misc/FireSaw.tscn")
+const FIREBALL : PackedScene = preload("res://scenes/skills/Fireball.tscn")
+const FIRESAW : PackedScene = preload("res://scenes/skills/FireSaw.tscn")
 const FIRE_PARTICLE : PackedScene = preload("res://scenes/particles/FlameParticle.tscn")
-const FIRE_FAIRY : PackedScene = preload("res://scenes/misc/FireFairy.tscn")
+const FIRE_FAIRY : PackedScene = preload("res://scenes/skills/FireFairy.tscn")
 func _ready():
 	connect("mana_changed", get_parent().get_parent().get_node("ManaUI/Mana"), "on_player_mana_changed")
 
@@ -21,7 +22,7 @@ func on_skill_used(skill_name : String):
 				Global.mana -= 4
 				emit_signal("mana_changed", Global.mana)
 			get_parent().is_attacking = false
-#			$AttackCollision/CollisionShape2D.disabled = true
+			get_parent().get_node("AttackCollision/CollisionShape2D").disabled = true
 			# 8 is the duration of the firesaw
 			yield(get_tree().create_timer(firesaw.get_node("DestroyedTimer").wait_time),"timeout")
 			get_parent().is_using_primary_skill = false
@@ -36,3 +37,15 @@ func on_skill_used(skill_name : String):
 				emit_signal("mana_changed", Global.mana)
 			yield(get_tree().create_timer(fire_fairy.get_node("DestroyedTimer").wait_time), "timeout")
 			get_parent().is_using_secondary_skill = false
+		"Fireball":
+			get_parent().get_node("RangedAttackTimer").start()
+			var fireball : Fireball = FIREBALL.instance()
+			# warning-ignore:standalone_ternary
+			fireball.flip_projectile(-1) if sign(get_parent().get_node("Position2D").position.x) == -1 else fireball.flip_projectile(1)	
+			get_parent().get_parent().add_child(fireball)
+			fireball.position = get_parent().get_node("Position2D").global_position
+			if !Global.godmode:
+				Global.mana -= 1
+				emit_signal("mana_changed", Global.mana)
+			get_parent().is_attacking = false
+			get_parent().get_node("AttackCollision/CollisionShape2D").disabled = true
