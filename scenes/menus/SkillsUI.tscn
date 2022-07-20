@@ -31,6 +31,9 @@ __meta__ = {
 [node name="PrimarySkill" type="Control" parent="Control"]
 margin_right = 40.0
 margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="FireSaw" type="Control" parent="Control/PrimarySkill"]
 visible = false

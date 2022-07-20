@@ -44,7 +44,7 @@ func _process(delta):
 		else:
 			$PrimarySkill/FireSaw/Sprite.self_modulate.a = 0.65
 		$PrimarySkill/FireSaw/Label.text = ""
-	if Global.mana < 3:
+	if Global.mana < 4:
 		$PrimarySkill/FireSaw/Sprite.self_modulate.a = 0.65
 	
 	if !$SecondarySkill/FireFairy/FirefairyTimer.is_stopped():

@@ -2,11 +2,13 @@ class_name Fireball extends Area2D
 const BURNING : PackedScene = preload("res://scenes/status_effects/BurningStatus.tscn")
 const TYPE : String = "Fireball"
 var SPEED : int = 550
+var attack : int = 5
 var velocity = Vector2()
 var direction : int = 1
 var destroyed : bool = false
 
 func _physics_process(delta):
+	add_to_group(attack * Global.skill_levels["FireballLevel"])
 	if !destroyed:
 		velocity.x = SPEED * delta * direction
 		$AnimatedSprite.play("Shoot")

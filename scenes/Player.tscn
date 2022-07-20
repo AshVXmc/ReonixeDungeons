@@ -297,7 +297,7 @@ wait_time = 0.25
 one_shot = true
 
 [node name="DashCooldown" type="Timer" parent="."]
-wait_time = 0.75
+wait_time = 0.7
 autostart = true
 
 [node name="KnockbackTimer" type="Timer" parent="."]
@@ -323,7 +323,6 @@ wait_time = 2.0
 one_shot = true
 
 [node name="DashUseTimer" type="Timer" parent="."]
-wait_time = 0.75
 one_shot = true
 
 [node name="GlideTimer" type="Timer" parent="."]

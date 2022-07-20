@@ -30,6 +30,7 @@ func _on_LoadSaveButton_pressed():
 			Global.hearts = player_data["Health"]
 			Global.max_mana = player_data["MaxMana"]
 			Global.mana = player_data["Mana"]
+			Global.attack_power = player_data["AttackPower"]
 			Global.opals_amount = player_data["Opals"]
 			Global.crystals_amount = player_data["RevivementCrystals"]
 			Global.healthpot_amount = player_data["Healthpot"]
@@ -47,10 +48,13 @@ func _on_LoadSaveButton_pressed():
 			Global.player_skills["PrimarySkill"] = player_data["PrimarySkill"]
 			Global.player_skills["SecondarySkill"] = player_data["SecondarySkill"]
 			Global.player_skills["RangedSkill"] = player_data["RangedSkill"]
+			Global.unlocked_skills["PrimarySkillUnlocked"] = player_data["PrimarySkillUnlocked"]
+			Global.unlocked_skills["SecondarySkillUnlocked"] = player_data["SecondarySkillUnlocked"]
+			Global.unlocked_skills["RangedSkillUnlocked"] = player_data["RangedSkillUnlocked"]
 			Global.is_loading_a_save = player_data["IsLoadingASave"]
 			Global.masked_goblin_defeated = player_data["MaskedGoblinDefeated"]
 			Global.activated_portals = player_data["ActivatedPortals"]
-			
+			Global.enemy_level_index = player_data["EnemyLevelIndex"]
 			get_parent().get_parent().get_node("SceneTransition/ColorRect").visible = true
 			get_parent().get_parent().get_node("SceneTransition").transition()
 			yield(get_tree().create_timer(1), "timeout")

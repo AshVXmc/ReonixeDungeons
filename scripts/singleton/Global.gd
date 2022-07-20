@@ -5,6 +5,7 @@ var max_hearts : float = 3
 var hearts : float = max_hearts
 var max_mana : int = 6
 var mana : int = max_mana
+var attack_power : int = 5
 var healthpot_amount : int = 0
 var lifewine_amount : int = 0
 var manapot_amount : int = 0
@@ -27,9 +28,20 @@ var savepath : String = SAVE_DIR + "savefile.dat"
 var lighting : bool = false
 var vsync : bool = false
 var activated_portals : Array
+var enemy_level_index : int = 1
 
-
+# Skills that the player currently equips
 var player_skills : Dictionary = {
+	"PrimarySkill" : null,
+	"SecondarySkill" : null,
+	"RangedSkill" : null
+}
+
+# The level of skills. Higher levels = more damage and utility etc etc
+var skill_levels : Dictionary = {
+	"FireSawLevel": 1,
+	"FireFairyLevel": 1,
+	"FireballLevel": 1
 }
 
 # List of skills (Unlocked and locked)
@@ -39,7 +51,7 @@ var list_of_skills : Dictionary = {
 	"RangedSkill": ["Fireball"]
 }
 
-# List of locked skills
+# List of unlocked skills
 var unlocked_skills : Dictionary = {
 	"PrimarySkills": ["FireSaw"],
 	"SecondarySkills": ["FireFairy"],
@@ -101,6 +113,8 @@ func save_player_data():
 		"Health" : Global.hearts ,
 		"MaxMana" : Global.max_mana ,
 		"Mana" : Global.mana ,
+		"AttackPower": Global.attack_power,
+		"EnemyLevelIndex": Global.enemy_level_index,
 		"Healthpot": Global.healthpot_amount ,
 		"LifeWine" : Global.lifewine_amount,
 		"Manapot":  Global.manapot_amount,
@@ -118,10 +132,18 @@ func save_player_data():
 		
 		"IsLoadingASave": Global.is_loading_a_save,
 		"PlayerPosition": Global.player_position,
-		
+		# Equipped skills
 		"PrimarySkill" : Global.player_skills["PrimarySkill"],
 		"SecondarySkill": Global.player_skills["SecondarySkill"],
 		"RangedSkill" :  Global.player_skills["RangedSkill"],
+		# Unlocked skills
+		"PrimarySkillUnlocked": Global.unlocked_skills["PrimarySkill"],
+		"SecondarySkillUnlocked": Global.unlocked_skills["SecondarySkill"],
+		"RangedSkillUnlocked": Global.unlocked_skills["RangedSkill"],
+		# Levels
+		"FireSawLevel": Global.skill_levels["FireSawLevel"],
+		"FireFairyLevel": Global.skill_levels["FireFairyLevel"],
+		"FireballLevel": Global.skill_levels["FireballLevel"],
 		"Lighting" : Global.lighting,
 		"Vsync" : Global.vsync,
 		"EnemiesKilled": Global.enemies_killed ,

@@ -65,6 +65,7 @@ var mana_absorption_counter : int = 1
 
 
 func _ready():
+	$AttackCollision.add_to_group(str(Global.attack_power))
 	$OxygenBar.value = 100
 	$ChargeBar.value = 0
 	$SwordSprite.visible = false
@@ -313,7 +314,7 @@ func charge_meter():
 		if Input.is_action_pressed("charge"):
 			# Max value is 100
 			$ChargeBar.visible = true
-			$ChargeBar.value += 1.5
+			$ChargeBar.value += 2.5
 			is_charging = true
 		if Input.is_action_just_released("charge") or Input.is_action_pressed("left") or Input.is_action_pressed("right") or Input.is_action_pressed("jump"):
 			# Min value is 0 (Empty)
@@ -372,7 +373,7 @@ func _on_Area2D_area_entered(area : Area2D):
 				is_gliding = false
 				Input.action_release("charge")
 				afterDamaged()
-				knockback()
+#				knockback()
 				$CampfireTimer.stop()
 			if area.is_in_group("Enemy2"):
 				Global.hearts -= 1
@@ -471,8 +472,8 @@ func knockback():
 			can_be_knocked = false
 		dashdirection = Vector2(-1, 0) if $Sprite.flip_h else Vector2(1,0)
 		Input.action_release("jump")
-		Input.action_release("left")
-		Input.action_release("right")
+#		Input.action_release("left")
+#		Input.action_release("right")
 		Input.action_release("ui_attack")
 		Input.action_release("ui_up")
 
@@ -501,8 +502,8 @@ func dash():
 		if !$Sprite.flip_h:
 			dashdirection = Vector2(1,0)
 		if $Sprite.flip_h:
-			dashdirection = Vector2(-1, 0)		
-		if Input.is_action_just_pressed("ui_dash") and can_dash and $DashUseTimer.is_stopped() and Global.mana > 0:
+			dashdirection = Vector2(-1, 0)
+		if Input.is_action_just_pressed("ui_dash") and can_dash and $DashUseTimer.is_stopped():
 			# Particles
 			var dash_particle = DASH_PARTICLE.instance()
 			get_parent().add_child(dash_particle)
@@ -511,9 +512,9 @@ func dash():
 			dash_particle.position = $DashParticlePosition.global_position
 			dash_particle.emitting = true
 			dash_particle.one_shot = true
-			if !Global.godmode:
-				Global.mana -= 1
-				emit_signal("mana_changed", Global.mana)
+#			if !Global.godmode:
+#				Global.mana -= 1
+#				emit_signal("mana_changed", Global.mana)
 			can_dash = false
 #			Input.action_release("left")
 #			Input.action_release("right")
@@ -751,7 +752,7 @@ func _on_KnockbackTimer_timeout():
 	velocity.x = 0
 
 func _on_KnockbackCooldownTimer_timeout():
-
+	is_knocked_back = false
 	can_be_knocked = true
 	Input.action_release("left")
 	Input.action_release("right")

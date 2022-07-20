@@ -2,11 +2,13 @@ class_name FireFairy extends Area2D
 onready var player = get_parent().get_node("Player")
 const SPEED = 450
 const steer_force = 225
+var attack : int = 5
 var target = null
 var velocity = Vector2.ZERO
 var acceleration = Vector2.ZERO
 
 func _ready():
+	add_to_group(attack * Global.skill_levels["FireFairyLevel"])
 	$AnimationPlayer.play("Flap")
 func start(_transform, _target):
 	global_transform = _transform

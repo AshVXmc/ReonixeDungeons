@@ -9,6 +9,7 @@
 [node name="Life" type="Control" parent="."]
 margin_right = 92.0
 margin_bottom = 93.0
+rect_scale = Vector2( 0.8, 0.8 )
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
