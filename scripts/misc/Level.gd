@@ -1,7 +1,10 @@
 class_name Level extends Node2D
 
+signal equipped_skills()
 func _ready():
-
+	connect("equipped_skills", $SkillsUI/Control, "update_skill_ui")
+	emit_signal("equipped_skills")
+	Global.save_player_data()
 	# Disabling this feature, but keeping it here if needed.
 #	if Global.is_loading_a_save:
 #		get_node("Player").position = Global.player_position

@@ -6,6 +6,13 @@ var hearts : float = max_hearts
 var max_mana : int = 6
 var mana : int = max_mana
 var attack_power : int = 5
+
+
+
+# Crit rate and Crit damage in %
+var crit_rate : int = 10
+var crit_damage : int = 50
+var base_damage_taken : int = 5
 var healthpot_amount : int = 0
 var lifewine_amount : int = 0
 var manapot_amount : int = 0
@@ -28,34 +35,40 @@ var savepath : String = SAVE_DIR + "savefile.dat"
 var lighting : bool = false
 var vsync : bool = false
 var activated_portals : Array
-var enemy_level_index : int = 1
+var enemy_level_index : int = 0
 
 # Skills that the player currently equips
 var player_skills : Dictionary = {
-	"PrimarySkill" : null,
-	"SecondarySkill" : null,
-	"RangedSkill" : null
+	"PrimarySkill" : "",
+	"SecondarySkill" : "",
+	"RangedSkill" : ""
 }
 
-# The level of skills. Higher levels = more damage and utility etc etc
+# The level of skills. Higher levels = more damage and utility etc.
 var skill_levels : Dictionary = {
 	"FireSawLevel": 1,
 	"FireFairyLevel": 1,
-	"FireballLevel": 1
+	"FireballLevel": 1,
 }
 
+# The level of elemental status effects. Higher level = more damage and duration etc.
+var elemental_damage_levels : Dictionary = {
+	"Burning": 1,
+	"Freeze": 1,
+	"Grounded": 1
+}
 # List of skills (Unlocked and locked)
 var list_of_skills : Dictionary = {
 	"PrimarySkill": ["FireSaw"], 
-	"SecondarySkill": ["FireFairy", "FrostBlast"],
+	"SecondarySkill": ["FireFairy", "IceLance"],
 	"RangedSkill": ["Fireball"]
 }
 
 # List of unlocked skills
 var unlocked_skills : Dictionary = {
-	"PrimarySkills": ["FireSaw"],
-	"SecondarySkills": ["FireFairy"],
-	"RangedSkills": ["Fireball"]
+	"PrimarySkill": ["FireSaw"],
+	"SecondarySkill": ["FireFairy"],
+	"RangedSkill": ["Fireball"]
 }
 
 
@@ -68,7 +81,6 @@ var masked_goblin_defeated : bool
 # Unsaved conditions
 var godmode : bool = false
 
-	
 func reset_player_data():
 	Global.hearts = 3
 	Global.mana = 6

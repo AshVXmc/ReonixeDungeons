@@ -4,17 +4,18 @@ signal ability_on_cooldown(ability_name)
 
 func _ready():
 	connect("ability_on_cooldown", get_parent().get_parent().get_node("Player"), "ability_on_entering_cooldown")
-	match Global.player_skills["PrimarySkill"]:
+	update_skill_ui(Global.player_skills["PrimarySkill"], Global.player_skills["SecondarySkill"])
+#	match Global.secondary_skill:
+
+func update_skill_ui(primary : String, secondary : String):
+	match primary:
 		"FireSaw":
 			$PrimarySkill/FireSaw.visible = true
 		"MeteorStrike":
 			$PrimarySkill/MeteorStrike.visible = true
-	match Global.player_skills["SecondarySkill"]:
+	match secondary:
 		"FireFairy":
 			$SecondarySkill/FireFairy.visible = true
-#	match Global.secondary_skill:
-
-
 func on_skill_used(skill_name : String):
 	match skill_name:
 		"FireSaw":

@@ -1,6 +1,7 @@
 class_name Goblin extends KinematicBody2D
 
-export var HP : int = 50
+const DMG_INDICATOR : PackedScene = preload("res://scenes/particles/DamageIndicatorParticle.tscn")
+var HP : int = 90
 export var flipped : bool = false
 var velocity = Vector2()
 var direction : int = 1
@@ -17,8 +18,10 @@ onready var AREA_RIGHT : Area2D = $Right
 onready var PLAYER = get_parent().get_node("Player").get_node("Area2D")
 var is_frozen : bool = false
 
+func _ready():
+	HP += Global.enemy_level_index * (HP / 2)
+	$HealthBar.max_value = HP
 func _physics_process(delta):
-	
 	if flipped:
 		$Sprite.flip_h = true
 	velocity.y += GRAVITY
@@ -37,40 +40,32 @@ func _physics_process(delta):
 				yield(get_tree().create_timer(0.4),"timeout")
 				velocity.x = SPEED
 
+	
 func _on_Area2D_area_entered(area):
-	# Note to self on how this works:
-	# The damage number the any damage dealing entity the player wields is noted 
-	# on its group along with its type (E.g: Sword, 10 means the damage is physical
-	# and deals 10 damage.
-	# The area detects the group, does some magic to get the group's number, which
-	# is the damage and reduces the enemy's HP.
-	# This is hopefully a modular way to handle damage calculation.
 	if area.is_in_group("Sword"):
-		var groups = area.get_groups()
-		for group_names in groups:
-			if group_names == "Sword":
-				groups.erase("Sword")
-			else:
-				print("HP reduced by " + str(group_names))
-				HP -= int(group_names)
-				parse_damage()
-				break
+		HP -= Global.attack_power
+		$HealthBar.value -= Global.attack_power
+		parse_damage()
+		add_damage_particles("Physical", Global.attack_power)
+		
+	if area.is_in_group("SwordCharged"):
+		HP -= Global.attack_power * 2
+		$HealthBar.value -= Global.attack_power * 2
+		parse_damage()
+		add_damage_particles("Physical", Global.attack_power * 2)
+		
 	if area.is_in_group("Fireball"):
-		var groups = area.get_groups()
-		for group_names in groups:
-			if group_names == "Fireball":
-				groups.erase("Fireball")
-			else:
-				print("HP reduced by " + str(group_names))
-				HP -= int(group_names)
-				parse_damage()
-				break
-#	if area.is_in_group("Sword") or area.is_in_group("Fireball") and HP > 0:
-#		HP -= 1
-#		parse_damage()
-#	elif area.is_in_group("Sword2"):
-#		HP -= 3
-#		parse_damage()
+		HP -= Global.base_damage_taken * Global.skill_levels["FireballLevel"]
+		$HealthBar.value -= Global.base_damage_taken * Global.skill_levels["FireballLevel"]
+		parse_damage()
+		add_damage_particles("Fire", Global.base_damage_taken * Global.skill_levels["FireballLevel"])
+	
+	if area.is_in_group("Burning"):
+		HP -= Global.base_damage_taken / 2.5 * Global.elemental_damage_levels["Burning"]
+		$HealthBar.value -= Global.base_damage_taken / 2.5  * Global.elemental_damage_levels["Burning"]
+		parse_damage()
+		add_damage_particles("Fire", Global.base_damage_taken / 2.5 * Global.elemental_damage_levels["Burning"])
+	
 	if area.is_in_group("Player"):
 		is_staggered = true
 		yield(get_tree().create_timer(1), "timeout")
@@ -78,6 +73,13 @@ func _on_Area2D_area_entered(area):
 	if area.is_in_group("Frozen"):
 		is_frozen = true
 
+func add_damage_particles(type : String, dmg : int):
+	var dmgparticle = DMG_INDICATOR.instance()
+	dmgparticle.damage_type = type
+	dmgparticle.damage = dmg
+	get_parent().add_child(dmgparticle)
+	dmgparticle.position = global_position
+	
 func parse_damage():
 	is_staggered = true
 	velocity.x = 0

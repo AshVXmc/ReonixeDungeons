@@ -52,7 +52,7 @@ func _on_Detector_area_entered(area):
 		if area.is_in_group("FireGauge1"):
 			reduce_burn_stack(25)
 		elif area.is_in_group("FireGauge2"):
-			reduce_burn_stack(50)
+			reduce_burn_stack(35)
 #	if is_burning:
 #		if area.is_in_group("FireGauge1"):
 #			$BurningBar.value += 25

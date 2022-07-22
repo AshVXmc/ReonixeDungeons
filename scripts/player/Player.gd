@@ -28,6 +28,7 @@ var SPEED : int = 380
 const GRAVITY : int = 40
 var JUMP_POWER : int = -1075
 
+const HURT_PARTICLE : PackedScene = preload("res://scenes/particles/HurtIndicatorParticle.tscn")
 const JUMP_PARTICLE : PackedScene = preload("res://scenes/particles/JumpParticle.tscn")
 const WATER_JUMP_PARTICLE : PackedScene = preload("res://scenes/particles/WaterBubbleParticle.tscn")
 const DASH_PARTICLE : PackedScene = preload("res://scenes/particles/DashParticle.tscn")
@@ -62,8 +63,6 @@ var slowed : bool = false
 var underwater : bool = false
 
 var mana_absorption_counter : int = 1
-
-
 func _ready():
 	$AttackCollision.add_to_group(str(Global.attack_power))
 	$OxygenBar.value = 100
@@ -314,7 +313,7 @@ func charge_meter():
 		if Input.is_action_pressed("charge"):
 			# Max value is 100
 			$ChargeBar.visible = true
-			$ChargeBar.value += 2.5
+			$ChargeBar.value += 2
 			is_charging = true
 		if Input.is_action_just_released("charge") or Input.is_action_pressed("left") or Input.is_action_pressed("right") or Input.is_action_pressed("jump"):
 			# Min value is 0 (Empty)
@@ -370,13 +369,16 @@ func _on_Area2D_area_entered(area : Area2D):
 		if inv_timer.is_stopped() and !is_invulnerable:
 			if area.is_in_group("Enemy") or area.is_in_group("DeflectedProjectile"):
 				Global.hearts -= 0.5
+				add_hurt_particles(0.5)
 				is_gliding = false
 				Input.action_release("charge")
 				afterDamaged()
-#				knockback()
+				if !area.is_in_group("LightEnemy"):
+					knockback()
 				$CampfireTimer.stop()
 			if area.is_in_group("Enemy2"):
 				Global.hearts -= 1
+				add_hurt_particles(1)
 				is_gliding = false
 				Input.action_release("charge")
 				afterDamaged()
@@ -422,7 +424,6 @@ func afterDamaged():
 	emit_signal("life_changed", Global.hearts)
 	$Sprite.play("Hurt")
 	if !Global.godmode:
-		
 		$KnockbackTimer.start()
 	if Global.hearts <= 0:
 		if Global.crystals_amount > 0:
@@ -436,7 +437,12 @@ func afterDamaged():
 		else:
 			dead()
 
-
+func add_hurt_particles(damage : float):
+	print("ouchie")
+	var hurt_particle = HURT_PARTICLE.instance()
+	hurt_particle.damage = damage * 2
+	get_parent().add_child(hurt_particle)
+	hurt_particle.position = global_position
 # Obtaining mana by attacking enemies
 func _on_AttackCollision_area_entered(area):
 	if area.is_in_group("Enemy") or area.is_in_group("Enemy2") and !$AttackCollision/CollisionShape2D.disabled:
@@ -465,34 +471,37 @@ func freeze_enemy():
 
 
 func knockback():
-	if !Global.godmode:
-		if can_be_knocked and !Global.godmode:
-			is_knocked_back = true
-			$KnockbackCooldownTimer.start()
-			can_be_knocked = false
-		dashdirection = Vector2(-1, 0) if $Sprite.flip_h else Vector2(1,0)
-		Input.action_release("jump")
-#		Input.action_release("left")
-#		Input.action_release("right")
-		Input.action_release("ui_attack")
-		Input.action_release("ui_up")
+	if can_be_knocked and !Global.godmode:
+		is_knocked_back = true
+		$KnockbackCooldownTimer.start()
+		can_be_knocked = false
+	dashdirection = Vector2(-1, 0) if $Sprite.flip_h else Vector2(1,0)
+	Input.action_release("jump")
+#	Input.action_release("left")
+#	Input.action_release("right")
+	Input.action_release("ui_attack")
+	Input.action_release("ui_up")
 
+func slow_down_time(time_scale : float, duration : float):
+	Engine.time_scale = time_scale
+	yield(get_tree().create_timer(duration), "timeout")
+	Engine.time_scale = 1
 func _on_LeftDetector_area_entered(area):
 	if !Global.godmode:
 		if area.is_in_group("Enemy") or area.is_in_group("Enemy2") and is_knocked_back:
-			velocity.x = 1500
-			print("left ouch")
-			$KnockbackCooldownTimer.start()
-			velocity.y = JUMP_POWER * 0.25
+			if !area.is_in_group("LightEnemy"):
+				velocity.x = 1100
+				$KnockbackCooldownTimer.start()
+				velocity.y = JUMP_POWER * 0.25
 			is_healing = false
 			$HealingTimer.stop()
 func _on_RightDectector_area_entered(area):
 	if !Global.godmode:
-		if area.is_in_group("Enemy") or area.is_in_group("Enemy2") and is_knocked_back and !Global.godmode:
-			velocity.x = -1500
-			print("right ouch")
-			$KnockbackCooldownTimer.start()
-			velocity.y = JUMP_POWER * 0.25
+		if area.is_in_group("Enemy") or area.is_in_group("Enemy2") and is_knocked_back:
+			if !area.is_in_group("LightEnemy"):
+				velocity.x = -1100
+				$KnockbackCooldownTimer.start()
+				velocity.y = JUMP_POWER * 0.25
 			is_healing = false
 			$HealingTimer.stop()
 func dash():
@@ -505,6 +514,7 @@ func dash():
 			dashdirection = Vector2(-1, 0)
 		if Input.is_action_just_pressed("ui_dash") and can_dash and $DashUseTimer.is_stopped():
 			# Particles
+			is_dashing = true
 			var dash_particle = DASH_PARTICLE.instance()
 			get_parent().add_child(dash_particle)
 			if !$Sprite.flip_h:
@@ -523,7 +533,7 @@ func dash():
 			$Sprite.play("Dash")
 			velocity.y = 0
 			velocity = dashdirection.normalized() * 2500
-			is_dashing = true
+			
 			yield(get_tree().create_timer(0.25), "timeout")
 			$DashCooldown.start()
 			velocity.y += GRAVITY

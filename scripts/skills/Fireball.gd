@@ -7,8 +7,12 @@ var velocity = Vector2()
 var direction : int = 1
 var destroyed : bool = false
 
+func _ready():
+#	add_to_group("Fireball")
+#	add_to_group("FireGauge1")
+	add_to_group(str(attack * Global.skill_levels["FireballLevel"]))
 func _physics_process(delta):
-	add_to_group(attack * Global.skill_levels["FireballLevel"])
+	
 	if !destroyed:
 		velocity.x = SPEED * delta * direction
 		$AnimatedSprite.play("Shoot")

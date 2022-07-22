@@ -37,8 +37,9 @@ __meta__ = {
 
 [node name="FireSaw" type="Control" parent="Control/PrimarySkill"]
 visible = false
+margin_top = -21.0
 margin_right = 40.0
-margin_bottom = 40.0
+margin_bottom = 19.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -69,7 +70,7 @@ position = Vector2( 171, 237 )
 scale = Vector2( 2, 2 )
 texture = ExtResource( 6 )
 
-[node name="MeteorStrike" type="Control" parent="Control/PrimarySkill"]
+[node name="FrostLance" type="Control" parent="Control/PrimarySkill"]
 visible = false
 margin_right = 40.0
 margin_bottom = 40.0
@@ -77,20 +78,20 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Sprite" type="Sprite" parent="Control/PrimarySkill/MeteorStrike"]
-position = Vector2( 170, 190 )
+[node name="Sprite" type="Sprite" parent="Control/PrimarySkill/FrostLance"]
+position = Vector2( 170, 169 )
 scale = Vector2( 4, 4 )
 texture = ExtResource( 8 )
 
-[node name="MeteorStrikeTimer" type="Timer" parent="Control/PrimarySkill/MeteorStrike"]
+[node name="MeteorStrikeTimer" type="Timer" parent="Control/PrimarySkill/FrostLance"]
 wait_time = 16.0
 one_shot = true
 
-[node name="Label" type="Label" parent="Control/PrimarySkill/MeteorStrike"]
+[node name="Label" type="Label" parent="Control/PrimarySkill/FrostLance"]
 margin_left = 148.0
-margin_top = 170.0
+margin_top = 149.0
 margin_right = 188.0
-margin_bottom = 218.0
+margin_bottom = 197.0
 custom_fonts/font = SubResource( 1 )
 text = "16"
 align = 1
@@ -98,47 +99,13 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ManaCost" type="Sprite" parent="Control/PrimarySkill/MeteorStrike"]
-position = Vector2( 171, 245 )
-scale = Vector2( 2, 2 )
-texture = ExtResource( 7 )
-
-[node name="FrostBlast" type="Control" parent="Control/PrimarySkill"]
-visible = false
-margin_right = 40.0
-margin_bottom = 40.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Sprite" type="Sprite" parent="Control/PrimarySkill/FrostBlast"]
-position = Vector2( 170, 190 )
-scale = Vector2( 4, 4 )
-texture = ExtResource( 8 )
-
-[node name="MeteorStrikeTimer" type="Timer" parent="Control/PrimarySkill/FrostBlast"]
-wait_time = 16.0
-one_shot = true
-
-[node name="Label" type="Label" parent="Control/PrimarySkill/FrostBlast"]
-margin_left = 148.0
-margin_top = 170.0
-margin_right = 188.0
-margin_bottom = 218.0
-custom_fonts/font = SubResource( 1 )
-text = "16"
-align = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="ManaCost" type="Sprite" parent="Control/PrimarySkill/FrostBlast"]
-position = Vector2( 171, 245 )
+[node name="ManaCost" type="Sprite" parent="Control/PrimarySkill/FrostLance"]
+position = Vector2( 171, 224 )
 scale = Vector2( 2, 2 )
 texture = ExtResource( 7 )
 
 [node name="KeyIcon" type="Sprite" parent="Control/PrimarySkill"]
-position = Vector2( 170, 146.77 )
+position = Vector2( 170, 125.77 )
 scale = Vector2( 2, 2 )
 texture = ExtResource( 4 )
 
@@ -146,9 +113,9 @@ texture = ExtResource( 4 )
 anchor_left = -3.732
 anchor_right = -3.732
 margin_left = 310.778
-margin_top = 130.169
+margin_top = 109.169
 margin_right = 331.778
-margin_bottom = 178.169
+margin_bottom = 157.169
 rect_scale = Vector2( 0.75, 0.75 )
 custom_colors/font_color = Color( 0.192157, 0.372549, 1, 1 )
 custom_fonts/font = SubResource( 2 )
@@ -158,8 +125,9 @@ __meta__ = {
 }
 
 [node name="SecondarySkill" type="Control" parent="Control"]
+margin_top = -21.0
 margin_right = 40.0
-margin_bottom = 40.0
+margin_bottom = 19.0
 
 [node name="FireFairy" type="Control" parent="Control/SecondarySkill"]
 visible = false

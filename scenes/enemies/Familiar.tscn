@@ -20,7 +20,7 @@ animations = [ {
 radius = 50.249
 
 [sub_resource type="CircleShape2D" id=3]
-radius = 962.661
+radius = 832.444
 
 [node name="Familiar" type="KinematicBody2D" groups=["Enemy", "Familiar"]]
 collision_layer = 16
@@ -36,7 +36,7 @@ scale = Vector2( 5, 5 )
 frames = SubResource( 4 )
 animation = "Idle"
 
-[node name="Area2D" type="Area2D" parent="." groups=["Enemy"]]
+[node name="Area2D" type="Area2D" parent="." groups=["Enemy", "LightEnemy"]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource( 2 )

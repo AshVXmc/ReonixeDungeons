@@ -1,7 +1,7 @@
 class_name Slime extends KinematicBody2D
 
 var velocity : Vector2 = Vector2()
-var HP : int = 10
+var HP : int = 60
 var is_dead : bool = false 
 var direction : int = 1
 const TYPE : String = "Enemy"
@@ -12,14 +12,19 @@ const LOOT : PackedScene = preload("res://scenes/items/LootBag.tscn")
 var rng : RandomNumberGenerator = RandomNumberGenerator.new()
 const FROZEN = preload("res://scenes/status_effects/FrozenStatus.tscn")
 var is_frozen : bool = false
+const DMG_INDICATOR : PackedScene = preload("res://scenes/particles/DamageIndicatorParticle.tscn")
+var is_staggered : bool = false
 
+func _ready():
+	HP += Global.enemy_level_index * (HP / 2)
+	$HealthBar.max_value = HP
 func _physics_process(delta):
 	
 	if direction == 1 and !is_dead:
 		$AnimatedSprite.flip_h = false
 	elif !is_dead:
 		$AnimatedSprite.flip_h = true
-	if !is_dead and !is_frozen:
+	if !is_dead and !is_frozen and !is_staggered:
 		velocity.x = SPEED * direction
 		$AnimatedSprite.play("slimeanim")
 		velocity.y += GRAVITY
@@ -31,25 +36,42 @@ func _physics_process(delta):
 func _on_Area2D_area_entered(area):
 	if HP > 0:
 		if area.is_in_group("Sword"):
-			HP -= 1
-			$AnimatedSprite.set_modulate(Color(2,0.5,0.3,1))
-			velocity.x = 0
-			$HurtTimer.start()
-		elif area.is_in_group("Fireball"):
-			HP -= 1
-			$AnimatedSprite.set_modulate(Color(2,0.5,0.3,1))
-			velocity.x = 0
-			$HurtTimer.start()
-		elif area.is_in_group("Sword2"):
-			HP -= 3
-			$AnimatedSprite.set_modulate(Color(2,0.5,0.3,1))
-			velocity.x = 0
-			$HurtTimer.start()
+			HP -= Global.attack_power
+			$HealthBar.value -= Global.attack_power
+			add_damage_particles("Physical", Global.attack_power)
+			parse_damage()
+		if area.is_in_group("SwordCharged"):
+			HP -= Global.attack_power * 2
+			$HealthBar.value -= Global.attack_power * 2
+			add_damage_particles("Physical", Global.attack_power * 2)
+			parse_damage()
+		if area.is_in_group("Fireball"):
+			HP -= Global.base_damage_taken * Global.skill_levels["FireballLevel"]
+			$HealthBar.value -= Global.base_damage_taken * Global.skill_levels["FireballLevel"]
+			add_damage_particles("Fire", Global.base_damage_taken * Global.skill_levels["FireballLevel"])
+			parse_damage()
+		if area.is_in_group("Burning"):
+			HP -= Global.base_damage_taken / 2.5 * Global.elemental_damage_levels["Burning"]
+			$HealthBar.value -= Global.base_damage_taken / 2.5  * Global.elemental_damage_levels["Burning"]
+			add_damage_particles("Fire", Global.base_damage_taken / 2.5 * Global.elemental_damage_levels["Burning"])
+			parse_damage()
 		if area.is_in_group("Frozen"):
 			is_frozen = true
 		
 	drop_loot()
 
+func parse_damage():
+	is_staggered = true
+	$AnimatedSprite.set_modulate(Color(2,0.5,0.3,1))
+	$HurtTimer.start()
+	
+func add_damage_particles(type : String, dmg : int):
+	var dmgparticle = DMG_INDICATOR.instance()
+	dmgparticle.damage_type = type
+	dmgparticle.damage = dmg
+	get_parent().add_child(dmgparticle)
+	dmgparticle.position = global_position
+	
 func drop_loot():
 	var loot = LOOT.instance()
 	var lootrng : RandomNumberGenerator = RandomNumberGenerator.new()
@@ -63,6 +85,7 @@ func drop_loot():
 		Global.enemies_killed += 1
 
 func _on_HurtTimer_timeout():
+	is_staggered = false
 	velocity.x = SPEED * direction
 	$AnimatedSprite.set_modulate(Color(1,1,1,1))
 	

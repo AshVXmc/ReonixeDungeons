@@ -8,7 +8,7 @@ var velocity = Vector2.ZERO
 var acceleration = Vector2.ZERO
 
 func _ready():
-	add_to_group(attack * Global.skill_levels["FireFairyLevel"])
+	add_to_group(str(attack * Global.skill_levels["FireFairyLevel"]))
 	$AnimationPlayer.play("Flap")
 func start(_transform, _target):
 	global_transform = _transform
@@ -27,6 +27,8 @@ func seek():
 
 
 func _physics_process(delta):
+	if Input.is_action_just_pressed("secondary_skill"):
+		position = player.global_position
 	target = get_closest_enemy()
 	if target and target.get_node("Area2D").overlaps_area($Detector):
 		acceleration += seek()

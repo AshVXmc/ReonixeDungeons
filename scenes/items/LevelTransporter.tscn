@@ -32,11 +32,11 @@ scale = Vector2( 5, 5 )
 texture = ExtResource( 2 )
 
 [node name="Label" type="RichTextLabel" parent="."]
-margin_left = -72.9557
-margin_top = -103.345
-margin_right = 262.044
-margin_bottom = -13.3455
-rect_scale = Vector2( 0.5, 0.5 )
+margin_left = -42.9037
+margin_top = -84.9602
+margin_right = 292.096
+margin_bottom = 5.03928
+rect_scale = Vector2( 0.25, 0.25 )
 custom_fonts/bold_font = SubResource( 2 )
 bbcode_enabled = true
 bbcode_text = "[b]Enter [/b] [img=64]res://assets/UI/icon_empty.png[/img]"
@@ -48,11 +48,11 @@ __meta__ = {
 [node name="Keybind" type="Label" parent="."]
 anchor_left = -3.732
 anchor_right = -3.732
-margin_left = 60.2124
-margin_top = -94.6321
-margin_right = 95.2124
-margin_bottom = -14.6321
-rect_scale = Vector2( 0.5, 0.5 )
+margin_left = 23.2541
+margin_top = -80.8723
+margin_right = 58.2541
+margin_bottom = -0.872261
+rect_scale = Vector2( 0.25, 0.25 )
 custom_colors/font_color = Color( 0.192157, 0.372549, 1, 1 )
 custom_fonts/font = SubResource( 3 )
 text = "R"
