@@ -61,7 +61,6 @@ var cam_shake : bool = false
 var is_charging : bool = false
 var slowed : bool = false
 var underwater : bool = false
-
 var mana_absorption_counter : int = 1
 func _ready():
 	$AttackCollision.add_to_group(str(Global.attack_power))
@@ -366,7 +365,7 @@ func _on_Area2D_area_entered(area : Area2D):
 		Global.lifewine_amount += 1
 		emit_signal("lifewine_obtained", Global.lifewine_amount)
 	if !Global.godmode:
-		if inv_timer.is_stopped() and !is_invulnerable:
+		if inv_timer.is_stopped() and !is_invulnerable and !is_dashing:
 			if area.is_in_group("Enemy") or area.is_in_group("DeflectedProjectile"):
 				Global.hearts -= 0.5
 				add_hurt_particles(0.5)
@@ -420,6 +419,7 @@ func attack_knock():
 
 func afterDamaged():
 	inv_timer.start() 
+	$HurtAnimationPlayer.play("Hurt")
 	is_invulnerable = true
 	emit_signal("life_changed", Global.hearts)
 	$Sprite.play("Hurt")
@@ -482,10 +482,6 @@ func knockback():
 	Input.action_release("ui_attack")
 	Input.action_release("ui_up")
 
-func slow_down_time(time_scale : float, duration : float):
-	Engine.time_scale = time_scale
-	yield(get_tree().create_timer(duration), "timeout")
-	Engine.time_scale = 1
 func _on_LeftDetector_area_entered(area):
 	if !Global.godmode:
 		if area.is_in_group("Enemy") or area.is_in_group("Enemy2") and is_knocked_back:
@@ -740,6 +736,8 @@ func get_opals(opals : int):
 
 # Timers
 func _on_InvulnerabilityTimer_timeout():
+	$HurtAnimationPlayer.play("RESET")
+	$HurtAnimationPlayer.stop()
 	if !is_dead:
 		is_invulnerable = false
 		$Sprite.play("Idle")

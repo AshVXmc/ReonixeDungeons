@@ -39,7 +39,7 @@
 [ext_resource path="res://assets/terrain/hub_level/prop_bookshelf_4.png" type="Texture" id=37]
 [ext_resource path="res://assets/terrain/hub_level/prop_bookshelf_3.png" type="Texture" id=38]
 [ext_resource path="res://scenes/NPC/LibrarianNPC.tscn" type="PackedScene" id=39]
-[ext_resource path="res://scenes/enemies/Goblin.tscn" type="PackedScene" id=40]
+[ext_resource path="res://scenes/terrain/MagicPedestal.tscn" type="PackedScene" id=40]
 [ext_resource path="res://assets/terrain/hub_level/library.png" type="Texture" id=41]
 [ext_resource path="res://scenes/items/Campfire.tscn" type="PackedScene" id=42]
 [ext_resource path="res://scenes/menus/SkillsUI.tscn" type="PackedScene" id=43]
@@ -324,7 +324,7 @@ position = Vector2( 3987.69, -1586.86 )
 position = Vector2( 443.071, 633 )
 
 [node name="Player" parent="." instance=ExtResource( 8 )]
-position = Vector2( 560, 511 )
+position = Vector2( 702.491, 511 )
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position = Vector2( -24.7189, -147.43 )
@@ -340,11 +340,8 @@ drag_margin_left = 0.4
 drag_margin_right = 0.4
 editor_draw_limits = true
 
-[node name="Goblin" parent="." instance=ExtResource( 40 )]
-position = Vector2( 963.847, 593 )
-
-[node name="Goblin2" parent="." instance=ExtResource( 40 )]
-position = Vector2( 791.5, 589.946 )
-
 [node name="LootBag" parent="." instance=ExtResource( 44 )]
 position = Vector2( 362.5, 576 )
+
+[node name="MagicPedestal" parent="." instance=ExtResource( 40 )]
+position = Vector2( 968, 631 )

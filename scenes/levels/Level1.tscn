@@ -166,7 +166,7 @@ position = Vector2( -1200.03, 1197.55 )
 position = Vector2( -1200.2, 1295.69 )
 
 [node name="Bat2" parent="." instance=ExtResource( 25 )]
-position = Vector2( 459.298, 354.757 )
+position = Vector2( 868.711, 123.201 )
 
 [node name="Bat5" parent="." instance=ExtResource( 25 )]
 position = Vector2( -611.588, 1315.78 )
@@ -177,11 +177,8 @@ position = Vector2( 2747.26, 301.889 )
 [node name="Bat4" parent="." instance=ExtResource( 25 )]
 position = Vector2( 801.972, 1142.12 )
 
-[node name="Slime" parent="." instance=ExtResource( 10 )]
-position = Vector2( -705.172, 568.034 )
-
 [node name="Slime7" parent="." instance=ExtResource( 10 )]
-position = Vector2( -292.299, 566.595 )
+position = Vector2( -624.918, 564.024 )
 
 [node name="Slime2" parent="." instance=ExtResource( 10 )]
 position = Vector2( 3223.94, 829.674 )
@@ -257,7 +254,7 @@ shape = SubResource( 4 )
 one_way_collision = true
 
 [node name="Campfire" parent="." instance=ExtResource( 22 )]
-position = Vector2( 210.148, 432.418 )
+position = Vector2( 223.101, 441.902 )
 
 [node name="Position2D" type="Position2D" parent="."]
 position = Vector2( -1139, 144 )

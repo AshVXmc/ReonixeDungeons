@@ -69,7 +69,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/enemies/CornucopiaGoblin.gd"
 }, {
-"base": "Reference",
+"base": "Node2D",
 "class": "DamageIndicator",
 "language": "GDScript",
 "path": "res://scripts/particles/DamageIndicatorParticle.gd"
@@ -239,6 +239,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/items/LootBag.gd"
 }, {
+"base": "Node2D",
+"class": "MagicPedestal",
+"language": "GDScript",
+"path": "res://scripts/items/MagicPedestal.gd"
+}, {
 "base": "Control",
 "class": "MainMenu",
 "language": "GDScript",
@@ -268,6 +273,11 @@ _global_script_classes=[ {
 "class": "Player",
 "language": "GDScript",
 "path": "res://scripts/player/Player.gd"
+}, {
+"base": "Control",
+"class": "PrimarySkillManager",
+"language": "GDScript",
+"path": "res://scripts/items/PrimarySkillManager.gd"
 }, {
 "base": "KinematicBody2D",
 "class": "ShieldGoblin",
@@ -391,12 +401,14 @@ _global_script_class_icons={
 "LevelTransporter": "",
 "Librarian": "",
 "LootBag": "",
+"MagicPedestal": "",
 "MainMenu": "",
 "MaskedGoblin": "",
 "MaskedGoblinLevel": "",
 "MeteorStrike": "",
 "MonumentOfVictories": "",
 "Player": "",
+"PrimarySkillManager": "",
 "ShieldGoblin": "",
 "ShopUI": "",
 "Shopkeeper": "",

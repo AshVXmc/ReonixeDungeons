@@ -1,8 +1,8 @@
 class_name Bat extends KinematicBody2D
 
 const TYPE : String = "Enemy"
-var SPEED : int = 180
-var steer_force = 100
+var SPEED : int = 200
+var steer_force = 120
 var velocity: Vector2 = Vector2.ZERO
 var is_dead : bool = false
 var HP : int = 6
@@ -30,20 +30,30 @@ func seek():
 		return steer
 	
 func _physics_process(delta):
-	target = get_player()
-	if target and get_parent().get_node("Player/Area2D").overlaps_area($Detector):
+	if !get_tree().get_nodes_in_group("Decoy").empty():
+		target = get_decoy()
+	else:
+		target = get_player()
+	if target == get_player() and get_parent().get_node("Player/Area2D").overlaps_area($Detector):
 		acceleration += seek()
 		velocity += acceleration * delta
 		velocity = velocity.clamped(SPEED)
 		position += velocity * delta
-	elif !get_parent().get_node("Player/Area2D").overlaps_area($Detector):
+	if target == get_player() and !get_parent().get_node("Player/Area2D").overlaps_area($Detector):
 		velocity.x = 0
 		velocity.y = 0
+	if target == get_decoy():
+		acceleration += seek()
+		velocity += acceleration * delta
+		velocity = velocity.clamped(SPEED)
+		position += velocity * delta
 
 
+func get_decoy():
+	var decoy = get_parent().get_node("Decoy")
+	return decoy
 func get_player():
 	var player = get_parent().get_node("Player")
-	
 	return player
 
 func _on_Area2D_area_entered(area):

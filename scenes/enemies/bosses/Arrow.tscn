@@ -32,7 +32,8 @@ position = Vector2( 0.125858, 2.16035 )
 shape = SubResource( 5 )
 
 [node name="Timer" type="Timer" parent="."]
-wait_time = 3.0
+wait_time = 2.0
+one_shot = true
 autostart = true
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_Area2D_area_entered"]

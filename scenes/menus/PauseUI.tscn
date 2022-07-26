@@ -247,23 +247,6 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="TimeSlow" type="Control" parent="."]
-margin_right = 40.0
-margin_bottom = 40.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="ColorRect" type="ColorRect" parent="TimeSlow"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_right = 1040.0
-margin_bottom = 680.0
-color = Color( 0, 0, 0, 0.0941176 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
 [connection signal="pressed" from="Pause/ResumeButton" to="Pause" method="_on_ResumeButton_pressed"]
 [connection signal="pressed" from="Pause/SaveButton" to="Pause" method="_on_SaveButton_pressed"]
 [connection signal="pressed" from="Pause/QuitButton" to="Pause" method="_on_QuitButton_pressed"]

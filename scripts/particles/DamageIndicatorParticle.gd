@@ -1,6 +1,6 @@
 class_name DamageIndicator extends Node2D
 
-var SPEED : int = 175
+var SPEED : int = 185
 var friction : int = 20
 var direction_shift : Vector2 = Vector2()
 onready var damage_type : String

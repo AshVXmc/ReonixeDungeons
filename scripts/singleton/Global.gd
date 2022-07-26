@@ -10,8 +10,9 @@ var attack_power : int = 5
 
 
 # Crit rate and Crit damage in %
-var crit_rate : int = 10
-var crit_damage : int = 50
+var crit_rate : float  = 10
+var crit_damage : float  = 50
+var charged_attack_multiplier : float = 2
 var base_damage_taken : int = 5
 var healthpot_amount : int = 0
 var lifewine_amount : int = 0
@@ -59,8 +60,8 @@ var elemental_damage_levels : Dictionary = {
 }
 # List of skills (Unlocked and locked)
 var list_of_skills : Dictionary = {
-	"PrimarySkill": ["FireSaw"], 
-	"SecondarySkill": ["FireFairy", "IceLance"],
+	"PrimarySkill": ["FireSaw", "IceLance"], 
+	"SecondarySkill": ["FireFairy"],
 	"RangedSkill": ["Fireball"]
 }
 
