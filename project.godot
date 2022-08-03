@@ -140,6 +140,11 @@ _global_script_classes=[ {
 "path": "res://scripts/ui/GameOver.gd"
 }, {
 "base": "Node2D",
+"class": "GashaponMachine",
+"language": "GDScript",
+"path": "res://scripts/gacha/GashaponMachine.gd"
+}, {
+"base": "Node2D",
 "class": "GenericNPC",
 "language": "GDScript",
 "path": "res://scripts/NPCs/GenericNPC.gd"
@@ -340,6 +345,11 @@ _global_script_classes=[ {
 "path": "res://scripts/misc/SuperSlashProjectile.gd"
 }, {
 "base": "Node2D",
+"class": "SwordSlashEffect",
+"language": "GDScript",
+"path": "res://scripts/misc/SwordSlashEffect.gd"
+}, {
+"base": "Node2D",
 "class": "TargetingMissile",
 "language": "GDScript",
 "path": "res://scripts/enemies/TargetingMissile.gd"
@@ -381,6 +391,7 @@ _global_script_class_icons={
 "FrozenStatus": "",
 "FruitBat": "",
 "GameOver": "",
+"GashaponMachine": "",
 "GenericNPC": "",
 "GenericSpike": "",
 "GenericSpikeCorner": "",
@@ -421,6 +432,7 @@ _global_script_class_icons={
 "SlowingPoison": "",
 "Spider": "",
 "SuperSlashProjectile": "",
+"SwordSlashEffect": "",
 "TargetingMissile": "",
 "TravellerJournal": "",
 "WitchGoblin": ""
@@ -442,6 +454,7 @@ Global="*res://scripts/singleton/Global.gd"
 
 [debug]
 
+settings/fps/force_fps=60
 gdscript/warnings/return_value_discarded=false
 
 [display]

@@ -1,0 +1,542 @@
+[gd_scene load_steps=19 format=2]
+
+[ext_resource path="res://scripts/gacha/GashaponMachine.gd" type="Script" id=1]
+[ext_resource path="res://assets/gacha/gachapon_machine.png" type="Texture" id=2]
+[ext_resource path="res://assets/fonts/Born2bSportyV2.ttf" type="DynamicFontData" id=3]
+[ext_resource path="res://assets/fonts/FFFFORWA.ttf" type="DynamicFontData" id=4]
+[ext_resource path="res://assets/UI/textbox.png" type="Texture" id=5]
+[ext_resource path="res://assets/UI/quiticon.png" type="Texture" id=6]
+[ext_resource path="res://assets/gacha/capsule_3_star.png" type="Texture" id=7]
+[ext_resource path="res://assets/gacha/gacha_token.png" type="Texture" id=8]
+[ext_resource path="res://assets/gacha/roll_button.png" type="Texture" id=9]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 73.7916, 86.1527 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 120
+font_data = ExtResource( 4 )
+
+[sub_resource type="DynamicFont" id=3]
+size = 64
+font_data = ExtResource( 3 )
+
+[sub_resource type="DynamicFont" id=4]
+size = 48
+font_data = ExtResource( 3 )
+
+[sub_resource type="DynamicFont" id=5]
+size = 32
+font_data = ExtResource( 3 )
+
+[sub_resource type="DynamicFont" id=6]
+size = 32
+font_data = ExtResource( 3 )
+
+[sub_resource type="DynamicFont" id=7]
+size = 32
+font_data = ExtResource( 3 )
+
+[sub_resource type="Animation" id=8]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("RollAnimation/Token:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 330, 550 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("RollAnimation/Token:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ true ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("RollAnimation/GashaponMachine:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 540, 470 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("RollAnimation/GashaponMachine:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ true ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("RollAnimation/Capsule:texture")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ ExtResource( 7 ) ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("RollAnimation/Capsule:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ true ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("RollAnimation/Capsule:scale")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("RollAnimation/Capsule:position")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 588, 566 ) ]
+}
+tracks/8/type = "value"
+tracks/8/path = NodePath("RollAnimation/GashaponMachine:self_modulate")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=9]
+resource_name = "RollAnimationCommon"
+length = 5.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("RollAnimation/Token:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 330, 550 ), Vector2( 430, 550 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("RollAnimation/Token:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.6 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("RollAnimation/GashaponMachine:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0.9, 1, 1.1, 1.2, 1.3, 1.4, 1.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 540, 470 ), Vector2( 530, 460 ), Vector2( 535, 470 ), Vector2( 540, 465 ), Vector2( 530, 460 ), Vector2( 535, 470 ), Vector2( 540, 465 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("RollAnimation/GashaponMachine:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("RollAnimation/Capsule:texture")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ ExtResource( 7 ) ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("RollAnimation/Capsule:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0, 1.8 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("RollAnimation/Capsule:scale")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 1.8, 2, 3.1, 3.7 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 4, 4 ), Vector2( 4, 4 ), Vector2( 20, 20 ) ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("RollAnimation/Capsule:position")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 1.8, 2, 3.1, 3.7 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 588, 555 ), Vector2( 588, 566 ), Vector2( 588, 566 ), Vector2( 540, 460 ) ]
+}
+tracks/8/type = "value"
+tracks/8/path = NodePath("RollAnimation/GashaponMachine:self_modulate")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"times": PoolRealArray( 3.1, 3.7 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+
+[node name="GashaponMachine" type="Node2D"]
+script = ExtResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="."]
+scale = Vector2( 5, 5 )
+texture = ExtResource( 2 )
+
+[node name="Detector" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Detector"]
+position = Vector2( 8.49767, -5.0483 )
+shape = SubResource( 1 )
+
+[node name="Label" type="RichTextLabel" parent="."]
+margin_left = -52.6448
+margin_top = -139.959
+margin_right = 447.355
+margin_bottom = 45.0406
+rect_scale = Vector2( 0.25, 0.25 )
+custom_fonts/bold_font = SubResource( 2 )
+bbcode_enabled = true
+bbcode_text = "[b]Roll [/b] [img=140]res://assets/UI/icon_empty.png[/img]
+"
+text = "Roll  
+"
+scroll_active = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Keybind" type="Label" parent="."]
+anchor_left = -3.732
+anchor_right = -3.732
+margin_left = 36.2511
+margin_top = -138.747
+margin_right = 64.2511
+margin_bottom = -74.7467
+rect_scale = Vector2( 0.75, 0.75 )
+custom_colors/font_color = Color( 0.192157, 0.372549, 1, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "R"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -540.0
+margin_top = -360.0
+margin_right = 540.0
+margin_bottom = 360.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="NinePatchRect" type="NinePatchRect" parent="CanvasLayer/Control"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -425.0
+margin_top = -480.0
+margin_right = 425.0
+margin_bottom = -30.0
+texture = ExtResource( 5 )
+patch_margin_left = 10
+patch_margin_top = 64
+patch_margin_right = 64
+patch_margin_bottom = 10
+axis_stretch_horizontal = 2
+axis_stretch_vertical = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CloseButton" type="TextureButton" parent="CanvasLayer/Control"]
+margin_left = 903.947
+margin_top = 241.808
+margin_right = 943.947
+margin_bottom = 281.808
+rect_scale = Vector2( 1.5, 1.5 )
+texture_normal = ExtResource( 6 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="RichTextLabel" parent="CanvasLayer/Control"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -331.0
+margin_top = 249.0
+margin_right = 331.0
+margin_bottom = 298.0
+custom_fonts/normal_font = SubResource( 4 )
+bbcode_enabled = true
+bbcode_text = "======= [color=#fca817]Gashapon machine[/color] =======
+"
+text = "======= Gashapon machine =======
+"
+scroll_active = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PrizePool" type="RichTextLabel" parent="CanvasLayer/Control"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = 12.0544
+margin_top = 297.881
+margin_right = 242.054
+margin_bottom = 463.881
+custom_fonts/normal_font = SubResource( 5 )
+bbcode_enabled = true
+bbcode_text = "	  Prize pool:
+[img=72]res://assets/gacha/3_star.png[/img] [color=#52fc03]Ingredients[/color]
+[img=72]res://assets/gacha/3_star.png[/img] [color=#db2218]Potions[/color]
+[img=100]res://assets/gacha/4_star.png[/img] [color=#26f8ff]Skills[/color] 
+[img=120]res://assets/gacha/5_star.png[/img] [color=#ebba0c]Skills[/color] 
+"
+text = "	  Prize pool:
+ Ingredients
+ Potions
+ Skills 
+ Skills 
+"
+scroll_active = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Guaranteed4star" type="RichTextLabel" parent="CanvasLayer/Control"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -49.0
+margin_top = 474.0
+margin_right = 393.0
+margin_bottom = 509.0
+custom_fonts/normal_font = SubResource( 6 )
+bbcode_enabled = true
+bbcode_text = "4-star skill guaranteed in [color=yellow]10[/color] rolls."
+text = "4-star skill guaranteed in 10 rolls."
+scroll_active = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Guaranteed5star" type="RichTextLabel" parent="CanvasLayer/Control"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -49.0
+margin_top = 503.0
+margin_right = 393.0
+margin_bottom = 538.0
+custom_fonts/normal_font = SubResource( 6 )
+bbcode_enabled = true
+bbcode_text = "5-star skill guaranteed in [color=yellow]50[/color] rolls."
+text = "5-star skill guaranteed in 50 rolls."
+scroll_active = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Sprite" type="Sprite" parent="CanvasLayer/Control"]
+position = Vector2( 299.004, 471.538 )
+scale = Vector2( 10, 10 )
+texture = ExtResource( 2 )
+
+[node name="RollOne" type="TextureButton" parent="CanvasLayer/Control"]
+margin_left = 460.0
+margin_top = 560.0
+margin_right = 620.0
+margin_bottom = 640.0
+texture_normal = ExtResource( 9 )
+expand = true
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Roll" type="RichTextLabel" parent="CanvasLayer/Control/RollOne"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -44.547
+margin_top = -25.6803
+margin_right = 47.453
+margin_bottom = 1.31973
+mouse_filter = 2
+custom_fonts/normal_font = SubResource( 7 )
+bbcode_enabled = true
+bbcode_text = "[color=yellow]Roll[/color] x 1 "
+text = "Roll x 1 "
+scroll_active = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Cost" type="RichTextLabel" parent="CanvasLayer/Control/RollOne"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -18.547
+margin_top = 2.31973
+margin_right = 21.453
+margin_bottom = 28.3197
+mouse_filter = 2
+custom_fonts/normal_font = SubResource( 7 )
+bbcode_enabled = true
+bbcode_text = "1 [img= 20
+]res://assets/gacha/gacha_token.png[/img]"
+text = "1 "
+scroll_active = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RollAnimation" type="Control" parent="CanvasLayer/Control"]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -540.0
+margin_top = -360.0
+margin_right = 540.0
+margin_bottom = 360.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer/Control/RollAnimation"]
+root_node = NodePath("../..")
+anims/RESET = SubResource( 8 )
+anims/RollAnimationCommon = SubResource( 9 )
+
+[node name="NinePatchRect" type="NinePatchRect" parent="CanvasLayer/Control/RollAnimation"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -425.0
+margin_top = -477.0
+margin_right = 425.0
+margin_bottom = -27.0
+texture = ExtResource( 5 )
+patch_margin_left = 10
+patch_margin_top = 64
+patch_margin_right = 64
+patch_margin_bottom = 10
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="GashaponMachine" type="Sprite" parent="CanvasLayer/Control/RollAnimation"]
+position = Vector2( 540, 470 )
+scale = Vector2( 12, 12 )
+texture = ExtResource( 2 )
+
+[node name="Token" type="Sprite" parent="CanvasLayer/Control/RollAnimation"]
+position = Vector2( 330, 550 )
+scale = Vector2( 4, 4 )
+texture = ExtResource( 8 )
+
+[node name="Capsule" type="Sprite" parent="CanvasLayer/Control/RollAnimation"]
+position = Vector2( 588, 566 )
+texture = ExtResource( 7 )
+
+[connection signal="area_entered" from="Detector" to="." method="_on_Detector_area_entered"]
+[connection signal="area_exited" from="Detector" to="." method="_on_Detector_area_exited"]
+[connection signal="pressed" from="CanvasLayer/Control/CloseButton" to="." method="_on_CloseButton_pressed"]
+[connection signal="pressed" from="CanvasLayer/Control/RollOne" to="." method="_on_RollOne_pressed"]

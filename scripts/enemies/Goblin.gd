@@ -1,6 +1,7 @@
 class_name Goblin extends KinematicBody2D
 
 const DMG_INDICATOR : PackedScene = preload("res://scenes/particles/DamageIndicatorParticle.tscn")
+const DEATH_SMOKE : PackedScene = preload("res://scenes/particles/DeathSmokeParticle.tscn")
 var HP : int = 90
 export var flipped : bool = false
 var velocity = Vector2()
@@ -8,7 +9,7 @@ var direction : int = 1
 var is_dead : bool = false 
 const TYPE : String = "Enemy"
 const FLOOR = Vector2(0, -1)
-var SPEED : int = 315
+var SPEED : int = 300
 const GRAVITY : int = 45
 var is_staggered : bool = false
 const LOOT = preload("res://scenes/items/LootBag.tscn")
@@ -18,6 +19,7 @@ onready var PLAYER = get_parent().get_node("Player/Area2D")
 onready var DECOY = get_parent().get_node("Decoy/Area2D")
 var is_frozen : bool = false
 var decoyed : bool = false
+var dead : bool = false
 func _ready():
 	HP += Global.enemy_level_index * (HP / 2)
 	$HealthBar.max_value = HP
@@ -28,7 +30,7 @@ func _physics_process(delta):
 #	if !is_staggered and !is_frozen:
 	velocity = move_and_slide(velocity, FLOOR)
 	$Sprite.play("Idle") if velocity.x == 0 else $Sprite.play("Attacking")
-	if !is_staggered and !is_frozen: 
+	if !is_staggered and !is_frozen and !dead: 
 		if AREA_LEFT.overlaps_area(PLAYER) and !AREA_LEFT.overlaps_area(DECOY):
 			$Sprite.flip_h = false
 			if !$Sprite.flip_h:
@@ -140,32 +142,43 @@ func parse_damage():
 	if $HurtTimer.is_stopped():
 		$HurtTimer.start()
 	if HP <= 0:
-		var loot = LOOT.instance()
-		var lootrng : RandomNumberGenerator = RandomNumberGenerator.new()
-		lootrng.randomize()
-		var randomint = lootrng.randi_range(1,3)
-		if randomint == 1:
-			get_parent().add_child(loot)
-			loot.Tier = 2
-			loot.position = $Position2D.global_position
-		queue_free()
-		Global.enemies_killed += 1
+		$Area2D/CollisionShape2D.disabled = true
+		$CollisionShape2D.disabled = true
+		$Left/CollisionShape2D.disabled = true
+		$Right/CollisionShape2D.disabled = true
+		dead = true
+		$AnimationPlayer.play("Death")
+func death():
+	$Sprite.visible = false
+	var deathparticle = DEATH_SMOKE.instance()
+	deathparticle.emitting = true
+	deathparticle.position = global_position
+	get_parent().add_child(deathparticle)
+
+	var loot = LOOT.instance()
+	var lootrng : RandomNumberGenerator = RandomNumberGenerator.new()
+	lootrng.randomize()
+	var randomint = lootrng.randi_range(1,3)
+	if randomint == 1:
+		get_parent().add_child(loot)
+		loot.Tier = 2
+		loot.position = $Position2D.global_position
+	queue_free()
+	print("reached")
+	Global.enemies_killed += 1
 
 func parse_status_effect_damage():
 	$Sprite.set_modulate(Color(2,0.5,0.3,1))
 	if $HurtTimer.is_stopped():
 		$HurtTimer.start()
 	if HP <= 0:
-		var loot = LOOT.instance()
-		var lootrng : RandomNumberGenerator = RandomNumberGenerator.new()
-		lootrng.randomize()
-		var randomint = lootrng.randi_range(1,3)
-		if randomint == 1:
-			get_parent().add_child(loot)
-			loot.Tier = 2
-			loot.position = $Position2D.global_position
-		queue_free()
-		Global.enemies_killed += 1
+		$Area2D/CollisionShape2D.disabled = true
+		$CollisionShape2D.disabled = true
+		$Left/CollisionShape2D.disabled = true
+		$Right/CollisionShape2D.disabled = true
+		dead = true
+		$AnimationPlayer.play("Death")
+		
 func _on_HurtTimer_timeout():
 	is_staggered = false
 	$Sprite.set_modulate(Color(1,1,1,1))

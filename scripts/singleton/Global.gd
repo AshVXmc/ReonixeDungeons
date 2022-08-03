@@ -3,7 +3,7 @@ extends Node
 # GLOBALLY ACCESSED VARIABLES
 var max_hearts : float = 3
 var hearts : float = max_hearts
-var max_mana : int = 6
+var max_mana : int = 8
 var mana : int = max_mana
 var attack_power : int = 5
 
@@ -37,6 +37,9 @@ var lighting : bool = false
 var vsync : bool = false
 var activated_portals : Array
 var enemy_level_index : int = 0
+var is_opening_an_UI : bool = false
+var pity_4_star : int = 10
+var pity_5_star : int = 50
 
 # Skills that the player currently equips
 var player_skills : Dictionary = {
@@ -84,7 +87,7 @@ var godmode : bool = false
 
 func reset_player_data():
 	Global.hearts = 3
-	Global.mana = 6
+	Global.mana = 8
 	Global.healthpot_amount = 0
 	Global.lifewine_amount = 0
 	Global.manapot_amount = 0
@@ -126,6 +129,8 @@ func save_player_data():
 		"Health" : Global.hearts ,
 		"MaxMana" : Global.max_mana ,
 		"Mana" : Global.mana ,
+		"4StarPity": Global.pity_4_star,
+		"5StarPity": Global.pity_5_star,
 		"AttackPower": Global.attack_power,
 		"EnemyLevelIndex": Global.enemy_level_index,
 		"Healthpot": Global.healthpot_amount ,

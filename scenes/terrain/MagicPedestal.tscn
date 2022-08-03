@@ -1,7 +1,7 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://assets/UI/firesaw_skill_icon.png" type="Texture" id=1]
-[ext_resource path="res://assets/misc/revivement_crystal.png" type="Texture" id=2]
+[ext_resource path="res://assets/terrain/magic_pedestal.png" type="Texture" id=2]
 [ext_resource path="res://assets/fonts/Born2bSportyV2.ttf" type="DynamicFontData" id=3]
 [ext_resource path="res://assets/UI/textbox.png" type="Texture" id=4]
 [ext_resource path="res://scripts/items/PrimarySkillManager.gd" type="Script" id=5]
@@ -15,6 +15,10 @@ font_data = ExtResource( 3 )
 
 [sub_resource type="DynamicFont" id=2]
 size = 48
+font_data = ExtResource( 3 )
+
+[sub_resource type="DynamicFont" id=10]
+size = 32
 font_data = ExtResource( 3 )
 
 [sub_resource type="StreamTexture" id=3]
@@ -33,7 +37,7 @@ size = 32
 font_data = ExtResource( 3 )
 
 [sub_resource type="RectangleShape2D" id=7]
-extents = Vector2( 32.5545, 37.3114 )
+extents = Vector2( 93.7625, 58.2705 )
 
 [sub_resource type="DynamicFont" id=8]
 size = 120
@@ -47,13 +51,12 @@ font_data = ExtResource( 3 )
 script = ExtResource( 7 )
 
 [node name="Sprite" type="Sprite" parent="."]
-scale = Vector2( 5, 5 )
+scale = Vector2( 7.5, 7.5 )
 texture = ExtResource( 2 )
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="Control" type="Control" parent="CanvasLayer"]
-visible = false
 anchor_left = 0.5
 anchor_top = 0.352
 anchor_right = 0.5
@@ -72,9 +75,9 @@ anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
 margin_left = -270.0
-margin_top = -463.0
+margin_top = -486.0
 margin_right = 270.0
-margin_bottom = -103.0
+margin_bottom = -24.0
 texture = ExtResource( 4 )
 patch_margin_left = 64
 patch_margin_top = 64
@@ -114,9 +117,9 @@ __meta__ = {
 anchor_left = 0.5
 anchor_right = 0.5
 margin_left = -177.5
-margin_top = 65.0
+margin_top = 60.0
 margin_right = 177.5
-margin_bottom = 142.0
+margin_bottom = 137.0
 expand = true
 __meta__ = {
 "_edit_group_": true,
@@ -155,13 +158,33 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="EquippedPrimary" type="Label" parent="CanvasLayer/Control/Main/PrimarySkillSelect"]
+anchor_left = -0.695
+anchor_top = -2.931
+anchor_right = -0.695
+anchor_bottom = -2.931
+margin_left = 251.725
+margin_top = 299.687
+margin_right = 598.725
+margin_bottom = 331.687
+custom_fonts/font = SubResource( 10 )
+text = "Equipped:"
+align = 1
+valign = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="SecondarySkillSelect" type="TextureButton" parent="CanvasLayer/Control/Main"]
 anchor_left = 0.5
+anchor_top = 0.5
 anchor_right = 0.5
+anchor_bottom = 0.5
 margin_left = -177.5
-margin_top = 157.0
+margin_top = -50.0
 margin_right = 177.5
-margin_bottom = 234.0
+margin_bottom = 27.0
 expand = true
 __meta__ = {
 "_edit_group_": true,
@@ -200,13 +223,33 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="EquippedSecondary" type="Label" parent="CanvasLayer/Control/Main/SecondarySkillSelect"]
+anchor_left = -0.695
+anchor_top = -2.931
+anchor_right = -0.695
+anchor_bottom = -2.931
+margin_left = 251.725
+margin_top = 299.687
+margin_right = 598.725
+margin_bottom = 331.687
+custom_fonts/font = SubResource( 10 )
+text = "Equipped:"
+align = 1
+valign = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="RangedSkillSelect" type="TextureButton" parent="CanvasLayer/Control/Main"]
 anchor_left = 0.5
+anchor_top = 1.0
 anchor_right = 0.5
+anchor_bottom = 1.0
 margin_left = -177.5
-margin_top = 253.0
+margin_top = -160.0
 margin_right = 177.5
-margin_bottom = 330.0
+margin_bottom = -83.0
 expand = true
 __meta__ = {
 "_edit_group_": true,
@@ -245,7 +288,26 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="EquippedRanged" type="Label" parent="CanvasLayer/Control/Main/RangedSkillSelect"]
+anchor_left = -0.695
+anchor_top = -2.931
+anchor_right = -0.695
+anchor_bottom = -2.931
+margin_left = 251.725
+margin_top = 299.687
+margin_right = 598.725
+margin_bottom = 331.687
+custom_fonts/font = SubResource( 10 )
+text = "Equipped:"
+align = 1
+valign = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="PrimarySkill" type="Control" parent="CanvasLayer"]
+visible = false
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -518,14 +580,14 @@ __meta__ = {
 [node name="Detector" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Detector"]
-position = Vector2( 2.64264, 2.66577 )
+position = Vector2( 0.33866, 2.44736 )
 shape = SubResource( 7 )
 
 [node name="Label" type="RichTextLabel" parent="."]
 margin_left = -75.937
-margin_top = -122.252
+margin_top = -141.252
 margin_right = 547.063
-margin_bottom = 222.748
+margin_bottom = 203.748
 rect_scale = Vector2( 0.25, 0.25 )
 custom_fonts/bold_font = SubResource( 8 )
 bbcode_enabled = true
@@ -542,9 +604,9 @@ __meta__ = {
 anchor_left = -3.732
 anchor_right = -3.732
 margin_left = 43.2579
-margin_top = -79.7015
+margin_top = -98.7015
 margin_right = 71.2579
-margin_bottom = -15.7015
+margin_bottom = -34.7015
 rect_scale = Vector2( 0.75, 0.75 )
 custom_colors/font_color = Color( 0.192157, 0.372549, 1, 1 )
 custom_fonts/font = SubResource( 9 )

@@ -1,0 +1,15 @@
+{
+	"3*common": [
+		"CommonMonsterDust",
+		"GoblinScales"
+	],
+	"3*uncommon":[
+		"Healthpot",
+		"Manapot"
+	],
+	"3*rare":[
+		"Lifewine"
+	],
+	"4*": ["IceLance_PrimarySkill", "DecoyPuppet_SecondarySkill"],
+	"5*": []
+}

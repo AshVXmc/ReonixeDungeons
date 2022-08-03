@@ -35,6 +35,8 @@ func _on_LoadGame_pressed():
 			Global.max_mana = player_data["MaxMana"]
 			Global.mana = player_data["Mana"]
 			Global.opals_amount = player_data["Opals"]
+			Global.pity_4_star = player_data["4StarPity"]
+			Global.pity_5_star = player_data["5StarPity"]
 			Global.crystals_amount = player_data["RevivementCrystals"]
 			Global.healthpot_amount = player_data["Healthpot"]
 			Global.common_monster_dust_amount = player_data["CommonMonsterDust"]

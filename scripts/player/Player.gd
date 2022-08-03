@@ -28,6 +28,7 @@ var SPEED : int = 380
 const GRAVITY : int = 40
 var JUMP_POWER : int = -1075
 
+const SWORD_SLASH_EFFECT : PackedScene = preload("res://scenes/particles/SwordSlashEffect.tscn")
 const HURT_PARTICLE : PackedScene = preload("res://scenes/particles/HurtIndicatorParticle.tscn")
 const JUMP_PARTICLE : PackedScene = preload("res://scenes/particles/JumpParticle.tscn")
 const WATER_JUMP_PARTICLE : PackedScene = preload("res://scenes/particles/WaterBubbleParticle.tscn")
@@ -330,6 +331,13 @@ func charge_meter():
 				Global.mana -= 1
 				emit_signal("mana_changed", Global.mana)
 			var ss_projectile = SUPER_SLASH_PROJECTILE.instance()
+			var hitparticle = SWORD_HIT_PARTICLE.instance()
+			var slashparticle = SWORD_SLASH_EFFECT.instance()
+			hitparticle.emitting = true
+			get_parent().add_child(hitparticle)
+			get_parent().add_child(slashparticle)
+			hitparticle.position = $Position2D.global_position
+			slashparticle.position = $Position2D.global_position
 			get_parent().add_child(ss_projectile)
 			if $Sprite.flip_h:
 				ss_projectile.flip_projectile(-1)
@@ -449,9 +457,12 @@ func _on_AttackCollision_area_entered(area):
 		attack_knock()
 #		freeze_enemy()
 		var hitparticle = SWORD_HIT_PARTICLE.instance()
+		var slashparticle = SWORD_SLASH_EFFECT.instance()
 		hitparticle.emitting = true
 		get_parent().add_child(hitparticle)
+		get_parent().add_child(slashparticle)
 		hitparticle.position = $Position2D.global_position
+		slashparticle.position = $Position2D.global_position
 		if mana_absorption_counter > 0:
 			mana_absorption_counter -= 1
 		elif mana_absorption_counter == 0:

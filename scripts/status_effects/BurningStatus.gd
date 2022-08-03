@@ -2,8 +2,10 @@ class_name BurningStatus extends Area2D
 
 # if the burn stack reaches 0, the burning debuff will be applied.
 onready var burn_stack = 100
+onready var refresh_stack = 150
 var is_burning : bool = false
 # Maximum duration of the burning effect. Enemy burning RES
+# Ticks every 0.25 secs
 onready var max_burn_duration = $DestroyedTimer.wait_time
 
 func _ready():
@@ -53,6 +55,13 @@ func _on_Detector_area_entered(area):
 			reduce_burn_stack(25)
 		elif area.is_in_group("FireGauge2"):
 			reduce_burn_stack(35)
-#	if is_burning:
-#		if area.is_in_group("FireGauge1"):
-#			$BurningBar.value += 25
+	elif is_burning:
+		if area.is_in_group("FireGauge1") and refresh_stack > 0:
+			refresh_stack -= 25
+			print(refresh_stack)
+		elif area.is_in_group("FireGauge2") and refresh_stack > 0:
+			refresh_stack -= 35
+		if refresh_stack <= 0:
+			if area.is_in_group("FireGauge1") or area.is_in_group("FireGauge2"):
+				$DestroyedTimer.start()
+				refresh_stack = 150

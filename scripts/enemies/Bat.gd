@@ -12,6 +12,7 @@ const LOOT : PackedScene = preload("res://scenes/items/LootBag.tscn")
 var rng : RandomNumberGenerator = RandomNumberGenerator.new()
 var target = null
 var acceleration = Vector2.ZERO
+var is_staggered : bool = false
 
 func _ready():
 	$AnimatedSprite.play("Idle")
@@ -34,12 +35,12 @@ func _physics_process(delta):
 		target = get_decoy()
 	else:
 		target = get_player()
-	if target == get_player() and get_parent().get_node("Player/Area2D").overlaps_area($Detector):
+	if !is_staggered and target == get_player() and get_parent().get_node("Player/Area2D").overlaps_area($Detector):
 		acceleration += seek()
 		velocity += acceleration * delta
 		velocity = velocity.clamped(SPEED)
 		position += velocity * delta
-	if target == get_player() and !get_parent().get_node("Player/Area2D").overlaps_area($Detector):
+	if is_staggered and target == get_player() and !get_parent().get_node("Player/Area2D").overlaps_area($Detector):
 		velocity.x = 0
 		velocity.y = 0
 	if target == get_decoy():
@@ -61,6 +62,10 @@ func _on_Area2D_area_entered(area):
 		drop_loot()
 		queue_free()
 		Global.enemies_killed += 1
+	if area.is_in_group("Player"):
+		is_staggered = true
+		yield(get_tree().create_timer(1.2), "timeout")
+		is_staggered = false
 
 func drop_loot():
 	var loot = LOOT.instance()

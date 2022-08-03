@@ -5,14 +5,16 @@
 [node name="SmokeParticle" type="CPUParticles2D"]
 modulate = Color( 0.243137, 0.243137, 0.243137, 1 )
 scale = Vector2( 6, 6 )
-amount = 20
+emitting = false
+amount = 10
 lifetime = 0.5
-explosiveness = 1.0
+one_shot = true
+explosiveness = 0.5
 randomness = 0.5
 texture = ExtResource( 1 )
 emission_shape = 1
 emission_sphere_radius = 1.0
 spread = 180.0
 gravity = Vector2( 0, 0 )
-initial_velocity = 50.0
+initial_velocity = 35.0
 orbit_velocity = 0.5

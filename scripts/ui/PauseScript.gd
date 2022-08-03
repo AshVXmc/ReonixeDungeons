@@ -27,7 +27,7 @@ func _notification(what):
 		get_parent().get_node("OutOfFocus").visible = true
 		get_tree().paused = true
 func _process(delta):
-	if Input.is_action_just_pressed("ui_cancel") and !get_parent().get_parent().get_node("Player").is_shopping:
+	if Input.is_action_just_pressed("ui_cancel") and !Global.is_opening_an_UI and !get_parent().get_parent().get_node("Player").is_shopping:
 		if !get_tree().paused:
 			get_parent().get_parent().get_node("DebugMenu").get_node("Control").visible = false
 			get_tree().paused = true

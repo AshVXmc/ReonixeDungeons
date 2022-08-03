@@ -48,7 +48,6 @@ tracks/0/keys = {
 }
 
 [node name="FireSaw" type="Area2D" groups=["FireGauge1", "Fireball"]]
-scale = Vector2( 1.1, 1.1 )
 script = ExtResource( 2 )
 __meta__ = {
 "_edit_group_": true
@@ -62,7 +61,7 @@ one_shot = true
 autostart = true
 
 [node name="Sprite" type="Sprite" parent="."]
-scale = Vector2( 22.5, 22.5 )
+scale = Vector2( 15, 15 )
 texture = ExtResource( 1 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -70,7 +69,7 @@ anims/RESET = SubResource( 2 )
 anims/SPIN = SubResource( 3 )
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
-polygon = PoolVector2Array( -115.047, -23.5181, -159.783, 21.2178, -45.057, 21.9393, -23.4106, 42.8641, -23.4106, 112.133, 20.6037, 155.425, 22.0468, 43.5857, 45.8578, 22.6609, 136.051, 20.4962, 180.787, -19.9104, 43.6932, -21.3535, 19.8821, -45.886, 22.0468, -112.99, -24.1321, -160.612, -21.9675, -47.3291, -43.6139, -25.6827 )
+polygon = PoolVector2Array( -30.6909, -49.7348, -30.6909, -175.048, 30.6034, -115.115, 31.2845, -49.0537, 58.5264, -27.2602, 58.5264, 28.5858, 28.5603, 46.2931, 29.9224, 173.649, -31.372, 117.803, -31.372, 45.612, -59.295, 28.5858, -59.976, -30.6654 )
 
 [connection signal="area_entered" from="." to="." method="_on_FireSaw_area_entered"]
 [connection signal="screen_exited" from="VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_exited"]
