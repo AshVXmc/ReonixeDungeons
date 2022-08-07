@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://spriteframes/MainCharacter_spriteframes.tres" type="SpriteFrames" id=1]
 [ext_resource path="res://scripts/player/Player.gd" type="Script" id=2]
@@ -12,6 +12,7 @@
 [ext_resource path="res://assets/UI/oxygen_bar_empty.png" type="Texture" id=10]
 [ext_resource path="res://assets/UI/oxygen_bar_full.png" type="Texture" id=11]
 [ext_resource path="res://scripts/player/SkillManager.gd" type="Script" id=12]
+[ext_resource path="res://scripts/player/CharacterManager.gd" type="Script" id=13]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 37.6338
@@ -271,6 +272,15 @@ script = ExtResource( 2 )
 [node name="SkillManager" type="Node2D" parent="."]
 script = ExtResource( 12 )
 
+[node name="CharacterManager" type="Node2D" parent="."]
+script = ExtResource( 13 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CharacterManager"]
+
+[node name="SwapCooldownTimer" type="Timer" parent="CharacterManager"]
+wait_time = 2.0
+one_shot = true
+
 [node name="ChargingParticle" parent="." instance=ExtResource( 9 )]
 visible = false
 
@@ -293,6 +303,7 @@ offset = Vector2( 0, -12 )
 flip_h = true
 
 [node name="Sprite" type="AnimatedSprite" parent="."]
+visible = false
 scale = Vector2( 5, 5 )
 frames = ExtResource( 1 )
 animation = "Frozen"
@@ -467,7 +478,7 @@ one_shot = true
 wait_time = 0.25
 one_shot = true
 
-[connection signal="animation_finished" from="Sprite" to="." method="_on_Sprite_animation_finished"]
+[connection signal="timeout" from="CharacterManager/SwapCooldownTimer" to="CharacterManager" method="_on_SwapCooldownTimer_timeout"]
 [connection signal="area_entered" from="AttackCollision" to="." method="_on_AttackCollision_area_entered"]
 [connection signal="area_entered" from="Area2D" to="." method="_on_Area2D_area_entered"]
 [connection signal="area_exited" from="Area2D" to="." method="_on_Area2D_area_exited"]

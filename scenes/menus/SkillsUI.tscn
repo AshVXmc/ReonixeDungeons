@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://scripts/ui/SkillsUI.gd" type="Script" id=1]
 [ext_resource path="res://assets/UI/firesaw_skill_icon.png" type="Texture" id=2]
@@ -8,7 +8,7 @@
 [ext_resource path="res://assets/UI/mana_cost_4.png" type="Texture" id=6]
 [ext_resource path="res://assets/UI/mana_cost_6.png" type="Texture" id=7]
 [ext_resource path="res://assets/UI/meteor_strike_skill_icon.png" type="Texture" id=8]
-[ext_resource path="res://assets/UI/mana_cost_3.png" type="Texture" id=9]
+[ext_resource path="res://assets/UI/hotbar.png" type="Texture" id=9]
 
 [sub_resource type="DynamicFont" id=1]
 size = 48
@@ -18,15 +18,19 @@ font_data = ExtResource( 3 )
 size = 48
 font_data = ExtResource( 3 )
 
+[sub_resource type="DynamicFont" id=3]
+size = 32
+font_data = ExtResource( 3 )
+
 [node name="SkillsUI" type="CanvasLayer"]
 
 [node name="Control" type="Control" parent="."]
-margin_right = 40.0
+anchor_left = 0.871
+anchor_right = 0.871
+margin_left = -940.68
+margin_right = -900.68
 margin_bottom = 40.0
 script = ExtResource( 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="PrimarySkill" type="Control" parent="Control"]
 margin_right = 40.0
@@ -35,7 +39,11 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="FireSaw" type="Control" parent="Control/PrimarySkill"]
+[node name="Player" type="Control" parent="Control/PrimarySkill"]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="FireSaw" type="Control" parent="Control/PrimarySkill/Player"]
 visible = false
 margin_top = -21.0
 margin_right = 40.0
@@ -44,16 +52,16 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Sprite" type="Sprite" parent="Control/PrimarySkill/FireSaw"]
+[node name="Sprite" type="Sprite" parent="Control/PrimarySkill/Player/FireSaw"]
 position = Vector2( 170, 190 )
 scale = Vector2( 4, 4 )
 texture = ExtResource( 2 )
 
-[node name="FiresawTimer" type="Timer" parent="Control/PrimarySkill/FireSaw"]
+[node name="FiresawTimer" type="Timer" parent="Control/PrimarySkill/Player/FireSaw"]
 wait_time = 16.0
 one_shot = true
 
-[node name="Label" type="Label" parent="Control/PrimarySkill/FireSaw"]
+[node name="Label" type="Label" parent="Control/PrimarySkill/Player/FireSaw"]
 margin_left = 148.0
 margin_top = 170.0
 margin_right = 188.0
@@ -65,12 +73,16 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ManaCost" type="Sprite" parent="Control/PrimarySkill/FireSaw"]
-position = Vector2( 171, 237 )
+[node name="ManaCost" type="Sprite" parent="Control/PrimarySkill/Player/FireSaw"]
+position = Vector2( 171, 245 )
 scale = Vector2( 2, 2 )
-texture = ExtResource( 6 )
+texture = ExtResource( 7 )
 
-[node name="FrostLance" type="Control" parent="Control/PrimarySkill"]
+[node name="Glaciela" type="Control" parent="Control/PrimarySkill"]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="FrostLance" type="Control" parent="Control/PrimarySkill/Glaciela"]
 visible = false
 margin_right = 40.0
 margin_bottom = 40.0
@@ -78,16 +90,16 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Sprite" type="Sprite" parent="Control/PrimarySkill/FrostLance"]
+[node name="Sprite" type="Sprite" parent="Control/PrimarySkill/Glaciela/FrostLance"]
 position = Vector2( 170, 169 )
 scale = Vector2( 4, 4 )
 texture = ExtResource( 8 )
 
-[node name="MeteorStrikeTimer" type="Timer" parent="Control/PrimarySkill/FrostLance"]
+[node name="MeteorStrikeTimer" type="Timer" parent="Control/PrimarySkill/Glaciela/FrostLance"]
 wait_time = 16.0
 one_shot = true
 
-[node name="Label" type="Label" parent="Control/PrimarySkill/FrostLance"]
+[node name="Label" type="Label" parent="Control/PrimarySkill/Glaciela/FrostLance"]
 margin_left = 148.0
 margin_top = 149.0
 margin_right = 188.0
@@ -99,7 +111,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ManaCost" type="Sprite" parent="Control/PrimarySkill/FrostLance"]
+[node name="ManaCost" type="Sprite" parent="Control/PrimarySkill/Glaciela/FrostLance"]
 position = Vector2( 171, 224 )
 scale = Vector2( 2, 2 )
 texture = ExtResource( 7 )
@@ -120,16 +132,17 @@ rect_scale = Vector2( 0.75, 0.75 )
 custom_colors/font_color = Color( 0.192157, 0.372549, 1, 1 )
 custom_fonts/font = SubResource( 2 )
 text = "E"
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="SecondarySkill" type="Control" parent="Control"]
 margin_top = -21.0
 margin_right = 40.0
 margin_bottom = 19.0
 
-[node name="FireFairy" type="Control" parent="Control/SecondarySkill"]
+[node name="Player" type="Control" parent="Control/SecondarySkill"]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="FireFairy" type="Control" parent="Control/SecondarySkill/Player"]
 visible = false
 margin_right = 40.0
 margin_bottom = 40.0
@@ -137,16 +150,16 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Sprite" type="Sprite" parent="Control/SecondarySkill/FireFairy"]
+[node name="Sprite" type="Sprite" parent="Control/SecondarySkill/Player/FireFairy"]
 position = Vector2( 270, 190 )
 scale = Vector2( 4, 4 )
 texture = ExtResource( 5 )
 
-[node name="FirefairyTimer" type="Timer" parent="Control/SecondarySkill/FireFairy"]
+[node name="FirefairyTimer" type="Timer" parent="Control/SecondarySkill/Player/FireFairy"]
 wait_time = 10.0
 one_shot = true
 
-[node name="Label" type="Label" parent="Control/SecondarySkill/FireFairy"]
+[node name="Label" type="Label" parent="Control/SecondarySkill/Player/FireFairy"]
 margin_left = 248.0
 margin_top = 170.0
 margin_right = 287.0
@@ -159,10 +172,10 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ManaCost" type="Sprite" parent="Control/SecondarySkill/FireFairy"]
+[node name="ManaCost" type="Sprite" parent="Control/SecondarySkill/Player/FireFairy"]
 position = Vector2( 271, 238 )
 scale = Vector2( 2, 2 )
-texture = ExtResource( 9 )
+texture = ExtResource( 6 )
 
 [node name="KeyIcon" type="Sprite" parent="Control/SecondarySkill"]
 position = Vector2( 270, 146.77 )
@@ -180,6 +193,76 @@ rect_scale = Vector2( 0.75, 0.75 )
 custom_colors/font_color = Color( 0.192157, 0.372549, 1, 1 )
 custom_fonts/font = SubResource( 2 )
 text = "C"
-__meta__ = {
-"_edit_use_anchors_": false
-}
+
+[node name="Characters" type="Control" parent="Control"]
+anchor_left = 24.926
+anchor_top = 2.543
+anchor_right = 24.926
+anchor_bottom = 2.543
+margin_left = -997.04
+margin_top = -101.72
+margin_right = -948.04
+margin_bottom = -53.72
+
+[node name="KeyIcon1" type="Sprite" parent="Control/Characters"]
+position = Vector2( 945.295, 149.987 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 4 )
+
+[node name="KeyBind1" type="Label" parent="Control/Characters"]
+anchor_left = -3.732
+anchor_right = -3.732
+margin_left = 1122.87
+margin_top = 136.0
+margin_right = 1134.87
+margin_bottom = 168.0
+custom_colors/font_color = Color( 0.192157, 0.372549, 1, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "1"
+
+[node name="KeyIcon2" type="Sprite" parent="Control/Characters"]
+position = Vector2( 945.295, 248.987 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 4 )
+
+[node name="KeyBind2" type="Label" parent="Control/Characters"]
+anchor_left = -3.732
+anchor_right = -3.732
+margin_left = 1120.87
+margin_top = 235.0
+margin_right = 1134.87
+margin_bottom = 267.0
+custom_colors/font_color = Color( 0.192157, 0.372549, 1, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "2"
+
+[node name="KeyIcon3" type="Sprite" parent="Control/Characters"]
+position = Vector2( 945.295, 347.987 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 4 )
+
+[node name="KeyBind3" type="Label" parent="Control/Characters"]
+anchor_left = -3.732
+anchor_right = -3.732
+margin_left = 1119.87
+margin_top = 334.0
+margin_right = 1133.87
+margin_bottom = 366.0
+custom_colors/font_color = Color( 0.192157, 0.372549, 1, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "3"
+
+[node name="Character1" type="Sprite" parent="Control/Characters"]
+position = Vector2( 1000, 150 )
+scale = Vector2( 4, 4 )
+texture = ExtResource( 9 )
+
+[node name="Character2" type="Sprite" parent="Control/Characters"]
+position = Vector2( 1000, 250 )
+scale = Vector2( 4, 4 )
+texture = ExtResource( 9 )
+
+[node name="Character3" type="Sprite" parent="Control/Characters"]
+position = Vector2( 1000, 350 )
+scale = Vector2( 4, 4 )
+texture = ExtResource( 9 )

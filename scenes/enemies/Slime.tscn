@@ -13,7 +13,6 @@ radius = 24.1874
 height = 20.9775
 
 [node name="Slime" type="KinematicBody2D" groups=["Enemy"]]
-position = Vector2( 0, -13.2945 )
 collision_layer = 4
 collision_mask = 11
 script = ExtResource( 1 )

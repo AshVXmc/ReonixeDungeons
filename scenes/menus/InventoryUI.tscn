@@ -27,9 +27,6 @@ margin_left = -1032.48
 margin_top = -51.84
 margin_right = -992.48
 margin_bottom = -11.84
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="BagSprite" type="Sprite" parent="Bag"]
 position = Vector2( 1036, 70 )
@@ -110,13 +107,56 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="ExpEssence" type="Control" parent="Control"]
+margin_left = 148.0
+margin_top = 64.0
+margin_right = 188.0
+margin_bottom = 104.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect2" type="TextureRect" parent="Control/ExpEssence"]
+margin_left = 319.694
+margin_top = 95.938
+margin_right = 335.694
+margin_bottom = 111.938
+rect_scale = Vector2( 4, 4 )
+texture = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="Control/ExpEssence"]
+margin_left = 328.587
+margin_top = 99.489
+margin_right = 344.587
+margin_bottom = 116.49
+rect_scale = Vector2( 3, 3 )
+texture = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Control/ExpEssence"]
+anchor_left = -3.732
+anchor_right = -3.732
+margin_left = 500.398
+margin_top = 132.0
+margin_right = 543.398
+margin_bottom = 180.0
+rect_scale = Vector2( 0.75, 0.75 )
+custom_fonts/font = SubResource( 1 )
+text = "0"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="GoblinScales" type="Control" parent="Control"]
 margin_left = 148.0
 margin_right = 188.0
 margin_bottom = 40.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="TextureRect2" type="TextureRect" parent="Control/GoblinScales"]
 margin_left = 383.612

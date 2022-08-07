@@ -36,10 +36,11 @@ var savepath : String = SAVE_DIR + "savefile.dat"
 var lighting : bool = false
 var vsync : bool = false
 var activated_portals : Array
-var enemy_level_index : int = 0
+var enemy_level_index : int = 1
 var is_opening_an_UI : bool = false
 var pity_4_star : int = 10
 var pity_5_star : int = 50
+
 
 # Skills that the player currently equips
 var player_skills : Dictionary = {
@@ -48,6 +49,8 @@ var player_skills : Dictionary = {
 	"RangedSkill" : ""
 }
 
+var current_character : String 
+var equipped_characters : Array = ["Player", "Glaciela", "??"]
 # The level of skills. Higher levels = more damage and utility etc.
 var skill_levels : Dictionary = {
 	"FireSawLevel": 1,
@@ -55,12 +58,13 @@ var skill_levels : Dictionary = {
 	"FireballLevel": 1,
 }
 
-# The level of elemental status effects. Higher level = more damage and duration etc.
-var elemental_damage_levels : Dictionary = {
-	"Burning": 1,
-	"Freeze": 1,
-	"Grounded": 1
+var damage_bonus : Dictionary = {
+	"physical_dmg_bonus_%": 0,
+	"fire_dmg_bonus_%": 0,
+	"ice_dmg_bonus_%": 0,
+	"earth_dmg_bonus_%": 0
 }
+
 # List of skills (Unlocked and locked)
 var list_of_skills : Dictionary = {
 	"PrimarySkill": ["FireSaw", "IceLance"], 
@@ -162,6 +166,10 @@ func save_player_data():
 		"FireSawLevel": Global.skill_levels["FireSawLevel"],
 		"FireFairyLevel": Global.skill_levels["FireFairyLevel"],
 		"FireballLevel": Global.skill_levels["FireballLevel"],
+		"PhysicalDMGBonus%": Global.damage_bonus["physical_dmg_bonus_%"],
+		"FireDMGBonus%": Global.damage_bonus["fire_dmg_bonus_%"],
+		"IceDMGBonus%": Global.damage_bonus["ice_dmg_bonus_%"],
+		"EarthDMGBonus%": Global.damage_bonus["earth_dmg_bonus_%"],
 		"Lighting" : Global.lighting,
 		"Vsync" : Global.vsync,
 		"EnemiesKilled": Global.enemies_killed ,

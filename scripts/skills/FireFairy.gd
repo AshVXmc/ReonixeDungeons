@@ -8,6 +8,7 @@ var velocity = Vector2.ZERO
 var acceleration = Vector2.ZERO
 
 func _ready():
+	print(str(attack * Global.skill_levels["FireFairyLevel"]))
 	add_to_group(str(attack * Global.skill_levels["FireFairyLevel"]))
 	$AnimationPlayer.play("Flap")
 func start(_transform, _target):

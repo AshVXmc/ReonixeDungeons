@@ -1,7 +1,8 @@
 class_name Slime extends KinematicBody2D
 
 var velocity : Vector2 = Vector2()
-var HP : int = 60
+var max_HP : int = Global.enemy_level_index * 60
+var HP : int = max_HP
 var is_dead : bool = false 
 var direction : int = 1
 const TYPE : String = "Enemy"
@@ -16,8 +17,7 @@ const DMG_INDICATOR : PackedScene = preload("res://scenes/particles/DamageIndica
 var is_staggered : bool = false
 
 func _ready():
-	HP += Global.enemy_level_index * (HP / 2)
-	$HealthBar.max_value = HP
+	$HealthBar.max_value = max_HP
 func _physics_process(delta):
 	
 	if direction == 1 and !is_dead:
@@ -51,10 +51,11 @@ func _on_Area2D_area_entered(area):
 			add_damage_particles("Fire", Global.base_damage_taken * Global.skill_levels["FireballLevel"])
 			parse_damage()
 		if area.is_in_group("Burning"):
-			HP -= Global.base_damage_taken / 2.5 * Global.elemental_damage_levels["Burning"]
-			$HealthBar.value -= Global.base_damage_taken / 2.5  * Global.elemental_damage_levels["Burning"]
-			add_damage_particles("Fire", Global.base_damage_taken / 2.5 * Global.elemental_damage_levels["Burning"])
-			parse_damage()
+			var damage = (0.035 * max_HP) + (Global.damage_bonus["fire_dmg_bonus_%"] / 100 * (0.025 * max_HP))
+			HP -= damage
+			$HealthBar.value -= damage
+			add_damage_particles("Fire", damage)
+			parse_status_effect_damage()
 		if area.is_in_group("Frozen"):
 			is_frozen = true
 		
@@ -64,7 +65,9 @@ func parse_damage():
 	is_staggered = true
 	$AnimatedSprite.set_modulate(Color(2,0.5,0.3,1))
 	$HurtTimer.start()
-	
+func parse_status_effect_damage():
+	$AnimatedSprite.set_modulate(Color(2,0.5,0.3,1))
+	$HurtTimer.start()
 func add_damage_particles(type : String, dmg : int):
 	var dmgparticle = DMG_INDICATOR.instance()
 	dmgparticle.damage_type = type

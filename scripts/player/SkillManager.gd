@@ -1,13 +1,25 @@
 class_name SkillManager extends Node2D
 
 signal mana_changed(amount)
-const FIREBALL : PackedScene = preload("res://scenes/skills/Fireball.tscn")
-const FIRESAW : PackedScene = preload("res://scenes/skills/FireSaw.tscn")
-const FIRE_PARTICLE : PackedScene = preload("res://scenes/particles/FlameParticle.tscn")
-const FIRE_FAIRY : PackedScene = preload("res://scenes/skills/FireFairy.tscn")
+var FIRE_PARTICLE : PackedScene = preload("res://scenes/particles/FlameParticle.tscn")
+var FIREBALL : PackedScene 
+var FIRESAW : PackedScene 
+var FIRE_FAIRY : PackedScene 
+var ICE_LANCE : PackedScene
+
 func _ready():
 	connect("mana_changed", get_parent().get_parent().get_node("ManaUI/Mana"), "on_player_mana_changed")
-
+	match Global.player_skills["PrimarySkill"]:
+		"FireSaw":
+			FIRESAW = load("res://scenes/skills/FireSaw.tscn")
+		"IceLance":
+			ICE_LANCE = load("res://scenes/skills/IceLance.tscn")
+	match Global.player_skills["SecondarySkill"]:
+		"FireFairy":
+			FIRE_FAIRY = load("res://scenes/skills/FireFairy.tscn")
+	match Global.player_skills["RangedSkill"]:
+		"Fireball":
+			FIREBALL = load("res://scenes/skills/Fireball.tscn")
 func on_skill_used(skill_name : String):
 	match skill_name:
 		"FireSaw":
@@ -19,7 +31,7 @@ func on_skill_used(skill_name : String):
 			fireparticle.emitting = true
 			fireparticle.one_shot = false
 			if !Global.godmode:
-				Global.mana -= 4
+				Global.mana -= 6
 				emit_signal("mana_changed", Global.mana)
 			get_parent().is_attacking = false
 			get_parent().get_node("AttackCollision/CollisionShape2D").disabled = true
@@ -27,13 +39,16 @@ func on_skill_used(skill_name : String):
 			yield(get_tree().create_timer(firesaw.get_node("DestroyedTimer").wait_time),"timeout")
 			get_parent().is_using_primary_skill = false
 			get_parent().remove_child(fireparticle)
+		"IceLance":
+			get_parent().is_using_primary_skill = true
+			
 		"FireFairy":
 			get_parent().is_using_secondary_skill = true
 			var fire_fairy = FIRE_FAIRY.instance()
 			get_parent().get_parent().add_child(fire_fairy)
 			fire_fairy.position = get_parent().global_position
 			if !Global.godmode:
-				Global.mana -= 3
+				Global.mana -= 4
 				emit_signal("mana_changed", Global.mana)
 			yield(get_tree().create_timer(fire_fairy.get_node("DestroyedTimer").wait_time), "timeout")
 			get_parent().is_using_secondary_skill = false
@@ -45,7 +60,10 @@ func on_skill_used(skill_name : String):
 			get_parent().get_parent().add_child(fireball)
 			fireball.position = get_parent().get_node("Position2D").global_position
 			if !Global.godmode:
-				Global.mana -= 1
+				Global.mana -= 2
 				emit_signal("mana_changed", Global.mana)
 			get_parent().is_attacking = false
 			get_parent().get_node("AttackCollision/CollisionShape2D").disabled = true
+
+
+	

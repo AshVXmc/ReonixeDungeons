@@ -4,6 +4,7 @@ onready var player = get_parent().get_node("Player").get_node("Area2D")
 var prize_pool : Dictionary = {}
 
 func _ready():
+	$CanvasLayer/Control.visible = false
 	# Read and parse JSON file which contains prize pool data.
 	var file : File = File.new()
 	file.open("res://scenes/gacha/PrizePool.json", file.READ)
@@ -68,7 +69,7 @@ func roll_single():
 	var opalrng : RandomNumberGenerator = RandomNumberGenerator.new()
 	opalrng.randomize()
 	var lootopalsamount = opalrng.randi_range(10, 50)
-
+	
 	
 	
 	var FINAL_LOOT = [loot1, loot1amount, lootopals, lootopalsamount]

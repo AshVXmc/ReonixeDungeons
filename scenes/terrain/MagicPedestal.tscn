@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://assets/UI/firesaw_skill_icon.png" type="Texture" id=1]
 [ext_resource path="res://assets/terrain/magic_pedestal.png" type="Texture" id=2]
@@ -46,6 +46,13 @@ font_data = ExtResource( 8 )
 [sub_resource type="DynamicFont" id=9]
 size = 64
 font_data = ExtResource( 3 )
+
+[sub_resource type="DynamicFont" id=12]
+size = 48
+font_data = ExtResource( 3 )
+
+[sub_resource type="RectangleShape2D" id=11]
+extents = Vector2( 787.191, 251.734 )
 
 [node name="MagicPedestal" type="Node2D"]
 script = ExtResource( 7 )
@@ -616,6 +623,33 @@ valign = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="EnemyIsNearby" type="Label" parent="."]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -174.0
+margin_top = -227.5
+margin_right = 290.0
+margin_bottom = -128.5
+rect_scale = Vector2( 0.75, 0.75 )
+custom_colors/font_color = Color( 1, 0, 0, 1 )
+custom_fonts/font = SubResource( 12 )
+text = "Cannot change skills while engaged in combat."
+align = 1
+valign = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="EnemyDetector" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyDetector"]
+position = Vector2( 0, -190 )
+shape = SubResource( 11 )
 
 [connection signal="pressed" from="CanvasLayer/Control/Main/CloseButton" to="." method="_on_CloseButton_pressed"]
 [connection signal="pressed" from="CanvasLayer/Control/Main/PrimarySkillSelect" to="." method="_on_PrimarySkillSelect_pressed"]

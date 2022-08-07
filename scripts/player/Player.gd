@@ -22,11 +22,11 @@ var collision : KinematicCollision2D
 const TYPE : String = "Player"
 var dashdirection : Vector2 = Vector2(1,0)
 var repulsion : Vector2 = Vector2()
-var knockback_power : int = 80
+var knockback_power : int = 100
 var can_be_knocked : bool = true
 var SPEED : int = 380
 const GRAVITY : int = 40
-var JUMP_POWER : int = -1075
+var JUMP_POWER : int = -1025
 
 const SWORD_SLASH_EFFECT : PackedScene = preload("res://scenes/particles/SwordSlashEffect.tscn")
 const HURT_PARTICLE : PackedScene = preload("res://scenes/particles/HurtIndicatorParticle.tscn")
@@ -34,8 +34,7 @@ const JUMP_PARTICLE : PackedScene = preload("res://scenes/particles/JumpParticle
 const WATER_JUMP_PARTICLE : PackedScene = preload("res://scenes/particles/WaterBubbleParticle.tscn")
 const DASH_PARTICLE : PackedScene = preload("res://scenes/particles/DashParticle.tscn")
 const SWORD_PARTICLE : PackedScene = preload("res://scenes/particles/SwordSwingParticle.tscn")
-const SMALL_FIRE_PARTICLE : PackedScene = preload("res://scenes/particles/FireHitParticle.tscn")
-const FIRE_PARTICLE : PackedScene = preload("res://scenes/particles/FlameParticle.tscn")
+
 const GROUND_POUND_PARTICLE : PackedScene = preload("res://scenes/particles/GroundPoundParticle.tscn")
 const SUPER_SLASH_PROJECTILE : PackedScene = preload("res://scenes/misc/SuperSlashProjectile.tscn")
 const SWORD_HIT_PARTICLE : PackedScene = preload("res://scenes/particles/SwordHitParticle.tscn")
@@ -63,8 +62,23 @@ var is_charging : bool = false
 var slowed : bool = false
 var underwater : bool = false
 var mana_absorption_counter : int = 1
+
+# HOW DAMAGE CALCULATION WORKS
+# Notes: Calculations omit flat damage bonus since its dependent on the skill itself
+# TYPES OF DAMAGE: Physical, Fire, Earth, Ice
+# Physical (basic attacks): attack_power + physical_dmg_bonus_%
+# Physical (charged attacks): (attack_power * 2) + physical_dmg_bonus%
+# Physical (skills): (attack_power * skill_level) + physical_dmg_bonus% 
+# Fire (skills): (attack_power * skill_level) + fire_dmg_bonus_% 
+# Ice (skills): (attack_power * skill_level) + ice_dmg_bonus_% 
+# Earth (skills): (attack_power * skill_level) + earth_dmg_bonus_% 
+# Burning (damage): (attack_power * fire_elemental_damage_level) + fire_dmg_bonus_% 
+# Bleeding (damage) : (attack_power * physical_elemental_damage_level) + physical_dmg_bonus_% 
+# Frozen (duration) : (base_multiplier * ice_elemental_damage_level) + ice_dmg_bonus_%
+# Grounded (duration) : (base_multiplier * earth_elemental_damage_level) + earth_dmg_bonus_%
+
 func _ready():
-	$AttackCollision.add_to_group(str(Global.attack_power))
+	$AttackCollision.add_to_group(str(Global.attack_power + (Global.damage_bonus["physical_dmg_bonus_%"] / 100 * Global.attack_power)))
 	$OxygenBar.value = 100
 	$ChargeBar.value = 0
 	$SwordSprite.visible = false
@@ -221,21 +235,22 @@ func _physics_process(_delta):
 	else:
 		is_invulnerable = false
 	charge_meter()
-
+	
+	$Sprite.visible = true if Global.current_character == "Player" else false
 	
 
 
 func shoot():
-	if Input.is_action_just_pressed("ui_shoot") and !is_frozen and Global.mana >= 1:
-		if Global.player_skills["RangedSkill"] == "Fireball" and $RangedAttackTimer.is_stopped():
+	if Input.is_action_just_pressed("ui_shoot") and !is_frozen:
+		if Global.player_skills["RangedSkill"] == "Fireball" and $RangedAttackTimer.is_stopped() and Global.mana >= 2:
 			emit_signal("skill_used", "Fireball")
 	
 	if Input.is_action_just_pressed("primary_skill") and !Input.is_action_just_pressed("secondary_skill"):
-		if Global.player_skills["PrimarySkill"] == "FireSaw" and Global.firesaw_unlocked and !is_frozen and Global.mana >= 4 and !is_using_primary_skill and get_parent().get_node("SkillsUI/Control/PrimarySkill/FireSaw/FiresawTimer").is_stopped():
+		if Global.player_skills["PrimarySkill"] == "FireSaw" and Global.firesaw_unlocked and !is_frozen and Global.mana >= 6 and !is_using_primary_skill and get_parent().get_node("SkillsUI/Control/PrimarySkill/Player/FireSaw/FiresawTimer").is_stopped():
 			emit_signal("skill_used", "FireSaw")
 	
 	if Input.is_action_just_pressed("secondary_skill") and !Input.is_action_just_pressed("primary_skill"):
-		if Global.player_skills["SecondarySkill"] == "FireFairy" and Global.fire_fairy_unlocked and !is_frozen and Global.mana >= 3 and !is_using_secondary_skill and get_parent().get_node("SkillsUI/Control/SecondarySkill/FireFairy/FirefairyTimer").is_stopped():
+		if Global.player_skills["SecondarySkill"] == "FireFairy" and Global.fire_fairy_unlocked and !is_frozen and Global.mana >= 4 and !is_using_secondary_skill and get_parent().get_node("SkillsUI/Control/SecondarySkill/Player/FireFairy/FirefairyTimer").is_stopped():
 			emit_signal("skill_used", "FireFairy")
 			
 	
@@ -313,7 +328,7 @@ func charge_meter():
 		if Input.is_action_pressed("charge"):
 			# Max value is 100
 			$ChargeBar.visible = true
-			$ChargeBar.value += 2
+			$ChargeBar.value += 2.25
 			is_charging = true
 		if Input.is_action_just_released("charge") or Input.is_action_pressed("left") or Input.is_action_pressed("right") or Input.is_action_pressed("jump"):
 			# Min value is 0 (Empty)
