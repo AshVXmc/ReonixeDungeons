@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://scripts/ui/SkillsUI.gd" type="Script" id=1]
 [ext_resource path="res://assets/UI/firesaw_skill_icon.png" type="Texture" id=2]
@@ -7,8 +7,9 @@
 [ext_resource path="res://assets/UI/fire_fairy_skill_icon.png" type="Texture" id=5]
 [ext_resource path="res://assets/UI/mana_cost_4.png" type="Texture" id=6]
 [ext_resource path="res://assets/UI/mana_cost_6.png" type="Texture" id=7]
-[ext_resource path="res://assets/UI/meteor_strike_skill_icon.png" type="Texture" id=8]
+[ext_resource path="res://assets/UI/icelance_skill_icon.png" type="Texture" id=8]
 [ext_resource path="res://assets/UI/hotbar.png" type="Texture" id=9]
+[ext_resource path="res://assets/UI/ice_decoy_skill_icon.png" type="Texture" id=10]
 
 [sub_resource type="DynamicFont" id=1]
 size = 48
@@ -82,36 +83,29 @@ texture = ExtResource( 7 )
 margin_right = 40.0
 margin_bottom = 40.0
 
-[node name="FrostLance" type="Control" parent="Control/PrimarySkill/Glaciela"]
-visible = false
+[node name="IceLance" type="Control" parent="Control/PrimarySkill/Glaciela"]
 margin_right = 40.0
 margin_bottom = 40.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
-[node name="Sprite" type="Sprite" parent="Control/PrimarySkill/Glaciela/FrostLance"]
+[node name="Sprite" type="Sprite" parent="Control/PrimarySkill/Glaciela/IceLance"]
 position = Vector2( 170, 169 )
 scale = Vector2( 4, 4 )
 texture = ExtResource( 8 )
 
-[node name="MeteorStrikeTimer" type="Timer" parent="Control/PrimarySkill/Glaciela/FrostLance"]
-wait_time = 16.0
+[node name="IceLanceTimer" type="Timer" parent="Control/PrimarySkill/Glaciela/IceLance"]
+wait_time = 10.0
 one_shot = true
 
-[node name="Label" type="Label" parent="Control/PrimarySkill/Glaciela/FrostLance"]
+[node name="Label" type="Label" parent="Control/PrimarySkill/Glaciela/IceLance"]
 margin_left = 148.0
 margin_top = 149.0
 margin_right = 188.0
 margin_bottom = 197.0
 custom_fonts/font = SubResource( 1 )
-text = "16"
+text = "10"
 align = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
-[node name="ManaCost" type="Sprite" parent="Control/PrimarySkill/Glaciela/FrostLance"]
+[node name="ManaCost" type="Sprite" parent="Control/PrimarySkill/Glaciela/IceLance"]
 position = Vector2( 171, 224 )
 scale = Vector2( 2, 2 )
 texture = ExtResource( 7 )
@@ -173,6 +167,41 @@ __meta__ = {
 }
 
 [node name="ManaCost" type="Sprite" parent="Control/SecondarySkill/Player/FireFairy"]
+position = Vector2( 271, 238 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 6 )
+
+[node name="Glaciela" type="Control" parent="Control/SecondarySkill"]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="IceDecoy" type="Control" parent="Control/SecondarySkill/Glaciela"]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="Sprite" type="Sprite" parent="Control/SecondarySkill/Glaciela/IceDecoy"]
+position = Vector2( 270, 190 )
+scale = Vector2( 4, 4 )
+texture = ExtResource( 10 )
+
+[node name="IcedecoyTimer" type="Timer" parent="Control/SecondarySkill/Glaciela/IceDecoy"]
+wait_time = 10.0
+one_shot = true
+
+[node name="Label" type="Label" parent="Control/SecondarySkill/Glaciela/IceDecoy"]
+margin_left = 248.0
+margin_top = 170.0
+margin_right = 287.0
+margin_bottom = 218.0
+custom_fonts/font = SubResource( 1 )
+text = "15"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ManaCost" type="Sprite" parent="Control/SecondarySkill/Glaciela/IceDecoy"]
 position = Vector2( 271, 238 )
 scale = Vector2( 2, 2 )
 texture = ExtResource( 6 )

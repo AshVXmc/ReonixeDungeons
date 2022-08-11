@@ -169,6 +169,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/ui/GenericSpikeCorner.gd"
 }, {
+"base": "Node2D",
+"class": "Glaciela",
+"language": "GDScript",
+"path": "res://scripts/characters/Glaciela.gd"
+}, {
 "base": "KinematicBody2D",
 "class": "Goblin",
 "language": "GDScript",
@@ -407,6 +412,7 @@ _global_script_class_icons={
 "GenericNPC": "",
 "GenericSpike": "",
 "GenericSpikeCorner": "",
+"Glaciela": "",
 "Goblin": "",
 "GoldenChest": "",
 "GreenFruit": "",

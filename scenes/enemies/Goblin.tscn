@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://assets/enemies/goblin2_attack.png" type="Texture" id=1]
 [ext_resource path="res://scripts/enemies/Goblin.gd" type="Script" id=2]
@@ -7,7 +7,6 @@
 [ext_resource path="res://assets/enemies/goblin2.png" type="Texture" id=5]
 [ext_resource path="res://assets/UI/healthbar_enemy_empty.png" type="Texture" id=6]
 [ext_resource path="res://assets/UI/healthbar_enemy_full.png" type="Texture" id=7]
-[ext_resource path="res://scenes/status_effects/AirborneStatus.tscn" type="PackedScene" id=8]
 
 [sub_resource type="RectangleShape2D" id=5]
 extents = Vector2( 16.7043, 49.4386 )
@@ -149,8 +148,6 @@ __meta__ = {
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/Death = SubResource( 6 )
 anims/RESET = SubResource( 7 )
-
-[node name="AirborneStatus" parent="." instance=ExtResource( 8 )]
 
 [connection signal="area_exited" from="Left" to="." method="_on_Left_area_exited"]
 [connection signal="area_exited" from="Right" to="." method="_on_Right_area_exited"]

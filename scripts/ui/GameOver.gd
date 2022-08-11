@@ -51,6 +51,11 @@ func _on_LoadSaveButton_pressed():
 			Global.unlocked_skills["PrimarySkillUnlocked"] = player_data["PrimarySkillUnlocked"]
 			Global.unlocked_skills["SecondarySkillUnlocked"] = player_data["SecondarySkillUnlocked"]
 			Global.unlocked_skills["RangedSkillUnlocked"] = player_data["RangedSkillUnlocked"]
+			
+			Global.unlocked_characters = player_data["UnlockedCharacters"]
+			Global.current_character = player_data["CurrentCharacter"]
+			Global.equipped_characters = player_data["EquippedCharacters"]
+			
 			Global.is_loading_a_save = player_data["IsLoadingASave"]
 			Global.masked_goblin_defeated = player_data["MaskedGoblinDefeated"]
 			Global.activated_portals = player_data["ActivatedPortals"]

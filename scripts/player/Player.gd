@@ -9,8 +9,6 @@ signal opals_obtained(player_opals, amount_added)
 signal crystals_obtained(player_crystals)
 
 signal ingredient_obtained(ingredient_name, amount)
-
-
 signal skill_used(skill_name)
 
 onready var inv_timer : Timer = $InvulnerabilityTimer
@@ -159,6 +157,7 @@ func _physics_process(_delta):
 					$DashParticlePosition.position.x *= -1
 				if Input.is_action_just_released("right"):
 					$Sprite.play("Walk")
+					
 				get_node("AttackCollision").set_scale(Vector2(1,1))
 			elif Input.is_action_pressed("left") and !is_attacking and !is_dashing and !is_knocked_back:
 				velocity.x = -SPEED
@@ -241,17 +240,18 @@ func _physics_process(_delta):
 
 
 func shoot():
-	if Input.is_action_just_pressed("ui_shoot") and !is_frozen:
-		if Global.player_skills["RangedSkill"] == "Fireball" and $RangedAttackTimer.is_stopped() and Global.mana >= 2:
-			emit_signal("skill_used", "Fireball")
-	
-	if Input.is_action_just_pressed("primary_skill") and !Input.is_action_just_pressed("secondary_skill"):
-		if Global.player_skills["PrimarySkill"] == "FireSaw" and Global.firesaw_unlocked and !is_frozen and Global.mana >= 6 and !is_using_primary_skill and get_parent().get_node("SkillsUI/Control/PrimarySkill/Player/FireSaw/FiresawTimer").is_stopped():
-			emit_signal("skill_used", "FireSaw")
-	
-	if Input.is_action_just_pressed("secondary_skill") and !Input.is_action_just_pressed("primary_skill"):
-		if Global.player_skills["SecondarySkill"] == "FireFairy" and Global.fire_fairy_unlocked and !is_frozen and Global.mana >= 4 and !is_using_secondary_skill and get_parent().get_node("SkillsUI/Control/SecondarySkill/Player/FireFairy/FirefairyTimer").is_stopped():
-			emit_signal("skill_used", "FireFairy")
+	if Global.current_character == "Player":
+		if Input.is_action_just_pressed("ui_shoot") and !is_frozen:
+			if Global.player_skills["RangedSkill"] == "Fireball" and $RangedAttackTimer.is_stopped() and Global.mana >= 2:
+				emit_signal("skill_used", "Fireball")
+		
+		if Input.is_action_just_pressed("primary_skill") and !Input.is_action_just_pressed("secondary_skill"):
+			if Global.player_skills["PrimarySkill"] == "FireSaw" and Global.firesaw_unlocked and !is_frozen and Global.mana >= 6 and !is_using_primary_skill and get_parent().get_node("SkillsUI/Control/PrimarySkill/Player/FireSaw/FiresawTimer").is_stopped():
+				emit_signal("skill_used", "FireSaw")
+		
+		if Input.is_action_just_pressed("secondary_skill") and !Input.is_action_just_pressed("primary_skill"):
+			if Global.player_skills["SecondarySkill"] == "FireFairy" and Global.fire_fairy_unlocked and !is_frozen and Global.mana >= 4 and !is_using_secondary_skill and get_parent().get_node("SkillsUI/Control/SecondarySkill/Player/FireFairy/FirefairyTimer").is_stopped():
+				emit_signal("skill_used", "FireFairy")
 			
 	
 func ground_pound():
@@ -283,7 +283,7 @@ func gp_effect():
 
 			
 func attack():
-	if Input.is_action_just_pressed("ui_attack") and !is_attacking and !is_gliding and !is_frozen and $MeleeTimer.is_stopped():
+	if Global.current_character == "Player" and Input.is_action_just_pressed("ui_attack") and !is_attacking and !is_gliding and !is_frozen and $MeleeTimer.is_stopped():
 		$Sprite.play("Attack")
 		if $Sprite.flip_h:
 			$SwordSprite.visible = true
@@ -328,7 +328,7 @@ func charge_meter():
 		if Input.is_action_pressed("charge"):
 			# Max value is 100
 			$ChargeBar.visible = true
-			$ChargeBar.value += 2.25
+			$ChargeBar.value += 3
 			is_charging = true
 		if Input.is_action_just_released("charge") or Input.is_action_pressed("left") or Input.is_action_pressed("right") or Input.is_action_pressed("jump"):
 			# Min value is 0 (Empty)
@@ -336,14 +336,14 @@ func charge_meter():
 			$ChargeBar.value = $ChargeBar.min_value
 			is_charging = false
 	# Charge abilities
-	if $ChargeBar.value == $ChargeBar.max_value and is_charging:
-		if Input.is_action_just_pressed("ui_attack") and Global.mana >= 1:
+	if Global.current_character == "Player" and $ChargeBar.value == $ChargeBar.max_value and is_charging:
+		if Input.is_action_just_pressed("ui_attack") and Global.mana >= 2:
 			$ChargeBar.visible = false
 			$ChargeBar.value = $ChargeBar.min_value
 			is_charging = false
 			Input.action_release("charge")
 			if !Global.godmode:
-				Global.mana -= 1
+				Global.mana -= 2
 				emit_signal("mana_changed", Global.mana)
 			var ss_projectile = SUPER_SLASH_PROJECTILE.instance()
 			var hitparticle = SWORD_HIT_PARTICLE.instance()
@@ -362,7 +362,9 @@ func charge_meter():
 			dash_particle.position = $Position2D.global_position
 			dash_particle.emitting = true
 			dash_particle.one_shot = true
-		elif Global.mana < 1:
+		elif Input.is_action_just_pressed("ui_attack") and $ChargeBar.value == $ChargeBar.max_value and Global.mana < 2:
+			$ChargeBar.visible = false
+			$ChargeBar.value = $ChargeBar.min_value
 			is_charging = false
 		if Input.is_action_just_pressed("jump") and Global.mana >= 1 and glider_equipped and is_on_floor() and !is_attacking and !is_frozen and !underwater:
 			if !Global.godmode:
@@ -390,7 +392,7 @@ func _on_Area2D_area_entered(area : Area2D):
 	if !Global.godmode:
 		if inv_timer.is_stopped() and !is_invulnerable and !is_dashing:
 			if area.is_in_group("Enemy") or area.is_in_group("DeflectedProjectile"):
-				Global.hearts -= 0.5
+				take_damage(0.5)
 				add_hurt_particles(0.5)
 				is_gliding = false
 				Input.action_release("charge")
@@ -425,6 +427,18 @@ func _on_Area2D_area_entered(area : Area2D):
 		underwater = true
 		velocity.y = 0
 		print("is underwater")
+		
+func take_damage(damage : float):
+	if Global.current_character == Global.equipped_characters[0] and Global.hearts > 0:
+		Global.hearts -= damage
+		emit_signal("life_changed", Global.hearts, Global.equipped_characters[0])
+	elif Global.current_character == Global.equipped_characters[1] and Global.character2_hearts > 0:
+		Global.character2_hearts -= damage
+		emit_signal("life_changed", Global.character2_hearts, Global.equipped_characters[1])
+	elif Global.current_character == Global.equipped_characters[2] and Global.character3_hearts > 0:
+		Global.character3_hearts -= damage
+		emit_signal("life_changed", Global.character3_hearts, Global.equipped_characters[2])
+
 		
 func _on_Area2D_area_exited(area):
 	if area.is_in_group("Water"):
@@ -471,13 +485,14 @@ func _on_AttackCollision_area_entered(area):
 	if area.is_in_group("Enemy") or area.is_in_group("Enemy2") and !$AttackCollision/CollisionShape2D.disabled:
 		attack_knock()
 #		freeze_enemy()
-		var hitparticle = SWORD_HIT_PARTICLE.instance()
-		var slashparticle = SWORD_SLASH_EFFECT.instance()
-		hitparticle.emitting = true
-		get_parent().add_child(hitparticle)
-		get_parent().add_child(slashparticle)
-		hitparticle.position = $Position2D.global_position
-		slashparticle.position = $Position2D.global_position
+		if Global.current_character == "Player":
+			var hitparticle = SWORD_HIT_PARTICLE.instance()
+			var slashparticle = SWORD_SLASH_EFFECT.instance()
+			hitparticle.emitting = true
+			get_parent().add_child(hitparticle)
+			get_parent().add_child(slashparticle)
+			hitparticle.position = $Position2D.global_position
+			slashparticle.position = $Position2D.global_position
 		if mana_absorption_counter > 0:
 			mana_absorption_counter -= 1
 		elif mana_absorption_counter == 0:

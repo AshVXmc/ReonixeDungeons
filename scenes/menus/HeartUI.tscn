@@ -11,9 +11,6 @@ margin_right = 92.0
 margin_bottom = 93.0
 rect_scale = Vector2( 0.8, 0.8 )
 script = ExtResource( 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="HeartSlot" type="TextureRect" parent="Life"]
 margin_top = -4.0
@@ -27,6 +24,54 @@ __meta__ = {
 }
 
 [node name="Hearts" type="TextureRect" parent="Life"]
+margin_top = -4.0
+margin_right = 95.0
+margin_bottom = 92.0
+texture = ExtResource( 2 )
+expand = true
+stretch_mode = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HeartSlot2" type="TextureRect" parent="Life"]
+visible = false
+margin_top = -4.0
+margin_right = 95.0
+margin_bottom = 92.0
+texture = ExtResource( 3 )
+expand = true
+stretch_mode = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Hearts2" type="TextureRect" parent="Life"]
+visible = false
+margin_top = -4.0
+margin_right = 95.0
+margin_bottom = 92.0
+texture = ExtResource( 2 )
+expand = true
+stretch_mode = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HeartSlot3" type="TextureRect" parent="Life"]
+visible = false
+margin_top = -4.0
+margin_right = 95.0
+margin_bottom = 92.0
+texture = ExtResource( 3 )
+expand = true
+stretch_mode = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Hearts3" type="TextureRect" parent="Life"]
+visible = false
 margin_top = -4.0
 margin_right = 95.0
 margin_bottom = 92.0

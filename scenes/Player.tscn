@@ -283,6 +283,7 @@ one_shot = true
 
 [node name="ChargingParticle" parent="." instance=ExtResource( 9 )]
 visible = false
+amount = 4
 
 [node name="FreezeMask" type="Sprite" parent="."]
 visible = false
@@ -456,12 +457,9 @@ margin_bottom = -64.3163
 rect_scale = Vector2( 3, 3.5 )
 texture_under = ExtResource( 10 )
 texture_progress = ExtResource( 11 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="MeleeTimer" type="Timer" parent="."]
-wait_time = 0.35
+wait_time = 0.25
 one_shot = true
 
 [node name="OxygenTimer" type="Timer" parent="."]

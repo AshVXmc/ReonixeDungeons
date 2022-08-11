@@ -1,16 +1,266 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://assets/characters/glaciela/glaciela_idle.png" type="Texture" id=1]
+[ext_resource path="res://assets/characters/glaciela/glaciela_walk.png" type="Texture" id=2]
+[ext_resource path="res://assets/characters/glaciela/glaciela_idle_1.png" type="Texture" id=3]
+[ext_resource path="res://scripts/characters/Glaciela.gd" type="Script" id=4]
+[ext_resource path="res://assets/characters/glaciela/glaciela_dash.png" type="Texture" id=5]
+[ext_resource path="res://assets/weapons/simple_spear.png" type="Texture" id=6]
+[ext_resource path="res://assets/UI/chargebar_charging.png" type="Texture" id=7]
+[ext_resource path="res://scenes/particles/ChargingParticle.tscn" type="PackedScene" id=8]
+[ext_resource path="res://assets/UI/healthbar_empty.png" type="Texture" id=10]
 
-[sub_resource type="Animation" id=1]
-resource_name = "Default"
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 5 ) ],
+"loop": false,
+"name": "Dash",
+"speed": 1.0
+}, {
+"frames": [ ExtResource( 1 ), ExtResource( 3 ) ],
+"loop": true,
+"name": "Default",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 3 ), ExtResource( 2 ) ],
+"loop": true,
+"name": "Walk",
+"speed": 5.0
+} ]
+
+[sub_resource type="Animation" id=6]
+resource_name = "ChargedAttackRight"
+length = 0.1
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("SpearSprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 3, 15 ), Vector2( 16, 8 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("SpearSprite:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 110.0, 40.0 ]
+}
+
+[sub_resource type="Animation" id=3]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("SpearSprite:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 50.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("SpearSprite:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 3, 15 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("SpearSprite:flip_h")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+
+[sub_resource type="Animation" id=4]
+resource_name = "SpearSwingLeft"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/path = NodePath("SpearSprite:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ -50.0, -125.0 ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.2 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "set_weapon_to_invisible"
+} ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("SpearSprite:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 3, 15 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("SpearSprite:flip_h")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+
+[sub_resource type="Animation" id=2]
+resource_name = "SpearSwingRight"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/path = NodePath("SpearSprite:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 50.0, 125.0 ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.2 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "set_weapon_to_invisible"
+} ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("SpearSprite:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 3, 15 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("SpearSprite:flip_h")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+
+[sub_resource type="RectangleShape2D" id=5]
+extents = Vector2( 49.4181, 39.1389 )
 
 [node name="Glaciela" type="Node2D"]
+script = ExtResource( 4 )
 
-[node name="Sprite" type="Sprite" parent="."]
+[node name="SpearSprite" type="Sprite" parent="."]
+position = Vector2( 3, 15 )
+rotation = 0.872665
 scale = Vector2( 5, 5 )
-texture = ExtResource( 1 )
+texture = ExtResource( 6 )
+offset = Vector2( 0, -12 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+scale = Vector2( 5, 5 )
+frames = SubResource( 1 )
+animation = "Dash"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-autoplay = "Default"
-anims/Default = SubResource( 1 )
+anims/ChargedAttackRight = SubResource( 6 )
+anims/RESET = SubResource( 3 )
+anims/SpearSwingLeft = SubResource( 4 )
+anims/SpearSwingRight = SubResource( 2 )
+
+[node name="AttackCollision" type="Area2D" parent="." groups=["Sword"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackCollision"]
+position = Vector2( 86.5819, 5.05854 )
+shape = SubResource( 5 )
+disabled = true
+
+[node name="ChargedAttackCollision" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ChargedAttackCollision"]
+position = Vector2( 86.5819, 5.05854 )
+shape = SubResource( 5 )
+
+[node name="MeleeTimer" type="Timer" parent="."]
+wait_time = 0.35
+one_shot = true
+
+[node name="ChargeBar" type="TextureProgress" parent="."]
+visible = false
+margin_left = -49.805
+margin_top = -102.36
+margin_right = -29.805
+margin_bottom = -96.36
+rect_scale = Vector2( 5, 5 )
+texture_under = ExtResource( 10 )
+texture_progress = ExtResource( 7 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ChargingParticle" parent="." instance=ExtResource( 8 )]
+visible = false
+amount = 4
+
+[connection signal="area_entered" from="AttackCollision" to="." method="_on_AttackCollision_area_entered"]
+[connection signal="timeout" from="MeleeTimer" to="." method="_on_MeleeTimer_timeout"]

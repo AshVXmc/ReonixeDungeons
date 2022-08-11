@@ -7,7 +7,12 @@ var max_mana : int = 8
 var mana : int = max_mana
 var attack_power : int = 5
 
+var character2_hearts = max_hearts
+var character2_mana
+var character3_hearts = max_hearts
+var character3_mana
 
+var glaciela_attack : int = 5
 
 # Crit rate and Crit damage in %
 var crit_rate : float  = 10
@@ -40,7 +45,7 @@ var enemy_level_index : int = 1
 var is_opening_an_UI : bool = false
 var pity_4_star : int = 10
 var pity_5_star : int = 50
-
+var test
 
 # Skills that the player currently equips
 var player_skills : Dictionary = {
@@ -50,7 +55,9 @@ var player_skills : Dictionary = {
 }
 
 var current_character : String 
-var equipped_characters : Array = ["Player", "Glaciela", "??"]
+var equipped_characters : Array = ["Player", "Glaciela", "Domiguine"]
+var unlocked_characters : Array = ["Player", "Glaciela", "Domiguine"]
+
 # The level of skills. Higher levels = more damage and utility etc.
 var skill_levels : Dictionary = {
 	"FireSawLevel": 1,
@@ -152,6 +159,9 @@ func save_player_data():
 		"ChestOpened": Global.opened_chests,
 		"MaxItemStorage":  Global.max_item_storage, 
 		
+		"EquippedCharacters": Global.equipped_characters,
+		"CurrentCharacter": Global.current_character,
+		"UnlockedCharacters": Global.unlocked_characters,
 		"IsLoadingASave": Global.is_loading_a_save,
 		"PlayerPosition": Global.player_position,
 		# Equipped skills
@@ -174,7 +184,8 @@ func save_player_data():
 		"Vsync" : Global.vsync,
 		"EnemiesKilled": Global.enemies_killed ,
 		"MaskedGoblinDefeated" : Global.masked_goblin_defeated,
-		"ActivatedPortals": Global.activated_portals
+		"ActivatedPortals": Global.activated_portals,
+		"test": Global.test
 	}
 
 	var savefile : File = File.new()

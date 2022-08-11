@@ -49,29 +49,64 @@ func toggle_fire_fairy():
 	$SecondarySkill/Player/FireFairy/FirefairyTimer.start()
 	
 func _process(delta):
-	if !$PrimarySkill/Player/FireSaw/FiresawTimer.is_stopped():
-		$PrimarySkill/Player/FireSaw/Label.text = str(round($PrimarySkill/Player/FireSaw/FiresawTimer.time_left))
-	elif $PrimarySkill/Player/FireSaw/FiresawTimer.is_stopped():
-		if Global.mana >= firesawcost:
-			$PrimarySkill/Player/FireSaw/Sprite.self_modulate.a = 1.0
-		else:
-			$PrimarySkill/Player/FireSaw/Sprite.self_modulate.a = 0.65
-		$PrimarySkill/Player/FireSaw/Label.text = ""
-	if Global.mana < firesawcost:
-		$PrimarySkill/Player/FireSaw/Sprite.self_modulate.a = 0.65
-	
-	if !$SecondarySkill/Player/FireFairy/FirefairyTimer.is_stopped():
-		
-		$SecondarySkill/Player/FireFairy/Label.text = str(round($SecondarySkill/Player/FireFairy/FirefairyTimer.time_left))
-	elif $SecondarySkill/Player/FireFairy/FirefairyTimer.is_stopped():
-		if Global.mana >= firefairycost:
-			$SecondarySkill/Player/FireFairy/Sprite.self_modulate.a = 1.0
-		else:
-			$SecondarySkill/Player/FireFairy/Sprite.self_modulate.a = 0.65
-		$SecondarySkill/Player/FireFairy/Label.text = ""
-	if Global.mana < firefairycost:
-		$SecondarySkill/Player/FireFairy/Sprite.self_modulate.a = 0.65
+	if Global.current_character == "Player":
+		$PrimarySkill/Player.visible = true
+		$SecondarySkill/Player.visible = true
 
+		if !$PrimarySkill/Player/FireSaw/FiresawTimer.is_stopped():
+			$PrimarySkill/Player/FireSaw/Label.text = str(round($PrimarySkill/Player/FireSaw/FiresawTimer.time_left))
+		elif $PrimarySkill/Player/FireSaw/FiresawTimer.is_stopped():
+			if Global.mana >= firesawcost:
+				$PrimarySkill/Player/FireSaw/Sprite.self_modulate.a = 1.0
+			else:
+				$PrimarySkill/Player/FireSaw/Sprite.self_modulate.a = 0.65
+			$PrimarySkill/Player/FireSaw/Label.text = ""
+		if Global.mana < firesawcost:
+			$PrimarySkill/Player/FireSaw/Sprite.self_modulate.a = 0.65
+		
+		if !$SecondarySkill/Player/FireFairy/FirefairyTimer.is_stopped():
+			$SecondarySkill/Player/FireFairy/Label.text = str(round($SecondarySkill/Player/FireFairy/FirefairyTimer.time_left))
+		elif $SecondarySkill/Player/FireFairy/FirefairyTimer.is_stopped():
+			if Global.mana >= firefairycost:
+				$SecondarySkill/Player/FireFairy/Sprite.self_modulate.a = 1.0
+			else:
+				$SecondarySkill/Player/FireFairy/Sprite.self_modulate.a = 0.65
+			$SecondarySkill/Player/FireFairy/Label.text = ""
+		if Global.mana < firefairycost:
+			$SecondarySkill/Player/FireFairy/Sprite.self_modulate.a = 0.65
+	else:
+		$PrimarySkill/Player.visible = false
+		$SecondarySkill/Player.visible = false
+	
+	if Global.current_character == "Glaciela":
+		$PrimarySkill/Glaciela.visible = true
+		$SecondarySkill/Glaciela.visible = true
+		if !$PrimarySkill/Glaciela/IceLance/IceLanceTimer.is_stopped():
+			$PrimarySkill/Glaciela/IceLance/Label.text = str(round($PrimarySkill/Glaciela/IceLance/IceLanceTimer.time_left))
+		elif $PrimarySkill/Glaciela/IceLance/IceLanceTimer.is_stopped():
+			if Global.mana >= firesawcost:
+				$PrimarySkill/Glaciela/IceLance/Sprite.self_modulate.a = 1.0
+			else:
+				$PrimarySkill/Glaciela/IceLance/Sprite.self_modulate.a = 0.65
+			$PrimarySkill/Glaciela/IceLance/Label.text = ""
+		if Global.mana < firesawcost:
+			$PrimarySkill/Glaciela/IceLance/Sprite.self_modulate.a = 0.65
+	
+		if !$SecondarySkill/Glaciela/IceDecoy/IcedecoyTimer.is_stopped():
+			$SecondarySkill/Glaciela/IceDecoy/Label.text = str(round($SecondarySkill/Glaciela/IceDecoy/IcedecoyTimer.time_left))
+		elif $SecondarySkill/Glaciela/IceDecoy/IcedecoyTimer.is_stopped():
+			if Global.mana >= firefairycost:
+				$SecondarySkill/Glaciela/IceDecoy/Sprite.self_modulate.a = 1.0
+			else:
+				$SecondarySkill/Glaciela/IceDecoy/Sprite.self_modulate.a = 0.65
+			$SecondarySkill/Glaciela/IceDecoy/Label.text = ""
+		if Global.mana < firefairycost:
+			$SecondarySkill/Glaciela/IceDecoy/Sprite.self_modulate.a = 0.65
+	
+	
+	else:
+		$PrimarySkill/Glaciela.visible = false
+		$SecondarySkill/Glaciela.visible = false
 
 
 

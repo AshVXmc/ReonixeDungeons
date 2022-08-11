@@ -2,7 +2,7 @@ class_name Goblin extends KinematicBody2D
 
 const DMG_INDICATOR : PackedScene = preload("res://scenes/particles/DamageIndicatorParticle.tscn")
 const DEATH_SMOKE : PackedScene = preload("res://scenes/particles/DeathSmokeParticle.tscn")
-onready var max_HP : int = Global.enemy_level_index * 90
+onready var max_HP : int = Global.enemy_level_index * 180
 onready var HP : int = max_HP
 export var flipped : bool = false
 var velocity = Vector2()
@@ -24,6 +24,7 @@ var decoyed : bool = false
 var dead : bool = false
 func _ready():
 	$HealthBar.max_value = max_HP
+	$HealthBar.value = $HealthBar.max_value
 func _physics_process(delta):
 	if flipped:
 		$Sprite.flip_h = true
@@ -122,7 +123,7 @@ func _on_Area2D_area_entered(area):
 		add_damage_particles("Fire", damage)
 	if area.is_in_group("Airborne"):
 		is_airborne = true
-		velocity.y = -1000
+		velocity.y = -750
 		yield(get_tree().create_timer(0.125), "timeout")
 		velocity.y = 0
 	if area.is_in_group("Player"):
