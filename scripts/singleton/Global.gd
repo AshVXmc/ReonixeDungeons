@@ -1,18 +1,19 @@
 extends Node 
 
 # GLOBALLY ACCESSED VARIABLES
-var max_hearts : float = 3
+var max_hearts : float = 5
 var hearts : float = max_hearts
 var max_mana : int = 8
 var mana : int = max_mana
 var attack_power : int = 5
 
 var character2_hearts = max_hearts
-var character2_mana
+var character2_mana = max_mana
 var character3_hearts = max_hearts
-var character3_mana
+var character3_mana = max_mana
 
 var glaciela_attack : int = 5
+var glaciela_health : int = max_hearts
 
 # Crit rate and Crit damage in %
 var crit_rate : float  = 10
@@ -55,7 +56,7 @@ var player_skills : Dictionary = {
 }
 
 var current_character : String 
-var equipped_characters : Array = ["Player", "Glaciela", "Domiguine"]
+var equipped_characters : Array = ["Player", "Glaciela", ""]
 var unlocked_characters : Array = ["Player", "Glaciela", "Domiguine"]
 
 # The level of skills. Higher levels = more damage and utility etc.
@@ -97,7 +98,7 @@ var masked_goblin_defeated : bool
 var godmode : bool = false
 
 func reset_player_data():
-	Global.hearts = 3
+	Global.hearts = 5
 	Global.mana = 8
 	Global.healthpot_amount = 0
 	Global.lifewine_amount = 0
@@ -212,6 +213,7 @@ func sync_playerCommonMonsterDust(player_common_monster_dust : int):
 	player_common_monster_dust = Global.common_monster_dust_amount
 func sync_playerGoblinScales(player_goblin_scales: int):
 	player_goblin_scales = Global.goblin_scales_amount
+
 
 
 

@@ -160,6 +160,7 @@ tracks/2/keys = {
 }
 
 [node name="SwordSlashEffect" type="Node2D"]
+scale = Vector2( 1.5, 1.5 )
 script = ExtResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="."]

@@ -8,7 +8,7 @@ var direction : int = 1
 var destroyed : bool = false
 
 func _ready():
-	add_to_group(str(attack * Global.skill_levels["FireballLevel"] + (Global.damage_bonus["fire_dmg_bonus_%"] / 100 * attack)))
+	add_to_group(str((attack + 1) * Global.skill_levels["FireballLevel"] + (Global.damage_bonus["fire_dmg_bonus_%"] / 100 * attack)))
 func _physics_process(delta):
 	
 	if !destroyed:

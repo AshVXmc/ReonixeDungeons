@@ -45,7 +45,7 @@ func seek_player():
 
 
 func _on_PlayerDetector_area_entered(area):
-	if area.is_in_group("Player"):
+	if area.is_in_group("Player") and $TargetPlayerTimer.is_stopped():
 		queue_free()
 
 

@@ -13,17 +13,16 @@ rect_scale = Vector2( 0.8, 0.8 )
 script = ExtResource( 1 )
 
 [node name="HeartSlot" type="TextureRect" parent="Life"]
+visible = false
 margin_top = -4.0
 margin_right = 95.0
 margin_bottom = 92.0
 texture = ExtResource( 3 )
 expand = true
 stretch_mode = 2
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Hearts" type="TextureRect" parent="Life"]
+visible = false
 margin_top = -4.0
 margin_right = 95.0
 margin_bottom = 92.0

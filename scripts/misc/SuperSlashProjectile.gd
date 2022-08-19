@@ -7,7 +7,7 @@ var direction : int = 1
 var destroyed : bool = false
 
 func _ready():
-	add_to_group(str(Global.attack_power * 2))
+	add_to_group(str(Global.attack_power * 1.75))
 func _physics_process(delta):
 	if !destroyed:
 		velocity.x = SPEED * delta * direction

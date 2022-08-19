@@ -5,6 +5,8 @@ var firesawcost : int = 6
 var firefairycost : int = 4
 var fireballcost : int = 2
 const playericon = preload("res://assets/UI/player_character_icon.png")
+const glacielaicon = preload("res://assets/UI/glaciela_character_icon.png")
+const empty_icon = preload("res://assets/UI/empty_character_icon.png")
 onready var character1 : String = Global.equipped_characters[0]
 
 func _ready():
@@ -12,15 +14,18 @@ func _ready():
 	print("Currently: " + Global.current_character)
 	connect("ability_on_cooldown", get_parent().get_parent().get_node("Player"), "ability_on_entering_cooldown")
 	update_skill_ui(Global.player_skills["PrimarySkill"], Global.player_skills["SecondarySkill"])
-	
-	for c in Global.equipped_characters:
-		match c:
-			"Player":
-				print("set as player")
-				$Characters/Character1.texture = playericon
-	
 
-
+func update_character_ui():
+	match Global.equipped_characters[0]:
+		"Player":
+			$Characters/Character1.texture = playericon
+		"Glaciela":
+			$Characters/Character1.texture = glacielaicon
+	match Global.equipped_characters[1]:
+		"Player":
+			$Characters/Character2.texture = playericon
+		"Glaciela":
+			$Characters/Character2.texture = glacielaicon
 func update_skill_ui(primary : String, secondary : String):
 	match primary:
 		"FireSaw":
@@ -49,6 +54,7 @@ func toggle_fire_fairy():
 	$SecondarySkill/Player/FireFairy/FirefairyTimer.start()
 	
 func _process(delta):
+	update_character_ui()
 	if Global.current_character == "Player":
 		$PrimarySkill/Player.visible = true
 		$SecondarySkill/Player.visible = true

@@ -85,7 +85,7 @@ tracks/0/keys = {
 position = Vector2( 0.471924, 0 )
 scale = Vector2( 1.2, 1.2 )
 collision_layer = 4
-collision_mask = 11
+collision_mask = 15
 script = ExtResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -123,7 +123,7 @@ collision_mask = 3075
 collide_with_areas = true
 
 [node name="HurtTimer" type="Timer" parent="."]
-wait_time = 0.6
+wait_time = 0.75
 one_shot = true
 
 [node name="AttackingTimer" type="Timer" parent="."]
@@ -133,17 +133,14 @@ one_shot = true
 [node name="Position2D" type="Position2D" parent="."]
 
 [node name="HealthBar" type="TextureProgress" parent="."]
-margin_left = -44.8396
-margin_top = -68.6318
-margin_right = -14.8396
-margin_bottom = -62.6317
+margin_left = -45.0
+margin_top = -72.0
+margin_right = -15.0
+margin_bottom = -65.9999
 rect_scale = Vector2( 3, 3 )
 value = 100.0
 texture_under = ExtResource( 6 )
 texture_progress = ExtResource( 7 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/Death = SubResource( 6 )

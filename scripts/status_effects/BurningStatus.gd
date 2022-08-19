@@ -46,7 +46,7 @@ func _on_DestroyedTimer_timeout():
 
 func _on_BurningStatus_area_entered(area):
 	if area.is_in_group("Frozen"):
-		queue_free()
+		pass
 
 
 func _on_Detector_area_entered(area):

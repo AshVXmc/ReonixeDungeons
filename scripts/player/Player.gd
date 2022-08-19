@@ -59,23 +59,13 @@ var cam_shake : bool = false
 var is_charging : bool = false
 var slowed : bool = false
 var underwater : bool = false
-var mana_absorption_counter : int = 1
+var mana_absorption_counter : int = 5
 
-# HOW DAMAGE CALCULATION WORKS
-# Notes: Calculations omit flat damage bonus since its dependent on the skill itself
-# TYPES OF DAMAGE: Physical, Fire, Earth, Ice
-# Physical (basic attacks): attack_power + physical_dmg_bonus_%
-# Physical (charged attacks): (attack_power * 2) + physical_dmg_bonus%
-# Physical (skills): (attack_power * skill_level) + physical_dmg_bonus% 
-# Fire (skills): (attack_power * skill_level) + fire_dmg_bonus_% 
-# Ice (skills): (attack_power * skill_level) + ice_dmg_bonus_% 
-# Earth (skills): (attack_power * skill_level) + earth_dmg_bonus_% 
-# Burning (damage): (attack_power * fire_elemental_damage_level) + fire_dmg_bonus_% 
-# Bleeding (damage) : (attack_power * physical_elemental_damage_level) + physical_dmg_bonus_% 
-# Frozen (duration) : (base_multiplier * ice_elemental_damage_level) + ice_dmg_bonus_%
-# Grounded (duration) : (base_multiplier * earth_elemental_damage_level) + earth_dmg_bonus_%
+
 
 func _ready():
+	if Global.current_character == "Player":
+		$Sprite.visible = true
 	$AttackCollision.add_to_group(str(Global.attack_power + (Global.damage_bonus["physical_dmg_bonus_%"] / 100 * Global.attack_power)))
 	$OxygenBar.value = 100
 	$ChargeBar.value = 0
@@ -101,7 +91,7 @@ func _ready():
 # warning-ignore:return_value_discarded
 	connect("crystals_obtained", get_parent().get_node("RevivementCrystal/RevivementCrystalControl"), "on_player_crystal_obtained")
 	connect("life_changed", Global, "sync_hearts")
-	emit_signal("life_changed", Global.hearts)
+#	emit_signal("life_changed", Global.hearts)
 # warning-ignore:return_value_discarded
 	connect("mana_changed", Global, "sync_mana")
 	emit_signal("mana_changed", Global.mana)
@@ -141,6 +131,7 @@ func _physics_process(_delta):
 				SPEED = 380 / 2
 			else:
 				SPEED = 380
+				
 			# Movement controls
 			if velocity.x == 0 and !is_attacking and !is_gliding and !is_frozen:
 				$Sprite.play("Idle")
@@ -205,7 +196,7 @@ func _physics_process(_delta):
 				$Area2D/CollisionShape2D.disabled = true
 			if Input.is_action_just_pressed("ui_use"):
 				$ToggleArea/CollisionShape2D.disabled = false
-				yield(get_tree().create_timer(1), "timeout")
+				yield(get_tree().create_timer(0.5), "timeout")
 				$ToggleArea/CollisionShape2D.disabled = true
 	if !is_dashing and !is_gliding:
 		if underwater:
@@ -233,6 +224,8 @@ func _physics_process(_delta):
 		is_invulnerable = true
 	else:
 		is_invulnerable = false
+	
+
 	charge_meter()
 	
 	$Sprite.visible = true if Global.current_character == "Player" else false
@@ -283,7 +276,7 @@ func gp_effect():
 
 			
 func attack():
-	if Global.current_character == "Player" and Input.is_action_just_pressed("ui_attack") and !is_attacking and !is_gliding and !is_frozen and $MeleeTimer.is_stopped():
+	if Global.current_character == "Player" and Input.is_action_just_pressed("ui_attack") and !is_attacking and !is_gliding and !is_frozen and $MeleeTimer.is_stopped() and $ChargeBar.value != $ChargeBar.max_value:
 		$Sprite.play("Attack")
 		if $Sprite.flip_h:
 			$SwordSprite.visible = true
@@ -328,7 +321,7 @@ func charge_meter():
 		if Input.is_action_pressed("charge"):
 			# Max value is 100
 			$ChargeBar.visible = true
-			$ChargeBar.value += 3
+			$ChargeBar.value += 5
 			is_charging = true
 		if Input.is_action_just_released("charge") or Input.is_action_pressed("left") or Input.is_action_pressed("right") or Input.is_action_pressed("jump"):
 			# Min value is 0 (Empty)
@@ -344,7 +337,7 @@ func charge_meter():
 			Input.action_release("charge")
 			if !Global.godmode:
 				Global.mana -= 2
-				emit_signal("mana_changed", Global.mana)
+				emit_signal("mana_changed", Global.mana, "Player")
 			var ss_projectile = SUPER_SLASH_PROJECTILE.instance()
 			var hitparticle = SWORD_HIT_PARTICLE.instance()
 			var slashparticle = SWORD_SLASH_EFFECT.instance()
@@ -369,7 +362,7 @@ func charge_meter():
 		if Input.is_action_just_pressed("jump") and Global.mana >= 1 and glider_equipped and is_on_floor() and !is_attacking and !is_frozen and !underwater:
 			if !Global.godmode:
 				Global.mana -= 1
-				emit_signal("mana_changed", Global.mana)
+				emit_signal("mana_changed", Global.mana, "Player")
 			Input.action_release("charge")
 			is_charging = false
 			$ChargeBar.visible = false
@@ -383,61 +376,64 @@ func charge_meter():
 		
 # Damage and interaction
 func _on_Area2D_area_entered(area : Area2D):
-	if area.is_in_group("HealthPot"):
-		Global.healthpot_amount += 1
-		emit_signal("healthpot_obtained", Global.healthpot_amount)
-	if area.is_in_group("LifeWine"):
-		Global.lifewine_amount += 1
-		emit_signal("lifewine_obtained", Global.lifewine_amount)
-	if !Global.godmode:
-		if inv_timer.is_stopped() and !is_invulnerable and !is_dashing:
-			if area.is_in_group("Enemy") or area.is_in_group("DeflectedProjectile"):
-				take_damage(0.5)
-				add_hurt_particles(0.5)
-				is_gliding = false
-				Input.action_release("charge")
-				afterDamaged()
-				if !area.is_in_group("LightEnemy"):
+	if Global.current_character == "Player":
+		if area.is_in_group("HealthPot"):
+			Global.healthpot_amount += 1
+			emit_signal("healthpot_obtained", Global.healthpot_amount)
+		if area.is_in_group("LifeWine"):
+			Global.lifewine_amount += 1
+			emit_signal("lifewine_obtained", Global.lifewine_amount)
+		if !Global.godmode:
+			if inv_timer.is_stopped() and !is_invulnerable and !is_dashing:
+				if area.is_in_group("Enemy") or area.is_in_group("DeflectedProjectile"):
+					take_damage(1)
+					add_hurt_particles(0.5)
+					is_gliding = false
+					Input.action_release("charge")
+					afterDamaged()
+					if !area.is_in_group("LightEnemy"):
+						knockback()
+					$CampfireTimer.stop()
+				if area.is_in_group("Enemy2"):
+					Global.hearts -= 1
+					add_hurt_particles(1)
+					is_gliding = false
+					Input.action_release("charge")
+					afterDamaged()
 					knockback()
-				$CampfireTimer.stop()
-			if area.is_in_group("Enemy2"):
-				Global.hearts -= 1
-				add_hurt_particles(1)
-				is_gliding = false
+					$CampfireTimer.stop()
+			if area.is_in_group("Spike"):
+				Global.hearts -= 0.5
 				Input.action_release("charge")
 				afterDamaged()
-				knockback()
 				$CampfireTimer.stop()
-		if area.is_in_group("Spike"):
-			Global.hearts -= 0.5
-			Input.action_release("charge")
-			afterDamaged()
-			$CampfireTimer.stop()
-	if area.is_in_group("SlowingPoison"):
-		slow_player(2.0)
-	if area.is_in_group("Transporter"):
-		emit_signal("level_changed")
-	if area.is_in_group("Water"):
-		$OxygenBar.visible = true
-		var water_jump_particle = WATER_JUMP_PARTICLE.instance()
-		water_jump_particle.emitting = true
-		get_parent().add_child(water_jump_particle)
-		water_jump_particle.position = $ParticlePosition.global_position
-		$OxygenTimer.start()
-		underwater = true
-		velocity.y = 0
-		print("is underwater")
+		if area.is_in_group("SlowingPoison"):
+			slow_player(2.0)
+		if area.is_in_group("Transporter"):
+			emit_signal("level_changed")
+		if area.is_in_group("Water"):
+			$OxygenBar.visible = true
+			var water_jump_particle = WATER_JUMP_PARTICLE.instance()
+			water_jump_particle.emitting = true
+			get_parent().add_child(water_jump_particle)
+			water_jump_particle.position = $ParticlePosition.global_position
+			$OxygenTimer.start()
+			underwater = true
+			velocity.y = 0
+			print("is underwater")
 		
 func take_damage(damage : float):
-	if Global.current_character == Global.equipped_characters[0] and Global.hearts > 0:
-		Global.hearts -= damage
-		emit_signal("life_changed", Global.hearts, Global.equipped_characters[0])
-	elif Global.current_character == Global.equipped_characters[1] and Global.character2_hearts > 0:
-		Global.character2_hearts -= damage
-		emit_signal("life_changed", Global.character2_hearts, Global.equipped_characters[1])
-	elif Global.current_character == Global.equipped_characters[2] and Global.character3_hearts > 0:
-		Global.character3_hearts -= damage
-		emit_signal("life_changed", Global.character3_hearts, Global.equipped_characters[2])
+	if Global.current_character == "Player":
+		if Global.equipped_characters[0] == "Player":
+			Global.hearts -= damage
+			emit_signal("life_changed", Global.hearts, "Player")
+		elif Global.equipped_characters[1] == "Player":
+			Global.character2_hearts -= damage
+			emit_signal("life_changed", Global.character2_hearts, "Player")
+		elif Global.equipped_characters[2] == "Player":
+			Global.character3_hearts -= damage
+			emit_signal("life_changed", Global.character3_hearts, "Player")
+
 
 		
 func _on_Area2D_area_exited(area):
@@ -458,7 +454,7 @@ func afterDamaged():
 	inv_timer.start() 
 	$HurtAnimationPlayer.play("Hurt")
 	is_invulnerable = true
-	emit_signal("life_changed", Global.hearts)
+#	emit_signal("life_changed", Global.hearts)
 	$Sprite.play("Hurt")
 	if !Global.godmode:
 		$KnockbackTimer.start()
@@ -467,15 +463,15 @@ func afterDamaged():
 			Global.crystals_amount -= 1
 			emit_signal("crystals_obtained", Global.crystals_amount)
 			Global.hearts += 1
-			emit_signal("life_changed", Global.hearts)
+			emit_signal("life_changed", Global.hearts, "Player")
 			is_invulnerable = true
 			yield(get_tree().create_timer(1), "timeout")
 			is_invulnerable = false
+			$Sprite.play("Idle")
 		else:
 			dead()
 
 func add_hurt_particles(damage : float):
-	print("ouchie")
 	var hurt_particle = HURT_PARTICLE.instance()
 	hurt_particle.damage = damage * 2
 	get_parent().add_child(hurt_particle)
@@ -496,11 +492,14 @@ func _on_AttackCollision_area_entered(area):
 		if mana_absorption_counter > 0:
 			mana_absorption_counter -= 1
 		elif mana_absorption_counter == 0:
-			mana_absorption_counter = 1
-		if mana_absorption_counter == 0 and Global.mana < Global.max_mana and $ChargeBar.value != $ChargeBar.max_value:
-			Global.mana += 1
-			emit_signal("mana_changed", Global.mana)
+			mana_absorption_counter = 5
+		if mana_absorption_counter == 0 and $ChargeBar.value != $ChargeBar.max_value:
+			if Global.current_character == Global.equipped_characters[0] and Global.mana < Global.max_mana:
+				Global.mana += 1
+				emit_signal("mana_changed", Global.mana, "Player")
 
+func change_mana_value():
+	pass
 func freeze_enemy():
 	var frozen_status = FROZEN.instance()
 	var enemy = $AttackCollision.get_overlapping_areas()
@@ -525,18 +524,18 @@ func knockback():
 
 func _on_LeftDetector_area_entered(area):
 	if !Global.godmode:
-		if area.is_in_group("Enemy") or area.is_in_group("Enemy2") and is_knocked_back:
+		if is_invulnerable and area.is_in_group("Enemy") or area.is_in_group("Enemy2") and is_knocked_back:
 			if !area.is_in_group("LightEnemy"):
-				velocity.x = 1100
+				velocity.x = 1000
 				$KnockbackCooldownTimer.start()
 				velocity.y = JUMP_POWER * 0.25
 			is_healing = false
 			$HealingTimer.stop()
 func _on_RightDectector_area_entered(area):
 	if !Global.godmode:
-		if area.is_in_group("Enemy") or area.is_in_group("Enemy2") and is_knocked_back:
+		if is_invulnerable and area.is_in_group("Enemy") or area.is_in_group("Enemy2") and is_knocked_back:
 			if !area.is_in_group("LightEnemy"):
-				velocity.x = -1100
+				velocity.x = -1000
 				$KnockbackCooldownTimer.start()
 				velocity.y = JUMP_POWER * 0.25
 			is_healing = false
@@ -648,7 +647,9 @@ func on_manashrine_toggled():
 	is_healing = true
 	yield(get_tree().create_timer(2), "timeout")
 	Global.mana += Global.max_mana - Global.mana
-	emit_signal("mana_changed", Global.mana)
+	emit_signal("mana_changed", Global.mana, Global.equipped_characters[0])
+	emit_signal("mana_changed", Global.mana, Global.equipped_characters[1])
+	emit_signal("mana_changed", Global.mana, Global.equipped_characters[2])
 	is_healing = false
 	
 func on_lootbag_obtained(tier : int):
@@ -746,7 +747,7 @@ func debug_commands(cmd : String):
 			Global.hearts += Global.max_hearts - Global.hearts
 			emit_signal("life_changed", Global.hearts)
 			Global.mana += Global.max_mana - Global.mana
-			emit_signal("mana_changed", Global.mana)
+			emit_signal("mana_changed", Global.mana, "Player")
 		"killall":
 			for enemy in get_tree().get_nodes_in_group("Enemy"):
 				enemy.queue_free()
@@ -824,9 +825,9 @@ func _on_FullHealTimer_timeout():
 	is_healing = false
 	if Global.lifewine_amount > 0 and Global.hearts < Global.max_hearts:
 		Global.hearts += Global.max_hearts - Global.hearts
-		emit_signal("life_changed", Global.hearts)
+		emit_signal("life_changed", Global.hearts, Global.current_character)
 		Global.mana += Global.max_mana - Global.mana
-		emit_signal("mana_changed", Global.mana)
+		emit_signal("mana_changed", Global.mana, Global.current_character)
 		Global.lifewine_amount -= 1
 		emit_signal("lifewine_obtained", Global.lifewine_amount)
 
@@ -834,7 +835,7 @@ func _on_ManaHealTimer_timeout():
 	is_healing = false
 	if Global.manapot_amount > 0 and Global.mana < Global.max_mana:
 		Global.mana += Global.max_mana - Global.mana
-		emit_signal("mana_changed", Global.mana)
+		emit_signal("mana_changed", Global.mana, Global.current_character)
 		Global.manapot_amount -= 1
 		emit_signal("manapot_obtained", Global.manapot_amount)
 func _on_AnimationPlayer_animation_finished(anim_name):
@@ -842,7 +843,7 @@ func _on_AnimationPlayer_animation_finished(anim_name):
 func _on_GlideTimer_timeout():
 	if is_gliding and glider_equipped:
 		Global.mana -= 1
-		emit_signal("mana_changed", Global.mana)
+		emit_signal("mana_changed", Global.mana, Global.current_character)
 
 	if Global.mana >= 1 and glider_equipped:
 		$GlideTimer.start()

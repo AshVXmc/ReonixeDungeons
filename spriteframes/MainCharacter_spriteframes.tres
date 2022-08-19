@@ -11,35 +11,10 @@
 
 [resource]
 animations = [ {
-"frames": [ ExtResource( 2 ) ],
-"loop": true,
-"name": "Frozen",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 2 ), ExtResource( 7 ) ],
-"loop": true,
-"name": "Death",
-"speed": 30.0
-}, {
-"frames": [ ExtResource( 2 ), ExtResource( 7 ), ExtResource( 2 ), ExtResource( 7 ), ExtResource( 2 ), ExtResource( 7 ), ExtResource( 2 ), ExtResource( 7 ) ],
-"loop": true,
-"name": "Hurt",
-"speed": 12.0
-}, {
 "frames": [ ExtResource( 2 ), ExtResource( 1 ) ],
 "loop": false,
 "name": "Attack",
 "speed": 18.0
-}, {
-"frames": [ ExtResource( 14 ) ],
-"loop": false,
-"name": "Dash",
-"speed": 1.0
-}, {
-"frames": [ ExtResource( 1 ), ExtResource( 3 ), ExtResource( 13 ) ],
-"loop": true,
-"name": "Walk",
-"speed": 5.0
 }, {
 "frames": [ ExtResource( 2 ), ExtResource( 1 ) ],
 "loop": true,
@@ -47,14 +22,24 @@ animations = [ {
 "speed": 15.0
 }, {
 "frames": [ ExtResource( 2 ), ExtResource( 1 ) ],
-"loop": true,
-"name": "Idle",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 2 ), ExtResource( 1 ) ],
 "loop": false,
 "name": "AttackUp",
 "speed": 15.0
+}, {
+"frames": [ ExtResource( 14 ) ],
+"loop": false,
+"name": "Dash",
+"speed": 1.0
+}, {
+"frames": [ ExtResource( 2 ), ExtResource( 7 ) ],
+"loop": true,
+"name": "Death",
+"speed": 30.0
+}, {
+"frames": [ ExtResource( 2 ) ],
+"loop": true,
+"name": "Frozen",
+"speed": 5.0
 }, {
 "frames": [ ExtResource( 15 ) ],
 "loop": true,
@@ -65,4 +50,19 @@ animations = [ {
 "loop": true,
 "name": "Healing",
 "speed": 1.0
+}, {
+"frames": [ ExtResource( 2 ), ExtResource( 7 ), ExtResource( 2 ), ExtResource( 7 ), ExtResource( 2 ), ExtResource( 7 ), ExtResource( 2 ), ExtResource( 7 ), ExtResource( 2 ) ],
+"loop": true,
+"name": "Hurt",
+"speed": 12.0
+}, {
+"frames": [ ExtResource( 2 ), ExtResource( 1 ) ],
+"loop": true,
+"name": "Idle",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 1 ), ExtResource( 3 ), ExtResource( 13 ) ],
+"loop": true,
+"name": "Walk",
+"speed": 5.0
 } ]

@@ -4,7 +4,7 @@
 [ext_resource path="res://assets/particles/smoke_particle.png" type="Texture" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 29.6082, 41.8722 )
+extents = Vector2( 13.4929, 32.5417 )
 
 [sub_resource type="ParticlesMaterial" id=2]
 flag_disable_z = true
@@ -22,6 +22,7 @@ script = ExtResource( 1 )
 [node name="Area2D" type="Area2D" parent="." groups=["Airborne"]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2( -0.5, -3 )
 shape = SubResource( 1 )
 
 [node name="Particles2D" type="Particles2D" parent="."]

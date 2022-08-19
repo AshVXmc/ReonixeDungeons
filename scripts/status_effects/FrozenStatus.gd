@@ -6,11 +6,19 @@ onready var refresh_stack = 125
 var is_frozen : bool = false
 # Maximum duration of the freeze effect
 onready var max_freeze_duration = $DestroyedTimer.wait_time
+
 func _ready():
-	get_parent().remove_from_group("Enemy")
-	yield(get_tree().create_timer(2), "timeout")
-	get_parent().add_to_group("Enemy")
-	queue_free()
+	$FreezeBar.visible = false
+	$FreezeBar.value = $FreezeBar.max_value
+	$CollisionShape2D.disabled = true
+	if !get_parent().is_in_group("BurnStack"):
+		get_parent().add_to_group("Burnstack")
+		
+#func _ready():
+#	get_parent().remove_from_group("Enemy")
+#	yield(get_tree().create_timer(2), "timeout")
+#	get_parent().add_to_group("Enemy")
+#	queue_free()
 
 
 

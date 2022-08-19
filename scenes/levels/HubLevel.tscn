@@ -347,5 +347,11 @@ editor_draw_limits = true
 [node name="Goblin" parent="." instance=ExtResource( 44 )]
 position = Vector2( 1387.08, 576 )
 
+[node name="Goblin2" parent="." instance=ExtResource( 44 )]
+position = Vector2( 1036.13, 574.32 )
+
+[node name="Goblin3" parent="." instance=ExtResource( 44 )]
+position = Vector2( 294.877, 458.75 )
+
 [node name="Bat" parent="." instance=ExtResource( 46 )]
 position = Vector2( 3106.52, 187.238 )

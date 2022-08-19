@@ -2,7 +2,7 @@ class_name Goblin extends KinematicBody2D
 
 const DMG_INDICATOR : PackedScene = preload("res://scenes/particles/DamageIndicatorParticle.tscn")
 const DEATH_SMOKE : PackedScene = preload("res://scenes/particles/DeathSmokeParticle.tscn")
-onready var max_HP : int = Global.enemy_level_index * 180
+onready var max_HP : int = Global.enemy_level_index * 40
 onready var HP : int = max_HP
 export var flipped : bool = false
 var velocity = Vector2()
@@ -10,7 +10,7 @@ var direction : int = 1
 var is_dead : bool = false 
 const TYPE : String = "Enemy"
 const FLOOR = Vector2(0, -1)
-var SPEED : int = 300
+var SPEED : int = 250
 const GRAVITY : int = 45
 var is_staggered : bool = false
 const LOOT = preload("res://scenes/items/LootBag.tscn")
@@ -22,6 +22,13 @@ var is_frozen : bool = false
 var is_airborne : bool = false
 var decoyed : bool = false
 var dead : bool = false
+
+var phys_res : float = 25
+var fire_res : float = 0 
+var earth_res : float = 0 
+var ice_res : float = 0
+
+
 func _ready():
 	$HealthBar.max_value = max_HP
 	$HealthBar.value = $HealthBar.max_value
@@ -42,7 +49,7 @@ func _physics_process(delta):
 		if AREA_LEFT.overlaps_area(PLAYER) and !AREA_LEFT.overlaps_area(DECOY):
 			$Sprite.flip_h = false
 			if !$Sprite.flip_h:
-				yield(get_tree().create_timer(0.4),"timeout")
+				yield(get_tree().create_timer(0.5),"timeout")
 				velocity.x = -SPEED
 		elif AREA_LEFT.overlaps_area(DECOY):
 			$Sprite.flip_h = false
@@ -52,7 +59,7 @@ func _physics_process(delta):
 		if AREA_RIGHT.overlaps_area(PLAYER) and !AREA_RIGHT.overlaps_area(DECOY):
 			$Sprite.flip_h = true
 			if $Sprite.flip_h:
-				yield(get_tree().create_timer(0.4),"timeout")
+				yield(get_tree().create_timer(0.5),"timeout")
 				velocity.x = SPEED 
 		elif AREA_RIGHT.overlaps_area(DECOY):
 			$Sprite.flip_h = true
@@ -67,16 +74,18 @@ func _physics_process(delta):
 func _on_Area2D_area_entered(area):
 	if area.is_in_group("Sword"):
 		var groups : Array = area.get_groups()
-		for group_names in groups:	
+		for group_names in groups:
 			if groups.has("Sword"):
 				groups.erase("Sword")
 			if groups.has("physics_process"):
 				groups.erase("physics_process")
 			if !groups.has("Sword") and !groups.has("physics_process"):
-				print("HP reduced by " + str(groups.max()))
-				HP -= float(groups.max())
-				$HealthBar.value  -= float(groups.max())
-				add_damage_particles("Physical", float(groups.max()))
+				var raw_damage = float(groups.max())
+				var damage = round((raw_damage - (raw_damage * (phys_res / 100))))
+				print("HP reduced by " + str(damage))
+				HP -= float(damage)
+				$HealthBar.value  -= float(damage)
+				add_damage_particles("Physical", float(damage))
 				parse_damage()
 				break
 	if area.is_in_group("SwordCharged"):
@@ -87,10 +96,12 @@ func _on_Area2D_area_entered(area):
 			if groups.has("physics_process"):
 				groups.erase("physics_process")
 			if !groups.has("SwordCharged") and !groups.has("physics_process"):
-				print("HP reduced by " + str(groups.max()))
-				HP -= float(groups.max())
-				$HealthBar.value  -= float(groups.max())
-				add_damage_particles("Physical", float(groups.max()))
+				var raw_damage = float(groups.max())
+				var damage = (raw_damage - (raw_damage * (phys_res / 100)))
+				print("HP reduced by " + str(damage))
+				HP -= float(damage)
+				$HealthBar.value  -= float(damage)
+				add_damage_particles("Physical", float(damage))
 				parse_damage()
 				knockback()
 				break
@@ -106,6 +117,8 @@ func _on_Area2D_area_entered(area):
 				groups.erase("FireGauge1")
 			if groups.has("FireGauge2"):
 				groups.erase("FireGauge2")
+			if groups.has("LightKnockback"):
+				groups.erase("LightKnockback")
 			if groups.has("physics_process"):
 				groups.erase("physics_process")
 			if !groups.has("Fireball") and !groups.has("FireGauge1") and !groups.has("physics_process"):
@@ -113,7 +126,10 @@ func _on_Area2D_area_entered(area):
 				HP -= float(groups.max())
 				$HealthBar.value  -= float(groups.max())
 				add_damage_particles("Fire", float(groups.max()))
-				parse_damage()
+				if area.is_in_group("LightKnockback"):
+					parse_status_effect_damage()
+				else:
+					parse_damage()
 				break
 	if area.is_in_group("Burning"):
 		var damage = (0.025 * max_HP) + (Global.damage_bonus["fire_dmg_bonus_%"] / 100 * (0.025 * max_HP))
@@ -123,8 +139,8 @@ func _on_Area2D_area_entered(area):
 		add_damage_particles("Fire", damage)
 	if area.is_in_group("Airborne"):
 		is_airborne = true
-		velocity.y = -750
-		yield(get_tree().create_timer(0.125), "timeout")
+		velocity.y = -1250
+		yield(get_tree().create_timer(0.05), "timeout")
 		velocity.y = 0
 	if area.is_in_group("Player"):
 		is_staggered = true

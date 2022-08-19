@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://spriteframes/MainCharacter_spriteframes.tres" type="SpriteFrames" id=1]
 [ext_resource path="res://scripts/player/Player.gd" type="Script" id=2]
@@ -264,6 +264,9 @@ tracks/0/keys = {
 "values": [ Color( 1, 1, 1, 1 ) ]
 }
 
+[sub_resource type="CircleShape2D" id=10]
+radius = 87.67
+
 [node name="Player" type="KinematicBody2D"]
 collision_layer = 128
 collision_mask = 144
@@ -367,7 +370,6 @@ wait_time = 2.0
 one_shot = true
 
 [node name="DashUseTimer" type="Timer" parent="."]
-wait_time = 0.7
 one_shot = true
 
 [node name="GlideTimer" type="Timer" parent="."]
@@ -450,6 +452,7 @@ __meta__ = {
 }
 
 [node name="OxygenBar" type="TextureProgress" parent="."]
+visible = false
 margin_left = -53.9286
 margin_top = -70.3163
 margin_right = -17.9286
@@ -475,6 +478,11 @@ one_shot = true
 [node name="RangedAttackTimer" type="Timer" parent="."]
 wait_time = 0.25
 one_shot = true
+
+[node name="EnemyEvasionArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyEvasionArea"]
+shape = SubResource( 10 )
 
 [connection signal="timeout" from="CharacterManager/SwapCooldownTimer" to="CharacterManager" method="_on_SwapCooldownTimer_timeout"]
 [connection signal="area_entered" from="AttackCollision" to="." method="_on_AttackCollision_area_entered"]

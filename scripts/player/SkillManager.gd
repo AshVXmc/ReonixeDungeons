@@ -12,14 +12,15 @@ func _ready():
 	match Global.player_skills["PrimarySkill"]:
 		"FireSaw":
 			FIRESAW = load("res://scenes/skills/FireSaw.tscn")
-		"IceLance":
-			ICE_LANCE = load("res://scenes/skills/IceLance.tscn")
 	match Global.player_skills["SecondarySkill"]:
 		"FireFairy":
 			FIRE_FAIRY = load("res://scenes/skills/FireFairy.tscn")
 	match Global.player_skills["RangedSkill"]:
 		"Fireball":
 			FIREBALL = load("res://scenes/skills/Fireball.tscn")
+	
+	if Global.equipped_characters.has("Glaciela"):
+		ICE_LANCE = load("res://scenes/skills/IceLance.tscn")
 func on_skill_used(skill_name : String):
 	match skill_name:
 		"FireSaw":
@@ -32,16 +33,13 @@ func on_skill_used(skill_name : String):
 			fireparticle.one_shot = false
 			if !Global.godmode:
 				Global.mana -= 6
-				emit_signal("mana_changed", Global.mana)
+				emit_signal("mana_changed", Global.mana, Global.current_character)
 			get_parent().is_attacking = false
 			get_parent().get_node("AttackCollision/CollisionShape2D").disabled = true
 			# 8 is the duration of the firesaw
 			yield(get_tree().create_timer(firesaw.get_node("DestroyedTimer").wait_time),"timeout")
 			get_parent().is_using_primary_skill = false
 			get_parent().remove_child(fireparticle)
-		"IceLance":
-			get_parent().is_using_primary_skill = true
-			
 		"FireFairy":
 			get_parent().is_using_secondary_skill = true
 			var fire_fairy = FIRE_FAIRY.instance()
@@ -49,7 +47,7 @@ func on_skill_used(skill_name : String):
 			fire_fairy.position = get_parent().global_position
 			if !Global.godmode:
 				Global.mana -= 4
-				emit_signal("mana_changed", Global.mana)
+				emit_signal("mana_changed", Global.mana, Global.current_character)
 			yield(get_tree().create_timer(fire_fairy.get_node("DestroyedTimer").wait_time), "timeout")
 			get_parent().is_using_secondary_skill = false
 		"Fireball":
@@ -61,9 +59,14 @@ func on_skill_used(skill_name : String):
 			fireball.position = get_parent().get_node("Position2D").global_position
 			if !Global.godmode:
 				Global.mana -= 2
-				emit_signal("mana_changed", Global.mana)
+				emit_signal("mana_changed", Global.mana, Global.current_character)
 			get_parent().is_attacking = false
 			get_parent().get_node("AttackCollision/CollisionShape2D").disabled = true
-
+		"IceLance":
+			print("ICE LANCE GO")
+			get_parent().is_using_primary_skill = true
+			var icelance = ICE_LANCE.instance()
+			get_parent().get_parent().add_child(icelance)
+			icelance.position = global_position
 
 	

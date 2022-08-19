@@ -24,9 +24,7 @@ func get_closest_enemy():
 	return closest_enemy
 
 func _process(delta):
-	$CanvasLayer/Control/Main/PrimarySkillSelect/EquippedPrimary.text = "Equipped: " + Global.player_skills["PrimarySkill"]
-	$CanvasLayer/Control/Main/SecondarySkillSelect/EquippedSecondary.text = "Equipped: " + Global.player_skills["SecondarySkill"]
-	$CanvasLayer/Control/Main/RangedSkillSelect/EquippedRanged.text = "Equipped: " + Global.player_skills["RangedSkill"]
+
 	enemy = get_closest_enemy()
 	if enemy and enemy.get_node("Area2D").overlaps_area($EnemyDetector):
 		enemy_is_nearby = true
@@ -60,8 +58,8 @@ func _on_CloseButton_pressed():
 	$CanvasLayer/Control.visible = false
 
 
-func _on_PrimarySkillSelect_pressed():
-	$CanvasLayer/PrimarySkill.visible = true
+#func _on_PrimarySkillSelect_pressed():
+#	$CanvasLayer/PrimarySkill.visible = true
 
 
 func _on_PrimaryCloseButton_pressed():

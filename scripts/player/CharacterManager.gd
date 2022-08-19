@@ -1,49 +1,63 @@
 class_name CharacterManager extends Node2D
 
-var GLACIELA : PackedScene 
-var glaciela
+var GLACIELA : PackedScene = preload("res://scenes/characters/Glaciela.tscn")
+var glaciela = GLACIELA.instance()
+var PLAYER : PackedScene
 
 
 func _ready():
-	if Global.equipped_characters.has("Glaciela"):
+	update_party("Glaciela")
+		
+func update_party(character : String):
+	if Global.equipped_characters.has("Glaciela") and character == "Glaciela":
 		GLACIELA = load("res://scenes/characters/Glaciela.tscn")
 		glaciela = GLACIELA.instance()
 		add_child(glaciela)
-		glaciela.visible = false
-		
+		if Global.current_character == "Glaciela":
+			glaciela.visible = true
+		else:
+			glaciela.visible = false
+#	if Global.equipped_characters.has("Player") and character == "Player":
+#		GLACIELA = load("res://scenes/characters/Glaciela.tscn")
+#		glaciela = GLACIELA.instance()
+#		add_child(glaciela)
+#		if Global.current_character == "Glaciela":
+#			glaciela.visible = true
+#		else:
+#			glaciela.visible = false
 func _process(delta):
 	change_teammates()
-	
+
 	
 func change_teammates():
-	if $SwapCooldownTimer.is_stopped():
-		if Input.is_action_just_pressed("slot_1"):
-			Global.current_character = Global.equipped_characters[0]
-			swap_in_character(Global.equipped_characters[0])
-			swap_out_character(Global.equipped_characters[1])
-			swap_out_character(Global.equipped_characters[2])
-			$SwapCooldownTimer.start()
-		elif Input.is_action_just_pressed("slot_2"):
-			Global.current_character = Global.equipped_characters[1]
-			swap_in_character(Global.equipped_characters[1])
-			swap_out_character(Global.equipped_characters[0])
-			swap_out_character(Global.equipped_characters[2])
-			$SwapCooldownTimer.start()
-		elif Input.is_action_just_pressed("slot_3"):
-			Global.current_character = Global.equipped_characters[2]
-			swap_in_character(Global.equipped_characters[2])
-			swap_out_character(Global.equipped_characters[0])
-			swap_out_character(Global.equipped_characters[1])
-			$SwapCooldownTimer.start()			
+	if Input.is_action_just_pressed("slot_1"):
+		Global.current_character = Global.equipped_characters[0]
+		swap_in_character(Global.equipped_characters[0])
+		swap_out_character(Global.equipped_characters[1])
+		swap_out_character(Global.equipped_characters[2])
+	elif Input.is_action_just_pressed("slot_2"):
+		Global.current_character = Global.equipped_characters[1]
+		swap_in_character(Global.equipped_characters[1])
+		swap_out_character(Global.equipped_characters[0])
+		swap_out_character(Global.equipped_characters[2])
+	elif Input.is_action_just_pressed("slot_3"):
+		Global.current_character = Global.equipped_characters[2]
+		swap_in_character(Global.equipped_characters[2])
+		swap_out_character(Global.equipped_characters[0])
+		swap_out_character(Global.equipped_characters[1])
 		
 func swap_in_character(character):
 	match character:
 		"Glaciela":
-			glaciela.visible = true
+			if glaciela:
+				glaciela.visible = true
+
 func swap_out_character(character):
 	match character:
 		"Glaciela":
-			glaciela.visible = false
+			if glaciela:
+				glaciela.visible = false
+
 
 
 func _on_SwapCooldownTimer_timeout():

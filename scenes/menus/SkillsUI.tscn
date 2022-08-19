@@ -8,7 +8,7 @@
 [ext_resource path="res://assets/UI/mana_cost_4.png" type="Texture" id=6]
 [ext_resource path="res://assets/UI/mana_cost_6.png" type="Texture" id=7]
 [ext_resource path="res://assets/UI/icelance_skill_icon.png" type="Texture" id=8]
-[ext_resource path="res://assets/UI/hotbar.png" type="Texture" id=9]
+[ext_resource path="res://assets/UI/empty_character_icon.png" type="Texture" id=9]
 [ext_resource path="res://assets/UI/ice_decoy_skill_icon.png" type="Texture" id=10]
 
 [sub_resource type="DynamicFont" id=1]

@@ -50,15 +50,12 @@ shape = SubResource( 1 )
 
 [node name="BurningBar" type="TextureProgress" parent="."]
 margin_left = -36.0541
-margin_top = -99.0541
+margin_top = -104.054
 margin_right = -18.0541
-margin_bottom = -93.0541
+margin_bottom = -98.0541
 rect_scale = Vector2( 4, 4 )
 texture_under = ExtResource( 2 )
 texture_progress = ExtResource( 4 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [connection signal="area_entered" from="." to="." method="_on_BurningStatus_area_entered"]
 [connection signal="timeout" from="DamageTickTimer" to="." method="_on_DamageTickTimer_timeout"]
