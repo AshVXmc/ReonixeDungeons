@@ -1,4 +1,4 @@
-[gd_scene load_steps=49 format=2]
+[gd_scene load_steps=50 format=2]
 
 [ext_resource path="res://tilesets/HubLevelTileset.tres" type="TileSet" id=1]
 [ext_resource path="res://assets/terrain/deep_woods/background_deep_woods.png" type="Texture" id=2]
@@ -46,6 +46,7 @@
 [ext_resource path="res://scenes/enemies/Goblin.tscn" type="PackedScene" id=44]
 [ext_resource path="res://scenes/menus/InventoryUI.tscn" type="PackedScene" id=45]
 [ext_resource path="res://scenes/enemies/Bat.tscn" type="PackedScene" id=46]
+[ext_resource path="res://scenes/status_effects/AttackBuff.tscn" type="PackedScene" id=47]
 
 [sub_resource type="TileSet" id=1]
 0/name = "deep_woods_spritesheet.png 0"
@@ -355,3 +356,6 @@ position = Vector2( 294.877, 458.75 )
 
 [node name="Bat" parent="." instance=ExtResource( 46 )]
 position = Vector2( 3106.52, 187.238 )
+
+[node name="AttackBuff" parent="." instance=ExtResource( 47 )]
+position = Vector2( 487.545, 573 )

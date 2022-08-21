@@ -113,15 +113,15 @@ func _on_Area2D_area_entered(area):
 		for group_names in groups:	
 			if groups.has("Fireball"):
 				groups.erase("Fireball")
-			if groups.has("FireGauge1"):
-				groups.erase("FireGauge1")
-			if groups.has("FireGauge2"):
-				groups.erase("FireGauge2")
+			if groups.has("FireGaugeOne"):
+				groups.erase("FireGaugeOne")
+			if groups.has("FireGaugeTwo"):
+				groups.erase("FireGaugeTwo")
 			if groups.has("LightKnockback"):
 				groups.erase("LightKnockback")
 			if groups.has("physics_process"):
 				groups.erase("physics_process")
-			if !groups.has("Fireball") and !groups.has("FireGauge1") and !groups.has("physics_process"):
+			if !groups.has("Fireball") and !groups.has("FireGaugeOne") and !groups.has("physics_process"):
 				print("HP reduced by " + str(groups.max()))
 				HP -= float(groups.max())
 				$HealthBar.value  -= float(groups.max())

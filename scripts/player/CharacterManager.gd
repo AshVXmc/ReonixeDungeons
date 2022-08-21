@@ -35,16 +35,20 @@ func change_teammates():
 		swap_in_character(Global.equipped_characters[0])
 		swap_out_character(Global.equipped_characters[1])
 		swap_out_character(Global.equipped_characters[2])
+		print(Global.current_character)
 	elif Input.is_action_just_pressed("slot_2"):
 		Global.current_character = Global.equipped_characters[1]
 		swap_in_character(Global.equipped_characters[1])
 		swap_out_character(Global.equipped_characters[0])
 		swap_out_character(Global.equipped_characters[2])
+		print(Global.current_character)
 	elif Input.is_action_just_pressed("slot_3"):
 		Global.current_character = Global.equipped_characters[2]
 		swap_in_character(Global.equipped_characters[2])
 		swap_out_character(Global.equipped_characters[0])
 		swap_out_character(Global.equipped_characters[1])
+		print(Global.current_character)
+	
 		
 func swap_in_character(character):
 	match character:

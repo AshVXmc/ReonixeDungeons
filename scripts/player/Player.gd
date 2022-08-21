@@ -395,7 +395,7 @@ func _on_Area2D_area_entered(area : Area2D):
 						knockback()
 					$CampfireTimer.stop()
 				if area.is_in_group("Enemy2"):
-					Global.hearts -= 1
+					take_damage(2)
 					add_hurt_particles(1)
 					is_gliding = false
 					Input.action_release("charge")
@@ -458,6 +458,7 @@ func afterDamaged():
 	$Sprite.play("Hurt")
 	if !Global.godmode:
 		$KnockbackTimer.start()
+		
 	if Global.hearts <= 0:
 		if Global.crystals_amount > 0:
 			Global.crystals_amount -= 1

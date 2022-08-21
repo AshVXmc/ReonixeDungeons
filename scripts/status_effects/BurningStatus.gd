@@ -51,17 +51,17 @@ func _on_BurningStatus_area_entered(area):
 
 func _on_Detector_area_entered(area):
 	if !is_burning:
-		if area.is_in_group("FireGauge1"):
+		if area.is_in_group("FireGaugeOne"):
 			reduce_burn_stack(25)
-		elif area.is_in_group("FireGauge2"):
+		elif area.is_in_group("FireGaugeTwo"):
 			reduce_burn_stack(35)
 	elif is_burning:
-		if area.is_in_group("FireGauge1") and refresh_stack > 0:
+		if area.is_in_group("FireGaugeOne") and refresh_stack > 0:
 			refresh_stack -= 25
 			print(refresh_stack)
-		elif area.is_in_group("FireGauge2") and refresh_stack > 0:
+		elif area.is_in_group("FireGaugeTwo") and refresh_stack > 0:
 			refresh_stack -= 35
 		if refresh_stack <= 0:
-			if area.is_in_group("FireGauge1") or area.is_in_group("FireGauge2"):
+			if area.is_in_group("FireGaugeOne") or area.is_in_group("FireGaugeTwo"):
 				$DestroyedTimer.start()
 				refresh_stack = 150

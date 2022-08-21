@@ -175,20 +175,20 @@ texture = ExtResource( 6 )
 margin_right = 40.0
 margin_bottom = 40.0
 
-[node name="IceDecoy" type="Control" parent="Control/SecondarySkill/Glaciela"]
+[node name="IcebornIllusion" type="Control" parent="Control/SecondarySkill/Glaciela"]
 margin_right = 40.0
 margin_bottom = 40.0
 
-[node name="Sprite" type="Sprite" parent="Control/SecondarySkill/Glaciela/IceDecoy"]
+[node name="Sprite" type="Sprite" parent="Control/SecondarySkill/Glaciela/IcebornIllusion"]
 position = Vector2( 270, 190 )
 scale = Vector2( 4, 4 )
 texture = ExtResource( 10 )
 
-[node name="IcedecoyTimer" type="Timer" parent="Control/SecondarySkill/Glaciela/IceDecoy"]
+[node name="IcebornIllusionTimer" type="Timer" parent="Control/SecondarySkill/Glaciela/IcebornIllusion"]
 wait_time = 10.0
 one_shot = true
 
-[node name="Label" type="Label" parent="Control/SecondarySkill/Glaciela/IceDecoy"]
+[node name="Label" type="Label" parent="Control/SecondarySkill/Glaciela/IcebornIllusion"]
 margin_left = 248.0
 margin_top = 170.0
 margin_right = 287.0
@@ -201,7 +201,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ManaCost" type="Sprite" parent="Control/SecondarySkill/Glaciela/IceDecoy"]
+[node name="ManaCost" type="Sprite" parent="Control/SecondarySkill/Glaciela/IcebornIllusion"]
 position = Vector2( 271, 238 )
 scale = Vector2( 2, 2 )
 texture = ExtResource( 6 )

@@ -2,14 +2,16 @@ extends Node
 
 # GLOBALLY ACCESSED VARIABLES
 var max_hearts : float = 5
+var character_2_max_hearts : float = 5
+var character_3_max_hearts : float = 5
 var hearts : float = max_hearts
 var max_mana : int = 8
 var mana : int = max_mana
 var attack_power : int = 5
 
-var character2_hearts = max_hearts
+var character2_hearts : float= character_2_max_hearts
 var character2_mana = max_mana
-var character3_hearts = max_hearts
+var character3_hearts : float = character_3_max_hearts
 var character3_mana = max_mana
 
 var glaciela_attack : int = 5
@@ -99,6 +101,8 @@ var godmode : bool = false
 
 func reset_player_data():
 	Global.hearts = 5
+	Global.character2_hearts = 5
+	Global.character3_hearts = 5
 	Global.mana = 8
 	Global.healthpot_amount = 0
 	Global.lifewine_amount = 0
