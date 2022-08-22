@@ -2,7 +2,7 @@ class_name Goblin extends KinematicBody2D
 
 const DMG_INDICATOR : PackedScene = preload("res://scenes/particles/DamageIndicatorParticle.tscn")
 const DEATH_SMOKE : PackedScene = preload("res://scenes/particles/DeathSmokeParticle.tscn")
-onready var max_HP : int = Global.enemy_level_index * 40
+onready var max_HP : int = Global.enemy_level_index * 400
 onready var HP : int = max_HP
 export var flipped : bool = false
 var velocity = Vector2()
@@ -23,7 +23,7 @@ var is_airborne : bool = false
 var decoyed : bool = false
 var dead : bool = false
 
-var phys_res : float = 25
+var phys_res : float = 0
 var fire_res : float = 0 
 var earth_res : float = 0 
 var ice_res : float = 0

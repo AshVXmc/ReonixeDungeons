@@ -329,7 +329,7 @@ position = Vector2( 878, 612 )
 position = Vector2( 582.75, 592.025 )
 
 [node name="Player" parent="." instance=ExtResource( 8 )]
-position = Vector2( 702.491, 511 )
+position = Vector2( 310, 596.291 )
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position = Vector2( -24.7189, -147.43 )
@@ -348,14 +348,12 @@ editor_draw_limits = true
 [node name="Goblin" parent="." instance=ExtResource( 44 )]
 position = Vector2( 1387.08, 576 )
 
-[node name="Goblin2" parent="." instance=ExtResource( 44 )]
-position = Vector2( 1036.13, 574.32 )
-
 [node name="Goblin3" parent="." instance=ExtResource( 44 )]
-position = Vector2( 294.877, 458.75 )
+position = Vector2( 857.5, 604.683 )
 
 [node name="Bat" parent="." instance=ExtResource( 46 )]
 position = Vector2( 3106.52, 187.238 )
 
 [node name="AttackBuff" parent="." instance=ExtResource( 47 )]
 position = Vector2( 487.545, 573 )
+duration = 3.0

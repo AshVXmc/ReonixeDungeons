@@ -34,6 +34,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/enemies/Arrow.gd"
 }, {
+"base": "Area2D",
+"class": "AttackBuff",
+"language": "GDScript",
+"path": "res://scripts/status_effects/AttackBuff.gd"
+}, {
 "base": "KinematicBody2D",
 "class": "Bat",
 "language": "GDScript",
@@ -385,6 +390,7 @@ _global_script_class_icons={
 "AlchemyGuidebook": "",
 "AlphaGuardian": "",
 "Arrow": "",
+"AttackBuff": "",
 "Bat": "",
 "BossLevelTransporter": "",
 "BowGoblin": "",

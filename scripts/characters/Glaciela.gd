@@ -9,7 +9,9 @@ signal life_changed(amount, character)
 var target
 var atkbuffmulti = 0
 var atkbuffdur = 0
-
+var buffed_from_attack_crystals = false
+var prev_attack_power : Array
+var number_of_atk_buffs : int = 0
 func _ready():
 	
 	connect("life_changed", get_parent().get_parent().get_parent().get_node("HeartUI/Life"), "on_player_life_changed")
@@ -18,7 +20,7 @@ func _ready():
 	connect("skill_used", get_parent().get_parent().get_node("SkillManager"), "on_skill_used")
 	$AnimatedSprite.play("Default")
 	$SpearSprite.visible = false
-	$AttackCollision.add_to_group(str(Global.glaciela_attack))
+	$AttackCollision.add_to_group(str(Global.glaciela_attack * 2))
 
 
 
@@ -108,27 +110,76 @@ func set_weapon_to_invisible():
 # If active character gets into contact with an area with the group "Attackbufftimer"
 # Do the thing where it iterates for a number which is the multiplier
 
-func set_attack_power(multiplier : float = 2, duration : float = 5):
-	var current_group = $AttackCollision.get_groups()
-	var current_group_to_clear = $AttackCollision.get_groups()
-	var current_attack_power : float
+func set_attack_power(amount : float, duration : float):
+	# DONT ASK THIS IS SO COMPLICATED ON GODDDD
+		buffed_from_attack_crystals = true
+		number_of_atk_buffs += 1
+		var current_group = $AttackCollision.get_groups()
+		
+		var buffed_attack_power : float
+		var other_groups : Array
+		for g in current_group:
+			# Get other group tags
+			if float(g) == 0 and !"_" in current_group and prev_attack_power.empty():
+				other_groups.append(g)
+				$AttackCollision.remove_from_group(g)
+			# Get current attack value
+			if !float(g) == 0:
+				prev_attack_power.insert((number_of_atk_buffs - 1), float(g)) 
+				$AttackCollision.remove_from_group(g)
+		buffed_attack_power = prev_attack_power[number_of_atk_buffs - 1] + amount
+		$AttackCollision.add_to_group(str(buffed_attack_power))
+		print("Buffed: " + str(buffed_attack_power))
+		for members in other_groups:
+			$AttackCollision.add_to_group(members)
+		yield(get_tree().create_timer(duration), "timeout")
+		for g in $AttackCollision.get_groups():
+			if int(g) != 0:
+				
+				$AttackCollision.remove_from_group(g)
+		$AttackCollision.remove_from_group(str(buffed_attack_power))
+		$AttackCollision.add_to_group(str(prev_attack_power[number_of_atk_buffs - 1]))
+		print("DeBuffed: " + str(prev_attack_power[number_of_atk_buffs - 1]))
+		print($AttackCollision.get_groups())
+		for members in other_groups:
+			$AttackCollision.add_to_group(members)
+			
+		
+		
+		number_of_atk_buffs -= 1
+		prev_attack_power.remove(number_of_atk_buffs)
+		buffed_from_attack_crystals = false
 
-	# Clear groups
-	for g in current_group:
-		if !"_" in current_group:
-			$AttackCollision.remove_from_group(g)
-	# Get initial attack value
-	for c in current_group:
-		if int(c) == 0:
-			current_group.remove(c)
-		else:
-			current_attack_power = float(c)
-		print(current_attack_power)
-	$AttackCollision.add_to_group(str(current_attack_power * multiplier))
-	$AttackCollision.add_to_group("Sword")
-	yield(get_tree().create_timer(duration), "timeout")
-	$AttackCollision.add_to_group(str(current_attack_power))
-	$AttackCollision.add_to_group("Sword")
+
+#	buffed_from_attack_crystals = true
+#	var current_group = $AttackCollision.get_groups()
+#	var current_group_to_clear = $AttackCollision.get_groups()
+#	var current_attack_power : float
+#	var atk_after_buff : float
+#	# Clear groups
+#	for g in current_group:
+#		if !"_" in current_group:
+#			$AttackCollision.remove_from_group(g)
+#	# Get initial attack value
+#	for c in current_group:
+#		if int(c) == 0:
+#			current_group.remove(c)
+#		else:
+#			current_attack_power = float(c)
+#		print(current_attack_power)
+#
+#	atk_after_buff = Global.attack_power + amount
+#	$AttackCollision.add_to_group(str(atk_after_buff))
+#	print("Buffed: " + str(atk_after_buff))
+#	$AttackCollision.add_to_group("Sword")
+#	yield(get_tree().create_timer(duration), "timeout")
+#	atkbuffdur = 0
+#	atkbuffmulti = 0
+#	$AttackCollision.remove_from_group(str(atk_after_buff))
+#	$AttackCollision.add_to_group(str(current_attack_power))
+#	print("DeBuffed: " + str(current_attack_power))
+#	$AttackCollision.add_to_group("Sword")
+#	buffed_from_attack_crystals = false
 
 func _on_AttackCollision_area_entered(area):
 	if area.is_in_group("Enemy") or area.is_in_group("Enemy2"):
@@ -196,22 +247,10 @@ func _on_Area2D_area_entered(area):
 			get_parent().get_parent().slow_player(2.0)
 		if area.is_in_group("Transporter"):
 			get_parent().get_parent().emit_signal("level_changed")
-		if area.is_in_group("AttackBuffMultiplier"):
-			var groups = area.get_groups()
-			for g in groups:
-				if groups.has("AttackBuffMultiplier"):
-					groups.remove("AttackBuffMultiplier")
-				atkbuffmulti = float(g)
-				print("BUFF REACHED")
-		if area.is_in_group("AttackBuffDuration"):
-			var groups = area.get_groups()
-			for g in groups:
-				if groups.has("AttackBuffDuration"):
-					groups.remove("AttackBuffDuration")
-				atkbuffdur = float(g)
-				print("TIMER REACHED")
 		if area.is_in_group("AttackBuff"):
-			set_attack_power(atkbuffmulti, atkbuffdur)
+			atkbuffmulti = area.amount
+			atkbuffdur = area.duration
+			set_attack_power(float(atkbuffmulti), float(atkbuffdur))
 			print("STRONK")
 #	if area.is_in_group("Enemy") and !get_parent().get_parent().is_invulnerable:
 #		$AnimationPlayer.play("Hurt")

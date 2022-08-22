@@ -1,30 +1,23 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://assets/misc/life_wine.png" type="Texture" id=1]
+[ext_resource path="res://scripts/status_effects/AttackBuff.gd" type="Script" id=1]
+[ext_resource path="res://assets/misc/life_wine.png" type="Texture" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 31.1132, 43.3062 )
+extents = Vector2( 20.5232, 31.3687 )
 
-[node name="AttackBuff" type="Node2D"]
+[node name="AttackBuff" type="Area2D" groups=["AttackBuff"]]
+script = ExtResource( 1 )
+amount = 2.0
+duration = 2.0
 
-[node name="AttackBuffMultiplier" type="Area2D" parent="." groups=["2", "AttackBuffMultiplier"]]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackBuffMultiplier"]
-position = Vector2( -0.0619431, 0.0330391 )
-shape = SubResource( 1 )
-
-[node name="AttackBuffDuration" type="Area2D" parent="." groups=["5", "AttackBuffDuration"]]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackBuffDuration"]
-position = Vector2( -0.0619431, 0.0330391 )
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( -0.140793, -0.0946007 )
 shape = SubResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="."]
-scale = Vector2( 5, 5 )
-texture = ExtResource( 1 )
+position = Vector2( 0.618714, -0.441944 )
+scale = Vector2( 3.77318, 3.05945 )
+texture = ExtResource( 2 )
 
-[node name="AttackBuff" type="Area2D" parent="." groups=["AttackBuff"]]
-
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="AttackBuff"]
-position = Vector2( -0.0619431, 0.0330391 )
-shape = SubResource( 1 )
+[connection signal="area_entered" from="." to="." method="_on_AttackBuff_area_entered"]
