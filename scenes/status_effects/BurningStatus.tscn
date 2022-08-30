@@ -19,7 +19,7 @@ orbit_velocity_random = 0.0
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 27.0468, 31.8198 )
 
-[node name="BurningStatus" type="Area2D" groups=["5", "Burning"]]
+[node name="BurningStatus" type="Area2D" groups=["Burning"]]
 script = ExtResource( 1 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -49,11 +49,11 @@ scale = Vector2( 2, 2 )
 shape = SubResource( 1 )
 
 [node name="BurningBar" type="TextureProgress" parent="."]
-margin_left = -36.0541
-margin_top = -104.054
-margin_right = -18.0541
-margin_bottom = -98.0541
-rect_scale = Vector2( 4, 4 )
+margin_left = -36.0
+margin_top = -125.0
+margin_right = -18.0
+margin_bottom = -119.0
+rect_scale = Vector2( 4, 3 )
 texture_under = ExtResource( 2 )
 texture_progress = ExtResource( 4 )
 

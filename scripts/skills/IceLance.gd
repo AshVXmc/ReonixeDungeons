@@ -8,9 +8,12 @@ var target = null
 var velocity = Vector2.ZERO
 var acceleration = Vector2.ZERO
 onready var direction
+onready var atkbonus
 enum {
 	Left, Right
 }
+
+
 
 
 # How the skill works:
@@ -18,6 +21,7 @@ enum {
 # After some time, the ice lance homes towards the player and gets destroyed upon contact with the player.
 func _ready():
 	direction = Right
+	add_to_group(str(Global.glaciela_attack))
 func _physics_process(delta):
 	if !$TargetPlayerTimer.is_stopped():
 		if direction == Right:

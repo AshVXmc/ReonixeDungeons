@@ -1,15 +1,26 @@
 {
 	"3*common": [
-		"CommonMonsterDust",
-		"GoblinScales"
+		"CommonMonsterDust5",
+		"GoblinScales5",
+		"CommonMonsterDust10",
+		"GoblinScales10",
+		"LesserEXPCatalyst5",
+		"LesserEXPCatalyst8",
+		"LesserEXPCatalyst12",
+		"CommonEXPCatalyst5",
+		"CommonEXPCatalyst8",
+		"GreaterEXPCatalyst5",
+		"Healthpot1",
+		"Healthpot2",
+		"Healthpot3",
+		"Manapot1",
+		"Manapot2",
+		"Weapon (3*)"
 	],
-	"3*uncommon":[
-		"Healthpot",
-		"Manapot"
+	"4*": [
+		"Weapon (4*)", 
+		"Character",
+		"RareIngredient"
 	],
-	"3*rare":[
-		"Lifewine"
-	],
-	"4*": ["IceLance_PrimarySkill", "DecoyPuppet_SecondarySkill"],
 	"5*": []
 }

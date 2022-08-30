@@ -7,9 +7,11 @@ var velocity = Vector2()
 var direction : int = 1
 var destroyed : bool = false
 const SMALL_FIRE_PARTICLE : PackedScene = preload("res://scenes/particles/FireHitParticle.tscn")
+var atkbonus = 0
+onready var burncalculation = Global.attack_power * 0.5
 
 func _ready():
-	add_to_group(str(attack * Global.skill_levels["FireSawLevel"]))
+	add_to_group(str(attack * Global.skill_levels["FireSawLevel"] + atkbonus))
 	$AnimationPlayer.play("SPIN")
 
 func _on_DestroyedTimer_timeout():

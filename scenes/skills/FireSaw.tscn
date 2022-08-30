@@ -48,7 +48,7 @@ tracks/0/keys = {
 "values": [ 0.0, 360.0 ]
 }
 
-[node name="FireSaw" type="Area2D" groups=["FireGaugeOne", "Fireball"]]
+[node name="FireSaw" type="Area2D" groups=["FireGauge", "FireGaugeOne", "Fireball"]]
 script = ExtResource( 2 )
 __meta__ = {
 "_edit_group_": true

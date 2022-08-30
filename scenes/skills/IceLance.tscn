@@ -100,7 +100,7 @@ orbit_velocity_random = 0.0
 [sub_resource type="CircleShape2D" id=5]
 radius = 25.0
 
-[node name="IceLance" type="Area2D" groups=["FrozenGauge1", "Ice"]]
+[node name="IceLance" type="Area2D" groups=["FrozenGaugeOne", "Ice"]]
 position = Vector2( 319.612, 159.099 )
 script = ExtResource( 2 )
 __meta__ = {

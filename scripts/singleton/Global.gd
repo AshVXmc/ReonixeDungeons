@@ -2,20 +2,24 @@ extends Node
 
 # GLOBALLY ACCESSED VARIABLES
 var max_hearts : float = 5
+
 var character_2_max_hearts : float = 5
 var character_3_max_hearts : float = 5
 var hearts : float = max_hearts
 var max_mana : int = 8
 var mana : int = max_mana
-var attack_power : int = 5
+var attack_power : int = 10
 
 var character2_hearts : float= character_2_max_hearts
+var character2_max_mana = max_mana
 var character2_mana = max_mana
 var character3_hearts : float = character_3_max_hearts
+var character3_max_mana = max_mana
 var character3_mana = max_mana
 
-var glaciela_attack : int = 5
+var glaciela_attack : int = 10
 var glaciela_health : int = max_hearts
+
 
 # Crit rate and Crit damage in %
 var crit_rate : float  = 10
@@ -25,9 +29,7 @@ var base_damage_taken : int = 5
 var healthpot_amount : int = 0
 var lifewine_amount : int = 0
 var manapot_amount : int = 0
-var opals_amount : int = 0
-var common_monster_dust_amount : int = 0
-var goblin_scales_amount : int = 0
+
 var crystals_amount : int = 0
 var opened_chests := []
 var soul_token_amount : int = 0
@@ -47,8 +49,15 @@ var activated_portals : Array
 var enemy_level_index : int = 1
 var is_opening_an_UI : bool = false
 var pity_4_star : int = 10
-var pity_5_star : int = 50
-var test
+var pity_5_star : int = 60 # Soft pity at 50
+
+# Resources
+var opals_amount : int = 0
+var common_monster_dust_amount : int = 0
+var goblin_scales_amount : int = 0
+var tokens_amount : int = 0
+var lesser_soul_catalyst : int= 0
+
 
 # Skills that the player currently equips
 var player_skills : Dictionary = {
@@ -57,8 +66,17 @@ var player_skills : Dictionary = {
 	"RangedSkill" : ""
 }
 
+var player_skill_multipliers : Dictionary = {
+	"BasicAttack": 100,
+	"ChargedAttack": 150,
+	"FireSaw": 100,
+	"FireFairy": 25,
+}
+
+
+
 var current_character : String 
-var equipped_characters : Array = ["Player", "Glaciela", ""]
+var equipped_characters : Array = ["Glaciela", "Player", ""]
 var unlocked_characters : Array = ["Player", "Glaciela", "Domiguine"]
 
 # The level of skills. Higher levels = more damage and utility etc.
@@ -66,6 +84,7 @@ var skill_levels : Dictionary = {
 	"FireSawLevel": 1,
 	"FireFairyLevel": 1,
 	"FireballLevel": 1,
+	"IceLanceLevel": 1,
 }
 
 var damage_bonus : Dictionary = {
@@ -143,11 +162,20 @@ func save_player_data():
 		"Level" : Global.levelpath,
 		"MaxHealth": Global.max_hearts ,
 		"Health" : Global.hearts ,
+		"Char2MaxHealth": Global.character_2_max_hearts,
+		"Char2Health": Global.character2_hearts,
+		"Char3MaxHealth": Global.character_3_max_hearts,
+		"Char3Health": Global.character3_hearts,
 		"MaxMana" : Global.max_mana ,
 		"Mana" : Global.mana ,
+		"Char2MaxMana": Global.character2_max_mana,
+		"Char2Mana": Global.character2_mana,
+		"Char3MaxMana": Global.character3_max_mana,
+		"Char3Mana": Global.character3_mana,
 		"4StarPity": Global.pity_4_star,
 		"5StarPity": Global.pity_5_star,
 		"AttackPower": Global.attack_power,
+		"GlacielaAttackPower": Global.glaciela_attack,
 		"EnemyLevelIndex": Global.enemy_level_index,
 		"Healthpot": Global.healthpot_amount ,
 		"LifeWine" : Global.lifewine_amount,

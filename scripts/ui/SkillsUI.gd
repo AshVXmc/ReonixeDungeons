@@ -62,13 +62,26 @@ func _process(delta):
 		if !$PrimarySkill/Player/FireSaw/FiresawTimer.is_stopped():
 			$PrimarySkill/Player/FireSaw/Label.text = str(round($PrimarySkill/Player/FireSaw/FiresawTimer.time_left))
 		elif $PrimarySkill/Player/FireSaw/FiresawTimer.is_stopped():
-			if Global.mana >= firesawcost:
-				$PrimarySkill/Player/FireSaw/Sprite.self_modulate.a = 1.0
-			else:
-				$PrimarySkill/Player/FireSaw/Sprite.self_modulate.a = 0.65
-			$PrimarySkill/Player/FireSaw/Label.text = ""
-		if Global.mana < firesawcost:
-			$PrimarySkill/Player/FireSaw/Sprite.self_modulate.a = 0.65
+			if Global.equipped_characters[0] == "Player":
+				if Global.mana >= firesawcost:
+					$PrimarySkill/Player/FireSaw/Sprite.self_modulate.a = 1.0
+				else:
+					$PrimarySkill/Player/FireSaw/Sprite.self_modulate.a = 0.65
+				$PrimarySkill/Player/FireSaw/Label.text = ""
+			elif Global.equipped_characters[1] == "Player":
+				if Global.character2_mana >= firesawcost:
+					$PrimarySkill/Player/FireSaw/Sprite.self_modulate.a = 1.0
+				else:
+					$PrimarySkill/Player/FireSaw/Sprite.self_modulate.a = 0.65
+				$PrimarySkill/Player/FireSaw/Label.text = ""
+			elif Global.equipped_characters[2] == "Player":
+				if Global.character3_mana >= firesawcost:
+					$PrimarySkill/Player/FireSaw/Sprite.self_modulate.a = 1.0
+				else:
+					$PrimarySkill/Player/FireSaw/Sprite.self_modulate.a = 0.65
+				$PrimarySkill/Player/FireSaw/Label.text = ""
+#		if Global.mana < firesawcost:
+#			$PrimarySkill/Player/FireSaw/Sprite.self_modulate.a = 0.65
 		
 		if !$SecondarySkill/Player/FireFairy/FirefairyTimer.is_stopped():
 			$SecondarySkill/Player/FireFairy/Label.text = str(round($SecondarySkill/Player/FireFairy/FirefairyTimer.time_left))
@@ -78,8 +91,7 @@ func _process(delta):
 			else:
 				$SecondarySkill/Player/FireFairy/Sprite.self_modulate.a = 0.65
 			$SecondarySkill/Player/FireFairy/Label.text = ""
-		if Global.mana < firefairycost:
-			$SecondarySkill/Player/FireFairy/Sprite.self_modulate.a = 0.65
+
 	else:
 		$PrimarySkill/Player.visible = false
 		$SecondarySkill/Player.visible = false

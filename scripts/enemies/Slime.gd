@@ -34,6 +34,10 @@ func _physics_process(delta):
 			$RayCast2D.position.x *= -1
 
 func _on_Area2D_area_entered(area):
+	var groups_to_remove : Array = [
+		"Sword", "SwordCharged", "Fireball", "Ice",
+		"physics_process", "FireGauge", "FireGaugeTwo", "LightKnockback"
+	]
 	if HP > 0:
 		if area.is_in_group("Sword"):
 			HP -= Global.attack_power
