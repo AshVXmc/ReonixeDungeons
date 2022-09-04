@@ -100,8 +100,7 @@ orbit_velocity_random = 0.0
 [sub_resource type="CircleShape2D" id=5]
 radius = 25.0
 
-[node name="IceLance" type="Area2D" groups=["FrozenGaugeOne", "Ice"]]
-position = Vector2( 319.612, 159.099 )
+[node name="IceLance" type="Area2D" groups=["Ice"]]
 script = ExtResource( 2 )
 __meta__ = {
 "_edit_group_": true
@@ -138,7 +137,7 @@ texture = ExtResource( 3 )
 shape = SubResource( 5 )
 
 [node name="DestroyedTimer" type="Timer" parent="."]
-wait_time = 2.5
+wait_time = 2.0
 one_shot = true
 autostart = true
 

@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://assets/particles/atk_buff_particle.png" type="Texture" id=1]
+
+[sub_resource type="ParticlesMaterial" id=1]
+emission_shape = 2
+emission_box_extents = Vector3( 20, -30, 10 )
+flag_disable_z = true
+gravity = Vector3( 0, -80, 0 )
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+
+[node name="AtkBuffParticle" type="Particles2D"]
+scale = Vector2( 1.6, 1.6 )
+amount = 4
+lifetime = 0.4
+process_material = SubResource( 1 )
+texture = ExtResource( 1 )

@@ -1,8 +1,8 @@
 class_name IceLance extends Area2D
 
 onready var player = get_parent().get_node("Player")
-var SPEED = 800
-const steer_force = 700
+var SPEED = 550
+const steer_force = 750
 var attack : int = 5
 var target = null
 var velocity = Vector2.ZERO

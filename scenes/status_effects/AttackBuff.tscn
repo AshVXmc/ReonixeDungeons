@@ -8,8 +8,8 @@ extents = Vector2( 20.5232, 31.3687 )
 
 [node name="AttackBuff" type="Area2D" groups=["AttackBuff"]]
 script = ExtResource( 1 )
-amount = 2.0
-duration = 2.0
+amount = 5.0
+duration = 5.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( -0.140793, -0.0946007 )

@@ -6,9 +6,32 @@ var max_hearts : float = 5
 var character_2_max_hearts : float = 5
 var character_3_max_hearts : float = 5
 var hearts : float = max_hearts
-var max_mana : int = 8
+var max_mana : int = 12
 var mana : int = max_mana
-var attack_power : int = 10
+var attack_power : int = 20
+var player_skill_multipliers : Dictionary = {
+	"BasicAttack": 40.0,
+	"ChargedAttack": 100.0,
+	"FireSaw": 35.0,
+	"FireFairy": 25.0,
+	"FireSawCost": 6,
+	"FireFairyCost": 6,
+	"FireSawCD": 12.0,
+	"FireFairyCD": 8.0
+}
+
+
+var glaciela_attack : int = 20
+var glaciela_skill_multipliers : Dictionary = {
+	"BasicAttack": 30.0,
+	"ChargedAttack": 100.0,
+	"FireSaw": 35.0,
+	"FireFairy": 25.0,
+	"FireSawCost": 6,
+	"FireFairyCost": 6,
+	"FireSawCD": 12.0,
+	"FireFairyCD": 8.0
+}
 
 var character2_hearts : float= character_2_max_hearts
 var character2_max_mana = max_mana
@@ -17,13 +40,8 @@ var character3_hearts : float = character_3_max_hearts
 var character3_max_mana = max_mana
 var character3_mana = max_mana
 
-var glaciela_attack : int = 10
-var glaciela_health : int = max_hearts
 
 
-# Crit rate and Crit damage in %
-var crit_rate : float  = 10
-var crit_damage : float  = 50
 var charged_attack_multiplier : float = 2
 var base_damage_taken : int = 5
 var healthpot_amount : int = 0
@@ -66,26 +84,17 @@ var player_skills : Dictionary = {
 	"RangedSkill" : ""
 }
 
-var player_skill_multipliers : Dictionary = {
-	"BasicAttack": 100,
-	"ChargedAttack": 150,
-	"FireSaw": 100,
-	"FireFairy": 25,
-}
+
+
 
 
 
 var current_character : String 
-var equipped_characters : Array = ["Glaciela", "Player", ""]
+var equipped_characters : Array = ["Player", "Glaciela", ""]
 var unlocked_characters : Array = ["Player", "Glaciela", "Domiguine"]
 
 # The level of skills. Higher levels = more damage and utility etc.
-var skill_levels : Dictionary = {
-	"FireSawLevel": 1,
-	"FireFairyLevel": 1,
-	"FireballLevel": 1,
-	"IceLanceLevel": 1,
-}
+
 
 var damage_bonus : Dictionary = {
 	"physical_dmg_bonus_%": 0,
@@ -122,7 +131,7 @@ func reset_player_data():
 	Global.hearts = 5
 	Global.character2_hearts = 5
 	Global.character3_hearts = 5
-	Global.mana = 8
+	Global.mana = max_mana / 6
 	Global.healthpot_amount = 0
 	Global.lifewine_amount = 0
 	Global.manapot_amount = 0

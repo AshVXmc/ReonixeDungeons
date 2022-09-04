@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://scripts/ui/SkillsUI.gd" type="Script" id=1]
 [ext_resource path="res://assets/UI/firesaw_skill_icon.png" type="Texture" id=2]
@@ -10,6 +10,9 @@
 [ext_resource path="res://assets/UI/icelance_skill_icon.png" type="Texture" id=8]
 [ext_resource path="res://assets/UI/empty_character_icon.png" type="Texture" id=9]
 [ext_resource path="res://assets/UI/ice_decoy_skill_icon.png" type="Texture" id=10]
+[ext_resource path="res://assets/UI/mana_cost_3.png" type="Texture" id=11]
+[ext_resource path="res://assets/UI/player_charged_attack_skill_icon.png" type="Texture" id=12]
+[ext_resource path="res://assets/UI/player_charged_attack_skill_icon_translucent.png" type="Texture" id=13]
 
 [sub_resource type="DynamicFont" id=1]
 size = 48
@@ -59,7 +62,7 @@ scale = Vector2( 4, 4 )
 texture = ExtResource( 2 )
 
 [node name="FiresawTimer" type="Timer" parent="Control/PrimarySkill/Player/FireSaw"]
-wait_time = 16.0
+wait_time = 12.0
 one_shot = true
 
 [node name="Label" type="Label" parent="Control/PrimarySkill/Player/FireSaw"]
@@ -80,6 +83,7 @@ scale = Vector2( 2, 2 )
 texture = ExtResource( 7 )
 
 [node name="Glaciela" type="Control" parent="Control/PrimarySkill"]
+visible = false
 margin_right = 40.0
 margin_bottom = 40.0
 
@@ -133,11 +137,11 @@ margin_right = 40.0
 margin_bottom = 19.0
 
 [node name="Player" type="Control" parent="Control/SecondarySkill"]
+visible = false
 margin_right = 40.0
 margin_bottom = 40.0
 
 [node name="FireFairy" type="Control" parent="Control/SecondarySkill/Player"]
-visible = false
 margin_right = 40.0
 margin_bottom = 40.0
 __meta__ = {
@@ -172,6 +176,7 @@ scale = Vector2( 2, 2 )
 texture = ExtResource( 6 )
 
 [node name="Glaciela" type="Control" parent="Control/SecondarySkill"]
+visible = false
 margin_right = 40.0
 margin_bottom = 40.0
 
@@ -223,15 +228,100 @@ custom_colors/font_color = Color( 0.192157, 0.372549, 1, 1 )
 custom_fonts/font = SubResource( 2 )
 text = "C"
 
+[node name="ChargedAttackSkill" type="Control" parent="Control"]
+margin_top = -21.0
+margin_right = 40.0
+margin_bottom = 19.0
+
+[node name="Player" type="Control" parent="Control/ChargedAttackSkill"]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="TextureProgress" type="TextureProgress" parent="Control/ChargedAttackSkill/Player"]
+margin_left = 333.0
+margin_top = 163.0
+margin_right = 350.0
+margin_bottom = 180.0
+rect_scale = Vector2( 4, 4 )
+value = 100.0
+texture_under = ExtResource( 13 )
+texture_progress = ExtResource( 12 )
+fill_mode = 4
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="ChargedAttackTimer" type="Timer" parent="Control/ChargedAttackSkill/Player"]
+wait_time = 4.0
+one_shot = true
+
+[node name="ManaCost" type="Sprite" parent="Control/ChargedAttackSkill/Player"]
+position = Vector2( 365, 238 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 11 )
+
+[node name="Glaciela" type="Control" parent="Control/ChargedAttackSkill"]
+visible = false
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="IcebornIllusion" type="Control" parent="Control/ChargedAttackSkill/Glaciela"]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="Sprite" type="Sprite" parent="Control/ChargedAttackSkill/Glaciela/IcebornIllusion"]
+position = Vector2( 270, 190 )
+scale = Vector2( 4, 4 )
+texture = ExtResource( 10 )
+
+[node name="IcebornIllusionTimer" type="Timer" parent="Control/ChargedAttackSkill/Glaciela/IcebornIllusion"]
+wait_time = 10.0
+one_shot = true
+
+[node name="Label" type="Label" parent="Control/ChargedAttackSkill/Glaciela/IcebornIllusion"]
+margin_left = 248.0
+margin_top = 170.0
+margin_right = 287.0
+margin_bottom = 218.0
+custom_fonts/font = SubResource( 1 )
+text = "15"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ManaCost" type="Sprite" parent="Control/ChargedAttackSkill/Glaciela/IcebornIllusion"]
+position = Vector2( 271, 238 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 6 )
+
+[node name="KeyIcon" type="Sprite" parent="Control/ChargedAttackSkill"]
+position = Vector2( 270, 146.77 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 4 )
+
+[node name="KeyBind" type="Label" parent="Control/ChargedAttackSkill"]
+anchor_left = -3.732
+anchor_right = -3.732
+margin_left = 410.778
+margin_top = 130.169
+margin_right = 431.778
+margin_bottom = 178.169
+rect_scale = Vector2( 0.75, 0.75 )
+custom_colors/font_color = Color( 0.192157, 0.372549, 1, 1 )
+custom_fonts/font = SubResource( 2 )
+text = "C"
+
 [node name="Characters" type="Control" parent="Control"]
 anchor_left = 24.926
 anchor_top = 2.543
 anchor_right = 24.926
 anchor_bottom = 2.543
-margin_left = -997.04
-margin_top = -101.72
-margin_right = -948.04
-margin_bottom = -53.72
+margin_left = -963.148
+margin_top = -69.6114
+margin_right = -914.148
+margin_bottom = -21.6114
 
 [node name="KeyIcon1" type="Sprite" parent="Control/Characters"]
 position = Vector2( 945.295, 149.987 )

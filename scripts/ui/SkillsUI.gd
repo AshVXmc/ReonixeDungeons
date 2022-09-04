@@ -1,6 +1,6 @@
 class_name SkillsUI extends Control
 
-signal ability_on_cooldown(ability_name)
+signal ability_on_cooldown(ability_name, attack_bonus)
 var firesawcost : int = 6
 var firefairycost : int = 4
 var fireballcost : int = 2
@@ -39,20 +39,21 @@ func on_skill_used(skill_name : String):
 			toggle_firesaw()
 		"FireFairy":
 			toggle_fire_fairy()
+		"PlayerChargedAttack":
+			toggle_player_charged_attack()
 func toggle_firesaw():
-	print("firesaw toggled")
-	# 8 seconds is the duration of the firesaw before expiring
-	yield(get_tree().create_timer(6), "timeout")
 	print("firesaw cooldown start")
 	emit_signal("ability_on_cooldown", "FireSaw")
-	$PrimarySkill/Player/FireSaw/FiresawTimer.start()
+	$PrimarySkill/Player/FireSaw/FiresawTimer.start(Global.player_skill_multipliers["FireSawCD"])
 
 func toggle_fire_fairy():
 	# 10 seconds is the duration of the fire fairy before expiring
-	yield(get_tree().create_timer(10), "timeout")
 	emit_signal("ability_on_cooldown", "FireFairy")
-	$SecondarySkill/Player/FireFairy/FirefairyTimer.start()
+	$SecondarySkill/Player/FireFairy/FirefairyTimer.start(Global.player_skill_multipliers["FireFairyCD"])
 	
+
+func toggle_player_charged_attack():
+	pass
 func _process(delta):
 	update_character_ui()
 	if Global.current_character == "Player":

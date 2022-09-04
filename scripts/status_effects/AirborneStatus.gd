@@ -1,6 +1,6 @@
 class_name AirborneStatus extends Node2D
 
-onready var time : float = 3
+export var time : float = 3
 
 func _ready():
 	print("airborne")

@@ -2,7 +2,7 @@ class_name Goblin extends KinematicBody2D
 
 const DMG_INDICATOR : PackedScene = preload("res://scenes/particles/DamageIndicatorParticle.tscn")
 const DEATH_SMOKE : PackedScene = preload("res://scenes/particles/DeathSmokeParticle.tscn")
-onready var max_HP : int = Global.enemy_level_index * 40
+onready var max_HP : int = Global.enemy_level_index * 60
 onready var HP : int = max_HP
 export var flipped : bool = false
 var velocity = Vector2()
@@ -10,7 +10,7 @@ var direction : int = 1
 var is_dead : bool = false 
 const TYPE : String = "Enemy"
 const FLOOR = Vector2(0, -1)
-var SPEED : int = 250
+var SPEED : int = 200
 const GRAVITY : int = 45
 var is_staggered : bool = false
 const LOOT = preload("res://scenes/items/LootBag.tscn")
@@ -25,10 +25,11 @@ var is_airborne : bool = false
 var decoyed : bool = false
 var dead : bool = false
 
-var phys_res : float = 50
-var fire_res : float = 0 
+var phys_res : float = 25
+var fire_res : float = 0
 var earth_res : float = 0 
 var ice_res : float = 0
+var magic_res : float = -50
 
 
 func _ready():
@@ -77,11 +78,11 @@ func _on_Area2D_area_entered(area):
 	var groups_to_remove : Array = [
 		"Sword", "SwordCharged", "Fireball", "Ice",
 		"physics_process", "FireGauge", "FireGaugeTwo", "LightKnockback"
-		]
+	]
 	if area.is_in_group("Sword"):
 			var groups : Array = area.get_groups()
 			for group_names in groups:
-				if group_names in groups_to_remove:
+				if float(group_names) == 0:
 					groups.erase(group_names)
 				if !groups.has("Sword") and !groups.has("physics_process"):
 					var raw_damage = float(groups.max())
@@ -95,10 +96,8 @@ func _on_Area2D_area_entered(area):
 	if area.is_in_group("SwordCharged"):
 			var groups : Array = area.get_groups()
 			for group_names in groups:
-				if groups.has("SwordCharged"):
-					groups.erase("SwordCharged")
-				if groups.has("physics_process"):
-					groups.erase("physics_process")
+				if float(group_names) == 0:
+					groups.erase(group_names)
 				if !groups.has("SwordCharged") and !groups.has("physics_process"):
 					var raw_damage = float(groups.max())
 					var damage = (raw_damage - (raw_damage * (phys_res / 100)))
@@ -130,6 +129,31 @@ func _on_Area2D_area_entered(area):
 					HP -= float(groups.max())
 					$HealthBar.value  -= float(groups.max())
 					add_damage_particles("Fire", float(groups.max()))
+					if area.is_in_group("LightKnockback"):
+						parse_status_effect_damage()
+					else:
+						parse_damage()
+					break
+	if area.is_in_group("Ice"):
+
+			# YEAH IT WORKS EFJWFJWPOFWJPFWJP
+			var groups : Array = area.get_groups()
+			for group_names in groups:
+				if groups.has("Ice"):
+					groups.erase("Ice")
+				if groups.has("IceGaugeOne"):
+					groups.erase("IceGaugeOne")
+				if groups.has("IceGaugeTwo"):
+					groups.erase("IceGaugeTwo")
+				if groups.has("LightKnockback"):
+					groups.erase("LightKnockback")
+				if groups.has("physics_process"):
+					groups.erase("physics_process")
+				if !groups.has("Ice") and !groups.has("IceGaugeOne") and !groups.has("physics_process"):
+					print("HP reduced by " + str(groups.max()))
+					HP -= float(groups.max())
+					$HealthBar.value  -= float(groups.max())
+					add_damage_particles("Ice", float(groups.max()))
 					if area.is_in_group("LightKnockback"):
 						parse_status_effect_damage()
 					else:

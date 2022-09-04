@@ -23,14 +23,16 @@ func _ready():
 	
 	if Global.equipped_characters.has("Glaciela"):
 		ICE_LANCE = load("res://scenes/skills/IceLance.tscn")
-func on_skill_used(skill_name : String):
+func on_skill_used(skill_name : String, attack_bonus : float = 0):
 	match skill_name:
 		"FireSaw":
 			get_parent().is_using_primary_skill = true
-			var firesaw = FIRESAW.instance()
+			var firesaw : FireSaw = FIRESAW.instance()
+			firesaw.atkbonus = attack_bonus
 			var fireparticle = FIRE_PARTICLE.instance()
 			get_parent().add_child(firesaw)
 			get_parent().add_child(fireparticle)
+			
 			fireparticle.emitting = true
 			fireparticle.one_shot = false
 			if !Global.godmode:

@@ -2,16 +2,19 @@ class_name FireSaw extends Area2D
 
 const BURNING : PackedScene = preload("res://scenes/status_effects/BurningStatus.tscn")
 var SPEED : int = 500
-var attack : int = 5
 var velocity = Vector2()
 var direction : int = 1
 var destroyed : bool = false
 const SMALL_FIRE_PARTICLE : PackedScene = preload("res://scenes/particles/FireHitParticle.tscn")
-var atkbonus = 0
+var atkbonus : float
 onready var burncalculation = Global.attack_power * 0.5
+var attack_calculation = Global.attack_power * (Global.player_skill_multipliers["FireSaw"] / 100) + atkbonus
 
 func _ready():
-	add_to_group(str(attack * Global.skill_levels["FireSawLevel"] + atkbonus))
+	var attack_calculation = Global.attack_power * (Global.player_skill_multipliers["FireSaw"] / 100) + atkbonus
+	add_to_group(str(attack_calculation))
+	print("attk bonus" + str(atkbonus))
+	print("fsaw attack" + str(attack_calculation))
 	$AnimationPlayer.play("SPIN")
 
 func _on_DestroyedTimer_timeout():

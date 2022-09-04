@@ -9,14 +9,16 @@ signal opals_obtained(player_opals, amount_added)
 signal crystals_obtained(player_crystals)
 
 signal ingredient_obtained(ingredient_name, amount)
-signal skill_used(skill_name)
+signal skill_used(skill_name, character)
+signal skill_ui_update()
 var target
-# Attack buff for BASIC ATTACKS ONLY.
+# Attack buff 
 var atkbuffmulti = 0
 var atkbuffdur = 0
 # Attack buff for all abilities (Skills)
 var atkbuffskill = 0
 var buffed_from_attack_crystals = false
+var prev_basic_attack_power : Array
 var prev_attack_power : Array
 var number_of_atk_buffs : int = 0
 onready var inv_timer : Timer = $InvulnerabilityTimer
@@ -67,15 +69,21 @@ var cam_shake : bool = false
 var is_charging : bool = false
 var slowed : bool = false
 var underwater : bool = false
-var mana_absorption_counter : int = 4
+var mana_absorption_counter_max : int = 5
+var mana_absorption_counter : int = mana_absorption_counter_max
 var restore_mana_for_all_parties : int = 2
+var attack_buff : float
 
+onready var basic_attack_power : float = Global.attack_power * (Global.player_skill_multipliers["BasicAttack"] / 100)
+onready var charged_attack_power : float = Global.attack_power * (Global.player_skill_multipliers["ChargedAttack"] / 100)
 
 func _ready():
+	
 	if Global.current_character == "Player":
 		$Sprite.visible = true
-	$AttackCollision.add_to_group(str(Global.attack_power + (Global.damage_bonus["physical_dmg_bonus_%"] / 100 * Global.attack_power)))
-	$ChargedAttackCollision.add_to_group(str(Global.attack_power * 1.75 + (Global.damage_bonus["physical_dmg_bonus_%"] / 100 * Global.attack_power)))
+		
+	$AttackCollision.add_to_group(str(basic_attack_power))
+	$ChargedAttackCollision.add_to_group(str(charged_attack_power))
 	$OxygenBar.value = 100
 	$ChargeBar.value = 0
 	$SwordSprite.visible = false
@@ -83,7 +91,7 @@ func _ready():
 	connect("ingredient_obtained", get_parent().get_node("InventoryUI/Control"), "on_ingredient_obtained")
 	emit_signal("ingredient_obtained", "common_dust", Global.common_monster_dust_amount)
 	emit_signal("ingredient_obtained", "goblin_scales", Global.goblin_scales_amount)
-	connect("skill_used", get_parent().get_node("SkillsUI/Control"), "on_skill_used")
+	connect("skill_ui_update", get_parent().get_node("SkillsUI/Control"), "on_skill_used")
 	connect("skill_used", get_node("SkillManager"), "on_skill_used")
 # warning-ignore:return_value_discarded
 	connect("life_changed", get_parent().get_node("HeartUI/Life"), "on_player_life_changed")
@@ -134,7 +142,7 @@ func _physics_process(_delta):
 			dash()
 			glide() # Glide duration in seconds
 			useItems()
-			shoot()
+			use_skill()
 #			ground_pound()
 			if underwater:
 				SPEED = 380 / 2
@@ -233,26 +241,83 @@ func _physics_process(_delta):
 		is_invulnerable = true
 	else:
 		is_invulnerable = false
-	
+	$AtkBuffParticle.visible = true if buffed_from_attack_crystals else false
 
 	charge_meter()
 	
 	$Sprite.visible = true if Global.current_character == "Player" else false
 	if Global.current_character != "Player":
-		mana_absorption_counter = 4
+		mana_absorption_counter = mana_absorption_counter_max
 		restore_mana_for_all_parties = 2
 
+func set_basic_attack_power(amount : float, duration : float, show_particles : bool = true):
+	# DONT ASK THIS IS SO COMPLICATED ON GODDDD
+		buffed_from_attack_crystals = true
+		number_of_atk_buffs += 1
+		var current_group = $AttackCollision.get_groups()
+		
+		var buffed_attack_power : float
+		var other_groups : Array
+		for g in current_group:
+			# Get other group tags
+			if float(g) == 0 and !"_" in current_group and prev_basic_attack_power.empty():
+				other_groups.append(g)
+				$AttackCollision.remove_from_group(g)
+			# Get current attack value
+			if !float(g) == 0:
+				prev_basic_attack_power.insert((number_of_atk_buffs - 1), float(g)) 
+				$AttackCollision.remove_from_group(g)
+		buffed_attack_power = prev_basic_attack_power[number_of_atk_buffs - 1] + amount
+		$AttackCollision.add_to_group(str(buffed_attack_power))
+		print("Buffed: " + str(buffed_attack_power))
+		for members in other_groups:
+			$AttackCollision.add_to_group(members)
+		yield(get_tree().create_timer(duration), "timeout")
+		for g in $AttackCollision.get_groups():
+			if int(g) != 0:
+				$AttackCollision.remove_from_group(g)
+		$AttackCollision.remove_from_group(str(buffed_attack_power))
+		$AttackCollision.add_to_group(str(prev_basic_attack_power[number_of_atk_buffs - 1]))
+		print("DeBuffed: " + str(prev_basic_attack_power[number_of_atk_buffs - 1]))
+		print($AttackCollision.get_groups())
+		for members in other_groups:
+			$AttackCollision.add_to_group(members)
+		number_of_atk_buffs -= 1
+		prev_basic_attack_power.remove(number_of_atk_buffs)
+		buffed_from_attack_crystals = false
 
-func shoot():
+func set_attack_power(amount : float, duration : float, show_particles : bool = true):
+		buffed_from_attack_crystals = true
+		number_of_atk_buffs += 1
+		
+		var other_groups : Array
+		prev_attack_power.insert((number_of_atk_buffs - 1), attack_buff) 
+		print(prev_attack_power)
+		attack_buff = prev_attack_power[number_of_atk_buffs - 1] + amount
+		
+		print("Buffed: " + str(attack_buff))
+		yield(get_tree().create_timer(duration), "timeout")
+		attack_buff = prev_attack_power[number_of_atk_buffs - 1]
+		print("DeBuffed: " + str(prev_attack_power[number_of_atk_buffs - 1]))
+		number_of_atk_buffs -= 1
+		prev_attack_power.remove(number_of_atk_buffs)
+		buffed_from_attack_crystals = false
+func use_skill():
 	if Global.current_character == "Player":
-		if Input.is_action_just_pressed("ui_shoot") and !is_frozen:
-			if Global.player_skills["RangedSkill"] == "Fireball" and $RangedAttackTimer.is_stopped() and Global.mana >= 2:
-				emit_signal("skill_used", "Fireball")
-		
-		if Input.is_action_just_pressed("primary_skill") and !Input.is_action_just_pressed("secondary_skill"):
-			if Global.player_skills["PrimarySkill"] == "FireSaw" and Global.firesaw_unlocked and !is_frozen and !is_using_primary_skill and get_parent().get_node("SkillsUI/Control/PrimarySkill/Player/FireSaw/FiresawTimer").is_stopped():
-				emit_signal("skill_used", "FireSaw")
-		
+		if Input.is_action_just_pressed("primary_skill") and !Input.is_action_just_pressed("secondary_skill") and !is_frozen and !is_using_primary_skill and get_parent().get_node("SkillsUI/Control/PrimarySkill/Player/FireSaw/FiresawTimer").is_stopped():
+			
+			if Global.current_character == Global.equipped_characters[0] and Global.mana >= Global.player_skill_multipliers["FireSawCost"]:
+				emit_signal("skill_used", "FireSaw", attack_buff)
+				emit_signal("skill_ui_update", "FireSaw")
+				emit_signal("mana_changed", Global.mana, "Player")
+			elif Global.current_character == Global.equipped_characters[1] and Global.character2_mana >= Global.player_skill_multipliers["FireSawCost"]:
+				emit_signal("skill_used", "FireSaw", attack_buff)
+				emit_signal("skill_ui_update", "FireSaw")
+				emit_signal("mana_changed", Global.character2_mana, "Player")
+			elif Global.current_character == Global.equipped_characters[2] and Global.character3_mana >= Global.player_skill_multipliers["FireSawCost"]:
+				emit_signal("skill_used", "FireSaw", attack_buff)
+				emit_signal("skill_ui_update", "FireSaw")
+				emit_signal("mana_changed", Global.character3_mana, "Player")
 		if Input.is_action_just_pressed("secondary_skill") and !Input.is_action_just_pressed("primary_skill"):
 			if Global.player_skills["SecondarySkill"] == "FireFairy" and Global.fire_fairy_unlocked and !is_frozen and Global.mana >= 4 and !is_using_secondary_skill and get_parent().get_node("SkillsUI/Control/SecondarySkill/Player/FireFairy/FirefairyTimer").is_stopped():
 				emit_signal("skill_used", "FireFairy")
@@ -332,7 +397,7 @@ func charge_meter():
 		if Input.is_action_pressed("charge"):
 			# Max value is 100
 			$ChargeBar.visible = true
-			$ChargeBar.value += 5
+			$ChargeBar.value += 2.5
 			is_charging = true
 		if Input.is_action_just_released("charge") or Input.is_action_pressed("left") or Input.is_action_pressed("right") or Input.is_action_pressed("jump"):
 			# Min value is 0 (Empty)
@@ -347,17 +412,17 @@ func charge_meter():
 			$ChargedAttackCollision/CollisionShape2D.disabled = false
 			is_charging = false
 			Input.action_release("charge")
-			if !Global.godmode:
-				if Global.current_character == Global.equipped_characters[0] and Global.mana >= 2:
-					Global.mana -= 2
-					emit_signal("mana_changed", Global.mana, "Player")
-				elif Global.current_character == Global.equipped_characters[1] and Global.character2_mana >= 2:
-					Global.character2_mana -= 2
-					emit_signal("mana_changed", Global.character2_mana, "Player")
-				elif Global.current_character == Global.equipped_characters[2] and Global.character3_mana >= 2:
-					Global.character3_mana -= 2
-					emit_signal("mana_changed", Global.character3_mana, "Player")
-				
+#			if !Global.godmode:
+#				if Global.current_character == Global.equipped_characters[0] and Global.mana >= 2:
+#					Global.mana -= 2
+#					emit_signal("mana_changed", Global.mana, "Player")
+#				elif Global.current_character == Global.equipped_characters[1] and Global.character2_mana >= 2:
+#					Global.character2_mana -= 2
+#					emit_signal("mana_changed", Global.character2_mana, "Player")
+#				elif Global.current_character == Global.equipped_characters[2] and Global.character3_mana >= 2:
+#					Global.character3_mana -= 2
+#					emit_signal("mana_changed", Global.character3_mana, "Player")
+#
 				
 			
 			var ss_projectile = SUPER_SLASH_PROJECTILE.instance()
@@ -445,6 +510,11 @@ func _on_Area2D_area_entered(area : Area2D):
 			underwater = true
 			velocity.y = 0
 			print("is underwater")
+		if area.is_in_group("AttackBuff"):
+			atkbuffmulti = area.amount
+			atkbuffdur = area.duration
+			set_basic_attack_power(float(atkbuffmulti), float(atkbuffdur))
+			print("STRONK")
 		
 func take_damage(damage : float):
 	if Global.current_character == "Player":

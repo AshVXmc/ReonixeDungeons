@@ -16,7 +16,7 @@ var atkbuffskill = 0
 var buffed_from_attack_crystals = false
 var prev_attack_power : Array
 var number_of_atk_buffs : int = 0
-var mana_absorption_counter : int = 4
+var attack_string_count : int = 4
 var restore_mana_for_all_parties : int = 2
 
 func _ready():
@@ -26,7 +26,7 @@ func _ready():
 	connect("skill_used", get_parent().get_parent().get_node("SkillManager"), "on_skill_used")
 	$AnimatedSprite.play("Default")
 	$SpearSprite.visible = false
-	$AttackCollision.add_to_group(str(Global.glaciela_attack))
+	$AttackCollision.add_to_group(str(Global.glaciela_attack * (Global.glaciela_skill_multipliers["BasicAttack"] / 100)))
 
 
 
@@ -58,7 +58,7 @@ func _physics_process(delta):
 		if Input.is_action_just_pressed("ui_attack") and $MeleeTimer.is_stopped():
 			if !$AnimatedSprite.flip_h:
 				$SpearSprite.visible = true
-				$AnimationPlayer.play("SpearSwingRight")
+				play_attack_animation("Right")
 				$AttackCollision/CollisionShape2D.disabled = false
 				get_parent().get_parent().attack_knock()
 				$AttackCollision.set_scale(Vector2(1,1))
@@ -66,7 +66,7 @@ func _physics_process(delta):
 				$MeleeTimer.start()
 			else:
 				$SpearSprite.visible = true
-				$AnimationPlayer.play("SpearSwingLeft")
+				play_attack_animation("Left")
 				$AttackCollision/CollisionShape2D.disabled = false
 				get_parent().get_parent().attack_knock()
 				$AttackCollision.set_scale(Vector2(-1,1))
@@ -75,26 +75,61 @@ func _physics_process(delta):
 		
 		if get_parent().get_parent().get_node("ChargeBar").value == get_parent().get_parent().get_node("ChargeBar").max_value:
 			if Input.is_action_just_pressed("ui_attack"):
-				if Global.equipped_characters[0] == "Glaciela" and Global.mana >= 2:
-					charged_attack()
-					Global.mana -= 2
-					emit_signal("mana_changed", Global.mana, "Glaciela")
-				elif Global.equipped_characters[1] == "Glaciela" and Global.character2_mana >= 2:
-					charged_attack()
-					Global.character2_mana -= 2
-					emit_signal("mana_changed", Global.character2_mana, "Glaciela")
-				elif Global.equipped_characters[2] == "Glaciela" and Global.character3_mana >= 2:
-					charged_attack()
-					Global.character3_mana -= 2
-					emit_signal("mana_changed", Global.character3_mana, "Glaciela")
+				charged_attack()
+#				if Global.equipped_characters[0] == "Glaciela" and Global.mana >= 2:
+#					charged_attack()
+#					Global.mana -= 2
+#					emit_signal("mana_changed", Global.mana, "Glaciela")
+#				elif Global.equipped_characters[1] == "Glaciela" and Global.character2_mana >= 2:
+#					charged_attack()
+#					Global.character2_mana -= 2
+#					emit_signal("mana_changed", Global.character2_mana, "Glaciela")
+#				elif Global.equipped_characters[2] == "Glaciela" and Global.character3_mana >= 2:
+#					charged_attack()
+#					Global.character3_mana -= 2
+#					emit_signal("mana_changed", Global.character3_mana, "Glaciela")
 		if Input.is_action_just_pressed("primary_skill") and !Input.is_action_just_pressed("secondary_skill"):
 			print("skill emitted")
 			emit_signal("skill_used", "IceLance")
 
+func play_attack_animation(direction : String):
+	if direction == "Right":
+		match attack_string_count:
+			4:
+				$AnimationPlayer.play("SpearSwingRight1")
+				attack_string_count -= 1
+			3:
+				$AnimationPlayer.play("SpearSwingRight2")
+				attack_string_count -= 1
+			2:
+				$AnimationPlayer.play("SpearSwingRight3")
+				attack_string_count -= 1
+			1:
+				$AnimationPlayer.play("SpearSwingRight4")
+				attack_string_count -= 1
+				attack_string_count = 4
+	if direction == "Left":
+		match attack_string_count:
+			4:
+				$AnimationPlayer.play("SpearSwingLeft1")
+				attack_string_count -= 1
+			3:
+				$AnimationPlayer.play("SpearSwingLeft2")
+				attack_string_count -= 1
+			2:
+				$AnimationPlayer.play("SpearSwingLeft3")
+				attack_string_count -= 1
+			1:
+				$AnimationPlayer.play("SpearSwingLeft4")
+				attack_string_count -= 1
+				attack_string_count = 4
+	elif direction == "Left":
+		pass
 func charged_attack():
 	if target and target.get_node("Area2D").overlaps_area($ChargedAttackCollision) or target.get_node("Area2D").overlaps_area($ChargedAttackCollision2):
 		$AnimationPlayer.play("ChargedAttackRight")
-		var airborne_status = AIRBORNE_STATUS.instance()
+		var airborne_status : AirborneStatus = AIRBORNE_STATUS.instance()
+		airborne_status.time = 1
 		target.add_child(airborne_status)
 		set_basic_attack_power(3, 0.1)
 func get_closest_enemy():
@@ -167,6 +202,7 @@ func _on_AttackCollision_area_entered(area):
 		hitparticle.position = get_parent().get_parent().get_node("Position2D").global_position
 		slashparticle.position = get_parent().get_parent().get_node("Position2D").global_position
 
+			
 
 func _on_MeleeTimer_timeout():
 	$AttackCollision/CollisionShape2D.disabled = true
