@@ -2,7 +2,7 @@ class_name Goblin extends KinematicBody2D
 
 const DMG_INDICATOR : PackedScene = preload("res://scenes/particles/DamageIndicatorParticle.tscn")
 const DEATH_SMOKE : PackedScene = preload("res://scenes/particles/DeathSmokeParticle.tscn")
-onready var max_HP : int = Global.enemy_level_index * 60
+onready var max_HP : int = Global.enemy_level_index * 100
 onready var HP : int = max_HP
 export var flipped : bool = false
 var velocity = Vector2()
@@ -174,7 +174,7 @@ func _on_Area2D_area_entered(area):
 			velocity.y = -1250
 			yield(get_tree().create_timer(0.05), "timeout")
 			velocity.y = 0
-	if area.is_in_group("Player"):
+	if area and area.is_in_group("Player"):
 			is_staggered = true
 			yield(get_tree().create_timer(1), "timeout")
 			is_staggered = false

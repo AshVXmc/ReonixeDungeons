@@ -358,5 +358,6 @@ position = Vector2( 1147, 565.587 )
 position = Vector2( 3106.52, 187.238 )
 
 [node name="AttackBuff" parent="." instance=ExtResource( 47 )]
-position = Vector2( 487.545, 573 )
+position = Vector2( 189.772, 599 )
+amount = 3.0
 duration = 3.0

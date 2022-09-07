@@ -8,10 +8,13 @@ var character_3_max_hearts : float = 5
 var hearts : float = max_hearts
 var max_mana : int = 12
 var mana : int = max_mana
-var attack_power : int = 20
+var attack_power : int = 50
 var player_skill_multipliers : Dictionary = {
-	"BasicAttack": 40.0,
-	"ChargedAttack": 100.0,
+	"BasicAttack": 30.0,
+	"BasicAttack2": 30.0,
+	"BasicAttack3": 40.0,
+	"BasicAttack4": 50.0,
+	"ChargedAttack": 75.0,
 	"FireSaw": 35.0,
 	"FireFairy": 25.0,
 	"FireSawCost": 6,
@@ -21,16 +24,14 @@ var player_skill_multipliers : Dictionary = {
 }
 
 
-var glaciela_attack : int = 20
+var glaciela_attack : int = 50
 var glaciela_skill_multipliers : Dictionary = {
-	"BasicAttack": 30.0,
-	"ChargedAttack": 100.0,
-	"FireSaw": 35.0,
-	"FireFairy": 25.0,
-	"FireSawCost": 6,
-	"FireFairyCost": 6,
-	"FireSawCD": 12.0,
-	"FireFairyCD": 8.0
+	"BasicAttack": 25.0,
+	"BasicAttack2": 30.0,
+	"BasicAttack3": 20.0,
+	"BasicAttack4": 40.0,
+	"ChargedAttack": 75.0,
+	"IceLance": 50.0
 }
 
 var character2_hearts : float= character_2_max_hearts

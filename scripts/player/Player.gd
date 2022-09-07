@@ -73,6 +73,8 @@ var mana_absorption_counter_max : int = 5
 var mana_absorption_counter : int = mana_absorption_counter_max
 var restore_mana_for_all_parties : int = 2
 var attack_buff : float
+var attack_string_count : int = 4
+var buffed_attack_power : float
 
 onready var basic_attack_power : float = Global.attack_power * (Global.player_skill_multipliers["BasicAttack"] / 100)
 onready var charged_attack_power : float = Global.attack_power * (Global.player_skill_multipliers["ChargedAttack"] / 100)
@@ -166,7 +168,8 @@ func _physics_process(_delta):
 				if Input.is_action_just_released("right"):
 					$Sprite.play("Walk")
 					
-				get_node("AttackCollision").set_scale(Vector2(1,1))
+				$AttackCollision.set_scale(Vector2(1,1))
+				$ChargedAttackCollision.set_scale(Vector2(1,1))
 			elif Input.is_action_pressed("left") and !is_attacking and !is_dashing and !is_knocked_back:
 				velocity.x = -SPEED
 	# warning-ignore:standalone_ternary
@@ -178,7 +181,8 @@ func _physics_process(_delta):
 					$Position2D.position.x *= -1
 				if sign($DashParticlePosition.position.x) == -1:
 					$DashParticlePosition.position.x *= -1
-				get_node("AttackCollision").set_scale(Vector2(-1,1))
+				$AttackCollision.set_scale(Vector2(-1,1))
+				$ChargedAttackCollision.set_scale(Vector2(-1,1))
 			elif velocity.x == 0:
 				if !is_attacking:
 					$Sprite.play("Idle")
@@ -256,7 +260,7 @@ func set_basic_attack_power(amount : float, duration : float, show_particles : b
 		number_of_atk_buffs += 1
 		var current_group = $AttackCollision.get_groups()
 		
-		var buffed_attack_power : float
+		
 		var other_groups : Array
 		for g in current_group:
 			# Get other group tags
@@ -356,10 +360,10 @@ func attack():
 		$Sprite.play("Attack")
 		if $Sprite.flip_h:
 			$SwordSprite.visible = true
-			$AnimationPlayer.play("SwordSwingLeft")
+			play_attack_animation("Left")
 		else:
 			$SwordSprite.visible = true
-			$AnimationPlayer.play("SwordSwingRight")
+			play_attack_animation("Right")
 		is_attacking = true
 		$AttackCollision/CollisionShape2D.disabled = false
 		$MeleeTimer.start()
@@ -397,7 +401,7 @@ func charge_meter():
 		if Input.is_action_pressed("charge"):
 			# Max value is 100
 			$ChargeBar.visible = true
-			$ChargeBar.value += 2.5
+			$ChargeBar.value += 5
 			is_charging = true
 		if Input.is_action_just_released("charge") or Input.is_action_pressed("left") or Input.is_action_pressed("right") or Input.is_action_pressed("jump"):
 			# Min value is 0 (Empty)
@@ -460,9 +464,83 @@ func charge_meter():
 			$Sprite.play("Idle")
 			is_attacking = false
 			
-		
 
-		
+func play_attack_animation(direction : String):
+	if direction == "Right":
+		match attack_string_count:
+			4:
+				
+				$AnimationPlayer.play("SwordSwingRight")
+				attack_string_count -= 1
+				for groups in $AttackCollision.get_groups():
+					if float(groups) != 0:
+						$AttackCollision.remove_from_group(groups)
+						$AttackCollision.add_to_group(str(Global.attack_power * (Global.player_skill_multipliers["BasicAttack"] / 100) + buffed_attack_power))
+						break
+				
+			3:
+				$AnimationPlayer.play("SwordSwingRight2")
+				
+				attack_string_count -= 1
+				for groups in $AttackCollision.get_groups():
+					if float(groups) != 0:
+						$AttackCollision.remove_from_group(groups)
+						$AttackCollision.add_to_group(str(Global.attack_power * (Global.player_skill_multipliers["BasicAttack2"] / 100) + buffed_attack_power))
+						break
+			2:
+				$AnimationPlayer.play("SwordSwingRight3")
+				attack_string_count -= 1
+				for groups in $AttackCollision.get_groups():
+					if float(groups) != 0:
+						$AttackCollision.remove_from_group(groups)
+						$AttackCollision.add_to_group(str(Global.attack_power * (Global.player_skill_multipliers["BasicAttack3"] / 100) + buffed_attack_power))
+						break
+			1:
+				$AnimationPlayer.play("SwordSwingRight4")
+				attack_string_count -= 1
+				for groups in $AttackCollision.get_groups():
+					if float(groups) != 0:
+						$AttackCollision.remove_from_group(groups)
+						$AttackCollision.add_to_group(str(Global.attack_power * (Global.player_skill_multipliers["BasicAttack4"] / 100) + buffed_attack_power))
+						break
+				attack_string_count = 4
+	elif direction == "Left":
+		match attack_string_count:
+			4:
+				$AnimationPlayer.play("SwordSwingLeft")
+				attack_string_count -= 1
+				for groups in $AttackCollision.get_groups():
+					if float(groups) != 0:
+						$AttackCollision.remove_from_group(groups)
+						$AttackCollision.add_to_group(str(Global.attack_power * (Global.player_skill_multipliers["BasicAttack"] / 100) + buffed_attack_power))
+						break
+				
+			3:
+				$AnimationPlayer.play("SwordSwingLeft2")
+				attack_string_count -= 1
+				for groups in $AttackCollision.get_groups():
+					if float(groups) != 0:
+						$AttackCollision.remove_from_group(groups)
+						$AttackCollision.add_to_group(str(Global.attack_power * (Global.player_skill_multipliers["BasicAttack2"] / 100) + buffed_attack_power))
+						break
+			2:
+				$AnimationPlayer.play("SwordSwingLeft3")
+				attack_string_count -= 1
+				for groups in $AttackCollision.get_groups():
+					if float(groups) != 0:
+						$AttackCollision.remove_from_group(groups)
+						$AttackCollision.add_to_group(str(Global.attack_power * (Global.player_skill_multipliers["BasicAttack3"] / 100) + buffed_attack_power))
+						break
+			1:
+				$AnimationPlayer.play("SwordSwingLeft4 ")
+				attack_string_count -= 1
+				for groups in $AttackCollision.get_groups():
+					if float(groups) != 0:
+						$AttackCollision.remove_from_group(groups)
+						$AttackCollision.add_to_group(str(Global.attack_power * (Global.player_skill_multipliers["BasicAttack4"] / 100) + buffed_attack_power))
+						break
+				attack_string_count = 4
+
 # Damage and interaction
 func _on_Area2D_area_entered(area : Area2D):
 	if Global.current_character == "Player":
@@ -541,7 +619,7 @@ func _on_Area2D_area_exited(area):
 		print("not underwater")
 
 func attack_knock():
-	var KNOCK_POWER : int = 150
+	var KNOCK_POWER : int = 50
 	velocity.x = -KNOCK_POWER if !$Sprite.flip_h else KNOCK_POWER
 
 func afterDamaged():
