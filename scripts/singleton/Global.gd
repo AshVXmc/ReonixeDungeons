@@ -2,10 +2,10 @@ extends Node
 
 # GLOBALLY ACCESSED VARIABLES
 var max_hearts : float = 5
-
+var hearts : float = max_hearts
 var character_2_max_hearts : float = 5
 var character_3_max_hearts : float = 5
-var hearts : float = max_hearts
+
 var max_mana : int = 12
 var mana : int = max_mana
 var attack_power : int = 50
@@ -31,7 +31,7 @@ var glaciela_skill_multipliers : Dictionary = {
 	"BasicAttack3": 20.0,
 	"BasicAttack4": 40.0,
 	"ChargedAttack": 75.0,
-	"IceLance": 50.0
+	"IceLance": 40.0
 }
 
 var character2_hearts : float= character_2_max_hearts
@@ -128,10 +128,14 @@ var masked_goblin_defeated : bool
 # Unsaved conditions
 var godmode : bool = false
 
+# Damage calc
+# if enemy type counters character type, deal 150% dmg.
+# if enemy type is same as character type or doesn't counter anything, deal 100% dmg.
+# if character type counters enemy type, deal 50% dmg
 func reset_player_data():
-	Global.hearts = 5
-	Global.character2_hearts = 5
-	Global.character3_hearts = 5
+#	Global.hearts = 5
+#	Global.character2_hearts = 5
+#	Global.character3_hearts = 5
 	Global.mana = max_mana / 6
 	Global.healthpot_amount = 0
 	Global.lifewine_amount = 0

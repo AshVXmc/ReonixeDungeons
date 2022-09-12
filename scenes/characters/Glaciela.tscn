@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=2]
+[gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://assets/characters/glaciela/glaciela_idle.png" type="Texture" id=1]
 [ext_resource path="res://assets/characters/glaciela/glaciela_walk.png" type="Texture" id=2]
@@ -30,6 +30,49 @@ animations = [ {
 "name": "Walk",
 "speed": 5.0
 } ]
+
+[sub_resource type="Animation" id=16]
+resource_name = "ChargedAttackLeft"
+length = 0.1
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("SpearSprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 3, 15 ), Vector2( 16, 8 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("SpearSprite:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ -110.0, -40.0 ]
+}
+tracks/2/type = "method"
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0.1 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "set_weapon_to_invisible"
+} ]
+}
 
 [sub_resource type="Animation" id=6]
 resource_name = "ChargedAttackRight"
@@ -582,6 +625,11 @@ height = 17.3718
 [node name="Glaciela" type="Node2D"]
 script = ExtResource( 4 )
 
+[node name="ChargingParticle" parent="." instance=ExtResource( 8 )]
+visible = false
+position = Vector2( -1.43051e-06, 0 )
+amount = 4
+
 [node name="SpearSprite" type="Sprite" parent="."]
 position = Vector2( 3, 15 )
 rotation = 0.872665
@@ -595,6 +643,7 @@ frames = SubResource( 1 )
 animation = "Dash"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/ChargedAttackLeft = SubResource( 16 )
 anims/ChargedAttackRight = SubResource( 6 )
 anims/Hurt = SubResource( 7 )
 anims/RESET = SubResource( 3 )
@@ -637,10 +686,6 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ChargingParticle" parent="." instance=ExtResource( 8 )]
-visible = false
-amount = 4
-
 [node name="Area2D" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
@@ -664,11 +709,7 @@ one_shot = true
 wait_time = 0.75
 one_shot = true
 
-[node name="TundraMeterTimer" type="Timer" parent="."]
-autostart = true
-
 [connection signal="area_entered" from="AttackCollision" to="." method="_on_AttackCollision_area_entered"]
 [connection signal="timeout" from="MeleeTimer" to="." method="_on_MeleeTimer_timeout"]
 [connection signal="area_entered" from="Area2D" to="." method="_on_Area2D_area_entered"]
 [connection signal="timeout" from="ResetAttackStringTimer" to="." method="_on_ResetAttackStringTimer_timeout"]
-[connection signal="timeout" from="TundraMeterTimer" to="." method="_on_TundraMeterTimer_timeout"]

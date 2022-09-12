@@ -13,7 +13,7 @@ var attack_calculation = Global.attack_power * (Global.player_skill_multipliers[
 func _ready():
 	var attack_calculation = Global.attack_power * (Global.player_skill_multipliers["FireSaw"] / 100) + atkbonus
 	add_to_group(str(attack_calculation))
-	print("attk bonus" + str(atkbonus))
+	print("atk bonus" + str(atkbonus))
 	print("fsaw attack" + str(attack_calculation))
 	$AnimationPlayer.play("SPIN")
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=2]
+[gd_scene load_steps=34 format=2]
 
 [ext_resource path="res://spriteframes/MainCharacter_spriteframes.tres" type="SpriteFrames" id=1]
 [ext_resource path="res://scripts/player/Player.gd" type="Script" id=2]
@@ -14,6 +14,7 @@
 [ext_resource path="res://scripts/player/SkillManager.gd" type="Script" id=12]
 [ext_resource path="res://scripts/player/CharacterManager.gd" type="Script" id=13]
 [ext_resource path="res://scenes/particles/AtkBuffParticle.tscn" type="PackedScene" id=14]
+[ext_resource path="res://assets/UI/ember_meter.png" type="Texture" id=15]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 37.6338
@@ -201,9 +202,9 @@ tracks/2/keys = {
 "values": [ Vector2( -17, 5 ) ]
 }
 
-[sub_resource type="Animation" id=17]
-resource_name = "SwordSwingLeft4 "
-length = 0.2
+[sub_resource type="Animation" id=19]
+resource_name = "SwordSwingLeft4"
+length = 0.15
 step = 0.05
 tracks/0/type = "value"
 tracks/0/path = NodePath("SwordSprite:rotation_degrees")
@@ -212,10 +213,10 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.2 ),
-"transitions": PoolRealArray( 1, 1.18921 ),
+"times": PoolRealArray( 0, 0.15 ),
+"transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ -50.0, -450.0 ]
+"values": [ -225.0, -65.0 ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("SwordSprite:flip_h")
@@ -227,7 +228,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ true ]
+"values": [ false ]
 }
 tracks/2/type = "value"
 tracks/2/path = NodePath("SwordSprite:position")
@@ -239,7 +240,19 @@ tracks/2/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( -17, 5 ) ]
+"values": [ Vector2( 0, 8 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("SwordSprite:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.15 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
 }
 
 [sub_resource type="Animation" id=7]
@@ -441,7 +454,7 @@ tracks/3/keys = {
 
 [sub_resource type="Animation" id=18]
 resource_name = "SwordSwingRight4"
-length = 0.2
+length = 0.15
 step = 0.05
 tracks/0/type = "value"
 tracks/0/path = NodePath("SwordSprite:rotation_degrees")
@@ -450,10 +463,10 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.2 ),
-"transitions": PoolRealArray( 1, 1.18921 ),
+"times": PoolRealArray( 0, 0.15 ),
+"transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ 50.0, 450.0 ]
+"values": [ 225.0, 65.0 ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("SwordSprite:flip_h")
@@ -465,7 +478,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ false ]
+"values": [ true ]
 }
 tracks/2/type = "value"
 tracks/2/path = NodePath("SwordSprite:position")
@@ -477,7 +490,7 @@ tracks/2/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( 17, 5 ) ]
+"values": [ Vector2( 0, 8 ) ]
 }
 tracks/3/type = "value"
 tracks/3/path = NodePath("SwordSprite:visible")
@@ -486,10 +499,10 @@ tracks/3/loop_wrap = true
 tracks/3/imported = false
 tracks/3/enabled = true
 tracks/3/keys = {
-"times": PoolRealArray( 0, 0.2 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ true, false ]
+"values": [ true ]
 }
 
 [sub_resource type="Animation" id=6]
@@ -714,7 +727,7 @@ anims/RESET = SubResource( 4 )
 anims/SwordSwingLeft = SubResource( 5 )
 anims/SwordSwingLeft2 = SubResource( 14 )
 anims/SwordSwingLeft3 = SubResource( 16 )
-"anims/SwordSwingLeft4 " = SubResource( 17 )
+anims/SwordSwingLeft4 = SubResource( 19 )
 anims/SwordSwingLower = SubResource( 7 )
 anims/SwordSwingRight = SubResource( 3 )
 anims/SwordSwingRight2 = SubResource( 13 )
@@ -773,6 +786,15 @@ margin_bottom = -64.3163
 rect_scale = Vector2( 3, 3.5 )
 texture_under = ExtResource( 10 )
 texture_progress = ExtResource( 11 )
+
+[node name="EmberBar" type="TextureProgress" parent="."]
+margin_left = -61.9286
+margin_top = -70.3163
+margin_right = -25.9286
+margin_bottom = -64.3163
+rect_scale = Vector2( 3.5, 4 )
+texture_under = ExtResource( 10 )
+texture_progress = ExtResource( 15 )
 
 [node name="MeleeTimer" type="Timer" parent="."]
 wait_time = 0.25

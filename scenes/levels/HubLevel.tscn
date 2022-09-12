@@ -1,4 +1,4 @@
-[gd_scene load_steps=50 format=2]
+[gd_scene load_steps=49 format=2]
 
 [ext_resource path="res://tilesets/HubLevelTileset.tres" type="TileSet" id=1]
 [ext_resource path="res://assets/terrain/deep_woods/background_deep_woods.png" type="Texture" id=2]
@@ -45,7 +45,6 @@
 [ext_resource path="res://scenes/menus/SkillsUI.tscn" type="PackedScene" id=43]
 [ext_resource path="res://scenes/enemies/Goblin.tscn" type="PackedScene" id=44]
 [ext_resource path="res://scenes/menus/InventoryUI.tscn" type="PackedScene" id=45]
-[ext_resource path="res://scenes/enemies/Bat.tscn" type="PackedScene" id=46]
 [ext_resource path="res://scenes/status_effects/AttackBuff.tscn" type="PackedScene" id=47]
 
 [sub_resource type="TileSet" id=1]
@@ -323,13 +322,13 @@ position = Vector2( 3683.07, -1813.17 )
 position = Vector2( 3987.69, -1586.86 )
 
 [node name="MagicPedestal" parent="." instance=ExtResource( 40 )]
-position = Vector2( 878, 612 )
+position = Vector2( 1044.67, 414.659 )
 
 [node name="GashaponMachine" parent="." instance=ExtResource( 42 )]
 position = Vector2( 582.75, 592.025 )
 
 [node name="Player" parent="." instance=ExtResource( 8 )]
-position = Vector2( 310, 596.291 )
+position = Vector2( 375.545, 441 )
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position = Vector2( -24.7189, -147.43 )
@@ -349,15 +348,17 @@ editor_draw_limits = true
 position = Vector2( 1387.08, 576 )
 
 [node name="Goblin2" parent="." instance=ExtResource( 44 )]
-position = Vector2( 639.2, 582 )
+position = Vector2( 587.453, 571.808 )
 
 [node name="Goblin3" parent="." instance=ExtResource( 44 )]
 position = Vector2( 1147, 565.587 )
 
-[node name="Bat" parent="." instance=ExtResource( 46 )]
-position = Vector2( 3106.52, 187.238 )
-
 [node name="AttackBuff" parent="." instance=ExtResource( 47 )]
 position = Vector2( 189.772, 599 )
+amount = 3.0
+duration = 3.0
+
+[node name="AttackBuff2" parent="." instance=ExtResource( 47 )]
+position = Vector2( 93.772, 599 )
 amount = 3.0
 duration = 3.0

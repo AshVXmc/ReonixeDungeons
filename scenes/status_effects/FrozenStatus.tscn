@@ -39,10 +39,10 @@ one_shot = true
 
 [node name="FreezeBar" type="TextureProgress" parent="."]
 margin_left = -36.0541
-margin_top = -80.0541
+margin_top = 41.9459
 margin_right = -18.0541
-margin_bottom = -74.0541
-rect_scale = Vector2( 4, 4 )
+margin_bottom = 47.9459
+rect_scale = Vector2( 4, 3 )
 texture_under = ExtResource( 3 )
 texture_progress = ExtResource( 4 )
 

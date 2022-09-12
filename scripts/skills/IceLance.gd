@@ -12,6 +12,7 @@ onready var atkbonus
 enum {
 	Left, Right
 }
+signal restore_tundra_stacks(amount)
 
 
 
@@ -22,6 +23,9 @@ enum {
 func _ready():
 	direction = Right
 	add_to_group(str(Global.glaciela_attack * (Global.glaciela_skill_multipliers["IceLance"] / 100)))
+	add_to_group("IceGaugeTwo")
+	if Global.equipped_characters.has("Glaciela"):
+		connect("restore_tundra_stacks", get_parent().get_node("Player/Glaciela"), "restore_tundra_stacks")
 func _physics_process(delta):
 	if !$TargetPlayerTimer.is_stopped():
 		if direction == Right:
@@ -55,3 +59,9 @@ func _on_PlayerDetector_area_entered(area):
 
 func _on_DestroyedTimer_timeout():
 	queue_free()
+
+
+func _on_IceLance_area_entered(area):
+	pass
+#	if area.is_in_group("Enemy"):
+#		emit_signal("restore_tundra_stacks", 12)

@@ -174,7 +174,7 @@ func _on_Area2D_area_entered(area):
 			velocity.y = -1250
 			yield(get_tree().create_timer(0.05), "timeout")
 			velocity.y = 0
-	if area and area.is_in_group("Player"):
+	if area.is_in_group("Player"):
 			is_staggered = true
 			yield(get_tree().create_timer(1), "timeout")
 			is_staggered = false
