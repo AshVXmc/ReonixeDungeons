@@ -2,7 +2,7 @@ class_name Goblin extends KinematicBody2D
 
 const DMG_INDICATOR : PackedScene = preload("res://scenes/particles/DamageIndicatorParticle.tscn")
 const DEATH_SMOKE : PackedScene = preload("res://scenes/particles/DeathSmokeParticle.tscn")
-onready var max_HP : int = Global.enemy_level_index * 100
+onready var max_HP : int = Global.enemy_level_index * 200
 onready var HP : int = max_HP
 export var flipped : bool = false
 var velocity = Vector2()
@@ -24,12 +24,13 @@ var is_frozen : bool = false
 var is_airborne : bool = false
 var decoyed : bool = false
 var dead : bool = false
-
+const AIRBORNE_SPEED : int = -2750
 var phys_res : float = 25
 var fire_res : float = 0
 var earth_res : float = 0 
 var ice_res : float = 0
 var magic_res : float = -50
+
 
 
 func _ready():
@@ -47,7 +48,16 @@ func _physics_process(delta):
 #		velocity.y = 0
 #	if !is_staggered and !is_frozen:
 	velocity = move_and_slide(velocity, FLOOR)
-	$Sprite.play("Idle") if velocity.x == 0 else $Sprite.play("Attacking")
+	
+	if velocity.x == 0:
+		$Sprite.play("Idle")
+		if $Area2D.is_in_group("Hostile"):
+			$Area2D.remove_from_group("Hostile") 
+	else:
+		$Sprite.play("Attacking")
+		if !$Area2D.is_in_group("Hostile"):
+			$Area2D.add_to_group("Hostile")
+
 	if !is_staggered and !is_frozen and !dead and !is_airborne: 
 		if AREA_LEFT.overlaps_area(PLAYER) and !AREA_LEFT.overlaps_area(DECOY) and !AREA_LEFT.overlaps_area(DECOY2) and !AREA_LEFT.overlaps_area(DECOY3):
 			$Sprite.flip_h = false
@@ -116,10 +126,6 @@ func _on_Area2D_area_entered(area):
 			for group_names in groups:	
 				if groups.has("Fireball"):
 					groups.erase("Fireball")
-				if groups.has("FireGauge"):
-					groups.erase("FireGauge")
-				if groups.has("FireGaugeOne"):
-					groups.erase("FireGaugeOne")
 				if groups.has("LightKnockback"):
 					groups.erase("LightKnockback")
 				if groups.has("physics_process"):
@@ -135,7 +141,7 @@ func _on_Area2D_area_entered(area):
 						parse_damage()
 					break
 	if area.is_in_group("Ice"):
-
+			
 			# YEAH IT WORKS EFJWFJWPOFWJPFWJP
 			var groups : Array = area.get_groups()
 			for group_names in groups:
@@ -171,13 +177,15 @@ func _on_Area2D_area_entered(area):
 		add_damage_particles("Fire", damage)
 	if area.is_in_group("Airborne"):
 			is_airborne = true
-			velocity.y = -1250
+			velocity.y = AIRBORNE_SPEED
+			
 			yield(get_tree().create_timer(0.05), "timeout")
 			velocity.y = 0
 	if area.is_in_group("Player"):
 			is_staggered = true
-			yield(get_tree().create_timer(1), "timeout")
+			yield(get_tree().create_timer(0.5), "timeout")
 			is_staggered = false
+
 	if area.is_in_group("Frozen"):
 			is_frozen = true
 

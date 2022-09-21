@@ -18,7 +18,7 @@ func _ready():
 			$AnimationPlayer.play("earth_particle")
 	$Label.text = str(damage)
 	direction_shift = Vector2(rand_range(-1,1), rand_range(-1,1))
-
+	
 
 func _process(delta):
 	global_position += SPEED * direction_shift * delta

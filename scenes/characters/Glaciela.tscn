@@ -699,6 +699,7 @@ margin_right = -21.5
 margin_bottom = -68.5
 rect_scale = Vector2( 3, 4 )
 max_value = 120.0
+value = 120.0
 texture_under = ExtResource( 9 )
 texture_progress = ExtResource( 12 )
 
@@ -709,7 +710,25 @@ one_shot = true
 wait_time = 0.75
 one_shot = true
 
+[node name="TundraStackRegenDelay" type="Timer" parent="."]
+wait_time = 0.4
+one_shot = true
+
+[node name="DashTundraRechargeDelayTimer" type="Timer" parent="."]
+wait_time = 2.5
+one_shot = true
+
+[node name="AirborneMaxDuration" type="Timer" parent="."]
+process_mode = 0
+wait_time = 1.5
+one_shot = true
+
+[node name="TundraStackRegen" type="Timer" parent="."]
+autostart = true
+
 [connection signal="area_entered" from="AttackCollision" to="." method="_on_AttackCollision_area_entered"]
 [connection signal="timeout" from="MeleeTimer" to="." method="_on_MeleeTimer_timeout"]
 [connection signal="area_entered" from="Area2D" to="." method="_on_Area2D_area_entered"]
 [connection signal="timeout" from="ResetAttackStringTimer" to="." method="_on_ResetAttackStringTimer_timeout"]
+[connection signal="timeout" from="TundraStackRegenDelay" to="." method="_on_TundraStackRegenDelay_timeout"]
+[connection signal="timeout" from="TundraStackRegen" to="." method="_on_TundraStackRegen_timeout"]

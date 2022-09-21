@@ -39,6 +39,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/status_effects/AttackBuff.gd"
 }, {
+"base": "Area2D",
+"class": "BasicAttackBuff",
+"language": "GDScript",
+"path": "res://scripts/status_effects/BasicAttackBuff.gd"
+}, {
 "base": "KinematicBody2D",
 "class": "Bat",
 "language": "GDScript",
@@ -125,6 +130,11 @@ _global_script_classes=[ {
 "path": "res://scripts/skills/FireFairy.gd"
 }, {
 "base": "Area2D",
+"class": "FireGaugeBase",
+"language": "GDScript",
+"path": "res://scripts/status_effects/FireGaugeBaseScript.gd"
+}, {
+"base": "FireGaugeBase",
 "class": "FireSaw",
 "language": "GDScript",
 "path": "res://scripts/misc/FireSaw.gd"
@@ -396,6 +406,7 @@ _global_script_class_icons={
 "AlphaGuardian": "",
 "Arrow": "",
 "AttackBuff": "",
+"BasicAttackBuff": "",
 "Bat": "",
 "BossLevelTransporter": "",
 "BowGoblin": "",
@@ -413,6 +424,7 @@ _global_script_class_icons={
 "ExplodingFruit": "",
 "Familiar": "",
 "FireFairy": "",
+"FireGaugeBase": "",
 "FireSaw": "",
 "Fireball": "",
 "FrostFruit": "",

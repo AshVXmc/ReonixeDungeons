@@ -793,6 +793,7 @@ margin_top = -70.3163
 margin_right = -25.9286
 margin_bottom = -64.3163
 rect_scale = Vector2( 3.5, 4 )
+value = 100.0
 texture_under = ExtResource( 10 )
 texture_progress = ExtResource( 15 )
 
@@ -822,6 +823,23 @@ shape = SubResource( 10 )
 [node name="AtkBuffParticle" parent="." instance=ExtResource( 14 )]
 visible = false
 
+[node name="DashEmberRechargeDelayTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[node name="AirborneTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[node name="EmberStackRegenDelay" type="Timer" parent="."]
+wait_time = 0.4
+one_shot = true
+
+[node name="AirborneMaxDuration" type="Timer" parent="."]
+process_mode = 0
+wait_time = 1.25
+one_shot = true
+
 [connection signal="timeout" from="CharacterManager/SwapCooldownTimer" to="CharacterManager" method="_on_SwapCooldownTimer_timeout"]
 [connection signal="area_entered" from="AttackCollision" to="." method="_on_AttackCollision_area_entered"]
 [connection signal="area_entered" from="ChargedAttackCollision" to="." method="_on_AttackCollision_area_entered"]
@@ -844,3 +862,5 @@ visible = false
 [connection signal="timeout" from="OxygenTimer" to="." method="_on_OxygenTimer_timeout"]
 [connection signal="timeout" from="OxygenRefillTimer" to="." method="_on_OxygenRefillTimer_timeout"]
 [connection signal="timeout" from="CampfireTimer" to="." method="_on_CampfireTimer_timeout"]
+[connection signal="timeout" from="AirborneTimer" to="." method="_on_AirborneTimer_timeout"]
+[connection signal="timeout" from="AirborneMaxDuration" to="." method="_on_AirborneMaxDuration_timeout"]

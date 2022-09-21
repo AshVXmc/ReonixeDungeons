@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/player_charged_attack_skill_icon_translucent.png-67cf2a006e9c20f7656c3c08b5922541.stex"
+path="res://.import/mana_cost_8.png-84d503b54cc2e13e8a2cdcdec51f4ef4.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/UI/player_charged_attack_skill_icon_translucent.png"
-dest_files=[ "res://.import/player_charged_attack_skill_icon_translucent.png-67cf2a006e9c20f7656c3c08b5922541.stex" ]
+source_file="res://assets/UI/mana_cost_8.png"
+dest_files=[ "res://.import/mana_cost_8.png-84d503b54cc2e13e8a2cdcdec51f4ef4.stex" ]
 
 [params]
 

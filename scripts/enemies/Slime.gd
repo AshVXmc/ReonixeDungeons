@@ -40,6 +40,7 @@ func _on_Area2D_area_entered(area):
 	]
 	if HP > 0:
 		if area.is_in_group("Sword"):
+			
 			HP -= Global.attack_power
 			$HealthBar.value -= Global.attack_power
 			add_damage_particles("Physical", Global.attack_power)

@@ -13,7 +13,7 @@ radius = 24.1874
 height = 20.9775
 
 [node name="Slime" type="KinematicBody2D" groups=["Enemy"]]
-collision_layer = 4
+collision_layer = 0
 collision_mask = 11
 script = ExtResource( 1 )
 __meta__ = {
@@ -34,7 +34,7 @@ position = Vector2( 32, 0 )
 enabled = true
 cast_to = Vector2( 0, 28 )
 
-[node name="Area2D" type="Area2D" parent="." groups=["Enemy"]]
+[node name="Area2D" type="Area2D" parent="." groups=["Enemy", "Hostile"]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2( 0.595276, -14.6835 )

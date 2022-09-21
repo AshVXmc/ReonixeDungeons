@@ -20,9 +20,10 @@ var basicatkbuffdur = 0
 # Attack buff for all abilities (Skills)
 var atkbuffskill = 0
 var buffed_from_attack_crystals = false
-var prev_basic_attack_power : Array
-var prev_attack_power : Array
+var prev_basic_attack_power : Array 
+var prev_attack_power : Array 
 var number_of_atk_buffs : int = 0
+var number_of_basic_atk_buffs : int = 0
 onready var inv_timer : Timer = $InvulnerabilityTimer
 onready var fb_timer : Timer = $FireballTimer
 var knockdir : Vector2 = Vector2.ZERO
@@ -30,6 +31,7 @@ var velocity : Vector2 = Vector2(0,0)
 var healthpot_amount : int = Global.healthpot_amount
 var collision : KinematicCollision2D
 const TYPE : String = "Player"
+const AIRBORNE_STATUS : PackedScene = preload("res://scenes/status_effects/AirborneStatus.tscn")
 var dashdirection : Vector2 = Vector2(1,0)
 var repulsion : Vector2 = Vector2()
 var knockback_power : int = 100
@@ -71,12 +73,15 @@ var cam_shake : bool = false
 var is_charging : bool = false
 var slowed : bool = false
 var underwater : bool = false
-var mana_absorption_counter_max : int = 5
+var airborne_mode : bool = false
+var mana_absorption_counter_max : int = 4
 var mana_absorption_counter : int = mana_absorption_counter_max
 var restore_mana_for_all_parties : int = 2
 var attack_buff : float
+var basic_attack_buff : float
 var attack_string_count : int = 4
-var buffed_attack_power : float
+var charged_dash : bool = false
+
 
 onready var basic_attack_power : float = Global.attack_power * (Global.player_skill_multipliers["BasicAttack"] / 100)
 onready var charged_attack_power : float = Global.attack_power * (Global.player_skill_multipliers["ChargedAttack"] / 100)
@@ -142,8 +147,9 @@ func _physics_process(_delta):
 	if !is_dead and !is_invulnerable and !is_healing and !is_shopping and !is_frozen:
 		# Function calls
 		attack()
+		dash()
 		if !is_charging:
-			dash()
+			
 			glide() # Glide duration in seconds
 			useItems()
 			use_skill()
@@ -159,6 +165,7 @@ func _physics_process(_delta):
 			if Input.is_action_pressed("right") and !Input.is_action_pressed("left") and !is_attacking and !is_knocked_back and !is_dashing:
 				Input.action_release("left")
 				velocity.x = SPEED
+				airborne_mode = false
 			# warning-ignore:standalone_ternary
 				$Sprite.play("Glide") if is_gliding else $Sprite.play("Walk")
 				$Sprite.flip_h = false
@@ -176,6 +183,7 @@ func _physics_process(_delta):
 			if Input.is_action_pressed("left") and !Input.is_action_pressed("right") and !is_attacking and !is_dashing and !is_knocked_back:
 				velocity.x = -SPEED
 				Input.action_release("right")
+				airborne_mode = false
 	# warning-ignore:standalone_ternary
 				$Sprite.play("Glide") if is_gliding else $Sprite.play("Walk")
 				$Sprite.flip_h = true
@@ -223,11 +231,15 @@ func _physics_process(_delta):
 				$ToggleArea/CollisionShape2D.disabled = false
 				yield(get_tree().create_timer(0.5), "timeout")
 				$ToggleArea/CollisionShape2D.disabled = true
-	if !is_dashing and !is_gliding:
+	if !is_dashing and !is_gliding and !airborne_mode:
 		if underwater:
 			velocity.y += GRAVITY / 2
 		else:
 			velocity.y += GRAVITY
+
+	if airborne_mode:
+		velocity.y = 0
+
 	if is_healing:
 		$Sprite.play("Healing")
 	if is_frozen:
@@ -258,42 +270,22 @@ func _physics_process(_delta):
 	if Global.current_character != "Player":
 		mana_absorption_counter = mana_absorption_counter_max
 		restore_mana_for_all_parties = 2
-		
 
 func set_basic_attack_power(amount : float, duration : float, show_particles : bool = true):
 	# DONT ASK THIS IS SO COMPLICATED ON GODDDD
 		buffed_from_attack_crystals = true
-		number_of_atk_buffs += 1
-		var current_group = $AttackCollision.get_groups()
+		number_of_basic_atk_buffs += 1
+		prev_basic_attack_power.insert((number_of_basic_atk_buffs - 1), basic_attack_buff) 
+		print(prev_basic_attack_power)
+		basic_attack_buff = prev_basic_attack_power[number_of_basic_atk_buffs - 1] + amount
 		
-		
-		var other_groups : Array
-		for g in current_group:
-			# Get other group tags
-			if float(g) == 0 and !"_" in current_group and prev_basic_attack_power.empty():
-				other_groups.append(g)
-				$AttackCollision.remove_from_group(g)
-			# Get current attack value
-			if !float(g) == 0:
-				prev_basic_attack_power.insert((number_of_atk_buffs - 1), float(g)) 
-				$AttackCollision.remove_from_group(g)
-		buffed_attack_power = prev_basic_attack_power[number_of_atk_buffs - 1] + amount
-		$AttackCollision.add_to_group(str(buffed_attack_power))
-		print("Buffed: " + str(buffed_attack_power))
-		for members in other_groups:
-			$AttackCollision.add_to_group(members)
+		print("Buffed: " + str(basic_attack_buff))
 		yield(get_tree().create_timer(duration), "timeout")
-		for g in $AttackCollision.get_groups():
-			if int(g) != 0:
-				$AttackCollision.remove_from_group(g)
-		$AttackCollision.remove_from_group(str(buffed_attack_power))
-		$AttackCollision.add_to_group(str(prev_basic_attack_power[number_of_atk_buffs - 1]))
-		print("DeBuffed: " + str(prev_basic_attack_power[number_of_atk_buffs - 1]))
-		print($AttackCollision.get_groups())
-		for members in other_groups:
-			$AttackCollision.add_to_group(members)
-		number_of_atk_buffs -= 1
-		prev_basic_attack_power.remove(number_of_atk_buffs)
+		basic_attack_buff = prev_basic_attack_power[number_of_basic_atk_buffs - 1]
+		print("DeBuffed: " + str(prev_basic_attack_power[number_of_basic_atk_buffs - 1]))
+		number_of_basic_atk_buffs -= 1
+		prev_basic_attack_power.remove(number_of_basic_atk_buffs)
+		
 		buffed_from_attack_crystals = false
 
 func set_attack_power(amount : float, duration : float, show_particles : bool = true):
@@ -320,6 +312,7 @@ func use_skill():
 				emit_signal("skill_used", "FireSaw", attack_buff)
 				emit_signal("skill_ui_update", "FireSaw")
 				emit_signal("mana_changed", Global.mana, "Player")
+				print("USED PRIMARY SKILL")
 			elif Global.current_character == Global.equipped_characters[1] and Global.character2_mana >= Global.player_skill_multipliers["FireSawCost"]:
 				emit_signal("skill_used", "FireSaw", attack_buff)
 				emit_signal("skill_ui_update", "FireSaw")
@@ -404,17 +397,23 @@ func charge_meter():
 			$ChargeBar.texture_progress = FULL_CHARGE_METER
 		else:
 			$ChargeBar.texture_progress = CHARGING_CHARGE_METER
-		if is_on_floor():
-			if Input.is_action_pressed("charge"):
-				# Max value is 100
-				$ChargeBar.visible = true
-				$ChargeBar.value += 5
-				is_charging = true
-			if Input.is_action_just_released("charge") or Input.is_action_pressed("left") or Input.is_action_pressed("right") or Input.is_action_pressed("jump"):
-				# Min value is 0 (Empty)
-				$ChargeBar.visible = false
-				$ChargeBar.value = $ChargeBar.min_value
-				is_charging = false
+#		if $EmberBar.value == $EmberBar.max_value:
+		if Input.is_action_pressed("charge"):
+			# Max value is 100
+			$ChargeBar.visible = true
+			$ChargeBar.value += 5
+			is_charging = true
+			if $AirborneMaxDuration.is_stopped():
+				$AirborneMaxDuration.start()
+#				airborne_mode = true
+#				if airborne_mode:
+#					velocity.y = 0
+		if Input.is_action_just_released("charge") or Input.is_action_pressed("left") or Input.is_action_pressed("right") or Input.is_action_pressed("jump"):
+			# Min value is 0 (Empty)
+			$ChargeBar.visible = false
+			$ChargeBar.value = $ChargeBar.min_value
+			is_charging = false
+#				airborne_mode = false
 		# Charge abilities
 		if $ChargeBar.value == $ChargeBar.max_value and Input.is_action_just_pressed("ui_attack") and is_charging:
 			if $EmberBar.value == $EmberBar.max_value:
@@ -422,6 +421,7 @@ func charge_meter():
 				$ChargeBar.visible = false
 				$ChargeBar.value = $ChargeBar.min_value
 				$ChargedAttackCollision/CollisionShape2D.disabled = false
+				
 				is_charging = false
 				Input.action_release("charge")
 				var ss_projectile = SUPER_SLASH_PROJECTILE.instance()
@@ -472,33 +472,35 @@ func play_attack_animation(direction : String):
 				for groups in $AttackCollision.get_groups():
 					if float(groups) != 0:
 						$AttackCollision.remove_from_group(groups)
-						$AttackCollision.add_to_group(str(Global.attack_power * (Global.player_skill_multipliers["BasicAttack"] / 100) + buffed_attack_power))
+						$AttackCollision.add_to_group(str(Global.attack_power * (Global.player_skill_multipliers["BasicAttack"] / 100) + basic_attack_buff))
 						break
 				
 			3:
 				$AnimationPlayer.play("SwordSwingRight2")
-				
 				attack_string_count -= 1
+
 				for groups in $AttackCollision.get_groups():
 					if float(groups) != 0:
 						$AttackCollision.remove_from_group(groups)
-						$AttackCollision.add_to_group(str(Global.attack_power * (Global.player_skill_multipliers["BasicAttack2"] / 100) + buffed_attack_power))
+						$AttackCollision.add_to_group(str(Global.attack_power * (Global.player_skill_multipliers["BasicAttack2"] / 100) + basic_attack_buff))
 						break
 			2:
 				$AnimationPlayer.play("SwordSwingRight3")
 				attack_string_count -= 1
+
 				for groups in $AttackCollision.get_groups():
 					if float(groups) != 0:
 						$AttackCollision.remove_from_group(groups)
-						$AttackCollision.add_to_group(str(Global.attack_power * (Global.player_skill_multipliers["BasicAttack3"] / 100) + buffed_attack_power))
+						$AttackCollision.add_to_group(str(Global.attack_power * (Global.player_skill_multipliers["BasicAttack3"] / 100) + basic_attack_buff))
 						break
 			1:
 				$AnimationPlayer.play("SwordSwingRight4")
 				attack_string_count -= 1
+
 				for groups in $AttackCollision.get_groups():
 					if float(groups) != 0:
 						$AttackCollision.remove_from_group(groups)
-						$AttackCollision.add_to_group(str(Global.attack_power * (Global.player_skill_multipliers["BasicAttack4"] / 100) + buffed_attack_power))
+						$AttackCollision.add_to_group(str(Global.attack_power * (Global.player_skill_multipliers["BasicAttack4"] / 100) + basic_attack_buff))
 						break
 				attack_string_count = 4
 	elif direction == "Left":
@@ -506,35 +508,39 @@ func play_attack_animation(direction : String):
 			4:
 				$AnimationPlayer.play("SwordSwingLeft")
 				attack_string_count -= 1
+
 				for groups in $AttackCollision.get_groups():
 					if float(groups) != 0:
 						$AttackCollision.remove_from_group(groups)
-						$AttackCollision.add_to_group(str(Global.attack_power * (Global.player_skill_multipliers["BasicAttack"] / 100) + buffed_attack_power))
+						$AttackCollision.add_to_group(str(Global.attack_power * (Global.player_skill_multipliers["BasicAttack"] / 100) + basic_attack_buff))
 						break
 				
 			3:
 				$AnimationPlayer.play("SwordSwingLeft2")
 				attack_string_count -= 1
+
 				for groups in $AttackCollision.get_groups():
 					if float(groups) != 0:
 						$AttackCollision.remove_from_group(groups)
-						$AttackCollision.add_to_group(str(Global.attack_power * (Global.player_skill_multipliers["BasicAttack2"] / 100) + buffed_attack_power))
+						$AttackCollision.add_to_group(str(Global.attack_power * (Global.player_skill_multipliers["BasicAttack2"] / 100) + basic_attack_buff))
 						break
 			2:
 				$AnimationPlayer.play("SwordSwingLeft3")
 				attack_string_count -= 1
+
 				for groups in $AttackCollision.get_groups():
 					if float(groups) != 0:
 						$AttackCollision.remove_from_group(groups)
-						$AttackCollision.add_to_group(str(Global.attack_power * (Global.player_skill_multipliers["BasicAttack3"] / 100) + buffed_attack_power))
+						$AttackCollision.add_to_group(str(Global.attack_power * (Global.player_skill_multipliers["BasicAttack3"] / 100) + basic_attack_buff))
 						break
 			1:
 				$AnimationPlayer.play("SwordSwingLeft4")
 				attack_string_count -= 1
+
 				for groups in $AttackCollision.get_groups():
 					if float(groups) != 0:
 						$AttackCollision.remove_from_group(groups)
-						$AttackCollision.add_to_group(str(Global.attack_power * (Global.player_skill_multipliers["BasicAttack4"] / 100) + buffed_attack_power))
+						$AttackCollision.add_to_group(str(Global.attack_power * (Global.player_skill_multipliers["BasicAttack4"] / 100) + basic_attack_buff))
 						break
 				attack_string_count = 4
 
@@ -548,11 +554,20 @@ func _on_Area2D_area_entered(area : Area2D):
 			Global.lifewine_amount += 1
 			emit_signal("lifewine_obtained", Global.lifewine_amount)
 		if !Global.godmode:
+			if area.is_in_group("Enemy") and is_dashing and $DashEmberRechargeDelayTimer.is_stopped():
+				$EmberBar.value += 35
+
+				$DashEmberRechargeDelayTimer.start()
+			if is_dashing:
+				if area.is_in_group("Enemy") and charged_dash:
+					knock_airborne(area, 4)
 			if inv_timer.is_stopped() and !is_invulnerable and !is_dashing:
-				if area.is_in_group("Enemy") or area.is_in_group("DeflectedProjectile"):
+				if area.is_in_group("Enemy") and area.is_in_group("Hostile")or area.is_in_group("DeflectedProjectile"):
+
 					var groups = area.get_groups()
 					groups.erase("Enemy")
-
+					groups.erase("IsAirborne")
+					groups.erase("Hostile")
 					
 					if groups.has("Physical") or groups.has("Ice") or groups.has("Fire") or groups.has("Earth"):
 						groups.erase("Physical")
@@ -634,7 +649,7 @@ func _on_Area2D_area_exited(area):
 		print("not underwater")
 
 func attack_knock():
-	var KNOCK_POWER : int = 50
+	var KNOCK_POWER : int = 75
 	velocity.x = -KNOCK_POWER if !$Sprite.flip_h else KNOCK_POWER
 
 func afterDamaged():
@@ -666,36 +681,43 @@ func add_hurt_particles(damage : float):
 	hurt_particle.position = global_position
 # Obtaining mana by attacking enemies
 func _on_AttackCollision_area_entered(area):
-	if area.is_in_group("Enemy") or area.is_in_group("Enemy2") and !$AttackCollision/CollisionShape2D.disabled:
-		attack_knock()
-#		freeze_enemy()
-		if $ChargedAttackCollision/CollisionShape2D.disabled:
-			if attack_string_count == 3:
-				$EmberBar.value += 30
-			else:
-				$EmberBar.value += 15
-		if Global.current_character == "Player":
-			var hitparticle = SWORD_HIT_PARTICLE.instance()
-			var slashparticle = SWORD_SLASH_EFFECT.instance()
-			hitparticle.emitting = true
-			get_parent().add_child(hitparticle)
-			get_parent().add_child(slashparticle)
-			hitparticle.position = $Position2D.global_position
-			slashparticle.position = $Position2D.global_position
-			if mana_absorption_counter > 0:
-				mana_absorption_counter -= 1
-			elif mana_absorption_counter == 0:
-				mana_absorption_counter = 4
-			if mana_absorption_counter == 0 and $ChargeBar.value != $ChargeBar.max_value:
-				if Global.current_character == Global.equipped_characters[0] and Global.mana < Global.max_mana:
-					Global.mana += 1
-					emit_signal("mana_changed", Global.mana, "Player")
-				elif Global.current_character == Global.equipped_characters[1] and Global.character2_mana < Global.character2_max_mana:
-					Global.character2_mana += 1
-					emit_signal("mana_changed", Global.character2_mana, "Player")
-				elif Global.current_character == Global.equipped_characters[2] and Global.character3_mana < Global.character3_max_mana:
-					Global.character3_mana += 1
-					emit_signal("mana_changed", Global.character3_mana, "Player")
+	if weakref(area).get_ref() != null:
+		if area.is_in_group("Enemy")  and !$AttackCollision/CollisionShape2D.disabled:
+#			attack_knock()
+#			freeze_enemy()
+			if Global.current_character == "Player":
+				if $EmberStackRegenDelay.is_stopped() and $ChargedAttackCollision/CollisionShape2D.disabled:
+					if airborne_mode:
+						$EmberBar.value += 35
+					else:
+						$EmberBar.value += 20
+					$EmberStackRegenDelay.start()
+				var hitparticle = SWORD_HIT_PARTICLE.instance()
+				var slashparticle = SWORD_SLASH_EFFECT.instance()
+				hitparticle.emitting = true
+				get_parent().add_child(hitparticle)
+				get_parent().add_child(slashparticle)
+				hitparticle.position = $Position2D.global_position
+				slashparticle.position = $Position2D.global_position
+				if mana_absorption_counter > 0:
+					mana_absorption_counter -= 1
+				elif mana_absorption_counter == 0:
+					mana_absorption_counter = 4
+				if mana_absorption_counter == 0 and $ChargeBar.value != $ChargeBar.max_value:
+					if Global.current_character == Global.equipped_characters[0] and Global.mana < Global.max_mana:
+						Global.mana += 1
+						emit_signal("mana_changed", Global.mana, "Player")
+					elif Global.current_character == Global.equipped_characters[1] and Global.character2_mana < Global.character2_max_mana:
+						Global.character2_mana += 1
+						emit_signal("mana_changed", Global.character2_mana, "Player")
+					elif Global.current_character == Global.equipped_characters[2] and Global.character3_mana < Global.character3_max_mana:
+						Global.character3_mana += 1
+						emit_signal("mana_changed", Global.character3_mana, "Player")
+	if weakref(area).get_ref() != null:
+		if area.is_in_group("Airborne"):
+			airborne_mode = true
+			print("AIRBORNE MODe")
+			$AirborneTimer.start()
 func change_mana_value():
 	pass
 func freeze_enemy():
@@ -739,6 +761,7 @@ func _on_RightDectector_area_entered(area):
 			is_healing = false
 			$HealingTimer.stop()
 func dash():
+	
 	if Global.dash_unlocked and !is_frozen:
 		if is_on_floor() and $DashUseTimer.is_stopped():
 			can_dash = true
@@ -750,6 +773,12 @@ func dash():
 #			if Global.current_character == "Player":
 #				$EmberBar.value += 10
 			# Particles
+			if $ChargeBar.value == $ChargeBar.max_value:
+				is_charging = false
+				Input.action_release("charge")
+				charged_dash = true
+
+				
 			is_dashing = true
 			var dash_particle = DASH_PARTICLE.instance()
 			get_parent().add_child(dash_particle)
@@ -769,12 +798,17 @@ func dash():
 			$Sprite.play("Dash")
 			velocity.y = 0
 			velocity = dashdirection.normalized() * 2500
-			
 			yield(get_tree().create_timer(0.25), "timeout")
-			
+			charged_dash = false
 			$DashCooldown.start()
 			velocity.y += GRAVITY
 			is_dashing = false
+
+func knock_airborne(target, airborne_duration : float = 1):
+	if target and target != null and !target.is_in_group("IsAirborne"): 
+		var airborne_status : AirborneStatus = AIRBORNE_STATUS.instance()
+		airborne_status.time = airborne_duration
+		target.get_parent().add_child(airborne_status)
 
 func glide():
 	if Global.glide_unlocked and Input.is_action_just_pressed("toggle_glider"):
@@ -798,6 +832,7 @@ func glide():
 	if Input.is_action_just_released("jump") or is_on_floor():
 		$GlideTimer.stop()
 		is_gliding = false
+#		if !airborne_mode:
 		velocity.y += GRAVITY * 3
 
 
@@ -1071,3 +1106,14 @@ func _on_CampfireTimer_timeout():
 	Global.hearts += Global.max_hearts - Global.hearts
 	emit_signal("life_changed", Global.hearts)
 	is_healing = false
+
+
+func _on_AirborneTimer_timeout():
+	airborne_mode = false
+	velocity.y = 0
+
+func _on_AirborneMaxDuration_timeout():
+	Input.action_release("charge")
+	velocity.y = 0
+	airborne_mode = false
+	

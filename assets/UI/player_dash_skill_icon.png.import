@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/player_charged_attack_skill_icon.png-ad5001a33bd47b3cfad242780917590e.stex"
+path="res://.import/player_dash_skill_icon.png-ef0b1c81be64fe37de45543a4394e6db.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/UI/player_charged_attack_skill_icon.png"
-dest_files=[ "res://.import/player_charged_attack_skill_icon.png-ad5001a33bd47b3cfad242780917590e.stex" ]
+source_file="res://assets/UI/player_dash_skill_icon.png"
+dest_files=[ "res://.import/player_dash_skill_icon.png-ef0b1c81be64fe37de45543a4394e6db.stex" ]
 
 [params]
 

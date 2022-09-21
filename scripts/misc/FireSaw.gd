@@ -1,4 +1,4 @@
-class_name FireSaw extends Area2D
+class_name FireSaw extends FireGaugeBase
 
 const BURNING : PackedScene = preload("res://scenes/status_effects/BurningStatus.tscn")
 var SPEED : int = 500
@@ -7,10 +7,10 @@ var direction : int = 1
 var destroyed : bool = false
 const SMALL_FIRE_PARTICLE : PackedScene = preload("res://scenes/particles/FireHitParticle.tscn")
 var atkbonus : float
-onready var burncalculation = Global.attack_power * 0.5
 var attack_calculation = Global.attack_power * (Global.player_skill_multipliers["FireSaw"] / 100) + atkbonus
 
 func _ready():
+	burncalculation = Global.attack_power * 0.5
 	var attack_calculation = Global.attack_power * (Global.player_skill_multipliers["FireSaw"] / 100) + atkbonus
 	add_to_group(str(attack_calculation))
 	print("atk bonus" + str(atkbonus))

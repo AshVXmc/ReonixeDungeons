@@ -45,7 +45,7 @@
 [ext_resource path="res://scenes/menus/SkillsUI.tscn" type="PackedScene" id=43]
 [ext_resource path="res://scenes/enemies/Goblin.tscn" type="PackedScene" id=44]
 [ext_resource path="res://scenes/menus/InventoryUI.tscn" type="PackedScene" id=45]
-[ext_resource path="res://scenes/status_effects/AttackBuff.tscn" type="PackedScene" id=47]
+[ext_resource path="res://scenes/enemies/Slime.tscn" type="PackedScene" id=46]
 
 [sub_resource type="TileSet" id=1]
 0/name = "deep_woods_spritesheet.png 0"
@@ -322,13 +322,13 @@ position = Vector2( 3683.07, -1813.17 )
 position = Vector2( 3987.69, -1586.86 )
 
 [node name="MagicPedestal" parent="." instance=ExtResource( 40 )]
-position = Vector2( 1044.67, 414.659 )
+position = Vector2( 846.575, 612 )
 
 [node name="GashaponMachine" parent="." instance=ExtResource( 42 )]
 position = Vector2( 582.75, 592.025 )
 
 [node name="Player" parent="." instance=ExtResource( 8 )]
-position = Vector2( 375.545, 441 )
+position = Vector2( 374.902, 592.025 )
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position = Vector2( -24.7189, -147.43 )
@@ -344,21 +344,8 @@ drag_margin_left = 0.4
 drag_margin_right = 0.4
 editor_draw_limits = true
 
-[node name="Goblin" parent="." instance=ExtResource( 44 )]
-position = Vector2( 1387.08, 576 )
-
 [node name="Goblin2" parent="." instance=ExtResource( 44 )]
-position = Vector2( 587.453, 571.808 )
+position = Vector2( 532.112, 612 )
 
-[node name="Goblin3" parent="." instance=ExtResource( 44 )]
-position = Vector2( 1147, 565.587 )
-
-[node name="AttackBuff" parent="." instance=ExtResource( 47 )]
-position = Vector2( 189.772, 599 )
-amount = 3.0
-duration = 3.0
-
-[node name="AttackBuff2" parent="." instance=ExtResource( 47 )]
-position = Vector2( 93.772, 599 )
-amount = 3.0
-duration = 3.0
+[node name="Slime" parent="." instance=ExtResource( 46 )]
+position = Vector2( 67.33, 646.025 )

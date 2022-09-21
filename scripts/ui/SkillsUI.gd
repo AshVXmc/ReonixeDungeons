@@ -1,8 +1,8 @@
 class_name SkillsUI extends Control
 
 signal ability_on_cooldown(ability_name, attack_bonus)
-var firesawcost : int = 6
-var firefairycost : int = 4
+var firesawcost : int = Global.player_skill_multipliers["FireSawCost"]
+var firefairycost : int = Global.player_skill_multipliers["FireFairyCost"]
 var fireballcost : int = 2
 const playericon = preload("res://assets/UI/player_character_icon.png")
 const glacielaicon = preload("res://assets/UI/glaciela_character_icon.png")

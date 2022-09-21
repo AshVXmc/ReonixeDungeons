@@ -8,6 +8,7 @@ signal mana_changed(amount, character)
 signal life_changed(amount, character)
 signal attack_buff(amount, duration)
 var target
+var airborne_mode : bool = false
 # Attack buff for BASIC ATTACKS ONLY.
 var atkbuffmulti = 0
 var atkbuffdur = 0
@@ -22,7 +23,7 @@ var buffed_attack_power : float
 var is_charging = false
 onready var FULL_CHARGE_METER = preload("res://assets/UI/chargebar_full.png")
 onready var CHARGING_CHARGE_METER = preload("res://assets/UI/chargebar_charging.png")
-
+var attack_collsion_overlaps_enemy : bool = false
 func _ready():
 	connect("life_changed", get_parent().get_parent().get_parent().get_node("HeartUI/Life"), "on_player_life_changed")
 	connect("mana_changed", get_parent().get_parent().get_parent().get_node("ManaUI/Mana"), "on_player_mana_changed")
@@ -39,6 +40,10 @@ func _physics_process(delta):
 	if Global.current_character == "Glaciela":
 		charge_meter()
 		$AnimatedSprite.visible = true
+		if $AnimatedSprite.flip_h:
+			$ChargedAttackCollision.set_scale(Vector2(-1,1))
+		else:
+			$ChargedAttackCollision.set_scale(Vector2(1,1))
 		# Animation handling 
 		if Input.is_action_pressed("right") and !Input.is_action_pressed("left") and !get_parent().get_parent().is_attacking and !get_parent().get_parent().is_dashing and !get_parent().get_parent().is_knocked_back:
 			Input.action_release("left")
@@ -89,12 +94,19 @@ func _physics_process(delta):
 		if $ChargeBar.value == $ChargeBar.max_value:
 			if Input.is_action_pressed("ui_attack") and $ChargedAttackCooldown.is_stopped(): 
 				if $TundraMeter.value >= 40:
-					charged_attack(0.6)
-					$TundraMeter.value -= 40
-					
+					if $TundraMeter.value == $TundraMeter.max_value:
+						charged_attack(2.75)
+						Input.action_press("jump")
+						Input.action_press("jump")
+					elif $TundraMeter.value >= 80 and $TundraMeter.value != $TundraMeter.max_value: 
+						charged_attack(1.2)
+					else:
+						charged_attack(0.5)
+					$TundraMeter.value = $TundraMeter.min_value
 						
-				else:
-					Input.action_press("ui_attack")
+					$ChargeBar.visible = false
+					$ChargeBar.value = $ChargeBar.min_value
+					is_charging = false
 			
 		if Input.is_action_just_pressed("primary_skill") and !Input.is_action_just_pressed("secondary_skill"):
 			print("skill emitted")
@@ -111,7 +123,6 @@ func play_attack_animation(direction : String):
 			4:
 				$AnimationPlayer.play("SpearSwingRight1")
 				attack_string_count -= 1
-				$TundraMeter.value += 6
 				for groups in $AttackCollision.get_groups():
 					if float(groups) != 0:
 						$AttackCollision.remove_from_group(groups)
@@ -121,7 +132,7 @@ func play_attack_animation(direction : String):
 			3:
 				$AnimationPlayer.play("SpearSwingRight2")
 				attack_string_count -= 1
-				$TundraMeter.value += 6
+	
 				for groups in $AttackCollision.get_groups():
 					if float(groups) != 0:
 						$AttackCollision.remove_from_group(groups)
@@ -130,7 +141,6 @@ func play_attack_animation(direction : String):
 			2:
 				$AnimationPlayer.play("SpearSwingRight3")
 				attack_string_count -= 1
-				$TundraMeter.value += 6
 				for groups in $AttackCollision.get_groups():
 					if float(groups) != 0:
 						$AttackCollision.remove_from_group(groups)
@@ -139,20 +149,22 @@ func play_attack_animation(direction : String):
 			1:
 				$AnimationPlayer.play("SpearSwingRight4")
 				attack_string_count -= 1
-				$TundraMeter.value += 18
-				attack_string_count = 4
+				
+				if attack_collsion_overlaps_enemy:
+					$TundraMeter.value += 6
 				for groups in $AttackCollision.get_groups():
 					if float(groups) != 0:
 						$AttackCollision.remove_from_group(groups)
 						$AttackCollision.add_to_group(str(Global.glaciela_attack * (Global.glaciela_skill_multipliers["BasicAttack4"] / 100) + buffed_attack_power))
 						break
+				attack_string_count = 4
 
 	elif direction == "Left":
 		match attack_string_count:
 			4:
 				$AnimationPlayer.play("SpearSwingLeft1")
 				attack_string_count -= 1
-				$TundraMeter.value += 6
+
 				for groups in $AttackCollision.get_groups():
 					if float(groups) != 0:
 						$AttackCollision.remove_from_group(groups)
@@ -161,7 +173,6 @@ func play_attack_animation(direction : String):
 			3:
 				$AnimationPlayer.play("SpearSwingLeft2")
 				attack_string_count -= 1
-				$TundraMeter.value += 6
 				for groups in $AttackCollision.get_groups():
 					if float(groups) != 0:
 						$AttackCollision.remove_from_group(groups)
@@ -170,7 +181,7 @@ func play_attack_animation(direction : String):
 			2:
 				$AnimationPlayer.play("SpearSwingLeft3")
 				attack_string_count -= 1
-				$TundraMeter.value += 6
+
 				for groups in $AttackCollision.get_groups():
 					if float(groups) != 0:
 						$AttackCollision.remove_from_group(groups)
@@ -179,32 +190,42 @@ func play_attack_animation(direction : String):
 			1:
 				$AnimationPlayer.play("SpearSwingLeft4")
 				attack_string_count -= 1
-				$TundraMeter.value += 18
-				attack_string_count = 4
+				
 				for groups in $AttackCollision.get_groups():
 					if float(groups) != 0:
 						$AttackCollision.remove_from_group(groups)
 						$AttackCollision.add_to_group(str(Global.glaciela_attack * (Global.glaciela_skill_multipliers["BasicAttack4"] / 100) + buffed_attack_power))
 						break
+				attack_string_count = 4
 	
 func charge_meter():
 	if Global.current_character == "Glaciela":
 		$ChargingParticle.visible = true if is_charging else false
-		if $ChargeBar.value == $ChargeBar.max_value:
-			$ChargeBar.texture_progress = FULL_CHARGE_METER
-		else:
-			$ChargeBar.texture_progress = CHARGING_CHARGE_METER
-		if get_parent().get_parent().is_on_floor():
-			if Input.is_action_pressed("charge"):
-				# Max value is 100
-				$ChargeBar.visible = true
-				$ChargeBar.value += 5
-				is_charging = true
-			if Input.is_action_just_released("charge") or Input.is_action_pressed("left") or Input.is_action_pressed("right") or Input.is_action_pressed("jump"):
-				# Min value is 0 (Empty)
-				$ChargeBar.visible = false
-				$ChargeBar.value = $ChargeBar.min_value
-				is_charging = false
+		if $TundraMeter.value >= $TundraMeter.max_value / 3:
+			if $ChargeBar.value == $ChargeBar.max_value:
+				$ChargeBar.texture_progress = FULL_CHARGE_METER
+			else:
+				$ChargeBar.texture_progress = CHARGING_CHARGE_METER
+			if get_parent().get_parent().is_on_floor():
+				if Input.is_action_pressed("charge"):
+					# Max value is 100
+					
+					$ChargeBar.visible = true
+					if $TundraMeter.value == $TundraMeter.max_value:
+						$ChargeBar.value += 2.5
+					elif $TundraMeter.value >= 80 and $TundraMeter.value != $TundraMeter.max_value:
+						$ChargeBar.value += 5
+						print("second version")
+					else:
+						$ChargeBar.value += 7
+					is_charging = true
+					
+				if Input.is_action_just_released("charge") or Input.is_action_pressed("left") or Input.is_action_pressed("right") or Input.is_action_pressed("jump"):
+					# Min value is 0 (Empty)
+					$ChargeBar.visible = false
+					$ChargeBar.value = $ChargeBar.min_value
+					is_charging = false
+
 
 func charged_attack(airborne_duration : float = 1):
 		if target and target != null: 
@@ -218,7 +239,7 @@ func charged_attack(airborne_duration : float = 1):
 					$AnimationPlayer.play("ChargedAttackLeft")
 				set_basic_attack_power(3, 0.1)
 				$ChargedAttackCooldown.start()
-
+				$TundraMeter.value = 0
 func get_closest_enemy():
 	var enemies = get_tree().get_nodes_in_group("Enemy")
 	if enemies.empty(): 
@@ -289,17 +310,25 @@ func infuse_element(element : String, duration : float = 10):
 			$AttackCollision.add_to_group("Sword")
 
 func _on_AttackCollision_area_entered(area):
-	if area.is_in_group("Enemy") or area.is_in_group("Enemy2"):
-		var hitparticle = SWORD_HIT_PARTICLE.instance()
-		var slashparticle = SWORD_SLASH_EFFECT.instance()
-		hitparticle.emitting = true
-		get_parent().get_parent().get_parent().add_child(hitparticle)
-		get_parent().get_parent().get_parent().add_child(slashparticle)
-		hitparticle.position = get_parent().get_parent().get_node("Position2D").global_position
-		slashparticle.position = get_parent().get_parent().get_node("Position2D").global_position
+	if weakref(area).get_ref() != null:
+		if area.is_in_group("Enemy") or area.is_in_group("Enemy2"):
+			
+			if $TundraStackRegenDelay.is_stopped():
+				$TundraMeter.value += 4
+				$TundraStackRegenDelay.start()
 
-			
-			
+			var hitparticle = SWORD_HIT_PARTICLE.instance()
+			var slashparticle = SWORD_SLASH_EFFECT.instance()
+			hitparticle.emitting = true
+			get_parent().get_parent().get_parent().add_child(hitparticle)
+			get_parent().get_parent().get_parent().add_child(slashparticle)
+			hitparticle.position = get_parent().get_parent().get_node("Position2D").global_position
+			slashparticle.position = get_parent().get_parent().get_node("Position2D").global_position
+			yield(get_tree().create_timer(0.1),"timeout")
+	if weakref(area).get_ref() != null:
+		if area.is_in_group("Airborne"):
+			get_parent().get_parent().get_node("AirborneTimer").start()
+			get_parent().get_parent().airborne_mode = true
 
 func _on_MeleeTimer_timeout():
 	$AttackCollision/CollisionShape2D.disabled = true
@@ -315,17 +344,26 @@ func _on_Area2D_area_entered(area):
 			emit_signal("lifewine_obtained", Global.lifewine_amount)
 		if !Global.godmode:
 			if get_parent().get_parent().inv_timer.is_stopped() and !get_parent().get_parent().is_invulnerable and !get_parent().get_parent().is_dashing:
-				if area.is_in_group("Enemy") or area.is_in_group("DeflectedProjectile"):
+				if area.is_in_group("Enemy") and area.is_in_group("Hostile") or area.is_in_group("DeflectedProjectile"):
 					var groups = area.get_groups()
 					groups.erase("Enemy")
-					var damage = float(groups.max())
-					take_damage(damage)
-					get_parent().get_parent().add_hurt_particles(damage * 2)
-					get_parent().get_parent().afterDamaged()
-						
+					groups.erase("Hostile")
+					if groups.has("Physical") or groups.has("Ice") or groups.has("Magic") or groups.has("Earth"):
+						groups.erase("Physical")
+						groups.erase("Ice")
+						groups.erase("Earth")
+						groups.erase("Magic")
+						var damage = float(groups.max())
+						take_damage(damage)
+						get_parent().get_parent().add_hurt_particles(damage)
+					elif groups.has("Fire"):
+						groups.erase("Fire")
+						var damage = float(groups.max())
+						take_damage(damage * 1.5)
+						get_parent().get_parent().add_hurt_particles(damage * 1.5)
 					get_parent().get_parent().is_gliding = false
 					Input.action_release("charge")
-					
+					get_parent().get_parent().afterDamaged()
 					if !area.is_in_group("LightEnemy"):
 						get_parent().get_parent().knockback()
 					get_parent().get_parent().get_node("CampfireTimer").stop()
@@ -374,3 +412,11 @@ func _on_ResetAttackStringTimer_timeout():
 	pass # Replace with function body.
 
 
+
+
+#func _on_TundraStackRegenDelay_timeout():
+#	$TundraMeter.value += 2
+
+
+func _on_TundraStackRegen_timeout():
+	$TundraMeter.value += 4

@@ -9,6 +9,7 @@ var is_burning : bool = false
 # Ticks every 0.25 secs
 onready var max_burn_duration = $DestroyedTimer.wait_time
 
+
 func _ready():
 
 	$BurningBar.value = 0
@@ -61,14 +62,15 @@ func calculate_damage():
 
 func _on_Detector_area_entered(area):
 	if area.is_in_group("FireGauge"):
+				
 		burncalcarray.append(area.burncalculation)
 		print(burncalcarray)
 	if !is_burning:
-		if area.is_in_group("FireGaugeOne"):
-			reduce_burn_stack(25)
+		if area.is_in_group("FireGauge"):
+			var groups : Array = area.get_groups()
+			groups.erase("FireGauge")
+			reduce_burn_stack(int(groups.max()))
 			
-		elif area.is_in_group("FireGaugeTwo"):
-			reduce_burn_stack(35)
 
 #	elif is_burning:
 #		if area.is_in_group("FireGaugeOne") and refresh_stack > 0:

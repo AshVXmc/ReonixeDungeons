@@ -1,10 +1,10 @@
 extends Node 
 
 # GLOBALLY ACCESSED VARIABLES
-var max_hearts : float = 5
+var max_hearts : float = 3
 var hearts : float = max_hearts
-var character_2_max_hearts : float = 5
-var character_3_max_hearts : float = 5
+var character_2_max_hearts : float = 3
+var character_3_max_hearts : float = 3
 
 var max_mana : int = 12
 var mana : int = max_mana
@@ -16,9 +16,9 @@ var player_skill_multipliers : Dictionary = {
 	"BasicAttack4": 50.0,
 	"ChargedAttack": 75.0,
 	"FireSaw": 35.0,
-	"FireFairy": 25.0,
-	"FireSawCost": 6,
-	"FireFairyCost": 6,
+	"FireFairy": 22.0,
+	"FireSawCost": 8,
+	"FireFairyCost": 4,
 	"FireSawCD": 12.0,
 	"FireFairyCD": 8.0
 }
@@ -31,7 +31,12 @@ var glaciela_skill_multipliers : Dictionary = {
 	"BasicAttack3": 20.0,
 	"BasicAttack4": 40.0,
 	"ChargedAttack": 75.0,
-	"IceLance": 40.0
+	"ChargedAttack2": 85.0,
+	"ChargedAttack3": 100.0,
+	"AirborneDuration1": 0.5,
+	"AirborneDuration2": 1.25,
+	"AirborneDuration3": 2.75,
+	"IceLance": 95.0
 }
 
 var character2_hearts : float= character_2_max_hearts
