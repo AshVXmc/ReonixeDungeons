@@ -45,7 +45,7 @@
 [ext_resource path="res://scenes/menus/SkillsUI.tscn" type="PackedScene" id=43]
 [ext_resource path="res://scenes/enemies/Goblin.tscn" type="PackedScene" id=44]
 [ext_resource path="res://scenes/menus/InventoryUI.tscn" type="PackedScene" id=45]
-[ext_resource path="res://scenes/enemies/Slime.tscn" type="PackedScene" id=46]
+[ext_resource path="res://scenes/status_effects/BasicAttackBuff.tscn" type="PackedScene" id=46]
 
 [sub_resource type="TileSet" id=1]
 0/name = "deep_woods_spritesheet.png 0"
@@ -328,7 +328,7 @@ position = Vector2( 846.575, 612 )
 position = Vector2( 582.75, 592.025 )
 
 [node name="Player" parent="." instance=ExtResource( 8 )]
-position = Vector2( 374.902, 592.025 )
+position = Vector2( 2836.87, 558 )
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position = Vector2( -24.7189, -147.43 )
@@ -344,8 +344,13 @@ drag_margin_left = 0.4
 drag_margin_right = 0.4
 editor_draw_limits = true
 
-[node name="Goblin2" parent="." instance=ExtResource( 44 )]
-position = Vector2( 532.112, 612 )
+[node name="Goblin" parent="." instance=ExtResource( 44 )]
+position = Vector2( 2500.87, 599 )
 
-[node name="Slime" parent="." instance=ExtResource( 46 )]
-position = Vector2( 67.33, 646.025 )
+[node name="Goblin2" parent="." instance=ExtResource( 44 )]
+position = Vector2( 1020.57, 594.614 )
+
+[node name="BasicAttackBuff" parent="." instance=ExtResource( 46 )]
+position = Vector2( 3032.9, 596.291 )
+amount = 5.0
+duration = 5.0

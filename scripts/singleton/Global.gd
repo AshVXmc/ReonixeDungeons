@@ -15,6 +15,10 @@ var player_skill_multipliers : Dictionary = {
 	"BasicAttack3": 40.0,
 	"BasicAttack4": 50.0,
 	"ChargedAttack": 75.0,
+	"AirborneBasicAttack": 35.0,
+	"AirborneBasicAttack2": 30.0,
+	"AirborneBasicAttack3": 40.0,
+	"AirborneBasicAttack4": 45.0,
 	"FireSaw": 35.0,
 	"FireFairy": 22.0,
 	"FireSawCost": 8,
@@ -30,9 +34,9 @@ var glaciela_skill_multipliers : Dictionary = {
 	"BasicAttack2": 30.0,
 	"BasicAttack3": 20.0,
 	"BasicAttack4": 40.0,
-	"ChargedAttack": 75.0,
-	"ChargedAttack2": 85.0,
-	"ChargedAttack3": 100.0,
+	"ChargedAttack": 60.0,
+	"ChargedAttack2": 80.0,
+	"ChargedAttack3": 105.0,
 	"AirborneDuration1": 0.5,
 	"AirborneDuration2": 1.25,
 	"AirborneDuration3": 2.75,
@@ -217,17 +221,8 @@ func save_player_data():
 		"IsLoadingASave": Global.is_loading_a_save,
 		"PlayerPosition": Global.player_position,
 		# Equipped skills
-		"PrimarySkill" : Global.player_skills["PrimarySkill"],
-		"SecondarySkill": Global.player_skills["SecondarySkill"],
-		"RangedSkill" :  Global.player_skills["RangedSkill"],
-		# Unlocked skills
-		"PrimarySkillUnlocked": Global.unlocked_skills["PrimarySkill"],
-		"SecondarySkillUnlocked": Global.unlocked_skills["SecondarySkill"],
-		"RangedSkillUnlocked": Global.unlocked_skills["RangedSkill"],
 		# Levels
-		"FireSawLevel": Global.skill_levels["FireSawLevel"],
-		"FireFairyLevel": Global.skill_levels["FireFairyLevel"],
-		"FireballLevel": Global.skill_levels["FireballLevel"],
+
 		"PhysicalDMGBonus%": Global.damage_bonus["physical_dmg_bonus_%"],
 		"FireDMGBonus%": Global.damage_bonus["fire_dmg_bonus_%"],
 		"IceDMGBonus%": Global.damage_bonus["ice_dmg_bonus_%"],
@@ -237,7 +232,7 @@ func save_player_data():
 		"EnemiesKilled": Global.enemies_killed ,
 		"MaskedGoblinDefeated" : Global.masked_goblin_defeated,
 		"ActivatedPortals": Global.activated_portals,
-		"test": Global.test
+		
 	}
 
 	var savefile : File = File.new()

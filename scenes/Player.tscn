@@ -828,7 +828,7 @@ wait_time = 2.0
 one_shot = true
 
 [node name="AirborneTimer" type="Timer" parent="."]
-wait_time = 0.5
+wait_time = 0.85
 one_shot = true
 
 [node name="EmberStackRegenDelay" type="Timer" parent="."]
