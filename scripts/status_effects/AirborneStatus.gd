@@ -6,6 +6,8 @@ func _ready():
 	print("airborne")
 	$DestroyedTimer.start(time)
 	get_parent().get_node("Area2D").add_to_group("IsAirborne")
+#	yield(get_tree().create_timer(0.25), "timeout")
+#	add_to_group("Airborne")
 
 
 func _on_DestroyedTimer_timeout():

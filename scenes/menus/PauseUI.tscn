@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://themes/Blur.tres" type="Material" id=1]
 [ext_resource path="res://scripts/ui/PauseScript.gd" type="Script" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://assets/UI/savebutton.png" type="Texture" id=6]
 [ext_resource path="res://assets/fonts/Born2bSportyV2.ttf" type="DynamicFontData" id=7]
 [ext_resource path="res://assets/UI/textbox.png" type="Texture" id=8]
+[ext_resource path="res://scripts/ui/PerfectDash.gd" type="Script" id=9]
 
 [sub_resource type="DynamicFont" id=6]
 size = 64
@@ -27,6 +28,62 @@ font_data = ExtResource( 7 )
 [sub_resource type="DynamicFont" id=7]
 size = 48
 font_data = ExtResource( 7 )
+
+[sub_resource type="Animation" id=9]
+resource_name = "PerfectDashAnim"
+length = 0.5
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 0, 0, 0, 0.196078 ), Color( 0, 0, 0, 0.392157 ), Color( 0, 0, 0, 0.196078 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+
+[sub_resource type="Animation" id=10]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 0, 0, 0, 0.196078 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ true ]
+}
 
 [node name="PauseUI" type="CanvasLayer"]
 
@@ -246,6 +303,20 @@ scroll_active = false
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="PerfectDash" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 9 )
+
+[node name="ColorRect" type="ColorRect" parent="PerfectDash"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 0.196078 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="PerfectDash"]
+anims/PerfectDashAnim = SubResource( 9 )
+anims/RESET = SubResource( 10 )
 
 [connection signal="pressed" from="Pause/ResumeButton" to="Pause" method="_on_ResumeButton_pressed"]
 [connection signal="pressed" from="Pause/SaveButton" to="Pause" method="_on_SaveButton_pressed"]

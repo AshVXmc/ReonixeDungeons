@@ -11,6 +11,8 @@ signal crystals_obtained(player_crystals)
 signal ingredient_obtained(ingredient_name, amount)
 signal skill_used(skill_name, character)
 signal skill_ui_update()
+signal perfect_dash()
+signal action(action_type)
 var target
 # Attack buff 
 var atkbuffmulti = 0
@@ -74,14 +76,14 @@ var is_charging : bool = false
 var slowed : bool = false
 var underwater : bool = false
 var airborne_mode : bool = false
-var mana_absorption_counter_max : int = 4
+var mana_absorption_counter_max : int = 3
 var mana_absorption_counter : int = mana_absorption_counter_max
 var restore_mana_for_all_parties : int = 2
 var attack_buff : float
 var basic_attack_buff : float
 var attack_string_count : int = 4
-var charged_dash : bool = false
-
+var perfect_dash : bool = false
+var perfect_charged_attack : bool = false
 
 onready var basic_attack_power : float = Global.attack_power * (Global.player_skill_multipliers["BasicAttack"] / 100)
 onready var charged_attack_power : float = Global.attack_power * (Global.player_skill_multipliers["ChargedAttack"] / 100)
@@ -97,6 +99,8 @@ func _ready():
 	$ChargeBar.value = 0
 	$SwordSprite.visible = false
 	$ChargeBar.visible = false
+	connect("action", Global, "parse_action")
+	connect("perfect_dash", get_parent().get_node("PauseUI/PerfectDash"), "trigger_perfect_dash_animation")
 	connect("ingredient_obtained", get_parent().get_node("InventoryUI/Control"), "on_ingredient_obtained")
 	emit_signal("ingredient_obtained", "common_dust", Global.common_monster_dust_amount)
 	emit_signal("ingredient_obtained", "goblin_scales", Global.goblin_scales_amount)
@@ -120,7 +124,13 @@ func _ready():
 #	emit_signal("life_changed", Global.hearts)
 # warning-ignore:return_value_discarded
 	connect("mana_changed", Global, "sync_mana")
-	emit_signal("mana_changed", Global.mana)
+	if Global.equipped_characters == [0]:
+		emit_signal("mana_changed", Global.mana)
+	elif Global.equipped_characters == [1]:
+		emit_signal("mana_changed", Global.character2_mana)
+	elif Global.equipped_characters == [2]:
+		emit_signal("mana_changed", Global.character3_mana)
+	
 # warning-ignore:return_value_discarded
 	connect("healthpot_obtained", Global, "sync_playerHealthpots")
 	emit_signal("healthpot_obtained", Global.healthpot_amount)
@@ -147,10 +157,10 @@ func _physics_process(_delta):
 	if !is_dead and !is_invulnerable and !is_healing and !is_shopping and !is_frozen:
 		# Function calls
 		attack()
+		
 		dash()
 		if !is_charging:
-			
-			glide() # Glide duration in seconds
+#			glide() # Glide duration in seconds
 			useItems()
 			use_skill()
 #			ground_pound()
@@ -164,8 +174,10 @@ func _physics_process(_delta):
 				$Sprite.play("Idle")
 			if Input.is_action_pressed("right") and !Input.is_action_pressed("left") and !is_attacking and !is_knocked_back and !is_dashing:
 				Input.action_release("left")
+				attack_string_count = 4
+				mana_absorption_counter = mana_absorption_counter_max
 				velocity.x = SPEED
-#				airborne_mode = false
+				airborne_mode = false
 			# warning-ignore:standalone_ternary
 				$Sprite.play("Glide") if is_gliding else $Sprite.play("Walk")
 				$Sprite.flip_h = false
@@ -180,10 +192,13 @@ func _physics_process(_delta):
 					
 				$AttackCollision.set_scale(Vector2(1,1))
 				$ChargedAttackCollision.set_scale(Vector2(1,1))
+				$EnemyEvasionArea.set_scale(Vector2(1,1))
 			if Input.is_action_pressed("left") and !Input.is_action_pressed("right") and !is_attacking and !is_dashing and !is_knocked_back:
 				velocity.x = -SPEED
 				Input.action_release("right")
-#				airborne_mode = false
+				attack_string_count = 4
+				mana_absorption_counter = mana_absorption_counter_max
+				airborne_mode = false
 	# warning-ignore:standalone_ternary
 				$Sprite.play("Glide") if is_gliding else $Sprite.play("Walk")
 				$Sprite.flip_h = true
@@ -195,11 +210,8 @@ func _physics_process(_delta):
 					$DashParticlePosition.position.x *= -1
 				$AttackCollision.set_scale(Vector2(-1,1))
 				$ChargedAttackCollision.set_scale(Vector2(-1,1))
-			if velocity.x == 0:
-				if !is_attacking:
-					$Sprite.play("Idle")
-				if is_gliding and Global.glide_unlocked:
-					$Sprite.play("Glide")
+				$EnemyEvasionArea.set_scale(Vector2(-1,1))
+			
 			# Jump controls (ground)
 			if Input.is_action_just_pressed("jump") and is_on_floor() and !is_attacking and !is_frozen and !underwater:
 				# Particles
@@ -246,13 +258,13 @@ func _physics_process(_delta):
 	if is_frozen:
 		$Sprite.play("Frozen")
 	$FreezeMask.visible = true if is_frozen else false
-	if glider_equipped and !is_gliding:
-		$GliderWings.visible = true
-	if !glider_equipped or is_gliding:
-		$GliderWings.visible = false
-	if is_gliding:
-		$Sprite.play("Glide")
-		$GliderWings.visible = false
+#	if glider_equipped and !is_gliding:
+#		$GliderWings.visible = true
+#	if !glider_equipped or is_gliding:
+#		$GliderWings.visible = false
+#	if is_gliding:
+#		$Sprite.play("Glide")
+#		$GliderWings.visible = false
 	if cam_shake:
 		$Camera2D.set_offset(Vector2( \
 			rand_range(-1, 1) * 4.5, \
@@ -267,7 +279,6 @@ func _physics_process(_delta):
 	charge_meter()
 	
 	$Sprite.visible = true if Global.current_character == "Player" else false
-	$EmberBar.visible = true if Global.current_character == "Player" else false
 	if Global.current_character != "Player":
 		mana_absorption_counter = mana_absorption_counter_max
 		restore_mana_for_all_parties = 2
@@ -398,17 +409,19 @@ func charge_meter():
 			$ChargeBar.texture_progress = FULL_CHARGE_METER
 		else:
 			$ChargeBar.texture_progress = CHARGING_CHARGE_METER
-#		if $EmberBar.value == $EmberBar.max_value:
-		if Input.is_action_pressed("charge"):
-			# Max value is 100
-			$ChargeBar.visible = true
-			$ChargeBar.value += 5
-			is_charging = true
-			if $AirborneMaxDuration.is_stopped():
-				$AirborneMaxDuration.start()
-#				airborne_mode = true
-#				if airborne_mode:
-#					velocity.y = 0
+		if attack_string_count == 1:
+			if Input.is_action_pressed("charge"):
+				print("charging")
+				# Max value is 100
+				$ChargeBar.visible = true
+				$ChargeBar.value += 10
+				is_charging = true
+				
+				if $AirborneMaxDuration.is_stopped():
+					$AirborneMaxDuration.start()
+	#				airborne_mode = true
+	#				if airborne_mode:
+	#					velocity.y = 0
 		if Input.is_action_just_released("charge") or Input.is_action_pressed("left") or Input.is_action_pressed("right") or Input.is_action_pressed("jump") or Input.is_action_pressed("primary_skill") or Input.is_action_pressed("secondary_skill"):
 			# Min value is 0 (Empty)
 			$ChargeBar.visible = false
@@ -417,8 +430,7 @@ func charge_meter():
 #				airborne_mode = false
 		# Charge abilities
 		if $ChargeBar.value == $ChargeBar.max_value and Input.is_action_just_pressed("ui_attack") and is_charging:
-			if $EmberBar.value == $EmberBar.max_value:
-				$EmberBar.value = $EmberBar.min_value
+			if attack_string_count == 1:
 				$ChargeBar.visible = false
 				$ChargeBar.value = $ChargeBar.min_value
 				$ChargedAttackCollision/CollisionShape2D.disabled = false
@@ -444,8 +456,7 @@ func charge_meter():
 				dash_particle.one_shot = true
 				yield(get_tree().create_timer(0.1), "timeout")
 				$ChargedAttackCollision/CollisionShape2D.disabled = true
-			else:
-				Input.action_press("ui_attack")
+				attack_string_count = 4
 		elif Input.is_action_just_pressed("ui_attack") and $ChargeBar.value == $ChargeBar.max_value and Global.mana < 2:
 			$ChargeBar.visible = false
 			$ChargeBar.value = $ChargeBar.min_value
@@ -454,6 +465,8 @@ func charge_meter():
 			if !Global.godmode:
 				Global.mana -= 1
 				emit_signal("mana_changed", Global.mana, "Player")
+			attack_string_count = 4
+			mana_absorption_counter = mana_absorption_counter_max
 			Input.action_release("charge")
 			is_charging = false
 			$ChargeBar.visible = false
@@ -515,7 +528,9 @@ func play_attack_animation(direction : String):
 						else:
 							$AttackCollision.add_to_group(str(Global.attack_power * (Global.player_skill_multipliers["AirborneBasicAttack4"] / 100) + basic_attack_buff))
 						break
+				change_mana_value(1)
 				attack_string_count = 4
+				mana_absorption_counter = mana_absorption_counter_max
 	elif direction == "Left":
 		match attack_string_count:
 			4:
@@ -567,8 +582,9 @@ func play_attack_animation(direction : String):
 						else:
 							$AttackCollision.add_to_group(str(Global.attack_power * (Global.player_skill_multipliers["AirborneBasicAttack4"] / 100) + basic_attack_buff))
 						break
+				change_mana_value(1)
 				attack_string_count = 4
-
+				mana_absorption_counter = mana_absorption_counter_max
 # Damage and interaction
 func _on_Area2D_area_entered(area : Area2D):
 	if Global.current_character == "Player":
@@ -579,17 +595,10 @@ func _on_Area2D_area_entered(area : Area2D):
 			Global.lifewine_amount += 1
 			emit_signal("lifewine_obtained", Global.lifewine_amount)
 		if !Global.godmode:
-			if area.is_in_group("Enemy") and is_dashing and $DashEmberRechargeDelayTimer.is_stopped():
-				$EmberBar.value += 35
-
-				$DashEmberRechargeDelayTimer.start()
-			if is_dashing:
-				if area.is_in_group("Enemy") and charged_dash:
-					knock_airborne(area, 4)
 					
-			if inv_timer.is_stopped() and !is_invulnerable and !is_dashing:
+			if inv_timer.is_stopped() and !is_invulnerable and !is_dashing and perfect_dash:
 				if area.is_in_group("Enemy") and area.is_in_group("Hostile")or area.is_in_group("DeflectedProjectile"):
-
+					print("entered enemy")
 					var groups = area.get_groups()
 					groups.erase("Enemy")
 					groups.erase("IsAirborne")
@@ -709,15 +718,10 @@ func add_hurt_particles(damage : float):
 func _on_AttackCollision_area_entered(area):
 	if weakref(area).get_ref() != null:
 		if area.is_in_group("Enemy")  and !$AttackCollision/CollisionShape2D.disabled:
+			print(attack_string_count)
 #			attack_knock()
 #			freeze_enemy()
 			if Global.current_character == "Player":
-				if $EmberStackRegenDelay.is_stopped() and $ChargedAttackCollision/CollisionShape2D.disabled:
-					if airborne_mode:
-						$EmberBar.value += 35
-					else:
-						$EmberBar.value += 20
-					$EmberStackRegenDelay.start()
 				var hitparticle = SWORD_HIT_PARTICLE.instance()
 				var slashparticle = SWORD_SLASH_EFFECT.instance()
 				hitparticle.emitting = true
@@ -727,25 +731,25 @@ func _on_AttackCollision_area_entered(area):
 				slashparticle.position = $Position2D.global_position
 				if mana_absorption_counter > 0:
 					mana_absorption_counter -= 1
-				elif mana_absorption_counter == 0:
-					mana_absorption_counter = 4
-				if mana_absorption_counter == 0 and $ChargeBar.value != $ChargeBar.max_value:
-					if Global.current_character == Global.equipped_characters[0] and Global.mana < Global.max_mana:
-						Global.mana += 1
-						emit_signal("mana_changed", Global.mana, "Player")
-					elif Global.current_character == Global.equipped_characters[1] and Global.character2_mana < Global.character2_max_mana:
-						Global.character2_mana += 1
-						emit_signal("mana_changed", Global.character2_mana, "Player")
-					elif Global.current_character == Global.equipped_characters[2] and Global.character3_mana < Global.character3_max_mana:
-						Global.character3_mana += 1
-						emit_signal("mana_changed", Global.character3_mana, "Player")
+				
+#				if mana_absorption_counter == 0 and $ChargeBar.value != $ChargeBar.max_value:
+#					mana_absorption_counter = mana_absorption_counter_max
+
 	if weakref(area).get_ref() != null:
 		if area.is_in_group("Airborne"):
+			$GliderWings.visible = true
+			get_node("AirborneTimer").start()
 			airborne_mode = true
-			print("AIRBORNE MODe")
-			$AirborneTimer.start()
-func change_mana_value():
-	pass
+func change_mana_value(amount : int):
+	if Global.current_character == Global.equipped_characters[0] and Global.mana < Global.max_mana:
+		Global.mana += amount
+		emit_signal("mana_changed", Global.mana, "Player")
+	elif Global.current_character == Global.equipped_characters[1] and Global.character2_mana < Global.character2_max_mana:
+		Global.character2_mana += amount
+		emit_signal("mana_changed", Global.character2_mana, "Player")
+	elif Global.current_character == Global.equipped_characters[2] and Global.character3_mana < Global.character3_max_mana:
+		Global.character3_mana += amount
+		emit_signal("mana_changed", Global.character3_mana, "Player")
 func freeze_enemy():
 	var frozen_status = FROZEN.instance()
 	var enemy = $AttackCollision.get_overlapping_areas()
@@ -796,15 +800,8 @@ func dash():
 		if $Sprite.flip_h:
 			dashdirection = Vector2(-1, 0)
 		if Input.is_action_just_pressed("ui_dash") and can_dash and $DashUseTimer.is_stopped():
-#			if Global.current_character == "Player":
-#				$EmberBar.value += 10
-			# Particles
-			if $ChargeBar.value == $ChargeBar.max_value:
-				is_charging = false
-				Input.action_release("charge")
-				charged_dash = true
-
-				
+			attack_string_count = 4
+			mana_absorption_counter = mana_absorption_counter_max
 			is_dashing = true
 			var dash_particle = DASH_PARTICLE.instance()
 			get_parent().add_child(dash_particle)
@@ -813,19 +810,21 @@ func dash():
 			dash_particle.position = $DashParticlePosition.global_position
 			dash_particle.emitting = true
 			dash_particle.one_shot = true
-#			if !Global.godmode:
-#				Global.mana -= 1
-#				emit_signal("mana_changed", Global.mana)
 			can_dash = false
-#			Input.action_release("left")
-#			Input.action_release("right")
 			Input.action_release("jump")
 			$DashUseTimer.start()
 			$Sprite.play("Dash")
-			velocity.y = 0
-			velocity = dashdirection.normalized() * 2500
+			if perfect_dash and !airborne_mode and is_on_floor():
+				$Sprite.play("PerfectDash")
+				
+				velocity.y = 0
+				velocity = dashdirection.normalized() * 2500 * -0.75
+				
+			else:
+				velocity.y = 0
+				velocity = dashdirection.normalized() * 2500 
 			yield(get_tree().create_timer(0.25), "timeout")
-			charged_dash = false
+			perfect_dash = false
 			$DashCooldown.start()
 			velocity.y += GRAVITY
 			is_dashing = false
@@ -836,24 +835,24 @@ func knock_airborne(target, airborne_duration : float = 1):
 		airborne_status.time = airborne_duration
 		target.get_parent().add_child(airborne_status)
 
-func glide():
-	if Global.glide_unlocked and Input.is_action_just_pressed("toggle_glider"):
-		if !glider_equipped:
-			glider_equipped = true
-		elif glider_equipped:
-			glider_equipped = false
-	# Press SPACE while in mid-air to temporarily glide
-	if Global.glide_unlocked and Input.is_action_just_pressed("jump") and !is_on_floor() and Global.mana >= 1 and glider_equipped:
-			if !Global.godmode:
-				$GlideTimer.start(0)
-			is_gliding = true
-			if is_on_floor() or is_on_wall() or is_on_ceiling():
-				$GlideTimer.stop()
-				is_gliding = false
-				velocity.y += GRAVITY * 3
-			if is_gliding:
-				velocity.y = 0
-				velocity.y += GRAVITY * 1.5
+#func glide():
+#	if Global.glide_unlocked and Input.is_action_just_pressed("toggle_glider"):
+#		if !glider_equipped:
+#			glider_equipped = true
+#		elif glider_equipped:
+#			glider_equipped = false
+#	# Press SPACE while in mid-air to temporarily glide
+#	if Global.glide_unlocked and Input.is_action_just_pressed("jump") and !is_on_floor() and Global.mana >= 1 and glider_equipped:
+#			if !Global.godmode:
+#				$GlideTimer.start(0)
+#			is_gliding = true
+#			if is_on_floor() or is_on_wall() or is_on_ceiling():
+#				$GlideTimer.stop()
+#				is_gliding = false
+#				velocity.y += GRAVITY * 3
+#			if is_gliding:
+#				velocity.y = 0
+#				velocity.y += GRAVITY * 1.5
 	# Stop gliding
 	if Input.is_action_just_released("jump") or is_on_floor():
 		$GlideTimer.stop()
@@ -1135,11 +1134,39 @@ func _on_CampfireTimer_timeout():
 
 
 func _on_AirborneTimer_timeout():
+	$GliderWings.visible = false
 	airborne_mode = false
 	velocity.y = 0
 
 func _on_AirborneMaxDuration_timeout():
+	$GliderWings.visible = false
 	Input.action_release("charge")
 	velocity.y = 0
 	airborne_mode = false
 	
+
+
+
+func _on_EnemyEvasionArea_area_exited(area):
+	if Global.current_character == "Player" and is_dashing and area.is_in_group("Hostile"):
+		is_invulnerable = true
+		
+		Input.action_release("charge")
+		emit_signal("perfect_dash")
+		Engine.time_scale = 0.5
+		yield(get_tree().create_timer(0.375), "timeout")
+		Engine.time_scale = 1.0
+		knock_airborne(area, 4)
+		Input.action_press("jump")
+	
+		yield(get_tree().create_timer(1), "timeout")
+		Input.action_release("jump")
+#		airborne_mode = true
+		is_invulnerable = false
+		
+
+
+
+func _on_EnemyEvasionArea_area_entered(area):
+	if area.is_in_group("Hostile"):
+		perfect_dash = true

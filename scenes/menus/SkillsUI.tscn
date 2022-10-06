@@ -244,8 +244,8 @@ __meta__ = {
 "_edit_group_": true
 }
 
-[node name="ChargedAttackTimer" type="Timer" parent="Control/DashSkill/Player"]
-wait_time = 4.0
+[node name="DashSkillTimer" type="Timer" parent="Control/DashSkill/Player"]
+wait_time = 12.0
 one_shot = true
 
 [node name="Glaciela" type="Control" parent="Control/DashSkill"]

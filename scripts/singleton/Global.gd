@@ -5,7 +5,12 @@ var max_hearts : float = 3
 var hearts : float = max_hearts
 var character_2_max_hearts : float = 3
 var character_3_max_hearts : float = 3
-
+const actions : Array = [
+	"basic_attack", 
+	"charged_attack", 
+	"primary_skill", "secondary_skill",
+	"dash", "perfect_dash"
+]
 var max_mana : int = 12
 var mana : int = max_mana
 var attack_power : int = 50
@@ -13,7 +18,7 @@ var player_skill_multipliers : Dictionary = {
 	"BasicAttack": 30.0,
 	"BasicAttack2": 30.0,
 	"BasicAttack3": 40.0,
-	"BasicAttack4": 50.0,
+	"BasicAttack4": 55.0,
 	"ChargedAttack": 75.0,
 	"AirborneBasicAttack": 35.0,
 	"AirborneBasicAttack2": 30.0,
@@ -34,13 +39,13 @@ var glaciela_skill_multipliers : Dictionary = {
 	"BasicAttack2": 30.0,
 	"BasicAttack3": 20.0,
 	"BasicAttack4": 40.0,
-	"ChargedAttack": 60.0,
-	"ChargedAttack2": 80.0,
-	"ChargedAttack3": 105.0,
+	"ChargedAttack": 75.0,
+	"ChargedAttack2": 90.0,
+	"ChargedAttack3": 120.0,
 	"AirborneDuration1": 0.5,
-	"AirborneDuration2": 1.25,
-	"AirborneDuration3": 2.75,
-	"IceLance": 95.0
+	"AirborneDuration2": 1.5,
+	"AirborneDuration3": 3,
+	"IceLance": 65.0
 }
 
 var character2_hearts : float= character_2_max_hearts
@@ -145,7 +150,7 @@ func reset_player_data():
 #	Global.hearts = 5
 #	Global.character2_hearts = 5
 #	Global.character3_hearts = 5
-	Global.mana = max_mana / 6
+	Global.mana = 0
 	Global.healthpot_amount = 0
 	Global.lifewine_amount = 0
 	Global.manapot_amount = 0
@@ -240,6 +245,13 @@ func save_player_data():
 	if error == OK:
 		savefile.store_var(load_data)
 		savefile.close()
+
+func parse_action(action_type):
+	if actions.has(action_type) and action_type != null:
+		return action_type
+		print("=>" + action_type)
+
+
 
 func sync_hearts(player_hearts : float):
 	player_hearts = Global.hearts

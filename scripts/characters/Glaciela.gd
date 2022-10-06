@@ -7,10 +7,12 @@ signal skill_used(skill_name)
 signal mana_changed(amount, character)
 signal life_changed(amount, character)
 signal attack_buff(amount, duration)
+signal perfect_dash()
 var target
 var airborne_mode : bool = false
 var basicatkbuffmulti : float = 0
 var basicatkbuffdur : float = 0
+var is_performing_charged_attack : bool
 # Attack buff for BASIC ATTACKS ONLY.
 var atkbuffmulti = 0
 var atkbuffdur = 0
@@ -31,6 +33,7 @@ var basic_attack_buff : float
 var prev_basic_attack_power : Array
 var attack_buff : float
 func _ready():
+	connect("perfect_dash",  get_parent().get_parent().get_parent().get_node("PauseUI/PerfectDash"), "trigger_perfect_dash_animation")
 	connect("life_changed", get_parent().get_parent().get_parent().get_node("HeartUI/Life"), "on_player_life_changed")
 	connect("mana_changed", get_parent().get_parent().get_parent().get_node("ManaUI/Mana"), "on_player_mana_changed")
 	connect("skill_used", get_parent().get_parent().get_parent().get_node("SkillsUI/Control"), "on_skill_used")
@@ -84,7 +87,7 @@ func _physics_process(delta):
 				$SpearSprite.visible = true
 				play_attack_animation("Right")
 				$AttackCollision/CollisionShape2D.disabled = false
-				get_parent().get_parent().attack_knock()
+#				get_parent().get_parent().attack_knock()
 				$AttackCollision.set_scale(Vector2(1,1))
 				$ChargedAttackCollision.set_scale(Vector2(1,1))
 				$MeleeTimer.start()
@@ -92,7 +95,7 @@ func _physics_process(delta):
 				$SpearSprite.visible = true
 				play_attack_animation("Left")
 				$AttackCollision/CollisionShape2D.disabled = false
-				get_parent().get_parent().attack_knock()
+#				get_parent().get_parent().attack_knock()
 				$AttackCollision.set_scale(Vector2(-1,1))
 				$ChargedAttackCollision.set_scale(Vector2(-1,1))
 				$MeleeTimer.start()
@@ -103,13 +106,13 @@ func _physics_process(delta):
 					if $TundraMeter.value == $TundraMeter.max_value:
 						infuse_element("Ice", 0.2)
 						charged_attack(3.5)
-						Input.action_press("jump")
+#						Input.action_press("jump")
 					elif $TundraMeter.value >= 80 and $TundraMeter.value != $TundraMeter.max_value: 
 						charged_attack(1.2)
-						Input.action_press("jump")
+#						Input.action_press("jump")
 					else:
 						charged_attack(0.5)
-						Input.action_press("jump")
+#						Input.action_press("jump")
 					$TundraMeter.value = $TundraMeter.min_value
 						
 					$ChargeBar.visible = false
@@ -237,19 +240,24 @@ func charge_meter():
 
 
 func charged_attack(airborne_duration : float = 1, type : int = 1):
-		if target and target != null: 
-			if target.get_node("Area2D").overlaps_area($ChargedAttackCollision) or target.get_node("Area2D").overlaps_area($ChargedAttackCollision2):
-				var airborne_status : AirborneStatus = AIRBORNE_STATUS.instance()
-				airborne_status.time = airborne_duration
-				target.add_child(airborne_status)
-				airborne_mode = true
-				if !$AnimatedSprite.flip_h:
-					$AnimationPlayer.play("ChargedAttackRight")
-				else:
-					$AnimationPlayer.play("ChargedAttackLeft")
-				set_basic_attack_power(3, 0.1)
-				$ChargedAttackCooldown.start()
-				$TundraMeter.value = 0
+	airborne_mode = false
+	if target and target != null: 
+		if target.get_node("Area2D").overlaps_area($ChargedAttackCollision) or target.get_node("Area2D").overlaps_area($ChargedAttackCollision2):
+			is_charging = false
+			is_performing_charged_attack = true
+			get_parent().get_parent().airborne_mode = false
+			var airborne_status : AirborneStatus = AIRBORNE_STATUS.instance()
+			airborne_status.time = airborne_duration
+			target.add_child(airborne_status)
+			if !$AnimatedSprite.flip_h:
+				$AnimationPlayer.play("ChargedAttackRight")
+			else:
+				$AnimationPlayer.play("ChargedAttackLeft")
+			set_basic_attack_power(3, 0.1)
+			$ChargedAttackCooldown.start()
+			$TundraMeter.value = 0
+			yield(get_tree().create_timer(0.2), "timeout")
+			is_performing_charged_attack = false
 func get_closest_enemy():
 	var enemies = get_tree().get_nodes_in_group("Enemy")
 	if enemies.empty(): 
@@ -321,7 +329,10 @@ func _on_AttackCollision_area_entered(area):
 		if area.is_in_group("Enemy") or area.is_in_group("Enemy2"):
 			
 			if $TundraStackRegenDelay.is_stopped():
-				$TundraMeter.value += 10
+				if !get_parent().get_parent().airborne_mode:
+					$TundraMeter.value += 12
+				else:
+					$TundraMeter.value += 6
 				$TundraStackRegenDelay.start()
 
 			var hitparticle = SWORD_HIT_PARTICLE.instance()
@@ -333,9 +344,10 @@ func _on_AttackCollision_area_entered(area):
 			slashparticle.position = get_parent().get_parent().get_node("Position2D").global_position
 			yield(get_tree().create_timer(0.1),"timeout")
 	if weakref(area).get_ref() != null:
-		if area.is_in_group("Airborne"):
+		if area.is_in_group("Airborne") and !is_performing_charged_attack:
 			get_parent().get_parent().get_node("AirborneTimer").start()
 			get_parent().get_parent().airborne_mode = true
+			airborne_mode = true
 
 func _on_MeleeTimer_timeout():
 	$AttackCollision/CollisionShape2D.disabled = true
@@ -425,5 +437,13 @@ func _on_ResetAttackStringTimer_timeout():
 #	$TundraMeter.value += 2
 
 
-func _on_TundraStackRegen_timeout():
-	$TundraMeter.value += 4
+#func _on_TundraStackRegen_timeout():
+#	$TundraMeter.value += 6
+
+
+func _on_EnemyEvasionArea_area_entered(area):
+	pass # Replace with function body.
+
+
+func _on_EnemyEvasionArea_area_exited(area):
+	pass # Replace with function body.

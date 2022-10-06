@@ -36,7 +36,6 @@ func on_player_mana_changed(player_mana : int, character : String):
 	if character == Global.equipped_characters[0]:
 		$ManaIcon.rect_size.x = player_mana * size
 	elif character == Global.equipped_characters[1]:
-		print("reached")
 		$ManaIcon2.rect_size.x = player_mana * size
 	elif character == Global.equipped_characters[2]:
 		$ManaIcon3.rect_size.x = player_mana * size

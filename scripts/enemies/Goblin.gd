@@ -2,7 +2,7 @@ class_name Goblin extends KinematicBody2D
 
 const DMG_INDICATOR : PackedScene = preload("res://scenes/particles/DamageIndicatorParticle.tscn")
 const DEATH_SMOKE : PackedScene = preload("res://scenes/particles/DeathSmokeParticle.tscn")
-onready var max_HP : int = Global.enemy_level_index * 250
+onready var max_HP : int = Global.enemy_level_index * 150
 onready var HP : int = max_HP
 export var flipped : bool = false
 var velocity = Vector2()
@@ -37,6 +37,7 @@ func _ready():
 	$HealthBar.max_value = max_HP
 	$HealthBar.value = $HealthBar.max_value
 func _physics_process(delta):
+	
 	if flipped:
 		$Sprite.flip_h = true
 	if !is_airborne:
@@ -57,28 +58,33 @@ func _physics_process(delta):
 		$Sprite.play("Attacking")
 		if !$Area2D.is_in_group("Hostile"):
 			$Area2D.add_to_group("Hostile")
-
-	if !is_staggered and !is_frozen and !dead and !is_airborne: 
-		if AREA_LEFT.overlaps_area(PLAYER) and !AREA_LEFT.overlaps_area(DECOY) and !AREA_LEFT.overlaps_area(DECOY2) and !AREA_LEFT.overlaps_area(DECOY3):
-			$Sprite.flip_h = false
-			if !$Sprite.flip_h:
-				yield(get_tree().create_timer(0.5),"timeout")
-				velocity.x = -SPEED
-		elif AREA_LEFT.overlaps_area(DECOY) or AREA_LEFT.overlaps_area(DECOY2) or AREA_LEFT.overlaps_area(DECOY):
-			$Sprite.flip_h = false
-			if !$Sprite.flip_h:
-				yield(get_tree().create_timer(0.25),"timeout")
-				velocity.x = -SPEED 
-		if AREA_RIGHT.overlaps_area(PLAYER) and !AREA_RIGHT.overlaps_area(DECOY) and !AREA_RIGHT.overlaps_area(DECOY2) and !AREA_RIGHT.overlaps_area(DECOY3):
-			$Sprite.flip_h = true
-			if $Sprite.flip_h:
-				yield(get_tree().create_timer(0.5),"timeout")
-				velocity.x = SPEED 
-		elif AREA_RIGHT.overlaps_area(DECOY) or AREA_RIGHT.overlaps_area(DECOY2) or AREA_RIGHT.overlaps_area(DECOY3):
-			$Sprite.flip_h = true
-			if $Sprite.flip_h:
-				yield(get_tree().create_timer(0.25),"timeout")
-				velocity.x = SPEED
+	if is_on_floor():
+		if !is_staggered and !is_frozen and !dead and !is_airborne: 
+			if AREA_LEFT.overlaps_area(PLAYER) and !AREA_LEFT.overlaps_area(DECOY) and !AREA_LEFT.overlaps_area(DECOY2) and !AREA_LEFT.overlaps_area(DECOY3):
+				$Sprite.flip_h = false
+				if !$Sprite.flip_h:
+					yield(get_tree().create_timer(0.5),"timeout")
+					velocity.x = -SPEED
+			elif AREA_LEFT.overlaps_area(DECOY) or AREA_LEFT.overlaps_area(DECOY2) or AREA_LEFT.overlaps_area(DECOY):
+				$Sprite.flip_h = false
+				if !$Sprite.flip_h:
+					yield(get_tree().create_timer(0.25),"timeout")
+					velocity.x = -SPEED 
+			if AREA_RIGHT.overlaps_area(PLAYER) and !AREA_RIGHT.overlaps_area(DECOY) and !AREA_RIGHT.overlaps_area(DECOY2) and !AREA_RIGHT.overlaps_area(DECOY3):
+				$Sprite.flip_h = true
+				if $Sprite.flip_h:
+					yield(get_tree().create_timer(0.5),"timeout")
+					velocity.x = SPEED 
+			elif AREA_RIGHT.overlaps_area(DECOY) or AREA_RIGHT.overlaps_area(DECOY2) or AREA_RIGHT.overlaps_area(DECOY3):
+				$Sprite.flip_h = true
+				if $Sprite.flip_h:
+					yield(get_tree().create_timer(0.25),"timeout")
+					velocity.x = SPEED
+	else:
+		if $Sprite.flip_h:
+			velocity.x = SPEED
+		else:
+			velocity.x = -SPEED
 
 	if is_staggered or is_frozen or is_airborne:
 		velocity.x = 0
@@ -96,6 +102,7 @@ func _on_Area2D_area_entered(area):
 					groups.erase(group_names)
 				if !groups.has("Sword") and !groups.has("physics_process"):
 					var raw_damage = float(groups.max())
+					
 					var damage = round((raw_damage - (raw_damage * (phys_res / 100))))
 					print("HP reduced by " + str(damage))
 					HP -= float(damage)

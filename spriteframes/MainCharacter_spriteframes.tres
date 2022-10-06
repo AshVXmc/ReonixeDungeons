@@ -1,8 +1,9 @@
-[gd_resource type="SpriteFrames" load_steps=9 format=2]
+[gd_resource type="SpriteFrames" load_steps=10 format=2]
 
 [ext_resource path="res://assets/player/player_walk1.png" type="Texture" id=1]
 [ext_resource path="res://assets/player/player_idle.png" type="Texture" id=2]
 [ext_resource path="res://assets/player/player_walk2.png" type="Texture" id=3]
+[ext_resource path="res://assets/player/player_perfect_dash.png" type="Texture" id=4]
 [ext_resource path="res://assets/player/player_hurt.png" type="Texture" id=7]
 [ext_resource path="res://assets/player/player_walk3.png" type="Texture" id=13]
 [ext_resource path="res://assets/player/player_dash.png" type="Texture" id=14]
@@ -60,6 +61,11 @@ animations = [ {
 "loop": true,
 "name": "Idle",
 "speed": 5.0
+}, {
+"frames": [ ExtResource( 4 ) ],
+"loop": false,
+"name": "PerfectDash",
+"speed": 1.0
 }, {
 "frames": [ ExtResource( 1 ), ExtResource( 3 ), ExtResource( 13 ) ],
 "loop": true,

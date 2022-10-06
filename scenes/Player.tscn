@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=2]
+[gd_scene load_steps=33 format=2]
 
 [ext_resource path="res://spriteframes/MainCharacter_spriteframes.tres" type="SpriteFrames" id=1]
 [ext_resource path="res://scripts/player/Player.gd" type="Script" id=2]
@@ -14,7 +14,6 @@
 [ext_resource path="res://scripts/player/SkillManager.gd" type="Script" id=12]
 [ext_resource path="res://scripts/player/CharacterManager.gd" type="Script" id=13]
 [ext_resource path="res://scenes/particles/AtkBuffParticle.tscn" type="PackedScene" id=14]
-[ext_resource path="res://assets/UI/ember_meter.png" type="Texture" id=15]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 37.6338
@@ -577,8 +576,8 @@ tracks/0/keys = {
 "values": [ Color( 1, 1, 1, 1 ) ]
 }
 
-[sub_resource type="CircleShape2D" id=10]
-radius = 87.67
+[sub_resource type="RectangleShape2D" id=20]
+extents = Vector2( 42.0083, 40 )
 
 [node name="Player" type="KinematicBody2D"]
 collision_layer = 128
@@ -623,7 +622,7 @@ flip_h = true
 visible = false
 scale = Vector2( 5, 5 )
 frames = ExtResource( 1 )
-animation = "Frozen"
+animation = "PerfectDash"
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -787,16 +786,6 @@ rect_scale = Vector2( 3, 3.5 )
 texture_under = ExtResource( 10 )
 texture_progress = ExtResource( 11 )
 
-[node name="EmberBar" type="TextureProgress" parent="."]
-margin_left = -61.9286
-margin_top = -70.3163
-margin_right = -25.9286
-margin_bottom = -64.3163
-rect_scale = Vector2( 3.5, 4 )
-value = 100.0
-texture_under = ExtResource( 10 )
-texture_progress = ExtResource( 15 )
-
 [node name="MeleeTimer" type="Timer" parent="."]
 wait_time = 0.25
 one_shot = true
@@ -818,7 +807,8 @@ one_shot = true
 [node name="EnemyEvasionArea" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyEvasionArea"]
-shape = SubResource( 10 )
+position = Vector2( 42, 0 )
+shape = SubResource( 20 )
 
 [node name="AtkBuffParticle" parent="." instance=ExtResource( 14 )]
 visible = false
@@ -828,7 +818,7 @@ wait_time = 2.0
 one_shot = true
 
 [node name="AirborneTimer" type="Timer" parent="."]
-wait_time = 0.85
+wait_time = 1.25
 one_shot = true
 
 [node name="EmberStackRegenDelay" type="Timer" parent="."]
@@ -837,7 +827,7 @@ one_shot = true
 
 [node name="AirborneMaxDuration" type="Timer" parent="."]
 process_mode = 0
-wait_time = 1.25
+wait_time = 2.0
 one_shot = true
 
 [connection signal="timeout" from="CharacterManager/SwapCooldownTimer" to="CharacterManager" method="_on_SwapCooldownTimer_timeout"]
@@ -862,5 +852,7 @@ one_shot = true
 [connection signal="timeout" from="OxygenTimer" to="." method="_on_OxygenTimer_timeout"]
 [connection signal="timeout" from="OxygenRefillTimer" to="." method="_on_OxygenRefillTimer_timeout"]
 [connection signal="timeout" from="CampfireTimer" to="." method="_on_CampfireTimer_timeout"]
+[connection signal="area_entered" from="EnemyEvasionArea" to="." method="_on_EnemyEvasionArea_area_entered"]
+[connection signal="area_exited" from="EnemyEvasionArea" to="." method="_on_EnemyEvasionArea_area_exited"]
 [connection signal="timeout" from="AirborneTimer" to="." method="_on_AirborneTimer_timeout"]
 [connection signal="timeout" from="AirborneMaxDuration" to="." method="_on_AirborneMaxDuration_timeout"]

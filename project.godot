@@ -309,6 +309,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/skills/MusicNoteAttack.gd"
 }, {
+"base": "Control",
+"class": "PerfectDash",
+"language": "GDScript",
+"path": "res://scripts/ui/PerfectDash.gd"
+}, {
 "base": "KinematicBody2D",
 "class": "Player",
 "language": "GDScript",
@@ -460,6 +465,7 @@ _global_script_class_icons={
 "MeteorStrike": "",
 "MonumentOfVictories": "",
 "MusicNoteAttack": "",
+"PerfectDash": "",
 "Player": "",
 "PrimarySkillManager": "",
 "ShieldGoblin": "",
@@ -682,6 +688,7 @@ customize_skill={
 2d_render/layer_6="StaticEnemy"
 2d_render/layer_7="PlayerDashThrough"
 2d_render/layer_8="Tilemap"
+2d_render/layer_9="EnemyAntiCollider"
 
 [physics]
 

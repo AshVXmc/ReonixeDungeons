@@ -21,14 +21,11 @@ rect_scale = Vector2( 0.75, 0.75 )
 texture = ExtResource( 3 )
 expand = true
 stretch_mode = 2
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="ManaIcon" type="TextureRect" parent="Mana"]
 margin_top = -15.0
-margin_right = 49.0
-margin_bottom = 35.0
+margin_right = 48.0
+margin_bottom = 33.0
 rect_scale = Vector2( 0.75, 0.75 )
 texture = ExtResource( 2 )
 expand = true
@@ -48,8 +45,8 @@ __meta__ = {
 
 [node name="ManaIcon2" type="TextureRect" parent="Mana"]
 margin_top = -15.0
-margin_right = 49.0
-margin_bottom = 35.0
+margin_right = 48.0
+margin_bottom = 33.0
 rect_scale = Vector2( 0.75, 0.75 )
 texture = ExtResource( 2 )
 expand = true
@@ -69,8 +66,8 @@ stretch_mode = 2
 
 [node name="ManaIcon3" type="TextureRect" parent="Mana"]
 margin_top = -15.0
-margin_right = 49.0
-margin_bottom = 35.0
+margin_right = 48.0
+margin_bottom = 33.0
 rect_scale = Vector2( 0.75, 0.75 )
 texture = ExtResource( 2 )
 expand = true
