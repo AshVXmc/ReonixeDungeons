@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://assets/enemies/goblin2_attack.png" type="Texture" id=1]
 [ext_resource path="res://scripts/enemies/Goblin.gd" type="Script" id=2]
@@ -8,9 +8,6 @@
 [ext_resource path="res://assets/UI/healthbar_enemy_empty.png" type="Texture" id=6]
 [ext_resource path="res://assets/UI/healthbar_enemy_full.png" type="Texture" id=7]
 [ext_resource path="res://assets/UI/physical_type_icon.png" type="Texture" id=8]
-
-[sub_resource type="RectangleShape2D" id=5]
-extents = Vector2( 30, 50 )
 
 [sub_resource type="SpriteFrames" id=4]
 animations = [ {
@@ -95,9 +92,9 @@ position = Vector2( -46.8126, -62.8778 )
 scale = Vector2( 1.5, 1.5 )
 texture = ExtResource( 8 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 0.115311, 0.591125 )
-shape = SubResource( 5 )
+[node name="CollisionShape2D" type="CollisionPolygon2D" parent="."]
+position = Vector2( 0.115, -4 )
+polygon = PoolVector2Array( -25.5283, -7.34285, -25.5283, -7.34285, -25.5283, 32.3764, -9.56632, 53.5352, 10.1077, 53.5352, 25.3272, 33.1188, 26.0696, -7.71406, 1.19871, -53.3726, 1.19871, -53.3726 )
 
 [node name="Sprite" type="AnimatedSprite" parent="."]
 scale = Vector2( 5, 5 )

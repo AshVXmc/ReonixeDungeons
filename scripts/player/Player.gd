@@ -19,6 +19,7 @@ var atkbuffmulti = 0
 var atkbuffdur = 0
 var basicatkbuffmulti = 0
 var basicatkbuffdur = 0
+var is_doing_charged_attack : bool = false
 # Attack buff for all abilities (Skills)
 var atkbuffskill = 0
 var buffed_from_attack_crystals = false
@@ -156,8 +157,6 @@ func _physics_process(_delta):
 	# Makes sure the player is alive to use any movement controls
 	if !is_dead and !is_invulnerable and !is_healing and !is_shopping and !is_frozen:
 		# Function calls
-		attack()
-		
 		dash()
 		if !is_charging:
 #			glide() # Glide duration in seconds
@@ -283,6 +282,8 @@ func _physics_process(_delta):
 		mana_absorption_counter = mana_absorption_counter_max
 		restore_mana_for_all_parties = 2
 
+
+
 func set_basic_attack_power(amount : float, duration : float, show_particles : bool = true):
 	# DONT ASK THIS IS SO COMPLICATED ON GODDDD
 		buffed_from_attack_crystals = true
@@ -367,8 +368,16 @@ func gp_effect():
 
 			
 func attack():
-	if Global.current_character == "Player" and Input.is_action_just_pressed("ui_attack") and !is_attacking and !is_gliding and !is_frozen and $MeleeTimer.is_stopped() and $ChargeBar.value != $ChargeBar.max_value:
+	if Global.current_character == "Player" and !is_attacking and !is_gliding and !is_frozen and $MeleeTimer.is_stopped() and $ChargeBar.value != $ChargeBar.max_value:
 		$Sprite.play("Attack")
+#		if !$Sprite.flip_h and enemy_on_left_detector():
+#			Input.action_press("left")
+#			Input.action_release("left")
+#		elif $Sprite.flip_h and enemy_on_right_detector():
+#			Input.action_press("right")
+#			Input.action_release("right")
+#
+		
 		if $Sprite.flip_h:
 			$SwordSprite.visible = true
 			play_attack_animation("Left")
@@ -402,61 +411,74 @@ func attack():
 			is_attacking = true
 			$AttackCollision/CollisionShape2D.disabled = false
 			$AttackTimer.start()
+
+func _input(event):
+	if event.is_action_pressed("ui_attack"):
+		
+		attack()
+		$InputPressTimer.start()
 func charge_meter():
 	if Global.current_character == "Player":
 		$ChargingParticle.visible = true if is_charging else false
-		if $ChargeBar.value == $ChargeBar.max_value:
-			$ChargeBar.texture_progress = FULL_CHARGE_METER
-		else:
-			$ChargeBar.texture_progress = CHARGING_CHARGE_METER
-		if attack_string_count == 1:
-			if Input.is_action_pressed("charge"):
-				print("charging")
-				# Max value is 100
-				$ChargeBar.visible = true
-				$ChargeBar.value += 10
-				is_charging = true
-				
-				if $AirborneMaxDuration.is_stopped():
-					$AirborneMaxDuration.start()
-	#				airborne_mode = true
-	#				if airborne_mode:
-	#					velocity.y = 0
-		if Input.is_action_just_released("charge") or Input.is_action_pressed("left") or Input.is_action_pressed("right") or Input.is_action_pressed("jump") or Input.is_action_pressed("primary_skill") or Input.is_action_pressed("secondary_skill"):
-			# Min value is 0 (Empty)
+#		if $ChargeBar.value == $ChargeBar.max_value:
+#			$ChargeBar.texture_progress = FULL_CHARGE_METER
+#		else:
+#			$ChargeBar.texture_progress = CHARGING_CHARGE_METER
+#		if attack_string_count == 1:
+#			if Input.is_action_pressed("charge"):
+#				print("charging")
+#				# Max value is 100
+#				$ChargeBar.visible = true
+#				$ChargeBar.value += 10
+#				is_charging = true
+#
+#				if $AirborneMaxDuration.is_stopped():
+#					$AirborneMaxDuration.start()
+#	#				airborne_mode = true
+#	#				if airborne_mode:
+#	#					velocity.y = 0
+#		if Input.is_action_just_released("charge") or Input.is_action_pressed("left") or Input.is_action_pressed("right") or Input.is_action_pressed("jump") or Input.is_action_pressed("primary_skill") or Input.is_action_pressed("secondary_skill"):
+#			# Min value is 0 (Empty)
+#			$ChargeBar.visible = false
+#			$ChargeBar.value = $ChargeBar.min_value
+#			is_charging = false
+##				airborne_mode = false
+#		# Charged attack
+		if Input.is_action_pressed("ui_attack") and $InputPressTimer.is_stopped() and !is_doing_charged_attack:
+			$InputPressTimer.stop()
+			is_doing_charged_attack = true
+			is_charging = true
+			$AnimationPlayer.play("KnockUpwardsRight")
+			yield(get_tree().create_timer(0.35), "timeout")
 			$ChargeBar.visible = false
 			$ChargeBar.value = $ChargeBar.min_value
+			$ChargedAttackCollision/CollisionShape2D.disabled = false
+			
+			
+			Input.action_release("charge")
+			var ss_projectile = SUPER_SLASH_PROJECTILE.instance()
+			var hitparticle = SWORD_HIT_PARTICLE.instance()
+			var slashparticle = SWORD_SLASH_EFFECT.instance()
+			hitparticle.emitting = true
+			get_parent().add_child(hitparticle)
+			get_parent().add_child(slashparticle)
+			hitparticle.position = $Position2D.global_position
+			slashparticle.position = $Position2D.global_position
+			get_parent().add_child(ss_projectile)
+			if $Sprite.flip_h:
+				ss_projectile.flip_projectile(-1)
+			ss_projectile.position = $Position2D.global_position
+			var dash_particle = DASH_PARTICLE.instance()
+			get_parent().add_child(dash_particle)
+			dash_particle.position = $Position2D.global_position
+			dash_particle.emitting = true
+			dash_particle.one_shot = true
+			yield(get_tree().create_timer(0.1), "timeout")
+			$ChargedAttackCollision/CollisionShape2D.disabled = true
+			is_doing_charged_attack = false
+			attack_string_count = 4
 			is_charging = false
-#				airborne_mode = false
-		# Charge abilities
-		if $ChargeBar.value == $ChargeBar.max_value and Input.is_action_just_pressed("ui_attack") and is_charging:
-			if attack_string_count == 1:
-				$ChargeBar.visible = false
-				$ChargeBar.value = $ChargeBar.min_value
-				$ChargedAttackCollision/CollisionShape2D.disabled = false
-				
-				is_charging = false
-				Input.action_release("charge")
-				var ss_projectile = SUPER_SLASH_PROJECTILE.instance()
-				var hitparticle = SWORD_HIT_PARTICLE.instance()
-				var slashparticle = SWORD_SLASH_EFFECT.instance()
-				hitparticle.emitting = true
-				get_parent().add_child(hitparticle)
-				get_parent().add_child(slashparticle)
-				hitparticle.position = $Position2D.global_position
-				slashparticle.position = $Position2D.global_position
-				get_parent().add_child(ss_projectile)
-				if $Sprite.flip_h:
-					ss_projectile.flip_projectile(-1)
-				ss_projectile.position = $Position2D.global_position
-				var dash_particle = DASH_PARTICLE.instance()
-				get_parent().add_child(dash_particle)
-				dash_particle.position = $Position2D.global_position
-				dash_particle.emitting = true
-				dash_particle.one_shot = true
-				yield(get_tree().create_timer(0.1), "timeout")
-				$ChargedAttackCollision/CollisionShape2D.disabled = true
-				attack_string_count = 4
+			Input.action_release("ui_attack")
 		elif Input.is_action_just_pressed("ui_attack") and $ChargeBar.value == $ChargeBar.max_value and Global.mana < 2:
 			$ChargeBar.visible = false
 			$ChargeBar.value = $ChargeBar.min_value
@@ -488,8 +510,10 @@ func play_attack_animation(direction : String):
 						$AttackCollision.remove_from_group(groups)
 						if !airborne_mode:
 							$AttackCollision.add_to_group(str(Global.attack_power * (Global.player_skill_multipliers["BasicAttack"] / 100) + basic_attack_buff))
+							print("a")
 						else:
 							$AttackCollision.add_to_group(str(Global.attack_power * (Global.player_skill_multipliers["AirborneBasicAttack"] / 100) + basic_attack_buff))
+							print("b")
 						break
 				
 			3:
@@ -528,7 +552,7 @@ func play_attack_animation(direction : String):
 						else:
 							$AttackCollision.add_to_group(str(Global.attack_power * (Global.player_skill_multipliers["AirborneBasicAttack4"] / 100) + basic_attack_buff))
 						break
-				change_mana_value(1)
+				yield(get_tree().create_timer($MeleeTimer.wait_time), "timeout")
 				attack_string_count = 4
 				mana_absorption_counter = mana_absorption_counter_max
 	elif direction == "Left":
@@ -582,7 +606,7 @@ func play_attack_animation(direction : String):
 						else:
 							$AttackCollision.add_to_group(str(Global.attack_power * (Global.player_skill_multipliers["AirborneBasicAttack4"] / 100) + basic_attack_buff))
 						break
-				change_mana_value(1)
+				yield(get_tree().create_timer($MeleeTimer.wait_time), "timeout")
 				attack_string_count = 4
 				mana_absorption_counter = mana_absorption_counter_max
 # Damage and interaction
@@ -722,6 +746,8 @@ func _on_AttackCollision_area_entered(area):
 #			attack_knock()
 #			freeze_enemy()
 			if Global.current_character == "Player":
+				if area.is_in_group("Enemy") and attack_string_count == 0:
+					change_mana_value(1)
 				var hitparticle = SWORD_HIT_PARTICLE.instance()
 				var slashparticle = SWORD_SLASH_EFFECT.instance()
 				hitparticle.emitting = true
@@ -729,6 +755,7 @@ func _on_AttackCollision_area_entered(area):
 				get_parent().add_child(slashparticle)
 				hitparticle.position = $Position2D.global_position
 				slashparticle.position = $Position2D.global_position
+				
 				if mana_absorption_counter > 0:
 					mana_absorption_counter -= 1
 				
@@ -1170,3 +1197,25 @@ func _on_EnemyEvasionArea_area_exited(area):
 func _on_EnemyEvasionArea_area_entered(area):
 	if area.is_in_group("Hostile"):
 		perfect_dash = true
+
+#func enemy_on_left_detector():
+#	for a in $LeftAutoAim.get_overlapping_areas():
+#		if a.is_in_group("Enemy"):
+#			return true
+#			break
+#	return false
+#
+#func enemy_on_right_detector():
+#	for a in $RightAutoAim.get_overlapping_areas():
+#		if a.is_in_group("Enemy"):
+#			return true
+#			break
+#	return false
+
+#func _on_LeftAutoAim_area_entered(area):
+#	pass
+#
+#func _on_RightAutoAim_area_entered(area):
+#	if area.is_in_group("Enemy") and $Sprite.flip_h and Input.is_action_just_pressed("ui_attack"):
+#		pass
+	

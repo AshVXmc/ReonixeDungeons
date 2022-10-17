@@ -88,5 +88,7 @@ func on_skill_used(skill_name : String, attack_bonus : float = 0):
 			var icelance = ICE_LANCE.instance()
 			get_parent().get_parent().add_child(icelance)
 			icelance.position = global_position
+		"ColdBloodedThrust":
+			pass
 
 	

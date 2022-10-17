@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=2]
+[gd_scene load_steps=35 format=2]
 
 [ext_resource path="res://spriteframes/MainCharacter_spriteframes.tres" type="SpriteFrames" id=1]
 [ext_resource path="res://scripts/player/Player.gd" type="Script" id=2]
@@ -14,6 +14,7 @@
 [ext_resource path="res://scripts/player/SkillManager.gd" type="Script" id=12]
 [ext_resource path="res://scripts/player/CharacterManager.gd" type="Script" id=13]
 [ext_resource path="res://scenes/particles/AtkBuffParticle.tscn" type="PackedScene" id=14]
+[ext_resource path="res://scripts/player/AnimationManager.gd" type="Script" id=15]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 37.6338
@@ -28,6 +29,34 @@ extents = Vector2( 70.0575, 63.0992 )
 [sub_resource type="CapsuleShape2D" id=12]
 radius = 37.6338
 height = 17.3718
+
+[sub_resource type="Animation" id=22]
+resource_name = "KnockUpwardsRight"
+length = 1.2
+tracks/0/type = "value"
+tracks/0/path = NodePath("SwordSprite:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.4 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 110.0, -240.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("SwordSprite:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.4 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
 
 [sub_resource type="Animation" id=4]
 length = 0.001
@@ -591,6 +620,9 @@ amount = 4
 [node name="SkillManager" type="Node2D" parent="."]
 script = ExtResource( 12 )
 
+[node name="AnimationManager" type="Node2D" parent="."]
+script = ExtResource( 15 )
+
 [node name="CharacterManager" type="Node2D" parent="."]
 script = ExtResource( 13 )
 
@@ -722,6 +754,7 @@ position = Vector2( 40, 50 )
 position = Vector2( -40, 50 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/KnockUpwardsRight = SubResource( 22 )
 anims/RESET = SubResource( 4 )
 anims/SwordSwingLeft = SubResource( 5 )
 anims/SwordSwingLeft2 = SubResource( 14 )
@@ -756,13 +789,6 @@ position = Vector2( 48, 0 )
 [node name="FireBurstTimer" type="Timer" parent="."]
 wait_time = 0.2
 
-[node name="SwordSpreadArea" type="Area2D" parent="." groups=["Sword2"]]
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="SwordSpreadArea"]
-position = Vector2( 3.98944, 3.96558 )
-polygon = PoolVector2Array( -4.49139, 2.44882, -70.4112, -26.2582, -183.113, -74.1032, -185.239, 49.2306, 175.193, 47.1042, 174.13, -74.1032, 56.0538, -23.4992 )
-disabled = true
-
 [node name="ChargeBar" type="TextureProgress" parent="."]
 visible = false
 margin_left = -49.805
@@ -787,7 +813,7 @@ texture_under = ExtResource( 10 )
 texture_progress = ExtResource( 11 )
 
 [node name="MeleeTimer" type="Timer" parent="."]
-wait_time = 0.25
+wait_time = 0.375
 one_shot = true
 
 [node name="OxygenTimer" type="Timer" parent="."]
@@ -828,6 +854,10 @@ one_shot = true
 [node name="AirborneMaxDuration" type="Timer" parent="."]
 process_mode = 0
 wait_time = 2.0
+one_shot = true
+
+[node name="InputPressTimer" type="Timer" parent="."]
+wait_time = 0.5
 one_shot = true
 
 [connection signal="timeout" from="CharacterManager/SwapCooldownTimer" to="CharacterManager" method="_on_SwapCooldownTimer_timeout"]

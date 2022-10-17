@@ -224,11 +224,12 @@ func parse_damage():
 		$AnimationPlayer.play("Death")
 func death():
 	$Sprite.visible = false
+	$Area2D.remove_from_group("Hostile")
 	var deathparticle = DEATH_SMOKE.instance()
 	deathparticle.emitting = true
 	deathparticle.position = global_position
 	get_parent().add_child(deathparticle)
-
+	
 	var loot = LOOT.instance()
 	var lootrng : RandomNumberGenerator = RandomNumberGenerator.new()
 	lootrng.randomize()

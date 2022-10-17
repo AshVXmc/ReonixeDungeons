@@ -29,6 +29,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/enemies/AlphaGuardian.gd"
 }, {
+"base": "Node2D",
+"class": "AnimationManager",
+"language": "GDScript",
+"path": "res://scripts/player/AnimationManager.gd"
+}, {
 "base": "KinematicBody2D",
 "class": "Arrow",
 "language": "GDScript",
@@ -409,6 +414,7 @@ _global_script_class_icons={
 "Alchemist": "",
 "AlchemyGuidebook": "",
 "AlphaGuardian": "",
+"AnimationManager": "",
 "Arrow": "",
 "AttackBuff": "",
 "BasicAttackBuff": "",

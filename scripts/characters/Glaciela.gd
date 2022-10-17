@@ -82,23 +82,7 @@ func _physics_process(delta):
 		if Input.is_action_just_pressed("jump"):
 			attack_string_count = 4
 			$AnimatedSprite.play("Default")
-		if Input.is_action_just_pressed("ui_attack") and $MeleeTimer.is_stopped():
-			if !$AnimatedSprite.flip_h:
-				$SpearSprite.visible = true
-				play_attack_animation("Right")
-				$AttackCollision/CollisionShape2D.disabled = false
-#				get_parent().get_parent().attack_knock()
-				$AttackCollision.set_scale(Vector2(1,1))
-				$ChargedAttackCollision.set_scale(Vector2(1,1))
-				$MeleeTimer.start()
-			else:
-				$SpearSprite.visible = true
-				play_attack_animation("Left")
-				$AttackCollision/CollisionShape2D.disabled = false
-#				get_parent().get_parent().attack_knock()
-				$AttackCollision.set_scale(Vector2(-1,1))
-				$ChargedAttackCollision.set_scale(Vector2(-1,1))
-				$MeleeTimer.start()
+
 		
 		if $ChargeBar.value == $ChargeBar.max_value:
 			if Input.is_action_pressed("ui_attack") and $ChargedAttackCooldown.is_stopped(): 
@@ -123,6 +107,22 @@ func _physics_process(delta):
 			print("skill emitted")
 			emit_signal("skill_used", "IceLance")
 
+func attack():
+	if Global.current_character == "Glaciela" and $MeleeTimer.is_stopped():
+		if !$AnimatedSprite.flip_h:
+			$SpearSprite.visible = true
+			play_attack_animation("Right")
+			$AttackCollision/CollisionShape2D.disabled = false
+			$AttackCollision.set_scale(Vector2(1,1))
+			$ChargedAttackCollision.set_scale(Vector2(1,1))
+			$MeleeTimer.start()
+		else:
+			$SpearSprite.visible = true
+			play_attack_animation("Left")
+			$AttackCollision/CollisionShape2D.disabled = false
+			$AttackCollision.set_scale(Vector2(-1,1))
+			$ChargedAttackCollision.set_scale(Vector2(-1,1))
+			$MeleeTimer.start()
 # Helper function, use this to change tundra stack value through a signal 
 # from another node
 func restore_tundra_stacks(amount : int):
@@ -237,7 +237,11 @@ func charge_meter():
 					$ChargeBar.visible = false
 					$ChargeBar.value = $ChargeBar.min_value
 					is_charging = false
-
+func _input(event):
+	if event.is_action_pressed("ui_attack"):
+		
+		attack()
+		$InputPressTimer.start()
 
 func charged_attack(airborne_duration : float = 1, type : int = 1):
 	airborne_mode = false
