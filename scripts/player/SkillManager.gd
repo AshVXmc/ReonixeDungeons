@@ -1,4 +1,4 @@
-class_name SkillManager extends Node2D
+class_name PlayerSkillManager extends Node2D
 
 signal mana_changed(amount)
 var FIRE_PARTICLE : PackedScene = preload("res://scenes/particles/FlameParticle.tscn")

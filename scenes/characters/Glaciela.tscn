@@ -59,19 +59,17 @@ tracks/1/keys = {
 "update": 0,
 "values": [ -110.0, -40.0 ]
 }
-tracks/2/type = "method"
-tracks/2/path = NodePath(".")
+tracks/2/type = "value"
+tracks/2/path = NodePath("SpearSprite:visible")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0.1 ),
-"transitions": PoolRealArray( 1 ),
-"values": [ {
-"args": [  ],
-"method": "set_weapon_to_invisible"
-} ]
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
 }
 
 [sub_resource type="Animation" id=6]
@@ -102,19 +100,17 @@ tracks/1/keys = {
 "update": 0,
 "values": [ 110.0, 40.0 ]
 }
-tracks/2/type = "method"
-tracks/2/path = NodePath(".")
+tracks/2/type = "value"
+tracks/2/path = NodePath("SpearSprite:visible")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0.1 ),
-"transitions": PoolRealArray( 1 ),
-"values": [ {
-"args": [  ],
-"method": "set_weapon_to_invisible"
-} ]
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
 }
 
 [sub_resource type="Animation" id=7]
@@ -170,6 +166,18 @@ tracks/2/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 0,
 "values": [ false ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("SpearSprite:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ true ]
 }
 
 [sub_resource type="Animation" id=4]
@@ -640,6 +648,8 @@ scale = Vector2( 6, 6 )
 texture = ExtResource( 6 )
 offset = Vector2( 0, -12 )
 
+[node name="GlacielaSkillManager" type="Node2D" parent="."]
+
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 scale = Vector2( 5, 5 )
 frames = SubResource( 1 )
@@ -702,7 +712,6 @@ margin_right = -21.5
 margin_bottom = -68.5
 rect_scale = Vector2( 3, 4 )
 max_value = 120.0
-value = 120.0
 texture_under = ExtResource( 9 )
 texture_progress = ExtResource( 12 )
 
@@ -727,6 +736,7 @@ wait_time = 1.5
 one_shot = true
 
 [node name="TundraStackRegen" type="Timer" parent="."]
+wait_time = 0.2
 autostart = true
 
 [node name="EnemyEvasionArea" type="Area2D" parent="."]

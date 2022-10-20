@@ -11,11 +11,12 @@ const actions : Array = [
 	"primary_skill", "secondary_skill",
 	"dash", "perfect_dash"
 ]
-var max_mana : int = 12
-var mana : int = max_mana
+var max_mana : float = 12
+var mana : float = max_mana
 var attack_power : int = 50
 var player_skill_multipliers : Dictionary = {
-	"BasicAttack": 30.0,
+	"BaseHearts": 2.5,
+	"BasicAttack": 25.0,
 	"BasicAttack2": 30.0,
 	"BasicAttack3": 40.0,
 	"BasicAttack4": 55.0,
@@ -37,14 +38,10 @@ var glaciela_attack : int = 50
 var glaciela_skill_multipliers : Dictionary = {
 	"BasicAttack": 25.0,
 	"BasicAttack2": 30.0,
-	"BasicAttack3": 20.0,
-	"BasicAttack4": 40.0,
+	"BasicAttack3": 40.0,
+	"BasicAttack4": 55.0,
 	"ChargedAttack": 75.0,
-	"ChargedAttack2": 90.0,
-	"ChargedAttack3": 120.0,
-	"AirborneDuration1": 0.5,
-	"AirborneDuration2": 1.5,
-	"AirborneDuration3": 3,
+	"AirborneDuration": 2.5,
 	"IceLance": 65.0
 }
 

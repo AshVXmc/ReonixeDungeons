@@ -4,7 +4,7 @@
 [ext_resource path="res://assets/particles/smoke_particle.png" type="Texture" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 13.4929, 16.379 )
+extents = Vector2( 2, 2 )
 
 [sub_resource type="ParticlesMaterial" id=2]
 flag_disable_z = true

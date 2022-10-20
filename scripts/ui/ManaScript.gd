@@ -32,7 +32,7 @@ func _process(delta):
 		$ManaSlot3.visible = false
 		$ManaIcon3.visible = false
 		
-func on_player_mana_changed(player_mana : int, character : String):
+func on_player_mana_changed(player_mana : float, character : String):
 	if character == Global.equipped_characters[0]:
 		$ManaIcon.rect_size.x = player_mana * size
 	elif character == Global.equipped_characters[1]:

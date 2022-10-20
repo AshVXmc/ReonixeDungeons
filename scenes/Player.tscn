@@ -31,8 +31,9 @@ radius = 37.6338
 height = 17.3718
 
 [sub_resource type="Animation" id=22]
-resource_name = "KnockUpwardsRight"
-length = 1.2
+resource_name = "ChargedAttackRight"
+length = 0.15
+step = 0.05
 tracks/0/type = "value"
 tracks/0/path = NodePath("SwordSprite:rotation_degrees")
 tracks/0/interp = 1
@@ -40,10 +41,10 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.4 ),
+"times": PoolRealArray( 0, 0.15 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ 110.0, -240.0 ]
+"values": [ -40.0, 200.0 ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("SwordSprite:visible")
@@ -52,10 +53,22 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 0.4 ),
+"times": PoolRealArray( 0, 0.15 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 1,
 "values": [ true, false ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("SwordSprite:flip_h")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
 }
 
 [sub_resource type="Animation" id=4]
@@ -617,11 +630,11 @@ script = ExtResource( 2 )
 visible = false
 amount = 4
 
-[node name="SkillManager" type="Node2D" parent="."]
-script = ExtResource( 12 )
-
 [node name="AnimationManager" type="Node2D" parent="."]
 script = ExtResource( 15 )
+
+[node name="SkillManager" type="Node2D" parent="."]
+script = ExtResource( 12 )
 
 [node name="CharacterManager" type="Node2D" parent="."]
 script = ExtResource( 13 )
@@ -658,7 +671,7 @@ animation = "PerfectDash"
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 0, 5.05854 )
+position = Vector2( 0, 2 )
 shape = SubResource( 1 )
 
 [node name="AttackCollision" type="Area2D" parent="." groups=["Sword"]]
@@ -754,7 +767,7 @@ position = Vector2( 40, 50 )
 position = Vector2( -40, 50 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/KnockUpwardsRight = SubResource( 22 )
+anims/ChargedAttackRight = SubResource( 22 )
 anims/RESET = SubResource( 4 )
 anims/SwordSwingLeft = SubResource( 5 )
 anims/SwordSwingLeft2 = SubResource( 14 )
@@ -813,7 +826,7 @@ texture_under = ExtResource( 10 )
 texture_progress = ExtResource( 11 )
 
 [node name="MeleeTimer" type="Timer" parent="."]
-wait_time = 0.375
+wait_time = 0.3
 one_shot = true
 
 [node name="OxygenTimer" type="Timer" parent="."]
@@ -847,8 +860,8 @@ one_shot = true
 wait_time = 1.25
 one_shot = true
 
-[node name="EmberStackRegenDelay" type="Timer" parent="."]
-wait_time = 0.4
+[node name="ManaRegenDelay" type="Timer" parent="."]
+wait_time = 0.5
 one_shot = true
 
 [node name="AirborneMaxDuration" type="Timer" parent="."]
@@ -862,7 +875,7 @@ one_shot = true
 
 [connection signal="timeout" from="CharacterManager/SwapCooldownTimer" to="CharacterManager" method="_on_SwapCooldownTimer_timeout"]
 [connection signal="area_entered" from="AttackCollision" to="." method="_on_AttackCollision_area_entered"]
-[connection signal="area_entered" from="ChargedAttackCollision" to="." method="_on_AttackCollision_area_entered"]
+[connection signal="area_entered" from="ChargedAttackCollision" to="." method="_on_ChargedAttackCollision_area_entered"]
 [connection signal="area_entered" from="Area2D" to="." method="_on_Area2D_area_entered"]
 [connection signal="area_exited" from="Area2D" to="." method="_on_Area2D_area_exited"]
 [connection signal="timeout" from="InvulnerabilityTimer" to="." method="_on_InvulnerabilityTimer_timeout"]

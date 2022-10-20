@@ -14,6 +14,7 @@ signal skill_ui_update()
 signal perfect_dash()
 signal action(action_type)
 var target
+
 # Attack buff 
 var atkbuffmulti = 0
 var atkbuffdur = 0
@@ -320,25 +321,30 @@ func set_attack_power(amount : float, duration : float, show_particles : bool = 
 func use_skill():
 	if Global.current_character == "Player":
 		if Input.is_action_just_pressed("primary_skill") and !Input.is_action_just_pressed("secondary_skill") and !is_frozen and !is_using_primary_skill and get_parent().get_node("SkillsUI/Control/PrimarySkill/Player/FireSaw/FiresawTimer").is_stopped():
+			use_primary_skill()
 			
-			if Global.current_character == Global.equipped_characters[0] and Global.mana >= Global.player_skill_multipliers["FireSawCost"]:
-				emit_signal("skill_used", "FireSaw", attack_buff)
-				emit_signal("skill_ui_update", "FireSaw")
-				emit_signal("mana_changed", Global.mana, "Player")
-				print("USED PRIMARY SKILL")
-			elif Global.current_character == Global.equipped_characters[1] and Global.character2_mana >= Global.player_skill_multipliers["FireSawCost"]:
-				emit_signal("skill_used", "FireSaw", attack_buff)
-				emit_signal("skill_ui_update", "FireSaw")
-				emit_signal("mana_changed", Global.character2_mana, "Player")
-			elif Global.current_character == Global.equipped_characters[2] and Global.character3_mana >= Global.player_skill_multipliers["FireSawCost"]:
-				emit_signal("skill_used", "FireSaw", attack_buff)
-				emit_signal("skill_ui_update", "FireSaw")
-				emit_signal("mana_changed", Global.character3_mana, "Player")
 		if Input.is_action_just_pressed("secondary_skill") and !Input.is_action_just_pressed("primary_skill"):
-			if Global.player_skills["SecondarySkill"] == "FireFairy" and Global.fire_fairy_unlocked and !is_frozen and Global.mana >= 4 and !is_using_secondary_skill and get_parent().get_node("SkillsUI/Control/SecondarySkill/Player/FireFairy/FirefairyTimer").is_stopped():
-				emit_signal("skill_used", "FireFairy")
+			use_secondary_skill()
 			
+
+func use_primary_skill():
+	if Global.current_character == Global.equipped_characters[0] and Global.mana >= Global.player_skill_multipliers["FireSawCost"]:
+		emit_signal("skill_used", "FireSaw", attack_buff)
+		emit_signal("skill_ui_update", "FireSaw")
+		emit_signal("mana_changed", Global.mana, "Player")
+		print("USED PRIMARY SKILL")
+	elif Global.current_character == Global.equipped_characters[1] and Global.character2_mana >= Global.player_skill_multipliers["FireSawCost"]:
+		emit_signal("skill_used", "FireSaw", attack_buff)
+		emit_signal("skill_ui_update", "FireSaw")
+		emit_signal("mana_changed", Global.character2_mana, "Player")
+	elif Global.current_character == Global.equipped_characters[2] and Global.character3_mana >= Global.player_skill_multipliers["FireSawCost"]:
+		emit_signal("skill_used", "FireSaw", attack_buff)
+		emit_signal("skill_ui_update", "FireSaw")
+		emit_signal("mana_changed", Global.character3_mana, "Player")
 	
+func use_secondary_skill():
+	if Global.player_skills["SecondarySkill"] == "FireFairy" and Global.fire_fairy_unlocked and !is_frozen and Global.mana >= 4 and !is_using_secondary_skill and get_parent().get_node("SkillsUI/Control/SecondarySkill/Player/FireFairy/FirefairyTimer").is_stopped():
+			emit_signal("skill_used", "FireFairy")
 func ground_pound():
 	if !is_on_floor() and Input.is_action_just_pressed("ui_down"):
 		is_ground_pounding = true
@@ -413,10 +419,11 @@ func attack():
 			$AttackTimer.start()
 
 func _input(event):
-	if event.is_action_pressed("ui_attack"):
-		
-		attack()
-		$InputPressTimer.start()
+	if Global.current_character == "Player":
+		if event.is_action_pressed("ui_attack"):
+			
+			attack()
+			$InputPressTimer.start()
 func charge_meter():
 	if Global.current_character == "Player":
 		$ChargingParticle.visible = true if is_charging else false
@@ -448,10 +455,10 @@ func charge_meter():
 			$InputPressTimer.stop()
 			is_doing_charged_attack = true
 			is_charging = true
-			$AnimationPlayer.play("KnockUpwardsRight")
+			$AnimationPlayer.play("ChargedAttackRight")
 			yield(get_tree().create_timer(0.35), "timeout")
-			$ChargeBar.visible = false
-			$ChargeBar.value = $ChargeBar.min_value
+#			$ChargeBar.visible = false
+#			$ChargeBar.value = $ChargeBar.min_value
 			$ChargedAttackCollision/CollisionShape2D.disabled = false
 			
 			
@@ -747,7 +754,7 @@ func _on_AttackCollision_area_entered(area):
 #			freeze_enemy()
 			if Global.current_character == "Player":
 				if area.is_in_group("Enemy") and attack_string_count == 0:
-					change_mana_value(1)
+					change_mana_value(1.0)
 				var hitparticle = SWORD_HIT_PARTICLE.instance()
 				var slashparticle = SWORD_SLASH_EFFECT.instance()
 				hitparticle.emitting = true
@@ -767,7 +774,26 @@ func _on_AttackCollision_area_entered(area):
 			$GliderWings.visible = true
 			get_node("AirborneTimer").start()
 			airborne_mode = true
-func change_mana_value(amount : int):
+
+func _on_ChargedAttackCollision_area_entered(area):
+	if weakref(area).get_ref() != null:
+		if area.is_in_group("Enemy"):
+			if Global.current_character == "Player" and $ManaRegenDelay.is_stopped():
+				$ManaRegenDelay.start()
+				print("charged attack restore mana")
+				change_mana_value(0.5)
+				print("mana: " + str(Global.mana))
+				var hitparticle = SWORD_HIT_PARTICLE.instance()
+				var slashparticle = SWORD_SLASH_EFFECT.instance()
+				hitparticle.emitting = true
+				get_parent().add_child(hitparticle)
+				get_parent().add_child(slashparticle)
+				hitparticle.position = $Position2D.global_position
+				slashparticle.position = $Position2D.global_position
+				if mana_absorption_counter > 0:
+					mana_absorption_counter -= 1
+	
+func change_mana_value(amount : float):
 	if Global.current_character == Global.equipped_characters[0] and Global.mana < Global.max_mana:
 		Global.mana += amount
 		emit_signal("mana_changed", Global.mana, "Player")
@@ -850,7 +876,7 @@ func dash():
 			else:
 				velocity.y = 0
 				velocity = dashdirection.normalized() * 2500 
-			yield(get_tree().create_timer(0.25), "timeout")
+			yield(get_tree().create_timer(0.2), "timeout")
 			perfect_dash = false
 			$DashCooldown.start()
 			velocity.y += GRAVITY
@@ -1219,3 +1245,6 @@ func _on_EnemyEvasionArea_area_entered(area):
 #	if area.is_in_group("Enemy") and $Sprite.flip_h and Input.is_action_just_pressed("ui_attack"):
 #		pass
 	
+
+
+

@@ -324,6 +324,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/player/Player.gd"
 }, {
+"base": "Node2D",
+"class": "PlayerSkillManager",
+"language": "GDScript",
+"path": "res://scripts/player/SkillManager.gd"
+}, {
 "base": "Control",
 "class": "PrimarySkillManager",
 "language": "GDScript",
@@ -358,11 +363,6 @@ _global_script_classes=[ {
 "class": "SilverChest",
 "language": "GDScript",
 "path": "res://scripts/items/ChestSilver.gd"
-}, {
-"base": "Node2D",
-"class": "SkillManager",
-"language": "GDScript",
-"path": "res://scripts/player/SkillManager.gd"
 }, {
 "base": "Control",
 "class": "SkillsUI",
@@ -473,6 +473,7 @@ _global_script_class_icons={
 "MusicNoteAttack": "",
 "PerfectDash": "",
 "Player": "",
+"PlayerSkillManager": "",
 "PrimarySkillManager": "",
 "ShieldGoblin": "",
 "ShopUI": "",
@@ -480,7 +481,6 @@ _global_script_class_icons={
 "Shuriken": "",
 "Sign": "",
 "SilverChest": "",
-"SkillManager": "",
 "SkillsUI": "",
 "Slime": "",
 "SlowingPoison": "",

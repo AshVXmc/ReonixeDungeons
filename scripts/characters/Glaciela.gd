@@ -83,25 +83,25 @@ func _physics_process(delta):
 			attack_string_count = 4
 			$AnimatedSprite.play("Default")
 
-		
-		if $ChargeBar.value == $ChargeBar.max_value:
-			if Input.is_action_pressed("ui_attack") and $ChargedAttackCooldown.is_stopped(): 
-				if $TundraMeter.value >= 40:
-					if $TundraMeter.value == $TundraMeter.max_value:
-						infuse_element("Ice", 0.2)
-						charged_attack(3.5)
-#						Input.action_press("jump")
-					elif $TundraMeter.value >= 80 and $TundraMeter.value != $TundraMeter.max_value: 
-						charged_attack(1.2)
-#						Input.action_press("jump")
-					else:
-						charged_attack(0.5)
-#						Input.action_press("jump")
-					$TundraMeter.value = $TundraMeter.min_value
-						
-					$ChargeBar.visible = false
-					$ChargeBar.value = $ChargeBar.min_value
-					is_charging = false
+		charged_attack(2.5)
+#		if $ChargeBar.value == $ChargeBar.max_value:
+#			if Input.is_action_pressed("ui_attack") and $ChargedAttackCooldown.is_stopped(): 
+#				if $TundraMeter.value >= 40:
+#					if $TundraMeter.value == $TundraMeter.max_value:
+#						infuse_element("Ice", 0.2)
+#						charged_attack(3.5)
+##						Input.action_press("jump")
+#					elif $TundraMeter.value >= 80 and $TundraMeter.value != $TundraMeter.max_value: 
+#						charged_attack(1.2)
+##						Input.action_press("jump")
+#					else:
+#						charged_attack(0.5)
+##						Input.action_press("jump")
+#					$TundraMeter.value = $TundraMeter.min_value
+#
+#					$ChargeBar.visible = false
+#					$ChargeBar.value = $ChargeBar.min_value
+#					is_charging = false
 			
 		if Input.is_action_just_pressed("primary_skill") and !Input.is_action_just_pressed("secondary_skill"):
 			print("skill emitted")
@@ -238,30 +238,36 @@ func charge_meter():
 					$ChargeBar.value = $ChargeBar.min_value
 					is_charging = false
 func _input(event):
-	if event.is_action_pressed("ui_attack"):
-		
-		attack()
-		$InputPressTimer.start()
+	if Global.current_character == "Glaciela":
+		if event.is_action_pressed("ui_attack"):
+			attack()
+			$InputPressTimer.start()
 
 func charged_attack(airborne_duration : float = 1, type : int = 1):
-	airborne_mode = false
-	if target and target != null: 
-		if target.get_node("Area2D").overlaps_area($ChargedAttackCollision) or target.get_node("Area2D").overlaps_area($ChargedAttackCollision2):
-			is_charging = false
-			is_performing_charged_attack = true
-			get_parent().get_parent().airborne_mode = false
-			var airborne_status : AirborneStatus = AIRBORNE_STATUS.instance()
-			airborne_status.time = airborne_duration
-			target.add_child(airborne_status)
-			if !$AnimatedSprite.flip_h:
-				$AnimationPlayer.play("ChargedAttackRight")
-			else:
-				$AnimationPlayer.play("ChargedAttackLeft")
-			set_basic_attack_power(3, 0.1)
-			$ChargedAttackCooldown.start()
-			$TundraMeter.value = 0
-			yield(get_tree().create_timer(0.2), "timeout")
-			is_performing_charged_attack = false
+	if Input.is_action_pressed("ui_attack") and $InputPressTimer.is_stopped() and !is_performing_charged_attack:
+		airborne_mode = false
+#		is_performing_charged_attack = true
+		if !$AnimatedSprite.flip_h:
+			print("Played anim")
+			$AnimationPlayer.play("ChargedAttackRight")
+		else:
+			$AnimationPlayer.play("ChargedAttackLeft")
+
+		if target and target != null: 
+			if target.get_node("Area2D").overlaps_area($ChargedAttackCollision) and !target.get_node("Area2D").is_in_group("IsAirborne"):
+				is_charging = false
+				is_performing_charged_attack = true
+				get_parent().get_parent().airborne_mode = false
+				var airborne_status : AirborneStatus = AIRBORNE_STATUS.instance()
+				airborne_status.time = airborne_duration
+				target.add_child(airborne_status)
+
+				set_basic_attack_power(3, 0.1)
+				$ChargedAttackCooldown.start()
+				$TundraMeter.value = 0
+				yield(get_tree().create_timer(0.25), "timeout")
+				is_performing_charged_attack = false
+				Input.action_release("ui_attack")
 func get_closest_enemy():
 	var enemies = get_tree().get_nodes_in_group("Enemy")
 	if enemies.empty(): 

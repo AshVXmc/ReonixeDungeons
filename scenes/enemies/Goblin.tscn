@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://assets/enemies/goblin2_attack.png" type="Texture" id=1]
 [ext_resource path="res://scripts/enemies/Goblin.gd" type="Script" id=2]
@@ -8,6 +8,10 @@
 [ext_resource path="res://assets/UI/healthbar_enemy_empty.png" type="Texture" id=6]
 [ext_resource path="res://assets/UI/healthbar_enemy_full.png" type="Texture" id=7]
 [ext_resource path="res://assets/UI/physical_type_icon.png" type="Texture" id=8]
+
+[sub_resource type="CapsuleShape2D" id=8]
+radius = 20.8861
+height = 75.2598
 
 [sub_resource type="SpriteFrames" id=4]
 animations = [ {
@@ -80,8 +84,10 @@ tracks/0/keys = {
 "values": [ Color( 1, 1, 1, 1 ) ]
 }
 
+[sub_resource type="RectangleShape2D" id=9]
+extents = Vector2( 9.77439, 84.5919 )
+
 [node name="Goblin" type="KinematicBody2D" groups=["Enemy"]]
-position = Vector2( 0.471924, 0 )
 scale = Vector2( 1.2, 1.2 )
 collision_layer = 4
 collision_mask = 15
@@ -92,9 +98,9 @@ position = Vector2( -46.8126, -62.8778 )
 scale = Vector2( 1.5, 1.5 )
 texture = ExtResource( 8 )
 
-[node name="CollisionShape2D" type="CollisionPolygon2D" parent="."]
-position = Vector2( 0.115, -4 )
-polygon = PoolVector2Array( -25.5283, -7.34285, -25.5283, -7.34285, -25.5283, 32.3764, -9.56632, 53.5352, 10.1077, 53.5352, 25.3272, 33.1188, 26.0696, -7.71406, 1.19871, -53.3726, 1.19871, -53.3726 )
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0.115, -9 )
+shape = SubResource( 8 )
 
 [node name="Sprite" type="AnimatedSprite" parent="."]
 scale = Vector2( 5, 5 )
@@ -116,7 +122,7 @@ shape = SubResource( 2 )
 [node name="Area2D" type="Area2D" parent="." groups=["0.25", "Enemy", "Physical"]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2( 0.131477, -6.01947 )
+position = Vector2( 0.131477, -6.8528 )
 shape = SubResource( 3 )
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
@@ -149,6 +155,12 @@ texture_progress = ExtResource( 7 )
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/Death = SubResource( 6 )
 anims/RESET = SubResource( 7 )
+
+[node name="OtherAirborneEntitiesDetector" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="OtherAirborneEntitiesDetector"]
+position = Vector2( 0.225614, -136.453 )
+shape = SubResource( 9 )
 
 [connection signal="area_exited" from="Left" to="." method="_on_Left_area_exited"]
 [connection signal="area_exited" from="Right" to="." method="_on_Right_area_exited"]
