@@ -4,7 +4,7 @@
 [ext_resource path="res://assets/fonts/Born2bSportyV2.ttf" type="DynamicFontData" id=2]
 
 [sub_resource type="DynamicFont" id=1]
-size = 48
+size = 40
 font_data = ExtResource( 2 )
 
 [sub_resource type="Animation" id=3]
@@ -209,9 +209,6 @@ grow_horizontal = 2
 rect_scale = Vector2( 0.5, 0.5 )
 custom_fonts/font = SubResource( 1 )
 text = "0"
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/RESET = SubResource( 3 )

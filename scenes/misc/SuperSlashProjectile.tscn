@@ -6,7 +6,7 @@
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 21.3268, 41.8117 )
 
-[node name="SuperSlashProjectile" type="Area2D"]
+[node name="SuperSlashProjectile" type="Area2D" groups=["RemoveAirborne"]]
 scale = Vector2( 2, 2 )
 script = ExtResource( 2 )
 

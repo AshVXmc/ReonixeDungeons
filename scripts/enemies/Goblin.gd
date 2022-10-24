@@ -82,9 +82,9 @@ func _physics_process(delta):
 					velocity.x = SPEED
 	else:
 		if $Sprite.flip_h:
-			velocity.x = SPEED
-		else:
 			velocity.x = -SPEED
+		else:
+			velocity.x = SPEED
 
 	if is_staggered or is_frozen or is_airborne:
 		velocity.x = 0

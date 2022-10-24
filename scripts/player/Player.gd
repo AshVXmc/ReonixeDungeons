@@ -156,7 +156,7 @@ func _ready():
 	emit_signal("goblin_scales_obtained", Global.goblin_scales_amount)
 func _physics_process(_delta):
 	# Makes sure the player is alive to use any movement controls
-	if !is_dead and !is_invulnerable and !is_healing and !is_shopping and !is_frozen:
+	if !is_invulnerable and !is_healing and !is_shopping and !is_frozen:
 		# Function calls
 		dash()
 		if !is_charging:
@@ -376,6 +376,9 @@ func gp_effect():
 func attack():
 	if Global.current_character == "Player" and !is_attacking and !is_gliding and !is_frozen and $MeleeTimer.is_stopped() and $ChargeBar.value != $ChargeBar.max_value:
 		$Sprite.play("Attack")
+		if !is_on_floor():
+			airborne_mode = true
+			$AirborneTimer.start()
 #		if !$Sprite.flip_h and enemy_on_left_detector():
 #			Input.action_press("left")
 #			Input.action_release("left")
@@ -727,19 +730,23 @@ func afterDamaged():
 	if !Global.godmode:
 		$KnockbackTimer.start()
 		
-	if Global.hearts <= 0:
-		if Global.crystals_amount > 0:
-			Global.crystals_amount -= 1
-			emit_signal("crystals_obtained", Global.crystals_amount)
-			Global.hearts += 1
-			emit_signal("life_changed", Global.hearts, "Player")
-			is_invulnerable = true
-			yield(get_tree().create_timer(1), "timeout")
-			is_invulnerable = false
-			$Sprite.play("Idle")
-		else:
-			dead()
+	if Global.equipped_characters[0] == Global.current_character:
+		if Global.hearts <= 0:
+			dead(Global.equipped_characters[0])
+	elif Global.equipped_characters[1] == Global.current_character:
+		if Global.hearts <= 0:
+			dead(Global.equipped_characters[1])
+	elif Global.equipped_characters[2] == Global.current_character:
+		if Global.hearts <= 0:
+			dead(Global.equipped_characters[2])
 
+func dead(character_id):
+	if character_id == Global.equipped_characters[0]:
+		Global.alive[0] = false
+	elif character_id == Global.equipped_characters[1]:
+		Global.alive[1] = false
+	elif character_id == Global.equipped_characters[2]:
+		Global.alive[2] = false
 func add_hurt_particles(damage : float):
 	var hurt_particle = HURT_PARTICLE.instance()
 	hurt_particle.damage = damage * 2
@@ -867,7 +874,7 @@ func dash():
 			Input.action_release("jump")
 			$DashUseTimer.start()
 			$Sprite.play("Dash")
-			if perfect_dash and !airborne_mode and is_on_floor():
+			if perfect_dash and !airborne_mode and is_on_floor() and !Input.is_action_pressed("left") and !Input.is_action_pressed("right"):
 				$Sprite.play("PerfectDash")
 				
 				velocity.y = 0
@@ -947,7 +954,7 @@ func heal_player(item : String):
 	Input.action_release("right")
 
 
-func dead():
+func game_over():
 	get_parent().get_node("DebugMenu").get_node("Control").visible = false
 	is_dead = true
 	velocity = Vector2(0,0)
@@ -1190,6 +1197,9 @@ func _on_AirborneTimer_timeout():
 	$GliderWings.visible = false
 	airborne_mode = false
 	velocity.y = 0
+	is_invulnerable = true
+	yield(get_tree().create_timer(0.5), "timeout")
+	is_invulnerable 
 
 func _on_AirborneMaxDuration_timeout():
 	$GliderWings.visible = false

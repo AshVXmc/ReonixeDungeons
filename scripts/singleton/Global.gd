@@ -40,9 +40,13 @@ var glaciela_skill_multipliers : Dictionary = {
 	"BasicAttack2": 30.0,
 	"BasicAttack3": 40.0,
 	"BasicAttack4": 55.0,
-	"ChargedAttack": 75.0,
+	"ChargedAttack": 50.0,
 	"AirborneDuration": 2.5,
-	"IceLance": 65.0
+	"IceLance": 65.0,
+	"MaxTundraSigils": 3,
+	"SecondarySkill1": 65.0,
+	"SecondarySkill2": 75.0,
+	"SecondarySkill3": 100.0
 }
 
 var character2_hearts : float= character_2_max_hearts
@@ -104,6 +108,7 @@ var player_skills : Dictionary = {
 var current_character : String 
 var equipped_characters : Array = ["Player", "Glaciela", ""]
 var unlocked_characters : Array = ["Player", "Glaciela", "Domiguine"]
+var alive : Array = [true, true, true]
 
 # The level of skills. Higher levels = more damage and utility etc.
 

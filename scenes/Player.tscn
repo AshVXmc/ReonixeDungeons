@@ -708,7 +708,7 @@ wait_time = 0.25
 one_shot = true
 
 [node name="DashCooldown" type="Timer" parent="."]
-wait_time = 0.7
+wait_time = 0.5
 autostart = true
 
 [node name="KnockbackTimer" type="Timer" parent="."]
@@ -844,6 +844,7 @@ wait_time = 0.25
 one_shot = true
 
 [node name="EnemyEvasionArea" type="Area2D" parent="."]
+position = Vector2( 18, 0 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyEvasionArea"]
 position = Vector2( 42, 0 )
@@ -857,7 +858,6 @@ wait_time = 2.0
 one_shot = true
 
 [node name="AirborneTimer" type="Timer" parent="."]
-wait_time = 1.25
 one_shot = true
 
 [node name="ManaRegenDelay" type="Timer" parent="."]

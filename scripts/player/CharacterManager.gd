@@ -30,19 +30,19 @@ func _process(delta):
 
 	
 func change_teammates():
-	if Input.is_action_just_pressed("slot_1"):
+	if Input.is_action_just_pressed("slot_1") and Global.equipped_characters[0] != "":
 		Global.current_character = Global.equipped_characters[0]
 		swap_in_character(Global.equipped_characters[0])
 		swap_out_character(Global.equipped_characters[1])
 		swap_out_character(Global.equipped_characters[2])
 		print(Global.current_character)
-	elif Input.is_action_just_pressed("slot_2"):
+	elif Input.is_action_just_pressed("slot_2") and Global.equipped_characters[1] != "":
 		Global.current_character = Global.equipped_characters[1]
 		swap_in_character(Global.equipped_characters[1])
 		swap_out_character(Global.equipped_characters[0])
 		swap_out_character(Global.equipped_characters[2])
 		print(Global.current_character)
-	elif Input.is_action_just_pressed("slot_3"):
+	elif Input.is_action_just_pressed("slot_3") and Global.equipped_characters[2] != "":
 		Global.current_character = Global.equipped_characters[2]
 		swap_in_character(Global.equipped_characters[2])
 		swap_out_character(Global.equipped_characters[0])
