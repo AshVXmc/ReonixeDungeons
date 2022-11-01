@@ -57,7 +57,8 @@ func _on_LoadGame_pressed():
 			Global.unlocked_characters = player_data["UnlockedCharacters"]
 			Global.current_character = player_data["CurrentCharacter"]
 			Global.equipped_characters = player_data["EquippedCharacters"]
-			
+			Global.player_skill_multipliers = player_data["PlayerSkillMultipliers"]
+			Global.glaciela_skill_multipliers = player_data["GlacielaSkillMultipliers"]
 			Global.is_loading_a_save = player_data["IsLoadingASave"]
 			Global.masked_goblin_defeated = player_data["MaskedGoblinDefeated"]
 			Global.activated_portals = player_data["ActivatedPortals"]

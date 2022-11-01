@@ -31,7 +31,8 @@ var earth_res : float = 0
 var ice_res : float = 0
 var magic_res : float = -50
 
-
+var elemental_type : String = "Physical"
+var atk_value : float = 0.25 * Global.enemy_level_index
 
 func _ready():
 	$HealthBar.max_value = max_HP
@@ -102,7 +103,7 @@ func _on_Area2D_area_entered(area):
 					groups.erase(group_names)
 				if !groups.has("Sword") and !groups.has("physics_process"):
 					var raw_damage = float(groups.max())
-					
+					Global.elegance_meter += 8
 					var damage = round((raw_damage - (raw_damage * (phys_res / 100))))
 					print("HP reduced by " + str(damage))
 					HP -= float(damage)
@@ -117,6 +118,7 @@ func _on_Area2D_area_entered(area):
 					groups.erase(group_names)
 				if !groups.has("SwordCharged") and !groups.has("physics_process"):
 					var raw_damage = float(groups.max())
+					Global.elegance_meter += 12
 					var damage = (raw_damage - (raw_damage * (phys_res / 100)))
 					print("HP reduced by " + str(damage))
 					HP -= float(damage)
@@ -140,6 +142,7 @@ func _on_Area2D_area_entered(area):
 				if !groups.has("Fireball") and !groups.has("FireGaugeOne") and !groups.has("physics_process"):
 					print("HP reduced by " + str(groups.max()))
 					HP -= float(groups.max())
+					Global.elegance_meter += 8
 					$HealthBar.value  -= float(groups.max())
 					add_damage_particles("Fire", float(groups.max()))
 					if area.is_in_group("LightKnockback"):
@@ -165,6 +168,7 @@ func _on_Area2D_area_entered(area):
 				if !groups.has("Ice") and !groups.has("IceGaugeOne") and !groups.has("physics_process"):
 					print("HP reduced by " + str(groups.max()))
 					HP -= float(groups.max())
+					Global.elegance_meter += 8
 					$HealthBar.value  -= float(groups.max())
 					add_damage_particles("Ice", float(groups.max()))
 					if area.is_in_group("LightKnockback"):
@@ -178,6 +182,7 @@ func _on_Area2D_area_entered(area):
 		print("Burning")
 		var damage = (0.025 * max_HP) + (Global.damage_bonus["fire_dmg_bonus_%"] / 100 * (0.025 * max_HP))
 		HP -= damage
+		Global.elegance_meter += 1
 		print("HP-" + str(damage))
 		$HealthBar.value -= damage
 		parse_status_effect_damage()

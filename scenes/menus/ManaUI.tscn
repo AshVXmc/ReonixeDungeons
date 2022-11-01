@@ -17,7 +17,7 @@ script = ExtResource( 1 )
 margin_top = -15.0
 margin_right = 48.0
 margin_bottom = 33.0
-rect_scale = Vector2( 0.75, 0.75 )
+rect_scale = Vector2( 0.6, 0.6 )
 texture = ExtResource( 3 )
 expand = true
 stretch_mode = 2
@@ -26,7 +26,7 @@ stretch_mode = 2
 margin_top = -15.0
 margin_right = 48.0
 margin_bottom = 33.0
-rect_scale = Vector2( 0.75, 0.75 )
+rect_scale = Vector2( 0.6, 0.6 )
 texture = ExtResource( 2 )
 expand = true
 stretch_mode = 2
@@ -35,31 +35,25 @@ stretch_mode = 2
 margin_top = -15.0
 margin_right = 48.0
 margin_bottom = 33.0
-rect_scale = Vector2( 0.75, 0.75 )
+rect_scale = Vector2( 0.6, 0.6 )
 texture = ExtResource( 3 )
 expand = true
 stretch_mode = 2
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="ManaIcon2" type="TextureRect" parent="Mana"]
 margin_top = -15.0
 margin_right = 48.0
 margin_bottom = 33.0
-rect_scale = Vector2( 0.75, 0.75 )
+rect_scale = Vector2( 0.6, 0.6 )
 texture = ExtResource( 2 )
 expand = true
 stretch_mode = 2
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="ManaSlot3" type="TextureRect" parent="Mana"]
 margin_top = -15.0
 margin_right = 48.0
 margin_bottom = 33.0
-rect_scale = Vector2( 0.75, 0.75 )
+rect_scale = Vector2( 0.6, 0.6 )
 texture = ExtResource( 3 )
 expand = true
 stretch_mode = 2
@@ -68,7 +62,7 @@ stretch_mode = 2
 margin_top = -15.0
 margin_right = 48.0
 margin_bottom = 33.0
-rect_scale = Vector2( 0.75, 0.75 )
+rect_scale = Vector2( 0.6, 0.6 )
 texture = ExtResource( 2 )
 expand = true
 stretch_mode = 2

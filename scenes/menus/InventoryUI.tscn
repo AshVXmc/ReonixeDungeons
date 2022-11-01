@@ -88,9 +88,6 @@ margin_right = 344.587
 margin_bottom = 116.49
 rect_scale = Vector2( 3, 3 )
 texture = ExtResource( 5 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Label" type="Label" parent="Control/CommonMonsterDust"]
 anchor_left = -3.732

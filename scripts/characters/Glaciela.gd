@@ -14,6 +14,7 @@ var airborne_mode : bool = false
 var basicatkbuffmulti : float = 0
 var basicatkbuffdur : float = 0
 var is_performing_charged_attack : bool
+var attack_area_overlaps_enemy : bool 
 # Attack buff for BASIC ATTACKS ONLY.
 var atkbuffmulti = 0
 var atkbuffdur = 0
@@ -34,6 +35,13 @@ var basic_attack_buff : float
 var prev_basic_attack_power : Array
 var attack_buff : float
 var is_dead: bool = false
+
+var phys_res : float = Global.glaciela_skill_multipliers["BasePhysRes"]
+var magic_res : float = Global.glaciela_skill_multipliers["BaseMagicRes"]
+var fire_res : float = Global.glaciela_skill_multipliers["BaseFireRes"]
+var ice_res : float = Global.glaciela_skill_multipliers["BaseIceRes"]
+var earth_res : float = Global.glaciela_skill_multipliers["BaseEarthRes"]
+
 func _ready():
 	tundra_sigils = 0
 	connect("perfect_dash",  get_parent().get_parent().get_parent().get_node("PauseUI/PerfectDash"), "trigger_perfect_dash_animation")
@@ -88,8 +96,9 @@ func _physics_process(delta):
 		if Input.is_action_just_pressed("jump"):
 			attack_string_count = 4
 			$AnimatedSprite.play("Default")
-
-		charged_attack(2.5)
+		
+		if $ChargedAttackCooldown.is_stopped():
+			charged_attack(7.5)
 
 			
 		if Input.is_action_just_pressed("primary_skill") and !Input.is_action_just_pressed("secondary_skill"):
@@ -152,16 +161,14 @@ func play_attack_animation(direction : String):
 			1:
 				$AnimationPlayer.play("SpearSwingRight4")
 				attack_string_count -= 1
-				attack_string_count = 4
-				if !is_performing_charged_attack and tundra_sigils < Global.glaciela_skill_multipliers["MaxTundraSigils"]:
-					tundra_sigils += 1
-				
+		
 				for groups in $AttackCollision.get_groups():
 					if float(groups) != 0:
 						$AttackCollision.remove_from_group(groups)
 						$AttackCollision.add_to_group(str(Global.glaciela_attack * (Global.glaciela_skill_multipliers["BasicAttack4"] / 100) + basic_attack_buff))
 						break
-
+				yield(get_tree().create_timer($MeleeTimer.wait_time), "timeout")
+				attack_string_count = 4
 				
 
 	elif direction == "Left":
@@ -195,14 +202,13 @@ func play_attack_animation(direction : String):
 			1:
 				$AnimationPlayer.play("SpearSwingLeft4")
 				attack_string_count -= 1
-				attack_string_count = 4
-				if !is_performing_charged_attack and tundra_sigils < Global.glaciela_skill_multipliers["MaxTundraSigils"]:
-					tundra_sigils += 1
 				for groups in $AttackCollision.get_groups():
 					if float(groups) != 0:
 						$AttackCollision.remove_from_group(groups)
 						$AttackCollision.add_to_group(str(Global.glaciela_attack * (Global.glaciela_skill_multipliers["BasicAttack4"] / 100) + basic_attack_buff))
 						break
+				yield(get_tree().create_timer($MeleeTimer.wait_time), "timeout")
+				attack_string_count = 4
 
 				
 	
@@ -239,9 +245,10 @@ func charged_attack(airborne_duration : float = 1, type : int = 1):
 
 				set_basic_attack_power(3, 0.1)
 				$ChargedAttackCooldown.start()
-				Input.action_press("jump")
+				get_parent().get_parent().velocity.y = 0
+				get_parent().get_parent().velocity.y = -1050
 				yield(get_tree().create_timer(0.25), "timeout")
-				Input.action_release("jump")
+#				Input.action_release("jump")
 				is_performing_charged_attack = false
 				Input.action_release("ui_attack")
 func get_closest_enemy():
@@ -313,8 +320,9 @@ func infuse_element(element : String, duration : float = 10):
 func _on_AttackCollision_area_entered(area):
 	if weakref(area).get_ref() != null:
 		if area.is_in_group("Enemy") or area.is_in_group("Enemy2"):
-
-
+			if $TundraStackRegen.is_stopped() and attack_string_count == 0 and !is_performing_charged_attack and tundra_sigils < Global.glaciela_skill_multipliers["MaxTundraSigils"]:
+				tundra_sigils += 1
+				$TundraStackRegen.start()
 			var hitparticle = SWORD_HIT_PARTICLE.instance()
 			var slashparticle = SWORD_SLASH_EFFECT.instance()
 			hitparticle.emitting = true
@@ -323,6 +331,7 @@ func _on_AttackCollision_area_entered(area):
 			hitparticle.position = get_parent().get_parent().get_node("Position2D").global_position
 			slashparticle.position = get_parent().get_parent().get_node("Position2D").global_position
 			yield(get_tree().create_timer(0.1),"timeout")
+		
 	if weakref(area).get_ref() != null:
 		if area.is_in_group("Airborne") and !is_performing_charged_attack:
 			get_parent().get_parent().get_node("AirborneTimer").start()
@@ -411,13 +420,10 @@ func _on_ResetAttackStringTimer_timeout():
 
 
 
-#func _on_TundraStackRegenDelay_timeout():
-#	$TundraMeter.value += 2
 
-
-func _on_TundraStackRegen_timeout():
-	if tundra_sigils < Global.glaciela_skill_multipliers["MaxTundraSigils"]:
-		tundra_sigils += 1
+#func _on_TundraStackRegen_timeout():
+#	if tundra_sigils < Global.glaciela_skill_multipliers["MaxTundraSigils"]:
+#		tundra_sigils += 1
 
 
 
@@ -432,3 +438,12 @@ func _on_EnemyEvasionArea_area_exited(area):
 func _on_AirborneTimer_timeout():
 	airborne_mode = false # Replace with function body.
 	get_parent().get_parent().velocity.y = 0
+
+
+func _on_AttackCollision_area_exited(area):
+	if area.is_in_group("Enemy"):
+		pass
+
+
+func _on_TundraStackRegen_timeout():
+	pass # Replace with function body.

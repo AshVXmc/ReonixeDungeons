@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://assets/misc/health_pot.png" type="Texture" id=1]
 [ext_resource path="res://scripts/ui/HealthPotControlScript.gd" type="Script" id=2]
@@ -7,10 +7,6 @@
 [ext_resource path="res://assets/UI/icon_empty.png" type="Texture" id=5]
 
 [sub_resource type="DynamicFont" id=1]
-size = 60
-font_data = ExtResource( 3 )
-
-[sub_resource type="DynamicFont" id=2]
 size = 48
 font_data = ExtResource( 3 )
 
@@ -29,22 +25,16 @@ __meta__ = {
 margin_left = 320.0
 margin_right = 336.0
 margin_bottom = 16.0
-rect_scale = Vector2( 6, 6 )
+rect_scale = Vector2( 5, 5 )
 texture = ExtResource( 4 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="TextureRect" type="TextureRect" parent="HealthPotControl"]
 margin_left = 333.885
-margin_top = 11.5
+margin_top = 15.5
 margin_right = 349.885
-margin_bottom = 28.4999
-rect_scale = Vector2( 4, 4 )
+margin_bottom = 32.4999
+rect_scale = Vector2( 3, 3 )
 texture = ExtResource( 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Label" type="Label" parent="HealthPotControl"]
 anchor_left = -3.732
@@ -53,28 +43,10 @@ margin_left = 521.28
 margin_top = 50.0
 margin_right = 576.28
 margin_bottom = 110.0
-rect_scale = Vector2( 0.75, 0.75 )
 custom_fonts/font = SubResource( 1 )
 text = "0"
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Sprite" type="Sprite" parent="HealthPotControl"]
-position = Vector2( 344, 16 )
-scale = Vector2( 2, 2 )
+position = Vector2( 332, 12 )
+scale = Vector2( 1.5, 1.5 )
 texture = ExtResource( 5 )
-
-[node name="KeyBind" type="Label" parent="HealthPotControl"]
-anchor_left = -3.732
-anchor_right = -3.732
-margin_left = 487.28
-margin_right = 500.28
-margin_bottom = 48.0
-rect_scale = Vector2( 0.75, 0.75 )
-custom_colors/font_color = Color( 0.192157, 0.372549, 1, 1 )
-custom_fonts/font = SubResource( 2 )
-text = "1"
-__meta__ = {
-"_edit_use_anchors_": false
-}

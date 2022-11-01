@@ -1,14 +1,12 @@
-[gd_scene load_steps=49 format=2]
+[gd_scene load_steps=46 format=2]
 
 [ext_resource path="res://tilesets/HubLevelTileset.tres" type="TileSet" id=1]
 [ext_resource path="res://assets/terrain/deep_woods/background_deep_woods.png" type="Texture" id=2]
-[ext_resource path="res://scenes/menus/ManaPotUI.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/menus/EleganceMeterUI.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scenes/menus/HeartUI.tscn" type="PackedScene" id=4]
 [ext_resource path="res://scenes/menus/ManaUI.tscn" type="PackedScene" id=5]
-[ext_resource path="res://scenes/menus/HealthPotUI.tscn" type="PackedScene" id=6]
 [ext_resource path="res://scenes/menus/FPSCounter.tscn" type="PackedScene" id=7]
 [ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=8]
-[ext_resource path="res://scenes/menus/LifeWineUI.tscn" type="PackedScene" id=9]
 [ext_resource path="res://scenes/menus/OpalsUI.tscn" type="PackedScene" id=10]
 [ext_resource path="res://scenes/levels/hublevel/DungeonEntrance.tscn" type="PackedScene" id=11]
 [ext_resource path="res://scenes/menus/DebugMenu.tscn" type="PackedScene" id=12]
@@ -20,7 +18,6 @@
 [ext_resource path="res://scenes/levels/hublevel/Portal.tscn" type="PackedScene" id=18]
 [ext_resource path="res://scenes/levels/hublevel/MonumentOfVictories.tscn" type="PackedScene" id=19]
 [ext_resource path="res://scenes/NPC/ShopKeeperNPC.tscn" type="PackedScene" id=20]
-[ext_resource path="res://scenes/menus/RevivementCrystalUI.tscn" type="PackedScene" id=21]
 [ext_resource path="res://scenes/menus/GameOver.tscn" type="PackedScene" id=22]
 [ext_resource path="res://assets/terrain/hub_level/prop_potionrack.png" type="Texture" id=23]
 [ext_resource path="res://assets/terrain/hub_level/prop_cashiertable.png" type="Texture" id=24]
@@ -89,21 +86,14 @@ margin_top = -3159.0
 margin_right = 6370.0
 margin_bottom = -315.0
 color = Color( 0, 0, 0, 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+
+[node name="EleganceMeterUI" parent="." instance=ExtResource( 3 )]
 
 [node name="PauseUI" parent="." instance=ExtResource( 13 )]
-
-[node name="HealthPotUI" parent="." instance=ExtResource( 6 )]
 
 [node name="HeartUI" parent="." instance=ExtResource( 4 )]
 
 [node name="ManaUI" parent="." instance=ExtResource( 5 )]
-
-[node name="ManaPotUI" parent="." instance=ExtResource( 3 )]
-
-[node name="LifeWineUI" parent="." instance=ExtResource( 9 )]
 
 [node name="OpalsUI" parent="." instance=ExtResource( 10 )]
 
@@ -132,8 +122,6 @@ __meta__ = {
 }
 
 [node name="FPSCounter" parent="." instance=ExtResource( 7 )]
-
-[node name="RevivementCrystal" parent="." instance=ExtResource( 21 )]
 
 [node name="DebugMenu" parent="." instance=ExtResource( 12 )]
 

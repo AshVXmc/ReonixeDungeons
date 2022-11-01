@@ -5,13 +5,27 @@ var max_hearts : float = 3
 var hearts : float = max_hearts
 var character_2_max_hearts : float = 3
 var character_3_max_hearts : float = 3
+var elegance_meter : int = 0 # max is 875
+var elegance_rank 
+
+var RANKS : Dictionary = {
+	C = "C",
+	B = "B",
+	A = "A",
+	S = "S",
+	SS = "SS",
+	SSS = "SSS"
+}
+
+# C tier has 50, B tier has 75, A tier has 125, S tier has 175, SS has 200 SSS has 250
+
 const actions : Array = [
 	"basic_attack", 
 	"charged_attack", 
 	"primary_skill", "secondary_skill",
 	"dash", "perfect_dash"
 ]
-var max_mana : float = 12
+var max_mana : float = 18
 var mana : float = max_mana
 var attack_power : int = 50
 var player_skill_multipliers : Dictionary = {
@@ -30,7 +44,12 @@ var player_skill_multipliers : Dictionary = {
 	"FireSawCost": 8,
 	"FireFairyCost": 4,
 	"FireSawCD": 12.0,
-	"FireFairyCD": 8.0
+	"FireFairyCD": 8.0,
+	"BasePhysRes": 0.0,
+	"BaseMagicRes": 0.0,
+	"BaseFireRes": 0.0,
+	"BaseEarthRes": -50.0,
+	"BaseIceRes": 0.0
 }
 
 
@@ -46,7 +65,12 @@ var glaciela_skill_multipliers : Dictionary = {
 	"MaxTundraSigils": 3,
 	"SecondarySkill1": 65.0,
 	"SecondarySkill2": 75.0,
-	"SecondarySkill3": 100.0
+	"SecondarySkill3": 100.0,
+	"BasePhysRes": 0.0,
+	"BaseMagicRes": 0.0,
+	"BaseFireRes": -50.0,
+	"BaseEarthRes": 0.0,
+	"BaseIceRes": 0.0
 }
 
 var character2_hearts : float= character_2_max_hearts
@@ -153,6 +177,8 @@ func reset_player_data():
 #	Global.character2_hearts = 5
 #	Global.character3_hearts = 5
 	Global.mana = 0
+	Global.character2_mana = 0
+	Global.character3_mana = 0
 	Global.healthpot_amount = 0
 	Global.lifewine_amount = 0
 	Global.manapot_amount = 0
@@ -229,7 +255,9 @@ func save_player_data():
 		"PlayerPosition": Global.player_position,
 		# Equipped skills
 		# Levels
-
+		"PlayerSkillMultipliers": Global.player_skill_multipliers,
+		"GlacielaSkillMultipliers": Global.glaciela_skill_multipliers,
+		
 		"PhysicalDMGBonus%": Global.damage_bonus["physical_dmg_bonus_%"],
 		"FireDMGBonus%": Global.damage_bonus["fire_dmg_bonus_%"],
 		"IceDMGBonus%": Global.damage_bonus["ice_dmg_bonus_%"],

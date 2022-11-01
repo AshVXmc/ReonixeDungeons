@@ -875,6 +875,7 @@ one_shot = true
 
 [connection signal="timeout" from="CharacterManager/SwapCooldownTimer" to="CharacterManager" method="_on_SwapCooldownTimer_timeout"]
 [connection signal="area_entered" from="AttackCollision" to="." method="_on_AttackCollision_area_entered"]
+[connection signal="area_exited" from="AttackCollision" to="." method="_on_AttackCollision_area_exited"]
 [connection signal="area_entered" from="ChargedAttackCollision" to="." method="_on_ChargedAttackCollision_area_entered"]
 [connection signal="area_entered" from="Area2D" to="." method="_on_Area2D_area_entered"]
 [connection signal="area_exited" from="Area2D" to="." method="_on_Area2D_area_exited"]

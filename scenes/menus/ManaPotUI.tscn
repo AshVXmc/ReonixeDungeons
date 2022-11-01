@@ -29,22 +29,19 @@ __meta__ = {
 margin_left = 491.664
 margin_right = 507.664
 margin_bottom = 16.0
-rect_scale = Vector2( 6, 6 )
+rect_scale = Vector2( 5, 5 )
 texture = ExtResource( 4 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="TextureRect" type="TextureRect" parent="ManaPotControl"]
-margin_left = 509.111
-margin_top = 14.0829
-margin_right = 525.111
-margin_bottom = 31.0828
-rect_scale = Vector2( 4, 4 )
+margin_left = 504.757
+margin_top = 9.75735
+margin_right = 520.757
+margin_bottom = 25.7574
+rect_scale = Vector2( 3.5, 3.5 )
 texture = ExtResource( 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Label" type="Label" parent="ManaPotControl"]
 anchor_left = -3.735
