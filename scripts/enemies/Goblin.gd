@@ -10,8 +10,10 @@ var direction : int = 1
 var is_dead : bool = false 
 const TYPE : String = "Enemy"
 const FLOOR = Vector2(0, -1)
-var SPEED : int = 200
-const GRAVITY : int = 45
+const MAX_SPEED : int = 200
+var SPEED : int = MAX_SPEED
+const MAX_GRAVITY : int = 45
+var GRAVITY : int = MAX_GRAVITY
 var is_staggered : bool = false
 const LOOT = preload("res://scenes/items/LootBag.tscn")
 onready var AREA_LEFT : Area2D = $Left
@@ -24,7 +26,7 @@ var is_frozen : bool = false
 var is_airborne : bool = false
 var decoyed : bool = false
 var dead : bool = false
-const AIRBORNE_SPEED : int = -3250
+const AIRBORNE_SPEED : int = -3750
 var phys_res : float = 25
 var fire_res : float = 0
 var earth_res : float = 0 
@@ -38,7 +40,11 @@ func _ready():
 	$HealthBar.max_value = max_HP
 	$HealthBar.value = $HealthBar.max_value
 func _physics_process(delta):
-	
+	if is_on_floor():
+		set_collision_mask_bit(2, true)
+
+	else:
+		set_collision_mask_bit(2, false)
 	if flipped:
 		$Sprite.flip_h = true
 	if !is_airborne:
@@ -99,11 +105,9 @@ func _on_Area2D_area_entered(area):
 	if area.is_in_group("Sword"):
 			var groups : Array = area.get_groups()
 			for group_names in groups:
-				if float(group_names) == 0:
-					groups.erase(group_names)
-				if !groups.has("Sword") and !groups.has("physics_process"):
-					var raw_damage = float(groups.max())
-					Global.elegance_meter += 8
+				if float(group_names) != 0:
+					var raw_damage = float(group_names)
+					
 					var damage = round((raw_damage - (raw_damage * (phys_res / 100))))
 					print("HP reduced by " + str(damage))
 					HP -= float(damage)
@@ -118,7 +122,7 @@ func _on_Area2D_area_entered(area):
 					groups.erase(group_names)
 				if !groups.has("SwordCharged") and !groups.has("physics_process"):
 					var raw_damage = float(groups.max())
-					Global.elegance_meter += 12
+					
 					var damage = (raw_damage - (raw_damage * (phys_res / 100)))
 					print("HP reduced by " + str(damage))
 					HP -= float(damage)
@@ -142,7 +146,7 @@ func _on_Area2D_area_entered(area):
 				if !groups.has("Fireball") and !groups.has("FireGaugeOne") and !groups.has("physics_process"):
 					print("HP reduced by " + str(groups.max()))
 					HP -= float(groups.max())
-					Global.elegance_meter += 8
+				
 					$HealthBar.value  -= float(groups.max())
 					add_damage_particles("Fire", float(groups.max()))
 					if area.is_in_group("LightKnockback"):
@@ -168,7 +172,7 @@ func _on_Area2D_area_entered(area):
 				if !groups.has("Ice") and !groups.has("IceGaugeOne") and !groups.has("physics_process"):
 					print("HP reduced by " + str(groups.max()))
 					HP -= float(groups.max())
-					Global.elegance_meter += 8
+					
 					$HealthBar.value  -= float(groups.max())
 					add_damage_particles("Ice", float(groups.max()))
 					if area.is_in_group("LightKnockback"):
@@ -176,6 +180,12 @@ func _on_Area2D_area_entered(area):
 					else:
 						parse_damage()
 					break
+	if area.is_in_group("SmallEleganceValue"):
+		Global.elegance_meter += 8
+	if area.is_in_group("MediumEleganceValue"):
+		Global.elegance_meter += 12
+	if area.is_in_group("LargeEleganceValue"):
+		Global.elegance_meter += 8
 	if area.is_in_group("FireGauge"):
 		pass
 	if area.is_in_group("Burning"):
@@ -187,7 +197,7 @@ func _on_Area2D_area_entered(area):
 		$HealthBar.value -= damage
 		parse_status_effect_damage()
 		add_damage_particles("Fire", damage)
-	if area.is_in_group("Airborne"):
+	if area.is_in_group("Airborne") and !is_airborne:
 			is_airborne = true
 			velocity.y = AIRBORNE_SPEED
 			
@@ -200,6 +210,13 @@ func _on_Area2D_area_entered(area):
 
 	if area.is_in_group("Frozen"):
 			is_frozen = true
+	
+	if area.is_in_group("TempusTardus"):
+		SPEED *= 0.25
+		velocity.y = 0
+		GRAVITY *= 0.25
+		$Sprite.speed_scale = 0.25
+		
 
 func add_damage_particles(type : String, dmg : int):
 	var dmgparticle = DMG_INDICATOR.instance()
@@ -280,7 +297,12 @@ func _on_Right_area_exited(area):
 
 
 func _on_Area2D_area_exited(area):
+	if area.is_in_group("TempusTardus"):
+		SPEED = MAX_SPEED
+		GRAVITY = MAX_GRAVITY
+		$Sprite.speed_scale = 1.0
 	if area.is_in_group("Frozen"):
 		is_frozen = false
 	if area.is_in_group("Airborne"):
 		is_airborne = false
+		velocity.x = 0

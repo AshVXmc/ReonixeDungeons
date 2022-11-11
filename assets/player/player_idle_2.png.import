@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/mana_cost_6.png-eae4b3a22ea2f6a2fa6abb4397bb4733.stex"
+path="res://.import/player_idle_2.png-4ef488baa5e98396a4273a7e03c72ab4.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/UI/mana_cost_6.png"
-dest_files=[ "res://.import/mana_cost_6.png-eae4b3a22ea2f6a2fa6abb4397bb4733.stex" ]
+source_file="res://assets/player/player_idle_2.png"
+dest_files=[ "res://.import/player_idle_2.png-4ef488baa5e98396a4273a7e03c72ab4.stex" ]
 
 [params]
 

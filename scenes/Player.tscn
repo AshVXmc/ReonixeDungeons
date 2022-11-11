@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=2]
+[gd_scene load_steps=37 format=2]
 
 [ext_resource path="res://spriteframes/MainCharacter_spriteframes.tres" type="SpriteFrames" id=1]
 [ext_resource path="res://scripts/player/Player.gd" type="Script" id=2]
@@ -24,11 +24,52 @@ height = 17.3718
 extents = Vector2( 33.1168, 39.1389 )
 
 [sub_resource type="RectangleShape2D" id=11]
-extents = Vector2( 70.0575, 63.0992 )
+extents = Vector2( 45, 45 )
 
 [sub_resource type="CapsuleShape2D" id=12]
 radius = 37.6338
 height = 17.3718
+
+[sub_resource type="Animation" id=23]
+resource_name = "ChargedAttackLeft"
+length = 0.15
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("SwordSprite:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.15 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 40.0, -200.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("SwordSprite:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.15 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("SwordSprite:flip_h")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
 
 [sub_resource type="Animation" id=22]
 resource_name = "ChargedAttackRight"
@@ -69,6 +110,47 @@ tracks/2/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 1,
 "values": [ false ]
+}
+
+[sub_resource type="Animation" id=24]
+resource_name = "KnockUpChargedAttackRight"
+length = 0.2
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("SwordSprite:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 145.0, -218.5 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("SwordSprite:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("SwordSprite:flip_h")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
 }
 
 [sub_resource type="Animation" id=4]
@@ -619,7 +701,7 @@ tracks/0/keys = {
 }
 
 [sub_resource type="RectangleShape2D" id=20]
-extents = Vector2( 42.0083, 40 )
+extents = Vector2( 40.2299, 40 )
 
 [node name="Player" type="KinematicBody2D"]
 collision_layer = 128
@@ -674,7 +756,7 @@ playing = true
 position = Vector2( 0, 2 )
 shape = SubResource( 1 )
 
-[node name="AttackCollision" type="Area2D" parent="." groups=["Sword"]]
+[node name="AttackCollision" type="Area2D" parent="." groups=["SmallEleganceValue", "Sword"]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackCollision"]
 position = Vector2( 70.2806, 5.05854 )
@@ -684,7 +766,20 @@ disabled = true
 [node name="ChargedAttackCollision" type="Area2D" parent="." groups=["SwordCharged"]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ChargedAttackCollision"]
-position = Vector2( 107.221, -13.3334 )
+position = Vector2( 70, 0 )
+shape = SubResource( 11 )
+disabled = true
+
+[node name="ChargedAttackDetector" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ChargedAttackDetector"]
+position = Vector2( 70, 0 )
+shape = SubResource( 11 )
+
+[node name="UpwardsChargedAttackCollision" type="Area2D" parent="." groups=["SwordCharged"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="UpwardsChargedAttackCollision"]
+position = Vector2( 70, 0 )
 shape = SubResource( 11 )
 disabled = true
 
@@ -767,7 +862,9 @@ position = Vector2( 40, 50 )
 position = Vector2( -40, 50 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/ChargedAttackLeft = SubResource( 23 )
 anims/ChargedAttackRight = SubResource( 22 )
+anims/KnockUpChargedAttackRight = SubResource( 24 )
 anims/RESET = SubResource( 4 )
 anims/SwordSwingLeft = SubResource( 5 )
 anims/SwordSwingLeft2 = SubResource( 14 )
@@ -847,7 +944,7 @@ one_shot = true
 position = Vector2( 18, 0 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyEvasionArea"]
-position = Vector2( 42, 0 )
+position = Vector2( 40.2216, 0 )
 shape = SubResource( 20 )
 
 [node name="AtkBuffParticle" parent="." instance=ExtResource( 14 )]
@@ -873,10 +970,15 @@ one_shot = true
 wait_time = 0.5
 one_shot = true
 
+[node name="HeightRaycast2D" type="RayCast2D" parent="."]
+enabled = true
+cast_to = Vector2( 0, 255 )
+
 [connection signal="timeout" from="CharacterManager/SwapCooldownTimer" to="CharacterManager" method="_on_SwapCooldownTimer_timeout"]
 [connection signal="area_entered" from="AttackCollision" to="." method="_on_AttackCollision_area_entered"]
 [connection signal="area_exited" from="AttackCollision" to="." method="_on_AttackCollision_area_exited"]
 [connection signal="area_entered" from="ChargedAttackCollision" to="." method="_on_ChargedAttackCollision_area_entered"]
+[connection signal="area_entered" from="UpwardsChargedAttackCollision" to="." method="_on_ChargedAttackCollision_area_entered"]
 [connection signal="area_entered" from="Area2D" to="." method="_on_Area2D_area_entered"]
 [connection signal="area_exited" from="Area2D" to="." method="_on_Area2D_area_exited"]
 [connection signal="timeout" from="InvulnerabilityTimer" to="." method="_on_InvulnerabilityTimer_timeout"]

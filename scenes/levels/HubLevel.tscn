@@ -7,6 +7,7 @@
 [ext_resource path="res://scenes/menus/ManaUI.tscn" type="PackedScene" id=5]
 [ext_resource path="res://scenes/menus/FPSCounter.tscn" type="PackedScene" id=7]
 [ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=8]
+[ext_resource path="res://scenes/enemies/bosses/Arrow.tscn" type="PackedScene" id=9]
 [ext_resource path="res://scenes/menus/OpalsUI.tscn" type="PackedScene" id=10]
 [ext_resource path="res://scenes/levels/hublevel/DungeonEntrance.tscn" type="PackedScene" id=11]
 [ext_resource path="res://scenes/menus/DebugMenu.tscn" type="PackedScene" id=12]
@@ -42,7 +43,6 @@
 [ext_resource path="res://scenes/menus/SkillsUI.tscn" type="PackedScene" id=43]
 [ext_resource path="res://scenes/enemies/Goblin.tscn" type="PackedScene" id=44]
 [ext_resource path="res://scenes/menus/InventoryUI.tscn" type="PackedScene" id=45]
-[ext_resource path="res://scenes/status_effects/BasicAttackBuff.tscn" type="PackedScene" id=46]
 
 [sub_resource type="TileSet" id=1]
 0/name = "deep_woods_spritesheet.png 0"
@@ -338,7 +338,5 @@ position = Vector2( 846.575, 614.447 )
 [node name="Goblin2" parent="." instance=ExtResource( 44 )]
 position = Vector2( 1014, 628 )
 
-[node name="BasicAttackBuff" parent="." instance=ExtResource( 46 )]
-position = Vector2( 3032.9, 596.291 )
-amount = 5.0
-duration = 5.0
+[node name="Arrow" parent="." instance=ExtResource( 9 )]
+position = Vector2( 191.952, 408.5 )

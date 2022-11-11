@@ -10,8 +10,8 @@
 [ext_resource path="res://assets/UI/physical_type_icon.png" type="Texture" id=8]
 
 [sub_resource type="CapsuleShape2D" id=8]
-radius = 20.8861
-height = 75.2598
+radius = 27.2207
+height = 49.5486
 
 [sub_resource type="SpriteFrames" id=4]
 animations = [ {
@@ -35,8 +35,8 @@ animations = [ {
 extents = Vector2( 253.051, 50.3433 )
 
 [sub_resource type="CapsuleShape2D" id=3]
-radius = 25.0
-height = 60.0
+radius = 30.0
+height = 48.0
 
 [sub_resource type="Animation" id=6]
 resource_name = "Death"
@@ -99,7 +99,7 @@ scale = Vector2( 1.5, 1.5 )
 texture = ExtResource( 8 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 0.115, -9 )
+position = Vector2( 0.115, -1.5 )
 shape = SubResource( 8 )
 
 [node name="Sprite" type="AnimatedSprite" parent="."]
@@ -122,7 +122,6 @@ shape = SubResource( 2 )
 [node name="Area2D" type="Area2D" parent="." groups=["Enemy"]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2( 0.131477, -6.8528 )
 shape = SubResource( 3 )
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
@@ -133,7 +132,7 @@ collision_mask = 3075
 collide_with_areas = true
 
 [node name="HurtTimer" type="Timer" parent="."]
-wait_time = 0.4
+wait_time = 0.5
 one_shot = true
 
 [node name="AttackingTimer" type="Timer" parent="."]

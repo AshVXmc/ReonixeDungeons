@@ -1,8 +1,7 @@
 class_name SkillsUI extends Control
 
 signal ability_on_cooldown(ability_name, attack_bonus)
-var firesawcost : int = Global.player_skill_multipliers["FireSawCost"]
-var firefairycost : int = Global.player_skill_multipliers["FireFairyCost"]
+
 var fireballcost : int = 2
 const playericon = preload("res://assets/UI/player_character_icon.png")
 const glacielaicon = preload("res://assets/UI/glaciela_character_icon.png")
@@ -30,9 +29,11 @@ func update_skill_ui(primary : String, secondary : String):
 	match primary:
 		"FireSaw":
 			$PrimarySkill/Player/FireSaw.visible = true
+			$PrimarySkill/Player/FireSaw/CostLabel.text = str(Global.player_skill_multipliers["FireSawCost"])
 	match secondary:
 		"FireFairy":
 			$SecondarySkill/Player/FireFairy.visible = true
+			$SecondarySkill/Player/FireFairy/CostLabel.text = str(Global.player_skill_multipliers["FireFairyCost"])
 func on_skill_used(skill_name : String):
 	match skill_name:
 		"FireSaw":
@@ -64,19 +65,19 @@ func _process(delta):
 			$PrimarySkill/Player/FireSaw/Label.text = str(round($PrimarySkill/Player/FireSaw/FiresawTimer.time_left))
 		elif $PrimarySkill/Player/FireSaw/FiresawTimer.is_stopped():
 			if Global.equipped_characters[0] == "Player":
-				if Global.mana >= firesawcost:
+				if Global.mana >= Global.player_skill_multipliers["FireSawCost"]:
 					$PrimarySkill/Player/FireSaw/Sprite.self_modulate.a = 1.0
 				else:
 					$PrimarySkill/Player/FireSaw/Sprite.self_modulate.a = 0.65
 				$PrimarySkill/Player/FireSaw/Label.text = ""
 			elif Global.equipped_characters[1] == "Player":
-				if Global.character2_mana >= firesawcost:
+				if Global.character2_mana >= Global.player_skill_multipliers["FireSawCost"]:
 					$PrimarySkill/Player/FireSaw/Sprite.self_modulate.a = 1.0
 				else:
 					$PrimarySkill/Player/FireSaw/Sprite.self_modulate.a = 0.65
 				$PrimarySkill/Player/FireSaw/Label.text = ""
 			elif Global.equipped_characters[2] == "Player":
-				if Global.character3_mana >= firesawcost:
+				if Global.character3_mana >= Global.player_skill_multipliers["FireSawCost"]:
 					$PrimarySkill/Player/FireSaw/Sprite.self_modulate.a = 1.0
 				else:
 					$PrimarySkill/Player/FireSaw/Sprite.self_modulate.a = 0.65
@@ -87,7 +88,7 @@ func _process(delta):
 		if !$SecondarySkill/Player/FireFairy/FirefairyTimer.is_stopped():
 			$SecondarySkill/Player/FireFairy/Label.text = str(round($SecondarySkill/Player/FireFairy/FirefairyTimer.time_left))
 		elif $SecondarySkill/Player/FireFairy/FirefairyTimer.is_stopped():
-			if Global.mana >= firefairycost:
+			if Global.mana >= Global.player_skill_multipliers["FireFairyCost"]:
 				$SecondarySkill/Player/FireFairy/Sprite.self_modulate.a = 1.0
 			else:
 				$SecondarySkill/Player/FireFairy/Sprite.self_modulate.a = 0.65
@@ -103,23 +104,23 @@ func _process(delta):
 		if !$PrimarySkill/Glaciela/IceLance/IceLanceTimer.is_stopped():
 			$PrimarySkill/Glaciela/IceLance/Label.text = str(round($PrimarySkill/Glaciela/IceLance/IceLanceTimer.time_left))
 		elif $PrimarySkill/Glaciela/IceLance/IceLanceTimer.is_stopped():
-			if Global.mana >= firesawcost:
+			if Global.mana >= Global.player_skill_multipliers["FireSawCost"]:
 				$PrimarySkill/Glaciela/IceLance/Sprite.self_modulate.a = 1.0
 			else:
 				$PrimarySkill/Glaciela/IceLance/Sprite.self_modulate.a = 0.65
 			$PrimarySkill/Glaciela/IceLance/Label.text = ""
-		if Global.mana < firesawcost:
+		if Global.mana < Global.player_skill_multipliers["FireSawCost"]:
 			$PrimarySkill/Glaciela/IceLance/Sprite.self_modulate.a = 0.65
 	
 		if !$SecondarySkill/Glaciela/IcebornIllusion/IcebornIllusionTimer.is_stopped():
 			$SecondarySkill/Glaciela/IcebornIllusion/Label.text = str(round($SecondarySkill/Glaciela/IcebornIllusion/IcebornIllusionTimer.time_left))
 		elif $SecondarySkill/Glaciela/IcebornIllusion/IcebornIllusionTimer.is_stopped():
-			if Global.mana >= firefairycost:
+			if Global.mana >= Global.player_skill_multipliers["FireFairyCost"]:
 				$SecondarySkill/Glaciela/IcebornIllusion/Sprite.self_modulate.a = 1.0
 			else:
 				$SecondarySkill/Glaciela/IcebornIllusion/Sprite.self_modulate.a = 0.65
 			$SecondarySkill/Glaciela/IcebornIllusion/Label.text = ""
-		if Global.mana < firefairycost:
+		if Global.mana < Global.player_skill_multipliers["FireFairyCost"]:
 			$SecondarySkill/Glaciela/IcebornIllusion/Sprite.self_modulate.a = 0.65
 	
 	

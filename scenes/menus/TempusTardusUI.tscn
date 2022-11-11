@@ -1,0 +1,8 @@
+[gd_scene format=2]
+
+[node name="TempusTardusUI" type="CanvasLayer"]
+
+[node name="Control" type="Control" parent="."]
+anchor_right = 0.019
+margin_right = 19.48
+margin_bottom = 40.0

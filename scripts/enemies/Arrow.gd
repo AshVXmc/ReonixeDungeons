@@ -1,7 +1,8 @@
 class_name Arrow extends KinematicBody2D
 
 
-const SPEED : int = 400
+const MAX_SPEED : int = 400
+var SPEED : int = MAX_SPEED
 var velocity := Vector2()
 var x_direction : int = 1
 
@@ -26,6 +27,8 @@ func flip_arrow_direction(fb_direction : int):
 func _on_Area2D_area_entered(area):
 	if area.is_in_group("Player") or area.is_in_group("Sword") or area.is_in_group("Fireball") or area.is_in_group("Tilemap"):
 		queue_free()
+	if area.is_in_group("TempusTardus"):
+		SPEED *= 0.25
 
 
 
@@ -39,3 +42,8 @@ func _on_Timer_timeout():
 
 
 
+
+
+func _on_Area2D_area_exited(area):
+	if area.is_in_group("TempusTardus"):
+		SPEED = MAX_SPEED

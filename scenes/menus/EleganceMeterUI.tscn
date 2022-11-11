@@ -23,6 +23,7 @@ margin_bottom = 40.0
 script = ExtResource( 1 )
 
 [node name="EleganceGaugeC" type="TextureProgress" parent="Control"]
+visible = false
 margin_left = 950.0
 margin_top = 475.0
 margin_right = 974.0
@@ -33,6 +34,7 @@ texture_under = ExtResource( 3 )
 texture_progress = ExtResource( 12 )
 
 [node name="EleganceGaugeB" type="TextureProgress" parent="Control"]
+visible = false
 margin_left = 950.0
 margin_top = 475.0
 margin_right = 974.0
@@ -43,6 +45,7 @@ texture_under = ExtResource( 8 )
 texture_progress = ExtResource( 6 )
 
 [node name="EleganceGaugeA" type="TextureProgress" parent="Control"]
+visible = false
 margin_left = 950.0
 margin_top = 475.0
 margin_right = 974.0
@@ -53,6 +56,7 @@ texture_under = ExtResource( 11 )
 texture_progress = ExtResource( 10 )
 
 [node name="EleganceGaugeS" type="TextureProgress" parent="Control"]
+visible = false
 margin_left = 950.0
 margin_top = 475.0
 margin_right = 974.0
@@ -62,6 +66,7 @@ texture_under = ExtResource( 4 )
 texture_progress = ExtResource( 5 )
 
 [node name="EleganceGaugeSS" type="TextureProgress" parent="Control"]
+visible = false
 margin_left = 950.0
 margin_top = 475.0
 margin_right = 978.0
@@ -71,6 +76,7 @@ texture_under = ExtResource( 7 )
 texture_progress = ExtResource( 9 )
 
 [node name="EleganceGaugeSSS" type="TextureProgress" parent="Control"]
+visible = false
 margin_left = 915.0
 margin_top = 475.0
 margin_right = 955.0

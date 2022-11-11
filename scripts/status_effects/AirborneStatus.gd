@@ -19,6 +19,7 @@ func _on_DestroyedTimer_timeout():
 
 
 
+
 func _on_Area2D_area_entered(area):
 	if area.is_in_group("RemoveAirborne"):
 		queue_free()

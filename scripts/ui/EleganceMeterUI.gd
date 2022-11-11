@@ -10,4 +10,4 @@ func _ready():
 func _physics_process(delta):
 	if Global.elegance_meter > max_elegance:
 		Global.elegance_meter = max_elegance
-	
+

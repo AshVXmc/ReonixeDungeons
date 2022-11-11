@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/mana_cost_5.png-4446551af0054c327c412f8f4a4966fc.stex"
+path="res://.import/tempus_tardus_sphere.png-7927c4ea14b139877a0c6ec41189f133.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/UI/mana_cost_5.png"
-dest_files=[ "res://.import/mana_cost_5.png-4446551af0054c327c412f8f4a4966fc.stex" ]
+source_file="res://assets/misc/tempus_tardus_sphere.png"
+dest_files=[ "res://.import/tempus_tardus_sphere.png-7927c4ea14b139877a0c6ec41189f133.stex" ]
 
 [params]
 
