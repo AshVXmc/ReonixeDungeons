@@ -40,7 +40,7 @@ func _ready():
 	$HealthBar.max_value = max_HP
 	$HealthBar.value = $HealthBar.max_value
 func _physics_process(delta):
-	if is_on_floor():
+	if !is_airborne:
 		set_collision_mask_bit(2, true)
 
 	else:
@@ -212,11 +212,14 @@ func _on_Area2D_area_entered(area):
 			is_frozen = true
 	
 	if area.is_in_group("TempusTardus"):
-		SPEED *= 0.25
+		SPEED *= 0.05
 		velocity.y = 0
-		GRAVITY *= 0.25
-		$Sprite.speed_scale = 0.25
-		
+		GRAVITY *= 0.05
+		$Sprite.speed_scale = 0.1
+#
+#	if area.is_in_group("Enemy"):
+#		set_collision_mask_bit(2, false)
+#
 
 func add_damage_particles(type : String, dmg : int):
 	var dmgparticle = DMG_INDICATOR.instance()
@@ -297,6 +300,7 @@ func _on_Right_area_exited(area):
 
 
 func _on_Area2D_area_exited(area):
+
 	if area.is_in_group("TempusTardus"):
 		SPEED = MAX_SPEED
 		GRAVITY = MAX_GRAVITY
@@ -306,3 +310,13 @@ func _on_Area2D_area_exited(area):
 	if area.is_in_group("Airborne"):
 		is_airborne = false
 		velocity.x = 0
+
+
+func _on_Area2D_body_entered(body):
+	if body.is_in_group("Enemy"):
+		set_collision_mask_bit(2, false)
+
+
+func _on_Area2D_body_exited(body):
+	if body.is_in_group("Enemy"):
+		set_collision_mask_bit(2, true)

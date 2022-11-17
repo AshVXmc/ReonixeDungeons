@@ -1,10 +1,11 @@
-[gd_scene load_steps=46 format=2]
+[gd_scene load_steps=47 format=2]
 
 [ext_resource path="res://tilesets/HubLevelTileset.tres" type="TileSet" id=1]
 [ext_resource path="res://assets/terrain/deep_woods/background_deep_woods.png" type="Texture" id=2]
 [ext_resource path="res://scenes/menus/EleganceMeterUI.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scenes/menus/HeartUI.tscn" type="PackedScene" id=4]
 [ext_resource path="res://scenes/menus/ManaUI.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scenes/items/LootBag.tscn" type="PackedScene" id=6]
 [ext_resource path="res://scenes/menus/FPSCounter.tscn" type="PackedScene" id=7]
 [ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=8]
 [ext_resource path="res://scenes/enemies/bosses/Arrow.tscn" type="PackedScene" id=9]
@@ -340,3 +341,6 @@ position = Vector2( 1014, 628 )
 
 [node name="Arrow" parent="." instance=ExtResource( 9 )]
 position = Vector2( 191.952, 408.5 )
+
+[node name="LootBag" parent="." instance=ExtResource( 6 )]
+position = Vector2( 924.549, 512.025 )

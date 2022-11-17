@@ -1,0 +1,476 @@
+[gd_scene load_steps=15 format=2]
+
+[ext_resource path="res://scripts/ui/SetKeybind.gd" type="Script" id=1]
+[ext_resource path="res://assets/fonts/Born2bSportyV2.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://assets/UI/button.png" type="Texture" id=3]
+[ext_resource path="res://assets/UI/quiticon.png" type="Texture" id=4]
+[ext_resource path="res://assets/UI/button_pressed.png" type="Texture" id=5]
+[ext_resource path="res://themes/Blur.tres" type="Material" id=6]
+[ext_resource path="res://assets/UI/textbox.png" type="Texture" id=7]
+
+[sub_resource type="DynamicFont" id=5]
+size = 32
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=1]
+size = 80
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 48
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=3]
+size = 48
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=4]
+size = 64
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=6]
+size = 32
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=7]
+size = 48
+font_data = ExtResource( 2 )
+
+[node name="CanvasLayer" type="CanvasLayer"]
+
+[node name="Control" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = 2.0
+margin_bottom = 2.0
+script = ExtResource( 1 )
+
+[node name="ColorRect" type="ColorRect" parent="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="ResetToDefault" type="TextureButton" parent="Control"]
+anchor_left = 0.999
+anchor_right = 0.999
+margin_left = -200.918
+margin_right = -0.918091
+margin_bottom = 100.0
+texture_normal = ExtResource( 3 )
+texture_pressed = ExtResource( 5 )
+expand = true
+
+[node name="DescLabel" type="Label" parent="Control/ResetToDefault"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -108.0
+margin_top = 18.0
+margin_right = 107.0
+margin_bottom = 90.0
+custom_fonts/font = SubResource( 5 )
+text = "Reset
+to default"
+align = 1
+autowrap = true
+
+[node name="Heading" type="RichTextLabel" parent="Control"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -129.0
+margin_top = 6.0
+margin_right = 132.0
+margin_bottom = 86.0
+custom_colors/default_color = Color( 0, 0.341176, 0.988235, 1 )
+custom_fonts/normal_font = SubResource( 1 )
+text = "Controls
+"
+scroll_active = false
+
+[node name="QuitButton" type="TextureButton" parent="Control"]
+margin_right = 40.0
+margin_bottom = 40.0
+rect_scale = Vector2( 2, 2 )
+texture_normal = ExtResource( 4 )
+expand = true
+
+[node name="ui_attack" type="Control" parent="Control"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -20.0
+margin_top = -20.0
+margin_right = 20.0
+margin_bottom = 20.0
+
+[node name="DescLabel" type="Label" parent="Control/ui_attack"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -337.0
+margin_top = -199.0
+margin_right = -175.0
+margin_bottom = -151.0
+custom_colors/font_color = Color( 1, 0.843137, 0.0117647, 1 )
+custom_fonts/font = SubResource( 2 )
+text = "Attack"
+align = 1
+
+[node name="ChangeKeybind" type="TextureButton" parent="Control/ui_attack"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -174.0
+margin_top = -230.0
+margin_right = -34.0
+margin_bottom = -160.0
+texture_normal = ExtResource( 3 )
+texture_pressed = ExtResource( 5 )
+expand = true
+
+[node name="KeybindName" type="Label" parent="Control/ui_attack"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -167.288
+margin_top = -200.0
+margin_right = -40.2878
+margin_bottom = -152.0
+custom_fonts/font = SubResource( 3 )
+align = 1
+autowrap = true
+
+[node name="left" type="Control" parent="Control"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -229.0
+margin_top = 74.0
+margin_right = -189.0
+margin_bottom = 114.0
+
+[node name="DescLabel" type="Label" parent="Control/left"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -337.0
+margin_top = -199.0
+margin_right = -175.0
+margin_bottom = -151.0
+custom_colors/font_color = Color( 1, 0.843137, 0.0117647, 1 )
+custom_fonts/font = SubResource( 2 )
+text = "Left"
+align = 1
+
+[node name="ChangeKeybind" type="TextureButton" parent="Control/left"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -201.0
+margin_top = -230.0
+margin_right = -61.0
+margin_bottom = -160.0
+texture_normal = ExtResource( 3 )
+texture_pressed = ExtResource( 5 )
+expand = true
+
+[node name="KeybindName" type="Label" parent="Control/left"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -195.288
+margin_top = -200.0
+margin_right = -68.2878
+margin_bottom = -152.0
+custom_fonts/font = SubResource( 3 )
+align = 1
+autowrap = true
+
+[node name="right" type="Control" parent="Control"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = 42.0
+margin_top = 74.0
+margin_right = 82.0
+margin_bottom = 114.0
+
+[node name="DescLabel" type="Label" parent="Control/right"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -337.0
+margin_top = -199.0
+margin_right = -175.0
+margin_bottom = -151.0
+custom_colors/font_color = Color( 1, 0.843137, 0.0117647, 1 )
+custom_fonts/font = SubResource( 2 )
+text = "Right"
+align = 1
+
+[node name="ChangeKeybind" type="TextureButton" parent="Control/right"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -201.0
+margin_top = -230.0
+margin_right = -61.0
+margin_bottom = -160.0
+texture_normal = ExtResource( 3 )
+texture_pressed = ExtResource( 5 )
+expand = true
+
+[node name="KeybindName" type="Label" parent="Control/right"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -195.288
+margin_top = -200.0
+margin_right = -68.2878
+margin_bottom = -152.0
+custom_fonts/font = SubResource( 3 )
+align = 1
+autowrap = true
+
+[node name="ui_up" type="Control" parent="Control"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = 288.0
+margin_top = 74.0
+margin_right = 328.0
+margin_bottom = 114.0
+
+[node name="DescLabel" type="Label" parent="Control/ui_up"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -338.0
+margin_top = -199.0
+margin_right = -176.0
+margin_bottom = -151.0
+custom_colors/font_color = Color( 1, 0.843137, 0.0117647, 1 )
+custom_fonts/font = SubResource( 2 )
+text = "Up"
+align = 1
+
+[node name="ChangeKeybind" type="TextureButton" parent="Control/ui_up"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -214.0
+margin_top = -230.0
+margin_right = -74.0
+margin_bottom = -160.0
+texture_normal = ExtResource( 3 )
+texture_pressed = ExtResource( 5 )
+expand = true
+
+[node name="KeybindName" type="Label" parent="Control/ui_up"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -208.288
+margin_top = -200.0
+margin_right = -81.2878
+margin_bottom = -152.0
+custom_fonts/font = SubResource( 3 )
+align = 1
+autowrap = true
+
+[node name="ui_down" type="Control" parent="Control"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = 527.0
+margin_top = 74.0
+margin_right = 567.0
+margin_bottom = 114.0
+
+[node name="DescLabel" type="Label" parent="Control/ui_down"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -321.0
+margin_top = -199.0
+margin_right = -159.0
+margin_bottom = -151.0
+custom_colors/font_color = Color( 1, 0.843137, 0.0117647, 1 )
+custom_fonts/font = SubResource( 2 )
+text = "Down"
+align = 1
+
+[node name="ChangeKeybind" type="TextureButton" parent="Control/ui_down"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -183.0
+margin_top = -230.0
+margin_right = -43.0
+margin_bottom = -160.0
+texture_normal = ExtResource( 3 )
+texture_pressed = ExtResource( 5 )
+expand = true
+
+[node name="KeybindName" type="Label" parent="Control/ui_down"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -177.288
+margin_top = -200.0
+margin_right = -50.2878
+margin_bottom = -152.0
+custom_fonts/font = SubResource( 3 )
+align = 1
+autowrap = true
+
+[node name="ui_dash" type="Control" parent="Control"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -20.0
+margin_top = -20.0
+margin_right = 20.0
+margin_bottom = 20.0
+
+[node name="DescLabel" type="Label" parent="Control/ui_dash"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = 7.29852
+margin_top = -200.0
+margin_right = 169.299
+margin_bottom = -152.0
+custom_colors/font_color = Color( 1, 0.843137, 0.0117647, 1 )
+custom_fonts/font = SubResource( 2 )
+text = "Dash"
+align = 1
+
+[node name="ChangeKeybind" type="TextureButton" parent="Control/ui_dash"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = 161.299
+margin_top = -230.0
+margin_right = 301.299
+margin_bottom = -160.0
+texture_normal = ExtResource( 3 )
+texture_pressed = ExtResource( 5 )
+expand = true
+
+[node name="KeybindName" type="Label" parent="Control/ui_dash"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = 168.011
+margin_top = -199.0
+margin_right = 295.011
+margin_bottom = -151.0
+custom_fonts/font = SubResource( 3 )
+align = 1
+autowrap = true
+
+[node name="PressKeyNow" type="Control" parent="Control"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -540.0
+margin_top = -360.0
+margin_right = -500.0
+margin_bottom = -320.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Blur" type="ColorRect" parent="Control/PressKeyNow"]
+material = ExtResource( 6 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -1090.0
+margin_top = -561.5
+margin_right = 1090.0
+margin_bottom = 607.5
+color = Color( 1, 1, 1, 0 )
+
+[node name="NinePatchRect" type="NinePatchRect" parent="Control/PressKeyNow"]
+margin_left = 345.0
+margin_top = 310.0
+margin_right = 759.0
+margin_bottom = 438.0
+texture = ExtResource( 7 )
+patch_margin_left = 64
+patch_margin_top = 64
+patch_margin_right = 64
+patch_margin_bottom = 64
+
+[node name="NinePatchRect2" type="NinePatchRect" parent="Control/PressKeyNow"]
+visible = false
+margin_left = 358.0
+margin_top = 210.0
+margin_right = 743.0
+margin_bottom = 297.0
+texture = ExtResource( 7 )
+patch_margin_left = 64
+patch_margin_top = 64
+patch_margin_right = 64
+patch_margin_bottom = 8
+
+[node name="Label" type="Label" parent="Control/PressKeyNow"]
+margin_left = 362.902
+margin_top = 340.861
+margin_right = 738.902
+margin_bottom = 404.861
+custom_fonts/font = SubResource( 4 )
+text = "Press your Key"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label2" type="Label" parent="Control/PressKeyNow"]
+visible = false
+margin_left = 362.902
+margin_top = 221.861
+margin_right = 738.902
+margin_bottom = 288.861
+custom_colors/font_color = Color( 1, 0, 0, 1 )
+custom_fonts/font = SubResource( 6 )
+text = "Key has already been used.
+Please select a different key."
+align = 1
+
+[node name="Cancel" type="TextureButton" parent="Control/PressKeyNow"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = 452.712
+margin_top = 435.712
+margin_right = 612.712
+margin_bottom = 515.712
+texture_normal = ExtResource( 3 )
+texture_pressed = ExtResource( 5 )
+expand = true
+
+[node name="CancelLabel" type="Label" parent="Control/PressKeyNow"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = 467.424
+margin_top = 472.712
+margin_right = 594.424
+margin_bottom = 520.712
+custom_fonts/font = SubResource( 7 )
+text = "Cancel"
+align = 1
+autowrap = true
+
+[connection signal="pressed" from="Control/ResetToDefault" to="Control" method="_on_ResetToDefault_pressed"]
+[connection signal="pressed" from="Control/QuitButton" to="Control" method="_on_QuitButton_pressed"]
+[connection signal="pressed" from="Control/ui_attack/ChangeKeybind" to="Control" method="_on_Attack_ChangeKeybind_pressed"]
+[connection signal="pressed" from="Control/left/ChangeKeybind" to="Control" method="_on_Left_ChangeKeybind_pressed"]
+[connection signal="pressed" from="Control/right/ChangeKeybind" to="Control" method="_on_Right_ChangeKeybind_pressed"]
+[connection signal="pressed" from="Control/ui_up/ChangeKeybind" to="Control" method="_on_Up_ChangeKeybind_pressed"]
+[connection signal="pressed" from="Control/ui_down/ChangeKeybind" to="Control" method="_on_Down_ChangeKeybind_pressed"]
+[connection signal="pressed" from="Control/ui_dash/ChangeKeybind" to="Control" method="_on_Dash_ChangeKeybind_pressed"]
+[connection signal="pressed" from="Control/PressKeyNow/Cancel" to="Control" method="_on_Cancel_pressed"]

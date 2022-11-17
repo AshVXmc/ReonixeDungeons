@@ -1,0 +1,19 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://assets/particles/large_smoke_particle.png" type="Texture" id=1]
+
+[node name="StrongJumpParticle" type="CPUParticles2D"]
+rotation = 4.71239
+scale = Vector2( 2.5, 2.5 )
+emitting = false
+amount = 6
+lifetime = 0.4
+one_shot = true
+explosiveness = 0.69
+lifetime_randomness = 0.15
+texture = ExtResource( 1 )
+emission_shape = 1
+emission_sphere_radius = 1.0
+spread = 90.0
+gravity = Vector2( 0, 0 )
+initial_velocity = 65.0

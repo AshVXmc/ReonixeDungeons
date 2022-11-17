@@ -97,9 +97,6 @@ F3 to toggle FPS counter
 F11 to screenshot
 / to toggle debug console"
 scroll_active = false
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="QuitButton" type="TextureButton" parent="Control"]
 margin_right = 40.0

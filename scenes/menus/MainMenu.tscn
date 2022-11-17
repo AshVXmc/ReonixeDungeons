@@ -143,24 +143,21 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="HowToPlay" type="Button" parent="."]
+[node name="SetKeybinds" type="Button" parent="."]
 anchor_left = 0.504
 anchor_top = 0.658
 anchor_right = 0.504
 anchor_bottom = 0.658
-margin_left = -194.481
+margin_left = -191.481
 margin_top = -59.9732
-margin_right = 188.519
+margin_right = 191.519
 margin_bottom = 18.0268
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 custom_colors/font_color_hover = Color( 1, 0.843137, 0.0117647, 1 )
 custom_colors/font_color_pressed = Color( 1, 0.843137, 0.0117647, 1 )
 custom_fonts/font = SubResource( 3 )
-text = "How to play"
+text = "Controls"
 flat = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Logs" type="Button" parent="."]
 anchor_left = 0.499
@@ -308,7 +305,7 @@ __meta__ = {
 
 [connection signal="pressed" from="NewGame" to="." method="_on_NewGame_pressed"]
 [connection signal="pressed" from="LoadGame" to="." method="_on_LoadGame_pressed"]
-[connection signal="pressed" from="HowToPlay" to="." method="_on_HowToPlay_pressed"]
+[connection signal="pressed" from="SetKeybinds" to="." method="_on_SetKeybinds_pressed"]
 [connection signal="pressed" from="Logs" to="." method="_on_Logs_pressed"]
 [connection signal="pressed" from="Exit" to="." method="_on_Exit_pressed"]
 [connection signal="pressed" from="Popup1/Yes" to="." method="_on_Yes_pressed"]

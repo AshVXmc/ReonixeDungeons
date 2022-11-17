@@ -19,6 +19,7 @@ func _ready():
 
 func _notification(what):
 	if !visible:
+		Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 		if what == MainLoop.NOTIFICATION_WM_FOCUS_IN:
 			get_tree().paused = false
 			$Blur.visible = false
@@ -27,6 +28,9 @@ func _notification(what):
 			$Blur.visible = true
 			get_parent().get_node("OutOfFocus").visible = true
 			get_tree().paused = true
+	else:
+		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+
 func _process(delta):
 	if Input.is_action_just_pressed("ui_cancel") and !Global.is_opening_an_UI and !get_parent().get_parent().get_node("Player").is_shopping:
 

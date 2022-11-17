@@ -7,7 +7,7 @@ func _ready():
 func _process(delta):
 	$NewGame.text = "> New game" if $NewGame.is_hovered() else "New game" 
 	$LoadGame.text = "> Load game" if $LoadGame.is_hovered() else "Load game"
-	$HowToPlay.text = "> How to play" if $HowToPlay.is_hovered() else "How to play"
+	$SetKeybinds.text = "> Controls" if $SetKeybinds.is_hovered() else "Controls"
 	$Logs.text = "> Update logs" if $Logs.is_hovered() else "Update logs"
 	$Exit.text = "> Exit" if $Exit.is_hovered() else "Exit"
 func _on_NewGame_pressed():
@@ -20,7 +20,7 @@ func new_game():
 	$SceneTransition.transition()
 	yield(get_tree().create_timer(1), "timeout")
 	get_tree().change_scene("res://scenes/levels/HubLevel.tscn")
-	queue_free()
+	call_deferred('free')
 
 
 func _on_LoadGame_pressed():
@@ -77,7 +77,7 @@ func _on_LoadGame_pressed():
 		$SaveLabel.visible = false
 func _on_HowToPlay_pressed():
 	get_tree().change_scene("res://scenes/menus/HowToPlayMenu_1.tscn")
-	queue_free()
+	call_deferred('free')
 
 
 func _on_Exit_pressed():
@@ -94,4 +94,9 @@ func _on_No_pressed():
 
 func _on_Logs_pressed():
 	get_tree().change_scene("res://scenes/menus/Logs.tscn")
-	queue_free()
+	call_deferred('free')
+
+
+func _on_SetKeybinds_pressed():
+	get_tree().change_scene("res://scenes/menus/SetKeybinds.tscn")
+	call_deferred('free')

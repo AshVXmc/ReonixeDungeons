@@ -10,8 +10,8 @@ extents = Vector2( 17.4623, 21.9839 )
 extents = Vector2( 24.1585, 28.1075 )
 
 [node name="LootBag" type="RigidBody2D"]
-collision_layer = 8
-collision_mask = 19
+collision_layer = 0
+collision_mask = 17
 mass = 5.10204
 gravity_scale = 9.8
 script = ExtResource( 2 )

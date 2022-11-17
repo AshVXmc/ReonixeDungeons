@@ -701,7 +701,7 @@ tracks/0/keys = {
 }
 
 [sub_resource type="RectangleShape2D" id=20]
-extents = Vector2( 40.2299, 40 )
+extents = Vector2( 44.5385, 40 )
 
 [node name="Player" type="KinematicBody2D"]
 collision_layer = 128
@@ -944,7 +944,7 @@ one_shot = true
 position = Vector2( 18, 0 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyEvasionArea"]
-position = Vector2( 40.2216, 0 )
+position = Vector2( 44.5302, 0 )
 shape = SubResource( 20 )
 
 [node name="AtkBuffParticle" parent="." instance=ExtResource( 14 )]
@@ -963,16 +963,19 @@ one_shot = true
 
 [node name="AirborneMaxDuration" type="Timer" parent="."]
 process_mode = 0
-wait_time = 2.0
+wait_time = 0.5
 one_shot = true
 
 [node name="InputPressTimer" type="Timer" parent="."]
-wait_time = 0.5
+wait_time = 0.6
 one_shot = true
 
 [node name="HeightRaycast2D" type="RayCast2D" parent="."]
 enabled = true
-cast_to = Vector2( 0, 255 )
+cast_to = Vector2( 0, 200 )
+
+[node name="TapPreventTimer" type="Timer" parent="."]
+wait_time = 0.5
 
 [connection signal="timeout" from="CharacterManager/SwapCooldownTimer" to="CharacterManager" method="_on_SwapCooldownTimer_timeout"]
 [connection signal="area_entered" from="AttackCollision" to="." method="_on_AttackCollision_area_entered"]
@@ -1002,3 +1005,4 @@ cast_to = Vector2( 0, 255 )
 [connection signal="area_exited" from="EnemyEvasionArea" to="." method="_on_EnemyEvasionArea_area_exited"]
 [connection signal="timeout" from="AirborneTimer" to="." method="_on_AirborneTimer_timeout"]
 [connection signal="timeout" from="AirborneMaxDuration" to="." method="_on_AirborneMaxDuration_timeout"]
+[connection signal="timeout" from="InputPressTimer" to="." method="_on_InputPressTimer_timeout"]
