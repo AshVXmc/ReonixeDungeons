@@ -8,6 +8,9 @@ var character_3_max_hearts : float = 3
 var elegance_meter : int = 0 setget set_elegance_value
 var elegance_rank 
 
+
+func _ready():
+	print(Time.get_date_dict_from_system())
 func set_elegance_value(new_value):
 	elegance_meter = new_value
 	print("elegance rating increased")
@@ -35,14 +38,14 @@ var player_skill_multipliers : Dictionary = {
 	"BaseHearts": 2.5,
 	"BasicAttack": 25.0,
 	"BasicAttack2": 35.0,
-	"BasicAttack3": 45.0,
-	"BasicAttack4": 55.0,
-	"ChargedAttack": 20.0,
+	"BasicAttack3": 40.0,
+	"BasicAttack4": 52.0,
+	"ChargedAttack": 60.0,
 	"UpwardsorDownwardsChargedAttack": 30.0,
 	"AirborneBasicAttack": 35.0,
 	"AirborneBasicAttack2": 30.0,
-	"AirborneBasicAttack3": 40.0,
-	"AirborneBasicAttack4": 45.0,
+	"AirborneBasicAttack3": 45.0,
+	"AirborneBasicAttack4": 55.0,
 	"FireSaw": 35.0,
 	"FireFairy": 22.0,
 	"FireSawCost": 1,
@@ -53,7 +56,8 @@ var player_skill_multipliers : Dictionary = {
 	"BaseMagicRes": 0.0,
 	"BaseFireRes": 0.0,
 	"BaseEarthRes": 0.0,
-	"BaseIceRes": 0.0
+	"BaseIceRes": 0.0,
+	"Birthday": [21,11]
 }
 
 
@@ -74,7 +78,8 @@ var glaciela_skill_multipliers : Dictionary = {
 	"BaseMagicRes": 0.0,
 	"BaseFireRes": -50.0,
 	"BaseEarthRes": 0.0,
-	"BaseIceRes": 0.0
+	"BaseIceRes": 0.0,
+	"Birthday": [10,5]
 }
 
 var character2_hearts : float= character_2_max_hearts
@@ -176,9 +181,9 @@ var godmode : bool = false
 # if enemy type is same as character type or doesn't counter anything, deal 100% dmg.
 # if character type counters enemy type, deal 50% dmg
 func reset_player_data():
-#	Global.hearts = 5
-#	Global.character2_hearts = 5
-#	Global.character3_hearts = 5
+	Global.hearts = Global.max_hearts
+	Global.character2_hearts = Global.character2_hearts
+	Global.character3_hearts = Global.character2_hearts
 	Global.mana = 0
 	Global.character2_mana = 0
 	Global.character3_mana = 0

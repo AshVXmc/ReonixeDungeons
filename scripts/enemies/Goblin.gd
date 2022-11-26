@@ -10,7 +10,7 @@ var direction : int = 1
 var is_dead : bool = false 
 const TYPE : String = "Enemy"
 const FLOOR = Vector2(0, -1)
-const MAX_SPEED : int = 200
+const MAX_SPEED : int = 160
 var SPEED : int = MAX_SPEED
 const MAX_GRAVITY : int = 45
 var GRAVITY : int = MAX_GRAVITY
@@ -26,23 +26,40 @@ var is_frozen : bool = false
 var is_airborne : bool = false
 var decoyed : bool = false
 var dead : bool = false
-const AIRBORNE_SPEED : int = -3750
+const AIRBORNE_SPEED : int = -4000
+
+export var Armored : bool = false
+export (String, "Physical", "Magical", "Fire", "Ice", "Earth") var Armor_Type = "Physical"
+export (int) var Armor_Durability = 100 # amount of poise/hits/elemental stacks needed to break the shield
+export (float, 1.0) var Armor_Strength = 0.9 # total damage reduction the shield gives (0 is none, 1 is 100% reduction)
+
+var armor_strength_coefficient = 1 # default value so it doesn't throw an error
+							
+
 var phys_res : float = 25
 var fire_res : float = 0
 var earth_res : float = 0 
 var ice_res : float = 0
 var magic_res : float = -50
-
+#var overlaps_enemy_while_midair : bool = false
 var elemental_type : String = "Physical"
 var atk_value : float = 0.25 * Global.enemy_level_index
 
 func _ready():
+	if Armored:
+		$ArmorBar.visible = true
+		$ArmorBar.max_value = Armor_Durability
+		$ArmorSprite.visible = true
+		armor_strength_coefficient = 1 - Armor_Strength
+		add_to_group("Armored")
+	else:
+		$ArmorBar.visible = false
+		$ArmorSprite.visible = false
 	$HealthBar.max_value = max_HP
 	$HealthBar.value = $HealthBar.max_value
 func _physics_process(delta):
 	if !is_airborne:
 		set_collision_mask_bit(2, true)
-
 	else:
 		set_collision_mask_bit(2, false)
 	if flipped:
@@ -102,121 +119,130 @@ func _on_Area2D_area_entered(area):
 		"Sword", "SwordCharged", "Fireball", "Ice",
 		"physics_process", "FireGauge", "FireGaugeTwo", "LightKnockback"
 	]
-	if area.is_in_group("Sword"):
-			var groups : Array = area.get_groups()
-			for group_names in groups:
-				if float(group_names) != 0:
-					var raw_damage = float(group_names)
-					
-					var damage = round((raw_damage - (raw_damage * (phys_res / 100))))
-					print("HP reduced by " + str(damage))
-					HP -= float(damage)
-					$HealthBar.value  -= float(damage)
-					add_damage_particles("Physical", float(damage))
-					parse_damage()
-					break
-	if area.is_in_group("SwordCharged"):
-			var groups : Array = area.get_groups()
-			for group_names in groups:
-				if float(group_names) == 0:
-					groups.erase(group_names)
-				if !groups.has("SwordCharged") and !groups.has("physics_process"):
-					var raw_damage = float(groups.max())
-					
-					var damage = (raw_damage - (raw_damage * (phys_res / 100)))
-					print("HP reduced by " + str(damage))
-					HP -= float(damage)
-					$HealthBar.value  -= float(damage)
-					add_damage_particles("Physical", float(damage))
-					parse_damage()
-					knockback()
-					break
-			
-	if area.is_in_group("Fireball"):
-
-			# YEAH IT WORKS EFJWFJWPOFWJPFWJP
-			var groups : Array = area.get_groups()
-			for group_names in groups:	
-				if groups.has("Fireball"):
-					groups.erase("Fireball")
-				if groups.has("LightKnockback"):
-					groups.erase("LightKnockback")
-				if groups.has("physics_process"):
-					groups.erase("physics_process")
-				if !groups.has("Fireball") and !groups.has("FireGaugeOne") and !groups.has("physics_process"):
-					print("HP reduced by " + str(groups.max()))
-					HP -= float(groups.max())
+	if weakref(area).get_ref() != null:
+		if area.is_in_group("Sword"):
+				var groups : Array = area.get_groups()
+				for group_names in groups:
+					if float(group_names) != 0:
+						var raw_damage = float(group_names)
+						
+						var damage = round((raw_damage - (raw_damage * (phys_res / 100))) * armor_strength_coefficient)
+						print("HP reduced by " + str(damage))
+						HP -= float(damage)
+						$HealthBar.value  -= float(damage)
+						add_damage_particles("Physical", float(damage))
+						parse_damage()
+						break
+		
+		if area.is_in_group("SwordCharged"):
+				var groups : Array = area.get_groups()
+				for group_names in groups:
+					if float(group_names) == 0:
+						groups.erase(group_names)
+					if !groups.has("SwordCharged") and !groups.has("physics_process"):
+						var raw_damage = float(groups.max())
+						
+						var damage = (raw_damage - (raw_damage * (phys_res / 100)))
+						print("HP reduced by " + str(damage))
+						HP -= float(damage)
+						$HealthBar.value  -= float(damage)
+						add_damage_particles("Physical", float(damage))
+						parse_damage()
+						knockback()
+						break
 				
-					$HealthBar.value  -= float(groups.max())
-					add_damage_particles("Fire", float(groups.max()))
-					if area.is_in_group("LightKnockback"):
-						parse_status_effect_damage()
-					else:
-						parse_damage()
-					break
-	if area.is_in_group("Ice"):
-			
-			# YEAH IT WORKS EFJWFJWPOFWJPFWJP
-			var groups : Array = area.get_groups()
-			for group_names in groups:
-				if groups.has("Ice"):
-					groups.erase("Ice")
-				if groups.has("IceGaugeOne"):
-					groups.erase("IceGaugeOne")
-				if groups.has("IceGaugeTwo"):
-					groups.erase("IceGaugeTwo")
-				if groups.has("LightKnockback"):
-					groups.erase("LightKnockback")
-				if groups.has("physics_process"):
-					groups.erase("physics_process")
-				if !groups.has("Ice") and !groups.has("IceGaugeOne") and !groups.has("physics_process"):
-					print("HP reduced by " + str(groups.max()))
-					HP -= float(groups.max())
-					
-					$HealthBar.value  -= float(groups.max())
-					add_damage_particles("Ice", float(groups.max()))
-					if area.is_in_group("LightKnockback"):
-						parse_status_effect_damage()
-					else:
-						parse_damage()
-					break
-	if area.is_in_group("SmallEleganceValue"):
-		Global.elegance_meter += 8
-	if area.is_in_group("MediumEleganceValue"):
-		Global.elegance_meter += 12
-	if area.is_in_group("LargeEleganceValue"):
-		Global.elegance_meter += 8
-	if area.is_in_group("FireGauge"):
-		pass
-	if area.is_in_group("Burning"):
-		print("Burning")
-		var damage = (0.025 * max_HP) + (Global.damage_bonus["fire_dmg_bonus_%"] / 100 * (0.025 * max_HP))
-		HP -= damage
-		Global.elegance_meter += 1
-		print("HP-" + str(damage))
-		$HealthBar.value -= damage
-		parse_status_effect_damage()
-		add_damage_particles("Fire", damage)
-	if area.is_in_group("Airborne") and !is_airborne:
-			is_airborne = true
-			velocity.y = AIRBORNE_SPEED
-			
-			yield(get_tree().create_timer(0.05), "timeout")
-			velocity.y = 0
-	if area.is_in_group("Player"):
-			is_staggered = true
-			yield(get_tree().create_timer(0.5), "timeout")
-			is_staggered = false
+		if area.is_in_group("Fireball"):
 
-	if area.is_in_group("Frozen"):
-			is_frozen = true
+				# YEAH IT WORKS EFJWFJWPOFWJPFWJP
+				var groups : Array = area.get_groups()
+				for group_names in groups:	
+					if groups.has("Fireball"):
+						groups.erase("Fireball")
+					if groups.has("LightKnockback"):
+						groups.erase("LightKnockback")
+					if groups.has("physics_process"):
+						groups.erase("physics_process")
+					if !groups.has("Fireball") and !groups.has("FireGaugeOne") and !groups.has("physics_process"):
+						print("HP reduced by " + str(groups.max()))
+						HP -= float(groups.max())
+					
+						$HealthBar.value  -= float(groups.max())
+						add_damage_particles("Fire", float(groups.max()))
+						if area.is_in_group("LightKnockback"):
+							parse_status_effect_damage()
+						else:
+							parse_damage()
+						break
+		if area.is_in_group("Ice"):
+				
+				# YEAH IT WORKS EFJWFJWPOFWJPFWJP
+				var groups : Array = area.get_groups()
+				for group_names in groups:
+					if groups.has("Ice"):
+						groups.erase("Ice")
+					if groups.has("IceGaugeOne"):
+						groups.erase("IceGaugeOne")
+					if groups.has("IceGaugeTwo"):
+						groups.erase("IceGaugeTwo")
+					if groups.has("LightKnockback"):
+						groups.erase("LightKnockback")
+					if groups.has("physics_process"):
+						groups.erase("physics_process")
+					if !groups.has("Ice") and !groups.has("IceGaugeOne") and !groups.has("physics_process"):
+						print("HP reduced by " + str(groups.max()))
+						HP -= float(groups.max())
+						
+						$HealthBar.value  -= float(groups.max())
+						add_damage_particles("Ice", float(groups.max()))
+						if area.is_in_group("LightKnockback"):
+							parse_status_effect_damage()
+						else:
+							parse_damage()
+						break
+		if area.is_in_group("SmallEleganceValue"):
+			Global.elegance_meter += 8
+		if area.is_in_group("MediumEleganceValue"):
+			Global.elegance_meter += 12
+		if area.is_in_group("LargeEleganceValue"):
+			Global.elegance_meter += 8
+		if area.is_in_group("FireGauge"):
+			pass
+		if area.is_in_group("Burning"):
+			print("Burning")
+			var damage = (0.025 * max_HP) + (Global.damage_bonus["fire_dmg_bonus_%"] / 100 * (0.025 * max_HP))
+			HP -= damage
+			Global.elegance_meter += 1
+			print("HP-" + str(damage))
+			$HealthBar.value -= damage
+			parse_status_effect_damage()
+			add_damage_particles("Fire", damage)
+		if area.is_in_group("Airborne") and !is_airborne:
+				is_airborne = true
+				velocity.y = AIRBORNE_SPEED
+				
+				yield(get_tree().create_timer(0.05), "timeout")
+				velocity.y = 0
+		if area.is_in_group("Player"):
+				is_staggered = true
+				yield(get_tree().create_timer(0.5), "timeout")
+				is_staggered = false
+
+		if area.is_in_group("Frozen"):
+				is_frozen = true
+		
+		if area.is_in_group("TempusTardus"):
+			SPEED *= 0.05
+			velocity.y = 0
+			GRAVITY *= 0.05
+			$Sprite.speed_scale = 0.1
+		
+		if area.is_in_group("LightPoiseDamage"):
+			pass
+		if area.is_in_group("MediumPoiseDamage"):
+			pass
+		if area.is_in_group("HeavyPoiseDamage"):
+			pass
 	
-	if area.is_in_group("TempusTardus"):
-		SPEED *= 0.05
-		velocity.y = 0
-		GRAVITY *= 0.05
-		$Sprite.speed_scale = 0.1
-#
 #	if area.is_in_group("Enemy"):
 #		set_collision_mask_bit(2, false)
 #
@@ -311,12 +337,21 @@ func _on_Area2D_area_exited(area):
 		is_airborne = false
 		velocity.x = 0
 
+#
+#func _on_Area2D_body_entered(body):
+#	if body.is_in_group("Enemy"):
+#		set_collision_mask_bit(2, false)
+#
+#
+#func _on_Area2D_body_exited(body):
+#	if body.is_in_group("Enemy"):
+#		set_collision_mask_bit(2, true)
 
-func _on_Area2D_body_entered(body):
-	if body.is_in_group("Enemy"):
+#
+func _on_DownwardsEnemyDetector_area_entered(area):
+	if area.is_in_group("Enemy"):
 		set_collision_mask_bit(2, false)
 
-
-func _on_Area2D_body_exited(body):
-	if body.is_in_group("Enemy"):
+func _on_DownwardsEnemyDetector_area_exited(area):
+	if area.is_in_group("Enemy"):
 		set_collision_mask_bit(2, true)

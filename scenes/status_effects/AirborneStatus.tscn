@@ -4,11 +4,11 @@
 [ext_resource path="res://assets/particles/smoke_particle.png" type="Texture" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 2, 2 )
+extents = Vector2( 1, 1 )
 
 [sub_resource type="ParticlesMaterial" id=2]
 flag_disable_z = true
-spread = 75.0
+spread = 90.0
 gravity = Vector3( 0, 0, 0 )
 initial_velocity = 55.0
 initial_velocity_random = 0.15
@@ -25,18 +25,25 @@ script = ExtResource( 1 )
 shape = SubResource( 1 )
 
 [node name="Particles2D" type="Particles2D" parent="."]
-position = Vector2( 0, 40 )
+visible = false
+position = Vector2( 0, 55 )
 rotation = 4.71239
-scale = Vector2( 3, 3 )
-amount = 7
-lifetime = 0.35
+scale = Vector2( 2, 2 )
+amount = 4
+lifetime = 0.25
 randomness = 0.4
 process_material = SubResource( 2 )
 texture = ExtResource( 2 )
 
 [node name="DestroyedTimer" type="Timer" parent="."]
+wait_time = 1.85
+one_shot = true
+
+[node name="MaxDestroyedTimer" type="Timer" parent="."]
+wait_time = 7.5
 one_shot = true
 autostart = true
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_Area2D_area_entered"]
 [connection signal="timeout" from="DestroyedTimer" to="." method="_on_DestroyedTimer_timeout"]
+[connection signal="timeout" from="MaxDestroyedTimer" to="." method="_on_MaxDestroyedTimer_timeout"]

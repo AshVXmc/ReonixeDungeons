@@ -235,7 +235,7 @@ func charged_attack(airborne_duration : float = 1, type : int = 1):
 			$AnimationPlayer.play("ChargedAttackLeft")
 
 		if target and target != null: 
-			if target.get_node("Area2D").overlaps_area($ChargedAttackCollision) and !target.get_node("Area2D").is_in_group("IsAirborne"):
+			if !target.is_in_group("Armored") and target.get_node("Area2D").overlaps_area($ChargedAttackCollision) and !target.get_node("Area2D").is_in_group("IsAirborne"):
 				is_charging = false
 				is_performing_charged_attack = true
 #				get_parent().get_parent().airborne_mode = false

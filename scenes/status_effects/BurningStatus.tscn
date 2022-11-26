@@ -50,10 +50,10 @@ shape = SubResource( 1 )
 
 [node name="BurningBar" type="TextureProgress" parent="."]
 margin_left = -36.0
-margin_top = -125.0
+margin_top = -130.0
 margin_right = -18.0
-margin_bottom = -119.0
-rect_scale = Vector2( 4, 3 )
+margin_bottom = -124.0
+rect_scale = Vector2( 4, 4 )
 texture_under = ExtResource( 2 )
 texture_progress = ExtResource( 4 )
 

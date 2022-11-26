@@ -185,6 +185,52 @@ custom_fonts/font = SubResource( 3 )
 align = 1
 autowrap = true
 
+[node name="jump" type="Control" parent="Control"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -229.0
+margin_top = 174.514
+margin_right = -189.0
+margin_bottom = 214.514
+
+[node name="DescLabel" type="Label" parent="Control/jump"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -337.0
+margin_top = -199.0
+margin_right = -175.0
+margin_bottom = -151.0
+custom_colors/font_color = Color( 1, 0.843137, 0.0117647, 1 )
+custom_fonts/font = SubResource( 2 )
+text = "Left"
+align = 1
+
+[node name="ChangeKeybind" type="TextureButton" parent="Control/jump"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -201.0
+margin_top = -230.0
+margin_right = -61.0
+margin_bottom = -160.0
+texture_normal = ExtResource( 3 )
+texture_pressed = ExtResource( 5 )
+expand = true
+
+[node name="KeybindName" type="Label" parent="Control/jump"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -195.288
+margin_top = -200.0
+margin_right = -68.2878
+margin_bottom = -152.0
+custom_fonts/font = SubResource( 3 )
+align = 1
+autowrap = true
+
 [node name="right" type="Control" parent="Control"]
 anchor_left = 0.5
 anchor_top = 0.5
@@ -370,6 +416,7 @@ align = 1
 autowrap = true
 
 [node name="PressKeyNow" type="Control" parent="Control"]
+visible = false
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -469,6 +516,7 @@ autowrap = true
 [connection signal="pressed" from="Control/QuitButton" to="Control" method="_on_QuitButton_pressed"]
 [connection signal="pressed" from="Control/ui_attack/ChangeKeybind" to="Control" method="_on_Attack_ChangeKeybind_pressed"]
 [connection signal="pressed" from="Control/left/ChangeKeybind" to="Control" method="_on_Left_ChangeKeybind_pressed"]
+[connection signal="pressed" from="Control/jump/ChangeKeybind" to="Control" method="_on_Left_ChangeKeybind_pressed"]
 [connection signal="pressed" from="Control/right/ChangeKeybind" to="Control" method="_on_Right_ChangeKeybind_pressed"]
 [connection signal="pressed" from="Control/ui_up/ChangeKeybind" to="Control" method="_on_Up_ChangeKeybind_pressed"]
 [connection signal="pressed" from="Control/ui_down/ChangeKeybind" to="Control" method="_on_Down_ChangeKeybind_pressed"]

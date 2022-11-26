@@ -22,7 +22,6 @@ func regular_slash_animation():
 		3:
 			$AnimationPlayer.play("SwordSlash3")
 			yield(get_tree().create_timer(DEFAULT_ANIM_DURATION),"timeout")
-			
 			call_deferred('free')
 		4:
 			$AnimationPlayer.play("SwordSlash4")
@@ -30,13 +29,14 @@ func regular_slash_animation():
 			call_deferred('free')
 			
 func flurry_slash_animation():
+	var speed_multiplier = 1.25
+	$AnimationPlayer.playback_speed = speed_multiplier
 	$AnimationPlayer.play("SwordSlash1")
-	yield(get_tree().create_timer(DEFAULT_ANIM_DURATION),"timeout")
+	yield(get_tree().create_timer(DEFAULT_ANIM_DURATION / speed_multiplier),"timeout")
 	$AnimationPlayer.play("SwordSlash2")
-	yield(get_tree().create_timer(DEFAULT_ANIM_DURATION),"timeout")
+	yield(get_tree().create_timer(DEFAULT_ANIM_DURATION / speed_multiplier),"timeout")
 	$AnimationPlayer.play("SwordSlash3")
-	yield(get_tree().create_timer(DEFAULT_ANIM_DURATION),"timeout")
+	yield(get_tree().create_timer(DEFAULT_ANIM_DURATION / speed_multiplier),"timeout")
 	$AnimationPlayer.play("SwordSlash4")
-	yield(get_tree().create_timer(DEFAULT_ANIM_DURATION),"timeout")
-	
+	yield(get_tree().create_timer(DEFAULT_ANIM_DURATION / speed_multiplier),"timeout")
 	call_deferred('free')
