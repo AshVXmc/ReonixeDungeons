@@ -1,4 +1,4 @@
-[gd_scene load_steps=48 format=2]
+[gd_scene load_steps=52 format=2]
 
 [ext_resource path="res://spriteframes/MainCharacter_spriteframes.tres" type="SpriteFrames" id=1]
 [ext_resource path="res://scripts/player/Player.gd" type="Script" id=2]
@@ -18,17 +18,22 @@
 [ext_resource path="res://assets/misc/animated/sword_slash_anim_2.png" type="Texture" id=16]
 [ext_resource path="res://assets/misc/animated/sword_slash_anim_1.png" type="Texture" id=17]
 [ext_resource path="res://assets/player/katana_sheath.png" type="Texture" id=18]
-[ext_resource path="res://assets/particles/sword_slash_effect.png" type="Texture" id=19]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 37.6338
 height = 17.3718
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 33.1168, 39.1389 )
+extents = Vector2( 39.1681, 43.7237 )
+
+[sub_resource type="RectangleShape2D" id=32]
+extents = Vector2( 44.2602, 44.2034 )
 
 [sub_resource type="RectangleShape2D" id=11]
-extents = Vector2( 45, 45 )
+extents = Vector2( 44.7389, 44.625 )
+
+[sub_resource type="RectangleShape2D" id=33]
+extents = Vector2( 44.9272, 43.6631 )
 
 [sub_resource type="CapsuleShape2D" id=12]
 radius = 37.6338
@@ -116,6 +121,9 @@ tracks/2/keys = {
 "values": [ false ]
 }
 
+[sub_resource type="Animation" id=36]
+resource_name = "KnockDownChargedAttackLeft"
+
 [sub_resource type="Animation" id=25]
 resource_name = "KnockUpChargedAttackLeft"
 length = 0.2
@@ -197,6 +205,9 @@ tracks/2/keys = {
 "update": 1,
 "values": [ true ]
 }
+
+[sub_resource type="Animation" id=35]
+resource_name = "QuickSwapAttackRight"
 
 [sub_resource type="Animation" id=4]
 length = 0.001
@@ -725,187 +736,6 @@ tracks/2/keys = {
 "values": [ Vector2( -1.43051e-06, -22.6691 ) ]
 }
 
-[sub_resource type="Animation" id=31]
-resource_name = "HorizontalSlash"
-length = 0.15
-step = 0.01
-tracks/0/type = "value"
-tracks/0/path = NodePath("HorizontalSlashSprite:rotation_degrees")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.05, 0.1, 0.14 ),
-"transitions": PoolRealArray( 1, 1, 1, 1 ),
-"update": 0,
-"values": [ 45.0, 71.5, 81.0, 85.0 ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("HorizontalSlashSprite:scale")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0, 0.05, 0.1, 0.14 ),
-"transitions": PoolRealArray( 1, 1, 1, 1 ),
-"update": 0,
-"values": [ Vector2( 3, 3 ), Vector2( 1.3, 4 ), Vector2( 0.75, 5 ), Vector2( 0.5, 5.7 ) ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath("HorizontalSlashSprite:position")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Vector2( 0, 0 ) ]
-}
-tracks/3/type = "value"
-tracks/3/path = NodePath("HorizontalSlashSprite:visible")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/keys = {
-"times": PoolRealArray( 0, 0.14 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 1,
-"values": [ true, false ]
-}
-
-[sub_resource type="Animation" id=26]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/path = NodePath("SlashEffectSprite:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Vector2( 75, 0 ) ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("SlashEffectSprite:texture")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ ExtResource( 17 ) ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath("SlashEffectSprite:visible")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ true ]
-}
-tracks/3/type = "value"
-tracks/3/path = NodePath("HorizontalSlashSprite:rotation_degrees")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ 45.0 ]
-}
-tracks/4/type = "value"
-tracks/4/path = NodePath("HorizontalSlashSprite:scale")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Vector2( 3, 3 ) ]
-}
-tracks/5/type = "value"
-tracks/5/path = NodePath("HorizontalSlashSprite:position")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Vector2( 0, 0 ) ]
-}
-tracks/6/type = "value"
-tracks/6/path = NodePath("HorizontalSlashSprite:visible")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ true ]
-}
-
-[sub_resource type="Animation" id=27]
-resource_name = "RightSlash"
-length = 0.1
-step = 0.05
-tracks/0/type = "value"
-tracks/0/path = NodePath("SlashEffectSprite:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Vector2( 75, 0 ) ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("SlashEffectSprite:visible")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0, 0.1 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 1,
-"values": [ true, false ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath("SlashEffectSprite:texture")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0, 0.05 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 1,
-"values": [ ExtResource( 17 ), ExtResource( 16 ) ]
-}
-
 [sub_resource type="Animation" id=8]
 resource_name = "Hurt"
 length = 0.2
@@ -1122,7 +952,191 @@ tracks/4/keys = {
 }
 
 [sub_resource type="RectangleShape2D" id=20]
-extents = Vector2( 44.5385, 40 )
+extents = Vector2( 46.8534, 45.5494 )
+
+[sub_resource type="CircleShape2D" id=34]
+radius = 240.0
+
+[sub_resource type="Animation" id=37]
+resource_name = "HorizontalSlash"
+length = 0.2
+step = 0.01
+tracks/0/type = "value"
+tracks/0/path = NodePath("HorizontalSlashSprite:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.06, 0.13, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ 45.0, 71.5, 81.0, 85.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("HorizontalSlashSprite:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.06, 0.13, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 3, 3 ), Vector2( 1.3, 4 ), Vector2( 0.75, 5 ), Vector2( 0.5, 5.7 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("HorizontalSlashSprite:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("HorizontalSlashSprite:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+
+[sub_resource type="Animation" id=38]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("SlashEffectSprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 75, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("SlashEffectSprite:texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ ExtResource( 17 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("SlashEffectSprite:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ true ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("HorizontalSlashSprite:rotation_degrees")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 45.0 ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("HorizontalSlashSprite:scale")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 3, 3 ) ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("HorizontalSlashSprite:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ) ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("HorizontalSlashSprite:visible")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ true ]
+}
+
+[sub_resource type="Animation" id=39]
+resource_name = "RightSlash"
+length = 0.1
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("SlashEffectSprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 75, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("SlashEffectSprite:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("SlashEffectSprite:texture")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.05 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ ExtResource( 17 ), ExtResource( 16 ) ]
+}
 
 [node name="Player" type="KinematicBody2D"]
 collision_layer = 128
@@ -1141,8 +1155,6 @@ script = ExtResource( 12 )
 
 [node name="CharacterManager" type="Node2D" parent="."]
 script = ExtResource( 13 )
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="CharacterManager"]
 
 [node name="SwapCooldownTimer" type="Timer" parent="CharacterManager"]
 wait_time = 2.0
@@ -1188,28 +1200,28 @@ shape = SubResource( 1 )
 [node name="AttackCollision" type="Area2D" parent="." groups=["LightPoiseDamage", "SmallEleganceValue", "Sword"]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackCollision"]
-position = Vector2( 70.2806, 5.05854 )
+position = Vector2( 76.3319, 0.47372 )
 shape = SubResource( 2 )
 disabled = true
 
 [node name="ChargedAttackCollision" type="Area2D" parent="." groups=["SwordCharged"]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ChargedAttackCollision"]
-position = Vector2( 70, 0 )
-shape = SubResource( 11 )
+position = Vector2( 73.117, -1.69657 )
+shape = SubResource( 32 )
 disabled = true
 
 [node name="ChargedAttackDetector" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ChargedAttackDetector"]
-position = Vector2( 70, 0 )
+position = Vector2( 70.5111, 1.625 )
 shape = SubResource( 11 )
 
 [node name="UpwardsChargedAttackCollision" type="Area2D" parent="." groups=["Sword"]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="UpwardsChargedAttackCollision"]
-position = Vector2( 70, 0 )
-shape = SubResource( 11 )
+position = Vector2( 69.9272, -0.663103 )
+shape = SubResource( 33 )
 disabled = true
 
 [node name="Area2D" type="Area2D" parent="." groups=["Player"]]
@@ -1258,6 +1270,7 @@ wait_time = 2.0
 one_shot = true
 
 [node name="DashUseTimer" type="Timer" parent="."]
+wait_time = 0.8
 one_shot = true
 
 [node name="GlideTimer" type="Timer" parent="."]
@@ -1293,8 +1306,10 @@ position = Vector2( -40, 50 )
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/ChargedAttackLeft = SubResource( 23 )
 anims/ChargedAttackRight = SubResource( 22 )
+anims/KnockDownChargedAttackLeft = SubResource( 36 )
 anims/KnockUpChargedAttackLeft = SubResource( 25 )
 anims/KnockUpChargedAttackRight = SubResource( 24 )
+anims/QuickSwapAttackRight = SubResource( 35 )
 anims/RESET = SubResource( 4 )
 anims/SwordSwingLeft = SubResource( 5 )
 anims/SwordSwingLeft2 = SubResource( 14 )
@@ -1306,17 +1321,6 @@ anims/SwordSwingRight2 = SubResource( 13 )
 anims/SwordSwingRight3 = SubResource( 15 )
 anims/SwordSwingRight4 = SubResource( 18 )
 anims/SwordSwingUpper = SubResource( 6 )
-
-[node name="HorizontalSlashSprite" type="Sprite" parent="."]
-rotation = 0.785398
-scale = Vector2( 3, 3 )
-texture = ExtResource( 19 )
-
-[node name="SlashEffectPlayer" type="AnimationPlayer" parent="."]
-autoplay = "HorizontalSlash"
-anims/HorizontalSlash = SubResource( 31 )
-anims/RESET = SubResource( 26 )
-anims/RightSlash = SubResource( 27 )
 
 [node name="HurtAnimationPlayer" type="AnimationPlayer" parent="."]
 anims/Hurt = SubResource( 8 )
@@ -1369,7 +1373,7 @@ texture_under = ExtResource( 10 )
 texture_progress = ExtResource( 11 )
 
 [node name="MeleeTimer" type="Timer" parent="."]
-wait_time = 0.3
+wait_time = 0.25
 one_shot = true
 
 [node name="OxygenTimer" type="Timer" parent="."]
@@ -1390,7 +1394,7 @@ one_shot = true
 position = Vector2( 18, 0 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyEvasionArea"]
-position = Vector2( 44.5302, 0 )
+position = Vector2( 52.1034, 0.700554 )
 shape = SubResource( 20 )
 
 [node name="AtkBuffParticle" parent="." instance=ExtResource( 14 )]
@@ -1413,7 +1417,7 @@ wait_time = 0.5
 one_shot = true
 
 [node name="InputPressTimer" type="Timer" parent="."]
-wait_time = 0.6
+wait_time = 0.5
 one_shot = true
 
 [node name="HeightRaycast2D" type="RayCast2D" parent="."]
@@ -1431,6 +1435,20 @@ texture = ExtResource( 17 )
 [node name="KnockAirborneICD" type="Timer" parent="."]
 wait_time = 0.4
 one_shot = true
+
+[node name="SlashFlurryDetector" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SlashFlurryDetector"]
+shape = SubResource( 34 )
+
+[node name="SlashFlurryCD" type="Timer" parent="."]
+wait_time = 0.7
+one_shot = true
+
+[node name="SlashEffectPlayer" type="AnimationPlayer" parent="."]
+anims/HorizontalSlash = SubResource( 37 )
+anims/RESET = SubResource( 38 )
+anims/RightSlash = SubResource( 39 )
 
 [connection signal="timeout" from="CharacterManager/SwapCooldownTimer" to="CharacterManager" method="_on_SwapCooldownTimer_timeout"]
 [connection signal="area_entered" from="AttackCollision" to="." method="_on_AttackCollision_area_entered"]

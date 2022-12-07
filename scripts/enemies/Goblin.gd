@@ -2,7 +2,7 @@ class_name Goblin extends KinematicBody2D
 
 const DMG_INDICATOR : PackedScene = preload("res://scenes/particles/DamageIndicatorParticle.tscn")
 const DEATH_SMOKE : PackedScene = preload("res://scenes/particles/DeathSmokeParticle.tscn")
-onready var max_HP : int = Global.enemy_level_index * 150
+onready var max_HP : int = Global.enemy_level_index * 200
 onready var HP : int = max_HP
 export var flipped : bool = false
 var velocity = Vector2()
@@ -27,11 +27,15 @@ var is_airborne : bool = false
 var decoyed : bool = false
 var dead : bool = false
 const AIRBORNE_SPEED : int = -4000
+export (int) var MAX_POISE = 100
+export (int) var MIN_POISE = 0
 
 export var Armored : bool = false
 export (String, "Physical", "Magical", "Fire", "Ice", "Earth") var Armor_Type = "Physical"
 export (int) var Armor_Durability = 100 # amount of poise/hits/elemental stacks needed to break the shield
 export (float, 1.0) var Armor_Strength = 0.9 # total damage reduction the shield gives (0 is none, 1 is 100% reduction)
+
+var poise : int = MAX_POISE / 2
 
 var armor_strength_coefficient = 1 # default value so it doesn't throw an error
 							
@@ -83,7 +87,7 @@ func _physics_process(delta):
 		if !$Area2D.is_in_group("Hostile"):
 			$Area2D.add_to_group("Hostile")
 	if is_on_floor():
-		if !is_staggered and !is_frozen and !dead and !is_airborne: 
+		if !is_staggered and !is_frozen and !dead and !is_airborne and weakref(PLAYER).get_ref() != null: 
 			if AREA_LEFT.overlaps_area(PLAYER) and !AREA_LEFT.overlaps_area(DECOY) and !AREA_LEFT.overlaps_area(DECOY2) and !AREA_LEFT.overlaps_area(DECOY3):
 				$Sprite.flip_h = false
 				if !$Sprite.flip_h:
@@ -125,7 +129,8 @@ func _on_Area2D_area_entered(area):
 				for group_names in groups:
 					if float(group_names) != 0:
 						var raw_damage = float(group_names)
-						
+#						if poise < MAX_POISE:
+#							poise += 0.2 * MAX_POISE
 						var damage = round((raw_damage - (raw_damage * (phys_res / 100))) * armor_strength_coefficient)
 						print("HP reduced by " + str(damage))
 						HP -= float(damage)
@@ -142,7 +147,7 @@ func _on_Area2D_area_entered(area):
 					if !groups.has("SwordCharged") and !groups.has("physics_process"):
 						var raw_damage = float(groups.max())
 						
-						var damage = (raw_damage - (raw_damage * (phys_res / 100)))
+						var damage = ((raw_damage - (raw_damage * (phys_res / 100))) * armor_strength_coefficient)
 						print("HP reduced by " + str(damage))
 						HP -= float(damage)
 						$HealthBar.value  -= float(damage)
@@ -254,16 +259,21 @@ func add_damage_particles(type : String, dmg : int):
 	get_parent().add_child(dmgparticle)
 	dmgparticle.position = global_position
 
-func knockback():
+func knockback(knockback_coefficient : float = 2.5):
 	if $Sprite.flip_h:
-		velocity.x = -SPEED * 5
+		velocity.x = -SPEED * knockback_coefficient
 	else:
-		velocity.x = SPEED * 5
+		velocity.x = SPEED * knockback_coefficient
 	print("Knocked back")
 	
+func armor_break():
+	pass
 func parse_damage():
-	is_staggered = true
-	$Sprite.set_modulate(Color(2,0.5,0.3,1))
+	if poise < MAX_POISE:
+		is_staggered = true
+		$Sprite.set_modulate(Color(2,0.5,0.3,1))
+	elif poise >= MAX_POISE:
+		poise = MIN_POISE
 	if $HurtTimer.is_stopped():
 		$HurtTimer.start()
 	if HP <= 0:

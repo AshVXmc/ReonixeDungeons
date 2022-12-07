@@ -684,7 +684,7 @@ position = Vector2( 102.213, -11.0022 )
 shape = SubResource( 9 )
 
 [node name="MeleeTimer" type="Timer" parent="."]
-wait_time = 0.3
+wait_time = 0.4
 one_shot = true
 
 [node name="ChargeBar" type="TextureProgress" parent="."]
@@ -748,6 +748,7 @@ wait_time = 0.5
 one_shot = true
 
 [node name="AirborneTimer" type="Timer" parent="."]
+wait_time = 1.5
 one_shot = true
 
 [node name="TundraSigilsUI" type="Node2D" parent="."]

@@ -9,9 +9,9 @@ extents = Vector2( 24.3779, 3.5433 )
 [sub_resource type="RectangleShape2D" id=5]
 extents = Vector2( 32.1485, 10.3226 )
 
-[node name="Arrow" type="KinematicBody2D" groups=["Enemy"]]
+[node name="Arrow" type="KinematicBody2D"]
 scale = Vector2( 1.4, 1.4 )
-collision_layer = 4
+collision_layer = 0
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_group_": true

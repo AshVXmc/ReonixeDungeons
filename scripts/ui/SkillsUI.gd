@@ -8,12 +8,18 @@ const glacielaicon = preload("res://assets/UI/glaciela_character_icon.png")
 const empty_icon = preload("res://assets/UI/empty_character_icon.png")
 onready var character1 : String = Global.equipped_characters[0]
 
+
+
 func _ready():
 	Global.current_character = character1
 	print("Currently: " + Global.current_character)
 	connect("ability_on_cooldown", get_parent().get_parent().get_node("Player"), "ability_on_entering_cooldown")
 	update_skill_ui(Global.player_skills["PrimarySkill"], Global.player_skills["SecondarySkill"])
+	
 
+				
+func flicker_icon(character):
+	pass
 func update_character_ui():
 	match Global.equipped_characters[0]:
 		"Player":

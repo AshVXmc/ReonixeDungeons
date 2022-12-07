@@ -257,6 +257,7 @@ scale = Vector2( 6, 6 )
 texture = ExtResource( 11 )
 
 [node name="Page2" type="Control" parent="Plaque/Control/NinePatchRect"]
+visible = false
 margin_right = 40.0
 margin_bottom = 40.0
 __meta__ = {
@@ -291,9 +292,6 @@ bbcode_enabled = true
 bbcode_text = "[color=#f71e63]Hearts[/color] [img=28]res://assets/UI/heart.png[/img] are a measurement of your vitality. If your [color=#f71e63]Life meter [/color]reaches zero, you will get a game over."
 text = "Hearts  are a measurement of your vitality. If your Life meter reaches zero, you will get a game over."
 scroll_active = false
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="ManaSlots" type="TextureRect" parent="Plaque/Control/NinePatchRect/Page2"]
 margin_left = 289.294

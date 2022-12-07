@@ -199,6 +199,8 @@ self_modulate = Color( 1, 1, 1, 0.490196 )
 scale = Vector2( 6, 6 )
 texture = ExtResource( 11 )
 
+[node name="ArmorSpritePlayer" type="AnimationPlayer" parent="."]
+
 [connection signal="area_exited" from="Left" to="." method="_on_Left_area_exited"]
 [connection signal="area_exited" from="Right" to="." method="_on_Right_area_exited"]
 [connection signal="area_entered" from="Area2D" to="." method="_on_Area2D_area_entered"]
