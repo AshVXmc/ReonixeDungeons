@@ -103,7 +103,7 @@ var charged_attack_buff : float
 var attack_string_count : int = 4
 var perfect_dash : bool = false
 var perfect_charged_attack : bool = false
-
+var is_quickswap_attacking : bool = false
 var phys_res : float = Global.player_skill_multipliers["BasePhysRes"]
 var magic_res : float = Global.player_skill_multipliers["BaseMagicRes"]
 var fire_res : float = Global.player_skill_multipliers["BaseFireRes"]
@@ -114,13 +114,15 @@ onready var basic_attack_power : float = Global.attack_power * (Global.player_sk
 onready var charged_attack_power : float = Global.attack_power * (Global.player_skill_multipliers["ChargedAttack"] / 100)
 onready var upwards_and_downwards_charged_attack_power :float = Global.attack_power * (Global.player_skill_multipliers["UpwardsorDownwardsChargedAttack"] / 100)
 onready var airborne_charged_attack_power :float = Global.attack_power * (Global.player_skill_multipliers["AirborneChargedAttack"] / 100)
+onready var thrust_attack_power :float = Global.attack_power * (Global.player_skill_multipliers["ThrustChargedAttack"] / 100)
+
 
 # when a flash appears after the 3rd string of basic attack, tap to thrust through enemies
 # this can be broken if enemy hits you first
 
 func move_sheath(node_name : String, layer : int):
 	move_child(get_node(node_name), layer)
-
+	
 func _ready():
 	
 
@@ -130,7 +132,7 @@ func _ready():
 	$AttackCollision.add_to_group(str(basic_attack_power))
 	$ChargedAttackCollision.add_to_group(str(charged_attack_power))
 	$UpwardsChargedAttackCollision.add_to_group(str(upwards_and_downwards_charged_attack_power))
-
+	$ThrustEffectArea.add_to_group(str(thrust_attack_power))
 	$OxygenBar.value = 100
 	$ChargeBar.value = 0
 	$SwordSprite.visible = false
@@ -205,6 +207,7 @@ func switched_in(character):
 
 # WOO YEAH BABY
 func quickswap_attack():
+	
 	print("QUICKSWAP TRIGGERED")
 	
 
@@ -533,7 +536,7 @@ func attack():
 
 func _input(event):
 	if Global.current_character == "Player":
-		if event.is_action_pressed("ui_attack") and $InputPressTimer.is_stopped():
+		if event.is_action_pressed("ui_attack") and $InputPressTimer.is_stopped() and !is_quickswap_attacking:
 
 			attack()
 			$InputPressTimer.start()
@@ -544,7 +547,7 @@ func _input(event):
 	
 func charged_attack():
 	$InputPressTimer.stop()
-
+	
 	is_doing_charged_attack = true
 	if !$Sprite.flip_h:
 		$AnimationPlayer.play("ChargedAttackRight")
@@ -936,8 +939,9 @@ func _on_AttackCollision_area_entered(area):
 #			attack_knock()
 #			freeze_enemy()
 			if Global.current_character == "Player":
-				if area.is_in_group("Enemy"):
+				if area.is_in_group("Enemy") and $ManaRegenDelay.is_stopped():
 					change_mana_value(0.25)
+					$ManaRegenDelay.start()
 				var hitparticle = SWORD_HIT_PARTICLE.instance()
 				var slashparticle = SWORD_SLASH_EFFECT.instance()
 				hitparticle.emitting = true
@@ -1051,12 +1055,15 @@ func dash():
 				$AirborneMaxDuration.start()
 			if perfect_dash and !airborne_mode and is_on_floor() and !Input.is_action_pressed("left") and !Input.is_action_pressed("right"):
 #				is_invulnerable = true
+				
 				velocity.y = 0
 				$Sprite.play("PerfectDash")
 				velocity = dashdirection.normalized() * -2000
+				$EnergyMeter.value += 50
 				can_use_slash_flurry = true
 
 			else:
+				$EnergyMeter.value += 10
 				velocity.y = 0
 				$Sprite.play("Dash")
 				velocity = dashdirection.normalized() * 2000
@@ -1070,8 +1077,11 @@ func dash():
 			is_dashing = false
 
 func thrust_attack():
+	$ThrustEffectArea/CollisionShape2D.disabled = false
 	is_thrust_attacking = true
+	is_invulnerable = true
 	var thrustdirection : Vector2
+	cam_shake = true
 	var swordslash = SWORD_SLASH_EFFECT.instance()
 	if !$Sprite.flip_h:
 		thrustdirection = Vector2(1,0)
@@ -1091,18 +1101,24 @@ func thrust_attack():
 	swordslash.horizontal_slash_animation()
 	Input.action_release("jump")
 	velocity.y = 0
+
 	$Sprite.play("Dash")
 	$SlashEffectPlayer.play("HorizontalSlash")
-	velocity = thrustdirection.normalized() * 2500
+	velocity = thrustdirection.normalized() * 3000
 	is_thrust_attacking = false
+	yield(get_tree().create_timer(0.2), "timeout")
+	cam_shake = false
+	is_invulnerable = false
+	$ThrustEffectArea/CollisionShape2D.disabled = true
 
 		
 func knock_airborne(target):
 	if target and weakref(target).get_ref() != null and !target.is_in_group("IsAirborne") and !target.get_parent().is_in_group("Armored"):
-		if $KnockAirborneICD.is_stopped():
+		if $KnockAirborneICD.is_stopped() and $EnergyMeter.value >= 25:
 			var airborne_status := AIRBORNE_STATUS.instance()
 			target.get_parent().add_child(airborne_status)
 			$KnockAirborneICD.start()
+			$EnergyMeter.value -= 10
 
 #func glide():
 #	if Global.glide_unlocked and Input.is_action_just_pressed("toggle_glider"):
@@ -1486,15 +1502,36 @@ func _on_EnemyEvasionArea_area_entered(area):
 func _on_AttackCollision_area_exited(area):
 	if area.is_in_group("Enemy"):
 		attack_area_overlaps_enemy = false
-
+		
 
 func _on_InputPressTimer_timeout():
-	if !Input.is_action_pressed("ui_dash"):
+	if !Input.is_action_pressed("ui_dash") and !is_quickswap_attacking:
 		if Input.is_action_pressed("ui_up"):
-			upwards_charged_attack()
+			if $EnergyMeter.value >= 10:
+				# energy value is substracted on the upwards_charged_attack function
+				upwards_charged_attack()
 		elif attack_string_count < 2 and !Input.is_action_pressed("ui_up"):
-			thrust_attack()
+			if !airborne_mode:
+				if $EnergyMeter.value >= 50:
+					$EnergyMeter.value -= 50
+					thrust_attack()
+			else:
+				if $EnergyMeter.value >= 25:
+					$EnergyMeter.value -= 25
+					thrust_attack()
 		else:
-			charged_attack()
+			if !airborne_mode:
+				if $EnergyMeter.value >= 50:
+					$EnergyMeter.value -= 50
+					charged_attack()
+			else:
+				if $EnergyMeter.value >= 25:
+					$EnergyMeter.value -= 25
+					charged_attack()
 			
 
+
+
+func _on_EnergyMeterRegen_timeout():
+	if !airborne_mode:
+		$EnergyMeter.value += 10
