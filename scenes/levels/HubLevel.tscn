@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=2]
+[gd_scene load_steps=44 format=2]
 
 [ext_resource path="res://tilesets/HubLevelTileset.tres" type="TileSet" id=1]
 [ext_resource path="res://assets/terrain/deep_woods/background_deep_woods.png" type="Texture" id=2]
@@ -8,7 +8,6 @@
 [ext_resource path="res://scenes/items/LootBag.tscn" type="PackedScene" id=6]
 [ext_resource path="res://scenes/menus/FPSCounter.tscn" type="PackedScene" id=7]
 [ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=8]
-[ext_resource path="res://scenes/enemies/bosses/Arrow.tscn" type="PackedScene" id=9]
 [ext_resource path="res://scenes/menus/OpalsUI.tscn" type="PackedScene" id=10]
 [ext_resource path="res://scenes/levels/hublevel/DungeonEntrance.tscn" type="PackedScene" id=11]
 [ext_resource path="res://scenes/menus/DebugMenu.tscn" type="PackedScene" id=12]
@@ -332,11 +331,7 @@ position = Vector2( 1014, 614.447 )
 position = Vector2( 1180.94, 610.447 )
 
 [node name="Goblin3" parent="." instance=ExtResource( 44 )]
-position = Vector2( 426.474, 605.024 )
+position = Vector2( 682.094, 608.959 )
 
 [node name="LootBag" parent="." instance=ExtResource( 6 )]
 position = Vector2( 924.549, 512.025 )
-
-[node name="Arrow" parent="." instance=ExtResource( 9 )]
-position = Vector2( 900, 602 )
-x_direction = -1

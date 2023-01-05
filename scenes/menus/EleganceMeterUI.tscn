@@ -1,86 +1,42 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://scripts/ui/EleganceMeterUI.gd" type="Script" id=1]
 [ext_resource path="res://assets/UI/elegance_sss_tier.png" type="Texture" id=2]
-[ext_resource path="res://assets/UI/elegance_c_tier_background.png" type="Texture" id=3]
-[ext_resource path="res://assets/UI/elegance_s_tier_background.png" type="Texture" id=4]
-[ext_resource path="res://assets/UI/elegance_s_tier.png" type="Texture" id=5]
-[ext_resource path="res://assets/UI/elegance_b_tier.png" type="Texture" id=6]
-[ext_resource path="res://assets/UI/elegance_ss_tier_background.png" type="Texture" id=7]
-[ext_resource path="res://assets/UI/elegance_b_tier_background.png" type="Texture" id=8]
-[ext_resource path="res://assets/UI/elegance_ss_tier.png" type="Texture" id=9]
-[ext_resource path="res://assets/UI/elegance_a_tier.png" type="Texture" id=10]
-[ext_resource path="res://assets/UI/elegance_a_tier_background.png" type="Texture" id=11]
-[ext_resource path="res://assets/UI/elegance_c_tier.png" type="Texture" id=12]
 [ext_resource path="res://assets/UI/elegance_sss_tier_background.png" type="Texture" id=13]
 
 [node name="EleganceMeterUI" type="CanvasLayer"]
 
 [node name="Control" type="Control" parent="."]
-anchor_right = 0.019
-margin_right = 19.48
-margin_bottom = 40.0
+anchor_left = 0.904
+anchor_top = 0.815
+anchor_right = 0.904
+anchor_bottom = 0.815
+margin_left = -976.32
+margin_top = -586.8
+margin_right = -936.32
+margin_bottom = -546.8
 script = ExtResource( 1 )
 
-[node name="EleganceGaugeC" type="TextureProgress" parent="Control"]
-visible = false
-margin_left = 950.0
-margin_top = 475.0
-margin_right = 974.0
-margin_bottom = 499.0
-rect_scale = Vector2( 4, 4 )
-max_value = 50.0
-texture_under = ExtResource( 3 )
-texture_progress = ExtResource( 12 )
-
-[node name="EleganceGaugeB" type="TextureProgress" parent="Control"]
-visible = false
-margin_left = 950.0
-margin_top = 475.0
-margin_right = 974.0
-margin_bottom = 499.0
-rect_scale = Vector2( 4, 4 )
-max_value = 75.0
-texture_under = ExtResource( 8 )
-texture_progress = ExtResource( 6 )
-
-[node name="EleganceGaugeA" type="TextureProgress" parent="Control"]
-visible = false
-margin_left = 950.0
-margin_top = 475.0
-margin_right = 974.0
-margin_bottom = 499.0
-rect_scale = Vector2( 4, 4 )
-max_value = 125.0
-texture_under = ExtResource( 11 )
-texture_progress = ExtResource( 10 )
-
-[node name="EleganceGaugeS" type="TextureProgress" parent="Control"]
-visible = false
-margin_left = 950.0
-margin_top = 475.0
-margin_right = 974.0
-margin_bottom = 499.0
-rect_scale = Vector2( 4, 4 )
-texture_under = ExtResource( 4 )
-texture_progress = ExtResource( 5 )
-
-[node name="EleganceGaugeSS" type="TextureProgress" parent="Control"]
-visible = false
-margin_left = 950.0
-margin_top = 475.0
-margin_right = 978.0
-margin_bottom = 503.0
-rect_scale = Vector2( 4, 4 )
-texture_under = ExtResource( 7 )
-texture_progress = ExtResource( 9 )
-
-[node name="EleganceGaugeSSS" type="TextureProgress" parent="Control"]
-visible = false
-margin_left = 915.0
-margin_top = 475.0
-margin_right = 955.0
-margin_bottom = 515.0
-rect_scale = Vector2( 4, 4 )
+[node name="EleganceGauge" type="TextureProgress" parent="Control"]
+anchor_left = 24.375
+anchor_top = 15.65
+anchor_right = 24.375
+anchor_bottom = 15.65
+margin_left = -95.9999
+margin_top = -102.0
+margin_right = -56.0
+margin_bottom = -62.0
+rect_scale = Vector2( 5, 5 )
 texture_under = ExtResource( 13 )
 texture_progress = ExtResource( 2 )
+
+[node name="DecayTimer" type="Timer" parent="Control"]
+wait_time = 0.2
+one_shot = true
+autostart = true
+
+[node name="ComboHitCount" type="Label" parent="Control"]
+margin_right = 40.0
+margin_bottom = 14.0
+
+[connection signal="timeout" from="Control/DecayTimer" to="Control" method="_on_DecayTimer_timeout"]

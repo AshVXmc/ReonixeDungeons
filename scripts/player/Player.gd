@@ -15,6 +15,7 @@ signal perfect_dash()
 signal action(action_type)
 signal trigger_quickswap(trigger_name)
 signal ready_to_be_switched_in(character)
+signal change_elegance(action_name)
 var target
 var can_use_slash_flurry : bool = false
 var attack_area_overlaps_enemy : bool 
@@ -66,7 +67,7 @@ const STRONG_JUMP_PARTICLE : PackedScene = preload("res://scenes/particles/Stron
 const WATER_JUMP_PARTICLE : PackedScene = preload("res://scenes/particles/WaterBubbleParticle.tscn")
 const DASH_PARTICLE : PackedScene = preload("res://scenes/particles/DashParticle.tscn")
 const SWORD_PARTICLE : PackedScene = preload("res://scenes/particles/SwordSwingParticle.tscn")
-
+const GLACIELA_PUPPET : PackedScene = preload("res://scenes/characters/GlacielaPuppet.tscn")
 const GROUND_POUND_PARTICLE : PackedScene = preload("res://scenes/particles/GroundPoundParticle.tscn")
 const SUPER_SLASH_PROJECTILE : PackedScene = preload("res://scenes/misc/SuperSlashProjectile.tscn")
 const SWORD_HIT_PARTICLE : PackedScene = preload("res://scenes/particles/SwordHitParticle.tscn")
@@ -97,7 +98,8 @@ var airborne_mode : bool = false
 var mana_absorption_counter_max : int = 3
 var mana_absorption_counter : int = mana_absorption_counter_max
 var restore_mana_for_all_parties : int = 2
-var attack_buff : float
+var ATTACK : float = Global.attack_power
+var attack_buff : float setget set_attack_buff_value
 var basic_attack_buff : float
 var charged_attack_buff : float 
 var attack_string_count : int = 4
@@ -122,10 +124,13 @@ onready var thrust_attack_power :float = Global.attack_power * (Global.player_sk
 
 func move_sheath(node_name : String, layer : int):
 	move_child(get_node(node_name), layer)
-	
+
+func set_attack_buff_value(new_value):
+	attack_buff = new_value
+	ATTACK = Global.attack_power + attack_buff
+
 func _ready():
 	
-
 	if Global.current_character == "Player":
 		$Sprite.visible = true
 	$SlashEffectSprite.visible = false
@@ -137,6 +142,7 @@ func _ready():
 	$ChargeBar.value = 0
 	$SwordSprite.visible = false
 	$ChargeBar.visible = false
+	connect("change_elegance", get_parent().get_node("EleganceMeterUI/Control"), "elegance_changed")
 	connect("ready_to_be_switched_in", get_parent().get_node("SkillsUI/Control"), "flicker_icon")
 	connect("action", Global, "parse_action")
 	connect("perfect_dash", get_parent().get_node("PauseUI/PerfectDash"), "trigger_perfect_dash_animation")
@@ -207,7 +213,9 @@ func switched_in(character):
 
 # WOO YEAH BABY
 func quickswap_attack():
-	
+	var gp = GLACIELA_PUPPET.instance()
+	get_parent().add_child(gp)
+	gp.position = global_position
 	print("QUICKSWAP TRIGGERED")
 	
 
@@ -225,6 +233,10 @@ func get_closest_enemy() -> Node2D:
 	return closest_enemy
 	
 func _physics_process(_delta):
+	if Global.current_character == "Player":
+		$EnergyMeter.visible = true
+	else:
+		$EnergyMeter.visible = false
 	if !$Sprite.flip_h:
 		$KatanaSheathPlayer.play("RightDefault")
 	else:
@@ -380,7 +392,31 @@ func _physics_process(_delta):
 	if Global.current_character != "Player":
 		mana_absorption_counter = mana_absorption_counter_max
 		restore_mana_for_all_parties = 2
+		
 
+
+func set_attack_power(type : String ,amount : float, duration : float, show_particles : bool = true):
+		buffed_from_attack_crystals = true
+		number_of_atk_buffs += 1
+		
+		var other_groups : Array
+		prev_attack_power.insert((number_of_atk_buffs - 1),attack_buff ) 
+		print(prev_attack_power)
+		if type == "Flat":
+			attack_buff = prev_attack_power[number_of_atk_buffs - 1] + amount
+			set_attack_buff_value(attack_buff)
+		elif type == "Percentage":
+			attack_buff = prev_attack_power[number_of_atk_buffs - 1] + ((amount / 100) * Global.attack_power)
+			set_attack_buff_value(attack_buff)
+			
+		print("Buffed: " + str(attack_buff))
+		yield(get_tree().create_timer(duration), "timeout")
+		attack_buff = prev_attack_power[number_of_atk_buffs - 1]
+		set_attack_buff_value(attack_buff)
+		print("DeBuffed: " + str(prev_attack_power[number_of_atk_buffs - 1]))
+		number_of_atk_buffs -= 1
+		prev_attack_power.remove(number_of_atk_buffs)
+		buffed_from_attack_crystals = false
 
 
 func set_basic_attack_power(amount : float, duration : float, show_particles : bool = true):
@@ -400,22 +436,7 @@ func set_basic_attack_power(amount : float, duration : float, show_particles : b
 		
 		buffed_from_attack_crystals = false
 
-func set_attack_power(amount : float, duration : float, show_particles : bool = true):
-		buffed_from_attack_crystals = true
-		number_of_atk_buffs += 1
-		
-		var other_groups : Array
-		prev_attack_power.insert((number_of_atk_buffs - 1), attack_buff) 
-		print(prev_attack_power)
-		attack_buff = prev_attack_power[number_of_atk_buffs - 1] + amount
-		
-		print("Buffed: " + str(attack_buff))
-		yield(get_tree().create_timer(duration), "timeout")
-		attack_buff = prev_attack_power[number_of_atk_buffs - 1]
-		print("DeBuffed: " + str(prev_attack_power[number_of_atk_buffs - 1]))
-		number_of_atk_buffs -= 1
-		prev_attack_power.remove(number_of_atk_buffs)
-		buffed_from_attack_crystals = false
+
 		
 func set_charged_attack_power(amount : float, duration : float, show_particles : bool = true):
 		buffed_from_attack_crystals = true
@@ -545,7 +566,7 @@ func _input(event):
 
 
 	
-func charged_attack():
+func charged_attack(type : String = "Ground"):
 	$InputPressTimer.stop()
 	
 	is_doing_charged_attack = true
@@ -556,73 +577,85 @@ func charged_attack():
 	yield(get_tree().create_timer(0.35), "timeout")
 	$AirborneTimer.start()
 
-	$ChargedAttackCollision/CollisionShape2D.disabled = false
+
 	
 	print("normal charged attack")
-	
 	Input.action_release("charge")
-	if !airborne_mode:
+	
+	if type == "Ground":
 		var ss_projectile = SUPER_SLASH_PROJECTILE.instance()
 		ss_projectile.position = $Position2D.global_position
 		get_parent().add_child(ss_projectile)
 		if $Sprite.flip_h:
 			ss_projectile.flip_projectile(-1)
-	
-	var hitparticle = SWORD_HIT_PARTICLE.instance()
-
-	hitparticle.emitting = true
-	get_parent().add_child(hitparticle)
-	hitparticle.position = $Position2D.global_position
-
-	if airborne_mode and $SlashFlurryCD.is_stopped():
+		for n in $ChargedAttackCollision.get_groups():
+			if float(n) != 0:
+				$ChargedAttackCollision.remove_from_group(n)
+				$ChargedAttackCollision.add_to_group(str(ATTACK * (Global.player_skill_multipliers["ChargedAttack"] / 100)))
+		$ChargedAttackCollision/CollisionShape2D.disabled = false
+		
+	elif type == "Aerial" and $SlashFlurryCD.is_stopped():
 		velocity.y = 0
-		var slashparticle = SWORD_SLASH_EFFECT.instance()
+		
 		var flurry = SLASH_FLURRY_AREA.instance()
 		flurry.add_to_group("Sword")
-		var atkvalue = Global.player_skill_multipliers["AirborneChargedAttack"] # + airbornechargedatkbuff
-		flurry.add_to_group(str(atkvalue))
-		get_parent().add_child(slashparticle)
-		get_parent().add_child(flurry)
+		flurry.get_node("FinalSlashArea").add_to_group("Sword")
+		flurry.add_to_group(str(ATTACK * (Global.player_skill_multipliers["AirborneChargedAttack"] / 100)))
+		flurry.get_node("FinalSlashArea").add_to_group(str(ATTACK * (Global.player_skill_multipliers["AirborneChargedAttackFinalStrike"] / 100)))
+		get_parent().get_parent().add_child(flurry)
 		if weakref(get_closest_enemy()).get_ref() != null and $SlashFlurryDetector.overlaps_body(get_closest_enemy()):
 			flurry.position = get_closest_enemy().global_position
-			slashparticle.position = flurry.global_position
+			
 		else:
 			if !$Sprite.flip_h:
 				flurry.position.x = global_position.x + 150
 				flurry.position.y = global_position.y
-				slashparticle.position = flurry.global_position
+			
 			else:
 				flurry.position.x = global_position.x - 150
 				flurry.position.y = global_position.y
-				slashparticle.position = flurry.global_position
+			
 		cam_shake = true
 		if !$Sprite.flip_h:
 			dashdirection = Vector2(1,0)
 		if $Sprite.flip_h:
 			dashdirection = Vector2(-1, 0)
 		velocity = dashdirection.normalized() * -250
-		slashparticle.flurry_slash_animation()
+		
+		var num_of_slashes : int = 1
+		while num_of_slashes < 6:
+			var slashparticle = SWORD_SLASH_EFFECT.instance()
+			get_parent().add_child(slashparticle)
+			slashparticle.position = flurry.global_position
+		
+			slashparticle.flurry_slash_animation(num_of_slashes)
+			num_of_slashes += 1
+		
+		
+		
 		$SlashFlurryCD.start()
-		yield(get_tree().create_timer(0.5), "timeout")
+		yield(get_tree().create_timer(1), "timeout")
 		cam_shake = false
-	if !airborne_mode:
-		cam_shake = true
-		yield(get_tree().create_timer(0.25), "timeout")
-		cam_shake = false
-
+	
+	var hitparticle = SWORD_HIT_PARTICLE.instance()
+	hitparticle.emitting = true
+	get_parent().add_child(hitparticle)
+	hitparticle.position = $Position2D.global_position
+	cam_shake = true
+	yield(get_tree().create_timer(0.25), "timeout")
+	cam_shake = false
 	var dash_particle = DASH_PARTICLE.instance()
 	get_parent().add_child(dash_particle)
 	dash_particle.position = $Position2D.global_position
 	dash_particle.emitting = true
 	dash_particle.one_shot = true
-	
 	yield(get_tree().create_timer(0.1), "timeout")
-
 	$ChargedAttackCollision/CollisionShape2D.disabled = true
 	is_doing_charged_attack = false
 	attack_string_count = 4
 	is_charging = false
 	Input.action_release("ui_attack")
+
 func charge_meter():
 	if Global.current_character == "Player":
 		if Input.is_action_just_released("ui_attack"):
@@ -658,36 +691,41 @@ func charge_meter():
 func upwards_charged_attack():
 	if target and target != null and weakref(target).get_ref() != null: 
 		if target.get_node("Area2D").overlaps_area($ChargedAttackDetector) and !target.get_node("Area2D").is_in_group("IsAirborne"):
-			attack_string_count = 4
-			$UpwardsChargedAttackCollision/CollisionShape2D.disabled = false
-			resist_interruption = true
-			print("Up charged attack")
-			is_charging = false
-#			airborne_mode = false
-			is_doing_charged_attack = true
-			cam_shake = true
 			knock_airborne(target.get_node("Area2D"))
-			velocity.y = 0
-			velocity.y = -1065
-			var sjp = STRONG_JUMP_PARTICLE.instance()
-			get_parent().add_child(sjp)
-			sjp.position = $ParticlePosition.global_position
-			sjp.emitting = true
-			if !$Sprite.flip_h:
-				$AnimationPlayer.play("KnockUpChargedAttackRight")
-				yield(get_tree().create_timer(0.2), "timeout")
-				$AnimationPlayer.play("KnockUpChargedAttackRight")
-			else:
-				$AnimationPlayer.play("KnockUpChargedAttackLeft")
-				yield(get_tree().create_timer(0.2), "timeout")
-				$AnimationPlayer.play("KnockUpChargedAttackLeft")
-			is_doing_charged_attack = false
-			Input.action_release("ui_attack")
-			$AirborneTimer.start()
-			$UpwardsChargedAttackCollision/CollisionShape2D.disabled = true
-			cam_shake = false
-			yield(get_tree().create_timer(0.15), "timeout")
-			resist_interruption = false
+			
+	attack_string_count = 4
+	for n in $UpwardsChargedAttackCollision.get_groups():
+		if float(n) != 0:
+			$UpwardsChargedAttackCollision.remove_from_group(n)
+			$UpwardsChargedAttackCollision.add_to_group(str(ATTACK * (Global.player_skill_multipliers["UpwardsorDownwardsChargedAttack"] / 100)))
+	$UpwardsChargedAttackCollision/CollisionShape2D.disabled = false	
+	resist_interruption = true
+	print("Up charged attack")
+	is_charging = false
+#			airborne_mode = false
+	is_doing_charged_attack = true
+	cam_shake = true
+	velocity.y = 0
+	velocity.y = -1065
+	var sjp = STRONG_JUMP_PARTICLE.instance()
+	get_parent().add_child(sjp)
+	sjp.position = $ParticlePosition.global_position
+	sjp.emitting = true
+	if !$Sprite.flip_h:
+		$AnimationPlayer.play("KnockUpChargedAttackRight")
+		yield(get_tree().create_timer(0.2), "timeout")
+		$AnimationPlayer.play("KnockUpChargedAttackRight")
+	else:
+		$AnimationPlayer.play("KnockUpChargedAttackLeft")
+		yield(get_tree().create_timer(0.2), "timeout")
+		$AnimationPlayer.play("KnockUpChargedAttackLeft")
+	is_doing_charged_attack = false
+	Input.action_release("ui_attack")
+	$AirborneTimer.start()
+	$UpwardsChargedAttackCollision/CollisionShape2D.disabled = true
+	cam_shake = false
+	yield(get_tree().create_timer(0.15), "timeout")
+	resist_interruption = false
 #			airborne_mode = true
 	
 				
@@ -705,10 +743,10 @@ func play_attack_animation(direction : String):
 					if float(groups) != 0:
 						$AttackCollision.remove_from_group(groups)
 						if !airborne_mode:
-							$AttackCollision.add_to_group(str(Global.attack_power * (Global.player_skill_multipliers["BasicAttack"] / 100) + basic_attack_buff))
+							$AttackCollision.add_to_group(str(ATTACK * (Global.player_skill_multipliers["BasicAttack"] / 100)))
 							print("a")
 						else:
-							$AttackCollision.add_to_group(str(Global.attack_power * (Global.player_skill_multipliers["AirborneBasicAttack"] / 100) + basic_attack_buff))
+							$AttackCollision.add_to_group(str(ATTACK * (Global.player_skill_multipliers["AirborneBasicAttack"] / 100)))
 							print("b")
 						break
 				
@@ -721,9 +759,9 @@ func play_attack_animation(direction : String):
 					if float(groups) != 0:
 						$AttackCollision.remove_from_group(groups)
 						if !airborne_mode:
-							$AttackCollision.add_to_group(str(Global.attack_power * (Global.player_skill_multipliers["BasicAttack2"] / 100) + basic_attack_buff))
+							$AttackCollision.add_to_group(str(ATTACK * (Global.player_skill_multipliers["BasicAttack2"] / 100)))
 						else:
-							$AttackCollision.add_to_group(str(Global.attack_power * (Global.player_skill_multipliers["AirborneBasicAttack2"] / 100) + basic_attack_buff))
+							$AttackCollision.add_to_group(str(ATTACK * (Global.player_skill_multipliers["AirborneBasicAttack2"] / 100)))
 						break
 			2:
 				$AnimationPlayer.play("SwordSwingRight3")
@@ -734,9 +772,9 @@ func play_attack_animation(direction : String):
 					if float(groups) != 0:
 						$AttackCollision.remove_from_group(groups)
 						if !airborne_mode:
-							$AttackCollision.add_to_group(str(Global.attack_power * (Global.player_skill_multipliers["BasicAttack3"] / 100) + basic_attack_buff))
+							$AttackCollision.add_to_group(str(ATTACK * (Global.player_skill_multipliers["BasicAttack3"] / 100)))
 						else:
-							$AttackCollision.add_to_group(str(Global.attack_power * (Global.player_skill_multipliers["AirborneBasicAttack3"] / 100) + basic_attack_buff))
+							$AttackCollision.add_to_group(str(ATTACK * (Global.player_skill_multipliers["AirborneBasicAttack3"] / 100)))
 						break
 			1:
 				$AnimationPlayer.play("SwordSwingRight4")
@@ -746,9 +784,9 @@ func play_attack_animation(direction : String):
 					if float(groups) != 0:
 						$AttackCollision.remove_from_group(groups)
 						if !airborne_mode:
-							$AttackCollision.add_to_group(str(Global.attack_power * (Global.player_skill_multipliers["BasicAttack4"] / 100) + basic_attack_buff))
+							$AttackCollision.add_to_group(str(ATTACK * (Global.player_skill_multipliers["BasicAttack4"] / 100)))
 						else:
-							$AttackCollision.add_to_group(str(Global.attack_power * (Global.player_skill_multipliers["AirborneBasicAttack4"] / 100) + basic_attack_buff))
+							$AttackCollision.add_to_group(str(ATTACK * (Global.player_skill_multipliers["AirborneBasicAttack4"] / 100)))
 						break
 				yield(get_tree().create_timer($MeleeTimer.wait_time), "timeout")
 				attack_string_count = 4
@@ -763,9 +801,9 @@ func play_attack_animation(direction : String):
 					if float(groups) != 0:
 						$AttackCollision.remove_from_group(groups)
 						if !airborne_mode:
-							$AttackCollision.add_to_group(str(Global.attack_power * (Global.player_skill_multipliers["BasicAttack"] / 100) + basic_attack_buff))
+							$AttackCollision.add_to_group(str(ATTACK * (Global.player_skill_multipliers["BasicAttack"] / 100)))
 						else:
-							$AttackCollision.add_to_group(str(Global.attack_power * (Global.player_skill_multipliers["AirborneBasicAttack"] / 100) + basic_attack_buff))
+							$AttackCollision.add_to_group(str(ATTACK * (Global.player_skill_multipliers["AirborneBasicAttack"] / 100)))
 						break
 				
 			3:
@@ -776,9 +814,9 @@ func play_attack_animation(direction : String):
 					if float(groups) != 0:
 						$AttackCollision.remove_from_group(groups)
 						if !airborne_mode:
-							$AttackCollision.add_to_group(str(Global.attack_power * (Global.player_skill_multipliers["BasicAttack2"] / 100) + basic_attack_buff))
+							$AttackCollision.add_to_group(str(ATTACK * (Global.player_skill_multipliers["BasicAttack2"] / 100)))
 						else:
-							$AttackCollision.add_to_group(str(Global.attack_power * (Global.player_skill_multipliers["AirborneBasicAttack2"] / 100) + basic_attack_buff))
+							$AttackCollision.add_to_group(str(ATTACK * (Global.player_skill_multipliers["AirborneBasicAttack2"] / 100)))
 						break
 			2:
 				$AnimationPlayer.play("SwordSwingLeft3")
@@ -788,9 +826,9 @@ func play_attack_animation(direction : String):
 					if float(groups) != 0:
 						$AttackCollision.remove_from_group(groups)
 						if !airborne_mode:
-							$AttackCollision.add_to_group(str(Global.attack_power * (Global.player_skill_multipliers["BasicAttack3"] / 100) + basic_attack_buff))
+							$AttackCollision.add_to_group(str(ATTACK * (Global.player_skill_multipliers["BasicAttack3"] / 100)))
 						else:
-							$AttackCollision.add_to_group(str(Global.attack_power * (Global.player_skill_multipliers["AirborneBasicAttack3"] / 100) + basic_attack_buff))
+							$AttackCollision.add_to_group(str(ATTACK * (Global.player_skill_multipliers["AirborneBasicAttack3"] / 100)))
 						break
 			1:
 				$AnimationPlayer.play("SwordSwingLeft4")
@@ -800,9 +838,9 @@ func play_attack_animation(direction : String):
 					if float(groups) != 0:
 						$AttackCollision.remove_from_group(groups)
 						if !airborne_mode:
-							$AttackCollision.add_to_group(str(Global.attack_power * (Global.player_skill_multipliers["BasicAttack4"] / 100) + basic_attack_buff))
+							$AttackCollision.add_to_group(str(ATTACK * (Global.player_skill_multipliers["BasicAttack4"] / 100)))
 						else:
-							$AttackCollision.add_to_group(str(Global.attack_power * (Global.player_skill_multipliers["AirborneBasicAttack4"] / 100) + basic_attack_buff))
+							$AttackCollision.add_to_group(str(ATTACK * (Global.player_skill_multipliers["AirborneBasicAttack4"] / 100)))
 						break
 				yield(get_tree().create_timer($MeleeTimer.wait_time), "timeout")
 				attack_string_count = 4
@@ -867,7 +905,8 @@ func _on_Area2D_area_entered(area : Area2D):
 		if area.is_in_group("AttackBuff"):
 			atkbuffmulti = area.amount
 			atkbuffdur = area.duration
-			set_attack_power(float(atkbuffmulti), float(atkbuffdur))
+			
+			set_attack_power(area.type, float(atkbuffmulti), float(atkbuffdur))
 func take_damage(damage : float):
 	if Global.current_character == "Player":
 		if Global.equipped_characters[0] == "Player":
@@ -940,6 +979,8 @@ func _on_AttackCollision_area_entered(area):
 #			freeze_enemy()
 			if Global.current_character == "Player":
 				if area.is_in_group("Enemy") and $ManaRegenDelay.is_stopped():
+					$EnergyMeter.value += 10
+					emit_signal("change_elegance", 25)
 					change_mana_value(0.25)
 					$ManaRegenDelay.start()
 				var hitparticle = SWORD_HIT_PARTICLE.instance()
@@ -1030,7 +1071,7 @@ func dash():
 	
 	if Global.dash_unlocked and !is_frozen and !is_thrust_attacking:
 		
-		if is_on_floor() and $DashUseTimer.is_stopped():
+		if $DashUseTimer.is_stopped():
 			can_dash = true
 		if !$Sprite.flip_h:
 			dashdirection = Vector2(1,0)
@@ -1077,7 +1118,12 @@ func dash():
 			is_dashing = false
 
 func thrust_attack():
+	for n in $ThrustEffectArea.get_groups():
+		if float(n) != 0:
+			$ThrustEffectArea.remove_from_group(n)
+			$ThrustEffectArea.add_to_group(str(ATTACK * (Global.player_skill_multipliers["ThrustChargedAttack"] / 100)))
 	$ThrustEffectArea/CollisionShape2D.disabled = false
+	
 	is_thrust_attacking = true
 	is_invulnerable = true
 	var thrustdirection : Vector2
@@ -1507,31 +1553,28 @@ func _on_AttackCollision_area_exited(area):
 func _on_InputPressTimer_timeout():
 	if !Input.is_action_pressed("ui_dash") and !is_quickswap_attacking:
 		if Input.is_action_pressed("ui_up"):
-			if $EnergyMeter.value >= 10:
+			if $EnergyMeter.value >= 25:
+				$EnergyMeter.value -= 25
 				# energy value is substracted on the upwards_charged_attack function
 				upwards_charged_attack()
-		elif attack_string_count < 2 and !Input.is_action_pressed("ui_up"):
-			if !airborne_mode:
-				if $EnergyMeter.value >= 50:
-					$EnergyMeter.value -= 50
-					thrust_attack()
+		elif !Input.is_action_pressed("ui_up"):
+			if airborne_mode:
+				if attack_string_count < 2 and $EnergyMeter.value >= 20:
+					if $EnergyMeter.value >= 80:
+						$EnergyMeter.value -= 80
+						charged_attack("Aerial")
+				else:
+					if $EnergyMeter.value >= 20:
+						$EnergyMeter.value -= 20
+						thrust_attack()
+					
 			else:
 				if $EnergyMeter.value >= 25:
 					$EnergyMeter.value -= 25
-					thrust_attack()
-		else:
-			if !airborne_mode:
-				if $EnergyMeter.value >= 50:
-					$EnergyMeter.value -= 50
-					charged_attack()
-			else:
-				if $EnergyMeter.value >= 25:
-					$EnergyMeter.value -= 25
-					charged_attack()
-			
+					charged_attack("Ground")
 
 
 
 func _on_EnergyMeterRegen_timeout():
 	if !airborne_mode:
-		$EnergyMeter.value += 10
+		$EnergyMeter.value += 12

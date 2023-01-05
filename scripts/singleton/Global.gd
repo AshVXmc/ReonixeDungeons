@@ -5,23 +5,11 @@ var max_hearts : float = 3
 var hearts : float = max_hearts
 var character_2_max_hearts : float = 3
 var character_3_max_hearts : float = 3
-var elegance_meter : int = 0 setget set_elegance_value
-var elegance_rank 
 
 
 func _ready():
 	print(Time.get_date_dict_from_system())
-func set_elegance_value(new_value):
-	elegance_meter = new_value
-	print("elegance rating increased")
-var RANKS : Dictionary = {
-	C = "C",
-	B = "B",
-	A = "A",
-	S = "S",
-	SS = "SS",
-	SSS = "SSS"
-}
+
 
 # C tier has 50, B tier has 75, A tier has 125, S tier has 175, SS has 200 SSS has 250
 
@@ -43,14 +31,15 @@ var player_skill_multipliers : Dictionary = {
 	"ChargedAttack": 60.0,
 	"ThrustChargedAttack": 37.5,
 	"UpwardsorDownwardsChargedAttack": 30.0,
-	"AirborneChargedAttack": 18.0, 
+	"AirborneChargedAttack": 20.0, 
+	"AirborneChargedAttackFinalStrike": 45.0,
 	"AirborneBasicAttack": 35.0,
 	"AirborneBasicAttack2": 30.0,
 	"AirborneBasicAttack3": 45.0,
 	"AirborneBasicAttack4": 55.0,
 	"FireSaw": 35.0,
 	"FireFairy": 22.0,
-	"FireSawCost": 1,
+	"FireSawCost": 12,
 	"FireFairyCost": 3,
 	"FireSawCD": 12.0,
 	"FireFairyCD": 8.0,

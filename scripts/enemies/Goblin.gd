@@ -204,12 +204,7 @@ func _on_Area2D_area_entered(area):
 						else:
 							parse_damage()
 						break
-		if area.is_in_group("SmallEleganceValue"):
-			Global.elegance_meter += 8
-		if area.is_in_group("MediumEleganceValue"):
-			Global.elegance_meter += 12
-		if area.is_in_group("LargeEleganceValue"):
-			Global.elegance_meter += 8
+
 		if area.is_in_group("FireGauge"):
 			pass
 		if area.is_in_group("Burning"):

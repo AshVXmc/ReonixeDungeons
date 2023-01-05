@@ -36,14 +36,14 @@ func on_skill_used(skill_name : String, attack_bonus : float = 0):
 			fireparticle.emitting = true
 			fireparticle.one_shot = false
 			if !Global.godmode:
-				if Global.equipped_characters[0] == "Player" and Global.mana >= 6:
-					Global.mana -= 6
+				if Global.equipped_characters[0] == "Player" and Global.mana >= Global.player_skill_multipliers["FireSawCost"]:
+					Global.mana -= Global.player_skill_multipliers["FireSawCost"]
 					emit_signal("mana_changed", Global.mana, "Player")
-				elif Global.equipped_characters[1] == "Player" and Global.character2_mana >= 6:
-					Global.character2_mana -= 6
+				elif Global.equipped_characters[1] == "Player" and Global.character2_mana >= Global.player_skill_multipliers["FireSawCost"]:
+					Global.character2_mana -= Global.player_skill_multipliers["FireSawCost"]
 					emit_signal("mana_changed", Global.character2_mana, "Player")
-				elif Global.equipped_characters[2] == "Player" and Global.character3_mana >= 6:
-					Global.character3_mana -= 6
+				elif Global.equipped_characters[2] == "Player" and Global.character3_mana >= Global.player_skill_multipliers["FireSawCost"]:
+					Global.character3_mana -= Global.player_skill_multipliers["FireSawCost"]
 					emit_signal("mana_changed", Global.character3_mana, "Player")
 				
 			get_parent().is_attacking = false

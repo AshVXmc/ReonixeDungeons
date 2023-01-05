@@ -78,6 +78,8 @@ polygon = PoolVector2Array( -30.6909, -49.7348, -30.6909, -175.048, 30.6034, -11
 script = ExtResource( 3 )
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="FireGaugeArea"]
+position = Vector2( 3.0942, 2.45024 )
+scale = Vector2( 1.20845, 1.03282 )
 polygon = PoolVector2Array( -30.6909, -49.7348, -30.6909, -175.048, 30.6034, -115.115, 31.2845, -49.0537, 58.5264, -27.2602, 58.5264, 28.5858, 28.5603, 46.2931, 29.9224, 173.649, -31.372, 117.803, -31.372, 45.612, -59.295, 28.5858, -59.976, -30.6654 )
 
 [connection signal="area_entered" from="." to="." method="_on_FireSaw_area_entered"]

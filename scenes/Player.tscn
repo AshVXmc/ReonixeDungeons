@@ -1447,7 +1447,6 @@ one_shot = true
 shape = SubResource( 34 )
 
 [node name="SlashFlurryCD" type="Timer" parent="."]
-wait_time = 0.7
 one_shot = true
 
 [node name="SlashEffectPlayer" type="AnimationPlayer" parent="."]
@@ -1463,10 +1462,10 @@ disabled = true
 
 [node name="EnergyMeter" type="TextureProgress" parent="."]
 margin_left = -75.0
-margin_top = -85.0
-margin_right = -45.0
-margin_bottom = -79.0
-rect_scale = Vector2( 5, 5 )
+margin_top = -84.0
+margin_right = -41.0
+margin_bottom = -78.0
+rect_scale = Vector2( 4.5, 4.5 )
 value = 100.0
 texture_under = ExtResource( 20 )
 texture_progress = ExtResource( 19 )

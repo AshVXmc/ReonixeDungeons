@@ -11,6 +11,7 @@ signal perfect_dash()
 signal action(action_type)
 signal trigger_quickswap(trigger_name)
 signal ready_to_be_switched_in(character)
+signal change_elegance(action_name)
 var target
 var tundra_sigils : int = 0
 var airborne_mode : bool = false
@@ -32,6 +33,7 @@ var buffed_attack_power : float
 var is_charging = false
 onready var FULL_CHARGE_METER = preload("res://assets/UI/chargebar_full.png")
 onready var CHARGING_CHARGE_METER = preload("res://assets/UI/chargebar_charging.png")
+
 var attack_collsion_overlaps_enemy : bool = false
 var number_of_basic_atk_buffs : int
 var basic_attack_buff : float
@@ -52,6 +54,7 @@ func _ready():
 		connect("trigger_quickswap", get_parent().get_parent(), "quickswap_event")
 	tundra_sigils = 0
 	connect("action", Global, "parse_action")
+	connect("change_elegance", get_parent().get_parent().get_parent().get_node("EleganceMeterUI/Control"), "elegance_changed")
 	connect("perfect_dash",  get_parent().get_parent().get_parent().get_node("PauseUI/PerfectDash"), "trigger_perfect_dash_animation")
 	connect("life_changed", get_parent().get_parent().get_parent().get_node("HeartUI/Life"), "on_player_life_changed")
 	connect("mana_changed", get_parent().get_parent().get_parent().get_node("ManaUI/Mana"), "on_player_mana_changed")

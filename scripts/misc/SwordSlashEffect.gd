@@ -33,40 +33,68 @@ func regular_slash_animation():
 func horizontal_slash_animation():
 	$SlashEffectPlayer.play("HorizontalSlash")
 	
-func flurry_slash_animation():
+func flurry_slash_animation(num):
 	$HorizontalSlashSprite.visible = false
 	
 	# Randomize the order of the blade slashes every time it is instanced
-	var MIN = 5
-	var MAX = 45
+	var MIN = -50
+	var MAX = 50
 	
 	$Sprite.position.x = generate_value(MIN, MAX)
-
+	$Sprite.position.y = generate_value(MIN, MAX)
 	var speed_multiplier = 1.25
 	$AnimationPlayer.playback_speed = speed_multiplier
-	$AnimationPlayer.play("SwordSlash1")
-	instance_particle()
-	yield(get_tree().create_timer(DEFAULT_ANIM_DURATION / speed_multiplier),"timeout")
-	$Sprite.position.x = generate_value(MIN, MAX)
-	
-
-	$AnimationPlayer.play("SwordSlash2")
-	instance_particle()
-	yield(get_tree().create_timer(DEFAULT_ANIM_DURATION / speed_multiplier),"timeout")
-	$Sprite.position.x = generate_value(MIN, MAX)
-
-	$AnimationPlayer.play("SwordSlash3")
-	instance_particle()
-	yield(get_tree().create_timer(DEFAULT_ANIM_DURATION / speed_multiplier),"timeout")
-	$Sprite.position.x = generate_value(MIN, MAX)
-	instance_particle()
-#	$Sprite.position.y = generate_value(MIN, MAX)
-	$AnimationPlayer.play("SwordSlash4")
-	instance_particle()
-	yield(get_tree().create_timer(DEFAULT_ANIM_DURATION / speed_multiplier),"timeout")
-	instance_particle()
-	call_deferred('free')
-
+	match num:
+		1:
+			$Sprite.visible = true
+			$AnimationPlayer.play("SwordSlash1")
+			instance_particle()
+			yield(get_tree().create_timer(DEFAULT_ANIM_DURATION / speed_multiplier),"timeout")
+			$Sprite.position.x = generate_value(MIN, MAX)
+			$Sprite.position.y = generate_value(MIN, MAX)
+			yield(get_tree().create_timer(0.7), "timeout")
+			call_deferred('free')
+		2:
+			$Sprite.visible = true
+			$AnimationPlayer.play("SwordSlash2")
+			instance_particle()
+			yield(get_tree().create_timer(DEFAULT_ANIM_DURATION / speed_multiplier),"timeout")
+			$Sprite.position.x = generate_value(MIN, MAX)
+			$Sprite.position.y = generate_value(MIN, MAX)
+			
+			yield(get_tree().create_timer(0.7), "timeout")
+			call_deferred('free')
+		3:
+			$Sprite.visible = true
+			$AnimationPlayer.play("SwordSlash3")
+			instance_particle()
+			yield(get_tree().create_timer(DEFAULT_ANIM_DURATION / speed_multiplier),"timeout")
+			$Sprite.position.x = generate_value(MIN, MAX)
+			$Sprite.position.y = generate_value(MIN, MAX)
+			
+			yield(get_tree().create_timer(0.7), "timeout")
+			call_deferred('free')
+		4:
+			$Sprite.visible = true
+			$AnimationPlayer.play("SwordSlash4")
+			instance_particle()
+			yield(get_tree().create_timer(DEFAULT_ANIM_DURATION / speed_multiplier),"timeout")
+			$Sprite.position.x = generate_value(MIN, MAX)
+			$Sprite.position.y = generate_value(MIN, MAX)
+			
+			yield(get_tree().create_timer(0.7), "timeout")
+			call_deferred('free')
+		5:
+			yield(get_tree().create_timer(0.5), "timeout")
+			$HorizontalSlashSprite.visible = true
+			$HorizontalSlashSprite.scale.x = 8
+			$HorizontalSlashSprite.scale.y = 8
+			$SlashEffectPlayer.play("HorizontalSlash")
+			yield(get_tree().create_timer(0.2), "timeout")
+			call_deferred('free')
+			
+		
+		
 func instance_particle():
 	var particle = SMOKE_PARTICLE.instance()
 	particle.scale.x = 3

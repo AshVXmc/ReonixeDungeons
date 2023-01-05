@@ -1,0 +1,242 @@
+[gd_scene load_steps=12 format=2]
+
+[ext_resource path="res://assets/characters/glaciela/glaciela_idle.png" type="Texture" id=1]
+[ext_resource path="res://assets/characters/glaciela/glaciela_walk.png" type="Texture" id=2]
+[ext_resource path="res://assets/characters/glaciela/glaciela_idle_1.png" type="Texture" id=3]
+[ext_resource path="res://scripts/characters/GlacielaPuppet.gd" type="Script" id=4]
+[ext_resource path="res://assets/characters/glaciela/glaciela_dash.png" type="Texture" id=5]
+[ext_resource path="res://assets/weapons/simple_spear.png" type="Texture" id=6]
+[ext_resource path="res://assets/characters/glaciela/glaciela_walk_2.png" type="Texture" id=11]
+
+[sub_resource type="Animation" id=6]
+resource_name = "CombinationAttackRight"
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("AttackCollision/CollisionShape2D:disabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.05, 0.15, 0.2, 0.3, 0.35, 0.45, 0.5, 0.6, 0.65, 0.75, 0.8 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ false, true, false, true, false, true, false, true, false, true, false, true ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("SpearSprite:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.05, 0.15, 0.2, 0.3, 0.35, 0.45, 0.5, 0.6, 0.65, 0.75, 0.8 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( -48, 18 ), Vector2( 0, 0 ), Vector2( -48, 18 ), Vector2( 0, 0 ), Vector2( -40, 0 ), Vector2( 10, 0 ), Vector2( -48, 18 ), Vector2( 0, 0 ), Vector2( -48, 18 ), Vector2( 0, 0 ), Vector2( -40, 0 ), Vector2( 10, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("SpearSprite:rotation_degrees")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.05, 0.15, 0.2, 0.3, 0.35, 0.45, 0.5, 0.6, 0.65, 0.75, 0.8 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ 65.0, 65.0, 115.0, 115.0, 90.0, 90.0, 65.0, 65.0, 115.0, 115.0, 90.0, 90.0 ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("SpearSprite:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.85 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/4/type = "method"
+tracks/4/path = NodePath(".")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0.9, 0.95 ),
+"transitions": PoolRealArray( 1, 1 ),
+"values": [ {
+"args": [  ],
+"method": "add_particle"
+}, {
+"args": [ "free" ],
+"method": "call_deferred"
+} ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("AnimatedSprite:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0, 0.9, 0.95 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( 0, 0 ), Vector2( 0, -150 ) ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("AnimatedSprite:show_behind_parent")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray(  ),
+"transitions": PoolRealArray(  ),
+"update": 1,
+"values": [  ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("AnimatedSprite:self_modulate")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0.9, 0.95 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=7]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("AttackCollision/CollisionShape2D:disabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ true ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("SpearSprite:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("SpearSprite:rotation_degrees")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 65.0 ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("SpearSprite:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("AnimatedSprite:show_behind_parent")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("AnimatedSprite:self_modulate")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 5 ) ],
+"loop": false,
+"name": "Dash",
+"speed": 1.0
+}, {
+"frames": [ ExtResource( 1 ), ExtResource( 3 ) ],
+"loop": true,
+"name": "Default",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 2 ), ExtResource( 1 ), ExtResource( 11 ) ],
+"loop": true,
+"name": "Walk",
+"speed": 5.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=5]
+extents = Vector2( 54.7704, 39.1389 )
+
+[node name="GlacielaPuppet" type="Node2D"]
+script = ExtResource( 4 )
+
+[node name="SpearSprite" type="Sprite" parent="."]
+visible = false
+rotation = 1.13446
+scale = Vector2( 6, 6 )
+texture = ExtResource( 6 )
+offset = Vector2( 0, -12 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "CombinationAttackRight"
+anims/CombinationAttackRight = SubResource( 6 )
+anims/RESET = SubResource( 7 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+position = Vector2( 0, -150 )
+scale = Vector2( 5, 5 )
+frames = SubResource( 1 )
+animation = "Dash"
+
+[node name="AttackCollision" type="Area2D" parent="." groups=["15", "Sword"]]
+position = Vector2( 0, -1 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackCollision"]
+position = Vector2( 95.4463, 5.05854 )
+shape = SubResource( 5 )
+disabled = true
+
+[node name="ParticlePosition" type="Position2D" parent="."]
+position = Vector2( 0, 46 )
