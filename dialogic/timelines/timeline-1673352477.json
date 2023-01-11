@@ -1,0 +1,137 @@
+{
+	"events": [
+		{
+			"character": "character-1673352342.json",
+			"event_id": "dialogic_010",
+			"options": [
+
+			],
+			"portrait": "",
+			"question": "Welcome! How can I help you today?"
+		},
+		{
+			"choice": "Talk",
+			"condition": "",
+			"definition": "",
+			"event_id": "dialogic_011",
+			"value": ""
+		},
+		{
+			"character": "character-1673439491.json",
+			"event_id": "dialogic_010",
+			"options": [
+
+			],
+			"portrait": "",
+			"question": "(What should I ask him?)"
+		},
+		{
+			"choice": "Ask about the town.",
+			"condition": "",
+			"definition": "",
+			"event_id": "dialogic_011",
+			"value": ""
+		},
+		{
+			"character": "character-1673352342.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "You want to know about the town? There's nothing much going on here, not until fairly recently."
+		},
+		{
+			"character": "character-1673352342.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "Ever since those monsters started appearing and the discovery of the ruined dungeon right underneath our town, adventurers started flocking in to explore it."
+		},
+		{
+			"character": "character-1673352342.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "Well, the mayor assured us that the monsters will be kept at bay. They have guards patrolling around town 24/7."
+		},
+		{
+			"character": "character-1673352342.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "I ain't complainin' that much,though. Its good for business."
+		},
+		{
+			"call_node": {
+				"arguments": [
+
+				],
+				"method_name": "unstuck_player",
+				"target_node_path": "../../../Shopkeeper"
+			},
+			"event_id": "dialogic_042"
+		},
+		{
+			"choice": "Nevermind.",
+			"condition": "",
+			"definition": "",
+			"event_id": "dialogic_011",
+			"value": ""
+		},
+		{
+			"character": "character-1673352342.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "Come back anytime."
+		},
+		{
+			"call_node": {
+				"arguments": [
+
+				],
+				"method_name": "unstuck_player",
+				"target_node_path": "../../../Shopkeeper"
+			},
+			"event_id": "dialogic_042"
+		},
+		{
+			"event_id": "dialogic_013"
+		},
+		{
+			"call_node": {
+				"arguments": [
+
+				],
+				"method_name": "unstuck_player",
+				"target_node_path": "../../../Shopkeeper"
+			},
+			"event_id": "dialogic_042"
+		},
+		{
+			"choice": "Nevermind.",
+			"condition": "",
+			"definition": "",
+			"event_id": "dialogic_011",
+			"value": ""
+		},
+		{
+			"character": "character-1673352342.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "Come back anytime."
+		},
+		{
+			"call_node": {
+				"arguments": [
+
+				],
+				"method_name": "unstuck_player",
+				"target_node_path": "../../../Shopkeeper"
+			},
+			"event_id": "dialogic_042"
+		},
+		{
+			"event_id": "dialogic_013"
+		}
+	],
+	"metadata": {
+		"dialogic-version": "1.4.5",
+		"file": "timeline-1673352477.json",
+		"name": "HubLevelShop"
+	}
+}

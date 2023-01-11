@@ -4,10 +4,8 @@ onready var rng = RandomNumberGenerator.new()
 const DEFAULT_ANIM_DURATION : float = 0.1
 const SMOKE_PARTICLE : PackedScene = preload("res://scenes/particles/SmokeParticle.tscn")
 
-#func _ready():
-#	regular_slash_animation()
-#
-
+func _ready():
+	$HorizontalSlashSprite.visible = false
 func regular_slash_animation():
 	$HorizontalSlashSprite.visible = false
 	rng.randomize()
@@ -37,8 +35,8 @@ func flurry_slash_animation(num):
 	$HorizontalSlashSprite.visible = false
 	
 	# Randomize the order of the blade slashes every time it is instanced
-	var MIN = -50
-	var MAX = 50
+	var MIN = -25
+	var MAX = 25
 	
 	$Sprite.position.x = generate_value(MIN, MAX)
 	$Sprite.position.y = generate_value(MIN, MAX)

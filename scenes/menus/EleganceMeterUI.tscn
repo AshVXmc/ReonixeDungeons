@@ -33,10 +33,14 @@ texture_progress = ExtResource( 2 )
 [node name="DecayTimer" type="Timer" parent="Control"]
 wait_time = 0.2
 one_shot = true
-autostart = true
+
+[node name="AttackDecayTimer" type="Timer" parent="Control"]
+wait_time = 0.5
+one_shot = true
 
 [node name="ComboHitCount" type="Label" parent="Control"]
 margin_right = 40.0
 margin_bottom = 14.0
 
 [connection signal="timeout" from="Control/DecayTimer" to="Control" method="_on_DecayTimer_timeout"]
+[connection signal="timeout" from="Control/AttackDecayTimer" to="Control" method="_on_AttackDecayTimer_timeout"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=55 format=2]
+[gd_scene load_steps=57 format=2]
 
 [ext_resource path="res://spriteframes/MainCharacter_spriteframes.tres" type="SpriteFrames" id=1]
 [ext_resource path="res://scripts/player/Player.gd" type="Script" id=2]
@@ -18,7 +18,7 @@
 [ext_resource path="res://assets/misc/animated/sword_slash_anim_2.png" type="Texture" id=16]
 [ext_resource path="res://assets/misc/animated/sword_slash_anim_1.png" type="Texture" id=17]
 [ext_resource path="res://assets/player/katana_sheath.png" type="Texture" id=18]
-[ext_resource path="res://assets/UI/energy_meter_full.png" type="Texture" id=19]
+[ext_resource path="res://assets/UI/energy_meter_partly_filled.png" type="Texture" id=19]
 [ext_resource path="res://assets/UI/energy_meter_empty.png" type="Texture" id=20]
 
 [sub_resource type="CapsuleShape2D" id=1]
@@ -1143,6 +1143,86 @@ tracks/2/keys = {
 [sub_resource type="RectangleShape2D" id=40]
 extents = Vector2( 35, 45 )
 
+[sub_resource type="Animation" id=41]
+resource_name = "Flicker"
+length = 0.2
+step = 0.025
+tracks/0/type = "value"
+tracks/0/path = NodePath("EnergyMeter:rect_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 4.5, 4.5 ), Vector2( 6, 6 ), Vector2( 4.5, 4.5 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("EnergyMeter:rect_position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( -75, -84 ), Vector2( -100, -85 ), Vector2( -75, -84 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("EnergyMeter:self_modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0.294118 ), Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=42]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("EnergyMeter:rect_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 4.5, 4.5 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("EnergyMeter:rect_position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -75, -84 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("EnergyMeter:self_modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+
 [node name="Player" type="KinematicBody2D"]
 collision_layer = 128
 collision_mask = 144
@@ -1466,13 +1546,14 @@ margin_top = -84.0
 margin_right = -41.0
 margin_bottom = -78.0
 rect_scale = Vector2( 4.5, 4.5 )
+max_value = 150.0
 value = 100.0
 texture_under = ExtResource( 20 )
 texture_progress = ExtResource( 19 )
 
-[node name="EnergyMeterRegen" type="Timer" parent="."]
-wait_time = 0.5
-autostart = true
+[node name="EnergyMeterFlickerEffectPlayer" type="AnimationPlayer" parent="."]
+anims/Flicker = SubResource( 41 )
+anims/RESET = SubResource( 42 )
 
 [connection signal="timeout" from="CharacterManager/SwapCooldownTimer" to="CharacterManager" method="_on_SwapCooldownTimer_timeout"]
 [connection signal="area_entered" from="AttackCollision" to="." method="_on_AttackCollision_area_entered"]
@@ -1503,4 +1584,3 @@ autostart = true
 [connection signal="timeout" from="AirborneTimer" to="." method="_on_AirborneTimer_timeout"]
 [connection signal="timeout" from="AirborneMaxDuration" to="." method="_on_AirborneMaxDuration_timeout"]
 [connection signal="timeout" from="InputPressTimer" to="." method="_on_InputPressTimer_timeout"]
-[connection signal="timeout" from="EnergyMeterRegen" to="." method="_on_EnergyMeterRegen_timeout"]

@@ -1,0 +1,21 @@
+{
+	"color": "#ff00c59c",
+	"description": "",
+	"display_name": "Librarian",
+	"display_name_bool": true,
+	"id": "character-1673447896.json",
+	"mirror_portraits": false,
+	"name": "Librarian",
+	"nickname": "",
+	"nickname_bool": false,
+	"offset_x": 0,
+	"offset_y": 0,
+	"portraits": [
+		{
+			"name": "Default",
+			"path": ""
+		}
+	],
+	"scale": 100,
+	"theme": ""
+}

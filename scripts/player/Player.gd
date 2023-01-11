@@ -53,6 +53,7 @@ const GRAVITY : int = 40
 var JUMP_POWER : int = -1100
 var waiting_for_quickswap : bool = false
 var is_thrust_attacking : bool = false
+var energy_full : bool 
 var facing 
 enum {
 	left, right
@@ -72,7 +73,8 @@ const GROUND_POUND_PARTICLE : PackedScene = preload("res://scenes/particles/Grou
 const SUPER_SLASH_PROJECTILE : PackedScene = preload("res://scenes/misc/SuperSlashProjectile.tscn")
 const SWORD_HIT_PARTICLE : PackedScene = preload("res://scenes/particles/SwordHitParticle.tscn")
 const FROZEN : PackedScene = preload("res://scenes/status_effects/FrozenStatus.tscn")
-
+const MAXED_ENERGY_METER = preload("res://assets/UI/energy_meter_maxed.png")
+const ENERGY_METER = preload("res://assets/UI/energy_meter_partly_filled.png")
 onready var FULL_CHARGE_METER = preload("res://assets/UI/chargebar_full.png")
 onready var CHARGING_CHARGE_METER = preload("res://assets/UI/chargebar_charging.png")
 var is_attacking : bool = false
@@ -106,6 +108,7 @@ var attack_string_count : int = 4
 var perfect_dash : bool = false
 var perfect_charged_attack : bool = false
 var is_quickswap_attacking : bool = false
+var is_flurry_attacking : bool = false
 var phys_res : float = Global.player_skill_multipliers["BasePhysRes"]
 var magic_res : float = Global.player_skill_multipliers["BaseMagicRes"]
 var fire_res : float = Global.player_skill_multipliers["BaseFireRes"]
@@ -115,7 +118,7 @@ var earth_res : float = Global.player_skill_multipliers["BaseEarthRes"]
 onready var basic_attack_power : float = Global.attack_power * (Global.player_skill_multipliers["BasicAttack"] / 100)
 onready var charged_attack_power : float = Global.attack_power * (Global.player_skill_multipliers["ChargedAttack"] / 100)
 onready var upwards_and_downwards_charged_attack_power :float = Global.attack_power * (Global.player_skill_multipliers["UpwardsorDownwardsChargedAttack"] / 100)
-onready var airborne_charged_attack_power :float = Global.attack_power * (Global.player_skill_multipliers["AirborneChargedAttack"] / 100)
+onready var airborne_charged_attack_power :float = Global.attack_power * (Global.player_skill_multipliers["SpecialChargedAttack"] / 100)
 onready var thrust_attack_power :float = Global.attack_power * (Global.player_skill_multipliers["ThrustChargedAttack"] / 100)
 
 
@@ -130,7 +133,6 @@ func set_attack_buff_value(new_value):
 	ATTACK = Global.attack_power + attack_buff
 
 func _ready():
-	
 	if Global.current_character == "Player":
 		$Sprite.visible = true
 	$SlashEffectSprite.visible = false
@@ -582,7 +584,8 @@ func charged_attack(type : String = "Ground"):
 	print("normal charged attack")
 	Input.action_release("charge")
 	
-	if type == "Ground":
+	if type == "Ground" and !is_flurry_attacking and $EnergyMeter.value <= Global.player_skill_multipliers["SlashFlurryEnergyCost"]:
+		
 		var ss_projectile = SUPER_SLASH_PROJECTILE.instance()
 		ss_projectile.position = $Position2D.global_position
 		get_parent().add_child(ss_projectile)
@@ -593,15 +596,22 @@ func charged_attack(type : String = "Ground"):
 				$ChargedAttackCollision.remove_from_group(n)
 				$ChargedAttackCollision.add_to_group(str(ATTACK * (Global.player_skill_multipliers["ChargedAttack"] / 100)))
 		$ChargedAttackCollision/CollisionShape2D.disabled = false
+		var hitparticle = SWORD_HIT_PARTICLE.instance()
+		hitparticle.emitting = true
+		get_parent().add_child(hitparticle)
+		hitparticle.position = $Position2D.global_position
+		if !is_flurry_attacking:
+			update_energy_meter(10)
+	elif type == "Special" and $SlashFlurryCD.is_stopped():
 		
-	elif type == "Aerial" and $SlashFlurryCD.is_stopped():
+		is_flurry_attacking = true
 		velocity.y = 0
 		
 		var flurry = SLASH_FLURRY_AREA.instance()
 		flurry.add_to_group("Sword")
 		flurry.get_node("FinalSlashArea").add_to_group("Sword")
-		flurry.add_to_group(str(ATTACK * (Global.player_skill_multipliers["AirborneChargedAttack"] / 100)))
-		flurry.get_node("FinalSlashArea").add_to_group(str(ATTACK * (Global.player_skill_multipliers["AirborneChargedAttackFinalStrike"] / 100)))
+		flurry.add_to_group(str(ATTACK * (Global.player_skill_multipliers["SpecialChargedAttack"] / 100)))
+		flurry.get_node("FinalSlashArea").add_to_group(str(ATTACK * (Global.player_skill_multipliers["SpecialChargedAttackFinalStrike"] / 100)))
 		get_parent().get_parent().add_child(flurry)
 		if weakref(get_closest_enemy()).get_ref() != null and $SlashFlurryDetector.overlaps_body(get_closest_enemy()):
 			flurry.position = get_closest_enemy().global_position
@@ -627,20 +637,23 @@ func charged_attack(type : String = "Ground"):
 			var slashparticle = SWORD_SLASH_EFFECT.instance()
 			get_parent().add_child(slashparticle)
 			slashparticle.position = flurry.global_position
-		
+			yield(get_tree().create_timer(0.075), "timeout")
 			slashparticle.flurry_slash_animation(num_of_slashes)
 			num_of_slashes += 1
 		
 		
 		
+		
 		$SlashFlurryCD.start()
-		yield(get_tree().create_timer(1), "timeout")
+		yield(get_tree().create_timer(0.5), "timeout")
+		
 		cam_shake = false
+		
+		is_flurry_attacking = false
+		if !is_flurry_attacking:
+			energy_full = false
+			update_energy_meter(10)
 	
-	var hitparticle = SWORD_HIT_PARTICLE.instance()
-	hitparticle.emitting = true
-	get_parent().add_child(hitparticle)
-	hitparticle.position = $Position2D.global_position
 	cam_shake = true
 	yield(get_tree().create_timer(0.25), "timeout")
 	cam_shake = false
@@ -979,7 +992,19 @@ func _on_AttackCollision_area_entered(area):
 #			freeze_enemy()
 			if Global.current_character == "Player":
 				if area.is_in_group("Enemy") and $ManaRegenDelay.is_stopped():
-					$EnergyMeter.value += 10
+					if !is_flurry_attacking:
+						match attack_string_count:
+							3:
+								update_energy_meter(5)
+							2:
+								update_energy_meter(5)
+								yield(get_tree().create_timer(0.2), "timeout")
+								update_energy_meter(5)
+							1:
+								update_energy_meter(10)
+							0:
+								update_energy_meter(15)
+						
 					emit_signal("change_elegance", 25)
 					change_mana_value(0.25)
 					$ManaRegenDelay.start()
@@ -1100,11 +1125,9 @@ func dash():
 				velocity.y = 0
 				$Sprite.play("PerfectDash")
 				velocity = dashdirection.normalized() * -2000
-				$EnergyMeter.value += 50
 				can_use_slash_flurry = true
 
 			else:
-				$EnergyMeter.value += 10
 				velocity.y = 0
 				$Sprite.play("Dash")
 				velocity = dashdirection.normalized() * 2000
@@ -1156,15 +1179,16 @@ func thrust_attack():
 	cam_shake = false
 	is_invulnerable = false
 	$ThrustEffectArea/CollisionShape2D.disabled = true
+	if !is_flurry_attacking:
+		update_energy_meter(15)
 
 		
 func knock_airborne(target):
 	if target and weakref(target).get_ref() != null and !target.is_in_group("IsAirborne") and !target.get_parent().is_in_group("Armored"):
-		if $KnockAirborneICD.is_stopped() and $EnergyMeter.value >= 25:
+		if $KnockAirborneICD.is_stopped():
 			var airborne_status := AIRBORNE_STATUS.instance()
 			target.get_parent().add_child(airborne_status)
 			$KnockAirborneICD.start()
-			$EnergyMeter.value -= 10
 
 #func glide():
 #	if Global.glide_unlocked and Input.is_action_just_pressed("toggle_glider"):
@@ -1487,7 +1511,7 @@ func _on_EnemyEvasionArea_area_exited(area):
 			Input.action_release("charge")
 			emit_signal("perfect_dash")
 			Engine.time_scale = 0.5
-			yield(get_tree().create_timer(0.5), "timeout")
+			yield(get_tree().create_timer(0.25), "timeout")
 			Engine.time_scale = 1.0
 			var tempus_targus = TEMPUS_TARGUS.instance()
 			tempus_targus.duration = 5.0
@@ -1550,31 +1574,29 @@ func _on_AttackCollision_area_exited(area):
 		attack_area_overlaps_enemy = false
 		
 
+func update_energy_meter(value : int):
+	$EnergyMeter.value += value
+	if $EnergyMeter.value == $EnergyMeter.max_value:
+		if !energy_full:
+			$EnergyMeterFlickerEffectPlayer.play("Flicker")
+			energy_full = true
+		$EnergyMeter.texture_progress = MAXED_ENERGY_METER
+	else:
+		$EnergyMeter.texture_progress = ENERGY_METER
+
 func _on_InputPressTimer_timeout():
 	if !Input.is_action_pressed("ui_dash") and !is_quickswap_attacking:
 		if Input.is_action_pressed("ui_up"):
-			if $EnergyMeter.value >= 25:
-				$EnergyMeter.value -= 25
-				# energy value is substracted on the upwards_charged_attack function
-				upwards_charged_attack()
+			upwards_charged_attack()
 		elif !Input.is_action_pressed("ui_up"):
-			if airborne_mode:
-				if attack_string_count < 2 and $EnergyMeter.value >= 20:
-					if $EnergyMeter.value >= 80:
-						$EnergyMeter.value -= 80
-						charged_attack("Aerial")
-				else:
-					if $EnergyMeter.value >= 20:
-						$EnergyMeter.value -= 20
-						thrust_attack()
-					
+
+			if $EnergyMeter.value >= Global.player_skill_multipliers["SlashFlurryEnergyCost"]:
+				# Some rank-ups may increase the max value of the energy meter
+				charged_attack("Special")
+				$EnergyMeter.value -= Global.player_skill_multipliers["SlashFlurryEnergyCost"]
 			else:
-				if $EnergyMeter.value >= 25:
-					$EnergyMeter.value -= 25
+				if airborne_mode:
+					thrust_attack()
+				else:
 					charged_attack("Ground")
 
-
-
-func _on_EnergyMeterRegen_timeout():
-	if !airborne_mode:
-		$EnergyMeter.value += 12

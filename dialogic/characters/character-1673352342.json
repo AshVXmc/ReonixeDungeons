@@ -1,0 +1,21 @@
+{
+	"color": "#ffdd0000",
+	"description": "",
+	"display_name": "Shopkeeper",
+	"display_name_bool": true,
+	"id": "character-1673352342.json",
+	"mirror_portraits": true,
+	"name": "Shopkeeper",
+	"nickname": "",
+	"nickname_bool": false,
+	"offset_x": 0,
+	"offset_y": 0,
+	"portraits": [
+		{
+			"name": "Default",
+			"path": "res://assets/NPC/trader_idle.png"
+		}
+	],
+	"scale": 1200,
+	"theme": "default-theme.cfg"
+}

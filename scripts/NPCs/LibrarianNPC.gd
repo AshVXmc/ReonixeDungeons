@@ -9,14 +9,14 @@ func _ready():
 	$Keybind.visible = false
 	$AnimationPlayer.play("Idle")
 	# Dialogue configuration
-	$DialogueScreen.talker.text = "Librarian"
-	$DialogueScreen.dialogue.text = "Welcome to the library!  We provide you with extensive guides for your adventures and a private journal for you to write in. Feel free to come in at any time of the day!"
-	$DialogueScreen/Control/NinePatchRect/Button1.visible = false
+#	$DialogueScreen.talker.text = "Librarian"
+#	$DialogueScreen.dialogue.text = "Welcome to the library!  We provide you with extensive guides for your adventures and a private journal for you to write in. Feel free to come in at any time of the day!"
+#	$DialogueScreen/Control/NinePatchRect/Button1.visible = false
 
 
 func _process(delta):
 	if $Area2D.overlaps_area(PLAYER) and Input.is_action_just_pressed("ui_use"):
-		$DialogueScreen/Control.visible = true
+#		$DialogueScreen/Control.visible = true
 		player.is_shopping = true
 
 		
