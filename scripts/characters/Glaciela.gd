@@ -12,6 +12,7 @@ signal action(action_type)
 signal trigger_quickswap(trigger_name)
 signal ready_to_be_switched_in(character)
 signal change_elegance(action_name)
+signal change_hitcount(amount)
 var target
 var tundra_sigils : int = 0
 var airborne_mode : bool = false
@@ -55,6 +56,8 @@ func _ready():
 	tundra_sigils = 0
 	connect("action", Global, "parse_action")
 	connect("change_elegance", get_parent().get_parent().get_parent().get_node("EleganceMeterUI/Control"), "elegance_changed")
+	connect("change_hitcount", get_parent().get_parent().get_parent().get_node("EleganceMeterUI/Control"), "hitcount_changed")
+	
 	connect("perfect_dash",  get_parent().get_parent().get_parent().get_node("PauseUI/PerfectDash"), "trigger_perfect_dash_animation")
 	connect("life_changed", get_parent().get_parent().get_parent().get_node("HeartUI/Life"), "on_player_life_changed")
 	connect("mana_changed", get_parent().get_parent().get_parent().get_node("ManaUI/Mana"), "on_player_mana_changed")

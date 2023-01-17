@@ -15,7 +15,6 @@ export_presets.cfg
 data_*/
 
 # Misc stuff
-.addons/
 rcedit-x64.exe
 build/
 assets/placeholder

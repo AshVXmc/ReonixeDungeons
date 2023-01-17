@@ -5,7 +5,7 @@ var max_hearts : float = 3
 var hearts : float = max_hearts
 var character_2_max_hearts : float = 3
 var character_3_max_hearts : float = 3
-
+var elegance_rank : String 
 
 func _ready():
 	print(Time.get_date_dict_from_system())

@@ -1264,7 +1264,6 @@ offset = Vector2( 0, -12 )
 flip_h = true
 
 [node name="Sprite" type="AnimatedSprite" parent="."]
-visible = false
 scale = Vector2( 5, 5 )
 frames = ExtResource( 1 )
 animation = "PerfectDash"
@@ -1493,7 +1492,7 @@ one_shot = true
 one_shot = true
 
 [node name="ManaRegenDelay" type="Timer" parent="."]
-wait_time = 0.25
+wait_time = 0.35
 one_shot = true
 
 [node name="AirborneMaxDuration" type="Timer" parent="."]
@@ -1555,6 +1554,9 @@ texture_progress = ExtResource( 19 )
 anims/Flicker = SubResource( 41 )
 anims/RESET = SubResource( 42 )
 
+[node name="WalkParticleTimer" type="Timer" parent="."]
+autostart = true
+
 [connection signal="timeout" from="CharacterManager/SwapCooldownTimer" to="CharacterManager" method="_on_SwapCooldownTimer_timeout"]
 [connection signal="area_entered" from="AttackCollision" to="." method="_on_AttackCollision_area_entered"]
 [connection signal="area_exited" from="AttackCollision" to="." method="_on_AttackCollision_area_exited"]
@@ -1584,3 +1586,4 @@ anims/RESET = SubResource( 42 )
 [connection signal="timeout" from="AirborneTimer" to="." method="_on_AirborneTimer_timeout"]
 [connection signal="timeout" from="AirborneMaxDuration" to="." method="_on_AirborneMaxDuration_timeout"]
 [connection signal="timeout" from="InputPressTimer" to="." method="_on_InputPressTimer_timeout"]
+[connection signal="timeout" from="WalkParticleTimer" to="." method="_on_WalkParticleTimer_timeout"]

@@ -16,6 +16,7 @@ signal action(action_type)
 signal trigger_quickswap(trigger_name)
 signal ready_to_be_switched_in(character)
 signal change_elegance(action_name)
+signal change_hitcount(amount)
 var target
 var can_use_slash_flurry : bool = false
 var attack_area_overlaps_enemy : bool 
@@ -58,6 +59,7 @@ var facing
 enum {
 	left, right
 }
+const WALK_PARTICLE = preload("res://scenes/particles/WalkParticle.tscn")
 const SHEATHED = preload("res://assets/player/katana_sheath.png")
 const EMPTY_SHEATH = preload("res://assets/player/katana_sheath_empty.png")
 const SLASH_FLURRY_AREA = preload("res://scenes/skills/SlashFlurryMovableArea.tscn")
@@ -145,6 +147,7 @@ func _ready():
 	$SwordSprite.visible = false
 	$ChargeBar.visible = false
 	connect("change_elegance", get_parent().get_node("EleganceMeterUI/Control"), "elegance_changed")
+	connect("change_hitcount", get_parent().get_node("EleganceMeterUI/Control"), "hitcount_changed")
 	connect("ready_to_be_switched_in", get_parent().get_node("SkillsUI/Control"), "flicker_icon")
 	connect("action", Global, "parse_action")
 	connect("perfect_dash", get_parent().get_node("PauseUI/PerfectDash"), "trigger_perfect_dash_animation")
@@ -600,8 +603,7 @@ func charged_attack(type : String = "Ground"):
 		hitparticle.emitting = true
 		get_parent().add_child(hitparticle)
 		hitparticle.position = $Position2D.global_position
-		if !is_flurry_attacking:
-			update_energy_meter(10)
+		emit_signal("change_elegance", "ChargedAttackLight")
 	elif type == "Special" and $SlashFlurryCD.is_stopped():
 		
 		is_flurry_attacking = true
@@ -641,12 +643,19 @@ func charged_attack(type : String = "Ground"):
 			slashparticle.flurry_slash_animation(num_of_slashes)
 			num_of_slashes += 1
 		
+		emit_signal("change_elegance", "ChargedAttackLight")
+		yield(get_tree().create_timer(0.1), "timeout")
+		emit_signal("change_elegance", "ChargedAttackLight")
+		yield(get_tree().create_timer(0.1), "timeout")
+		emit_signal("change_elegance", "ChargedAttackLight")
+		yield(get_tree().create_timer(0.1), "timeout")
+		emit_signal("change_elegance", "ChargedAttackLight")
+		yield(get_tree().create_timer(0.1), "timeout")
+		emit_signal("change_elegance", "ChargedAttackHeavy")
 		
 		
 		
 		$SlashFlurryCD.start()
-		yield(get_tree().create_timer(0.5), "timeout")
-		
 		cam_shake = false
 		
 		is_flurry_attacking = false
@@ -737,6 +746,7 @@ func upwards_charged_attack():
 	$AirborneTimer.start()
 	$UpwardsChargedAttackCollision/CollisionShape2D.disabled = true
 	cam_shake = false
+	emit_signal("change_elegance", "ChargedAttackLight")
 	yield(get_tree().create_timer(0.15), "timeout")
 	resist_interruption = false
 #			airborne_mode = true
@@ -924,12 +934,18 @@ func take_damage(damage : float):
 	if Global.current_character == "Player":
 		if Global.equipped_characters[0] == "Player":
 			Global.hearts -= damage
+			add_hurt_particles(damage * 10)
 			emit_signal("life_changed", Global.hearts, "Player")
+			emit_signal("change_elegance", "Hit")
 		elif Global.equipped_characters[1] == "Player":
 			Global.character2_hearts -= damage
+			add_hurt_particles(damage * 10)
+			emit_signal("change_elegance", "Hit")
 			emit_signal("life_changed", Global.character2_hearts, "Player")
 		elif Global.equipped_characters[2] == "Player":
 			Global.character3_hearts -= damage
+			add_hurt_particles(damage * 10)
+			emit_signal("change_elegance", "Hit")
 			emit_signal("life_changed", Global.character3_hearts, "Player")
 
 
@@ -991,21 +1007,24 @@ func _on_AttackCollision_area_entered(area):
 #			attack_knock()
 #			freeze_enemy()
 			if Global.current_character == "Player":
-				if area.is_in_group("Enemy") and $ManaRegenDelay.is_stopped():
-					if !is_flurry_attacking:
-						match attack_string_count:
-							3:
-								update_energy_meter(5)
-							2:
-								update_energy_meter(5)
-								yield(get_tree().create_timer(0.2), "timeout")
-								update_energy_meter(5)
-							1:
-								update_energy_meter(10)
-							0:
-								update_energy_meter(15)
-						
-					emit_signal("change_elegance", 25)
+				if area.is_in_group("Enemy") and $ManaRegenDelay.is_stopped() and !is_flurry_attacking:
+					match attack_string_count:
+						3:
+							update_energy_meter(5)
+							emit_signal("change_hitcount", 1)
+						2:
+							update_energy_meter(5)
+							emit_signal("change_hitcount", 1)
+							yield(get_tree().create_timer(0.2), "timeout")
+							update_energy_meter(5)
+							emit_signal("change_hitcount", 1)
+						1:
+							update_energy_meter(10)
+							emit_signal("change_hitcount", 1)
+						0:
+							update_energy_meter(15)
+							emit_signal("change_hitcount", 1)
+					emit_signal("change_elegance", "BasicAttack")
 					change_mana_value(0.25)
 					$ManaRegenDelay.start()
 				var hitparticle = SWORD_HIT_PARTICLE.instance()
@@ -1038,7 +1057,8 @@ func _on_ChargedAttackCollision_area_entered(area):
 				print("charged attack restore mana")
 				change_mana_value(0.25)
 				print("mana: " + str(Global.mana))
-#				
+				if !is_flurry_attacking:
+					update_energy_meter(10)
 				if mana_absorption_counter > 0:
 					mana_absorption_counter -= 1
 	
@@ -1126,6 +1146,7 @@ func dash():
 				$Sprite.play("PerfectDash")
 				velocity = dashdirection.normalized() * -2000
 				can_use_slash_flurry = true
+				emit_signal("change_elegance", "PerfectDash")
 
 			else:
 				velocity.y = 0
@@ -1535,38 +1556,6 @@ func _on_EnemyEvasionArea_area_entered(area):
 	if area.is_in_group("Hostile"):
 		perfect_dash = true
 
-#func detect_hostile_attack():
-#	var areas = $EnemyEvasionArea.get_overlapping_areas()
-#	for a in areas:
-#		if a.is_in_group("Hostile"):
-#			perfect_dash = true
-#		else:
-#			perfect_dash = false
-#		break
-#func enemy_on_left_detector():
-#	for a in $LeftAutoAim.get_overlapping_areas():
-#		if a.is_in_group("Enemy"):
-#			return true
-#			break
-#	return false
-#
-#func enemy_on_right_detector():
-#	for a in $RightAutoAim.get_overlapping_areas():
-#		if a.is_in_group("Enemy"):
-#			return true
-#			break
-#	return false
-
-#func _on_LeftAutoAim_area_entered(area):
-#	pass
-#
-#func _on_RightAutoAim_area_entered(area):
-#	if area.is_in_group("Enemy") and $Sprite.flip_h and Input.is_action_just_pressed("ui_attack"):
-#		pass
-	
-
-
-
 
 
 func _on_AttackCollision_area_exited(area):
@@ -1600,3 +1589,11 @@ func _on_InputPressTimer_timeout():
 				else:
 					charged_attack("Ground")
 
+
+
+func _on_WalkParticleTimer_timeout():
+	if is_on_floor() and velocity.x != 0:
+		var walkparticle = WALK_PARTICLE.instance()
+		walkparticle.emitting = true
+		get_parent().add_child(walkparticle)
+		walkparticle.position = $ParticlePosition.global_position
