@@ -30,18 +30,19 @@ var player_skill_multipliers : Dictionary = {
 	"BasicAttack4": 50.0,
 	"ChargedAttack": 60.0,
 	"ThrustChargedAttack": 37.5,
-	"UpwardsorDownwardsChargedAttack": 30.0,
-	"SpecialChargedAttack": 65.0, 
+	"UpwardsorDownwardsChargedAttack": 30.0, # x 2
+	"SpecialChargedAttack": 65.0, # x 4
 	"SpecialChargedAttackFinalStrike": 145.0,
 	"AirborneBasicAttack": 35.0,
 	"AirborneBasicAttack2": 30.0,
 	"AirborneBasicAttack3": 45.0,
 	"AirborneBasicAttack4": 55.0,
+	"SulphuricSigilSingleSlash": 40.0, # x 2
 	"SlashFlurryEnergyCost": 150,
 	"FireSaw": 35.0,
 	"FireFairy": 22.0,
 	"FireSawCost": 12,
-	"FireFairyCost": 3,
+	"FireFairyCost": 0,
 	"FireSawCD": 12.0,
 	"FireFairyCD": 8.0,
 	"BasePhysRes": 0.0,

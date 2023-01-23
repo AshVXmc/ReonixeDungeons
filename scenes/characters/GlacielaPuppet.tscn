@@ -230,7 +230,7 @@ scale = Vector2( 5, 5 )
 frames = SubResource( 1 )
 animation = "Dash"
 
-[node name="AttackCollision" type="Area2D" parent="." groups=["15", "Sword"]]
+[node name="AttackCollision" type="Area2D" parent="." groups=["Sword"]]
 position = Vector2( 0, -1 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackCollision"]

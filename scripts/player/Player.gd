@@ -111,6 +111,7 @@ var perfect_dash : bool = false
 var perfect_charged_attack : bool = false
 var is_quickswap_attacking : bool = false
 var is_flurry_attacking : bool = false
+var is_sheathing : bool = false
 var phys_res : float = Global.player_skill_multipliers["BasePhysRes"]
 var magic_res : float = Global.player_skill_multipliers["BaseMagicRes"]
 var fire_res : float = Global.player_skill_multipliers["BaseFireRes"]
@@ -242,10 +243,11 @@ func _physics_process(_delta):
 		$EnergyMeter.visible = true
 	else:
 		$EnergyMeter.visible = false
-	if !$Sprite.flip_h:
-		$KatanaSheathPlayer.play("RightDefault")
-	else:
-		$KatanaSheathPlayer.play("LeftDefault")
+	if !is_sheathing:
+		if !$Sprite.flip_h:
+			$KatanaSheathPlayer.play("RightDefault")
+		else:
+			$KatanaSheathPlayer.play("LeftDefault")
 		
 	if Input.is_action_just_pressed("slot_1"):
 		if facing == left:
@@ -257,7 +259,7 @@ func _physics_process(_delta):
 		$KatanaSheathSprite.visible = true if Global.current_character == "Player" else false
 		target = get_closest_enemy()
 		# Function calls
-		if Input.is_action_just_pressed("ui_dash"):
+		if Input.is_action_just_pressed("ui_dash") and !Input.is_action_pressed("ui_attack"):
 			dash()
 		if !is_charging:
 #			glide() # Glide duration in seconds
@@ -484,7 +486,7 @@ func use_primary_skill():
 		emit_signal("mana_changed", Global.character3_mana, "Player")
 	
 func use_secondary_skill():
-	if Global.player_skills["SecondarySkill"] == "FireFairy" and Global.fire_fairy_unlocked and !is_frozen and Global.mana >= 4 and !is_using_secondary_skill and get_parent().get_node("SkillsUI/Control/SecondarySkill/Player/FireFairy/FirefairyTimer").is_stopped():
+	if Global.player_skills["SecondarySkill"] == "FireFairy" and Global.fire_fairy_unlocked and !is_frozen and Global.mana >= Global.player_skill_multipliers["FireFairyCost"] and !is_using_secondary_skill and get_parent().get_node("SkillsUI/Control/SecondarySkill/Player/FireFairy/FirefairyTimer").is_stopped():
 			emit_signal("skill_used", "FireFairy")
 func ground_pound():
 	if !is_on_floor() and Input.is_action_just_pressed("ui_down"):
@@ -644,13 +646,18 @@ func charged_attack(type : String = "Ground"):
 			num_of_slashes += 1
 		
 		emit_signal("change_elegance", "ChargedAttackLight")
+		change_mana_value(0.25)
 		yield(get_tree().create_timer(0.1), "timeout")
 		emit_signal("change_elegance", "ChargedAttackLight")
+		change_mana_value(0.25)
 		yield(get_tree().create_timer(0.1), "timeout")
 		emit_signal("change_elegance", "ChargedAttackLight")
+		change_mana_value(0.25)
 		yield(get_tree().create_timer(0.1), "timeout")
 		emit_signal("change_elegance", "ChargedAttackLight")
+		change_mana_value(0.25)
 		yield(get_tree().create_timer(0.1), "timeout")
+		change_mana_value(0.5)
 		emit_signal("change_elegance", "ChargedAttackHeavy")
 		
 		
@@ -753,6 +760,19 @@ func upwards_charged_attack():
 	
 				
 			
+func sheathe_katana():
+	yield(get_tree().create_timer(2.5), "timeout")
+	
+	if !is_attacking and !is_sheathing and $KatanaSheatheWindowTimer.is_stopped():
+		is_sheathing = true
+		if !$Sprite.flip_h:
+			$KatanaSheathPlayer.play("RightDefaultSheath")
+		
+		
+		
+		print("SHEATHING")
+		$KatanaSheatheWindowTimer.start()
+
 
 func play_attack_animation(direction : String):
 	if direction == "Right":
@@ -772,6 +792,7 @@ func play_attack_animation(direction : String):
 							$AttackCollision.add_to_group(str(ATTACK * (Global.player_skill_multipliers["AirborneBasicAttack"] / 100)))
 							print("b")
 						break
+				sheathe_katana()
 				
 			3:
 				$AnimationPlayer.play("SwordSwingRight2")
@@ -786,6 +807,7 @@ func play_attack_animation(direction : String):
 						else:
 							$AttackCollision.add_to_group(str(ATTACK * (Global.player_skill_multipliers["AirborneBasicAttack2"] / 100)))
 						break
+				sheathe_katana()
 			2:
 				$AnimationPlayer.play("SwordSwingRight3")
 				attack_string_count -= 1
@@ -799,6 +821,7 @@ func play_attack_animation(direction : String):
 						else:
 							$AttackCollision.add_to_group(str(ATTACK * (Global.player_skill_multipliers["AirborneBasicAttack3"] / 100)))
 						break
+				sheathe_katana()
 			1:
 				$AnimationPlayer.play("SwordSwingRight4")
 				attack_string_count -= 1
@@ -811,6 +834,7 @@ func play_attack_animation(direction : String):
 						else:
 							$AttackCollision.add_to_group(str(ATTACK * (Global.player_skill_multipliers["AirborneBasicAttack4"] / 100)))
 						break
+				sheathe_katana()
 				yield(get_tree().create_timer($MeleeTimer.wait_time), "timeout")
 				attack_string_count = 4
 				mana_absorption_counter = mana_absorption_counter_max
@@ -828,7 +852,7 @@ func play_attack_animation(direction : String):
 						else:
 							$AttackCollision.add_to_group(str(ATTACK * (Global.player_skill_multipliers["AirborneBasicAttack"] / 100)))
 						break
-				
+				sheathe_katana()
 			3:
 				$AnimationPlayer.play("SwordSwingLeft2")
 				attack_string_count -= 1
@@ -841,6 +865,7 @@ func play_attack_animation(direction : String):
 						else:
 							$AttackCollision.add_to_group(str(ATTACK * (Global.player_skill_multipliers["AirborneBasicAttack2"] / 100)))
 						break
+				sheathe_katana()
 			2:
 				$AnimationPlayer.play("SwordSwingLeft3")
 				attack_string_count -= 1
@@ -853,6 +878,7 @@ func play_attack_animation(direction : String):
 						else:
 							$AttackCollision.add_to_group(str(ATTACK * (Global.player_skill_multipliers["AirborneBasicAttack3"] / 100)))
 						break
+				sheathe_katana()
 			1:
 				$AnimationPlayer.play("SwordSwingLeft4")
 				attack_string_count -= 1
@@ -865,6 +891,7 @@ func play_attack_animation(direction : String):
 						else:
 							$AttackCollision.add_to_group(str(ATTACK * (Global.player_skill_multipliers["AirborneBasicAttack4"] / 100)))
 						break
+				sheathe_katana()
 				yield(get_tree().create_timer($MeleeTimer.wait_time), "timeout")
 				attack_string_count = 4
 				mana_absorption_counter = mana_absorption_counter_max
@@ -1015,9 +1042,9 @@ func _on_AttackCollision_area_entered(area):
 						2:
 							update_energy_meter(5)
 							emit_signal("change_hitcount", 1)
+							emit_signal("change_hitcount", 1)
 							yield(get_tree().create_timer(0.2), "timeout")
 							update_energy_meter(5)
-							emit_signal("change_hitcount", 1)
 						1:
 							update_energy_meter(10)
 							emit_signal("change_hitcount", 1)
@@ -1027,16 +1054,17 @@ func _on_AttackCollision_area_entered(area):
 					emit_signal("change_elegance", "BasicAttack")
 					change_mana_value(0.25)
 					$ManaRegenDelay.start()
-				var hitparticle = SWORD_HIT_PARTICLE.instance()
-				var slashparticle = SWORD_SLASH_EFFECT.instance()
-				hitparticle.emitting = true
-				get_parent().add_child(hitparticle)
-				get_parent().add_child(slashparticle)
-				hitparticle.position = area.global_position
-				
-				slashparticle.position = area.global_position
-				
-				slashparticle.regular_slash_animation()
+				if weakref(area).get_ref() != null:
+					var hitparticle = SWORD_HIT_PARTICLE.instance()
+					var slashparticle = SWORD_SLASH_EFFECT.instance()
+					hitparticle.emitting = true
+					get_parent().add_child(hitparticle)
+					get_parent().add_child(slashparticle)
+					hitparticle.position = area.global_position
+					
+					slashparticle.position = area.global_position
+					
+					slashparticle.regular_slash_animation()
 				if mana_absorption_counter > 0:
 					mana_absorption_counter -= 1
 				
@@ -1289,40 +1317,40 @@ func on_manashrine_toggled():
 	emit_signal("mana_changed", Global.mana, Global.equipped_characters[2])
 	is_healing = false
 	
-func on_lootbag_obtained(tier : int):
-	match tier:
-		1:
-			# Drops a small amout of opals and common dust
-			var lootrng : RandomNumberGenerator = RandomNumberGenerator.new()
-			var num  = lootrng.randi_range(1,3)
-			lootrng.randomize()
-			Global.common_monster_dust_amount += num
-			
-			emit_signal("ingredient_obtained", "common_dust", Global.common_monster_dust_amount)
-			
-			var opalrng : RandomNumberGenerator = RandomNumberGenerator.new()
-			opalrng.randomize()
-			var opalnum = opalrng.randi_range(5,20)
-			Global.opals_amount += opalnum
-			emit_signal("opals_obtained", Global.opals_amount, opalnum)
-		2:
-			# Drops a small amout of opals, common dust and goblin scales
-			var lootrng : RandomNumberGenerator = RandomNumberGenerator.new()
-			var num  = lootrng.randi_range(1,5)
-			lootrng.randomize()
-			Global.common_monster_dust_amount += num
-			emit_signal("ingredient_obtained", "common_dust", Global.common_monster_dust_amount)
-			var opalrng : RandomNumberGenerator = RandomNumberGenerator.new()
-			opalrng.randomize()
-			var opalnum = opalrng.randi_range(5,20)
-			Global.opals_amount += opalnum
-			emit_signal("opals_obtained", Global.opals_amount, opalnum)
-			
-			var scalesrng : RandomNumberGenerator = RandomNumberGenerator.new()
-			scalesrng.randomize()
-			var scalesnum = scalesrng.randi_range(1,3)
-			Global.goblin_scales_amount += scalesnum
-			emit_signal("ingredient_obtained", "goblin_scales", Global.goblin_scales_amount)
+#func on_lootbag_obtained(tier : int):
+#	match tier:
+#		1:
+#			# Drops a small amout of opals and common dust
+#			var lootrng : RandomNumberGenerator = RandomNumberGenerator.new()
+#			var num  = lootrng.randi_range(1,3)
+#			lootrng.randomize()
+#			Global.common_monster_dust_amount += num
+#
+#			emit_signal("ingredient_obtained", "common_dust", Global.common_monster_dust_amount)
+#
+#			var opalrng : RandomNumberGenerator = RandomNumberGenerator.new()
+#			opalrng.randomize()
+#			var opalnum = opalrng.randi_range(5,20)
+#			Global.opals_amount += opalnum
+#			emit_signal("opals_obtained", Global.opals_amount, opalnum)
+#		2:
+#			# Drops a small amout of opals, common dust and goblin scales
+#			var lootrng : RandomNumberGenerator = RandomNumberGenerator.new()
+#			var num  = lootrng.randi_range(1,5)
+#			lootrng.randomize()
+#			Global.common_monster_dust_amount += num
+#			emit_signal("ingredient_obtained", "common_dust", Global.common_monster_dust_amount)
+#			var opalrng : RandomNumberGenerator = RandomNumberGenerator.new()
+#			opalrng.randomize()
+#			var opalnum = opalrng.randi_range(5,20)
+#			Global.opals_amount += opalnum
+#			emit_signal("opals_obtained", Global.opals_amount, opalnum)
+#
+#			var scalesrng : RandomNumberGenerator = RandomNumberGenerator.new()
+#			scalesrng.randomize()
+#			var scalesnum = scalesrng.randi_range(1,3)
+#			Global.goblin_scales_amount += scalesnum
+#			emit_signal("ingredient_obtained", "goblin_scales", Global.goblin_scales_amount)
 			
 
 func on_Item_bought(item_name : String, item_price : int):
@@ -1416,7 +1444,6 @@ func get_opals(opals : int):
 # Timers
 func _on_InvulnerabilityTimer_timeout():
 	$HurtAnimationPlayer.play("RESET")
-	$HurtAnimationPlayer.stop()
 	if !is_dead:
 		is_invulnerable = false
 		$Sprite.play("Idle")
@@ -1592,8 +1619,13 @@ func _on_InputPressTimer_timeout():
 
 
 func _on_WalkParticleTimer_timeout():
-	if is_on_floor() and velocity.x != 0:
+	if is_on_floor() and Input.is_action_pressed("right") or Input.is_action_pressed("left"):
+		print(velocity.x)
 		var walkparticle = WALK_PARTICLE.instance()
 		walkparticle.emitting = true
 		get_parent().add_child(walkparticle)
 		walkparticle.position = $ParticlePosition.global_position
+
+
+func _on_KatanaSheatheWindowTimer_timeout():
+	is_sheathing = false

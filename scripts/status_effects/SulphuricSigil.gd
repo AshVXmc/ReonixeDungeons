@@ -1,33 +1,23 @@
 class_name SulphuricSigil extends Node2D
 
-const MAX_STACKS : int = 3
-var stacks : int = 1
-onready var stack1 = preload("res://assets/UI/sulphuric_sigil_1.png")
-onready var stack2 = preload("res://assets/UI/sulphuric_sigil_2.png")
-onready var stack3 = preload("res://assets/UI/sulphuric_sigil_3.png")
-var level1area : int = 60
-var level2area : int = 80
-var level3area : int = 100
+
 onready var FIRE_DETIONATION_PARTICLE = preload("res://scenes/particles/FireDetonationParticle.tscn")
 
+# Perform two slashes in an X-shaped pattern like ayato's C6 effect. Has a small CD
 
 func _ready():
-	modify_stacks(5)
+	$DurationTimer.start()
+	$SecondSlash.visible = false
+	$FirstSlash.visible = false
 
-func modify_stacks(amount : int):
-	var total = stacks + amount
-	if total > MAX_STACKS:
-		stacks = MAX_STACKS
-		$Sprite.texture = stack3
-	else:
-		stacks = total
-		match stacks:
-			1:
-				$Sprite.texture = stack1
-			2:
-				$Sprite.texture = stack2
-			3:
-				$Sprite.texture = stack3
-				
 func detonate():
 	pass
+
+
+func _on_Area2D_body_entered(body):
+	if body.is_in_group("EnemyEntity"):
+		body.add_to_group("MarkedWithSulphuricSigil")
+	
+func _on_DurationTimer_timeout():
+	get_parent().remove_from_group("MarkedWithSulphuricSigil")
+	$AnimationPlayer.play("Destroy")

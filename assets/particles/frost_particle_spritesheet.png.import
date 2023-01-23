@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/sulphuric_sigil_3.png-b32954e4f05de9dd4d737ff47bf2ec51.stex"
+path="res://.import/frost_particle_spritesheet.png-9ef02919bb34db7e388286d5b458a543.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/UI/sulphuric_sigil_3.png"
-dest_files=[ "res://.import/sulphuric_sigil_3.png-b32954e4f05de9dd4d737ff47bf2ec51.stex" ]
+source_file="res://assets/particles/frost_particle_spritesheet.png"
+dest_files=[ "res://.import/frost_particle_spritesheet.png-9ef02919bb34db7e388286d5b458a543.stex" ]
 
 [params]
 

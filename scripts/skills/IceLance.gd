@@ -13,7 +13,7 @@ enum {
 	Left, Right
 }
 signal restore_tundra_stacks(amount)
-
+var ATTACK = Global.glaciela_attack
 
 
 
@@ -22,7 +22,7 @@ signal restore_tundra_stacks(amount)
 # After some time, the ice lance homes towards the player and gets destroyed upon contact with the player.
 func _ready():
 	direction = Right
-	add_to_group(str(Global.glaciela_attack * (Global.glaciela_skill_multipliers["IceLance"] / 100)))
+	add_to_group(str(ATTACK * (Global.glaciela_skill_multipliers["IceLance"] / 100)))
 	add_to_group("IceGaugeTwo")
 	if Global.equipped_characters.has("Glaciela"):
 		connect("restore_tundra_stacks", get_parent().get_node("Player/Glaciela"), "restore_tundra_stacks")

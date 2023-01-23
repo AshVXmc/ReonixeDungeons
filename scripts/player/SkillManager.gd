@@ -59,14 +59,14 @@ func on_skill_used(skill_name : String, attack_bonus : float = 0):
 			get_parent().get_parent().add_child(fire_fairy)
 			fire_fairy.position = get_parent().global_position
 			if !Global.godmode:
-				if Global.equipped_characters[0] == "Player" and Global.mana >= 4:
-					Global.mana -= 4
+				if Global.equipped_characters[0] == "Player" and Global.mana >= Global.player_skill_multipliers["FireFairyCost"]:
+					Global.mana -= Global.player_skill_multipliers["FireFairyCost"]
 					emit_signal("mana_changed", Global.mana, "Player")
-				elif Global.equipped_characters[1] == "Player" and Global.character2_mana >= 4:
-					Global.character2_mana -= 4
+				elif Global.equipped_characters[1] == "Player" and Global.player_skill_multipliers["FireFairyCost"]:
+					Global.character2_mana -= Global.player_skill_multipliers["FireFairyCost"]
 					emit_signal("mana_changed", Global.character2_mana, "Player")
-				elif Global.equipped_characters[2] == "Player" and Global.character3_mana >= 4:
-					Global.character3_mana -= 4
+				elif Global.equipped_characters[2] == "Player" and Global.player_skill_multipliers["FireFairyCost"]:
+					Global.character3_mana -= Global.player_skill_multipliers["FireFairyCost"]
 					emit_signal("mana_changed", Global.character3_mana, "Player")
 			yield(get_tree().create_timer(fire_fairy.get_node("DestroyedTimer").wait_time), "timeout")
 			get_parent().is_using_secondary_skill = false

@@ -3,6 +3,8 @@ extends Control
 func _ready():
 	$OpalsObtainedLabel.visible = false
 
+
+
 func on_player_opals_obtained(player_opals : int, amount_added : int):
 	$Label.visible = true
 	$TextureRect.visible = true

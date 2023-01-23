@@ -8,6 +8,7 @@ func _ready():
 	$HorizontalSlashSprite.visible = false
 func regular_slash_animation():
 	$HorizontalSlashSprite.visible = false
+	$Sprite.visible = true
 	rng.randomize()
 	var randint = rng.randi_range(1,4)
 	match randint:

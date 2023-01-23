@@ -12,6 +12,7 @@ export_presets.cfg
 
 # Mono-specific ignores
 .mono/
+.addons/
 data_*/
 
 # Misc stuff

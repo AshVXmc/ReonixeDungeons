@@ -41,7 +41,7 @@ var basic_attack_buff : float
 var prev_basic_attack_power : Array
 var attack_buff : float
 var is_dead: bool = false
-
+var ATTACK = Global.glaciela_attack
 var phys_res : float = Global.glaciela_skill_multipliers["BasePhysRes"]
 var magic_res : float = Global.glaciela_skill_multipliers["BaseMagicRes"]
 var fire_res : float = Global.glaciela_skill_multipliers["BaseFireRes"]
@@ -54,6 +54,7 @@ func _ready():
 	if Global.equipped_characters.has("Player"):
 		connect("trigger_quickswap", get_parent().get_parent(), "quickswap_event")
 	tundra_sigils = 0
+	update_tundra_sigil_ui()
 	connect("action", Global, "parse_action")
 	connect("change_elegance", get_parent().get_parent().get_parent().get_node("EleganceMeterUI/Control"), "elegance_changed")
 	connect("change_hitcount", get_parent().get_parent().get_parent().get_node("EleganceMeterUI/Control"), "hitcount_changed")
@@ -65,14 +66,19 @@ func _ready():
 	connect("skill_used", get_parent().get_parent().get_node("SkillManager"), "on_skill_used")
 	$AnimatedSprite.play("Default")
 	$SpearSprite.visible = false
-	$AttackCollision.add_to_group(str(Global.glaciela_attack * (Global.glaciela_skill_multipliers["BasicAttack"] / 100)))
+	$AttackCollision.add_to_group(str(ATTACK * (Global.glaciela_skill_multipliers["BasicAttack"] / 100)))
 	
 
-func _physics_process(delta):
-	target = get_closest_enemy()
+func update_tundra_sigil_ui():
 	$TundraSigilsUI/TundraSigil3.visible = true if tundra_sigils >= 3 else false
 	$TundraSigilsUI/TundraSigil2.visible = true if tundra_sigils >= 2 else false
 	$TundraSigilsUI/TundraSigil1.visible = true if tundra_sigils >= 1 else false
+
+
+
+func _physics_process(delta):
+	target = get_closest_enemy()
+	
 	if Input.is_action_pressed("right") and !Input.is_action_pressed("left") and !get_parent().get_parent().is_attacking and !get_parent().get_parent().is_dashing and !get_parent().get_parent().is_knocked_back:
 		Input.action_release("left")
 		$AnimatedSprite.flip_h = false
@@ -152,7 +158,7 @@ func play_attack_animation(direction : String):
 				for groups in $AttackCollision.get_groups():
 					if float(groups) != 0:
 						$AttackCollision.remove_from_group(groups)
-						$AttackCollision.add_to_group(str(Global.glaciela_attack * (Global.glaciela_skill_multipliers["BasicAttack"] / 100) + basic_attack_buff))
+						$AttackCollision.add_to_group(str(ATTACK * (Global.glaciela_skill_multipliers["BasicAttack"] / 100) + basic_attack_buff))
 						break
 				
 			3:
@@ -162,7 +168,7 @@ func play_attack_animation(direction : String):
 				for groups in $AttackCollision.get_groups():
 					if float(groups) != 0:
 						$AttackCollision.remove_from_group(groups)
-						$AttackCollision.add_to_group(str(Global.glaciela_attack * (Global.glaciela_skill_multipliers["BasicAttack2"] / 100) + basic_attack_buff))
+						$AttackCollision.add_to_group(str(ATTACK * (Global.glaciela_skill_multipliers["BasicAttack2"] / 100) + basic_attack_buff))
 						break
 			2:
 				$AnimationPlayer.play("SpearSwingRight3")
@@ -170,7 +176,7 @@ func play_attack_animation(direction : String):
 				for groups in $AttackCollision.get_groups():
 					if float(groups) != 0:
 						$AttackCollision.remove_from_group(groups)
-						$AttackCollision.add_to_group(str(Global.glaciela_attack * (Global.glaciela_skill_multipliers["BasicAttack3"] / 100) + basic_attack_buff))
+						$AttackCollision.add_to_group(str(ATTACK * (Global.glaciela_skill_multipliers["BasicAttack3"] / 100) + basic_attack_buff))
 						break
 			1:
 				$AnimationPlayer.play("SpearSwingRight4")
@@ -179,7 +185,7 @@ func play_attack_animation(direction : String):
 				for groups in $AttackCollision.get_groups():
 					if float(groups) != 0:
 						$AttackCollision.remove_from_group(groups)
-						$AttackCollision.add_to_group(str(Global.glaciela_attack * (Global.glaciela_skill_multipliers["BasicAttack4"] / 100) + basic_attack_buff))
+						$AttackCollision.add_to_group(str(ATTACK * (Global.glaciela_skill_multipliers["BasicAttack4"] / 100) + basic_attack_buff))
 						break
 				yield(get_tree().create_timer($MeleeTimer.wait_time), "timeout")
 				attack_string_count = 4
@@ -195,7 +201,7 @@ func play_attack_animation(direction : String):
 				for groups in $AttackCollision.get_groups():
 					if float(groups) != 0:
 						$AttackCollision.remove_from_group(groups)
-						$AttackCollision.add_to_group(str(Global.glaciela_attack * (Global.glaciela_skill_multipliers["BasicAttack"] / 100) + basic_attack_buff))
+						$AttackCollision.add_to_group(str(ATTACK * (Global.glaciela_skill_multipliers["BasicAttack"] / 100) + basic_attack_buff))
 						break
 			3:
 				$AnimationPlayer.play("SpearSwingLeft2")
@@ -203,7 +209,7 @@ func play_attack_animation(direction : String):
 				for groups in $AttackCollision.get_groups():
 					if float(groups) != 0:
 						$AttackCollision.remove_from_group(groups)
-						$AttackCollision.add_to_group(str(Global.glaciela_attack * (Global.glaciela_skill_multipliers["BasicAttack2"] / 100) + basic_attack_buff))
+						$AttackCollision.add_to_group(str(ATTACK * (Global.glaciela_skill_multipliers["BasicAttack2"] / 100) + basic_attack_buff))
 						break
 			2:
 				$AnimationPlayer.play("SpearSwingLeft3")
@@ -212,7 +218,7 @@ func play_attack_animation(direction : String):
 				for groups in $AttackCollision.get_groups():
 					if float(groups) != 0:
 						$AttackCollision.remove_from_group(groups)
-						$AttackCollision.add_to_group(str(Global.glaciela_attack * (Global.glaciela_skill_multipliers["BasicAttack3"] / 100) + basic_attack_buff))
+						$AttackCollision.add_to_group(str(ATTACK * (Global.glaciela_skill_multipliers["BasicAttack3"] / 100) + basic_attack_buff))
 						break
 			1:
 				$AnimationPlayer.play("SpearSwingLeft4")
@@ -220,7 +226,7 @@ func play_attack_animation(direction : String):
 				for groups in $AttackCollision.get_groups():
 					if float(groups) != 0:
 						$AttackCollision.remove_from_group(groups)
-						$AttackCollision.add_to_group(str(Global.glaciela_attack * (Global.glaciela_skill_multipliers["BasicAttack4"] / 100) + basic_attack_buff))
+						$AttackCollision.add_to_group(str(ATTACK * (Global.glaciela_skill_multipliers["BasicAttack4"] / 100) + basic_attack_buff))
 						break
 				yield(get_tree().create_timer($MeleeTimer.wait_time), "timeout")
 				attack_string_count = 4
@@ -238,10 +244,8 @@ func _input(event):
 			$InputPressTimer.start()
 
 func charged_attack(airborne_duration : float = 1, type : int = 1):
-	if get_parent().get_parent().is_on_floor() and Input.is_action_pressed("ui_attack") and tundra_sigils >= 1 and $InputPressTimer.is_stopped() and !is_performing_charged_attack:
+	if get_parent().get_parent().is_on_floor() and Input.is_action_pressed("ui_attack") and $InputPressTimer.is_stopped() and !is_performing_charged_attack:
 #		airborne_mode = false
-		
-		
 #		is_performing_charged_attack = true
 		if !$AnimatedSprite.flip_h:
 			print("Played anim")
@@ -255,13 +259,14 @@ func charged_attack(airborne_duration : float = 1, type : int = 1):
 					if float(groups) != 0:
 						$AttackCollision.remove_from_group(groups)
 						if !airborne_mode:
-							$AttackCollision.add_to_group(str(Global.attack_power * (Global.player_skill_multipliers["BasicAttack"] / 100) + basic_attack_buff))
+							$AttackCollision.add_to_group(str(ATTACK * (Global.player_skill_multipliers["BasicAttack"] / 100) + basic_attack_buff))
 							print("a")
 						else:
-							$AttackCollision.add_to_group(str(Global.attack_power * (Global.player_skill_multipliers["AirborneBasicAttack"] / 100) + basic_attack_buff))
+							$AttackCollision.add_to_group(str(ATTACK * (Global.player_skill_multipliers["AirborneBasicAttack"] / 100) + basic_attack_buff))
 							print("b")
 						break
 				tundra_sigils = 0
+				update_tundra_sigil_ui()
 				is_charging = false
 				is_performing_charged_attack = true
 #				get_parent().get_parent().airborne_mode = false
@@ -282,7 +287,9 @@ func charged_attack(airborne_duration : float = 1, type : int = 1):
 				airborne_mode = true
 #				Input.action_release("jump")
 				is_performing_charged_attack = false
-				Input.action_release("ui_attack")
+				
+		Input.action_release("ui_attack")
+
 func get_closest_enemy():
 	var enemies = get_tree().get_nodes_in_group("Enemy")
 	if enemies.empty(): 
@@ -353,8 +360,10 @@ func _on_AttackCollision_area_entered(area):
 	if weakref(area).get_ref() != null:
 		if area.is_in_group("Enemy") or area.is_in_group("Enemy2"):
 			if $TundraStackRegen.is_stopped() and !is_performing_charged_attack and tundra_sigils < Global.glaciela_skill_multipliers["MaxTundraSigils"]:
+				
 				if attack_string_count == 4 or attack_string_count == 2:
 					tundra_sigils += 1
+					update_tundra_sigil_ui()
 					$TundraStackRegen.start()
 			var hitparticle = SWORD_HIT_PARTICLE.instance()
 			var slashparticle = SWORD_SLASH_EFFECT.instance()

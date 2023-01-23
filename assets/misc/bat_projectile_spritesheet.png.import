@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/single_note.png-9c3831a19b382e205f85df38f9099077.stex"
+path="res://.import/bat_projectile_spritesheet.png-e7d15f13f99cfe2b8a28f9bb0dc31af6.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/characters/lysandra/single_note.png"
-dest_files=[ "res://.import/single_note.png-9c3831a19b382e205f85df38f9099077.stex" ]
+source_file="res://assets/misc/bat_projectile_spritesheet.png"
+dest_files=[ "res://.import/bat_projectile_spritesheet.png-e7d15f13f99cfe2b8a28f9bb0dc31af6.stex" ]
 
 [params]
 

@@ -1,5 +1,6 @@
 class_name FireFairy extends Area2D
 onready var player = get_parent().get_node("Player")
+const SULPHURIC_SIGIL = preload("res://scenes/status_effects/SulphuricSigil.tscn")
 const SPEED = 450
 const steer_force = 225
 var attack : int = 5
@@ -40,7 +41,7 @@ func _physics_process(delta):
 #	rotation = velocity.angle()
 	position += velocity * delta
 func get_closest_enemy():
-	var enemies = get_tree().get_nodes_in_group("Enemy")
+	var enemies = get_tree().get_nodes_in_group("EnemyEntity")
 	if enemies.empty(): 
 		return null
 	var distances = []
@@ -61,3 +62,9 @@ func _on_HomingOnEnemiesFireball_area_entered(area):
 
 func _on_DestroyedTimer_timeout():
 	queue_free() 
+
+
+func _on_FireFairy_body_entered(body):
+	if body.is_in_group("EnemyEntity") and !body.is_in_group("MarkedWithSulphuricSigil"):
+		var sigil = SULPHURIC_SIGIL.instance()
+		body.add_child(sigil)

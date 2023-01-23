@@ -72,7 +72,7 @@ texture_under = ExtResource( 4 )
 texture_progress = ExtResource( 2 )
 
 [node name="DecayTimer" type="Timer" parent="Control"]
-wait_time = 0.2
+wait_time = 0.15
 one_shot = true
 
 [node name="RankDownDelayTimer" type="Timer" parent="Control"]
@@ -112,6 +112,8 @@ text = "0"
 align = 2
 
 [node name="HitCountResetTimer" type="Timer" parent="Control"]
+wait_time = 4.0
+one_shot = true
 
 [node name="RankIconAnimationPlayer" type="AnimationPlayer" parent="Control"]
 anims/RESET = SubResource( 3 )
@@ -122,3 +124,4 @@ anims/RankUp = SubResource( 4 )
 [connection signal="timeout" from="Control/DecayTimer" to="Control" method="_on_DecayTimer_timeout"]
 [connection signal="timeout" from="Control/RankDownTimer" to="Control" method="_on_RankDownTimer_timeout"]
 [connection signal="timeout" from="Control/AttackDecayTimer" to="Control" method="_on_AttackDecayTimer_timeout"]
+[connection signal="timeout" from="Control/HitCountResetTimer" to="Control" method="_on_HitCountResetTimer_timeout"]
