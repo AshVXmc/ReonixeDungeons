@@ -1,4 +1,4 @@
-[gd_scene load_steps=44 format=2]
+[gd_scene load_steps=43 format=2]
 
 [ext_resource path="res://tilesets/HubLevelTileset.tres" type="TileSet" id=1]
 [ext_resource path="res://assets/terrain/deep_woods/background_deep_woods.png" type="Texture" id=2]
@@ -7,7 +7,6 @@
 [ext_resource path="res://scenes/menus/ManaUI.tscn" type="PackedScene" id=5]
 [ext_resource path="res://scenes/menus/FPSCounter.tscn" type="PackedScene" id=7]
 [ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=8]
-[ext_resource path="res://scenes/enemies/Bat.tscn" type="PackedScene" id=9]
 [ext_resource path="res://scenes/menus/OpalsUI.tscn" type="PackedScene" id=10]
 [ext_resource path="res://scenes/levels/hublevel/DungeonEntrance.tscn" type="PackedScene" id=11]
 [ext_resource path="res://scenes/menus/DebugMenu.tscn" type="PackedScene" id=12]
@@ -308,7 +307,7 @@ position = Vector2( 3683.07, -1813.17 )
 position = Vector2( 3987.69, -1586.86 )
 
 [node name="Player" parent="." instance=ExtResource( 8 )]
-position = Vector2( 91, 576 )
+position = Vector2( 711.527, 619.036 )
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position = Vector2( -24.7189, -147.43 )
@@ -329,6 +328,3 @@ position = Vector2( 1014, 614.447 )
 
 [node name="Goblin2" parent="." instance=ExtResource( 44 )]
 position = Vector2( 1180.94, 610.447 )
-
-[node name="Bat" parent="." instance=ExtResource( 9 )]
-position = Vector2( 561.23, 390 )

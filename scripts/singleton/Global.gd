@@ -43,7 +43,7 @@ var player_skill_multipliers : Dictionary = {
 	"FireFairy": 22.0,
 	"FireSawCost": 12,
 	"FireFairyCost": 0,
-	"FireSawCD": 12.0,
+	"FireSawCD": 20.0,
 	"FireFairyCD": 8.0,
 	"BasePhysRes": 0.0,
 	"BaseMagicRes": 0.0,

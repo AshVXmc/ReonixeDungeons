@@ -164,7 +164,7 @@ func _on_Area2D_area_entered(area):
 			print("Burning")
 			var damage = (0.025 * max_HP) + (Global.damage_bonus["fire_dmg_bonus_%"] / 100 * (0.025 * max_HP))
 			HP -= damage
-			Global.elegance_meter += 1
+	
 			print("HP-" + str(damage))
 			$HealthBar.value -= damage
 			parse_status_effect_damage()

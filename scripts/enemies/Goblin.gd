@@ -77,7 +77,10 @@ func _physics_process(delta):
 #		velocity.y = 0
 #	if !is_staggered and !is_frozen:
 	velocity = move_and_slide(velocity, FLOOR)
-	
+	if !$Sprite.flip_h:
+		$OtherEnemyDetector.set_scale(Vector2(1,1))
+	else:
+		$OtherEnemyDetector.set_scale(Vector2(-1,1))
 	if velocity.x == 0:
 		$Sprite.play("Idle")
 		if $Area2D.is_in_group("Hostile"):
@@ -87,7 +90,7 @@ func _physics_process(delta):
 		if !$Area2D.is_in_group("Hostile"):
 			$Area2D.add_to_group("Hostile")
 	if is_on_floor():
-		if !is_staggered and !is_frozen and !dead and !is_airborne and weakref(PLAYER).get_ref() != null: 
+		if !is_staggered and !other_enemy_is_on_front() and !is_frozen and !dead and !is_airborne and weakref(PLAYER).get_ref() != null: 
 			if AREA_LEFT.overlaps_area(PLAYER) and !AREA_LEFT.overlaps_area(DECOY) and !AREA_LEFT.overlaps_area(DECOY2) and !AREA_LEFT.overlaps_area(DECOY3):
 				$Sprite.flip_h = false
 				if !$Sprite.flip_h:
@@ -110,14 +113,47 @@ func _physics_process(delta):
 					velocity.x = SPEED
 	else:
 		if $Sprite.flip_h:
-			velocity.x = -SPEED
+			velocity.x = -SPEED 
 		else:
-			velocity.x = SPEED
-
+			velocity.x = SPEED 
+	
+	if other_enemy_is_on_front():
+		if AREA_LEFT.overlaps_area(PLAYER) or AREA_RIGHT.overlaps_area(PLAYER):
+			velocity.x = 0
+		else:
+			if $Sprite.flip_h:
+				velocity.x = -SPEED 
+			else:
+				velocity.x = SPEED 
 	if is_staggered or is_frozen or is_airborne:
 		velocity.x = 0
 	
-	
+func other_enemy_detector_is_overlapping_player():
+	var bodies = $OtherEnemyDetector.get_overlapping_bodies()
+	if bodies.empty():
+		return null
+	for b in bodies:
+		if b.is_in_group("PlayerEntity"):
+			return true
+		else:
+			return false
+func other_enemy_is_on_front():
+	var bodies = $OtherEnemyDetector.get_overlapping_bodies()
+	if bodies.empty():
+		return null
+	for b in bodies:
+		if b.is_in_group("EnemyEntity"):
+			return true
+		else:
+			return false
+func other_enemy_detectors_is_overlapping():
+	var areas = $OtherEnemyDetector.get_overlapping_areas()
+	if areas.empty():
+		return null
+	for a in areas:
+		if a.is_in_group("OtherEnemyDetector"):
+			return true
+		
 func _on_Area2D_area_entered(area):
 	var groups_to_remove : Array = [
 		"Sword", "SwordCharged", "Fireball", "Ice",
@@ -211,7 +247,7 @@ func _on_Area2D_area_entered(area):
 			print("Burning")
 			var damage = (0.025 * max_HP) + (Global.damage_bonus["fire_dmg_bonus_%"] / 100 * (0.025 * max_HP))
 			HP -= damage
-			Global.elegance_meter += 1
+
 			print("HP-" + str(damage))
 			$HealthBar.value -= damage
 			parse_status_effect_damage()

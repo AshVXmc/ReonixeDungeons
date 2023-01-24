@@ -905,9 +905,9 @@ func _on_Area2D_area_entered(area : Area2D):
 			Global.lifewine_amount += 1
 			emit_signal("lifewine_obtained", Global.lifewine_amount)
 		if !Global.godmode:
-					
 			if inv_timer.is_stopped() and !is_invulnerable and !is_dashing and perfect_dash:
 				if area.is_in_group("Enemy") and area.is_in_group("Hostile")or area.is_in_group("DeflectedProjectile"):
+					print("area is entered)qqqqqq")
 					match area.get_parent().elemental_type:
 						"Physical":
 							var dmg = area.get_parent().atk_value

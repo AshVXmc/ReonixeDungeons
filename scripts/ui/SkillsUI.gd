@@ -69,6 +69,7 @@ func _process(delta):
 
 		if !$PrimarySkill/Player/FireSaw/FiresawTimer.is_stopped():
 			$PrimarySkill/Player/FireSaw/Label.text = str(round($PrimarySkill/Player/FireSaw/FiresawTimer.time_left))
+			$PrimarySkill/Player/FireSaw/Sprite.self_modulate.a = 0.65
 		elif $PrimarySkill/Player/FireSaw/FiresawTimer.is_stopped():
 			if Global.equipped_characters[0] == "Player":
 				if Global.mana >= Global.player_skill_multipliers["FireSawCost"]:

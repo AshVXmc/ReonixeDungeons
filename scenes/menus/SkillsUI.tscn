@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://scripts/ui/SkillsUI.gd" type="Script" id=1]
 [ext_resource path="res://assets/UI/firesaw_skill_icon.png" type="Texture" id=2]
@@ -17,10 +17,6 @@ font_data = ExtResource( 3 )
 [sub_resource type="DynamicFont" id=4]
 size = 32
 outline_size = 2
-font_data = ExtResource( 3 )
-
-[sub_resource type="DynamicFont" id=2]
-size = 48
 font_data = ExtResource( 3 )
 
 [sub_resource type="DynamicFont" id=3]
@@ -340,23 +336,6 @@ custom_fonts/font = SubResource( 4 )
 text = "99"
 align = 1
 
-[node name="KeyIcon" type="Sprite" parent="Control/PrimarySkill"]
-position = Vector2( 170, 125.77 )
-scale = Vector2( 2, 2 )
-texture = ExtResource( 4 )
-
-[node name="KeyBind" type="Label" parent="Control/PrimarySkill"]
-anchor_left = -3.732
-anchor_right = -3.732
-margin_left = 310.778
-margin_top = 109.169
-margin_right = 331.778
-margin_bottom = 157.169
-rect_scale = Vector2( 0.75, 0.75 )
-custom_colors/font_color = Color( 0.192157, 0.372549, 1, 1 )
-custom_fonts/font = SubResource( 2 )
-text = "E"
-
 [node name="SecondarySkill" type="Control" parent="Control"]
 margin_top = -21.0
 margin_right = 40.0
@@ -449,23 +428,6 @@ custom_fonts/font = SubResource( 4 )
 text = "99"
 align = 1
 
-[node name="KeyIcon" type="Sprite" parent="Control/SecondarySkill"]
-position = Vector2( 270, 146.77 )
-scale = Vector2( 2, 2 )
-texture = ExtResource( 4 )
-
-[node name="KeyBind" type="Label" parent="Control/SecondarySkill"]
-anchor_left = -3.732
-anchor_right = -3.732
-margin_left = 410.778
-margin_top = 130.169
-margin_right = 431.778
-margin_bottom = 178.169
-rect_scale = Vector2( 0.75, 0.75 )
-custom_colors/font_color = Color( 0.192157, 0.372549, 1, 1 )
-custom_fonts/font = SubResource( 2 )
-text = "C"
-
 [node name="DashSkill" type="Control" parent="Control"]
 margin_top = -21.0
 margin_right = 40.0
@@ -477,7 +439,7 @@ margin_bottom = 40.0
 
 [node name="Sprite" type="Sprite" parent="Control/DashSkill/Player"]
 position = Vector2( 370, 190 )
-scale = Vector2( 4.5, 4.5 )
+scale = Vector2( 4, 4 )
 texture = ExtResource( 10 )
 __meta__ = {
 "_edit_group_": true
@@ -517,23 +479,6 @@ valign = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
-
-[node name="KeyIcon" type="Sprite" parent="Control/DashSkill"]
-position = Vector2( 270, 146.77 )
-scale = Vector2( 2, 2 )
-texture = ExtResource( 4 )
-
-[node name="KeyBind" type="Label" parent="Control/DashSkill"]
-anchor_left = -3.732
-anchor_right = -3.732
-margin_left = 410.778
-margin_top = 130.169
-margin_right = 431.778
-margin_bottom = 178.169
-rect_scale = Vector2( 0.75, 0.75 )
-custom_colors/font_color = Color( 0.192157, 0.372549, 1, 1 )
-custom_fonts/font = SubResource( 2 )
-text = "C"
 
 [node name="Characters" type="Control" parent="Control"]
 anchor_left = 24.926
