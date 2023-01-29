@@ -47,7 +47,7 @@ const TYPE : String = "Player"
 const AIRBORNE_STATUS : PackedScene = preload("res://scenes/status_effects/AirborneStatus.tscn")
 var dashdirection : Vector2 = Vector2(1,0)
 var repulsion : Vector2 = Vector2()
-var knockback_power : int = 100
+var knockback_power : int = 1000
 var can_be_knocked : bool = true
 var SPEED : int = 380
 const GRAVITY : int = 40
@@ -55,6 +55,7 @@ var JUMP_POWER : int = -1100
 var waiting_for_quickswap : bool = false
 var is_thrust_attacking : bool = false
 var energy_full : bool 
+var is_dash_counter_attacking : bool = false
 var facing 
 enum {
 	left, right
@@ -255,7 +256,7 @@ func _physics_process(_delta):
 		elif facing == right:
 			facing = left
 	# Makes sure the player is alive to use any movement controls
-	if !is_invulnerable and !is_healing and !is_shopping and !is_frozen :
+	if !is_invulnerable and !is_healing and !is_shopping and !is_frozen:
 		$KatanaSheathSprite.visible = true if Global.current_character == "Player" else false
 		target = get_closest_enemy()
 		# Function calls
@@ -283,7 +284,7 @@ func _physics_process(_delta):
 				facing = right
 			else:
 				facing = null 
-			if !is_doing_charged_attack:
+			if !is_doing_charged_attack and !is_dash_counter_attacking:
 				if facing == left:
 					velocity.x = -SPEED
 					Input.action_release("right")
@@ -515,24 +516,25 @@ func gp_effect():
 		gp_particle2.emitting = true
 		gp_particle2.one_shot = true
 
-			
+
+func dash_counter_attack():
+	if Global.current_character == "Player" and !is_attacking and !is_gliding and !is_frozen and $MeleeTimer.is_stopped() and $ChargeBar.value != $ChargeBar.max_value:
+		is_dash_counter_attacking = true
+		$DashCounterAttackTimer.stop()
+		var counterflurryeffect = SWORD_SLASH_EFFECT.instance()
+		get_parent().add_child(counterflurryeffect)
+		counterflurryeffect.position = get_closest_enemy().global_position
+		counterflurryeffect.circular_flurry_animation()
+		update_energy_meter(30)
+		yield(get_tree().create_timer(0.5), "timeout")
+		is_dash_counter_attacking = false
 func attack():
 	if Global.current_character == "Player" and !is_attacking and !is_gliding and !is_frozen and $MeleeTimer.is_stopped() and $ChargeBar.value != $ChargeBar.max_value:
 		$Sprite.play("Attack")
-		
-#		if !$Sprite.flip_h and enemy_on_left_detector():
-#			Input.action_press("left")
-#			Input.action_release("left")
-#		elif $Sprite.flip_h and enemy_on_right_detector():
-#			Input.action_press("right")
-#			Input.action_release("right")
-#
-		
+		$SwordSprite.visible = true
 		if $Sprite.flip_h:
-			$SwordSprite.visible = true
 			play_attack_animation("Left")
 		else:
-			$SwordSprite.visible = true
 			play_attack_animation("Right")
 		is_attacking = true
 		$AttackCollision/CollisionShape2D.disabled = false
@@ -565,8 +567,10 @@ func attack():
 func _input(event):
 	if Global.current_character == "Player":
 		if event.is_action_pressed("ui_attack") and $InputPressTimer.is_stopped() and !is_quickswap_attacking:
-
-			attack()
+			if $DashCounterAttackTimer.is_stopped():
+				attack()
+			else:
+				dash_counter_attack()
 			$InputPressTimer.start()
 		if event.is_action_pressed("ui_down") and airborne_mode:
 			airborne_mode = false
@@ -606,6 +610,7 @@ func charged_attack(type : String = "Ground"):
 		get_parent().add_child(hitparticle)
 		hitparticle.position = $Position2D.global_position
 		emit_signal("change_elegance", "ChargedAttackLight")
+		sheathe_katana()
 	elif type == "Special" and $SlashFlurryCD.is_stopped():
 		
 		is_flurry_attacking = true
@@ -617,6 +622,7 @@ func charged_attack(type : String = "Ground"):
 		flurry.add_to_group(str(ATTACK * (Global.player_skill_multipliers["SpecialChargedAttack"] / 100)))
 		flurry.get_node("FinalSlashArea").add_to_group(str(ATTACK * (Global.player_skill_multipliers["SpecialChargedAttackFinalStrike"] / 100)))
 		get_parent().get_parent().add_child(flurry)
+		flurry.get_node("AnimationPlayer").play("FlurryAttack")
 		if weakref(get_closest_enemy()).get_ref() != null and $SlashFlurryDetector.overlaps_body(get_closest_enemy()):
 			flurry.position = get_closest_enemy().global_position
 			
@@ -905,9 +911,10 @@ func _on_Area2D_area_entered(area : Area2D):
 			Global.lifewine_amount += 1
 			emit_signal("lifewine_obtained", Global.lifewine_amount)
 		if !Global.godmode:
-			if inv_timer.is_stopped() and !is_invulnerable and !is_dashing and perfect_dash:
+			if inv_timer.is_stopped() and !is_invulnerable and !is_dashing:
 				if area.is_in_group("Enemy") and area.is_in_group("Hostile")or area.is_in_group("DeflectedProjectile"):
-					print("area is entered)qqqqqq")
+					print("HURT")
+					
 					match area.get_parent().elemental_type:
 						"Physical":
 							var dmg = area.get_parent().atk_value
@@ -1115,6 +1122,19 @@ func knockback():
 		is_knocked_back = true
 		$KnockbackCooldownTimer.start()
 		can_be_knocked = false
+		Input.action_release("left")
+		Input.action_release("right")
+		Input.action_release("ui_attack")
+		
+#		if !$Sprite.flip_h:
+#			velocity.x = 0
+#			velocity.x = -knockback_power 
+#		else:
+#			velocity.x = 0
+#			velocity.x = knockback_power 
+#		yield(get_tree().create_timer(0.3), "timeout")
+#		$KnockbackrecoveryTimer.start()
+		
 	dashdirection = Vector2(-1, 0) if $Sprite.flip_h else Vector2(1,0)
 	Input.action_release("jump")
 #	Input.action_release("left")
@@ -1124,22 +1144,20 @@ func knockback():
 
 func _on_LeftDetector_area_entered(area):
 	if !Global.godmode:
-		if is_invulnerable and area.is_in_group("Enemy") or area.is_in_group("Enemy2") and is_knocked_back:
-			if !area.is_in_group("LightEnemy"):
-				velocity.x = 1000
-				$KnockbackCooldownTimer.start()
-				velocity.y = JUMP_POWER * 0.25
-			is_healing = false
-			$HealingTimer.stop()
+		if $KnockbackCooldownTimer.is_stopped() and !is_invulnerable and area.is_in_group("Enemy") or area.is_in_group("Enemy2") and !is_knocked_back:
+			yield(get_tree().create_timer(0.15),"timeout")
+			velocity.x = 0
+			velocity.x = knockback_power
+			$KnockbackCooldownTimer.start()
 func _on_RightDectector_area_entered(area):
 	if !Global.godmode:
-		if is_invulnerable and area.is_in_group("Enemy") or area.is_in_group("Enemy2") and is_knocked_back:
-			if !area.is_in_group("LightEnemy") or !resist_interruption:
-				velocity.x = -1000
-				$KnockbackCooldownTimer.start()
-				velocity.y = JUMP_POWER * 0.25
-			is_healing = false
-			$HealingTimer.stop()
+		if $KnockbackCooldownTimer.is_stopped() and !is_invulnerable and area.is_in_group("Enemy") or area.is_in_group("Enemy2") and !is_knocked_back:
+			yield(get_tree().create_timer(0.15),"timeout")
+			velocity.x = 0
+			velocity.x = -knockback_power
+			$KnockbackCooldownTimer.start()
+
+
 func dash():
 	
 	if Global.dash_unlocked and !is_frozen and !is_thrust_attacking:
@@ -1175,7 +1193,8 @@ func dash():
 				velocity = dashdirection.normalized() * -2000
 				can_use_slash_flurry = true
 				emit_signal("change_elegance", "PerfectDash")
-
+				$DashCounterAttackTimer.start()
+				
 			else:
 				velocity.y = 0
 				$Sprite.play("Dash")
@@ -1189,7 +1208,7 @@ func dash():
 			velocity.y += GRAVITY
 			is_dashing = false
 
-func thrust_attack():
+func thrust_attack(extra_long_thrust : bool = false):
 	for n in $ThrustEffectArea.get_groups():
 		if float(n) != 0:
 			$ThrustEffectArea.remove_from_group(n)
@@ -1222,14 +1241,27 @@ func thrust_attack():
 
 	$Sprite.play("Dash")
 	$SlashEffectPlayer.play("HorizontalSlash")
-	velocity = thrustdirection.normalized() * 3000
-	is_thrust_attacking = false
-	yield(get_tree().create_timer(0.2), "timeout")
-	cam_shake = false
-	is_invulnerable = false
-	$ThrustEffectArea/CollisionShape2D.disabled = true
-	if !is_flurry_attacking:
-		update_energy_meter(15)
+	if extra_long_thrust:
+		velocity = thrustdirection.normalized() * 3000 * 1.5
+		is_thrust_attacking = false
+		yield(get_tree().create_timer(0.2), "timeout")
+		cam_shake = false
+		
+		$ThrustEffectArea/CollisionShape2D.disabled = true
+		yield(get_tree().create_timer(1.5), "timeout")
+		
+		is_invulnerable = false
+		if !is_flurry_attacking:
+			update_energy_meter(25)
+	else:
+		velocity = thrustdirection.normalized() * 3000
+		is_thrust_attacking = false
+		yield(get_tree().create_timer(0.2), "timeout")
+		cam_shake = false
+		is_invulnerable = false
+		$ThrustEffectArea/CollisionShape2D.disabled = true
+		if !is_flurry_attacking:
+			update_energy_meter(15)
 
 		
 func knock_airborne(target):
@@ -1464,6 +1496,7 @@ func _on_KnockbackTimer_timeout():
 	is_knocked_back = false
 	repulsion.x = knockback_power
 	velocity.x = 0
+	
 
 func _on_KnockbackCooldownTimer_timeout():
 	is_knocked_back = false
@@ -1553,19 +1586,18 @@ func _on_AirborneMaxDuration_timeout():
 
 func _on_EnemyEvasionArea_area_exited(area):
 	if Global.current_character == "Player":
-		if is_dashing and area.is_in_group("Hostile"):
+		if is_dashing and area.is_in_group("Hostile") and $TempusTardusTriggerCD.is_stopped():
 			is_invulnerable = true
 			
 			Input.action_release("charge")
 			emit_signal("perfect_dash")
 			Engine.time_scale = 0.5
-			yield(get_tree().create_timer(0.25), "timeout")
+			yield(get_tree().create_timer(0.125), "timeout")
 			Engine.time_scale = 1.0
 			var tempus_targus = TEMPUS_TARGUS.instance()
-			tempus_targus.duration = 5.0
 			get_parent().add_child(tempus_targus)
 			tempus_targus.position = global_position
-			
+			$TempusTardusTriggerCD.start()
 	#		knock_airborne(area, 4)
 	#		Input.action_press("jump")
 	#

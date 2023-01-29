@@ -6,6 +6,7 @@ const SMOKE_PARTICLE : PackedScene = preload("res://scenes/particles/SmokePartic
 
 func _ready():
 	$HorizontalSlashSprite.visible = false
+
 func regular_slash_animation():
 	$HorizontalSlashSprite.visible = false
 	$Sprite.visible = true
@@ -31,7 +32,12 @@ func regular_slash_animation():
 			
 func horizontal_slash_animation():
 	$SlashEffectPlayer.play("HorizontalSlash")
+	yield(get_tree().create_timer(DEFAULT_ANIM_DURATION), "timeout")
+	call_deferred('free')
 	
+func circular_flurry_animation():
+	$CircularFlurry.visible = true
+	$SlashEffectPlayer.play("CircularFlurry")
 func flurry_slash_animation(num):
 	$HorizontalSlashSprite.visible = false
 	
@@ -92,8 +98,16 @@ func flurry_slash_animation(num):
 			yield(get_tree().create_timer(0.2), "timeout")
 			call_deferred('free')
 			
-		
-		
+func player_perfect_dash_counterattack_animation():
+	$Sprite.visible = true
+	$SlashEffectPlayer.play("HorizontalSlash")
+	yield(get_tree().create_timer(DEFAULT_ANIM_DURATION), "timeout")
+	$AnimationPlayer.play("SwordSlash2")
+	yield(get_tree().create_timer(DEFAULT_ANIM_DURATION), "timeout")
+	$AnimationPlayer.play("SwordSlash1")
+	yield(get_tree().create_timer(DEFAULT_ANIM_DURATION), "timeout")
+	call_deferred('free')
+	
 func instance_particle():
 	var particle = SMOKE_PARTICLE.instance()
 	particle.scale.x = 3

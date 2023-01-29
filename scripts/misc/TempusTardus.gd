@@ -1,10 +1,19 @@
 class_name TempusTardus extends Area2D
 
-var duration : float = 1.0
+const duration = 5
+onready var COOLDOWN_TIMER = get_parent().get_node("TempusTardusGlobalCD")
 
 func _ready():
-	yield(get_tree().create_timer(duration), "timeout")
+	$DestroyedTimer.start()
+func refresh_duration():
+	pass
+	
+	
+	
+	
+func destroy():
 	$AnimationPlayer.play("fadeout")
 
-func destroy():
-	call_deferred('free')
+
+func _on_DestroyedTimer_timeout():
+	destroy()

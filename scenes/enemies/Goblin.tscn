@@ -13,8 +13,8 @@
 [ext_resource path="res://assets/misc/physical_armor.png" type="Texture" id=11]
 
 [sub_resource type="CapsuleShape2D" id=8]
-radius = 24.0
-height = 60.0
+radius = 30.0
+height = 52.0
 
 [sub_resource type="SpriteFrames" id=4]
 animations = [ {
@@ -35,10 +35,10 @@ animations = [ {
 } ]
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 253.051, 50.3433 )
+extents = Vector2( 166.268, 50.3433 )
 
 [sub_resource type="CapsuleShape2D" id=3]
-radius = 31.6903
+radius = 37.0833
 height = 84.9743
 
 [sub_resource type="AtlasTexture" id=11]
@@ -99,7 +99,7 @@ extents = Vector2( 9.77439, 84.5919 )
 extents = Vector2( 21.1124, 12.1701 )
 
 [sub_resource type="RectangleShape2D" id=12]
-extents = Vector2( 24.4541, 32.7037 )
+extents = Vector2( 9.93562, 41.0079 )
 
 [node name="Goblin" type="KinematicBody2D" groups=["Enemy", "EnemyEntity"]]
 scale = Vector2( 1.2, 1.2 )
@@ -126,13 +126,13 @@ collision_layer = 129
 collision_mask = 129
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Left"]
-position = Vector2( -280, 0 )
+position = Vector2( -193.217, 0 )
 shape = SubResource( 2 )
 
 [node name="Right" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Right"]
-position = Vector2( 280, 0 )
+position = Vector2( 198.333, 0 )
 shape = SubResource( 2 )
 
 [node name="Area2D" type="Area2D" parent="." groups=["Enemy"]]
@@ -209,7 +209,7 @@ texture = ExtResource( 11 )
 [node name="OtherEnemyDetector" type="Area2D" parent="." groups=["OtherEnemyDetector"]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="OtherEnemyDetector"]
-position = Vector2( -53.8471, 1.15487 )
+position = Vector2( -44.3286, 0.422605 )
 shape = SubResource( 12 )
 
 [connection signal="area_exited" from="Left" to="." method="_on_Left_area_exited"]

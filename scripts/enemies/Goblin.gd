@@ -10,7 +10,7 @@ var direction : int = 1
 var is_dead : bool = false 
 const TYPE : String = "Enemy"
 const FLOOR = Vector2(0, -1)
-const MAX_SPEED : int = 160
+const MAX_SPEED : int = 120
 var SPEED : int = MAX_SPEED
 const MAX_GRAVITY : int = 45
 var GRAVITY : int = MAX_GRAVITY
@@ -62,6 +62,7 @@ func _ready():
 	$HealthBar.max_value = max_HP
 	$HealthBar.value = $HealthBar.max_value
 func _physics_process(delta):
+
 	if !is_airborne:
 		set_collision_mask_bit(2, true)
 	else:
@@ -90,44 +91,75 @@ func _physics_process(delta):
 		if !$Area2D.is_in_group("Hostile"):
 			$Area2D.add_to_group("Hostile")
 	if is_on_floor():
-		if !is_staggered and !other_enemy_is_on_front() and !is_frozen and !dead and !is_airborne and weakref(PLAYER).get_ref() != null: 
+		if !is_staggered and !$Area2D.overlaps_area(PLAYER) and !other_enemy_detector_is_overlapping_player() and !is_frozen and !dead and !is_airborne and weakref(PLAYER).get_ref() != null: 
 			if AREA_LEFT.overlaps_area(PLAYER) and !AREA_LEFT.overlaps_area(DECOY) and !AREA_LEFT.overlaps_area(DECOY2) and !AREA_LEFT.overlaps_area(DECOY3):
 				$Sprite.flip_h = false
 				if !$Sprite.flip_h:
-					yield(get_tree().create_timer(0.5),"timeout")
+					yield(get_tree().create_timer(0.25),"timeout")
 					velocity.x = -SPEED
 			elif AREA_LEFT.overlaps_area(DECOY) or AREA_LEFT.overlaps_area(DECOY2) or AREA_LEFT.overlaps_area(DECOY):
 				$Sprite.flip_h = false
 				if !$Sprite.flip_h:
-					yield(get_tree().create_timer(0.25),"timeout")
+					yield(get_tree().create_timer(0.5),"timeout")
 					velocity.x = -SPEED 
 			if AREA_RIGHT.overlaps_area(PLAYER) and !AREA_RIGHT.overlaps_area(DECOY) and !AREA_RIGHT.overlaps_area(DECOY2) and !AREA_RIGHT.overlaps_area(DECOY3):
 				$Sprite.flip_h = true
 				if $Sprite.flip_h:
-					yield(get_tree().create_timer(0.5),"timeout")
+					yield(get_tree().create_timer(0.25),"timeout")
 					velocity.x = SPEED 
 			elif AREA_RIGHT.overlaps_area(DECOY) or AREA_RIGHT.overlaps_area(DECOY2) or AREA_RIGHT.overlaps_area(DECOY3):
 				$Sprite.flip_h = true
 				if $Sprite.flip_h:
-					yield(get_tree().create_timer(0.25),"timeout")
+					yield(get_tree().create_timer(0.5),"timeout")
 					velocity.x = SPEED
 	else:
-		if $Sprite.flip_h:
-			velocity.x = -SPEED 
-		else:
-			velocity.x = SPEED 
-	
-	if other_enemy_is_on_front():
-		if AREA_LEFT.overlaps_area(PLAYER) or AREA_RIGHT.overlaps_area(PLAYER):
-			velocity.x = 0
-		else:
+		
+#		if other_enemy_detector_is_overlapping_player():
 			if $Sprite.flip_h:
 				velocity.x = -SPEED 
 			else:
 				velocity.x = SPEED 
+	if other_enemy_is_on_front():
+		velocity.x = 0
+		
+	if $Area2D.overlaps_area(PLAYER) or other_enemy_is_on_front() and !is_staggered:
+
+		if $Sprite.flip_h:
+			velocity.x = -SPEED * 1
+		else:
+			velocity.x = SPEED * 1
+#	if !is_staggered and other_enemy_detector_is_overlapping_player() and !other_enemy_detectors_is_overlapping():
+#		if AREA_RIGHT.overlaps_area(PLAYER):
+#			if $Sprite.flip_h:
+#				velocity.x = -SPEED 
+#			else:
+#				velocity.x = SPEED
+#		elif AREA_LEFT.overlaps_area(PLAYER):
+#			if $Sprite.flip_h:
+#				velocity.x = SPEED 
+#			else:
+#				velocity.x = -SPEED
+	if other_enemy_detectors_is_overlapping():
+		if $Sprite.flip_h:
+			velocity.x = -SPEED 
+		else:
+			velocity.x = SPEED 
+	if other_enemy_is_on_front():
+		if other_enemy_detector_is_overlapping_player():
+			if $Sprite.flip_h:
+				velocity.x = -SPEED 
+			else:
+				velocity.x = SPEED
+		elif AREA_LEFT.overlaps_area(PLAYER) or AREA_RIGHT.overlaps_area(PLAYER):
+			if $Sprite.flip_h:
+				velocity.x = -SPEED 
+			else:
+				velocity.x = SPEED
 	if is_staggered or is_frozen or is_airborne:
 		velocity.x = 0
-	
+
+
+
 func other_enemy_detector_is_overlapping_player():
 	var bodies = $OtherEnemyDetector.get_overlapping_bodies()
 	if bodies.empty():
@@ -142,7 +174,7 @@ func other_enemy_is_on_front():
 	if bodies.empty():
 		return null
 	for b in bodies:
-		if b.is_in_group("EnemyEntity"):
+		if b.is_in_group("EnemyEntity") and !b.is_staggered:
 			return true
 		else:
 			return false

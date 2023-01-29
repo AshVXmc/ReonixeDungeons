@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=2]
+[gd_scene load_steps=34 format=2]
 
 [ext_resource path="res://assets/characters/glaciela/glaciela_idle.png" type="Texture" id=1]
 [ext_resource path="res://assets/characters/glaciela/glaciela_walk.png" type="Texture" id=2]
@@ -13,6 +13,7 @@
 [ext_resource path="res://assets/characters/glaciela/glaciela_walk_2.png" type="Texture" id=11]
 [ext_resource path="res://assets/UI/charged_attack_meter_full_glaciela.png" type="Texture" id=12]
 [ext_resource path="res://assets/UI/tundra_sigil.png" type="Texture" id=13]
+[ext_resource path="res://scenes/particles/StrongJumpParticle.tscn" type="PackedScene" id=14]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -199,6 +200,78 @@ tracks/3/loop_wrap = true
 tracks/3/imported = false
 tracks/3/enabled = true
 tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ true ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("StrongJumpParticle:emitting")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ true ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("StrongJumpParticle:one_shot")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("StrongJumpParticle:scale")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 2, 2 ) ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("StrongJumpParticle:position")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 130, 45 ) ]
+}
+tracks/8/type = "value"
+tracks/8/path = NodePath("SpearSprite:offset")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, -12 ) ]
+}
+tracks/9/type = "value"
+tracks/9/path = NodePath("SpecialAttackArea2D/CollisionShape2D:disabled")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
@@ -645,6 +718,148 @@ tracks/3/keys = {
 "values": [ false ]
 }
 
+[sub_resource type="Animation" id=18]
+resource_name = "SpecialAttack1_Right"
+length = 0.65
+step = 0.025
+tracks/0/type = "value"
+tracks/0/path = NodePath("SpearSprite:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.225, 0.325, 0.625 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ 135.0, 135.0, -40.0, 320.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("SpearSprite:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.125, 0.225, 0.325, 0.625 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( -25, -110 ), Vector2( 30, -45 ), Vector2( 25, -58 ), Vector2( 70, -10 ), Vector2( 200, -10 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("StrongJumpParticle:emitting")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0.125, 0.175 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("StrongJumpParticle:one_shot")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0.125 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("StrongJumpParticle:scale")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0.125 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 2, 2 ) ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("StrongJumpParticle:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0.125 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 130, 45 ) ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("SpearSprite:visible")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0, 0.225, 0.325, 0.625 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ true, false, true, false ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("SpearSprite:offset")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0, 0.125, 0.3, 0.625, 0.65 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, -12 ), Vector2( 0, -12 ), Vector2( 0, 0 ), Vector2( 0, 0 ), Vector2( 0, -12 ) ]
+}
+tracks/8/type = "value"
+tracks/8/path = NodePath("StrongJumpParticle:visible")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/9/type = "value"
+tracks/9/path = NodePath("SpecialAttackArea2D/CollisionShape2D:disabled")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/keys = {
+"times": PoolRealArray( 0, 0.1, 0.125, 0.375, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ true, false, true, false, true ]
+}
+tracks/10/type = "method"
+tracks/10/path = NodePath(".")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/keys = {
+"times": PoolRealArray( 0.125, 0.375 ),
+"transitions": PoolRealArray( 1, 1 ),
+"values": [ {
+"args": [ 1 ],
+"method": "special_attack_1_damage_calc"
+}, {
+"args": [ 2 ],
+"method": "special_attack_1_damage_calc"
+} ]
+}
+
 [sub_resource type="RectangleShape2D" id=5]
 extents = Vector2( 63.6348, 39.1389 )
 
@@ -657,6 +872,9 @@ height = 17.3718
 
 [sub_resource type="RectangleShape2D" id=17]
 extents = Vector2( 42.0083, 40 )
+
+[sub_resource type="RectangleShape2D" id=19]
+extents = Vector2( 70, 50 )
 
 [node name="Glaciela" type="Node2D"]
 script = ExtResource( 4 )
@@ -693,6 +911,7 @@ anims/SpearSwingRight1 = SubResource( 2 )
 anims/SpearSwingRight2 = SubResource( 10 )
 anims/SpearSwingRight3 = SubResource( 12 )
 anims/SpearSwingRight4 = SubResource( 15 )
+anims/SpecialAttack1_Right = SubResource( 18 )
 
 [node name="AttackCollision" type="Area2D" parent="." groups=["Sword"]]
 
@@ -791,6 +1010,28 @@ texture = ExtResource( 13 )
 position = Vector2( 50, -81 )
 scale = Vector2( 2.5, 2.5 )
 texture = ExtResource( 13 )
+
+[node name="TempusTardusTriggerCD" type="Timer" parent="."]
+wait_time = 20.0
+one_shot = true
+
+[node name="KnockAirborneICD" type="Timer" parent="."]
+wait_time = 0.4
+one_shot = true
+
+[node name="StrongJumpParticle" parent="." instance=ExtResource( 14 )]
+visible = false
+position = Vector2( 130, 45 )
+scale = Vector2( 2, 2 )
+emitting = true
+one_shot = false
+
+[node name="SpecialAttackArea2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SpecialAttackArea2D"]
+position = Vector2( 108.881, -0.00581169 )
+shape = SubResource( 19 )
+disabled = true
 
 [connection signal="area_entered" from="AttackCollision" to="." method="_on_AttackCollision_area_entered"]
 [connection signal="area_exited" from="AttackCollision" to="." method="_on_AttackCollision_area_exited"]

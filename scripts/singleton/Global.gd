@@ -31,8 +31,8 @@ var player_skill_multipliers : Dictionary = {
 	"ChargedAttack": 60.0,
 	"ThrustChargedAttack": 37.5,
 	"UpwardsorDownwardsChargedAttack": 30.0, # x 2
-	"SpecialChargedAttack": 65.0, # x 4
-	"SpecialChargedAttackFinalStrike": 145.0,
+	"SpecialChargedAttack": 45.5, # x 4
+	"SpecialChargedAttackFinalStrike": 135.0,
 	"AirborneBasicAttack": 35.0,
 	"AirborneBasicAttack2": 30.0,
 	"AirborneBasicAttack3": 45.0,
@@ -61,6 +61,8 @@ var glaciela_skill_multipliers : Dictionary = {
 	"BasicAttack3": 55.0,
 	"BasicAttack4": 60.0,
 	"ChargedAttack": 45.0,
+	"SpecialAttack1_1": 40.0,
+	"SpecialAttack1_2": 55.0,
 	"TundraSigilDMGBonus": 12.0,
 	"TundraSigilFreezeStackBonus": 20,
 	"TundraSigilManaBonus": 0.75,
@@ -135,7 +137,7 @@ var player_skills : Dictionary = {
 
 
 var current_character : String 
-var equipped_characters : Array = ["Player", "Glaciela", ""]
+var equipped_characters : Array = ["Glaciela", "Player", ""]
 var unlocked_characters : Array = ["Player", "Glaciela", "Domiguine"]
 var alive : Array = [true, true, true]
 
