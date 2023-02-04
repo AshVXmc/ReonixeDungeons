@@ -5,7 +5,7 @@ radius = 80.0
 
 [sub_resource type="Animation" id=4]
 resource_name = "CircularFlurryAttack"
-length = 0.35
+length = 0.5
 step = 0.025
 tracks/0/type = "value"
 tracks/0/path = NodePath("CollisionShape2D:disabled")
@@ -14,7 +14,7 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.05, 0.125, 0.175, 0.25, 0.3 ),
+"times": PoolRealArray( 0, 0.075, 0.2, 0.275, 0.425, 0.5 ),
 "transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
 "update": 1,
 "values": [ false, true, false, true, false, true ]
@@ -26,7 +26,7 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0.35 ),
+"times": PoolRealArray( 0.5 ),
 "transitions": PoolRealArray( 1 ),
 "values": [ {
 "args": [ "free" ],

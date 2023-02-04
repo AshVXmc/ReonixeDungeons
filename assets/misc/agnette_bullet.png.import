@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/goblin1_attack.png-f5bea4de3b62f174728cabfa8b541f89.stex"
+path="res://.import/agnette_bullet.png-fcfdb32d94a3d1014dbce4b867f16e4d.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/enemies/goblin1_attack.png"
-dest_files=[ "res://.import/goblin1_attack.png-f5bea4de3b62f174728cabfa8b541f89.stex" ]
+source_file="res://assets/misc/agnette_bullet.png"
+dest_files=[ "res://.import/agnette_bullet.png-fcfdb32d94a3d1014dbce4b867f16e4d.stex" ]
 
 [params]
 

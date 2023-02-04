@@ -1,4 +1,4 @@
-[gd_scene load_steps=60 format=2]
+[gd_scene load_steps=61 format=2]
 
 [ext_resource path="res://spriteframes/MainCharacter_spriteframes.tres" type="SpriteFrames" id=1]
 [ext_resource path="res://scripts/player/Player.gd" type="Script" id=2]
@@ -739,6 +739,38 @@ tracks/2/keys = {
 "values": [ Vector2( -1.43051e-06, -22.6691 ) ]
 }
 
+[sub_resource type="Animation" id=45]
+resource_name = "Death"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.7, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 0, 0, 0, 1 ), Color( 0, 0, 0, 1 ) ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.5, 0.9 ),
+"transitions": PoolRealArray( 1, 1 ),
+"values": [ {
+"args": [  ],
+"method": "add_death_particles"
+}, {
+"args": [  ],
+"method": "swap_to_nearby_alive_characters"
+} ]
+}
+
 [sub_resource type="Animation" id=8]
 resource_name = "Hurt"
 length = 0.2
@@ -765,6 +797,18 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
@@ -1120,8 +1164,7 @@ tracks/5/keys = {
 
 [sub_resource type="Animation" id=44]
 resource_name = "LeftDefaultSheath"
-length = 0.4
-step = 0.05
+length = 0.2
 tracks/0/type = "value"
 tracks/0/path = NodePath("KatanaSheathSprite:position")
 tracks/0/interp = 1
@@ -1132,7 +1175,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( -13, 18 ) ]
+"values": [ Vector2( 13, 18 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("KatanaSheathSprite:flip_h")
@@ -1153,7 +1196,7 @@ tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0.01 ),
+"times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
 "values": [ true ]
@@ -1165,10 +1208,10 @@ tracks/3/loop_wrap = true
 tracks/3/imported = false
 tracks/3/enabled = true
 tracks/3/keys = {
-"times": PoolRealArray( 0, 0.01 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ -75.0, -75.0 ]
+"values": [ -75.0 ]
 }
 tracks/4/type = "value"
 tracks/4/path = NodePath("KatanaSheathSprite:show_behind_parent")
@@ -1212,10 +1255,10 @@ tracks/7/loop_wrap = true
 tracks/7/imported = false
 tracks/7/enabled = true
 tracks/7/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ Vector2( 30, 28 ) ]
+"values": [ Vector2( -90, -10 ), Vector2( -22, 8 ) ]
 }
 tracks/8/type = "value"
 tracks/8/path = NodePath("SwordSprite:rotation_degrees")
@@ -1227,7 +1270,7 @@ tracks/8/keys = {
 "times": PoolRealArray( -0.001 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ -75.0 ]
+"values": [ 105.0 ]
 }
 tracks/9/type = "value"
 tracks/9/path = NodePath("SwordSprite:visible")
@@ -1236,7 +1279,7 @@ tracks/9/loop_wrap = true
 tracks/9/imported = false
 tracks/9/enabled = true
 tracks/9/keys = {
-"times": PoolRealArray( 0, 0.4 ),
+"times": PoolRealArray( 0, 0.2 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 1,
 "values": [ true, false ]
@@ -1248,7 +1291,7 @@ tracks/10/loop_wrap = true
 tracks/10/imported = false
 tracks/10/enabled = true
 tracks/10/keys = {
-"times": PoolRealArray( 0, 0.4 ),
+"times": PoolRealArray( 0, 0.2 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 1,
 "values": [ true, false ]
@@ -1468,8 +1511,7 @@ tracks/5/keys = {
 
 [sub_resource type="Animation" id=43]
 resource_name = "RightDefaultSheath"
-length = 0.4
-step = 0.01
+length = 0.2
 tracks/0/type = "value"
 tracks/0/path = NodePath("KatanaSheathSprite:position")
 tracks/0/interp = 1
@@ -1560,10 +1602,10 @@ tracks/7/loop_wrap = true
 tracks/7/imported = false
 tracks/7/enabled = true
 tracks/7/keys = {
-"times": PoolRealArray( 0, 0.4 ),
+"times": PoolRealArray( 0, 0.2 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ Vector2( 90, -8 ), Vector2( 29.1156, 7.36889 ) ]
+"values": [ Vector2( 90, -8 ), Vector2( 30, 7.5 ) ]
 }
 tracks/8/type = "value"
 tracks/8/path = NodePath("SwordSprite:rotation_degrees")
@@ -1584,7 +1626,7 @@ tracks/9/loop_wrap = true
 tracks/9/imported = false
 tracks/9/enabled = true
 tracks/9/keys = {
-"times": PoolRealArray( 0, 0.4 ),
+"times": PoolRealArray( 0, 0.2 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 1,
 "values": [ true, false ]
@@ -1596,7 +1638,7 @@ tracks/10/loop_wrap = true
 tracks/10/imported = false
 tracks/10/enabled = true
 tracks/10/keys = {
-"times": PoolRealArray( 0, 0.4 ),
+"times": PoolRealArray( 0, 0.2 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 1,
 "values": [ true, false ]
@@ -1633,7 +1675,6 @@ script = ExtResource( 12 )
 script = ExtResource( 13 )
 
 [node name="SwapCooldownTimer" type="Timer" parent="CharacterManager"]
-wait_time = 2.0
 one_shot = true
 
 [node name="FreezeMask" type="Sprite" parent="."]
@@ -1664,7 +1705,7 @@ playing = true
 [node name="KatanaSheathSprite" type="Sprite" parent="."]
 position = Vector2( -13, 18 )
 rotation = -1.309
-scale = Vector2( 4, 5 )
+scale = Vector2( 3.5, 4.5 )
 texture = ExtResource( 18 )
 flip_h = true
 flip_v = true
@@ -1731,7 +1772,7 @@ one_shot = true
 autostart = true
 
 [node name="KnockbackCooldownTimer" type="Timer" parent="."]
-wait_time = 0.5
+wait_time = 1.2
 one_shot = true
 
 [node name="HealingTimer" type="Timer" parent="."]
@@ -1804,6 +1845,7 @@ anims/SwordSwingRight4 = SubResource( 18 )
 anims/SwordSwingUpper = SubResource( 6 )
 
 [node name="HurtAnimationPlayer" type="AnimationPlayer" parent="."]
+anims/Death = SubResource( 45 )
 anims/Hurt = SubResource( 8 )
 anims/RESET = SubResource( 9 )
 
@@ -1883,13 +1925,12 @@ one_shot = true
 [node name="AirborneTimer" type="Timer" parent="."]
 one_shot = true
 
-[node name="ManaRegenDelay" type="Timer" parent="."]
-wait_time = 0.1
+[node name="AirborneMaxDuration" type="Timer" parent="."]
+wait_time = 0.8
 one_shot = true
 
-[node name="AirborneMaxDuration" type="Timer" parent="."]
-process_mode = 0
-wait_time = 0.5
+[node name="ManaRegenDelay" type="Timer" parent="."]
+wait_time = 0.1
 one_shot = true
 
 [node name="InputPressTimer" type="Timer" parent="."]
@@ -1898,7 +1939,7 @@ one_shot = true
 
 [node name="HeightRaycast2D" type="RayCast2D" parent="."]
 enabled = true
-cast_to = Vector2( 0, 200 )
+cast_to = Vector2( 0, 100 )
 
 [node name="TapPreventTimer" type="Timer" parent="."]
 wait_time = 0.5
@@ -1915,6 +1956,7 @@ one_shot = true
 [node name="SlashFlurryDetector" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SlashFlurryDetector"]
+position = Vector2( 0, 0.700554 )
 shape = SubResource( 34 )
 
 [node name="SlashFlurryCD" type="Timer" parent="."]

@@ -867,7 +867,7 @@ extents = Vector2( 63.6348, 39.1389 )
 extents = Vector2( 66.6314, 55.1411 )
 
 [sub_resource type="CapsuleShape2D" id=8]
-radius = 38.492
+radius = 45.9563
 height = 17.3718
 
 [sub_resource type="RectangleShape2D" id=17]
@@ -913,7 +913,7 @@ anims/SpearSwingRight3 = SubResource( 12 )
 anims/SpearSwingRight4 = SubResource( 15 )
 anims/SpecialAttack1_Right = SubResource( 18 )
 
-[node name="AttackCollision" type="Area2D" parent="." groups=["Sword"]]
+[node name="AttackCollision" type="Area2D" parent="." groups=["HeavyPoiseDamage", "Sword"]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackCollision"]
 position = Vector2( 86.5819, 5.05854 )
@@ -927,7 +927,7 @@ position = Vector2( 102.213, -11.0022 )
 shape = SubResource( 9 )
 
 [node name="MeleeTimer" type="Timer" parent="."]
-wait_time = 0.55
+wait_time = 0.5
 one_shot = true
 
 [node name="ChargeBar" type="TextureProgress" parent="."]
@@ -946,7 +946,7 @@ __meta__ = {
 [node name="Area2D" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2( 0, 5.05854 )
+position = Vector2( 1, 0.0585399 )
 shape = SubResource( 8 )
 
 [node name="TundraMeter" type="TextureProgress" parent="."]
@@ -961,6 +961,7 @@ texture_under = ExtResource( 9 )
 texture_progress = ExtResource( 12 )
 
 [node name="ResetAttackStringTimer" type="Timer" parent="."]
+wait_time = 1.2
 one_shot = true
 
 [node name="ChargedAttackCooldown" type="Timer" parent="."]
@@ -1033,6 +1034,20 @@ position = Vector2( 108.881, -0.00581169 )
 shape = SubResource( 19 )
 disabled = true
 
+[node name="SpecialAttackTimer" type="Timer" parent="."]
+wait_time = 0.4
+one_shot = true
+
+[node name="SpecialAttackTimers" type="Node2D" parent="."]
+
+[node name="Special4thSequenceWindow" type="Timer" parent="SpecialAttackTimers"]
+wait_time = 0.4
+one_shot = true
+
+[node name="InvulnerabilityTimer" type="Timer" parent="."]
+wait_time = 0.35
+one_shot = true
+
 [connection signal="area_entered" from="AttackCollision" to="." method="_on_AttackCollision_area_entered"]
 [connection signal="area_exited" from="AttackCollision" to="." method="_on_AttackCollision_area_exited"]
 [connection signal="timeout" from="MeleeTimer" to="." method="_on_MeleeTimer_timeout"]
@@ -1042,3 +1057,6 @@ disabled = true
 [connection signal="area_entered" from="EnemyEvasionArea" to="." method="_on_EnemyEvasionArea_area_entered"]
 [connection signal="area_exited" from="EnemyEvasionArea" to="." method="_on_EnemyEvasionArea_area_exited"]
 [connection signal="timeout" from="AirborneTimer" to="." method="_on_AirborneTimer_timeout"]
+[connection signal="timeout" from="SpecialAttackTimer" to="." method="_on_SpecialAttackTimer_timeout"]
+[connection signal="timeout" from="SpecialAttackTimers/Special4thSequenceWindow" to="." method="_on_Special4thSequenceWindow_timeout"]
+[connection signal="timeout" from="InvulnerabilityTimer" to="." method="_on_InvulnerabilityTimer_timeout"]

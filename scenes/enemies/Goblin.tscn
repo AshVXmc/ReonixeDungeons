@@ -38,8 +38,8 @@ animations = [ {
 extents = Vector2( 166.268, 50.3433 )
 
 [sub_resource type="CapsuleShape2D" id=3]
-radius = 37.0833
-height = 84.9743
+radius = 37.9007
+height = 41.7494
 
 [sub_resource type="AtlasTexture" id=11]
 atlas = ExtResource( 10 )
@@ -138,7 +138,7 @@ shape = SubResource( 2 )
 [node name="Area2D" type="Area2D" parent="." groups=["Enemy"]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2( 0, -20 )
+position = Vector2( 0, -2.66667 )
 shape = SubResource( 3 )
 
 [node name="RayCast2D" type="RayCast2D" parent="."]

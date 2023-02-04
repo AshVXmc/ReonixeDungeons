@@ -10,6 +10,7 @@ var atkbonus : float
 var attack_calculation = Global.attack_power * (Global.player_skill_multipliers["FireSaw"] / 100) + atkbonus
 
 func _ready():
+	get_parent().add_to_group("FiresawActive")
 	burncalculation = Global.attack_power * 0.5
 	var attack_calculation = Global.attack_power * (Global.player_skill_multipliers["FireSaw"] / 100) + atkbonus
 	add_to_group(str(attack_calculation))
@@ -18,7 +19,8 @@ func _ready():
 	$AnimationPlayer.play("SPIN")
 
 func _on_DestroyedTimer_timeout():
-	queue_free()
+	get_parent().remove_from_group("FiresawActive")
+	call_deferred('free')
 
 func get_closest_enemy():
 	var enemies = get_tree().get_nodes_in_group("Enemy")

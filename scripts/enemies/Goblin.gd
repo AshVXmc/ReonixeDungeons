@@ -10,7 +10,7 @@ var direction : int = 1
 var is_dead : bool = false 
 const TYPE : String = "Enemy"
 const FLOOR = Vector2(0, -1)
-const MAX_SPEED : int = 120
+const MAX_SPEED : int = 140
 var SPEED : int = MAX_SPEED
 const MAX_GRAVITY : int = 45
 var GRAVITY : int = MAX_GRAVITY
@@ -27,15 +27,11 @@ var is_airborne : bool = false
 var decoyed : bool = false
 var dead : bool = false
 const AIRBORNE_SPEED : int = -4000
-export (int) var MAX_POISE = 100
-export (int) var MIN_POISE = 0
 
 export var Armored : bool = false
 export (String, "Physical", "Magical", "Fire", "Ice", "Earth") var Armor_Type = "Physical"
 export (int) var Armor_Durability = 100 # amount of poise/hits/elemental stacks needed to break the shield
 export (float, 1.0) var Armor_Strength = 0.9 # total damage reduction the shield gives (0 is none, 1 is 100% reduction)
-
-var poise : int = MAX_POISE / 2
 
 var armor_strength_coefficient = 1 # default value so it doesn't throw an error
 							
@@ -332,11 +328,8 @@ func knockback(knockback_coefficient : float = 2.5):
 func armor_break():
 	pass
 func parse_damage():
-	if poise < MAX_POISE:
-		is_staggered = true
-		$Sprite.set_modulate(Color(2,0.5,0.3,1))
-	elif poise >= MAX_POISE:
-		poise = MIN_POISE
+	is_staggered = true
+	$Sprite.set_modulate(Color(2,0.5,0.3,1))
 	if $HurtTimer.is_stopped():
 		$HurtTimer.start()
 	if HP <= 0:

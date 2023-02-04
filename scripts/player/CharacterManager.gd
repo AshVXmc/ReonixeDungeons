@@ -38,30 +38,43 @@ func update_party(character : String):
 func _process(delta):
 	change_teammates()
 
-	
+func swap_character(index_pressed : int):
+	match index_pressed:
+		1:
+			Global.current_character = Global.equipped_characters[0]
+			swap_in_character(Global.equipped_characters[0])
+			swap_out_character(Global.equipped_characters[1])
+			swap_out_character(Global.equipped_characters[2])
+			print(Global.current_character)
+			emit_signal("switch_in_signal", Global.equipped_characters[0])
+		2:
+			Global.current_character = Global.equipped_characters[1]
+			swap_in_character(Global.equipped_characters[1])
+			swap_out_character(Global.equipped_characters[0])
+			swap_out_character(Global.equipped_characters[2])
+			print(Global.current_character)
+			emit_signal("switch_in_signal", Global.equipped_characters[1])
+		3:
+			Global.current_character = Global.equipped_characters[2]
+			swap_in_character(Global.equipped_characters[2])
+			swap_out_character(Global.equipped_characters[0])
+			swap_out_character(Global.equipped_characters[1])
+			print(Global.current_character)
+			emit_signal("switch_in_signal", Global.equipped_characters[2])
 func change_teammates():
-	if Input.is_action_just_pressed("slot_1") and Global.equipped_characters[0] != "":
-		Global.current_character = Global.equipped_characters[0]
-		swap_in_character(Global.equipped_characters[0])
-		swap_out_character(Global.equipped_characters[1])
-		swap_out_character(Global.equipped_characters[2])
-		print(Global.current_character)
-		emit_signal("switch_in_signal", Global.equipped_characters[0])
-	elif Input.is_action_just_pressed("slot_2") and Global.equipped_characters[1] != "":
-		Global.current_character = Global.equipped_characters[1]
-		swap_in_character(Global.equipped_characters[1])
-		swap_out_character(Global.equipped_characters[0])
-		swap_out_character(Global.equipped_characters[2])
-		print(Global.current_character)
-		emit_signal("switch_in_signal", Global.equipped_characters[1])
-		
-	elif Input.is_action_just_pressed("slot_3") and Global.equipped_characters[2] != "":
-		Global.current_character = Global.equipped_characters[2]
-		swap_in_character(Global.equipped_characters[2])
-		swap_out_character(Global.equipped_characters[0])
-		swap_out_character(Global.equipped_characters[1])
-		print(Global.current_character)
-		emit_signal("switch_in_signal", Global.equipped_characters[2])
+	if $SwapCooldownTimer.is_stopped():
+		if Input.is_action_just_pressed("slot_1") and Global.equipped_characters[0] != "":
+			if Global.alive[0]:
+				swap_character(1)
+				$SwapCooldownTimer.start()
+		elif Input.is_action_just_pressed("slot_2") and Global.equipped_characters[1] != "":
+			if Global.alive[1]:
+				swap_character(2)
+				$SwapCooldownTimer.start()
+		elif Input.is_action_just_pressed("slot_3") and Global.equipped_characters[2] != "":
+			if Global.alive[2]:
+				swap_character(3)
+				$SwapCooldownTimer.start()
 		
 	
 		

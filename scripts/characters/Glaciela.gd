@@ -161,7 +161,7 @@ func play_attack_animation(direction : String):
 						$AttackCollision.remove_from_group(groups)
 						$AttackCollision.add_to_group(str(ATTACK * (Global.glaciela_skill_multipliers["BasicAttack"] / 100) + basic_attack_buff))
 						break
-				
+				$ResetAttackStringTimer.start()
 			3:
 				$AnimationPlayer.play("SpearSwingRight2")
 				attack_string_count -= 1
@@ -171,6 +171,7 @@ func play_attack_animation(direction : String):
 						$AttackCollision.remove_from_group(groups)
 						$AttackCollision.add_to_group(str(ATTACK * (Global.glaciela_skill_multipliers["BasicAttack2"] / 100) + basic_attack_buff))
 						break
+				$ResetAttackStringTimer.start()
 			2:
 				$AnimationPlayer.play("SpearSwingRight3")
 				attack_string_count -= 1
@@ -179,19 +180,31 @@ func play_attack_animation(direction : String):
 						$AttackCollision.remove_from_group(groups)
 						$AttackCollision.add_to_group(str(ATTACK * (Global.glaciela_skill_multipliers["BasicAttack3"] / 100) + basic_attack_buff))
 						break
+				$SpecialAttackTimer.start()
+				$ResetAttackStringTimer.start()
 			1:
-				$AnimationPlayer.play("SpearSwingRight4")
-				attack_string_count -= 1
-		
-				for groups in $AttackCollision.get_groups():
-					if float(groups) != 0:
-						$AttackCollision.remove_from_group(groups)
-						$AttackCollision.add_to_group(str(ATTACK * (Global.glaciela_skill_multipliers["BasicAttack4"] / 100) + basic_attack_buff))
-						break
-				yield(get_tree().create_timer($MeleeTimer.wait_time), "timeout")
-				attack_string_count = 4
-				emit_signal("trigger_quickswap", "Glaciela")
-				
+				$SpecialAttackTimer.stop()
+				if $SpecialAttackTimers/Special4thSequenceWindow.is_stopped():
+					$AnimationPlayer.play("SpecialAttack1_Right")
+					attack_string_count -= 1
+					yield(get_tree().create_timer($MeleeTimer.wait_time), "timeout")
+					attack_string_count = 4
+					emit_signal("trigger_quickswap", "Glaciela")
+				else:
+					
+					$AnimationPlayer.play("SpearSwingRight4")
+					attack_string_count -= 1
+					
+					
+					for groups in $AttackCollision.get_groups():
+						if float(groups) != 0:
+							$AttackCollision.remove_from_group(groups)
+							$AttackCollision.add_to_group(str(ATTACK * (Global.glaciela_skill_multipliers["BasicAttack4"] / 100) + basic_attack_buff))
+							break
+					yield(get_tree().create_timer($MeleeTimer.wait_time), "timeout")
+					attack_string_count = 4
+					emit_signal("trigger_quickswap", "Glaciela")
+				$ResetAttackStringTimer.start()
 
 	elif direction == "Left":
 		match attack_string_count:
@@ -233,6 +246,9 @@ func play_attack_animation(direction : String):
 				attack_string_count = 4
 				emit_signal("trigger_quickswap", "Glaciela")
 				
+
+func _on_SpecialAttackTimer_timeout():
+	$SpecialAttackTimers/Special4thSequenceWindow.start()
 	
 func charge_meter():
 	if Global.current_character == "Glaciela":
@@ -246,6 +262,7 @@ func _input(event):
 
 func charged_attack(airborne_duration : float = 1, type : int = 1):
 	if $KnockAirborneICD.is_stopped() and get_parent().get_parent().is_on_floor() and Input.is_action_pressed("ui_attack") and $InputPressTimer.is_stopped() and !is_performing_charged_attack:
+		attack_string_count = 4
 #		airborne_mode = false
 #		is_performing_charged_attack = true
 		if !$AnimatedSprite.flip_h:
@@ -256,40 +273,39 @@ func charged_attack(airborne_duration : float = 1, type : int = 1):
 
 		if target and target != null and weakref(target).get_ref() != null: 
 			if !target.is_in_group("Armored") and target.get_node("Area2D").overlaps_area($ChargedAttackCollision) and !target.get_node("Area2D").is_in_group("IsAirborne"):
-				$AnimationPlayer.play("SpecialAttack1_Right")
-#					for groups in $ChargedAttackCollision.get_groups():
-#					if float(groups) != 0:
-#						$AttackCollision.remove_from_group(groups)
-#						if !airborne_mode:
-#							$AttackCollision.add_to_group(str(ATTACK * (Global.player_skill_multipliers["BasicAttack"] / 100) + basic_attack_buff))
-#							print("a")
-#						else:
-#							$AttackCollision.add_to_group(str(ATTACK * (Global.player_skill_multipliers["AirborneBasicAttack"] / 100) + basic_attack_buff))
-#							print("b")
-#						break
-#				$KnockAirborneICD.start()
-#				tundra_sigils = 0
-#				update_tundra_sigil_ui()
-#				is_charging = false
-#				is_performing_charged_attack = true
-##				get_parent().get_parent().airborne_mode = false
-#				var airborne_status : AirborneStatus = AIRBORNE_STATUS.instance()
-##				airborne_status.time = airborne_duration
-#				target.add_child(airborne_status)
-#				var hitparticle = SWORD_HIT_PARTICLE.instance()
-#				hitparticle.emitting = true
-#				get_parent().get_parent().get_parent().add_child(hitparticle)
-#				hitparticle.position = target.global_position
-#
-#				set_basic_attack_power(3, 0.1)
-#				$ChargedAttackCooldown.start()
-#				get_parent().get_parent().velocity.y = 0
-#				get_parent().get_parent().velocity.y = -1050
-#
-#				yield(get_tree().create_timer(0.25), "timeout")
-#				airborne_mode = true
-##				Input.action_release("jump")
-#				is_performing_charged_attack = false
+				for groups in $ChargedAttackCollision.get_groups():
+					if float(groups) != 0:
+						$AttackCollision.remove_from_group(groups)
+						if !airborne_mode:
+							$AttackCollision.add_to_group(str(ATTACK * (Global.player_skill_multipliers["BasicAttack"] / 100) + basic_attack_buff))
+							print("a")
+						else:
+							$AttackCollision.add_to_group(str(ATTACK * (Global.player_skill_multipliers["AirborneBasicAttack"] / 100) + basic_attack_buff))
+							print("b")
+						break
+				$KnockAirborneICD.start()
+				tundra_sigils = 0
+				update_tundra_sigil_ui()
+				is_charging = false
+				is_performing_charged_attack = true
+#				get_parent().get_parent().airborne_mode = false
+				var airborne_status : AirborneStatus = AIRBORNE_STATUS.instance()
+#				airborne_status.time = airborne_duration
+				target.add_child(airborne_status)
+				var hitparticle = SWORD_HIT_PARTICLE.instance()
+				hitparticle.emitting = true
+				get_parent().get_parent().get_parent().add_child(hitparticle)
+				hitparticle.position = target.global_position
+
+				set_basic_attack_power(3, 0.1)
+				$ChargedAttackCooldown.start()
+				get_parent().get_parent().velocity.y = 0
+				get_parent().get_parent().velocity.y = -1050
+
+				yield(get_tree().create_timer(0.25), "timeout")
+				airborne_mode = true
+#				Input.action_release("jump")
+				is_performing_charged_attack = false
 				
 		Input.action_release("ui_attack")
 
@@ -409,43 +425,32 @@ func _on_Area2D_area_entered(area):
 			Global.lifewine_amount += 1
 			emit_signal("lifewine_obtained", Global.lifewine_amount)
 		if !Global.godmode:
-			if get_parent().get_parent().inv_timer.is_stopped() and !get_parent().get_parent().is_invulnerable and !get_parent().get_parent().is_dashing:
+			if $InvulnerabilityTimer.is_stopped() and !get_parent().get_parent().is_invulnerable and !get_parent().get_parent().is_dashing:
 				if area.is_in_group("Enemy") and area.is_in_group("Hostile") or area.is_in_group("DeflectedProjectile"):
-					var groups = area.get_groups()
-					groups.erase("Enemy")
-					groups.erase("Hostile")
-					if groups.has("Physical") or groups.has("Ice") or groups.has("Magic") or groups.has("Earth"):
-						groups.erase("Physical")
-						groups.erase("Ice")
-						groups.erase("Earth")
-						groups.erase("Magic")
-						var damage = float(groups.max())
-						take_damage(damage)
-						get_parent().get_parent().add_hurt_particles(damage)
-					elif groups.has("Fire"):
-						groups.erase("Fire")
-						var damage = float(groups.max())
-						take_damage(damage * 1.5)
-						get_parent().get_parent().add_hurt_particles(damage * 1.5)
+					print("GLACIELA HURT")
+					match area.get_parent().elemental_type:
+						"Physical":
+							var dmg = area.get_parent().atk_value
+							take_damage(dmg * (1 - phys_res))
+#					get_parent().get_parent().is_invulnerable = true
 					get_parent().get_parent().is_gliding = false
 					Input.action_release("charge")
-					get_parent().get_parent().afterDamaged()
-					if !area.is_in_group("LightEnemy"):
+					Input.action_release("ui_attack")
+					after_damaged()
+					if !area.is_in_group("LightEnemy") or !get_parent().get_parent().resist_interruption:
 						get_parent().get_parent().knockback()
-					get_parent().get_parent().get_node("CampfireTimer").stop()
-				if area.is_in_group("Enemy2"):
-					Global.hearts -= 1
-					get_parent().get_parent().add_hurt_particles(1)
-					get_parent().get_parent().is_gliding = false
-					Input.action_release("charge")
-					get_parent().get_parent().afterDamaged()
-					get_parent().get_parent().knockback()
-					get_parent().get_parent().get_node("CampfireTimer").stop()
+						
+#				if area.is_in_group("Enemy2"):
+#					take_damage(2)
+#					add_hurt_particles(1)
+#					is_gliding = false
+#					Input.action_release("charge")
+#					afterDamaged()
+#					knockback()
+#					$CampfireTimer.stop()
 			if area.is_in_group("Spike"):
-				Global.hearts -= 0.5
 				Input.action_release("charge")
-				get_parent().get_parent().afterDamaged()
-				get_parent().get_parent().get_node("CampfireTimer").stop()
+				after_damaged()
 		if area.is_in_group("SlowingPoison"):
 			get_parent().get_parent().slow_player(2.0)
 		if area.is_in_group("Transporter"):
@@ -457,23 +462,54 @@ func _on_Area2D_area_entered(area):
 			print("STRONK")
 #	if area.is_in_group("Enemy") and !get_parent().get_parent().is_invulnerable:
 #		$AnimationPlayer.play("Hurt")
+func after_damaged():
+	
+	$InvulnerabilityTimer.start()
+	
+#	emit_signal("life_changed", Global.hearts)
+#	$Sprite.play("Hurt")
+	if !Global.godmode:
+		get_parent().get_parent().get_node("KnockbackTimer").start()
+		
+	if Global.equipped_characters[0] == Global.current_character:
+		if Global.hearts <= 0:
+			dead(Global.equipped_characters[0])
+	elif Global.equipped_characters[1] == Global.current_character:
+		if Global.hearts <= 0:
+			dead(Global.equipped_characters[1])
+	elif Global.equipped_characters[2] == Global.current_character:
+		if Global.hearts <= 0:
+			dead(Global.equipped_characters[2])
+
+func dead(character):
+	pass
+
+
+func add_hurt_particles(damage : float):
+	var hurt_particle = get_parent().get_parent().HURT_PARTICLE.instance()
+	hurt_particle.damage = damage * 2
+	get_parent().get_parent().get_parent().add_child(hurt_particle)
+	hurt_particle.position = global_position
 
 func take_damage(damage : float):
 	if Global.current_character == "Glaciela":
 		if Global.equipped_characters[0] == "Glaciela":
 			Global.hearts -= damage
+			add_hurt_particles(damage * 10)
 			emit_signal("life_changed", Global.hearts, "Glaciela")
 		elif Global.equipped_characters[1] == "Glaciela":
 			Global.character2_hearts -= damage
+			add_hurt_particles(damage * 10)
 			emit_signal("life_changed", Global.character2_hearts, "Glaciela")
 		elif Global.equipped_characters[2] == "Glaciela":
 			Global.character3_hearts -= damage
+			add_hurt_particles(damage * 10)
 			emit_signal("life_changed", Global.character3_hearts, "Glaciela")
 
 	
 
 func _on_ResetAttackStringTimer_timeout():
-	pass # Replace with function body.
+	attack_string_count = 4
 
 
 
@@ -491,7 +527,7 @@ func _on_EnemyEvasionArea_area_entered(area):
 
 func _on_EnemyEvasionArea_area_exited(area):
 	if Global.current_character == "Glaciela":
-		if get_parent().get_parent().is_dashing and area.is_in_group("Hostile") and $TempusTardusTriggerCD.is_stopped():
+		if get_parent().get_parent().is_dashing and area.is_in_group("Hostile"):
 			get_parent().get_parent().is_invulnerable = true
 			if !get_parent().get_parent().is_on_floor() and !get_parent().get_parent().get_node("HeightRaycast2D").is_colliding():
 				get_parent().get_parent().airborne_mode = true
@@ -501,18 +537,11 @@ func _on_EnemyEvasionArea_area_exited(area):
 			Engine.time_scale = 0.5
 			yield(get_tree().create_timer(0.125), "timeout")
 			Engine.time_scale = 1.0
-			var tempus_targus = TEMPUS_TARGUS.instance()
-			
-			get_parent().get_parent().get_parent().add_child(tempus_targus)
-			tempus_targus.position = global_position
-			
-	#		knock_airborne(area, 4)
-	#		Input.action_press("jump")
-	#
-	#		yield(get_tree().create_timer(1), "timeout")
-	#		Input.action_release("jump")
-	#		airborne_mode = true
-			$TempusTardusTriggerCD.start()
+			if $TempusTardusTriggerCD.is_stopped():
+				var tempus_targus = TEMPUS_TARGUS.instance()
+				get_parent().get_parent().get_parent().add_child(tempus_targus)
+				tempus_targus.position = global_position
+				$TempusTardusTriggerCD.start()
 			get_parent().get_parent().is_invulnerable = false
 		elif !get_parent().get_parent().is_dashing and area.is_in_group("Enemy"):
 			get_parent().get_parent().perfect_dash = false
@@ -530,3 +559,15 @@ func _on_AttackCollision_area_exited(area):
 
 func _on_TundraStackRegen_timeout():
 	pass # Replace with function body.
+
+
+
+
+
+func _on_Special4thSequenceWindow_timeout():
+#	attack_string_count = 4
+	pass
+
+
+func _on_InvulnerabilityTimer_timeout():
+	get_parent().get_parent().is_invulnerable = false

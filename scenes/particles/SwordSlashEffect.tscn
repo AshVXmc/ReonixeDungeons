@@ -202,8 +202,7 @@ resource_name = "VerticalThrust"
 
 [sub_resource type="Animation" id=10]
 resource_name = "CircularFlurry"
-length = 0.4
-step = 0.01
+length = 0.5
 tracks/0/type = "value"
 tracks/0/path = NodePath("CircularFlurry:position")
 tracks/0/interp = 1
@@ -211,7 +210,7 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.35 ),
+"times": PoolRealArray( 0, 0.4 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
 "values": [ Vector2( 0, 0 ), Vector2( 0, 0 ) ]
@@ -223,10 +222,10 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 0.35 ),
+"times": PoolRealArray( 0, 0.5 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ 0.0, 540.0 ]
+"values": [ 0.0, 600.0 ]
 }
 tracks/2/type = "value"
 tracks/2/path = NodePath("CircularFlurry/CircularFlurrySprite:position")
@@ -235,7 +234,7 @@ tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0, 0.2, 0.35 ),
+"times": PoolRealArray( 0, 0.2, 0.4 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
 "values": [ Vector2( -20, 48 ), Vector2( -13, 75 ), Vector2( -20, 48 ) ]
@@ -247,7 +246,7 @@ tracks/3/loop_wrap = true
 tracks/3/imported = false
 tracks/3/enabled = true
 tracks/3/keys = {
-"times": PoolRealArray( 0, 0.2, 0.35 ),
+"times": PoolRealArray( 0, 0.2, 0.4 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
 "values": [ Vector2( -30, -24 ), Vector2( -50, -30 ), Vector2( -30, -24 ) ]
@@ -259,7 +258,7 @@ tracks/4/loop_wrap = true
 tracks/4/imported = false
 tracks/4/enabled = true
 tracks/4/keys = {
-"times": PoolRealArray( 0, 0.2, 0.35 ),
+"times": PoolRealArray( 0, 0.2, 0.4 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
 "values": [ Vector2( 33, 2 ), Vector2( 56, -16 ), Vector2( 33, 2 ) ]
@@ -271,7 +270,7 @@ tracks/5/loop_wrap = true
 tracks/5/imported = false
 tracks/5/enabled = true
 tracks/5/keys = {
-"times": PoolRealArray( 0, 0.11, 0.35 ),
+"times": PoolRealArray( 0, 0.11, 0.4 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
 "values": [ Vector2( 8, 8.5 ), Vector2( 12, 8.5 ), Vector2( 8, 8.5 ) ]
@@ -283,7 +282,7 @@ tracks/6/loop_wrap = true
 tracks/6/imported = false
 tracks/6/enabled = true
 tracks/6/keys = {
-"times": PoolRealArray( 0, 0.11, 0.35 ),
+"times": PoolRealArray( 0, 0.11, 0.4 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
 "values": [ Vector2( 8, 8.5 ), Vector2( 12, 8.5 ), Vector2( 8, 8.5 ) ]
@@ -295,7 +294,7 @@ tracks/7/loop_wrap = true
 tracks/7/imported = false
 tracks/7/enabled = true
 tracks/7/keys = {
-"times": PoolRealArray( 0, 0.11, 0.35 ),
+"times": PoolRealArray( 0, 0.11, 0.4 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
 "values": [ Vector2( 8, 8.5 ), Vector2( 12, 8.5 ), Vector2( 8, 8.5 ) ]
@@ -307,7 +306,7 @@ tracks/8/loop_wrap = true
 tracks/8/imported = false
 tracks/8/enabled = true
 tracks/8/keys = {
-"times": PoolRealArray( 0, 0.23, 0.4 ),
+"times": PoolRealArray( 0, 0.3, 0.5 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
 "values": [ Color( 1, 1, 1, 0.866667 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
@@ -319,7 +318,7 @@ tracks/9/loop_wrap = true
 tracks/9/imported = false
 tracks/9/enabled = true
 tracks/9/keys = {
-"times": PoolRealArray( 0.35 ),
+"times": PoolRealArray( 0.5 ),
 "transitions": PoolRealArray( 1 ),
 "values": [ {
 "args": [ "free" ],
@@ -333,10 +332,10 @@ tracks/10/loop_wrap = true
 tracks/10/imported = false
 tracks/10/enabled = true
 tracks/10/keys = {
-"times": PoolRealArray( 0, 0.35, 0.4 ),
+"times": PoolRealArray( 0, 0.4, 0.5 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
-"values": [ Vector2( 0.7, 0.7 ), Vector2( 1, 1 ), Vector2( 0.7, 0.7 ) ]
+"values": [ Vector2( 0.5, 0.5 ), Vector2( 1.2, 1.2 ), Vector2( 0.7, 0.7 ) ]
 }
 tracks/11/type = "value"
 tracks/11/path = NodePath("CircularFlurry/CircularFlurrySprite4:position")
@@ -409,6 +408,18 @@ tracks/16/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 0,
 "values": [ -40.0 ]
+}
+tracks/17/type = "value"
+tracks/17/path = NodePath("CircularFlurry:visible")
+tracks/17/interp = 1
+tracks/17/loop_wrap = true
+tracks/17/imported = false
+tracks/17/enabled = true
+tracks/17/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
 }
 
 [sub_resource type="Animation" id=7]
@@ -789,6 +800,18 @@ tracks/25/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 0,
 "values": [ -40.0 ]
+}
+tracks/26/type = "value"
+tracks/26/path = NodePath("CircularFlurry:visible")
+tracks/26/interp = 1
+tracks/26/loop_wrap = true
+tracks/26/imported = false
+tracks/26/enabled = true
+tracks/26/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
 }
 
 [sub_resource type="Animation" id=9]
