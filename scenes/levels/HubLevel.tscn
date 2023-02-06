@@ -1,4 +1,4 @@
-[gd_scene load_steps=44 format=2]
+[gd_scene load_steps=45 format=2]
 
 [ext_resource path="res://tilesets/HubLevelTileset.tres" type="TileSet" id=1]
 [ext_resource path="res://assets/terrain/deep_woods/background_deep_woods.png" type="Texture" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://scenes/enemies/logic/EnemySkillGlobalCooldown.tscn" type="PackedScene" id=6]
 [ext_resource path="res://scenes/menus/FPSCounter.tscn" type="PackedScene" id=7]
 [ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=8]
+[ext_resource path="res://scenes/enemies/bosses/Arrow.tscn" type="PackedScene" id=9]
 [ext_resource path="res://scenes/menus/OpalsUI.tscn" type="PackedScene" id=10]
 [ext_resource path="res://scenes/levels/hublevel/DungeonEntrance.tscn" type="PackedScene" id=11]
 [ext_resource path="res://scenes/menus/DebugMenu.tscn" type="PackedScene" id=12]
@@ -316,12 +317,12 @@ current = true
 zoom = Vector2( 1.2, 1.2 )
 limit_left = 0
 limit_top = -3000
-limit_right = 4410
+limit_right = 4000
 limit_bottom = 1750
 drag_margin_h_enabled = true
 drag_margin_v_enabled = true
-drag_margin_left = 0.4
-drag_margin_right = 0.4
+drag_margin_left = 0.3
+drag_margin_right = 0.3
 editor_draw_limits = true
 
 [node name="Goblin" parent="." instance=ExtResource( 44 )]
@@ -331,3 +332,7 @@ position = Vector2( 1756.05, 605.19 )
 position = Vector2( 711.527, 604.683 )
 
 [node name="EnemySkillGlobalCooldown" parent="." instance=ExtResource( 6 )]
+
+[node name="Arrow" parent="." instance=ExtResource( 9 )]
+position = Vector2( 743.241, 424.303 )
+x_direction = -1

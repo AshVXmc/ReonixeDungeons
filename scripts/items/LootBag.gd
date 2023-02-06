@@ -6,7 +6,7 @@ var target = null
 var velocity = Vector2.ZERO
 var acceleration = Vector2.ZERO
 var SPEED = 550
-const steer_force = 275
+const steer_force = 300
 onready var PLAYER = get_parent().get_node("Player")
 enum Rewards {
 	C = 20

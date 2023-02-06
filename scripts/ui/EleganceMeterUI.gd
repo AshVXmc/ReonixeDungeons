@@ -56,8 +56,7 @@ func log_attack(attack_type : String):
 		attack_type_log.remove(MAX_ATTACKS - 1)
 		
 	attack_type_log.append(attack_type)
-	print(attack_type_log)
-	
+#	print(attack_type_log)
 	
 	
 func elegance_changed(action_name):

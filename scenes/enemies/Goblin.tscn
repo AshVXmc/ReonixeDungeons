@@ -149,7 +149,7 @@ collision_mask = 3075
 collide_with_areas = true
 
 [node name="HurtTimer" type="Timer" parent="."]
-wait_time = 0.5
+wait_time = 0.35
 one_shot = true
 
 [node name="AttackingTimer" type="Timer" parent="."]

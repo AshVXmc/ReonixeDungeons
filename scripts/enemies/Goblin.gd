@@ -108,13 +108,13 @@ func _physics_process(delta):
 				if $Sprite.flip_h:
 					yield(get_tree().create_timer(0.5),"timeout")
 					velocity.x = SPEED
-	else:
-		
-#		if other_enemy_detector_is_overlapping_player():
-			if $Sprite.flip_h:
-				velocity.x = -SPEED 
-			else:
-				velocity.x = SPEED 
+#	else:
+#
+##		if other_enemy_detector_is_overlapping_player():
+#			if $Sprite.flip_h:
+#				velocity.x = -SPEED 
+#			else:
+#				velocity.x = SPEED 
 	if other_enemy_is_on_front():
 		velocity.x = 0
 		
@@ -201,6 +201,7 @@ func _on_Area2D_area_entered(area):
 						$HealthBar.value  -= float(damage)
 						add_damage_particles("Physical", float(damage))
 						parse_damage()
+						knockback(2)
 						break
 		
 		if area.is_in_group("SwordCharged"):
@@ -217,7 +218,7 @@ func _on_Area2D_area_entered(area):
 						$HealthBar.value  -= float(damage)
 						add_damage_particles("Physical", float(damage))
 						parse_damage()
-						knockback()
+						knockback(6)
 						break
 				
 		if area.is_in_group("Fireball"):
@@ -318,7 +319,8 @@ func add_damage_particles(type : String, dmg : int):
 	get_parent().add_child(dmgparticle)
 	dmgparticle.position = global_position
 
-func knockback(knockback_coefficient : float = 2.5):
+func knockback(knockback_coefficient : float = 1):
+
 	if $Sprite.flip_h:
 		velocity.x = -SPEED * knockback_coefficient
 	else:

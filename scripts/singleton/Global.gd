@@ -27,9 +27,9 @@ var player_skill_multipliers : Dictionary = {
 	"BasicAttack": 25.0,
 	"BasicAttack2": 35.0,
 	"BasicAttack3": 42.5,
-	"BasicAttack4": 53.5,
-	"ChargedAttack": 60.0,
-	"ThrustChargedAttack": 49.5,
+	"BasicAttack4": 48.5,
+	"ChargedAttack": 52.0,
+	"ThrustChargedAttack": 69.5,
 	"UpwardsorDownwardsChargedAttack": 30.0, # x 2
 	"SpecialChargedAttack": 45.5, # x 4
 	"SpecialChargedAttackFinalStrike": 135.0,
@@ -56,13 +56,13 @@ var player_skill_multipliers : Dictionary = {
 
 var glaciela_attack : int = 50
 var glaciela_skill_multipliers : Dictionary = {
-	"BasicAttack": 35.0,
+	"BasicAttack":  30.0,
 	"BasicAttack2": 35.0,
 	"BasicAttack3": 45.0,
 	"BasicAttack4": 50.0,
 	"ChargedAttack": 45.0,
-	"SpecialAttack1_1": 40.0,
-	"SpecialAttack1_2": 55.0,
+	"SpecialAttack1_1": 18.0,
+	"SpecialAttack1_2": 22.0,
 	"TundraSigilDMGBonus": 12.0,
 	"TundraSigilFreezeStackBonus": 20,
 	"TundraSigilManaBonus": 0.75,
@@ -180,8 +180,9 @@ var godmode : bool = false
 # if character type counters enemy type, deal 50% dmg
 func reset_player_data():
 	Global.hearts = Global.max_hearts
-	Global.character2_hearts = Global.character2_hearts
-	Global.character3_hearts = Global.character2_hearts
+	Global.character2_hearts = Global.character_2_max_hearts
+	Global.character3_hearts = Global.character_3_max_hearts
+	Global.alive = [true, true, true]
 	Global.mana = 0
 	Global.character2_mana = 0
 	Global.character3_mana = 0

@@ -80,6 +80,7 @@ const SWORD_HIT_PARTICLE : PackedScene = preload("res://scenes/particles/SwordHi
 const FROZEN : PackedScene = preload("res://scenes/status_effects/FrozenStatus.tscn")
 const MAXED_ENERGY_METER = preload("res://assets/UI/energy_meter_maxed.png")
 const ENERGY_METER = preload("res://assets/UI/energy_meter_partly_filled.png")
+const BURNING : PackedScene = preload("res://scenes/status_effects/BurningStatus.tscn")
 onready var FULL_CHARGE_METER = preload("res://assets/UI/chargebar_full.png")
 onready var CHARGING_CHARGE_METER = preload("res://assets/UI/chargebar_charging.png")
 var is_attacking : bool = false
@@ -621,7 +622,7 @@ func charged_attack(type : String = "Ground"):
 		
 		is_flurry_attacking = true
 		velocity.y = 0
-		
+	
 		var flurry = SLASH_FLURRY_AREA.instance()
 		flurry.add_to_group("Sword")
 		flurry.get_node("FinalSlashArea").add_to_group("Sword")
@@ -634,10 +635,14 @@ func charged_attack(type : String = "Ground"):
 			
 		else:
 			if !$Sprite.flip_h:
+				velocity.x = 0
+				velocity.x = -25000
 				flurry.position.x = global_position.x + 150
 				flurry.position.y = global_position.y
 			
 			else:
+				velocity.x = 0
+				velocity.x = 25000
 				flurry.position.x = global_position.x - 150
 				flurry.position.y = global_position.y
 			
@@ -682,6 +687,7 @@ func charged_attack(type : String = "Ground"):
 			energy_full = false
 			update_energy_meter(10)
 		sheathe_katana()
+	is_doing_charged_attack = false
 	cam_shake = true
 	yield(get_tree().create_timer(0.25), "timeout")
 	cam_shake = false
@@ -692,7 +698,7 @@ func charged_attack(type : String = "Ground"):
 	dash_particle.one_shot = true
 	yield(get_tree().create_timer(0.1), "timeout")
 	$ChargedAttackCollision/CollisionShape2D.disabled = true
-	is_doing_charged_attack = false
+	
 	attack_string_count = 4
 	is_charging = false
 	Input.action_release("ui_attack")
@@ -921,14 +927,11 @@ func _on_Area2D_area_entered(area : Area2D):
 			if inv_timer.is_stopped() and !is_invulnerable and !is_dashing:
 				if area.is_in_group("Enemy") and area.is_in_group("Hostile")or area.is_in_group("DeflectedProjectile"):
 					print("HURT")
-#					match area.get_parent().elemental_type:
-#						"Physical":
-#							var dmg = area.get_parent().atk_value
-#							take_damage(dmg * (1 - phys_res))
 					match area.get_parent().elemental_type:
 						"Physical":
 							var dmg = area.get_parent().atk_value
-							take_damage(dmg * 10)
+							take_damage(dmg * (1 - phys_res))
+
 					is_gliding = false
 					Input.action_release("ui_attack")
 					after_damaged()
@@ -1154,7 +1157,7 @@ func knockback():
 #		Input.action_release("left")
 #		Input.action_release("right")
 		Input.action_release("ui_attack")
-		
+		Input.action_release("jump")
 #		if !$Sprite.flip_h:
 #			velocity.x = 0
 #			velocity.x = -knockback_power 
@@ -1190,7 +1193,7 @@ func _on_RightDectector_area_entered(area):
 func dash():
 	
 	if Global.dash_unlocked and !is_frozen and !is_thrust_attacking:
-		
+		is_dashing = true
 		if $DashUseTimer.is_stopped():
 			can_dash = true
 		if !$Sprite.flip_h:
@@ -1227,9 +1230,9 @@ func dash():
 			else:
 				velocity.y = 0
 				$Sprite.play("Dash")
-				velocity = dashdirection.normalized() * 2000
+				velocity = dashdirection.normalized() * 2500
 #				airborne_mode = false 
-			yield(get_tree().create_timer(0.2), "timeout")
+			yield(get_tree().create_timer(0.25), "timeout")
 			perfect_dash = false
 #			airborne_mode = false
 			$DashCooldown.start()
@@ -1250,10 +1253,18 @@ func thrust_attack(extra_long_thrust : bool = false):
 	var thrustdirection : Vector2
 	cam_shake = true
 	var swordslash = SWORD_SLASH_EFFECT.instance()
-	if !$Sprite.flip_h:
-		thrustdirection = Vector2(1,0)
-	if $Sprite.flip_h:
-		thrustdirection = Vector2(-1, 0)
+	if weakref(get_closest_enemy()) != null:
+		if get_closest_enemy().position.x < position.x:
+			thrustdirection = Vector2(-1, 0)
+			$Sprite.flip_h = true
+		elif get_closest_enemy().position.x >= position.x:
+			thrustdirection = Vector2(1, 0)
+			$Sprite.flip_h = false
+	else:
+		if !$Sprite.flip_h:
+			thrustdirection = Vector2(1,0)
+		if $Sprite.flip_h:
+			thrustdirection = Vector2(-1, 0)
 	attack_string_count = 4
 	mana_absorption_counter = mana_absorption_counter_max
 	var dash_particle = DASH_PARTICLE.instance()
@@ -1290,7 +1301,7 @@ func thrust_attack(extra_long_thrust : bool = false):
 		is_thrust_attacking = false
 		airborne_mode = true
 #		$AirborneMaxDuration.start()
-		yield(get_tree().create_timer(1), "timeout")
+		yield(get_tree().create_timer(0.5), "timeout")
 		cam_shake = false
 		is_invulnerable = false
 		$ThrustEffectArea/CollisionShape2D.disabled = true
@@ -1697,3 +1708,21 @@ func _on_AirborneMaxDuration_timeout():
 	velocity.y = 0
 	airborne_mode = false
 
+
+
+func _on_GhostTrailTimer_timeout():
+	if Global.current_character == "Player" and is_dashing:
+		var ghost_trail = preload("res://scenes/misc/GhostTrail.tscn").instance()
+		var texture = preload("res://assets/player/player_dash.png")
+		
+		get_parent().add_child(ghost_trail)
+		ghost_trail.position = global_position
+		if !$Sprite.flip_h:
+			
+			ghost_trail.flip_h = false
+		else:
+			ghost_trail.flip_h = true
+			
+		ghost_trail.scale.x = 5
+		ghost_trail.scale.y = 5
+	

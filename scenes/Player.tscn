@@ -1675,6 +1675,7 @@ script = ExtResource( 12 )
 script = ExtResource( 13 )
 
 [node name="SwapCooldownTimer" type="Timer" parent="CharacterManager"]
+wait_time = 0.5
 one_shot = true
 
 [node name="FreezeMask" type="Sprite" parent="."]
@@ -1980,7 +1981,7 @@ margin_right = -41.0
 margin_bottom = -78.0
 rect_scale = Vector2( 4.5, 4.5 )
 max_value = 150.0
-value = 100.0
+value = 150.0
 texture_under = ExtResource( 20 )
 texture_progress = ExtResource( 19 )
 
@@ -2009,6 +2010,10 @@ one_shot = true
 [node name="TempusTardusTriggerCD" type="Timer" parent="."]
 wait_time = 20.0
 one_shot = true
+
+[node name="GhostTrailTimer" type="Timer" parent="."]
+wait_time = 0.1
+autostart = true
 
 [connection signal="timeout" from="CharacterManager/SwapCooldownTimer" to="CharacterManager" method="_on_SwapCooldownTimer_timeout"]
 [connection signal="area_entered" from="AttackCollision" to="." method="_on_AttackCollision_area_entered"]
@@ -2041,3 +2046,4 @@ one_shot = true
 [connection signal="timeout" from="InputPressTimer" to="." method="_on_InputPressTimer_timeout"]
 [connection signal="timeout" from="WalkParticleTimer" to="." method="_on_WalkParticleTimer_timeout"]
 [connection signal="timeout" from="KatanaSheatheWindowTimer" to="." method="_on_KatanaSheatheWindowTimer_timeout"]
+[connection signal="timeout" from="GhostTrailTimer" to="." method="_on_GhostTrailTimer_timeout"]

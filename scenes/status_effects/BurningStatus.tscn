@@ -57,6 +57,12 @@ rect_scale = Vector2( 4, 4 )
 texture_under = ExtResource( 2 )
 texture_progress = ExtResource( 4 )
 
+[node name="DecayTimer" type="Timer" parent="."]
+wait_time = 0.2
+one_shot = true
+
+[node name="DecayDelayTimer" type="Timer" parent="."]
+
 [connection signal="area_entered" from="." to="." method="_on_BurningStatus_area_entered"]
 [connection signal="timeout" from="DamageTickTimer" to="." method="_on_DamageTickTimer_timeout"]
 [connection signal="timeout" from="DestroyedTimer" to="." method="_on_DestroyedTimer_timeout"]

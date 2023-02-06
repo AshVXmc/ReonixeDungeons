@@ -143,12 +143,12 @@ current = true
 zoom = Vector2( 1.2, 1.2 )
 limit_left = -2000
 limit_top = -468
-limit_right = 4300
+limit_right = 4000
 limit_bottom = 2000
 drag_margin_h_enabled = true
 drag_margin_v_enabled = true
-drag_margin_left = 0.4
-drag_margin_right = 0.4
+drag_margin_left = 0.3
+drag_margin_right = 0.3
 editor_draw_limits = true
 
 [node name="DestructableWall4" parent="." instance=ExtResource( 7 )]

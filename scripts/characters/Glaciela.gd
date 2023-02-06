@@ -65,6 +65,7 @@ func _ready():
 	connect("mana_changed", get_parent().get_parent().get_parent().get_node("ManaUI/Mana"), "on_player_mana_changed")
 	connect("skill_used", get_parent().get_parent().get_parent().get_node("SkillsUI/Control"), "on_skill_used")
 	connect("skill_used", get_parent().get_parent().get_node("SkillManager"), "on_skill_used")
+	$StrongJumpParticle.visible = false
 	$AnimatedSprite.play("Default")
 	$SpearSprite.visible = false
 	$AttackCollision.add_to_group(str(ATTACK * (Global.glaciela_skill_multipliers["BasicAttack"] / 100)))
@@ -79,11 +80,15 @@ func update_tundra_sigil_ui():
 
 func _physics_process(delta):
 	target = get_closest_enemy()
-	
+	if !$AnimatedSprite.flip_h:
+		$EnemyEvasionArea.set_scale(Vector2(1,1))
+	else:
+		$EnemyEvasionArea.set_scale(Vector2(-1,1))
 	if Input.is_action_pressed("right") and !Input.is_action_pressed("left") and !get_parent().get_parent().is_attacking and !get_parent().get_parent().is_dashing and !get_parent().get_parent().is_knocked_back:
 		Input.action_release("left")
 		$AnimatedSprite.flip_h = false
 		$AnimatedSprite.play("Walk")
+		
 		attack_string_count = 4
 	if Input.is_action_pressed("left") and !Input.is_action_pressed("right") and !get_parent().get_parent().is_attacking and !get_parent().get_parent().is_dashing and !get_parent().get_parent().is_knocked_back:
 		Input.action_release("right")
@@ -110,12 +115,12 @@ func _physics_process(delta):
 				$AnimatedSprite.play("Default")
 		if Input.is_action_just_pressed("ui_dash") and !get_parent().get_parent().can_dash and !get_parent().get_parent().get_node("DashUseTimer").is_stopped():
 			$AnimatedSprite.play("Dash")
-			attack_string_count = 4
+#			attack_string_count = 4
 			yield(get_tree().create_timer(0.25), "timeout")
 			$AnimatedSprite.play("Default")
 		
 		if Input.is_action_just_pressed("jump"):
-			attack_string_count = 4
+#			attack_string_count = 4
 			$AnimatedSprite.play("Default")
 		
 		if $ChargedAttackCooldown.is_stopped():
@@ -185,26 +190,25 @@ func play_attack_animation(direction : String):
 			1:
 				$SpecialAttackTimer.stop()
 				if $SpecialAttackTimers/Special4thSequenceWindow.is_stopped():
+					$SpecialAttackArea2D.set_scale(Vector2(1,1))
 					$AnimationPlayer.play("SpecialAttack1_Right")
 					attack_string_count -= 1
-					yield(get_tree().create_timer($MeleeTimer.wait_time), "timeout")
-					attack_string_count = 4
+#					yield(get_tree().create_timer($MeleeTimer.wait_time * 1.5), "timeout")
+#					attack_string_count = 4
 					emit_signal("trigger_quickswap", "Glaciela")
 				else:
 					
 					$AnimationPlayer.play("SpearSwingRight4")
 					attack_string_count -= 1
-					
-					
 					for groups in $AttackCollision.get_groups():
 						if float(groups) != 0:
 							$AttackCollision.remove_from_group(groups)
 							$AttackCollision.add_to_group(str(ATTACK * (Global.glaciela_skill_multipliers["BasicAttack4"] / 100) + basic_attack_buff))
 							break
-					yield(get_tree().create_timer($MeleeTimer.wait_time), "timeout")
-					attack_string_count = 4
+#					yield(get_tree().create_timer($MeleeTimer.wait_time * 1.5), "timeout")
+#					attack_string_count = 4
 					emit_signal("trigger_quickswap", "Glaciela")
-				$ResetAttackStringTimer.start()
+#				$ResetAttackStringTimer.start()
 
 	elif direction == "Left":
 		match attack_string_count:
@@ -228,23 +232,36 @@ func play_attack_animation(direction : String):
 			2:
 				$AnimationPlayer.play("SpearSwingLeft3")
 				attack_string_count -= 1
-
 				for groups in $AttackCollision.get_groups():
 					if float(groups) != 0:
 						$AttackCollision.remove_from_group(groups)
 						$AttackCollision.add_to_group(str(ATTACK * (Global.glaciela_skill_multipliers["BasicAttack3"] / 100) + basic_attack_buff))
 						break
+				$SpecialAttackTimer.start()
+				$ResetAttackStringTimer.start()
 			1:
-				$AnimationPlayer.play("SpearSwingLeft4")
-				attack_string_count -= 1
-				for groups in $AttackCollision.get_groups():
-					if float(groups) != 0:
-						$AttackCollision.remove_from_group(groups)
-						$AttackCollision.add_to_group(str(ATTACK * (Global.glaciela_skill_multipliers["BasicAttack4"] / 100) + basic_attack_buff))
-						break
-				yield(get_tree().create_timer($MeleeTimer.wait_time), "timeout")
-				attack_string_count = 4
-				emit_signal("trigger_quickswap", "Glaciela")
+				$SpecialAttackTimer.stop()
+				if $SpecialAttackTimers/Special4thSequenceWindow.is_stopped():
+					$SpecialAttackArea2D.set_scale(Vector2(-1,1))
+					$AnimationPlayer.play("SpecialAttack1_Left")
+					attack_string_count -= 1
+#					yield(get_tree().create_timer($MeleeTimer.wait_time * 1.5), "timeout")
+#					attack_string_count = 4
+					emit_signal("trigger_quickswap", "Glaciela")
+					
+				else:
+					
+					$AnimationPlayer.play("SpearSwingLeft4")
+					attack_string_count -= 1
+					for groups in $AttackCollision.get_groups():
+						if float(groups) != 0:
+							$AttackCollision.remove_from_group(groups)
+							$AttackCollision.add_to_group(str(ATTACK * (Global.glaciela_skill_multipliers["BasicAttack4"] / 100) + basic_attack_buff))
+							break
+#					yield(get_tree().create_timer($MeleeTimer.wait_time * 1.5), "timeout")
+#					attack_string_count = 4
+					emit_signal("trigger_quickswap", "Glaciela")
+#				$ResetAttackStringTimer.start()
 				
 
 func _on_SpecialAttackTimer_timeout():
@@ -390,6 +407,10 @@ func infuse_element(element : String, duration : float = 10):
 func _on_AttackCollision_area_entered(area):
 	if weakref(area).get_ref() != null:
 		if area.is_in_group("Enemy") or area.is_in_group("Enemy2"):
+			if !get_parent().get_parent().is_on_floor() and !get_parent().get_parent().get_node("HeightRaycast2D").is_colliding():
+				get_parent().get_parent().airborne_mode = true
+				get_parent().get_parent().get_node("AirborneTimer").stop()
+				get_parent().get_parent().get_node("AirborneTimer").start()
 			if $TundraStackRegen.is_stopped() and !is_performing_charged_attack and tundra_sigils < Global.glaciela_skill_multipliers["MaxTundraSigils"]:
 				
 				if attack_string_count == 0 or attack_string_count == 2:
@@ -509,6 +530,7 @@ func take_damage(damage : float):
 	
 
 func _on_ResetAttackStringTimer_timeout():
+	
 	attack_string_count = 4
 
 

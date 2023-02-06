@@ -2,7 +2,8 @@ class_name SulphuricSigil extends Node2D
 
 
 onready var FIRE_DETIONATION_PARTICLE = preload("res://scenes/particles/FireDetonationParticle.tscn")
-
+var stacks : int = 0
+const MAX_STACKS : int = 3
 # Perform two slashes in an X-shaped pattern like ayato's C6 effect. Has a small CD
 
 func _ready():
