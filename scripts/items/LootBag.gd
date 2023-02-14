@@ -35,12 +35,13 @@ func seek():
 	else:
 		return 0
 func _physics_process(delta):
-	if target:
-		acceleration += seek()
-	velocity += acceleration * delta
-	rotation += rand_range(-0.25, 0.25)
-	velocity = velocity.clamped(SPEED)
-	position += velocity * delta
+	if $SeekDelayTimer.is_stopped():
+		if target:
+			acceleration += seek()
+		velocity += acceleration * delta
+		rotation += rand_range(-0.25, 0.25)
+		velocity = velocity.clamped(SPEED)
+		position += velocity * delta
 	
 
 func reward_opals():

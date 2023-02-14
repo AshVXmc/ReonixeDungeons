@@ -69,13 +69,12 @@ func _ready():
 	$AnimatedSprite.play("Default")
 	$SpearSprite.visible = false
 	$AttackCollision.add_to_group(str(ATTACK * (Global.glaciela_skill_multipliers["BasicAttack"] / 100)))
-	
+	$SpecialAttackArea2D.add_to_group(str(ATTACK * (Global.glaciela_skill_multipliers["SpecialAttack1_1"] / 100)))
 
 func update_tundra_sigil_ui():
 	$TundraSigilsUI/TundraSigil3.visible = true if tundra_sigils >= 3 else false
 	$TundraSigilsUI/TundraSigil2.visible = true if tundra_sigils >= 2 else false
 	$TundraSigilsUI/TundraSigil1.visible = true if tundra_sigils >= 1 else false
-
 
 
 func _physics_process(delta):
@@ -89,11 +88,13 @@ func _physics_process(delta):
 		$AnimatedSprite.flip_h = false
 		$AnimatedSprite.play("Walk")
 		
-		attack_string_count = 4
-	if Input.is_action_pressed("left") and !Input.is_action_pressed("right") and !get_parent().get_parent().is_attacking and !get_parent().get_parent().is_dashing and !get_parent().get_parent().is_knocked_back:
+#		attack_string_count = 4
+	elif Input.is_action_pressed("left") and !Input.is_action_pressed("right") and !get_parent().get_parent().is_attacking and !get_parent().get_parent().is_dashing and !get_parent().get_parent().is_knocked_back:
 		Input.action_release("right")
 		$AnimatedSprite.flip_h = true
 		$AnimatedSprite.play("Walk")
+#		attack_string_count = 4
+	if Input.is_action_just_pressed("right") or Input.is_action_just_pressed("left"):
 		attack_string_count = 4
 	if Global.current_character == "Glaciela":
 		charge_meter()
@@ -137,28 +138,33 @@ func attack():
 		if get_parent().get_parent().is_on_floor():
 			airborne_mode = true
 			$AirborneTimer.start()
+		
 		if !$AnimatedSprite.flip_h:
 			$SpearSprite.visible = true
-			play_attack_animation("Right")
+			
 			$AttackCollision/CollisionShape2D.disabled = false
+			play_attack_animation("Right")
 			$AttackCollision.set_scale(Vector2(1,1))
 			$ChargedAttackCollision.set_scale(Vector2(1,1))
 			$MeleeTimer.start()
 		else:
 			$SpearSprite.visible = true
-			play_attack_animation("Left")
+			
 			$AttackCollision/CollisionShape2D.disabled = false
+			play_attack_animation("Left")
 			$AttackCollision.set_scale(Vector2(-1,1))
 			$ChargedAttackCollision.set_scale(Vector2(-1,1))
 			$MeleeTimer.start()
+		$AttackTimer.start()
 # Helper function, use this to change tundra stack value through a signal 
 # from another node
 
 func play_attack_animation(direction : String):
-
+	
 	if direction == "Right":
 		match attack_string_count:
 			4:
+				$ResetAttackStringTimer.stop()
 				$AnimationPlayer.play("SpearSwingRight1")
 				attack_string_count -= 1
 				for groups in $AttackCollision.get_groups():
@@ -168,6 +174,7 @@ func play_attack_animation(direction : String):
 						break
 				$ResetAttackStringTimer.start()
 			3:
+				$ResetAttackStringTimer.stop()
 				$AnimationPlayer.play("SpearSwingRight2")
 				attack_string_count -= 1
 	
@@ -178,6 +185,7 @@ func play_attack_animation(direction : String):
 						break
 				$ResetAttackStringTimer.start()
 			2:
+				$ResetAttackStringTimer.stop()
 				$AnimationPlayer.play("SpearSwingRight3")
 				attack_string_count -= 1
 				for groups in $AttackCollision.get_groups():
@@ -188,8 +196,10 @@ func play_attack_animation(direction : String):
 				$SpecialAttackTimer.start()
 				$ResetAttackStringTimer.start()
 			1:
+				
 				$SpecialAttackTimer.stop()
 				if $SpecialAttackTimers/Special4thSequenceWindow.is_stopped():
+					$AttackCollision/CollisionShape2D.disabled = true
 					$SpecialAttackArea2D.set_scale(Vector2(1,1))
 					$AnimationPlayer.play("SpecialAttack1_Right")
 					attack_string_count -= 1
@@ -208,11 +218,13 @@ func play_attack_animation(direction : String):
 #					yield(get_tree().create_timer($MeleeTimer.wait_time * 1.5), "timeout")
 #					attack_string_count = 4
 					emit_signal("trigger_quickswap", "Glaciela")
+				
 #				$ResetAttackStringTimer.start()
 
 	elif direction == "Left":
 		match attack_string_count:
 			4:
+				$ResetAttackStringTimer.stop()
 				$AnimationPlayer.play("SpearSwingLeft1")
 				attack_string_count -= 1
 
@@ -221,7 +233,9 @@ func play_attack_animation(direction : String):
 						$AttackCollision.remove_from_group(groups)
 						$AttackCollision.add_to_group(str(ATTACK * (Global.glaciela_skill_multipliers["BasicAttack"] / 100) + basic_attack_buff))
 						break
+				$ResetAttackStringTimer.start()
 			3:
+				$ResetAttackStringTimer.stop()
 				$AnimationPlayer.play("SpearSwingLeft2")
 				attack_string_count -= 1
 				for groups in $AttackCollision.get_groups():
@@ -229,7 +243,9 @@ func play_attack_animation(direction : String):
 						$AttackCollision.remove_from_group(groups)
 						$AttackCollision.add_to_group(str(ATTACK * (Global.glaciela_skill_multipliers["BasicAttack2"] / 100) + basic_attack_buff))
 						break
+				$ResetAttackStringTimer.start()
 			2:
+				$ResetAttackStringTimer.stop()
 				$AnimationPlayer.play("SpearSwingLeft3")
 				attack_string_count -= 1
 				for groups in $AttackCollision.get_groups():
@@ -240,8 +256,10 @@ func play_attack_animation(direction : String):
 				$SpecialAttackTimer.start()
 				$ResetAttackStringTimer.start()
 			1:
+				
 				$SpecialAttackTimer.stop()
 				if $SpecialAttackTimers/Special4thSequenceWindow.is_stopped():
+					$AttackCollision/CollisionShape2D.disabled = true
 					$SpecialAttackArea2D.set_scale(Vector2(-1,1))
 					$AnimationPlayer.play("SpecialAttack1_Left")
 					attack_string_count -= 1
@@ -262,7 +280,7 @@ func play_attack_animation(direction : String):
 #					attack_string_count = 4
 					emit_signal("trigger_quickswap", "Glaciela")
 #				$ResetAttackStringTimer.start()
-				
+
 
 func _on_SpecialAttackTimer_timeout():
 	$SpecialAttackTimers/Special4thSequenceWindow.start()
@@ -332,10 +350,13 @@ func special_attack_1_damage_calc(sequence : int = 1):
 			$SpecialAttackArea2D.remove_from_group(groups)
 			match sequence:
 				1:
+					$SpecialAttackArea2D.add_to_group("HeavyPoiseDamage")
 					$SpecialAttackArea2D.add_to_group(str(ATTACK * (Global.glaciela_skill_multipliers["SpecialAttack1_1"] / 100)))
+					
 				2:
+					$SpecialAttackArea2D.add_to_group("HeavyPoiseDamage")
 					$SpecialAttackArea2D.add_to_group(str(ATTACK * (Global.glaciela_skill_multipliers["SpecialAttack1_2"] / 100)))
-			break
+					
 
 
 func get_closest_enemy():
@@ -433,8 +454,8 @@ func _on_AttackCollision_area_entered(area):
 			get_parent().get_parent().airborne_mode = true
 			airborne_mode = true
 
-func _on_MeleeTimer_timeout():
-	$AttackCollision/CollisionShape2D.disabled = true
+#func _on_MeleeTimer_timeout():
+#	$AttackCollision/CollisionShape2D.disabled = true
 
 
 func _on_Area2D_area_entered(area):
@@ -584,7 +605,9 @@ func _on_TundraStackRegen_timeout():
 
 
 
-
+func dash_effect():
+	if get_parent().get_parent().is_dashing:
+		yield(get_tree().create_timer(0.25), "timeout")
 
 func _on_Special4thSequenceWindow_timeout():
 #	attack_string_count = 4
@@ -593,3 +616,7 @@ func _on_Special4thSequenceWindow_timeout():
 
 func _on_InvulnerabilityTimer_timeout():
 	get_parent().get_parent().is_invulnerable = false
+
+
+func _on_AttackTimer_timeout():
+	$AttackCollision/CollisionShape2D.disabled = true

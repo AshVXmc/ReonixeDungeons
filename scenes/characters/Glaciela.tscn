@@ -1200,7 +1200,7 @@ anims/SpearSwingRight4 = SubResource( 15 )
 anims/SpecialAttack1_Left = SubResource( 20 )
 anims/SpecialAttack1_Right = SubResource( 18 )
 
-[node name="AttackCollision" type="Area2D" parent="." groups=["HeavyPoiseDamage", "Sword"]]
+[node name="AttackCollision" type="Area2D" parent="." groups=["MediumPoiseDamage", "Sword"]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackCollision"]
 position = Vector2( 86.5819, 5.05854 )
@@ -1215,6 +1215,10 @@ shape = SubResource( 9 )
 
 [node name="MeleeTimer" type="Timer" parent="."]
 wait_time = 0.5
+one_shot = true
+
+[node name="AttackTimer" type="Timer" parent="."]
+wait_time = 0.1
 one_shot = true
 
 [node name="ChargeBar" type="TextureProgress" parent="."]
@@ -1248,7 +1252,6 @@ texture_under = ExtResource( 9 )
 texture_progress = ExtResource( 12 )
 
 [node name="ResetAttackStringTimer" type="Timer" parent="."]
-wait_time = 1.1
 one_shot = true
 
 [node name="ChargedAttackCooldown" type="Timer" parent="."]
@@ -1314,7 +1317,7 @@ scale = Vector2( 2, 2 )
 emitting = true
 one_shot = false
 
-[node name="SpecialAttackArea2D" type="Area2D" parent="." groups=["10", "SwordCharged"]]
+[node name="SpecialAttackArea2D" type="Area2D" parent="." groups=["Sword"]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SpecialAttackArea2D"]
 position = Vector2( 157.551, -0.00581169 )
@@ -1338,6 +1341,7 @@ one_shot = true
 [connection signal="area_entered" from="AttackCollision" to="." method="_on_AttackCollision_area_entered"]
 [connection signal="area_exited" from="AttackCollision" to="." method="_on_AttackCollision_area_exited"]
 [connection signal="timeout" from="MeleeTimer" to="." method="_on_MeleeTimer_timeout"]
+[connection signal="timeout" from="AttackTimer" to="." method="_on_AttackTimer_timeout"]
 [connection signal="area_entered" from="Area2D" to="." method="_on_Area2D_area_entered"]
 [connection signal="timeout" from="ResetAttackStringTimer" to="." method="_on_ResetAttackStringTimer_timeout"]
 [connection signal="timeout" from="TundraStackRegen" to="." method="_on_TundraStackRegen_timeout"]

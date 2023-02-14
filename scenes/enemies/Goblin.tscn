@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://assets/enemies/goblin2_attack.png" type="Texture" id=1]
 [ext_resource path="res://scripts/enemies/Goblin.gd" type="Script" id=2]
@@ -11,6 +11,7 @@
 [ext_resource path="res://assets/UI/armorbar_empty.png" type="Texture" id=9]
 [ext_resource path="res://assets/UI/armorbar_colours.png" type="Texture" id=10]
 [ext_resource path="res://assets/misc/physical_armor.png" type="Texture" id=11]
+[ext_resource path="res://assets/enemies/goblin_spear.png" type="Texture" id=12]
 
 [sub_resource type="CapsuleShape2D" id=8]
 radius = 30.0
@@ -91,6 +92,179 @@ tracks/0/keys = {
 "update": 0,
 "values": [ Color( 1, 1, 1, 1 ) ]
 }
+tracks/1/type = "value"
+tracks/1/path = NodePath("SpearSprite:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ -90.0 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("SpearSprite:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -45, 15 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("SpearSprite:show_behind_parent")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ true ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("SpearThrustAttackWarning:self_modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0.513726 ) ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("SpearThrustAttackWarning:color")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 0.196078, 0, 1 ) ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("SpearSprite:visible")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ true ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("SpearThrustAttackWarning:rect_position")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -112, -45 ) ]
+}
+
+[sub_resource type="Animation" id=13]
+resource_name = "SpearThrustAttackLeft"
+length = 0.8
+step = 0.01
+tracks/0/type = "value"
+tracks/0/path = NodePath("SpearSprite:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ -90.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("SpearSprite:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.67, 0.8 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( -24, 18 ), Vector2( -75, 18 ), Vector2( -20, 18 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("SpearSprite:show_behind_parent")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("SpearThrustAttackWarning:self_modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.13, 0.26, 0.39, 0.51 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0.313726 ), Color( 1, 1, 1, 0.627451 ), Color( 1, 1, 1, 0.313726 ), Color( 1, 1, 1, 0.627451 ), Color( 1, 1, 1, 0.313726 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("SpearThrustAttackWarning:color")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0.01 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 0.196078, 0, 1 ) ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("SpearSprite:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0, 0.54, 0.8 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ false, true, false ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("SpearThrustAttackWarning:rect_position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -112, -45 ) ]
+}
 
 [sub_resource type="RectangleShape2D" id=9]
 extents = Vector2( 9.77439, 84.5919 )
@@ -149,7 +323,7 @@ collision_mask = 3075
 collide_with_areas = true
 
 [node name="HurtTimer" type="Timer" parent="."]
-wait_time = 0.35
+wait_time = 0.4
 one_shot = true
 
 [node name="AttackingTimer" type="Timer" parent="."]
@@ -181,6 +355,7 @@ texture_progress = SubResource( 11 )
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/Death = SubResource( 6 )
 anims/RESET = SubResource( 7 )
+anims/SpearThrustAttackLeft = SubResource( 13 )
 
 [node name="OtherAirborneEntitiesDetector" type="Area2D" parent="."]
 
@@ -204,13 +379,26 @@ self_modulate = Color( 1, 1, 1, 0.490196 )
 scale = Vector2( 6, 6 )
 texture = ExtResource( 11 )
 
-[node name="ArmorSpritePlayer" type="AnimationPlayer" parent="."]
-
 [node name="OtherEnemyDetector" type="Area2D" parent="." groups=["OtherEnemyDetector"]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="OtherEnemyDetector"]
 position = Vector2( -44.3286, 0.422605 )
 shape = SubResource( 12 )
+
+[node name="SpearSprite" type="Sprite" parent="."]
+show_behind_parent = true
+position = Vector2( -45, 15 )
+rotation = -1.5708
+scale = Vector2( 5, 5 )
+texture = ExtResource( 12 )
+
+[node name="SpearThrustAttackWarning" type="ColorRect" parent="."]
+self_modulate = Color( 1, 1, 1, 0.513726 )
+margin_left = -112.0
+margin_top = -45.0
+margin_right = -48.0
+margin_bottom = 53.0
+color = Color( 1, 0.196078, 0, 1 )
 
 [connection signal="area_exited" from="Left" to="." method="_on_Left_area_exited"]
 [connection signal="area_exited" from="Right" to="." method="_on_Right_area_exited"]

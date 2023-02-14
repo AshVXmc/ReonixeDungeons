@@ -1,10 +1,10 @@
 extends Node 
 
 # GLOBALLY ACCESSED VARIABLES
-var max_hearts : float = 3
+var max_hearts : float = 2
 var hearts : float = max_hearts
-var character_2_max_hearts : float = 3
-var character_3_max_hearts : float = 3
+var character_2_max_hearts : float = 2
+var character_3_max_hearts : float = 2
 var elegance_rank : String 
 
 func _ready():
@@ -26,19 +26,20 @@ var player_skill_multipliers : Dictionary = {
 	"BaseHearts": 2.5,
 	"BasicAttack": 25.0,
 	"BasicAttack2": 35.0,
-	"BasicAttack3": 42.5,
-	"BasicAttack4": 48.5,
-	"ChargedAttack": 52.0,
+	"BasicAttack3": 38.5,
+	"BasicAttack4": 45.5,
+	"ChargedAttack": 55.5,
 	"ThrustChargedAttack": 69.5,
-	"UpwardsorDownwardsChargedAttack": 30.0, # x 2
+	"UpwardsorDownwardsChargedAttack": 25.0, # x 2
 	"SpecialChargedAttack": 45.5, # x 4
 	"SpecialChargedAttackFinalStrike": 135.0,
+	"CircularFlurryAttack": 28.0,
 	"AirborneBasicAttack": 35.0,
 	"AirborneBasicAttack2": 30.0,
 	"AirborneBasicAttack3": 45.0,
 	"AirborneBasicAttack4": 55.0,
 	"SulphuricSigilSingleSlash": 40.0, # x 2
-	"SlashFlurryEnergyCost": 150,
+	"SlashFlurryEnergyCost": 200,
 	"FireSaw": 35.0,
 	"FireFairy": 22.0,
 	"FireSawCost": 12,
@@ -61,8 +62,8 @@ var glaciela_skill_multipliers : Dictionary = {
 	"BasicAttack3": 45.0,
 	"BasicAttack4": 50.0,
 	"ChargedAttack": 45.0,
-	"SpecialAttack1_1": 18.0,
-	"SpecialAttack1_2": 22.0,
+	"SpecialAttack1_1": 38.0,
+	"SpecialAttack1_2": 42.0,
 	"TundraSigilDMGBonus": 12.0,
 	"TundraSigilFreezeStackBonus": 20,
 	"TundraSigilManaBonus": 0.75,
@@ -80,6 +81,9 @@ var glaciela_skill_multipliers : Dictionary = {
 	"Birthday": [10,5]
 }
 
+var enemy_skill_multipliers : Dictionary = {
+	"GoblinSpearThrustAttack" : 100.0
+}
 var character2_hearts : float= character_2_max_hearts
 var character2_max_mana = max_mana
 var character2_mana = max_mana
@@ -137,7 +141,7 @@ var player_skills : Dictionary = {
 
 
 var current_character : String 
-var equipped_characters : Array = ["Glaciela", "Player", ""]
+var equipped_characters : Array = ["Player", "Glaciela", ""]
 var unlocked_characters : Array = ["Player", "Glaciela", "Domiguine"]
 var alive : Array = [true, true, true]
 

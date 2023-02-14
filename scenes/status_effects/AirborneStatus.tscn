@@ -36,11 +36,11 @@ process_material = SubResource( 2 )
 texture = ExtResource( 2 )
 
 [node name="DestroyedTimer" type="Timer" parent="."]
-wait_time = 2.0
+wait_time = 5.0
 one_shot = true
 
 [node name="MaxDestroyedTimer" type="Timer" parent="."]
-wait_time = 7.5
+wait_time = 3.0
 one_shot = true
 autostart = true
 

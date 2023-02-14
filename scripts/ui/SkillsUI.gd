@@ -8,6 +8,8 @@ const glacielaicon = preload("res://assets/UI/glaciela_character_icon.png")
 const empty_icon = preload("res://assets/UI/empty_character_icon.png")
 onready var character1 : String = Global.equipped_characters[0]
 var can_swap_character : bool = true
+onready var firesaw_ui = $PrimarySkill/Player/FireSaw/TextureProgress
+const multiplier : int = 10
 
 
 func _ready():
@@ -16,7 +18,9 @@ func _ready():
 	print("Currently: " + Global.current_character)
 	connect("ability_on_cooldown", get_parent().get_parent().get_node("Player"), "ability_on_entering_cooldown")
 	update_skill_ui(Global.player_skills["PrimarySkill"], Global.player_skills["SecondarySkill"])
-	
+	$PrimarySkill/Player/FireSaw/TextureProgress.max_value = Global.player_skill_multipliers["FireSawCD"] * multiplier
+
+
 func update_swap_character_status():
 	can_swap_character = true if !can_swap_character else false
 	if can_swap_character:
@@ -67,7 +71,7 @@ func on_skill_used(skill_name : String):
 func toggle_firesaw():
 	print("firesaw cooldown start")
 	emit_signal("ability_on_cooldown", "FireSaw")
-	$PrimarySkill/Player/FireSaw/FiresawTimer.start(Global.player_skill_multipliers["FireSawCD"])
+	firesaw_ui.value = firesaw_ui.min_value
 
 func toggle_fire_fairy():
 	# 10 seconds is the duration of the fire fairy before expiring
@@ -83,27 +87,27 @@ func _process(delta):
 		$PrimarySkill/Player.visible = true
 		$SecondarySkill/Player.visible = true
 
-		if !$PrimarySkill/Player/FireSaw/FiresawTimer.is_stopped():
-			$PrimarySkill/Player/FireSaw/Label.text = str(round($PrimarySkill/Player/FireSaw/FiresawTimer.time_left))
-			$PrimarySkill/Player/FireSaw/Sprite.self_modulate.a = 0.65
-		elif $PrimarySkill/Player/FireSaw/FiresawTimer.is_stopped():
+		if firesaw_ui.value < firesaw_ui.max_value:
+			$PrimarySkill/Player/FireSaw/Label.text = str(firesaw_ui.max_value - firesaw_ui.value)
+			$PrimarySkill/Player/FireSaw/TextureProgress.self_modulate.a = 0.65
+		elif  firesaw_ui.value >= firesaw_ui.max_value:
 			if Global.equipped_characters[0] == "Player":
 				if Global.mana >= Global.player_skill_multipliers["FireSawCost"]:
-					$PrimarySkill/Player/FireSaw/Sprite.self_modulate.a = 1.0
+					$PrimarySkill/Player/FireSaw/TextureProgress.self_modulate.a = 1.0
 				else:
-					$PrimarySkill/Player/FireSaw/Sprite.self_modulate.a = 0.65
+					$PrimarySkill/Player/FireSaw/TextureProgress.self_modulate.a = 0.65
 				$PrimarySkill/Player/FireSaw/Label.text = ""
 			elif Global.equipped_characters[1] == "Player":
 				if Global.character2_mana >= Global.player_skill_multipliers["FireSawCost"]:
-					$PrimarySkill/Player/FireSaw/Sprite.self_modulate.a = 1.0
+					$PrimarySkill/Player/FireSaw/TextureProgress.self_modulate.a = 1.0
 				else:
-					$PrimarySkill/Player/FireSaw/Sprite.self_modulate.a = 0.65
+					$PrimarySkill/Player/FireSaw/TextureProgress.self_modulate.a = 0.65
 				$PrimarySkill/Player/FireSaw/Label.text = ""
 			elif Global.equipped_characters[2] == "Player":
 				if Global.character3_mana >= Global.player_skill_multipliers["FireSawCost"]:
-					$PrimarySkill/Player/FireSaw/Sprite.self_modulate.a = 1.0
+					$PrimarySkill/Player/FireSaw/TextureProgress.self_modulate.a = 1.0
 				else:
-					$PrimarySkill/Player/FireSaw/Sprite.self_modulate.a = 0.65
+					$PrimarySkill/Player/FireSaw/TextureProgress.self_modulate.a = 0.65
 				$PrimarySkill/Player/FireSaw/Label.text = ""
 #		if Global.mana < firesawcost:
 #			$PrimarySkill/Player/FireSaw/Sprite.self_modulate.a = 0.65
@@ -153,3 +157,8 @@ func _process(delta):
 
 
 
+
+
+func _on_CooldownTickTimer_timeout():
+	if Global.equipped_characters.has("Player"):
+		firesaw_ui.value += 1 * multiplier

@@ -8,7 +8,7 @@
 [ext_resource path="res://scenes/enemies/logic/EnemySkillGlobalCooldown.tscn" type="PackedScene" id=6]
 [ext_resource path="res://scenes/menus/FPSCounter.tscn" type="PackedScene" id=7]
 [ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=8]
-[ext_resource path="res://scenes/enemies/bosses/Arrow.tscn" type="PackedScene" id=9]
+[ext_resource path="res://scenes/items/LootBag.tscn" type="PackedScene" id=9]
 [ext_resource path="res://scenes/menus/OpalsUI.tscn" type="PackedScene" id=10]
 [ext_resource path="res://scenes/levels/hublevel/DungeonEntrance.tscn" type="PackedScene" id=11]
 [ext_resource path="res://scenes/menus/DebugMenu.tscn" type="PackedScene" id=12]
@@ -80,10 +80,10 @@ extents = Vector2( 381.656, 15.5452 )
 script = ExtResource( 16 )
 
 [node name="ColorRect" type="ColorRect" parent="."]
-margin_left = -1449.0
-margin_top = -3159.0
-margin_right = 6370.0
-margin_bottom = -315.0
+margin_left = -1284.95
+margin_top = -3407.9
+margin_right = 6534.05
+margin_bottom = -563.901
 color = Color( 0, 0, 0, 1 )
 
 [node name="EleganceMeterUI" parent="." instance=ExtResource( 3 )]
@@ -112,7 +112,7 @@ z_as_relative = false
 motion_mirroring = Vector2( 1920, 0 )
 
 [node name="Sprite" type="Sprite" parent="ParallaxBackground/Background1"]
-position = Vector2( 0, -314.891 )
+position = Vector2( -73.729, -316.141 )
 scale = Vector2( 20.1855, 16.752 )
 texture = ExtResource( 2 )
 centered = false
@@ -309,7 +309,7 @@ position = Vector2( 3683.07, -1813.17 )
 position = Vector2( 3987.69, -1586.86 )
 
 [node name="Player" parent="." instance=ExtResource( 8 )]
-position = Vector2( 336.744, 426 )
+position = Vector2( 1256.2, 608.741 )
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position = Vector2( -24.7189, -147.43 )
@@ -321,18 +321,15 @@ limit_right = 4000
 limit_bottom = 1750
 drag_margin_h_enabled = true
 drag_margin_v_enabled = true
-drag_margin_left = 0.3
-drag_margin_right = 0.3
 editor_draw_limits = true
 
 [node name="Goblin" parent="." instance=ExtResource( 44 )]
-position = Vector2( 1756.05, 605.19 )
+position = Vector2( 1834, 607.045 )
 
 [node name="Goblin2" parent="." instance=ExtResource( 44 )]
 position = Vector2( 711.527, 604.683 )
 
 [node name="EnemySkillGlobalCooldown" parent="." instance=ExtResource( 6 )]
 
-[node name="Arrow" parent="." instance=ExtResource( 9 )]
-position = Vector2( 743.241, 424.303 )
-x_direction = -1
+[node name="LootBag" parent="." instance=ExtResource( 9 )]
+position = Vector2( 1518.66, 558.741 )

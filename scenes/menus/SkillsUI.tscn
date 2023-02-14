@@ -257,7 +257,6 @@ __meta__ = {
 }
 
 [node name="Player" type="Control" parent="Control/PrimarySkill"]
-visible = false
 margin_right = 40.0
 margin_bottom = 40.0
 
@@ -265,14 +264,22 @@ margin_bottom = 40.0
 margin_top = -21.0
 margin_right = 40.0
 margin_bottom = 19.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
-[node name="Sprite" type="Sprite" parent="Control/PrimarySkill/Player/FireSaw"]
-position = Vector2( 170, 190 )
+[node name="BackgroundIcon" type="Sprite" parent="Control/PrimarySkill/Player/FireSaw"]
+self_modulate = Color( 1, 1, 1, 0.333333 )
+position = Vector2( 169, 190 )
 scale = Vector2( 4, 4 )
 texture = ExtResource( 2 )
+
+[node name="TextureProgress" type="TextureProgress" parent="Control/PrimarySkill/Player/FireSaw"]
+margin_left = 129.0
+margin_top = 150.0
+margin_right = 149.0
+margin_bottom = 170.0
+rect_scale = Vector2( 4, 4 )
+value = 100.0
+texture_progress = ExtResource( 2 )
+fill_mode = 4
 
 [node name="FiresawTimer" type="Timer" parent="Control/PrimarySkill/Player/FireSaw"]
 wait_time = 12.0
@@ -480,6 +487,9 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="CooldownTickTimer" type="Timer" parent="Control"]
+autostart = true
+
 [node name="Characters" type="Control" parent="Control"]
 anchor_left = 24.926
 anchor_top = 2.543
@@ -564,3 +574,5 @@ anims/RESET = SubResource( 8 )
 [node name="Flicker3" type="AnimationPlayer" parent="Control/Characters"]
 anims/Flicker = SubResource( 9 )
 anims/RESET = SubResource( 10 )
+
+[connection signal="timeout" from="Control/CooldownTickTimer" to="Control" method="_on_CooldownTickTimer_timeout"]

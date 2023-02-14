@@ -10,7 +10,7 @@ var direction : int = 1
 var is_dead : bool = false 
 const TYPE : String = "Enemy"
 const FLOOR = Vector2(0, -1)
-const MAX_SPEED : int = 140
+const MAX_SPEED : int = 160
 var SPEED : int = MAX_SPEED
 const MAX_GRAVITY : int = 45
 var GRAVITY : int = MAX_GRAVITY
@@ -189,28 +189,26 @@ func _on_Area2D_area_entered(area):
 	]
 	if weakref(area).get_ref() != null:
 		if area.is_in_group("Sword"):
+			var groups : Array = area.get_groups()
+			for group_names in groups:
+				if float(group_names) != 0:
+					var raw_damage = float(group_names)
+#						if poise < MAX_POISE:
+#							poise += 0.2 * MAX_POISE
+					var damage = round((raw_damage - (raw_damage * (phys_res / 100))) * armor_strength_coefficient)
+					print("HP reduced by " + str(damage))
+					HP -= float(damage)
+					$HealthBar.value  -= float(damage)
+					add_damage_particles("Physical", float(damage))
+					parse_damage()
+					
+					break
+	
+		if area.is_in_group("SwordCharged"):
 				var groups : Array = area.get_groups()
 				for group_names in groups:
 					if float(group_names) != 0:
 						var raw_damage = float(group_names)
-#						if poise < MAX_POISE:
-#							poise += 0.2 * MAX_POISE
-						var damage = round((raw_damage - (raw_damage * (phys_res / 100))) * armor_strength_coefficient)
-						print("HP reduced by " + str(damage))
-						HP -= float(damage)
-						$HealthBar.value  -= float(damage)
-						add_damage_particles("Physical", float(damage))
-						parse_damage()
-						knockback(2)
-						break
-		
-		if area.is_in_group("SwordCharged"):
-				var groups : Array = area.get_groups()
-				for group_names in groups:
-					if float(group_names) == 0:
-						groups.erase(group_names)
-					if !groups.has("SwordCharged") and !groups.has("physics_process"):
-						var raw_damage = float(groups.max())
 						
 						var damage = ((raw_damage - (raw_damage * (phys_res / 100))) * armor_strength_coefficient)
 						print("HP reduced by " + str(damage))
@@ -218,7 +216,7 @@ func _on_Area2D_area_entered(area):
 						$HealthBar.value  -= float(damage)
 						add_damage_particles("Physical", float(damage))
 						parse_damage()
-						knockback(6)
+						
 						break
 				
 		if area.is_in_group("Fireball"):
@@ -301,12 +299,16 @@ func _on_Area2D_area_entered(area):
 			GRAVITY *= 0.05
 			$Sprite.speed_scale = 0.1
 		
-		if area.is_in_group("LightPoiseDamage"):
-			pass
+		if is_airborne:
+			if !area.is_in_group("NoAirborneKnockback") and area.is_in_group("LightPoiseDamage"):
+				knockback(1.5)
+		else:
+			if area.is_in_group("LightPoiseDamage"):
+				knockback(1.5)
 		if area.is_in_group("MediumPoiseDamage"):
-			pass
+			knockback(4.2)
 		if area.is_in_group("HeavyPoiseDamage"):
-			pass
+			knockback(8.2)
 	
 #	if area.is_in_group("Enemy"):
 #		set_collision_mask_bit(2, false)
@@ -320,7 +322,7 @@ func add_damage_particles(type : String, dmg : int):
 	dmgparticle.position = global_position
 
 func knockback(knockback_coefficient : float = 1):
-
+	
 	if $Sprite.flip_h:
 		velocity.x = -SPEED * knockback_coefficient
 	else:

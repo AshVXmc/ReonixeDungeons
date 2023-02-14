@@ -2,7 +2,7 @@
 
 [ext_resource path="res://spriteframes/MainCharacter_spriteframes.tres" type="SpriteFrames" id=1]
 [ext_resource path="res://scripts/player/Player.gd" type="Script" id=2]
-[ext_resource path="res://assets/player/sword.png" type="Texture" id=3]
+[ext_resource path="res://assets/player/katana.png" type="Texture" id=3]
 [ext_resource path="res://assets/misc/frozen_block.png" type="Texture" id=4]
 [ext_resource path="res://scenes/particles/FireBurstParticle.tscn" type="PackedScene" id=5]
 [ext_resource path="res://assets/player/gliding_wings.png" type="Texture" id=6]
@@ -27,7 +27,7 @@ radius = 37.6338
 height = 17.3718
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 39.1681, 43.7237 )
+extents = Vector2( 33.0402, 43.7237 )
 
 [sub_resource type="RectangleShape2D" id=32]
 extents = Vector2( 44.2602, 44.2034 )
@@ -82,6 +82,18 @@ tracks/2/keys = {
 "update": 1,
 "values": [ true ]
 }
+tracks/3/type = "value"
+tracks/3/path = NodePath("SwordSprite:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -24.266, 9.22076 ) ]
+}
 
 [sub_resource type="Animation" id=22]
 resource_name = "ChargedAttackRight"
@@ -123,9 +135,59 @@ tracks/2/keys = {
 "update": 1,
 "values": [ false ]
 }
+tracks/3/type = "value"
+tracks/3/path = NodePath("SwordSprite:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -24.266, 9.22076 ) ]
+}
 
-[sub_resource type="Animation" id=36]
-resource_name = "KnockDownChargedAttackLeft"
+[sub_resource type="Animation" id=46]
+resource_name = "KnockDownChargedAttackRight"
+length = 0.2
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("SwordSprite:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 145.0, -218.5 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("SwordSprite:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("SwordSprite:flip_h")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
 
 [sub_resource type="Animation" id=25]
 resource_name = "KnockUpChargedAttackLeft"
@@ -167,6 +229,18 @@ tracks/2/keys = {
 "update": 1,
 "values": [ false ]
 }
+tracks/3/type = "value"
+tracks/3/path = NodePath("SwordSprite:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -24.734, 9.221 ) ]
+}
 
 [sub_resource type="Animation" id=24]
 resource_name = "KnockUpChargedAttackRight"
@@ -207,6 +281,18 @@ tracks/2/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 1,
 "values": [ true ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("SwordSprite:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 24.734, 9.22076 ) ]
 }
 
 [sub_resource type="Animation" id=35]
@@ -816,7 +902,7 @@ tracks/1/keys = {
 }
 
 [sub_resource type="RectangleShape2D" id=20]
-extents = Vector2( 46.8534, 45.5494 )
+extents = Vector2( 36.2253, 45.5494 )
 
 [sub_resource type="CircleShape2D" id=34]
 radius = 250.0
@@ -1715,10 +1801,10 @@ flip_v = true
 position = Vector2( 0, 2 )
 shape = SubResource( 1 )
 
-[node name="AttackCollision" type="Area2D" parent="." groups=["LightPoiseDamage", "SmallEleganceValue", "Sword"]]
+[node name="AttackCollision" type="Area2D" parent="." groups=["LightPoiseDamage", "NoAirborneKnockback", "SmallEleganceValue", "Sword"]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackCollision"]
-position = Vector2( 76.3319, 0.47372 )
+position = Vector2( 70.4598, 0 )
 shape = SubResource( 2 )
 disabled = true
 
@@ -1761,7 +1847,7 @@ wait_time = 0.5
 one_shot = true
 
 [node name="AttackTimer" type="Timer" parent="."]
-wait_time = 0.25
+wait_time = 0.1
 one_shot = true
 
 [node name="DashCooldown" type="Timer" parent="."]
@@ -1829,7 +1915,7 @@ position = Vector2( -40, 50 )
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/ChargedAttackLeft = SubResource( 23 )
 anims/ChargedAttackRight = SubResource( 22 )
-anims/KnockDownChargedAttackLeft = SubResource( 36 )
+anims/KnockDownChargedAttackRight = SubResource( 46 )
 anims/KnockUpChargedAttackLeft = SubResource( 25 )
 anims/KnockUpChargedAttackRight = SubResource( 24 )
 anims/QuickSwapAttackRight = SubResource( 35 )
@@ -1892,7 +1978,7 @@ texture_under = ExtResource( 10 )
 texture_progress = ExtResource( 11 )
 
 [node name="MeleeTimer" type="Timer" parent="."]
-wait_time = 0.35
+wait_time = 0.4
 one_shot = true
 
 [node name="OxygenTimer" type="Timer" parent="."]
@@ -1913,7 +1999,7 @@ one_shot = true
 position = Vector2( 18, 0 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyEvasionArea"]
-position = Vector2( 52.1034, 0.700554 )
+position = Vector2( 41.4753, 0.700554 )
 shape = SubResource( 20 )
 
 [node name="AtkBuffParticle" parent="." instance=ExtResource( 14 )]
@@ -1935,7 +2021,7 @@ wait_time = 0.1
 one_shot = true
 
 [node name="InputPressTimer" type="Timer" parent="."]
-wait_time = 0.5
+wait_time = 0.42
 one_shot = true
 
 [node name="HeightRaycast2D" type="RayCast2D" parent="."]
@@ -1980,8 +2066,8 @@ margin_top = -84.0
 margin_right = -41.0
 margin_bottom = -78.0
 rect_scale = Vector2( 4.5, 4.5 )
-max_value = 150.0
-value = 150.0
+max_value = 200.0
+value = 50.0
 texture_under = ExtResource( 20 )
 texture_progress = ExtResource( 19 )
 
@@ -1993,7 +2079,7 @@ anims/RESET = SubResource( 42 )
 autostart = true
 
 [node name="KatanaSheatheWindowTimer" type="Timer" parent="."]
-wait_time = 2.0
+wait_time = 3.0
 one_shot = true
 
 [node name="KatanaSheathPlayer" type="AnimationPlayer" parent="."]
