@@ -18,6 +18,7 @@ signal ready_to_be_switched_in(character)
 signal change_elegance(action_name)
 signal change_hitcount(amount)
 signal force_character_swap(index)
+signal reduce_skill_cd(character_name, skill_type, amount_in_seconds)
 var target
 var can_use_slash_flurry : bool = false
 var attack_area_overlaps_enemy : bool 
@@ -127,8 +128,8 @@ onready var charged_attack_power : float = Global.attack_power * (Global.player_
 onready var upwards_and_downwards_charged_attack_power :float = Global.attack_power * (Global.player_skill_multipliers["UpwardsorDownwardsChargedAttack"] / 100)
 onready var airborne_charged_attack_power :float = Global.attack_power * (Global.player_skill_multipliers["SpecialChargedAttack"] / 100)
 onready var thrust_attack_power :float = Global.attack_power * (Global.player_skill_multipliers["ThrustChargedAttack"] / 100)
-onready var pskill_ui = get_parent().get_node("SkillsUI/Control/PrimarySkill/Player/FireSaw/TextureProgress")
- 
+onready var pskill_ui : TextureProgress = get_parent().get_node("SkillsUI/Control/PrimarySkill/Player/FireSaw/TextureProgress")
+onready var sskill_ui : TextureProgress =  get_parent().get_node("SkillsUI/Control/SecondarySkill/Player/FireFairy/TextureProgress")
 
 # when a flash appears after the 3rd string of basic attack, tap to thrust through enemies
 # this can be broken if enemy hits you first
@@ -147,6 +148,8 @@ func _ready():
 	$AttackCollision.add_to_group(str(basic_attack_power))
 	$ChargedAttackCollision.add_to_group(str(charged_attack_power))
 	$UpwardsChargedAttackCollision.add_to_group(str(upwards_and_downwards_charged_attack_power))
+	$DownwardsChargedAttackCollision.add_to_group(str(upwards_and_downwards_charged_attack_power))
+	
 	$ThrustEffectArea.add_to_group(str(thrust_attack_power))
 	$OxygenBar.value = 100
 	$ChargeBar.value = 0
@@ -163,6 +166,7 @@ func _ready():
 	emit_signal("ingredient_obtained", "goblin_scales", Global.goblin_scales_amount)
 	connect("skill_ui_update", get_parent().get_node("SkillsUI/Control"), "on_skill_used")
 	connect("skill_used", get_node("SkillManager"), "on_skill_used")
+	connect("reduce_skill_cd", get_parent().get_node("SkillsUI/Control"), "reduce_skill_cooldown")
 # warning-ignore:return_value_discarded
 	connect("life_changed", get_parent().get_node("HeartUI/Life"), "on_player_life_changed")
 # warning-ignore:return_value_discarded
@@ -311,6 +315,7 @@ func _physics_process(_delta):
 						$ChargedAttackCollision.set_scale(Vector2(-1,1))
 						$ChargedAttackDetector.set_scale(Vector2(-1,1))
 						$UpwardsChargedAttackCollision.set_scale(Vector2(-1,1))
+						$DownwardsChargedAttackCollision.set_scale(Vector2(-1,1))
 						$EnemyEvasionArea.set_scale(Vector2(-1,1))
 						
 					elif facing == right:
@@ -336,6 +341,7 @@ func _physics_process(_delta):
 						$ChargedAttackCollision.set_scale(Vector2(1,1))
 						$ChargedAttackDetector.set_scale(Vector2(1,1))
 						$UpwardsChargedAttackCollision.set_scale(Vector2(1,1))
+						$DownwardsChargedAttackCollision.set_scale(Vector2(1,1))
 						$EnemyEvasionArea.set_scale(Vector2(1,1))
 				
 					# Jump controls (ground)
@@ -474,7 +480,7 @@ func use_skill():
 	if Global.current_character == "Player":
 		if pskill_ui.value >= pskill_ui.max_value and Input.is_action_just_pressed("primary_skill") and !Input.is_action_just_pressed("secondary_skill") and !is_frozen and !is_using_primary_skill:
 			use_primary_skill()
-		if Input.is_action_just_pressed("secondary_skill") and !Input.is_action_just_pressed("primary_skill"):
+		if sskill_ui.value >= sskill_ui.max_value and Input.is_action_just_pressed("secondary_skill") and !Input.is_action_just_pressed("primary_skill") and !is_frozen and !is_using_secondary_skill:
 			use_secondary_skill()
 			
 
@@ -483,7 +489,6 @@ func use_primary_skill():
 		emit_signal("skill_used", "FireSaw", attack_buff)
 		emit_signal("skill_ui_update", "FireSaw")
 		emit_signal("mana_changed", Global.mana, "Player")
-		print("USED PRIMARY SKILL")
 	elif Global.current_character == Global.equipped_characters[1] and Global.character2_mana >= Global.player_skill_multipliers["FireSawCost"]:
 		emit_signal("skill_used", "FireSaw", attack_buff)
 		emit_signal("skill_ui_update", "FireSaw")
@@ -494,8 +499,19 @@ func use_primary_skill():
 		emit_signal("mana_changed", Global.character3_mana, "Player")
 	
 func use_secondary_skill():
-	if Global.player_skills["SecondarySkill"] == "FireFairy" and Global.fire_fairy_unlocked and !is_frozen and Global.mana >= Global.player_skill_multipliers["FireFairyCost"] and !is_using_secondary_skill and get_parent().get_node("SkillsUI/Control/SecondarySkill/Player/FireFairy/FirefairyTimer").is_stopped():
-			emit_signal("skill_used", "FireFairy")
+	if Global.current_character == Global.equipped_characters[0] and Global.mana >= Global.player_skill_multipliers["FireFairyCost"]:
+		emit_signal("skill_used", "FireFairy", attack_buff)
+		emit_signal("skill_ui_update", "FireFairy")
+		emit_signal("mana_changed", Global.mana, "Player")
+	elif Global.current_character == Global.equipped_characters[1] and Global.character2_mana >= Global.player_skill_multipliers["FireFairyCost"]:
+		emit_signal("skill_used", "FireFairy", attack_buff)
+		emit_signal("skill_ui_update", "FireFairy")
+		emit_signal("mana_changed", Global.character2_mana, "Player")
+	elif Global.current_character == Global.equipped_characters[2] and Global.character3_mana >= Global.player_skill_multipliers["FireFairyCost"]:
+		emit_signal("skill_used", "FireFairy", attack_buff)
+		emit_signal("skill_ui_update", "FireFairy")
+		emit_signal("mana_changed", Global.character3_mana, "Player")
+	
 func ground_pound():
 	if !is_on_floor() and Input.is_action_just_pressed("ui_down"):
 		is_ground_pounding = true
@@ -572,16 +588,16 @@ func attack():
 #			$AttackCollision/CollisionShape2D.disabled = false
 #			$AttackTimer.start()
 		# Downwards attack controls + tiny knock-up
-		if Input.is_action_pressed("ui_down"):
-			$AttackCollision.position += Vector2(-60,60) if !$Sprite.flip_h else Vector2(60,55)
-			$Sprite.play("AttackDown")
-			
-			$SwordSprite.visible = true
-			$AnimationPlayer.play("SwordSwingLower")
-#			$Sprite.position += Vector2(0, 20)
-			is_attacking = true
-			$AttackCollision/CollisionShape2D.disabled = false
-			$AttackTimer.start()
+#		if Input.is_action_pressed("ui_down"):
+#			$AttackCollision.position += Vector2(-60,60) if !$Sprite.flip_h else Vector2(60,55)
+#			$Sprite.play("AttackDown")
+#
+#			$SwordSprite.visible = true
+#			$AnimationPlayer.play("SwordSwingLower")
+##			$Sprite.position += Vector2(0, 20)
+#			is_attacking = true
+#			$AttackCollision/CollisionShape2D.disabled = false
+#			$AttackTimer.start()
 
 func _input(event):
 	if Global.current_character == "Player":
@@ -599,7 +615,7 @@ func _input(event):
 	
 func charged_attack(type : String = "Ground"):
 	$InputPressTimer.stop()
-	
+	$ChargingParticle.visible = true
 	is_doing_charged_attack = true
 	if !$Sprite.flip_h:
 		$AnimationPlayer.play("ChargedAttackRight")
@@ -614,7 +630,7 @@ func charged_attack(type : String = "Ground"):
 	Input.action_release("ui_attack")
 	
 	if type == "Ground" and !is_flurry_attacking and $EnergyMeter.value <= Global.player_skill_multipliers["SlashFlurryEnergyCost"]:
-		
+		$ChargingParticle.visible = false
 		var ss_projectile = SUPER_SLASH_PROJECTILE.instance()
 		ss_projectile.position = $Position2D.global_position
 		get_parent().add_child(ss_projectile)
@@ -632,7 +648,7 @@ func charged_attack(type : String = "Ground"):
 		emit_signal("change_elegance", "ChargedAttackLight")
 		sheathe_katana()
 	elif type == "Special" and $SlashFlurryCD.is_stopped():
-		
+		$ChargingParticle.visible = false
 		is_flurry_attacking = true
 		velocity.y = 0
 	
@@ -689,7 +705,8 @@ func charged_attack(type : String = "Ground"):
 		yield(get_tree().create_timer(0.1), "timeout")
 		change_mana_value(0.5)
 		emit_signal("change_elegance", "ChargedAttackHeavy")
-		
+		emit_signal("reduce_skill_cd", "Player", "PrimarySkill", 4)
+		emit_signal("reduce_skill_cd", "Player", "SecondarySkill", 2)
 		
 		
 		$SlashFlurryCD.start()
@@ -752,6 +769,7 @@ func upwards_charged_attack():
 	if target and target != null and weakref(target).get_ref() != null: 
 		if target.get_node("Area2D").overlaps_area($ChargedAttackDetector) and !target.get_node("Area2D").is_in_group("IsAirborne"):
 			knock_airborne(target.get_node("Area2D"))
+	$ChargingParticle.visible = true
 	resist_interruption = true
 	attack_string_count = 4
 	for n in $UpwardsChargedAttackCollision.get_groups():
@@ -760,7 +778,6 @@ func upwards_charged_attack():
 			$UpwardsChargedAttackCollision.add_to_group(str(ATTACK * (Global.player_skill_multipliers["UpwardsorDownwardsChargedAttack"] / 100)))
 	$UpwardsChargedAttackCollision/CollisionShape2D.disabled = false	
 	resist_interruption = true
-	print("Up charged attack")
 	is_charging = false
 #			airborne_mode = false
 	is_doing_charged_attack = true
@@ -779,18 +796,59 @@ func upwards_charged_attack():
 		$AnimationPlayer.play("KnockUpChargedAttackLeft")
 		yield(get_tree().create_timer(0.2), "timeout")
 		$AnimationPlayer.play("KnockUpChargedAttackLeft")
+	
 	is_doing_charged_attack = false
 	Input.action_release("ui_attack")
-#	$AirborneTimer.start()
+
 	$UpwardsChargedAttackCollision/CollisionShape2D.disabled = true
+	cam_shake = false
+	emit_signal("change_elegance", "ChargedAttackLight")
+	
+	yield(get_tree().create_timer(0.25), "timeout")
+	resist_interruption = false
+	$ChargingParticle.visible = false
+	
+func downwards_charged_attack():
+	airborne_mode = false
+	resist_interruption = true
+	attack_string_count = 4
+	$ChargingParticle.visible = true
+	for n in $DownwardsChargedAttackCollision.get_groups():
+		if float(n) != 0:
+			$DownwardsChargedAttackCollision.remove_from_group(n)
+			$DownwardsChargedAttackCollision.add_to_group(str(ATTACK * (Global.player_skill_multipliers["UpwardsorDownwardsChargedAttack"] * 2 / 100)))
+	$DownwardsChargedAttackCollision/CollisionShape2D.disabled = false
+	resist_interruption = true
+	is_charging = false
+#			airborne_mode = false
+	is_doing_charged_attack = true
+	cam_shake = true
+	velocity.y = 0
+	velocity.y = 500
+	var sjp = STRONG_JUMP_PARTICLE.instance()
+	get_parent().add_child(sjp)
+	sjp.position = $ParticlePosition.global_position
+	sjp.emitting = true
+	if !$Sprite.flip_h:
+		$AnimationPlayer.play("KnockDownChargedAttackRight")
+		yield(get_tree().create_timer(0.2), "timeout")
+		$AnimationPlayer.play("KnockDownChargedAttackRight")
+	else:
+		$AnimationPlayer.play("KnockDownChargedAttackLeft")
+		yield(get_tree().create_timer(0.2), "timeout")
+		$AnimationPlayer.play("KnockDownChargedAttackLeft")
+	$ChargingParticle.visible = false
+	is_doing_charged_attack = false
+	Input.action_release("ui_attack")
+
+	$DownwardsChargedAttackCollision/CollisionShape2D.disabled = true
 	cam_shake = false
 	emit_signal("change_elegance", "ChargedAttackLight")
 	yield(get_tree().create_timer(0.25), "timeout")
 	resist_interruption = false
-#			airborne_mode = true
 	
-				
-			
+
+
 func sheathe_katana():
 	yield(get_tree().create_timer(2), "timeout")
 	if weakref(get_closest_enemy()).get_ref() != null and global_position.distance_to(get_closest_enemy().global_position) > 100 or get_closest_enemy() == null:
@@ -810,7 +868,7 @@ func play_attack_animation(direction : String):
 	if direction == "Right":
 		match attack_string_count:
 			4:
-				
+				$ResetAttackStringTimer.stop()
 				$AnimationPlayer.play("SwordSwingRight")
 				attack_string_count -= 1
 				$SlashEffectPlayer.play("RightSlash")
@@ -825,8 +883,10 @@ func play_attack_animation(direction : String):
 							print("b")
 						break
 				sheathe_katana()
+				$ResetAttackStringTimer.start()
 				
 			3:
+				$ResetAttackStringTimer.stop()
 				$AnimationPlayer.play("SwordSwingRight2")
 				attack_string_count -= 1
 				$SlashEffectPlayer.play("RightSlash")
@@ -840,7 +900,9 @@ func play_attack_animation(direction : String):
 							$AttackCollision.add_to_group(str(ATTACK * (Global.player_skill_multipliers["AirborneBasicAttack2"] / 100)))
 						break
 				sheathe_katana()
+				$ResetAttackStringTimer.start()
 			2:
+				$ResetAttackStringTimer.stop()
 				$AnimationPlayer.play("SwordSwingRight3")
 				attack_string_count -= 1
 				$SlashEffectPlayer.play("RightSlash")
@@ -854,6 +916,7 @@ func play_attack_animation(direction : String):
 							$AttackCollision.add_to_group(str(ATTACK * (Global.player_skill_multipliers["AirborneBasicAttack3"] / 100)))
 						break
 				sheathe_katana()
+				$ResetAttackStringTimer.start()
 			1:
 				$AnimationPlayer.play("SwordSwingRight4")
 				attack_string_count -= 1
@@ -873,6 +936,7 @@ func play_attack_animation(direction : String):
 	elif direction == "Left":
 		match attack_string_count:
 			4:
+				$ResetAttackStringTimer.stop()
 				$AnimationPlayer.play("SwordSwingLeft")
 				attack_string_count -= 1
 
@@ -885,7 +949,9 @@ func play_attack_animation(direction : String):
 							$AttackCollision.add_to_group(str(ATTACK * (Global.player_skill_multipliers["AirborneBasicAttack"] / 100)))
 						break
 				sheathe_katana()
+				$ResetAttackStringTimer.start()
 			3:
+				$ResetAttackStringTimer.stop()
 				$AnimationPlayer.play("SwordSwingLeft2")
 				attack_string_count -= 1
 
@@ -898,7 +964,9 @@ func play_attack_animation(direction : String):
 							$AttackCollision.add_to_group(str(ATTACK * (Global.player_skill_multipliers["AirborneBasicAttack2"] / 100)))
 						break
 				sheathe_katana()
+				$ResetAttackStringTimer.start()
 			2:
+				$ResetAttackStringTimer.stop()
 				$AnimationPlayer.play("SwordSwingLeft3")
 				attack_string_count -= 1
 
@@ -911,6 +979,7 @@ func play_attack_animation(direction : String):
 							$AttackCollision.add_to_group(str(ATTACK * (Global.player_skill_multipliers["AirborneBasicAttack3"] / 100)))
 						break
 				sheathe_katana()
+				$ResetAttackStringTimer.start()
 			1:
 				$AnimationPlayer.play("SwordSwingLeft4")
 				attack_string_count -= 1
@@ -1087,22 +1156,27 @@ func _on_AttackCollision_area_entered(area):
 #			freeze_enemy()
 			if Global.current_character == "Player":
 				if area.is_in_group("Enemy") and $ManaRegenDelay.is_stopped() and !is_flurry_attacking:
+					var bonus_energy_gain : int = 0
+					if airborne_mode:
+						bonus_energy_gain = 2.5
 					match attack_string_count:
 						3:
-							update_energy_meter(5)
+							update_energy_meter(5 + bonus_energy_gain)
 							emit_signal("change_hitcount", 1)
 						2:
-							update_energy_meter(5)
+							update_energy_meter(5 + bonus_energy_gain)
 							emit_signal("change_hitcount", 1)
 							emit_signal("change_hitcount", 1)
 							yield(get_tree().create_timer(0.2), "timeout")
-							update_energy_meter(5)
+							update_energy_meter(5 + bonus_energy_gain)
 						1:
-							update_energy_meter(10)
+							update_energy_meter(10 + bonus_energy_gain * 2)
 							emit_signal("change_hitcount", 1)
 						0:
-							update_energy_meter(15)
+							update_energy_meter(15 + bonus_energy_gain * 3)
 							emit_signal("change_hitcount", 1)
+							emit_signal("reduce_skill_cd", "Player", "PrimarySkill", 0.5)
+							emit_signal("reduce_skill_cd", "Player", "SecondarySkill", 0.5)
 					emit_signal("change_elegance", "BasicAttack")
 					change_mana_value(0.25)
 					$ManaRegenDelay.start()
@@ -1693,6 +1767,8 @@ func _on_InputPressTimer_timeout():
 	if !Input.is_action_pressed("ui_dash") and !is_quickswap_attacking:
 		if Input.is_action_pressed("ui_up") and is_on_floor():
 			upwards_charged_attack()
+		if Input.is_action_pressed("ui_down") and airborne_mode and !is_on_floor():
+			downwards_charged_attack()
 		elif !Input.is_action_pressed("ui_up"):
 
 			if $EnergyMeter.value >= Global.player_skill_multipliers["SlashFlurryEnergyCost"]:
@@ -1745,3 +1821,8 @@ func _on_GhostTrailTimer_timeout():
 		ghost_trail.scale.x = 5
 		ghost_trail.scale.y = 5
 	
+
+
+func _on_ResetAttackStringTimer_timeout():
+	attack_string_count = 4
+

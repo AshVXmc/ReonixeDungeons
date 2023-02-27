@@ -5,8 +5,8 @@ onready var Tier : int = 1
 var target = null
 var velocity = Vector2.ZERO
 var acceleration = Vector2.ZERO
-var SPEED = 550
-const steer_force = 300
+var SPEED = 250
+const steer_force = 120
 onready var PLAYER = get_parent().get_node("Player")
 enum Rewards {
 	C = 20

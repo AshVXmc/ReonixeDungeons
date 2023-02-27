@@ -27,6 +27,7 @@ func _process(delta):
 			parse_command()
 		if Input.is_action_just_pressed("ui_cancel"):
 			visible = false
+			emit_signal("debugcmd", "closed")
 	
 
 func parse_command():

@@ -7,15 +7,15 @@ var direction : int = 1
 var destroyed : bool = false
 const SMALL_FIRE_PARTICLE : PackedScene = preload("res://scenes/particles/FireHitParticle.tscn")
 var atkbonus : float
-var attack_calculation = Global.attack_power * (Global.player_skill_multipliers["FireSaw"] / 100) + atkbonus
+var attack_calculation : float
+var burn_coefficient : float
 
 func _ready():
 	get_parent().add_to_group("FiresawActive")
-	burncalculation = Global.attack_power * 0.5
-	var attack_calculation = Global.attack_power * (Global.player_skill_multipliers["FireSaw"] / 100) + atkbonus
+	if Global.equipped_characters[0] == "Player":
+		burncalculation = Global.attack_power * burn_coefficient
+		attack_calculation = Global.attack_power * (Global.player_skill_multipliers["FireSaw"] / 100) + atkbonus
 	add_to_group(str(attack_calculation))
-	print("atk bonus" + str(atkbonus))
-	print("fsaw attack" + str(attack_calculation))
 	$AnimationPlayer.play("SPIN")
 
 func _on_DestroyedTimer_timeout():

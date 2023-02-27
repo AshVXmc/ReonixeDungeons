@@ -280,6 +280,17 @@ func play_attack_animation(direction : String):
 #					attack_string_count = 4
 					emit_signal("trigger_quickswap", "Glaciela")
 #				$ResetAttackStringTimer.start()
+func change_mana_value(amount : float):
+	if Global.current_character == Global.equipped_characters[0] and Global.mana < Global.max_mana:
+		Global.mana += amount
+		emit_signal("mana_changed", Global.mana, "Glaciela")
+	elif Global.current_character == Global.equipped_characters[1] and Global.character2_mana < Global.character2_max_mana:
+		Global.character2_mana += amount
+		emit_signal("mana_changed", Global.character2_mana, "Glaciela")
+	elif Global.current_character == Global.equipped_characters[2] and Global.character3_mana < Global.character3_max_mana:
+		Global.character3_mana += amount
+		emit_signal("mana_changed", Global.character3_mana, "Glaciela")
+
 
 
 func _on_SpecialAttackTimer_timeout():

@@ -338,5 +338,9 @@ anims/VerticalThrust = SubResource( 7 )
 wait_time = 16.0
 one_shot = true
 
+[node name="SlashCD" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
 [connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]
 [connection signal="timeout" from="DurationTimer" to="." method="_on_DurationTimer_timeout"]

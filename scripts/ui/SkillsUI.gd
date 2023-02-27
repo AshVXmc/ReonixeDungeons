@@ -9,6 +9,9 @@ const empty_icon = preload("res://assets/UI/empty_character_icon.png")
 onready var character1 : String = Global.equipped_characters[0]
 var can_swap_character : bool = true
 onready var firesaw_ui = $PrimarySkill/Player/FireSaw/TextureProgress
+onready var firefairy_ui = $SecondarySkill/Player/FireFairy/TextureProgress
+onready var winterqueen_ui = $PrimarySkill/Glaciela/WinterQueen/TextureProgress
+onready var icelance_ui 
 const multiplier : int = 10
 
 
@@ -18,9 +21,11 @@ func _ready():
 	print("Currently: " + Global.current_character)
 	connect("ability_on_cooldown", get_parent().get_parent().get_node("Player"), "ability_on_entering_cooldown")
 	update_skill_ui(Global.player_skills["PrimarySkill"], Global.player_skills["SecondarySkill"])
-	$PrimarySkill/Player/FireSaw/TextureProgress.max_value = Global.player_skill_multipliers["FireSawCD"] * multiplier
-
-
+	firesaw_ui.max_value = Global.player_skill_multipliers["FireSawCD"] * multiplier
+	firesaw_ui.value = Global.player_skill_multipliers["FireSawCD"] * multiplier
+	firefairy_ui.max_value = Global.player_skill_multipliers["FireFairyCD"] * multiplier
+	firefairy_ui.value = Global.player_skill_multipliers["FireFairyCD"] * multiplier
+	
 func update_swap_character_status():
 	can_swap_character = true if !can_swap_character else false
 	if can_swap_character:
@@ -69,14 +74,13 @@ func on_skill_used(skill_name : String):
 		"PlayerChargedAttack":
 			toggle_player_charged_attack()
 func toggle_firesaw():
-	print("firesaw cooldown start")
 	emit_signal("ability_on_cooldown", "FireSaw")
 	firesaw_ui.value = firesaw_ui.min_value
 
 func toggle_fire_fairy():
 	# 10 seconds is the duration of the fire fairy before expiring
 	emit_signal("ability_on_cooldown", "FireFairy")
-	$SecondarySkill/Player/FireFairy/FirefairyTimer.start(Global.player_skill_multipliers["FireFairyCD"])
+	firefairy_ui.value = firefairy_ui.min_value
 	
 
 func toggle_player_charged_attack():
@@ -86,69 +90,114 @@ func _process(delta):
 	if Global.current_character == "Player":
 		$PrimarySkill/Player.visible = true
 		$SecondarySkill/Player.visible = true
-
+		##############
+		# FIRE SAW ###
+		##############
 		if firesaw_ui.value < firesaw_ui.max_value:
-			$PrimarySkill/Player/FireSaw/Label.text = str(firesaw_ui.max_value - firesaw_ui.value)
-			$PrimarySkill/Player/FireSaw/TextureProgress.self_modulate.a = 0.65
-		elif  firesaw_ui.value >= firesaw_ui.max_value:
+			$PrimarySkill/Player/FireSaw/Label.text = str(stepify((firesaw_ui.max_value - firesaw_ui.value) / multiplier, 0.001))
+			firesaw_ui.self_modulate.a = 0.65
+		elif firesaw_ui.value >= firesaw_ui.max_value:
 			if Global.equipped_characters[0] == "Player":
 				if Global.mana >= Global.player_skill_multipliers["FireSawCost"]:
-					$PrimarySkill/Player/FireSaw/TextureProgress.self_modulate.a = 1.0
+					firesaw_ui.self_modulate.a = 1.0
 				else:
-					$PrimarySkill/Player/FireSaw/TextureProgress.self_modulate.a = 0.65
+					firesaw_ui.self_modulate.a = 0.65
 				$PrimarySkill/Player/FireSaw/Label.text = ""
 			elif Global.equipped_characters[1] == "Player":
 				if Global.character2_mana >= Global.player_skill_multipliers["FireSawCost"]:
-					$PrimarySkill/Player/FireSaw/TextureProgress.self_modulate.a = 1.0
+					firesaw_ui.self_modulate.a = 1.0
 				else:
-					$PrimarySkill/Player/FireSaw/TextureProgress.self_modulate.a = 0.65
+					firesaw_ui.self_modulate.a = 0.65
 				$PrimarySkill/Player/FireSaw/Label.text = ""
 			elif Global.equipped_characters[2] == "Player":
 				if Global.character3_mana >= Global.player_skill_multipliers["FireSawCost"]:
-					$PrimarySkill/Player/FireSaw/TextureProgress.self_modulate.a = 1.0
+					firesaw_ui.self_modulate.a = 1.0
 				else:
-					$PrimarySkill/Player/FireSaw/TextureProgress.self_modulate.a = 0.65
+					firesaw_ui.self_modulate.a = 0.65
 				$PrimarySkill/Player/FireSaw/Label.text = ""
-#		if Global.mana < firesawcost:
-#			$PrimarySkill/Player/FireSaw/Sprite.self_modulate.a = 0.65
-		
-		if !$SecondarySkill/Player/FireFairy/FirefairyTimer.is_stopped():
-			$SecondarySkill/Player/FireFairy/Label.text = str(round($SecondarySkill/Player/FireFairy/FirefairyTimer.time_left))
-		elif $SecondarySkill/Player/FireFairy/FirefairyTimer.is_stopped():
-			if Global.mana >= Global.player_skill_multipliers["FireFairyCost"]:
-				$SecondarySkill/Player/FireFairy/Sprite.self_modulate.a = 1.0
-			else:
-				$SecondarySkill/Player/FireFairy/Sprite.self_modulate.a = 0.65
-			$SecondarySkill/Player/FireFairy/Label.text = ""
+		##############
+		# FIRE FAIRY #
+		##############
+		if firefairy_ui.value < firefairy_ui.max_value:
+			$SecondarySkill/Player/FireFairy/Label.text = str(stepify((firefairy_ui.max_value - firefairy_ui.value) / multiplier, 0.001))
+			firefairy_ui.self_modulate.a = 0.65
+		elif firefairy_ui.value >= firefairy_ui.max_value:
+			if Global.equipped_characters[0] == "Player":
+				if Global.mana >= Global.player_skill_multipliers["FireFairyCost"]:
+					firefairy_ui.self_modulate.a = 1.0
+				else:
+					firefairy_ui.self_modulate.a = 0.65
+				$SecondarySkill/Player/FireFairy/Label.text = ""
+			elif Global.equipped_characters[1] == "Player":
+				if Global.character2_mana >= Global.player_skill_multipliers["FireFairyCost"]:
+					firefairy_ui.self_modulate.a = 1.0
+				else:
+					firefairy_ui.self_modulate.a = 0.65
+				$SecondarySkill/Player/FireFairy/Label.text = ""
+			elif Global.equipped_characters[2] == "Player":
+				if Global.character3_mana >= Global.player_skill_multipliers["FireFairyCost"]:
+					firefairy_ui.self_modulate.a = 1.0
+				else:
+					firefairy_ui.self_modulate.a = 0.65
+				$SecondarySkill/Player/FireFairy/Label.text = ""
 
 	else:
 		$PrimarySkill/Player.visible = false
 		$SecondarySkill/Player.visible = false
-	
+		################
+		# WINTER QUEEN #
+		################
 	if Global.current_character == "Glaciela":
 		$PrimarySkill/Glaciela.visible = true
 		$SecondarySkill/Glaciela.visible = true
-		if !$PrimarySkill/Glaciela/IceLance/IceLanceTimer.is_stopped():
-			$PrimarySkill/Glaciela/IceLance/Label.text = str(round($PrimarySkill/Glaciela/IceLance/IceLanceTimer.time_left))
-		elif $PrimarySkill/Glaciela/IceLance/IceLanceTimer.is_stopped():
-			if Global.mana >= Global.player_skill_multipliers["FireSawCost"]:
-				$PrimarySkill/Glaciela/IceLance/Sprite.self_modulate.a = 1.0
-			else:
-				$PrimarySkill/Glaciela/IceLance/Sprite.self_modulate.a = 0.65
-			$PrimarySkill/Glaciela/IceLance/Label.text = ""
-		if Global.mana < Global.player_skill_multipliers["FireSawCost"]:
-			$PrimarySkill/Glaciela/IceLance/Sprite.self_modulate.a = 0.65
-	
-		if !$SecondarySkill/Glaciela/IcebornIllusion/IcebornIllusionTimer.is_stopped():
-			$SecondarySkill/Glaciela/IcebornIllusion/Label.text = str(round($SecondarySkill/Glaciela/IcebornIllusion/IcebornIllusionTimer.time_left))
-		elif $SecondarySkill/Glaciela/IcebornIllusion/IcebornIllusionTimer.is_stopped():
-			if Global.mana >= Global.player_skill_multipliers["FireFairyCost"]:
-				$SecondarySkill/Glaciela/IcebornIllusion/Sprite.self_modulate.a = 1.0
-			else:
-				$SecondarySkill/Glaciela/IcebornIllusion/Sprite.self_modulate.a = 0.65
-			$SecondarySkill/Glaciela/IcebornIllusion/Label.text = ""
-		if Global.mana < Global.player_skill_multipliers["FireFairyCost"]:
-			$SecondarySkill/Glaciela/IcebornIllusion/Sprite.self_modulate.a = 0.65
+		if winterqueen_ui.value < winterqueen_ui.max_value:
+			$PrimarySkill/Glaciela/WinterQueen/Label.text = str(stepify((winterqueen_ui.max_value - winterqueen_ui.value) / multiplier, 0.001))
+			winterqueen_ui.self_modulate.a = 0.65
+		elif winterqueen_ui.value >= winterqueen_ui.max_value:
+			if Global.equipped_characters[0] == "Glaciela":
+				if Global.mana >= Global.player_skill_multipliers["WinterQueenCost"]:
+					winterqueen_ui.self_modulate.a = 1.0
+				else:
+					winterqueen_ui.self_modulate.a = 0.65
+				$PrimarySkill/Glaciela/WinterQueen/Label.text = ""
+			elif Global.equipped_characters[1] == "Glaciela":
+				if Global.character2_mana >= Global.player_skill_multipliers["WinterQueenCost"]:
+					winterqueen_ui.self_modulate.a = 1.0
+				else:
+					winterqueen_ui.self_modulate.a = 0.65
+				$PrimarySkill/Glaciela/WinterQueen/Label.text = ""
+			elif Global.equipped_characters[2] == "Glaciela":
+				if Global.character3_mana >= Global.player_skill_multipliers["WinterQueenCost"]:
+					winterqueen_ui.self_modulate.a = 1.0
+				else:
+					winterqueen_ui.self_modulate.a = 0.65
+				$PrimarySkill/Glaciela/WinterQueen/Label.text = ""
+		##############
+		# FIRE FAIRY #
+		##############
+		if icelance_ui.value < icelance_ui.max_value:
+			$SecondarySkill/Glaciela/IceLance/Label.text = str(stepify((icelance_ui.max_value - icelance_ui.value) / multiplier, 0.001))
+			icelance_ui.self_modulate.a = 0.65
+		elif icelance_ui.value >= icelance_ui.max_value:
+			if Global.equipped_characters[0] == "Player":
+				if Global.mana >= Global.player_skill_multipliers["FireFairyCost"]:
+					icelance_ui.self_modulate.a = 1.0
+				else:
+					icelance_ui.self_modulate.a = 0.65
+				$SecondarySkill/Glaciela/IceLance/Label.text = ""
+			elif Global.equipped_characters[1] == "Player":
+				if Global.character2_mana >= Global.player_skill_multipliers["FireFairyCost"]:
+					icelance_ui.self_modulate.a = 1.0
+				else:
+					icelance_ui.self_modulate.a = 0.65
+				$SecondarySkill/Glaciela/IceLance/Label.text = ""
+			elif Global.equipped_characters[2] == "Player":
+				if Global.character3_mana >= Global.player_skill_multipliers["FireFairyCost"]:
+					icelance_ui.self_modulate.a = 1.0
+				else:
+					icelance_ui.self_modulate.a = 0.65
+				$SecondarySkill/Glaciela/IceLance/Label.text = ""
+
 	
 	
 	else:
@@ -157,8 +206,22 @@ func _process(delta):
 
 
 
-
+func reduce_skill_cooldown(character_name : String, skill_type : String, amount_in_seconds : float):
+	match character_name:
+		"Player":
+			if Global.equipped_characters.has("Player"):
+				if skill_type == "PrimarySkill":
+					firesaw_ui.value += amount_in_seconds * multiplier
+				elif skill_type == "SecondarySkill":
+					firefairy_ui.value += amount_in_seconds * multiplier
+		"Glaciela":
+			if Global.equipped_characters.has("Glaciela"):
+				if skill_type == "PrimarySkill":
+					winterqueen_ui.value += amount_in_seconds * multiplier
+				elif skill_type == "SecondarySkill":
+					icelance_ui.value += amount_in_seconds * multiplier
 
 func _on_CooldownTickTimer_timeout():
 	if Global.equipped_characters.has("Player"):
 		firesaw_ui.value += 1 * multiplier
+		firefairy_ui.value += 1 * multiplier

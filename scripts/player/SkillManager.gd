@@ -70,18 +70,6 @@ func on_skill_used(skill_name : String, attack_bonus : float = 0):
 					emit_signal("mana_changed", Global.character3_mana, "Player")
 			yield(get_tree().create_timer(fire_fairy.get_node("DestroyedTimer").wait_time), "timeout")
 			get_parent().is_using_secondary_skill = false
-		"Fireball":
-			get_parent().get_node("RangedAttackTimer").start()
-			var fireball : Fireball = FIREBALL.instance()
-			# warning-ignore:standalone_ternary
-			fireball.flip_projectile(-1) if sign(get_parent().get_node("Position2D").position.x) == -1 else fireball.flip_projectile(1)	
-			get_parent().get_parent().add_child(fireball)
-			fireball.position = get_parent().get_node("Position2D").global_position
-			if !Global.godmode:
-				Global.mana -= 2
-				emit_signal("mana_changed", Global.mana, Global.current_character)
-			get_parent().is_attacking = false
-			get_parent().get_node("AttackCollision/CollisionShape2D").disabled = true
 		"IceLance":
 			print("ICE LANCE GO")
 			get_parent().is_using_primary_skill = true

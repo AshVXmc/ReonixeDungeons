@@ -22,6 +22,7 @@ onready var PLAYER = get_parent().get_node("Player/Area2D")
 onready var DECOY = get_parent().get_node("Decoy/Area2D")
 onready var DECOY2 = get_parent().get_node("Decoy2/Area2D")
 onready var DECOY3 = get_parent().get_node("Decoy3/Area2D")
+onready var GLOBAL_SKILL_CD = get_parent().get_node("EnemySkillGlobalCD")
 var is_frozen : bool = false
 var is_airborne : bool = false
 var decoyed : bool = false
@@ -76,8 +77,10 @@ func _physics_process(delta):
 	velocity = move_and_slide(velocity, FLOOR)
 	if !$Sprite.flip_h:
 		$OtherEnemyDetector.set_scale(Vector2(1,1))
+		$SpearThrustAttackCollision.set_scale(Vector2(1,1))
 	else:
 		$OtherEnemyDetector.set_scale(Vector2(-1,1))
+		$SpearThrustAttackCollision.set_scale(Vector2(-1,1))
 	if velocity.x == 0:
 		$Sprite.play("Idle")
 		if $Area2D.is_in_group("Hostile"):
@@ -154,6 +157,9 @@ func _physics_process(delta):
 	if is_staggered or is_frozen or is_airborne:
 		velocity.x = 0
 
+
+func spear_attack():
+	pass
 
 
 func other_enemy_detector_is_overlapping_player():

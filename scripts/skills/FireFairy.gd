@@ -7,7 +7,7 @@ var attack : int = 5
 var target = null
 var velocity = Vector2.ZERO
 var acceleration = Vector2.ZERO
-
+var atkbonus : float
 func _ready():
 	add_to_group(str(Global.attack_power * (Global.player_skill_multipliers["FireFairy"] / 100)))
 	$AnimationPlayer.play("Flap")

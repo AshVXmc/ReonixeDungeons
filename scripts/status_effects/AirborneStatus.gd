@@ -14,6 +14,7 @@ func _on_DestroyedTimer_timeout():
 func _on_Area2D_area_entered(area):
 	
 	if area.is_in_group("RemoveAirborne"):
+		get_parent().get_node("Area2D").remove_from_group("IsAirborne")
 		call_deferred('free')
 
 	if area.is_in_group("Sword") or area.is_in_group("Fireball") or area.is_in_group("Ice"):

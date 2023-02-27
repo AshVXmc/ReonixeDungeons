@@ -14,6 +14,10 @@ func _ready():
 func detonate():
 	pass
 
+func trigger_slash():
+	$AnimationPlayer.play("SulphuricSigilSlash")
+	
+
 
 func _on_Area2D_body_entered(body):
 	if body.is_in_group("EnemyEntity"):
@@ -22,3 +26,7 @@ func _on_Area2D_body_entered(body):
 func _on_DurationTimer_timeout():
 	get_parent().remove_from_group("MarkedWithSulphuricSigil")
 	$AnimationPlayer.play("Destroy")
+
+
+func _on_Area2D_area_entered(area):
+	pass # Replace with function body.
