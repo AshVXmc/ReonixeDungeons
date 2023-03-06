@@ -1,8 +1,10 @@
 class_name Goblin extends KinematicBody2D
 
 const DMG_INDICATOR : PackedScene = preload("res://scenes/particles/DamageIndicatorParticle.tscn")
+const SWORD_HIT_PARTICLE : PackedScene = preload("res://scenes/particles/SwordHitParticle.tscn")
 const DEATH_SMOKE : PackedScene = preload("res://scenes/particles/DeathSmokeParticle.tscn")
 onready var max_HP : int = Global.enemy_level_index * 250
+var atk_value : float = 0.25 * Global.enemy_level_index
 onready var HP : int = max_HP
 export var flipped : bool = false
 var velocity = Vector2()
@@ -15,6 +17,7 @@ var SPEED : int = MAX_SPEED
 const MAX_GRAVITY : int = 45
 var GRAVITY : int = MAX_GRAVITY
 var is_staggered : bool = false
+
 const LOOT = preload("res://scenes/items/LootBag.tscn")
 onready var AREA_LEFT : Area2D = $Left
 onready var AREA_RIGHT : Area2D = $Right
@@ -44,9 +47,11 @@ var ice_res : float = 0
 var magic_res : float = -50
 #var overlaps_enemy_while_midair : bool = false
 var elemental_type : String = "Physical"
-var atk_value : float = 0.25 * Global.enemy_level_index
+
 
 func _ready():
+	$SpearSprite.visible = false
+	$SpearThrustAttackWarning.visible = false
 	if Armored:
 		$ArmorBar.visible = true
 		$ArmorBar.max_value = Armor_Durability
@@ -158,8 +163,8 @@ func _physics_process(delta):
 		velocity.x = 0
 
 
-func spear_attack():
-	pass
+func spear_thrust_attack():
+	$SpearThrustAttackCollision.add_to_group(str(atk_value))
 
 
 func other_enemy_detector_is_overlapping_player():
@@ -187,7 +192,8 @@ func other_enemy_detectors_is_overlapping():
 	for a in areas:
 		if a.is_in_group("OtherEnemyDetector"):
 			return true
-		
+
+
 func _on_Area2D_area_entered(area):
 	var groups_to_remove : Array = [
 		"Sword", "SwordCharged", "Fireball", "Ice",
@@ -222,7 +228,7 @@ func _on_Area2D_area_entered(area):
 						$HealthBar.value  -= float(damage)
 						add_damage_particles("Physical", float(damage))
 						parse_damage()
-						
+
 						break
 				
 		if area.is_in_group("Fireball"):
@@ -242,6 +248,7 @@ func _on_Area2D_area_entered(area):
 					
 						$HealthBar.value  -= float(groups.max())
 						add_damage_particles("Fire", float(groups.max()))
+						
 						if area.is_in_group("LightKnockback"):
 							parse_status_effect_damage()
 						else:
@@ -306,11 +313,12 @@ func _on_Area2D_area_entered(area):
 			$Sprite.speed_scale = 0.1
 		
 		if is_airborne:
-			if !area.is_in_group("NoAirborneKnockback") and area.is_in_group("LightPoiseDamage"):
+			if !area.is_in_group("NoAirborneKnockback") and area.is_in_group("LightPoiseDamage") or area.is_in_group("MediumPoiseDamage"):
 				knockback(1.5)
 		else:
 			if area.is_in_group("LightPoiseDamage"):
 				knockback(1.5)
+		
 		if area.is_in_group("MediumPoiseDamage"):
 			knockback(4.2)
 		if area.is_in_group("HeavyPoiseDamage"):

@@ -6,6 +6,8 @@ var direction_shift : Vector2 = Vector2()
 onready var damage_type : String
 onready var damage : float
 
+
+
 func _ready():
 	match damage_type:
 		"Physical":

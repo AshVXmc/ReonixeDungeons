@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/spider1.png-d46ca70e1a9a82f3c1aea3c28a47f658.stex"
+path="res://.import/sulphuric_sigil_1_stack.png-47baa7baf8e113d7970dc78ce97f7bd3.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/enemies/spider1.png"
-dest_files=[ "res://.import/spider1.png-d46ca70e1a9a82f3c1aea3c28a47f658.stex" ]
+source_file="res://assets/UI/sulphuric_sigil_1_stack.png"
+dest_files=[ "res://.import/sulphuric_sigil_1_stack.png-47baa7baf8e113d7970dc78ce97f7bd3.stex" ]
 
 [params]
 

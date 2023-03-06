@@ -130,7 +130,8 @@ onready var airborne_charged_attack_power :float = Global.attack_power * (Global
 onready var thrust_attack_power :float = Global.attack_power * (Global.player_skill_multipliers["ThrustChargedAttack"] / 100)
 onready var pskill_ui : TextureProgress = get_parent().get_node("SkillsUI/Control/PrimarySkill/Player/FireSaw/TextureProgress")
 onready var sskill_ui : TextureProgress =  get_parent().get_node("SkillsUI/Control/SecondarySkill/Player/FireFairy/TextureProgress")
-
+onready var crit_rate : float = Global.player_skill_multipliers["CritRate"]
+onready var crit_damage : float = Global.player_skill_multipliers["CritDamage"]
 # when a flash appears after the 3rd string of basic attack, tap to thrust through enemies
 # this can be broken if enemy hits you first
 
@@ -875,6 +876,8 @@ func play_attack_animation(direction : String):
 				for groups in $AttackCollision.get_groups():
 					if float(groups) != 0:
 						$AttackCollision.remove_from_group(groups)
+						if is_a_critical_hit():
+							pass
 						if !airborne_mode:
 							$AttackCollision.add_to_group(str(ATTACK * (Global.player_skill_multipliers["BasicAttack"] / 100)))
 							print("a")
@@ -1143,6 +1146,16 @@ func add_hurt_particles(damage : float):
 	get_parent().add_child(hurt_particle)
 	hurt_particle.position = global_position
 # Obtaining mana by attacking enemies
+
+func is_a_critical_hit() -> bool:
+	var rng = RandomNumberGenerator.new()
+	rng.randomize()
+	var num = rng.randi_range(Global.player_skill_multipliers["CritRate"] ,100)
+	if num <= Global.player_skill_multipliers["CritRate"]:
+		return true
+	else:
+		return false
+
 func _on_AttackCollision_area_entered(area):
 	if weakref(area).get_ref() != null:
 		if area.is_in_group("Enemy")  and !$AttackCollision/CollisionShape2D.disabled:
@@ -1175,21 +1188,19 @@ func _on_AttackCollision_area_entered(area):
 						0:
 							update_energy_meter(15 + bonus_energy_gain * 3)
 							emit_signal("change_hitcount", 1)
-							emit_signal("reduce_skill_cd", "Player", "PrimarySkill", 0.5)
-							emit_signal("reduce_skill_cd", "Player", "SecondarySkill", 0.5)
+							emit_signal("reduce_skill_cd", "Player", "PrimarySkill", 1)
+							emit_signal("reduce_skill_cd", "Player", "SecondarySkill", 1)
 					emit_signal("change_elegance", "BasicAttack")
 					change_mana_value(0.25)
 					$ManaRegenDelay.start()
 				if weakref(area).get_ref() != null:
-					var hitparticle = SWORD_HIT_PARTICLE.instance()
 					var slashparticle = SWORD_SLASH_EFFECT.instance()
-					hitparticle.emitting = true
-					get_parent().add_child(hitparticle)
+					var hitparticle = SWORD_HIT_PARTICLE.instance()
 					get_parent().add_child(slashparticle)
+					get_parent().add_child(hitparticle)
+					hitparticle.emitting = true
 					hitparticle.position = area.global_position
-					
 					slashparticle.position = area.global_position
-					
 					slashparticle.regular_slash_animation()
 				if mana_absorption_counter > 0:
 					mana_absorption_counter -= 1

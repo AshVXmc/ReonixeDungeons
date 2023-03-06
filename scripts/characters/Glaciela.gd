@@ -48,7 +48,8 @@ var magic_res : float = Global.glaciela_skill_multipliers["BaseMagicRes"]
 var fire_res : float = Global.glaciela_skill_multipliers["BaseFireRes"]
 var ice_res : float = Global.glaciela_skill_multipliers["BaseIceRes"]
 var earth_res : float = Global.glaciela_skill_multipliers["BaseEarthRes"]
-
+onready var crit_rate : float = Global.glaciela_skill_multipliers["CritRate"]
+onready var crit_damage : float = Global.glaciela_skill_multipliers["CritDamage"]
 
 
 func _ready():

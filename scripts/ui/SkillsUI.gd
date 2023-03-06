@@ -11,7 +11,7 @@ var can_swap_character : bool = true
 onready var firesaw_ui = $PrimarySkill/Player/FireSaw/TextureProgress
 onready var firefairy_ui = $SecondarySkill/Player/FireFairy/TextureProgress
 onready var winterqueen_ui = $PrimarySkill/Glaciela/WinterQueen/TextureProgress
-onready var icelance_ui 
+onready var icelance_ui = $SecondarySkill/Glaciela/IceLance/TextureProgress
 const multiplier : int = 10
 
 
@@ -25,7 +25,10 @@ func _ready():
 	firesaw_ui.value = Global.player_skill_multipliers["FireSawCD"] * multiplier
 	firefairy_ui.max_value = Global.player_skill_multipliers["FireFairyCD"] * multiplier
 	firefairy_ui.value = Global.player_skill_multipliers["FireFairyCD"] * multiplier
-	
+	winterqueen_ui.max_value = Global.glaciela_skill_multipliers["WinterQueenCD"] * multiplier
+	winterqueen_ui.value = Global.glaciela_skill_multipliers["WinterQueenCD"] * multiplier
+	icelance_ui.max_value = Global.glaciela_skill_multipliers["IceLanceCD"] * multiplier
+	icelance_ui.value = Global.glaciela_skill_multipliers["IceLanceCD"] * multiplier
 func update_swap_character_status():
 	can_swap_character = true if !can_swap_character else false
 	if can_swap_character:
@@ -155,19 +158,19 @@ func _process(delta):
 			winterqueen_ui.self_modulate.a = 0.65
 		elif winterqueen_ui.value >= winterqueen_ui.max_value:
 			if Global.equipped_characters[0] == "Glaciela":
-				if Global.mana >= Global.player_skill_multipliers["WinterQueenCost"]:
+				if Global.mana >= Global.glaciela_skill_multipliers["WinterQueenCost"]:
 					winterqueen_ui.self_modulate.a = 1.0
 				else:
 					winterqueen_ui.self_modulate.a = 0.65
 				$PrimarySkill/Glaciela/WinterQueen/Label.text = ""
 			elif Global.equipped_characters[1] == "Glaciela":
-				if Global.character2_mana >= Global.player_skill_multipliers["WinterQueenCost"]:
+				if Global.character2_mana >= Global.glaciela_skill_multipliers["WinterQueenCost"]:
 					winterqueen_ui.self_modulate.a = 1.0
 				else:
 					winterqueen_ui.self_modulate.a = 0.65
 				$PrimarySkill/Glaciela/WinterQueen/Label.text = ""
 			elif Global.equipped_characters[2] == "Glaciela":
-				if Global.character3_mana >= Global.player_skill_multipliers["WinterQueenCost"]:
+				if Global.character3_mana >= Global.glaciela_skill_multipliers["WinterQueenCost"]:
 					winterqueen_ui.self_modulate.a = 1.0
 				else:
 					winterqueen_ui.self_modulate.a = 0.65
@@ -206,8 +209,20 @@ func _process(delta):
 
 
 
-func reduce_skill_cooldown(character_name : String, skill_type : String, amount_in_seconds : float):
+func reduce_skill_cooldown(character_name : String = "All", skill_type : String = "PrimarySkill", amount_in_seconds : float = 1.0):
+	
 	match character_name:
+		"All":
+			firesaw_ui.value += amount_in_seconds * multiplier
+			firefairy_ui.value += amount_in_seconds * multiplier
+			winterqueen_ui.value += amount_in_seconds * multiplier
+			icelance_ui.value += amount_in_seconds * multiplier
+		"PrimariesOnly":
+			firesaw_ui.value += amount_in_seconds * multiplier
+			winterqueen_ui.value += amount_in_seconds * multiplier
+		"SecondariesOnly":
+			firefairy_ui.value += amount_in_seconds * multiplier
+			icelance_ui.value += amount_in_seconds * multiplier
 		"Player":
 			if Global.equipped_characters.has("Player"):
 				if skill_type == "PrimarySkill":

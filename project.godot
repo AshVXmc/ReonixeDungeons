@@ -94,11 +94,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/player/CharacterManager.gd"
 }, {
-"base": "Node2D",
-"class": "CombatGuidebook",
-"language": "GDScript",
-"path": "res://scripts/terrain/CombatGuidebook.gd"
-}, {
 "base": "KinematicBody2D",
 "class": "CornucopiaGoblin",
 "language": "GDScript",
@@ -612,7 +607,6 @@ _global_script_class_icons={
 "Campfire": "",
 "Cauldron": "",
 "CharacterManager": "",
-"CombatGuidebook": "",
 "CornucopiaGoblin": "",
 "CustomEventConverter": "",
 "DNextIndicator": "",

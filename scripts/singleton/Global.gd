@@ -44,13 +44,15 @@ var player_skill_multipliers : Dictionary = {
 	"FireFairy": 22.0,
 	"FireSawCost": 12,
 	"FireFairyCost": 2,
-	"FireSawCD": 25.0,
+	"FireSawCD": 30.0,
 	"FireFairyCD": 8.0,
 	"BasePhysRes": 0.0,
 	"BaseMagicRes": 0.0,
 	"BaseFireRes": 0.0,
 	"BaseEarthRes": 0.0,
 	"BaseIceRes": 0.0,
+	"CritRate": 10.0,
+	"CritDamage": 50.0,
 	"Birthday": [21,11]
 }
 
@@ -79,6 +81,8 @@ var glaciela_skill_multipliers : Dictionary = {
 	"BaseFireRes": -50.0,
 	"BaseEarthRes": 0.0,
 	"BaseIceRes": 0.0,
+	"CritRate": 10.0,
+	"CritDamage": 50.0,
 	"Birthday": [10,5]
 }
 
