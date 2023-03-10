@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://scripts/ui/SkillsUI.gd" type="Script" id=1]
 [ext_resource path="res://assets/UI/firesaw_skill_icon.png" type="Texture" id=2]
@@ -9,7 +9,6 @@
 [ext_resource path="res://assets/UI/icelance_skill_icon.png" type="Texture" id=8]
 [ext_resource path="res://assets/UI/empty_character_icon.png" type="Texture" id=9]
 [ext_resource path="res://assets/UI/player_dash_skill_icon.png" type="Texture" id=10]
-[ext_resource path="res://assets/UI/ice_decoy_skill_icon.png" type="Texture" id=12]
 
 [sub_resource type="DynamicFont" id=1]
 size = 32
@@ -459,51 +458,12 @@ margin_top = -21.0
 margin_right = 40.0
 margin_bottom = 19.0
 
-[node name="Player" type="Control" parent="Control/DashSkill"]
-margin_right = 40.0
-margin_bottom = 40.0
-
-[node name="Sprite" type="Sprite" parent="Control/DashSkill/Player"]
+[node name="Sprite" type="Sprite" parent="Control/DashSkill"]
 position = Vector2( 370, 190 )
 scale = Vector2( 4, 4 )
 texture = ExtResource( 10 )
 __meta__ = {
 "_edit_group_": true
-}
-
-[node name="DashSkillTimer" type="Timer" parent="Control/DashSkill/Player"]
-wait_time = 12.0
-one_shot = true
-
-[node name="Glaciela" type="Control" parent="Control/DashSkill"]
-visible = false
-margin_right = 40.0
-margin_bottom = 40.0
-
-[node name="IcebornIllusion" type="Control" parent="Control/DashSkill/Glaciela"]
-margin_right = 40.0
-margin_bottom = 40.0
-
-[node name="Sprite" type="Sprite" parent="Control/DashSkill/Glaciela/IcebornIllusion"]
-position = Vector2( 270, 190 )
-scale = Vector2( 4, 4 )
-texture = ExtResource( 12 )
-
-[node name="IcebornIllusionTimer" type="Timer" parent="Control/DashSkill/Glaciela/IcebornIllusion"]
-wait_time = 10.0
-one_shot = true
-
-[node name="Label" type="Label" parent="Control/DashSkill/Glaciela/IcebornIllusion"]
-margin_left = 248.0
-margin_top = 170.0
-margin_right = 287.0
-margin_bottom = 218.0
-custom_fonts/font = SubResource( 1 )
-text = "15"
-align = 1
-valign = 1
-__meta__ = {
-"_edit_use_anchors_": false
 }
 
 [node name="CooldownTickTimer" type="Timer" parent="Control"]

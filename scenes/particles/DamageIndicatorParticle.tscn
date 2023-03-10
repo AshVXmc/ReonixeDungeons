@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://scripts/particles/DamageIndicatorParticle.gd" type="Script" id=1]
 [ext_resource path="res://assets/fonts/Born2bSportyV2.ttf" type="DynamicFontData" id=2]
@@ -198,6 +198,64 @@ tracks/2/keys = {
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
 }
 
+[sub_resource type="DynamicFont" id=7]
+size = 32
+font_data = ExtResource( 2 )
+
+[sub_resource type="Animation" id=8]
+resource_name = "CritHit"
+tracks/0/type = "value"
+tracks/0/path = NodePath("CritLabel:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("CritLabel:rect_scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0.75, 0.75 ), Vector2( 1, 1 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("CritLabel:self_modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.3, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+
+[sub_resource type="Animation" id=9]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("CritLabel:rect_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+
 [node name="DamageIndicator" type="Node2D"]
 script = ExtResource( 1 )
 
@@ -216,3 +274,16 @@ anims/earth_particle = SubResource( 5 )
 anims/fire_particle = SubResource( 4 )
 anims/ice_particle = SubResource( 6 )
 anims/physical_particle = SubResource( 2 )
+
+[node name="CritLabel" type="Label" parent="."]
+margin_left = -2.0
+margin_top = -27.0
+margin_right = 46.0
+margin_bottom = 5.0
+custom_fonts/font = SubResource( 7 )
+text = "CRIT"
+align = 1
+
+[node name="CritAnimationPlayer" type="AnimationPlayer" parent="."]
+anims/CritHit = SubResource( 8 )
+anims/RESET = SubResource( 9 )

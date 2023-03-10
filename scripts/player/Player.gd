@@ -125,7 +125,7 @@ var earth_res : float = Global.player_skill_multipliers["BaseEarthRes"]
 
 onready var basic_attack_power : float = Global.attack_power * (Global.player_skill_multipliers["BasicAttack"] / 100)
 onready var charged_attack_power : float = Global.attack_power * (Global.player_skill_multipliers["ChargedAttack"] / 100)
-onready var upwards_and_downwards_charged_attack_power :float = Global.attack_power * (Global.player_skill_multipliers["UpwardsorDownwardsChargedAttack"] / 100)
+onready var upwards_and_downwards_charged_attack_power :float = Global.attack_power * (Global.player_skill_multipliers["UpwardsChargedAttack"] / 100)
 onready var airborne_charged_attack_power :float = Global.attack_power * (Global.player_skill_multipliers["SpecialChargedAttack"] / 100)
 onready var thrust_attack_power :float = Global.attack_power * (Global.player_skill_multipliers["ThrustChargedAttack"] / 100)
 onready var pskill_ui : TextureProgress = get_parent().get_node("SkillsUI/Control/PrimarySkill/Player/FireSaw/TextureProgress")
@@ -640,7 +640,14 @@ func charged_attack(type : String = "Ground"):
 		for n in $ChargedAttackCollision.get_groups():
 			if float(n) != 0:
 				$ChargedAttackCollision.remove_from_group(n)
-				$ChargedAttackCollision.add_to_group(str(ATTACK * (Global.player_skill_multipliers["ChargedAttack"] / 100)))
+				var crit_dmg = 1.0
+				if is_a_critical_hit():
+					crit_dmg = (Global.player_skill_multipliers["CritDamage"] / 100 + 1)
+					$ChargedAttackCollision.add_to_group("IsCritHit")
+					$ChargedAttackCollision.add_to_group(str(ATTACK * (Global.player_skill_multipliers["ChargedAttack"] / 100) * crit_dmg))
+				else:
+					$ChargedAttackCollision.remove_from_group("IsCritHit")
+					$ChargedAttackCollision.add_to_group(str(ATTACK * (Global.player_skill_multipliers["ChargedAttack"] / 100) * crit_dmg))
 		$ChargedAttackCollision/CollisionShape2D.disabled = false
 		var hitparticle = SWORD_HIT_PARTICLE.instance()
 		hitparticle.emitting = true
@@ -656,8 +663,16 @@ func charged_attack(type : String = "Ground"):
 		var flurry = SLASH_FLURRY_AREA.instance()
 		flurry.add_to_group("Sword")
 		flurry.get_node("FinalSlashArea").add_to_group("Sword")
-		flurry.add_to_group(str(ATTACK * (Global.player_skill_multipliers["SpecialChargedAttack"] / 100)))
-		flurry.get_node("FinalSlashArea").add_to_group(str(ATTACK * (Global.player_skill_multipliers["SpecialChargedAttackFinalStrike"] / 100)))
+		var crit_dmg = 1.0
+		
+		
+		if is_a_critical_hit():
+			crit_dmg = (Global.player_skill_multipliers["CritDamage"] / 100 + 1)
+			flurry.get_node("FinalSlashArea").add_to_group(str(ATTACK * (Global.player_skill_multipliers["SpecialChargedAttackFinalStrike"] / 100) * crit_dmg))
+			flurry.get_node("FinalSlashArea").add_to_group("IsCritHit")
+		else:
+			flurry.get_node("FinalSlashArea").add_to_group(str(ATTACK * (Global.player_skill_multipliers["SpecialChargedAttackFinalStrike"] / 100) * crit_dmg))
+			flurry.get_node("FinalSlashArea").remove_from_group("IsCritHit")
 		get_parent().get_parent().add_child(flurry)
 		flurry.get_node("AnimationPlayer").play("FlurryAttack")
 		if weakref(get_closest_enemy()).get_ref() != null and $SlashFlurryDetector.overlaps_body(get_closest_enemy()):
@@ -686,6 +701,14 @@ func charged_attack(type : String = "Ground"):
 		var num_of_slashes : int = 1
 		while num_of_slashes < 6:
 			var slashparticle = SWORD_SLASH_EFFECT.instance()
+			var crit_dmg_2 = 1.0
+			if is_a_critical_hit():
+				crit_dmg_2 = (Global.player_skill_multipliers["CritDamage"] / 100 + 1)
+				flurry.add_to_group(str(ATTACK * (Global.player_skill_multipliers["SpecialChargedAttack"] / 100) * crit_dmg_2))
+				flurry.add_to_group("IsCritHit")
+			else:
+				flurry.add_to_group(str(ATTACK * (Global.player_skill_multipliers["SpecialChargedAttack"] / 100) * crit_dmg_2))
+				flurry.remove_from_group("IsCritHit")
 			get_parent().add_child(slashparticle)
 			slashparticle.position = flurry.global_position
 			yield(get_tree().create_timer(0.075), "timeout")
@@ -775,8 +798,16 @@ func upwards_charged_attack():
 	attack_string_count = 4
 	for n in $UpwardsChargedAttackCollision.get_groups():
 		if float(n) != 0:
+			
 			$UpwardsChargedAttackCollision.remove_from_group(n)
-			$UpwardsChargedAttackCollision.add_to_group(str(ATTACK * (Global.player_skill_multipliers["UpwardsorDownwardsChargedAttack"] / 100)))
+			var crit_dmg = 1.0
+			if is_a_critical_hit():
+				crit_dmg = (Global.player_skill_multipliers["CritDamage"] / 100 + 1)
+				$UpwardsChargedAttackCollision.add_to_group(str(ATTACK * (Global.player_skill_multipliers["UpwardsChargedAttack"] / 100) * crit_dmg))
+				$UpwardsChargedAttackCollision.add_to_group("IsCritHit")
+			else:
+				$UpwardsChargedAttackCollision.add_to_group(str(ATTACK * (Global.player_skill_multipliers["UpwardsChargedAttack"] / 100) * crit_dmg))
+				$UpwardsChargedAttackCollision.remove_from_group("IsCritHit")
 	$UpwardsChargedAttackCollision/CollisionShape2D.disabled = false	
 	resist_interruption = true
 	is_charging = false
@@ -817,7 +848,14 @@ func downwards_charged_attack():
 	for n in $DownwardsChargedAttackCollision.get_groups():
 		if float(n) != 0:
 			$DownwardsChargedAttackCollision.remove_from_group(n)
-			$DownwardsChargedAttackCollision.add_to_group(str(ATTACK * (Global.player_skill_multipliers["UpwardsorDownwardsChargedAttack"] * 2 / 100)))
+			var crit_dmg = 1.0
+			if is_a_critical_hit():
+				crit_dmg = (Global.player_skill_multipliers["CritDamage"] / 100 + 1)
+				$DownwardsChargedAttackCollision.add_to_group(str(ATTACK * (Global.player_skill_multipliers["DownwardsChargedAttack"] * 2 / 100) * crit_dmg))
+				$DownwardsChargedAttackCollision.add_to_group("IsCritHit")
+			else:
+				$DownwardsChargedAttackCollision.add_to_group(str(ATTACK * (Global.player_skill_multipliers["DownwardsChargedAttack"] * 2/ 100) * crit_dmg))
+				$DownwardsChargedAttackCollision.remove_from_group("IsCritHit")
 	$DownwardsChargedAttackCollision/CollisionShape2D.disabled = false
 	resist_interruption = true
 	is_charging = false
@@ -864,74 +902,65 @@ func sheathe_katana():
 			print("SHEATHING")
 			$KatanaSheatheWindowTimer.start()
 
+func calculate_damage(slash_animation : String , slash_direction_animation : String, attack_string : String, airborne_attack_string : String):
+	$ResetAttackStringTimer.stop()
+	$AnimationPlayer.play(slash_animation)
+
+	attack_string_count -= 1
+	$SlashEffectPlayer.play(slash_direction_animation)
+	
+	for groups in $AttackCollision.get_groups():
+		if float(groups) != 0:
+			$AttackCollision.remove_from_group(groups)
+			var crit_dmg : float = 1.0
+			if is_a_critical_hit():
+				crit_dmg = (Global.player_skill_multipliers["CritDamage"] / 100 + 1)
+				$AttackCollision.add_to_group("IsCritHit")
+			else:
+				$AttackCollision.remove_from_group("IsCritHit")
+			if !airborne_mode:
+				$AttackCollision.add_to_group(str(ATTACK * (Global.player_skill_multipliers[attack_string] / 100) * crit_dmg))
+				
+			else:
+				$AttackCollision.add_to_group(str(ATTACK * (Global.player_skill_multipliers[airborne_attack_string] / 100) * crit_dmg))
+			break
+	
+	sheathe_katana()
+	$ResetAttackStringTimer.start()
 
 func play_attack_animation(direction : String):
 	if direction == "Right":
 		match attack_string_count:
 			4:
-				$ResetAttackStringTimer.stop()
-				$AnimationPlayer.play("SwordSwingRight")
-				attack_string_count -= 1
-				$SlashEffectPlayer.play("RightSlash")
-				for groups in $AttackCollision.get_groups():
-					if float(groups) != 0:
-						$AttackCollision.remove_from_group(groups)
-						if is_a_critical_hit():
-							pass
-						if !airborne_mode:
-							$AttackCollision.add_to_group(str(ATTACK * (Global.player_skill_multipliers["BasicAttack"] / 100)))
-							print("a")
-						else:
-							$AttackCollision.add_to_group(str(ATTACK * (Global.player_skill_multipliers["AirborneBasicAttack"] / 100)))
-							print("b")
-						break
-				sheathe_katana()
-				$ResetAttackStringTimer.start()
 				
+				calculate_damage("SwordSwingRight", "RightSlash", "BasicAttack", "AirborneBasicAttack")
 			3:
-				$ResetAttackStringTimer.stop()
-				$AnimationPlayer.play("SwordSwingRight2")
-				attack_string_count -= 1
-				$SlashEffectPlayer.play("RightSlash")
-				
-				for groups in $AttackCollision.get_groups():
-					if float(groups) != 0:
-						$AttackCollision.remove_from_group(groups)
-						if !airborne_mode:
-							$AttackCollision.add_to_group(str(ATTACK * (Global.player_skill_multipliers["BasicAttack2"] / 100)))
-						else:
-							$AttackCollision.add_to_group(str(ATTACK * (Global.player_skill_multipliers["AirborneBasicAttack2"] / 100)))
-						break
-				sheathe_katana()
-				$ResetAttackStringTimer.start()
+				calculate_damage("SwordSwingRight2", "RightSlash", "BasicAttack2", "AirborneBasicAttack2")
 			2:
-				$ResetAttackStringTimer.stop()
-				$AnimationPlayer.play("SwordSwingRight3")
-				attack_string_count -= 1
-				$SlashEffectPlayer.play("RightSlash")
-				
-				for groups in $AttackCollision.get_groups():
-					if float(groups) != 0:
-						$AttackCollision.remove_from_group(groups)
-						if !airborne_mode:
-							$AttackCollision.add_to_group(str(ATTACK * (Global.player_skill_multipliers["BasicAttack3"] / 100)))
-						else:
-							$AttackCollision.add_to_group(str(ATTACK * (Global.player_skill_multipliers["AirborneBasicAttack3"] / 100)))
-						break
-				sheathe_katana()
-				$ResetAttackStringTimer.start()
+				calculate_damage("SwordSwingRight3", "RightSlash", "BasicAttack3", "AirborneBasicAttack3")
 			1:
 				$AnimationPlayer.play("SwordSwingRight4")
 				attack_string_count -= 1
+				
 				$SlashEffectPlayer.play("RightSlash")
 				for groups in $AttackCollision.get_groups():
 					if float(groups) != 0:
 						$AttackCollision.remove_from_group(groups)
-						if !airborne_mode:
-							$AttackCollision.add_to_group(str(ATTACK * (Global.player_skill_multipliers["BasicAttack4"] / 100)))
+						var crit_dmg : float = 1.0
+						if is_a_critical_hit():
+							crit_dmg = (Global.player_skill_multipliers["CritDamage"] / 100 + 1)
+							$AttackCollision.add_to_group("IsCritHit")
 						else:
-							$AttackCollision.add_to_group(str(ATTACK * (Global.player_skill_multipliers["AirborneBasicAttack4"] / 100)))
+							$AttackCollision.remove_from_group("IsCritHit")
+						if !airborne_mode:
+							$AttackCollision.add_to_group(str(ATTACK * (Global.player_skill_multipliers["BasicAttack4"] / 100) * crit_dmg))
+		
+						else:
+							$AttackCollision.add_to_group(str(ATTACK * (Global.player_skill_multipliers["AirborneBasicAttack4"] / 100 * crit_dmg)))
+						
+						
 						break
+
 				sheathe_katana()
 				yield(get_tree().create_timer($MeleeTimer.wait_time), "timeout")
 				attack_string_count = 4
@@ -939,61 +968,29 @@ func play_attack_animation(direction : String):
 	elif direction == "Left":
 		match attack_string_count:
 			4:
-				$ResetAttackStringTimer.stop()
-				$AnimationPlayer.play("SwordSwingLeft")
-				attack_string_count -= 1
-
-				for groups in $AttackCollision.get_groups():
-					if float(groups) != 0:
-						$AttackCollision.remove_from_group(groups)
-						if !airborne_mode:
-							$AttackCollision.add_to_group(str(ATTACK * (Global.player_skill_multipliers["BasicAttack"] / 100)))
-						else:
-							$AttackCollision.add_to_group(str(ATTACK * (Global.player_skill_multipliers["AirborneBasicAttack"] / 100)))
-						break
-				sheathe_katana()
-				$ResetAttackStringTimer.start()
+				calculate_damage("SwordSwingLeft", "LeftSlash", "BasicAttack", "AirborneBasicAttack")
 			3:
-				$ResetAttackStringTimer.stop()
-				$AnimationPlayer.play("SwordSwingLeft2")
-				attack_string_count -= 1
-
-				for groups in $AttackCollision.get_groups():
-					if float(groups) != 0:
-						$AttackCollision.remove_from_group(groups)
-						if !airborne_mode:
-							$AttackCollision.add_to_group(str(ATTACK * (Global.player_skill_multipliers["BasicAttack2"] / 100)))
-						else:
-							$AttackCollision.add_to_group(str(ATTACK * (Global.player_skill_multipliers["AirborneBasicAttack2"] / 100)))
-						break
-				sheathe_katana()
-				$ResetAttackStringTimer.start()
+				calculate_damage("SwordSwingLeft2", "LeftSlash", "BasicAttack2", "AirborneBasicAttack2")
 			2:
-				$ResetAttackStringTimer.stop()
-				$AnimationPlayer.play("SwordSwingLeft3")
-				attack_string_count -= 1
-
-				for groups in $AttackCollision.get_groups():
-					if float(groups) != 0:
-						$AttackCollision.remove_from_group(groups)
-						if !airborne_mode:
-							$AttackCollision.add_to_group(str(ATTACK * (Global.player_skill_multipliers["BasicAttack3"] / 100)))
-						else:
-							$AttackCollision.add_to_group(str(ATTACK * (Global.player_skill_multipliers["AirborneBasicAttack3"] / 100)))
-						break
-				sheathe_katana()
-				$ResetAttackStringTimer.start()
+				calculate_damage("SwordSwingLeft3", "LeftSlash", "BasicAttack3", "AirborneBasicAttack3")
 			1:
 				$AnimationPlayer.play("SwordSwingLeft4")
 				attack_string_count -= 1
-
 				for groups in $AttackCollision.get_groups():
 					if float(groups) != 0:
 						$AttackCollision.remove_from_group(groups)
-						if !airborne_mode:
-							$AttackCollision.add_to_group(str(ATTACK * (Global.player_skill_multipliers["BasicAttack4"] / 100)))
+						var crit_dmg : float = 1.0
+						if is_a_critical_hit():
+							crit_dmg = (Global.player_skill_multipliers["CritDamage"] / 100 + 1)
+							$AttackCollision.add_to_group("IsCritHit")
 						else:
-							$AttackCollision.add_to_group(str(ATTACK * (Global.player_skill_multipliers["AirborneBasicAttack4"] / 100)))
+							$AttackCollision.remove_from_group("IsCritHit")
+						if !airborne_mode:
+							$AttackCollision.add_to_group(str(ATTACK * (Global.player_skill_multipliers["BasicAttack4"] / 100) * crit_dmg))
+							print("a")
+						else:
+							$AttackCollision.add_to_group(str(ATTACK * (Global.player_skill_multipliers["AirborneBasicAttack4"] / 100 * crit_dmg)))
+							print("b")
 						break
 				sheathe_katana()
 				yield(get_tree().create_timer($MeleeTimer.wait_time), "timeout")
@@ -1346,7 +1343,14 @@ func thrust_attack(extra_long_thrust : bool = false):
 	for n in $ThrustEffectArea.get_groups():
 		if float(n) != 0:
 			$ThrustEffectArea.remove_from_group(n)
-			$ThrustEffectArea.add_to_group(str(ATTACK * (Global.player_skill_multipliers["ThrustChargedAttack"] / 100)))
+			var crit_dmg = 1.0
+			if is_a_critical_hit():
+				crit_dmg = (Global.player_skill_multipliers["CritDamage"] / 100 + 1)
+				$ThrustEffectArea.add_to_group(str(ATTACK * (Global.player_skill_multipliers["ThrustChargedAttack"] / 100) * crit_dmg))
+				$ThrustEffectArea.add_to_group("IsCritHit")
+			else:
+				$ThrustEffectArea.add_to_group(str(ATTACK * (Global.player_skill_multipliers["ThrustChargedAttack"] / 100) * crit_dmg))
+				$ThrustEffectArea.remove_from_group("IsCritHit")
 	$ThrustEffectArea/CollisionShape2D.disabled = false
 	
 	is_thrust_attacking = true

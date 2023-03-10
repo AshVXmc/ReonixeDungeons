@@ -11,6 +11,8 @@ var atkbonus : float
 func _ready():
 	add_to_group(str(Global.attack_power * (Global.player_skill_multipliers["FireFairy"] / 100)))
 	$AnimationPlayer.play("Flap")
+	
+
 func start(_transform, _target):
 	global_transform = _transform
 #	rotation += rand_range(-0.09, 0.09)

@@ -12,7 +12,7 @@ var direction : int = 1
 var is_dead : bool = false 
 const TYPE : String = "Enemy"
 const FLOOR = Vector2(0, -1)
-const MAX_SPEED : int = 160
+const MAX_SPEED : int = 140
 var SPEED : int = MAX_SPEED
 const MAX_GRAVITY : int = 45
 var GRAVITY : int = MAX_GRAVITY
@@ -211,7 +211,11 @@ func _on_Area2D_area_entered(area):
 					print("HP reduced by " + str(damage))
 					HP -= float(damage)
 					$HealthBar.value  -= float(damage)
-					add_damage_particles("Physical", float(damage))
+					if area.is_in_group("IsCritHit"):
+						
+						add_damage_particles("Physical", float(damage), true)
+					else:
+						add_damage_particles("Physical", float(damage), false)
 					parse_damage()
 					
 					break
@@ -226,7 +230,10 @@ func _on_Area2D_area_entered(area):
 						print("HP reduced by " + str(damage))
 						HP -= float(damage)
 						$HealthBar.value  -= float(damage)
-						add_damage_particles("Physical", float(damage))
+						if area.is_in_group("IsCritHit"):
+							add_damage_particles("Physical", float(damage), true)
+						else:
+							add_damage_particles("Physical", float(damage), false)
 						parse_damage()
 
 						break
@@ -247,7 +254,7 @@ func _on_Area2D_area_entered(area):
 						HP -= float(groups.max())
 					
 						$HealthBar.value  -= float(groups.max())
-						add_damage_particles("Fire", float(groups.max()))
+						add_damage_particles("Fire", float(groups.max()), false)
 						
 						if area.is_in_group("LightKnockback"):
 							parse_status_effect_damage()
@@ -274,7 +281,7 @@ func _on_Area2D_area_entered(area):
 						HP -= float(groups.max())
 						
 						$HealthBar.value  -= float(groups.max())
-						add_damage_particles("Ice", float(groups.max()))
+						add_damage_particles("Ice", float(groups.max()), false)
 						if area.is_in_group("LightKnockback"):
 							parse_status_effect_damage()
 						else:
@@ -291,7 +298,7 @@ func _on_Area2D_area_entered(area):
 			print("HP-" + str(damage))
 			$HealthBar.value -= damage
 			parse_status_effect_damage()
-			add_damage_particles("Fire", damage)
+			add_damage_particles("Fire", damage, false)
 		if area.is_in_group("Airborne") and !is_airborne:
 				is_airborne = true
 				velocity.y = AIRBORNE_SPEED
@@ -322,27 +329,29 @@ func _on_Area2D_area_entered(area):
 		if area.is_in_group("MediumPoiseDamage"):
 			knockback(4.2)
 		if area.is_in_group("HeavyPoiseDamage"):
-			knockback(8.2)
+			knockback(7.5)
 	
 #	if area.is_in_group("Enemy"):
 #		set_collision_mask_bit(2, false)
 #
 
-func add_damage_particles(type : String, dmg : int):
+func add_damage_particles(type : String, dmg : int, is_crit : bool):
 	var dmgparticle = DMG_INDICATOR.instance()
+	dmgparticle.is_crit = is_crit
 	dmgparticle.damage_type = type
 	dmgparticle.damage = dmg
+	
 	get_parent().add_child(dmgparticle)
 	dmgparticle.position = global_position
 
 func knockback(knockback_coefficient : float = 1):
-	
+	is_staggered = true
 	if $Sprite.flip_h:
 		velocity.x = -SPEED * knockback_coefficient
 	else:
 		velocity.x = SPEED * knockback_coefficient
 	print("Knocked back")
-	
+	$HurtTimer.start()
 func armor_break():
 	pass
 func parse_damage():

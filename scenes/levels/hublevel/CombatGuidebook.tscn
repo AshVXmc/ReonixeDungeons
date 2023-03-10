@@ -1,0 +1,385 @@
+[gd_scene load_steps=24 format=2]
+
+[ext_resource path="res://assets/fonts/FFFFORWA.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://scripts/terrain/CombatGuidebook.gd" type="Script" id=2]
+[ext_resource path="res://assets/terrain/hub_level/book_stand.png" type="Texture" id=3]
+[ext_resource path="res://assets/fonts/Born2bSportyV2.ttf" type="DynamicFontData" id=4]
+[ext_resource path="res://assets/UI/quiticon.png" type="Texture" id=5]
+[ext_resource path="res://assets/UI/book_textbox.png" type="Texture" id=6]
+[ext_resource path="res://assets/UI/previousicon.png" type="Texture" id=7]
+[ext_resource path="res://assets/UI/nexticon.png" type="Texture" id=8]
+[ext_resource path="res://assets/player/player_walk2.png" type="Texture" id=9]
+[ext_resource path="res://assets/player/sword.png" type="Texture" id=10]
+[ext_resource path="res://assets/enemies/slime1.png" type="Texture" id=11]
+[ext_resource path="res://assets/UI/healthbar_full.png" type="Texture" id=12]
+[ext_resource path="res://assets/misc/super_slash_projectile.png" type="Texture" id=13]
+[ext_resource path="res://assets/UI/mana.png" type="Texture" id=15]
+[ext_resource path="res://assets/UI/heart.png" type="Texture" id=16]
+[ext_resource path="res://assets/UI/heart_slot.png" type="Texture" id=17]
+[ext_resource path="res://assets/UI/mana_slot.png" type="Texture" id=18]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 43.8902, 49.2892 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 36
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=3]
+size = 48
+font_data = ExtResource( 4 )
+
+[sub_resource type="DynamicFont" id=4]
+size = 32
+font_data = ExtResource( 4 )
+
+[sub_resource type="DynamicFont" id=5]
+size = 64
+font_data = ExtResource( 4 )
+
+[sub_resource type="DynamicFont" id=6]
+size = 64
+font_data = ExtResource( 4 )
+
+[node name="CombatGuidebook" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="Sprite" type="Sprite" parent="."]
+scale = Vector2( 5, 5 )
+texture = ExtResource( 3 )
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2( 0.448471, 1.83575 )
+shape = SubResource( 1 )
+
+[node name="Label" type="RichTextLabel" parent="."]
+margin_left = -90.0
+margin_top = -155.0
+margin_right = 92.0
+margin_bottom = -48.0
+custom_fonts/bold_font = SubResource( 2 )
+custom_fonts/normal_font = SubResource( 2 )
+bbcode_enabled = true
+bbcode_text = "[b]Combat Guide[/b][img=40]res://assets/UI/icon_Empty.png[/img]"
+text = "Combat Guide"
+scroll_active = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Plaque" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="Plaque"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = 191.0
+margin_bottom = 151.0
+rect_scale = Vector2( 0.85, 0.85 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="NinePatchRect" type="NinePatchRect" parent="Plaque/Control"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -436.0
+margin_top = -134.706
+margin_right = 436.0
+margin_bottom = 402.294
+texture = ExtResource( 6 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Header" type="RichTextLabel" parent="Plaque/Control/NinePatchRect"]
+margin_left = 75.0
+margin_top = 52.0
+margin_right = 820.0
+margin_bottom = 100.0
+custom_fonts/normal_font = SubResource( 3 )
+bbcode_enabled = true
+bbcode_text = "========= [color=#754d27]Guide to Combat[/color] ========="
+text = "========= Guide to Combat ========="
+scroll_active = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CloseButton" type="TextureButton" parent="Plaque/Control/NinePatchRect"]
+margin_left = 796.471
+margin_top = 7.6884
+margin_right = 836.471
+margin_bottom = 47.6884
+rect_scale = Vector2( 1.5, 1.5 )
+texture_normal = ExtResource( 5 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="NextButton" type="TextureButton" parent="Plaque/Control/NinePatchRect"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -82.0
+margin_top = -82.0
+margin_right = -42.0
+margin_bottom = -42.0
+rect_scale = Vector2( 2, 2 )
+texture_normal = ExtResource( 8 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PrevButton" type="TextureButton" parent="Plaque/Control/NinePatchRect"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -162.05
+margin_top = -82.0
+margin_right = -122.05
+margin_bottom = -42.0
+rect_scale = Vector2( 2, 2 )
+texture_normal = ExtResource( 7 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Page1" type="Control" parent="Plaque/Control/NinePatchRect"]
+visible = false
+margin_right = 40.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Text" type="RichTextLabel" parent="Plaque/Control/NinePatchRect/Page1"]
+anchor_right = 0.153
+margin_left = 54.0
+margin_top = 100.0
+margin_right = 318.88
+margin_bottom = 330.0
+custom_colors/default_color = Color( 0, 0, 0, 1 )
+custom_fonts/normal_font = SubResource( 4 )
+bbcode_enabled = true
+bbcode_text = "[color=red]Melee Attacks[/color] are your primary source of damage. Press [color=red]Enter[/color] or [color=red]X[/color] to strike enemies down within close range.
+"
+text = "Melee Attacks are your primary source of damage. Press Enter or X to strike enemies down within close range.
+"
+scroll_active = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Text2" type="RichTextLabel" parent="Plaque/Control/NinePatchRect/Page1"]
+anchor_right = 0.153
+margin_left = 341.0
+margin_top = 100.0
+margin_right = 813.88
+margin_bottom = 300.0
+custom_colors/default_color = Color( 0, 0, 0, 1 )
+custom_fonts/normal_font = SubResource( 4 )
+bbcode_enabled = true
+bbcode_text = "[color=red]Charged Attacks[/color] are more powerful than melee attacks, and has a longer reach, but they require time and one [color=blue]Mana[/color]. Hold down [color=red]Q [/color]to charge the [color=#e6b120]Energy Meter[/color] and attack when the bar turns [color=#16e01d]green[/color]."
+text = "Charged Attacks are more powerful than melee attacks, and has a longer reach, but they require time and one Mana. Hold down Q to charge the Energy Meter and attack when the bar turns green."
+scroll_active = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Sword" type="Sprite" parent="Plaque/Control/NinePatchRect/Page1"]
+position = Vector2( 215.266, 378.154 )
+rotation = 0.724312
+scale = Vector2( 4, 4 )
+texture = ExtResource( 10 )
+
+[node name="Player" type="Sprite" parent="Plaque/Control/NinePatchRect/Page1"]
+position = Vector2( 148.669, 402 )
+scale = Vector2( 6, 6 )
+texture = ExtResource( 9 )
+
+[node name="Bar" type="Sprite" parent="Plaque/Control/NinePatchRect/Page1"]
+position = Vector2( 441.775, 325.636 )
+scale = Vector2( 6, 6 )
+texture = ExtResource( 12 )
+
+[node name="Slime2" type="Sprite" parent="Plaque/Control/NinePatchRect/Page1"]
+modulate = Color( 0.988235, 1, 1, 1 )
+self_modulate = Color( 0.0117647, 1, 1, 1 )
+position = Vector2( 626.901, 419.665 )
+scale = Vector2( 6, 6 )
+texture = ExtResource( 11 )
+
+[node name="Wave" type="Sprite" parent="Plaque/Control/NinePatchRect/Page1"]
+position = Vector2( 557.591, 400.656 )
+scale = Vector2( 10, 10 )
+texture = ExtResource( 13 )
+
+[node name="Sword2" type="Sprite" parent="Plaque/Control/NinePatchRect/Page1"]
+position = Vector2( 496.569, 437.505 )
+rotation = 2.25497
+scale = Vector2( 4, 4 )
+texture = ExtResource( 10 )
+
+[node name="Player2" type="Sprite" parent="Plaque/Control/NinePatchRect/Page1"]
+position = Vector2( 433.976, 402 )
+scale = Vector2( 6, 6 )
+texture = ExtResource( 9 )
+
+[node name="Text3" type="RichTextLabel" parent="Plaque/Control/NinePatchRect/Page1"]
+anchor_right = 0.153
+margin_left = 268.959
+margin_top = 334.154
+margin_right = 284.839
+margin_bottom = 391.154
+custom_colors/default_color = Color( 0, 0, 0, 1 )
+custom_fonts/normal_font = SubResource( 5 )
+bbcode_enabled = true
+bbcode_text = "[color=red]![/color]"
+text = "!"
+scroll_active = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Slime" type="Sprite" parent="Plaque/Control/NinePatchRect/Page1"]
+position = Vector2( 277.255, 417.29 )
+scale = Vector2( 6, 6 )
+texture = ExtResource( 11 )
+
+[node name="Page2" type="Control" parent="Plaque/Control/NinePatchRect"]
+visible = false
+margin_right = 40.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Text2" type="RichTextLabel" parent="Plaque/Control/NinePatchRect/Page2"]
+anchor_right = 0.153
+margin_left = 54.0
+margin_top = 268.921
+margin_right = 813.88
+margin_bottom = 371.921
+custom_colors/default_color = Color( 0, 0, 0, 1 )
+custom_fonts/normal_font = SubResource( 4 )
+bbcode_enabled = true
+bbcode_text = "[color=blue]Mana[/color] [img=28]res://assets/UI/mana.png[/img] is a kind of magical energy that can be used to cast [color=#e6b120]Abilities and Skills[/color]. For every [color=red]second[/color] melee strike you inflict on an opponent, you will gain one [color=blue]Mana[/color] point."
+text = "Mana  is a kind of magical energy that can be used to cast Abilities and Skills. For every second melee strike you inflict on an opponent, you will gain one Mana point."
+scroll_active = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Text" type="RichTextLabel" parent="Plaque/Control/NinePatchRect/Page2"]
+anchor_right = 0.153
+margin_left = 54.0
+margin_top = 100.0
+margin_right = 813.88
+margin_bottom = 171.0
+custom_colors/default_color = Color( 0, 0, 0, 1 )
+custom_fonts/normal_font = SubResource( 4 )
+bbcode_enabled = true
+bbcode_text = "[color=#f71e63]Hearts[/color] [img=28]res://assets/UI/heart.png[/img] are a measurement of your vitality. If your [color=#f71e63]Life meter [/color]reaches zero, you will get a game over."
+text = "Hearts  are a measurement of your vitality. If your Life meter reaches zero, you will get a game over."
+scroll_active = false
+
+[node name="ManaSlots" type="TextureRect" parent="Plaque/Control/NinePatchRect/Page2"]
+margin_left = 289.294
+margin_top = 388.647
+margin_right = 576.294
+margin_bottom = 434.647
+texture = ExtResource( 18 )
+expand = true
+stretch_mode = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Mana" type="TextureRect" parent="Plaque/Control/NinePatchRect/Page2"]
+margin_left = 289.294
+margin_top = 388.647
+margin_right = 481.294
+margin_bottom = 434.647
+texture = ExtResource( 15 )
+expand = true
+stretch_mode = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HeartSlots" type="TextureRect" parent="Plaque/Control/NinePatchRect/Page2"]
+margin_left = 289.294
+margin_top = 166.964
+margin_right = 576.294
+margin_bottom = 250.964
+texture = ExtResource( 17 )
+expand = true
+stretch_mode = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Hearts" type="TextureRect" parent="Plaque/Control/NinePatchRect/Page2"]
+margin_left = 290.0
+margin_top = 166.882
+margin_right = 530.0
+margin_bottom = 250.882
+texture = ExtResource( 16 )
+expand = true
+stretch_mode = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Page3" type="Control" parent="Plaque/Control/NinePatchRect"]
+visible = false
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="Text" type="RichTextLabel" parent="Plaque/Control/NinePatchRect/Page3"]
+anchor_right = 0.153
+margin_left = 75.0
+margin_top = 96.0
+margin_right = 676.584
+margin_bottom = 169.0
+custom_colors/default_color = Color( 0, 0, 0, 1 )
+custom_fonts/normal_font = SubResource( 4 )
+bbcode_enabled = true
+bbcode_text = "Page 3"
+text = "Page 3"
+scroll_active = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Keybind" type="Label" parent="."]
+anchor_left = -3.732
+anchor_right = -3.732
+margin_left = 58.2222
+margin_top = -104.426
+margin_right = 86.2222
+margin_bottom = -40.4265
+rect_scale = Vector2( 0.75, 0.75 )
+custom_colors/font_color = Color( 0.192157, 0.372549, 1, 1 )
+custom_fonts/font = SubResource( 6 )
+text = "R"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="area_exited" from="Area2D" to="." method="_on_Area2D_area_exited"]
+[connection signal="pressed" from="Plaque/Control/NinePatchRect/CloseButton" to="." method="_on_CloseButton_pressed"]
+[connection signal="pressed" from="Plaque/Control/NinePatchRect/NextButton" to="." method="_on_NextButton_pressed"]
+[connection signal="pressed" from="Plaque/Control/NinePatchRect/PrevButton" to="." method="_on_PrevButton_pressed"]

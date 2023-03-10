@@ -5,10 +5,15 @@ var friction : int = 35
 var direction_shift : Vector2 = Vector2()
 onready var damage_type : String
 onready var damage : float
-
+onready var is_crit : bool 
 
 
 func _ready():
+	if is_crit:
+		$CritLabel.visible = true
+		$CritAnimationPlayer.play("CritHit")
+		scale.x = 1.25
+		scale.y = 1.25
 	match damage_type:
 		"Physical":
 			$AnimationPlayer.play("physical_particle")
@@ -20,6 +25,8 @@ func _ready():
 			$AnimationPlayer.play("earth_particle")
 	$Label.text = str(damage)
 	direction_shift = Vector2(rand_range(-1,1), rand_range(-1,1))
+	
+	
 	
 
 func _process(delta):

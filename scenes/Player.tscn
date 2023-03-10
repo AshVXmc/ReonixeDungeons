@@ -1905,7 +1905,7 @@ position = Vector2( 70.4598, 0 )
 shape = SubResource( 2 )
 disabled = true
 
-[node name="ChargedAttackCollision" type="Area2D" parent="." groups=["SwordCharged"]]
+[node name="ChargedAttackCollision" type="Area2D" parent="." groups=["HeavyPoiseDamage", "SwordCharged"]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ChargedAttackCollision"]
 position = Vector2( 73.117, -1.69657 )
@@ -2172,7 +2172,7 @@ margin_right = -41.0
 margin_bottom = -78.0
 rect_scale = Vector2( 4.5, 4.5 )
 max_value = 200.0
-value = 50.0
+value = 200.0
 texture_under = ExtResource( 20 )
 texture_progress = ExtResource( 19 )
 
@@ -2207,6 +2207,7 @@ wait_time = 0.1
 autostart = true
 
 [node name="ResetAttackStringTimer" type="Timer" parent="."]
+wait_time = 0.75
 one_shot = true
 
 [connection signal="timeout" from="CharacterManager/SwapCooldownTimer" to="CharacterManager" method="_on_SwapCooldownTimer_timeout"]

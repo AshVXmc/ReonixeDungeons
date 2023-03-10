@@ -30,7 +30,8 @@ var player_skill_multipliers : Dictionary = {
 	"BasicAttack4": 50.5,
 	"ChargedAttack": 45.5,
 	"ThrustChargedAttack": 69.5,
-	"UpwardsorDownwardsChargedAttack": 28.0, # x 2
+	"UpwardsChargedAttack": 28.0, # x 2
+	"DownwardsChargedAttack": 56.0,
 	"SpecialChargedAttack": 45.5, # x 4
 	"SpecialChargedAttackFinalStrike": 135.0,
 	"CircularFlurryAttack": 28.0,
@@ -51,8 +52,8 @@ var player_skill_multipliers : Dictionary = {
 	"BaseFireRes": 0.0,
 	"BaseEarthRes": 0.0,
 	"BaseIceRes": 0.0,
-	"CritRate": 10.0,
-	"CritDamage": 50.0,
+	"CritRate": 100.0,
+	"CritDamage": 100.0,
 	"Birthday": [21,11]
 }
 
@@ -82,7 +83,7 @@ var glaciela_skill_multipliers : Dictionary = {
 	"BaseEarthRes": 0.0,
 	"BaseIceRes": 0.0,
 	"CritRate": 10.0,
-	"CritDamage": 50.0,
+	"CritDamage": 80.0,
 	"Birthday": [10,5]
 }
 
