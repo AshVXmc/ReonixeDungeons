@@ -14,6 +14,9 @@ func _ready():
 		$CritAnimationPlayer.play("CritHit")
 		scale.x = 1.25
 		scale.y = 1.25
+	else:
+		$CritLabel.visible = false
+		
 	match damage_type:
 		"Physical":
 			$AnimationPlayer.play("physical_particle")

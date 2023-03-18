@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://scripts/terrain/DungeonEntrance.gd" type="Script" id=1]
 [ext_resource path="res://assets/terrain/hub_level/dungeon_entrance.png" type="Texture" id=2]
 [ext_resource path="res://assets/fonts/FFFFORWA.ttf" type="DynamicFontData" id=3]
 [ext_resource path="res://assets/fonts/Born2bSportyV2.ttf" type="DynamicFontData" id=4]
+[ext_resource path="res://scenes/menus/CharacterSelectionUI.tscn" type="PackedScene" id=5]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 55.0921, 60.3552 )
@@ -61,5 +62,11 @@ valign = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="ButtonPressCD" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
+
+[node name="CharacterSelectionUI" parent="." instance=ExtResource( 5 )]
 
 [connection signal="area_exited" from="Area2D" to="." method="_on_Area2D_area_exited"]

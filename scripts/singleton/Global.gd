@@ -6,7 +6,8 @@ var hearts : float = max_hearts
 var character_2_max_hearts : float = 2
 var character_3_max_hearts : float = 2
 var elegance_rank : String 
-
+var enemy_level_index : int = 2
+var max_dash_meter : int = 100
 func _ready():
 	print(Time.get_date_dict_from_system())
 
@@ -52,8 +53,8 @@ var player_skill_multipliers : Dictionary = {
 	"BaseFireRes": 0.0,
 	"BaseEarthRes": 0.0,
 	"BaseIceRes": 0.0,
-	"CritRate": 100.0,
-	"CritDamage": 100.0,
+	"CritRate": 20.0,
+	"CritDamage": 150.0,
 	"Birthday": [21,11]
 }
 
@@ -121,7 +122,9 @@ var savepath : String = SAVE_DIR + "savefile.dat"
 var lighting : bool = false
 var vsync : bool = false
 var activated_portals : Array
-var enemy_level_index : int = 1
+
+
+
 var is_opening_an_UI : bool = false
 var pity_4_star : int = 10
 var pity_5_star : int = 60 # Soft pity at 50

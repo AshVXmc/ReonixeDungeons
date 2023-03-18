@@ -3,7 +3,8 @@ class_name Goblin extends KinematicBody2D
 const DMG_INDICATOR : PackedScene = preload("res://scenes/particles/DamageIndicatorParticle.tscn")
 const SWORD_HIT_PARTICLE : PackedScene = preload("res://scenes/particles/SwordHitParticle.tscn")
 const DEATH_SMOKE : PackedScene = preload("res://scenes/particles/DeathSmokeParticle.tscn")
-onready var max_HP : int = Global.enemy_level_index * 250
+onready var max_HP : int = 120 + (Global.enemy_level_index * 40)
+onready var level : int = round(Global.enemy_level_index)
 var atk_value : float = 0.25 * Global.enemy_level_index
 onready var HP : int = max_HP
 export var flipped : bool = false
@@ -50,6 +51,7 @@ var elemental_type : String = "Physical"
 
 
 func _ready():
+	$LevelLabel.text = "Lv " + str(level)
 	$SpearSprite.visible = false
 	$SpearThrustAttackWarning.visible = false
 	if Armored:

@@ -94,6 +94,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/player/CharacterManager.gd"
 }, {
+"base": "Control",
+"class": "CharacterSelectionUI",
+"language": "GDScript",
+"path": "res://scripts/ui/CharacterSelectionUI.gd"
+}, {
 "base": "Node2D",
 "class": "CombatGuidebook",
 "language": "GDScript",
@@ -612,6 +617,7 @@ _global_script_class_icons={
 "Campfire": "",
 "Cauldron": "",
 "CharacterManager": "",
+"CharacterSelectionUI": "",
 "CombatGuidebook": "",
 "CornucopiaGoblin": "",
 "CustomEventConverter": "",

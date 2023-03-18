@@ -15,8 +15,10 @@ onready var icelance_ui = $SecondarySkill/Glaciela/IceLance/TextureProgress
 const multiplier : int = 10
 
 
+
 func _ready():
 	update_character_ui()
+	update_maximum_dash_meter_capacity()
 	Global.current_character = character1
 	print("Currently: " + Global.current_character)
 	connect("ability_on_cooldown", get_parent().get_parent().get_node("Player"), "ability_on_entering_cooldown")
@@ -29,6 +31,9 @@ func _ready():
 	winterqueen_ui.value = Global.glaciela_skill_multipliers["WinterQueenCD"] * multiplier
 	icelance_ui.max_value = Global.glaciela_skill_multipliers["IceLanceCD"] * multiplier
 	icelance_ui.value = Global.glaciela_skill_multipliers["IceLanceCD"] * multiplier
+
+func update_maximum_dash_meter_capacity():
+	$DashSkill/TextureProgress.max_value = Global.max_dash_meter
 func update_swap_character_status():
 	can_swap_character = true if !can_swap_character else false
 	if can_swap_character:

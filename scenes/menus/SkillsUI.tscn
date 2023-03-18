@@ -459,12 +459,20 @@ margin_right = 40.0
 margin_bottom = 19.0
 
 [node name="Sprite" type="Sprite" parent="Control/DashSkill"]
+self_modulate = Color( 1, 1, 1, 0.333333 )
 position = Vector2( 370, 190 )
 scale = Vector2( 4, 4 )
 texture = ExtResource( 10 )
-__meta__ = {
-"_edit_group_": true
-}
+
+[node name="TextureProgress" type="TextureProgress" parent="Control/DashSkill"]
+margin_left = 338.0
+margin_top = 158.0
+margin_right = 354.0
+margin_bottom = 174.0
+rect_scale = Vector2( 4, 4 )
+value = 100.0
+texture_progress = ExtResource( 10 )
+fill_mode = 3
 
 [node name="CooldownTickTimer" type="Timer" parent="Control"]
 autostart = true

@@ -276,6 +276,7 @@ anims/ice_particle = SubResource( 6 )
 anims/physical_particle = SubResource( 2 )
 
 [node name="CritLabel" type="Label" parent="."]
+visible = false
 margin_left = -2.0
 margin_top = -27.0
 margin_right = 46.0

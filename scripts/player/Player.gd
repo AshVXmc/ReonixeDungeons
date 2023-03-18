@@ -1147,7 +1147,8 @@ func add_hurt_particles(damage : float):
 func is_a_critical_hit() -> bool:
 	var rng = RandomNumberGenerator.new()
 	rng.randomize()
-	var num = rng.randi_range(Global.player_skill_multipliers["CritRate"] ,100)
+	
+	var num = rng.randi_range(0 ,100)
 	if num <= Global.player_skill_multipliers["CritRate"]:
 		return true
 	else:

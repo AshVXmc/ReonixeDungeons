@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=2]
+[gd_scene load_steps=27 format=2]
 
 [ext_resource path="res://assets/enemies/goblin2_attack.png" type="Texture" id=1]
 [ext_resource path="res://scripts/enemies/Goblin.gd" type="Script" id=2]
@@ -12,6 +12,7 @@
 [ext_resource path="res://assets/UI/armorbar_colours.png" type="Texture" id=10]
 [ext_resource path="res://assets/misc/physical_armor.png" type="Texture" id=11]
 [ext_resource path="res://assets/enemies/goblin_spear.png" type="Texture" id=12]
+[ext_resource path="res://assets/fonts/Born2bSportyV2.ttf" type="DynamicFontData" id=13]
 
 [sub_resource type="CapsuleShape2D" id=8]
 radius = 30.0
@@ -41,6 +42,10 @@ extents = Vector2( 166.268, 50.3433 )
 [sub_resource type="CapsuleShape2D" id=3]
 radius = 37.9007
 height = 41.7494
+
+[sub_resource type="DynamicFont" id=15]
+size = 32
+font_data = ExtResource( 13 )
 
 [sub_resource type="AtlasTexture" id=11]
 atlas = ExtResource( 10 )
@@ -332,7 +337,7 @@ collision_mask = 11
 script = ExtResource( 2 )
 
 [node name="ElementalAffinity" type="Sprite" parent="."]
-position = Vector2( -61.1667, -80.8334 )
+position = Vector2( -61.1667, -74.1667 )
 scale = Vector2( 2, 2 )
 texture = ExtResource( 8 )
 
@@ -382,11 +387,20 @@ one_shot = true
 
 [node name="Position2D" type="Position2D" parent="."]
 
+[node name="LevelLabel" type="Label" parent="."]
+margin_left = -15.0
+margin_top = -118.0
+margin_right = 41.0
+margin_bottom = -86.0
+custom_fonts/font = SubResource( 15 )
+text = "Lv.1"
+align = 1
+
 [node name="HealthBar" type="TextureProgress" parent="."]
 margin_left = -46.6667
-margin_top = -97.8334
+margin_top = -91.1667
 margin_right = -16.6667
-margin_bottom = -91.8333
+margin_bottom = -85.1666
 rect_scale = Vector2( 4, 4 )
 value = 100.0
 texture_under = ExtResource( 6 )
@@ -394,9 +408,9 @@ texture_progress = ExtResource( 7 )
 
 [node name="ArmorBar" type="TextureProgress" parent="."]
 margin_left = -47.4633
-margin_top = -73.9892
+margin_top = -67.3225
 margin_right = -17.4633
-margin_bottom = -67.9892
+margin_bottom = -61.3225
 rect_scale = Vector2( 3.5, 2.75 )
 value = 100.0
 texture_under = ExtResource( 9 )
