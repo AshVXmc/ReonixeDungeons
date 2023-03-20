@@ -81,7 +81,6 @@ margin_top = -147.0
 margin_right = 210.0
 margin_bottom = 33.0
 texture_normal = ExtResource( 4 )
-texture_pressed = ExtResource( 4 )
 expand = true
 
 [node name="CharacterSlot2" type="TextureButton" parent="Control/NinePatchRect"]
@@ -94,7 +93,6 @@ margin_top = -147.0
 margin_right = 90.0
 margin_bottom = 33.0
 texture_normal = ExtResource( 4 )
-texture_pressed = ExtResource( 4 )
 expand = true
 
 [node name="CharacterSlot3" type="TextureButton" parent="Control/NinePatchRect"]
@@ -107,7 +105,6 @@ margin_top = -147.0
 margin_right = -30.0
 margin_bottom = 33.0
 texture_normal = ExtResource( 4 )
-texture_pressed = ExtResource( 4 )
 expand = true
 
 [node name="SelectCharactersUI" type="Control" parent="Control/NinePatchRect"]
@@ -352,6 +349,9 @@ align = 1
 [connection signal="pressed" from="Control/NinePatchRect/CharacterSlot2" to="Control" method="_on_CharacterSlot2_pressed"]
 [connection signal="pressed" from="Control/NinePatchRect/CharacterSlot3" to="Control" method="_on_CharacterSlot3_pressed"]
 [connection signal="pressed" from="Control/NinePatchRect/CloseButtonMainUI" to="Control" method="_on_CloseButtonMainUI_pressed"]
+[connection signal="pressed" from="Control/NinePatchRect/ClearSlot1" to="Control" method="_on_ClearSlot1_pressed"]
+[connection signal="pressed" from="Control/NinePatchRect/ClearSlot2" to="Control" method="_on_ClearSlot2_pressed"]
+[connection signal="pressed" from="Control/NinePatchRect/ClearSlot3" to="Control" method="_on_ClearSlot3_pressed"]
 [connection signal="pressed" from="Control/CharacterOptionsList/CharacterPlayer" to="Control" method="_on_CharacterPlayer_pressed"]
 [connection signal="pressed" from="Control/CharacterOptionsList/CharacterGlaciela" to="Control" method="_on_CharacterGlaciela_pressed"]
 [connection signal="pressed" from="Control/CharacterOptionsList/CharacterAgnette" to="Control" method="_on_CharacterAgnette_pressed"]
