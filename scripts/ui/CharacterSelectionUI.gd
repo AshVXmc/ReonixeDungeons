@@ -15,13 +15,10 @@ func _physics_process(delta):
 	if Input.is_action_just_pressed("ui_cancel"):
 		print(equipped_characters)
 
-
-
 func _ready():
-	
 	visible = false
 	# Comment the initialize UI function when done.
-	initialize_ui()
+#	initialize_ui()
 
 func initialize_ui():
 	visible = true

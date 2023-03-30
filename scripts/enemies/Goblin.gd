@@ -201,6 +201,17 @@ func _on_Area2D_area_entered(area):
 		"Sword", "SwordCharged", "Fireball", "Ice",
 		"physics_process", "FireGauge", "FireGaugeTwo", "LightKnockback"
 	]
+	if is_airborne:
+		if !area.is_in_group("NoAirborneKnockback") and area.is_in_group("LightPoiseDamage") or area.is_in_group("MediumPoiseDamage"):
+			knockback(1.5)
+	else:
+		if area.is_in_group("LightPoiseDamage"):
+			knockback(1.5)
+	
+	if area.is_in_group("MediumPoiseDamage"):
+		knockback(4.2)
+	if area.is_in_group("HeavyPoiseDamage"):
+		knockback(7.5)
 	if weakref(area).get_ref() != null:
 		if area.is_in_group("Sword"):
 			var groups : Array = area.get_groups()
@@ -218,6 +229,7 @@ func _on_Area2D_area_entered(area):
 						add_damage_particles("Physical", float(damage), true)
 					else:
 						add_damage_particles("Physical", float(damage), false)
+
 					parse_damage()
 					
 					break

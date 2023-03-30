@@ -9,12 +9,10 @@ const closed : StreamTexture = preload("res://assets/terrain/hub_level/dungeon_e
 const opened : StreamTexture = preload("res://assets/terrain/hub_level/dungeon_entrance_opened.png")
 var is_opened : bool = false
 export var destination : String 
-signal door_opened()
 
 func _ready():
 	$Label.visible = false
 	$Keybind.visible = false
-	connect("door_opened", get_parent().get_node("Player"), "door_opening")
 func _process(delta):
 	if !is_opened:
 		$Sprite.set_texture(closed)
@@ -24,11 +22,10 @@ func _process(delta):
 		if Input.is_action_just_pressed("ui_use") and $ButtonPressCD.is_stopped():
 			$ButtonPressCD.start()
 			$CharacterSelectionUI/Control.initialize_ui()
-			emit_signal("door_opened")
 			is_opened = true
 			$Sprite.set_texture(opened)
 			colorrect.visible = true
-			transition.transition()
+#			transition.transition()
 #			load_next_scene()
 
 func load_next_scene():

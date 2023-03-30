@@ -306,7 +306,7 @@ one_way_collision = true
 position = Vector2( 3683.07, -1813.17 )
 
 [node name="Player" parent="." instance=ExtResource( 8 )]
-position = Vector2( 1256.2, 608.741 )
+position = Vector2( 3079, 589.946 )
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position = Vector2( -24.7189, -147.43 )

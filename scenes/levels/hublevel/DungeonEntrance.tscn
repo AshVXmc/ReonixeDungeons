@@ -18,6 +18,7 @@ size = 48
 font_data = ExtResource( 4 )
 
 [node name="DungeonEntrance" type="Node2D"]
+pause_mode = 2
 scale = Vector2( 2, 2 )
 script = ExtResource( 1 )
 

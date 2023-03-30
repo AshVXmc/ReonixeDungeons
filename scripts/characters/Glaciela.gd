@@ -95,7 +95,7 @@ func _physics_process(delta):
 		$AnimatedSprite.flip_h = true
 		$AnimatedSprite.play("Walk")
 #		attack_string_count = 4
-	if Input.is_action_just_pressed("right") or Input.is_action_just_pressed("left"):
+	if Input.is_action_just_pressed("right") or Input.is_action_just_pressed("left") and attack_string_count != 3:
 		attack_string_count = 4
 	if Global.current_character == "Glaciela":
 		charge_meter()
@@ -173,6 +173,7 @@ func play_attack_animation(direction : String):
 						$AttackCollision.remove_from_group(groups)
 						$AttackCollision.add_to_group(str(ATTACK * (Global.glaciela_skill_multipliers["BasicAttack"] / 100) + basic_attack_buff))
 						break
+				
 				$ResetAttackStringTimer.start()
 			3:
 				$ResetAttackStringTimer.stop()
@@ -221,14 +222,14 @@ func play_attack_animation(direction : String):
 					emit_signal("trigger_quickswap", "Glaciela")
 				
 #				$ResetAttackStringTimer.start()
-
+			
 	elif direction == "Left":
 		match attack_string_count:
 			4:
 				$ResetAttackStringTimer.stop()
 				$AnimationPlayer.play("SpearSwingLeft1")
 				attack_string_count -= 1
-
+				print("ACTIVATUS TOTALUS")
 				for groups in $AttackCollision.get_groups():
 					if float(groups) != 0:
 						$AttackCollision.remove_from_group(groups)
@@ -446,7 +447,7 @@ func _on_AttackCollision_area_entered(area):
 				get_parent().get_parent().get_node("AirborneTimer").start()
 			if $TundraStackRegen.is_stopped() and !is_performing_charged_attack and tundra_sigils < Global.glaciela_skill_multipliers["MaxTundraSigils"]:
 				
-				if attack_string_count == 0 or attack_string_count == 2:
+				if attack_string_count == 0:
 					tundra_sigils += 1
 					update_tundra_sigil_ui()
 					$TundraStackRegen.start()

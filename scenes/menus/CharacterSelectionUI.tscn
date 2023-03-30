@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://assets/UI/locked_character_icon.png" type="Texture" id=1]
 [ext_resource path="res://assets/fonts/Born2bSportyV2.ttf" type="DynamicFontData" id=2]
@@ -11,12 +11,15 @@
 [ext_resource path="res://themes/Blur.tres" type="Material" id=9]
 [ext_resource path="res://assets/UI/button.png" type="Texture" id=10]
 [ext_resource path="res://assets/UI/button_pressed.png" type="Texture" id=11]
+[ext_resource path="res://assets/UI/long_button.png" type="Texture" id=12]
+[ext_resource path="res://assets/UI/long_button_pressed.png" type="Texture" id=13]
 
 [sub_resource type="DynamicFont" id=1]
 size = 48
 font_data = ExtResource( 2 )
 
 [sub_resource type="DynamicFont" id=4]
+size = 48
 font_data = ExtResource( 2 )
 
 [sub_resource type="DynamicFont" id=2]
@@ -41,6 +44,18 @@ margin_top = -360.0
 margin_right = 540.0
 margin_bottom = 360.0
 script = ExtResource( 3 )
+
+[node name="Blur" type="ColorRect" parent="Control"]
+material = ExtResource( 9 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -1176.64
+margin_top = -639.091
+margin_right = 2063.36
+margin_bottom = 1520.91
+color = Color( 1, 1, 1, 0 )
 
 [node name="NinePatchRect" type="NinePatchRect" parent="Control"]
 anchor_left = 0.5
@@ -142,16 +157,28 @@ rect_scale = Vector2( 7.5, 7.5 )
 texture_normal = ExtResource( 10 )
 texture_pressed = ExtResource( 11 )
 
-[node name="Label" type="Label" parent="Control/NinePatchRect/ClearSlot1"]
-anchor_left = 0.513
-anchor_top = 0.5
-anchor_right = 0.513
-anchor_bottom = 0.5
-margin_left = -6.208
-margin_top = -3.0
-margin_right = 24.792
-margin_bottom = 13.0
-rect_scale = Vector2( 0.4, 0.4 )
+[node name="EnterLevelButton" type="TextureButton" parent="Control/NinePatchRect"]
+anchor_left = 0.502
+anchor_top = 0.877
+anchor_right = 0.502
+anchor_bottom = 0.877
+margin_left = -120.296
+margin_top = -29.864
+margin_right = -88.296
+margin_bottom = -21.864
+rect_scale = Vector2( 7.5, 7.5 )
+texture_normal = ExtResource( 12 )
+texture_pressed = ExtResource( 13 )
+
+[node name="Label" type="Label" parent="Control/NinePatchRect"]
+anchor_left = 0.185
+anchor_top = 0.676
+anchor_right = 0.185
+anchor_bottom = 0.676
+margin_left = -59.88
+margin_top = -24.032
+margin_right = 60.12
+margin_bottom = 23.968
 custom_fonts/font = SubResource( 4 )
 text = "Clear"
 align = 1
@@ -169,16 +196,15 @@ rect_scale = Vector2( 7.5, 7.5 )
 texture_normal = ExtResource( 10 )
 texture_pressed = ExtResource( 11 )
 
-[node name="Label" type="Label" parent="Control/NinePatchRect/ClearSlot2"]
-anchor_left = 0.483
-anchor_top = 0.5
-anchor_right = 0.483
-anchor_bottom = 0.5
-margin_left = -6.199
-margin_top = -2.552
-margin_right = 24.801
-margin_bottom = 13.448
-rect_scale = Vector2( 0.4, 0.4 )
+[node name="Label2" type="Label" parent="Control/NinePatchRect"]
+anchor_left = 0.5
+anchor_top = 0.676
+anchor_right = 0.5
+anchor_bottom = 0.676
+margin_left = -59.0
+margin_top = -24.032
+margin_right = 61.0
+margin_bottom = 23.968
 custom_fonts/font = SubResource( 4 )
 text = "Clear"
 align = 1
@@ -196,16 +222,15 @@ rect_scale = Vector2( 7.5, 7.5 )
 texture_normal = ExtResource( 10 )
 texture_pressed = ExtResource( 11 )
 
-[node name="Label" type="Label" parent="Control/NinePatchRect/ClearSlot3"]
-anchor_left = 0.483
-anchor_top = 0.5
-anchor_right = 0.483
-anchor_bottom = 0.5
-margin_left = -6.199
-margin_top = -2.552
-margin_right = 24.801
-margin_bottom = 13.448
-rect_scale = Vector2( 0.4, 0.4 )
+[node name="Label3" type="Label" parent="Control/NinePatchRect"]
+anchor_left = 0.818
+anchor_top = 0.676
+anchor_right = 0.818
+anchor_bottom = 0.676
+margin_left = -60.064
+margin_top = -24.032
+margin_right = 59.936
+margin_bottom = 23.968
 custom_fonts/font = SubResource( 4 )
 text = "Clear"
 align = 1
@@ -350,6 +375,7 @@ align = 1
 [connection signal="pressed" from="Control/NinePatchRect/CharacterSlot3" to="Control" method="_on_CharacterSlot3_pressed"]
 [connection signal="pressed" from="Control/NinePatchRect/CloseButtonMainUI" to="Control" method="_on_CloseButtonMainUI_pressed"]
 [connection signal="pressed" from="Control/NinePatchRect/ClearSlot1" to="Control" method="_on_ClearSlot1_pressed"]
+[connection signal="pressed" from="Control/NinePatchRect/EnterLevelButton" to="Control" method="_on_ClearSlot1_pressed"]
 [connection signal="pressed" from="Control/NinePatchRect/ClearSlot2" to="Control" method="_on_ClearSlot2_pressed"]
 [connection signal="pressed" from="Control/NinePatchRect/ClearSlot3" to="Control" method="_on_ClearSlot3_pressed"]
 [connection signal="pressed" from="Control/CharacterOptionsList/CharacterPlayer" to="Control" method="_on_CharacterPlayer_pressed"]

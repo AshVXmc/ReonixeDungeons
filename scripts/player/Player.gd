@@ -19,6 +19,7 @@ signal change_elegance(action_name)
 signal change_hitcount(amount)
 signal force_character_swap(index)
 signal reduce_skill_cd(character_name, skill_type, amount_in_seconds)
+signal reduce_endurance(amount)
 var target
 var can_use_slash_flurry : bool = false
 var attack_area_overlaps_enemy : bool 
@@ -161,6 +162,7 @@ func _ready():
 	connect("change_hitcount", get_parent().get_node("EleganceMeterUI/Control"), "hitcount_changed")
 	connect("ready_to_be_switched_in", get_parent().get_node("SkillsUI/Control"), "flicker_icon")
 	connect("action", Global, "parse_action")
+	connect("reduce_endurance", get_parent().get_node("SkillsUI/Control"), "reduce_endurance")
 	connect("perfect_dash", get_parent().get_node("PauseUI/PerfectDash"), "trigger_perfect_dash_animation")
 	connect("ingredient_obtained", get_parent().get_node("InventoryUI/Control"), "on_ingredient_obtained")
 	emit_signal("ingredient_obtained", "common_dust", Global.common_monster_dust_amount)
@@ -285,7 +287,7 @@ func _physics_process(_delta):
 				else:
 					SPEED = 380
 				
-				if Input.is_action_just_pressed("right") or Input.is_action_just_pressed("left"):
+				if Input.is_action_just_pressed("right") or Input.is_action_just_pressed("left") and attack_string_count != 3:
 					attack_string_count = 4
 				# Movement controls
 				if velocity.x == 0 and !is_attacking and !is_gliding and !is_frozen:
@@ -648,6 +650,7 @@ func charged_attack(type : String = "Ground"):
 				else:
 					$ChargedAttackCollision.remove_from_group("IsCritHit")
 					$ChargedAttackCollision.add_to_group(str(ATTACK * (Global.player_skill_multipliers["ChargedAttack"] / 100) * crit_dmg))
+				emit_signal("reduce_endurance", 50)
 		$ChargedAttackCollision/CollisionShape2D.disabled = false
 		var hitparticle = SWORD_HIT_PARTICLE.instance()
 		hitparticle.emitting = true
@@ -716,18 +719,18 @@ func charged_attack(type : String = "Ground"):
 			num_of_slashes += 1
 		
 		emit_signal("change_elegance", "ChargedAttackLight")
-		change_mana_value(0.25)
+		change_mana_value(0.2)
 		yield(get_tree().create_timer(0.1), "timeout")
 		emit_signal("change_elegance", "ChargedAttackLight")
-		change_mana_value(0.25)
+		change_mana_value(0.2)
 		yield(get_tree().create_timer(0.1), "timeout")
 		emit_signal("change_elegance", "ChargedAttackLight")
-		change_mana_value(0.25)
+		change_mana_value(0.2)
 		yield(get_tree().create_timer(0.1), "timeout")
 		emit_signal("change_elegance", "ChargedAttackLight")
-		change_mana_value(0.25)
+		change_mana_value(0.2)
 		yield(get_tree().create_timer(0.1), "timeout")
-		change_mana_value(0.5)
+		change_mana_value(0.45)
 		emit_signal("change_elegance", "ChargedAttackHeavy")
 		emit_signal("reduce_skill_cd", "Player", "PrimarySkill", 4)
 		emit_signal("reduce_skill_cd", "Player", "SecondarySkill", 2)
@@ -1189,7 +1192,7 @@ func _on_AttackCollision_area_entered(area):
 							emit_signal("reduce_skill_cd", "Player", "PrimarySkill", 1)
 							emit_signal("reduce_skill_cd", "Player", "SecondarySkill", 1)
 					emit_signal("change_elegance", "BasicAttack")
-					change_mana_value(0.25)
+					change_mana_value(0.2)
 					$ManaRegenDelay.start()
 				if weakref(area).get_ref() != null:
 					var slashparticle = SWORD_SLASH_EFFECT.instance()
@@ -1603,9 +1606,7 @@ func debug_commands(cmd : String):
 			for enemy in get_tree().get_nodes_in_group("Enemy"):
 				enemy.queue_free()
 # Utility functions
-func door_opening():
-	is_shopping = true
-	
+
 func toggle_shopping(value : bool):
 	is_shopping = value
 

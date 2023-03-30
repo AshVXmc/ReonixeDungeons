@@ -18,7 +18,7 @@ const multiplier : int = 10
 
 func _ready():
 	update_character_ui()
-	update_maximum_dash_meter_capacity()
+	update_maximum_endurance_ui()
 	Global.current_character = character1
 	print("Currently: " + Global.current_character)
 	connect("ability_on_cooldown", get_parent().get_parent().get_node("Player"), "ability_on_entering_cooldown")
@@ -32,8 +32,8 @@ func _ready():
 	icelance_ui.max_value = Global.glaciela_skill_multipliers["IceLanceCD"] * multiplier
 	icelance_ui.value = Global.glaciela_skill_multipliers["IceLanceCD"] * multiplier
 
-func update_maximum_dash_meter_capacity():
-	$DashSkill/TextureProgress.max_value = Global.max_dash_meter
+func update_maximum_endurance_ui():
+	$EnduranceMeter/TextureProgress.max_value = Global.max_endurance
 func update_swap_character_status():
 	can_swap_character = true if !can_swap_character else false
 	if can_swap_character:
@@ -215,33 +215,42 @@ func _process(delta):
 
 
 func reduce_skill_cooldown(character_name : String = "All", skill_type : String = "PrimarySkill", amount_in_seconds : float = 1.0):
-	
+	var amount : float = amount_in_seconds * multiplier
 	match character_name:
 		"All":
-			firesaw_ui.value += amount_in_seconds * multiplier
-			firefairy_ui.value += amount_in_seconds * multiplier
-			winterqueen_ui.value += amount_in_seconds * multiplier
-			icelance_ui.value += amount_in_seconds * multiplier
+			firesaw_ui.value += amount
+			firefairy_ui.value += amount
+			winterqueen_ui.value += amount
+			icelance_ui.value += amount
 		"PrimariesOnly":
-			firesaw_ui.value += amount_in_seconds * multiplier
-			winterqueen_ui.value += amount_in_seconds * multiplier
+			firesaw_ui.value += amount
+			winterqueen_ui.value += amount
 		"SecondariesOnly":
-			firefairy_ui.value += amount_in_seconds * multiplier
-			icelance_ui.value += amount_in_seconds * multiplier
+			firefairy_ui.value += amount
+			icelance_ui.value += amount
 		"Player":
 			if Global.equipped_characters.has("Player"):
 				if skill_type == "PrimarySkill":
-					firesaw_ui.value += amount_in_seconds * multiplier
+					firesaw_ui.value += amount
 				elif skill_type == "SecondarySkill":
-					firefairy_ui.value += amount_in_seconds * multiplier
+					firefairy_ui.value += amount
 		"Glaciela":
 			if Global.equipped_characters.has("Glaciela"):
 				if skill_type == "PrimarySkill":
-					winterqueen_ui.value += amount_in_seconds * multiplier
+					winterqueen_ui.value += amount
 				elif skill_type == "SecondarySkill":
-					icelance_ui.value += amount_in_seconds * multiplier
+					icelance_ui.value += amount
 
 func _on_CooldownTickTimer_timeout():
 	if Global.equipped_characters.has("Player"):
-		firesaw_ui.value += 1 * multiplier
-		firefairy_ui.value += 1 * multiplier
+		firesaw_ui.value += 1 
+		firefairy_ui.value += 1 
+	if Global.equipped_characters.has("Glaciela"):
+		winterqueen_ui.value += 1 
+		icelance_ui.value += 1 
+
+func reduce_endurance(amount : int):
+	$EnduranceMeter/TextureProgress.value -= amount
+
+func _on_EnduranceRegenTimer_timeout():
+	$EnduranceMeter/TextureProgress.value += 2

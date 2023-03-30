@@ -7,7 +7,7 @@ var character_2_max_hearts : float = 2
 var character_3_max_hearts : float = 2
 var elegance_rank : String 
 var enemy_level_index : int = 2
-var max_dash_meter : int = 100
+var max_endurance : int = 100
 func _ready():
 	print(Time.get_date_dict_from_system())
 
@@ -25,11 +25,11 @@ var mana : float = max_mana
 var attack_power : int = 50
 var player_skill_multipliers : Dictionary = {
 	"BaseHearts": 2.5,
-	"BasicAttack": 25.0,
-	"BasicAttack2": 30.0,
-	"BasicAttack3": 35.0,
-	"BasicAttack4": 50.5,
-	"ChargedAttack": 45.5,
+	"BasicAttack": 15.0,
+	"BasicAttack2": 20.0,
+	"BasicAttack3": 25.0,
+	"BasicAttack4": 50.0,
+	"ChargedAttack": 40.0,
 	"ThrustChargedAttack": 69.5,
 	"UpwardsChargedAttack": 28.0, # x 2
 	"DownwardsChargedAttack": 56.0,
@@ -44,7 +44,7 @@ var player_skill_multipliers : Dictionary = {
 	"SlashFlurryEnergyCost": 200,
 	"FireSaw": 35.0,
 	"FireFairy": 22.0,
-	"FireSawCost": 12,
+	"FireSawCost": 15,
 	"FireFairyCost": 2,
 	"FireSawCD": 30.0,
 	"FireFairyCD": 8.0,
@@ -63,8 +63,8 @@ var glaciela_attack : int = 50
 var glaciela_skill_multipliers : Dictionary = {
 	"BasicAttack":  30.0,
 	"BasicAttack2": 35.0,
-	"BasicAttack3": 45.0,
-	"BasicAttack4": 50.0,
+	"BasicAttack3": 40.0,
+	"BasicAttack4": 55.0,
 	"ChargedAttack": 45.0,
 	"SpecialAttack1_1": 38.0,
 	"SpecialAttack1_2": 42.0,
