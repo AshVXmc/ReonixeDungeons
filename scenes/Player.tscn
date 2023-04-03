@@ -27,7 +27,7 @@ radius = 37.6338
 height = 17.3718
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 33.0402, 43.7237 )
+extents = Vector2( 33.0061, 43.7237 )
 
 [sub_resource type="RectangleShape2D" id=32]
 extents = Vector2( 44.2602, 44.2034 )
@@ -1883,7 +1883,7 @@ flip_h = true
 [node name="Sprite" type="AnimatedSprite" parent="."]
 scale = Vector2( 5, 5 )
 frames = ExtResource( 1 )
-animation = "PerfectDash"
+animation = "BackwardsDash"
 playing = true
 
 [node name="KatanaSheathSprite" type="Sprite" parent="."]
@@ -1901,7 +1901,7 @@ shape = SubResource( 1 )
 [node name="AttackCollision" type="Area2D" parent="." groups=["LightPoiseDamage", "NoAirborneKnockback", "SmallEleganceValue", "Sword"]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackCollision"]
-position = Vector2( 70.4598, 0 )
+position = Vector2( 70.4257, 0 )
 shape = SubResource( 2 )
 disabled = true
 

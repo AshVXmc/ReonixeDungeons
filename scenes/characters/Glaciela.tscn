@@ -1147,7 +1147,7 @@ tracks/11/keys = {
 }
 
 [sub_resource type="RectangleShape2D" id=5]
-extents = Vector2( 63.6348, 39.1389 )
+extents = Vector2( 63.4052, 39.1389 )
 
 [sub_resource type="RectangleShape2D" id=9]
 extents = Vector2( 66.6314, 55.1411 )
@@ -1203,7 +1203,7 @@ anims/SpecialAttack1_Right = SubResource( 18 )
 [node name="AttackCollision" type="Area2D" parent="." groups=["MediumPoiseDamage", "Sword"]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackCollision"]
-position = Vector2( 86.5819, 5.05854 )
+position = Vector2( 86.3523, 5.05854 )
 shape = SubResource( 5 )
 disabled = true
 

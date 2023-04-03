@@ -172,6 +172,7 @@ func play_attack_animation(direction : String):
 					if float(groups) != 0:
 						$AttackCollision.remove_from_group(groups)
 						$AttackCollision.add_to_group(str(ATTACK * (Global.glaciela_skill_multipliers["BasicAttack"] / 100) + basic_attack_buff))
+						$AttackCollision.add_to_group("GlacielaBasicAttackOne")
 						break
 				
 				$ResetAttackStringTimer.start()
@@ -184,6 +185,7 @@ func play_attack_animation(direction : String):
 					if float(groups) != 0:
 						$AttackCollision.remove_from_group(groups)
 						$AttackCollision.add_to_group(str(ATTACK * (Global.glaciela_skill_multipliers["BasicAttack2"] / 100) + basic_attack_buff))
+						$AttackCollision.add_to_group("GlacielaBasicAttackTwo")
 						break
 				$ResetAttackStringTimer.start()
 			2:
@@ -194,6 +196,7 @@ func play_attack_animation(direction : String):
 					if float(groups) != 0:
 						$AttackCollision.remove_from_group(groups)
 						$AttackCollision.add_to_group(str(ATTACK * (Global.glaciela_skill_multipliers["BasicAttack3"] / 100) + basic_attack_buff))
+						$AttackCollision.add_to_group("GlacielaBasicAttackThree")
 						break
 				$SpecialAttackTimer.start()
 				$ResetAttackStringTimer.start()
@@ -216,6 +219,7 @@ func play_attack_animation(direction : String):
 						if float(groups) != 0:
 							$AttackCollision.remove_from_group(groups)
 							$AttackCollision.add_to_group(str(ATTACK * (Global.glaciela_skill_multipliers["BasicAttack4"] / 100) + basic_attack_buff))
+							$AttackCollision.add_to_group("GlacielaBasicAttackFour")
 							break
 #					yield(get_tree().create_timer($MeleeTimer.wait_time * 1.5), "timeout")
 #					attack_string_count = 4
@@ -234,6 +238,7 @@ func play_attack_animation(direction : String):
 					if float(groups) != 0:
 						$AttackCollision.remove_from_group(groups)
 						$AttackCollision.add_to_group(str(ATTACK * (Global.glaciela_skill_multipliers["BasicAttack"] / 100) + basic_attack_buff))
+						$AttackCollision.add_to_group("GlacielaBasicAttackOne")
 						break
 				$ResetAttackStringTimer.start()
 			3:
@@ -244,6 +249,7 @@ func play_attack_animation(direction : String):
 					if float(groups) != 0:
 						$AttackCollision.remove_from_group(groups)
 						$AttackCollision.add_to_group(str(ATTACK * (Global.glaciela_skill_multipliers["BasicAttack2"] / 100) + basic_attack_buff))
+						$AttackCollision.add_to_group("GlacielaBasicAttackTwo")
 						break
 				$ResetAttackStringTimer.start()
 			2:
@@ -254,6 +260,7 @@ func play_attack_animation(direction : String):
 					if float(groups) != 0:
 						$AttackCollision.remove_from_group(groups)
 						$AttackCollision.add_to_group(str(ATTACK * (Global.glaciela_skill_multipliers["BasicAttack3"] / 100) + basic_attack_buff))
+						$AttackCollision.add_to_group("GlacielaBasicAttackThree")
 						break
 				$SpecialAttackTimer.start()
 				$ResetAttackStringTimer.start()
@@ -277,6 +284,7 @@ func play_attack_animation(direction : String):
 						if float(groups) != 0:
 							$AttackCollision.remove_from_group(groups)
 							$AttackCollision.add_to_group(str(ATTACK * (Global.glaciela_skill_multipliers["BasicAttack4"] / 100) + basic_attack_buff))
+							$AttackCollision.add_to_group("GlacielaBasicAttackFour")
 							break
 #					yield(get_tree().create_timer($MeleeTimer.wait_time * 1.5), "timeout")
 #					attack_string_count = 4

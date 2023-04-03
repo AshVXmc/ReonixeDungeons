@@ -27,6 +27,11 @@ animations = [ {
 "name": "AttackUp",
 "speed": 15.0
 }, {
+"frames": [ ExtResource( 4 ) ],
+"loop": false,
+"name": "BackwardsDash",
+"speed": 1.0
+}, {
 "frames": [ ExtResource( 14 ) ],
 "loop": false,
 "name": "Dash",
@@ -61,11 +66,6 @@ animations = [ {
 "loop": true,
 "name": "Idle",
 "speed": 5.0
-}, {
-"frames": [ ExtResource( 4 ) ],
-"loop": false,
-"name": "PerfectDash",
-"speed": 1.0
 }, {
 "frames": [ ExtResource( 1 ), ExtResource( 5 ), ExtResource( 3 ) ],
 "loop": true,

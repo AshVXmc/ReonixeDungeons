@@ -53,7 +53,7 @@ var dashdirection : Vector2 = Vector2(1,0)
 var repulsion : Vector2 = Vector2()
 var knockback_power : int = 500
 var can_be_knocked : bool = true
-var SPEED : int = 380
+var SPEED : int = 400
 const GRAVITY : int = 38
 var JUMP_POWER : int = -1100
 var waiting_for_quickswap : bool = false
@@ -905,7 +905,7 @@ func sheathe_katana():
 			print("SHEATHING")
 			$KatanaSheatheWindowTimer.start()
 
-func calculate_damage(slash_animation : String , slash_direction_animation : String, attack_string : String, airborne_attack_string : String):
+func calculate_damage(slash_animation : String , slash_direction_animation : String, attack_string : String, airborne_attack_string : String, hit_id : String = ""):
 	$ResetAttackStringTimer.stop()
 	$AnimationPlayer.play(slash_animation)
 
@@ -915,6 +915,7 @@ func calculate_damage(slash_animation : String , slash_direction_animation : Str
 	for groups in $AttackCollision.get_groups():
 		if float(groups) != 0:
 			$AttackCollision.remove_from_group(groups)
+			$AttackCollision.add_to_group(hit_id)
 			var crit_dmg : float = 1.0
 			if is_a_critical_hit():
 				crit_dmg = (Global.player_skill_multipliers["CritDamage"] / 100 + 1)
@@ -936,11 +937,11 @@ func play_attack_animation(direction : String):
 		match attack_string_count:
 			4:
 				
-				calculate_damage("SwordSwingRight", "RightSlash", "BasicAttack", "AirborneBasicAttack")
+				calculate_damage("SwordSwingRight", "RightSlash", "BasicAttack", "AirborneBasicAttack", "PlayerBasicAttackOne")
 			3:
-				calculate_damage("SwordSwingRight2", "RightSlash", "BasicAttack2", "AirborneBasicAttack2")
+				calculate_damage("SwordSwingRight2", "RightSlash", "BasicAttack2", "AirborneBasicAttack2", "PlayerBasicAttackTwo")
 			2:
-				calculate_damage("SwordSwingRight3", "RightSlash", "BasicAttack3", "AirborneBasicAttack3")
+				calculate_damage("SwordSwingRight3", "RightSlash", "BasicAttack3", "AirborneBasicAttack3", "PlayerBasicAttackThree")
 			1:
 				$AnimationPlayer.play("SwordSwingRight4")
 				attack_string_count -= 1
@@ -949,6 +950,7 @@ func play_attack_animation(direction : String):
 				for groups in $AttackCollision.get_groups():
 					if float(groups) != 0:
 						$AttackCollision.remove_from_group(groups)
+						$AttackCollision.add_to_group("PlayerBasicAttackFour")
 						var crit_dmg : float = 1.0
 						if is_a_critical_hit():
 							crit_dmg = (Global.player_skill_multipliers["CritDamage"] / 100 + 1)
@@ -971,17 +973,18 @@ func play_attack_animation(direction : String):
 	elif direction == "Left":
 		match attack_string_count:
 			4:
-				calculate_damage("SwordSwingLeft", "LeftSlash", "BasicAttack", "AirborneBasicAttack")
+				calculate_damage("SwordSwingLeft", "LeftSlash", "BasicAttack", "AirborneBasicAttack", "PlayerBasicAttackOne")
 			3:
-				calculate_damage("SwordSwingLeft2", "LeftSlash", "BasicAttack2", "AirborneBasicAttack2")
+				calculate_damage("SwordSwingLeft2", "LeftSlash", "BasicAttack2", "AirborneBasicAttack2", "PlayerBasicAttackTwo")
 			2:
-				calculate_damage("SwordSwingLeft3", "LeftSlash", "BasicAttack3", "AirborneBasicAttack3")
+				calculate_damage("SwordSwingLeft3", "LeftSlash", "BasicAttack3", "AirborneBasicAttack3", "PlayerBasicAttackThree")
 			1:
 				$AnimationPlayer.play("SwordSwingLeft4")
 				attack_string_count -= 1
 				for groups in $AttackCollision.get_groups():
 					if float(groups) != 0:
 						$AttackCollision.remove_from_group(groups)
+						$AttackCollision.add_to_group("PlayerBasicAttackFour")
 						var crit_dmg : float = 1.0
 						if is_a_critical_hit():
 							crit_dmg = (Global.player_skill_multipliers["CritDamage"] / 100 + 1)
@@ -1293,7 +1296,7 @@ func _on_RightDectector_area_entered(area):
 
 func dash():
 	
-	if Global.dash_unlocked and !is_frozen and !is_thrust_attacking:
+	if Global.dash_unlocked and !is_frozen and !is_thrust_attacking and !$DashCooldown.is_stopped():
 		is_dashing = true
 		if $DashUseTimer.is_stopped():
 			can_dash = true
@@ -1318,18 +1321,21 @@ func dash():
 			if !$HeightRaycast2D.is_colliding():
 				airborne_mode = true
 				$AirborneMaxDuration.start()
-			if !Input.is_action_pressed("ui_down"):
-				if perfect_dash and !airborne_mode and is_on_floor() and !Input.is_action_pressed("left") and !Input.is_action_pressed("right"):
+			if !Input.is_action_pressed("ui_down"): 
+				if !Input.is_action_pressed("right") and !Input.is_action_pressed("left"):
 					velocity.y = 0
-					$Sprite.play("PerfectDash")
+					$Sprite.play("BackwardsDash")
 					velocity = dashdirection.normalized() * -2000
-					can_use_slash_flurry = true
-					emit_signal("change_elegance", "PerfectDash")
-					$DashCounterAttackTimer.start()
+					if perfect_dash and !airborne_mode and is_on_floor():
+					
+						can_use_slash_flurry = true
+						emit_signal("change_elegance", "PerfectDash")
+						$DashCounterAttackTimer.start()
 				else:
 					velocity.y = 0
 					$Sprite.play("Dash")
 					velocity = dashdirection.normalized() * 2500
+			
 			if Input.is_action_pressed("ui_down") and !is_on_floor():
 				airborne_mode = false
 				velocity.y = 0

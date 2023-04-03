@@ -37,7 +37,7 @@ export var Armored : bool = false
 export (String, "Physical", "Magical", "Fire", "Ice", "Earth") var Armor_Type = "Physical"
 export (int) var Armor_Durability = 100 # amount of poise/hits/elemental stacks needed to break the shield
 export (float, 1.0) var Armor_Strength = 0.9 # total damage reduction the shield gives (0 is none, 1 is 100% reduction)
-
+var previous_hit_id : String = ""
 var armor_strength_coefficient = 1 # default value so it doesn't throw an error
 							
 
@@ -207,7 +207,7 @@ func _on_Area2D_area_entered(area):
 	else:
 		if area.is_in_group("LightPoiseDamage"):
 			knockback(1.5)
-	
+
 	if area.is_in_group("MediumPoiseDamage"):
 		knockback(4.2)
 	if area.is_in_group("HeavyPoiseDamage"):
@@ -216,7 +216,12 @@ func _on_Area2D_area_entered(area):
 		if area.is_in_group("Sword"):
 			var groups : Array = area.get_groups()
 			for group_names in groups:
-				if float(group_names) != 0:
+				if float(group_names) == 0 and "BasicAttack" in group_names:
+					if group_names == previous_hit_id:
+						$HitDelayTimer.start()
+					previous_hit_id = group_names
+						
+				if float(group_names) != 0 and $HitDelayTimer.is_stopped():
 					var raw_damage = float(group_names)
 #						if poise < MAX_POISE:
 #							poise += 0.2 * MAX_POISE
@@ -231,7 +236,7 @@ func _on_Area2D_area_entered(area):
 						add_damage_particles("Physical", float(damage), false)
 
 					parse_damage()
-					
+					previous_hit_id = ""
 					break
 	
 		if area.is_in_group("SwordCharged"):

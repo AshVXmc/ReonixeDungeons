@@ -471,6 +471,10 @@ position = Vector2( -79.9338, 3.80636 )
 shape = SubResource( 14 )
 disabled = true
 
+[node name="HitDelayTimer" type="Timer" parent="."]
+wait_time = 0.07
+one_shot = true
+
 [connection signal="area_exited" from="Left" to="." method="_on_Left_area_exited"]
 [connection signal="area_exited" from="Right" to="." method="_on_Right_area_exited"]
 [connection signal="area_entered" from="Area2D" to="." method="_on_Area2D_area_entered"]

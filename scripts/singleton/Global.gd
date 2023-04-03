@@ -61,9 +61,9 @@ var player_skill_multipliers : Dictionary = {
 
 var glaciela_attack : int = 50
 var glaciela_skill_multipliers : Dictionary = {
-	"BasicAttack":  30.0,
-	"BasicAttack2": 35.0,
-	"BasicAttack3": 40.0,
+	"BasicAttack":  20.0,
+	"BasicAttack2": 30.0,
+	"BasicAttack3": 35.0,
 	"BasicAttack4": 55.0,
 	"ChargedAttack": 45.0,
 	"SpecialAttack1_1": 38.0,
