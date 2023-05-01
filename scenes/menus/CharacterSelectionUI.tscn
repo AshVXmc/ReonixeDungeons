@@ -235,6 +235,34 @@ custom_fonts/font = SubResource( 4 )
 text = "Clear"
 align = 1
 
+[node name="Label4" type="Label" parent="Control/NinePatchRect"]
+anchor_left = 0.5
+anchor_top = 0.944
+anchor_right = 0.5
+anchor_bottom = 0.944
+margin_left = -106.0
+margin_top = -51.808
+margin_right = 107.0
+margin_bottom = -3.80801
+custom_fonts/font = SubResource( 4 )
+text = "Enter Stage"
+align = 1
+
+[node name="PartyCannotBeEmptyLabel" type="Label" parent="Control/NinePatchRect"]
+visible = false
+anchor_left = 0.5
+anchor_top = 1.093
+anchor_right = 0.5
+anchor_bottom = 1.093
+margin_left = -210.0
+margin_top = -39.176
+margin_right = 210.0
+margin_bottom = 8.82397
+custom_colors/font_color = Color( 1, 0, 0, 1 )
+custom_fonts/font = SubResource( 4 )
+text = "Party cannot be empty."
+align = 1
+
 [node name="CharacterOptionsList" type="Control" parent="Control"]
 visible = false
 anchor_left = 0.5
@@ -375,7 +403,7 @@ align = 1
 [connection signal="pressed" from="Control/NinePatchRect/CharacterSlot3" to="Control" method="_on_CharacterSlot3_pressed"]
 [connection signal="pressed" from="Control/NinePatchRect/CloseButtonMainUI" to="Control" method="_on_CloseButtonMainUI_pressed"]
 [connection signal="pressed" from="Control/NinePatchRect/ClearSlot1" to="Control" method="_on_ClearSlot1_pressed"]
-[connection signal="pressed" from="Control/NinePatchRect/EnterLevelButton" to="Control" method="_on_ClearSlot1_pressed"]
+[connection signal="pressed" from="Control/NinePatchRect/EnterLevelButton" to="Control" method="_on_EnterLevelButton_pressed"]
 [connection signal="pressed" from="Control/NinePatchRect/ClearSlot2" to="Control" method="_on_ClearSlot2_pressed"]
 [connection signal="pressed" from="Control/NinePatchRect/ClearSlot3" to="Control" method="_on_ClearSlot3_pressed"]
 [connection signal="pressed" from="Control/CharacterOptionsList/CharacterPlayer" to="Control" method="_on_CharacterPlayer_pressed"]

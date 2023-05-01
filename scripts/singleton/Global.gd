@@ -1,16 +1,15 @@
 extends Node 
 
 # GLOBALLY ACCESSED VARIABLES
-var max_hearts : float = 2
+var max_hearts : float = 1
 var hearts : float = max_hearts
-var character_2_max_hearts : float = 2
-var character_3_max_hearts : float = 2
+var character_2_max_hearts : float = 1
+var character_3_max_hearts : float = 1
 var elegance_rank : String 
-var enemy_level_index : int = 2
+var enemy_level_index : int = 1
 var max_endurance : int = 100
 func _ready():
 	print(Time.get_date_dict_from_system())
-
 
 # C tier has 50, B tier has 75, A tier has 125, S tier has 175, SS has 200 SSS has 250
 
@@ -33,8 +32,8 @@ var player_skill_multipliers : Dictionary = {
 	"ThrustChargedAttack": 69.5,
 	"UpwardsChargedAttack": 28.0, # x 2
 	"DownwardsChargedAttack": 56.0,
-	"SpecialChargedAttack": 45.5, # x 4
-	"SpecialChargedAttackFinalStrike": 135.0,
+	"SpecialChargedAttack": 30.0 ,# x 4
+	"SpecialChargedAttackFinalStrike": 140.0,
 	"CircularFlurryAttack": 28.0,
 	"AirborneBasicAttack": 30.0,
 	"AirborneBasicAttack2": 35.0,
@@ -53,8 +52,8 @@ var player_skill_multipliers : Dictionary = {
 	"BaseFireRes": 0.0,
 	"BaseEarthRes": 0.0,
 	"BaseIceRes": 0.0,
-	"CritRate": 20.0,
-	"CritDamage": 150.0,
+	"CritRate": 15.0,
+	"CritDamage": 100.0,
 	"Birthday": [21,11]
 }
 
@@ -65,9 +64,12 @@ var glaciela_skill_multipliers : Dictionary = {
 	"BasicAttack2": 30.0,
 	"BasicAttack3": 35.0,
 	"BasicAttack4": 55.0,
-	"ChargedAttack": 45.0,
+	"ChargedAttack": 35.0,
 	"SpecialAttack1_1": 38.0,
 	"SpecialAttack1_2": 42.0,
+	"SpecialAttack2_1": 18.5,
+	"SpecialAttack2_2": 18.5,
+	"SpecialAttack2_3": 38.0,
 	"TundraSigilDMGBonus": 12.0,
 	"TundraSigilFreezeStackBonus": 20,
 	"TundraSigilManaBonus": 0.75,

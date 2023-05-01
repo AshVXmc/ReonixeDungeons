@@ -472,7 +472,7 @@ shape = SubResource( 14 )
 disabled = true
 
 [node name="HitDelayTimer" type="Timer" parent="."]
-wait_time = 0.07
+wait_time = 0.06
 one_shot = true
 
 [connection signal="area_exited" from="Left" to="." method="_on_Left_area_exited"]

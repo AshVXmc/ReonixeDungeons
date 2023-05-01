@@ -10,15 +10,19 @@ var picked_slot : int
 const PLAYER_ICON = preload("res://assets/UI/player_character_icon.png")
 const GLACIELA_ICON = preload("res://assets/UI/glaciela_character_icon.png")
 const EMPTY_ICON = preload("res://assets/UI/empty_character_icon.png")
-# FOR DEBUGGING PURPOSES
-func _physics_process(delta):
-	if Input.is_action_just_pressed("ui_cancel"):
-		print(equipped_characters)
+signal chosen_party_members(slot_one, slot_two, slot_three)
 
 func _ready():
 	visible = false
 	# Comment the initialize UI function when done.
 #	initialize_ui()
+	connect("chosen_party_members", get_parent().get_parent(), "load_next_scene")
+
+# FOR DEBUGGING PURPOSES
+#func _physics_process(delta):
+#	if Input.is_action_just_pressed("ui_cancel"):
+#		print(equipped_characters)
+
 
 func initialize_ui():
 	visible = true
@@ -135,3 +139,19 @@ func _on_ClearSlot3_pressed():
 	equipped_characters.insert(2, "")
 	$NinePatchRect/CharacterSlot3.texture_normal = EMPTY_ICON
 	update_equipped_characters_ui()
+
+func party_is_empty():
+	if equipped_characters[0] == "" and  equipped_characters[1] == "" and equipped_characters[2] == "":
+		return true
+	else:
+		return false
+
+func _on_EnterLevelButton_pressed():
+	if !party_is_empty():
+		emit_signal("chosen_party_members", equipped_characters[0], equipped_characters[1], equipped_characters[2])
+		visible = false
+		get_tree().paused = false
+	else:
+		$NinePatchRect/PartyCannotBeEmptyLabel.visible = true
+		yield(get_tree().create_timer(2.0), "timeout")
+		$NinePatchRect/PartyCannotBeEmptyLabel.visible = false

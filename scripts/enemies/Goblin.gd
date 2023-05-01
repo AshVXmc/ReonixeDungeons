@@ -5,7 +5,7 @@ const SWORD_HIT_PARTICLE : PackedScene = preload("res://scenes/particles/SwordHi
 const DEATH_SMOKE : PackedScene = preload("res://scenes/particles/DeathSmokeParticle.tscn")
 onready var max_HP : int = 120 + (Global.enemy_level_index * 40)
 onready var level : int = round(Global.enemy_level_index)
-var atk_value : float = 0.25 * Global.enemy_level_index
+var atk_value : float = 0.1 * Global.enemy_level_index
 onready var HP : int = max_HP
 export var flipped : bool = false
 var velocity = Vector2()
@@ -37,7 +37,7 @@ export var Armored : bool = false
 export (String, "Physical", "Magical", "Fire", "Ice", "Earth") var Armor_Type = "Physical"
 export (int) var Armor_Durability = 100 # amount of poise/hits/elemental stacks needed to break the shield
 export (float, 1.0) var Armor_Strength = 0.9 # total damage reduction the shield gives (0 is none, 1 is 100% reduction)
-var previous_hit_id : String = ""
+var previous_hit_id : String 
 var armor_strength_coefficient = 1 # default value so it doesn't throw an error
 							
 
@@ -216,10 +216,14 @@ func _on_Area2D_area_entered(area):
 		if area.is_in_group("Sword"):
 			var groups : Array = area.get_groups()
 			for group_names in groups:
-				if float(group_names) == 0 and "BasicAttack" in group_names:
-					if group_names == previous_hit_id:
-						$HitDelayTimer.start()
-					previous_hit_id = group_names
+#				if float(group_names) == 0 and "BasicAttack" in group_names:
+#					if group_names == previous_hit_id:
+#						$HitDelayTimer.start()
+#						previous_hit_id = group_names
+#					else:
+#						previous_hit_id = group_names
+#					print(previous_hit_id)
+
 						
 				if float(group_names) != 0 and $HitDelayTimer.is_stopped():
 					var raw_damage = float(group_names)
@@ -234,9 +238,9 @@ func _on_Area2D_area_entered(area):
 						add_damage_particles("Physical", float(damage), true)
 					else:
 						add_damage_particles("Physical", float(damage), false)
-
+					$HitDelayTimer.start()
 					parse_damage()
-					previous_hit_id = ""
+
 					break
 	
 		if area.is_in_group("SwordCharged"):

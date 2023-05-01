@@ -51,7 +51,7 @@ const TYPE : String = "Player"
 const AIRBORNE_STATUS : PackedScene = preload("res://scenes/status_effects/AirborneStatus.tscn")
 var dashdirection : Vector2 = Vector2(1,0)
 var repulsion : Vector2 = Vector2()
-var knockback_power : int = 500
+var knockback_power : int = 800
 var can_be_knocked : bool = true
 var SPEED : int = 400
 const GRAVITY : int = 38
@@ -61,6 +61,7 @@ var is_thrust_attacking : bool = false
 var energy_full : bool 
 var is_dash_counter_attacking : bool = false
 var facing 
+
 enum {
 	left, right
 }
@@ -1280,6 +1281,7 @@ func _on_LeftDetector_area_entered(area):
 	if !Global.godmode and !is_thrust_attacking:
 		if $KnockbackCooldownTimer.is_stopped() and !is_invulnerable and area.is_in_group("Enemy") or area.is_in_group("Enemy2") and !is_knocked_back:
 			yield(get_tree().create_timer(0.1),"timeout")
+
 			velocity.x = 0
 			if !airborne_mode:
 				velocity.x = knockback_power
@@ -1288,6 +1290,7 @@ func _on_RightDectector_area_entered(area):
 	if !Global.godmode and !is_thrust_attacking:
 		if $KnockbackCooldownTimer.is_stopped() and !is_invulnerable and area.is_in_group("Enemy") or area.is_in_group("Enemy2") and !is_knocked_back:
 			yield(get_tree().create_timer(0.1),"timeout")
+
 			velocity.x = 0
 			if !airborne_mode:
 				velocity.x = -knockback_power
@@ -1297,7 +1300,6 @@ func _on_RightDectector_area_entered(area):
 func dash():
 	
 	if Global.dash_unlocked and !is_frozen and !is_thrust_attacking and !$DashCooldown.is_stopped():
-		is_dashing = true
 		if $DashUseTimer.is_stopped():
 			can_dash = true
 		if !$Sprite.flip_h:
@@ -1829,7 +1831,7 @@ func _on_AirborneMaxDuration_timeout():
 
 
 func _on_GhostTrailTimer_timeout():
-	if Global.current_character == "Player" and is_dashing:
+	if Global.current_character == "Player" and is_dashing and velocity.x != 0:
 		var ghost_trail = preload("res://scenes/misc/GhostTrail.tscn").instance()
 		var texture = preload("res://assets/player/player_dash.png")
 		
@@ -1844,6 +1846,7 @@ func _on_GhostTrailTimer_timeout():
 		ghost_trail.scale.x = 5
 		ghost_trail.scale.y = 5
 	
+
 
 
 func _on_ResetAttackStringTimer_timeout():
