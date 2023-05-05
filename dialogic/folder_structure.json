@@ -10,7 +10,18 @@
 				"character-1673447896.json"
 			],
 			"folders": {
+				"Interactables": {
+					"files": [
+						"character-1683004135.json"
+					],
+					"folders": {
 
+					},
+					"metadata": {
+						"color": null,
+						"folded": false
+					}
+				}
 			},
 			"metadata": {
 				"color": null,
@@ -46,7 +57,18 @@
 				"timeline-1673352477.json"
 			],
 			"folders": {
+				"Interactables": {
+					"files": [
+						"timeline-1683094805.json"
+					],
+					"folders": {
 
+					},
+					"metadata": {
+						"color": null,
+						"folded": false
+					}
+				}
 			},
 			"metadata": {
 				"color": null,

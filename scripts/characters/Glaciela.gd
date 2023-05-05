@@ -340,7 +340,7 @@ func charged_attack(airborne_duration : float = 1, type : int = 1):
 	if $KnockAirborneICD.is_stopped() and get_parent().get_parent().is_on_floor() and Input.is_action_pressed("ui_attack") and $InputPressTimer.is_stopped() and !is_performing_charged_attack:
 		attack_string_count = 4
 #		airborne_mode = false
-#		is_performing_charged_attack = true
+		is_performing_charged_attack = true
 		if !$AnimatedSprite.flip_h:
 			print("Played anim")
 			$AnimationPlayer.play("ChargedAttackRight")
@@ -399,6 +399,7 @@ func charged_attack(airborne_duration : float = 1, type : int = 1):
 								print("b")
 							break
 			Input.action_release("ui_attack")
+			is_performing_charged_attack = false
 
 func special_attack_1_damage_calc(sequence : int = 1):
 	for groups in $SpecialAttackArea2D.get_groups():

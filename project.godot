@@ -245,6 +245,16 @@ _global_script_classes=[ {
 "path": "res://scripts/gacha/GashaponMachine.gd"
 }, {
 "base": "Node2D",
+"class": "GenericInteractLabel",
+"language": "GDScript",
+"path": "res://scripts/terrain/GenericInteractLabel.gd"
+}, {
+"base": "Node2D",
+"class": "GenericInteractable",
+"language": "GDScript",
+"path": "res://scripts/terrain/GenericInteractable.gd"
+}, {
+"base": "Node2D",
 "class": "GenericNPC",
 "language": "GDScript",
 "path": "res://scripts/NPCs/GenericNPC.gd"
@@ -557,6 +567,8 @@ _global_script_class_icons={
 "FruitBat": "",
 "GameOver": "",
 "GashaponMachine": "",
+"GenericInteractLabel": "",
+"GenericInteractable": "",
 "GenericNPC": "",
 "GenericSpike": "",
 "GenericSpikeCorner": "",

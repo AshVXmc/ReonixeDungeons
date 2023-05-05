@@ -57,16 +57,6 @@
 			"text": "I ain't complainin' that much,though. Its good for business."
 		},
 		{
-			"call_node": {
-				"arguments": [
-
-				],
-				"method_name": "unstuck_player",
-				"target_node_path": "../../../Shopkeeper"
-			},
-			"event_id": "dialogic_042"
-		},
-		{
 			"choice": "Nevermind.",
 			"condition": "",
 			"definition": "",
@@ -78,31 +68,11 @@
 			"event_id": "dialogic_001",
 			"portrait": "",
 			"text": "Come back anytime."
-		},
-		{
-			"call_node": {
-				"arguments": [
-
-				],
-				"method_name": "unstuck_player",
-				"target_node_path": "../../../Shopkeeper"
-			},
-			"event_id": "dialogic_042"
 		},
 		{
 			"event_id": "dialogic_013"
 		},
 		{
-			"call_node": {
-				"arguments": [
-
-				],
-				"method_name": "unstuck_player",
-				"target_node_path": "../../../Shopkeeper"
-			},
-			"event_id": "dialogic_042"
-		},
-		{
 			"choice": "Nevermind.",
 			"condition": "",
 			"definition": "",
@@ -114,16 +84,6 @@
 			"event_id": "dialogic_001",
 			"portrait": "",
 			"text": "Come back anytime."
-		},
-		{
-			"call_node": {
-				"arguments": [
-
-				],
-				"method_name": "unstuck_player",
-				"target_node_path": "../../../Shopkeeper"
-			},
-			"event_id": "dialogic_042"
 		},
 		{
 			"event_id": "dialogic_013"

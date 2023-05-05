@@ -1615,7 +1615,7 @@ func debug_commands(cmd : String):
 				enemy.queue_free()
 # Utility functions
 
-func toggle_shopping(value : bool):
+func toggle_shopping(value : bool ):
 	is_shopping = value
 
 func freeze_player(time : float):
