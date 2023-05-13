@@ -1,4 +1,4 @@
-[gd_scene load_steps=47 format=2]
+[gd_scene load_steps=49 format=2]
 
 [ext_resource path="res://tilesets/HubLevelTileset.tres" type="TileSet" id=1]
 [ext_resource path="res://assets/terrain/deep_woods/background_deep_woods.png" type="Texture" id=2]
@@ -41,6 +41,7 @@
 [ext_resource path="res://scenes/NPC/LibrarianNPC.tscn" type="PackedScene" id=39]
 [ext_resource path="res://scenes/terrain/GenericInteractLabel.tscn" type="PackedScene" id=40]
 [ext_resource path="res://assets/terrain/hub_level/library.png" type="Texture" id=41]
+[ext_resource path="res://assets/terrain/lamp_post.png" type="Texture" id=42]
 [ext_resource path="res://scenes/menus/SkillsUI.tscn" type="PackedScene" id=43]
 [ext_resource path="res://scenes/menus/InventoryUI.tscn" type="PackedScene" id=45]
 
@@ -79,6 +80,9 @@ extents = Vector2( 381.656, 15.5452 )
 
 [sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 7.5, 5 )
+
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 4.43538, 5 )
 
 [node name="HubLevel" type="Node2D"]
 script = ExtResource( 16 )
@@ -131,10 +135,9 @@ __meta__ = {
 [node name="SceneTransition" parent="." instance=ExtResource( 15 )]
 
 [node name="Light2D" parent="." instance=ExtResource( 14 )]
-visible = false
 position = Vector2( 1751.34, 769.09 )
 scale = Vector2( 123.492, 44.8937 )
-energy = 0.65
+energy = 0.5
 mode = 1
 
 [node name="TileMap" type="TileMap" parent="."]
@@ -325,6 +328,30 @@ shape = SubResource( 3 )
 [node name="GenericInteractLabel" parent="BenchProp" instance=ExtResource( 40 )]
 scale = Vector2( 0.35, 0.35 )
 object_name = "Bench"
+
+[node name="LampPostProp" type="Sprite" parent="." groups=["Prop"]]
+position = Vector2( 584, 536.291 )
+scale = Vector2( 8.5, 8.5 )
+texture = ExtResource( 42 )
+script = ExtResource( 33 )
+dialogic_timeline = "Lamppost"
+
+[node name="Area2D" type="Area2D" parent="LampPostProp"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LampPostProp/Area2D"]
+position = Vector2( -0.0420609, 11.0588 )
+shape = SubResource( 4 )
+
+[node name="GenericInteractLabel" parent="LampPostProp" instance=ExtResource( 40 )]
+position = Vector2( 0, 9.05883 )
+scale = Vector2( 0.35, 0.35 )
+object_name = "Lamp"
+
+[node name="LampPostLight2D" type="Light2D" parent="LampPostProp"]
+position = Vector2( 0, -11.8824 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 25 )
+energy = 0.65
 
 [node name="Player" parent="." instance=ExtResource( 8 )]
 position = Vector2( 383.904, 596.291 )

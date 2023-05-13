@@ -121,7 +121,7 @@ var levelpath : String
 var is_loading_a_save : bool
 var player_position : Vector2
 var savepath : String = SAVE_DIR + "savefile.dat"
-var lighting : bool = false
+var lighting : bool = true
 var vsync : bool = false
 var activated_portals : Array
 

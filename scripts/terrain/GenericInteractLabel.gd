@@ -4,6 +4,18 @@ export(String) var object_name
 
 
 func _ready():
-#	$RichTextLabel.visible = false
+	$Label.visible = false
 	# Label displays the object name plus the selected keybind for "ui_use"
-	$RichTextLabel.bbcode_text = object_name + "[color=#315fff][" + InputMap.get_action_list("ui_use")[0].as_text() +"][/color]"
+	$Label.text = object_name + " [" + InputMap.get_action_list("ui_use")[0].as_text() +"]"
+
+
+func _on_Area2D_area_entered(area):
+	if area.is_in_group("Player"):
+		$Label.visible = true
+
+
+
+
+func _on_Area2D_area_exited(area):
+	if area.is_in_group("Player"):
+		$Label.visible = false
