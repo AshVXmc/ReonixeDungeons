@@ -13,10 +13,10 @@ extents = Vector2( 20, 20 )
 script = ExtResource( 2 )
 
 [node name="Label" type="Label" parent="."]
-margin_left = -32.8098
-margin_top = -42.2695
-margin_right = 33.1902
-margin_bottom = -25.2695
+margin_left = -47.0
+margin_top = -42.0
+margin_right = 47.0
+margin_bottom = -25.0
 custom_fonts/font = SubResource( 3 )
 text = "Inspect [R]"
 align = 1

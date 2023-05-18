@@ -121,7 +121,7 @@ var levelpath : String
 var is_loading_a_save : bool
 var player_position : Vector2
 var savepath : String = SAVE_DIR + "savefile.dat"
-var lighting : bool = true
+var lighting : bool = false
 var vsync : bool = false
 var activated_portals : Array
 
@@ -215,7 +215,7 @@ func reset_player_data():
 	Global.fire_fairy_unlocked = true
 	Global.is_loading_a_save = false
 	Global.max_item_storage = 5
-	Global.lighting = true
+	Global.lighting = false
 	Global.levelpath = ""
 	Global.enemies_killed = 0
 	Global.masked_goblin_defeated = false

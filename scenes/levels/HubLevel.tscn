@@ -1,4 +1,4 @@
-[gd_scene load_steps=49 format=2]
+[gd_scene load_steps=50 format=2]
 
 [ext_resource path="res://tilesets/HubLevelTileset.tres" type="TileSet" id=1]
 [ext_resource path="res://assets/terrain/deep_woods/background_deep_woods.png" type="Texture" id=2]
@@ -43,6 +43,7 @@
 [ext_resource path="res://assets/terrain/hub_level/library.png" type="Texture" id=41]
 [ext_resource path="res://assets/terrain/lamp_post.png" type="Texture" id=42]
 [ext_resource path="res://scenes/menus/SkillsUI.tscn" type="PackedScene" id=43]
+[ext_resource path="res://scenes/misc/BatProjectile.tscn" type="PackedScene" id=44]
 [ext_resource path="res://scenes/menus/InventoryUI.tscn" type="PackedScene" id=45]
 
 [sub_resource type="TileSet" id=1]
@@ -140,7 +141,7 @@ scale = Vector2( 123.492, 44.8937 )
 energy = 0.5
 mode = 1
 
-[node name="TileMap" type="TileMap" parent="."]
+[node name="TileMap" type="TileMap" parent="." groups=["TileMap"]]
 tile_set = ExtResource( 1 )
 cell_size = Vector2( 96, 96 )
 cell_tile_origin = 1
@@ -349,7 +350,31 @@ object_name = "Lamp"
 
 [node name="LampPostLight2D" type="Light2D" parent="LampPostProp"]
 position = Vector2( 0, -11.8824 )
-scale = Vector2( 0.5, 0.5 )
+scale = Vector2( 0.75, 0.75 )
+texture = ExtResource( 25 )
+energy = 0.65
+
+[node name="LampPostProp2" type="Sprite" parent="." groups=["Prop"]]
+position = Vector2( 1400, 536.291 )
+scale = Vector2( 8.5, 8.5 )
+texture = ExtResource( 42 )
+script = ExtResource( 33 )
+dialogic_timeline = "Lamppost"
+
+[node name="Area2D" type="Area2D" parent="LampPostProp2"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LampPostProp2/Area2D"]
+position = Vector2( -0.0420609, 11.0588 )
+shape = SubResource( 4 )
+
+[node name="GenericInteractLabel" parent="LampPostProp2" instance=ExtResource( 40 )]
+position = Vector2( 0, 9.05883 )
+scale = Vector2( 0.35, 0.35 )
+object_name = "Lamp"
+
+[node name="LampPostLight2D" type="Light2D" parent="LampPostProp2"]
+position = Vector2( 0, -11.8824 )
+scale = Vector2( 0.75, 0.75 )
 texture = ExtResource( 25 )
 energy = 0.65
 
@@ -372,3 +397,6 @@ editor_draw_limits = true
 
 [node name="LootBag" parent="." instance=ExtResource( 9 )]
 position = Vector2( 1518.66, 558.741 )
+
+[node name="BatProjectile" parent="." instance=ExtResource( 44 )]
+position = Vector2( 508.168, 277.598 )

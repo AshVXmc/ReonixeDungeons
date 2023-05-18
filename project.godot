@@ -400,11 +400,6 @@ _global_script_classes=[ {
 "path": "res://scripts/misc/MeteorStrike.gd"
 }, {
 "base": "Node2D",
-"class": "MonumentOfVictories",
-"language": "GDScript",
-"path": "res://scripts/terrain/MonumentOfVictories.gd"
-}, {
-"base": "Node2D",
 "class": "MusicNoteAttack",
 "language": "GDScript",
 "path": "res://scripts/skills/MusicNoteAttack.gd"
@@ -598,7 +593,6 @@ _global_script_class_icons={
 "MaskedGoblin": "",
 "MaskedGoblinLevel": "",
 "MeteorStrike": "",
-"MonumentOfVictories": "",
 "MusicNoteAttack": "",
 "PerfectDash": "",
 "Player": "",

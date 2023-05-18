@@ -10,13 +10,13 @@ export var Position_Y : float
 signal door_opened()
 
 func _ready():
+	$Label.text = "Enter" + " [" + InputMap.get_action_list("ui_use")[0].as_text() +"]"
 	$Label.visible = false
-	$Keybind.visible = false
 	connect("door_opened", get_parent().get_node("Player"), "door_opening")
 func _process(delta):
 	if $Area2D.overlaps_area(PLAYER):
 		$Label.visible = true
-		$Keybind.visible = true
+
 		if Input.is_action_just_pressed("ui_use"):
 #			colorrect.visible = true
 #			transition.transition()
@@ -25,4 +25,4 @@ func _process(delta):
 
 func _on_Area2D_area_exited(area):
 	$Label.visible = false
-	$Keybind.visible = false
+

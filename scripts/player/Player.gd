@@ -1016,9 +1016,16 @@ func _on_Area2D_area_entered(area : Area2D):
 			if inv_timer.is_stopped() and !is_invulnerable and !is_dashing:
 				if area.is_in_group("Enemy") and area.is_in_group("Hostile")or area.is_in_group("DeflectedProjectile"):
 					print("HURT")
-					match area.get_parent().elemental_type:
+					var enemy_elemental_type : String
+					var enemy_atk_value : float
+					
+
+					enemy_elemental_type = area.get_parent().elemental_type
+					enemy_atk_value = area.get_parent().atk_value
+						
+					match enemy_elemental_type:
 						"Physical":
-							var dmg = area.get_parent().atk_value
+							var dmg = enemy_atk_value
 							take_damage(dmg * (1 - phys_res))
 
 					is_gliding = false

@@ -5,12 +5,15 @@ const DMG_INDICATOR : PackedScene = preload("res://scenes/particles/DamageIndica
 var SPEED : int = 3.5
 var steer_force = 120
 var velocity: Vector2 = Vector2.ZERO
+onready var max_HP : int = 80 + (Global.enemy_level_index * 20)
+onready var level : int = round(Global.enemy_level_index)
+var atk_value : float = 0.1 * Global.enemy_level_index
+onready var HP : int = max_HP
 var is_dead : bool = false
-var max_HP = 100
-var HP : int = max_HP
 var direction : int = 1
 var player = null
 const LOOT : PackedScene = preload("res://scenes/items/LootBag.tscn")
+const PROJECTILE : PackedScene = preload("res://scenes/misc/BatProjectile.tscn")
 var rng : RandomNumberGenerator = RandomNumberGenerator.new()
 var target = null
 var acceleration = Vector2()
@@ -25,8 +28,10 @@ var is_attacking : bool
 
 # NOTE: Collision mask for the raycast2d is set to 8 since layer 8 is exclusive to the player/
 func _ready():
+	$LevelLabel.text = "Lv " + str(level)
 	$AnimatedSprite.play("Idle")
-
+	$HealthBar.max_value = max_HP
+	$HealthBar.value = $HealthBar.max_value
 
 func _physics_process(delta):
 	
@@ -51,7 +56,10 @@ func _on_ProjectileAttackTimer_timeout():
 	pass # Replace with function body.
 
 func projectile_attack():
-	pass
+	var projectile = PROJECTILE.instance()
+	projectile.atk_value = atk_value
+	get_parent().add_child(projectile)
+	projectile.position = global_position
 func get_decoy():
 	var decoy = get_parent().get_node("Decoy")
 	return decoy
