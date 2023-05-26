@@ -926,6 +926,7 @@ script = ExtResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="."]
 visible = false
+self_modulate = Color( 0.992157, 1, 0.752941, 1 )
 rotation = 0.349066
 texture = ExtResource( 1 )
 
@@ -938,6 +939,7 @@ anims/SwordSlash4 = SubResource( 6 )
 anims/VerticalThrust = SubResource( 5 )
 
 [node name="HorizontalSlashSprite" type="Sprite" parent="."]
+self_modulate = Color( 0.992157, 1, 0.752941, 1 )
 rotation = 0.785398
 scale = Vector2( 3, 3 )
 texture = ExtResource( 1 )

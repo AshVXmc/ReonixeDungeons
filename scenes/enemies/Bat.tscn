@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://assets/enemies/bat_2.png" type="Texture" id=1]
 [ext_resource path="res://scripts/enemies/Bat.gd" type="Script" id=2]
@@ -6,10 +6,6 @@
 [ext_resource path="res://assets/UI/healthbar_enemy_full.png" type="Texture" id=4]
 [ext_resource path="res://assets/UI/healthbar_enemy_empty.png" type="Texture" id=5]
 [ext_resource path="res://assets/fonts/Born2bSportyV2.ttf" type="DynamicFontData" id=6]
-
-[sub_resource type="CapsuleShape2D" id=1]
-radius = 40.6831
-height = 0.0
 
 [sub_resource type="SpriteFrames" id=4]
 animations = [ {
@@ -29,25 +25,23 @@ radius = 450.0
 size = 32
 font_data = ExtResource( 6 )
 
-[node name="Bat" type="KinematicBody2D" groups=["Enemy", "EnemyEntity"]]
-collision_layer = 0
-collision_mask = 11
-script = ExtResource( 2 )
-__meta__ = {
-"_edit_group_": true
-}
+[sub_resource type="CircleShape2D" id=6]
+radius = 134.201
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource( 1 )
+[sub_resource type="RectangleShape2D" id=7]
+extents = Vector2( 50, 50 )
+
+[node name="Bat" type="KinematicBody2D" groups=["Enemy", "EnemyEntity", "LightEnemy"]]
+collision_layer = 4
+collision_mask = 15
+script = ExtResource( 2 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 scale = Vector2( 5, 5 )
 frames = SubResource( 4 )
 animation = "Idle"
 
-[node name="Area2D" type="Area2D" parent="." groups=["Enemy", "Flying"]]
-collision_layer = 4
-collision_mask = 11
+[node name="Area2D" type="Area2D" parent="." groups=["Bat", "Enemy", "Flying"]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource( 2 )
@@ -83,7 +77,7 @@ text = "Lv.1"
 align = 1
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
-scale = Vector2( 5, 1 )
+scale = Vector2( 10, 1 )
 enabled = true
 cast_to = Vector2( 0, 300 )
 collision_mask = 128
@@ -91,13 +85,26 @@ collide_with_areas = true
 collide_with_bodies = false
 
 [node name="ProjectileAttackTimer" type="Timer" parent="."]
-wait_time = 1.5
+wait_time = 4.0
 one_shot = true
 
 [node name="ProjectileAttackCD" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
+[node name="Area2D2" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D2"]
+shape = SubResource( 6 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 7 )
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_Area2D_area_entered"]
+[connection signal="area_exited" from="Area2D" to="." method="_on_Area2D_area_exited"]
 [connection signal="body_entered" from="Detector" to="." method="_on_Detector_body_entered"]
 [connection signal="body_exited" from="Detector" to="." method="_on_Detector_body_exited"]
 [connection signal="timeout" from="HurtTimer" to="." method="_on_HurtTimer_timeout"]
 [connection signal="timeout" from="ProjectileAttackTimer" to="." method="_on_ProjectileAttackTimer_timeout"]
+[connection signal="area_entered" from="Area2D2" to="." method="_on_Area2D2_area_entered"]
+[connection signal="area_exited" from="Area2D2" to="." method="_on_Area2D2_area_exited"]

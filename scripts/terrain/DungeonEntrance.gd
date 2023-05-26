@@ -30,7 +30,7 @@ func _process(delta):
 
 func load_next_scene(slot_one : String, slot_two : String, slot_three : String):
 	Global.equipped_characters = [slot_one, slot_two, slot_three]
-	Global.save_player_data()
+#	Global.save_player_data()
 	get_parent().get_node("Player").is_shopping = true
 	transition.transition()
 	yield(get_tree().create_timer(1), "timeout")

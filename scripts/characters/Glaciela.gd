@@ -538,7 +538,7 @@ func _on_Area2D_area_entered(area):
 			emit_signal("lifewine_obtained", Global.lifewine_amount)
 		if !Global.godmode:
 			if $InvulnerabilityTimer.is_stopped() and !get_parent().get_parent().is_invulnerable and !get_parent().get_parent().is_dashing:
-				if area.is_in_group("Enemy") and area.is_in_group("Hostile") or area.is_in_group("DeflectedProjectile"):
+				if area.is_in_group("Enemy") and area.is_in_group("Hostile") or area.is_in_group("Projectile"):
 					print("GLACIELA HURT")
 					match area.get_parent().elemental_type:
 						"Physical":

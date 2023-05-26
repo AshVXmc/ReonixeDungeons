@@ -5,12 +5,13 @@ const DMG_INDICATOR : PackedScene = preload("res://scenes/particles/DamageIndica
 var SPEED : int = 3.5
 var steer_force = 120
 var velocity: Vector2 = Vector2.ZERO
-onready var max_HP : int = 80 + (Global.enemy_level_index * 20)
+onready var max_HP : int = 50 + (Global.enemy_level_index * 10)
 onready var level : int = round(Global.enemy_level_index)
 var atk_value : float = 0.1 * Global.enemy_level_index
 onready var HP : int = max_HP
 var is_dead : bool = false
 var direction : int = 1
+var is_near_player : bool = false
 var player = null
 const LOOT : PackedScene = preload("res://scenes/items/LootBag.tscn")
 const PROJECTILE : PackedScene = preload("res://scenes/misc/BatProjectile.tscn")
@@ -51,15 +52,18 @@ func _physics_process(delta):
 			velocity.x = 0
 			projectile_attack()
 		translate(velocity)
+		move_and_slide(velocity)
 		
 func _on_ProjectileAttackTimer_timeout():
 	pass # Replace with function body.
 
 func projectile_attack():
-	var projectile = PROJECTILE.instance()
-	projectile.atk_value = atk_value
-	get_parent().add_child(projectile)
-	projectile.position = global_position
+	if $ProjectileAttackCD.is_stopped() and !is_staggered and !is_near_player:
+		$ProjectileAttackCD.start()
+		var projectile = PROJECTILE.instance()
+		projectile.atk_value = atk_value
+		get_parent().add_child(projectile)
+		projectile.position = global_position
 func get_decoy():
 	var decoy = get_parent().get_node("Decoy")
 	return decoy
@@ -178,18 +182,18 @@ func _on_Area2D_area_entered(area):
 			parse_status_effect_damage()
 			add_damage_particles("Fire", damage)
 		
-		if area.is_in_group("Player"):
-				is_staggered = true
-				yield(get_tree().create_timer(0.5), "timeout")
-				is_staggered = false
+#		if area.is_in_group("Player"):
+#				is_staggered = true
+#				yield(get_tree().create_timer(0.5), "timeout")
+#				is_staggered = false
 
 		if area.is_in_group("Frozen"):
 				is_frozen = true
 		
 		if area.is_in_group("TempusTardus"):
-			SPEED *= 0.05
-			velocity.y = 0
-#			$Sprite.speed_scale = 0.1
+			SPEED *= 0.1
+			$AnimatedSprite.speed_scale = 0.1
+			$ProjectileAttackTimer.stop()
 		
 		if area.is_in_group("LightPoiseDamage"):
 			pass
@@ -229,3 +233,22 @@ func _on_HurtTimer_timeout():
 
 
 
+
+
+func _on_Area2D_area_exited(area):
+	if area.is_in_group("TempusTardus"):
+		SPEED = 3.5
+		$AnimatedSprite.speed_scale = 1.0
+		$ProjectileAttackTimer.start()
+
+
+
+func _on_Area2D2_area_entered(area):
+	if area.is_in_group("Player"):
+		is_near_player = true
+
+
+func _on_Area2D2_area_exited(area):
+	if area.is_in_group("Player"):
+		
+		is_near_player = false

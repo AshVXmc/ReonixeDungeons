@@ -55,7 +55,7 @@ var knockback_power : int = 800
 var can_be_knocked : bool = true
 var SPEED : int = 400
 const GRAVITY : int = 38
-var JUMP_POWER : int = -1100
+var JUMP_POWER : int = -1150
 var waiting_for_quickswap : bool = false
 var is_thrust_attacking : bool = false
 var energy_full : bool 
@@ -147,6 +147,7 @@ func set_attack_buff_value(new_value):
 func _ready():
 	if Global.current_character == "Player":
 		$Sprite.visible = true
+	$EnergyMeter.value = $EnergyMeter.min_value
 	$SlashEffectSprite.visible = false
 	$AttackCollision.add_to_group(str(basic_attack_power))
 	$ChargedAttackCollision.add_to_group(str(charged_attack_power))
@@ -232,11 +233,13 @@ func switched_in(character):
 			waiting_for_quickswap = false
 
 # WOO YEAH BABY
-func quickswap_attack():
-	var gp = GLACIELA_PUPPET.instance()
-	get_parent().add_child(gp)
-	gp.position = global_position
-	print("QUICKSWAP TRIGGERED")
+func quickswap_attack(trigger_name : String = ""):
+	match trigger_name:
+		"Glaciela":
+			var gp = GLACIELA_PUPPET.instance()
+			get_parent().add_child(gp)
+			gp.position = global_position
+			print("QUICKSWAP TRIGGERED")
 	
 
 func get_closest_enemy() -> Node2D:
@@ -545,7 +548,11 @@ func gp_effect():
 
 
 func dash_counter_attack():
-	if Global.current_character == "Player" and !is_attacking and !is_gliding and !is_frozen and $MeleeTimer.is_stopped() and $ChargeBar.value != $ChargeBar.max_value:
+	if Global.current_character == "Player" and !is_attacking and !is_gliding and !is_frozen and $MeleeTimer.is_stopped() and $ChargeBar.value != $ChargeBar.max_value and get_closest_enemy() != null:
+		if !is_on_floor() and !$HeightRaycast2D.is_colliding():
+			airborne_mode = true
+			$AirborneTimer.stop()
+			$AirborneTimer.start()
 		is_dash_counter_attacking = true
 		$DashCounterAttackTimer.stop()
 		var counterflurryeffect = SWORD_SLASH_EFFECT.instance()
@@ -559,6 +566,7 @@ func dash_counter_attack():
 		
 		counterflurryarea.get_node("AnimationPlayer").play("CircularFlurryAttack")
 		counterflurryeffect.circular_flurry_animation()
+		
 		yield(get_tree().create_timer(0.1), "timeout")
 		update_energy_meter(10)
 		yield(get_tree().create_timer(0.1), "timeout")
@@ -897,11 +905,11 @@ func sheathe_katana():
 	if weakref(get_closest_enemy()).get_ref() != null and global_position.distance_to(get_closest_enemy().global_position) > 100 or get_closest_enemy() == null:
 		if Global.current_character == "Player" and !is_attacking and !is_sheathing and $KatanaSheatheWindowTimer.is_stopped():
 			is_sheathing = true
-			if !$Sprite.flip_h:
-				$KatanaSheathPlayer.play("RightDefaultSheath")
-			else:
-				$KatanaSheathPlayer.play("LeftDefaultSheath")
-			
+#			if !$Sprite.flip_h:
+#				$KatanaSheathPlayer.play("RightDefaultSheath")
+#			else:
+#				$KatanaSheathPlayer.play("LeftDefaultSheath")
+#
 			
 			print("SHEATHING")
 			$KatanaSheatheWindowTimer.start()
@@ -911,7 +919,7 @@ func calculate_damage(slash_animation : String , slash_direction_animation : Str
 	$AnimationPlayer.play(slash_animation)
 
 	attack_string_count -= 1
-	$SlashEffectPlayer.play(slash_direction_animation)
+#	$SlashEffectPlayer.play(slash_direction_animation)
 	
 	for groups in $AttackCollision.get_groups():
 		if float(groups) != 0:
@@ -947,7 +955,7 @@ func play_attack_animation(direction : String):
 				$AnimationPlayer.play("SwordSwingRight4")
 				attack_string_count -= 1
 				
-				$SlashEffectPlayer.play("RightSlash")
+#				$SlashEffectPlayer.play("RightSlash")
 				for groups in $AttackCollision.get_groups():
 					if float(groups) != 0:
 						$AttackCollision.remove_from_group(groups)
@@ -1014,7 +1022,7 @@ func _on_Area2D_area_entered(area : Area2D):
 			emit_signal("lifewine_obtained", Global.lifewine_amount)
 		if !Global.godmode:
 			if inv_timer.is_stopped() and !is_invulnerable and !is_dashing:
-				if area.is_in_group("Enemy") and area.is_in_group("Hostile")or area.is_in_group("DeflectedProjectile"):
+				if area.is_in_group("Enemy") and area.is_in_group("Hostile")or area.is_in_group("Projectile"):
 					print("HURT")
 					var enemy_elemental_type : String
 					var enemy_atk_value : float
@@ -1405,7 +1413,7 @@ func thrust_attack(extra_long_thrust : bool = false):
 	velocity.y = 0
 
 	$Sprite.play("Dash")
-	$SlashEffectPlayer.play("HorizontalSlash")
+#	$SlashEffectPlayer.play("HorizontalSlash")
 	if extra_long_thrust:
 		velocity = thrustdirection.normalized() * 3000 * 1.5
 		is_thrust_attacking = false
@@ -1764,7 +1772,7 @@ func _on_EnemyEvasionArea_area_exited(area):
 	#		knock_airborne(area, 4)
 	#		Input.action_press("jump")
 	#
-	#		yield(get_tree().create_timer(1), "timeout")
+			yield(get_tree().create_timer(0.85), "timeout")
 	#		Input.action_release("jump")
 	#		airborne_mode = true
 			is_invulnerable = false

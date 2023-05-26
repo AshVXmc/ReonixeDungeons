@@ -999,7 +999,7 @@ tracks/1/keys = {
 }
 
 [sub_resource type="RectangleShape2D" id=20]
-extents = Vector2( 36.2253, 45.5494 )
+extents = Vector2( 47.2053, 54.9529 )
 
 [sub_resource type="CircleShape2D" id=34]
 radius = 250.0
@@ -2105,7 +2105,7 @@ one_shot = true
 position = Vector2( 18, 0 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyEvasionArea"]
-position = Vector2( 41.4753, 0.700554 )
+position = Vector2( 30.4953, -8.70296 )
 shape = SubResource( 20 )
 
 [node name="AtkBuffParticle" parent="." instance=ExtResource( 14 )]
@@ -2138,6 +2138,7 @@ cast_to = Vector2( 0, 100 )
 wait_time = 0.5
 
 [node name="SlashEffectSprite" type="Sprite" parent="."]
+modulate = Color( 0.964706, 0.917647, 0.596078, 1 )
 position = Vector2( 75, 0 )
 scale = Vector2( 5, 5 )
 texture = ExtResource( 17 )
@@ -2172,7 +2173,6 @@ margin_right = -41.0
 margin_bottom = -78.0
 rect_scale = Vector2( 4.5, 4.5 )
 max_value = 200.0
-value = 200.0
 texture_under = ExtResource( 20 )
 texture_progress = ExtResource( 19 )
 

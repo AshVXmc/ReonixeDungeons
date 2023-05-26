@@ -14,6 +14,7 @@ signal chosen_party_members(slot_one, slot_two, slot_three)
 
 func _ready():
 	visible = false
+	update_equipped_characters_ui()
 	# Comment the initialize UI function when done.
 #	initialize_ui()
 	connect("chosen_party_members", get_parent().get_parent(), "load_next_scene")

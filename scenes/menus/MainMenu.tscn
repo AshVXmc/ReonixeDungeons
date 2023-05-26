@@ -1,11 +1,14 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://scripts/ui/MainMenu.gd" type="Script" id=1]
 [ext_resource path="res://assets/UI/textbox.png" type="Texture" id=2]
+[ext_resource path="res://themes/Blur.tres" type="Material" id=3]
 [ext_resource path="res://assets/themes/MainMenuFonts.tres" type="DynamicFont" id=4]
 [ext_resource path="res://scenes/menus/SceneTransition.tscn" type="PackedScene" id=5]
 [ext_resource path="res://assets/fonts/Born2bSportyV2.ttf" type="DynamicFontData" id=6]
 [ext_resource path="res://assets/misc/background_2.png" type="Texture" id=7]
+[ext_resource path="res://assets/UI/button_pressed.png" type="Texture" id=8]
+[ext_resource path="res://assets/UI/button.png" type="Texture" id=9]
 
 [sub_resource type="Animation" id=14]
 resource_name = "MoveBackground"
@@ -48,10 +51,6 @@ font_data = ExtResource( 6 )
 
 [sub_resource type="DynamicFont" id=11]
 size = 48
-font_data = ExtResource( 6 )
-
-[sub_resource type="DynamicFont" id=12]
-size = 64
 font_data = ExtResource( 6 )
 
 [sub_resource type="DynamicFont" id=13]
@@ -172,7 +171,7 @@ custom_fonts/font = SubResource( 17 )
 text = "Controls"
 flat = true
 
-[node name="Logs" type="Button" parent="."]
+[node name="Tutorial" type="Button" parent="."]
 anchor_left = 0.499
 anchor_top = 0.767
 anchor_right = 0.499
@@ -187,9 +186,6 @@ custom_colors/font_color_pressed = Color( 1, 0.843137, 0.0117647, 1 )
 custom_fonts/font = SubResource( 18 )
 text = "Update logs"
 flat = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Exit" type="Button" parent="."]
 anchor_left = 0.499
@@ -234,18 +230,27 @@ margin_left = -540.0
 margin_top = -360.0
 margin_right = 540.0
 margin_bottom = 360.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
+
+[node name="Blur" type="ColorRect" parent="Popup1"]
+material = ExtResource( 3 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -1090.0
+margin_top = -561.5
+margin_right = 1090.0
+margin_bottom = 607.5
+color = Color( 1, 1, 1, 0 )
 
 [node name="NinePatchRect" type="NinePatchRect" parent="Popup1"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -251.0
-margin_top = -99.0
-margin_right = 251.0
+margin_left = -250.0
+margin_top = -141.0
+margin_right = 250.0
 margin_bottom = 141.0
 texture = ExtResource( 2 )
 patch_margin_left = 64
@@ -259,42 +264,63 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 margin_left = -229.0
-margin_top = -72.0
+margin_top = -124.0
 margin_right = 229.0
-margin_bottom = 30.0
+margin_bottom = 26.0
 custom_fonts/font = SubResource( 11 )
-text = "No save data detected.
-Start a new game?"
+text = "Start a new game? Previous save data will be lost."
 align = 1
+autowrap = true
 
-[node name="Yes" type="Button" parent="Popup1"]
-anchor_left = 0.384
-anchor_top = 0.666
-anchor_right = 0.384
-anchor_bottom = 0.666
-margin_left = -90.3285
-margin_top = -76.27
-margin_right = 89.6715
-margin_bottom = -1.26996
-custom_colors/font_color = Color( 0.45098, 0.94902, 0, 1 )
-custom_fonts/font = SubResource( 12 )
+[node name="Yes" type="TextureButton" parent="Popup1"]
+anchor_left = 0.394
+anchor_top = 0.667
+anchor_right = 0.394
+anchor_bottom = 0.667
+margin_left = -80.52
+margin_top = -82.2401
+margin_right = 79.48
+margin_bottom = -2.24005
+texture_normal = ExtResource( 9 )
+texture_pressed = ExtResource( 8 )
+expand = true
+
+[node name="Label" type="Label" parent="Popup1/Yes"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -45.7889
+margin_top = -24.2132
+margin_right = 48.2111
+margin_bottom = 23.7868
+custom_fonts/font = SubResource( 11 )
 text = "Yes"
+align = 1
+autowrap = true
 
-[node name="No" type="Button" parent="Popup1"]
-anchor_left = 0.622
-anchor_top = 0.666
-anchor_right = 0.622
-anchor_bottom = 0.666
-margin_left = -90.3686
-margin_top = -75.27
-margin_right = 89.6314
-margin_bottom = -0.269958
-custom_colors/font_color = Color( 0.94902, 0, 0, 1 )
-custom_fonts/font = SubResource( 12 )
+[node name="No" type="TextureButton" parent="Popup1"]
+margin_left = 572.0
+margin_top = 398.0
+margin_right = 732.0
+margin_bottom = 478.0
+texture_normal = ExtResource( 9 )
+texture_pressed = ExtResource( 8 )
+expand = true
+
+[node name="Label" type="Label" parent="Popup1/No"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -45.7889
+margin_top = -24.2132
+margin_right = 48.2111
+margin_bottom = 23.7868
+custom_fonts/font = SubResource( 11 )
 text = "No"
-__meta__ = {
-"_edit_use_anchors_": false
-}
+align = 1
+autowrap = true
 
 [node name="SaveLabel" type="Label" parent="."]
 visible = false
@@ -316,7 +342,5 @@ __meta__ = {
 [connection signal="pressed" from="NewGame" to="." method="_on_NewGame_pressed"]
 [connection signal="pressed" from="LoadGame" to="." method="_on_LoadGame_pressed"]
 [connection signal="pressed" from="SetKeybinds" to="." method="_on_SetKeybinds_pressed"]
-[connection signal="pressed" from="Logs" to="." method="_on_Logs_pressed"]
+[connection signal="pressed" from="Tutorial" to="." method="_on_Tutorial_pressed"]
 [connection signal="pressed" from="Exit" to="." method="_on_Exit_pressed"]
-[connection signal="pressed" from="Popup1/Yes" to="." method="_on_Yes_pressed"]
-[connection signal="pressed" from="Popup1/No" to="." method="_on_No_pressed"]

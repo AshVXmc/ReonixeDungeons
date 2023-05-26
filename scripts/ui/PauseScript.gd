@@ -77,7 +77,7 @@ func _on_Lighting_toggled(button_pressed : bool):
 		get_parent().get_parent().get_node("Light2D").visible = true
 		Global.lighting = true
 		button_pressed = true
-	_on_SaveButton_pressed()
+#	_on_SaveButton_pressed()
 
 
 func _on_Vsync_toggled(button_pressed):
@@ -89,4 +89,4 @@ func _on_Vsync_toggled(button_pressed):
 		OS.vsync_enabled = false
 		Global.vsync = false
 		button_pressed = false
-	_on_SaveButton_pressed()
+#	_on_SaveButton_pressed()

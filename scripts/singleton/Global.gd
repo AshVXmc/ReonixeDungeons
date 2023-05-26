@@ -8,9 +8,14 @@ var character_3_max_hearts : float = 1
 var elegance_rank : String 
 var enemy_level_index : int = 1
 var max_endurance : int = 100
-func _ready():
-	print(Time.get_date_dict_from_system())
 
+var player_location_in_town 
+
+#func _ready():
+#	#CREATE SAVE FILE
+#	var dir : Directory = Directory.new()
+#	if !dir.dir_exists(SAVE_DIR):
+#		dir.make_dir_recursive(SAVE_DIR)
 # C tier has 50, B tier has 75, A tier has 125, S tier has 175, SS has 200 SSS has 250
 
 const actions : Array = [
@@ -21,7 +26,9 @@ const actions : Array = [
 ]
 var max_mana : float = 18
 var mana : float = max_mana
-var attack_power : int = 50
+# attack_power is the player's atk
+var attack_power : int = 20
+var glaciela_attack : int = 20
 var player_skill_multipliers : Dictionary = {
 	"BaseHearts": 2.5,
 	"BasicAttack": 15.0,
@@ -58,7 +65,7 @@ var player_skill_multipliers : Dictionary = {
 }
 
 
-var glaciela_attack : int = 50
+
 var glaciela_skill_multipliers : Dictionary = {
 	"BasicAttack":  20.0,
 	"BasicAttack2": 30.0,
@@ -224,7 +231,11 @@ func reset_player_data():
 	Global.player_skills["RangedSkill"] = "Fireball"
 	Global.vsync = false
 	Global.activated_portals.clear()
-	
+
+func delete_save_file():
+	var dir : Directory = Directory.new()
+	dir.open(SAVE_DIR)
+	dir.remove("savefile.dat")
 func reset_chest_data():
 	# Clears the array cache and refill 
 	if !Global.opened_chests.empty():

@@ -9,11 +9,13 @@ func _process(delta):
 	$NewGame.text = "> New game" if $NewGame.is_hovered() else "New game" 
 	$LoadGame.text = "> Load game" if $LoadGame.is_hovered() else "Load game"
 	$SetKeybinds.text = "> Controls" if $SetKeybinds.is_hovered() else "Controls"
-	$Logs.text = "> Update logs" if $Logs.is_hovered() else "Update logs"
+	$Tutorial.text = "> How to play" if $Tutorial.is_hovered() else " How to play"
 	$Exit.text = "> Exit" if $Exit.is_hovered() else "Exit"
+
+
 func _on_NewGame_pressed():
 	new_game()
-
+	Global.delete_save_file()
 func new_game():
 	Global.reset_player_data()
 	Global.reset_chest_data()
@@ -85,16 +87,15 @@ func _on_Exit_pressed():
 	get_tree().quit()
 
 
-func _on_Yes_pressed():
-	new_game()
 
 
-func _on_No_pressed():
-	$Popup1.visible = false
 
-
-func _on_Logs_pressed():
-	get_tree().change_scene("res://scenes/menus/Logs.tscn")
+func _on_Tutorial_pressed():
+	Global.reset_player_data()
+	$SceneTransition/ColorRect.visible = true
+	$SceneTransition.transition()
+	yield(get_tree().create_timer(1), "timeout")
+	get_tree().change_scene("res://scenes/levels/TutorialLevel.tscn")
 	call_deferred('free')
 
 

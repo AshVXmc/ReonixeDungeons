@@ -1,7 +1,9 @@
 class_name BatProjectile extends Area2D
 
 var velocity = Vector2()
-const GRAVITY = 12
+const MAX_GRAVITY = 8
+var GRAVITY = MAX_GRAVITY
+
 onready var atk_value : float = 0.1
 var elemental_type = "Physical"
 var is_detonating: bool = false
@@ -33,4 +35,15 @@ func _on_BatProjectile_area_entered(area):
 
 
 func _on_BatProjectile_body_entered(body):
-	detonate()
+	if !body.is_in_group("Enemy"):
+		detonate()
+
+
+func _on_Area2D_area_entered(area):
+	if area.is_in_group("TempusTardus"):
+		GRAVITY *= 0.05
+
+
+func _on_Area2D_area_exited(area):
+	if area.is_in_group("TempusTardus"):
+		GRAVITY = MAX_GRAVITY
