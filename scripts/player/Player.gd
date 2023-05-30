@@ -1772,7 +1772,7 @@ func _on_EnemyEvasionArea_area_exited(area):
 	#		knock_airborne(area, 4)
 	#		Input.action_press("jump")
 	#
-			yield(get_tree().create_timer(0.85), "timeout")
+			yield(get_tree().create_timer(2), "timeout")
 	#		Input.action_release("jump")
 	#		airborne_mode = true
 			is_invulnerable = false

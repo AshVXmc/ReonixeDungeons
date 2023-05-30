@@ -24,7 +24,7 @@ func detonate():
 	$AnimatedSprite.visible = false
 	$TrailParticles.visible = false
 	
-	$Area2D/CollisionPolygon2D.disabled = false
+	$Area2D/CollisionPolygon2D.disabled = true
 	$ExplosionParticles.emitting = true
 	yield(get_tree().create_timer(0.85), "timeout")
 	call_deferred('free')

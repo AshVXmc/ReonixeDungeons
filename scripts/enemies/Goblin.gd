@@ -3,7 +3,7 @@ class_name Goblin extends KinematicBody2D
 const DMG_INDICATOR : PackedScene = preload("res://scenes/particles/DamageIndicatorParticle.tscn")
 const SWORD_HIT_PARTICLE : PackedScene = preload("res://scenes/particles/SwordHitParticle.tscn")
 const DEATH_SMOKE : PackedScene = preload("res://scenes/particles/DeathSmokeParticle.tscn")
-onready var max_HP : int = 80 + (Global.enemy_level_index * 25)
+onready var max_HP : int = 25 + (Global.enemy_level_index * 25)
 onready var level : int = round(Global.enemy_level_index)
 var atk_value : float = 0.1 * Global.enemy_level_index
 onready var HP : int = max_HP

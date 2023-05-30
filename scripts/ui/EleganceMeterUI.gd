@@ -79,7 +79,6 @@ func elegance_changed(action_name):
 				elegance += 60
 			"PerfectDash":
 				elegance += 80
-				change_rank("Increase")
 			"Hit":
 				if rank == C:
 					elegance = 0
@@ -104,6 +103,7 @@ func elegance_changed(action_name):
 
 func change_rank(type : String, after_getting_hit : bool = false):
 	if type == "Increase":
+		$DecayDelayTimer.start()
 		$EleganceGauge.value = $EleganceGauge.min_value
 		elegance = 0
 		rank = clamp(rank + 1, C, SSS)
@@ -186,14 +186,15 @@ func change_rank(type : String, after_getting_hit : bool = false):
 		$DecayTimer.start()
 
 func _on_DecayTimer_timeout():
-	if rank == C or B:
-		$EleganceGauge.value -= 3
-	elif rank == A:
-		$EleganceGauge.value -= 6
-	elif rank == S:
-		$EleganceGauge.value -= 10
-	elif rank == SS or SSS:
-		$EleganceGauge.value -= 12
+	if $DecayDelayTimer.is_stopped():
+		if rank == C or B:
+			$EleganceGauge.value -= 2
+		elif rank == A:
+			$EleganceGauge.value -= 5
+		elif rank == S:
+			$EleganceGauge.value -= 8
+		elif rank == SS or SSS:
+			$EleganceGauge.value -= 10
 		
 	$DecayTimer.start()
 	if $EleganceGauge.value == $EleganceGauge.min_value and !is_attacking and rank != C and $RankDownDelayTimer.is_stopped():

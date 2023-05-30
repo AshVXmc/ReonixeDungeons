@@ -6,11 +6,11 @@
 [ext_resource path="res://assets/UI/elegance_a_tier.png" type="Texture" id=4]
 
 [sub_resource type="DynamicFont" id=2]
-size = 48
+size = 32
 font_data = ExtResource( 3 )
 
 [sub_resource type="DynamicFont" id=1]
-size = 80
+size = 64
 font_data = ExtResource( 3 )
 
 [sub_resource type="Animation" id=3]
@@ -63,10 +63,10 @@ anchor_left = 23.95
 anchor_top = 15.075
 anchor_right = 23.95
 anchor_bottom = 15.075
-margin_left = -79.0
-margin_top = -76.0
-margin_right = -55.0
-margin_bottom = -51.0
+margin_left = -28.0597
+margin_top = -97.3835
+margin_right = -4.05969
+margin_bottom = -72.3835
 rect_scale = Vector2( 5, 5 )
 texture_under = ExtResource( 4 )
 texture_progress = ExtResource( 2 )
@@ -91,10 +91,10 @@ anchor_left = 21.6
 anchor_top = 12.05
 anchor_right = 21.6
 anchor_bottom = 12.05
-margin_left = 114.0
-margin_top = -8.0
-margin_right = 282.0
-margin_bottom = 40.0
+margin_left = 114.086
+margin_top = -15.6105
+margin_right = 282.086
+margin_bottom = 32.3895
 custom_fonts/font = SubResource( 2 )
 text = "hits"
 
@@ -103,10 +103,10 @@ anchor_left = 21.6
 anchor_top = 12.05
 anchor_right = 21.6
 anchor_bottom = 12.05
-margin_left = -30.0
-margin_top = -32.0
-margin_right = 102.0
-margin_bottom = 48.0
+margin_left = -29.9139
+margin_top = -39.6105
+margin_right = 102.086
+margin_bottom = 40.3895
 custom_fonts/font = SubResource( 1 )
 text = "0"
 align = 2
@@ -120,6 +120,10 @@ anims/RESET = SubResource( 3 )
 anims/RankUp = SubResource( 4 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Control"]
+
+[node name="DecayDelayTimer" type="Timer" parent="Control"]
+wait_time = 5.0
+one_shot = true
 
 [connection signal="timeout" from="Control/DecayTimer" to="Control" method="_on_DecayTimer_timeout"]
 [connection signal="timeout" from="Control/RankDownTimer" to="Control" method="_on_RankDownTimer_timeout"]
