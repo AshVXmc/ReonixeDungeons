@@ -1,10 +1,10 @@
 extends Node 
 
 # GLOBALLY ACCESSED VARIABLES
-var max_hearts : float = 1
+var max_hearts : float = 10
 var hearts : float = max_hearts
-var character_2_max_hearts : float = 1
-var character_3_max_hearts : float = 1
+var character_2_max_hearts : float = 10
+var character_3_max_hearts : float = 10
 var elegance_rank : String 
 var enemy_level_index : int = 1
 var max_endurance : int = 100
@@ -41,6 +41,7 @@ var player_skill_multipliers : Dictionary = {
 	"DownwardsChargedAttack": 56.0,
 	"SpecialChargedAttack": 30.0 ,# x 4
 	"SpecialChargedAttackFinalStrike": 140.0,
+	"EntryAttack": 50.0, # x 3
 	"CircularFlurryAttack": 28.0,
 	"AirborneBasicAttack": 30.0,
 	"AirborneBasicAttack2": 35.0,
@@ -53,7 +54,7 @@ var player_skill_multipliers : Dictionary = {
 	"FireSawCost": 15,
 	"FireFairyCost": 2,
 	"FireSawCD": 30.0,
-	"FireFairyCD": 8.0,
+	"FireFairyCD": 10.0,
 	"BasePhysRes": 0.0,
 	"BaseMagicRes": 0.0,
 	"BaseFireRes": 0.0,
@@ -111,7 +112,7 @@ var character3_mana = max_mana
 
 var charged_attack_multiplier : float = 2
 var base_damage_taken : int = 5
-var healthpot_amount : int = 0
+var healthpot_amount : int = 5
 var lifewine_amount : int = 0
 var manapot_amount : int = 0
 
@@ -208,7 +209,7 @@ func reset_player_data():
 	Global.mana = 0
 	Global.character2_mana = 0
 	Global.character3_mana = 0
-	Global.healthpot_amount = 0
+	Global.healthpot_amount = 5
 	Global.lifewine_amount = 0
 	Global.manapot_amount = 0
 	Global.opals_amount = 0

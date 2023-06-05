@@ -55,12 +55,15 @@ __meta__ = {
 }
 
 [node name="Control" type="Control" parent="."]
-margin_right = 40.0
-margin_bottom = 40.0
+anchor_left = 0.486
+anchor_top = 0.221
+anchor_right = 0.486
+anchor_bottom = 0.221
+margin_left = -524.88
+margin_top = -159.12
+margin_right = -484.88
+margin_bottom = -119.12
 script = ExtResource( 4 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="CommonMonsterDust" type="Control" parent="Control"]
 margin_left = 148.0

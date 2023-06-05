@@ -27,64 +27,16 @@ font_data = ExtResource( 3 )
 resource_name = "Flicker"
 length = 0.2
 loop = true
-tracks/0/type = "value"
-tracks/0/path = NodePath("Character1:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 0,
-"values": [ Vector2( 3.8, 3.8 ), Vector2( 4.25, 4.25 ), Vector2( 3.8, 3.8 ) ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("Character1:self_modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0.686275 ), Color( 1, 1, 1, 1 ) ]
-}
 
 [sub_resource type="Animation" id=6]
 length = 0.001
-tracks/0/type = "value"
-tracks/0/path = NodePath("Character1:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Vector2( 4, 4 ) ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("Character1:self_modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 1 ) ]
-}
 
 [sub_resource type="Animation" id=7]
 resource_name = "Flicker"
 length = 0.2
 loop = true
 tracks/0/type = "value"
-tracks/0/path = NodePath("Character2:scale")
+tracks/0/path = NodePath("Slot2/Character2:scale")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -96,7 +48,7 @@ tracks/0/keys = {
 "values": [ Vector2( 3.8, 3.8 ), Vector2( 4.25, 4.25 ), Vector2( 3.8, 3.8 ) ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("Character2:self_modulate")
+tracks/1/path = NodePath("Slot2/Character2:self_modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -111,36 +63,12 @@ tracks/1/keys = {
 [sub_resource type="Animation" id=8]
 length = 0.001
 tracks/0/type = "value"
-tracks/0/path = NodePath("Character1:scale")
+tracks/0/path = NodePath("Slot2/Character2:self_modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Vector2( 4, 4 ) ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("Character1:self_modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 1 ) ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath("Character2:self_modulate")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
@@ -152,7 +80,7 @@ resource_name = "Flicker"
 length = 0.2
 loop = true
 tracks/0/type = "value"
-tracks/0/path = NodePath("Character3:scale")
+tracks/0/path = NodePath("Slot3/Character3:scale")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -164,7 +92,7 @@ tracks/0/keys = {
 "values": [ Vector2( 3.8, 3.8 ), Vector2( 4.25, 4.25 ), Vector2( 3.8, 3.8 ) ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("Character3:self_modulate")
+tracks/1/path = NodePath("Slot3/Character3:self_modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -179,7 +107,7 @@ tracks/1/keys = {
 [sub_resource type="Animation" id=10]
 length = 0.001
 tracks/0/type = "value"
-tracks/0/path = NodePath("Character1:scale")
+tracks/0/path = NodePath("Slot2/Character2:self_modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -188,10 +116,10 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( 4, 4 ) ]
+"values": [ Color( 1, 1, 1, 1 ) ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("Character1:self_modulate")
+tracks/1/path = NodePath("Slot3/Character3:scale")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -200,10 +128,10 @@ tracks/1/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Color( 1, 1, 1, 1 ) ]
+"values": [ Vector2( 4, 4 ) ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("Character2:self_modulate")
+tracks/2/path = NodePath("Slot3/Character3:self_modulate")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
@@ -214,50 +142,23 @@ tracks/2/keys = {
 "update": 0,
 "values": [ Color( 1, 1, 1, 1 ) ]
 }
-tracks/3/type = "value"
-tracks/3/path = NodePath("Character3:scale")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Vector2( 4, 4 ) ]
-}
-tracks/4/type = "value"
-tracks/4/path = NodePath("Character3:self_modulate")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 1 ) ]
-}
 
 [node name="SkillsUI" type="CanvasLayer"]
 
 [node name="Control" type="Control" parent="."]
-anchor_left = 0.871
-anchor_right = 0.871
-margin_left = -940.68
-margin_right = -900.68
+anchor_left = 0.287
+anchor_right = 0.309
+margin_left = -309.96
+margin_right = -293.72
 margin_bottom = 40.0
 script = ExtResource( 1 )
 
 [node name="PrimarySkill" type="Control" parent="Control"]
+margin_top = -23.0
 margin_right = 40.0
-margin_bottom = 40.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
+margin_bottom = 17.0
 
 [node name="Player" type="Control" parent="Control/PrimarySkill"]
-visible = false
 margin_right = 40.0
 margin_bottom = 40.0
 
@@ -302,7 +203,6 @@ text = "99"
 align = 1
 
 [node name="Glaciela" type="Control" parent="Control/PrimarySkill"]
-visible = false
 margin_right = 40.0
 margin_bottom = 40.0
 
@@ -350,21 +250,17 @@ text = "99"
 align = 1
 
 [node name="SecondarySkill" type="Control" parent="Control"]
-margin_top = -21.0
+margin_top = -44.0
 margin_right = 40.0
-margin_bottom = 19.0
+margin_bottom = -4.0
 
 [node name="Player" type="Control" parent="Control/SecondarySkill"]
-visible = false
 margin_right = 40.0
 margin_bottom = 40.0
 
 [node name="FireFairy" type="Control" parent="Control/SecondarySkill/Player"]
 margin_right = 40.0
 margin_bottom = 40.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="BackgroundIcon" type="Sprite" parent="Control/SecondarySkill/Player/FireFairy"]
 self_modulate = Color( 1, 1, 1, 0.333333 )
@@ -406,7 +302,6 @@ text = "99"
 align = 1
 
 [node name="Glaciela" type="Control" parent="Control/SecondarySkill"]
-visible = false
 margin_right = 40.0
 margin_bottom = 40.0
 
@@ -454,9 +349,10 @@ text = "99"
 align = 1
 
 [node name="EnduranceMeter" type="Control" parent="Control"]
-margin_top = -21.0
-margin_right = 40.0
-margin_bottom = 19.0
+margin_left = -4.0
+margin_top = -42.0
+margin_right = 36.0
+margin_bottom = -2.0
 
 [node name="Sprite" type="Sprite" parent="Control/EnduranceMeter"]
 self_modulate = Color( 1, 1, 1, 0.333333 )
@@ -482,77 +378,107 @@ wait_time = 0.1
 autostart = true
 
 [node name="Characters" type="Control" parent="Control"]
-anchor_left = 24.926
-anchor_top = 2.543
-anchor_right = 24.926
-anchor_bottom = 2.543
-margin_left = -963.148
-margin_top = -69.6114
-margin_right = -914.148
-margin_bottom = -21.6114
+anchor_left = 24.875
+anchor_top = 5.875
+anchor_right = 24.875
+anchor_bottom = 5.875
+margin_left = -995.0
+margin_top = -235.0
+margin_right = -946.0
+margin_bottom = -187.0
 
-[node name="KeyIcon1" type="Sprite" parent="Control/Characters"]
-position = Vector2( 945.295, 149.987 )
+[node name="Slot1" type="Control" parent="Control/Characters"]
+anchor_left = 21.255
+anchor_top = 3.396
+anchor_right = 21.255
+anchor_bottom = 3.396
+margin_left = -1050.49
+margin_top = -163.008
+margin_right = -1010.49
+margin_bottom = -123.008
+
+[node name="Character1" type="Sprite" parent="Control/Characters/Slot1"]
+position = Vector2( 1042, 157 )
+scale = Vector2( 4, 4 )
+texture = ExtResource( 9 )
+
+[node name="KeyIcon1" type="Sprite" parent="Control/Characters/Slot1"]
+position = Vector2( 987.295, 155.987 )
 scale = Vector2( 2, 2 )
 texture = ExtResource( 4 )
 
-[node name="KeyBind1" type="Label" parent="Control/Characters"]
+[node name="KeyBind1" type="Label" parent="Control/Characters/Slot1"]
 anchor_left = -3.732
 anchor_right = -3.732
-margin_left = 1122.87
-margin_top = 136.0
-margin_right = 1134.87
-margin_bottom = 168.0
+margin_left = 1131.28
+margin_top = 142.0
+margin_right = 1143.28
+margin_bottom = 174.0
 custom_colors/font_color = Color( 0.192157, 0.372549, 1, 1 )
 custom_fonts/font = SubResource( 3 )
 text = "1"
 
-[node name="KeyIcon2" type="Sprite" parent="Control/Characters"]
-position = Vector2( 945.295, 248.987 )
+[node name="Slot2" type="Control" parent="Control/Characters"]
+anchor_left = 21.199
+anchor_top = 5.375
+anchor_right = 21.199
+anchor_bottom = 5.375
+margin_left = -1047.75
+margin_top = -258.0
+margin_right = -1007.75
+margin_bottom = -218.0
+
+[node name="Character2" type="Sprite" parent="Control/Characters/Slot2"]
+position = Vector2( 1042, 243 )
+scale = Vector2( 4, 4 )
+texture = ExtResource( 9 )
+
+[node name="KeyIcon2" type="Sprite" parent="Control/Characters/Slot2"]
+position = Vector2( 987.295, 241.987 )
 scale = Vector2( 2, 2 )
 texture = ExtResource( 4 )
 
-[node name="KeyBind2" type="Label" parent="Control/Characters"]
+[node name="KeyBind2" type="Label" parent="Control/Characters/Slot2"]
 anchor_left = -3.732
 anchor_right = -3.732
-margin_left = 1120.87
-margin_top = 235.0
-margin_right = 1134.87
-margin_bottom = 267.0
+margin_left = 1129.28
+margin_top = 228.0
+margin_right = 1143.28
+margin_bottom = 260.0
 custom_colors/font_color = Color( 0.192157, 0.372549, 1, 1 )
 custom_fonts/font = SubResource( 3 )
 text = "2"
 
-[node name="KeyIcon3" type="Sprite" parent="Control/Characters"]
-position = Vector2( 945.295, 347.987 )
+[node name="Slot3" type="Control" parent="Control/Characters"]
+anchor_left = 21.236
+anchor_top = 7.229
+anchor_right = 21.236
+anchor_bottom = 7.229
+margin_left = -1049.56
+margin_top = -346.992
+margin_right = -1009.56
+margin_bottom = -306.992
+
+[node name="Character3" type="Sprite" parent="Control/Characters/Slot3"]
+position = Vector2( 1042, 333 )
+scale = Vector2( 4, 4 )
+texture = ExtResource( 9 )
+
+[node name="KeyIcon3" type="Sprite" parent="Control/Characters/Slot3"]
+position = Vector2( 987.295, 330.987 )
 scale = Vector2( 2, 2 )
 texture = ExtResource( 4 )
 
-[node name="KeyBind3" type="Label" parent="Control/Characters"]
+[node name="KeyBind3" type="Label" parent="Control/Characters/Slot3"]
 anchor_left = -3.732
 anchor_right = -3.732
-margin_left = 1119.87
-margin_top = 334.0
-margin_right = 1133.87
-margin_bottom = 366.0
+margin_left = 1128.28
+margin_top = 317.0
+margin_right = 1142.28
+margin_bottom = 349.0
 custom_colors/font_color = Color( 0.192157, 0.372549, 1, 1 )
 custom_fonts/font = SubResource( 3 )
 text = "3"
-
-[node name="Character1" type="Sprite" parent="Control/Characters"]
-position = Vector2( 1000, 150 )
-scale = Vector2( 4, 4 )
-texture = ExtResource( 9 )
-
-[node name="Character2" type="Sprite" parent="Control/Characters"]
-position = Vector2( 1000, 250 )
-scale = Vector2( 3.8, 3.8 )
-texture = ExtResource( 9 )
-
-[node name="Character3" type="Sprite" parent="Control/Characters"]
-position = Vector2( 1000, 350 )
-scale = Vector2( 4, 4 )
-texture = ExtResource( 9 )
 
 [node name="Flicker1" type="AnimationPlayer" parent="Control/Characters"]
 anims/Flicker = SubResource( 5 )

@@ -1,4 +1,4 @@
-[gd_scene load_steps=50 format=2]
+[gd_scene load_steps=51 format=2]
 
 [ext_resource path="res://tilesets/HubLevelTileset.tres" type="TileSet" id=1]
 [ext_resource path="res://assets/terrain/deep_woods/background_deep_woods.png" type="Texture" id=2]
@@ -45,6 +45,7 @@
 [ext_resource path="res://scenes/menus/SkillsUI.tscn" type="PackedScene" id=43]
 [ext_resource path="res://scenes/enemies/Bat.tscn" type="PackedScene" id=44]
 [ext_resource path="res://scenes/menus/InventoryUI.tscn" type="PackedScene" id=45]
+[ext_resource path="res://scenes/menus/HealthPotUI.tscn" type="PackedScene" id=46]
 
 [sub_resource type="TileSet" id=1]
 0/name = "deep_woods_spritesheet.png 0"
@@ -105,6 +106,8 @@ color = Color( 0, 0, 0, 1 )
 
 [node name="OpalsUI" parent="." instance=ExtResource( 10 )]
 
+[node name="HealthPotUI" parent="." instance=ExtResource( 46 )]
+
 [node name="InventoryUI" parent="." instance=ExtResource( 45 )]
 
 [node name="MonumentOfVictories" parent="." instance=ExtResource( 19 )]
@@ -118,7 +121,7 @@ position = Vector2( 1587.87, 432.386 )
 
 [node name="Background1" type="ParallaxLayer" parent="ParallaxBackground"]
 z_as_relative = false
-motion_mirroring = Vector2( 1920, 0 )
+motion_mirroring = Vector2( 1937.76, 0 )
 
 [node name="Sprite" type="Sprite" parent="ParallaxBackground/Background1"]
 position = Vector2( -73.729, -410.428 )

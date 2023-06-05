@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://assets/particles/sword_slash_effect.png" type="Texture" id=1]
 [ext_resource path="res://scripts/misc/SwordSlashEffect.gd" type="Script" id=2]
@@ -920,6 +920,21 @@ tracks/2/keys = {
 "values": [ ExtResource( 3 ), ExtResource( 4 ) ]
 }
 
+[sub_resource type="Animation" id=12]
+resource_name = "X-slash"
+tracks/0/type = "value"
+tracks/0/path = NodePath("HorizontalSlashSprite:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+
 [node name="SwordSlashEffect" type="Node2D"]
 scale = Vector2( 1.5, 1.5 )
 script = ExtResource( 2 )
@@ -950,6 +965,7 @@ anims/EXFlurryAttack = SubResource( 11 )
 anims/HorizontalSlash = SubResource( 7 )
 anims/RESET = SubResource( 8 )
 anims/RightSlash = SubResource( 9 )
+anims/X-slash = SubResource( 12 )
 
 [node name="CircularFlurry" type="Node2D" parent="."]
 visible = false

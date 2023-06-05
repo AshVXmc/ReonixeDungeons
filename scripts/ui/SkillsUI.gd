@@ -37,31 +37,31 @@ func update_maximum_endurance_ui():
 func update_swap_character_status():
 	can_swap_character = true if !can_swap_character else false
 	if can_swap_character:
-		$Characters/Character1.self_modulate = 1
-		$Characters/Character2.self_modulate = 1
-		$Characters/Character3.self_modulate = 1
+		$Characters/Slot1/Character1.self_modulate = 1
+		$Characters/Slot2/Character2.self_modulate = 1
+		$Characters/Slot3/Character3.self_modulate = 1
 	else:
-		$Characters/Character1.self_modulate = 0.65
-		$Characters/Character2.self_modulate = 0.65
-		$Characters/Character3.self_modulate = 0.65
+		$Characters/Slot1/Character1.self_modulate = 0.65
+		$Characters/Slot2/Character2.self_modulate = 0.65
+		$Characters/Slot3/Character3.self_modulate = 0.65
 func flicker_icon(character):
 	pass
 func update_character_ui():
 	match Global.equipped_characters[0]:
 		"Player":
-			$Characters/Character1.texture = playericon
+			$Characters/Slot1/Character1.texture = playericon
 		"Glaciela":
-			$Characters/Character1.texture = glacielaicon
+			$Characters/Slot1/Character1.texture = glacielaicon
 	match Global.equipped_characters[1]:
 		"Player":
-			$Characters/Character2.texture = playericon
+			$Characters/Slot2/Character2.texture = playericon
 		"Glaciela":
-			$Characters/Character2.texture = glacielaicon
+			$Characters/Slot2/Character2.texture = glacielaicon
 	match Global.equipped_characters[2]:
 		"Player":
-			$Characters/Character3.texture = playericon
+			$Characters/Slot3/Character3.texture = playericon
 		"Glaciela":
-			$Characters/Character3.texture = glacielaicon
+			$Characters/Slot3/Character3.texture = glacielaicon
 
 
 func update_skill_ui(primary : String, secondary : String):

@@ -5,7 +5,7 @@
 [ext_resource path="res://assets/misc/opal.png" type="Texture" id=3]
 
 [sub_resource type="DynamicFont" id=1]
-size = 64
+size = 48
 font_data = ExtResource( 1 )
 
 [sub_resource type="DynamicFont" id=2]
@@ -24,28 +24,22 @@ __meta__ = {
 }
 
 [node name="TextureRect" type="TextureRect" parent="OpalsControl"]
-margin_left = -144.67
-margin_top = 145.894
-margin_right = -128.67
-margin_bottom = 165.894
-rect_scale = Vector2( 4, 4 )
+margin_left = -146.67
+margin_top = 107.894
+margin_right = -130.67
+margin_bottom = 127.894
+rect_scale = Vector2( 3, 3 )
 texture = ExtResource( 3 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Label" type="Label" parent="OpalsControl"]
-margin_left = -92.0
-margin_top = 158.0
-margin_right = -56.0
-margin_bottom = 289.0
+margin_left = -106.0
+margin_top = 117.0
+margin_right = -46.0
+margin_bottom = 216.0
 rect_scale = Vector2( 0.75, 0.75 )
 custom_fonts/font = SubResource( 1 )
 text = "0
 "
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="OpalsObtainedLabel" type="Label" parent="OpalsControl"]
 visible = false

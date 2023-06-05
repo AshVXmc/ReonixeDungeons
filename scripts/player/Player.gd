@@ -71,6 +71,7 @@ const EMPTY_SHEATH = preload("res://assets/player/katana_sheath_empty.png")
 const SLASH_FLURRY_AREA = preload("res://scenes/skills/SlashFlurryMovableArea.tscn")
 const SWORD_SLASH_EFFECT : PackedScene = preload("res://scenes/particles/SwordSlashEffect.tscn")
 const HURT_PARTICLE : PackedScene = preload("res://scenes/particles/HurtIndicatorParticle.tscn")
+const HEAL_PARTICLE : PackedScene = preload("res://scenes/particles/HealIndicatorParticle.tscn")
 const JUMP_PARTICLE : PackedScene = preload("res://scenes/particles/JumpParticle.tscn")
 const STRONG_JUMP_PARTICLE : PackedScene = preload("res://scenes/particles/StrongJumpParticle.tscn")
 const WATER_JUMP_PARTICLE : PackedScene = preload("res://scenes/particles/WaterBubbleParticle.tscn")
@@ -260,11 +261,11 @@ func _physics_process(_delta):
 		$EnergyMeter.visible = true
 	else:
 		$EnergyMeter.visible = false
-	if !is_sheathing:
-		if !$Sprite.flip_h:
-			$KatanaSheathPlayer.play("RightDefault")
-		else:
-			$KatanaSheathPlayer.play("LeftDefault")
+#	if !is_sheathing:
+	if !$Sprite.flip_h:
+		$KatanaSheathPlayer.play("RightDefault")
+	else:
+		$KatanaSheathPlayer.play("LeftDefault")
 		
 #	if Input.is_action_just_pressed("slot_1"):
 #		if facing == left:
@@ -622,7 +623,9 @@ func _input(event):
 			$InputPressTimer.start()
 		if event.is_action_pressed("ui_down") and airborne_mode:
 			airborne_mode = false
-
+		if event.is_action_pressed("heal"):
+			if Global.healthpot_amount > 0:
+				heal(5)
 
 	
 func charged_attack(type : String = "Ground"):
@@ -1083,22 +1086,39 @@ func take_damage(damage : float):
 	if Global.current_character == "Player" and !is_invulnerable:
 		if Global.equipped_characters[0] == "Player":
 			Global.hearts -= damage
-			add_hurt_particles(damage * 10)
+			add_hurt_particles(damage )
 			emit_signal("life_changed", Global.hearts, "Player")
 			emit_signal("change_elegance", "Hit")
 		elif Global.equipped_characters[1] == "Player":
 			Global.character2_hearts -= damage
-			add_hurt_particles(damage * 10)
+			add_hurt_particles(damage)
 			emit_signal("change_elegance", "Hit")
 			emit_signal("life_changed", Global.character2_hearts, "Player")
 		elif Global.equipped_characters[2] == "Player":
 			Global.character3_hearts -= damage
-			add_hurt_particles(damage * 10)
+			add_hurt_particles(damage)
 			emit_signal("change_elegance", "Hit")
 			emit_signal("life_changed", Global.character3_hearts, "Player")
 
-
-		
+func heal(heal_amount : float):
+	# heal amount in percentage based on max HP
+	if Global.equipped_characters[0] == "Player":
+		add_heal_particles(clamp(heal_amount, 0, Global.max_hearts - Global.hearts))
+		Global.hearts += clamp(heal_amount, 0, Global.max_hearts - Global.hearts)
+		emit_signal("life_changed", Global.hearts, "Player")
+	elif Global.equipped_characters[1] == "Player":
+		add_heal_particles(clamp(heal_amount, 0, Global.character_2_max_hearts - Global.character2_hearts))
+		Global.character2_hearts += clamp(heal_amount, 0, Global.character_2_max_hearts - Global.character2_hearts)
+		emit_signal("life_changed", Global.character2_hearts, "Player")
+	elif Global.equipped_characters[2] == "Player":
+		add_heal_particles(clamp(heal_amount, 0, Global.character_3_max_hearts - Global.character3_hearts))
+		Global.character3_hearts += clamp(heal_amount, 0, Global.character_3_max_hearts - Global.character3_hearts)
+		emit_signal("life_changed", Global.character3_hearts, "Player")
+	Global.healthpot_amount -= 1
+	emit_signal("healthpot_obtained", Global.healthpot_amount)
+	
+	
+	
 func _on_Area2D_area_exited(area):
 	if area.is_in_group("Water"):
 		
@@ -1164,6 +1184,12 @@ func add_hurt_particles(damage : float):
 	hurt_particle.damage = damage * 2
 	get_parent().add_child(hurt_particle)
 	hurt_particle.position = global_position
+
+func add_heal_particles(heal_amount : float):
+	var heal_particle = HEAL_PARTICLE.instance()
+	heal_particle.heal_amount = heal_amount * 2
+	get_parent().add_child(heal_particle)
+	heal_particle.position = global_position
 # Obtaining mana by attacking enemies
 
 func is_a_critical_hit() -> bool:
@@ -1359,7 +1385,7 @@ func dash():
 				velocity.y = 2000
 			yield(get_tree().create_timer(0.25), "timeout")
 			perfect_dash = false
-#			airborne_mode = false
+			airborne_mode = false
 			$DashCooldown.start()
 			
 			velocity.y += GRAVITY
@@ -1478,36 +1504,16 @@ func knock_airborne(target):
 
 
 func useItems():
-	if !is_frozen:
-		if Input.is_action_just_pressed("slot_1") and Global.hearts < Global.max_hearts and Global.healthpot_amount > 0:
-			heal_player("HealthPot")
-		# Life wines (Increase maximum health)
-		elif Input.is_action_just_pressed("slot_2") and Global.hearts < Global.max_hearts and Global.lifewine_amount > 0:
-			heal_player("LifeWine")
-		elif Input.is_action_just_pressed("slot_3") and Global.mana < Global.max_mana and Global.manapot_amount > 0: 
-			heal_player("ManaPot")
+	pass
+#	if !is_frozen:
+#		if Input.is_action_just_pressed("slot_1") and Global.hearts < Global.max_hearts and Global.healthpot_amount > 0:
+#			heal_player("HealthPot")
+#		# Life wines (Increase maximum health)
+#		elif Input.is_action_just_pressed("slot_2") and Global.hearts < Global.max_hearts and Global.lifewine_amount > 0:
+#			heal_player("LifeWine")
+#		elif Input.is_action_just_pressed("slot_3") and Global.mana < Global.max_mana and Global.manapot_amount > 0: 
+#			heal_player("ManaPot")
 
-func heal_player(item : String):
-	if !is_healing:
-		is_healing = true
-		match item:
-			"HealthPot":
-				$HealingTimer.start()
-				if $Area2D.is_in_group("Enemy") or $Area2D.is_in_group("Enemy2"):
-					$HealingTimer.stop()
-					is_healing = false
-			"LifeWine":
-				$FullHealTimer.start()
-				if $Area2D.is_in_group("Enemy") or $Area2D.is_in_group("Enemy2"):
-					$FullHealTimer.stop()
-					is_healing = false
-			"ManaPot":
-				$ManaHealTimer.start()
-				if $Area2D.is_in_group("Enemy") or $Area2D.is_in_group("Enemy2"):
-					$ManaHealTimer.stop()
-					is_healing = false
-	Input.action_release("left")
-	Input.action_release("right")
 
 
 func game_over():

@@ -4,7 +4,7 @@ var velocity = Vector2()
 const MAX_GRAVITY = 8
 var GRAVITY = MAX_GRAVITY
 
-onready var atk_value : float = 0.1
+onready var atk_value : float 
 var elemental_type = "Physical"
 var is_detonating: bool = false
 func _ready():

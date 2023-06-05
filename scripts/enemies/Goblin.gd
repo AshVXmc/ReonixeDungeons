@@ -5,7 +5,7 @@ const SWORD_HIT_PARTICLE : PackedScene = preload("res://scenes/particles/SwordHi
 const DEATH_SMOKE : PackedScene = preload("res://scenes/particles/DeathSmokeParticle.tscn")
 onready var max_HP : int = 25 + (Global.enemy_level_index * 25)
 onready var level : int = round(Global.enemy_level_index)
-var atk_value : float = 0.1 * Global.enemy_level_index
+var atk_value : float = 1 * Global.enemy_level_index 
 onready var HP : int = max_HP
 export var flipped : bool = false
 var velocity = Vector2()
@@ -49,6 +49,7 @@ var magic_res : float = -50
 #var overlaps_enemy_while_midair : bool = false
 var elemental_type : String = "Physical"
 
+signal on_death()
 
 func _ready():
 	$LevelLabel.text = "Lv " + str(level)
@@ -471,3 +472,8 @@ func _on_DownwardsEnemyDetector_area_entered(area):
 func _on_DownwardsEnemyDetector_area_exited(area):
 	if area.is_in_group("Enemy"):
 		set_collision_mask_bit(2, true)
+
+
+func _on_Goblin_tree_exiting():
+	emit_signal("on_death")
+

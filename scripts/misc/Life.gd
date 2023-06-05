@@ -1,10 +1,10 @@
 extends Control
 
-const heart_size : int = 96
+var heart_size : int = 96 * 0.1
 
 
 func _ready():
-	$HeartSlot.rect_size.x = Global.max_hearts * heart_size
+	$HeartSlot.rect_size.x = Global.max_hearts * heart_size 
 	$Hearts.rect_size.x = Global.hearts * heart_size
 	$HeartSlot2.rect_size.x = Global.character_2_max_hearts * heart_size
 	$Hearts2.rect_size.x = Global.character2_hearts * heart_size

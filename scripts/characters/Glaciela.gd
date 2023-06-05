@@ -4,9 +4,11 @@ const SWORD_SLASH_EFFECT : PackedScene = preload("res://scenes/particles/SwordSl
 const SWORD_HIT_PARTICLE : PackedScene = preload("res://scenes/particles/SwordHitParticle.tscn")
 const AIRBORNE_STATUS : PackedScene = preload("res://scenes/status_effects/AirborneStatus.tscn")
 const TEMPUS_TARGUS : PackedScene = preload("res://scenes/misc/TempusTardus.tscn")
+const HEAL_PARTICLE : PackedScene = preload("res://scenes/particles/HealIndicatorParticle.tscn")
 signal skill_used(skill_name)
 signal mana_changed(amount, character)
 signal life_changed(amount, character)
+signal healthpot_obtained(player_healthpot)
 signal attack_buff(amount, duration)
 signal perfect_dash()
 signal action(action_type)
@@ -60,7 +62,11 @@ func _ready():
 	connect("action", Global, "parse_action")
 	connect("change_elegance", get_parent().get_parent().get_parent().get_node("EleganceMeterUI/Control"), "elegance_changed")
 	connect("change_hitcount", get_parent().get_parent().get_parent().get_node("EleganceMeterUI/Control"), "hitcount_changed")
-	
+	connect("healthpot_obtained", get_parent().get_node("HealthPotUI/HealthPotControl"), "on_player_healthpot_obtained")
+	connect("healthpot_obtained", Global, "sync_playerHealthpots")
+	emit_signal("healthpot_obtained", Global.healthpot_amount)
+	connect("life_changed", Global, "sync_hearts")
+	connect("life_changed", get_parent().get_node("HeartUI/Life"), "on_player_life_changed")
 	connect("perfect_dash",  get_parent().get_parent().get_parent().get_node("PauseUI/PerfectDash"), "trigger_perfect_dash_animation")
 	connect("life_changed", get_parent().get_parent().get_parent().get_node("HeartUI/Life"), "on_player_life_changed")
 	connect("mana_changed", get_parent().get_parent().get_parent().get_node("ManaUI/Mana"), "on_player_mana_changed")
@@ -279,6 +285,7 @@ func play_attack_animation(direction : String):
 				
 				$SpecialAttackTimer.stop()
 				if $SpecialSequenceWindow.is_stopped():
+					$ResetAttackStringTimer.stop()
 					$AttackCollision/CollisionShape2D.disabled = true
 					$SpecialAttackArea2D.set_scale(Vector2(-1,1))
 					$AnimationPlayer.play("SpecialAttack1_Left")
@@ -311,8 +318,29 @@ func change_mana_value(amount : float):
 	elif Global.current_character == Global.equipped_characters[2] and Global.character3_mana < Global.character3_max_mana:
 		Global.character3_mana += amount
 		emit_signal("mana_changed", Global.character3_mana, "Glaciela")
-
-
+func add_heal_particles(heal_amount : float):
+	var heal_particle = HEAL_PARTICLE.instance()
+	heal_particle.heal_amount = heal_amount * 2
+	get_parent().get_parent().get_parent().add_child(heal_particle)
+	heal_particle.position = global_position
+func heal(heal_amount : float):
+	# heal amount in percentage based on max HP
+	if Global.equipped_characters[0] == "Glaciela":
+		add_heal_particles(clamp(heal_amount, 0, Global.max_hearts - Global.hearts))
+		Global.hearts += clamp(heal_amount, 0, Global.max_hearts - Global.hearts)
+		emit_signal("life_changed", Global.hearts, "Glaciela")
+	elif Global.equipped_characters[1] == "Glaciela":
+		add_heal_particles(clamp(heal_amount, 0, Global.character_2_max_hearts - Global.character2_hearts))
+		Global.character2_hearts += clamp(heal_amount, 0, Global.character_2_max_hearts - Global.character2_hearts)
+		emit_signal("life_changed", Global.character2_hearts, "Glaciela")
+		print("healed")
+	elif Global.equipped_characters[2] == "Glaciela":
+		add_heal_particles(clamp(heal_amount, 0, Global.character_3_max_hearts - Global.character3_hearts))
+		Global.character3_hearts += clamp(heal_amount, 0, Global.character_3_max_hearts - Global.character3_hearts)
+		emit_signal("life_changed", Global.character3_hearts, "Glaciela")
+	Global.healthpot_amount -= 1
+	emit_signal("healthpot_obtained", Global.healthpot_amount)
+	
 
 func _on_SpecialAttackTimer_timeout():
 	$SpecialSequenceWindow.start()
@@ -326,7 +354,10 @@ func _input(event):
 		if event.is_action_pressed("ui_attack"):
 			attack()
 			$InputPressTimer.start()
-
+		if event.is_action_pressed("heal"):
+			if Global.healthpot_amount > 0:
+				heal(5)
+				
 
 #func downwards_charged_attack():
 #	if airborne_mode and Input.is_action_pressed("ui_attack") and $InputPressTimer.is_stopped() and !is_performing_charged_attack:
@@ -607,15 +638,15 @@ func take_damage(damage : float):
 	if Global.current_character == "Glaciela":
 		if Global.equipped_characters[0] == "Glaciela":
 			Global.hearts -= damage
-			add_hurt_particles(damage * 10)
+			add_hurt_particles(damage)
 			emit_signal("life_changed", Global.hearts, "Glaciela")
 		elif Global.equipped_characters[1] == "Glaciela":
 			Global.character2_hearts -= damage
-			add_hurt_particles(damage * 10)
+			add_hurt_particles(damage )
 			emit_signal("life_changed", Global.character2_hearts, "Glaciela")
 		elif Global.equipped_characters[2] == "Glaciela":
 			Global.character3_hearts -= damage
-			add_hurt_particles(damage * 10)
+			add_hurt_particles(damage)
 			emit_signal("life_changed", Global.character3_hearts, "Glaciela")
 
 	
