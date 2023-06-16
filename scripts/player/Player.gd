@@ -65,6 +65,7 @@ var facing
 enum {
 	left, right
 }
+const TRAIL_PARTICLE = preload("res://scenes/particles/DashTrailParticle.tscn")
 const WALK_PARTICLE = preload("res://scenes/particles/WalkParticle.tscn")
 const SHEATHED = preload("res://assets/player/katana_sheath.png")
 const EMPTY_SHEATH = preload("res://assets/player/katana_sheath_empty.png")
@@ -361,8 +362,12 @@ func _physics_process(_delta):
 						jump_particle.position = $ParticlePosition.global_position
 						velocity.y = JUMP_POWER
 						$Sprite.play("Idle")
-		#				is_attacking = false
-						print("Jumping")
+						yield(get_tree().create_timer(0.2), "timeout")
+						var trail_particle = TRAIL_PARTICLE.instance()
+						trail_particle.emitting = true
+						trail_particle.one_shot = true
+						get_parent().add_child(trail_particle)
+						trail_particle.position = $ParticlePosition.global_position
 					# Jump controls (water)
 					if Input.is_action_just_pressed("jump") and underwater and !is_attacking and !is_frozen:
 						var water_jump_particle = WATER_JUMP_PARTICLE.instance()
@@ -559,15 +564,16 @@ func dash_counter_attack():
 		var counterflurryeffect = SWORD_SLASH_EFFECT.instance()
 		var counterflurryarea = SLASH_FLURRY_AREA.instance()
 		counterflurryarea.add_to_group("Sword")
-		counterflurryarea.add_to_group(str(ATTACK * (Global.player_skill_multipliers["CircularFlurryAttack"] / 100)))
+		counterflurryarea.add_to_group(str(ATTACK * (Global.player_skill_multipliers["CounterAttack"] / 100)))
 		get_parent().add_child(counterflurryarea)
 		get_parent().add_child(counterflurryeffect)
 		counterflurryeffect.position = get_closest_enemy().global_position
+		counterflurryeffect.scale.x = 0.8
+		counterflurryeffect.scale.y = 0.8
 		counterflurryarea.position = get_closest_enemy().global_position
 		
-		counterflurryarea.get_node("AnimationPlayer").play("CircularFlurryAttack")
-		counterflurryeffect.circular_flurry_animation()
-		
+		counterflurryarea.get_node("AnimationPlayer").play("PlayerCounterAttack")
+		counterflurryeffect.player_counter_attack_animation()
 		yield(get_tree().create_timer(0.1), "timeout")
 		update_energy_meter(10)
 		yield(get_tree().create_timer(0.1), "timeout")
@@ -1404,6 +1410,7 @@ func thrust_attack(extra_long_thrust : bool = false):
 			else:
 				$ThrustEffectArea.add_to_group(str(ATTACK * (Global.player_skill_multipliers["ThrustChargedAttack"] / 100) * crit_dmg))
 				$ThrustEffectArea.remove_from_group("IsCritHit")
+			emit_signal("change_elegance", "ChargedAttackLight")
 	$ThrustEffectArea/CollisionShape2D.disabled = false
 	
 	is_thrust_attacking = true
@@ -1852,20 +1859,21 @@ func _on_AirborneMaxDuration_timeout():
 
 
 func _on_GhostTrailTimer_timeout():
-	if Global.current_character == "Player" and is_dashing and velocity.x != 0:
-		var ghost_trail = preload("res://scenes/misc/GhostTrail.tscn").instance()
-		var texture = preload("res://assets/player/player_dash.png")
-		
-		get_parent().add_child(ghost_trail)
-		ghost_trail.position = global_position
-		if !$Sprite.flip_h:
+	if is_dashing:
+		if Global.current_character == "Player" and velocity.x != 0:
+			var ghost_trail = preload("res://scenes/misc/GhostTrail.tscn").instance()
+			var texture = preload("res://assets/player/player_dash.png")
 			
-			ghost_trail.flip_h = false
-		else:
-			ghost_trail.flip_h = true
-			
-		ghost_trail.scale.x = 5
-		ghost_trail.scale.y = 5
+			get_parent().add_child(ghost_trail)
+			ghost_trail.position = global_position
+			if !$Sprite.flip_h:
+				
+				ghost_trail.flip_h = false
+			else:
+				ghost_trail.flip_h = true
+				
+			ghost_trail.scale.x = 5
+			ghost_trail.scale.y = 5
 	
 
 

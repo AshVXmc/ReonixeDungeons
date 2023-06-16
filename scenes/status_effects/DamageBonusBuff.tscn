@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://assets/misc/item_pouch.png" type="Texture" id=1]
+[ext_resource path="res://scripts/status_effects/DamageBonusBuff.gd" type="Script" id=2]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 20.5232, 31.3687 )
+
+[node name="DamageBonusBuff" type="Area2D" groups=["DamageBonusBuff"]]
+script = ExtResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( -0.140793, -0.0946007 )
+shape = SubResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 0.321427, 2.23378 )
+scale = Vector2( 3, 3 )
+texture = ExtResource( 1 )
+
+[connection signal="area_entered" from="." to="." method="_on_DamageBonusBuff_area_entered"]

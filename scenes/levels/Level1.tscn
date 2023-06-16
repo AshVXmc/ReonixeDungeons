@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=2]
+[gd_scene load_steps=33 format=2]
 
 [ext_resource path="res://scripts/misc/Level.gd" type="Script" id=1]
 [ext_resource path="res://scenes/menus/DebugMenu.tscn" type="PackedScene" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://scenes/items/LevelTransporter.tscn" type="PackedScene" id=6]
 [ext_resource path="res://scenes/menus/HealthPotUI.tscn" type="PackedScene" id=7]
 [ext_resource path="res://scenes/menus/GameOver.tscn" type="PackedScene" id=8]
+[ext_resource path="res://scenes/items/ChestSilver.tscn" type="PackedScene" id=9]
 [ext_resource path="res://scenes/enemies/Slime.tscn" type="PackedScene" id=10]
 [ext_resource path="res://scenes/menus/HeartUI.tscn" type="PackedScene" id=11]
 [ext_resource path="res://tilesets/Default.tres" type="TileSet" id=13]
@@ -204,3 +205,14 @@ position = Vector2( -1139, 144 )
 position = Vector2( -669.12, 880.985 )
 
 [node name="EnemySkillGlobalCooldown" parent="." instance=ExtResource( 4 )]
+
+[node name="Goblin2" parent="." instance=ExtResource( 18 )]
+position = Vector2( 126.992, 857.196 )
+
+[node name="Goblin3" parent="." instance=ExtResource( 18 )]
+position = Vector2( -336.529, 895.294 )
+
+[node name="ChestSilver" parent="." instance=ExtResource( 9 )]
+position = Vector2( -1849.97, 727.171 )
+chestID = 1
+Opals = 9

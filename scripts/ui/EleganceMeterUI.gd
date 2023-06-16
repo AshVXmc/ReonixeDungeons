@@ -66,19 +66,17 @@ func elegance_changed(action_name):
 		$AttackDecayTimer.start()
 		match action_name:
 			"BasicAttack":
-				elegance += 25
-				log_attack("BA")
+				elegance += 10
 			"ChargedAttackLight":
-				elegance += 35
-				log_attack("CAL")
+				elegance += 22.5
 			"ChargedAttackHeavy":
-				elegance += 50
+				elegance += 35
 			"PrimarySkill":
-				elegance += 120
+				elegance += 96
 			"SecondarySkill":
-				elegance += 60
+				elegance += 48
 			"PerfectDash":
-				elegance += 80
+				elegance += 64
 			"Hit":
 				if rank == C:
 					elegance = 0

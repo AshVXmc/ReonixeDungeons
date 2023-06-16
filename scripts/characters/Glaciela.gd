@@ -17,7 +17,7 @@ signal ready_to_be_switched_in(character)
 signal change_elegance(action_name)
 signal change_hitcount(amount)
 var target
-var tundra_sigils : int = 0
+var tundra_stars : int = 0
 var airborne_mode : bool = false
 var basicatkbuffmulti : float = 0
 var basicatkbuffdur : float = 0
@@ -28,7 +28,20 @@ var atkbuffmulti = 0
 var atkbuffdur = 0
 # Attack buff for all abilities (Skills)
 var atkbuffskill = 0
+# Permanent dmg bonus. Stacks additively with ice_dmg_bonus. 12% DMG bonus per sigil
+var ice_dmg_bonus_from_tundra_sigil : float
+
 var buffed_from_attack_crystals = false
+var buffed_from_damage_bonus_crystals = false
+var prev_phys_dmg_bonus : Array 
+var prev_fire_dmg_bonus : Array 
+var prev_ice_dmg_bonus : Array 
+var prev_earth_dmg_bonus : Array 
+var number_of_phys_dmg_bonus_buffs : int
+var number_of_fire_dmg_bonus_buffs : int
+var number_of_ice_dmg_bonus_buffs : int
+var number_of_earth_dmg_bonus_buffs : int
+
 var prev_attack_power : Array
 var number_of_atk_buffs : int = 0
 var attack_string_count : int = 4
@@ -40,16 +53,21 @@ onready var CHARGING_CHARGE_METER = preload("res://assets/UI/chargebar_charging.
 
 var attack_collsion_overlaps_enemy : bool = false
 var number_of_basic_atk_buffs : int
+
 var basic_attack_buff : float
 var prev_basic_attack_power : Array
 var attack_buff : float
 var is_dead: bool = false
 var ATTACK = Global.glaciela_attack
 var phys_res : float = Global.glaciela_skill_multipliers["BasePhysRes"]
-var magic_res : float = Global.glaciela_skill_multipliers["BaseMagicRes"]
 var fire_res : float = Global.glaciela_skill_multipliers["BaseFireRes"]
 var ice_res : float = Global.glaciela_skill_multipliers["BaseIceRes"]
 var earth_res : float = Global.glaciela_skill_multipliers["BaseEarthRes"]
+var phys_dmg_bonus : float = Global.glaciela_skill_multipliers["PhysDamageBonus"]
+var fire_dmg_bonus : float = Global.glaciela_skill_multipliers["FireDamageBonus"]
+var ice_dmg_bonus : float = Global.glaciela_skill_multipliers["IceDamageBonus"]
+var earth_dmg_bonus : float = Global.glaciela_skill_multipliers["EarthDamageBonus"]
+
 onready var crit_rate : float = Global.glaciela_skill_multipliers["CritRate"]
 onready var crit_damage : float = Global.glaciela_skill_multipliers["CritDamage"]
 
@@ -57,7 +75,7 @@ onready var crit_damage : float = Global.glaciela_skill_multipliers["CritDamage"
 func _ready():
 	if Global.equipped_characters.has("Player"):
 		connect("trigger_quickswap", get_parent().get_parent(), "quickswap_event")
-	tundra_sigils = 0
+	tundra_stars = 0
 	update_tundra_sigil_ui()
 	connect("action", Global, "parse_action")
 	connect("change_elegance", get_parent().get_parent().get_parent().get_node("EleganceMeterUI/Control"), "elegance_changed")
@@ -79,11 +97,11 @@ func _ready():
 	$SpecialAttackArea2D.add_to_group(str(ATTACK * (Global.glaciela_skill_multipliers["SpecialAttack1_1"] / 100)))
 
 func update_tundra_sigil_ui():
-	$TundraSigilsUI/TundraSigil3.visible = true if tundra_sigils >= 3 else false
-	$TundraSigilsUI/TundraSigil2.visible = true if tundra_sigils >= 2 else false
-	$TundraSigilsUI/TundraSigil1.visible = true if tundra_sigils >= 1 else false
-
-
+	$TundraSigilsUI/TundraSigil3.visible = true if tundra_stars >= 3 else false
+	$TundraSigilsUI/TundraSigil2.visible = true if tundra_stars >= 2 else false
+	$TundraSigilsUI/TundraSigil1.visible = true if tundra_stars >= 1 else false
+	ice_dmg_bonus_from_tundra_sigil = Global.glaciela_skill_multipliers["TundraSigilIceDamageBonus"] * tundra_stars * 0.01
+	print(ice_dmg_bonus_from_tundra_sigil)
 func _physics_process(delta):
 	target = get_closest_enemy()
 	if !$AnimatedSprite.flip_h:
@@ -219,7 +237,6 @@ func play_attack_animation(direction : String):
 			1:
 				
 				$SpecialAttackTimer.stop()
-				
 				if $SpecialSequenceWindow.is_stopped():
 					$AttackCollision/CollisionShape2D.disabled = true
 					$SpecialAttackArea2D.set_scale(Vector2(1,1))
@@ -285,7 +302,6 @@ func play_attack_animation(direction : String):
 				
 				$SpecialAttackTimer.stop()
 				if $SpecialSequenceWindow.is_stopped():
-					$ResetAttackStringTimer.stop()
 					$AttackCollision/CollisionShape2D.disabled = true
 					$SpecialAttackArea2D.set_scale(Vector2(-1,1))
 					$AnimationPlayer.play("SpecialAttack1_Left")
@@ -393,7 +409,7 @@ func charged_attack(airborne_duration : float = 1, type : int = 1):
 							break
 					$KnockAirborneICD.start()
 					if $TundraSigilChargedAttackGainDelayTimer.is_stopped():
-						tundra_sigils += 1
+						tundra_stars += 1
 						$TundraSigilChargedAttackGainDelayTimer.start()
 					update_tundra_sigil_ui()
 					is_charging = false
@@ -439,11 +455,11 @@ func special_attack_1_damage_calc(sequence : int = 1):
 			match sequence:
 				1:
 					$SpecialAttackArea2D.add_to_group("HeavyPoiseDamage")
-					$SpecialAttackArea2D.add_to_group(str(ATTACK * (Global.glaciela_skill_multipliers["SpecialAttack1_1"] / 100)))
+					$SpecialAttackArea2D.add_to_group(str(ATTACK * (Global.glaciela_skill_multipliers["SpecialAttack1_1"] / 100) * (1 + ice_dmg_bonus + ice_dmg_bonus_from_tundra_sigil)))
 					
 				2:
 					$SpecialAttackArea2D.add_to_group("HeavyPoiseDamage")
-					$SpecialAttackArea2D.add_to_group(str(ATTACK * (Global.glaciela_skill_multipliers["SpecialAttack1_2"] / 100)))
+					$SpecialAttackArea2D.add_to_group(str(ATTACK * (Global.glaciela_skill_multipliers["SpecialAttack1_2"] / 100) * (1 + ice_dmg_bonus + ice_dmg_bonus_from_tundra_sigil)))
 					
 
 func special_attack_2_damage_Calc(sequence : int = 1):
@@ -452,14 +468,15 @@ func special_attack_2_damage_Calc(sequence : int = 1):
 			$SpecialAttackArea2D.remove_from_group(groups)
 			match sequence:
 				1:
-					$SpecialAttackArea2D.add_to_group("MediumPoiseDamage")
-					$SpecialAttackArea2D.add_to_group(str(ATTACK * (Global.glaciela_skill_multipliers["SpecialAttack2_1"] / 100)))
+					$SpecialAttackArea2D.add_to_group("LightPoiseDamage")
+					$SpecialAttackArea2D.add_to_group(str(ATTACK * (Global.glaciela_skill_multipliers["SpecialAttack2_1"] / 100) * (1 + ice_dmg_bonus + ice_dmg_bonus_from_tundra_sigil)))
 				2:
-					$SpecialAttackArea2D.add_to_group("MediumPoiseDamage")
-					$SpecialAttackArea2D.add_to_group(str(ATTACK * (Global.glaciela_skill_multipliers["SpecialAttack2_2"] / 100)))
+					$SpecialAttackArea2D.add_to_group("LightPoiseDamage")
+					$SpecialAttackArea2D.add_to_group(str(ATTACK * (Global.glaciela_skill_multipliers["SpecialAttack2_2"] / 100) * (1 + ice_dmg_bonus + ice_dmg_bonus_from_tundra_sigil)))
 				3:
-					$SpecialAttackArea2D.add_to_group("HeavyPoiseDamage")
-					$SpecialAttackArea2D.add_to_group(str(ATTACK * (Global.glaciela_skill_multipliers["SpecialAttack2_3"] / 100)))
+					$SpecialAttackArea2D.add_to_group("MediumPoiseDamage")
+					$SpecialAttackArea2D.add_to_group(str(ATTACK * (Global.glaciela_skill_multipliers["SpecialAttack2_3"] / 100) * (1 + ice_dmg_bonus + ice_dmg_bonus_from_tundra_sigil)))
+					
 func get_closest_enemy():
 	var enemies = get_tree().get_nodes_in_group("Enemy")
 	if enemies.empty(): 
@@ -487,35 +504,76 @@ func set_basic_attack_power(amount : float, duration : float, show_particles : b
 		buffed_from_attack_crystals = true
 		number_of_basic_atk_buffs += 1
 		prev_basic_attack_power.insert((number_of_basic_atk_buffs - 1), basic_attack_buff) 
-		print(prev_basic_attack_power)
 		basic_attack_buff = prev_basic_attack_power[number_of_basic_atk_buffs - 1] + amount
-		
-		print("Buffed: " + str(basic_attack_buff))
 		yield(get_tree().create_timer(duration), "timeout")
 		basic_attack_buff = prev_basic_attack_power[number_of_basic_atk_buffs - 1]
-		print("DeBuffed: " + str(prev_basic_attack_power[number_of_basic_atk_buffs - 1]))
 		number_of_basic_atk_buffs -= 1
 		prev_basic_attack_power.remove(number_of_basic_atk_buffs)
-		
+
 		buffed_from_attack_crystals = false
 
+
+func set_damage_bonus(amount : float, duration : float, show_particles : bool , type : String):
+	buffed_from_damage_bonus_crystals = true
+	var other_groups : Array
+	match type:
+		"Physical":
+			number_of_phys_dmg_bonus_buffs += 1
+			prev_phys_dmg_bonus.insert((number_of_phys_dmg_bonus_buffs - 1), phys_dmg_bonus)
+			phys_dmg_bonus =  prev_phys_dmg_bonus[number_of_phys_dmg_bonus_buffs- 1] + amount
+			yield(get_tree().create_timer(duration), "timeout")
+			phys_dmg_bonus =  prev_phys_dmg_bonus[number_of_phys_dmg_bonus_buffs- 1]
+			number_of_phys_dmg_bonus_buffs -= 1
+			prev_phys_dmg_bonus.remove(number_of_phys_dmg_bonus_buffs)
+			buffed_from_damage_bonus_crystals = false
+		"Fire":
+			number_of_fire_dmg_bonus_buffs += 1
+			prev_fire_dmg_bonus.insert((number_of_fire_dmg_bonus_buffs - 1), fire_dmg_bonus)
+			fire_dmg_bonus =  prev_fire_dmg_bonus[number_of_fire_dmg_bonus_buffs- 1] + amount
+			yield(get_tree().create_timer(duration), "timeout")
+			fire_dmg_bonus =  prev_fire_dmg_bonus[number_of_fire_dmg_bonus_buffs- 1]
+			number_of_fire_dmg_bonus_buffs -= 1
+			prev_fire_dmg_bonus.remove(number_of_fire_dmg_bonus_buffs)
+			buffed_from_damage_bonus_crystals = false
+		"Ice":
+			number_of_ice_dmg_bonus_buffs += 1
+			prev_ice_dmg_bonus.insert((number_of_ice_dmg_bonus_buffs - 1), ice_dmg_bonus)
+			ice_dmg_bonus =  prev_ice_dmg_bonus[number_of_ice_dmg_bonus_buffs- 1] + amount
+			yield(get_tree().create_timer(duration), "timeout")
+			ice_dmg_bonus =  prev_ice_dmg_bonus[number_of_ice_dmg_bonus_buffs- 1]
+			number_of_ice_dmg_bonus_buffs -= 1
+			prev_ice_dmg_bonus.remove(number_of_ice_dmg_bonus_buffs)
+			buffed_from_damage_bonus_crystals = false
+		"Earth":
+			number_of_earth_dmg_bonus_buffs += 1
+			prev_earth_dmg_bonus.insert((number_of_earth_dmg_bonus_buffs - 1), earth_dmg_bonus)
+			earth_dmg_bonus =  prev_earth_dmg_bonus[number_of_earth_dmg_bonus_buffs- 1] + amount
+			yield(get_tree().create_timer(duration), "timeout")
+			earth_dmg_bonus =  prev_earth_dmg_bonus[number_of_earth_dmg_bonus_buffs- 1] 
+			number_of_earth_dmg_bonus_buffs -= 1
+			prev_earth_dmg_bonus.remove(number_of_earth_dmg_bonus_buffs)
+			buffed_from_damage_bonus_crystals = false
+		
+
+
+
 func set_attack_power(amount : float, duration : float, show_particles : bool = true):
-		buffed_from_attack_crystals = true
-		number_of_atk_buffs += 1
-		
-		var other_groups : Array
-		prev_attack_power.insert((number_of_atk_buffs - 1), attack_buff) 
-		print(prev_attack_power)
-		attack_buff = prev_attack_power[number_of_atk_buffs - 1] + amount
-		
-		print("Buffed: " + str(attack_buff))
-		yield(get_tree().create_timer(duration), "timeout")
-		attack_buff = prev_attack_power[number_of_atk_buffs - 1]
-		print("DeBuffed: " + str(prev_attack_power[number_of_atk_buffs - 1]))
-		number_of_atk_buffs -= 1
-		prev_attack_power.remove(number_of_atk_buffs)
-		buffed_from_attack_crystals = false
-		
+	buffed_from_attack_crystals = true
+	number_of_atk_buffs += 1
+	
+	var other_groups : Array
+	prev_attack_power.insert((number_of_atk_buffs - 1), attack_buff) 
+	print(prev_attack_power)
+	attack_buff = prev_attack_power[number_of_atk_buffs - 1] + amount
+	
+	print("Buffed: " + str(attack_buff))
+	yield(get_tree().create_timer(duration), "timeout")
+	attack_buff = prev_attack_power[number_of_atk_buffs - 1]
+	print("DeBuffed: " + str(prev_attack_power[number_of_atk_buffs - 1]))
+	number_of_atk_buffs -= 1
+	prev_attack_power.remove(number_of_atk_buffs)
+	buffed_from_attack_crystals = false
+	
 
 func infuse_element(element : String, duration : float = 10):
 	match element:
@@ -533,12 +591,15 @@ func _on_AttackCollision_area_entered(area):
 				get_parent().get_parent().airborne_mode = true
 				get_parent().get_parent().get_node("AirborneTimer").stop()
 				get_parent().get_parent().get_node("AirborneTimer").start()
-			if $TundraStackRegen.is_stopped() and !is_performing_charged_attack and tundra_sigils < Global.glaciela_skill_multipliers["MaxTundraSigils"]:
+			if $TundraStackRegen.is_stopped() and !is_performing_charged_attack and tundra_stars < Global.glaciela_skill_multipliers["MaxTundraSigils"]:
 				
 				if attack_string_count == 0:
-					tundra_sigils += 1
+					tundra_stars += 1
 					update_tundra_sigil_ui()
 					$TundraStackRegen.start()
+				
+			emit_signal("change_elegance", "BasicAttack")
+			
 			var hitparticle = SWORD_HIT_PARTICLE.instance()
 			var slashparticle = SWORD_SLASH_EFFECT.instance()
 			hitparticle.emitting = true
@@ -603,6 +664,9 @@ func _on_Area2D_area_entered(area):
 			basicatkbuffdur = area.duration
 			set_basic_attack_power(float(basicatkbuffmulti), float(basicatkbuffdur))
 			print("STRONK")
+		if area.is_in_group("DamageBonusBuff"):
+			set_damage_bonus(float(area.amount), float(area.duration), true, area.type)
+			
 #	if area.is_in_group("Enemy") and !get_parent().get_parent().is_invulnerable:
 #		$AnimationPlayer.play("Hurt")
 func after_damaged():
@@ -652,7 +716,6 @@ func take_damage(damage : float):
 	
 
 func _on_ResetAttackStringTimer_timeout():
-	
 	attack_string_count = 4
 
 
@@ -660,8 +723,8 @@ func _on_ResetAttackStringTimer_timeout():
 
 
 #func _on_TundraStackRegen_timeout():
-#	if tundra_sigils < Global.glaciela_skill_multipliers["MaxTundraSigils"]:
-#		tundra_sigils += 1
+#	if tundra_stars < Global.glaciela_skill_multipliers["MaxTundraSigils"]:
+#		tundra_stars += 1
 
 
 
@@ -721,3 +784,8 @@ func _on_InvulnerabilityTimer_timeout():
 
 func _on_AttackTimer_timeout():
 	$AttackCollision/CollisionShape2D.disabled = true
+
+
+func _on_AnimationPlayer_animation_finished(anim_name):
+	if anim_name == "SpecialAttack2_Right" or "SpecialAttack1_Right" or "SpecialAttack1_Left":
+		$SpecialAttackArea2D/CollisionShape2D.disabled = true

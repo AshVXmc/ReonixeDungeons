@@ -38,6 +38,9 @@ func horizontal_slash_animation():
 func circular_flurry_animation():
 	$CircularFlurry.visible = true
 	$SlashEffectPlayer.play("CircularFlurry")
+	
+func player_counter_attack_animation():
+	$SlashEffectPlayer.play("X-slash")
 func flurry_slash_animation(num):
 	$HorizontalSlashSprite.visible = false
 	

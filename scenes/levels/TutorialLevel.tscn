@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://scripts/misc/TutorialLevel.gd" type="Script" id=1]
 [ext_resource path="res://scenes/menus/DebugMenu.tscn" type="PackedScene" id=2]
@@ -8,9 +8,13 @@
 [ext_resource path="res://assets/fonts/Born2bSportyV2.ttf" type="DynamicFontData" id=6]
 [ext_resource path="res://scenes/menus/HealthPotUI.tscn" type="PackedScene" id=7]
 [ext_resource path="res://scenes/menus/GameOver.tscn" type="PackedScene" id=8]
+[ext_resource path="res://scenes/status_effects/DamageBonusBuff.tscn" type="PackedScene" id=9]
+[ext_resource path="res://themes/Blur.tres" type="Material" id=10]
 [ext_resource path="res://scenes/menus/HeartUI.tscn" type="PackedScene" id=11]
+[ext_resource path="res://assets/UI/button_pressed.png" type="Texture" id=12]
 [ext_resource path="res://tilesets/Default.tres" type="TileSet" id=13]
 [ext_resource path="res://scenes/menus/SceneTransition.tscn" type="PackedScene" id=14]
+[ext_resource path="res://assets/UI/button.png" type="Texture" id=15]
 [ext_resource path="res://scenes/menus/PauseUI.tscn" type="PackedScene" id=16]
 [ext_resource path="res://scenes/menus/InventoryUI.tscn" type="PackedScene" id=17]
 [ext_resource path="res://scenes/misc/Light.tscn" type="PackedScene" id=20]
@@ -28,6 +32,10 @@ font_data = ExtResource( 6 )
 
 [sub_resource type="DynamicFont" id=2]
 size = 32
+font_data = ExtResource( 6 )
+
+[sub_resource type="DynamicFont" id=3]
+size = 48
 font_data = ExtResource( 6 )
 
 [node name="TutorialLevel" type="Node2D"]
@@ -71,6 +79,151 @@ __meta__ = {
 
 [node name="EleganceMeterUI" parent="." instance=ExtResource( 5 )]
 
+[node name="TutorialUI" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="TutorialUI"]
+pause_mode = 2
+visible = false
+anchor_left = 0.492
+anchor_top = 0.503
+anchor_right = 0.492
+anchor_bottom = 0.503
+margin_left = -531.36
+margin_top = -362.16
+margin_right = -491.36
+margin_bottom = -322.16
+
+[node name="Blur" type="ColorRect" parent="TutorialUI/Control"]
+material = ExtResource( 10 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -2491.0
+margin_top = -823.0
+margin_right = 3620.0
+margin_bottom = 1460.0
+color = Color( 1, 1, 1, 0 )
+
+[node name="NinePatchRect" type="NinePatchRect" parent="TutorialUI/Control"]
+anchor_left = 13.284
+anchor_top = 9.599
+anchor_right = 13.284
+anchor_bottom = 9.675
+margin_left = -397.36
+margin_top = -220.96
+margin_right = 394.64
+margin_bottom = 214.0
+texture = ExtResource( 3 )
+patch_margin_left = 64
+patch_margin_top = 64
+patch_margin_right = 64
+patch_margin_bottom = 64
+
+[node name="TutorialLabel" type="RichTextLabel" parent="TutorialUI/Control"]
+anchor_left = -26.325
+anchor_top = 10.225
+anchor_right = -26.325
+anchor_bottom = 10.225
+margin_left = 1201.0
+margin_top = -208.0
+margin_right = 1968.0
+margin_bottom = 10.0
+custom_fonts/mono_font = SubResource( 1 )
+custom_fonts/normal_font = SubResource( 1 )
+bbcode_enabled = true
+bbcode_text = "[center]Hold [color=#ffd703]W[/color] and [color=#ffd703]D[/color] to move left and right.
+[color=#ffd703]ENTER[/color] to attack enemies at melee range."
+text = "Hold W and D to move left and right.
+ENTER to attack enemies at melee range."
+scroll_active = false
+
+[node name="PressToSkipLabel" type="RichTextLabel" parent="TutorialUI/Control"]
+anchor_left = -26.457
+anchor_top = 9.102
+anchor_right = -26.457
+anchor_bottom = 9.102
+margin_left = -331.262
+margin_top = -51.08
+margin_right = 332.738
+margin_bottom = -2.08002
+custom_fonts/mono_font = SubResource( 2 )
+custom_fonts/normal_font = SubResource( 1 )
+bbcode_enabled = true
+bbcode_text = "[center]TAP [color=#ffd703]CTRL [/color]TO SKIP[/center]"
+text = "TAP CTRL TO SKIP"
+scroll_active = false
+
+[node name="NextButton" type="TextureButton" parent="TutorialUI/Control"]
+anchor_left = 13.292
+anchor_top = 11.772
+anchor_right = 13.292
+anchor_bottom = 11.772
+margin_left = -73.6801
+margin_top = 30.12
+margin_right = -57.6801
+margin_bottom = 38.12
+rect_scale = Vector2( 9, 9 )
+texture_normal = ExtResource( 15 )
+texture_pressed = ExtResource( 12 )
+
+[node name="Label" type="Label" parent="TutorialUI/Control"]
+anchor_left = 13.292
+anchor_top = 11.882
+anchor_right = 13.292
+anchor_bottom = 11.882
+margin_left = -61.9861
+margin_top = 38.1095
+margin_right = 58.0139
+margin_bottom = 86.1095
+custom_fonts/font = SubResource( 3 )
+text = "Next"
+align = 1
+
+[node name="MiniTutorialUI" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="MiniTutorialUI"]
+pause_mode = 2
+visible = false
+anchor_left = 0.492
+anchor_top = 0.503
+anchor_right = 0.492
+anchor_bottom = 0.503
+margin_left = -531.36
+margin_top = -362.16
+margin_right = -491.36
+margin_bottom = -322.16
+
+[node name="NinePatchRect" type="NinePatchRect" parent="MiniTutorialUI/Control"]
+anchor_left = 13.284
+anchor_top = 9.599
+anchor_right = 13.284
+anchor_bottom = 9.675
+margin_left = -301.36
+margin_top = 168.04
+margin_right = 268.64
+margin_bottom = 254.0
+texture = ExtResource( 3 )
+patch_margin_left = 64
+patch_margin_top = 64
+patch_margin_right = 64
+
+[node name="TutorialLabel" type="RichTextLabel" parent="MiniTutorialUI/Control"]
+anchor_left = -26.325
+anchor_top = 10.225
+anchor_right = -26.325
+anchor_bottom = 10.225
+margin_left = 1303.0
+margin_top = 164.0
+margin_right = 1841.0
+margin_bottom = 259.0
+custom_fonts/mono_font = SubResource( 1 )
+custom_fonts/normal_font = SubResource( 1 )
+bbcode_enabled = true
+bbcode_text = "[center]Defeat the enemy to proceed."
+text = "Defeat the enemy to proceed."
+scroll_active = false
+
 [node name="TileMap (Back)" type="TileMap" parent="."]
 tile_set = ExtResource( 30 )
 cell_size = Vector2( 96, 96 )
@@ -88,61 +241,8 @@ __meta__ = {
 "_edit_ik_": true
 }
 
-[node name="Control" type="Control" parent="."]
-margin_right = 40.0
-margin_bottom = 40.0
-
-[node name="NinePatchRect" type="NinePatchRect" parent="Control"]
-anchor_left = -26.333
-anchor_top = 18.734
-anchor_right = -26.333
-anchor_bottom = 18.734
-margin_left = -376.68
-margin_top = -38.36
-margin_right = 415.32
-margin_bottom = 177.64
-texture = ExtResource( 3 )
-patch_margin_left = 64
-patch_margin_top = 64
-patch_margin_right = 64
-patch_margin_bottom = 64
-
-[node name="TutorialLabel" type="RichTextLabel" parent="Control"]
-anchor_left = -26.325
-anchor_top = 10.225
-anchor_right = -26.325
-anchor_bottom = 10.225
-margin_left = -364.0
-margin_top = 311.0
-margin_right = 403.0
-margin_bottom = 518.0
-custom_fonts/mono_font = SubResource( 1 )
-custom_fonts/normal_font = SubResource( 1 )
-bbcode_enabled = true
-bbcode_text = "[center]Hold [color=#ffd703]W[/color] and [color=#ffd703]D[/color] to move left and right.
-[color=#ffd703]ENTER[/color] to attack enemies at melee range."
-text = "Hold W and D to move left and right.
-ENTER to attack enemies at melee range."
-scroll_active = false
-
-[node name="PressToSkipLabel" type="RichTextLabel" parent="Control"]
-anchor_left = -26.457
-anchor_top = 9.102
-anchor_right = -26.457
-anchor_bottom = 9.102
-margin_left = -331.262
-margin_top = -51.08
-margin_right = 332.738
-margin_bottom = -2.08002
-custom_fonts/mono_font = SubResource( 2 )
-custom_fonts/normal_font = SubResource( 1 )
-bbcode_enabled = true
-bbcode_text = "[center]TAP [color=#ffd703]CTRL [/color]TO SKIP[/center]"
-text = "TAP CTRL TO SKIP"
-scroll_active = false
-
 [node name="Player" parent="." instance=ExtResource( 29 )]
-position = Vector2( -1053.32, 591.426 )
+position = Vector2( -1295.77, 615.869 )
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position = Vector2( 9.72693, -62.0423 )
@@ -167,5 +267,22 @@ mode = 1
 
 [node name="EnemySkillGlobalCooldown" parent="." instance=ExtResource( 4 )]
 
+[node name="PlayerSpawnPosition" type="Position2D" parent="."]
+position = Vector2( -1293.34, 557 )
+
 [node name="EnemySpawnPosition" type="Position2D" parent="."]
-position = Vector2( -1053.32, 536.881 )
+position = Vector2( -815.341, 557 )
+
+[node name="DamageBonusBuff" parent="." instance=ExtResource( 9 )]
+position = Vector2( -1430, 615.869 )
+amount = 0.5
+duration = 15.0
+type = "Ice"
+
+[node name="DamageBonusBuff2" parent="." instance=ExtResource( 9 )]
+position = Vector2( -1485.44, 615.869 )
+amount = 0.5
+duration = 15.0
+type = "Ice"
+
+[connection signal="pressed" from="TutorialUI/Control/NextButton" to="." method="_on_NextButton_pressed"]

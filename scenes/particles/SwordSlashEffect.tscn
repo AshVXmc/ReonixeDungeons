@@ -922,6 +922,8 @@ tracks/2/keys = {
 
 [sub_resource type="Animation" id=12]
 resource_name = "X-slash"
+length = 0.5
+step = 0.025
 tracks/0/type = "value"
 tracks/0/path = NodePath("HorizontalSlashSprite:visible")
 tracks/0/interp = 1
@@ -929,10 +931,48 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PoolRealArray( 0, 0.175, 0.275, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 1,
-"values": [ true ]
+"values": [ true, false, true, false ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("HorizontalSlashSprite:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.025, 0.075, 0.125, 0.325, 0.375, 0.425 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, 21.0, 28.0, -90.0, -69.0, -62.0 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("HorizontalSlashSprite:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0.025, 0.075, 0.125, 0.325, 0.375, 0.425 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 3, 3 ), Vector2( 1.95944, 4.43696 ), Vector2( 1.36698, 6.27369 ), Vector2( 3, 3 ), Vector2( 1.95944, 4.43696 ), Vector2( 1.36698, 6.27369 ) ]
+}
+tracks/3/type = "method"
+tracks/3/path = NodePath(".")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0.5 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [ "free" ],
+"method": "call_deferred"
+} ]
 }
 
 [node name="SwordSlashEffect" type="Node2D"]

@@ -42,7 +42,7 @@ var player_skill_multipliers : Dictionary = {
 	"SpecialChargedAttack": 30.0 ,# x 4
 	"SpecialChargedAttackFinalStrike": 140.0,
 	"EntryAttack": 50.0, # x 3
-	"CircularFlurryAttack": 28.0,
+	"CounterAttack": 42.0, # x 2
 	"AirborneBasicAttack": 30.0,
 	"AirborneBasicAttack2": 35.0,
 	"AirborneBasicAttack3": 40.0,
@@ -60,6 +60,10 @@ var player_skill_multipliers : Dictionary = {
 	"BaseFireRes": 0.0,
 	"BaseEarthRes": 0.0,
 	"BaseIceRes": 0.0,
+	"PhysDamageBonus": 0.0,
+	"FireDamageBonus": 0.0,
+	"IceDamageBonus": 0.0,
+	"EarthDamageBonus": 0.0,
 	"CritRate": 15.0,
 	"CritDamage": 100.0,
 	"Birthday": [21,11]
@@ -69,18 +73,19 @@ var player_skill_multipliers : Dictionary = {
 
 var glaciela_skill_multipliers : Dictionary = {
 	"BasicAttack":  20.0,
-	"BasicAttack2": 30.0,
+	"BasicAttack2": 27.5,
 	"BasicAttack3": 35.0,
 	"BasicAttack4": 55.0,
 	"ChargedAttack": 35.0,
-	"SpecialAttack1_1": 38.0,
-	"SpecialAttack1_2": 42.0,
-	"SpecialAttack2_1": 18.5,
-	"SpecialAttack2_2": 18.5,
-	"SpecialAttack2_3": 38.0,
+	"SpecialAttack1_1": 45.0,
+	"SpecialAttack1_2": 55.0,
+	"SpecialAttack2_1": 25.0,
+	"SpecialAttack2_2": 25.0,
+	"SpecialAttack2_3": 50.0,
 	"TundraSigilDMGBonus": 12.0,
 	"TundraSigilFreezeStackBonus": 20,
 	"TundraSigilManaBonus": 0.75,
+	"TundraSigilIceDamageBonus": 12,
 	"AirborneDuration": 2.5,
 	"IceLance": 65.0,
 	"MaxTundraSigils": 3,
@@ -95,6 +100,10 @@ var glaciela_skill_multipliers : Dictionary = {
 	"BaseIceRes": 0.0,
 	"CritRate": 10.0,
 	"CritDamage": 80.0,
+	"PhysDamageBonus": 0.0,
+	"FireDamageBonus": 0.0,
+	"IceDamageBonus": 0.0,
+	"EarthDamageBonus": 0.0,
 	"Birthday": [10,5]
 }
 

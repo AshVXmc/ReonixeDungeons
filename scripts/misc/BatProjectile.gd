@@ -23,10 +23,11 @@ func detonate():
 #	$Area2D.add_to_group(str(atk_value))
 	$AnimatedSprite.visible = false
 	$TrailParticles.visible = false
-	
+	$CollisionShape2D.disabled = true
+	$HostileArea/CollisionShape2D.disabled = true
 	$Area2D/CollisionPolygon2D.disabled = true
 	$ExplosionParticles.emitting = true
-	yield(get_tree().create_timer(0.85), "timeout")
+	yield(get_tree().create_timer(0.25), "timeout")
 	call_deferred('free')
 
 func _on_BatProjectile_area_entered(area):

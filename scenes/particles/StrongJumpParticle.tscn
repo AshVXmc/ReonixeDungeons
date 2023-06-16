@@ -17,3 +17,4 @@ emission_sphere_radius = 1.0
 spread = 90.0
 gravity = Vector2( 0, 0 )
 initial_velocity = 65.0
+anim_speed = 1.0

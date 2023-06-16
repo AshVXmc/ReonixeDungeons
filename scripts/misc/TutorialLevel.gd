@@ -1,7 +1,7 @@
 class_name TutorialLevel extends Level
 
 const GOBLIN = preload("res://scenes/enemies/Goblin.tscn")
-var page : int = 1
+var page : int = 0
 
 var keybinds = {
 	
@@ -29,55 +29,59 @@ var tutorials = {
 }
 
 func _ready():
-
-	$Control/TutorialLabel.bbcode_text = tutorials.movement
-	$Control/PressToSkipLabel.bbcode_text = "[center]TAP [color=#ffd703]"+ keybinds.ui_skip +" [/color]FOR NEXT[/center]"
+	skip_to_next_dialogue()
 
 func _process(delta):
+
 	if Input.is_action_just_pressed("ui_skip"):
 		skip_to_next_dialogue()
 
 
 func skip_to_next_dialogue():
 	page += 1
+	$MiniTutorialUI/Control.visible = false
+	$TutorialUI/Control.visible = true
+	$Player.position = $PlayerSpawnPosition.global_position
 	match page:
 		1:
-			$Control/TutorialLabel.bbcode_text = tutorials.movement
+			$TutorialUI/Control/TutorialLabel.bbcode_text = tutorials.movement
+			yield(get_tree().create_timer(0.4), "timeout")
+			spawn_goblin()
 		2:
-			$Control/TutorialLabel.bbcode_text = tutorials.attacking
+			$TutorialUI/Control/TutorialLabel.bbcode_text = tutorials.attacking
 			yield(get_tree().create_timer(0.4), "timeout")
 			spawn_goblin()
-		3:
-			$Control/TutorialLabel.bbcode_text = tutorials.attacking_2
-			yield(get_tree().create_timer(0.4), "timeout")
-			spawn_goblin()
-		4:
-			kill_all_enemies()
-			$Control/TutorialLabel.bbcode_text = tutorials.ex_charged_atk
-			get_node("Player").update_energy_meter(999)
-			yield(get_tree().create_timer(0.4), "timeout")
-			spawn_goblin()
-		5:
-			kill_all_enemies()
-			$Control/TutorialLabel.bbcode_text = tutorials.aerial_combat
-			get_node("Player").update_energy_meter(0)
-			yield(get_tree().create_timer(0.4), "timeout")
-			spawn_goblin()
-		6:
-			kill_all_enemies()
-			$Control/TutorialLabel.bbcode_text = tutorials.aerial_combat_2
-			get_node("Player").airborne_mode = false
-			get_node("Player").update_energy_meter(0)
-			yield(get_tree().create_timer(0.4), "timeout")
-			spawn_goblin()
-		7:
-			kill_all_enemies()
-			$Control/TutorialLabel.bbcode_text = tutorials.perfect_dodge
-			get_node("Player").airborne_mode = false
-			get_node("Player").update_energy_meter(0)
-			yield(get_tree().create_timer(0.4), "timeout")
-			spawn_goblin()
-
+#		3:
+#			$Control/TutorialLabel.bbcode_text = tutorials.attacking_2
+#			yield(get_tree().create_timer(0.4), "timeout")
+#			spawn_goblin()
+#		4:
+#			kill_all_enemies()
+#			$Control/TutorialLabel.bbcode_text = tutorials.ex_charged_atk
+#			get_node("Player").update_energy_meter(999)
+#			yield(get_tree().create_timer(0.4), "timeout")
+#			spawn_goblin()
+#		5:
+#			kill_all_enemies()
+#			$Control/TutorialLabel.bbcode_text = tutorials.aerial_combat
+#			get_node("Player").update_energy_meter(0)
+#			yield(get_tree().create_timer(0.4), "timeout")
+#			spawn_goblin()
+#		6:
+#			kill_all_enemies()
+#			$Control/TutorialLabel.bbcode_text = tutorials.aerial_combat_2
+#			get_node("Player").airborne_mode = false
+#			get_node("Player").update_energy_meter(0)
+#			yield(get_tree().create_timer(0.4), "timeout")
+#			spawn_goblin()
+#		7:
+#			kill_all_enemies()
+#			$Control/TutorialLabel.bbcode_text = tutorials.perfect_dodge
+#			get_node("Player").airborne_mode = false
+#			get_node("Player").update_energy_meter(0)
+#			yield(get_tree().create_timer(0.4), "timeout")
+#			spawn_goblin()
+	get_tree().paused = true
 
 func spawn_goblin(connect_to_on_death_signal : bool = true):
 	var goblin = GOBLIN.instance()
@@ -91,8 +95,15 @@ func heal_all_characters():
 func on_enemy_killed():
 	skip_to_next_dialogue()
 
+
 func kill_all_enemies(disconnect : bool = false):
 	for e in get_tree().get_nodes_in_group("EnemyEntity"):
 		if weakref(e).get_ref() != null:
 			e.disconnect("on_death", self, "on_enemy_killed")
 			e.call_deferred('free')
+
+
+func _on_NextButton_pressed():
+	$TutorialUI/Control.visible = false
+	$MiniTutorialUI/Control.visible = true
+	get_tree().paused = false

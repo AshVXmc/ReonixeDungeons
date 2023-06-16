@@ -2009,6 +2009,9 @@ disabled = true
 [node name="ParticlePosition" type="Position2D" parent="."]
 position = Vector2( 0, 50 )
 
+[node name="TrailParticlePosition" type="Position2D" parent="."]
+position = Vector2( 0, -150 )
+
 [node name="GroundPoundPositionRight" type="Position2D" parent="."]
 position = Vector2( 40, 50 )
 
@@ -2126,7 +2129,7 @@ wait_time = 0.1
 one_shot = true
 
 [node name="InputPressTimer" type="Timer" parent="."]
-wait_time = 0.45
+wait_time = 0.475
 one_shot = true
 
 [node name="HeightRaycast2D" type="RayCast2D" parent="."]

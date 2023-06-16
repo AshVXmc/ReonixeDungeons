@@ -88,8 +88,8 @@ collision_layer = 129
 collision_mask = 129
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D"]
-position = Vector2( 5.00741, 29.1981 )
-scale = Vector2( 0.488364, 0.844702 )
+position = Vector2( 0.469863, 34.1072 )
+scale = Vector2( 0.276154, 0.586784 )
 polygon = PoolVector2Array( -164.245, -4.62228, 151.166, -3.49982, 128.717, -79.8272, 70.3491, -123.603, 0.756531, -156.155, -89.0405, -124.726, -145.164, -77.5823 )
 
 [node name="HostileArea" type="Area2D" parent="." groups=["Hostile"]]
