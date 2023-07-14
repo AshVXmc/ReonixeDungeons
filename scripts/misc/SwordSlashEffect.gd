@@ -55,6 +55,8 @@ func flurry_slash_animation(num):
 	match num:
 		1:
 			$Sprite.visible = true
+			scale.x = 2
+			scale.y = 2
 			$AnimationPlayer.play("SwordSlash1")
 			instance_particle()
 			yield(get_tree().create_timer(DEFAULT_ANIM_DURATION / speed_multiplier),"timeout")
@@ -64,6 +66,8 @@ func flurry_slash_animation(num):
 			call_deferred('free')
 		2:
 			$Sprite.visible = true
+			scale.x = 2
+			scale.y = 2
 			$AnimationPlayer.play("SwordSlash2")
 			instance_particle()
 			yield(get_tree().create_timer(DEFAULT_ANIM_DURATION / speed_multiplier),"timeout")
@@ -74,6 +78,8 @@ func flurry_slash_animation(num):
 			call_deferred('free')
 		3:
 			$Sprite.visible = true
+			scale.x = 2
+			scale.y = 2
 			$AnimationPlayer.play("SwordSlash3")
 			instance_particle()
 			yield(get_tree().create_timer(DEFAULT_ANIM_DURATION / speed_multiplier),"timeout")
@@ -84,6 +90,8 @@ func flurry_slash_animation(num):
 			call_deferred('free')
 		4:
 			$Sprite.visible = true
+			scale.x = 2
+			scale.y = 2
 			$AnimationPlayer.play("SwordSlash4")
 			instance_particle()
 			yield(get_tree().create_timer(DEFAULT_ANIM_DURATION / speed_multiplier),"timeout")
@@ -94,6 +102,8 @@ func flurry_slash_animation(num):
 			call_deferred('free')
 		5:
 			yield(get_tree().create_timer(0.5), "timeout")
+			scale.x = 2
+			scale.y = 2
 			$HorizontalSlashSprite.visible = true
 			$HorizontalSlashSprite.scale.x = 8
 			$HorizontalSlashSprite.scale.y = 8

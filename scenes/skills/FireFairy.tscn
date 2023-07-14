@@ -50,8 +50,11 @@ __meta__ = {
 }
 
 [node name="FlameParticle" parent="." instance=ExtResource( 1 )]
-lifetime = 0.75
+scale = Vector2( 3, 3 )
+amount = 6
+lifetime = 1.0
 randomness = 1.0
+lifetime_randomness = 0.41
 emission_shape = 2
 emission_rect_extents = Vector2( 1, 1 )
 initial_velocity = 20.0
@@ -61,7 +64,7 @@ damping = 7.24
 hue_variation = -1.0
 
 [node name="Sprite" type="Sprite" parent="."]
-scale = Vector2( 4, 4 )
+scale = Vector2( 3, 3 )
 texture = ExtResource( 2 )
 
 [node name="DestroyedTimer" type="Timer" parent="."]

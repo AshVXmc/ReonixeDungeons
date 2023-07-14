@@ -70,7 +70,7 @@ func get_decoy():
 func get_player():
 	var player = get_parent().get_node("Player")
 	return player
-func add_damage_particles(type : String, dmg : int):
+func add_damage_particles(type : String, dmg : int, is_crit : bool = false):
 	var dmgparticle = DMG_INDICATOR.instance()
 	dmgparticle.damage_type = type
 	dmgparticle.damage = dmg
@@ -144,31 +144,22 @@ func _on_Area2D_area_entered(area):
 							parse_damage()
 						break
 		if area.is_in_group("Ice"):
-				
-				# YEAH IT WORKS EFJWFJWPOFWJPFWJP
-				var groups : Array = area.get_groups()
-				for group_names in groups:
-					if groups.has("Ice"):
-						groups.erase("Ice")
-					if groups.has("IceGaugeOne"):
-						groups.erase("IceGaugeOne")
-					if groups.has("IceGaugeTwo"):
-						groups.erase("IceGaugeTwo")
-					if groups.has("LightKnockback"):
-						groups.erase("LightKnockback")
-					if groups.has("physics_process"):
-						groups.erase("physics_process")
-					if !groups.has("Ice") and !groups.has("IceGaugeOne") and !groups.has("physics_process"):
-						print("HP reduced by " + str(groups.max()))
-						HP -= float(groups.max())
+			var groups : Array = area.get_groups()
+			for group_names in groups:
+				if float(group_names) != 0 and $HitDelayTimer.is_stopped():
+					var raw_damage = float(group_names)
+					var damage = round((raw_damage - (raw_damage * (ice_res / 100))))
+					print("HP reduced by " + str(damage))
+					HP -= float(damage)
+					$HealthBar.value  -= float(damage)
+					if area.is_in_group("IsCritHit"):
 						
-						$HealthBar.value  -= float(groups.max())
-						add_damage_particles("Ice", float(groups.max()))
-						if area.is_in_group("LightKnockback"):
-							parse_status_effect_damage()
-						else:
-							parse_damage()
-						break
+						add_damage_particles("Ice", float(damage), true)
+					else:
+						add_damage_particles("Ice", float(damage), false)
+					$HitDelayTimer.start()
+					parse_damage()
+					break
 
 		if area.is_in_group("FireGauge"):
 			pass
@@ -182,10 +173,10 @@ func _on_Area2D_area_entered(area):
 			parse_status_effect_damage()
 			add_damage_particles("Fire", damage)
 		
-#		if area.is_in_group("Player"):
-#				is_staggered = true
-#				yield(get_tree().create_timer(0.5), "timeout")
-#				is_staggered = false
+		if area.is_in_group("Player"):
+			is_staggered = true
+			yield(get_tree().create_timer(0.5), "timeout")
+			is_staggered = false
 
 		if area.is_in_group("Frozen"):
 				is_frozen = true

@@ -40,7 +40,7 @@ export (float, 1.0) var Armor_Strength = 0.9 # total damage reduction the shield
 var previous_hit_id : String 
 var armor_strength_coefficient = 1 # default value so it doesn't throw an error
 							
-
+signal change_hitcount(amount)
 var phys_res : float = 25
 var fire_res : float = 0
 var earth_res : float = 0 
@@ -66,6 +66,7 @@ func _ready():
 		$ArmorSprite.visible = false
 	$HealthBar.max_value = max_HP
 	$HealthBar.value = $HealthBar.max_value
+	connect("change_hitcount", get_parent().get_node("EleganceMeterUI/Control"), "hitcount_changed")
 func _physics_process(delta):
 
 	if !is_airborne:
@@ -230,8 +231,9 @@ func _on_Area2D_area_entered(area):
 						add_damage_particles("Physical", float(damage), false)
 					$HitDelayTimer.start()
 					parse_damage()
+					
 					break
-	
+					
 		if area.is_in_group("SwordCharged"):
 				var groups : Array = area.get_groups()
 				for group_names in groups:
@@ -251,28 +253,22 @@ func _on_Area2D_area_entered(area):
 						break
 				
 		if area.is_in_group("Fireball"):
-
-				# YEAH IT WORKS EFJWFJWPOFWJPFWJP
-				var groups : Array = area.get_groups()
-				for group_names in groups:	
-					if groups.has("Fireball"):
-						groups.erase("Fireball")
-					if groups.has("LightKnockback"):
-						groups.erase("LightKnockback")
-					if groups.has("physics_process"):
-						groups.erase("physics_process")
-					if !groups.has("Fireball") and !groups.has("FireGaugeOne") and !groups.has("physics_process"):
-						print("HP reduced by " + str(groups.max()))
-						HP -= float(groups.max())
-					
-						$HealthBar.value  -= float(groups.max())
-						add_damage_particles("Fire", float(groups.max()), false)
+			var groups : Array = area.get_groups()
+			for group_names in groups:
+				if float(group_names) != 0 and $HitDelayTimer.is_stopped():
+					var raw_damage = float(group_names)
+					var damage = round((raw_damage - (raw_damage * (fire_res / 100))) * armor_strength_coefficient)
+					print("HP reduced by " + str(damage))
+					HP -= float(damage)
+					$HealthBar.value  -= float(damage)
+					if area.is_in_group("IsCritHit"):
 						
-						if area.is_in_group("LightKnockback"):
-							parse_status_effect_damage()
-						else:
-							parse_damage()
-						break
+						add_damage_particles("Fire", float(damage), true)
+					else:
+						add_damage_particles("Fire", float(damage), false)
+					$HitDelayTimer.start()
+					parse_damage()
+					break
 		
 		if area.is_in_group("Ice"):
 			var groups : Array = area.get_groups()
@@ -304,18 +300,18 @@ func _on_Area2D_area_entered(area):
 			parse_status_effect_damage()
 			add_damage_particles("Fire", damage, false)
 		if area.is_in_group("Airborne") and !is_airborne:
-				is_airborne = true
-				velocity.y = AIRBORNE_SPEED
-				
-				yield(get_tree().create_timer(0.05), "timeout")
-				velocity.y = 0
+			is_airborne = true
+			velocity.y = AIRBORNE_SPEED
+			
+			yield(get_tree().create_timer(0.05), "timeout")
+			velocity.y = 0
 		if area.is_in_group("Player"):
-				is_staggered = true
-				yield(get_tree().create_timer(0.5), "timeout")
-				is_staggered = false
+			is_staggered = true
+			yield(get_tree().create_timer(0.5), "timeout")
+			is_staggered = false
 
 		if area.is_in_group("Frozen"):
-				is_frozen = true
+			is_frozen = true
 		
 		if area.is_in_group("TempusTardus"):
 			SPEED *= 0.05
@@ -360,6 +356,8 @@ func armor_break():
 	pass
 func parse_damage():
 	is_staggered = true
+	
+	emit_signal("change_hitcount", 0.5)
 	$Sprite.set_modulate(Color(2,0.5,0.3,1))
 	if $HurtTimer.is_stopped():
 		$HurtTimer.start()

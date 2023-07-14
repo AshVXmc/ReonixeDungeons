@@ -1,4 +1,4 @@
-[gd_scene load_steps=64 format=2]
+[gd_scene load_steps=65 format=2]
 
 [ext_resource path="res://spriteframes/MainCharacter_spriteframes.tres" type="SpriteFrames" id=1]
 [ext_resource path="res://scripts/player/Player.gd" type="Script" id=2]
@@ -540,7 +540,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 0.1 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ -125.0, -30.0 ]
+"values": [ -150.0, -20.0 ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("SwordSprite:flip_h")
@@ -663,6 +663,7 @@ tracks/2/keys = {
 [sub_resource type="Animation" id=3]
 resource_name = "SwordSwingRight"
 length = 0.1
+step = 0.05
 tracks/0/type = "value"
 tracks/0/path = NodePath("SwordSprite:rotation_degrees")
 tracks/0/interp = 1
@@ -790,7 +791,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 0.1 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ 125.0, 30.0 ]
+"values": [ 150.0, 20.0 ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("SwordSprite:flip_h")
@@ -829,8 +830,8 @@ tracks/3/keys = {
 "values": [ true, false ]
 }
 
-[sub_resource type="Animation" id=18]
-resource_name = "SwordSwingRight4"
+[sub_resource type="Animation" id=50]
+resource_name = "SwordSwingRight4_Down"
 length = 0.15
 step = 0.05
 tracks/0/type = "value"
@@ -843,7 +844,60 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 0.15 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ 225.0, 65.0 ]
+"values": [ -45.0, 130.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("SwordSprite:flip_h")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("SwordSprite:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 8 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("SwordSprite:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+
+[sub_resource type="Animation" id=18]
+resource_name = "SwordSwingRight4_Up"
+length = 0.15
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("SwordSprite:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.15 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 225.0, 50.0 ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("SwordSprite:flip_h")
@@ -1002,7 +1056,7 @@ tracks/1/keys = {
 extents = Vector2( 47.2053, 54.9529 )
 
 [sub_resource type="CircleShape2D" id=34]
-radius = 250.0
+radius = 400.0
 
 [sub_resource type="Animation" id=37]
 resource_name = "HorizontalSlash"
@@ -2036,7 +2090,8 @@ anims/SwordSwingLower = SubResource( 7 )
 anims/SwordSwingRight = SubResource( 3 )
 anims/SwordSwingRight2 = SubResource( 13 )
 anims/SwordSwingRight3 = SubResource( 15 )
-anims/SwordSwingRight4 = SubResource( 18 )
+anims/SwordSwingRight4_Down = SubResource( 50 )
+anims/SwordSwingRight4_Up = SubResource( 18 )
 anims/SwordSwingUpper = SubResource( 6 )
 
 [node name="HurtAnimationPlayer" type="AnimationPlayer" parent="."]
@@ -2162,7 +2217,7 @@ anims/HorizontalSlash = SubResource( 37 )
 anims/RESET = SubResource( 38 )
 anims/RightSlash = SubResource( 39 )
 
-[node name="ThrustEffectArea" type="Area2D" parent="." groups=["Sword"]]
+[node name="ThrustEffectArea" type="Area2D" parent="." groups=["SwordCharged"]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ThrustEffectArea"]
 shape = SubResource( 40 )
@@ -2175,6 +2230,7 @@ margin_right = -41.0
 margin_bottom = -78.0
 rect_scale = Vector2( 4.5, 4.5 )
 max_value = 200.0
+value = 200.0
 texture_under = ExtResource( 20 )
 texture_progress = ExtResource( 19 )
 

@@ -149,7 +149,7 @@ func set_attack_buff_value(new_value):
 func _ready():
 	if Global.current_character == "Player":
 		$Sprite.visible = true
-	$EnergyMeter.value = $EnergyMeter.min_value
+#	$EnergyMeter.value = $EnergyMeter.min_value
 	$SlashEffectSprite.visible = false
 	$AttackCollision.add_to_group(str(basic_attack_power))
 	$ChargedAttackCollision.add_to_group(str(charged_attack_power))
@@ -410,10 +410,11 @@ func _physics_process(_delta):
 #	if is_gliding:
 #		$Sprite.play("Glide")
 #		$GliderWings.visible = false
+
 	if cam_shake:
 		$Camera2D.set_offset(Vector2( \
-			rand_range(-1, 1) * 2.0, \
-			rand_range(-1, 1) * 2.5 \
+			rand_range(-1, 1) * 8.0, \
+			rand_range(-1, 1) * 10.0 \
 		))
 	if is_shopping:
 		is_invulnerable = true
@@ -649,7 +650,7 @@ func charged_attack(type : String = "Ground"):
 	
 	print("normal charged attack")
 	Input.action_release("ui_attack")
-	
+	# the standard charged attack.
 	if type == "Ground" and !is_flurry_attacking and $EnergyMeter.value <= Global.player_skill_multipliers["SlashFlurryEnergyCost"]:
 		$ChargingParticle.visible = false
 		var ss_projectile = SUPER_SLASH_PROJECTILE.instance()
@@ -676,6 +677,10 @@ func charged_attack(type : String = "Ground"):
 		hitparticle.position = $Position2D.global_position
 		emit_signal("change_elegance", "ChargedAttackLight")
 		sheathe_katana()
+	# the judgement cut-like attack
+	elif type == "Circular":
+		$ChargingParticle.visible = false
+	# a flurry of deadly slashes and consumes all Energy.
 	elif type == "Special" and $SlashFlurryCD.is_stopped():
 		$ChargingParticle.visible = false
 		is_flurry_attacking = true
@@ -961,7 +966,7 @@ func play_attack_animation(direction : String):
 			2:
 				calculate_damage("SwordSwingRight3", "RightSlash", "BasicAttack3", "AirborneBasicAttack3", "PlayerBasicAttackThree")
 			1:
-				$AnimationPlayer.play("SwordSwingRight4")
+				
 				attack_string_count -= 1
 				
 #				$SlashEffectPlayer.play("RightSlash")
@@ -970,6 +975,16 @@ func play_attack_animation(direction : String):
 						$AttackCollision.remove_from_group(groups)
 						$AttackCollision.add_to_group("PlayerBasicAttackFour")
 						var crit_dmg : float = 1.0
+						if Input.is_action_pressed("ui_up"):
+							
+							$AnimationPlayer.play("SwordSwingRight4_Up")
+							$AttackCollision.add_to_group("Airborne")
+#							var airborne_status : AirborneStatus = AIRBORNE_STATUS.instance()
+#							airborne_status.time = 1.2
+#							target.add_child(airborne_status)
+						else:
+							$AnimationPlayer.play("SwordSwingRight4_Down")
+							$AttackCollision.remove_from_group("Airborne")
 						if is_a_critical_hit():
 							crit_dmg = (Global.player_skill_multipliers["CritDamage"] / 100 + 1)
 							$AttackCollision.add_to_group("IsCritHit")
@@ -977,7 +992,6 @@ func play_attack_animation(direction : String):
 							$AttackCollision.remove_from_group("IsCritHit")
 						if !airborne_mode:
 							$AttackCollision.add_to_group(str(ATTACK * (Global.player_skill_multipliers["BasicAttack4"] / 100) * crit_dmg))
-		
 						else:
 							$AttackCollision.add_to_group(str(ATTACK * (Global.player_skill_multipliers["AirborneBasicAttack4"] / 100 * crit_dmg)))
 						
@@ -986,6 +1000,7 @@ func play_attack_animation(direction : String):
 
 				sheathe_katana()
 				yield(get_tree().create_timer($MeleeTimer.wait_time), "timeout")
+				$AttackCollision.remove_from_group("Airborne")
 				attack_string_count = 4
 				mana_absorption_counter = mana_absorption_counter_max
 	elif direction == "Left":
@@ -1004,6 +1019,16 @@ func play_attack_animation(direction : String):
 						$AttackCollision.remove_from_group(groups)
 						$AttackCollision.add_to_group("PlayerBasicAttackFour")
 						var crit_dmg : float = 1.0
+						if Input.is_action_pressed("ui_up"):
+							
+							$AnimationPlayer.play("SwordSwingRight4_Up")
+							$AttackCollision.add_to_group("Airborne")
+#							var airborne_status : AirborneStatus = AIRBORNE_STATUS.instance()
+#							airborne_status.time = 1.2
+#							target.add_child(airborne_status)
+						else:
+							$AnimationPlayer.play("SwordSwingRight4_Down")
+							$AttackCollision.remove_from_group("Airborne")
 						if is_a_critical_hit():
 							crit_dmg = (Global.player_skill_multipliers["CritDamage"] / 100 + 1)
 							$AttackCollision.add_to_group("IsCritHit")
@@ -1227,21 +1252,21 @@ func _on_AttackCollision_area_entered(area):
 					match attack_string_count:
 						3:
 							update_energy_meter(5 + bonus_energy_gain)
-							emit_signal("change_hitcount", 1)
+#							emit_signal("change_hitcount", 1)
 						2:
 							update_energy_meter(5 + bonus_energy_gain)
-							emit_signal("change_hitcount", 1)
-							emit_signal("change_hitcount", 1)
+#							emit_signal("change_hitcount", 1)
+#							emit_signal("change_hitcount", 1)
 							yield(get_tree().create_timer(0.2), "timeout")
 							update_energy_meter(5 + bonus_energy_gain)
 						1:
 							update_energy_meter(10 + bonus_energy_gain * 2)
-							emit_signal("change_hitcount", 1)
+#							emit_signal("change_hitcount", 1)
 						0:
 							update_energy_meter(15 + bonus_energy_gain * 3)
-							emit_signal("change_hitcount", 1)
-							emit_signal("reduce_skill_cd", "Player", "PrimarySkill", 1)
-							emit_signal("reduce_skill_cd", "Player", "SecondarySkill", 1)
+#							emit_signal("change_hitcount", 1)
+#							emit_signal("reduce_skill_cd", "Player", "PrimarySkill", 1)
+#							emit_signal("reduce_skill_cd", "Player", "SecondarySkill", 1)
 					emit_signal("change_elegance", "BasicAttack")
 					change_mana_value(0.2)
 					$ManaRegenDelay.start()
@@ -1416,7 +1441,7 @@ func thrust_attack(extra_long_thrust : bool = false):
 	is_thrust_attacking = true
 	
 	var thrustdirection : Vector2
-	cam_shake = true
+#	cam_shake = true
 	var swordslash = SWORD_SLASH_EFFECT.instance()
 	if  weakref(get_closest_enemy()).get_ref() != null:
 		if get_closest_enemy().position.x < position.x:
@@ -1453,7 +1478,7 @@ func thrust_attack(extra_long_thrust : bool = false):
 		airborne_mode = true
 		$AirborneMaxDuration.start()
 		yield(get_tree().create_timer(0.2), "timeout")
-		cam_shake = false
+#		cam_shake = false
 		
 		$ThrustEffectArea/CollisionShape2D.disabled = true
 		yield(get_tree().create_timer(1.5), "timeout")
@@ -1469,7 +1494,7 @@ func thrust_attack(extra_long_thrust : bool = false):
 		yield(get_tree().create_timer(0.1), "timeout")
 		$ThrustEffectArea/CollisionShape2D.disabled = true
 		yield(get_tree().create_timer(0.35), "timeout")
-		cam_shake = false
+#		cam_shake = false
 		is_invulnerable = false
 		
 		if !is_flurry_attacking:

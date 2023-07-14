@@ -34,7 +34,7 @@ var player_skill_multipliers : Dictionary = {
 	"BasicAttack": 15.0,
 	"BasicAttack2": 20.0,
 	"BasicAttack3": 25.0,
-	"BasicAttack4": 50.0,
+	"BasicAttack4": 52.5,
 	"ChargedAttack": 40.0,
 	"ThrustChargedAttack": 69.5,
 	"UpwardsChargedAttack": 28.0, # x 2
@@ -43,10 +43,10 @@ var player_skill_multipliers : Dictionary = {
 	"SpecialChargedAttackFinalStrike": 140.0,
 	"EntryAttack": 50.0, # x 3
 	"CounterAttack": 42.0, # x 2
-	"AirborneBasicAttack": 30.0,
-	"AirborneBasicAttack2": 35.0,
-	"AirborneBasicAttack3": 40.0,
-	"AirborneBasicAttack4": 55.0,
+	"AirborneBasicAttack": 25.0,
+	"AirborneBasicAttack2": 30.0,
+	"AirborneBasicAttack3": 35.0,
+	"AirborneBasicAttack4": 65.0,
 	"SulphuricSigilSingleSlash": 40.0, # x 2
 	"SlashFlurryEnergyCost": 200,
 	"FireSaw": 35.0,
@@ -98,8 +98,8 @@ var glaciela_skill_multipliers : Dictionary = {
 	"BaseFireRes": -50.0,
 	"BaseEarthRes": 0.0,
 	"BaseIceRes": 0.0,
-	"CritRate": 10.0,
-	"CritDamage": 80.0,
+	"CritRate": 25.0,
+	"CritDamage": 75.0,
 	"PhysDamageBonus": 0.0,
 	"FireDamageBonus": 0.0,
 	"IceDamageBonus": 0.0,

@@ -90,3 +90,7 @@ func _on_Vsync_toggled(button_pressed):
 		Global.vsync = false
 		button_pressed = false
 #	_on_SaveButton_pressed()
+
+
+func _on_MovesetsButton_pressed():
+	pass # Replace with function body.

@@ -1,7 +1,7 @@
 class_name EleganceMeterUI extends Control
 
 var elegance : int = 0
-var hit_count : int = 0
+var hit_count : float
 const MAX_ATTACKS : int = 10
 var rank : int
 var rank_change_delay : bool = false
@@ -38,11 +38,11 @@ func _ready():
 # Relay information to the level script for level completion rewards
 
 func hitcount_changed(amount):
+	print("HITCOUNT CHANGED BY: " + str(amount))
 	$ComboHitCount.visible = true
 	$ComboHitCountLabel.visible = true
 	hit_count += amount 
-	$ComboHitCount.text = str(hit_count)
-	$HitCountResetTimer.stop()
+	$ComboHitCount.text = str(round(hit_count))
 	$HitCountResetTimer.start()
 	
 func reset_hitcount():

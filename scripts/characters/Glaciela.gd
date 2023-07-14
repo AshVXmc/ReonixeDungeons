@@ -184,7 +184,16 @@ func attack():
 		$AttackTimer.start()
 # Helper function, use this to change tundra stack value through a signal 
 # from another node
-
+func is_a_critical_hit() -> bool:
+	var rng = RandomNumberGenerator.new()
+	rng.randomize()
+	
+	var num = rng.randi_range(0 ,100)
+	if num <= Global.glaciela_skill_multipliers["CritRate"]:
+		return true
+	else:
+		return false
+		
 func play_attack_animation(direction : String):
 	
 	if direction == "Right":
@@ -192,11 +201,17 @@ func play_attack_animation(direction : String):
 			4:
 				$ResetAttackStringTimer.stop()
 				$AnimationPlayer.play("SpearSwingRight1")
+				var crit_dmg : float = 1.0
 				attack_string_count -= 1
+				if is_a_critical_hit():
+					crit_dmg = (Global.glaciela_skill_multipliers["CritDamage"] / 100 + 1)
+					$AttackCollision.add_to_group("IsCritHit")
+				else:
+					$AttackCollision.remove_from_group("IsCritHit")
 				for groups in $AttackCollision.get_groups():
 					if float(groups) != 0:
 						$AttackCollision.remove_from_group(groups)
-						$AttackCollision.add_to_group(str(ATTACK * (Global.glaciela_skill_multipliers["BasicAttack"] / 100) + basic_attack_buff))
+						$AttackCollision.add_to_group(str((ATTACK * (Global.glaciela_skill_multipliers["BasicAttack"] / 100) + basic_attack_buff) * crit_dmg))
 						$AttackCollision.add_to_group("GlacielaBasicAttackOne")
 						break
 				
@@ -204,12 +219,17 @@ func play_attack_animation(direction : String):
 			3:
 				$ResetAttackStringTimer.stop()
 				$AnimationPlayer.play("SpearSwingRight2")
+				var crit_dmg : float = 1.0
 				attack_string_count -= 1
-	
+				if is_a_critical_hit():
+					crit_dmg = (Global.glaciela_skill_multipliers["CritDamage"] / 100 + 1)
+					$AttackCollision.add_to_group("IsCritHit")
+				else:
+					$AttackCollision.remove_from_group("IsCritHit")
 				for groups in $AttackCollision.get_groups():
 					if float(groups) != 0:
 						$AttackCollision.remove_from_group(groups)
-						$AttackCollision.add_to_group(str(ATTACK * (Global.glaciela_skill_multipliers["BasicAttack2"] / 100) + basic_attack_buff))
+						$AttackCollision.add_to_group(str((ATTACK * (Global.glaciela_skill_multipliers["BasicAttack2"] / 100) + basic_attack_buff) * crit_dmg))
 						$AttackCollision.add_to_group("GlacielaBasicAttackTwo")
 						break
 				$SpecialAttackTimer.start()
@@ -225,10 +245,16 @@ func play_attack_animation(direction : String):
 					
 					$AnimationPlayer.play("SpearSwingRight3")
 					attack_string_count -= 1
+					var crit_dmg : float = 1.0
+					if is_a_critical_hit():
+						crit_dmg = (Global.glaciela_skill_multipliers["CritDamage"] / 100 + 1)
+						$AttackCollision.add_to_group("IsCritHit")
+					else:
+						$AttackCollision.remove_from_group("IsCritHit")
 					for groups in $AttackCollision.get_groups():
 						if float(groups) != 0:
 							$AttackCollision.remove_from_group(groups)
-							$AttackCollision.add_to_group(str(ATTACK * (Global.glaciela_skill_multipliers["BasicAttack3"] / 100) + basic_attack_buff))
+							$AttackCollision.add_to_group(str((ATTACK * (Global.glaciela_skill_multipliers["BasicAttack3"] / 100) + basic_attack_buff) * crit_dmg))
 							$AttackCollision.add_to_group("GlacielaBasicAttackThree")
 							break
 					$ResetAttackStringTimer.start()
@@ -250,10 +276,16 @@ func play_attack_animation(direction : String):
 					
 					$AnimationPlayer.play("SpearSwingRight4")
 					attack_string_count -= 1
+					var crit_dmg : float = 1.0
+					if is_a_critical_hit():
+						crit_dmg = (Global.glaciela_skill_multipliers["CritDamage"] / 100 + 1)
+						$AttackCollision.add_to_group("IsCritHit")
+					else:
+						$AttackCollision.remove_from_group("IsCritHit")
 					for groups in $AttackCollision.get_groups():
 						if float(groups) != 0:
 							$AttackCollision.remove_from_group(groups)
-							$AttackCollision.add_to_group(str(ATTACK * (Global.glaciela_skill_multipliers["BasicAttack4"] / 100) + basic_attack_buff))
+							$AttackCollision.add_to_group(str((ATTACK * (Global.glaciela_skill_multipliers["BasicAttack4"] / 100) + basic_attack_buff) * crit_dmg))
 							$AttackCollision.add_to_group("GlacielaBasicAttackFour")
 							break
 #					yield(get_tree().create_timer($MeleeTimer.wait_time * 1.5), "timeout")
@@ -454,12 +486,24 @@ func special_attack_1_damage_calc(sequence : int = 1):
 			$SpecialAttackArea2D.remove_from_group(groups)
 			match sequence:
 				1:
+					var crit_dmg : float = 1.0
+					if is_a_critical_hit():
+						crit_dmg = (Global.glaciela_skill_multipliers["CritDamage"] / 100 + 1)
+						$SpecialAttackArea2D.add_to_group("IsCritHit")
+					else:
+						$SpecialAttackArea2D.remove_from_group("IsCritHit")
 					$SpecialAttackArea2D.add_to_group("HeavyPoiseDamage")
-					$SpecialAttackArea2D.add_to_group(str(ATTACK * (Global.glaciela_skill_multipliers["SpecialAttack1_1"] / 100) * (1 + ice_dmg_bonus + ice_dmg_bonus_from_tundra_sigil)))
+					$SpecialAttackArea2D.add_to_group(str(ATTACK * (Global.glaciela_skill_multipliers["SpecialAttack1_1"] / 100) * (1 + ice_dmg_bonus + ice_dmg_bonus_from_tundra_sigil) * crit_dmg))
 					
 				2:
+					var crit_dmg : float = 1.0
+					if is_a_critical_hit():
+						crit_dmg = (Global.glaciela_skill_multipliers["CritDamage"] / 100 + 1)
+						$SpecialAttackArea2D.add_to_group("IsCritHit")
+					else:
+						$SpecialAttackArea2D.remove_from_group("IsCritHit")
 					$SpecialAttackArea2D.add_to_group("HeavyPoiseDamage")
-					$SpecialAttackArea2D.add_to_group(str(ATTACK * (Global.glaciela_skill_multipliers["SpecialAttack1_2"] / 100) * (1 + ice_dmg_bonus + ice_dmg_bonus_from_tundra_sigil)))
+					$SpecialAttackArea2D.add_to_group(str(ATTACK * (Global.glaciela_skill_multipliers["SpecialAttack1_2"] / 100) * (1 + ice_dmg_bonus + ice_dmg_bonus_from_tundra_sigil) * crit_dmg))
 					
 
 func special_attack_2_damage_Calc(sequence : int = 1):
@@ -468,14 +512,32 @@ func special_attack_2_damage_Calc(sequence : int = 1):
 			$SpecialAttackArea2D.remove_from_group(groups)
 			match sequence:
 				1:
+					var crit_dmg : float = 1.0
+					if is_a_critical_hit():
+						crit_dmg = (Global.glaciela_skill_multipliers["CritDamage"] / 100 + 1)
+						$SpecialAttackArea2D.add_to_group("IsCritHit")
+					else:
+						$SpecialAttackArea2D.remove_from_group("IsCritHit")
 					$SpecialAttackArea2D.add_to_group("LightPoiseDamage")
-					$SpecialAttackArea2D.add_to_group(str(ATTACK * (Global.glaciela_skill_multipliers["SpecialAttack2_1"] / 100) * (1 + ice_dmg_bonus + ice_dmg_bonus_from_tundra_sigil)))
+					$SpecialAttackArea2D.add_to_group(str(ATTACK * (Global.glaciela_skill_multipliers["SpecialAttack2_1"] / 100) * (1 + ice_dmg_bonus + ice_dmg_bonus_from_tundra_sigil) * crit_dmg))
 				2:
+					var crit_dmg : float = 1.0
+					if is_a_critical_hit():
+						crit_dmg = (Global.glaciela_skill_multipliers["CritDamage"] / 100 + 1)
+						$SpecialAttackArea2D.add_to_group("IsCritHit")
+					else:
+						$SpecialAttackArea2D.remove_from_group("IsCritHit")
 					$SpecialAttackArea2D.add_to_group("LightPoiseDamage")
-					$SpecialAttackArea2D.add_to_group(str(ATTACK * (Global.glaciela_skill_multipliers["SpecialAttack2_2"] / 100) * (1 + ice_dmg_bonus + ice_dmg_bonus_from_tundra_sigil)))
+					$SpecialAttackArea2D.add_to_group(str(ATTACK * (Global.glaciela_skill_multipliers["SpecialAttack2_2"] / 100) * (1 + ice_dmg_bonus + ice_dmg_bonus_from_tundra_sigil) * crit_dmg))
 				3:
+					var crit_dmg : float = 1.0
+					if is_a_critical_hit():
+						crit_dmg = (Global.glaciela_skill_multipliers["CritDamage"] / 100 + 1)
+						$SpecialAttackArea2D.add_to_group("IsCritHit")
+					else:
+						$SpecialAttackArea2D.remove_from_group("IsCritHit")
 					$SpecialAttackArea2D.add_to_group("MediumPoiseDamage")
-					$SpecialAttackArea2D.add_to_group(str(ATTACK * (Global.glaciela_skill_multipliers["SpecialAttack2_3"] / 100) * (1 + ice_dmg_bonus + ice_dmg_bonus_from_tundra_sigil)))
+					$SpecialAttackArea2D.add_to_group(str(ATTACK * (Global.glaciela_skill_multipliers["SpecialAttack2_3"] / 100) * (1 + ice_dmg_bonus + ice_dmg_bonus_from_tundra_sigil) * crit_dmg))
 					
 func get_closest_enemy():
 	var enemies = get_tree().get_nodes_in_group("Enemy")

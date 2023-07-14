@@ -1,6 +1,8 @@
 class_name AirborneStatus extends Node2D
 
+onready var time : float = 5.0
 func _ready():
+	$DestroyedTimer.wait_time = time
 	$DestroyedTimer.start()
 	get_parent().get_node("Area2D").add_to_group("IsAirborne")
 
