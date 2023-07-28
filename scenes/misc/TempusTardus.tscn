@@ -133,7 +133,7 @@ script = ExtResource( 1 )
 
 [node name="TempusTardusSphere" type="Sprite" parent="."]
 self_modulate = Color( 1, 1, 1, 0.588235 )
-scale = Vector2( 20, 20 )
+scale = Vector2( 22, 22 )
 texture = ExtResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

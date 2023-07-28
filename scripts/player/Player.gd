@@ -675,11 +675,53 @@ func charged_attack(type : String = "Ground"):
 		hitparticle.emitting = true
 		get_parent().add_child(hitparticle)
 		hitparticle.position = $Position2D.global_position
-		emit_signal("change_elegance", "ChargedAttackLight")
+		#emit_signal("change_elegance"), "ChargedAttackLight")
 		sheathe_katana()
 	# the judgement cut-like attack
 	elif type == "Circular":
 		$ChargingParticle.visible = false
+		var slash_effect = SWORD_SLASH_EFFECT.instance()
+		var flurry = SLASH_FLURRY_AREA.instance()
+		flurry.add_to_group("Sword")
+		flurry.add_to_group("SulphuricSigilTrigger")
+		var crit_dmg = 1.0
+		
+		if is_a_critical_hit():
+			crit_dmg = (Global.player_skill_multipliers["CritDamage"] / 100 + 1)
+			flurry.add_to_group(str(ATTACK * (Global.player_skill_multipliers["CircularFlurryAttack"] / 100) * crit_dmg))
+			flurry.add_to_group("IsCritHit")
+		else:
+			flurry.add_to_group(str(ATTACK * (Global.player_skill_multipliers["CircularFlurryAttack"] / 100) * crit_dmg))
+			flurry.remove_from_group("IsCritHit")
+		flurry.get_node("AnimationPlayer").play("CircularFlurryAttack")
+		slash_effect.get_node("SlashEffectPlayer").play("CircularFlurry")
+		get_parent().get_parent().add_child(flurry)
+		get_parent().get_parent().add_child(slash_effect)
+		if weakref(get_closest_enemy()).get_ref() != null and $SlashFlurryDetector.overlaps_body(get_closest_enemy()):
+			flurry.position = get_closest_enemy().global_position
+			slash_effect.position = get_closest_enemy().global_position
+		else:
+			if !$Sprite.flip_h:
+				velocity.x = 0
+				velocity.x = -25000
+				flurry.position.x = global_position.x + 150
+				flurry.position.y = global_position.y
+				slash_effect.position.x = global_position.x + 150
+				slash_effect.position.y = global_position.y
+			else:
+				velocity.x = 0
+				velocity.x = 25000
+				flurry.position.x = global_position.x - 150
+				flurry.position.y = global_position.y
+				slash_effect.position.x = global_position.x - 150
+				slash_effect.position.y = global_position.y
+		cam_shake = true
+		if !$Sprite.flip_h:
+			dashdirection = Vector2(1,0)
+		if $Sprite.flip_h:
+			dashdirection = Vector2(-1, 0)
+		velocity = dashdirection.normalized() * -850
+			
 	# a flurry of deadly slashes and consumes all Energy.
 	elif type == "Special" and $SlashFlurryCD.is_stopped():
 		$ChargingParticle.visible = false
@@ -688,6 +730,7 @@ func charged_attack(type : String = "Ground"):
 	
 		var flurry = SLASH_FLURRY_AREA.instance()
 		flurry.add_to_group("Sword")
+		flurry.add_to_group("SulphuricSigilTrigger")
 		flurry.get_node("FinalSlashArea").add_to_group("Sword")
 		var crit_dmg = 1.0
 		
@@ -741,20 +784,20 @@ func charged_attack(type : String = "Ground"):
 			slashparticle.flurry_slash_animation(num_of_slashes)
 			num_of_slashes += 1
 		
-		emit_signal("change_elegance", "ChargedAttackLight")
+		#emit_signal("change_elegance"), "ChargedAttackLight")
 		change_mana_value(0.2)
 		yield(get_tree().create_timer(0.1), "timeout")
-		emit_signal("change_elegance", "ChargedAttackLight")
+		#emit_signal("change_elegance"), "ChargedAttackLight")
 		change_mana_value(0.2)
 		yield(get_tree().create_timer(0.1), "timeout")
-		emit_signal("change_elegance", "ChargedAttackLight")
+		#emit_signal("change_elegance"), "ChargedAttackLight")
 		change_mana_value(0.2)
 		yield(get_tree().create_timer(0.1), "timeout")
-		emit_signal("change_elegance", "ChargedAttackLight")
+		#emit_signal("change_elegance"), "ChargedAttackLight")
 		change_mana_value(0.2)
 		yield(get_tree().create_timer(0.1), "timeout")
 		change_mana_value(0.45)
-		emit_signal("change_elegance", "ChargedAttackHeavy")
+		#emit_signal("change_elegance"), "ChargedAttackHeavy")
 		emit_signal("reduce_skill_cd", "Player", "PrimarySkill", 4)
 		emit_signal("reduce_skill_cd", "Player", "SecondarySkill", 2)
 		
@@ -860,7 +903,7 @@ func upwards_charged_attack():
 
 	$UpwardsChargedAttackCollision/CollisionShape2D.disabled = true
 	cam_shake = false
-	emit_signal("change_elegance", "ChargedAttackLight")
+	#emit_signal("change_elegance"), "ChargedAttackLight")
 	
 	yield(get_tree().create_timer(0.25), "timeout")
 	resist_interruption = false
@@ -908,7 +951,7 @@ func downwards_charged_attack():
 
 	$DownwardsChargedAttackCollision/CollisionShape2D.disabled = true
 	cam_shake = false
-	emit_signal("change_elegance", "ChargedAttackLight")
+	#emit_signal("change_elegance"), "ChargedAttackLight")
 	yield(get_tree().create_timer(0.25), "timeout")
 	resist_interruption = false
 	
@@ -1119,16 +1162,16 @@ func take_damage(damage : float):
 			Global.hearts -= damage
 			add_hurt_particles(damage )
 			emit_signal("life_changed", Global.hearts, "Player")
-			emit_signal("change_elegance", "Hit")
+			#emit_signal("change_elegance"), "Hit")
 		elif Global.equipped_characters[1] == "Player":
 			Global.character2_hearts -= damage
 			add_hurt_particles(damage)
-			emit_signal("change_elegance", "Hit")
+			#emit_signal("change_elegance"), "Hit")
 			emit_signal("life_changed", Global.character2_hearts, "Player")
 		elif Global.equipped_characters[2] == "Player":
 			Global.character3_hearts -= damage
 			add_hurt_particles(damage)
-			emit_signal("change_elegance", "Hit")
+			#emit_signal("change_elegance"), "Hit")
 			emit_signal("life_changed", Global.character3_hearts, "Player")
 
 func heal(heal_amount : float):
@@ -1267,7 +1310,7 @@ func _on_AttackCollision_area_entered(area):
 #							emit_signal("change_hitcount", 1)
 #							emit_signal("reduce_skill_cd", "Player", "PrimarySkill", 1)
 #							emit_signal("reduce_skill_cd", "Player", "SecondarySkill", 1)
-					emit_signal("change_elegance", "BasicAttack")
+#					#emit_signal("change_elegance"), "BasicAttack")
 					change_mana_value(0.2)
 					$ManaRegenDelay.start()
 				if weakref(area).get_ref() != null:
@@ -1403,7 +1446,7 @@ func dash():
 					if perfect_dash and !airborne_mode and is_on_floor():
 					
 						can_use_slash_flurry = true
-						emit_signal("change_elegance", "PerfectDash")
+						#emit_signal("change_elegance"), "PerfectDash")
 						$DashCounterAttackTimer.start()
 				else:
 					velocity.y = 0
@@ -1435,7 +1478,7 @@ func thrust_attack(extra_long_thrust : bool = false):
 			else:
 				$ThrustEffectArea.add_to_group(str(ATTACK * (Global.player_skill_multipliers["ThrustChargedAttack"] / 100) * crit_dmg))
 				$ThrustEffectArea.remove_from_group("IsCritHit")
-			emit_signal("change_elegance", "ChargedAttackLight")
+			#emit_signal("change_elegance"), "ChargedAttackLight")
 	$ThrustEffectArea/CollisionShape2D.disabled = false
 	
 	is_thrust_attacking = true
@@ -1859,7 +1902,7 @@ func _on_InputPressTimer_timeout():
 						thrust_attack()
 				else:
 					if is_on_floor():
-						charged_attack("Ground")
+						charged_attack("Circular") if attack_string_count == 1 else charged_attack("Ground")
 
 
 

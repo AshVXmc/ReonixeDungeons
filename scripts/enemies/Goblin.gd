@@ -231,7 +231,6 @@ func _on_Area2D_area_entered(area):
 						add_damage_particles("Physical", float(damage), false)
 					$HitDelayTimer.start()
 					parse_damage()
-					
 					break
 					
 		if area.is_in_group("SwordCharged"):
@@ -249,7 +248,6 @@ func _on_Area2D_area_entered(area):
 						else:
 							add_damage_particles("Physical", float(damage), false)
 						parse_damage()
-
 						break
 				
 		if area.is_in_group("Fireball"):
@@ -357,7 +355,7 @@ func armor_break():
 func parse_damage():
 	is_staggered = true
 	
-	emit_signal("change_hitcount", 0.5)
+	emit_signal("change_hitcount", 1)
 	$Sprite.set_modulate(Color(2,0.5,0.3,1))
 	if $HurtTimer.is_stopped():
 		$HurtTimer.start()

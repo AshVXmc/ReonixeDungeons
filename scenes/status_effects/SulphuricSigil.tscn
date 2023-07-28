@@ -187,7 +187,7 @@ tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0.3 ),
+"times": PoolRealArray( 0.4 ),
 "transitions": PoolRealArray( 1 ),
 "values": [ {
 "args": [ "free" ],
@@ -273,7 +273,7 @@ tracks/9/loop_wrap = true
 tracks/9/imported = false
 tracks/9/enabled = true
 tracks/9/keys = {
-"times": PoolRealArray( 0, 0.14, 0.15, 0.3 ),
+"times": PoolRealArray( 0, 0.04, 0.25, 0.29 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 1,
 "values": [ false, true, false, true ]
@@ -298,7 +298,7 @@ anims/RESET = SubResource( 2 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource( 3 )
 
-[node name="SlashArea2D" type="Area2D" parent="." groups=["Fire"]]
+[node name="SlashArea2D" type="Area2D" parent="." groups=["Fireball"]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SlashArea2D"]
 shape = SubResource( 3 )
@@ -310,8 +310,8 @@ rotation = 0.349066
 texture = ExtResource( 3 )
 
 [node name="FirstSlash" type="Sprite" parent="."]
-rotation = 0.0872665
-scale = Vector2( 1.5, 1.5 )
+rotation = 0.378155
+scale = Vector2( 1.56667, 3.23333 )
 texture = ExtResource( 3 )
 
 [node name="SlashAnimationPlayer" type="AnimationPlayer" parent="."]

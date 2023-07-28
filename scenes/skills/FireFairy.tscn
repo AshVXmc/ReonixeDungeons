@@ -64,7 +64,7 @@ damping = 7.24
 hue_variation = -1.0
 
 [node name="Sprite" type="Sprite" parent="."]
-scale = Vector2( 3, 3 )
+scale = Vector2( 3.5, 3.5 )
 texture = ExtResource( 2 )
 
 [node name="DestroyedTimer" type="Timer" parent="."]

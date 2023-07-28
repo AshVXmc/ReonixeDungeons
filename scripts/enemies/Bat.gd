@@ -73,6 +73,7 @@ func get_player():
 func add_damage_particles(type : String, dmg : int, is_crit : bool = false):
 	var dmgparticle = DMG_INDICATOR.instance()
 	dmgparticle.damage_type = type
+	dmgparticle.damage_type = type
 	dmgparticle.damage = dmg
 	get_parent().add_child(dmgparticle)
 	dmgparticle.position = global_position
@@ -107,16 +108,17 @@ func _on_Area2D_area_entered(area):
 		if area.is_in_group("SwordCharged"):
 				var groups : Array = area.get_groups()
 				for group_names in groups:
-					if float(group_names) == 0:
-						groups.erase(group_names)
-					if !groups.has("SwordCharged") and !groups.has("physics_process"):
-						var raw_damage = float(groups.max())
+					if float(group_names) != 0:
+						var raw_damage = float(group_names)
 						
-						var damage = ((raw_damage - (raw_damage * (phys_res / 100))))
+						var damage = (raw_damage - (raw_damage * (phys_res / 100)))
 						print("HP reduced by " + str(damage))
 						HP -= float(damage)
 						$HealthBar.value  -= float(damage)
-						add_damage_particles("Physical", float(damage))
+						if area.is_in_group("IsCritHit"):
+							add_damage_particles("Physical", float(damage), true)
+						else:
+							add_damage_particles("Physical", float(damage), false)
 						parse_damage()
 
 						break

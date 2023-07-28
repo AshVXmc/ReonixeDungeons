@@ -203,6 +203,7 @@ resource_name = "VerticalThrust"
 [sub_resource type="Animation" id=10]
 resource_name = "CircularFlurry"
 length = 0.5
+loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("CircularFlurry:position")
 tracks/0/interp = 1

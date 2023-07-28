@@ -41,6 +41,7 @@ var player_skill_multipliers : Dictionary = {
 	"DownwardsChargedAttack": 56.0,
 	"SpecialChargedAttack": 30.0 ,# x 4
 	"SpecialChargedAttackFinalStrike": 140.0,
+	"CircularFlurryAttack": 22.0, # x 3
 	"EntryAttack": 50.0, # x 3
 	"CounterAttack": 42.0, # x 2
 	"AirborneBasicAttack": 25.0,

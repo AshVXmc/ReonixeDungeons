@@ -1959,7 +1959,7 @@ position = Vector2( 80, 0 )
 shape = SubResource( 2 )
 disabled = true
 
-[node name="ChargedAttackCollision" type="Area2D" parent="." groups=["HeavyPoiseDamage", "SwordCharged"]]
+[node name="ChargedAttackCollision" type="Area2D" parent="." groups=["HeavyPoiseDamage", "SulphuricSigilTrigger", "SwordCharged"]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ChargedAttackCollision"]
 position = Vector2( 73.117, -1.69657 )
@@ -1972,14 +1972,14 @@ disabled = true
 position = Vector2( 70.5111, 1.625 )
 shape = SubResource( 11 )
 
-[node name="UpwardsChargedAttackCollision" type="Area2D" parent="." groups=["SwordCharged"]]
+[node name="UpwardsChargedAttackCollision" type="Area2D" parent="." groups=["SulphuricSigilTrigger", "SwordCharged"]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="UpwardsChargedAttackCollision"]
 position = Vector2( 69.9272, -0.663103 )
 shape = SubResource( 33 )
 disabled = true
 
-[node name="DownwardsChargedAttackCollision" type="Area2D" parent="." groups=["HeavyPoiseDamage", "RemoveAirborne", "Sword"]]
+[node name="DownwardsChargedAttackCollision" type="Area2D" parent="." groups=["HeavyPoiseDamage", "RemoveAirborne", "SulphuricSigilTrigger", "Sword"]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DownwardsChargedAttackCollision"]
 position = Vector2( 90, -8.55 )
@@ -2230,7 +2230,6 @@ margin_right = -41.0
 margin_bottom = -78.0
 rect_scale = Vector2( 4.5, 4.5 )
 max_value = 200.0
-value = 200.0
 texture_under = ExtResource( 20 )
 texture_progress = ExtResource( 19 )
 
