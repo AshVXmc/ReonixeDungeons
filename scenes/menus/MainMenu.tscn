@@ -151,9 +151,6 @@ custom_colors/font_color_pressed = Color( 1, 0.843137, 0.0117647, 1 )
 custom_fonts/font = SubResource( 16 )
 text = "Load game"
 flat = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="SetKeybinds" type="Button" parent="."]
 anchor_left = 0.504

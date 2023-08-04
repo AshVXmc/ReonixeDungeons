@@ -17,7 +17,7 @@ func _ready():
 		$Vsync.pressed = false
 	self.visible = false
 	$SaveLabel.visible = false
-
+	get_parent().get_node("PerfectDash").visible = false
 func _notification(what):
 	if !visible:
 		if what == MainLoop.NOTIFICATION_WM_FOCUS_IN:
@@ -93,4 +93,7 @@ func _on_Vsync_toggled(button_pressed):
 
 
 func _on_MovesetsButton_pressed():
-	pass # Replace with function body.
+	visible = false
+	get_parent().get_node("MovesetList").visible = true
+
+

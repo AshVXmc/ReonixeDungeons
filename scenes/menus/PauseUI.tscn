@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://themes/Blur.tres" type="Material" id=1]
 [ext_resource path="res://scripts/ui/PauseScript.gd" type="Script" id=2]
@@ -10,6 +10,8 @@
 [ext_resource path="res://assets/UI/textbox.png" type="Texture" id=8]
 [ext_resource path="res://scripts/ui/PerfectDash.gd" type="Script" id=9]
 [ext_resource path="res://assets/UI/movesets_icon.png" type="Texture" id=10]
+[ext_resource path="res://themes/ScrollTextBox.tres" type="StyleBox" id=11]
+[ext_resource path="res://scripts/ui/MovesetList.gd" type="Script" id=12]
 
 [sub_resource type="DynamicFont" id=6]
 size = 64
@@ -28,6 +30,10 @@ font_data = ExtResource( 7 )
 
 [sub_resource type="DynamicFont" id=7]
 size = 48
+font_data = ExtResource( 7 )
+
+[sub_resource type="DynamicFont" id=11]
+size = 32
 font_data = ExtResource( 7 )
 
 [sub_resource type="Animation" id=9]
@@ -325,16 +331,150 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="MovesetList" type="Control" parent="."]
+pause_mode = 2
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -421.0
+margin_top = -232.0
+margin_right = 435.0
+margin_bottom = 239.0
+script = ExtResource( 12 )
+
+[node name="Blur" type="ColorRect" parent="MovesetList"]
+material = ExtResource( 1 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -1090.0
+margin_top = -656.5
+margin_right = 1090.0
+margin_bottom = 512.5
+color = Color( 1, 1, 1, 0 )
+
+[node name="NinePatchRect" type="NinePatchRect" parent="MovesetList"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -340.0
+margin_top = -18.0
+margin_right = 340.0
+margin_bottom = 110.0
+texture = ExtResource( 8 )
+patch_margin_left = 64
+patch_margin_top = 64
+patch_margin_right = 64
+patch_margin_bottom = 64
+
+[node name="PlayerMovesetList" type="RichTextLabel" parent="MovesetList"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -377.0
+margin_top = -338.0
+margin_right = 377.0
+margin_bottom = 33.0
+custom_fonts/normal_font = SubResource( 11 )
+custom_styles/normal = ExtResource( 11 )
+bbcode_enabled = true
+bbcode_text = "[center][color=red]Player's moveset[/color][/center]
+[color=#ffd703]Basic Attack Combo[/color]
+[ATK], [ATK], [ATK], [ATK]
+
+[color=#ffd703]Basic Attack Launcher Combo[/color]
+[ATK], [ATK], [ATK], [ATK while pressing UP]
+
+[color=#ffd703]Aerial Basic Attack Combo[/color]
+(While airborne) [ATK], [ATK], [ATK], [ATK] 
+
+[color=#ffd703]Charged Attack A[/color]
+[Hold ATK]
+
+[color=#ffd703]Charged Attack B[/color]
+[ATK], [ATK], [ATK] and [Hold ATK]
+
+[color=#ffd703]EX Charged Attack[/color]
+[Hold ATK] when [color=purple]Energy[/color] is full
+
+[color=#ffd703]Aerial Charged Attack[/color]
+(While airborne) [Hold ATK] 
+Can be chained up to 2 times.
+
+[color=#ffd703]Dash Counteer Attack[/color]
+[ATK] after a perfect dodge
+
+
+
+ "
+text = "Player's moveset
+Basic Attack Combo
+[ATK], [ATK], [ATK], [ATK]
+
+Basic Attack Launcher Combo
+[ATK], [ATK], [ATK], [ATK while pressing UP]
+
+Aerial Basic Attack Combo
+(While airborne) [ATK], [ATK], [ATK], [ATK] 
+
+Charged Attack A
+[Hold ATK]
+
+Charged Attack B
+[ATK], [ATK], [ATK] and [Hold ATK]
+
+EX Charged Attack
+[Hold ATK] when Energy is full
+
+Aerial Charged Attack
+(While airborne) [Hold ATK] 
+Can be chained up to 2 times.
+
+Dash Counteer Attack
+[ATK] after a perfect dodge
+
+
+
+ "
+scroll_following = true
+
+[node name="CloseButton" type="TextureButton" parent="MovesetList"]
+anchor_left = 0.109
+anchor_top = -0.025
+anchor_right = 0.109
+anchor_bottom = -0.025
+margin_left = -30.0353
+margin_top = -29.8112
+margin_right = 9.96473
+margin_bottom = 10.1885
+rect_scale = Vector2( 1.5, 1.5 )
+texture_normal = ExtResource( 5 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="PerfectDash" type="Control" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_left = 398.55
+margin_top = -2.99661
+margin_right = 398.55
+margin_bottom = -2.99658
 script = ExtResource( 9 )
 
 [node name="ColorRect" type="ColorRect" parent="PerfectDash"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = -78.1892
-margin_right = 46.8108
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -1263.44
+margin_top = -477.363
+margin_right = 634.556
+margin_bottom = 591.637
 color = Color( 0, 0, 0, 0.196078 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="PerfectDash"]
@@ -347,3 +487,4 @@ anims/RESET = SubResource( 10 )
 [connection signal="pressed" from="Pause/QuitButton" to="Pause" method="_on_QuitButton_pressed"]
 [connection signal="toggled" from="Pause/Lighting" to="Pause" method="_on_Lighting_toggled"]
 [connection signal="toggled" from="Pause/Vsync" to="Pause" method="_on_Vsync_toggled"]
+[connection signal="pressed" from="MovesetList/CloseButton" to="MovesetList" method="_on_CloseButton_pressed"]

@@ -147,6 +147,7 @@ func set_attack_buff_value(new_value):
 	ATTACK = Global.attack_power + attack_buff
 
 func _ready():
+	
 	if Global.current_character == "Player":
 		$Sprite.visible = true
 #	$EnergyMeter.value = $EnergyMeter.min_value
@@ -304,7 +305,7 @@ func _physics_process(_delta):
 					facing = right
 				else:
 					facing = null 
-				if !is_doing_charged_attack and !is_dash_counter_attacking:
+				if !is_doing_charged_attack:
 					if facing == left:
 						velocity.x = -SPEED
 						Input.action_release("right")
@@ -555,7 +556,7 @@ func gp_effect():
 
 
 func dash_counter_attack():
-	if Global.current_character == "Player" and !is_attacking and !is_gliding and !is_frozen and $MeleeTimer.is_stopped() and $ChargeBar.value != $ChargeBar.max_value and get_closest_enemy() != null:
+	if Global.current_character == "Player" and !is_attacking and get_closest_enemy() != null:
 		if !is_on_floor() and !$HeightRaycast2D.is_colliding():
 			airborne_mode = true
 			$AirborneTimer.stop()
@@ -626,7 +627,9 @@ func _input(event):
 				attack()
 
 			else:
-				dash_counter_attack()
+				# Initiates counterattack.
+				is_invulnerable = true
+				thrust_attack(true)
 			$InputPressTimer.start()
 		if event.is_action_pressed("ui_down") and airborne_mode:
 			airborne_mode = false
@@ -810,7 +813,8 @@ func charged_attack(type : String = "Ground"):
 			energy_full = false
 			update_energy_meter(10)
 		sheathe_katana()
-	
+	elif "SpecialAerial":
+		pass
 	cam_shake = true
 	yield(get_tree().create_timer(0.25), "timeout")
 	cam_shake = false
@@ -1098,7 +1102,7 @@ func _on_Area2D_area_entered(area : Area2D):
 			Global.lifewine_amount += 1
 			emit_signal("lifewine_obtained", Global.lifewine_amount)
 		if !Global.godmode:
-			if inv_timer.is_stopped() and !is_invulnerable and !is_dashing:
+			if inv_timer.is_stopped() and !is_invulnerable and !is_dashing and !is_thrust_attacking:
 				if area.is_in_group("Enemy") and area.is_in_group("Hostile")or area.is_in_group("Projectile"):
 					print("HURT")
 					var enemy_elemental_type : String
@@ -1465,7 +1469,7 @@ func dash():
 			velocity.y += GRAVITY
 			is_dashing = false
 
-func thrust_attack(extra_long_thrust : bool = false):
+func thrust_attack(special : bool = false):
 	is_invulnerable = true
 	for n in $ThrustEffectArea.get_groups():
 		if float(n) != 0:
@@ -1515,18 +1519,21 @@ func thrust_attack(extra_long_thrust : bool = false):
 
 	$Sprite.play("Dash")
 #	$SlashEffectPlayer.play("HorizontalSlash")
-	if extra_long_thrust:
-		velocity = thrustdirection.normalized() * 3000 * 1.5
-		is_thrust_attacking = false
-		airborne_mode = true
-		$AirborneMaxDuration.start()
+	if special:
+		is_invulnerable = true
+		velocity = thrustdirection.normalized() * 3600
+		
+#		airborne_mode = true
+#		$AirborneMaxDuration.start()
 		yield(get_tree().create_timer(0.2), "timeout")
 #		cam_shake = false
-		
+#		is_invulnerable = false
 		$ThrustEffectArea/CollisionShape2D.disabled = true
-		yield(get_tree().create_timer(1.5), "timeout")
+		yield(get_tree().create_timer(0.5), "timeout")
+		dash_counter_attack()
+		is_thrust_attacking = false
+		yield(get_tree().create_timer(0.5), "timeout")
 		
-		is_invulnerable = false
 		if !is_flurry_attacking:
 			update_energy_meter(25)
 	else:
@@ -1856,7 +1863,7 @@ func _on_EnemyEvasionArea_area_exited(area):
 			yield(get_tree().create_timer(2), "timeout")
 	#		Input.action_release("jump")
 	#		airborne_mode = true
-			is_invulnerable = false
+#			is_invulnerable = false
 		elif !is_dashing and area.is_in_group("Enemy"):
 			perfect_dash = false
 		
