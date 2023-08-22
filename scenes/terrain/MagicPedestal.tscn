@@ -1,0 +1,513 @@
+[gd_scene load_steps=20 format=2]
+
+[ext_resource path="res://assets/UI/firesaw_skill_icon.png" type="Texture" id=1]
+[ext_resource path="res://assets/terrain/magic_pedestal.png" type="Texture" id=2]
+[ext_resource path="res://assets/fonts/Born2bSportyV2.ttf" type="DynamicFontData" id=3]
+[ext_resource path="res://assets/UI/textbox.png" type="Texture" id=4]
+[ext_resource path="res://scripts/items/PrimarySkillManager.gd" type="Script" id=5]
+[ext_resource path="res://assets/UI/quiticon.png" type="Texture" id=6]
+[ext_resource path="res://scripts/items/MagicPedestal.gd" type="Script" id=7]
+[ext_resource path="res://assets/fonts/FFFFORWA.ttf" type="DynamicFontData" id=8]
+[ext_resource path="res://assets/UI/empty_character_icon.png" type="Texture" id=9]
+
+[sub_resource type="DynamicFont" id=1]
+size = 48
+font_data = ExtResource( 3 )
+
+[sub_resource type="StreamTexture" id=3]
+load_path = "res://.import/textbox.png-b2099baebd809ab2156a0a181b93923d.stex"
+
+[sub_resource type="DynamicFont" id=4]
+size = 32
+font_data = ExtResource( 3 )
+
+[sub_resource type="DynamicFont" id=5]
+size = 32
+font_data = ExtResource( 3 )
+
+[sub_resource type="DynamicFont" id=6]
+size = 32
+font_data = ExtResource( 3 )
+
+[sub_resource type="RectangleShape2D" id=7]
+extents = Vector2( 93.7625, 58.2705 )
+
+[sub_resource type="DynamicFont" id=8]
+size = 120
+font_data = ExtResource( 8 )
+
+[sub_resource type="DynamicFont" id=9]
+size = 64
+font_data = ExtResource( 3 )
+
+[sub_resource type="DynamicFont" id=12]
+size = 48
+font_data = ExtResource( 3 )
+
+[sub_resource type="RectangleShape2D" id=11]
+extents = Vector2( 787.191, 251.734 )
+
+[node name="MagicPedestal" type="Node2D"]
+script = ExtResource( 7 )
+
+[node name="Sprite" type="Sprite" parent="."]
+scale = Vector2( 7.5, 7.5 )
+texture = ExtResource( 2 )
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.352
+anchor_right = 0.5
+anchor_bottom = 0.352
+margin_left = -540.0
+margin_top = -253.44
+margin_right = 540.0
+margin_bottom = 466.56
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Main" type="NinePatchRect" parent="CanvasLayer/Control"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -330.0
+margin_top = -494.0
+margin_right = 330.0
+margin_bottom = -34.0
+texture = ExtResource( 4 )
+patch_margin_left = 64
+patch_margin_top = 64
+patch_margin_right = 64
+patch_margin_bottom = 64
+
+[node name="Header" type="RichTextLabel" parent="CanvasLayer/Control/Main"]
+margin_left = 87.3621
+margin_top = 6.05612
+margin_right = 595.362
+margin_bottom = 54.0561
+custom_fonts/normal_font = SubResource( 1 )
+bbcode_enabled = true
+bbcode_text = " == [color=#fc4903]Party Customization[/color] =="
+text = " == Party Customization =="
+scroll_active = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CloseButton" type="TextureButton" parent="CanvasLayer/Control/Main"]
+margin_left = 599.632
+margin_top = 0.389816
+margin_right = 639.632
+margin_bottom = 40.3898
+rect_scale = Vector2( 1.5, 1.5 )
+texture_normal = ExtResource( 6 )
+expand = true
+
+[node name="CharacterChange1" type="TextureButton" parent="CanvasLayer/Control/Main"]
+anchor_top = 0.5
+anchor_bottom = 0.5
+margin_left = 47.7194
+margin_top = -85.2546
+margin_right = 231.719
+margin_bottom = 89.7454
+expand = true
+
+[node name="NinePatchRect" type="NinePatchRect" parent="CanvasLayer/Control/Main/CharacterChange1"]
+margin_left = -10.0
+margin_top = 1.0
+margin_right = 165.0
+margin_bottom = 176.0
+texture = ExtResource( 9 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CharacterChange2" type="TextureButton" parent="CanvasLayer/Control/Main"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -92.0
+margin_top = -87.5
+margin_right = 92.0
+margin_bottom = 87.5
+expand = true
+
+[node name="NinePatchRect" type="NinePatchRect" parent="CanvasLayer/Control/Main/CharacterChange2"]
+margin_left = 5.0
+margin_top = 1.0
+margin_right = 180.0
+margin_bottom = 176.0
+texture = ExtResource( 9 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CharacterChange3" type="TextureButton" parent="CanvasLayer/Control/Main"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -92.0
+margin_top = -87.5
+margin_right = 92.0
+margin_bottom = 87.5
+expand = true
+
+[node name="NinePatchRect" type="NinePatchRect" parent="CanvasLayer/Control/Main/CharacterChange3"]
+margin_left = 205.0
+margin_top = 1.0
+margin_right = 380.0
+margin_bottom = 176.0
+texture = ExtResource( 9 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PrimarySkill" type="Control" parent="CanvasLayer"]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -540.0
+margin_top = -360.0
+margin_right = 540.0
+margin_bottom = 360.0
+script = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Main" type="NinePatchRect" parent="CanvasLayer/PrimarySkill"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -400.0
+margin_top = -507.0
+margin_right = 400.0
+margin_bottom = -27.0
+texture = SubResource( 3 )
+patch_margin_left = 64
+patch_margin_top = 64
+patch_margin_right = 64
+patch_margin_bottom = 64
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Header" type="RichTextLabel" parent="CanvasLayer/PrimarySkill/Main"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -317.5
+margin_top = 9.0
+margin_right = 317.5
+margin_bottom = 57.0
+custom_fonts/normal_font = SubResource( 1 )
+bbcode_enabled = true
+bbcode_text = " ======== [color=#ffe924]Primary Skill[/color] ========"
+text = " ======== Primary Skill ========"
+scroll_active = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SortByType" type="RichTextLabel" parent="CanvasLayer/PrimarySkill/Main"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -369.791
+margin_top = 58.0
+margin_right = -209.791
+margin_bottom = 106.0
+custom_colors/default_color = Color( 1, 1, 1, 1 )
+custom_fonts/normal_font = SubResource( 4 )
+text = "Sort by type:
+"
+scroll_active = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="GuideText1" type="RichTextLabel" parent="CanvasLayer/PrimarySkill/Main"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -177.5
+margin_top = 58.0
+margin_right = 367.5
+margin_bottom = 88.0
+custom_colors/default_color = Color( 1, 1, 1, 1 )
+custom_fonts/normal_font = SubResource( 4 )
+text = "Left-click on the skill icons to for more info.
+"
+scroll_active = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Physical" type="TextureButton" parent="CanvasLayer/PrimarySkill/Main"]
+margin_left = 40.0
+margin_top = 100.0
+margin_right = 179.0
+margin_bottom = 160.0
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="NinePatchRect" type="NinePatchRect" parent="CanvasLayer/PrimarySkill/Main/Physical"]
+margin_right = 139.0
+margin_bottom = 60.0
+texture = ExtResource( 4 )
+patch_margin_left = 64
+patch_margin_top = 10
+patch_margin_right = 64
+patch_margin_bottom = 10
+
+[node name="Label" type="RichTextLabel" parent="CanvasLayer/PrimarySkill/Main/Physical"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -49.0
+margin_top = 13.0
+margin_right = 49.0
+margin_bottom = 47.0
+custom_colors/default_color = Color( 1, 1, 1, 1 )
+custom_fonts/normal_font = SubResource( 5 )
+text = "Physical"
+scroll_active = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Fire" type="TextureButton" parent="CanvasLayer/PrimarySkill/Main"]
+margin_left = 40.0
+margin_top = 181.0
+margin_right = 179.0
+margin_bottom = 241.0
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="NinePatchRect" type="NinePatchRect" parent="CanvasLayer/PrimarySkill/Main/Fire"]
+margin_right = 139.0
+margin_bottom = 60.0
+texture = ExtResource( 4 )
+patch_margin_left = 64
+patch_margin_top = 10
+patch_margin_right = 64
+patch_margin_bottom = 10
+
+[node name="Label" type="RichTextLabel" parent="CanvasLayer/PrimarySkill/Main/Fire"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -25.5
+margin_top = 13.0
+margin_right = 23.5
+margin_bottom = 47.0
+custom_colors/default_color = Color( 1, 0.490196, 0.0980392, 1 )
+custom_fonts/normal_font = SubResource( 5 )
+text = "Fire"
+scroll_active = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Ice" type="TextureButton" parent="CanvasLayer/PrimarySkill/Main"]
+margin_left = 40.0
+margin_top = 265.0
+margin_right = 179.0
+margin_bottom = 325.0
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="NinePatchRect" type="NinePatchRect" parent="CanvasLayer/PrimarySkill/Main/Ice"]
+margin_right = 139.0
+margin_bottom = 60.0
+texture = ExtResource( 4 )
+patch_margin_left = 64
+patch_margin_top = 10
+patch_margin_right = 64
+patch_margin_bottom = 10
+
+[node name="Label" type="RichTextLabel" parent="CanvasLayer/PrimarySkill/Main/Ice"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -18.5
+margin_top = 13.0
+margin_right = 18.5
+margin_bottom = 47.0
+custom_colors/default_color = Color( 0.470588, 0.960784, 0.941176, 1 )
+custom_fonts/normal_font = SubResource( 5 )
+text = "Ice"
+scroll_active = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Earth" type="TextureButton" parent="CanvasLayer/PrimarySkill/Main"]
+margin_left = 40.0
+margin_top = 347.0
+margin_right = 179.0
+margin_bottom = 407.0
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="NinePatchRect" type="NinePatchRect" parent="CanvasLayer/PrimarySkill/Main/Earth"]
+margin_right = 139.0
+margin_bottom = 60.0
+texture = ExtResource( 4 )
+patch_margin_left = 64
+patch_margin_top = 10
+patch_margin_right = 64
+patch_margin_bottom = 10
+
+[node name="Label" type="RichTextLabel" parent="CanvasLayer/PrimarySkill/Main/Earth"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -34.5
+margin_top = 13.0
+margin_right = 35.5
+margin_bottom = 47.0
+custom_colors/default_color = Color( 0.662745, 0.345098, 0.00392157, 1 )
+custom_fonts/normal_font = SubResource( 5 )
+text = "Earth"
+scroll_active = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Physical" type="Control" parent="CanvasLayer/PrimarySkill"]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="Fire" type="Control" parent="CanvasLayer/PrimarySkill"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -540.0
+margin_top = -360.0
+margin_right = 540.0
+margin_bottom = 360.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="FireSaw" type="TextureButton" parent="CanvasLayer/PrimarySkill/Fire"]
+margin_left = 370.0
+margin_top = 336.0
+margin_right = 440.0
+margin_bottom = 407.0
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="CanvasLayer/PrimarySkill/Fire/FireSaw"]
+margin_left = -13.0
+margin_top = -26.0
+margin_right = 81.0
+margin_bottom = 6.0
+custom_colors/font_color = Color( 1, 0.490196, 0.0980392, 1 )
+custom_fonts/font = SubResource( 6 )
+text = "Firesaw"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Sprite" type="Sprite" parent="CanvasLayer/PrimarySkill/Fire/FireSaw"]
+position = Vector2( 35, 37.5 )
+scale = Vector2( 3.5, 3.5 )
+texture = ExtResource( 1 )
+
+[node name="PrimaryCloseButton" type="TextureButton" parent="CanvasLayer/PrimarySkill"]
+margin_left = 880.662
+margin_top = 213.0
+margin_right = 920.662
+margin_bottom = 253.0
+rect_scale = Vector2( 1.5, 1.5 )
+texture_normal = ExtResource( 6 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Detector" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Detector"]
+position = Vector2( 0.33866, 2.44736 )
+shape = SubResource( 7 )
+
+[node name="Label" type="RichTextLabel" parent="."]
+margin_left = -75.937
+margin_top = -141.252
+margin_right = 547.063
+margin_bottom = 203.748
+rect_scale = Vector2( 0.25, 0.25 )
+custom_fonts/bold_font = SubResource( 8 )
+bbcode_enabled = true
+bbcode_text = "[b]Change skills [/b] [img=140]res://assets/UI/icon_empty.png[/img]
+"
+text = "Change skills  
+"
+scroll_active = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Keybind" type="Label" parent="."]
+anchor_left = -3.732
+anchor_right = -3.732
+margin_left = 43.2579
+margin_top = -98.7015
+margin_right = 71.2579
+margin_bottom = -34.7015
+rect_scale = Vector2( 0.75, 0.75 )
+custom_colors/font_color = Color( 0.192157, 0.372549, 1, 1 )
+custom_fonts/font = SubResource( 9 )
+text = "R"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="EnemyIsNearby" type="Label" parent="."]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -174.0
+margin_top = -227.5
+margin_right = 290.0
+margin_bottom = -128.5
+rect_scale = Vector2( 0.75, 0.75 )
+custom_colors/font_color = Color( 1, 0, 0, 1 )
+custom_fonts/font = SubResource( 12 )
+text = "Cannot change skills while engaged in combat."
+align = 1
+valign = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="EnemyDetector" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyDetector"]
+position = Vector2( 0, -190 )
+shape = SubResource( 11 )
+
+[connection signal="pressed" from="CanvasLayer/Control/Main/CloseButton" to="." method="_on_CloseButton_pressed"]
+[connection signal="pressed" from="CanvasLayer/PrimarySkill/PrimaryCloseButton" to="." method="_on_PrimaryCloseButton_pressed"]
+[connection signal="area_entered" from="Detector" to="." method="_on_Detector_area_entered"]
+[connection signal="area_exited" from="Detector" to="." method="_on_Detector_area_exited"]

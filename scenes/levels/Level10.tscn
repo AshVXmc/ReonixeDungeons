@@ -1,0 +1,174 @@
+[gd_scene load_steps=23 format=2]
+
+[ext_resource path="res://scenes/enemies/bosses/AlphaGuardian.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/menus/HeartUI.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scripts/misc/Level.gd" type="Script" id=3]
+[ext_resource path="res://scenes/menus/LifeWineUI.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scenes/menus/ManaPotUI.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scenes/menus/PauseUI.tscn" type="PackedScene" id=6]
+[ext_resource path="res://scenes/menus/ManaUI.tscn" type="PackedScene" id=7]
+[ext_resource path="res://scenes/menus/HealthPotUI.tscn" type="PackedScene" id=8]
+[ext_resource path="res://scenes/menus/OpalsUI.tscn" type="PackedScene" id=9]
+[ext_resource path="res://scenes/menus/GameOver.tscn" type="PackedScene" id=10]
+[ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=11]
+[ext_resource path="res://scenes/misc/Light.tscn" type="PackedScene" id=12]
+[ext_resource path="res://scenes/menus/SceneTransition.tscn" type="PackedScene" id=13]
+[ext_resource path="res://assets/misc/background_2.png" type="Texture" id=14]
+[ext_resource path="res://tilesets/one_way_tilesets.tres" type="TileSet" id=15]
+[ext_resource path="res://tilesets/Default.tres" type="TileSet" id=16]
+[ext_resource path="res://scenes/menus/FPSCounter.tscn" type="PackedScene" id=17]
+[ext_resource path="res://scenes/menus/DebugMenu.tscn" type="PackedScene" id=18]
+[ext_resource path="res://scenes/menus/RevivementCrystalUI.tscn" type="PackedScene" id=19]
+[ext_resource path="res://assets/terrain/background_dungeons.png" type="Texture" id=20]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 47.7336, 7.95237 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 96.0129, 7.95237 )
+
+[node name="Level10" type="Node2D"]
+script = ExtResource( 3 )
+
+[node name="TIleMap" type="TileMap" parent="."]
+tile_set = ExtResource( 16 )
+cell_size = Vector2( 96, 96 )
+format = 1
+tile_data = PoolIntArray( -327676, 0, 0, -327675, 0, 0, -327674, 0, 0, -327673, 0, 0, -327672, 0, 0, -327671, 0, 0, -196618, 0, 0, -196617, 0, 0, -196616, 0, 0, -196615, 0, 0, -196614, 0, 0, -196613, 0, 0, -196612, 0, 0, -196611, 0, 0, -196610, 0, 0, -196609, 0, 0, -262144, 0, 0, -262143, 0, 0, -262142, 0, 0, -262141, 0, 0, -262140, 0, 0, -262139, 0, 0, -262138, 0, 0, -262137, 0, 0, -262136, 0, 0, -262135, 0, 0, -262134, 0, 0, -131083, 6, 0, -131082, 6, 0, -131081, 8, 0, -131080, 8, 0, -131079, 8, 0, -131078, 8, 0, -131077, 8, 0, -131076, 8, 0, -131075, 8, 0, -131074, 8, 0, -131073, 8, 0, -196608, 8, 0, -196607, 8, 0, -196606, 8, 0, -196605, 8, 0, -196604, 8, 0, -196603, 8, 0, -196602, 8, 0, -196601, 8, 0, -196600, 8, 0, -196599, 8, 0, -196598, 6, 0, -196597, 6, 0, -65547, 6, 0, -65546, 6, 0, -65545, 9, 0, -65544, 9, 0, -65542, 4, 0, -65541, 12, 0, -65539, 9, 0, -65537, 4, 0, -131072, 12, 0, -131070, 9, 0, -131069, 9, 0, -131068, 4, 0, -131067, 12, 0, -131065, 9, 0, -131063, 9, 0, -131062, 6, 0, -131061, 6, 0, -11, 6, 0, -10, 6, 0, -9, 9, 0, -8, 9, 0, -6, 4, 0, -5, 13, 0, -3, 9, 0, -1, 4, 0, -65536, 13, 0, -65534, 9, 0, -65533, 9, 0, -65532, 4, 0, -65531, 13, 0, -65529, 9, 0, -65527, 9, 0, -65526, 6, 0, -65525, 6, 0, 65525, 6, 0, 65526, 6, 0, 65528, 9, 0, 65531, 13, 0, 65533, 9, 0, 0, 13, 0, 3, 9, 0, 4, 4, 0, 5, 13, 0, 9, 9, 0, 10, 6, 0, 11, 6, 0, 131061, 6, 0, 131062, 6, 0, 131064, 4, 0, 131067, 13, 0, 65536, 13, 0, 65541, 13, 0, 65546, 6, 0, 65547, 6, 0, 196597, 6, 0, 196598, 6, 0, 196599, 15, 0, 196600, 16, 0, 196603, 13, 0, 131072, 13, 0, 131077, 13, 0, 131080, 17, 0, 131081, 15, 0, 131082, 6, 0, 131083, 6, 0, 262133, 6, 0, 262134, 6, 0, 262139, 13, 0, 196608, 13, 0, 196613, 13, 0, 196618, 6, 0, 196619, 6, 0, 327669, 6, 0, 327670, 6, 0, 327671, 16, 0, 327675, 13, 0, 262144, 13, 0, 262149, 13, 0, 262153, 17, 0, 262154, 6, 0, 262155, 6, 0, 393205, 6, 0, 393206, 6, 0, 393210, 5, 0, 393211, 14, 0, 393212, 10, 0, 393213, 11, 0, 393214, 5, 0, 327680, 14, 0, 327682, 5, 0, 327683, 10, 0, 327684, 2, 0, 327685, 14, 0, 327686, 11, 0, 327690, 6, 0, 327691, 6, 0, 458741, 6, 0, 458742, 6, 0, 458743, 7, 0, 458744, 7, 0, 458745, 7, 0, 458746, 7, 0, 458747, 7, 0, 458748, 7, 0, 458749, 7, 0, 458750, 7, 0, 458751, 7, 0, 393216, 7, 0, 393217, 7, 0, 393218, 7, 0, 393219, 7, 0, 393220, 7, 0, 393221, 7, 0, 393222, 7, 0, 393223, 7, 0, 393224, 7, 0, 393225, 7, 0, 393226, 6, 0, 393227, 6, 0, 524277, 6, 0, 524278, 6, 0, 524279, 6, 0, 524280, 6, 0, 524281, 6, 0, 524282, 6, 0, 524283, 6, 0, 524284, 6, 0, 524285, 6, 0, 524286, 6, 0, 524287, 6, 0, 458752, 6, 0, 458753, 6, 0, 458754, 6, 0, 458755, 6, 0, 458756, 6, 0, 458757, 6, 0, 458758, 6, 0, 458759, 6, 0, 458760, 6, 0, 458761, 6, 0, 458762, 6, 0, 458763, 6, 0, 589813, 6, 0, 589814, 6, 0, 589815, 6, 0, 589816, 6, 0, 589817, 6, 0, 589818, 6, 0, 589819, 6, 0, 589820, 6, 0, 589821, 6, 0, 589822, 6, 0, 589823, 6, 0, 524288, 6, 0, 524289, 6, 0, 524290, 6, 0, 524291, 6, 0, 524292, 6, 0, 524293, 6, 0, 524294, 6, 0, 524295, 6, 0, 524296, 6, 0, 524297, 6, 0, 524298, 6, 0, 524299, 6, 0, 655350, 0, 0, 655351, 0, 0, 655352, 0, 0, 655353, 0, 0, 655354, 0, 0, 655355, 0, 0, 655356, 0, 0, 655357, 0, 0, 655358, 0, 0, 655359, 0, 0, 589824, 0, 0, 589825, 0, 0, 589826, 0, 0, 589827, 0, 0, 589828, 0, 0, 589829, 0, 0, 589830, 0, 0, 589831, 0, 0, 589832, 0, 0, 589833, 0, 0, 589834, 0, 0, 720886, 0, 0, 720887, 0, 0, 720888, 0, 0, 720889, 0, 0, 720890, 0, 0, 720891, 0, 0, 720892, 0, 0, 720893, 0, 0, 720894, 0, 0, 720895, 0, 0, 655360, 0, 0, 655361, 0, 0, 655362, 0, 0, 655363, 0, 0, 655364, 0, 0, 655365, 0, 0, 655366, 0, 0, 655367, 0, 0, 655368, 0, 0, 655369, 0, 0, 655370, 0, 0 )
+
+[node name="TileMap (One-way)" type="TileMap" parent="."]
+tile_set = ExtResource( 15 )
+cell_size = Vector2( 96, 96 )
+format = 1
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="Background1" type="ParallaxLayer" parent="ParallaxBackground"]
+z_as_relative = false
+motion_mirroring = Vector2( 1920, 640 )
+
+[node name="TextureRect" type="ColorRect" parent="ParallaxBackground/Background1"]
+margin_left = 1.8175
+margin_top = 0.88858
+margin_right = 1939.82
+margin_bottom = 1355.89
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/Background1"]
+scale = Vector2( 20, 20 )
+texture = ExtResource( 14 )
+centered = false
+__meta__ = {
+"_editor_description_": ""
+}
+
+[node name="Player" parent="." instance=ExtResource( 11 )]
+position = Vector2( -573.222, 498.141 )
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+position = Vector2( 41.4179, -36.638 )
+current = true
+zoom = Vector2( 1.2, 1.2 )
+limit_left = -920
+limit_top = -225
+limit_right = 975
+limit_bottom = 750
+drag_margin_h_enabled = true
+drag_margin_v_enabled = true
+drag_margin_left = 0.4
+drag_margin_right = 0.4
+editor_draw_limits = true
+
+[node name="PauseUI" parent="." instance=ExtResource( 6 )]
+
+[node name="AlphaGuardian" parent="." instance=ExtResource( 1 )]
+position = Vector2( -4.14877, 501.449 )
+
+[node name="Position2D1" type="Position2D" parent="."]
+position = Vector2( -433.521, -79.3563 )
+
+[node name="Position2D2" type="Position2D" parent="."]
+position = Vector2( 48.0154, -74.2339 )
+
+[node name="Position2D3" type="Position2D" parent="."]
+position = Vector2( 528.998, -69.4717 )
+
+[node name="GroundPos1" type="Position2D" parent="."]
+position = Vector2( -652.24, 483.309 )
+
+[node name="GroundPos2" type="Position2D" parent="."]
+position = Vector2( -174.369, 483.309 )
+
+[node name="GroundPos3" type="Position2D" parent="."]
+position = Vector2( 301.802, 483.309 )
+
+[node name="GroundPos4" type="Position2D" parent="."]
+position = Vector2( 771.666, 483.309 )
+
+[node name="LifeWineUI" parent="." instance=ExtResource( 4 )]
+
+[node name="Light2D" parent="." instance=ExtResource( 12 )]
+visible = false
+position = Vector2( 42.8474, 55.0338 )
+scale = Vector2( 39.0286, 28.2626 )
+energy = 0.65
+mode = 1
+
+[node name="Platforms" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platforms"]
+position = Vector2( -815.78, 392.41 )
+shape = SubResource( 1 )
+one_way_collision = true
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Platforms"]
+position = Vector2( -767.786, 199.78 )
+shape = SubResource( 2 )
+one_way_collision = true
+
+[node name="HealthPotUI" parent="." instance=ExtResource( 8 )]
+
+[node name="HeartUI" parent="." instance=ExtResource( 2 )]
+
+[node name="ManaUI" parent="." instance=ExtResource( 7 )]
+
+[node name="ManaPotUI" parent="." instance=ExtResource( 5 )]
+
+[node name="OpalsUI" parent="." instance=ExtResource( 9 )]
+
+[node name="RevivementCrystal" parent="." instance=ExtResource( 19 )]
+
+[node name="ParallaxBackground2" type="ParallaxBackground" parent="."]
+
+[node name="Background1" type="ParallaxLayer" parent="ParallaxBackground2"]
+z_as_relative = false
+motion_mirroring = Vector2( 1920, 640 )
+
+[node name="TextureRect" type="ColorRect" parent="ParallaxBackground2/Background1"]
+margin_right = 1938.0
+margin_bottom = 1355.0
+color = Color( 0.113725, 0.145098, 0.113725, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground2/Background1"]
+scale = Vector2( 20, 20 )
+texture = ExtResource( 20 )
+centered = false
+__meta__ = {
+"_editor_description_": ""
+}
+
+[node name="GameOverUI" parent="." instance=ExtResource( 10 )]
+
+[node name="SceneTransition" parent="." instance=ExtResource( 13 )]
+
+[node name="DebugMenu" parent="." instance=ExtResource( 18 )]
+
+[node name="FPSCounter" parent="." instance=ExtResource( 17 )]
+
+[node name="PauseUI2" parent="." instance=ExtResource( 6 )]

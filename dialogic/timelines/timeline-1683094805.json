@@ -1,0 +1,15 @@
+{
+	"events": [
+		{
+			"character": "character-1683004135.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "A humble wooden bench. It doesn't look too comfy, so it probably isn't the best idea for budget lodging."
+		}
+	],
+	"metadata": {
+		"dialogic-version": "1.4.5",
+		"file": "timeline-1683094805.json",
+		"name": "Bench"
+	}
+}

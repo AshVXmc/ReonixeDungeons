@@ -1,0 +1,103 @@
+[gd_scene load_steps=12 format=2]
+
+[ext_resource path="res://assets/NPC/librarian_3.png" type="Texture" id=1]
+[ext_resource path="res://assets/NPC/librarian_2.png" type="Texture" id=2]
+[ext_resource path="res://scripts/NPCs/LibrarianNPC.gd" type="Script" id=3]
+[ext_resource path="res://assets/fonts/Born2bSportyV2.ttf" type="DynamicFontData" id=4]
+[ext_resource path="res://assets/fonts/FFFFORWA.ttf" type="DynamicFontData" id=5]
+
+[sub_resource type="StreamTexture" id=4]
+load_path = "res://.import/librarian_1.png-068751d13831ced1f9a7f45d04f24b7b.stex"
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 47.9311, 57.7072 )
+
+[sub_resource type="DynamicFont" id=3]
+size = 32
+font_data = ExtResource( 5 )
+
+[sub_resource type="DynamicFont" id=7]
+size = 48
+font_data = ExtResource( 4 )
+
+[sub_resource type="Animation" id=5]
+resource_name = "Idle"
+length = 3.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0.5, 1.5, 2.5 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ SubResource( 4 ), ExtResource( 2 ), ExtResource( 1 ) ]
+}
+
+[sub_resource type="Animation" id=6]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ SubResource( 4 ) ]
+}
+
+[node name="Librarian" type="Node2D"]
+script = ExtResource( 3 )
+
+[node name="Sprite" type="Sprite" parent="."]
+scale = Vector2( 6, 6 )
+texture = SubResource( 4 )
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2( -0.328446, 2.73627 )
+shape = SubResource( 2 )
+
+[node name="Label" type="RichTextLabel" parent="."]
+margin_left = -66.7838
+margin_top = -102.162
+margin_right = 113.216
+margin_bottom = -54.1622
+custom_fonts/bold_font = SubResource( 3 )
+bbcode_enabled = true
+bbcode_text = "[b]Talk[/b] [img=36]res://assets/UI/icon_Empty.png[/img]"
+text = "Talk "
+scroll_active = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Keybind" type="Label" parent="."]
+anchor_left = -3.732
+anchor_right = -3.732
+margin_left = 23.9211
+margin_top = -117.354
+margin_right = 58.9211
+margin_bottom = -37.3542
+custom_colors/font_color = Color( 0.192157, 0.372549, 1, 1 )
+custom_fonts/font = SubResource( 7 )
+text = "R"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/Idle = SubResource( 5 )
+anims/RESET = SubResource( 6 )
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_Area2D_area_entered"]
+[connection signal="area_exited" from="Area2D" to="." method="_on_Area2D_area_exited"]

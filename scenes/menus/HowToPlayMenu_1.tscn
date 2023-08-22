@@ -1,0 +1,145 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://scripts/ui/HowToPlayMenuScript.gd" type="Script" id=1]
+[ext_resource path="res://assets/fonts/Born2bSportyV2.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://assets/UI/nexticon.png" type="Texture" id=3]
+[ext_resource path="res://assets/UI/quiticon.png" type="Texture" id=4]
+[ext_resource path="res://assets/UI/previousicon.png" type="Texture" id=5]
+
+[sub_resource type="DynamicFont" id=4]
+size = 64
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=3]
+size = 36
+font_data = ExtResource( 2 )
+
+[node name="CanvasLayer" type="CanvasLayer"]
+script = ExtResource( 1 )
+Page = 1
+
+[node name="Control" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = 2.0
+margin_bottom = 2.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Heading" type="RichTextLabel" parent="Control"]
+anchor_left = 0.5
+anchor_top = 0.072
+anchor_right = 0.5
+anchor_bottom = 0.072
+margin_left = -233.273
+margin_top = -39.984
+margin_right = 234.727
+margin_bottom = 30.016
+custom_fonts/normal_font = SubResource( 4 )
+bbcode_enabled = true
+bbcode_text = "[color=red]General Guide[/color] (1) "
+text = "General Guide (1) "
+scroll_active = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Instructions" type="RichTextLabel" parent="Control"]
+anchor_left = 0.512
+anchor_top = 0.548
+anchor_right = 0.514
+anchor_bottom = 0.548
+margin_left = -250.641
+margin_top = -312.092
+margin_right = 204.195
+margin_bottom = 285.908
+custom_fonts/normal_font = SubResource( 3 )
+bbcode_enabled = true
+bbcode_text = "[color=yellow]A or Left Arrow[/color] to move left
+[color=yellow]D or Right Arrow[/color] to move right
+[color=yellow]X or Enter[/color] to attack 
+[color=yellow]Z or Space[/color] to jump
+[color=yellow]W or Up Arrow[/color] to aim up
+[color=yellow]S or Down Arrow[/color] to aim down
+[color=yellow]E[/color] to confirm
+[color=yellow]F[/color] to shoot fireballs
+[color=yellow]R[/color] to summon firesaw
+[color=yellow]C[/color] to dash
+[color=yellow]Hold Space[/color] to glide
+[color=yellow]Numbers[/color] to use items
+[color=yellow]ESC[/color] to pause
+[color=yellow]F3[/color] to toggle FPS counter
+[color=yellow]F11[/color] to screenshot
+[color=yellow]/[/color] to toggle debug console"
+text = "A or Left Arrow to move left
+D or Right Arrow to move right
+X or Enter to attack 
+Z or Space to jump
+W or Up Arrow to aim up
+S or Down Arrow to aim down
+E to confirm
+F to shoot fireballs
+R to summon firesaw
+C to dash
+Hold Space to glide
+Numbers to use items
+ESC to pause
+F3 to toggle FPS counter
+F11 to screenshot
+/ to toggle debug console"
+scroll_active = false
+
+[node name="QuitButton" type="TextureButton" parent="Control"]
+margin_right = 40.0
+margin_bottom = 40.0
+rect_scale = Vector2( 2, 2 )
+texture_normal = ExtResource( 4 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="NextButton" type="TextureButton" parent="Control"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -82.0
+margin_top = -82.0
+margin_right = -42.0
+margin_bottom = -42.0
+rect_scale = Vector2( 2, 2 )
+texture_normal = ExtResource( 3 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PrevButton" type="TextureButton" parent="Control"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -162.05
+margin_top = -82.0
+margin_right = -122.05
+margin_bottom = -42.0
+rect_scale = Vector2( 2, 2 )
+texture_normal = ExtResource( 5 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="pressed" from="Control/QuitButton" to="." method="_on_QuitButton_pressed"]
+[connection signal="pressed" from="Control/NextButton" to="." method="_on_NextButton_pressed"]
+[connection signal="pressed" from="Control/PrevButton" to="." method="_on_PrevButton_pressed"]

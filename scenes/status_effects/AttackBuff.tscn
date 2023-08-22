@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://scripts/status_effects/AttackBuff.gd" type="Script" id=1]
+[ext_resource path="res://assets/misc/life_wine.png" type="Texture" id=2]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 20.5232, 31.3687 )
+
+[node name="AttackBuff" type="Area2D" groups=["AttackBuff"]]
+script = ExtResource( 1 )
+amount = 5.0
+duration = 5.0
+type = "Flat"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( -0.140793, -0.0946007 )
+shape = SubResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 0.618714, -0.441944 )
+scale = Vector2( 3.77318, 3.05945 )
+texture = ExtResource( 2 )
+
+[connection signal="area_entered" from="." to="." method="_on_AttackBuff_area_entered"]

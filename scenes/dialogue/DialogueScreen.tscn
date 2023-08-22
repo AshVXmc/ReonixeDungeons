@@ -1,0 +1,138 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://assets/UI/quiticon.png" type="Texture" id=1]
+[ext_resource path="res://scripts/misc/DialogueScreen.gd" type="Script" id=2]
+[ext_resource path="res://assets/fonts/Born2bSportyV2.ttf" type="DynamicFontData" id=3]
+[ext_resource path="res://assets/UI/textbox.png" type="Texture" id=4]
+
+[sub_resource type="DynamicFont" id=1]
+size = 48
+font_data = ExtResource( 3 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 32
+font_data = ExtResource( 3 )
+
+[sub_resource type="DynamicFont" id=3]
+size = 32
+font_data = ExtResource( 3 )
+
+[node name="DialogueScreen" type="CanvasLayer"]
+script = ExtResource( 2 )
+
+[node name="Control" type="Control" parent="."]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.33
+anchor_right = 0.5
+anchor_bottom = 0.33
+margin_left = -540.0
+margin_top = -178.6
+margin_right = 534.0
+margin_bottom = 462.4
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="NinePatchRect" type="NinePatchRect" parent="Control"]
+anchor_left = 0.518
+anchor_top = 0.321
+anchor_right = 0.518
+anchor_bottom = 0.368
+margin_left = -447.332
+margin_top = -18.761
+margin_right = 447.668
+margin_bottom = 168.112
+texture = ExtResource( 4 )
+patch_margin_left = 64
+patch_margin_top = 64
+patch_margin_right = 64
+patch_margin_bottom = 64
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Talking" type="Label" parent="Control/NinePatchRect"]
+margin_left = 651.332
+margin_top = 157.274
+margin_right = 870.332
+margin_bottom = 205.274
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_fonts/font = SubResource( 1 )
+text = "Talker Name"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Dialogue" type="Label" parent="Control/NinePatchRect"]
+margin_left = 33.0
+margin_top = 29.0
+margin_right = 823.0
+margin_bottom = 144.0
+custom_fonts/font = SubResource( 2 )
+text = "Dialogue"
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CloseButton" type="TextureButton" parent="Control/NinePatchRect"]
+margin_left = 833.549
+margin_top = 0.649734
+margin_right = 873.549
+margin_bottom = 40.6497
+rect_scale = Vector2( 1.5, 1.5 )
+texture_normal = ExtResource( 1 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button1" type="TextureButton" parent="Control/NinePatchRect"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -395.5
+margin_top = 116.5
+margin_right = -40.5
+margin_bottom = 193.5
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="NinePatchRect" type="NinePatchRect" parent="Control/NinePatchRect/Button1"]
+margin_left = 5.0
+margin_top = 1.0
+margin_right = 354.0
+margin_bottom = 75.0
+texture = ExtResource( 4 )
+patch_margin_left = 64
+patch_margin_top = 10
+patch_margin_right = 10
+patch_margin_bottom = 64
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Text" type="Label" parent="Control/NinePatchRect/Button1"]
+anchor_left = -0.695
+anchor_top = -2.931
+anchor_right = -0.695
+anchor_bottom = -2.931
+margin_left = 251.725
+margin_top = 233.687
+margin_right = 598.725
+margin_bottom = 294.687
+custom_fonts/font = SubResource( 3 )
+text = "Sample option text one"
+align = 1
+valign = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="pressed" from="Control/NinePatchRect/CloseButton" to="." method="_on_CloseButton_pressed"]
+[connection signal="pressed" from="Control/NinePatchRect/Button1" to="." method="_on_Button1_pressed"]

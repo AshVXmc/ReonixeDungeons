@@ -1,0 +1,5 @@
+[gd_scene format=2]
+
+[node name="TempusTardusGlobalCD" type="Timer" groups=["TempusTardus"]]
+wait_time = 15.0
+one_shot = true

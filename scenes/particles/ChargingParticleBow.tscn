@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://assets/particles/star_particle.png" type="Texture" id=1]
+
+[node name="ChargingParticleBow" type="CPUParticles2D"]
+scale = Vector2( 2, 2 )
+amount = 3
+lifetime = 0.7
+texture = ExtResource( 1 )
+emission_shape = 1
+emission_sphere_radius = 20.0
+gravity = Vector2( 0, 0 )
+radial_accel = -200.0

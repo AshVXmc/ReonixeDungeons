@@ -1,0 +1,104 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://assets/fonts/FFFFORWA.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://assets/fonts/Born2bSportyV2.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://scripts/ui/Logs.gd" type="Script" id=3]
+[ext_resource path="res://assets/UI/quiticon.png" type="Texture" id=4]
+
+[sub_resource type="DynamicFont" id=1]
+size = 24
+outline_size = 5
+outline_color = Color( 0, 0.105882, 0.309804, 1 )
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 32
+font_data = ExtResource( 2 )
+
+[node name="Logs" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Version1" type="Control" parent="."]
+anchor_left = 0.516
+anchor_right = 0.516
+margin_left = -557.28
+margin_right = -517.28
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Heading" type="Label" parent="Version1"]
+anchor_left = 0.932
+anchor_top = 0.969
+anchor_right = 0.932
+anchor_bottom = 0.969
+margin_left = -15.28
+margin_top = 67.4936
+margin_right = 583.72
+margin_bottom = 108.494
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_fonts/font = SubResource( 1 )
+text = "Version 0.0.1 ( Initial Build )"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="Version1"]
+margin_left = 17.0
+margin_top = 147.254
+margin_right = 1017.0
+margin_bottom = 359.254
+color = Color( 0.223529, 0.223529, 0.223529, 1 )
+
+[node name="Log" type="RichTextLabel" parent="Version1"]
+margin_left = 20.0
+margin_top = 156.254
+margin_right = 1033.0
+margin_bottom = 352.254
+custom_fonts/normal_font = SubResource( 2 )
+bbcode_enabled = true
+bbcode_text = "A prototype sandbox build for debugging and testing purposes. Scroll down to see full list of features:
+- [color=yellow]Basic levels and enemies[/color] 
+- [color=yellow]Player abilities (use debug command \"unlockall\" to unlock)[/color] 
+- [color=yellow]Main menu and How to play menu[/color] 
+- [color=yellow]Saving and loading system[/color]
+- [color=yellow]Boss level[/color]
+- [color=yellow]Basic roster of enemies[/color]
+- [color=yellow]Windows and web export versions[/color]"
+text = "A prototype sandbox build for debugging and testing purposes. Scroll down to see full list of features:
+- Basic levels and enemies 
+- Player abilities (use debug command \"unlockall\" to unlock) 
+- Main menu and How to play menu 
+- Saving and loading system
+- Boss level
+- Basic roster of enemies
+- Windows and web export versions"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="QuitButton" type="TextureButton" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+rect_scale = Vector2( 2, 2 )
+texture_normal = ExtResource( 4 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="pressed" from="QuitButton" to="." method="_on_QuitButton_pressed"]

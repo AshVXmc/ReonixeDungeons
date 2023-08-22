@@ -1,0 +1,104 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://assets/UI/mana.png" type="Texture" id=1]
+[ext_resource path="res://assets/UI/heart.png" type="Texture" id=2]
+[ext_resource path="res://assets/misc/opal.png" type="Texture" id=3]
+[ext_resource path="res://assets/fonts/Born2bSportyV2.ttf" type="DynamicFontData" id=4]
+
+[sub_resource type="DynamicFont" id=1]
+size = 40
+font_data = ExtResource( 4 )
+
+[node name="Node2D" type="Node2D"]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+margin_right = 40.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/Control"]
+anchor_right = 26.9
+anchor_bottom = 17.986
+margin_left = 2.0
+margin_right = 5.0
+margin_bottom = -0.440002
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Control"]
+margin_left = 32.7579
+margin_top = 34.0179
+margin_right = 128.758
+margin_bottom = 130.018
+texture = ExtResource( 2 )
+
+[node name="Label" type="Label" parent="CanvasLayer/Control"]
+margin_left = 146.167
+margin_top = 41.9733
+margin_right = 653.167
+margin_bottom = 167.973
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_fonts/font = SubResource( 1 )
+text = "Hearts represent your life force.
+When it drops to zero, you'll die.
+Replenish hearts using health potions."
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect2" type="TextureRect" parent="CanvasLayer/Control"]
+margin_left = 34.4398
+margin_top = 192.106
+margin_right = 130.44
+margin_bottom = 288.106
+rect_scale = Vector2( 2, 2 )
+texture = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label2" type="Label" parent="CanvasLayer/Control"]
+margin_left = 147.849
+margin_top = 200.062
+margin_right = 735.849
+margin_bottom = 369.062
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_fonts/font = SubResource( 1 )
+text = "Mana is a mystical magic energy used
+to cast abilities and spells. Replenish
+mana by striking enemies and using
+mana potions."
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect3" type="TextureRect" parent="CanvasLayer/Control"]
+margin_left = 26.7004
+margin_top = 401.0
+margin_right = 43.7004
+margin_bottom = 420.0
+rect_scale = Vector2( 7, 7 )
+texture = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label3" type="Label" parent="CanvasLayer/Control"]
+margin_left = 144.285
+margin_top = 413.878
+margin_right = 651.285
+margin_bottom = 539.878
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_fonts/font = SubResource( 1 )
+text = "Opals are the universal minted currency.
+Useful for trading items in shops. Obtain
+opals from enemy loot or quests."
+__meta__ = {
+"_edit_use_anchors_": false
+}

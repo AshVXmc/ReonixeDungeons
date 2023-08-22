@@ -1,0 +1,30 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://spriteframes/Fireball_spriteframes.tres" type="SpriteFrames" id=1]
+[ext_resource path="res://scripts/skills/Fireball.gd" type="Script" id=2]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 32.7093, 24.063 )
+
+[node name="Fireball" type="Area2D" groups=["Fireball"]]
+script = ExtResource( 2 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+scale = Vector2( 4.5, 4.5 )
+frames = ExtResource( 1 )
+animation = "Destroyed"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0.200509, 1.89254 )
+shape = SubResource( 1 )
+
+[node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="."]
+
+[node name="DestroyedTimer" type="Timer" parent="."]
+wait_time = 1.5
+autostart = true
+
+[connection signal="area_entered" from="." to="." method="_on_Fireball_area_entered"]
+[connection signal="body_entered" from="." to="." method="_on_Fireball_body_entered"]
+[connection signal="screen_exited" from="VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_exited"]
+[connection signal="timeout" from="DestroyedTimer" to="." method="_on_DestroyedTimer_timeout"]

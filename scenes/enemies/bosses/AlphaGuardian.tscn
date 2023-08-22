@@ -1,0 +1,111 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://spriteframes/alphaboss_spriteframes.tres" type="SpriteFrames" id=1]
+[ext_resource path="res://scripts/enemies/AlphaGuardian.gd" type="Script" id=2]
+[ext_resource path="res://assets/fonts/FFFFORWA.ttf" type="DynamicFontData" id=3]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 52.3807, 68.0487 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 40
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 3 )
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 321.676, 108.73 )
+
+[node name="AlphaGuardian" type="KinematicBody2D"]
+scale = Vector2( 0.8, 0.8 )
+script = ExtResource( 2 )
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+position = Vector2( -39.4116, 40.5312 )
+scale = Vector2( 1.5, 1 )
+enabled = true
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Area2D" type="Area2D" parent="." groups=["Boss", "Enemy"]]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D"]
+position = Vector2( 7.93701, 0 )
+polygon = PoolVector2Array( -31.7498, -106.883, -34.5815, -74.7909, -70.4487, -66.296, -72.3364, -4.47226, -52.987, 15.3491, -52.0431, 26.6756, -68.089, 60.6551, -66.2012, 118.231, 48.4795, 119.175, 42.8162, 52.1602, 35.7372, 13.4613, 70.1886, 12.0455, 72.0763, -28.0691, 48.0075, -64.8802, 19.6913, -73.3751, 17.3316, -111.13, -1.54587, -121.985, -17.1198, -121.985 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+scale = Vector2( 7.5, 7.5 )
+frames = ExtResource( 1 )
+animation = "Destroyed"
+playing = true
+
+[node name="CollisionPolygon2D" type="CollisionShape2D" parent="."]
+position = Vector2( -0.924535, 52.0251 )
+shape = SubResource( 1 )
+one_way_collision = true
+
+[node name="AttackTimer" type="Timer" parent="."]
+wait_time = 7.5
+
+[node name="HurtTimer" type="Timer" parent="."]
+wait_time = 0.3
+one_shot = true
+
+[node name="Position2DRight" type="Position2D" parent="."]
+position = Vector2( 121.458, 11.226 )
+
+[node name="Position2DLeft" type="Position2D" parent="."]
+position = Vector2( -123.15, 11.2261 )
+
+[node name="ShockTimer" type="Timer" parent="."]
+wait_time = 0.55
+one_shot = true
+
+[node name="GroundTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[node name="AttackCollision" type="Area2D" parent="." groups=["Enemy"]]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="AttackCollision"]
+polygon = PoolVector2Array( 47.5711, -86.5855, 81.283, -65.6092, 97.7644, -40.138, 108.253, -1.93114, 103.008, 32.5299, 85.7779, 63.9944, 56.5609, 82.7232, 67.7982, 46.0147, 70.0457, 7.0587, 60.3067, -37.8905, 37.0829, -89.5821 )
+disabled = true
+
+[node name="Label" type="Label" parent="."]
+margin_left = -71.4813
+margin_top = -169.062
+margin_right = 88.5187
+margin_bottom = -129.062
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_fonts/font = SubResource( 2 )
+text = "100%"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Left" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Left"]
+position = Vector2( -397.35, -0.456295 )
+shape = SubResource( 3 )
+
+[node name="Right" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Right"]
+position = Vector2( 402.699, -2.97613 )
+shape = SubResource( 3 )
+
+[node name="ShockIdle" type="Timer" parent="."]
+
+[node name="JumpTimer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_Area2D_area_entered"]
+[connection signal="timeout" from="AttackTimer" to="." method="_on_AttackTimer_timeout"]
+[connection signal="timeout" from="HurtTimer" to="." method="_on_HurtTimer_timeout"]
+[connection signal="timeout" from="ShockTimer" to="." method="_on_ShockTimer_timeout"]
+[connection signal="timeout" from="GroundTimer" to="." method="_on_GroundTimer_timeout"]
+[connection signal="area_exited" from="Left" to="." method="_on_Left_area_exited"]
+[connection signal="area_exited" from="Right" to="." method="_on_Right_area_exited"]
+[connection signal="timeout" from="JumpTimer" to="." method="_on_JumpTimer_timeout"]

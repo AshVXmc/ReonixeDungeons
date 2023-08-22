@@ -1,0 +1,496 @@
+[gd_scene load_steps=19 format=2]
+
+[ext_resource path="res://scripts/ui/SkillsUI.gd" type="Script" id=1]
+[ext_resource path="res://assets/UI/firesaw_skill_icon.png" type="Texture" id=2]
+[ext_resource path="res://assets/fonts/Born2bSportyV2.ttf" type="DynamicFontData" id=3]
+[ext_resource path="res://assets/UI/icon_empty.png" type="Texture" id=4]
+[ext_resource path="res://assets/UI/fire_fairy_skill_icon.png" type="Texture" id=5]
+[ext_resource path="res://assets/UI/winter_queen_skill_icon.png" type="Texture" id=6]
+[ext_resource path="res://assets/UI/icelance_skill_icon.png" type="Texture" id=8]
+[ext_resource path="res://assets/UI/empty_character_icon.png" type="Texture" id=9]
+[ext_resource path="res://assets/UI/player_dash_skill_icon.png" type="Texture" id=10]
+
+[sub_resource type="DynamicFont" id=1]
+size = 32
+font_data = ExtResource( 3 )
+
+[sub_resource type="DynamicFont" id=4]
+size = 32
+outline_size = 2
+font_data = ExtResource( 3 )
+
+[sub_resource type="DynamicFont" id=3]
+size = 32
+font_data = ExtResource( 3 )
+
+[sub_resource type="Animation" id=5]
+resource_name = "Flicker"
+length = 0.2
+loop = true
+
+[sub_resource type="Animation" id=6]
+length = 0.001
+
+[sub_resource type="Animation" id=7]
+resource_name = "Flicker"
+length = 0.2
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Slot2/Character2:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 3.8, 3.8 ), Vector2( 4.25, 4.25 ), Vector2( 3.8, 3.8 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Slot2/Character2:self_modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=8]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Slot2/Character2:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=9]
+resource_name = "Flicker"
+length = 0.2
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Slot3/Character3:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 3.8, 3.8 ), Vector2( 4.25, 4.25 ), Vector2( 3.8, 3.8 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Slot3/Character3:self_modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0.686275 ), Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=10]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Slot2/Character2:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Slot3/Character3:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 4, 4 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Slot3/Character3:self_modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+
+[node name="SkillsUI" type="CanvasLayer"]
+
+[node name="Control" type="Control" parent="."]
+anchor_left = 0.287
+anchor_right = 0.309
+margin_left = -309.96
+margin_right = -293.72
+margin_bottom = 40.0
+script = ExtResource( 1 )
+
+[node name="PrimarySkill" type="Control" parent="Control"]
+margin_top = -23.0
+margin_right = 40.0
+margin_bottom = 17.0
+
+[node name="Player" type="Control" parent="Control/PrimarySkill"]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="FireSaw" type="Control" parent="Control/PrimarySkill/Player"]
+margin_top = -21.0
+margin_right = 40.0
+margin_bottom = 19.0
+
+[node name="BackgroundIcon" type="Sprite" parent="Control/PrimarySkill/Player/FireSaw"]
+self_modulate = Color( 1, 1, 1, 0.333333 )
+position = Vector2( 169, 190 )
+scale = Vector2( 4, 4 )
+texture = ExtResource( 2 )
+
+[node name="TextureProgress" type="TextureProgress" parent="Control/PrimarySkill/Player/FireSaw"]
+margin_left = 129.0
+margin_top = 150.0
+margin_right = 149.0
+margin_bottom = 170.0
+rect_scale = Vector2( 4, 4 )
+texture_progress = ExtResource( 2 )
+fill_mode = 5
+
+[node name="Label" type="Label" parent="Control/PrimarySkill/Player/FireSaw"]
+margin_left = 146.0
+margin_top = 175.0
+margin_right = 191.0
+margin_bottom = 207.0
+custom_fonts/font = SubResource( 1 )
+text = "12.0"
+align = 1
+
+[node name="CostLabel" type="Label" parent="Control/PrimarySkill/Player/FireSaw"]
+margin_left = 185.0
+margin_top = 208.0
+margin_right = 219.0
+margin_bottom = 240.0
+custom_colors/font_color = Color( 0.00784314, 0.898039, 0.94902, 1 )
+custom_colors/font_outline_modulate = Color( 0.94902, 0.784314, 0, 1 )
+custom_fonts/font = SubResource( 4 )
+text = "99"
+align = 1
+
+[node name="Glaciela" type="Control" parent="Control/PrimarySkill"]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="WinterQueen" type="Control" parent="Control/PrimarySkill/Glaciela"]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="BackgroundIcon" type="Sprite" parent="Control/PrimarySkill/Glaciela/WinterQueen"]
+self_modulate = Color( 1, 1, 1, 0.333333 )
+position = Vector2( 170, 169 )
+scale = Vector2( 4, 4 )
+texture = ExtResource( 6 )
+
+[node name="TextureProgress" type="TextureProgress" parent="Control/PrimarySkill/Glaciela/WinterQueen"]
+margin_left = 129.0
+margin_top = 129.0
+margin_right = 149.0
+margin_bottom = 149.0
+rect_scale = Vector2( 4, 4 )
+texture_progress = ExtResource( 6 )
+fill_mode = 5
+
+[node name="WinterQueenTimer" type="Timer" parent="Control/PrimarySkill/Glaciela/WinterQueen"]
+wait_time = 10.0
+one_shot = true
+
+[node name="Label" type="Label" parent="Control/PrimarySkill/Glaciela/WinterQueen"]
+margin_left = 147.0
+margin_top = 154.0
+margin_right = 189.0
+margin_bottom = 186.0
+custom_fonts/font = SubResource( 1 )
+text = "10.0"
+align = 1
+
+[node name="CostLabel" type="Label" parent="Control/PrimarySkill/Glaciela/WinterQueen"]
+margin_left = 185.0
+margin_top = 187.0
+margin_right = 219.0
+margin_bottom = 219.0
+custom_colors/font_color = Color( 0.00784314, 0.898039, 0.94902, 1 )
+custom_colors/font_outline_modulate = Color( 0.94902, 0.784314, 0, 1 )
+custom_fonts/font = SubResource( 4 )
+text = "99"
+align = 1
+
+[node name="SecondarySkill" type="Control" parent="Control"]
+margin_top = -44.0
+margin_right = 40.0
+margin_bottom = -4.0
+
+[node name="Player" type="Control" parent="Control/SecondarySkill"]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="FireFairy" type="Control" parent="Control/SecondarySkill/Player"]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="BackgroundIcon" type="Sprite" parent="Control/SecondarySkill/Player/FireFairy"]
+self_modulate = Color( 1, 1, 1, 0.333333 )
+position = Vector2( 270, 190 )
+scale = Vector2( 4, 4 )
+texture = ExtResource( 5 )
+
+[node name="TextureProgress" type="TextureProgress" parent="Control/SecondarySkill/Player/FireFairy"]
+margin_left = 230.0
+margin_top = 150.0
+margin_right = 250.0
+margin_bottom = 170.0
+rect_scale = Vector2( 4, 4 )
+texture_progress = ExtResource( 5 )
+fill_mode = 5
+
+[node name="Label" type="Label" parent="Control/SecondarySkill/Player/FireFairy"]
+margin_left = 249.0
+margin_top = 170.0
+margin_right = 291.0
+margin_bottom = 218.0
+custom_fonts/font = SubResource( 1 )
+text = "15.0"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CostLabel" type="Label" parent="Control/SecondarySkill/Player/FireFairy"]
+margin_left = 285.0
+margin_top = 208.0
+margin_right = 319.0
+margin_bottom = 240.0
+custom_colors/font_color = Color( 0.00784314, 0.898039, 0.94902, 1 )
+custom_colors/font_outline_modulate = Color( 0.94902, 0.784314, 0, 1 )
+custom_fonts/font = SubResource( 4 )
+text = "99"
+align = 1
+
+[node name="Glaciela" type="Control" parent="Control/SecondarySkill"]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="IceLance" type="Control" parent="Control/SecondarySkill/Glaciela"]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="BackgroundIcon" type="Sprite" parent="Control/SecondarySkill/Glaciela/IceLance"]
+self_modulate = Color( 1, 1, 1, 0.333333 )
+position = Vector2( 270, 190 )
+scale = Vector2( 4, 4 )
+texture = ExtResource( 8 )
+
+[node name="TextureProgress" type="TextureProgress" parent="Control/SecondarySkill/Glaciela/IceLance"]
+margin_left = 230.0
+margin_top = 150.0
+margin_right = 250.0
+margin_bottom = 170.0
+rect_scale = Vector2( 4, 4 )
+texture_progress = ExtResource( 8 )
+fill_mode = 5
+
+[node name="Label" type="Label" parent="Control/SecondarySkill/Glaciela/IceLance"]
+margin_left = 249.0
+margin_top = 170.0
+margin_right = 291.0
+margin_bottom = 218.0
+custom_fonts/font = SubResource( 1 )
+text = "15.0"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CostLabel" type="Label" parent="Control/SecondarySkill/Glaciela/IceLance"]
+margin_left = 285.0
+margin_top = 208.0
+margin_right = 319.0
+margin_bottom = 240.0
+custom_colors/font_color = Color( 0.00784314, 0.898039, 0.94902, 1 )
+custom_colors/font_outline_modulate = Color( 0.94902, 0.784314, 0, 1 )
+custom_fonts/font = SubResource( 4 )
+text = "99"
+align = 1
+
+[node name="EnduranceMeter" type="Control" parent="Control"]
+margin_left = -4.0
+margin_top = -42.0
+margin_right = 36.0
+margin_bottom = -2.0
+
+[node name="Sprite" type="Sprite" parent="Control/EnduranceMeter"]
+self_modulate = Color( 1, 1, 1, 0.333333 )
+position = Vector2( 370, 190 )
+scale = Vector2( 4, 4 )
+texture = ExtResource( 10 )
+
+[node name="TextureProgress" type="TextureProgress" parent="Control/EnduranceMeter"]
+margin_left = 338.0
+margin_top = 158.0
+margin_right = 354.0
+margin_bottom = 174.0
+rect_scale = Vector2( 3.74057, 3.87602 )
+texture_progress = ExtResource( 10 )
+fill_mode = 3
+
+[node name="EnduranceRegenTimer" type="Timer" parent="Control/EnduranceMeter"]
+wait_time = 0.1
+autostart = true
+
+[node name="CooldownTickTimer" type="Timer" parent="Control"]
+wait_time = 0.1
+autostart = true
+
+[node name="Characters" type="Control" parent="Control"]
+anchor_left = 24.875
+anchor_top = 5.875
+anchor_right = 24.875
+anchor_bottom = 5.875
+margin_left = -995.0
+margin_top = -235.0
+margin_right = -946.0
+margin_bottom = -187.0
+
+[node name="Slot1" type="Control" parent="Control/Characters"]
+anchor_left = 21.255
+anchor_top = 3.396
+anchor_right = 21.255
+anchor_bottom = 3.396
+margin_left = -1050.49
+margin_top = -163.008
+margin_right = -1010.49
+margin_bottom = -123.008
+
+[node name="Character1" type="Sprite" parent="Control/Characters/Slot1"]
+position = Vector2( 1042, 157 )
+scale = Vector2( 4, 4 )
+texture = ExtResource( 9 )
+
+[node name="KeyIcon1" type="Sprite" parent="Control/Characters/Slot1"]
+position = Vector2( 987.295, 155.987 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 4 )
+
+[node name="KeyBind1" type="Label" parent="Control/Characters/Slot1"]
+anchor_left = -3.732
+anchor_right = -3.732
+margin_left = 1131.28
+margin_top = 142.0
+margin_right = 1143.28
+margin_bottom = 174.0
+custom_colors/font_color = Color( 0.192157, 0.372549, 1, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "1"
+
+[node name="Slot2" type="Control" parent="Control/Characters"]
+anchor_left = 21.199
+anchor_top = 5.375
+anchor_right = 21.199
+anchor_bottom = 5.375
+margin_left = -1047.75
+margin_top = -258.0
+margin_right = -1007.75
+margin_bottom = -218.0
+
+[node name="Character2" type="Sprite" parent="Control/Characters/Slot2"]
+position = Vector2( 1042, 243 )
+scale = Vector2( 4, 4 )
+texture = ExtResource( 9 )
+
+[node name="KeyIcon2" type="Sprite" parent="Control/Characters/Slot2"]
+position = Vector2( 987.295, 241.987 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 4 )
+
+[node name="KeyBind2" type="Label" parent="Control/Characters/Slot2"]
+anchor_left = -3.732
+anchor_right = -3.732
+margin_left = 1129.28
+margin_top = 228.0
+margin_right = 1143.28
+margin_bottom = 260.0
+custom_colors/font_color = Color( 0.192157, 0.372549, 1, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "2"
+
+[node name="Slot3" type="Control" parent="Control/Characters"]
+anchor_left = 21.236
+anchor_top = 7.229
+anchor_right = 21.236
+anchor_bottom = 7.229
+margin_left = -1049.56
+margin_top = -346.992
+margin_right = -1009.56
+margin_bottom = -306.992
+
+[node name="Character3" type="Sprite" parent="Control/Characters/Slot3"]
+position = Vector2( 1042, 333 )
+scale = Vector2( 4, 4 )
+texture = ExtResource( 9 )
+
+[node name="KeyIcon3" type="Sprite" parent="Control/Characters/Slot3"]
+position = Vector2( 987.295, 330.987 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 4 )
+
+[node name="KeyBind3" type="Label" parent="Control/Characters/Slot3"]
+anchor_left = -3.732
+anchor_right = -3.732
+margin_left = 1128.28
+margin_top = 317.0
+margin_right = 1142.28
+margin_bottom = 349.0
+custom_colors/font_color = Color( 0.192157, 0.372549, 1, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "3"
+
+[node name="Flicker1" type="AnimationPlayer" parent="Control/Characters"]
+anims/Flicker = SubResource( 5 )
+anims/RESET = SubResource( 6 )
+
+[node name="Flicker2" type="AnimationPlayer" parent="Control/Characters"]
+anims/Flicker = SubResource( 7 )
+anims/RESET = SubResource( 8 )
+
+[node name="Flicker3" type="AnimationPlayer" parent="Control/Characters"]
+anims/Flicker = SubResource( 9 )
+anims/RESET = SubResource( 10 )
+
+[connection signal="timeout" from="Control/EnduranceMeter/EnduranceRegenTimer" to="Control" method="_on_EnduranceRegenTimer_timeout"]
+[connection signal="timeout" from="Control/CooldownTickTimer" to="Control" method="_on_CooldownTickTimer_timeout"]

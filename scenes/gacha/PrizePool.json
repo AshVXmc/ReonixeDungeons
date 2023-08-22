@@ -1,0 +1,26 @@
+{
+	"3*common": [
+		"CommonMonsterDust5",
+		"GoblinScales5",
+		"CommonMonsterDust10",
+		"GoblinScales10",
+		"LesserEXPCatalyst5",
+		"LesserEXPCatalyst8",
+		"LesserEXPCatalyst12",
+		"CommonEXPCatalyst5",
+		"CommonEXPCatalyst8",
+		"GreaterEXPCatalyst5",
+		"Healthpot1",
+		"Healthpot2",
+		"Healthpot3",
+		"Manapot1",
+		"Manapot2",
+		"Weapon (3*)"
+	],
+	"4*": [
+		"Weapon (4*)", 
+		"Character",
+		"RareIngredient"
+	],
+	"5*": []
+}

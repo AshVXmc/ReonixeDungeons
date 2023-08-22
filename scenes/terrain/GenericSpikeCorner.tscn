@@ -1,0 +1,31 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://scripts/ui/GenericSpikeCorner.gd" type="Script" id=2]
+
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 47.1994, 28.1329 )
+
+[sub_resource type="StreamTexture" id=3]
+load_path = "res://.import/spikes_corner.png-534e24b04459d90a157ec6ce3aeb008a.stex"
+
+[node name="GenericSpikeCorner" type="StaticBody2D"]
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+position = Vector2( 4.85053, 28.8704 )
+scale = Vector2( 0.940089, 1 )
+polygon = PoolVector2Array( -48.1838, -18.688, -48.4487, 18.6581, 47.6976, 19.4527, 47.6976, -76.9585, 11.9407, -76.9585, 11.9407, -19.2178 )
+
+[node name="Area2D" type="Area2D" parent="." groups=["Spike"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2( 0.61307, 19.3863 )
+shape = SubResource( 4 )
+
+[node name="Sprite" type="Sprite" parent="."]
+texture = SubResource( 3 )
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_Area2D_area_entered"]

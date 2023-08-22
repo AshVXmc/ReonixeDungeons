@@ -1,0 +1,33 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://scripts/items/GenericSpike.gd" type="Script" id=2]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 42.3817, 12.2035 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 47.5476, 18.6488 )
+
+[sub_resource type="StreamTexture" id=3]
+load_path = "res://.import/spikes1.png-f8862cbf271e5bbf0582f21daa73c160.stex"
+
+[node name="GenericSpike" type="StaticBody2D"]
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0.264862, 28.8704 )
+shape = SubResource( 1 )
+
+[node name="Area2D" type="Area2D" parent="." groups=["Spike"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2( 0.264862, 28.8704 )
+shape = SubResource( 2 )
+
+[node name="Sprite" type="Sprite" parent="."]
+texture = SubResource( 3 )
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_Area2D_area_entered"]

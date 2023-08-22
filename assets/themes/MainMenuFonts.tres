@@ -1,0 +1,10 @@
+[gd_resource type="DynamicFont" load_steps=2 format=2]
+
+[ext_resource path="res://assets/fonts/FFFFORWA.ttf" type="DynamicFontData" id=1]
+
+[resource]
+size = 50
+outline_size = 5
+outline_color = Color( 1, 0.843137, 0.0117647, 1 )
+extra_spacing_char = 5
+font_data = ExtResource( 1 )

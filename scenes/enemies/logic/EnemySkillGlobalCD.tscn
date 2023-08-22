@@ -1,0 +1,11 @@
+[gd_scene format=2]
+
+[node name="EnemySkillGlobalCD" type="Node2D"]
+
+[node name="GoblinSkillThrust" type="Timer" parent="."]
+wait_time = 6.0
+one_shot = true
+
+[node name="BatSkillDropProjectile" type="Timer" parent="."]
+wait_time = 6.0
+one_shot = true

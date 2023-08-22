@@ -1,0 +1,51 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://assets/enemies/spider1.png" type="Texture" id=1]
+[ext_resource path="res://assets/enemies/spider2.png" type="Texture" id=2]
+[ext_resource path="res://scripts/enemies/Spider.gd" type="Script" id=3]
+
+[sub_resource type="SpriteFrames" id=2]
+animations = [ {
+"frames": [ ExtResource( 1 ), ExtResource( 2 ) ],
+"loop": true,
+"name": "Idle",
+"speed": 4.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 34.1214, 22.5793 )
+
+[node name="Spider" type="KinematicBody2D" groups=["Enemy"]]
+scale = Vector2( 1.25, 1.25 )
+script = ExtResource( 3 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+position = Vector2( -6, 0 )
+polygon = PoolVector2Array( -35.6917, 37.456, -35.1304, 24.5477, -31.2018, 23.9865, -29.7988, 9.95569, -25.8701, 9.95569, -24.7477, 5.18523, -10.1557, 5.18523, -9.0332, -0.146467, -5.66582, -0.146467, -5.66582, -4.63631, 24.6407, -4.91693, 25.2019, -0.707699, 29.9724, 0.414762, 29.9724, 3.78215, 35.0234, 4.62399, 35.0234, 18.3742, 40.0745, 19.4966, 40.0745, 39.4203, 35.304, 39.4203, 35.304, 25.1089, 30.253, 25.1089, 30.253, 29.5988, 15.3803, 29.8794, 15.3803, 39.1397, 10.0486, 39.4203, 9.76804, 29.5988, -10.1557, 29.8794, -9.87505, 39.4203, -15.2067, 39.9815, -15.4874, 29.8794, -30.0794, 30.16, -30.0794, 39.7009, -36.5335, 39.9815 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+scale = Vector2( 5, 5 )
+frames = SubResource( 2 )
+animation = "Idle"
+
+[node name="Area2D" type="Area2D" parent="." groups=["Enemy"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2( -2.35798, 16.1792 )
+rotation = 2.27374e-13
+shape = SubResource( 1 )
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+position = Vector2( 41.3893, 25.3263 )
+scale = Vector2( 0.5, 0.5 )
+enabled = true
+
+[node name="JumpTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="HurtTimer" type="Timer" parent="."]
+wait_time = 0.3
+one_shot = true
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_Area2D_area_entered"]
+[connection signal="timeout" from="HurtTimer" to="." method="_on_HurtTimer_timeout"]

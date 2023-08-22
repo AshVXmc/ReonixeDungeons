@@ -1,0 +1,172 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://scripts/ui/HowToPlayMenuScript.gd" type="Script" id=1]
+[ext_resource path="res://assets/fonts/Born2bSportyV2.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://assets/UI/nexticon.png" type="Texture" id=3]
+[ext_resource path="res://assets/UI/quiticon.png" type="Texture" id=6]
+[ext_resource path="res://assets/UI/previousicon.png" type="Texture" id=9]
+
+[sub_resource type="DynamicFont" id=2]
+size = 64
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=1]
+size = 36
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=3]
+size = 32
+font_data = ExtResource( 2 )
+
+[node name="CanvasLayer" type="CanvasLayer"]
+script = ExtResource( 1 )
+Page = 5
+
+[node name="Control" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = 2.0
+margin_bottom = 2.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Heading" type="RichTextLabel" parent="Control"]
+anchor_left = 0.5
+anchor_top = 0.072
+anchor_right = 0.5
+anchor_bottom = 0.072
+margin_left = -233.0
+margin_top = -39.984
+margin_right = 255.0
+margin_bottom = 30.016
+custom_fonts/normal_font = SubResource( 2 )
+bbcode_enabled = true
+bbcode_text = "[color=red]General Guide[/color] (6) "
+text = "General Guide (6) "
+scroll_active = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Text1" type="RichTextLabel" parent="Control"]
+anchor_left = 0.517
+anchor_top = 0.14
+anchor_right = 0.517
+anchor_bottom = 0.14
+margin_left = -473.193
+margin_top = -27.3226
+margin_right = 459.807
+margin_bottom = 46.6774
+custom_fonts/normal_font = SubResource( 1 )
+bbcode_enabled = true
+bbcode_text = "Several [color=#8121c2]debugging tools[/color] are provided for testing features and fun."
+text = "Several debugging tools are provided for testing features and fun."
+fit_content_height = true
+scroll_active = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Text2" type="RichTextLabel" parent="Control"]
+anchor_left = 0.517
+anchor_top = 0.14
+anchor_right = 0.517
+anchor_bottom = 0.14
+margin_left = -517.394
+margin_top = 21.849
+margin_right = 397.606
+margin_bottom = 582.849
+custom_fonts/normal_font = SubResource( 3 )
+bbcode_enabled = true
+bbcode_text = "[color=yellow]/[/color] to toggle the cheat console. Enter a command and press [color=yellow]Enter[/color] to run it. Here are some common commands:
+- [color=yellow]godmode[/color]
+Invulnerability to attacks and abilities don't drain mana
+- [color=yellow]healall[/color]
+Restores to full health and mana
+- [color=yellow]fillall[/color]
+Fills your inventory and opal count to max
+- [color=yellow]killall[/color]
+Kills all enemies in the current level
+- [color=yellow]unlockall[/color]
+Unlock all player abilities
+
+Other debug hotkeys:
+[color=yellow]F3[/color] to toggle FPS counter
+[color=yellow]F11[/color] to screenshot (Saved in [color=green]%appdata%/ReonixeDungeons/screenshots[/color])
+"
+text = "/ to toggle the cheat console. Enter a command and press Enter to run it. Here are some common commands:
+- godmode
+Invulnerability to attacks and abilities don't drain mana
+- healall
+Restores to full health and mana
+- fillall
+Fills your inventory and opal count to max
+- killall
+Kills all enemies in the current level
+- unlockall
+Unlock all player abilities
+
+Other debug hotkeys:
+F3 to toggle FPS counter
+F11 to screenshot (Saved in %appdata%/ReonixeDungeons/screenshots)
+"
+fit_content_height = true
+scroll_active = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="QuitButton" type="TextureButton" parent="Control"]
+margin_right = 40.0
+margin_bottom = 40.0
+rect_scale = Vector2( 2, 2 )
+texture_normal = ExtResource( 6 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="NextButton" type="TextureButton" parent="Control"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -82.0
+margin_top = -82.0
+margin_right = -42.0
+margin_bottom = -42.0
+rect_scale = Vector2( 2, 2 )
+texture_normal = ExtResource( 3 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PrevButton" type="TextureButton" parent="Control"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -162.05
+margin_top = -82.0
+margin_right = -122.05
+margin_bottom = -42.0
+rect_scale = Vector2( 2, 2 )
+texture_normal = ExtResource( 9 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="pressed" from="Control/QuitButton" to="." method="_on_QuitButton_pressed"]
+[connection signal="pressed" from="Control/NextButton" to="." method="_on_NextButton_pressed"]
+[connection signal="pressed" from="Control/PrevButton" to="." method="_on_PrevButton_pressed"]

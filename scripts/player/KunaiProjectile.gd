@@ -1,0 +1,1 @@
+class_name KunaiProjectile extends Area2D

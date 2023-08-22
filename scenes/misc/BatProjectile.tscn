@@ -1,0 +1,113 @@
+[gd_scene load_steps=13 format=2]
+
+[ext_resource path="res://scripts/misc/BatProjectile.gd" type="Script" id=1]
+[ext_resource path="res://assets/misc/bat_projectile_spritesheet.png" type="Texture" id=2]
+[ext_resource path="res://assets/particles/smoke_particle_spritesheet.png" type="Texture" id=3]
+
+[sub_resource type="CanvasItemMaterial" id=5]
+particles_animation = true
+particles_anim_h_frames = 3
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="ParticlesMaterial" id=6]
+flag_disable_z = true
+gravity = Vector3( 0, -120, 0 )
+angular_velocity = 100.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+anim_speed = 1.0
+
+[sub_resource type="ParticlesMaterial" id=8]
+emission_shape = 1
+emission_sphere_radius = 1.0
+flag_disable_z = true
+spread = 90.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 45.0
+angular_velocity = 100.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+anim_speed = 1.0
+
+[sub_resource type="RectangleShape2D" id=9]
+extents = Vector2( 67.7208, 64.8859 )
+
+[sub_resource type="AtlasTexture" id=1]
+atlas = ExtResource( 2 )
+region = Rect2( 0, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=2]
+atlas = ExtResource( 2 )
+region = Rect2( 16, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=3]
+atlas = ExtResource( 2 )
+region = Rect2( 32, 0, 16, 16 )
+
+[sub_resource type="SpriteFrames" id=4]
+animations = [ {
+"frames": [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[sub_resource type="CircleShape2D" id=7]
+radius = 20.0
+
+[node name="BatProjectile" type="Area2D"]
+position = Vector2( 0, 4 )
+collision_layer = 129
+collision_mask = 129
+script = ExtResource( 1 )
+
+[node name="TrailParticles" type="Particles2D" parent="."]
+modulate = Color( 0.862745, 0.231373, 0.231373, 1 )
+material = SubResource( 5 )
+scale = Vector2( 2.5, 2.5 )
+speed_scale = 3.5
+process_material = SubResource( 6 )
+texture = ExtResource( 3 )
+
+[node name="ExplosionParticles" type="Particles2D" parent="."]
+modulate = Color( 0.862745, 0.231373, 0.231373, 1 )
+material = SubResource( 5 )
+rotation = -1.5708
+scale = Vector2( 2.5, 2.5 )
+emitting = false
+amount = 20
+lifetime = 0.6
+one_shot = true
+speed_scale = 3.5
+process_material = SubResource( 8 )
+texture = ExtResource( 3 )
+
+[node name="Area2D" type="Area2D" parent="." groups=["Hostile", "Projectile"]]
+collision_layer = 129
+collision_mask = 129
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D"]
+position = Vector2( 0.469863, 34.1072 )
+scale = Vector2( 0.276154, 0.586784 )
+polygon = PoolVector2Array( -164.245, -4.62228, 151.166, -3.49982, 128.717, -79.8272, 70.3491, -123.603, 0.756531, -156.155, -89.0405, -124.726, -145.164, -77.5823 )
+
+[node name="HostileArea" type="Area2D" parent="." groups=["Hostile"]]
+collision_layer = 129
+collision_mask = 129
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HostileArea"]
+position = Vector2( 0.780823, -0.851913 )
+shape = SubResource( 9 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+scale = Vector2( 3.25, 3.25 )
+frames = SubResource( 4 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 7 )
+
+[connection signal="area_entered" from="." to="." method="_on_BatProjectile_area_entered"]
+[connection signal="body_entered" from="." to="." method="_on_BatProjectile_body_entered"]
+[connection signal="area_entered" from="Area2D" to="." method="_on_Area2D_area_entered"]
+[connection signal="area_exited" from="Area2D" to="." method="_on_Area2D_area_exited"]

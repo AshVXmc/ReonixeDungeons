@@ -1,0 +1,2498 @@
+[gd_scene load_steps=67 format=2]
+
+[ext_resource path="res://spriteframes/MainCharacter_spriteframes.tres" type="SpriteFrames" id=1]
+[ext_resource path="res://scripts/player/Player.gd" type="Script" id=2]
+[ext_resource path="res://assets/player/katana.png" type="Texture" id=3]
+[ext_resource path="res://assets/misc/frozen_block.png" type="Texture" id=4]
+[ext_resource path="res://scenes/particles/FireBurstParticle.tscn" type="PackedScene" id=5]
+[ext_resource path="res://assets/player/gliding_wings.png" type="Texture" id=6]
+[ext_resource path="res://assets/UI/chargebar_charging.png" type="Texture" id=7]
+[ext_resource path="res://assets/UI/healthbar_empty.png" type="Texture" id=8]
+[ext_resource path="res://scenes/particles/ChargingParticle.tscn" type="PackedScene" id=9]
+[ext_resource path="res://assets/UI/oxygen_bar_empty.png" type="Texture" id=10]
+[ext_resource path="res://assets/UI/oxygen_bar_full.png" type="Texture" id=11]
+[ext_resource path="res://scripts/player/SkillManager.gd" type="Script" id=12]
+[ext_resource path="res://scripts/player/CharacterManager.gd" type="Script" id=13]
+[ext_resource path="res://scenes/particles/AtkBuffParticle.tscn" type="PackedScene" id=14]
+[ext_resource path="res://scripts/player/AnimationManager.gd" type="Script" id=15]
+[ext_resource path="res://assets/misc/animated/sword_slash_anim_2.png" type="Texture" id=16]
+[ext_resource path="res://assets/misc/animated/sword_slash_anim_1.png" type="Texture" id=17]
+[ext_resource path="res://assets/player/katana_sheath.png" type="Texture" id=18]
+[ext_resource path="res://assets/UI/energy_meter_partly_filled.png" type="Texture" id=19]
+[ext_resource path="res://assets/UI/energy_meter_empty.png" type="Texture" id=20]
+[ext_resource path="res://assets/player/katana_sheath_empty.png" type="Texture" id=21]
+[ext_resource path="res://assets/misc/super_slash_projectile_2.png" type="Texture" id=22]
+
+[sub_resource type="CapsuleShape2D" id=1]
+radius = 37.6338
+height = 17.3718
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 37.7159, 43.7237 )
+
+[sub_resource type="RectangleShape2D" id=32]
+extents = Vector2( 44.2602, 44.2034 )
+
+[sub_resource type="RectangleShape2D" id=11]
+extents = Vector2( 44.7389, 44.625 )
+
+[sub_resource type="RectangleShape2D" id=33]
+extents = Vector2( 44.9272, 43.6631 )
+
+[sub_resource type="RectangleShape2D" id=49]
+extents = Vector2( 57.4021, 51.5498 )
+
+[sub_resource type="CapsuleShape2D" id=12]
+radius = 42.7822
+height = 17.3718
+
+[sub_resource type="Animation" id=23]
+resource_name = "ChargedAttackLeft"
+length = 0.15
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("SwordSprite:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.15 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 40.0, -200.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("SwordSprite:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.15 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("SwordSprite:flip_h")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("SwordSprite:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -24.266, 9.22076 ) ]
+}
+
+[sub_resource type="Animation" id=22]
+resource_name = "ChargedAttackRight"
+length = 0.15
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("SwordSprite:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.15 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ -40.0, 200.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("SwordSprite:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.15 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("SwordSprite:flip_h")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("SwordSprite:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 24.266, 9.221 ) ]
+}
+
+[sub_resource type="Animation" id=47]
+resource_name = "EXFlurryAttack"
+length = 1.5
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( -200, -95 ), Vector2( 200, -95 ), Vector2( -120, 173 ), Vector2( 0, -200 ), Vector2( 120, 173 ), Vector2( 0, 0 ) ]
+}
+
+[sub_resource type="Animation" id=48]
+resource_name = "KnockDownChargedAttackLeft"
+length = 0.2
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("SwordSprite:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 218.5, -145.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("SwordSprite:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("SwordSprite:flip_h")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("SwordSprite:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -24.734, 9.221 ) ]
+}
+
+[sub_resource type="Animation" id=46]
+resource_name = "KnockDownChargedAttackRight"
+length = 0.2
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("SwordSprite:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ -145.0, 218.5 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("SwordSprite:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("SwordSprite:flip_h")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("SwordSprite:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 24.734, 9.221 ) ]
+}
+
+[sub_resource type="Animation" id=25]
+resource_name = "KnockUpChargedAttackLeft"
+length = 0.2
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("SwordSprite:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ -218.5, 145.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("SwordSprite:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("SwordSprite:flip_h")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("SwordSprite:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -24.734, 9.221 ) ]
+}
+
+[sub_resource type="Animation" id=24]
+resource_name = "KnockUpChargedAttackRight"
+length = 0.2
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("SwordSprite:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 145.0, -218.5 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("SwordSprite:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("SwordSprite:flip_h")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("SwordSprite:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 24.734, 9.22076 ) ]
+}
+
+[sub_resource type="Animation" id=4]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("SwordSprite:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 50.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("SwordSprite:flip_h")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ true ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("SwordSprite:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -24.266, 9.22076 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("SwordSprite:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ true ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Sprite:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ) ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("SuperSlashProjectile2:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 86.8499, -1.69655 ) ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("SuperSlashProjectile2:visible")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ true ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("SuperSlashProjectile2:scale")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 5.09486, 6.85921 ) ]
+}
+
+[sub_resource type="Animation" id=51]
+resource_name = "SwitchAttackRight"
+length = 0.15
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("SwordSprite:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.15 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 45.0, 130.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("SwordSprite:flip_h")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.15 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, false ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("SwordSprite:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 17, 5 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("SwordSprite:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("SlashEffectSprite:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray(  ),
+"transitions": PoolRealArray(  ),
+"update": 0,
+"values": [  ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("SuperSlashProjectile2:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0, 0.15 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 86.8499, -1.69655 ), Vector2( 124.85, -1.69655 ) ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("SuperSlashProjectile2:visible")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0, 0.15 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("SuperSlashProjectile2:scale")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 5.09486, 6.85921 ) ]
+}
+
+[sub_resource type="Animation" id=5]
+resource_name = "SwordSwingLeft"
+length = 0.15
+tracks/0/type = "value"
+tracks/0/path = NodePath("SwordSprite:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ -50.0, -125.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("SwordSprite:flip_h")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("SwordSprite:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -24.266, 9.22076 ) ]
+}
+
+[sub_resource type="Animation" id=14]
+resource_name = "SwordSwingLeft2"
+length = 0.25
+step = 0.025
+tracks/0/type = "value"
+tracks/0/path = NodePath("SwordSprite:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.075, 0.1, 0.175 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ -72.5, -72.5, -107.5, -107.5 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("SwordSprite:flip_h")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("SwordSprite:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.075, 0.1, 0.175, 0.25 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( -12, 15 ), Vector2( 17, 5 ), Vector2( 17, 5 ), Vector2( -14, 0 ), Vector2( 17, 5 ) ]
+}
+
+[sub_resource type="Animation" id=16]
+resource_name = "SwordSwingLeft3"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("SwordSprite:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ -150.0, -20.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("SwordSprite:flip_h")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("SwordSprite:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -17, 5 ) ]
+}
+
+[sub_resource type="Animation" id=19]
+resource_name = "SwordSwingLeft4"
+length = 0.15
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("SwordSprite:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.15 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ -225.0, -65.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("SwordSprite:flip_h")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("SwordSprite:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 8 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("SwordSprite:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.15 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+
+[sub_resource type="Animation" id=52]
+resource_name = "SwordSwingLeft4_Up"
+length = 0.15
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("SwordSprite:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.15 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 225.0, 50.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("SwordSprite:flip_h")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("SwordSprite:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 8 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("SwordSprite:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+
+[sub_resource type="Animation" id=7]
+resource_name = "SwordSwingLower"
+length = 0.15
+tracks/0/type = "value"
+tracks/0/path = NodePath("SwordSprite:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ -125.0, -225.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("SwordSprite:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 40 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("SwordSprite:flip_h")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "SwordSwingRight"
+length = 0.1
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("SwordSprite:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 50.0, 125.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("SwordSprite:flip_h")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, false ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("SwordSprite:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 17, 5 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("SwordSprite:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("SlashEffectSprite:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray(  ),
+"transitions": PoolRealArray(  ),
+"update": 0,
+"values": [  ]
+}
+
+[sub_resource type="Animation" id=13]
+resource_name = "SwordSwingRight2"
+length = 0.25
+step = 0.025
+tracks/0/type = "value"
+tracks/0/path = NodePath("SwordSprite:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.075, 0.1, 0.175 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ 72.5, 72.5, 107.5, 107.5 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("SwordSprite:flip_h")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("SwordSprite:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.075, 0.1, 0.175, 0.25 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( -12, 15 ), Vector2( 17, 5 ), Vector2( 17, 5 ), Vector2( -14, 0 ), Vector2( 17, 5 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("SwordSprite:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.25 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+
+[sub_resource type="Animation" id=15]
+resource_name = "SwordSwingRight3"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("SwordSprite:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 150.0, 20.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("SwordSprite:flip_h")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("SwordSprite:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 17, 5 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("SwordSprite:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+
+[sub_resource type="Animation" id=50]
+resource_name = "SwordSwingRight4_Down"
+length = 0.15
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("SwordSprite:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.15 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ -45.0, 130.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("SwordSprite:flip_h")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("SwordSprite:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 8 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("SwordSprite:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+
+[sub_resource type="Animation" id=18]
+resource_name = "SwordSwingRight4_Up"
+length = 0.15
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("SwordSprite:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.15 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 225.0, 50.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("SwordSprite:flip_h")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("SwordSprite:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 8 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("SwordSprite:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+
+[sub_resource type="Animation" id=6]
+resource_name = "SwordSwingUpper"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("SwordSprite:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ -50.0, 50.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("SwordSprite:flip_h")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("SwordSprite:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -1.43051e-06, -22.6691 ) ]
+}
+
+[sub_resource type="Animation" id=45]
+resource_name = "Death"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.7, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 0, 0, 0, 1 ), Color( 0, 0, 0, 1 ) ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.5, 0.9 ),
+"transitions": PoolRealArray( 1, 1 ),
+"values": [ {
+"args": [  ],
+"method": "add_death_particles"
+}, {
+"args": [  ],
+"method": "swap_to_nearby_alive_characters"
+} ]
+}
+
+[sub_resource type="Animation" id=8]
+resource_name = "Hurt"
+length = 0.2
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0.490196 ), Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=9]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="RectangleShape2D" id=20]
+extents = Vector2( 47.2053, 54.9529 )
+
+[sub_resource type="CircleShape2D" id=34]
+radius = 400.0
+
+[sub_resource type="Animation" id=37]
+resource_name = "HorizontalSlash"
+length = 0.2
+step = 0.01
+tracks/0/type = "value"
+tracks/0/path = NodePath("HorizontalSlashSprite:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.06, 0.13, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ 45.0, 71.5, 81.0, 85.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("HorizontalSlashSprite:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.06, 0.13, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 3, 3 ), Vector2( 1.3, 4 ), Vector2( 0.75, 5 ), Vector2( 0.5, 5.7 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("HorizontalSlashSprite:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("HorizontalSlashSprite:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+
+[sub_resource type="Animation" id=38]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("SlashEffectSprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 75, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("SlashEffectSprite:texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ ExtResource( 17 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("SlashEffectSprite:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ true ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("HorizontalSlashSprite:rotation_degrees")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 45.0 ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("HorizontalSlashSprite:scale")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 3, 3 ) ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("HorizontalSlashSprite:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ) ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("HorizontalSlashSprite:visible")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ true ]
+}
+
+[sub_resource type="Animation" id=39]
+resource_name = "RightSlash"
+length = 0.1
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("SlashEffectSprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 75, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("SlashEffectSprite:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("SlashEffectSprite:texture")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.05 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ ExtResource( 17 ), ExtResource( 16 ) ]
+}
+
+[sub_resource type="RectangleShape2D" id=40]
+extents = Vector2( 35, 45 )
+
+[sub_resource type="Animation" id=41]
+resource_name = "Flicker"
+length = 0.2
+step = 0.025
+tracks/0/type = "value"
+tracks/0/path = NodePath("EnergyMeter:rect_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 4.5, 4.5 ), Vector2( 6, 6 ), Vector2( 4.5, 4.5 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("EnergyMeter:rect_position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( -75, -84 ), Vector2( -100, -85 ), Vector2( -75, -84 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("EnergyMeter:self_modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0.294118 ), Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=42]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("EnergyMeter:rect_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 4.5, 4.5 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("EnergyMeter:rect_position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -75, -84 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("EnergyMeter:self_modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=30]
+resource_name = "LeftDefault"
+length = 0.1
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("KatanaSheathSprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 13, 18 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("KatanaSheathSprite:flip_h")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("KatanaSheathSprite:flip_v")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("KatanaSheathSprite:rotation_degrees")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ -75.0 ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("KatanaSheathSprite:show_behind_parent")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("KatanaSheathSprite:texture")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ ExtResource( 21 ) ]
+}
+
+[sub_resource type="Animation" id=44]
+resource_name = "LeftDefaultSheath"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/path = NodePath("KatanaSheathSprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 13, 18 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("KatanaSheathSprite:flip_h")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("KatanaSheathSprite:flip_v")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("KatanaSheathSprite:rotation_degrees")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ -75.0 ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("KatanaSheathSprite:show_behind_parent")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("KatanaSheathSprite:texture")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ ExtResource( 21 ) ]
+}
+tracks/6/type = "method"
+tracks/6/path = NodePath(".")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray(  ),
+"transitions": PoolRealArray(  ),
+"values": [  ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("SwordSprite:position")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( -90, -10 ), Vector2( -22, 8 ) ]
+}
+tracks/8/type = "value"
+tracks/8/path = NodePath("SwordSprite:rotation_degrees")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"times": PoolRealArray( -0.001 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 105.0 ]
+}
+tracks/9/type = "value"
+tracks/9/path = NodePath("SwordSprite:visible")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/10/type = "value"
+tracks/10/path = NodePath("SwordSprite:show_behind_parent")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/11/type = "value"
+tracks/11/path = NodePath("SwordSprite:flip_h")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+
+[sub_resource type="Animation" id=28]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("KatanaSheathSprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -13, 18 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("KatanaSheathSprite:flip_h")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ true ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("KatanaSheathSprite:flip_v")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ true ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("KatanaSheathSprite:rotation_degrees")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ -75.0 ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("KatanaSheathSprite:show_behind_parent")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("KatanaSheathSprite:texture")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ ExtResource( 18 ) ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("SwordSprite:rotation_degrees")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ -105.0 ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("SwordSprite:position")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 90, -8 ) ]
+}
+tracks/8/type = "value"
+tracks/8/path = NodePath("SwordSprite:visible")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ true ]
+}
+tracks/9/type = "value"
+tracks/9/path = NodePath("SwordSprite:show_behind_parent")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ true ]
+}
+
+[sub_resource type="Animation" id=29]
+resource_name = "RightDefault"
+length = 0.1
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("KatanaSheathSprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -13, 18 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("KatanaSheathSprite:flip_h")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("KatanaSheathSprite:flip_v")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("KatanaSheathSprite:rotation_degrees")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ -105.0 ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("KatanaSheathSprite:show_behind_parent")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("KatanaSheathSprite:texture")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ ExtResource( 21 ) ]
+}
+
+[sub_resource type="Animation" id=43]
+resource_name = "RightDefaultSheath"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/path = NodePath("KatanaSheathSprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -13, 18 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("KatanaSheathSprite:flip_h")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("KatanaSheathSprite:flip_v")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("KatanaSheathSprite:rotation_degrees")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ -105.0 ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("KatanaSheathSprite:show_behind_parent")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("KatanaSheathSprite:texture")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ ExtResource( 21 ) ]
+}
+tracks/6/type = "method"
+tracks/6/path = NodePath(".")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray(  ),
+"transitions": PoolRealArray(  ),
+"values": [  ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("SwordSprite:position")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 90, -8 ), Vector2( 30, 7.5 ) ]
+}
+tracks/8/type = "value"
+tracks/8/path = NodePath("SwordSprite:rotation_degrees")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"times": PoolRealArray( -0.001 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ -105.8 ]
+}
+tracks/9/type = "value"
+tracks/9/path = NodePath("SwordSprite:visible")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/10/type = "value"
+tracks/10/path = NodePath("SwordSprite:show_behind_parent")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/11/type = "value"
+tracks/11/path = NodePath("SwordSprite:flip_h")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+
+[node name="Player" type="KinematicBody2D" groups=["PlayerEntity"]]
+collision_layer = 128
+collision_mask = 144
+script = ExtResource( 2 )
+
+[node name="ChargingParticle" parent="." instance=ExtResource( 9 )]
+visible = false
+amount = 4
+
+[node name="AnimationManager" type="Node2D" parent="."]
+script = ExtResource( 15 )
+
+[node name="SkillManager" type="Node2D" parent="."]
+script = ExtResource( 12 )
+
+[node name="CharacterManager" type="Node2D" parent="."]
+script = ExtResource( 13 )
+
+[node name="SwapCooldownTimer" type="Timer" parent="CharacterManager"]
+wait_time = 0.5
+one_shot = true
+
+[node name="FreezeMask" type="Sprite" parent="."]
+visible = false
+scale = Vector2( 6, 6 )
+texture = ExtResource( 4 )
+
+[node name="GliderWings" type="Sprite" parent="."]
+visible = false
+scale = Vector2( 5, 6 )
+texture = ExtResource( 6 )
+
+[node name="SwordSprite" type="Sprite" parent="."]
+show_behind_parent = true
+position = Vector2( 90, -8 )
+rotation = -1.8326
+scale = Vector2( 3.75, 3.75 )
+texture = ExtResource( 3 )
+offset = Vector2( 0, -12 )
+flip_h = true
+
+[node name="Sprite" type="AnimatedSprite" parent="."]
+scale = Vector2( 5, 5 )
+frames = ExtResource( 1 )
+animation = "BackwardsDash"
+playing = true
+
+[node name="KatanaSheathSprite" type="Sprite" parent="."]
+position = Vector2( -13, 18 )
+rotation = -1.309
+scale = Vector2( 3.5, 4.5 )
+texture = ExtResource( 18 )
+flip_h = true
+flip_v = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0, 2 )
+shape = SubResource( 1 )
+
+[node name="AttackCollision" type="Area2D" parent="." groups=["LightPoiseDamage", "NoAirborneKnockback", "SmallEleganceValue", "Sword"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackCollision"]
+position = Vector2( 80, 0 )
+shape = SubResource( 2 )
+disabled = true
+
+[node name="ChargedAttackCollision" type="Area2D" parent="." groups=["HeavyPoiseDamage", "SulphuricSigilTrigger", "SwordCharged"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ChargedAttackCollision"]
+position = Vector2( 73.117, -1.69657 )
+shape = SubResource( 32 )
+disabled = true
+
+[node name="ChargedAttackDetector" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ChargedAttackDetector"]
+position = Vector2( 70.5111, 1.625 )
+shape = SubResource( 11 )
+
+[node name="UpwardsChargedAttackCollision" type="Area2D" parent="." groups=["SulphuricSigilTrigger", "SwordCharged"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="UpwardsChargedAttackCollision"]
+position = Vector2( 69.9272, -0.663103 )
+shape = SubResource( 33 )
+disabled = true
+
+[node name="DownwardsChargedAttackCollision" type="Area2D" parent="." groups=["HeavyPoiseDamage", "RemoveAirborne", "SulphuricSigilTrigger", "Sword"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DownwardsChargedAttackCollision"]
+position = Vector2( 90, -8.55 )
+shape = SubResource( 49 )
+disabled = true
+
+[node name="Area2D" type="Area2D" parent="." groups=["Player"]]
+collision_layer = 129
+collision_mask = 129
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2( 0, 5.05854 )
+shape = SubResource( 12 )
+
+[node name="Position2D" type="Position2D" parent="."]
+position = Vector2( 100, 0 )
+
+[node name="DashParticlePosition" type="Position2D" parent="."]
+position = Vector2( -49.2104, 0 )
+
+[node name="InvulnerabilityTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="AttackTimer" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
+
+[node name="DashCooldown" type="Timer" parent="."]
+wait_time = 0.5
+autostart = true
+
+[node name="KnockbackTimer" type="Timer" parent="."]
+one_shot = true
+autostart = true
+
+[node name="KnockbackCooldownTimer" type="Timer" parent="."]
+wait_time = 1.2
+one_shot = true
+
+[node name="HealingTimer" type="Timer" parent="."]
+process_mode = 0
+one_shot = true
+
+[node name="FullHealTimer" type="Timer" parent="."]
+process_mode = 0
+wait_time = 2.5
+one_shot = true
+
+[node name="ManaHealTimer" type="Timer" parent="."]
+process_mode = 0
+wait_time = 2.0
+one_shot = true
+
+[node name="DashUseTimer" type="Timer" parent="."]
+wait_time = 0.8
+one_shot = true
+
+[node name="GlideTimer" type="Timer" parent="."]
+
+[node name="LeftDetector" type="Area2D" parent="."]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="LeftDetector"]
+scale = Vector2( 1.25, 1 )
+polygon = PoolVector2Array( -13.0297, -39.1703, -31.0406, -25.6622, -37.9271, -3.14862, -37.6622, 18.0406, -30.246, 35.2569, -14.8838, 47.1758, -1.11079, 51.4137, -0.316193, -41.0244 )
+
+[node name="RightDectector" type="Area2D" parent="."]
+
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="RightDectector"]
+position = Vector2( 2.61514, 9.53516 )
+rotation = 3.14159
+scale = Vector2( 1.25, 1 )
+polygon = PoolVector2Array( -13.0297, -39.1703, -31.0406, -25.6622, -37.9271, -3.14862, -37.6622, 18.0406, -30.246, 35.2569, -14.8838, 47.1758, -1.11079, 51.4137, -0.316193, -41.0244 )
+
+[node name="ToggleArea" type="Area2D" parent="." groups=["PlayerToggle"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ToggleArea"]
+position = Vector2( 0, 9.95848 )
+shape = SubResource( 1 )
+disabled = true
+
+[node name="ParticlePosition" type="Position2D" parent="."]
+position = Vector2( 0, 50 )
+
+[node name="TrailParticlePosition" type="Position2D" parent="."]
+position = Vector2( 0, -150 )
+
+[node name="GroundPoundPositionRight" type="Position2D" parent="."]
+position = Vector2( 40, 50 )
+
+[node name="GroundPoundPositionLeft" type="Position2D" parent="."]
+position = Vector2( -40, 50 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/ChargedAttackLeft = SubResource( 23 )
+anims/ChargedAttackRight = SubResource( 22 )
+anims/EXFlurryAttack = SubResource( 47 )
+anims/KnockDownChargedAttackLeft = SubResource( 48 )
+anims/KnockDownChargedAttackRight = SubResource( 46 )
+anims/KnockUpChargedAttackLeft = SubResource( 25 )
+anims/KnockUpChargedAttackRight = SubResource( 24 )
+anims/RESET = SubResource( 4 )
+anims/SwitchAttackRight = SubResource( 51 )
+anims/SwordSwingLeft = SubResource( 5 )
+anims/SwordSwingLeft2 = SubResource( 14 )
+anims/SwordSwingLeft3 = SubResource( 16 )
+anims/SwordSwingLeft4 = SubResource( 19 )
+anims/SwordSwingLeft4_Up = SubResource( 52 )
+anims/SwordSwingLower = SubResource( 7 )
+anims/SwordSwingRight = SubResource( 3 )
+anims/SwordSwingRight2 = SubResource( 13 )
+anims/SwordSwingRight3 = SubResource( 15 )
+anims/SwordSwingRight4_Down = SubResource( 50 )
+anims/SwordSwingRight4_Up = SubResource( 18 )
+anims/SwordSwingUpper = SubResource( 6 )
+
+[node name="HurtAnimationPlayer" type="AnimationPlayer" parent="."]
+anims/Death = SubResource( 45 )
+anims/Hurt = SubResource( 8 )
+anims/RESET = SubResource( 9 )
+
+[node name="FireBurstPosition" type="Position2D" parent="."]
+position = Vector2( 48, 0 )
+scale = Vector2( 127.023, 0.426896 )
+
+[node name="FireBurstArea" type="Area2D" parent="." groups=["Fireball"]]
+visible = false
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="FireBurstArea"]
+polygon = PoolVector2Array( 48.2045, -7.99997, 400.54, -110.589, 398.858, 108.044, 46.5227, 9.65884 )
+disabled = true
+
+[node name="FireBurstParticle" parent="." instance=ExtResource( 5 )]
+visible = false
+position = Vector2( 48, 0 )
+
+[node name="FireBurstTimer" type="Timer" parent="."]
+wait_time = 0.2
+
+[node name="ChargeBar" type="TextureProgress" parent="."]
+visible = false
+margin_left = -49.805
+margin_top = -102.36
+margin_right = -29.805
+margin_bottom = -96.36
+rect_scale = Vector2( 5, 5 )
+texture_under = ExtResource( 8 )
+texture_progress = ExtResource( 7 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="OxygenBar" type="TextureProgress" parent="."]
+visible = false
+margin_left = -53.9286
+margin_top = -70.3163
+margin_right = -17.9286
+margin_bottom = -64.3163
+rect_scale = Vector2( 3, 3.5 )
+texture_under = ExtResource( 10 )
+texture_progress = ExtResource( 11 )
+
+[node name="MeleeTimer" type="Timer" parent="."]
+wait_time = 0.4
+one_shot = true
+
+[node name="OxygenTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="OxygenRefillTimer" type="Timer" parent="."]
+wait_time = 0.25
+
+[node name="RangedAttackTimer" type="Timer" parent="."]
+wait_time = 0.25
+one_shot = true
+
+[node name="CampfireTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[node name="EnemyEvasionArea" type="Area2D" parent="."]
+position = Vector2( 18, 0 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyEvasionArea"]
+position = Vector2( 30.4953, -8.70296 )
+shape = SubResource( 20 )
+
+[node name="AtkBuffParticle" parent="." instance=ExtResource( 14 )]
+visible = false
+
+[node name="DashEmberRechargeDelayTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[node name="AirborneTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="AirborneMaxDuration" type="Timer" parent="."]
+wait_time = 0.8
+one_shot = true
+
+[node name="ManaRegenDelay" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
+
+[node name="InputPressTimer" type="Timer" parent="."]
+wait_time = 0.475
+one_shot = true
+
+[node name="HeightRaycast2D" type="RayCast2D" parent="."]
+enabled = true
+cast_to = Vector2( 0, 100 )
+
+[node name="TapPreventTimer" type="Timer" parent="."]
+wait_time = 0.5
+
+[node name="SlashEffectSprite" type="Sprite" parent="."]
+modulate = Color( 0.964706, 0.917647, 0.596078, 1 )
+position = Vector2( 75, 0 )
+scale = Vector2( 5, 5 )
+texture = ExtResource( 17 )
+
+[node name="KnockAirborneICD" type="Timer" parent="."]
+wait_time = 0.4
+one_shot = true
+
+[node name="SlashFlurryDetector" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SlashFlurryDetector"]
+position = Vector2( 40, 5.05854 )
+shape = SubResource( 34 )
+
+[node name="SlashFlurryCD" type="Timer" parent="."]
+one_shot = true
+
+[node name="SlashEffectPlayer" type="AnimationPlayer" parent="."]
+anims/HorizontalSlash = SubResource( 37 )
+anims/RESET = SubResource( 38 )
+anims/RightSlash = SubResource( 39 )
+
+[node name="ThrustEffectArea" type="Area2D" parent="." groups=["SwordCharged"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ThrustEffectArea"]
+shape = SubResource( 40 )
+disabled = true
+
+[node name="EnergyMeter" type="TextureProgress" parent="."]
+margin_left = -75.0
+margin_top = -84.0
+margin_right = -41.0
+margin_bottom = -78.0
+rect_scale = Vector2( 4.5, 4.5 )
+max_value = 200.0
+texture_under = ExtResource( 20 )
+texture_progress = ExtResource( 19 )
+
+[node name="EnergyMeterFlickerEffectPlayer" type="AnimationPlayer" parent="."]
+anims/Flicker = SubResource( 41 )
+anims/RESET = SubResource( 42 )
+
+[node name="WalkParticleTimer" type="Timer" parent="."]
+autostart = true
+
+[node name="KatanaSheatheWindowTimer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
+[node name="KatanaSheathPlayer" type="AnimationPlayer" parent="."]
+anims/LeftDefault = SubResource( 30 )
+anims/LeftDefaultSheath = SubResource( 44 )
+anims/RESET = SubResource( 28 )
+anims/RightDefault = SubResource( 29 )
+anims/RightDefaultSheath = SubResource( 43 )
+
+[node name="DashCounterAttackTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[node name="TempusTardusTriggerCD" type="Timer" parent="."]
+wait_time = 20.0
+one_shot = true
+
+[node name="GhostTrailTimer" type="Timer" parent="."]
+wait_time = 0.1
+autostart = true
+
+[node name="ResetAttackStringTimer" type="Timer" parent="."]
+wait_time = 0.75
+one_shot = true
+
+[node name="SuperSlashProjectile2" type="Sprite" parent="."]
+position = Vector2( 86.8499, -1.69655 )
+scale = Vector2( 5.09486, 6.85921 )
+texture = ExtResource( 22 )
+
+[connection signal="timeout" from="CharacterManager/SwapCooldownTimer" to="CharacterManager" method="_on_SwapCooldownTimer_timeout"]
+[connection signal="area_entered" from="AttackCollision" to="." method="_on_AttackCollision_area_entered"]
+[connection signal="area_exited" from="AttackCollision" to="." method="_on_AttackCollision_area_exited"]
+[connection signal="area_entered" from="ChargedAttackCollision" to="." method="_on_ChargedAttackCollision_area_entered"]
+[connection signal="area_entered" from="UpwardsChargedAttackCollision" to="." method="_on_ChargedAttackCollision_area_entered"]
+[connection signal="area_entered" from="DownwardsChargedAttackCollision" to="." method="_on_ChargedAttackCollision_area_entered"]
+[connection signal="area_entered" from="Area2D" to="." method="_on_Area2D_area_entered"]
+[connection signal="area_exited" from="Area2D" to="." method="_on_Area2D_area_exited"]
+[connection signal="timeout" from="InvulnerabilityTimer" to="." method="_on_InvulnerabilityTimer_timeout"]
+[connection signal="timeout" from="AttackTimer" to="." method="_on_AttackTimer_timeout"]
+[connection signal="timeout" from="DashCooldown" to="." method="_on_DashCooldown_timeout"]
+[connection signal="timeout" from="KnockbackTimer" to="." method="_on_KnockbackTimer_timeout"]
+[connection signal="timeout" from="KnockbackCooldownTimer" to="." method="_on_KnockbackCooldownTimer_timeout"]
+[connection signal="timeout" from="HealingTimer" to="." method="_on_HealingTimer_timeout"]
+[connection signal="timeout" from="FullHealTimer" to="." method="_on_FullHealTimer_timeout"]
+[connection signal="timeout" from="ManaHealTimer" to="." method="_on_ManaHealTimer_timeout"]
+[connection signal="timeout" from="DashUseTimer" to="." method="_on_DashUseTimer_timeout"]
+[connection signal="timeout" from="GlideTimer" to="." method="_on_GlideTimer_timeout"]
+[connection signal="area_entered" from="LeftDetector" to="." method="_on_LeftDetector_area_entered"]
+[connection signal="area_entered" from="RightDectector" to="." method="_on_RightDectector_area_entered"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
+[connection signal="timeout" from="MeleeTimer" to="." method="_on_MeleeTimer_timeout"]
+[connection signal="timeout" from="OxygenTimer" to="." method="_on_OxygenTimer_timeout"]
+[connection signal="timeout" from="OxygenRefillTimer" to="." method="_on_OxygenRefillTimer_timeout"]
+[connection signal="timeout" from="CampfireTimer" to="." method="_on_CampfireTimer_timeout"]
+[connection signal="area_entered" from="EnemyEvasionArea" to="." method="_on_EnemyEvasionArea_area_entered"]
+[connection signal="area_exited" from="EnemyEvasionArea" to="." method="_on_EnemyEvasionArea_area_exited"]
+[connection signal="timeout" from="AirborneTimer" to="." method="_on_AirborneTimer_timeout"]
+[connection signal="timeout" from="AirborneMaxDuration" to="." method="_on_AirborneMaxDuration_timeout"]
+[connection signal="timeout" from="InputPressTimer" to="." method="_on_InputPressTimer_timeout"]
+[connection signal="timeout" from="WalkParticleTimer" to="." method="_on_WalkParticleTimer_timeout"]
+[connection signal="timeout" from="KatanaSheatheWindowTimer" to="." method="_on_KatanaSheatheWindowTimer_timeout"]
+[connection signal="timeout" from="GhostTrailTimer" to="." method="_on_GhostTrailTimer_timeout"]
+[connection signal="timeout" from="ResetAttackStringTimer" to="." method="_on_ResetAttackStringTimer_timeout"]

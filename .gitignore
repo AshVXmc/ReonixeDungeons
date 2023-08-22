@@ -1,0 +1,22 @@
+@ -1,16 +1 @@
+# Plugin Specific ignores
+default_env.tres
+project.godot
+scn/
+override.cfg
+
+# Godot-specific ignores
+.import/
+export.cfg
+export_presets.cfg
+
+# Mono-specific ignores
+.mono/
+.addons/
+data_*/
+
+# Misc stuff
+rcedit-x64.exe
+build/
+assets/placeholder
+*.txt

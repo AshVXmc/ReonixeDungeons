@@ -1,0 +1,80 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://assets/enemies/bosses/cornucopia_goblin.png" type="Texture" id=1]
+[ext_resource path="res://scripts/enemies/CornucopiaGoblin.gd" type="Script" id=2]
+[ext_resource path="res://assets/enemies/bosses/cornucopia_goblin_upwards.png" type="Texture" id=3]
+[ext_resource path="res://assets/enemies/bosses/cornucopia_goblin_2.png" type="Texture" id=4]
+
+[sub_resource type="SpriteFrames" id=6]
+animations = [ {
+"frames": [ ExtResource( 1 ), ExtResource( 4 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 3 ) ],
+"loop": true,
+"name": "upward",
+"speed": 5.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 18.9202, 29.3992 )
+
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 29.6, 35.8365 )
+
+[sub_resource type="RectangleShape2D" id=5]
+extents = Vector2( 155.93, 45.5834 )
+
+[node name="CornucopiaGoblin" type="KinematicBody2D" groups=["Enemy"]]
+scale = Vector2( 1.75, 1.75 )
+script = ExtResource( 2 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+position = Vector2( 3.43244, 11.4415 )
+scale = Vector2( 3.25, 3.25 )
+frames = SubResource( 6 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 14.1176, 27.0451 )
+shape = SubResource( 3 )
+
+[node name="Area2D" type="Area2D" parent="." groups=["Enemy"]]
+position = Vector2( -18.6878, -55.3005 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2( 32.4888, 76.2895 )
+scale = Vector2( 1, 1 )
+shape = SubResource( 4 )
+
+[node name="Left" type="Area2D" parent="."]
+position = Vector2( -18.6878, -55.3005 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Left"]
+position = Vector2( -153.231, 66.5426 )
+scale = Vector2( 1, 1 )
+shape = SubResource( 5 )
+
+[node name="Right" type="Area2D" parent="."]
+position = Vector2( -18.6878, -55.3005 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Right"]
+position = Vector2( 218.817, 65.5914 )
+scale = Vector2( 1, 1 )
+shape = SubResource( 5 )
+
+[node name="HurtTimer" type="Timer" parent="."]
+wait_time = 0.25
+
+[node name="HornPosition" type="Position2D" parent="."]
+position = Vector2( -18.6107, 16.3244 )
+
+[node name="AttackTimer" type="Timer" parent="."]
+wait_time = 2.5
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_Area2D_area_entered"]
+[connection signal="area_exited" from="Left" to="." method="_on_Left_area_exited"]
+[connection signal="area_exited" from="Right" to="." method="_on_Right_area_exited"]
+[connection signal="timeout" from="HurtTimer" to="." method="_on_HurtTimer_timeout"]
+[connection signal="timeout" from="AttackTimer" to="." method="_on_AttackTimer_timeout"]

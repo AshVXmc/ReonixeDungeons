@@ -1,0 +1,131 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://scripts/ui/EleganceMeterUI.gd" type="Script" id=1]
+[ext_resource path="res://assets/UI/elegance_sss_tier.png" type="Texture" id=2]
+[ext_resource path="res://assets/fonts/Born2bSportyV2.ttf" type="DynamicFontData" id=3]
+[ext_resource path="res://assets/UI/elegance_a_tier.png" type="Texture" id=4]
+
+[sub_resource type="DynamicFont" id=2]
+size = 32
+font_data = ExtResource( 3 )
+
+[sub_resource type="DynamicFont" id=1]
+size = 64
+font_data = ExtResource( 3 )
+
+[sub_resource type="Animation" id=3]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("EleganceGauge:rect_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 5, 5 ) ]
+}
+
+[sub_resource type="Animation" id=4]
+resource_name = "RankUp"
+length = 0.3
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("EleganceGauge:rect_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 8, 8 ), Vector2( 5, 5 ) ]
+}
+
+[node name="EleganceMeterUI" type="CanvasLayer"]
+
+[node name="Control" type="Control" parent="."]
+anchor_left = 0.904
+anchor_top = 0.815
+anchor_right = 0.904
+anchor_bottom = 0.815
+margin_left = -976.32
+margin_top = -586.8
+margin_right = -936.32
+margin_bottom = -546.8
+script = ExtResource( 1 )
+
+[node name="EleganceGauge" type="TextureProgress" parent="Control"]
+anchor_left = 23.95
+anchor_top = 15.075
+anchor_right = 23.95
+anchor_bottom = 15.075
+margin_left = -28.0597
+margin_top = -97.3835
+margin_right = -4.05969
+margin_bottom = -72.3835
+rect_scale = Vector2( 5, 5 )
+texture_under = ExtResource( 4 )
+texture_progress = ExtResource( 2 )
+
+[node name="DecayTimer" type="Timer" parent="Control"]
+wait_time = 0.1
+one_shot = true
+
+[node name="RankDownDelayTimer" type="Timer" parent="Control"]
+wait_time = 0.75
+one_shot = true
+
+[node name="RankDownTimer" type="Timer" parent="Control"]
+one_shot = true
+
+[node name="AttackDecayTimer" type="Timer" parent="Control"]
+wait_time = 0.4
+one_shot = true
+
+[node name="ComboHitCountLabel" type="Label" parent="Control"]
+anchor_left = 21.6
+anchor_top = 12.05
+anchor_right = 21.6
+anchor_bottom = 12.05
+margin_left = 132.086
+margin_top = -15.6105
+margin_right = 300.086
+margin_bottom = 32.3895
+custom_fonts/font = SubResource( 2 )
+text = "hits"
+
+[node name="ComboHitCount" type="Label" parent="Control"]
+anchor_left = 21.6
+anchor_top = 12.05
+anchor_right = 21.6
+anchor_bottom = 12.05
+margin_left = -11.9139
+margin_top = -39.6105
+margin_right = 120.086
+margin_bottom = 40.3895
+custom_fonts/font = SubResource( 1 )
+text = "0"
+align = 2
+
+[node name="HitCountResetTimer" type="Timer" parent="Control"]
+wait_time = 4.0
+one_shot = true
+
+[node name="RankIconAnimationPlayer" type="AnimationPlayer" parent="Control"]
+anims/RESET = SubResource( 3 )
+anims/RankUp = SubResource( 4 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Control"]
+
+[node name="DecayDelayTimer" type="Timer" parent="Control"]
+wait_time = 5.0
+one_shot = true
+
+[connection signal="timeout" from="Control/DecayTimer" to="Control" method="_on_DecayTimer_timeout"]
+[connection signal="timeout" from="Control/RankDownTimer" to="Control" method="_on_RankDownTimer_timeout"]
+[connection signal="timeout" from="Control/AttackDecayTimer" to="Control" method="_on_AttackDecayTimer_timeout"]
+[connection signal="timeout" from="Control/HitCountResetTimer" to="Control" method="_on_HitCountResetTimer_timeout"]

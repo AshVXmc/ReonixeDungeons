@@ -1,0 +1,79 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://assets/misc/life_wine.png" type="Texture" id=1]
+[ext_resource path="res://scripts/ui/LifeWineControl.gd" type="Script" id=2]
+[ext_resource path="res://assets/fonts/Born2bSportyV2.ttf" type="DynamicFontData" id=3]
+[ext_resource path="res://assets/UI/hotbar.png" type="Texture" id=4]
+[ext_resource path="res://assets/UI/icon_empty.png" type="Texture" id=5]
+
+[sub_resource type="DynamicFont" id=1]
+size = 60
+font_data = ExtResource( 3 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 48
+font_data = ExtResource( 3 )
+
+[node name="LifeWineUI" type="CanvasLayer"]
+
+[node name="LifeWineControl" type="Control" parent="."]
+margin_left = 148.0
+margin_right = 188.0
+margin_bottom = 40.0
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect2" type="TextureRect" parent="LifeWineControl"]
+margin_left = 404.0
+margin_right = 420.0
+margin_bottom = 16.0
+rect_scale = Vector2( 6, 6 )
+texture = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="LifeWineControl"]
+margin_left = 420.094
+margin_top = 6.82335
+margin_right = 436.094
+margin_bottom = 26.8234
+rect_scale = Vector2( 4, 4 )
+texture = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="LifeWineControl"]
+margin_left = 458.138
+margin_top = 50.0
+margin_right = 508.138
+margin_bottom = 173.0
+rect_scale = Vector2( 0.75, 0.75 )
+custom_fonts/font = SubResource( 1 )
+text = "0
+"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Sprite" type="Sprite" parent="LifeWineControl"]
+position = Vector2( 428, 16 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 5 )
+
+[node name="KeyBind" type="Label" parent="LifeWineControl"]
+anchor_left = -3.732
+anchor_right = -3.732
+margin_left = 568.28
+margin_right = 589.28
+margin_bottom = 48.0
+rect_scale = Vector2( 0.75, 0.75 )
+custom_colors/font_color = Color( 0.192157, 0.372549, 1, 1 )
+custom_fonts/font = SubResource( 2 )
+text = "2"
+__meta__ = {
+"_edit_use_anchors_": false
+}
