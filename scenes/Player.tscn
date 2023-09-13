@@ -1,4 +1,4 @@
-[gd_scene load_steps=67 format=2]
+[gd_scene load_steps=68 format=2]
 
 [ext_resource path="res://spriteframes/MainCharacter_spriteframes.tres" type="SpriteFrames" id=1]
 [ext_resource path="res://scripts/player/Player.gd" type="Script" id=2]
@@ -29,6 +29,9 @@ height = 17.3718
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 37.7159, 43.7237 )
+
+[sub_resource type="RectangleShape2D" id=53]
+extents = Vector2( 60.8579, 57 )
 
 [sub_resource type="RectangleShape2D" id=32]
 extents = Vector2( 44.2602, 44.2034 )
@@ -479,10 +482,34 @@ tracks/7/keys = {
 "update": 0,
 "values": [ Vector2( 5.09486, 6.85921 ) ]
 }
+tracks/8/type = "value"
+tracks/8/path = NodePath("SuperSlashProjectile2:flip_v")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ true ]
+}
+tracks/9/type = "value"
+tracks/9/path = NodePath("ChargedAttackCollision/CollisionShape2D:disabled")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ true ]
+}
 
 [sub_resource type="Animation" id=51]
 resource_name = "SwitchAttackRight"
-length = 0.15
+length = 0.675
 step = 0.05
 tracks/0/type = "value"
 tracks/0/path = NodePath("SwordSprite:rotation_degrees")
@@ -491,10 +518,10 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.15 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PoolRealArray( 0, 0.15, 0.25, 0.4, 0.5, 0.65 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
 "update": 0,
-"values": [ 45.0, 130.0 ]
+"values": [ 45.0, 130.0, 130.0, 45.0, 45.0, 130.0 ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("SwordSprite:flip_h")
@@ -503,10 +530,10 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 0.15 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PoolRealArray( 0, 0.15, 0.25, 0.5, 0.65 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
 "update": 1,
-"values": [ false, false ]
+"values": [ false, false, true, false, false ]
 }
 tracks/2/type = "value"
 tracks/2/path = NodePath("SwordSprite:position")
@@ -515,10 +542,10 @@ tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ Vector2( 17, 5 ) ]
+"values": [ Vector2( 17, 5 ), Vector2( 17, 5 ) ]
 }
 tracks/3/type = "value"
 tracks/3/path = NodePath("SwordSprite:visible")
@@ -527,10 +554,10 @@ tracks/3/loop_wrap = true
 tracks/3/imported = false
 tracks/3/enabled = true
 tracks/3/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PoolRealArray( 0, 0.15, 0.25, 0.5, 0.65 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
 "update": 1,
-"values": [ true ]
+"values": [ true, false, true, true, false ]
 }
 tracks/4/type = "value"
 tracks/4/path = NodePath("SlashEffectSprite:position")
@@ -551,10 +578,10 @@ tracks/5/loop_wrap = true
 tracks/5/imported = false
 tracks/5/enabled = true
 tracks/5/keys = {
-"times": PoolRealArray( 0, 0.15 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PoolRealArray( 0, 0.15, 0.25, 0.4, 0.5, 0.65 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
 "update": 0,
-"values": [ Vector2( 86.8499, -1.69655 ), Vector2( 124.85, -1.69655 ) ]
+"values": [ Vector2( 86.8499, -1.69655 ), Vector2( 124.85, -1.69655 ), Vector2( 86.8499, -1.69655 ), Vector2( 124.85, -1.69655 ), Vector2( 86.8499, -1.69655 ), Vector2( 124.85, -1.69655 ) ]
 }
 tracks/6/type = "value"
 tracks/6/path = NodePath("SuperSlashProjectile2:visible")
@@ -563,10 +590,10 @@ tracks/6/loop_wrap = true
 tracks/6/imported = false
 tracks/6/enabled = true
 tracks/6/keys = {
-"times": PoolRealArray( 0, 0.15 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PoolRealArray( 0, 0.15, 0.25, 0.4, 0.5, 0.65 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
 "update": 1,
-"values": [ true, false ]
+"values": [ true, false, true, false, true, false ]
 }
 tracks/7/type = "value"
 tracks/7/path = NodePath("SuperSlashProjectile2:scale")
@@ -575,10 +602,48 @@ tracks/7/loop_wrap = true
 tracks/7/imported = false
 tracks/7/enabled = true
 tracks/7/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ Vector2( 5.09486, 6.85921 ) ]
+"values": [ Vector2( 5.09486, 6.85921 ), Vector2( 5.09486, 6.85921 ) ]
+}
+tracks/8/type = "value"
+tracks/8/path = NodePath("SuperSlashProjectile2:flip_v")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"times": PoolRealArray( 0, 0.25, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ false, true, false ]
+}
+tracks/9/type = "method"
+tracks/9/path = NodePath(".")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/keys = {
+"times": PoolRealArray( 0.65 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "switch_in_attack_completed"
+} ]
+}
+tracks/10/type = "value"
+tracks/10/path = NodePath("ChargedAttackCollision/CollisionShape2D:disabled")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/keys = {
+"times": PoolRealArray( 0, 0.15, 0.25, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ false, true, false, true ]
 }
 
 [sub_resource type="Animation" id=5]
@@ -1241,7 +1306,7 @@ tracks/1/keys = {
 }
 
 [sub_resource type="RectangleShape2D" id=20]
-extents = Vector2( 47.2053, 54.9529 )
+extents = Vector2( 55.855, 54.9529 )
 
 [sub_resource type="CircleShape2D" id=34]
 radius = 400.0
@@ -2147,6 +2212,13 @@ position = Vector2( 80, 0 )
 shape = SubResource( 2 )
 disabled = true
 
+[node name="SwitchAttackCollision" type="Area2D" parent="." groups=["NoAirborneKnockback", "SmallEleganceValue", "Sword"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SwitchAttackCollision"]
+position = Vector2( 103.142, -4 )
+shape = SubResource( 53 )
+disabled = true
+
 [node name="ChargedAttackCollision" type="Area2D" parent="." groups=["HeavyPoiseDamage", "SulphuricSigilTrigger", "SwordCharged"]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ChargedAttackCollision"]
@@ -2196,7 +2268,7 @@ wait_time = 0.1
 one_shot = true
 
 [node name="DashCooldown" type="Timer" parent="."]
-wait_time = 0.5
+wait_time = 0.35
 autostart = true
 
 [node name="KnockbackTimer" type="Timer" parent="."]
@@ -2351,7 +2423,7 @@ one_shot = true
 position = Vector2( 18, 0 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyEvasionArea"]
-position = Vector2( 30.4953, -8.70296 )
+position = Vector2( 67.145, -8.70296 )
 shape = SubResource( 20 )
 
 [node name="AtkBuffParticle" parent="." instance=ExtResource( 14 )]
@@ -2461,10 +2533,12 @@ one_shot = true
 position = Vector2( 86.8499, -1.69655 )
 scale = Vector2( 5.09486, 6.85921 )
 texture = ExtResource( 22 )
+flip_v = true
 
 [connection signal="timeout" from="CharacterManager/SwapCooldownTimer" to="CharacterManager" method="_on_SwapCooldownTimer_timeout"]
 [connection signal="area_entered" from="AttackCollision" to="." method="_on_AttackCollision_area_entered"]
 [connection signal="area_exited" from="AttackCollision" to="." method="_on_AttackCollision_area_exited"]
+[connection signal="area_exited" from="SwitchAttackCollision" to="." method="_on_SwitchAttackCollision_area_exited"]
 [connection signal="area_entered" from="ChargedAttackCollision" to="." method="_on_ChargedAttackCollision_area_entered"]
 [connection signal="area_entered" from="UpwardsChargedAttackCollision" to="." method="_on_ChargedAttackCollision_area_entered"]
 [connection signal="area_entered" from="DownwardsChargedAttackCollision" to="." method="_on_ChargedAttackCollision_area_entered"]
@@ -2492,6 +2566,7 @@ texture = ExtResource( 22 )
 [connection signal="timeout" from="AirborneTimer" to="." method="_on_AirborneTimer_timeout"]
 [connection signal="timeout" from="AirborneMaxDuration" to="." method="_on_AirborneMaxDuration_timeout"]
 [connection signal="timeout" from="InputPressTimer" to="." method="_on_InputPressTimer_timeout"]
+[connection signal="body_entered" from="ThrustEffectArea" to="." method="_on_ThrustEffectArea_body_entered"]
 [connection signal="timeout" from="WalkParticleTimer" to="." method="_on_WalkParticleTimer_timeout"]
 [connection signal="timeout" from="KatanaSheatheWindowTimer" to="." method="_on_KatanaSheatheWindowTimer_timeout"]
 [connection signal="timeout" from="GhostTrailTimer" to="." method="_on_GhostTrailTimer_timeout"]

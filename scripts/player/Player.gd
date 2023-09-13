@@ -61,7 +61,8 @@ var is_thrust_attacking : bool = false
 var energy_full : bool 
 var is_dash_counter_attacking : bool = false
 var facing 
-
+var is_switch_in_attacking : bool = false
+var is_counter_attack_special_thrusting : bool = false
 enum {
 	left, right
 }
@@ -231,8 +232,10 @@ func quickswap_event(trigger_name : String):
 # Trigger when player is switched in
 func switched_in(character):
 	if character == "Player":
+		
 		if waiting_for_quickswap:
-			quickswap_attack()
+			print("SWITCH in ATTACK")
+			switch_in_attack()
 			waiting_for_quickswap = false
 
 # WOO YEAH BABY
@@ -573,7 +576,6 @@ func dash_counter_attack():
 		counterflurryeffect.scale.x = 0.8
 		counterflurryeffect.scale.y = 0.8
 		counterflurryarea.position = get_closest_enemy().global_position
-		
 		counterflurryarea.get_node("AnimationPlayer").play("PlayerCounterAttack")
 		counterflurryeffect.player_counter_attack_animation()
 		yield(get_tree().create_timer(0.1), "timeout")
@@ -585,7 +587,7 @@ func dash_counter_attack():
 		yield(get_tree().create_timer(0.2), "timeout")
 		is_dash_counter_attacking = false
 func attack():
-	if Global.current_character == "Player" and !is_attacking and !is_gliding and !is_frozen and $MeleeTimer.is_stopped() and $ChargeBar.value != $ChargeBar.max_value:
+	if Global.current_character == "Player" and !is_attacking and !is_gliding and !is_frozen and $MeleeTimer.is_stopped():
 		$Sprite.play("Attack")
 		$SwordSprite.visible = true
 		if $Sprite.flip_h:
@@ -596,29 +598,39 @@ func attack():
 		$AttackCollision/CollisionShape2D.disabled = false
 		$MeleeTimer.start()
 		$AttackTimer.start()
-		
-		# Upward attack controls
-#		if Input.is_action_pressed("ui_up"):
-#			$AttackCollision.position += Vector2(-60,-60) if !$Sprite.flip_h else Vector2(60,-55)
-#			$Sprite.play("AttackUp")
-#			print("up attack")
-#			$SwordSprite.visible = true
-#			$AnimationPlayer.play("SwordSwingUpper")
-##			$Sprite.position += Vector2(0, -20)
-#			is_attacking = true
-#			$AttackCollision/CollisionShape2D.disabled = false
-#			$AttackTimer.start()
-		# Downwards attack controls + tiny knock-up
-#		if Input.is_action_pressed("ui_down"):
-#			$AttackCollision.position += Vector2(-60,60) if !$Sprite.flip_h else Vector2(60,55)
-#			$Sprite.play("AttackDown")
-#
-#			$SwordSprite.visible = true
-#			$AnimationPlayer.play("SwordSwingLower")
-##			$Sprite.position += Vector2(0, 20)
-#			is_attacking = true
-#			$AttackCollision/CollisionShape2D.disabled = false
-#			$AttackTimer.start()
+
+
+func switch_in_attack():
+	if Global.current_character == "Player" and !is_attacking and !is_gliding and !is_frozen and $MeleeTimer.is_stopped():
+		$Sprite.play("Attack")
+		$SwordSprite.visible = true
+		if $Sprite.flip_h:
+			pass
+#			play_attack_animation("Left")
+		else:
+			for groups in $SwitchAttackCollision.get_groups():
+				if float(groups) != 0:
+					$SwitchAttackCollision.remove_from_group(groups)
+					$SwitchAttackCollision.add_to_group("hit_id")
+					var crit_dmg : float = 1.0
+					if is_a_critical_hit():
+						crit_dmg = (Global.player_skill_multipliers["CritDamage"] / 100 + 1)
+						$SwitchAttackCollision.add_to_group("IsCritHit")
+					else:
+						$SwitchAttackCollision.remove_from_group("IsCritHit")
+					
+					$SwitchAttackCollision.add_to_group(str(ATTACK * (Global.player_skill_multipliers["EntryAttack"] / 100) * crit_dmg))
+					
+					break
+			$AnimationPlayer.play("SwitchAttackRight")
+		is_attacking = true
+		is_switch_in_attacking = true
+		$SwitchAttackCollision/CollisionShape2D.disabled = false
+		# 0.7 is the duration of the animation
+
+func switch_in_attack_completed():
+	is_attacking = false
+	is_switch_in_attacking = false
 
 func _input(event):
 	if Global.current_character == "Player":
@@ -1518,22 +1530,16 @@ func thrust_attack(special : bool = false):
 	velocity.y = 0
 
 	$Sprite.play("Dash")
-#	$SlashEffectPlayer.play("HorizontalSlash")
+
 	if special:
 		is_invulnerable = true
 		velocity = thrustdirection.normalized() * 3600
-		
-#		airborne_mode = true
-#		$AirborneMaxDuration.start()
 		yield(get_tree().create_timer(0.2), "timeout")
-#		cam_shake = false
-#		is_invulnerable = false
 		$ThrustEffectArea/CollisionShape2D.disabled = true
-		yield(get_tree().create_timer(0.5), "timeout")
+		yield(get_tree().create_timer(0.25), "timeout")
 		dash_counter_attack()
 		is_thrust_attacking = false
 		yield(get_tree().create_timer(0.5), "timeout")
-		
 		if !is_flurry_attacking:
 			update_energy_meter(25)
 	else:
@@ -1955,4 +1961,13 @@ func _on_GhostTrailTimer_timeout():
 
 func _on_ResetAttackStringTimer_timeout():
 	attack_string_count = 4
+
+
+
+func _on_SwitchAttackCollision_area_exited(area):
+	if area.is_in_group("Enemy"):
+		attack_area_overlaps_enemy = false
+		
+
+
 
