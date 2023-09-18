@@ -51,6 +51,7 @@ var player_skill_multipliers : Dictionary = {
 	"SulphuricSigilSingleSlash": 40.0, # x 2
 	"SlashFlurryEnergyCost": 200,
 	"FireSaw": 35.0,
+	"FireSawDuration": 8.0,
 	"FireFairy": 22.0,
 	"FireSawCost": 15,
 	"FireFairyCost": 2,

@@ -11,6 +11,7 @@ var attack_calculation : float
 var burn_coefficient : float
 
 func _ready():
+	$DestroyedTimer.start(Global.player_skill_multipliers["FireSawDuration"])
 	get_parent().add_to_group("FiresawActive")
 	if Global.equipped_characters[0] == "Player":
 		burncalculation = Global.attack_power * burn_coefficient

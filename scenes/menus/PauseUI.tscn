@@ -134,6 +134,7 @@ __meta__ = {
 
 [node name="Pause" type="Control" parent="."]
 pause_mode = 2
+visible = false
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -143,9 +144,6 @@ margin_top = -232.0
 margin_right = 435.0
 margin_bottom = 239.0
 script = ExtResource( 2 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Blur" type="ColorRect" parent="Pause"]
 material = ExtResource( 1 )
@@ -392,7 +390,7 @@ bbcode_text = "[center][color=red]Player's moveset[/color][/center]
 [Hold ATK]
 
 [color=#ffd703]Charged Attack B[/color]
-[ATK], [ATK], [ATK] and [Hold ATK]
+[ATK], [ATK], [Hold ATK]
 
 [color=#ffd703]EX Charged Attack[/color]
 [Hold ATK] when [color=purple]Energy[/color] is full
@@ -404,7 +402,7 @@ Can be chained up to 2 times.
 [color=#ffd703]Dash Counteer Attack[/color]
 [ATK] after a perfect dodge
 
-
+[color=#ffd703]Secondary Skill[/color]
 
  "
 text = "Player's moveset
@@ -421,7 +419,7 @@ Charged Attack A
 [Hold ATK]
 
 Charged Attack B
-[ATK], [ATK], [ATK] and [Hold ATK]
+[ATK], [ATK], [Hold ATK]
 
 EX Charged Attack
 [Hold ATK] when Energy is full
@@ -433,7 +431,7 @@ Can be chained up to 2 times.
 Dash Counteer Attack
 [ATK] after a perfect dodge
 
-
+Secondary Skill
 
  "
 scroll_following = true

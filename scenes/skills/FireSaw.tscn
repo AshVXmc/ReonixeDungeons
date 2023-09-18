@@ -50,6 +50,7 @@ tracks/0/keys = {
 }
 
 [node name="FireSaw" type="Area2D" groups=["Fireball"]]
+scale = Vector2( 1.25, 1.25 )
 script = ExtResource( 2 )
 __meta__ = {
 "_edit_group_": true
@@ -58,9 +59,8 @@ __meta__ = {
 [node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="."]
 
 [node name="DestroyedTimer" type="Timer" parent="."]
-wait_time = 6.0
+wait_time = 8.0
 one_shot = true
-autostart = true
 
 [node name="Sprite" type="Sprite" parent="."]
 scale = Vector2( 15, 15 )

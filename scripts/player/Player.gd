@@ -604,25 +604,25 @@ func switch_in_attack():
 	if Global.current_character == "Player" and !is_attacking and !is_gliding and !is_frozen and $MeleeTimer.is_stopped():
 		$Sprite.play("Attack")
 		$SwordSprite.visible = true
-		if $Sprite.flip_h:
-			pass
-#			play_attack_animation("Left")
-		else:
-			for groups in $SwitchAttackCollision.get_groups():
-				if float(groups) != 0:
-					$SwitchAttackCollision.remove_from_group(groups)
-					$SwitchAttackCollision.add_to_group("hit_id")
-					var crit_dmg : float = 1.0
-					if is_a_critical_hit():
-						crit_dmg = (Global.player_skill_multipliers["CritDamage"] / 100 + 1)
-						$SwitchAttackCollision.add_to_group("IsCritHit")
-					else:
-						$SwitchAttackCollision.remove_from_group("IsCritHit")
-					
-					$SwitchAttackCollision.add_to_group(str(ATTACK * (Global.player_skill_multipliers["EntryAttack"] / 100) * crit_dmg))
-					
-					break
+		
+		for groups in $SwitchAttackCollision.get_groups():
+			if float(groups) != 0:
+				$SwitchAttackCollision.remove_from_group(groups)
+				$SwitchAttackCollision.add_to_group("hit_id")
+				var crit_dmg : float = 1.0
+				if is_a_critical_hit():
+					crit_dmg = (Global.player_skill_multipliers["CritDamage"] / 100 + 1)
+					$SwitchAttackCollision.add_to_group("IsCritHit")
+				else:
+					$SwitchAttackCollision.remove_from_group("IsCritHit")
+				
+				$SwitchAttackCollision.add_to_group(str(ATTACK * (Global.player_skill_multipliers["EntryAttack"] / 100) * crit_dmg))
+				break
+		if !$Sprite.flip_h:
 			$AnimationPlayer.play("SwitchAttackRight")
+		else:
+			
+			pass
 		is_attacking = true
 		is_switch_in_attacking = true
 		$SwitchAttackCollision/CollisionShape2D.disabled = false
