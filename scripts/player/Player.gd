@@ -154,10 +154,11 @@ func _ready():
 #	$EnergyMeter.value = $EnergyMeter.min_value
 	$SlashEffectSprite.visible = false
 	$AttackCollision.add_to_group(str(basic_attack_power))
+	
 	$ChargedAttackCollision.add_to_group(str(charged_attack_power))
 	$UpwardsChargedAttackCollision.add_to_group(str(upwards_and_downwards_charged_attack_power))
 	$DownwardsChargedAttackCollision.add_to_group(str(upwards_and_downwards_charged_attack_power))
-	
+	$SuperSlashProjectile2.visible  = false
 	$ThrustEffectArea.add_to_group(str(thrust_attack_power))
 	$OxygenBar.value = 100
 	$ChargeBar.value = 0
@@ -602,22 +603,27 @@ func attack():
 
 func switch_in_attack():
 	if Global.current_character == "Player" and !is_attacking and !is_gliding and !is_frozen and $MeleeTimer.is_stopped():
+		var crit_dmg : float = 1.0
 		$Sprite.play("Attack")
 		$SwordSprite.visible = true
-		
 		for groups in $SwitchAttackCollision.get_groups():
 			if float(groups) != 0:
+				print("its high noon")
 				$SwitchAttackCollision.remove_from_group(groups)
-				$SwitchAttackCollision.add_to_group("hit_id")
-				var crit_dmg : float = 1.0
-				if is_a_critical_hit():
-					crit_dmg = (Global.player_skill_multipliers["CritDamage"] / 100 + 1)
-					$SwitchAttackCollision.add_to_group("IsCritHit")
-				else:
-					$SwitchAttackCollision.remove_from_group("IsCritHit")
+#				$SwitchAttackCollision.add_to_group("hit_id")
 				
-				$SwitchAttackCollision.add_to_group(str(ATTACK * (Global.player_skill_multipliers["EntryAttack"] / 100) * crit_dmg))
+
+				
 				break
+		
+		if is_a_critical_hit():
+			crit_dmg = (Global.player_skill_multipliers["CritDamage"] / 100 + 1)
+			$SwitchAttackCollision.add_to_group("IsCritHit")
+		else:
+			$SwitchAttackCollision.remove_from_group("IsCritHit")
+
+		$SwitchAttackCollision.add_to_group(str(ATTACK * (Global.player_skill_multipliers["EntryAttack"] / 100) * crit_dmg))
+			
 		if !$Sprite.flip_h:
 			$AnimationPlayer.play("SwitchAttackRight")
 		else:
@@ -627,7 +633,7 @@ func switch_in_attack():
 		is_switch_in_attacking = true
 		$SwitchAttackCollision/CollisionShape2D.disabled = false
 		# 0.7 is the duration of the animation
-
+		
 func switch_in_attack_completed():
 	is_attacking = false
 	is_switch_in_attacking = false
@@ -1971,3 +1977,27 @@ func _on_SwitchAttackCollision_area_exited(area):
 
 
 
+
+
+func _on_SwitchAttackCollision_area_entered(area):
+	if weakref(area).get_ref() != null:
+			if area.is_in_group("Enemy")  and !$AttackCollision/CollisionShape2D.disabled:
+				print(attack_string_count)
+				if !is_on_floor() and !$HeightRaycast2D.is_colliding():
+					airborne_mode = true
+					$AirborneTimer.stop()
+					$AirborneTimer.start()
+				attack_area_overlaps_enemy = true
+	#			attack_knock()
+	#			freeze_enemy()
+				if Global.current_character == "Player":
+					if weakref(area).get_ref() != null:
+						var slashparticle = SWORD_SLASH_EFFECT.instance()
+						var hitparticle = SWORD_HIT_PARTICLE.instance()
+						get_parent().add_child(slashparticle)
+						get_parent().add_child(hitparticle)
+						hitparticle.emitting = true
+						hitparticle.position = area.global_position
+						slashparticle.position = area.global_position
+						slashparticle.regular_slash_animation()
+		

@@ -1,4 +1,4 @@
-[gd_scene load_steps=52 format=2]
+[gd_scene load_steps=51 format=2]
 
 [ext_resource path="res://tilesets/HubLevelTileset.tres" type="TileSet" id=1]
 [ext_resource path="res://assets/terrain/deep_woods/background_deep_woods.png" type="Texture" id=2]
@@ -46,7 +46,6 @@
 [ext_resource path="res://scenes/menus/InventoryUI.tscn" type="PackedScene" id=45]
 [ext_resource path="res://scenes/menus/HealthPotUI.tscn" type="PackedScene" id=46]
 [ext_resource path="res://scenes/enemies/Goblin.tscn" type="PackedScene" id=47]
-[ext_resource path="res://scenes/status_effects/SulphuricSigil.tscn" type="PackedScene" id=48]
 
 [sub_resource type="TileSet" id=1]
 0/name = "deep_woods_spritesheet.png 0"
@@ -402,5 +401,3 @@ position = Vector2( 1518.66, 558.741 )
 
 [node name="Goblin" parent="." instance=ExtResource( 47 )]
 position = Vector2( 2603.36, 596.291 )
-
-[node name="SulphuricSigil" parent="Goblin" instance=ExtResource( 48 )]

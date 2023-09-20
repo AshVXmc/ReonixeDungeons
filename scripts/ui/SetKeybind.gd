@@ -35,9 +35,10 @@ func _input(event):
 				$PressKeyNow.visible = false
 			else:
 				print("Keybind is already used")
+				
 				$PressKeyNow/Label2.visible = true
 				$PressKeyNow/NinePatchRect2.visible = true
-				yield(get_tree().create_timer(4.0), "timeout")
+				yield(get_tree().create_timer(1.0), "timeout")
 				$PressKeyNow/Label2.visible = false
 				$PressKeyNow/NinePatchRect2.visible = false
 	
@@ -75,6 +76,7 @@ func keybind_is_already_used(event_name):
 		return false
 
 func mark_button(keybind_id : String):
+	$PressKeyNow/Label3.bbcode_text = "[center]Rebinding '[color=#ffd703]" + keybind_id + "[/color]'[/center]"
 	$PressKeyNow.visible = true
 	can_change_key = true
 	action_string = keybind_id

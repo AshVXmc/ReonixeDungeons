@@ -319,15 +319,15 @@ func _on_Area2D_area_entered(area):
 		
 		if is_airborne:
 			if !area.is_in_group("NoAirborneKnockback") and area.is_in_group("LightPoiseDamage") or area.is_in_group("MediumPoiseDamage"):
-				knockback(1.5)
+				knockback(1)
 		else:
 			if area.is_in_group("LightPoiseDamage"):
-				knockback(1.5)
+				knockback(1)
 		
 		if area.is_in_group("MediumPoiseDamage"):
-			knockback(4.2)
+			knockback(3.5)
 		if area.is_in_group("HeavyPoiseDamage"):
-			knockback(7.5)
+			knockback(6.25)
 	
 #	if area.is_in_group("Enemy"):
 #		set_collision_mask_bit(2, false)
