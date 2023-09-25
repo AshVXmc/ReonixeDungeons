@@ -1,4 +1,4 @@
-[gd_scene load_steps=68 format=2]
+[gd_scene load_steps=70 format=2]
 
 [ext_resource path="res://spriteframes/MainCharacter_spriteframes.tres" type="SpriteFrames" id=1]
 [ext_resource path="res://scripts/player/Player.gd" type="Script" id=2]
@@ -32,6 +32,9 @@ extents = Vector2( 37.7159, 43.7237 )
 
 [sub_resource type="RectangleShape2D" id=53]
 extents = Vector2( 120, 57 )
+
+[sub_resource type="RectangleShape2D" id=55]
+extents = Vector2( 62.9645, 57 )
 
 [sub_resource type="RectangleShape2D" id=32]
 extents = Vector2( 44.2602, 44.2034 )
@@ -518,6 +521,18 @@ tracks/10/keys = {
 "update": 0,
 "values": [ true ]
 }
+tracks/11/type = "value"
+tracks/11/path = NodePath("StabAttackCollision/CollisionShape2D:disabled")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ true ]
+}
 
 [sub_resource type="Animation" id=51]
 resource_name = "SwitchAttackRight"
@@ -656,6 +671,71 @@ tracks/10/keys = {
 "transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
 "update": 1,
 "values": [ false, true, false, true, false, true ]
+}
+
+[sub_resource type="Animation" id=54]
+resource_name = "SwordStabRight"
+length = 0.25
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("SwordSprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.15, 0.25 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 10, 0 ), Vector2( 50, 0 ), Vector2( 10, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("SwordSprite:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.25 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("SwordSprite:rotation_degrees")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 90.0 ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("SwordSprite:flip_h")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("StabAttackCollision/CollisionShape2D:disabled")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
 }
 
 [sub_resource type="Animation" id=5]
@@ -1096,7 +1176,7 @@ tracks/3/keys = {
 }
 
 [sub_resource type="Animation" id=50]
-resource_name = "SwordSwingRight4_Down"
+resource_name = "SwordSwingRight4"
 length = 0.15
 step = 0.05
 tracks/0/type = "value"
@@ -2231,6 +2311,13 @@ position = Vector2( 156.071, -4 )
 shape = SubResource( 53 )
 disabled = true
 
+[node name="StabAttackCollision" type="Area2D" parent="." groups=["HeavyPoiseDamage", "SmallEleganceValue", "Sword"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StabAttackCollision"]
+position = Vector2( 99.0355, -4 )
+shape = SubResource( 55 )
+disabled = true
+
 [node name="ChargedAttackCollision" type="Area2D" parent="." groups=["HeavyPoiseDamage", "SulphuricSigilTrigger", "SwordCharged"]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ChargedAttackCollision"]
@@ -2354,6 +2441,7 @@ anims/KnockUpChargedAttackLeft = SubResource( 25 )
 anims/KnockUpChargedAttackRight = SubResource( 24 )
 anims/RESET = SubResource( 4 )
 anims/SwitchAttackRight = SubResource( 51 )
+anims/SwordStabRight = SubResource( 54 )
 anims/SwordSwingLeft = SubResource( 5 )
 anims/SwordSwingLeft2 = SubResource( 14 )
 anims/SwordSwingLeft3 = SubResource( 16 )
@@ -2363,7 +2451,7 @@ anims/SwordSwingLower = SubResource( 7 )
 anims/SwordSwingRight = SubResource( 3 )
 anims/SwordSwingRight2 = SubResource( 13 )
 anims/SwordSwingRight3 = SubResource( 15 )
-anims/SwordSwingRight4_Down = SubResource( 50 )
+anims/SwordSwingRight4 = SubResource( 50 )
 anims/SwordSwingRight4_Up = SubResource( 18 )
 anims/SwordSwingUpper = SubResource( 6 )
 
@@ -2552,6 +2640,8 @@ flip_v = true
 [connection signal="area_exited" from="AttackCollision" to="." method="_on_AttackCollision_area_exited"]
 [connection signal="area_entered" from="SwitchAttackCollision" to="." method="_on_SwitchAttackCollision_area_entered"]
 [connection signal="area_exited" from="SwitchAttackCollision" to="." method="_on_SwitchAttackCollision_area_exited"]
+[connection signal="area_entered" from="StabAttackCollision" to="." method="_on_StabAttackCollision_area_entered"]
+[connection signal="area_exited" from="StabAttackCollision" to="." method="_on_StabAttackCollision_area_exited"]
 [connection signal="area_entered" from="ChargedAttackCollision" to="." method="_on_ChargedAttackCollision_area_entered"]
 [connection signal="area_entered" from="UpwardsChargedAttackCollision" to="." method="_on_ChargedAttackCollision_area_entered"]
 [connection signal="area_entered" from="DownwardsChargedAttackCollision" to="." method="_on_ChargedAttackCollision_area_entered"]

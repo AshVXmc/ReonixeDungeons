@@ -213,7 +213,7 @@ func _on_Area2D_area_entered(area):
 	if area.is_in_group("MediumPoiseDamage"):
 		knockback(4.2)
 	if area.is_in_group("HeavyPoiseDamage"):
-		knockback(7.5)
+		knockback(20)
 	if weakref(area).get_ref() != null:
 		if area.is_in_group("Sword"):
 			var groups : Array = area.get_groups()
@@ -327,7 +327,7 @@ func _on_Area2D_area_entered(area):
 		if area.is_in_group("MediumPoiseDamage"):
 			knockback(3.5)
 		if area.is_in_group("HeavyPoiseDamage"):
-			knockback(6.25)
+			knockback(10)
 	
 #	if area.is_in_group("Enemy"):
 #		set_collision_mask_bit(2, false)

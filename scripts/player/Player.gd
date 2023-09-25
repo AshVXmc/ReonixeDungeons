@@ -600,6 +600,32 @@ func attack():
 		$MeleeTimer.start()
 		$AttackTimer.start()
 
+func stab_attack():
+	if Global.current_character == "Player" and !is_attacking and !is_gliding and !is_frozen and $MeleeTimer.is_stopped():
+		var crit_dmg : float = 1.0
+		$Sprite.play("Attack")
+		$SwordSprite.visible = true
+		for groups in $StabAttackCollision.get_groups():
+			if float(groups) != 0:
+				print("its high noon")
+				$StabAttackCollision.remove_from_group(groups)
+				break
+		if is_a_critical_hit():
+			crit_dmg = (Global.player_skill_multipliers["CritDamage"] / 100 + 1)
+			$StabAttackCollision.add_to_group("IsCritHit")
+		else:
+			$StabAttackCollision.remove_from_group("IsCritHit")
+
+		$StabAttackCollision.add_to_group(str(ATTACK * (Global.player_skill_multipliers["EntryAttack"] / 100) * crit_dmg))
+			
+		if !$Sprite.flip_h:
+			$AnimationPlayer.play("SwordStabRight")
+		else:
+			
+			pass
+		is_attacking = true
+		is_switch_in_attacking = true
+		$StabAttackCollision/CollisionShape2D.disabled = false
 
 func switch_in_attack():
 	if Global.current_character == "Player" and !is_attacking and !is_gliding and !is_frozen and $MeleeTimer.is_stopped():
@@ -610,12 +636,7 @@ func switch_in_attack():
 			if float(groups) != 0:
 				print("its high noon")
 				$SwitchAttackCollision.remove_from_group(groups)
-#				$SwitchAttackCollision.add_to_group("hit_id")
-				
-
-				
 				break
-		
 		if is_a_critical_hit():
 			crit_dmg = (Global.player_skill_multipliers["CritDamage"] / 100 + 1)
 			$SwitchAttackCollision.add_to_group("IsCritHit")
@@ -633,7 +654,8 @@ func switch_in_attack():
 		is_switch_in_attacking = true
 		$SwitchAttackCollision/CollisionShape2D.disabled = false
 		# 0.7 is the duration of the animation
-		
+
+
 func switch_in_attack_completed():
 	is_attacking = false
 	is_switch_in_attacking = false
@@ -1040,15 +1062,11 @@ func play_attack_animation(direction : String):
 						$AttackCollision.remove_from_group(groups)
 						$AttackCollision.add_to_group("PlayerBasicAttackFour")
 						var crit_dmg : float = 1.0
-						if Input.is_action_pressed("ui_up"):
+						if Input.is_action_pressed("ui_down"):
 							
-							$AnimationPlayer.play("SwordSwingRight4_Up")
-							$AttackCollision.add_to_group("Airborne")
-#							var airborne_status : AirborneStatus = AIRBORNE_STATUS.instance()
-#							airborne_status.time = 1.2
-#							target.add_child(airborne_status)
+							$AnimationPlayer.play("SwordStabRight")
 						else:
-							$AnimationPlayer.play("SwordSwingRight4_Down")
+							$AnimationPlayer.play("SwordSwingRight4")
 							$AttackCollision.remove_from_group("Airborne")
 						if is_a_critical_hit():
 							crit_dmg = (Global.player_skill_multipliers["CritDamage"] / 100 + 1)
@@ -1976,9 +1994,6 @@ func _on_SwitchAttackCollision_area_exited(area):
 		
 
 
-
-
-
 func _on_SwitchAttackCollision_area_entered(area):
 	if weakref(area).get_ref() != null:
 			if area.is_in_group("Enemy")  and !$AttackCollision/CollisionShape2D.disabled:
@@ -2001,3 +2016,11 @@ func _on_SwitchAttackCollision_area_entered(area):
 						slashparticle.position = area.global_position
 						slashparticle.regular_slash_animation()
 		
+
+func _on_StabAttackCollision_area_entered(area):
+	pass # Replace with function body.
+
+
+func _on_StabAttackCollision_area_exited(area):
+	if area.is_in_group("Enemy"):
+		attack_area_overlaps_enemy = false

@@ -380,8 +380,8 @@ bbcode_text = "[center][color=red]Player's moveset[/color][/center]
 [color=#ffd703]Basic Attack Combo[/color]
 [ATK], [ATK], [ATK], [ATK]
 
-[color=#ffd703]Basic Attack Launcher Combo[/color]
-[ATK], [ATK], [ATK], [ATK while pressing UP]
+[color=#ffd703]Basic Attack Stab Combo[/color]
+[ATK], [ATK], [ATK], [ATK while pressing DOWN]
 
 [color=#ffd703]Aerial Basic Attack Combo[/color]
 (While airborne) [ATK], [ATK], [ATK], [ATK] 
@@ -399,7 +399,7 @@ bbcode_text = "[center][color=red]Player's moveset[/color][/center]
 (While airborne) [Hold ATK] 
 Can be chained up to 2 times.
 
-[color=#ffd703]Dash Counteer Attack[/color]
+[color=#ffd703]Dash Counter Attack[/color]
 [ATK] after a perfect dodge
 
 [color=#ffd703]Secondary Skill[/color]
@@ -409,8 +409,8 @@ text = "Player's moveset
 Basic Attack Combo
 [ATK], [ATK], [ATK], [ATK]
 
-Basic Attack Launcher Combo
-[ATK], [ATK], [ATK], [ATK while pressing UP]
+Basic Attack Stab Combo
+[ATK], [ATK], [ATK], [ATK while pressing DOWN]
 
 Aerial Basic Attack Combo
 (While airborne) [ATK], [ATK], [ATK], [ATK] 
@@ -428,7 +428,7 @@ Aerial Charged Attack
 (While airborne) [Hold ATK] 
 Can be chained up to 2 times.
 
-Dash Counteer Attack
+Dash Counter Attack
 [ATK] after a perfect dodge
 
 Secondary Skill
