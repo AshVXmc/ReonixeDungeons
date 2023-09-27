@@ -154,7 +154,7 @@ func _ready():
 #	$EnergyMeter.value = $EnergyMeter.min_value
 	$SlashEffectSprite.visible = false
 	$AttackCollision.add_to_group(str(basic_attack_power))
-	
+	$SwordSprite.flip_v = false
 	$ChargedAttackCollision.add_to_group(str(charged_attack_power))
 	$UpwardsChargedAttackCollision.add_to_group(str(upwards_and_downwards_charged_attack_power))
 	$DownwardsChargedAttackCollision.add_to_group(str(upwards_and_downwards_charged_attack_power))
@@ -326,6 +326,8 @@ func _physics_process(_delta):
 						if sign($DashParticlePosition.position.x) == -1:
 							$DashParticlePosition.position.x *= -1
 						$AttackCollision.set_scale(Vector2(-1,1))
+						$SwitchAttackCollision.set_scale(Vector2(-1,1))
+						$StabAttackCollision.set_scale(Vector2(-1,1))
 						$ChargedAttackCollision.set_scale(Vector2(-1,1))
 						$ChargedAttackDetector.set_scale(Vector2(-1,1))
 						$UpwardsChargedAttackCollision.set_scale(Vector2(-1,1))
@@ -354,6 +356,8 @@ func _physics_process(_delta):
 						$AttackCollision.set_scale(Vector2(1,1))
 						$ChargedAttackCollision.set_scale(Vector2(1,1))
 						$ChargedAttackDetector.set_scale(Vector2(1,1))
+						$SwitchAttackCollision.set_scale(Vector2(1,1))
+						$StabAttackCollision.set_scale(Vector2(1,1))
 						$UpwardsChargedAttackCollision.set_scale(Vector2(1,1))
 						$DownwardsChargedAttackCollision.set_scale(Vector2(1,1))
 						$EnemyEvasionArea.set_scale(Vector2(1,1))
@@ -621,8 +625,8 @@ func stab_attack():
 		if !$Sprite.flip_h:
 			$AnimationPlayer.play("SwordStabRight")
 		else:
-			
-			pass
+			print("REEEEEEEEEEEEEEEEEEEEEEE")
+			$AnimationPlayer.play("SwordStabLeft")
 		is_attacking = true
 		is_switch_in_attacking = true
 		$StabAttackCollision/CollisionShape2D.disabled = false
@@ -1063,11 +1067,10 @@ func play_attack_animation(direction : String):
 						$AttackCollision.add_to_group("PlayerBasicAttackFour")
 						var crit_dmg : float = 1.0
 						if Input.is_action_pressed("ui_down"):
-							
-							$AnimationPlayer.play("SwordStabRight")
+							stab_attack()
 						else:
 							$AnimationPlayer.play("SwordSwingRight4")
-							$AttackCollision.remove_from_group("Airborne")
+						$AttackCollision.remove_from_group("Airborne")
 						if is_a_critical_hit():
 							crit_dmg = (Global.player_skill_multipliers["CritDamage"] / 100 + 1)
 							$AttackCollision.add_to_group("IsCritHit")
@@ -1102,16 +1105,11 @@ func play_attack_animation(direction : String):
 						$AttackCollision.remove_from_group(groups)
 						$AttackCollision.add_to_group("PlayerBasicAttackFour")
 						var crit_dmg : float = 1.0
-						if Input.is_action_pressed("ui_up"):
-							
-							$AnimationPlayer.play("SwordSwingRight4_Up")
-							$AttackCollision.add_to_group("Airborne")
-#							var airborne_status : AirborneStatus = AIRBORNE_STATUS.instance()
-#							airborne_status.time = 1.2
-#							target.add_child(airborne_status)
+						if Input.is_action_pressed("ui_down"):
+							stab_attack()
 						else:
-							$AnimationPlayer.play("SwordSwingRight4_Down")
-							$AttackCollision.remove_from_group("Airborne")
+							$AnimationPlayer.play("SwordSwingRight4")
+						$AttackCollision.remove_from_group("Airborne")
 						if is_a_critical_hit():
 							crit_dmg = (Global.player_skill_multipliers["CritDamage"] / 100 + 1)
 							$AttackCollision.add_to_group("IsCritHit")
