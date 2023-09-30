@@ -3,8 +3,10 @@ class_name Goblin extends KinematicBody2D
 const DMG_INDICATOR : PackedScene = preload("res://scenes/particles/DamageIndicatorParticle.tscn")
 const SWORD_HIT_PARTICLE : PackedScene = preload("res://scenes/particles/SwordHitParticle.tscn")
 const DEATH_SMOKE : PackedScene = preload("res://scenes/particles/DeathSmokeParticle.tscn")
-onready var max_HP : int = 25 + (Global.enemy_level_index * 25)
-onready var level : int = round(Global.enemy_level_index)
+var max_HP_calc : int = 25 + (Global.enemy_level_index * 25)
+var level_calc : int = round(Global.enemy_level_index)
+export var max_HP : int = max_HP_calc
+export var level : int = level_calc
 var atk_value : float = 1 * Global.enemy_level_index 
 onready var HP : int = max_HP
 export var flipped : bool = false
@@ -68,7 +70,6 @@ func _ready():
 	$HealthBar.value = $HealthBar.max_value
 	connect("change_hitcount", get_parent().get_node("EleganceMeterUI/Control"), "hitcount_changed")
 func _physics_process(delta):
-
 	if !is_airborne:
 		set_collision_mask_bit(2, true)
 	else:
@@ -77,12 +78,6 @@ func _physics_process(delta):
 		$Sprite.flip_h = true
 	if !is_airborne:
 		velocity.y += GRAVITY
-#	if is_airborne:
-#		velocity.y = 0
-#		velocity.y -= 250
-#		yield(get_tree().create_timer(1), "timeout")
-#		velocity.y = 0
-#	if !is_staggered and !is_frozen:
 	velocity = move_and_slide(velocity, FLOOR)
 	if !$Sprite.flip_h:
 		$OtherEnemyDetector.set_scale(Vector2(1,1))
@@ -120,13 +115,6 @@ func _physics_process(delta):
 				if $Sprite.flip_h:
 					yield(get_tree().create_timer(0.5),"timeout")
 					velocity.x = SPEED
-#	else:
-#
-##		if other_enemy_detector_is_overlapping_player():
-#			if $Sprite.flip_h:
-#				velocity.x = -SPEED 
-#			else:
-#				velocity.x = SPEED 
 	if other_enemy_is_on_front():
 		velocity.x = 0
 		
@@ -136,17 +124,6 @@ func _physics_process(delta):
 			velocity.x = -SPEED * 1
 		else:
 			velocity.x = SPEED * 1
-#	if !is_staggered and other_enemy_detector_is_overlapping_player() and !other_enemy_detectors_is_overlapping():
-#		if AREA_RIGHT.overlaps_area(PLAYER):
-#			if $Sprite.flip_h:
-#				velocity.x = -SPEED 
-#			else:
-#				velocity.x = SPEED
-#		elif AREA_LEFT.overlaps_area(PLAYER):
-#			if $Sprite.flip_h:
-#				velocity.x = SPEED 
-#			else:
-#				velocity.x = -SPEED
 	if other_enemy_detectors_is_overlapping():
 		if $Sprite.flip_h:
 			velocity.x = -SPEED 

@@ -70,6 +70,7 @@ const TRAIL_PARTICLE = preload("res://scenes/particles/DashTrailParticle.tscn")
 const WALK_PARTICLE = preload("res://scenes/particles/WalkParticle.tscn")
 const SHEATHED = preload("res://assets/player/katana_sheath.png")
 const EMPTY_SHEATH = preload("res://assets/player/katana_sheath_empty.png")
+const PIERCING_PROJECTILE = preload("res://scenes/skills/PiercingProjectile.tscn")
 const SLASH_FLURRY_AREA = preload("res://scenes/skills/SlashFlurryMovableArea.tscn")
 const SWORD_SLASH_EFFECT : PackedScene = preload("res://scenes/particles/SwordSlashEffect.tscn")
 const HURT_PARTICLE : PackedScene = preload("res://scenes/particles/HurtIndicatorParticle.tscn")
@@ -604,6 +605,18 @@ func attack():
 		$MeleeTimer.start()
 		$AttackTimer.start()
 
+func piercing_projectile_attack(direction : int):
+	var p = PIERCING_PROJECTILE.instance()
+	get_parent().add_child(p)
+	if direction == 1:
+		p.position.x = global_position.x + 32
+		p.direction = 1
+	elif direction == -1:
+		p.position.x = global_position.x - 32
+		p.direction = -1
+	p.position.y = global_position.y 
+	
+	
 func stab_attack():
 	if Global.current_character == "Player" and !is_attacking and !is_gliding and !is_frozen and $MeleeTimer.is_stopped():
 		var crit_dmg : float = 1.0
@@ -664,10 +677,16 @@ func switch_in_attack_completed():
 	is_attacking = false
 	is_switch_in_attacking = false
 
+
 func _input(event):
 	if Global.current_character == "Player":
 		if event.is_action_pressed("ui_attack") and $InputPressTimer.is_stopped() and !is_quickswap_attacking:
 			if $DashCounterAttackTimer.is_stopped():
+				if has_node("FireSaw"):
+					if !$Sprite.flip_h:
+						piercing_projectile_attack(1)
+					else:
+						piercing_projectile_attack(-1)
 				attack()
 
 			else:
@@ -1132,6 +1151,9 @@ func _on_Area2D_area_entered(area : Area2D):
 		if area.is_in_group("HealthPot"):
 			Global.healthpot_amount += 1
 			emit_signal("healthpot_obtained", Global.healthpot_amount)
+		if area.is_in_group("HealthPack") and area.is_in_group("Active"):
+			# The 999 value is not relevant since health packs heal to maximum amount
+			heal(999, true)
 		if area.is_in_group("LifeWine"):
 			Global.lifewine_amount += 1
 			emit_signal("lifewine_obtained", Global.lifewine_amount)
@@ -1212,22 +1234,35 @@ func take_damage(damage : float):
 			#emit_signal("change_elegance"), "Hit")
 			emit_signal("life_changed", Global.character3_hearts, "Player")
 
-func heal(heal_amount : float):
+func heal(heal_amount : float, heal_to_max : bool = false):
 	# heal amount in percentage based on max HP
 	if Global.equipped_characters[0] == "Player":
-		add_heal_particles(clamp(heal_amount, 0, Global.max_hearts - Global.hearts))
-		Global.hearts += clamp(heal_amount, 0, Global.max_hearts - Global.hearts)
+		if !heal_to_max:
+			add_heal_particles(clamp(heal_amount, 0, Global.max_hearts - Global.hearts))
+			Global.hearts += clamp(heal_amount, 0, Global.max_hearts - Global.hearts)
+		else:
+			add_heal_particles(Global.max_hearts - Global.hearts)
+			Global.hearts = Global.max_hearts
 		emit_signal("life_changed", Global.hearts, "Player")
 	elif Global.equipped_characters[1] == "Player":
-		add_heal_particles(clamp(heal_amount, 0, Global.character_2_max_hearts - Global.character2_hearts))
-		Global.character2_hearts += clamp(heal_amount, 0, Global.character_2_max_hearts - Global.character2_hearts)
+		if !heal_to_max:
+			add_heal_particles(clamp(heal_amount, 0, Global.character_2_max_hearts - Global.character2_hearts))
+			Global.character2_hearts += clamp(heal_amount, 0, Global.character_2_max_hearts - Global.character2_hearts)
+		else:
+			add_heal_particles(Global.character_2_max_hearts - Global.character2_hearts)
+			Global.character2_hearts = Global.character_2_max_hearts
 		emit_signal("life_changed", Global.character2_hearts, "Player")
 	elif Global.equipped_characters[2] == "Player":
-		add_heal_particles(clamp(heal_amount, 0, Global.character_3_max_hearts - Global.character3_hearts))
-		Global.character3_hearts += clamp(heal_amount, 0, Global.character_3_max_hearts - Global.character3_hearts)
+		if !heal_to_max:
+			add_heal_particles(clamp(heal_amount, 0, Global.character_3_max_hearts - Global.character3_hearts))
+			Global.character3_hearts += clamp(heal_amount, 0, Global.character_3_max_hearts - Global.character3_hearts)
+		else:
+			add_heal_particles(Global.character_3_max_hearts - Global.character3_hearts)
+			Global.character3_hearts = Global.character_3_max_hearts 
 		emit_signal("life_changed", Global.character3_hearts, "Player")
-	Global.healthpot_amount -= 1
-	emit_signal("healthpot_obtained", Global.healthpot_amount)
+	if !heal_to_max:
+		Global.healthpot_amount -= 1
+		emit_signal("healthpot_obtained", Global.healthpot_amount)
 	
 	
 	
