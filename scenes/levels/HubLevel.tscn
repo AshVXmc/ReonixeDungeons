@@ -381,6 +381,20 @@ scale = Vector2( 0.75, 0.75 )
 texture = ExtResource( 25 )
 energy = 0.65
 
+[node name="EnemySkillGlobalCooldown" parent="." instance=ExtResource( 6 )]
+
+[node name="LootBag" parent="." instance=ExtResource( 9 )]
+position = Vector2( 1518.66, 558.741 )
+
+[node name="Goblin" parent="." instance=ExtResource( 47 )]
+position = Vector2( 1266, 600 )
+
+[node name="BowGoblin" parent="." instance=ExtResource( 44 )]
+position = Vector2( 1863, 609 )
+
+[node name="HealthPack" parent="." instance=ExtResource( 48 )]
+position = Vector2( 1724, 622 )
+
 [node name="Player" parent="." instance=ExtResource( 8 )]
 position = Vector2( 2395.49, 596.291 )
 
@@ -395,17 +409,3 @@ limit_bottom = 1750
 drag_margin_h_enabled = true
 drag_margin_v_enabled = true
 editor_draw_limits = true
-
-[node name="EnemySkillGlobalCooldown" parent="." instance=ExtResource( 6 )]
-
-[node name="LootBag" parent="." instance=ExtResource( 9 )]
-position = Vector2( 1518.66, 558.741 )
-
-[node name="Goblin" parent="." instance=ExtResource( 47 )]
-position = Vector2( 2603.36, 596.291 )
-
-[node name="BowGoblin" parent="." instance=ExtResource( 44 )]
-position = Vector2( 1863, 609 )
-
-[node name="HealthPack" parent="." instance=ExtResource( 48 )]
-position = Vector2( 1724, 622 )

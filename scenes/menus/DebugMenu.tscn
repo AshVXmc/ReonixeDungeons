@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://scripts/ui/DebugMenu.gd" type="Script" id=1]
 [ext_resource path="res://assets/fonts/Born2bSportyV2.ttf" type="DynamicFontData" id=2]
 [ext_resource path="res://assets/UI/textbox.png" type="Texture" id=3]
+[ext_resource path="res://themes/Blur.tres" type="Material" id=4]
 
 [sub_resource type="DynamicFont" id=1]
 size = 32
@@ -17,6 +18,7 @@ size = 32
 font_data = ExtResource( 2 )
 
 [node name="DebugMenu" type="CanvasLayer"]
+pause_mode = 2
 
 [node name="Control" type="Control" parent="."]
 visible = false
@@ -29,9 +31,18 @@ margin_top = -178.0
 margin_right = 271.0
 margin_bottom = 178.0
 script = ExtResource( 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+
+[node name="Blur" type="ColorRect" parent="Control"]
+material = ExtResource( 4 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -1090.0
+margin_top = -656.0
+margin_right = 1090.0
+margin_bottom = 611.0
+color = Color( 1, 1, 1, 0 )
 
 [node name="NinePatchRect" type="NinePatchRect" parent="Control"]
 anchor_left = 0.5
@@ -47,9 +58,6 @@ patch_margin_left = 64
 patch_margin_top = 64
 patch_margin_right = 64
 patch_margin_bottom = 64
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Label" type="Label" parent="Control"]
 anchor_left = 0.5
@@ -72,13 +80,14 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -115.0
+margin_left = -124.0
 margin_top = 27.0
-margin_right = 112.0
-margin_bottom = 66.0
+margin_right = 128.0
+margin_bottom = 101.0
 custom_colors/font_color = Color( 1, 0, 0, 1 )
 custom_fonts/font = SubResource( 4 )
 align = 1
+autowrap = true
 __meta__ = {
 "_edit_use_anchors_": false
 }

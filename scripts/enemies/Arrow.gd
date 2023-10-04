@@ -5,9 +5,12 @@ const MAX_SPEED : int = 400
 var SPEED : int = MAX_SPEED
 var velocity := Vector2()
 export (int) var x_direction = 1
+var elemental_type = "Physical"
+var atk_value : int = 1 * Global.enemy_level_index 
 
-
-	
+func _ready():
+	$Area2D.add_to_group(elemental_type)
+	$Area2D.add_to_group(str(atk_value))
 func _physics_process(delta):
 	position += transform.x * SPEED * delta * x_direction
 	if x_direction < 0:
@@ -26,11 +29,11 @@ func flip_arrow_direction(fb_direction : int):
 
 func _on_Area2D_area_entered(area):
 	if area.is_in_group("Player") or area.is_in_group("Fireball") or area.is_in_group("Tilemap"):
-		queue_free()
+		call_deferred('free')
 	if area.is_in_group("Sword"):
 		deflect()
 	if area.is_in_group("TempusTardus"):
-		SPEED *= 0.25
+		SPEED *= 0.2
 
 func deflect():
 	x_direction *= -1

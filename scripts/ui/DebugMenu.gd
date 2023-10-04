@@ -16,19 +16,23 @@ func _process(delta):
 	if Input.is_action_just_pressed("ui_debug"):
 		if !visible:
 			visible = true
+			get_tree().paused = true
 			emit_signal("debugcmd", "opened")
 			$LineEdit.text = ""
 			$Output.text = ""
 		else:
+			get_tree().paused = false
 			visible = false
 			emit_signal("debugcmd", "closed")
 	if visible:
 		if Input.is_action_just_pressed("ui_select"):
 			parse_command()
 		if Input.is_action_just_pressed("ui_cancel"):
+			get_tree().paused = false
 			visible = false
 			emit_signal("debugcmd", "closed")
 	
+
 
 func parse_command():
 	var command : String = $LineEdit.text
@@ -45,6 +49,7 @@ func parse_command():
 			emit_signal("debugcmd", "fullhealth")
 			emit_signal("debugcmd", "fullmana")
 			$Output.text = "Entered Godmode" if Global.godmode else "Exited Godmode"
+			
 		"unlockall":
 			Global.dash_unlocked = true
 			Global.firesaw_unlocked = true
@@ -78,8 +83,15 @@ func parse_command():
 			$Output.text = "Kill count: " + str(Global.enemies_killed)
 		"returntohub":
 			get_tree().change_scene("res://scenes/levels/HubLevel.tscn")
+		"cyberninja":
+			emit_signal("debugcmd", "cyberninja")
+			$Output.text = "The dragon becomes me!"
+		"defskin":
+			emit_signal("debugcmd", "defskin")
+			$Output.text = "Set to default skin"
 		_:
 			$Output.text = "Invalid command"
+		
 	
 	# Teleport to a level
 	if command.to_lower() in numbers:

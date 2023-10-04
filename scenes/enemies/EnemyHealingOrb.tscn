@@ -1,0 +1,37 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://scenes/particles/BlueSmokeParticle.tscn" type="PackedScene" id=1]
+[ext_resource path="res://assets/enemies/enemy_healing_orb.png" type="Texture" id=2]
+
+[sub_resource type="Animation" id=1]
+resource_name = "Spin"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray(  ),
+"transitions": PoolRealArray(  ),
+"update": 0,
+"values": [  ]
+}
+
+[node name="EnemyHealingOrb" type="Node2D"]
+
+[node name="BlueSmokeParticle" parent="." instance=ExtResource( 1 )]
+scale = Vector2( 4, 4 )
+amount = 4
+lifetime = 0.5
+initial_velocity = 30.0
+color = Color( 0, 0.827451, 0.854902, 1 )
+hue_variation = 0.04
+hue_variation_random = 0.51
+
+[node name="Sprite" type="Sprite" parent="."]
+scale = Vector2( 5, 5 )
+texture = ExtResource( 2 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/Spin = SubResource( 1 )

@@ -68,8 +68,12 @@ enum {
 }
 const TRAIL_PARTICLE = preload("res://scenes/particles/DashTrailParticle.tscn")
 const WALK_PARTICLE = preload("res://scenes/particles/WalkParticle.tscn")
-const SHEATHED = preload("res://assets/player/katana_sheath.png")
-const EMPTY_SHEATH = preload("res://assets/player/katana_sheath_empty.png")
+const KATANA = preload("res://assets/characters/player/katana.png")
+const SHEATHED = preload("res://assets/characters/player/katana_sheath.png")
+const EMPTY_SHEATH = preload("res://assets/characters/player/katana_sheath_empty.png")
+const KATANA_CYBERNINJA = preload("res://assets/characters/player/skins/cyber_ninja/katana.png")
+const SHEATHED_CYBERNINJA = preload("res://assets/characters/player/skins/cyber_ninja/katana_sheath.png")
+const EMPTY_SHEATH_CYBERNINJA = preload("res://assets/characters/player/skins/cyber_ninja/katana_sheath_empty.png")
 const PIERCING_PROJECTILE = preload("res://scenes/skills/PiercingProjectile.tscn")
 const SLASH_FLURRY_AREA = preload("res://scenes/skills/SlashFlurryMovableArea.tscn")
 const SWORD_SLASH_EFFECT : PackedScene = preload("res://scenes/particles/SwordSlashEffect.tscn")
@@ -90,6 +94,9 @@ const ENERGY_METER = preload("res://assets/UI/energy_meter_partly_filled.png")
 const BURNING : PackedScene = preload("res://scenes/status_effects/BurningStatus.tscn")
 onready var FULL_CHARGE_METER = preload("res://assets/UI/chargebar_full.png")
 onready var CHARGING_CHARGE_METER = preload("res://assets/UI/chargebar_charging.png")
+
+const DEFAULT_SKIN = preload("res://spriteframes/Player_Default_spriteframes.tres")
+const CYBER_NINJA_SKIN = preload("res://spriteframes/Player_CyberNinja_spriteframes.tres")
 var is_attacking : bool = false
 var is_dead : bool = false
 var is_invulnerable : bool = false
@@ -149,10 +156,10 @@ func set_attack_buff_value(new_value):
 	ATTACK = Global.attack_power + attack_buff
 
 func _ready():
-	
 	if Global.current_character == "Player":
 		$Sprite.visible = true
 #	$EnergyMeter.value = $EnergyMeter.min_value
+	
 	$SlashEffectSprite.visible = false
 	$AttackCollision.add_to_group(str(basic_attack_power))
 	$SwordSprite.flip_v = false
@@ -224,7 +231,23 @@ func _ready():
 	
 	connect("goblin_scales_obtained", Global, "sync_playerGoblinScales")
 	emit_signal("goblin_scales_obtained", Global.goblin_scales_amount)
-	
+
+func change_skin(skin_name):
+	match skin_name:
+		DEFAULT_SKIN:
+			$Sprite.frames = DEFAULT_SKIN
+			$SwordSprite.texture = KATANA
+			$KatanaSheathSprite.texture = SHEATHED
+			$Sprite.scale.x = 5
+			$Sprite.scale.y = 5
+			$Sprite.position.y = 0
+		CYBER_NINJA_SKIN:
+			$Sprite.frames = CYBER_NINJA_SKIN
+			$SwordSprite.texture = KATANA_CYBERNINJA
+			$KatanaSheathSprite.texture = SHEATHED_CYBERNINJA
+			$Sprite.scale.x = 6
+			$Sprite.scale.y = 6
+			$Sprite.position.y = -10
 func quickswap_event(trigger_name : String):
 	match trigger_name:
 		"Glaciela":
@@ -264,6 +287,7 @@ func get_closest_enemy() -> Node2D:
 	return closest_enemy
 	
 func _physics_process(_delta):
+	
 	if Global.current_character == "Player":
 		$EnergyMeter.visible = true
 	else:
@@ -926,7 +950,7 @@ func charge_meter():
 				
 
 func upwards_charged_attack():
-	if target and target != null and weakref(target).get_ref() != null: 
+	if target and target != null and weakref(target).get_ref() != null and !target.is_in_group("Projectile"): 
 		if target.get_node("Area2D").overlaps_area($ChargedAttackDetector) and !target.get_node("Area2D").is_in_group("IsAirborne"):
 			knock_airborne(target.get_node("Area2D"))
 	$ChargingParticle.visible = true
@@ -1779,6 +1803,10 @@ func debug_commands(cmd : String):
 		"killall":
 			for enemy in get_tree().get_nodes_in_group("Enemy"):
 				enemy.queue_free()
+		"cyberninja":
+			change_skin(CYBER_NINJA_SKIN)
+		"defskin":
+			change_skin(DEFAULT_SKIN)
 # Utility functions
 
 func toggle_shopping(value : bool ):
@@ -1811,7 +1839,7 @@ func _on_InvulnerabilityTimer_timeout():
 	
 func _on_AttackTimer_timeout():
 	$AttackCollision.position = Vector2(0,0)
-	$Sprite.position = Vector2(0,0)
+#	$Sprite.position = Vector2(0,0)
 	is_attacking = false
 	$AttackCollision/CollisionShape2D.disabled = true
 	$Sprite.play("Idle")
@@ -2000,8 +2028,16 @@ func _on_GhostTrailTimer_timeout():
 	if is_dashing:
 		if Global.current_character == "Player" and velocity.x != 0:
 			var ghost_trail = preload("res://scenes/misc/GhostTrail.tscn").instance()
-			var texture = preload("res://assets/player/player_dash.png")
 			
+			var texture 
+			
+			if $Sprite.frames == DEFAULT_SKIN:
+				texture = preload("res://assets/characters/player/player_dash.png")
+				ghost_trail.texture = preload("res://assets/characters/player/player_idle.png")
+			elif $Sprite.frames == CYBER_NINJA_SKIN:
+				texture = preload("res://assets/characters/player/skins/cyber_ninja/player_dash.png")
+				ghost_trail.texture = preload("res://assets/characters/player/skins/cyber_ninja/player_idle.png")
+
 			get_parent().add_child(ghost_trail)
 			ghost_trail.position = global_position
 			if !$Sprite.flip_h:

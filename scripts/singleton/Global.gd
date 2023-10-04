@@ -73,6 +73,10 @@ var player_skill_multipliers : Dictionary = {
 	"Birthday": [21,11]
 }
 
+enum player_skins  {
+	DEFAULT,
+	CYBER_NINJA
+}
 
 
 var glaciela_skill_multipliers : Dictionary = {

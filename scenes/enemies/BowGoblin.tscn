@@ -1,10 +1,10 @@
 [gd_scene load_steps=27 format=2]
 
-[ext_resource path="res://assets/enemies/goblin2_attack.png" type="Texture" id=1]
+[ext_resource path="res://assets/enemies/bow_goblin_charging1.png" type="Texture" id=1]
 [ext_resource path="res://scripts/enemies/BowGoblin.gd" type="Script" id=2]
-[ext_resource path="res://assets/enemies/goblin1.png" type="Texture" id=3]
-[ext_resource path="res://assets/enemies/goblin1_attack.png" type="Texture" id=4]
-[ext_resource path="res://assets/enemies/goblin2.png" type="Texture" id=5]
+[ext_resource path="res://assets/enemies/bow_goblin1.png" type="Texture" id=3]
+[ext_resource path="res://assets/enemies/bow_goblin_charging2.png" type="Texture" id=4]
+[ext_resource path="res://assets/enemies/bow_goblin2.png" type="Texture" id=5]
 [ext_resource path="res://assets/UI/healthbar_enemy_empty.png" type="Texture" id=6]
 [ext_resource path="res://assets/UI/healthbar_enemy_full.png" type="Texture" id=7]
 [ext_resource path="res://assets/UI/physical_type_icon.png" type="Texture" id=8]
@@ -18,26 +18,26 @@
 radius = 30.0
 height = 52.0
 
-[sub_resource type="SpriteFrames" id=4]
+[sub_resource type="SpriteFrames" id=16]
 animations = [ {
-"frames": [ ExtResource( 4 ), ExtResource( 1 ) ],
+"frames": [ ExtResource( 1 ), ExtResource( 4 ) ],
 "loop": true,
-"name": "Attacking",
-"speed": 6.0
+"name": "BowAttacking",
+"speed": 4.0
+}, {
+"frames": [ ExtResource( 3 ), ExtResource( 5 ) ],
+"loop": true,
+"name": "BowIdle",
+"speed": 4.0
 }, {
 "frames": [ ExtResource( 3 ) ],
 "loop": true,
 "name": "Dead",
 "speed": 5.0
-}, {
-"frames": [ ExtResource( 3 ), ExtResource( 5 ) ],
-"loop": true,
-"name": "Idle",
-"speed": 6.0
 } ]
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 166.268, 50.3433 )
+extents = Vector2( 332.536, 50.343 )
 
 [sub_resource type="CapsuleShape2D" id=3]
 radius = 37.9007
@@ -56,25 +56,13 @@ margin = Rect2( 1, 1, 1, 10 )
 resource_name = "Death"
 length = 0.25
 step = 0.05
-tracks/0/type = "value"
-tracks/0/path = NodePath("Sprite:self_modulate")
+tracks/0/type = "method"
+tracks/0/path = NodePath(".")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.25 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 1 ), Color( 0, 0, 0, 1 ) ]
-}
-tracks/1/type = "method"
-tracks/1/path = NodePath(".")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
 "times": PoolRealArray( 0.25 ),
 "transitions": PoolRealArray( 1 ),
 "values": [ {
@@ -86,7 +74,7 @@ tracks/1/keys = {
 [sub_resource type="Animation" id=7]
 length = 0.001
 tracks/0/type = "value"
-tracks/0/path = NodePath("Sprite:self_modulate")
+tracks/0/path = NodePath("SpearSprite:rotation_degrees")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -95,10 +83,10 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Color( 1, 1, 1, 1 ) ]
+"values": [ -90.0 ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("SpearSprite:rotation_degrees")
+tracks/1/path = NodePath("SpearSprite:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -107,10 +95,10 @@ tracks/1/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ -90.0 ]
+"values": [ Vector2( -45, 15 ) ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("SpearSprite:position")
+tracks/2/path = NodePath("SpearSprite:show_behind_parent")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
@@ -119,10 +107,10 @@ tracks/2/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( -45, 15 ) ]
+"values": [ true ]
 }
 tracks/3/type = "value"
-tracks/3/path = NodePath("SpearSprite:show_behind_parent")
+tracks/3/path = NodePath("SpearThrustAttackWarning:self_modulate")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/imported = false
@@ -131,10 +119,10 @@ tracks/3/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ true ]
+"values": [ Color( 1, 1, 1, 0.513726 ) ]
 }
 tracks/4/type = "value"
-tracks/4/path = NodePath("SpearThrustAttackWarning:self_modulate")
+tracks/4/path = NodePath("SpearThrustAttackWarning:color")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/imported = false
@@ -143,10 +131,10 @@ tracks/4/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Color( 1, 1, 1, 0.513726 ) ]
+"values": [ Color( 1, 0.196078, 0, 1 ) ]
 }
 tracks/5/type = "value"
-tracks/5/path = NodePath("SpearThrustAttackWarning:color")
+tracks/5/path = NodePath("SpearSprite:visible")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/imported = false
@@ -155,10 +143,10 @@ tracks/5/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Color( 1, 0.196078, 0, 1 ) ]
+"values": [ true ]
 }
 tracks/6/type = "value"
-tracks/6/path = NodePath("SpearSprite:visible")
+tracks/6/path = NodePath("SpearThrustAttackWarning:rect_position")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/imported = false
@@ -167,10 +155,10 @@ tracks/6/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ true ]
+"values": [ Vector2( -112, -45 ) ]
 }
 tracks/7/type = "value"
-tracks/7/path = NodePath("SpearThrustAttackWarning:rect_position")
+tracks/7/path = NodePath("SpearThrustAttackWarning:visible")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/imported = false
@@ -179,27 +167,15 @@ tracks/7/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( -112, -45 ) ]
+"values": [ true ]
 }
 tracks/8/type = "value"
-tracks/8/path = NodePath("SpearThrustAttackWarning:visible")
+tracks/8/path = NodePath("SpearThrustAttackCollision/CollisionShape2D:disabled")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/imported = false
 tracks/8/enabled = true
 tracks/8/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ true ]
-}
-tracks/9/type = "value"
-tracks/9/path = NodePath("SpearThrustAttackCollision/CollisionShape2D:disabled")
-tracks/9/interp = 1
-tracks/9/loop_wrap = true
-tracks/9/imported = false
-tracks/9/enabled = true
-tracks/9/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
@@ -347,7 +323,7 @@ shape = SubResource( 8 )
 
 [node name="Sprite" type="AnimatedSprite" parent="."]
 scale = Vector2( 5.25, 5.25 )
-frames = SubResource( 4 )
+frames = SubResource( 16 )
 animation = "Dead"
 
 [node name="Left" type="Area2D" parent="."]
@@ -355,13 +331,13 @@ collision_layer = 129
 collision_mask = 129
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Left"]
-position = Vector2( -193.217, 0 )
+position = Vector2( -370.717, 0 )
 shape = SubResource( 2 )
 
 [node name="Right" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Right"]
-position = Vector2( 198.333, 0 )
+position = Vector2( 370.167, 0 )
 shape = SubResource( 2 )
 
 [node name="Area2D" type="Area2D" parent="." groups=["Enemy"]]
@@ -475,6 +451,9 @@ disabled = true
 wait_time = 0.06
 one_shot = true
 
+[node name="ShootArrowTimer" type="Timer" parent="."]
+wait_time = 2.0
+
 [connection signal="tree_exiting" from="." to="." method="_on_Goblin_tree_exiting"]
 [connection signal="area_exited" from="Left" to="." method="_on_Left_area_exited"]
 [connection signal="area_exited" from="Right" to="." method="_on_Right_area_exited"]
@@ -486,3 +465,4 @@ one_shot = true
 [connection signal="timeout" from="AttackingTimer" to="." method="_on_AttackingTimer_timeout"]
 [connection signal="area_entered" from="DownwardsEnemyDetector" to="." method="_on_DownwardsEnemyDetector_area_entered"]
 [connection signal="area_exited" from="DownwardsEnemyDetector" to="." method="_on_DownwardsEnemyDetector_area_exited"]
+[connection signal="timeout" from="ShootArrowTimer" to="." method="_on_ShootArrowTimer_timeout"]
