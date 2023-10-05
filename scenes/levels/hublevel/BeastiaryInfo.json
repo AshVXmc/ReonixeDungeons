@@ -1,0 +1,10 @@
+{
+    "Goblin":{
+        "Name": "Goblin",
+        "Icon": "res://assets/enemies/goblin1.png",
+        "Description": "Goblin desc something something"
+    }
+
+    
+
+}

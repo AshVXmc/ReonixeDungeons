@@ -68,7 +68,7 @@ animations = [ {
 "name": "Idle",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 1 ), ExtResource( 5 ), ExtResource( 3 ) ],
+"frames": [ ExtResource( 5 ), ExtResource( 3 ), ExtResource( 1 ) ],
 "loop": true,
 "name": "Walk",
 "speed": 5.0

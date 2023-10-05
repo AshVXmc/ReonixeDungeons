@@ -33,7 +33,7 @@
 [ext_resource path="res://assets/terrain/hub_level/prop_librarytable.png" type="Texture" id=31]
 [ext_resource path="res://assets/terrain/hub_level/prop_bookshelf_1.png" type="Texture" id=32]
 [ext_resource path="res://scripts/terrain/GenericInteractable.gd" type="Script" id=33]
-[ext_resource path="res://scenes/levels/hublevel/TravellerJournal.tscn" type="PackedScene" id=34]
+[ext_resource path="res://scenes/levels/hublevel/Beastiary.tscn" type="PackedScene" id=34]
 [ext_resource path="res://assets/terrain/hub_level/chandelier.png" type="Texture" id=35]
 [ext_resource path="res://assets/terrain/deep_woods/deep_woods_spritesheet.png" type="Texture" id=36]
 [ext_resource path="res://assets/terrain/hub_level/prop_bookshelf_4.png" type="Texture" id=37]
@@ -92,10 +92,10 @@ extents = Vector2( 4.43538, 5 )
 script = ExtResource( 16 )
 
 [node name="ColorRect" type="ColorRect" parent="."]
-margin_left = -8720.39
-margin_top = -5077.54
-margin_right = -901.387
-margin_bottom = -682.545
+margin_left = -652.0
+margin_top = -4894.0
+margin_right = 7167.0
+margin_bottom = -435.0
 color = Color( 0, 0, 0, 1 )
 
 [node name="EleganceMeterUI" parent="." instance=ExtResource( 3 )]
@@ -314,9 +314,6 @@ position = Vector2( 3650.66, -1745.55 )
 shape = SubResource( 2 )
 one_way_collision = true
 
-[node name="TravellerJournal" parent="." instance=ExtResource( 34 )]
-position = Vector2( 1057.69, -1717.13 )
-
 [node name="BenchProp" type="Sprite" parent="." groups=["Prop"]]
 position = Vector2( 750, 621.291 )
 scale = Vector2( 8.5, 8.5 )
@@ -396,7 +393,7 @@ position = Vector2( 1863, 609 )
 position = Vector2( 1724, 622 )
 
 [node name="Player" parent="." instance=ExtResource( 8 )]
-position = Vector2( 2395.49, 596.291 )
+position = Vector2( 840, -1786 )
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position = Vector2( -24.7189, -147.43 )
@@ -409,3 +406,6 @@ limit_bottom = 1750
 drag_margin_h_enabled = true
 drag_margin_v_enabled = true
 editor_draw_limits = true
+
+[node name="Beastiary" parent="." instance=ExtResource( 34 )]
+position = Vector2( 1048, -1714 )

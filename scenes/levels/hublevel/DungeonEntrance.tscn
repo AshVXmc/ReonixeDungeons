@@ -6,12 +6,12 @@
 [ext_resource path="res://assets/fonts/Born2bSportyV2.ttf" type="DynamicFontData" id=4]
 [ext_resource path="res://scenes/menus/CharacterSelectionUI.tscn" type="PackedScene" id=5]
 
-[sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 55.0921, 60.3552 )
-
 [sub_resource type="DynamicFont" id=2]
 size = 64
 font_data = ExtResource( 3 )
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 55.0921, 60.3552 )
 
 [sub_resource type="DynamicFont" id=3]
 size = 48
@@ -27,12 +27,6 @@ position = Vector2( 1.49829, -8.25084 )
 scale = Vector2( 5, 5 )
 texture = ExtResource( 2 )
 
-[node name="Area2D" type="Area2D" parent="." groups=["Transporter"]]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2( 1, 30 )
-shape = SubResource( 1 )
-
 [node name="Label" type="RichTextLabel" parent="."]
 margin_left = -50.8921
 margin_top = -59.8374
@@ -43,9 +37,12 @@ custom_fonts/bold_font = SubResource( 2 )
 bbcode_enabled = true
 bbcode_text = "[b]Enter the dungeon [/b] [img=72]res://assets/UI/icon_Empty.png[/img]"
 text = "Enter the dungeon  "
-__meta__ = {
-"_edit_use_anchors_": false
-}
+
+[node name="Area2D" type="Area2D" parent="." groups=["Transporter"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2( 1, 30 )
+shape = SubResource( 1 )
 
 [node name="Keybind" type="Label" parent="."]
 anchor_left = -3.732
@@ -60,9 +57,6 @@ custom_fonts/font = SubResource( 3 )
 text = "R"
 align = 1
 valign = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="ButtonPressCD" type="Timer" parent="."]
 wait_time = 0.1

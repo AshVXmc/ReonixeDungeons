@@ -2029,15 +2029,19 @@ func _on_GhostTrailTimer_timeout():
 		if Global.current_character == "Player" and velocity.x != 0:
 			var ghost_trail = preload("res://scenes/misc/GhostTrail.tscn").instance()
 			
-			var texture 
+#			var texture 
 			
 			if $Sprite.frames == DEFAULT_SKIN:
-				texture = preload("res://assets/characters/player/player_dash.png")
+#				texture = preload("res://assets/characters/player/player_dash.png")
 				ghost_trail.texture = preload("res://assets/characters/player/player_idle.png")
+				ghost_trail.scale.x = 5
+				ghost_trail.scale.y = 5
+	
 			elif $Sprite.frames == CYBER_NINJA_SKIN:
-				texture = preload("res://assets/characters/player/skins/cyber_ninja/player_dash.png")
+#				texture = preload("res://assets/characters/player/skins/cyber_ninja/player_dash.png")
 				ghost_trail.texture = preload("res://assets/characters/player/skins/cyber_ninja/player_idle.png")
-
+				ghost_trail.scale.x = 6
+				ghost_trail.scale.y = 6
 			get_parent().add_child(ghost_trail)
 			ghost_trail.position = global_position
 			if !$Sprite.flip_h:
@@ -2046,8 +2050,6 @@ func _on_GhostTrailTimer_timeout():
 			else:
 				ghost_trail.flip_h = true
 				
-			ghost_trail.scale.x = 5
-			ghost_trail.scale.y = 5
 	
 
 

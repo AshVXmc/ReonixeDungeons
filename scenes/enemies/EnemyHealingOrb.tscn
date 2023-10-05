@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://scenes/particles/BlueSmokeParticle.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/enemies/enemy_healing_orb.png" type="Texture" id=2]
+[ext_resource path="res://scripts/enemies/EnemyHealingOrb.gd" type="Script" id=3]
 
 [sub_resource type="Animation" id=1]
 resource_name = "Spin"
@@ -18,7 +19,11 @@ tracks/0/keys = {
 "values": [  ]
 }
 
-[node name="EnemyHealingOrb" type="Node2D"]
+[sub_resource type="CircleShape2D" id=2]
+radius = 31.0
+
+[node name="EnemyHealingOrb" type="Area2D"]
+script = ExtResource( 3 )
 
 [node name="BlueSmokeParticle" parent="." instance=ExtResource( 1 )]
 scale = Vector2( 4, 4 )
@@ -35,3 +40,6 @@ texture = ExtResource( 2 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/Spin = SubResource( 1 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 2 )
