@@ -1,4 +1,4 @@
-[gd_scene load_steps=53 format=2]
+[gd_scene load_steps=54 format=2]
 
 [ext_resource path="res://tilesets/HubLevelTileset.tres" type="TileSet" id=1]
 [ext_resource path="res://assets/terrain/deep_woods/background_deep_woods.png" type="Texture" id=2]
@@ -48,6 +48,7 @@
 [ext_resource path="res://scenes/menus/HealthPotUI.tscn" type="PackedScene" id=46]
 [ext_resource path="res://scenes/enemies/Goblin.tscn" type="PackedScene" id=47]
 [ext_resource path="res://scenes/terrain/HealthPack.tscn" type="PackedScene" id=48]
+[ext_resource path="res://assets/terrain/hub_level/library_desk_1.png" type="Texture" id=49]
 
 [sub_resource type="TileSet" id=1]
 0/name = "deep_woods_spritesheet.png 0"
@@ -272,7 +273,7 @@ scale = Vector2( 8, 8 )
 texture = ExtResource( 31 )
 
 [node name="Prop2" type="Sprite" parent="HubLibrary"]
-position = Vector2( 1070.16, -1520.5 )
+position = Vector2( 1005.16, -1520.5 )
 scale = Vector2( 10, 10 )
 texture = ExtResource( 32 )
 
@@ -283,7 +284,7 @@ texture = ExtResource( 32 )
 flip_h = true
 
 [node name="Prop5" type="Sprite" parent="HubLibrary"]
-position = Vector2( 1230.16, -1520.5 )
+position = Vector2( 1165.16, -1520.5 )
 scale = Vector2( 10, 10 )
 texture = ExtResource( 38 )
 
@@ -298,6 +299,17 @@ position = Vector2( 1549.64, -1521.04 )
 scale = Vector2( 10, 10 )
 texture = ExtResource( 37 )
 flip_h = true
+
+[node name="LibraryCandleLight2D" type="Light2D" parent="HubLibrary"]
+position = Vector2( 731.25, -1557.27 )
+scale = Vector2( 1.79861, 1.86857 )
+texture = ExtResource( 25 )
+energy = 0.4
+
+[node name="LibraryDesk1" type="Sprite" parent="HubLibrary"]
+position = Vector2( 1357, -1500 )
+scale = Vector2( 10, 10 )
+texture = ExtResource( 49 )
 
 [node name="TileMap2" type="TileMap" parent="."]
 tile_set = SubResource( 1 )
@@ -392,8 +404,11 @@ position = Vector2( 1863, 609 )
 [node name="HealthPack" parent="." instance=ExtResource( 48 )]
 position = Vector2( 1724, 622 )
 
+[node name="Beastiary" parent="." instance=ExtResource( 34 )]
+position = Vector2( 1058, -1713 )
+
 [node name="Player" parent="." instance=ExtResource( 8 )]
-position = Vector2( 840, -1786 )
+position = Vector2( 611, -1666 )
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position = Vector2( -24.7189, -147.43 )
@@ -406,6 +421,3 @@ limit_bottom = 1750
 drag_margin_h_enabled = true
 drag_margin_v_enabled = true
 editor_draw_limits = true
-
-[node name="Beastiary" parent="." instance=ExtResource( 34 )]
-position = Vector2( 1048, -1714 )

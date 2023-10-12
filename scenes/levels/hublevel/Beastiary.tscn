@@ -9,11 +9,11 @@
 extents = Vector2( 43.8902, 49.2892 )
 
 [sub_resource type="DynamicFont" id=2]
-size = 32
+size = 48
 font_data = ExtResource( 4 )
 
 [sub_resource type="DynamicFont" id=3]
-size = 64
+size = 112
 font_data = ExtResource( 4 )
 
 [node name="Beastiary" type="Node2D"]
@@ -27,14 +27,14 @@ position = Vector2( 0.448471, 1.83575 )
 shape = SubResource( 1 )
 
 [node name="Label" type="RichTextLabel" parent="."]
-margin_left = -79.0
-margin_top = -93.0
-margin_right = 106.0
-margin_bottom = -28.0
+margin_left = -101.0
+margin_top = -135.0
+margin_right = 140.0
+margin_bottom = -70.0
 custom_fonts/bold_font = SubResource( 2 )
 custom_fonts/normal_font = SubResource( 2 )
 bbcode_enabled = true
-bbcode_text = "[b]Beastiary [/b][img=32
+bbcode_text = "[b]Beastiary [/b][img=48
 ]res://assets/UI/icon_Empty.png[/img]"
 text = "Beastiary "
 scroll_active = false
@@ -42,10 +42,10 @@ scroll_active = false
 [node name="Keybind" type="Label" parent="."]
 anchor_left = -3.732
 anchor_right = -3.732
-margin_left = 51.0
-margin_top = -96.0
-margin_right = 86.0
-margin_bottom = -16.0
+margin_left = 90.0
+margin_top = -137.0
+margin_right = 160.0
+margin_bottom = -25.0
 rect_scale = Vector2( 0.5, 0.5 )
 custom_colors/font_color = Color( 0.192157, 0.372549, 1, 1 )
 custom_fonts/font = SubResource( 3 )

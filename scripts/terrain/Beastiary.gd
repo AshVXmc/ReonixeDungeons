@@ -11,14 +11,13 @@ func _ready():
 func _physics_process(delta):
 	if $Area2D.overlaps_area(PLAYER):
 		$Label.visible = true
+		$Keybind.visible = true
 		if Input.is_action_just_pressed("ui_use"):
 			$BeastiaryUI/Control.initialize_ui()
-#			transition.transition()
-#			load_next_scene()
 		
 func _on_Area2D_area_exited(area):
 	$Label.visible = false
-
+	$Keybind.visible = false
 
 
 func _on_CloseButton_pressed():

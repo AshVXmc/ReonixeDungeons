@@ -1,10 +1,18 @@
 {
     "Goblin":{
         "Name": "Goblin",
-        "Icon": "res://assets/enemies/goblin1.png",
-        "Description": "Goblin desc something something"
+        "Description": "Goblins wield a crude spear and attack from melee range. Individually, they are relatively weak but can pose a threat in large numbers.",
+        "Flavortext": "Aberrations that have manifested from dark mana, summoned by an event known as the Awakening. These orc-like creatures have constructed rudimentary tools, clothing, and a tribal system. These particular ones seem to fulfill the role of protectors in their tribes."
+    },
+    "Goblin Bowyer" :{
+        "Name": "Goblin Bowyer",
+        "Description": "Goblins with a bow and arrow to shoot enemies from afar. They are effective at range, but they lack fighting power and defense up close.",
+        "Flavortext": "Goblins who have been exposed to larger amounts of dark mana during the Awakening gain a slight, but not insignificant, increase in their intelligence levels and are able to perform more complex tasks such as crafting bows and hunting food for their tribe."
+    },
+    "Goblin Shaman":{
+        "Name": "",
+        "Description": "",
+        "Flavortext": ""
     }
-
-    
 
 }

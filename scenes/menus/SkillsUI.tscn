@@ -348,19 +348,19 @@ custom_fonts/font = SubResource( 4 )
 text = "99"
 align = 1
 
-[node name="EnduranceMeter" type="Control" parent="Control"]
+[node name="TertiarySkill" type="Control" parent="Control"]
 margin_left = -4.0
 margin_top = -42.0
 margin_right = 36.0
 margin_bottom = -2.0
 
-[node name="Sprite" type="Sprite" parent="Control/EnduranceMeter"]
+[node name="Sprite" type="Sprite" parent="Control/TertiarySkill"]
 self_modulate = Color( 1, 1, 1, 0.333333 )
 position = Vector2( 370, 190 )
 scale = Vector2( 4, 4 )
 texture = ExtResource( 10 )
 
-[node name="TextureProgress" type="TextureProgress" parent="Control/EnduranceMeter"]
+[node name="TextureProgress" type="TextureProgress" parent="Control/TertiarySkill"]
 margin_left = 338.0
 margin_top = 158.0
 margin_right = 354.0
@@ -368,10 +368,6 @@ margin_bottom = 174.0
 rect_scale = Vector2( 3.74057, 3.87602 )
 texture_progress = ExtResource( 10 )
 fill_mode = 3
-
-[node name="EnduranceRegenTimer" type="Timer" parent="Control/EnduranceMeter"]
-wait_time = 0.1
-autostart = true
 
 [node name="CooldownTickTimer" type="Timer" parent="Control"]
 wait_time = 0.1
@@ -492,5 +488,4 @@ anims/RESET = SubResource( 8 )
 anims/Flicker = SubResource( 9 )
 anims/RESET = SubResource( 10 )
 
-[connection signal="timeout" from="Control/EnduranceMeter/EnduranceRegenTimer" to="Control" method="_on_EnduranceRegenTimer_timeout"]
 [connection signal="timeout" from="Control/CooldownTickTimer" to="Control" method="_on_CooldownTickTimer_timeout"]

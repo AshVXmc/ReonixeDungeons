@@ -20,7 +20,8 @@ signal change_hitcount(amount)
 signal force_character_swap(index)
 signal reduce_skill_cd(character_name, skill_type, amount_in_seconds)
 signal reduce_endurance(amount)
-var target
+var target 
+
 var can_use_slash_flurry : bool = false
 var attack_area_overlaps_enemy : bool 
 var resist_interruption : bool = false
@@ -68,6 +69,7 @@ enum {
 }
 const TRAIL_PARTICLE = preload("res://scenes/particles/DashTrailParticle.tscn")
 const WALK_PARTICLE = preload("res://scenes/particles/WalkParticle.tscn")
+const TELEPORTING_PARTICLE = preload("res://scenes/particles/TeleportingParticles.tscn")
 const KATANA = preload("res://assets/characters/player/katana.png")
 const SHEATHED = preload("res://assets/characters/player/katana_sheath.png")
 const EMPTY_SHEATH = preload("res://assets/characters/player/katana_sheath_empty.png")
@@ -159,7 +161,7 @@ func _ready():
 	if Global.current_character == "Player":
 		$Sprite.visible = true
 #	$EnergyMeter.value = $EnergyMeter.min_value
-	
+
 	$SlashEffectSprite.visible = false
 	$AttackCollision.add_to_group(str(basic_attack_power))
 	$SwordSprite.flip_v = false
@@ -309,8 +311,8 @@ func _physics_process(_delta):
 			$KatanaSheathSprite.visible = true if Global.current_character == "Player" else false
 			target = get_closest_enemy()
 			# Function calls
-			if !is_thrust_attacking and Input.is_action_just_pressed("ui_dash") and !Input.is_action_pressed("ui_attack"):
-				dash()
+#			if !is_thrust_attacking and Input.is_action_just_pressed("ui_dash") and !Input.is_action_pressed("ui_attack"):
+#				dash()
 			if !is_charging:
 	#			glide() # Glide duration in seconds
 				useItems()
@@ -560,6 +562,9 @@ func use_secondary_skill():
 		emit_signal("skill_ui_update", "FireFairy")
 		emit_signal("mana_changed", Global.character3_mana, "Player")
 	
+
+
+
 func ground_pound():
 	if !is_on_floor() and Input.is_action_just_pressed("ui_down"):
 		is_ground_pounding = true
@@ -718,12 +723,30 @@ func _input(event):
 				is_invulnerable = true
 				thrust_attack(true)
 			$InputPressTimer.start()
+		if event.is_action_pressed("ui_dash") and $DashInputPressTimer.is_stopped() and !is_quickswap_attacking:
+			dash()
+			$DashInputPressTimer.start()
 		if event.is_action_pressed("ui_down") and airborne_mode:
 			airborne_mode = false
 		if event.is_action_pressed("heal"):
 			if Global.healthpot_amount > 0:
 				heal(5)
 
+func charged_dash():
+	$DashInputPressTimer.stop()
+	var teleport_destination : Vector2
+	if get_parent().has_node("FireCharm"):
+		teleport_destination = get_parent().get_node("FireCharm").global_position
+		var tp_particle = TELEPORTING_PARTICLE.instance()
+		get_parent().add_child(tp_particle)
+		tp_particle.position = global_position
+		tp_particle.emitting = true
+		tp_particle.one_shot = true
+		position.x = teleport_destination.x
+		position.y = teleport_destination.y 
+	
+
+	
 	
 func charged_attack(type : String = "Ground"):
 	$InputPressTimer.stop()
@@ -2002,7 +2025,9 @@ func _on_InputPressTimer_timeout():
 					if is_on_floor():
 						charged_attack("Circular") if attack_string_count == 1 else charged_attack("Ground")
 
-
+func _on_DashInputPressTimer_timeout():
+	if !Input.is_action_pressed("ui_attack") and !is_quickswap_attacking:
+		charged_dash()
 
 func _on_WalkParticleTimer_timeout():
 	if is_on_floor() and Input.is_action_pressed("right") or Input.is_action_pressed("left"):
@@ -2029,28 +2054,22 @@ func _on_GhostTrailTimer_timeout():
 		if Global.current_character == "Player" and velocity.x != 0:
 			var ghost_trail = preload("res://scenes/misc/GhostTrail.tscn").instance()
 			
-#			var texture 
-			
 			if $Sprite.frames == DEFAULT_SKIN:
-#				texture = preload("res://assets/characters/player/player_dash.png")
 				ghost_trail.texture = preload("res://assets/characters/player/player_idle.png")
 				ghost_trail.scale.x = 5
 				ghost_trail.scale.y = 5
-	
 			elif $Sprite.frames == CYBER_NINJA_SKIN:
-#				texture = preload("res://assets/characters/player/skins/cyber_ninja/player_dash.png")
 				ghost_trail.texture = preload("res://assets/characters/player/skins/cyber_ninja/player_idle.png")
 				ghost_trail.scale.x = 6
 				ghost_trail.scale.y = 6
 			get_parent().add_child(ghost_trail)
 			ghost_trail.position = global_position
 			if !$Sprite.flip_h:
-				
 				ghost_trail.flip_h = false
 			else:
 				ghost_trail.flip_h = true
 				
-	
+
 
 
 
@@ -2095,3 +2114,6 @@ func _on_StabAttackCollision_area_entered(area):
 func _on_StabAttackCollision_area_exited(area):
 	if area.is_in_group("Enemy"):
 		attack_area_overlaps_enemy = false
+
+
+

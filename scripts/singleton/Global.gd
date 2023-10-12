@@ -1,5 +1,6 @@
 extends Node 
 
+var can_open_pause_menu : bool = false
 # GLOBALLY ACCESSED VARIABLES
 var max_hearts : float = 10
 var hearts : float = max_hearts
