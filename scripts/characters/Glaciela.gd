@@ -141,6 +141,7 @@ func _physics_process(delta):
 				$AnimatedSprite.play("Default")
 		if Input.is_action_just_pressed("ui_dash") and !get_parent().get_parent().can_dash and !get_parent().get_parent().get_node("DashUseTimer").is_stopped():
 			$AnimatedSprite.play("Dash")
+			print("text")
 #			attack_string_count = 4
 			yield(get_tree().create_timer(0.25), "timeout")
 			$AnimatedSprite.play("Default")
@@ -158,7 +159,21 @@ func _physics_process(delta):
 			print("skill emitted")
 			emit_signal("skill_used", "IceLance")
 
+func _input(event):
+	if Global.current_character == "Glaciela":
+		if event.is_action_pressed("ui_attack"):
+			attack()
+			$InputPressTimer.start()
+		if event.is_action_pressed("heal"):
+			if Global.healthpot_amount > 0:
+				heal(5)
+		if event.is_action_pressed("ui_dash") and $DashInputPressTimer.is_stopped():
+			print("awooga")
+			get_parent().get_parent().dash()
+			$DashInputPressTimer.start()
 
+func charged_dash():
+	$DashInputPressTimer.stop()
 func attack():
 	if Global.current_character == "Glaciela" and $MeleeTimer.is_stopped():
 		if get_parent().get_parent().is_on_floor():
@@ -397,14 +412,6 @@ func charge_meter():
 	if Global.current_character == "Glaciela":
 		$ChargingParticle.visible = true if is_charging else false
 
-func _input(event):
-	if Global.current_character == "Glaciela":
-		if event.is_action_pressed("ui_attack"):
-			attack()
-			$InputPressTimer.start()
-		if event.is_action_pressed("heal"):
-			if Global.healthpot_amount > 0:
-				heal(5)
 				
 
 #func downwards_charged_attack():
@@ -851,3 +858,9 @@ func _on_AttackTimer_timeout():
 func _on_AnimationPlayer_animation_finished(anim_name):
 	if anim_name == "SpecialAttack2_Right" or "SpecialAttack1_Right" or "SpecialAttack1_Left":
 		$SpecialAttackArea2D/CollisionShape2D.disabled = true
+
+
+func _on_DashInputPressTimer_timeout():
+	if Global.current_character == "Player" and !Input.is_action_pressed("ui_attack"):
+		charged_dash()
+

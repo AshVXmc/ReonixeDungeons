@@ -1,7 +1,7 @@
 class_name EnemyHealingOrb extends Node2D
 
-export var speed = 350
-export var steer_force = 50.0
+export var speed = 750
+export var steer_force = 150.0
 
 var velocity = Vector2.ZERO
 var acceleration = Vector2.ZERO
@@ -13,7 +13,7 @@ func start(_transform, _target):
 	target = _target
 
 func get_closest_enemy() -> Node2D:
-	var enemies = get_tree().get_nodes_in_group("EnemyEntity")
+	var enemies = get_tree().get_nodes_in_group("CanBeHealed")
 	if enemies.empty(): 
 		return null
 	var distances = []
@@ -24,24 +24,31 @@ func get_closest_enemy() -> Node2D:
 	var min_index = distances.find(min_distance)
 	var closest_enemy = enemies[min_index]
 	return closest_enemy
-	
-func seek():
-	var steer = Vector2.ZERO
-	if target:
-		var desired = (target.position - position).normalized() * speed
-		steer = (desired - velocity).normalized() * steer_force
-		return steer
-	else:
-		return 0
 
 func _physics_process(delta):
 	target = get_closest_enemy()
-	if target and target.get_node("Area2D").overlaps_area($Detector):
-		acceleration += seek()
+	if target:
+		var coordinates = target.position
+		position = position.move_toward(coordinates, delta * speed)
 	else:
-		yield(get_tree().create_timer(8), "timeout")
-		queue_free()
-	velocity += acceleration * delta
-	velocity = velocity.clamped(speed)
-#	rotation = velocity.angle()
-	position += velocity * delta
+		call_deferred('free')
+
+func destroy():
+	$CollisionShape2D.disabled = true
+	$DestroyedTImer.stop()
+	$Sprite.visible = false
+	var bp = preload("res://scenes/particles/BlueSmokeParticle.tscn").instance()
+	add_child(bp)
+	bp.emitting = true
+	bp.one_shot = true
+	yield(get_tree().create_timer(bp.lifetime), "timeout")
+	call_deferred('free')
+	
+
+func _on_DestroyedTImer_timeout():
+	destroy()
+
+
+func _on_EnemyHealingOrb_body_entered(body):
+	if body.is_in_group("EnemyEntity") and body.is_in_group("CanBeHealed"):
+		destroy()

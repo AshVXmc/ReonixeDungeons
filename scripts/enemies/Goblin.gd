@@ -15,7 +15,7 @@ var direction : int = 1
 var is_dead : bool = false 
 const TYPE : String = "Enemy"
 const FLOOR = Vector2(0, -1)
-const MAX_SPEED : int = 140
+const MAX_SPEED : int = 110
 var SPEED : int = MAX_SPEED
 const MAX_GRAVITY : int = 45
 var GRAVITY : int = MAX_GRAVITY
@@ -306,9 +306,8 @@ func _on_Area2D_area_entered(area):
 		if area.is_in_group("HeavyPoiseDamage"):
 			knockback(10)
 	
-#	if area.is_in_group("Enemy"):
-#		set_collision_mask_bit(2, false)
-#
+		if area.is_in_group("EnemyHealingOrb") and self.is_in_group("CanBeHealed") and HP < max_HP and !dead:
+			heal(0.325)
 
 func add_damage_particles(type : String, dmg : int, is_crit : bool):
 	var dmgparticle = DMG_INDICATOR.instance()
@@ -319,6 +318,9 @@ func add_damage_particles(type : String, dmg : int, is_crit : bool):
 	get_parent().add_child(dmgparticle)
 	dmgparticle.position = global_position
 
+func heal(amount : float):
+	# amount = percent of max health that gets healed. (Float)
+	$HealthBar.value += max_HP * amount
 func knockback(knockback_coefficient : float = 1):
 	is_staggered = true
 	if $Sprite.flip_h:

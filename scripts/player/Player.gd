@@ -1135,7 +1135,10 @@ func play_attack_animation(direction : String):
 						if Input.is_action_pressed("ui_down"):
 							stab_attack()
 						else:
+							
 							$AnimationPlayer.play("SwordSwingRight4")
+			
+							
 						$AttackCollision.remove_from_group("Airborne")
 						if is_a_critical_hit():
 							crit_dmg = (Global.player_skill_multipliers["CritDamage"] / 100 + 1)
@@ -1174,7 +1177,7 @@ func play_attack_animation(direction : String):
 						if Input.is_action_pressed("ui_down"):
 							stab_attack()
 						else:
-							$AnimationPlayer.play("SwordSwingRight4")
+							$AnimationPlayer.play("SwordSwingLeft4")
 						$AttackCollision.remove_from_group("Airborne")
 						if is_a_critical_hit():
 							crit_dmg = (Global.player_skill_multipliers["CritDamage"] / 100 + 1)
@@ -2026,7 +2029,7 @@ func _on_InputPressTimer_timeout():
 						charged_attack("Circular") if attack_string_count == 1 else charged_attack("Ground")
 
 func _on_DashInputPressTimer_timeout():
-	if !Input.is_action_pressed("ui_attack") and !is_quickswap_attacking:
+	if Global.current_character == "Player" and !Input.is_action_pressed("ui_attack") and !is_quickswap_attacking:
 		charged_dash()
 
 func _on_WalkParticleTimer_timeout():

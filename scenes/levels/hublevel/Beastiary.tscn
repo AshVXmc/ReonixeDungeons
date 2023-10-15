@@ -27,6 +27,7 @@ position = Vector2( 0.448471, 1.83575 )
 shape = SubResource( 1 )
 
 [node name="Label" type="RichTextLabel" parent="."]
+visible = false
 margin_left = -101.0
 margin_top = -135.0
 margin_right = 140.0
@@ -40,6 +41,7 @@ text = "Beastiary "
 scroll_active = false
 
 [node name="Keybind" type="Label" parent="."]
+visible = false
 anchor_left = -3.732
 anchor_right = -3.732
 margin_left = 90.0

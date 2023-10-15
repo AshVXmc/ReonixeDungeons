@@ -110,6 +110,18 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Blur" type="ColorRect" parent="OutOfFocus"]
+material = ExtResource( 1 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -1090.0
+margin_top = -656.5
+margin_right = 1090.0
+margin_bottom = 512.5
+color = Color( 1, 1, 1, 0 )
+
 [node name="NinePatchRect" type="NinePatchRect" parent="OutOfFocus"]
 margin_left = 349.0
 margin_top = 310.0

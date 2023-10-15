@@ -306,7 +306,7 @@ extents = Vector2( 9.93562, 41.0079 )
 [sub_resource type="RectangleShape2D" id=14]
 extents = Vector2( 32, 49 )
 
-[node name="Goblin" type="KinematicBody2D" groups=["Enemy", "EnemyEntity"]]
+[node name="Goblin" type="KinematicBody2D" groups=["CanBeHealed", "Enemy", "EnemyEntity"]]
 scale = Vector2( 1.2, 1.2 )
 collision_layer = 4
 collision_mask = 11
