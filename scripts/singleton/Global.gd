@@ -116,6 +116,10 @@ var glaciela_skill_multipliers : Dictionary = {
 	"Birthday": [10,5]
 }
 
+var agnette_skill_multipliers = {
+	
+}
+
 var enemy_skill_multipliers : Dictionary = {
 	"GoblinSpearThrustAttack" : 100.0
 }
@@ -178,8 +182,8 @@ var player_skills : Dictionary = {
 
 
 var current_character : String 
-var equipped_characters : Array = ["Player", "Glaciela", ""]
-var unlocked_characters : Array = ["Player", "Glaciela", "Domiguine"]
+var equipped_characters : Array = ["Player", "Glaciela", "Agnette"]
+var unlocked_characters : Array = ["Player", "Glaciela", ""]
 var alive : Array = [true, true, true]
 
 # The level of skills. Higher levels = more damage and utility etc.

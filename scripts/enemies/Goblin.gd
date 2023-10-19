@@ -306,8 +306,8 @@ func _on_Area2D_area_entered(area):
 		if area.is_in_group("HeavyPoiseDamage"):
 			knockback(10)
 	
-		if area.is_in_group("EnemyHealingOrb") and self.is_in_group("CanBeHealed") and HP < max_HP and !dead:
-			heal(0.325)
+		if area.is_in_group("EnemyHealingOrb") and self.is_in_group("CanBeHealed"):
+			heal(0.5)
 
 func add_damage_particles(type : String, dmg : int, is_crit : bool):
 	var dmgparticle = DMG_INDICATOR.instance()

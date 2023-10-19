@@ -252,3 +252,17 @@ points = PoolVector2Array( 96, 96, 0, 96, 0, 0, 96, 0 )
 "shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
 } ]
 20/z_index = 0
+21/name = "lichen_ruins_oneway_spritesheet.png 21"
+21/texture = ExtResource( 2 )
+21/tex_offset = Vector2( 0, 0 )
+21/modulate = Color( 1, 1, 1, 1 )
+21/region = Rect2( 96, 96, 96, 96 )
+21/tile_mode = 0
+21/occluder_offset = Vector2( 0, 0 )
+21/navigation_offset = Vector2( 0, 0 )
+21/shape_offset = Vector2( 0, 0 )
+21/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+21/shape_one_way = false
+21/shape_one_way_margin = 0.0
+21/shapes = [  ]
+21/z_index = 0

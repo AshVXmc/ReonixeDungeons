@@ -2,15 +2,10 @@ class_name EnemyHealingOrb extends Node2D
 
 export var speed = 750
 export var steer_force = 150.0
-
 var velocity = Vector2.ZERO
 var acceleration = Vector2.ZERO
-var target = null
+var target = null # the node of the enemy that the orb is supposed to be targeting. this makes sure that the orb won't collide with full health enemies
 
-func start(_transform, _target):
-	global_transform = _transform
-	velocity = transform.x * speed
-	target = _target
 
 func get_closest_enemy() -> Node2D:
 	var enemies = get_tree().get_nodes_in_group("CanBeHealed")
@@ -50,5 +45,5 @@ func _on_DestroyedTImer_timeout():
 
 
 func _on_EnemyHealingOrb_body_entered(body):
-	if body.is_in_group("EnemyEntity") and body.is_in_group("CanBeHealed"):
+	if body.is_in_group("EnemyEntity") and body.is_in_group("CanBeHealed") and body.HP < body.max_HP:
 		destroy()

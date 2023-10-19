@@ -35,10 +35,6 @@ func _physics_process(delta):
 	else:
 		SPEED = MAX_SPEED / 2.5
 	target = get_closest_injured_enemy()
-	if target and target.get_node("Area2D").overlaps_area($Detector):
-		is_in_range = true
-	else:
-		is_in_range = false
 
 func summon_healing_orb():
 	casting_healing = true
@@ -56,7 +52,7 @@ func summon_healing_orb():
 
 
 func _on_HealingOrbTimer_timeout():
-	if is_in_range:
+	if target != null and target.get_node("Area2D").overlaps_area($Detector):
 		summon_healing_orb()
 	else:
 		$HealingOrbTimer.start()

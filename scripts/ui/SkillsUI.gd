@@ -5,6 +5,7 @@ signal ability_on_cooldown(ability_name, attack_bonus)
 var fireballcost : int = 2
 const playericon = preload("res://assets/UI/player_character_icon.png")
 const glacielaicon = preload("res://assets/UI/glaciela_character_icon.png")
+
 const empty_icon = preload("res://assets/UI/empty_character_icon.png")
 onready var character1 : String = Global.equipped_characters[0]
 var can_swap_character : bool = true
