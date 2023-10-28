@@ -160,7 +160,7 @@ func _physics_process(delta):
 			emit_signal("skill_used", "IceLance")
 
 func _input(event):
-	if Global.current_character == "Glaciela":
+	if Global.current_character == "Agnette":
 		if event.is_action_pressed("ui_attack"):
 			attack()
 			$InputPressTimer.start()
@@ -861,6 +861,6 @@ func _on_AnimationPlayer_animation_finished(anim_name):
 
 
 func _on_DashInputPressTimer_timeout():
-	if Global.current_character == "Player" and !Input.is_action_pressed("ui_attack"):
+	if Global.current_character == "Glaciela" and !Input.is_action_pressed("ui_attack"):
 		charged_dash()
 

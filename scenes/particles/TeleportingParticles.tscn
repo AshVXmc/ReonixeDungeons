@@ -3,9 +3,9 @@
 [ext_resource path="res://assets/particles/charging_particle.png" type="Texture" id=1]
 
 [node name="TeleportingParticles" type="CPUParticles2D"]
-scale = Vector2( 2.5, 2.5 )
+scale = Vector2( 2, 2 )
 emitting = false
-amount = 10
+amount = 6
 lifetime = 0.6
 one_shot = true
 explosiveness = 0.43

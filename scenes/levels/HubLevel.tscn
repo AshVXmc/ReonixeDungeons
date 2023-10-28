@@ -1,4 +1,4 @@
-[gd_scene load_steps=56 format=2]
+[gd_scene load_steps=55 format=2]
 
 [ext_resource path="res://tilesets/HubLevelTileset.tres" type="TileSet" id=1]
 [ext_resource path="res://assets/terrain/deep_woods/background_deep_woods.png" type="Texture" id=2]
@@ -50,7 +50,6 @@
 [ext_resource path="res://scenes/terrain/HealthPack.tscn" type="PackedScene" id=48]
 [ext_resource path="res://assets/terrain/hub_level/library_desk_1.png" type="Texture" id=49]
 [ext_resource path="res://scenes/enemies/ShamanGoblin.tscn" type="PackedScene" id=50]
-[ext_resource path="res://scenes/enemies/EnemyHealingOrb.tscn" type="PackedScene" id=51]
 
 [sub_resource type="TileSet" id=1]
 0/name = "deep_woods_spritesheet.png 0"
@@ -426,6 +425,3 @@ editor_draw_limits = true
 
 [node name="ShamanGoblin" parent="." instance=ExtResource( 50 )]
 position = Vector2( 2187, 602 )
-
-[node name="EnemyHealingOrb" parent="." instance=ExtResource( 51 )]
-position = Vector2( 1751, 336 )

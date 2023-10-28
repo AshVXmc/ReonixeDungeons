@@ -3847,7 +3847,7 @@ wait_time = 0.475
 one_shot = true
 
 [node name="DashInputPressTimer" type="Timer" parent="."]
-wait_time = 0.475
+wait_time = 0.45
 one_shot = true
 
 [node name="HeightRaycast2D" type="RayCast2D" parent="."]

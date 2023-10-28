@@ -724,7 +724,24 @@ func _input(event):
 				thrust_attack(true)
 			$InputPressTimer.start()
 		if event.is_action_pressed("ui_dash") and $DashInputPressTimer.is_stopped() and !is_quickswap_attacking:
-			dash()
+			if get_parent().has_node("FireCharm") and weakref(get_parent().get_node("FireCharm")).get_ref() != null:
+				var teleport_destination = get_parent().get_node("FireCharm").global_position
+				var tp_particle = TELEPORTING_PARTICLE.instance()
+				var tp_particle2 = TELEPORTING_PARTICLE.instance()
+				get_parent().add_child(tp_particle)
+				tp_particle.position = global_position
+				tp_particle.emitting = true
+				tp_particle.one_shot = true
+				position.x = teleport_destination.x
+				position.y = teleport_destination.y 
+				get_parent().add_child(tp_particle2)
+				tp_particle2.position = get_parent().get_node("FireCharm").global_position
+				tp_particle2.emitting = true
+				tp_particle2.one_shot = true
+				
+				get_parent().get_node("FireCharm").call_deferred('free')
+			else:
+				dash()
 			$DashInputPressTimer.start()
 		if event.is_action_pressed("ui_down") and airborne_mode:
 			airborne_mode = false
@@ -735,15 +752,10 @@ func _input(event):
 func charged_dash():
 	$DashInputPressTimer.stop()
 	var teleport_destination : Vector2
-	if get_parent().has_node("FireCharm"):
-		teleport_destination = get_parent().get_node("FireCharm").global_position
-		var tp_particle = TELEPORTING_PARTICLE.instance()
-		get_parent().add_child(tp_particle)
-		tp_particle.position = global_position
-		tp_particle.emitting = true
-		tp_particle.one_shot = true
-		position.x = teleport_destination.x
-		position.y = teleport_destination.y 
+	var fc = preload("res://scenes/skills/FireCharm.tscn").instance()
+	get_parent().add_child(fc)
+	fc.position = global_position
+
 	
 
 	
@@ -2029,7 +2041,7 @@ func _on_InputPressTimer_timeout():
 						charged_attack("Circular") if attack_string_count == 1 else charged_attack("Ground")
 
 func _on_DashInputPressTimer_timeout():
-	if Global.current_character == "Player" and !Input.is_action_pressed("ui_attack") and !is_quickswap_attacking:
+	if Global.current_character == "Player" and Input.is_action_pressed("ui_dash") and !Input.is_action_pressed("ui_attack") and !is_quickswap_attacking:
 		charged_dash()
 
 func _on_WalkParticleTimer_timeout():

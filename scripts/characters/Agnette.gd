@@ -113,7 +113,7 @@ func _physics_process(delta):
 #		attack_string_count = 4
 	if Input.is_action_just_pressed("right") or Input.is_action_just_pressed("left") and attack_string_count != 3:
 		attack_string_count = 4
-	if Global.current_character == "Glaciela":
+	if Global.current_character == "Agnette":
 		charge_meter()
 		$AnimatedSprite.visible = true
 		if $AnimatedSprite.flip_h:
@@ -152,7 +152,7 @@ func _physics_process(delta):
 			emit_signal("skill_used", "IceLance")
 
 func _input(event):
-	if Global.current_character == "Glaciela":
+	if Global.current_character == "Agnette":
 		if event.is_action_pressed("ui_attack"):
 			attack()
 			$InputPressTimer.start()
@@ -167,7 +167,7 @@ func _input(event):
 func charged_dash():
 	$DashInputPressTimer.stop()
 func attack():
-	if Global.current_character == "Glaciela" and $MeleeTimer.is_stopped():
+	if Global.current_character == "Agnette" and $MeleeTimer.is_stopped():
 		if get_parent().get_parent().is_on_floor():
 			airborne_mode = true
 			$AirborneTimer.start()
@@ -203,13 +203,13 @@ func is_a_critical_hit() -> bool:
 func change_mana_value(amount : float):
 	if Global.current_character == Global.equipped_characters[0] and Global.mana < Global.max_mana:
 		Global.mana += amount
-		emit_signal("mana_changed", Global.mana, "Glaciela")
+		emit_signal("mana_changed", Global.mana, "Agnette")
 	elif Global.current_character == Global.equipped_characters[1] and Global.character2_mana < Global.character2_max_mana:
 		Global.character2_mana += amount
-		emit_signal("mana_changed", Global.character2_mana, "Glaciela")
+		emit_signal("mana_changed", Global.character2_mana, "Agnette")
 	elif Global.current_character == Global.equipped_characters[2] and Global.character3_mana < Global.character3_max_mana:
 		Global.character3_mana += amount
-		emit_signal("mana_changed", Global.character3_mana, "Glaciela")
+		emit_signal("mana_changed", Global.character3_mana, "Agnette")
 func add_heal_particles(heal_amount : float):
 	var heal_particle = HEAL_PARTICLE.instance()
 	heal_particle.heal_amount = heal_amount * 2
@@ -217,19 +217,19 @@ func add_heal_particles(heal_amount : float):
 	heal_particle.position = global_position
 func heal(heal_amount : float):
 	# heal amount in percentage based on max HP
-	if Global.equipped_characters[0] == "Glaciela":
+	if Global.equipped_characters[0] == "Agnette":
 		add_heal_particles(clamp(heal_amount, 0, Global.max_hearts - Global.hearts))
 		Global.hearts += clamp(heal_amount, 0, Global.max_hearts - Global.hearts)
-		emit_signal("life_changed", Global.hearts, "Glaciela")
-	elif Global.equipped_characters[1] == "Glaciela":
+		emit_signal("life_changed", Global.hearts, "Agnette")
+	elif Global.equipped_characters[1] == "Agnette":
 		add_heal_particles(clamp(heal_amount, 0, Global.character_2_max_hearts - Global.character2_hearts))
 		Global.character2_hearts += clamp(heal_amount, 0, Global.character_2_max_hearts - Global.character2_hearts)
-		emit_signal("life_changed", Global.character2_hearts, "Glaciela")
+		emit_signal("life_changed", Global.character2_hearts, "Agnette")
 		print("healed")
-	elif Global.equipped_characters[2] == "Glaciela":
+	elif Global.equipped_characters[2] == "Agnette":
 		add_heal_particles(clamp(heal_amount, 0, Global.character_3_max_hearts - Global.character3_hearts))
 		Global.character3_hearts += clamp(heal_amount, 0, Global.character_3_max_hearts - Global.character3_hearts)
-		emit_signal("life_changed", Global.character3_hearts, "Glaciela")
+		emit_signal("life_changed", Global.character3_hearts, "Agnette")
 	Global.healthpot_amount -= 1
 	emit_signal("healthpot_obtained", Global.healthpot_amount)
 	
@@ -238,7 +238,7 @@ func _on_SpecialAttackTimer_timeout():
 	$SpecialSequenceWindow.start()
 	
 func charge_meter():
-	if Global.current_character == "Glaciela":
+	if Global.current_character == "Agnette":
 		$ChargingParticle.visible = true if is_charging else false
 
 				
@@ -451,7 +451,7 @@ func _on_AttackCollision_area_entered(area):
 
 
 func _on_Area2D_area_entered(area):
-	if Global.current_character == "Glaciela":
+	if Global.current_character == "Agnette":
 		if area.is_in_group("HealthPot"):
 			Global.healthpot_amount += 1
 			emit_signal("healthpot_obtained", Global.healthpot_amount)
@@ -529,19 +529,19 @@ func add_hurt_particles(damage : float):
 	hurt_particle.position = global_position
 
 func take_damage(damage : float):
-	if Global.current_character == "Glaciela":
-		if Global.equipped_characters[0] == "Glaciela":
+	if Global.current_character == "Agnette":
+		if Global.equipped_characters[0] == "Agnette":
 			Global.hearts -= damage
 			add_hurt_particles(damage)
-			emit_signal("life_changed", Global.hearts, "Glaciela")
-		elif Global.equipped_characters[1] == "Glaciela":
+			emit_signal("life_changed", Global.hearts, "Agnette")
+		elif Global.equipped_characters[1] == "Agnette":
 			Global.character2_hearts -= damage
 			add_hurt_particles(damage )
-			emit_signal("life_changed", Global.character2_hearts, "Glaciela")
-		elif Global.equipped_characters[2] == "Glaciela":
+			emit_signal("life_changed", Global.character2_hearts, "Agnette")
+		elif Global.equipped_characters[2] == "Agnette":
 			Global.character3_hearts -= damage
 			add_hurt_particles(damage)
-			emit_signal("life_changed", Global.character3_hearts, "Glaciela")
+			emit_signal("life_changed", Global.character3_hearts, "Agnette")
 
 	
 
@@ -558,7 +558,7 @@ func _on_EnemyEvasionArea_area_entered(area):
 
 
 func _on_EnemyEvasionArea_area_exited(area):
-	if Global.current_character == "Glaciela":
+	if Global.current_character == "Agnette":
 		if get_parent().get_parent().is_dashing and area.is_in_group("Hostile"):
 			get_parent().get_parent().is_invulnerable = true
 			if !get_parent().get_parent().is_on_floor() and !get_parent().get_parent().get_node("HeightRaycast2D").is_colliding():
@@ -613,6 +613,6 @@ func _on_AnimationPlayer_animation_finished(anim_name):
 
 
 func _on_DashInputPressTimer_timeout():
-	if Global.current_character == "Player" and !Input.is_action_pressed("ui_attack"):
+	if Global.current_character == "Agnette" and !Input.is_action_pressed("ui_attack"):
 		charged_dash()
 
