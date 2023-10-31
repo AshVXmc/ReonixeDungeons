@@ -1,0 +1,105 @@
+[gd_scene load_steps=19 format=2]
+
+[ext_resource path="res://scripts/misc/Level.gd" type="Script" id=1]
+[ext_resource path="res://scenes/menus/DebugMenu.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scenes/enemies/logic/EnemySkillGlobalCD.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scenes/menus/EleganceMeterUI.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scenes/menus/HealthPotUI.tscn" type="PackedScene" id=7]
+[ext_resource path="res://scenes/menus/GameOver.tscn" type="PackedScene" id=8]
+[ext_resource path="res://scenes/menus/HeartUI.tscn" type="PackedScene" id=11]
+[ext_resource path="res://tilesets/Default.tres" type="TileSet" id=13]
+[ext_resource path="res://scenes/menus/SceneTransition.tscn" type="PackedScene" id=14]
+[ext_resource path="res://scenes/menus/PauseUI.tscn" type="PackedScene" id=16]
+[ext_resource path="res://scenes/menus/InventoryUI.tscn" type="PackedScene" id=17]
+[ext_resource path="res://scenes/misc/Light.tscn" type="PackedScene" id=20]
+[ext_resource path="res://scenes/menus/FPSCounter.tscn" type="PackedScene" id=21]
+[ext_resource path="res://scenes/menus/ManaUI.tscn" type="PackedScene" id=23]
+[ext_resource path="res://scenes/menus/SkillsUI.tscn" type="PackedScene" id=24]
+[ext_resource path="res://assets/terrain/background_dungeons.png" type="Texture" id=26]
+[ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=29]
+[ext_resource path="res://scenes/menus/OpalsUI.tscn" type="PackedScene" id=31]
+
+[node name="EndlessLevel" type="Node2D"]
+script = ExtResource( 1 )
+dev_mode = true
+
+[node name="HeartUI" parent="." instance=ExtResource( 11 )]
+
+[node name="ManaUI" parent="." instance=ExtResource( 23 )]
+
+[node name="OpalsUI" parent="." instance=ExtResource( 31 )]
+
+[node name="HealthPotUI" parent="." instance=ExtResource( 7 )]
+
+[node name="InventoryUI" parent="." instance=ExtResource( 17 )]
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+scroll_ignore_camera_zoom = true
+
+[node name="Background1" type="ParallaxLayer" parent="ParallaxBackground"]
+z_as_relative = false
+motion_mirroring = Vector2( 1440, 1050 )
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/Background1"]
+scale = Vector2( 15, 15 )
+texture = ExtResource( 26 )
+centered = false
+__meta__ = {
+"_editor_description_": ""
+}
+
+[node name="SkillsUI" parent="." instance=ExtResource( 24 )]
+
+[node name="GameOverUI" parent="." instance=ExtResource( 8 )]
+
+[node name="SceneTransition" parent="." instance=ExtResource( 14 )]
+
+[node name="DebugMenu" parent="." instance=ExtResource( 2 )]
+
+[node name="FPSCounter" parent="." instance=ExtResource( 21 )]
+
+[node name="EleganceMeterUI" parent="." instance=ExtResource( 5 )]
+
+[node name="TileMap (Back)" type="TileMap" parent="."]
+cell_size = Vector2( 96, 96 )
+format = 1
+
+[node name="TIleMap" type="TileMap" parent="." groups=["Tilemap"]]
+tile_set = ExtResource( 13 )
+cell_size = Vector2( 96, 96 )
+collision_layer = 129
+collision_mask = 129
+format = 1
+tile_data = PoolIntArray( -1, 6, 0, -65536, 6, 0, -65535, 6, 0, -65534, 6, 0, -65533, 6, 0, -65532, 6, 0, -65531, 6, 0, -65530, 6, 0, -65529, 6, 0, -65528, 6, 0, -65527, 6, 0, -65526, 6, 0, -65525, 6, 0, -65524, 6, 0, -65523, 6, 0, -65522, 6, 0, -65521, 6, 0, -65520, 6, 0, -65519, 6, 0, -65518, 6, 0, -65517, 6, 0, -65516, 6, 0, -65515, 6, 0, -65514, 6, 0, 65535, 6, 0, 0, 6, 0, 6, 12, 0, 15, 12, 0, 21, 6, 0, 22, 6, 0, 131071, 6, 0, 65536, 6, 0, 65542, 13, 0, 65551, 13, 0, 65557, 6, 0, 65558, 6, 0, 196607, 6, 0, 131072, 6, 0, 131078, 13, 0, 131087, 13, 0, 131093, 6, 0, 131094, 6, 0, 262143, 6, 0, 196608, 6, 0, 196614, 13, 0, 196623, 13, 0, 196629, 6, 0, 196630, 6, 0, 327679, 6, 0, 262144, 6, 0, 262150, 13, 0, 262159, 13, 0, 262165, 6, 0, 262166, 6, 0, 393215, 6, 0, 327680, 6, 0, 327686, 13, 0, 327695, 13, 0, 327701, 6, 0, 327702, 6, 0, 458751, 6, 0, 393216, 6, 0, 393222, 13, 0, 393231, 13, 0, 393237, 6, 0, 393238, 6, 0, 524287, 6, 0, 458752, 6, 0, 458758, 13, 0, 458767, 13, 0, 458773, 6, 0, 458774, 6, 0, 589823, 6, 0, 524288, 6, 0, 524294, 13, 0, 524303, 13, 0, 524309, 6, 0, 524310, 6, 0, 655359, 6, 0, 589824, 6, 0, 589830, 14, 0, 589839, 14, 0, 589845, 6, 0, 589846, 6, 0, 720895, 6, 0, 655360, 6, 0, 655361, 20, 0, 655362, 19, 0, 655363, 19, 0, 655364, 19, 0, 655365, 20, 0, 655366, 19, 0, 655367, 20, 0, 655368, 19, 0, 655369, 19, 0, 655370, 19, 0, 655371, 19, 0, 655372, 19, 0, 655373, 19, 0, 655374, 20, 0, 655375, 19, 0, 655376, 20, 0, 655377, 19, 0, 655378, 19, 0, 655379, 19, 0, 655380, 20, 0, 655381, 6, 0, 655382, 6, 0, 786431, 6, 0, 720896, 6, 0, 720897, 6, 0, 720898, 6, 0, 720899, 6, 0, 720900, 6, 0, 720901, 6, 0, 720902, 6, 0, 720903, 6, 0, 720904, 6, 0, 720905, 6, 0, 720906, 6, 0, 720907, 6, 0, 720908, 6, 0, 720909, 6, 0, 720910, 6, 0, 720911, 6, 0, 720912, 6, 0, 720913, 6, 0, 720914, 6, 0, 720915, 6, 0, 720916, 6, 0, 720917, 6, 0, 720918, 6, 0, 851967, 6, 0, 786432, 6, 0, 786433, 6, 0, 786434, 6, 0, 786435, 6, 0, 786436, 6, 0, 786437, 6, 0, 786438, 6, 0, 786439, 6, 0, 786440, 6, 0, 786441, 6, 0, 786442, 6, 0, 786443, 6, 0, 786444, 6, 0, 786445, 6, 0, 786446, 6, 0, 786447, 6, 0, 786448, 6, 0, 786449, 6, 0, 786450, 6, 0, 786451, 6, 0, 786452, 6, 0, 786453, 6, 0, 786454, 6, 0 )
+__meta__ = {
+"_edit_ik_": true
+}
+
+[node name="Light2D" parent="." instance=ExtResource( 20 )]
+visible = false
+position = Vector2( 1725.87, 747.09 )
+scale = Vector2( 123.492, 44.8937 )
+energy = 0.65
+mode = 1
+
+[node name="PauseUI" parent="." instance=ExtResource( 16 )]
+
+[node name="Player" parent="." instance=ExtResource( 29 )]
+position = Vector2( 1043, 869 )
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+position = Vector2( 9.72693, -62.0423 )
+current = true
+zoom = Vector2( 1.3, 1.3 )
+limit_left = 0
+limit_top = -250
+limit_right = 2120
+limit_bottom = 1250
+drag_margin_h_enabled = true
+drag_margin_v_enabled = true
+editor_draw_limits = true
+
+[node name="Position2D" type="Position2D" parent="."]
+position = Vector2( -1139, 144 )
+
+[node name="EnemySkillGlobalCooldown" parent="." instance=ExtResource( 4 )]

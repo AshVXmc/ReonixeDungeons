@@ -725,21 +725,7 @@ func _input(event):
 			$InputPressTimer.start()
 		if event.is_action_pressed("ui_dash") and $DashInputPressTimer.is_stopped() and !is_quickswap_attacking:
 			if get_parent().has_node("FireCharm") and weakref(get_parent().get_node("FireCharm")).get_ref() != null:
-				var teleport_destination = get_parent().get_node("FireCharm").global_position
-				var tp_particle = TELEPORTING_PARTICLE.instance()
-				var tp_particle2 = TELEPORTING_PARTICLE.instance()
-				get_parent().add_child(tp_particle)
-				tp_particle.position = global_position
-				tp_particle.emitting = true
-				tp_particle.one_shot = true
-				position.x = teleport_destination.x
-				position.y = teleport_destination.y 
-				get_parent().add_child(tp_particle2)
-				tp_particle2.position = get_parent().get_node("FireCharm").global_position
-				tp_particle2.emitting = true
-				tp_particle2.one_shot = true
-				
-				get_parent().get_node("FireCharm").call_deferred('free')
+				teleport_to_firecharm()
 			else:
 				dash()
 			$DashInputPressTimer.start()
@@ -751,12 +737,29 @@ func _input(event):
 
 func charged_dash():
 	$DashInputPressTimer.stop()
-	var teleport_destination : Vector2
 	var fc = preload("res://scenes/skills/FireCharm.tscn").instance()
 	get_parent().add_child(fc)
 	fc.position = global_position
+	if $Sprite.flip_h:
+		fc.x_direction *= -1
+		
 
-	
+
+func teleport_to_firecharm():
+	var teleport_destination : Vector2 = get_parent().get_node("FireCharm").global_position
+	var tp_particle = TELEPORTING_PARTICLE.instance()
+	var tp_particle2 = TELEPORTING_PARTICLE.instance()
+	get_parent().add_child(tp_particle)
+	tp_particle.position = global_position
+	tp_particle.emitting = true
+	tp_particle.one_shot = true
+	position.x = teleport_destination.x
+	position.y = teleport_destination.y 
+	get_parent().add_child(tp_particle2)
+	tp_particle2.position = get_parent().get_node("FireCharm").global_position
+	tp_particle2.emitting = true
+	tp_particle2.one_shot = true
+	get_parent().get_node("FireCharm").call_deferred('free')
 
 	
 	

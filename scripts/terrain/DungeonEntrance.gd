@@ -25,8 +25,7 @@ func _process(delta):
 			is_opened = true
 			$Sprite.set_texture(opened)
 			colorrect.visible = true
-#			transition.transition()
-#			load_next_scene()
+
 
 func load_next_scene(slot_one : String, slot_two : String, slot_three : String):
 	Global.equipped_characters = [slot_one, slot_two, slot_three]

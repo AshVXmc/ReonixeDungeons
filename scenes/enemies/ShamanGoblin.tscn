@@ -505,7 +505,7 @@ position = Vector2( -34.1667, -20.8333 )
 position = Vector2( 34.167, -20.833 )
 
 [node name="HealingOrbTimer" type="Timer" parent="."]
-wait_time = 2.0
+wait_time = 1.5
 one_shot = true
 
 [node name="Detector" type="Area2D" parent="."]

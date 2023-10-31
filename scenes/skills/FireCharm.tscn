@@ -26,6 +26,7 @@ position = Vector2( 4.64286, -5.10897e-07 )
 shape = SubResource( 5 )
 
 [node name="DestroyedTimer" type="Timer" parent="."]
+wait_time = 8.0
 one_shot = true
 autostart = true
 
@@ -33,6 +34,13 @@ autostart = true
 position = Vector2( 0.357143, 2.52203 )
 shape = SubResource( 6 )
 
+[node name="StopMovingTimer" type="Timer" parent="."]
+wait_time = 0.7
+one_shot = true
+autostart = true
+
 [connection signal="area_entered" from="Area2D" to="." method="_on_Area2D_area_entered"]
 [connection signal="area_exited" from="Area2D" to="." method="_on_Area2D_area_exited"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]
 [connection signal="timeout" from="DestroyedTimer" to="." method="_on_DestroyedTimer_timeout"]
+[connection signal="timeout" from="StopMovingTimer" to="." method="_on_StopMovingTimer_timeout"]

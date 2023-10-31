@@ -160,7 +160,7 @@ func _physics_process(delta):
 			emit_signal("skill_used", "IceLance")
 
 func _input(event):
-	if Global.current_character == "Agnette":
+	if Global.current_character == "Glaciela":
 		if event.is_action_pressed("ui_attack"):
 			attack()
 			$InputPressTimer.start()

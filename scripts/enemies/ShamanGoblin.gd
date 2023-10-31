@@ -41,6 +41,7 @@ func summon_healing_orb():
 	$CastingParticle.visible = true
 	yield(get_tree().create_timer(0.65), "timeout")
 	var heal_orb = HEALING_ORB.instance()
+	heal_orb.target = target
 	get_parent().add_child(heal_orb)
 	if !$Sprite.flip_h:
 		heal_orb.position = $StaffSkullPosition2DLeft.global_position
