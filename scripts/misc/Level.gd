@@ -1,6 +1,5 @@
 class_name Level extends Node2D
 # If true
-export (bool) var dev_mode
 
 signal equipped_skills()
 func _ready():

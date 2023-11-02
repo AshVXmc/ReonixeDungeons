@@ -28,7 +28,7 @@ const actions : Array = [
 var max_mana : float = 18
 var mana : float = max_mana
 # attack_power is the player's atk
-var attack_power : int = 15
+var attack_power : int = 20
 var glaciela_attack : int = 20
 var player_skill_multipliers : Dictionary = {
 	"BaseHearts": 2.5,
@@ -43,7 +43,7 @@ var player_skill_multipliers : Dictionary = {
 	"DownwardsChargedAttack": 56.0,
 	"SpecialChargedAttack": 30.0 ,# x 4
 	"SpecialChargedAttackFinalStrike": 140.0,
-	"CircularFlurryAttack": 22.0, # x 3
+	"CircularFlurryAttack": 30.0, # x 3
 	"PiercingProjectile": 95.0,
 	"EntryAttack": 50.0, # x 3
 	"CounterAttack": 42.0, # x 2

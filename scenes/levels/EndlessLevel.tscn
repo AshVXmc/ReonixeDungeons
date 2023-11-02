@@ -1,7 +1,8 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=21 format=2]
 
-[ext_resource path="res://scripts/misc/Level.gd" type="Script" id=1]
+[ext_resource path="res://scripts/misc/EndlessLevel.gd" type="Script" id=1]
 [ext_resource path="res://scenes/menus/DebugMenu.tscn" type="PackedScene" id=2]
+[ext_resource path="res://assets/fonts/Born2bSportyV2.ttf" type="DynamicFontData" id=3]
 [ext_resource path="res://scenes/enemies/logic/EnemySkillGlobalCD.tscn" type="PackedScene" id=4]
 [ext_resource path="res://scenes/menus/EleganceMeterUI.tscn" type="PackedScene" id=5]
 [ext_resource path="res://scenes/menus/HealthPotUI.tscn" type="PackedScene" id=7]
@@ -19,9 +20,30 @@
 [ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=29]
 [ext_resource path="res://scenes/menus/OpalsUI.tscn" type="PackedScene" id=31]
 
+[sub_resource type="DynamicFont" id=1]
+size = 96
+font_data = ExtResource( 3 )
+
 [node name="EndlessLevel" type="Node2D"]
 script = ExtResource( 1 )
-dev_mode = true
+
+[node name="WaveStartUI" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="WaveStartUI"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="WaveLabel" type="Label" parent="WaveStartUI/Control"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -136.5
+margin_top = 220.0
+margin_right = 136.5
+margin_bottom = 332.0
+custom_fonts/font = SubResource( 1 )
+text = "Wave 1"
+align = 1
 
 [node name="HeartUI" parent="." instance=ExtResource( 11 )]
 
@@ -103,3 +125,9 @@ editor_draw_limits = true
 position = Vector2( -1139, 144 )
 
 [node name="EnemySkillGlobalCooldown" parent="." instance=ExtResource( 4 )]
+
+[node name="SpawnPoint0" type="Position2D" parent="."]
+position = Vector2( 624, 865 )
+
+[node name="SpawnPoint1" type="Position2D" parent="."]
+position = Vector2( 1488, 865 )
