@@ -8,7 +8,7 @@ var target = null # the node of the enemy that the orb is supposed to be targeti
 
 
 func _physics_process(delta):
-	if target != null:
+	if target != null and weakref(target).get_ref() != null:
 		var coordinates = target.position
 		position = position.move_toward(coordinates, delta * speed)
 	else:
@@ -20,10 +20,10 @@ func destroy():
 	$DestroyedTImer.stop()
 	$Sprite.visible = false
 	var bp = preload("res://scenes/particles/BlueSmokeParticle.tscn").instance()
-	add_child(bp)
+	get_parent().add_child(bp)
 	bp.emitting = true
 	bp.one_shot = true
-	yield(get_tree().create_timer(bp.lifetime), "timeout")
+	bp.position = global_position
 	call_deferred('free')
 	
 

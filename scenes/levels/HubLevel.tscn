@@ -1,4 +1,4 @@
-[gd_scene load_steps=55 format=2]
+[gd_scene load_steps=53 format=2]
 
 [ext_resource path="res://tilesets/HubLevelTileset.tres" type="TileSet" id=1]
 [ext_resource path="res://assets/terrain/deep_woods/background_deep_woods.png" type="Texture" id=2]
@@ -43,13 +43,11 @@
 [ext_resource path="res://assets/terrain/hub_level/library.png" type="Texture" id=41]
 [ext_resource path="res://assets/terrain/lamp_post.png" type="Texture" id=42]
 [ext_resource path="res://scenes/menus/SkillsUI.tscn" type="PackedScene" id=43]
-[ext_resource path="res://scenes/enemies/BowGoblin.tscn" type="PackedScene" id=44]
+[ext_resource path="res://assets/terrain/hub_level/teahouse.png" type="Texture" id=44]
 [ext_resource path="res://scenes/menus/InventoryUI.tscn" type="PackedScene" id=45]
 [ext_resource path="res://scenes/menus/HealthPotUI.tscn" type="PackedScene" id=46]
-[ext_resource path="res://scenes/enemies/Goblin.tscn" type="PackedScene" id=47]
 [ext_resource path="res://scenes/terrain/HealthPack.tscn" type="PackedScene" id=48]
 [ext_resource path="res://assets/terrain/hub_level/library_desk_1.png" type="Texture" id=49]
-[ext_resource path="res://scenes/enemies/ShamanGoblin.tscn" type="PackedScene" id=50]
 
 [sub_resource type="TileSet" id=1]
 0/name = "deep_woods_spritesheet.png 0"
@@ -222,6 +220,11 @@ direction = Vector2( 1, -1 )
 spread = 0.0
 gravity = Vector2( 0, -20 )
 
+[node name="TeaHouseBuilding" type="Sprite" parent="."]
+position = Vector2( 2648, 505.046 )
+scale = Vector2( 12, 12 )
+texture = ExtResource( 44 )
+
 [node name="IndoorShopDoor" parent="." instance=ExtResource( 28 )]
 position = Vector2( 2490.08, -1520.51 )
 target = "OutdoorShopDoor"
@@ -235,6 +238,15 @@ target = "IndoorShopDoor"
 position = Vector2( 1171.08, 516.365 )
 scale = Vector2( 12, 12 )
 texture = ExtResource( 41 )
+
+[node name="IndoorTeaShopDoor" parent="." instance=ExtResource( 28 )]
+position = Vector2( 4478, -1566 )
+target = "OutdoorTeaShopDoor"
+
+[node name="OutdoorTeaShopDoor" parent="." instance=ExtResource( 28 )]
+position = Vector2( 2774, 577 )
+scale = Vector2( 2.4, 2.4 )
+target = "IndoorTeaShopDoor"
 
 [node name="OutdoorLibraryDoor" parent="." instance=ExtResource( 28 )]
 position = Vector2( 1147, 576 )
@@ -396,12 +408,6 @@ energy = 0.65
 [node name="LootBag" parent="." instance=ExtResource( 9 )]
 position = Vector2( 1518.66, 558.741 )
 
-[node name="Goblin" parent="." instance=ExtResource( 47 )]
-position = Vector2( 1266, 600 )
-
-[node name="BowGoblin" parent="." instance=ExtResource( 44 )]
-position = Vector2( 1863, 609 )
-
 [node name="HealthPack" parent="." instance=ExtResource( 48 )]
 position = Vector2( 1724, 622 )
 
@@ -417,11 +423,8 @@ current = true
 zoom = Vector2( 1.2, 1.2 )
 limit_left = 0
 limit_top = -9999
-limit_right = 4000
+limit_right = 7500
 limit_bottom = 1750
 drag_margin_h_enabled = true
 drag_margin_v_enabled = true
 editor_draw_limits = true
-
-[node name="ShamanGoblin" parent="." instance=ExtResource( 50 )]
-position = Vector2( 2187, 602 )
