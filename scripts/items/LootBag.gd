@@ -60,7 +60,7 @@ func reward_opals():
 		"SSS":
 			amount = Rewards.SSS
 	Global.opals_amount += amount
-	emit_signal("player_obtained_lootbag", Global.opals_amount, amount)
+	emit_signal("player_obtained_lootbag", amount)
 	call_deferred('free')
 
 func _on_Area2D_area_entered(area):
