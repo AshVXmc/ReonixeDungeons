@@ -1,4 +1,4 @@
-class_name FireSaw extends FireGaugeBase
+class_name FireSaw extends Area2D
 
 const BURNING : PackedScene = preload("res://scenes/status_effects/BurningStatus.tscn")
 var SPEED : int = 500
@@ -8,13 +8,13 @@ var destroyed : bool = false
 const SMALL_FIRE_PARTICLE : PackedScene = preload("res://scenes/particles/FireHitParticle.tscn")
 var atkbonus : float
 var attack_calculation : float
-var burn_coefficient : float
+#var burn_coefficient : float
 
 func _ready():
 	$DestroyedTimer.start(Global.player_skill_multipliers["FireSawDuration"])
 	get_parent().add_to_group("FiresawActive")
 	if Global.equipped_characters[0] == "Player":
-		burncalculation = Global.attack_power * burn_coefficient
+#		burncalculation = Global.attack_power * burn_coefficient
 		attack_calculation = Global.attack_power * (Global.player_skill_multipliers["FireSaw"] / 100) + atkbonus
 	add_to_group(str(attack_calculation))
 	$AnimationPlayer.play("SPIN")

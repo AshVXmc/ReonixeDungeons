@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://scripts/ui/CharacterTalentTreeUI.gd" type="Script" id=1]
 [ext_resource path="res://assets/fonts/Born2bSportyV2.ttf" type="DynamicFontData" id=2]
@@ -18,6 +18,9 @@ font_data = ExtResource( 2 )
 
 [sub_resource type="DynamicFont" id=2]
 size = 32
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=3]
 font_data = ExtResource( 2 )
 
 [node name="CharacterTalentTreeUI" type="CanvasLayer"]
@@ -41,10 +44,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -1031.0
-margin_top = -579.0
-margin_right = 2209.0
-margin_bottom = 1581.0
+margin_left = -1337.0
+margin_top = -864.0
+margin_right = 1903.0
+margin_bottom = 1296.0
 color = Color( 1, 1, 1, 0 )
 
 [node name="NinePatchRect" type="NinePatchRect" parent="Control"]
@@ -70,6 +73,7 @@ margin_top = 13.0
 margin_right = 306.0
 margin_bottom = 61.0
 custom_colors/default_color = Color( 1, 1, 1, 1 )
+custom_colors/selection_color = Color( 1, 0.843137, 0.0117647, 1 )
 custom_fonts/normal_font = SubResource( 1 )
 bbcode_enabled = true
 bbcode_text = "[center]=== [color=#ffd703]Character Talent Tree[/color] ==="
@@ -131,53 +135,183 @@ expand = true
 [node name="TalentTreeControl" type="Control" parent="Control/NinePatchRect"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 8.0
-margin_top = 3.0
-margin_right = 17.0
-margin_bottom = 3.0
+margin_left = 6.5
+margin_top = 12.0
+margin_right = 15.5
+margin_bottom = 12.0
+
+[node name="BackgroundBox" type="NinePatchRect" parent="Control/NinePatchRect/TalentTreeControl"]
+margin_left = 124.0
+margin_top = 60.0
+margin_right = 839.0
+margin_bottom = 469.0
+texture = ExtResource( 5 )
+patch_margin_left = 64
+patch_margin_top = 64
+patch_margin_right = 64
+patch_margin_bottom = 64
 
 [node name="PlayerControl" type="Control" parent="Control/NinePatchRect/TalentTreeControl"]
 margin_right = 40.0
 margin_bottom = 40.0
 
 [node name="Sprite" type="Sprite" parent="Control/NinePatchRect/TalentTreeControl/PlayerControl"]
-position = Vector2( 77.5, 147 )
-scale = Vector2( 7.5, 7.5 )
+position = Vector2( 68, 125 )
+scale = Vector2( 7, 7 )
 texture = ExtResource( 3 )
 
 [node name="ScrollContainer" type="ScrollContainer" parent="Control/NinePatchRect/TalentTreeControl/PlayerControl"]
 anchor_right = 21.766
 anchor_bottom = 15.255
-margin_left = 153.0
+margin_left = 148.0
 margin_top = 83.0
-margin_right = -45.64
-margin_bottom = -121.2
+margin_right = -31.64
+margin_bottom = -163.2
 rect_min_size = Vector2( 566, 355 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Control/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer"]
 margin_right = 540.0
-margin_bottom = 400.0
-rect_min_size = Vector2( 540, 400 )
+margin_bottom = 816.0
+rect_min_size = Vector2( 540, 800 )
 
 [node name="RichTextLabel" type="RichTextLabel" parent="Control/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer"]
-margin_right = 530.0
-margin_bottom = 400.0
+margin_right = 540.0
+margin_bottom = 800.0
+rect_min_size = Vector2( 500, 800 )
 custom_fonts/normal_font = SubResource( 2 )
 bbcode_enabled = true
-bbcode_text = "[color=#ffd703]Cyclone waves[/color]
+bbcode_text = "[color=#ffd703]Cyclone Slashes[/color]
 Doing a charged attack after Basic Attack SEQ 2 unleashes a flurry of windblades to deal multiple instances of Physical DMG.
-([color=#ffd703]ATK[/color], [color=#ffd703]ATK[/color], Hold [color=#ffd703]ATK[/color])"
-text = "Cyclone waves
-Doing a charged attack after Basic Attack SEQ 2 unleashes a flurry of windblades to deal multiple instances of Physical DMG.
-(ATK, ATK, Hold ATK)"
+([color=#ffd703]ATK[/color], [color=#ffd703]ATK[/color], Hold [color=#ffd703]ATK[/color])
 
-[node name="TextureButton" type="TextureButton" parent="Control/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer"]
-margin_left = 540.0
-margin_top = 4.0
-margin_right = 556.0
-margin_bottom = 12.0
+[color=#ffd703]Swift Thrust[/color]
+Airborne charged attacks can now be chained up to 2 times.
+
+[color=#ffd703]Breath of Flame[/color]
+Activating FireSaw releases a burst of flames that burn enemies.
+
+[color=#ffd703]Enfeebling Charm[/color]
+TBA"
+text = "Cyclone Slashes
+Doing a charged attack after Basic Attack SEQ 2 unleashes a flurry of windblades to deal multiple instances of Physical DMG.
+(ATK, ATK, Hold ATK)
+
+Swift Thrust
+Airborne charged attacks can now be chained up to 2 times.
+
+Breath of Flame
+Activating FireSaw releases a burst of flames that burn enemies.
+
+Enfeebling Charm
+TBA"
+scroll_active = false
+
+[node name="TalentControl1" type="Control" parent="Control/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer"]
+margin_top = 804.0
+margin_right = 540.0
+margin_bottom = 804.0
+
+[node name="PlayerTalentButton" type="TextureButton" parent="Control/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl1"]
+anchor_left = 0.215
+anchor_right = 0.215
+margin_left = 428.9
+margin_top = -804.0
+margin_right = 460.9
+margin_bottom = -788.0
+rect_min_size = Vector2( 32, 16 )
 rect_scale = Vector2( 7.5, 7.5 )
 texture_normal = ExtResource( 11 )
 texture_pressed = ExtResource( 10 )
 
+[node name="ButtonLabel" type="Label" parent="Control/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl1/PlayerTalentButton"]
+margin_left = 2.0
+margin_top = 2.0
+margin_right = 41.0
+margin_bottom = 19.0
+rect_scale = Vector2( 0.3, 0.3 )
+custom_fonts/font = SubResource( 3 )
+text = "Unlock"
+
+[node name="TalentControl2" type="Control" parent="Control/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer"]
+margin_top = 808.0
+margin_right = 540.0
+margin_bottom = 808.0
+
+[node name="PlayerTalentButton" type="TextureButton" parent="Control/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl2"]
+anchor_left = 0.215
+anchor_right = 0.215
+margin_left = 428.9
+margin_top = -614.0
+margin_right = 460.9
+margin_bottom = -598.0
+rect_min_size = Vector2( 32, 16 )
+rect_scale = Vector2( 7.5, 7.5 )
+texture_normal = ExtResource( 11 )
+texture_pressed = ExtResource( 10 )
+
+[node name="ButtonLabel" type="Label" parent="Control/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl2/PlayerTalentButton"]
+margin_left = 1.60001
+margin_top = 1.6
+margin_right = 40.6
+margin_bottom = 18.6
+rect_scale = Vector2( 0.3, 0.3 )
+custom_fonts/font = SubResource( 3 )
+text = "Unlock"
+
+[node name="TalentControl3" type="Control" parent="Control/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer"]
+margin_top = 812.0
+margin_right = 540.0
+margin_bottom = 812.0
+
+[node name="PlayerTalentButton" type="TextureButton" parent="Control/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl3"]
+anchor_left = 0.215
+anchor_right = 0.215
+margin_left = 428.9
+margin_top = -481.0
+margin_right = 460.9
+margin_bottom = -465.0
+rect_min_size = Vector2( 32, 16 )
+rect_scale = Vector2( 7.5, 7.5 )
+texture_normal = ExtResource( 11 )
+texture_pressed = ExtResource( 10 )
+
+[node name="ButtonLabel" type="Label" parent="Control/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl3/PlayerTalentButton"]
+margin_left = 1.60001
+margin_top = 1.6
+margin_right = 40.6
+margin_bottom = 18.6
+rect_scale = Vector2( 0.3, 0.3 )
+custom_fonts/font = SubResource( 3 )
+text = "Unlock"
+
+[node name="TalentControl4" type="Control" parent="Control/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer"]
+margin_top = 816.0
+margin_right = 540.0
+margin_bottom = 816.0
+
+[node name="PlayerTalentButton" type="TextureButton" parent="Control/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl4"]
+anchor_left = 0.215
+anchor_right = 0.215
+margin_left = 428.9
+margin_top = -356.0
+margin_right = 460.9
+margin_bottom = -340.0
+rect_min_size = Vector2( 32, 16 )
+rect_scale = Vector2( 7.5, 7.5 )
+texture_normal = ExtResource( 11 )
+texture_pressed = ExtResource( 10 )
+
+[node name="ButtonLabel" type="Label" parent="Control/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl4/PlayerTalentButton"]
+margin_left = 1.60001
+margin_top = 1.6
+margin_right = 40.6
+margin_bottom = 18.6
+rect_scale = Vector2( 0.3, 0.3 )
+custom_fonts/font = SubResource( 3 )
+text = "Unlock"
+
 [connection signal="pressed" from="Control/NinePatchRect/CloseButtonMainUI" to="Control" method="_on_CloseButtonMainUI_pressed"]
+[connection signal="pressed" from="Control/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl1/PlayerTalentButton" to="Control" method="_on_PlayerTalentButton1_pressed"]
+[connection signal="pressed" from="Control/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl2/PlayerTalentButton" to="Control" method="_on_PlayerTalentButton2_pressed"]
+[connection signal="pressed" from="Control/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl3/PlayerTalentButton" to="Control" method="_on_PlayerTalentButton3_pressed"]
+[connection signal="pressed" from="Control/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl4/PlayerTalentButton" to="Control" method="_on_PlayerTalentButton4_pressed"]

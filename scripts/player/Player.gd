@@ -1552,7 +1552,7 @@ func _on_RightDectector_area_entered(area):
 
 func dash():
 	
-	if Global.dash_unlocked and !is_frozen and !is_thrust_attacking and !$DashCooldown.is_stopped():
+	if !is_frozen and !is_thrust_attacking and !$DashCooldown.is_stopped():
 		if $DashUseTimer.is_stopped():
 			can_dash = true
 		if !$Sprite.flip_h:
@@ -1667,14 +1667,18 @@ func thrust_attack(special : bool = false):
 	else:
 		velocity = thrustdirection.normalized() * 2950
 		is_thrust_attacking = false
-		airborne_mode = true
+		
+		
 #		$AirborneMaxDuration.start()
 		yield(get_tree().create_timer(0.1), "timeout")
 		$ThrustEffectArea/CollisionShape2D.disabled = true
 		yield(get_tree().create_timer(0.35), "timeout")
 #		cam_shake = false
 		is_invulnerable = false
-		
+		if Global.player_talents["SwiftStrike"]:
+			airborne_mode = true
+		else:
+			airborne_mode = false
 		if !is_flurry_attacking:
 			update_energy_meter(15)
 	
@@ -2041,7 +2045,7 @@ func _on_InputPressTimer_timeout():
 						thrust_attack()
 				else:
 					if is_on_floor():
-						charged_attack("Circular") if attack_string_count == 1 else charged_attack("Ground")
+						charged_attack("Circular") if attack_string_count == 1 and Global.player_talents["CycloneSlashes"] else charged_attack("Ground")
 
 func _on_DashInputPressTimer_timeout():
 	if Global.current_character == "Player" and Input.is_action_pressed("ui_dash") and !Input.is_action_pressed("ui_attack") and !is_quickswap_attacking:

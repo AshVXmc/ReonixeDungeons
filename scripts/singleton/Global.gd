@@ -37,8 +37,8 @@ var player_skill_multipliers : Dictionary = {
 	"BasicAttack3": 25.0,
 	"BasicAttack4": 52.5,
 	"ChargedAttack": 40.0,
-	"ThrustAttack": 55.0,
-	"ThrustChargedAttack": 69.5,
+	"ThrustAttack": 56.0,
+	"ThrustChargedAttack": 85.0,
 	"UpwardsChargedAttack": 28.0, # x 2
 	"DownwardsChargedAttack": 56.0,
 	"SpecialChargedAttack": 30.0 ,# x 4
@@ -79,6 +79,12 @@ enum player_skins  {
 	CYBER_NINJA
 }
 
+var player_talents : Dictionary = {
+	"CycloneSlashes" : false,
+	"SwiftThrust" : false,
+	"BreathOfFlame" :false
+}
+
 
 var glaciela_skill_multipliers : Dictionary = {
 	"BasicAttack":  20.0,
@@ -116,6 +122,7 @@ var glaciela_skill_multipliers : Dictionary = {
 	"Birthday": [10,5]
 }
 
+
 var agnette_skill_multipliers = {
 	
 }
@@ -142,10 +149,7 @@ var crystals_amount : int = 0
 var opened_chests := []
 var soul_token_amount : int = 0
 const SAVE_DIR : String = "user://savedata/"
-var dash_unlocked : bool = true # 1 mana per use
-var glide_unlocked : bool = false # 1 mana per use
-var firesaw_unlocked : bool = true # 3 mana per use
-var fire_fairy_unlocked : bool = true # 1 mana per second of usage
+
 var max_item_storage : int = 5
 var levelpath : String
 var is_loading_a_save : bool
@@ -239,10 +243,7 @@ func reset_player_data():
 	Global.common_monster_dust_amount = 0
 	Global.goblin_scales_amount = 0
 	Global.soul_token_amount = 0
-	Global.dash_unlocked = true
-	Global.glide_unlocked = false
-	Global.firesaw_unlocked = true
-	Global.fire_fairy_unlocked = true
+
 	Global.is_loading_a_save = false
 	Global.max_item_storage = 5
 	Global.lighting = false
@@ -297,10 +298,7 @@ func save_player_data():
 		"GoblinScales": Global.goblin_scales_amount,
 		"RevivementCrystals" : Global.crystals_amount,
 		"SoulTokens": Global.soul_token_amount,
-		"DashUnlocked" : Global.dash_unlocked ,
-		"GlideUnlocked" : Global.glide_unlocked,
-		"FireSawUnlocked": Global.firesaw_unlocked,
-		"FireFairyUnlocked": Global.fire_fairy_unlocked,
+
 		"ChestOpened": Global.opened_chests,
 		"MaxItemStorage":  Global.max_item_storage, 
 		
