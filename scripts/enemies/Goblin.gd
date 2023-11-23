@@ -3,7 +3,7 @@ class_name Goblin extends KinematicBody2D
 const DMG_INDICATOR : PackedScene = preload("res://scenes/particles/DamageIndicatorParticle.tscn")
 const SWORD_HIT_PARTICLE : PackedScene = preload("res://scenes/particles/SwordHitParticle.tscn")
 const DEATH_SMOKE : PackedScene = preload("res://scenes/particles/DeathSmokeParticle.tscn")
-var max_HP_calc : int = 25 + (Global.enemy_level_index * 25)
+var max_HP_calc : int = 25 + (Global.enemy_level_index * 35)
 var level_calc : int = round(Global.enemy_level_index)
 export var max_HP : int = max_HP_calc
 export var level : int = level_calc
@@ -266,14 +266,22 @@ func _on_Area2D_area_entered(area):
 		if area.is_in_group("FireGauge"):
 			pass
 		if area.is_in_group("Burning"):
-			print("Burning")
-			var damage = (0.025 * max_HP) + (Global.damage_bonus["fire_dmg_bonus_%"] / 100 * (0.025 * max_HP))
-			HP -= damage
-
-			print("HP-" + str(damage))
-			$HealthBar.value -= damage
-			parse_status_effect_damage()
-			add_damage_particles("Fire", damage, false)
+			var groups : Array = area.get_groups()
+			for group_names in groups:
+				if float(group_names) != 0 and $HitDelayTimer.is_stopped():
+					var raw_damage = float(group_names)
+					var damage = round((raw_damage - (raw_damage * (fire_res / 100))) * armor_strength_coefficient)
+					print("HP reduced by " + str(damage))
+					HP -= float(damage)
+					$HealthBar.value  -= float(damage)
+					if area.is_in_group("IsCritHit"):
+						
+						add_damage_particles("Fire", float(damage), true)
+					else:
+						add_damage_particles("Fire", float(damage), false)
+					$HitDelayTimer.start()
+					parse_damage()
+					break
 		if area.is_in_group("Airborne") and !is_airborne:
 			is_airborne = true
 			velocity.y = AIRBORNE_SPEED

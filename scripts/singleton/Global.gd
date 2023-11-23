@@ -80,9 +80,18 @@ enum player_skins  {
 }
 
 var player_talents : Dictionary = {
-	"CycloneSlashes" : false,
-	"SwiftThrust" : false,
-	"BreathOfFlame" :false
+	"CycloneSlashes" : {
+		"unlocked" : false,
+		"enabled" : false
+	},
+	"SwiftThrust" : {
+		"unlocked" : false,
+		"enabled" : false
+	},
+	"BreathOfFlame" : {
+		"unlocked" : false,
+		"enabled" : false
+	}
 }
 
 

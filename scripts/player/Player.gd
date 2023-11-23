@@ -1675,7 +1675,7 @@ func thrust_attack(special : bool = false):
 		yield(get_tree().create_timer(0.35), "timeout")
 #		cam_shake = false
 		is_invulnerable = false
-		if Global.player_talents["SwiftStrike"]:
+		if Global.player_talents["SwiftThrust"]["unlocked"] and Global.player_talents["SwiftThrust"]["enabled"]:
 			airborne_mode = true
 		else:
 			airborne_mode = false
@@ -2045,7 +2045,7 @@ func _on_InputPressTimer_timeout():
 						thrust_attack()
 				else:
 					if is_on_floor():
-						charged_attack("Circular") if attack_string_count == 1 and Global.player_talents["CycloneSlashes"] else charged_attack("Ground")
+						charged_attack("Circular") if attack_string_count == 1 and Global.player_talents["CycloneSlashes"]["unlocked"] and Global.player_talents["CycloneSlashes"]["enabled"] else charged_attack("Ground")
 
 func _on_DashInputPressTimer_timeout():
 	if Global.current_character == "Player" and Input.is_action_pressed("ui_dash") and !Input.is_action_pressed("ui_attack") and !is_quickswap_attacking:

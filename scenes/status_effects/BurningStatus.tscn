@@ -29,7 +29,8 @@ shape = SubResource( 3 )
 disabled = true
 
 [node name="DamageTickTimer" type="Timer" parent="."]
-wait_time = 0.25
+wait_time = 0.3
+autostart = true
 
 [node name="BurningParticles" type="Particles2D" parent="."]
 scale = Vector2( 2.6, 2.6 )
@@ -54,6 +55,7 @@ margin_top = -130.0
 margin_right = -18.0
 margin_bottom = -124.0
 rect_scale = Vector2( 4, 4 )
+max_value = 1000.0
 texture_under = ExtResource( 2 )
 texture_progress = ExtResource( 4 )
 
