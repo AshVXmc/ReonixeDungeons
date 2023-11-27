@@ -1,59 +1,59 @@
 [gd_scene load_steps=55 format=2]
 
-[ext_resource path="res://tilesets/HubLevelTileset.tres" type="TileSet" id=1]
-[ext_resource path="res://assets/terrain/deep_woods/background_deep_woods.png" type="Texture" id=2]
-[ext_resource path="res://scenes/menus/EleganceMeterUI.tscn" type="PackedScene" id=3]
-[ext_resource path="res://scenes/menus/HeartUI.tscn" type="PackedScene" id=4]
-[ext_resource path="res://scenes/menus/ManaUI.tscn" type="PackedScene" id=5]
-[ext_resource path="res://scenes/enemies/logic/EnemySkillGlobalCD.tscn" type="PackedScene" id=6]
-[ext_resource path="res://scenes/menus/FPSCounter.tscn" type="PackedScene" id=7]
-[ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=8]
-[ext_resource path="res://scenes/items/LootBag.tscn" type="PackedScene" id=9]
-[ext_resource path="res://scenes/menus/OpalsUI.tscn" type="PackedScene" id=10]
-[ext_resource path="res://scenes/levels/hublevel/DungeonEntrance.tscn" type="PackedScene" id=11]
-[ext_resource path="res://scenes/menus/DebugMenu.tscn" type="PackedScene" id=12]
-[ext_resource path="res://scenes/menus/PauseUI.tscn" type="PackedScene" id=13]
-[ext_resource path="res://scenes/misc/Light.tscn" type="PackedScene" id=14]
-[ext_resource path="res://scenes/menus/SceneTransition.tscn" type="PackedScene" id=15]
-[ext_resource path="res://scripts/misc/HubLevel.gd" type="Script" id=16]
-[ext_resource path="res://assets/terrain/deep_woods/tree_1.png" type="Texture" id=17]
-[ext_resource path="res://scenes/levels/hublevel/Portal.tscn" type="PackedScene" id=18]
-[ext_resource path="res://scenes/levels/hublevel/MonumentOfVictories.tscn" type="PackedScene" id=19]
-[ext_resource path="res://scenes/NPC/ShopKeeperNPC.tscn" type="PackedScene" id=20]
-[ext_resource path="res://assets/terrain/bench.png" type="Texture" id=21]
-[ext_resource path="res://scenes/menus/GameOver.tscn" type="PackedScene" id=22]
-[ext_resource path="res://assets/terrain/hub_level/prop_potionrack.png" type="Texture" id=23]
-[ext_resource path="res://assets/terrain/hub_level/prop_cashiertable.png" type="Texture" id=24]
-[ext_resource path="res://assets/misc/light_circle.png" type="Texture" id=25]
-[ext_resource path="res://assets/terrain/hub_level/prop_weapons.png" type="Texture" id=26]
-[ext_resource path="res://assets/terrain/hub_level/prop_chest.png" type="Texture" id=27]
-[ext_resource path="res://scenes/items/HouseDoorTransporter.tscn" type="PackedScene" id=28]
-[ext_resource path="res://assets/particles/smoke_particle.png" type="Texture" id=29]
-[ext_resource path="res://assets/terrain/hub_level/shop.png" type="Texture" id=30]
-[ext_resource path="res://assets/terrain/hub_level/prop_librarytable.png" type="Texture" id=31]
-[ext_resource path="res://assets/terrain/hub_level/prop_bookshelf_1.png" type="Texture" id=32]
-[ext_resource path="res://scripts/terrain/GenericInteractable.gd" type="Script" id=33]
-[ext_resource path="res://scenes/levels/hublevel/Beastiary.tscn" type="PackedScene" id=34]
-[ext_resource path="res://assets/terrain/hub_level/chandelier.png" type="Texture" id=35]
-[ext_resource path="res://assets/terrain/deep_woods/deep_woods_spritesheet.png" type="Texture" id=36]
-[ext_resource path="res://assets/terrain/hub_level/prop_bookshelf_4.png" type="Texture" id=37]
-[ext_resource path="res://assets/terrain/hub_level/prop_bookshelf_3.png" type="Texture" id=38]
-[ext_resource path="res://scenes/NPC/LibrarianNPC.tscn" type="PackedScene" id=39]
-[ext_resource path="res://scenes/terrain/GenericInteractLabel.tscn" type="PackedScene" id=40]
-[ext_resource path="res://assets/terrain/hub_level/library.png" type="Texture" id=41]
-[ext_resource path="res://assets/terrain/lamp_post.png" type="Texture" id=42]
-[ext_resource path="res://scenes/menus/SkillsUI.tscn" type="PackedScene" id=43]
-[ext_resource path="res://assets/terrain/hub_level/teahouse.png" type="Texture" id=44]
-[ext_resource path="res://scenes/menus/InventoryUI.tscn" type="PackedScene" id=45]
-[ext_resource path="res://scenes/menus/HealthPotUI.tscn" type="PackedScene" id=46]
-[ext_resource path="res://scenes/items/ChestSilver.tscn" type="PackedScene" id=47]
-[ext_resource path="res://scenes/terrain/HealthPack.tscn" type="PackedScene" id=48]
+[ext_resource path="res://assets/particles/smoke_particle.png" type="Texture" id=1]
+[ext_resource path="res://scenes/items/LootBag.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scripts/misc/HubLevel.gd" type="Script" id=3]
+[ext_resource path="res://assets/terrain/deep_woods/deep_woods_spritesheet.png" type="Texture" id=4]
+[ext_resource path="res://assets/terrain/deep_woods/background_deep_woods.png" type="Texture" id=5]
+[ext_resource path="res://tilesets/HubLevelTileset.tres" type="TileSet" id=6]
+[ext_resource path="res://assets/terrain/deep_woods/tree_1.png" type="Texture" id=7]
+[ext_resource path="res://assets/terrain/hub_level/prop_potionrack.png" type="Texture" id=8]
+[ext_resource path="res://assets/terrain/hub_level/prop_cashiertable.png" type="Texture" id=9]
+[ext_resource path="res://assets/terrain/hub_level/prop_weapons.png" type="Texture" id=10]
+[ext_resource path="res://assets/misc/light_circle.png" type="Texture" id=11]
+[ext_resource path="res://assets/terrain/hub_level/prop_chest.png" type="Texture" id=12]
+[ext_resource path="res://assets/terrain/bench.png" type="Texture" id=13]
+[ext_resource path="res://scripts/terrain/GenericInteractable.gd" type="Script" id=14]
+[ext_resource path="res://scenes/menus/InventoryUI.tscn" type="PackedScene" id=15]
+[ext_resource path="res://scenes/menus/FPSCounter.tscn" type="PackedScene" id=16]
+[ext_resource path="res://scenes/menus/HeartUI.tscn" type="PackedScene" id=17]
+[ext_resource path="res://scenes/menus/DebugMenu.tscn" type="PackedScene" id=18]
+[ext_resource path="res://scenes/terrain/HealthPack.tscn" type="PackedScene" id=19]
+[ext_resource path="res://scenes/misc/Light.tscn" type="PackedScene" id=20]
+[ext_resource path="res://scenes/levels/hublevel/Portal.tscn" type="PackedScene" id=21]
+[ext_resource path="res://scenes/menus/SceneTransition.tscn" type="PackedScene" id=22]
+[ext_resource path="res://scenes/items/ChestSilver.tscn" type="PackedScene" id=23]
+[ext_resource path="res://scenes/levels/hublevel/DungeonEntrance.tscn" type="PackedScene" id=24]
+[ext_resource path="res://scenes/menus/EleganceMeterUI.tscn" type="PackedScene" id=25]
+[ext_resource path="res://scenes/enemies/Goblin.tscn" type="PackedScene" id=26]
+[ext_resource path="res://scenes/menus/ManaUI.tscn" type="PackedScene" id=27]
+[ext_resource path="res://scenes/menus/SkillsUI.tscn" type="PackedScene" id=28]
+[ext_resource path="res://scenes/terrain/GenericInteractLabel.tscn" type="PackedScene" id=29]
+[ext_resource path="res://scenes/items/HouseDoorTransporter.tscn" type="PackedScene" id=30]
+[ext_resource path="res://scenes/menus/OpalsUI.tscn" type="PackedScene" id=31]
+[ext_resource path="res://scenes/menus/HealthPotUI.tscn" type="PackedScene" id=32]
+[ext_resource path="res://scenes/levels/hublevel/Beastiary.tscn" type="PackedScene" id=33]
+[ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=34]
+[ext_resource path="res://scenes/NPC/LibrarianNPC.tscn" type="PackedScene" id=35]
+[ext_resource path="res://scenes/NPC/ShopKeeperNPC.tscn" type="PackedScene" id=36]
+[ext_resource path="res://scenes/enemies/logic/EnemySkillGlobalCD.tscn" type="PackedScene" id=37]
+[ext_resource path="res://scenes/menus/PauseUI.tscn" type="PackedScene" id=38]
+[ext_resource path="res://scenes/levels/hublevel/MonumentOfVictories.tscn" type="PackedScene" id=39]
+[ext_resource path="res://scenes/menus/GameOver.tscn" type="PackedScene" id=40]
+[ext_resource path="res://assets/terrain/hub_level/prop_bookshelf_4.png" type="Texture" id=41]
+[ext_resource path="res://assets/terrain/hub_level/prop_bookshelf_3.png" type="Texture" id=42]
+[ext_resource path="res://assets/terrain/lamp_post.png" type="Texture" id=43]
+[ext_resource path="res://assets/terrain/hub_level/prop_bookshelf_1.png" type="Texture" id=44]
+[ext_resource path="res://assets/terrain/hub_level/chandelier.png" type="Texture" id=45]
+[ext_resource path="res://assets/terrain/hub_level/shop.png" type="Texture" id=46]
+[ext_resource path="res://assets/terrain/hub_level/prop_librarytable.png" type="Texture" id=47]
+[ext_resource path="res://assets/terrain/hub_level/library.png" type="Texture" id=48]
 [ext_resource path="res://assets/terrain/hub_level/library_desk_1.png" type="Texture" id=49]
-[ext_resource path="res://scenes/enemies/Goblin.tscn" type="PackedScene" id=51]
+[ext_resource path="res://assets/terrain/hub_level/teahouse.png" type="Texture" id=50]
 
 [sub_resource type="TileSet" id=1]
 0/name = "deep_woods_spritesheet.png 0"
-0/texture = ExtResource( 36 )
+0/texture = ExtResource( 4 )
 0/tex_offset = Vector2( 0, 0 )
 0/modulate = Color( 1, 1, 1, 1 )
 0/region = Rect2( 288, 192, 96, 96 )
@@ -67,7 +67,7 @@
 0/shapes = [  ]
 0/z_index = 0
 1/name = "deep_woods_spritesheet.png 1"
-1/texture = ExtResource( 36 )
+1/texture = ExtResource( 4 )
 1/tex_offset = Vector2( 0, 0 )
 1/modulate = Color( 1, 1, 1, 1 )
 1/region = Rect2( 384, 192, 96, 96 )
@@ -91,7 +91,7 @@ extents = Vector2( 7.5, 5 )
 extents = Vector2( 4.43538, 5 )
 
 [node name="HubLevel" type="Node2D"]
-script = ExtResource( 16 )
+script = ExtResource( 3 )
 
 [node name="ColorRect" type="ColorRect" parent="."]
 margin_left = -652.0
@@ -100,26 +100,26 @@ margin_right = 10641.0
 margin_bottom = -435.0
 color = Color( 0, 0, 0, 1 )
 
-[node name="EleganceMeterUI" parent="." instance=ExtResource( 3 )]
+[node name="EleganceMeterUI" parent="." instance=ExtResource( 25 )]
 
-[node name="PauseUI" parent="." instance=ExtResource( 13 )]
+[node name="PauseUI" parent="." instance=ExtResource( 38 )]
 
-[node name="HeartUI" parent="." instance=ExtResource( 4 )]
+[node name="HeartUI" parent="." instance=ExtResource( 17 )]
 
-[node name="ManaUI" parent="." instance=ExtResource( 5 )]
+[node name="ManaUI" parent="." instance=ExtResource( 27 )]
 
-[node name="OpalsUI" parent="." instance=ExtResource( 10 )]
+[node name="OpalsUI" parent="." instance=ExtResource( 31 )]
 
-[node name="HealthPotUI" parent="." instance=ExtResource( 46 )]
+[node name="HealthPotUI" parent="." instance=ExtResource( 32 )]
 
-[node name="InventoryUI" parent="." instance=ExtResource( 45 )]
+[node name="InventoryUI" parent="." instance=ExtResource( 15 )]
 
-[node name="MonumentOfVictories" parent="." instance=ExtResource( 19 )]
+[node name="MonumentOfVictories" parent="." instance=ExtResource( 39 )]
 position = Vector2( 1587.87, 432.386 )
 
-[node name="SkillsUI" parent="." instance=ExtResource( 43 )]
+[node name="SkillsUI" parent="." instance=ExtResource( 28 )]
 
-[node name="GameOverUI" parent="." instance=ExtResource( 22 )]
+[node name="GameOverUI" parent="." instance=ExtResource( 40 )]
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 
@@ -130,51 +130,51 @@ motion_mirroring = Vector2( 1937.76, 0 )
 [node name="Sprite" type="Sprite" parent="ParallaxBackground/Background1"]
 position = Vector2( -73.729, -410.428 )
 scale = Vector2( 20.1855, 18.1016 )
-texture = ExtResource( 2 )
+texture = ExtResource( 5 )
 centered = false
 __meta__ = {
 "_editor_description_": ""
 }
 
-[node name="FPSCounter" parent="." instance=ExtResource( 7 )]
+[node name="FPSCounter" parent="." instance=ExtResource( 16 )]
 
-[node name="DebugMenu" parent="." instance=ExtResource( 12 )]
+[node name="DebugMenu" parent="." instance=ExtResource( 18 )]
 
-[node name="SceneTransition" parent="." instance=ExtResource( 15 )]
+[node name="SceneTransition" parent="." instance=ExtResource( 22 )]
 
-[node name="Light2D" parent="." instance=ExtResource( 14 )]
+[node name="Light2D" parent="." instance=ExtResource( 20 )]
 position = Vector2( 1751.34, 712.967 )
 scale = Vector2( 123.492, 46.4527 )
 energy = 0.5
 mode = 1
 
 [node name="TileMap" type="TileMap" parent="." groups=["TileMap"]]
-tile_set = ExtResource( 1 )
+tile_set = ExtResource( 6 )
 cell_size = Vector2( 96, 96 )
 cell_tile_origin = 1
 collision_layer = 129
 format = 1
 tile_data = PoolIntArray( -1441768, 7, 0, -1441767, 7, 0, -1441766, 7, 0, -1441765, 7, 0, -1441764, 7, 0, -1441763, 7, 0, -1441762, 7, 0, -1441761, 7, 0, -1441760, 7, 0, -1441759, 7, 0, -1441758, 7, 0, -1441757, 7, 0, -1441756, 7, 0, -1441755, 7, 0, -1441754, 7, 0, -1441753, 7, 0, -1441752, 7, 0, -1441751, 7, 0, -1441750, 7, 0, -1441743, 7, 0, -1441742, 7, 0, -1441741, 7, 0, -1441740, 7, 0, -1441739, 7, 0, -1441738, 7, 0, -1441737, 7, 0, -1441736, 7, 0, -1441735, 7, 0, -1441734, 7, 0, -1441733, 7, 0, -1441732, 7, 0, -1441731, 7, 0, -1441730, 7, 0, -1441729, 7, 0, -1376252, 7, 0, -1376251, 7, 0, -1376250, 7, 0, -1376249, 7, 0, -1376248, 7, 0, -1376247, 7, 0, -1376246, 7, 0, -1376245, 7, 0, -1376244, 7, 0, -1376243, 7, 0, -1376242, 7, 0, -1376241, 7, 0, -1376240, 7, 0, -1376239, 7, 0, -1376232, 7, 0, -1376231, 8, 0, -1376230, 8, 0, -1376229, 8, 0, -1376228, 8, 0, -1376227, 8, 0, -1376226, 8, 0, -1376225, 8, 0, -1376224, 8, 0, -1376223, 8, 0, -1376222, 8, 0, -1376221, 8, 0, -1376220, 8, 0, -1376219, 8, 0, -1376218, 8, 0, -1376217, 8, 0, -1376216, 8, 0, -1376215, 8, 0, -1376214, 7, 0, -1376207, 7, 0, -1376206, 8, 0, -1376205, 8, 0, -1376204, 8, 0, -1376203, 8, 0, -1376202, 8, 0, -1376201, 8, 0, -1376200, 8, 0, -1376199, 8, 0, -1376198, 8, 0, -1376197, 8, 0, -1376196, 8, 0, -1376195, 8, 0, -1376194, 8, 0, -1376193, 8, 0, -1310716, 7, 0, -1310715, 8, 0, -1310714, 8, 0, -1310713, 8, 0, -1310712, 8, 0, -1310711, 8, 0, -1310710, 8, 0, -1310709, 8, 0, -1310708, 8, 0, -1310707, 8, 0, -1310706, 8, 0, -1310705, 8, 0, -1310704, 8, 0, -1310703, 7, 0, -1310696, 7, 0, -1310695, 8, 0, -1310694, 8, 0, -1310693, 8, 0, -1310692, 8, 0, -1310691, 8, 0, -1310690, 8, 0, -1310689, 8, 0, -1310688, 8, 0, -1310687, 8, 0, -1310686, 8, 0, -1310685, 8, 0, -1310684, 8, 0, -1310683, 8, 0, -1310682, 8, 0, -1310681, 8, 0, -1310680, 8, 0, -1310679, 8, 0, -1310678, 7, 0, -1310671, 7, 0, -1310670, 8, 0, -1310669, 8, 0, -1310668, 8, 0, -1310667, 8, 0, -1310666, 8, 0, -1310665, 8, 0, -1310664, 8, 0, -1310663, 8, 0, -1310662, 8, 0, -1310661, 8, 0, -1310660, 8, 0, -1310659, 8, 0, -1310658, 8, 0, -1310657, 8, 0, -1245180, 7, 0, -1245179, 8, 0, -1245178, 8, 0, -1245177, 9, 0, -1245176, 8, 0, -1245175, 8, 0, -1245174, 8, 0, -1245173, 8, 0, -1245172, 8, 0, -1245171, 8, 0, -1245170, 9, 0, -1245169, 8, 0, -1245168, 8, 0, -1245167, 7, 0, -1245160, 7, 0, -1245159, 8, 0, -1245158, 8, 0, -1245157, 8, 0, -1245156, 8, 0, -1245155, 8, 0, -1245154, 8, 0, -1245153, 8, 0, -1245152, 8, 0, -1245151, 8, 0, -1245150, 8, 0, -1245149, 8, 0, -1245148, 8, 0, -1245147, 8, 0, -1245146, 8, 0, -1245145, 8, 0, -1245144, 8, 0, -1245143, 8, 0, -1245142, 7, 0, -1245135, 7, 0, -1245134, 8, 0, -1245133, 8, 0, -1245132, 8, 0, -1245131, 8, 0, -1245130, 8, 0, -1245129, 8, 0, -1245128, 8, 0, -1245127, 8, 0, -1245126, 8, 0, -1245125, 8, 0, -1245124, 8, 0, -1245123, 8, 0, -1245122, 8, 0, -1245121, 8, 0, -1179644, 7, 0, -1179643, 8, 0, -1179642, 8, 0, -1179641, 8, 0, -1179640, 8, 0, -1179639, 8, 0, -1179638, 8, 0, -1179637, 8, 0, -1179636, 8, 0, -1179635, 8, 0, -1179634, 8, 0, -1179633, 8, 0, -1179632, 8, 0, -1179631, 7, 0, -1179624, 7, 0, -1179623, 8, 0, -1179622, 8, 0, -1179621, 8, 0, -1179620, 8, 0, -1179619, 8, 0, -1179618, 8, 0, -1179617, 8, 0, -1179616, 8, 0, -1179615, 8, 0, -1179614, 8, 0, -1179613, 8, 0, -1179612, 8, 0, -1179611, 8, 0, -1179610, 8, 0, -1179609, 8, 0, -1179608, 8, 0, -1179607, 8, 0, -1179606, 7, 0, -1179599, 7, 0, -1179598, 8, 0, -1179597, 8, 0, -1179596, 8, 0, -1179595, 8, 0, -1179594, 8, 0, -1179593, 8, 0, -1179592, 8, 0, -1179591, 8, 0, -1179590, 8, 0, -1179589, 8, 0, -1179588, 8, 0, -1179587, 8, 0, -1179586, 8, 0, -1179585, 8, 0, -1114108, 7, 0, -1114107, 8, 0, -1114106, 8, 0, -1114105, 8, 0, -1114104, 8, 0, -1114103, 8, 0, -1114102, 8, 0, -1114101, 8, 0, -1114100, 8, 0, -1114099, 8, 0, -1114098, 8, 0, -1114097, 8, 0, -1114096, 8, 0, -1114095, 7, 0, -1114088, 7, 0, -1114087, 8, 0, -1114086, 8, 0, -1114085, 9, 0, -1114084, 8, 0, -1114083, 8, 0, -1114082, 8, 0, -1114081, 8, 0, -1114080, 8, 0, -1114079, 8, 0, -1114078, 8, 0, -1114077, 8, 0, -1114076, 9, 0, -1114075, 8, 0, -1114074, 8, 0, -1114073, 8, 0, -1114072, 9, 0, -1114071, 8, 0, -1114070, 7, 0, -1114063, 7, 0, -1114062, 8, 0, -1114061, 8, 0, -1114060, 8, 0, -1114059, 8, 0, -1114058, 8, 0, -1114057, 8, 0, -1114056, 8, 0, -1114055, 8, 0, -1114054, 8, 0, -1114053, 8, 0, -1114052, 8, 0, -1114051, 8, 0, -1114050, 8, 0, -1114049, 8, 0, -1048572, 7, 0, -1048571, 8, 0, -1048570, 8, 0, -1048569, 8, 0, -1048568, 8, 0, -1048567, 8, 0, -1048566, 8, 0, -1048565, 8, 0, -1048564, 8, 0, -1048563, 8, 0, -1048562, 8, 0, -1048561, 8, 0, -1048560, 8, 0, -1048559, 7, 0, -1048552, 7, 0, -1048551, 8, 0, -1048550, 8, 0, -1048549, 8, 0, -1048548, 8, 0, -1048547, 8, 0, -1048546, 8, 0, -1048545, 8, 0, -1048544, 8, 0, -1048543, 8, 0, -1048542, 8, 0, -1048541, 8, 0, -1048540, 8, 0, -1048539, 8, 0, -1048538, 8, 0, -1048537, 8, 0, -1048536, 8, 0, -1048535, 8, 0, -1048534, 7, 0, -1048527, 7, 0, -1048526, 8, 0, -1048525, 8, 0, -1048524, 8, 0, -1048523, 8, 0, -1048522, 8, 0, -1048521, 8, 0, -1048520, 8, 0, -1048519, 8, 0, -1048518, 8, 0, -1048517, 8, 0, -1048516, 8, 0, -1048515, 8, 0, -1048514, 8, 0, -1048513, 8, 0, -983036, 7, 0, -983035, 7, 0, -983034, 7, 0, -983033, 7, 0, -983032, 7, 0, -983031, 7, 0, -983030, 7, 0, -983029, 7, 0, -983028, 7, 0, -983027, 7, 0, -983026, 7, 0, -983025, 7, 0, -983024, 7, 0, -983023, 7, 0, -983016, 7, 0, -983015, 7, 0, -983014, 7, 0, -983013, 7, 0, -983012, 7, 0, -983011, 7, 0, -983010, 7, 0, -983009, 7, 0, -983008, 7, 0, -983007, 7, 0, -983006, 7, 0, -983005, 7, 0, -983004, 7, 0, -983003, 7, 0, -983002, 7, 0, -983001, 7, 0, -983000, 7, 0, -982999, 7, 0, -982998, 7, 0, -982991, 7, 0, -982990, 7, 0, -982989, 7, 0, -982988, 7, 0, -982987, 7, 0, -982986, 7, 0, -982985, 7, 0, -982984, 7, 0, -982983, 7, 0, -982982, 7, 0, -982981, 7, 0, -982980, 7, 0, -982979, 7, 0, -982978, 7, 0, -1, 1, 0, -65490, 1, 0, 65535, 1, 0, 0, 0, 0, 46, 1, 0, 131071, 1, 0, 65582, 1, 0, 196607, 1, 0, 131118, 1, 0, 262143, 1, 0, 196654, 1, 0, 327679, 1, 0, 262190, 1, 0, 393215, 1, 0, 327726, 1, 0, 458751, 1, 0, 393262, 1, 0, 524287, 1, 0, 458752, 0, 0, 458753, 0, 0, 458754, 0, 0, 458755, 0, 0, 458756, 0, 0, 458757, 0, 0, 458758, 0, 0, 458759, 0, 0, 458760, 0, 0, 458761, 0, 0, 458762, 0, 0, 458763, 0, 0, 458764, 0, 0, 458765, 0, 0, 458766, 0, 0, 458767, 0, 0, 458768, 0, 0, 458769, 0, 0, 458770, 0, 0, 458771, 0, 0, 458772, 0, 0, 458773, 0, 0, 458774, 0, 0, 458775, 0, 0, 458776, 0, 0, 458777, 0, 0, 458778, 0, 0, 458779, 0, 0, 458780, 0, 0, 458781, 0, 0, 458782, 0, 0, 458783, 0, 0, 458784, 0, 0, 458785, 0, 0, 458786, 0, 0, 458787, 0, 0, 458788, 0, 0, 458789, 0, 0, 458790, 0, 0, 458791, 0, 0, 458792, 0, 0, 458793, 0, 0, 458794, 0, 0, 458795, 0, 0, 458796, 0, 0, 458797, 0, 0, 458798, 1, 0, 589823, 1, 0, 524288, 1, 0, 524289, 1, 0, 524290, 1, 0, 524291, 1, 0, 524292, 1, 0, 524293, 1, 0, 524294, 1, 0, 524295, 1, 0, 524296, 1, 0, 524297, 1, 0, 524298, 1, 0, 524299, 1, 0, 524300, 1, 0, 524301, 1, 0, 524302, 1, 0, 524303, 1, 0, 524304, 1, 0, 524305, 1, 0, 524306, 1, 0, 524307, 1, 0, 524308, 1, 0, 524309, 1, 0, 524310, 1, 0, 524311, 1, 0, 524312, 1, 0, 524313, 1, 0, 524314, 1, 0, 524315, 1, 0, 524316, 1, 0, 524317, 1, 0, 524318, 1, 0, 524319, 1, 0, 524320, 1, 0, 524321, 1, 0, 524322, 1, 0, 524323, 1, 0, 524324, 1, 0, 524325, 1, 0, 524326, 1, 0, 524327, 1, 0, 524328, 1, 0, 524329, 1, 0, 524330, 1, 0, 524331, 1, 0, 524332, 1, 0, 524333, 1, 0, 524334, 1, 0, 655359, 1, 0, 589824, 1, 0, 589825, 1, 0, 589826, 1, 0, 589827, 1, 0, 589828, 1, 0, 589829, 1, 0, 589830, 1, 0, 589831, 1, 0, 589832, 1, 0, 589833, 1, 0, 589834, 1, 0, 589835, 1, 0, 589836, 1, 0, 589837, 1, 0, 589838, 1, 0, 589839, 1, 0, 589840, 1, 0, 589841, 1, 0, 589842, 1, 0, 589843, 1, 0, 589844, 1, 0, 589845, 1, 0, 589846, 1, 0, 589847, 1, 0, 589848, 1, 0, 589849, 1, 0, 589850, 1, 0, 589851, 1, 0, 589852, 1, 0, 589853, 1, 0, 589854, 1, 0, 589855, 1, 0, 589856, 1, 0, 589857, 1, 0, 589858, 1, 0, 589859, 1, 0, 589860, 1, 0, 589861, 1, 0, 589862, 1, 0, 589863, 1, 0, 589864, 1, 0, 589865, 1, 0, 589866, 1, 0, 589867, 1, 0, 589868, 1, 0, 589869, 1, 0, 589870, 1, 0, 720895, 1, 0, 655360, 1, 0, 655361, 1, 0, 655362, 1, 0, 655363, 1, 0, 655364, 1, 0, 655365, 1, 0, 655366, 1, 0, 655367, 1, 0, 655368, 1, 0, 655369, 1, 0, 655370, 1, 0, 655371, 1, 0, 655372, 1, 0, 655373, 1, 0, 655374, 1, 0, 655375, 1, 0, 655376, 1, 0, 655377, 1, 0, 655378, 1, 0, 655379, 1, 0, 655380, 1, 0, 655381, 1, 0, 655382, 1, 0, 655383, 1, 0, 655384, 1, 0, 655385, 1, 0, 655386, 1, 0, 655387, 1, 0, 655388, 1, 0, 655389, 1, 0, 655390, 1, 0, 655391, 1, 0, 655392, 1, 0, 655393, 1, 0, 655394, 1, 0, 655395, 1, 0, 655396, 1, 0, 655397, 1, 0, 655398, 1, 0, 655399, 1, 0, 655400, 1, 0, 655401, 1, 0, 655402, 1, 0, 655403, 1, 0, 655404, 1, 0, 655405, 1, 0, 655406, 1, 0, 786431, 1, 0, 720896, 1, 0, 720897, 1, 0, 720898, 1, 0, 720899, 1, 0, 720900, 1, 0, 720901, 1, 0, 720902, 1, 0, 720903, 1, 0, 720904, 1, 0, 720905, 1, 0, 720906, 1, 0, 720907, 1, 0, 720908, 1, 0, 720909, 1, 0, 720910, 1, 0, 720911, 1, 0, 720912, 1, 0, 720913, 1, 0, 720914, 1, 0, 720915, 1, 0, 720916, 1, 0, 720917, 1, 0, 720918, 1, 0, 720919, 1, 0, 720920, 1, 0, 720921, 1, 0, 720922, 1, 0, 720923, 1, 0, 720924, 1, 0, 720925, 1, 0, 720926, 1, 0, 720927, 1, 0, 720928, 1, 0, 720929, 1, 0, 720930, 1, 0, 720931, 1, 0, 720932, 1, 0, 720933, 1, 0, 720934, 1, 0, 720935, 1, 0, 720936, 1, 0, 720937, 1, 0, 720938, 1, 0, 720939, 1, 0, 720940, 1, 0, 720941, 1, 0, 720942, 1, 0 )
 
-[node name="DungeonEntrance" parent="." instance=ExtResource( 11 )]
+[node name="DungeonEntrance" parent="." instance=ExtResource( 24 )]
 position = Vector2( 3208.3, 491.095 )
 destination = "res://scenes/levels/Level1.tscn"
 
 [node name="Tree" type="Sprite" parent="."]
 position = Vector2( 3504.14, 512 )
 scale = Vector2( 10, 10 )
-texture = ExtResource( 17 )
+texture = ExtResource( 7 )
 
 [node name="Tree2" type="Sprite" parent="."]
 position = Vector2( 2974.61, 512 )
 scale = Vector2( 10, 10 )
-texture = ExtResource( 17 )
+texture = ExtResource( 7 )
 flip_h = true
 
-[node name="Portal" parent="." instance=ExtResource( 18 )]
+[node name="Portal" parent="." instance=ExtResource( 21 )]
 position = Vector2( 148, 521.818 )
 
-[node name="Shopkeeper" parent="." instance=ExtResource( 20 )]
+[node name="Shopkeeper" parent="." instance=ExtResource( 36 )]
 position = Vector2( 2948.26, -1536.34 )
 
 [node name="HubShopBuilding" type="Node2D" parent="."]
@@ -183,33 +183,33 @@ position = Vector2( 69, -20 )
 [node name="ShopProp1" type="Sprite" parent="HubShopBuilding"]
 position = Vector2( 2614.36, -1500.04 )
 scale = Vector2( 8, 8 )
-texture = ExtResource( 23 )
+texture = ExtResource( 8 )
 
 [node name="ShopProp2" type="Sprite" parent="HubShopBuilding"]
 position = Vector2( 3192.4, -1497.04 )
 scale = Vector2( 8, 8 )
-texture = ExtResource( 26 )
+texture = ExtResource( 10 )
 
 [node name="ShopProp3" type="Sprite" parent="HubShopBuilding"]
 position = Vector2( 2885.22, -1483.84 )
 scale = Vector2( 8, 8 )
-texture = ExtResource( 24 )
+texture = ExtResource( 9 )
 
 [node name="ShopLight2D" type="Light2D" parent="HubShopBuilding/ShopProp3"]
 position = Vector2( 7.73, -2.80025 )
 scale = Vector2( 0.234474, 0.224273 )
-texture = ExtResource( 25 )
+texture = ExtResource( 11 )
 energy = 0.4
 
 [node name="ShopProp4" type="Sprite" parent="HubShopBuilding"]
 position = Vector2( 2741.76, -1485.99 )
 scale = Vector2( 8, 8 )
-texture = ExtResource( 27 )
+texture = ExtResource( 12 )
 
 [node name="ShopBuilding" type="Sprite" parent="."]
 position = Vector2( 2125.49, 516.046 )
 scale = Vector2( 12, 12 )
-texture = ExtResource( 30 )
+texture = ExtResource( 46 )
 
 [node name="SmokeParticles" type="CPUParticles2D" parent="ShopBuilding"]
 position = Vector2( -12.4542, -10.9296 )
@@ -217,7 +217,7 @@ scale = Vector2( 0.666667, 0.666667 )
 amount = 4
 lifetime = 2.0
 randomness = 0.6
-texture = ExtResource( 29 )
+texture = ExtResource( 1 )
 direction = Vector2( 1, -1 )
 spread = 0.0
 gravity = Vector2( 0, -20 )
@@ -225,13 +225,13 @@ gravity = Vector2( 0, -20 )
 [node name="TeaHouseBuilding" type="Sprite" parent="."]
 position = Vector2( 2648, 505.046 )
 scale = Vector2( 12, 12 )
-texture = ExtResource( 44 )
+texture = ExtResource( 50 )
 
-[node name="IndoorShopDoor" parent="." instance=ExtResource( 28 )]
+[node name="IndoorShopDoor" parent="." instance=ExtResource( 30 )]
 position = Vector2( 2490.08, -1520.51 )
 target = "OutdoorShopDoor"
 
-[node name="OutdoorShopDoor" parent="." instance=ExtResource( 28 )]
+[node name="OutdoorShopDoor" parent="." instance=ExtResource( 30 )]
 position = Vector2( 2000, 575 )
 scale = Vector2( 2.4, 2.4 )
 target = "IndoorShopDoor"
@@ -239,28 +239,28 @@ target = "IndoorShopDoor"
 [node name="LibraryBuilding" type="Sprite" parent="."]
 position = Vector2( 1171.08, 516.365 )
 scale = Vector2( 12, 12 )
-texture = ExtResource( 41 )
+texture = ExtResource( 48 )
 
-[node name="IndoorTeaShopDoor" parent="." instance=ExtResource( 28 )]
+[node name="IndoorTeaShopDoor" parent="." instance=ExtResource( 30 )]
 position = Vector2( 5933, -1521 )
 target = "OutdoorTeaShopDoor"
 
-[node name="OutdoorTeaShopDoor" parent="." instance=ExtResource( 28 )]
+[node name="OutdoorTeaShopDoor" parent="." instance=ExtResource( 30 )]
 position = Vector2( 2774, 577 )
 scale = Vector2( 2.4, 2.4 )
 target = "IndoorTeaShopDoor"
 
-[node name="OutdoorLibraryDoor" parent="." instance=ExtResource( 28 )]
+[node name="OutdoorLibraryDoor" parent="." instance=ExtResource( 30 )]
 position = Vector2( 1147, 576 )
 scale = Vector2( 2.4, 2.4 )
 target = "IndoorLibraryDoor"
 
-[node name="IndoorLibraryDoor" parent="." instance=ExtResource( 28 )]
+[node name="IndoorLibraryDoor" parent="." instance=ExtResource( 30 )]
 position = Vector2( 580.23, -1537.86 )
 scale = Vector2( 2.4, 2.4 )
 target = "OutdoorLibraryDoor"
 
-[node name="Librarian" parent="." instance=ExtResource( 39 )]
+[node name="Librarian" parent="." instance=ExtResource( 35 )]
 position = Vector2( 791.5, -1509.18 )
 
 [node name="HubLibrary" type="Node2D" parent="."]
@@ -268,57 +268,57 @@ position = Vector2( 791.5, -1509.18 )
 [node name="ShopLight2D" type="Light2D" parent="HubLibrary"]
 position = Vector2( 26332.5, -6499.85 )
 scale = Vector2( 15.0063, 14.3534 )
-texture = ExtResource( 25 )
+texture = ExtResource( 11 )
 energy = 0.4
 
 [node name="ShopLight2D2" type="Light2D" parent="HubLibrary"]
 position = Vector2( 3680.58, -1932.62 )
 scale = Vector2( 1.87579, 1.79418 )
-texture = ExtResource( 25 )
+texture = ExtResource( 11 )
 energy = 0.4
 
 [node name="Chandelier" type="Sprite" parent="HubLibrary"]
 position = Vector2( 1059.19, -1842.05 )
 scale = Vector2( 8, 8 )
-texture = ExtResource( 35 )
+texture = ExtResource( 45 )
 
 [node name="Prop1" type="Sprite" parent="HubLibrary"]
 position = Vector2( 791.5, -1504 )
 scale = Vector2( 8, 8 )
-texture = ExtResource( 31 )
+texture = ExtResource( 47 )
 
 [node name="Prop2" type="Sprite" parent="HubLibrary"]
 position = Vector2( 1005.16, -1520.5 )
 scale = Vector2( 10, 10 )
-texture = ExtResource( 32 )
+texture = ExtResource( 44 )
 
 [node name="Prop4" type="Sprite" parent="HubLibrary"]
 position = Vector2( 1249.2, -1745.04 )
 scale = Vector2( 10, 10 )
-texture = ExtResource( 32 )
+texture = ExtResource( 44 )
 flip_h = true
 
 [node name="Prop5" type="Sprite" parent="HubLibrary"]
 position = Vector2( 1165.16, -1520.5 )
 scale = Vector2( 10, 10 )
-texture = ExtResource( 38 )
+texture = ExtResource( 42 )
 
 [node name="Prop6" type="Sprite" parent="HubLibrary"]
 position = Vector2( 865.004, -1744.04 )
 scale = Vector2( 10, 10 )
-texture = ExtResource( 37 )
+texture = ExtResource( 41 )
 flip_h = true
 
 [node name="Prop7" type="Sprite" parent="HubLibrary"]
 position = Vector2( 1549.64, -1521.04 )
 scale = Vector2( 10, 10 )
-texture = ExtResource( 37 )
+texture = ExtResource( 41 )
 flip_h = true
 
 [node name="LibraryCandleLight2D" type="Light2D" parent="HubLibrary"]
 position = Vector2( 731.25, -1557.27 )
 scale = Vector2( 1.79861, 1.86857 )
-texture = ExtResource( 25 )
+texture = ExtResource( 11 )
 energy = 0.4
 
 [node name="LibraryDesk1" type="Sprite" parent="HubLibrary"]
@@ -344,8 +344,8 @@ one_way_collision = true
 [node name="BenchProp" type="Sprite" parent="." groups=["Prop"]]
 position = Vector2( 750, 621.291 )
 scale = Vector2( 8.5, 8.5 )
-texture = ExtResource( 21 )
-script = ExtResource( 33 )
+texture = ExtResource( 13 )
+script = ExtResource( 14 )
 dialogic_timeline = "Bench"
 
 [node name="Area2D" type="Area2D" parent="BenchProp"]
@@ -353,15 +353,15 @@ dialogic_timeline = "Bench"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BenchProp/Area2D"]
 shape = SubResource( 3 )
 
-[node name="GenericInteractLabel" parent="BenchProp" instance=ExtResource( 40 )]
+[node name="GenericInteractLabel" parent="BenchProp" instance=ExtResource( 29 )]
 scale = Vector2( 0.35, 0.35 )
 object_name = "Bench"
 
 [node name="LampPostProp" type="Sprite" parent="." groups=["Prop"]]
 position = Vector2( 584, 536.291 )
 scale = Vector2( 8.5, 8.5 )
-texture = ExtResource( 42 )
-script = ExtResource( 33 )
+texture = ExtResource( 43 )
+script = ExtResource( 14 )
 dialogic_timeline = "Lamppost"
 
 [node name="Area2D" type="Area2D" parent="LampPostProp"]
@@ -370,7 +370,7 @@ dialogic_timeline = "Lamppost"
 position = Vector2( -0.0420609, 11.0588 )
 shape = SubResource( 4 )
 
-[node name="GenericInteractLabel" parent="LampPostProp" instance=ExtResource( 40 )]
+[node name="GenericInteractLabel" parent="LampPostProp" instance=ExtResource( 29 )]
 position = Vector2( 0, 9.05883 )
 scale = Vector2( 0.35, 0.35 )
 object_name = "Lamp"
@@ -378,14 +378,14 @@ object_name = "Lamp"
 [node name="LampPostLight2D" type="Light2D" parent="LampPostProp"]
 position = Vector2( 0, -11.8824 )
 scale = Vector2( 0.75, 0.75 )
-texture = ExtResource( 25 )
+texture = ExtResource( 11 )
 energy = 0.65
 
 [node name="LampPostProp2" type="Sprite" parent="." groups=["Prop"]]
 position = Vector2( 1400, 536.291 )
 scale = Vector2( 8.5, 8.5 )
-texture = ExtResource( 42 )
-script = ExtResource( 33 )
+texture = ExtResource( 43 )
+script = ExtResource( 14 )
 dialogic_timeline = "Lamppost"
 
 [node name="Area2D" type="Area2D" parent="LampPostProp2"]
@@ -394,7 +394,7 @@ dialogic_timeline = "Lamppost"
 position = Vector2( -0.0420609, 11.0588 )
 shape = SubResource( 4 )
 
-[node name="GenericInteractLabel" parent="LampPostProp2" instance=ExtResource( 40 )]
+[node name="GenericInteractLabel" parent="LampPostProp2" instance=ExtResource( 29 )]
 position = Vector2( 0, 9.05883 )
 scale = Vector2( 0.35, 0.35 )
 object_name = "Lamp"
@@ -402,26 +402,26 @@ object_name = "Lamp"
 [node name="LampPostLight2D" type="Light2D" parent="LampPostProp2"]
 position = Vector2( 0, -11.8824 )
 scale = Vector2( 0.75, 0.75 )
-texture = ExtResource( 25 )
+texture = ExtResource( 11 )
 energy = 0.65
 
-[node name="EnemySkillGlobalCooldown" parent="." instance=ExtResource( 6 )]
+[node name="EnemySkillGlobalCooldown" parent="." instance=ExtResource( 37 )]
 
-[node name="LootBag" parent="." instance=ExtResource( 9 )]
+[node name="LootBag" parent="." instance=ExtResource( 2 )]
 position = Vector2( 1518.66, 558.741 )
 
-[node name="HealthPack" parent="." instance=ExtResource( 48 )]
+[node name="HealthPack" parent="." instance=ExtResource( 19 )]
 position = Vector2( 1724, 622 )
 
-[node name="Beastiary" parent="." instance=ExtResource( 34 )]
+[node name="Beastiary" parent="." instance=ExtResource( 33 )]
 position = Vector2( 1058, -1713 )
 
-[node name="ChestSilver" parent="." instance=ExtResource( 47 )]
+[node name="ChestSilver" parent="." instance=ExtResource( 23 )]
 position = Vector2( 370, 622 )
 chestID = 1
 Opals = 5
 
-[node name="Player" parent="." instance=ExtResource( 8 )]
+[node name="Player" parent="." instance=ExtResource( 34 )]
 position = Vector2( 517, 611 )
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
@@ -436,5 +436,5 @@ drag_margin_h_enabled = true
 drag_margin_v_enabled = true
 editor_draw_limits = true
 
-[node name="Goblin" parent="." instance=ExtResource( 51 )]
+[node name="Goblin" parent="." instance=ExtResource( 26 )]
 position = Vector2( 863, 599 )

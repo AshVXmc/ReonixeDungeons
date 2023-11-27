@@ -2,6 +2,7 @@ class_name BurningStatus extends Area2D
 
 # if the burn stack reaches 100, the burning debuff will be applied.
 onready var burn_stack = 0
+var burn_immediately : bool = false
 const MAX_BURN_STACK = 1000
 const BURN_MULTIPLIER : float = 0.15
 export (bool) var is_burning : bool = false
@@ -11,7 +12,8 @@ onready var max_burn_duration = $DestroyedTimer.wait_time
 
 
 func _ready():
-#	burn_immediately()
+	if burn_immediately:
+		burn_immediately()
 	$CollisionShape2D.disabled = true
 	$BurningParticles.visible = false
 	add_to_group(str(Global.attack_power * BURN_MULTIPLIER))
@@ -21,18 +23,23 @@ func _ready():
 func burn_immediately():
 	is_burning = true
 	burn_stack = MAX_BURN_STACK
-	$BurningBar.value = MAX_BURN_STACK
+	
 
 func _process(delta):
-	
+	$BurningBar.value = burn_stack
 	if burn_stack >= MAX_BURN_STACK and !is_burning:
 		is_burning = true
-		$BurningParticles.visible = true
+		$BurningParticles.visible = false
 		$BurningBar.visible = true
 	if is_burning:
-		$BurningBar.value -= 5
-#	if !is_burning and burn_stack < 100:
-#		pass
+		burn_stack -= clamp(0, 3.5 , MAX_BURN_STACK)
+		$BurningParticles.visible = true
+
+	if is_burning and burn_stack <= 0:
+		is_burning = false
+		burn_stack = 0
+		call_deferred('free')
+
 
 func _on_DamageTickTimer_timeout():
 	if is_burning:
@@ -58,5 +65,5 @@ func _on_Detector_area_entered(area):
 		else:
 			# fire gauges that replenish an already depleting bar is only half as effective
 			burn_stack += clamp(fire_gauge / 2, 0, MAX_BURN_STACK)
-			$BurningBar.value = burn_stack
+		$BurningBar.value = burn_stack
 
