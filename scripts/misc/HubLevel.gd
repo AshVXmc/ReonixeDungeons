@@ -2,7 +2,7 @@ class_name HubLevel extends Node2D
 
 
 func _ready():
-
+	print("nigg")
 	# Disabling this feature, but keeping it here if needed.
 #	if Global.is_loading_a_save:
 #		get_node("Player").position = Global.player_position

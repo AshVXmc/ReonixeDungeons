@@ -108,7 +108,7 @@ Destination = "res://scenes/levels/Level2.tscn"
 
 [node name="LevelTransporterStart" parent="." instance=ExtResource( 6 )]
 position = Vector2( -1540, 685 )
-Destination = "res://scenes/levels/HubLevel.tscn"
+Destination = "res://scenes/levels/hublevel/HubLevel.tscn"
 
 [node name="Sign" parent="." instance=ExtResource( 3 )]
 position = Vector2( -1324.64, 728.772 )

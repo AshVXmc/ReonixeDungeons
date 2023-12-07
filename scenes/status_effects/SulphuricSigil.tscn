@@ -323,10 +323,6 @@ anims/VerticalThrust = SubResource( 7 )
 wait_time = 12.0
 one_shot = true
 
-[node name="StackGainCD" type="Timer" parent="."]
-wait_time = 0.1
-one_shot = true
-
 [connection signal="area_entered" from="Area2D" to="." method="_on_Area2D_area_entered"]
 [connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]
 [connection signal="timeout" from="DurationTimer" to="." method="_on_DurationTimer_timeout"]

@@ -3,7 +3,6 @@ class_name MainMenu extends Control
 func _ready():
 	$Popup1.visible = false
 	$SaveLabel.visible = false
-	
 	print(InputMap.get_action_list("ui_use")[0].as_text())
 	
 func _process(delta):
@@ -23,7 +22,7 @@ func new_game():
 	$SceneTransition/ColorRect.visible = true
 	$SceneTransition.transition()
 	yield(get_tree().create_timer(1), "timeout")
-	get_tree().change_scene("res://scenes/levels/HubLevel.tscn")
+	get_tree().change_scene("res://scenes/levels/hublevel/HubLevel.tscn")
 	call_deferred('free')
 
 

@@ -91,6 +91,11 @@ var player_talents : Dictionary = {
 	"BreathOfFlame" : {
 		"unlocked" : false,
 		"enabled" : false
+	},
+	"InfernalMark" : {
+		"unlocked" : false,
+		"enabled" : false,
+		"DamageIncrease" : 25
 	}
 }
 

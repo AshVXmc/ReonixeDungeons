@@ -47,7 +47,7 @@ var phys_res : float = 25
 var fire_res : float = 0
 var earth_res : float = 0 
 var ice_res : float = 0
-var magic_res : float = -50
+var global_res : float = 0
 #var overlaps_enemy_while_midair : bool = false
 var elemental_type : String = "Physical"
 
@@ -197,7 +197,8 @@ func _on_Area2D_area_entered(area):
 			for group_names in groups:
 				if float(group_names) != 0 and $HitDelayTimer.is_stopped():
 					var raw_damage = float(group_names)
-					var damage = round((raw_damage - (raw_damage * (phys_res / 100))) * armor_strength_coefficient)
+					var damage_after_global_res = raw_damage - (raw_damage * (global_res / 100))
+					var damage = round((damage_after_global_res - (damage_after_global_res * (phys_res / 100))) * armor_strength_coefficient)
 					print("HP reduced by " + str(damage))
 					HP -= float(damage)
 					$HealthBar.value  -= float(damage)
@@ -215,8 +216,8 @@ func _on_Area2D_area_entered(area):
 				for group_names in groups:
 					if float(group_names) != 0:
 						var raw_damage = float(group_names)
-						
-						var damage = ((raw_damage - (raw_damage * (phys_res / 100))) * armor_strength_coefficient)
+						var damage_after_global_res = raw_damage - (raw_damage * (global_res / 100))
+						var damage = ((damage_after_global_res - (damage_after_global_res * (phys_res / 100))) * armor_strength_coefficient)
 						print("HP reduced by " + str(damage))
 						HP -= float(damage)
 						$HealthBar.value  -= float(damage)
@@ -232,7 +233,8 @@ func _on_Area2D_area_entered(area):
 			for group_names in groups:
 				if float(group_names) != 0 and $HitDelayTimer.is_stopped():
 					var raw_damage = float(group_names)
-					var damage = round((raw_damage - (raw_damage * (fire_res / 100))) * armor_strength_coefficient)
+					var damage_after_global_res = raw_damage - (raw_damage * (global_res / 100))
+					var damage = round((damage_after_global_res - (damage_after_global_res * (fire_res / 100))) * armor_strength_coefficient)
 					print("HP reduced by " + str(damage))
 					HP -= float(damage)
 					$HealthBar.value  -= float(damage)
@@ -250,7 +252,8 @@ func _on_Area2D_area_entered(area):
 			for group_names in groups:
 				if float(group_names) != 0 and $HitDelayTimer.is_stopped():
 					var raw_damage = float(group_names)
-					var damage = round((raw_damage - (raw_damage * (ice_res / 100))) * armor_strength_coefficient)
+					var damage_after_global_res = raw_damage - (raw_damage * (global_res / 100))
+					var damage = round((damage_after_global_res - (damage_after_global_res * (ice_res / 100))) * armor_strength_coefficient)
 					print("HP reduced by " + str(damage))
 					HP -= float(damage)
 					$HealthBar.value  -= float(damage)
@@ -270,7 +273,8 @@ func _on_Area2D_area_entered(area):
 			for group_names in groups:
 				if float(group_names) != 0 and $HitDelayTimer.is_stopped():
 					var raw_damage = float(group_names)
-					var damage = round((raw_damage - (raw_damage * (fire_res / 100))) * armor_strength_coefficient)
+					var damage_after_global_res = raw_damage - (raw_damage * (global_res / 100))
+					var damage = round((damage_after_global_res - (damage_after_global_res * (fire_res / 100))) * armor_strength_coefficient)
 					print("HP reduced by " + str(damage))
 					HP -= float(damage)
 					$HealthBar.value  -= float(damage)

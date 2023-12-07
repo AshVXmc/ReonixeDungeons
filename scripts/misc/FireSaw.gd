@@ -60,11 +60,12 @@ func _on_FireSaw_area_entered(area):
 
 
 func _on_BreathOfFlameTalentDetector_area_entered(area):
-	if weakref(area).get_ref() != null:
-		if area.is_in_group("Enemy") and !area.is_in_group("BurnStack"):
-			var burning_status = BURNING.instance()
-			burning_status.burn_immediately = true
-			area.add_child(burning_status)
-			print("ENTERED")
-	$BreathOfFlameTalentDetector/CollisionShape2D.disabled = true
+	if Global.player_talents["BreathOfFlame"]["unlocked"] and Global.player_talents["BreathOfFlame"]["enabled"]:
+		if weakref(area).get_ref() != null:
+			if area.is_in_group("Enemy") and !area.is_in_group("BurnStack"):
+				var burning_status = BURNING.instance()
+				burning_status.burn_immediately = true
+				area.add_child(burning_status)
+				print("ENTERED")
+		$BreathOfFlameTalentDetector/CollisionShape2D.disabled = true
 	

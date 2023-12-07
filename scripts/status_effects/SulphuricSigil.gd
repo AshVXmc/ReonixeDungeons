@@ -2,9 +2,7 @@ class_name SulphuricSigil extends Node2D
 
 
 onready var FIRE_DETIONATION_PARTICLE = preload("res://scenes/particles/FireDetonationParticle.tscn")
-onready var one_stack = preload("res://assets/UI/sulphuric_sigil_1_stack.png")
-onready var two_stacks = preload("res://assets/UI/sulphuric_sigil_2_stacks.png")
-onready var three_stacks = preload("res://assets/UI/sulphuric_sigil_3_stacks.png")
+
 
 # Perform two slashes in an X-shaped pattern like ayato's C6 effect. Has a small CD
 onready var PLAYER = get_parent().get_parent().get_node("Player")
@@ -22,8 +20,10 @@ func _ready():
 	$DurationTimer.start()
 	$SecondSlash.visible = false
 	$FirstSlash.visible = false
-
-
+	if Global.player_talents["InfernalMark"]["unlocked"] and Global.player_talents["InfernalMark"]["enabled"]:
+		if weakref(get_parent()).get_ref() != null:
+			get_parent().global_res += Global.player_talents["InfernalMark"]["DamageIncrease"]
+			print("huzzah: " + str(get_parent().global_res))
 
 
 func _on_Area2D_body_entered(body):
@@ -38,6 +38,9 @@ func _on_DurationTimer_timeout():
 func trigger_slash():
 #	set_attack_power()
 	$SlashAnimationPlayer.play("SulphuricSigilSlash")
+	if Global.player_talents["InfernalMark"]["unlocked"] and Global.player_talents["InfernalMark"]["enabled"]:
+		if weakref(get_parent()).get_ref() != null:
+			get_parent().global_res -= Global.player_talents["InfernalMark"]["DamageIncrease"]
 	
 
 func _on_Area2D_area_entered(area):

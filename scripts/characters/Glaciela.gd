@@ -286,11 +286,10 @@ func play_attack_animation(direction : String):
 #					yield(get_tree().create_timer($MeleeTimer.wait_time * 1.5), "timeout")
 #					attack_string_count = 4
 					emit_signal("trigger_quickswap", "Glaciela")
-					
 				else:
 					
 					$AnimationPlayer.play("SpearSwingRight4")
-					attack_string_count -= 1
+#					attack_string_count -= 1
 					var crit_dmg : float = 1.0
 					if is_a_critical_hit():
 						crit_dmg = (Global.glaciela_skill_multipliers["CritDamage"] / 100 + 1)
@@ -304,7 +303,7 @@ func play_attack_animation(direction : String):
 							$AttackCollision.add_to_group("GlacielaBasicAttackFour")
 							break
 #					yield(get_tree().create_timer($MeleeTimer.wait_time * 1.5), "timeout")
-#					attack_string_count = 4
+					attack_string_count = 4
 					emit_signal("trigger_quickswap", "Glaciela")
 				
 	elif direction == "Left":
@@ -352,7 +351,7 @@ func play_attack_animation(direction : String):
 					$AttackCollision/CollisionShape2D.disabled = true
 					$SpecialAttackArea2D.set_scale(Vector2(-1,1))
 					$AnimationPlayer.play("SpecialAttack1_Left")
-					attack_string_count -= 1
+					attack_string_count = 4
 #					yield(get_tree().create_timer($MeleeTimer.wait_time * 1.5), "timeout")
 #					attack_string_count = 4
 					emit_signal("trigger_quickswap", "Glaciela")
@@ -360,7 +359,7 @@ func play_attack_animation(direction : String):
 				else:
 					
 					$AnimationPlayer.play("SpearSwingLeft4")
-					attack_string_count -= 1
+#					attack_string_count -= 1
 					for groups in $AttackCollision.get_groups():
 						if float(groups) != 0:
 							$AttackCollision.remove_from_group(groups)
@@ -368,7 +367,7 @@ func play_attack_animation(direction : String):
 							$AttackCollision.add_to_group("GlacielaBasicAttackFour")
 							break
 #					yield(get_tree().create_timer($MeleeTimer.wait_time * 1.5), "timeout")
-#					attack_string_count = 4
+					attack_string_count = 4
 					emit_signal("trigger_quickswap", "Glaciela")
 #				$ResetAttackStringTimer.start()
 func change_mana_value(amount : float):
