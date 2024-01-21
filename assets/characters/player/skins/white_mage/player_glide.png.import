@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/background_2.png-359026e42e95c0b73c1060ad9c2dacd0.stex"
+path="res://.import/player_glide.png-f29054ff52c9812c3b43b68572c56f4c.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/misc/background_2.png"
-dest_files=[ "res://.import/background_2.png-359026e42e95c0b73c1060ad9c2dacd0.stex" ]
+source_file="res://assets/characters/player/skins/white_mage/player_glide.png"
+dest_files=[ "res://.import/player_glide.png-f29054ff52c9812c3b43b68572c56f4c.stex" ]
 
 [params]
 
@@ -19,7 +19,7 @@ compress/lossy_quality=0.7
 compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0
-flags/repeat=1
+flags/repeat=0
 flags/filter=false
 flags/mipmaps=false
 flags/anisotropic=false

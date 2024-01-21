@@ -155,10 +155,10 @@ func _physics_process(delta):
 
 
 			
-		if Input.is_action_just_pressed("primary_skill") and !Input.is_action_just_pressed("secondary_skill"):
-			print("skill emitted")
+		if Input.is_action_just_pressed("secondary_skill") and !Input.is_action_just_pressed("primary_skill"):
+			print("biatch")
 			emit_signal("skill_used", "IceLance")
-
+		
 func _input(event):
 	if Global.current_character == "Glaciela":
 		if event.is_action_pressed("ui_attack"):
@@ -667,7 +667,7 @@ func _on_AttackCollision_area_entered(area):
 					$TundraStackRegen.start()
 				
 			emit_signal("change_elegance", "BasicAttack")
-			
+			change_mana_value(0.25)
 			var hitparticle = SWORD_HIT_PARTICLE.instance()
 			var slashparticle = SWORD_SLASH_EFFECT.instance()
 			hitparticle.emitting = true

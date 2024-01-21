@@ -11,7 +11,7 @@ func _process(delta):
 	$SetKeybinds.text = "> Controls" if $SetKeybinds.is_hovered() else "Controls"
 	$Tutorial.text = "> How to play" if $Tutorial.is_hovered() else " How to play"
 	$Exit.text = "> Exit" if $Exit.is_hovered() else "Exit"
-
+	
 
 func _on_NewGame_pressed():
 	new_game()
@@ -48,8 +48,8 @@ func _on_LoadGame_pressed():
 			Global.healthpot_amount = player_data["Healthpot"]
 			Global.common_monster_dust_amount = player_data["CommonMonsterDust"]
 			Global.goblin_scales_amount = player_data["GoblinScales"]
-			Global.dash_unlocked = player_data["DashUnlocked"]
-			Global.glide_unlocked = player_data["GlideUnlocked"]
+#			Global.dash_unlocked = player_data["DashUnlocked"]
+#			Global.glide_unlocked = player_data["GlideUnlocked"]
 			Global.opened_chests = player_data["ChestOpened"]
 			Global.max_item_storage = player_data["MaxItemStorage"]
 			Global.lighting = player_data["Lighting"]

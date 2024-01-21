@@ -6,7 +6,7 @@ var FIREBALL : PackedScene
 var FIRESAW : PackedScene = preload("res://scenes/skills/FireSaw.tscn")
 var FIRE_FAIRY : PackedScene = preload("res://scenes/skills/FireFairy.tscn")
 var BURNING_STATUS : PackedScene = preload("res://scenes/status_effects/BurningStatus.tscn")
-var ICE_LANCE : PackedScene 
+var ICE_LANCE : PackedScene = preload("res://scenes/skills/IceLance.tscn")
 var playeratkbonus : float
 var glacielaatkbonus : float
 
@@ -63,7 +63,7 @@ func on_skill_used(skill_name : String, attack_bonus : float = 0):
 			yield(get_tree().create_timer(fire_fairy.get_node("DestroyedTimer").wait_time), "timeout")
 			get_parent().is_using_secondary_skill = false
 		"IceLance":
-			print("ICE LANCE GO")
+		
 			get_parent().is_using_primary_skill = true
 			var icelance = ICE_LANCE.instance()
 			get_parent().get_parent().add_child(icelance)

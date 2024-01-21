@@ -1,10 +1,11 @@
-class_name CharacterTalentTreeUI extends Control
+class_name CharacterMenuUI extends Control
 
 func _ready():
 	initialize_ui()
 
 func initialize_ui():
-	visible = true
+#	visible = true
+#	$NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl1/PlayerTalentButton.pressed.connect()
 	$NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer.rect_size.x = 690
 	$NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer.rect_size.y = 375
 	$NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl1/PlayerTalentButton/PlayerCheckButton.visible = false
@@ -20,7 +21,9 @@ func update_talent_tree_ui():
 
 func _on_CloseButtonMainUI_pressed():
 	visible = false
-	get_tree().paused = false
+	get_parent().get_node("CharactersUI").visible = true
+	print("dddddd")
+#	get_tree().paused = false
 
 func buy_player_talent(talentname : String, order : int):
 	if !Global.player_talents[talentname]["unlocked"]:

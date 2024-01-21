@@ -116,7 +116,7 @@ var glaciela_skill_multipliers : Dictionary = {
 	"TundraSigilManaBonus": 0.75,
 	"TundraSigilIceDamageBonus": 12,
 	"AirborneDuration": 2.5,
-	"IceLance": 65.0,
+	"IceLance": 70.0,
 	"MaxTundraSigils": 3,
 	"WinterQueenCost": 15,
 	"IceLanceCost": 2,
@@ -189,12 +189,16 @@ var lesser_soul_catalyst : int= 0
 
 # Skills that the player currently equips
 var player_skills : Dictionary = {
-	"PrimarySkill" : "",
-	"SecondarySkill" : "",
+	"PrimarySkill" : "FireSaw",
+	"SecondarySkill" : "FireFairy",
 	"RangedSkill" : ""
 }
 
-
+var glaciela_skills : Dictionary = {
+	"PrimarySkill" : "WinterQueen",
+	"SecondarySkill" : "IceLance",
+	"RangedSkill" : ""
+}
 
 
 
@@ -216,8 +220,8 @@ var damage_bonus : Dictionary = {
 
 # List of skills (Unlocked and locked)
 var list_of_skills : Dictionary = {
-	"PrimarySkill": ["FireSaw", "IceLance"], 
-	"SecondarySkill": ["FireFairy"],
+	"PrimarySkill": ["FireSaw", "WinterQueen"], 
+	"SecondarySkill": ["FireFairy", "IceLance"],
 	"RangedSkill": ["Fireball"]
 }
 

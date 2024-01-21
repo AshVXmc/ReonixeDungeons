@@ -29,8 +29,8 @@ margin_right = -992.48
 margin_bottom = -11.84
 
 [node name="BagSprite" type="Sprite" parent="Bag"]
-position = Vector2( 1036, 70 )
-scale = Vector2( 5, 5 )
+position = Vector2( 1036, 65 )
+scale = Vector2( 4, 4 )
 texture = ExtResource( 1 )
 
 [node name="KeybindSprite" type="Sprite" parent="Bag"]

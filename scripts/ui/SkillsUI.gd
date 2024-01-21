@@ -24,6 +24,7 @@ func _ready():
 	print("Currently: " + Global.current_character)
 	connect("ability_on_cooldown", get_parent().get_parent().get_node("Player"), "ability_on_entering_cooldown")
 	update_skill_ui(Global.player_skills["PrimarySkill"], Global.player_skills["SecondarySkill"])
+	update_skill_ui(Global.glaciela_skills["PrimarySkill"], Global.glaciela_skills["SecondarySkill"])
 	firesaw_ui.max_value = Global.player_skill_multipliers["FireSawCD"] * multiplier
 	firesaw_ui.value = Global.player_skill_multipliers["FireSawCD"] * multiplier
 	firefairy_ui.max_value = Global.player_skill_multipliers["FireFairyCD"] * multiplier
@@ -70,10 +71,17 @@ func update_skill_ui(primary : String, secondary : String):
 		"FireSaw":
 			$PrimarySkill/Player/FireSaw.visible = true
 			$PrimarySkill/Player/FireSaw/CostLabel.text = str(Global.player_skill_multipliers["FireSawCost"])
+		"WinterQueen":
+			$PrimarySkill/Glaciela/WinterQueen.visible = true
+			$PrimarySkill/Glaciela/WinterQueen/CostLabel.text = str(Global.glaciela_skill_multipliers["WinterQueenCost"])
 	match secondary:
 		"FireFairy":
 			$SecondarySkill/Player/FireFairy.visible = true
 			$SecondarySkill/Player/FireFairy/CostLabel.text = str(Global.player_skill_multipliers["FireFairyCost"])
+		"IceLance":
+			$SecondarySkill/Glaciela/IceLance.visible = true
+			$SecondarySkill/Glaciela/IceLance/CostLabel.text = str(Global.glaciela_skill_multipliers["IceLance"])
+
 func on_skill_used(skill_name : String):
 	match skill_name:
 		"FireSaw":

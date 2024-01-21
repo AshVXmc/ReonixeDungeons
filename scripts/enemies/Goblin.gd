@@ -85,11 +85,13 @@ func _physics_process(delta):
 	else:
 		$OtherEnemyDetector.set_scale(Vector2(-1,1))
 		$SpearThrustAttackCollision.set_scale(Vector2(-1,1))
-	if velocity.x == 0:
+	if 80 >= velocity.x and velocity.x >= 0:
+		yield(get_tree().create_timer(0.1), "timeout")
 		$Sprite.play("Idle")
 		if $Area2D.is_in_group("Hostile"):
 			$Area2D.remove_from_group("Hostile") 
 	else:
+		yield(get_tree().create_timer(0.1), "timeout")
 		$Sprite.play("Attacking")
 		if !$Area2D.is_in_group("Hostile"):
 			$Area2D.add_to_group("Hostile")
@@ -373,7 +375,6 @@ func death():
 	var randomint = lootrng.randi_range(1,3)
 	if randomint == 1:
 		get_parent().add_child(loot)
-		loot.Tier = 2
 		loot.position = $Position2D.global_position
 	queue_free()
 	print("reached")
