@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/elemental_rune_tablet.png-e2aa554f9517ff740e1ac9d1a8048123.stex"
+path="res://.import/talent_rune_tablet_glowing_part.png-231a8bc84489e1752fd4fa3a232ab432.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/terrain/elemental_rune_tablet.png"
-dest_files=[ "res://.import/elemental_rune_tablet.png-e2aa554f9517ff740e1ac9d1a8048123.stex" ]
+source_file="res://assets/terrain/talent_rune_tablet_glowing_part.png"
+dest_files=[ "res://.import/talent_rune_tablet_glowing_part.png-231a8bc84489e1752fd4fa3a232ab432.stex" ]
 
 [params]
 
