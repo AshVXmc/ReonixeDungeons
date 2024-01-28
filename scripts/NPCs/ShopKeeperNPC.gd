@@ -24,7 +24,7 @@ func end_of_dialogue(timeline_name):
 	unstuck_player()
 func unstuck_player():
 	player.is_shopping = false
-	print("unstuck")
+
 # Override function
 # Open shop UI
 func on_Button1_pressed():

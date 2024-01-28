@@ -1,11 +1,11 @@
 {
-	"color": "#ff0042f2",
+	"color": "#ff9f35ff",
 	"description": "",
-	"display_name": "You",
+	"display_name": "Introduction To Magic: Part 1",
 	"display_name_bool": true,
-	"id": "character-1673439491.json",
+	"id": "character-1706163100.json",
 	"mirror_portraits": false,
-	"name": "Player",
+	"name": "IntroductionToMagicPart1",
 	"nickname": "",
 	"nickname_bool": false,
 	"offset_x": 0,
@@ -13,9 +13,9 @@
 	"portraits": [
 		{
 			"name": "Default",
-			"path": "res://assets/characters/player/player_idle.png"
+			"path": ""
 		}
 	],
 	"scale": 100,
-	"theme": ""
+	"theme": "default-theme.cfg"
 }

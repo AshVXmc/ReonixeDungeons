@@ -1,0 +1,91 @@
+{
+	"events": [
+		{
+			"character": "character-1706105694.json",
+			"event_id": "dialogic_010",
+			"options": [
+
+			],
+			"portrait": "",
+			"question": "Several dusty tomes and books are stacked neatly on top on each other. Read one?"
+		},
+		{
+			"choice": "Read \"Introduction to Magic: Part 1\"",
+			"condition": "",
+			"definition": "",
+			"event_id": "dialogic_011",
+			"value": ""
+		},
+		{
+			"character": "character-1706163100.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "What we call magic is the manipulation of energy that exists within all beings attuned with life, like animals, plants and us. This energy is referred to as \"Mana\"."
+		},
+		{
+			"character": "character-1706163100.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "Every living being can manipulate Mana, although the more intelligent that being is, the higher control it has over the Mana within itself. People who are proficient in spells that involve Mana are called Wizards."
+		},
+		{
+			"character": "character-1706163100.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "Mana, in its purest form, takes the shape of white strings of light and is incredibly hard to produce and control. Instead, most Wizards manifest Mana in their rougher yet still effective form, which are elements such as fire, ice, and earth. "
+		},
+		{
+			"character": "character-1706163100.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "The most powerful Wizards of our kind who can cast advanced magic and manipulate pure Mana are bestowed with the title of Archwizards. Rumors say that these Archwizards may have learned the power to create life itself..."
+		},
+		{
+			"animation": "[Default]",
+			"animation_length": 0,
+			"change_mirror_portrait": false,
+			"change_z_index": false,
+			"character": "character-1673439491.json",
+			"event_id": "dialogic_002",
+			"mirror_portrait": false,
+			"portrait": "Default",
+			"portrait_definition": "",
+			"position": {
+				"0": false,
+				"1": true,
+				"2": false,
+				"3": false,
+				"4": false
+			},
+			"type": 0,
+			"z_index": 0
+		},
+		{
+			"character": "character-1673439491.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "(If that's not obvious foreshadowing, I don't know what is...)"
+		},
+		{
+			"choice": "Nevermind",
+			"condition": "",
+			"definition": "",
+			"event_id": "dialogic_011",
+			"value": ""
+		},
+		{
+			"character": "character-1673439491.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "(Literature really isn't my strong suit....)"
+		},
+		{
+			"event_id": "dialogic_013"
+		}
+	],
+	"metadata": {
+		"dialogic-version": "1.4.5",
+		"file": "timeline-1706102539.json",
+		"name": "HubLevelLibraryBookshelf"
+	}
+}

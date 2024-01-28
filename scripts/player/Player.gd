@@ -160,6 +160,7 @@ func set_attack_buff_value(new_value):
 func _ready():
 	if Global.current_character == "Player":
 		$Sprite.visible = true
+	$EnergyMeter.visible = false
 #	$EnergyMeter.value = $EnergyMeter.min_value
 
 	$SlashEffectSprite.visible = false
@@ -259,7 +260,8 @@ func quickswap_event(trigger_name : String):
 # Trigger when player is switched in
 func switched_in(character):
 	if character == "Player":
-		
+		$EnergyMeter.visible = true
+		$HideEnergyMeterTimer.start()
 		if waiting_for_quickswap:
 			print("SWITCH in ATTACK")
 			switch_in_attack()
@@ -290,9 +292,11 @@ func get_closest_enemy() -> Node2D:
 	
 func _physics_process(_delta):
 	
-	if Global.current_character == "Player":
-		$EnergyMeter.visible = true
-	else:
+#	if Global.current_character == "Player":
+#		$EnergyMeter.visible = true
+#	else:
+#		$EnergyMeter.visible = false
+	if Global.current_character != "Player":
 		$EnergyMeter.visible = false
 #	if !is_sheathing:
 	if !$Sprite.flip_h:
@@ -2019,6 +2023,8 @@ func _on_AttackCollision_area_exited(area):
 
 func update_energy_meter(value : int):
 	$EnergyMeter.value += value
+	$EnergyMeter.visible = true
+	$HideEnergyMeterTimer.start()
 	if $EnergyMeter.value == $EnergyMeter.max_value:
 		if !energy_full:
 			$EnergyMeterFlickerEffectPlayer.play("Flicker")
@@ -2139,3 +2145,7 @@ func _on_StabAttackCollision_area_exited(area):
 
 
 
+
+
+func _on_HideEnergyMeterTimer_timeout():
+	$EnergyMeter.visible = false

@@ -3936,6 +3936,10 @@ flip_v = true
 
 [node name="TeleportingParticles" parent="." instance=ExtResource( 21 )]
 
+[node name="HideEnergyMeterTimer" type="Timer" parent="."]
+wait_time = 8.0
+one_shot = true
+
 [connection signal="timeout" from="CharacterManager/SwapCooldownTimer" to="CharacterManager" method="_on_SwapCooldownTimer_timeout"]
 [connection signal="area_entered" from="AttackCollision" to="." method="_on_AttackCollision_area_entered"]
 [connection signal="area_exited" from="AttackCollision" to="." method="_on_AttackCollision_area_exited"]
@@ -3977,3 +3981,4 @@ flip_v = true
 [connection signal="timeout" from="KatanaSheatheWindowTimer" to="." method="_on_KatanaSheatheWindowTimer_timeout"]
 [connection signal="timeout" from="GhostTrailTimer" to="." method="_on_GhostTrailTimer_timeout"]
 [connection signal="timeout" from="ResetAttackStringTimer" to="." method="_on_ResetAttackStringTimer_timeout"]
+[connection signal="timeout" from="HideEnergyMeterTimer" to="." method="_on_HideEnergyMeterTimer_timeout"]

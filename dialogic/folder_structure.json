@@ -14,10 +14,22 @@
 					"files": [
 						"character-1683004135.json",
 						"character-1683959227.json",
-						"character-1684315090.json"
+						"character-1684315090.json",
+						"character-1706105694.json"
 					],
 					"folders": {
+						"LibraryBooks": {
+							"files": [
+								"character-1706163100.json"
+							],
+							"folders": {
 
+							},
+							"metadata": {
+								"color": null,
+								"folded": false
+							}
+						}
 					},
 					"metadata": {
 						"color": null,
@@ -63,7 +75,8 @@
 					"files": [
 						"timeline-1683094805.json",
 						"timeline-1683959204.json",
-						"timeline-1684315069.json"
+						"timeline-1684315069.json",
+						"timeline-1706102539.json"
 					],
 					"folders": {
 
