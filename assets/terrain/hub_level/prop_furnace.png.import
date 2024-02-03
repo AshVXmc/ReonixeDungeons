@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/shield_potion.png-d25162cfafc8e2d572b417ecd4e8adf6.stex"
+path="res://.import/prop_furnace.png-db21cb007562019b1fe0a3802ed183c8.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/misc/shield_potion.png"
-dest_files=[ "res://.import/shield_potion.png-d25162cfafc8e2d572b417ecd4e8adf6.stex" ]
+source_file="res://assets/terrain/hub_level/prop_furnace.png"
+dest_files=[ "res://.import/prop_furnace.png-db21cb007562019b1fe0a3802ed183c8.stex" ]
 
 [params]
 

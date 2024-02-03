@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=28 format=2]
 
 [ext_resource path="res://assets/terrain/cauldron.png" type="Texture" id=1]
 [ext_resource path="res://assets/fonts/Born2bSportyV2.ttf" type="DynamicFontData" id=2]
@@ -10,7 +10,13 @@
 [ext_resource path="res://assets/misc/health_pot.png" type="Texture" id=8]
 [ext_resource path="res://assets/UI/textbox.png" type="Texture" id=9]
 [ext_resource path="res://scripts/items/Cauldron.gd" type="Script" id=10]
-[ext_resource path="res://assets/misc/mana_pot.png" type="Texture" id=11]
+[ext_resource path="res://assets/UI/button_pressed.png" type="Texture" id=11]
+[ext_resource path="res://themes/Blur.tres" type="Material" id=12]
+[ext_resource path="res://assets/UI/button.png" type="Texture" id=13]
+[ext_resource path="res://assets/UI/long_button.png" type="Texture" id=14]
+[ext_resource path="res://assets/UI/long_button_pressed.png" type="Texture" id=15]
+[ext_resource path="res://assets/misc/mana_pot.png" type="Texture" id=16]
+[ext_resource path="res://assets/misc/power_pot.png" type="Texture" id=17]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 56.3815, 59.0309 )
@@ -29,19 +35,26 @@ orbit_velocity = 0.0
 orbit_velocity_random = 0.0
 
 [sub_resource type="DynamicFont" id=3]
-size = 48
+size = 32
 font_data = ExtResource( 2 )
 
 [sub_resource type="DynamicFont" id=8]
 size = 32
 font_data = ExtResource( 2 )
 
-[sub_resource type="DynamicFont" id=6]
+[sub_resource type="DynamicFont" id=11]
 size = 48
 font_data = ExtResource( 2 )
 
-[sub_resource type="DynamicFont" id=9]
+[sub_resource type="DynamicFont" id=12]
 size = 48
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=13]
+size = 32
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=14]
 font_data = ExtResource( 2 )
 
 [sub_resource type="DynamicFont" id=10]
@@ -85,6 +98,7 @@ process_material = SubResource( 4 )
 texture = ExtResource( 6 )
 
 [node name="Plaque" type="CanvasLayer" parent="."]
+pause_mode = 2
 
 [node name="Control" type="Control" parent="Plaque"]
 anchor_left = 0.5
@@ -92,238 +106,286 @@ anchor_top = 0.33
 anchor_right = 0.5
 anchor_bottom = 0.33
 margin_left = -540.352
-margin_top = -231.3
+margin_top = -287.3
 margin_right = 533.648
-margin_bottom = 490.7
-__meta__ = {
-"_edit_use_anchors_": false
-}
+margin_bottom = 434.7
+
+[node name="Blur" type="ColorRect" parent="Plaque/Control"]
+material = ExtResource( 12 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -1265.65
+margin_top = -827.3
+margin_right = 1974.35
+margin_bottom = 1332.7
+color = Color( 1, 1, 1, 0 )
 
 [node name="NinePatchRect" type="NinePatchRect" parent="Plaque/Control"]
-anchor_left = 0.518
-anchor_top = 0.321
-anchor_right = 0.518
-anchor_bottom = 0.321
-margin_left = -356.332
-margin_top = -26.762
-margin_right = 363.668
-margin_bottom = 453.238
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -300.0
+margin_top = -94.0
+margin_right = 300.0
+margin_bottom = 306.0
 texture = ExtResource( 9 )
 patch_margin_left = 64
 patch_margin_top = 64
 patch_margin_right = 64
 patch_margin_bottom = 64
-__meta__ = {
-"_edit_use_anchors_": false
-}
+
+[node name="PotionsListRect" type="NinePatchRect" parent="Plaque/Control"]
+anchor_left = 0.518
+anchor_top = 0.321
+anchor_right = 0.518
+anchor_bottom = 0.321
+margin_left = -281.332
+margin_top = 109.238
+margin_right = -61.332
+margin_bottom = 413.238
+texture = ExtResource( 9 )
+patch_margin_left = 64
+patch_margin_top = 64
+patch_margin_right = 64
+patch_margin_bottom = 64
 
 [node name="Header" type="RichTextLabel" parent="Plaque/Control"]
-margin_left = 255.773
-margin_top = 210.0
-margin_right = 883.773
-margin_bottom = 260.0
+anchor_left = 0.5
+anchor_top = 0.404
+anchor_right = 0.5
+anchor_bottom = 0.404
+margin_left = -200.0
+margin_top = -15.688
+margin_right = 200.0
+margin_bottom = 34.312
 custom_fonts/normal_font = SubResource( 3 )
 bbcode_enabled = true
 bbcode_text = "====== [color=green]Alchemy Cauldron[/color] ======"
 text = "====== Alchemy Cauldron ======"
 scroll_active = false
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
-[node name="Text" type="Label" parent="Plaque/Control"]
-margin_left = 238.0
-margin_top = 255.0
-margin_right = 887.0
-margin_bottom = 291.0
+[node name="SubHeader" type="Label" parent="Plaque/Control"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -324.5
+margin_top = -53.0
+margin_right = 324.5
+margin_bottom = -17.0
 custom_fonts/font = SubResource( 8 )
-text = "Select a potion recipe."
+text = "Select a potion to craft."
 align = 1
 autowrap = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
-[node name="Recipe1" type="Control" parent="Plaque/Control"]
+[node name="WarningLabel" type="Label" parent="Plaque/Control"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -364.5
+margin_top = -40.0
+margin_right = 364.5
+margin_bottom = -8.0
+custom_fonts/font = SubResource( 8 )
+text = "Warning Label Sample text"
+align = 1
+autowrap = true
+
+[node name="HealthPotionRecipe" type="Control" parent="Plaque/Control"]
 margin_right = 38.0
 margin_bottom = 40.0
 rect_scale = Vector2( 0.75, 0.75 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
-[node name="Dust" type="Sprite" parent="Plaque/Control/Recipe1"]
-position = Vector2( 479.882, 416 )
-scale = Vector2( 5, 5 )
+[node name="Dust" type="Sprite" parent="Plaque/Control/HealthPotionRecipe"]
+position = Vector2( 726.469, 676.267 )
+scale = Vector2( 5.08333, 4.74999 )
 texture = ExtResource( 7 )
 
-[node name="Text" type="RichTextLabel" parent="Plaque/Control/Recipe1"]
-margin_left = 500.882
-margin_top = 435.984
-margin_right = 533.882
-margin_bottom = 485.984
-custom_colors/default_color = Color( 1, 1, 1, 1 )
-custom_fonts/normal_font = SubResource( 6 )
-text = "6"
-scroll_active = false
-__meta__ = {
-"_edit_use_anchors_": false
-}
+[node name="DustLabel" type="Label" parent="Plaque/Control/HealthPotionRecipe"]
+margin_left = 745.469
+margin_top = 691.267
+margin_right = 808.469
+margin_bottom = 741.267
+custom_fonts/font = SubResource( 11 )
+text = "0/2"
 
-[node name="Scales" type="Sprite" parent="Plaque/Control/Recipe1"]
-position = Vector2( 630.954, 424.658 )
+[node name="Scales" type="Sprite" parent="Plaque/Control/HealthPotionRecipe"]
+position = Vector2( 723.136, 770.267 )
 scale = Vector2( 4, 4 )
 texture = ExtResource( 5 )
 
-[node name="Text2" type="RichTextLabel" parent="Plaque/Control/Recipe1"]
-margin_left = 641.882
-margin_top = 435.984
-margin_right = 674.882
-margin_bottom = 485.984
-custom_colors/default_color = Color( 1, 1, 1, 1 )
-custom_fonts/normal_font = SubResource( 6 )
-text = "3"
-scroll_active = false
-__meta__ = {
-"_edit_use_anchors_": false
-}
+[node name="ScalesLabel" type="Label" parent="Plaque/Control/HealthPotionRecipe"]
+margin_left = 745.802
+margin_top = 776.933
+margin_right = 808.802
+margin_bottom = 826.933
+custom_fonts/font = SubResource( 12 )
+text = "0/2"
 
-[node name="Potion" type="Sprite" parent="Plaque/Control/Recipe1"]
-position = Vector2( 793.3, 424.658 )
-scale = Vector2( 4, 4 )
+[node name="HealthPotion" type="Sprite" parent="Plaque/Control/HealthPotionRecipe"]
+position = Vector2( 755.136, 534.267 )
+scale = Vector2( 8, 8 )
 texture = ExtResource( 8 )
 
-[node name="Text3" type="RichTextLabel" parent="Plaque/Control/Recipe1"]
-margin_left = 813.157
-margin_top = 435.984
-margin_right = 846.157
-margin_bottom = 485.984
-custom_colors/default_color = Color( 1, 1, 1, 1 )
-custom_fonts/normal_font = SubResource( 6 )
-text = "1"
-scroll_active = false
-__meta__ = {
-"_edit_use_anchors_": false
-}
+[node name="HealthPotionLabel" type="Label" parent="Plaque/Control/HealthPotionRecipe"]
+anchor_left = 25.473
+anchor_top = 14.515
+anchor_right = 25.473
+anchor_bottom = 14.515
+margin_left = -44.8378
+margin_top = -27.6664
+margin_right = 18.1622
+margin_bottom = 22.3336
+custom_fonts/font = SubResource( 11 )
+text = "0/2"
 
-[node name="PlusSign" type="RichTextLabel" parent="Plaque/Control/Recipe1"]
-margin_left = 550.588
-margin_top = 406.944
-margin_right = 575.588
-margin_bottom = 456.944
-custom_colors/default_color = Color( 1, 1, 1, 1 )
-custom_fonts/normal_font = SubResource( 6 )
-text = "+"
-scroll_active = false
-__meta__ = {
-"_edit_use_anchors_": false
-}
+[node name="PotionDescriptionRect" type="NinePatchRect" parent="Plaque/Control/HealthPotionRecipe"]
+anchor_left = 0.518
+anchor_top = 0.321
+anchor_right = 0.518
+anchor_bottom = 0.321
+margin_left = 838.983
+margin_top = 591.16
+margin_right = 1036.98
+margin_bottom = 835.16
+texture = ExtResource( 9 )
+patch_margin_left = 64
+patch_margin_top = 64
+patch_margin_right = 64
+patch_margin_bottom = 64
 
-[node name="EqualSign" type="RichTextLabel" parent="Plaque/Control/Recipe1"]
-margin_left = 694.926
-margin_top = 407.099
-margin_right = 747.926
-margin_bottom = 457.099
-custom_colors/default_color = Color( 1, 1, 1, 1 )
-custom_fonts/normal_font = SubResource( 6 )
-text = "=>"
-scroll_active = false
-__meta__ = {
-"_edit_use_anchors_": false
-}
+[node name="CraftButton" type="TextureButton" parent="Plaque/Control/HealthPotionRecipe"]
+margin_left = 883.136
+margin_top = 470.267
+margin_right = 1023.14
+margin_bottom = 540.267
+texture_normal = ExtResource( 13 )
+texture_pressed = ExtResource( 11 )
+expand = true
 
-[node name="CraftHealthPot" type="Button" parent="Plaque/Control/Recipe1"]
-margin_left = 911.551
-margin_top = 407.099
-margin_right = 1031.55
-margin_bottom = 467.099
-custom_fonts/font = SubResource( 9 )
+[node name="CraftLabel" type="Label" parent="Plaque/Control/HealthPotionRecipe/CraftButton"]
+margin_left = 21.0
+margin_top = 11.0
+margin_right = 114.0
+margin_bottom = 61.0
+custom_fonts/font = SubResource( 12 )
 text = "Craft"
-expand_icon = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
-[node name="Recipe2" type="Control" parent="Plaque/Control"]
-margin_right = 38.0
-margin_bottom = 40.0
-rect_scale = Vector2( 0.75, 0.75 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Dust" type="Sprite" parent="Plaque/Control/Recipe2"]
-position = Vector2( 573.882, 496.432 )
-scale = Vector2( 5, 5 )
-texture = ExtResource( 7 )
-
-[node name="Text" type="RichTextLabel" parent="Plaque/Control/Recipe2"]
-margin_left = 594.882
-margin_top = 516.417
-margin_right = 627.882
-margin_bottom = 566.417
-custom_colors/default_color = Color( 1, 1, 1, 1 )
-custom_fonts/normal_font = SubResource( 6 )
-text = "9"
+[node name="DescriptionLabel" type="RichTextLabel" parent="Plaque/Control/HealthPotionRecipe"]
+anchor_left = 25.263
+anchor_top = 17.312
+anchor_right = 25.263
+anchor_bottom = 17.312
+margin_left = -86.3273
+margin_top = -72.4799
+margin_right = 86.6727
+margin_bottom = 145.52
+custom_fonts/normal_font = SubResource( 13 )
+bbcode_enabled = true
+bbcode_text = "A sweet and viscous potion that [color=#ffd703]restores a minor amount of health[/color].
+"
+text = "A sweet and viscous potion that restores a minor amount of health.
+"
 scroll_active = false
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Potion" type="Sprite" parent="Plaque/Control/Recipe2"]
-position = Vector2( 742.962, 510.432 )
-scale = Vector2( 4, 4 )
-texture = ExtResource( 11 )
-
-[node name="Text3" type="RichTextLabel" parent="Plaque/Control/Recipe2"]
-margin_left = 762.819
-margin_top = 521.759
-margin_right = 795.819
-margin_bottom = 571.759
-custom_colors/default_color = Color( 1, 1, 1, 1 )
-custom_fonts/normal_font = SubResource( 6 )
-text = "1"
-scroll_active = false
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="EqualSign" type="RichTextLabel" parent="Plaque/Control/Recipe2"]
-margin_left = 644.588
-margin_top = 488.874
-margin_right = 697.588
-margin_bottom = 538.874
-custom_colors/default_color = Color( 1, 1, 1, 1 )
-custom_fonts/normal_font = SubResource( 6 )
-text = "=>"
-scroll_active = false
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="CraftManaPot" type="Button" parent="Plaque/Control/Recipe2"]
-margin_left = 911.551
-margin_top = 489.099
-margin_right = 1031.55
-margin_bottom = 549.099
-custom_fonts/font = SubResource( 9 )
-text = "Craft"
-expand_icon = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="CloseButton" type="TextureButton" parent="Plaque/Control"]
-margin_left = 860.0
-margin_top = 205.0
-margin_right = 900.0
-margin_bottom = 245.0
-rect_scale = Vector2( 1.5, 1.5 )
+margin_left = 237.352
+margin_top = 266.7
+margin_right = 277.352
+margin_bottom = 306.7
 texture_normal = ExtResource( 4 )
 expand = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
+
+[node name="HealthPotionSelectButton" type="TextureButton" parent="Plaque/Control"]
+margin_left = 285.352
+margin_top = 350.7
+margin_right = 485.352
+margin_bottom = 400.7
+texture_normal = ExtResource( 14 )
+texture_pressed = ExtResource( 15 )
+expand = true
+
+[node name="Sprite" type="Sprite" parent="Plaque/Control/HealthPotionSelectButton"]
+position = Vector2( 30, 24 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 8 )
+
+[node name="Label" type="Label" parent="Plaque/Control/HealthPotionSelectButton"]
+anchor_left = 0.58
+anchor_top = 0.5
+anchor_right = 0.58
+anchor_bottom = 0.5
+margin_left = -60.0
+margin_top = -11.0
+margin_right = 20.0
+margin_bottom = 5.0
+rect_scale = Vector2( 1.5, 1.5 )
+custom_fonts/font = SubResource( 14 )
+text = "Health potion"
+autowrap = true
+
+[node name="ManaPotionSelectButton" type="TextureButton" parent="Plaque/Control"]
+margin_left = 285.352
+margin_top = 400.7
+margin_right = 485.352
+margin_bottom = 450.7
+texture_normal = ExtResource( 14 )
+texture_pressed = ExtResource( 15 )
+expand = true
+
+[node name="Sprite" type="Sprite" parent="Plaque/Control/ManaPotionSelectButton"]
+position = Vector2( 30, 24 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 16 )
+
+[node name="Label" type="Label" parent="Plaque/Control/ManaPotionSelectButton"]
+anchor_left = 0.58
+anchor_top = 0.5
+anchor_right = 0.58
+anchor_bottom = 0.5
+margin_left = -60.0
+margin_top = -11.0
+margin_right = 20.0
+margin_bottom = 5.0
+rect_scale = Vector2( 1.5, 1.5 )
+custom_fonts/font = SubResource( 14 )
+text = "Mana potion"
+autowrap = true
+
+[node name="StrengthPotionSelectButton" type="TextureButton" parent="Plaque/Control"]
+margin_left = 285.352
+margin_top = 450.7
+margin_right = 485.352
+margin_bottom = 500.7
+texture_normal = ExtResource( 14 )
+texture_pressed = ExtResource( 15 )
+expand = true
+
+[node name="Sprite" type="Sprite" parent="Plaque/Control/StrengthPotionSelectButton"]
+position = Vector2( 30, 24 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 17 )
+
+[node name="Label" type="Label" parent="Plaque/Control/StrengthPotionSelectButton"]
+anchor_left = 0.58
+anchor_top = 0.5
+anchor_right = 0.58
+anchor_bottom = 0.5
+margin_left = -60.0
+margin_top = -11.0
+margin_right = 20.0
+margin_bottom = 5.0
+rect_scale = Vector2( 1.5, 1.5 )
+custom_fonts/font = SubResource( 14 )
+text = "Power potion"
+autowrap = true
 
 [node name="Keybind" type="Label" parent="."]
 anchor_left = -3.732
@@ -342,6 +404,8 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[connection signal="pressed" from="Plaque/Control/Recipe1/CraftHealthPot" to="." method="_on_CraftHealthPot_pressed"]
-[connection signal="pressed" from="Plaque/Control/Recipe2/CraftManaPot" to="." method="_on_CraftManaPot_pressed"]
+[connection signal="pressed" from="Plaque/Control/HealthPotionRecipe/CraftButton" to="." method="_on_CraftHealthPotionButton_pressed"]
 [connection signal="pressed" from="Plaque/Control/CloseButton" to="." method="_on_CloseButton_pressed"]
+[connection signal="pressed" from="Plaque/Control/HealthPotionSelectButton" to="." method="_on_HealthPotionSelectButton_pressed"]
+[connection signal="pressed" from="Plaque/Control/ManaPotionSelectButton" to="." method="_on_ManaPotionSelectButton_pressed"]
+[connection signal="pressed" from="Plaque/Control/StrengthPotionSelectButton" to="." method="_on_StrengthPotionSelectButton_pressed"]

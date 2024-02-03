@@ -183,8 +183,8 @@ func _ready():
 	connect("reduce_endurance", get_parent().get_node("SkillsUI/Control"), "reduce_endurance")
 	connect("perfect_dash", get_parent().get_node("PauseUI/PerfectDash"), "trigger_perfect_dash_animation")
 	connect("ingredient_obtained", get_parent().get_node("InventoryUI/Control"), "on_ingredient_obtained")
-	emit_signal("ingredient_obtained", "common_dust", Global.common_monster_dust_amount)
-	emit_signal("ingredient_obtained", "goblin_scales", Global.goblin_scales_amount)
+#	emit_signal("ingredient_obtained", "common_dust", Global.common_monster_dust_amount)
+#	emit_signal("ingredient_obtained", "goblin_scales", Global.goblin_scales_amount)
 	connect("skill_ui_update", get_parent().get_node("SkillsUI/Control"), "on_skill_used")
 	connect("skill_used", get_node("SkillManager"), "on_skill_used")
 	connect("reduce_skill_cd", get_parent().get_node("SkillsUI/Control"), "reduce_skill_cooldown")
@@ -229,11 +229,11 @@ func _ready():
 	connect("crystals_obtained", Global, "sync_playerCrystals")
 	emit_signal("crystals_obtained", Global.crystals_amount)
 	
-	connect("common_monster_dust_obtained", Global, "sync_playerCommonMonsterDust")
-	emit_signal("common_monster_dust_obtained", Global.common_monster_dust_amount)
-	
-	connect("goblin_scales_obtained", Global, "sync_playerGoblinScales")
-	emit_signal("goblin_scales_obtained", Global.goblin_scales_amount)
+#	connect("common_monster_dust_obtained", Global, "sync_playerCommonMonsterDust")
+#	emit_signal("common_monster_dust_obtained", Global.common_monster_dust_amount)
+#
+#	connect("goblin_scales_obtained", Global, "sync_playerGoblinScales")
+#	emit_signal("goblin_scales_obtained", Global.goblin_scales_amount)
 
 func change_skin(skin_name):
 	match skin_name:
@@ -1220,6 +1220,16 @@ func _on_Area2D_area_entered(area : Area2D):
 		if area.is_in_group("HealthPot"):
 			Global.healthpot_amount += 1
 			emit_signal("healthpot_obtained", Global.healthpot_amount)
+		if area.is_in_group("LootBag"):
+			
+			on_loot_bag_obtained(
+				area.get_parent().opals_amount, 
+				area.get_parent().drops_table["common_dust"],
+				area.get_parent().drops_table["goblin_scales"],
+				area.get_parent().drops_table["bat_wings"],
+				area.get_parent().drops_table["sweet_herbs"]
+			)
+			
 		if area.is_in_group("HealthPack") and area.is_in_group("Active"):
 			# The 999 value is not relevant since health packs heal to maximum amount
 			heal(999, true)
@@ -1753,42 +1763,16 @@ func on_manashrine_toggled():
 	emit_signal("mana_changed", Global.mana, Global.equipped_characters[2])
 	is_healing = false
 	
-#func on_lootbag_obtained(tier : int):
-#	match tier:
-#		1:
-#			# Drops a small amout of opals and common dust
-#			var lootrng : RandomNumberGenerator = RandomNumberGenerator.new()
-#			var num  = lootrng.randi_range(1,3)
-#			lootrng.randomize()
-#			Global.common_monster_dust_amount += num
-#
-#			emit_signal("ingredient_obtained", "common_dust", Global.common_monster_dust_amount)
-#
-#			var opalrng : RandomNumberGenerator = RandomNumberGenerator.new()
-#			opalrng.randomize()
-#			var opalnum = opalrng.randi_range(5,20)
-#			Global.opals_amount += opalnum
-#			emit_signal("opals_obtained", Global.opals_amount, opalnum)
-#		2:
-#			# Drops a small amout of opals, common dust and goblin scales
-#			var lootrng : RandomNumberGenerator = RandomNumberGenerator.new()
-#			var num  = lootrng.randi_range(1,5)
-#			lootrng.randomize()
-#			Global.common_monster_dust_amount += num
-#			emit_signal("ingredient_obtained", "common_dust", Global.common_monster_dust_amount)
-#			var opalrng : RandomNumberGenerator = RandomNumberGenerator.new()
-#			opalrng.randomize()
-#			var opalnum = opalrng.randi_range(5,20)
-#			Global.opals_amount += opalnum
-#			emit_signal("opals_obtained", Global.opals_amount, opalnum)
-#
-#			var scalesrng : RandomNumberGenerator = RandomNumberGenerator.new()
-#			scalesrng.randomize()
-#			var scalesnum = scalesrng.randi_range(1,3)
-#			Global.goblin_scales_amount += scalesnum
-#			emit_signal("ingredient_obtained", "goblin_scales", Global.goblin_scales_amount)
-			
-
+func on_loot_bag_obtained(opals : int = 0, common_dust : int = 0, goblin_scales : int = 0, bat_wings : int = 0, sweet_herbs : int = 0 ):
+	get_opals(opals)
+	Global.drops_inventory["common_dust"] += common_dust
+	emit_signal("ingredient_obtained", "common_dust", common_dust)
+	Global.drops_inventory["goblin_scales"] += goblin_scales
+	emit_signal("ingredient_obtained", "goblin_scales", goblin_scales)
+	Global.drops_inventory["bat_wings"] += bat_wings
+	emit_signal("ingredient_obtained", "bat_wings", bat_wings)
+	Global.drops_inventory["sweet_herbs"] += sweet_herbs
+	emit_signal("ingredient_obtained", "sweet_herbs", sweet_herbs)
 func on_Item_bought(item_name : String, item_price : int):
 	Global.opals_amount -= item_price
 	emit_signal("opals_obtained", Global.opals_amount)
@@ -1804,24 +1788,24 @@ func on_Item_bought(item_name : String, item_price : int):
 			emit_signal("lifewine_obtained", Global.lifewine_amount)
 		"ItemPouch_1":
 			pass
-func on_Item_crafted(item_name : String, common_dust : int, goblin_scales : int):
-	print("signal sent")
-	Global.common_monster_dust_amount -= common_dust
-	Global.goblin_scales_amount -= goblin_scales
-	emit_signal("common_monster_dust_obtained", Global.common_monster_dust_amount)
-	emit_signal("goblin_scales_obtained", Global.goblin_scales_amount)
-	match item_name:
-		"HealthPot":
-			Global.healthpot_amount += 1
-			emit_signal("healthpot_obtained", Global.healthpot_amount)
-		"ManaPot":
-			Global.manapot_amount += 1
-			emit_signal("manapot_obtained", Global.manapot_amount)
-		"LifeWine":
-			Global.lifewine_amount += 1
-			emit_signal("lifewine_obtained", Global.lifewine_amount)
-		"ItemPouch_1":
-			pass
+#func on_Item_crafted(item_name : String, common_dust : int, goblin_scales : int):
+#	print("signal sent")
+#	Global.common_monster_dust_amount -= common_dust
+#	Global.goblin_scales_amount -= goblin_scales
+#	emit_signal("common_monster_dust_obtained", Global.common_monster_dust_amount)
+#	emit_signal("goblin_scales_obtained", Global.goblin_scales_amount)
+#	match item_name:
+#		"HealthPot":
+#			Global.healthpot_amount += 1
+#			emit_signal("healthpot_obtained", Global.healthpot_amount)
+#		"ManaPot":
+#			Global.manapot_amount += 1
+#			emit_signal("manapot_obtained", Global.manapot_amount)
+#		"LifeWine":
+#			Global.lifewine_amount += 1
+#			emit_signal("lifewine_obtained", Global.lifewine_amount)
+#		"ItemPouch_1":
+#			pass
 
 
 func debug_commands(cmd : String):

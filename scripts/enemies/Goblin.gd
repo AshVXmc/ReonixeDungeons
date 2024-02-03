@@ -375,6 +375,7 @@ func death():
 	var randomint = lootrng.randi_range(1,3)
 	if randomint == 1:
 		get_parent().add_child(loot)
+		loot.opals_amount = 25
 		loot.position = $Position2D.global_position
 	queue_free()
 	print("reached")

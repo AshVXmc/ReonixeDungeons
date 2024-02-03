@@ -181,8 +181,13 @@ var pity_5_star : int = 60 # Soft pity at 50
 
 # Resources
 var opals_amount : int = 0
-var common_monster_dust_amount : int = 0
-var goblin_scales_amount : int = 0
+var drops_inventory : Dictionary = {
+	"common_dust" : 0,
+	"goblin_scales": 0,
+	"bat_wings": 0,
+	"sweet_herbs": 0
+}
+
 var tokens_amount : int = 0
 var lesser_soul_catalyst : int= 0
 
@@ -253,13 +258,16 @@ func reset_player_data():
 	Global.mana = 0
 	Global.character2_mana = 0
 	Global.character3_mana = 0
-	Global.healthpot_amount = 5
+	Global.healthpot_amount = 1
 	Global.lifewine_amount = 0
 	Global.manapot_amount = 0
 	Global.opals_amount = 0
 	Global.crystals_amount = 0
-	Global.common_monster_dust_amount = 0
-	Global.goblin_scales_amount = 0
+	Global.drops_inventory["common_dust"] = 10
+	Global.drops_inventory["goblin_scales"] = 10
+	Global.drops_inventory["bat_wings"] = 10
+	Global.drops_inventory["sweet_herbs"] = 10
+	
 	Global.soul_token_amount = 0
 
 	Global.is_loading_a_save = false
@@ -312,8 +320,10 @@ func save_player_data():
 		"LifeWine" : Global.lifewine_amount,
 		"Manapot":  Global.manapot_amount,
 		"Opals" : Global.opals_amount ,
-		"CommonMonsterDust": Global.common_monster_dust_amount,
-		"GoblinScales": Global.goblin_scales_amount,
+		"CommonDust": Global.drops_inventory["common_dust"],
+		"GoblinScales": Global.drops_inventory["goblin_scales"],
+		"BatWings": Global.drops_inventory["bat_wings"],
+		"SweetHerbs": Global.drops_inventory["sweet_herbs"],
 		"RevivementCrystals" : Global.crystals_amount,
 		"SoulTokens": Global.soul_token_amount,
 
@@ -369,10 +379,10 @@ func sync_playerOpals(player_opals : int):
 	player_opals = Global.opals_amount
 func sync_playerCrystals(player_crystals : int):
 	player_crystals = Global.crystals_amount
-func sync_playerCommonMonsterDust(player_common_monster_dust : int):
-	player_common_monster_dust = Global.common_monster_dust_amount
-func sync_playerGoblinScales(player_goblin_scales: int):
-	player_goblin_scales = Global.goblin_scales_amount
+#func sync_playerCommonMonsterDust(player_common_monster_dust : int):
+#	player_common_monster_dust = Global.common_monster_dust_amount
+#func sync_playerGoblinScales(player_goblin_scales: int):
+#	player_goblin_scales = Global.goblin_scales_amount
 
 
 
