@@ -185,8 +185,11 @@ func _ready():
 	connect("ingredient_obtained", get_parent().get_node("InventoryUI/Control"), "on_ingredient_obtained")
 #	emit_signal("ingredient_obtained", "common_dust", Global.common_monster_dust_amount)
 #	emit_signal("ingredient_obtained", "goblin_scales", Global.goblin_scales_amount)
+	
 	connect("skill_ui_update", get_parent().get_node("SkillsUI/Control"), "on_skill_used")
 	connect("skill_used", get_node("SkillManager"), "on_skill_used")
+	
+	
 	connect("reduce_skill_cd", get_parent().get_node("SkillsUI/Control"), "reduce_skill_cooldown")
 # warning-ignore:return_value_discarded
 	connect("life_changed", get_parent().get_node("HeartUI/Life"), "on_player_life_changed")
@@ -536,36 +539,41 @@ func use_skill():
 			use_primary_skill()
 		if sskill_ui.value >= sskill_ui.max_value and Input.is_action_just_pressed("secondary_skill") and !Input.is_action_just_pressed("primary_skill") and !is_frozen and !is_using_secondary_skill:
 			use_secondary_skill()
-			
+		if Input.is_action_just_pressed("tertiary_skill"):
+			use_tertiary_skill()
 
 func use_primary_skill():
+	emit_signal("skill_used", "FireSaw", attack_buff)
+	emit_signal("skill_ui_update", "FireSaw")
 	if Global.current_character == Global.equipped_characters[0] and Global.mana >= Global.player_skill_multipliers["FireSawCost"]:
-		emit_signal("skill_used", "FireSaw", attack_buff)
-		emit_signal("skill_ui_update", "FireSaw")
 		emit_signal("mana_changed", Global.mana, "Player")
 	elif Global.current_character == Global.equipped_characters[1] and Global.character2_mana >= Global.player_skill_multipliers["FireSawCost"]:
-		emit_signal("skill_used", "FireSaw", attack_buff)
-		emit_signal("skill_ui_update", "FireSaw")
 		emit_signal("mana_changed", Global.character2_mana, "Player")
 	elif Global.current_character == Global.equipped_characters[2] and Global.character3_mana >= Global.player_skill_multipliers["FireSawCost"]:
-		emit_signal("skill_used", "FireSaw", attack_buff)
-		emit_signal("skill_ui_update", "FireSaw")
 		emit_signal("mana_changed", Global.character3_mana, "Player")
 	
 func use_secondary_skill():
+	emit_signal("skill_used", "FireFairy", attack_buff)
+	emit_signal("skill_ui_update", "FireFairy")
 	if Global.current_character == Global.equipped_characters[0] and Global.mana >= Global.player_skill_multipliers["FireFairyCost"]:
-		emit_signal("skill_used", "FireFairy", attack_buff)
-		emit_signal("skill_ui_update", "FireFairy")
 		emit_signal("mana_changed", Global.mana, "Player")
 	elif Global.current_character == Global.equipped_characters[1] and Global.character2_mana >= Global.player_skill_multipliers["FireFairyCost"]:
-		emit_signal("skill_used", "FireFairy", attack_buff)
-		emit_signal("skill_ui_update", "FireFairy")
 		emit_signal("mana_changed", Global.character2_mana, "Player")
 	elif Global.current_character == Global.equipped_characters[2] and Global.character3_mana >= Global.player_skill_multipliers["FireFairyCost"]:
-		emit_signal("skill_used", "FireFairy", attack_buff)
-		emit_signal("skill_ui_update", "FireFairy")
 		emit_signal("mana_changed", Global.character3_mana, "Player")
-	
+
+func use_tertiary_skill():
+	if !$Sprite.flip_h:
+		emit_signal("skill_used", "Fireball", attack_buff, 1)
+	else:
+		emit_signal("skill_used", "Fireball", attack_buff, -1)
+	emit_signal("skill_ui_update", "Fireball")
+	if Global.current_character == Global.equipped_characters[0] and Global.mana >= Global.player_skill_multipliers["FireballCost"]:
+		emit_signal("mana_changed", Global.mana, "Player")
+	elif Global.current_character == Global.equipped_characters[1] and Global.character2_mana >= Global.player_skill_multipliers["FireballCost"]:
+		emit_signal("mana_changed", Global.character2_mana, "Player")
+	elif Global.current_character == Global.equipped_characters[2] and Global.character3_mana >= Global.player_skill_multipliers["FireballCost"]:
+		emit_signal("mana_changed", Global.character3_mana, "Player")
 
 
 

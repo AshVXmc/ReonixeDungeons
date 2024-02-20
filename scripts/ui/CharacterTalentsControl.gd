@@ -1,4 +1,4 @@
-class_name CharacterMenuUI extends Control
+class_name CharacterTalentsControl extends Control
 
 func _ready():
 	initialize_ui()
@@ -14,7 +14,7 @@ func initialize_ui():
 	$NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl4/PlayerTalentButton/PlayerCheckButton.visible = false
 	
 	update_talent_tree_ui()
-	get_tree().paused = true
+#	get_tree().paused = true
 
 func update_talent_tree_ui():
 	pass

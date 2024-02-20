@@ -1,16 +1,13 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=17 format=2]
 
-[ext_resource path="res://scripts/ui/CharacterTalentTreeUI.gd" type="Script" id=1]
+[ext_resource path="res://scripts/ui/CharacterTalentsControl.gd" type="Script" id=1]
 [ext_resource path="res://assets/characters/glaciela/glaciela_idle.png" type="Texture" id=2]
 [ext_resource path="res://assets/characters/player/player_idle.png" type="Texture" id=3]
 [ext_resource path="res://assets/UI/button_pressed.png" type="Texture" id=4]
 [ext_resource path="res://assets/UI/button.png" type="Texture" id=5]
 [ext_resource path="res://assets/UI/textbox.png" type="Texture" id=6]
 [ext_resource path="res://themes/Blur.tres" type="Material" id=7]
-[ext_resource path="res://assets/UI/empty_character_icon.png" type="Texture" id=8]
 [ext_resource path="res://assets/UI/quiticon.png" type="Texture" id=9]
-[ext_resource path="res://assets/UI/glaciela_character_icon.png" type="Texture" id=10]
-[ext_resource path="res://assets/UI/player_character_icon.png" type="Texture" id=11]
 [ext_resource path="res://assets/fonts/Born2bSportyV2.ttf" type="DynamicFontData" id=12]
 [ext_resource path="res://assets/characters/agnette/agnette_idle_1.png" type="Texture" id=13]
 [ext_resource path="res://scripts/ui/CharactersUI.gd" type="Script" id=14]
@@ -38,6 +35,7 @@ pause_mode = 2
 layer = 99
 
 [node name="CharactersUI" type="Control" parent="."]
+visible = false
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -49,6 +47,7 @@ margin_bottom = 360.0
 script = ExtResource( 14 )
 
 [node name="Blur" type="ColorRect" parent="CharactersUI"]
+visible = false
 material = ExtResource( 7 )
 anchor_left = 0.5
 anchor_top = 0.5
@@ -145,10 +144,10 @@ scroll_active = false
 [node name="PlayerOpenTalentButton" type="TextureButton" parent="CharactersUI/NinePatchRect"]
 anchor_left = 0.215
 anchor_right = 0.215
-margin_left = -67.695
-margin_top = 471.0
-margin_right = 62.305
-margin_bottom = 536.0
+margin_left = -63.195
+margin_top = 400.0
+margin_right = 66.805
+margin_bottom = 465.0
 rect_min_size = Vector2( 32, 16 )
 texture_normal = ExtResource( 5 )
 texture_pressed = ExtResource( 4 )
@@ -167,6 +166,7 @@ custom_fonts/font = SubResource( 3 )
 text = "Talents"
 
 [node name="CharacterTalentsControl" type="Control" parent="."]
+visible = false
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -218,45 +218,6 @@ bbcode_enabled = true
 bbcode_text = "[center]=== [color=#ffd703]Character Talent Tree[/color] ==="
 text = "=== Character Talent Tree ==="
 scroll_active = false
-
-[node name="CharacterButtonsUI" type="Control" parent="CharacterTalentsControl/NinePatchRect"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-
-[node name="CharacterSlot1" type="TextureButton" parent="CharacterTalentsControl/NinePatchRect/CharacterButtonsUI"]
-anchor_top = 0.5
-anchor_bottom = 0.5
-margin_left = 100.0
-margin_top = -147.0
-margin_right = 280.0
-margin_bottom = 33.0
-texture_normal = ExtResource( 11 )
-expand = true
-
-[node name="CharacterSlot2" type="TextureButton" parent="CharacterTalentsControl/NinePatchRect/CharacterButtonsUI"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -90.0
-margin_top = -147.0
-margin_right = 90.0
-margin_bottom = 33.0
-texture_normal = ExtResource( 10 )
-expand = true
-
-[node name="CharacterSlot3" type="TextureButton" parent="CharacterTalentsControl/NinePatchRect/CharacterButtonsUI"]
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-margin_left = -280.0
-margin_top = -147.0
-margin_right = -100.0
-margin_bottom = 33.0
-texture_normal = ExtResource( 8 )
-expand = true
 
 [node name="TalentTreeControl" type="Control" parent="CharacterTalentsControl/NinePatchRect"]
 anchor_right = 1.0
@@ -356,11 +317,10 @@ texture_normal = ExtResource( 5 )
 texture_pressed = ExtResource( 4 )
 
 [node name="ButtonLabel" type="Label" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl1/PlayerTalentButton"]
-margin_left = 2.46001
-margin_top = 1.59999
-margin_right = 122.46
-margin_bottom = 61.6
-rect_min_size = Vector2( 120, 60 )
+margin_left = 2.0
+margin_top = 2.0
+margin_right = 47.0
+margin_bottom = 19.0
 rect_scale = Vector2( 0.3, 0.3 )
 custom_fonts/font = SubResource( 3 )
 text = "Unlock"
@@ -383,11 +343,10 @@ margin_bottom = 808.0
 [node name="PlayerTalentButton" type="TextureButton" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl2"]
 anchor_left = 0.215
 anchor_right = 0.215
-margin_left = 428.9
+margin_left = 429.35
 margin_top = -553.0
-margin_right = 460.9
-margin_bottom = -537.0
-rect_min_size = Vector2( 32, 16 )
+margin_right = 445.35
+margin_bottom = -544.0
 rect_scale = Vector2( 7.5, 7.5 )
 texture_normal = ExtResource( 5 )
 texture_pressed = ExtResource( 4 )

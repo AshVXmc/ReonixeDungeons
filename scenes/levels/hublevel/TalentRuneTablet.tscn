@@ -1,7 +1,9 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://assets/terrain/talent_rune_tablet.png" type="Texture" id=1]
 [ext_resource path="res://assets/terrain/talent_rune_tablet_glowing_part.png" type="Texture" id=2]
+[ext_resource path="res://scenes/menus/CharacterMenuUI.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scripts/terrain/TalentRuneTablet.gd" type="Script" id=4]
 
 [sub_resource type="Environment" id=3]
 background_mode = 4
@@ -40,7 +42,11 @@ tracks/0/keys = {
 "values": [ Color( 1, 1, 1, 1 ), Color( 0, 1, 1.85, 1 ), Color( 1, 1, 1, 1 ) ]
 }
 
+[sub_resource type="RectangleShape2D" id=6]
+extents = Vector2( 35, 60 )
+
 [node name="TalentRuneTablet" type="Node2D"]
+script = ExtResource( 4 )
 
 [node name="RuneTabletSprite" type="Sprite" parent="."]
 position = Vector2( 3.63798e-12, -1 )
@@ -60,3 +66,11 @@ environment = SubResource( 3 )
 autoplay = "glow"
 anims/RESET = SubResource( 5 )
 anims/glow = SubResource( 4 )
+
+[node name="CharacterMenuUI" parent="." instance=ExtResource( 3 )]
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2( 0, 4 )
+shape = SubResource( 6 )

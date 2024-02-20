@@ -2,7 +2,7 @@ class_name PlayerSkillManager extends Node2D
 
 signal mana_changed(amount)
 var FIRE_PARTICLE : PackedScene = preload("res://scenes/particles/FlameParticle.tscn")
-var FIREBALL : PackedScene 
+var FIREBALL : PackedScene = preload("res://scenes/skills/Fireball.tscn")
 var FIRESAW : PackedScene = preload("res://scenes/skills/FireSaw.tscn")
 var FIRE_FAIRY : PackedScene = preload("res://scenes/skills/FireFairy.tscn")
 var BURNING_STATUS : PackedScene = preload("res://scenes/status_effects/BurningStatus.tscn")
@@ -13,8 +13,12 @@ var glacielaatkbonus : float
 func _ready():
 	connect("mana_changed", get_parent().get_parent().get_node("ManaUI/Mana"), "on_player_mana_changed")
 
-	
-func on_skill_used(skill_name : String, attack_bonus : float = 0):
+func on_skill_used (
+	skill_name : String, 
+	attack_bonus : float = 0,
+	# direction is only used on skills with directional paramaters like Fireball 
+	direction : int = 1
+	):
 	match skill_name:
 		"FireSaw":
 			get_parent().is_using_primary_skill = true
@@ -62,6 +66,11 @@ func on_skill_used(skill_name : String, attack_bonus : float = 0):
 					emit_signal("mana_changed", Global.character3_mana, "Player")
 			yield(get_tree().create_timer(fire_fairy.get_node("DestroyedTimer").wait_time), "timeout")
 			get_parent().is_using_secondary_skill = false
+		"Fireball":
+			var fireball = FIREBALL.instance()
+			fireball.direction = direction
+			get_parent().get_parent().add_child(fireball)
+			fireball.position = global_position
 		"IceLance":
 		
 			get_parent().is_using_primary_skill = true

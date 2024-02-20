@@ -46,23 +46,23 @@ func _process(delta):
 				initiate_enemy_wave(WAVE)
 	if wave_in_progress:
 		time_elapsed += delta
-		
-		$WaveUI/ObjectiveUI.visible = true
-		$WaveUI/ObjectiveUI/ObjectiveLabel.text = objective_label_text.format({
-			"enemies_left" : str(wave_batches[WAVE].size() - amount_of_alive_enemies()),
-			"total_enemies": str(wave_batches[WAVE].size())
-		})
-		$WaveUI/TimerUI.visible = true
-		$WaveUI/TimerUI/TimerLabel.text = timer_label_text + ("%02d:%02d" % [time_elapsed / 60, fmod(time_elapsed, 60)])
+		$LevelObjectiveUI.objective_active(
+			# Objective label
+			objective_label_text.format({
+				"enemies_left" : str(wave_batches[WAVE].size() - amount_of_alive_enemies()),
+				"total_enemies": str(wave_batches[WAVE].size())
+			}),
+			# Timer label
+			timer_label_text + ("%02d:%02d" % [time_elapsed / 60, fmod(time_elapsed, 60)]),
+			# uses timer
+			true
+		)
 	else:
-		$WaveUI/TimerUI.visible = false
-		$WaveUI/ObjectiveUI.visible = false
+		$LevelObjectiveUI.objective_inactive()
 	
 
 func initiate_enemy_wave(wave : int):
 	wave_in_progress = true
-	$WaveUI/WaveControl/WaveLabel.text = "Wave " + str(wave)
-	$WaveUI/WaveControl.visible = true
 	var enemy_list = wave_batches[wave]
 	for enemy in enemy_list:
 		if enemy is PackedScene:
@@ -73,8 +73,8 @@ func initiate_enemy_wave(wave : int):
 			e.position = get_node("SpawnPoint" + str(wave_spawn_points[wave][e_index])).global_position
 			enemy_list.remove(e_index)
 			enemy_list.insert(e_index, "")
-	yield(get_tree().create_timer(1.0), "timeout")
-	$WaveUI/WaveControl.visible = false
+	$LevelObjectiveUI.initiative_wave_ui(wave)
+
 
 func end_challenge():
 	challenge_ended = true

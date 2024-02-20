@@ -1,9 +1,11 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://scripts/items/LevelTransporter.gd" type="Script" id=1]
 [ext_resource path="res://assets/terrain/door.png" type="Texture" id=2]
 [ext_resource path="res://assets/fonts/FFFFORWA.ttf" type="DynamicFontData" id=3]
 [ext_resource path="res://assets/fonts/Born2bSportyV2.ttf" type="DynamicFontData" id=4]
+[ext_resource path="res://assets/UI/textbox.png" type="Texture" id=5]
+[ext_resource path="res://themes/Blur.tres" type="Material" id=6]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 63.3124, 50.4134 )
@@ -14,6 +16,14 @@ font_data = ExtResource( 3 )
 
 [sub_resource type="DynamicFont" id=3]
 size = 80
+font_data = ExtResource( 4 )
+
+[sub_resource type="DynamicFont" id=4]
+size = 32
+font_data = ExtResource( 4 )
+
+[sub_resource type="DynamicFont" id=5]
+size = 32
 font_data = ExtResource( 4 )
 
 [node name="LevelTransporter" type="Node2D"]
@@ -61,5 +71,74 @@ valign = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Plaque" type="CanvasLayer" parent="."]
+pause_mode = 2
+
+[node name="Control" type="Control" parent="Plaque"]
+anchor_left = 0.5
+anchor_top = 0.33
+anchor_right = 0.5
+anchor_bottom = 0.33
+margin_left = -540.352
+margin_top = -287.3
+margin_right = 533.648
+margin_bottom = 434.7
+
+[node name="Blur" type="ColorRect" parent="Plaque/Control"]
+material = ExtResource( 6 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -1265.65
+margin_top = -827.3
+margin_right = 1974.35
+margin_bottom = 1332.7
+color = Color( 1, 1, 1, 0 )
+
+[node name="NinePatchRect" type="NinePatchRect" parent="Plaque/Control"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -200.0
+margin_top = -108.0
+margin_right = 200.0
+margin_bottom = 242.0
+texture = ExtResource( 5 )
+patch_margin_left = 64
+patch_margin_top = 64
+patch_margin_right = 64
+patch_margin_bottom = 64
+
+[node name="Header" type="RichTextLabel" parent="Plaque/Control"]
+anchor_left = 0.5
+anchor_top = 0.404
+anchor_right = 0.5
+anchor_bottom = 0.404
+margin_left = -200.0
+margin_top = -15.688
+margin_right = 200.0
+margin_bottom = 34.312
+custom_fonts/normal_font = SubResource( 4 )
+bbcode_enabled = true
+bbcode_text = "====== [color=green]Alchemy Cauldron[/color] ======"
+text = "====== Alchemy Cauldron ======"
+scroll_active = false
+
+[node name="SubHeader" type="Label" parent="Plaque/Control"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -324.5
+margin_top = -53.0
+margin_right = 324.5
+margin_bottom = -17.0
+custom_fonts/font = SubResource( 5 )
+text = "Select a potion to craft."
+align = 1
+autowrap = true
 
 [connection signal="area_exited" from="Area2D" to="." method="_on_Area2D_area_exited"]
