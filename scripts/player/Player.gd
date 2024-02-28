@@ -7,7 +7,7 @@ signal lifewine_obtained(player_lifewine)
 signal manapot_obtained(player_manapot)
 signal opals_obtained(player_opals, amount_added)
 signal crystals_obtained(player_crystals)
-
+signal record_opals_obtained(amount)
 signal ingredient_obtained(ingredient_name, amount)
 signal skill_used(skill_name, character)
 signal skill_ui_update()
@@ -189,7 +189,6 @@ func _ready():
 	connect("skill_ui_update", get_parent().get_node("SkillsUI/Control"), "on_skill_used")
 	connect("skill_used", get_node("SkillManager"), "on_skill_used")
 	
-	
 	connect("reduce_skill_cd", get_parent().get_node("SkillsUI/Control"), "reduce_skill_cooldown")
 # warning-ignore:return_value_discarded
 	connect("life_changed", get_parent().get_node("HeartUI/Life"), "on_player_life_changed")
@@ -203,6 +202,7 @@ func _ready():
 	connect("manapot_obtained", get_parent().get_node("ManaPotUI/ManaPotControl"), "on_player_manapot_obtained")
 # warning-ignore:return_value_discarded
 	connect("opals_obtained", get_parent().get_node("OpalsUI/OpalsControl"), "on_player_opals_obtained")
+	connect("record_opals_obtained", get_parent().get_node("LevelTransporterEnd"), "record_opals_obtained")
 # warning-ignore:return_value_discarded
 	connect("crystals_obtained", get_parent().get_node("RevivementCrystal/RevivementCrystalControl"), "on_player_crystal_obtained")
 	connect("life_changed", Global, "sync_hearts")
@@ -1869,7 +1869,8 @@ func slow_player(time : float):
 	
 func get_opals(opals : int):
 	Global.opals_amount += opals
-	emit_signal("opals_obtained", Global.opals_amount)
+	emit_signal("opals_obtained", opals)
+	emit_signal("record_opals_obtained", opals)
 
 # Timers
 func _on_InvulnerabilityTimer_timeout():

@@ -1,6 +1,7 @@
 class_name Level extends Node2D
 # If true
 
+
 signal equipped_skills()
 func _ready():
 

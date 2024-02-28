@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://scripts/items/LevelTransporter.gd" type="Script" id=1]
 [ext_resource path="res://assets/terrain/door.png" type="Texture" id=2]
@@ -6,6 +6,11 @@
 [ext_resource path="res://assets/fonts/Born2bSportyV2.ttf" type="DynamicFontData" id=4]
 [ext_resource path="res://assets/UI/textbox.png" type="Texture" id=5]
 [ext_resource path="res://themes/Blur.tres" type="Material" id=6]
+[ext_resource path="res://assets/characters/player/player_idle.png" type="Texture" id=7]
+[ext_resource path="res://assets/characters/agnette/agnette_idle_1.png" type="Texture" id=8]
+[ext_resource path="res://assets/characters/glaciela/glaciela_idle.png" type="Texture" id=9]
+[ext_resource path="res://assets/UI/long_button.png" type="Texture" id=10]
+[ext_resource path="res://assets/UI/long_button_pressed.png" type="Texture" id=11]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 63.3124, 50.4134 )
@@ -23,6 +28,14 @@ size = 32
 font_data = ExtResource( 4 )
 
 [sub_resource type="DynamicFont" id=5]
+size = 32
+font_data = ExtResource( 4 )
+
+[sub_resource type="DynamicFont" id=6]
+size = 32
+font_data = ExtResource( 4 )
+
+[sub_resource type="DynamicFont" id=7]
 size = 32
 font_data = ExtResource( 4 )
 
@@ -72,10 +85,11 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Plaque" type="CanvasLayer" parent="."]
+[node name="LevelComplete" type="CanvasLayer" parent="."]
 pause_mode = 2
 
-[node name="Control" type="Control" parent="Plaque"]
+[node name="LevelCompleteControl" type="Control" parent="LevelComplete"]
+visible = false
 anchor_left = 0.5
 anchor_top = 0.33
 anchor_right = 0.5
@@ -85,7 +99,7 @@ margin_top = -287.3
 margin_right = 533.648
 margin_bottom = 434.7
 
-[node name="Blur" type="ColorRect" parent="Plaque/Control"]
+[node name="Blur" type="ColorRect" parent="LevelComplete/LevelCompleteControl"]
 material = ExtResource( 6 )
 anchor_left = 0.5
 anchor_top = 0.5
@@ -97,7 +111,7 @@ margin_right = 1974.35
 margin_bottom = 1332.7
 color = Color( 1, 1, 1, 0 )
 
-[node name="NinePatchRect" type="NinePatchRect" parent="Plaque/Control"]
+[node name="NinePatchRect" type="NinePatchRect" parent="LevelComplete/LevelCompleteControl"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -105,14 +119,14 @@ anchor_bottom = 0.5
 margin_left = -200.0
 margin_top = -108.0
 margin_right = 200.0
-margin_bottom = 242.0
+margin_bottom = 309.0
 texture = ExtResource( 5 )
 patch_margin_left = 64
 patch_margin_top = 64
 patch_margin_right = 64
 patch_margin_bottom = 64
 
-[node name="Header" type="RichTextLabel" parent="Plaque/Control"]
+[node name="Header" type="RichTextLabel" parent="LevelComplete/LevelCompleteControl"]
 anchor_left = 0.5
 anchor_top = 0.404
 anchor_right = 0.5
@@ -123,11 +137,11 @@ margin_right = 200.0
 margin_bottom = 34.312
 custom_fonts/normal_font = SubResource( 4 )
 bbcode_enabled = true
-bbcode_text = "====== [color=green]Alchemy Cauldron[/color] ======"
-text = "====== Alchemy Cauldron ======"
+bbcode_text = "[center]====== [color=green]Level Complete[/color] ======"
+text = "====== Level Complete ======"
 scroll_active = false
 
-[node name="SubHeader" type="Label" parent="Plaque/Control"]
+[node name="EnemiesKilled" type="Label" parent="LevelComplete/LevelCompleteControl"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -137,8 +151,110 @@ margin_top = -53.0
 margin_right = 324.5
 margin_bottom = -17.0
 custom_fonts/font = SubResource( 5 )
-text = "Select a potion to craft."
+text = "Enemies killed:"
 align = 1
 autowrap = true
+
+[node name="OpalsObtained" type="Label" parent="LevelComplete/LevelCompleteControl"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -324.5
+margin_top = -21.0
+margin_right = 324.5
+margin_bottom = 15.0
+custom_fonts/font = SubResource( 5 )
+text = "Opals obtained:"
+align = 1
+autowrap = true
+
+[node name="ChestsOpened" type="Label" parent="LevelComplete/LevelCompleteControl"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -324.5
+margin_top = 14.0
+margin_right = 324.5
+margin_bottom = 50.0
+custom_fonts/font = SubResource( 5 )
+text = "Chests Opened:"
+align = 1
+autowrap = true
+
+[node name="CharacterSprite1" type="Sprite" parent="LevelComplete/LevelCompleteControl"]
+position = Vector2( 420, 465 )
+scale = Vector2( 4, 4 )
+texture = ExtResource( 7 )
+
+[node name="CharacterSprite2" type="Sprite" parent="LevelComplete/LevelCompleteControl"]
+position = Vector2( 540, 465 )
+scale = Vector2( 4, 4 )
+texture = ExtResource( 9 )
+
+[node name="CharacterSprite3" type="Sprite" parent="LevelComplete/LevelCompleteControl"]
+position = Vector2( 660, 465 )
+scale = Vector2( 4, 4 )
+texture = ExtResource( 8 )
+
+[node name="NextLevelButton" type="TextureButton" parent="LevelComplete/LevelCompleteControl"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -80.0
+margin_top = -110.0
+margin_right = 80.0
+margin_bottom = -70.0
+texture_normal = ExtResource( 10 )
+texture_pressed = ExtResource( 11 )
+expand = true
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Label" type="Label" parent="LevelComplete/LevelCompleteControl/NextLevelButton"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -71.0
+margin_top = -15.0
+margin_right = 69.0
+margin_bottom = 17.0
+custom_fonts/font = SubResource( 6 )
+text = "Finish Level"
+
+[node name="CharacterXPIncrease1" type="Label" parent="LevelComplete/LevelCompleteControl"]
+margin_left = 385.0
+margin_top = 508.0
+margin_right = 462.0
+margin_bottom = 540.0
+custom_fonts/font = SubResource( 7 )
+text = "+0XP"
+align = 1
+
+[node name="CharacterXPIncrease2" type="Label" parent="LevelComplete/LevelCompleteControl"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -32.5
+margin_top = 149.0
+margin_right = 44.5
+margin_bottom = 181.0
+custom_fonts/font = SubResource( 7 )
+text = "+0XP"
+align = 1
+
+[node name="CharacterXPIncrease3" type="Label" parent="LevelComplete/LevelCompleteControl"]
+margin_left = 627.0
+margin_top = 508.0
+margin_right = 704.0
+margin_bottom = 540.0
+custom_fonts/font = SubResource( 7 )
+text = "+0XP"
+align = 1
 
 [connection signal="area_exited" from="Area2D" to="." method="_on_Area2D_area_exited"]

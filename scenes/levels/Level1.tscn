@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=2]
+[gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://scripts/misc/Level.gd" type="Script" id=1]
 [ext_resource path="res://scenes/menus/DebugMenu.tscn" type="PackedScene" id=2]
@@ -11,6 +11,7 @@
 [ext_resource path="res://scenes/items/ChestSilver.tscn" type="PackedScene" id=9]
 [ext_resource path="res://scenes/enemies/BowGoblin.tscn" type="PackedScene" id=10]
 [ext_resource path="res://scenes/menus/HeartUI.tscn" type="PackedScene" id=11]
+[ext_resource path="res://scenes/items/LootBag.tscn" type="PackedScene" id=12]
 [ext_resource path="res://tilesets/Default.tres" type="TileSet" id=13]
 [ext_resource path="res://scenes/menus/SceneTransition.tscn" type="PackedScene" id=14]
 [ext_resource path="res://scenes/menus/PauseUI.tscn" type="PackedScene" id=16]
@@ -99,6 +100,7 @@ mode = 1
 [node name="LevelTransporterEnd" parent="." instance=ExtResource( 6 )]
 position = Vector2( 3982, 876 )
 Destination = "res://scenes/levels/Level2.tscn"
+level_exit = true
 
 [node name="LevelTransporterStart" parent="." instance=ExtResource( 6 )]
 position = Vector2( -1540, 685 )
@@ -148,7 +150,7 @@ shape = SubResource( 1 )
 one_way_collision = true
 
 [node name="Player" parent="." instance=ExtResource( 29 )]
-position = Vector2( -1549, 699 )
+position = Vector2( 3791, 845 )
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position = Vector2( 9.72693, -62.0423 )
@@ -161,3 +163,7 @@ limit_bottom = 1500
 drag_margin_h_enabled = true
 drag_margin_v_enabled = true
 editor_draw_limits = true
+
+[node name="LootBag" parent="." instance=ExtResource( 12 )]
+position = Vector2( -1215, 709 )
+opals_amount = 20

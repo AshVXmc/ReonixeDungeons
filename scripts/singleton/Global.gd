@@ -238,7 +238,12 @@ var unlocked_skills : Dictionary = {
 	"SecondarySkill": ["FireFairy"],
 	"RangedSkill": ["Fireball"]
 }
-
+var character_level_data : Dictionary = {
+	# [current level, current xp, xp needed to level up]
+	"Player": [1, 0, 20],
+	"Glaciela": [1, 0, 20],
+	"Agnette": [1, 0, 20]
+}
 
 
 var enemies_killed : int
@@ -265,11 +270,12 @@ func reset_player_data():
 	Global.manapot_amount = 0
 	Global.opals_amount = 0
 	Global.crystals_amount = 0
-	Global.drops_inventory["common_dust"] = 10
-	Global.drops_inventory["goblin_scales"] = 10
-	Global.drops_inventory["bat_wings"] = 10
-	Global.drops_inventory["sweet_herbs"] = 10
-	
+	Global.drops_inventory = {
+		"common_dust" : 0,
+		"goblin_scales": 0,
+		"bat_wings": 0,
+		"sweet_herbs": 0
+	}
 	Global.soul_token_amount = 0
 
 	Global.is_loading_a_save = false
@@ -278,9 +284,16 @@ func reset_player_data():
 	Global.levelpath = ""
 	Global.enemies_killed = 0
 	Global.masked_goblin_defeated = false
-	Global.player_skills["PrimarySkill"] = "FireSaw"
-	Global.player_skills["SecondarySkill"] = "FireFairy"
-	Global.player_skills["RangedSkill"] = "Fireball"
+	Global.player_skills = {
+		"PrimarySkill": "FireSaw",
+		"SecondarySkill": "FireFairy",
+		"RangedSkill": "Fireball"
+	}
+	Global.character_level_data = {
+		"Player": [1, 0, 20],
+		"Glaciela": [1, 0, 20],
+		"Agnette": [1, 0, 20]
+	}
 	Global.vsync = false
 	Global.activated_portals.clear()
 
@@ -351,7 +364,7 @@ func save_player_data():
 		"EnemiesKilled": Global.enemies_killed ,
 		"MaskedGoblinDefeated" : Global.masked_goblin_defeated,
 		"ActivatedPortals": Global.activated_portals,
-		
+		"CharacterLevelData": Global.character_level_data
 	}
 
 	var savefile : File = File.new()

@@ -68,6 +68,7 @@ func _on_LoadGame_pressed():
 			Global.masked_goblin_defeated = player_data["MaskedGoblinDefeated"]
 			Global.activated_portals = player_data["ActivatedPortals"]
 			Global.enemy_level_index = player_data["EnemyLevelIndex"]
+			Global.character_level_data = player_data["CharacterLevelData"]
 			$SceneTransition/ColorRect.visible = true
 			$SceneTransition.transition()
 			yield(get_tree().create_timer(1), "timeout")

@@ -11,7 +11,7 @@ const CLOSED_TEXTURE = preload("res://assets/chests/chest_silver_closed.png")
 signal give_opals(amount)
 signal autosave()
 func _ready():
-	connect("give_opals", get_parent().get_node("OpalsUI/OpalsControl"), "on_player_opals_obtained")
+	connect("give_opals", get_parent().get_node("Player"), "get_opals")
 	if !Global.opened_chests.has(chestID):
 		connect("autosave", get_parent().get_node("PauseUI/Pause") , "_on_SaveButton_pressed")
 		hasbeenopened = false
@@ -24,7 +24,6 @@ func _ready():
 func _process(_delta):
 	if AREA.overlaps_area(PLAYER) and Input.is_action_just_pressed("ui_use") and !Global.opened_chests.has(chestID) and !hasbeenopened:
 		Global.opened_chests.append(chestID)
-		Global.opals_amount += Opals
 		emit_signal("give_opals", Opals)
 		# Particles that show up when the chest is opened
 		var opened_particles = OPENED_PARTICLES.instance()

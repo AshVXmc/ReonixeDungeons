@@ -62,7 +62,7 @@
 extents = Vector2( 60, 50 )
 
 [sub_resource type="DynamicFont" id=6]
-size = 48
+size = 64
 font_data = ExtResource( 51 )
 
 [sub_resource type="DynamicFont" id=7]
@@ -380,10 +380,10 @@ __meta__ = {
 shape = SubResource( 5 )
 
 [node name="Label" type="RichTextLabel" parent="HubLibrary/BookshelfPlayerDetectorArea"]
-margin_left = -61.0
-margin_top = -111.0
-margin_right = 75.0
-margin_bottom = -63.0
+margin_left = -81.0
+margin_top = -121.0
+margin_right = 86.0
+margin_bottom = -59.0
 custom_fonts/bold_font = SubResource( 6 )
 bbcode_enabled = true
 bbcode_text = "[b]Read[/b] [img=36]res://assets/UI/icon_Empty.png[/img]"
@@ -393,10 +393,10 @@ scroll_active = false
 [node name="Keybind" type="Label" parent="HubLibrary/BookshelfPlayerDetectorArea"]
 anchor_left = -3.732
 anchor_right = -3.732
-margin_left = 28.9999
-margin_top = -114.0
-margin_right = 63.9999
-margin_bottom = -34.0002
+margin_left = 38.0
+margin_top = -109.0
+margin_right = 73.0
+margin_bottom = -29.0002
 rect_scale = Vector2( 0.8, 0.8 )
 custom_colors/font_color = Color( 0.192157, 0.372549, 1, 1 )
 custom_fonts/font = SubResource( 7 )
@@ -497,7 +497,7 @@ Opals = 5
 position = Vector2( 1798, 598 )
 
 [node name="Player" parent="." instance=ExtResource( 34 )]
-position = Vector2( 1651, 586 )
+position = Vector2( 2712, -1521 )
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position = Vector2( -24.7189, -147.43 )
