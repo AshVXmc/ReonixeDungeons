@@ -25,3 +25,16 @@ func _on_CloseButton_pressed():
 func _on_SkinsButton_pressed():
 	$ButtonsControl.visible = false
 	$Skins.visible = true
+
+
+func _on_buy_CyberNinja_pressed():
+	Global.player_unlocked_skins["CyberNinja"] = true
+	$Skins/ScrollContainer/VBoxContainer/CyberNinjaControl/CyberNinja/Label.text = "Bought"
+	$Skins/ScrollContainer/VBoxContainer/CyberNinjaControl/CyberNinja/Label.add_color_override("font_color", Color(1, 0.84, 0.01, 1))
+	$Skins/ScrollContainer/VBoxContainer/CyberNinjaControl/OpalSprite.visible = false
+	$Skins/ScrollContainer/VBoxContainer/CyberNinjaControl/Price.visible = false
+	$Skins/ScrollContainer/VBoxContainer/CyberNinjaControl/CyberNinjaCheckButton.visible = true
+
+
+func _on_CyberNinjaCheckButton_pressed():
+	pass # Replace with function body.

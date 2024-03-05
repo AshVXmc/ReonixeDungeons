@@ -1,8 +1,10 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://assets/terrain/hub_level/monument_of_victories.png" type="Texture" id=1]
+[ext_resource path="res://assets/particles/smoke_particle.png" type="Texture" id=2]
 [ext_resource path="res://scenes/terrain/GenericInteractLabel.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scripts/terrain/GenericInteractable.gd" type="Script" id=4]
+[ext_resource path="res://assets/misc/light_circle.png" type="Texture" id=5]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 61.056, 62.0495 )
@@ -10,6 +12,78 @@ extents = Vector2( 61.056, 62.0495 )
 [node name="MonumentOfVictories" type="Node2D"]
 script = ExtResource( 4 )
 dialogic_timeline = "MonumentOfVictories"
+
+[node name="SmokeParticles" type="CPUParticles2D" parent="."]
+position = Vector2( -124, 104 )
+scale = Vector2( 0.666667, 0.666667 )
+amount = 2
+lifetime = 4.0
+randomness = 0.6
+texture = ExtResource( 2 )
+direction = Vector2( 1, -1 )
+spread = 0.0
+gravity = Vector2( 0, -40 )
+scale_amount = 2.5
+
+[node name="SmokeParticles2" type="CPUParticles2D" parent="."]
+position = Vector2( -107, 87 )
+scale = Vector2( 0.666667, 0.666667 )
+amount = 2
+lifetime = 4.0
+randomness = 0.6
+texture = ExtResource( 2 )
+direction = Vector2( 1, -1 )
+spread = 0.0
+gravity = Vector2( 0, -40 )
+scale_amount = 2.5
+
+[node name="SmokeParticles3" type="CPUParticles2D" parent="."]
+position = Vector2( -92, 110 )
+scale = Vector2( 0.666667, 0.666667 )
+amount = 2
+lifetime = 4.0
+randomness = 0.6
+texture = ExtResource( 2 )
+direction = Vector2( 1, -1 )
+spread = 0.0
+gravity = Vector2( 0, -40 )
+scale_amount = 2.5
+
+[node name="SmokeParticles4" type="CPUParticles2D" parent="."]
+position = Vector2( 92, 97 )
+scale = Vector2( 0.666667, 0.666667 )
+amount = 2
+lifetime = 4.0
+randomness = 0.6
+texture = ExtResource( 2 )
+direction = Vector2( 1, -1 )
+spread = 0.0
+gravity = Vector2( 0, -40 )
+scale_amount = 2.5
+
+[node name="SmokeParticles5" type="CPUParticles2D" parent="."]
+position = Vector2( 108, 119 )
+scale = Vector2( 0.666667, 0.666667 )
+amount = 2
+lifetime = 4.0
+randomness = 0.6
+texture = ExtResource( 2 )
+direction = Vector2( 1, -1 )
+spread = 0.0
+gravity = Vector2( 0, -40 )
+scale_amount = 2.5
+
+[node name="SmokeParticles6" type="CPUParticles2D" parent="."]
+position = Vector2( 124, 103 )
+scale = Vector2( 0.666667, 0.666667 )
+amount = 2
+lifetime = 4.0
+randomness = 0.6
+texture = ExtResource( 2 )
+direction = Vector2( 1, -1 )
+spread = 0.0
+gravity = Vector2( 0, -40 )
+scale_amount = 2.5
 
 [node name="Sprite" type="Sprite" parent="."]
 position = Vector2( 0, 47.9458 )
@@ -26,3 +100,15 @@ object_name = "Monument"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2( -1.24367, 178.805 )
 shape = SubResource( 1 )
+
+[node name="CandleLight2D1" type="Light2D" parent="."]
+position = Vector2( -36, 108 )
+scale = Vector2( 1.79861, 1.86857 )
+texture = ExtResource( 5 )
+energy = 0.4
+
+[node name="CandleLight2D2" type="Light2D" parent="."]
+position = Vector2( 36, 108 )
+scale = Vector2( 1.79861, 1.86857 )
+texture = ExtResource( 5 )
+energy = 0.4

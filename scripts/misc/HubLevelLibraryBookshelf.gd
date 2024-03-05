@@ -1,4 +1,4 @@
-class_name HubLevelLibraryBookshelf extends Area2D
+class_name HubLevelBookOfShadowsBookshelf extends Area2D
 
 onready var PLAYER = get_parent().get_parent().get_node("Player").get_node("Area2D")
 onready var player = get_parent().get_parent().get_node("Player")
@@ -10,7 +10,7 @@ func _ready():
 func _process(delta):
 	if self.overlaps_area(PLAYER) and Input.is_action_just_pressed("ui_use"):
 		player.is_shopping = true
-		var BOOKSHELF_DIALOGUE = Dialogic.start("HubLevelLibraryBookshelf")
+		var BOOKSHELF_DIALOGUE = Dialogic.start("HubLevelBookOfShadowsBookshelf")
 		BOOKSHELF_DIALOGUE.connect("timeline_end",self , "end_of_dialogue")
 		add_child(BOOKSHELF_DIALOGUE)
 

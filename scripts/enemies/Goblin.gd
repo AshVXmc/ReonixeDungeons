@@ -267,7 +267,24 @@ func _on_Area2D_area_entered(area):
 					$HitDelayTimer.start()
 					parse_damage()
 					break
-
+		if area.is_in_group("Earth"):
+			var groups : Array = area.get_groups()
+			for group_names in groups:
+				if float(group_names) != 0 and $HitDelayTimer.is_stopped():
+					var raw_damage = float(group_names)
+					var damage_after_global_res = raw_damage - (raw_damage * (global_res / 100))
+					var damage = round((damage_after_global_res - (damage_after_global_res * (earth_res / 100))) * armor_strength_coefficient)
+					print("HP reduced by " + str(damage))
+					HP -= float(damage)
+					$HealthBar.value  -= float(damage)
+					if area.is_in_group("IsCritHit"):
+						
+						add_damage_particles("Earth", float(damage), true)
+					else:
+						add_damage_particles("Earth", float(damage), false)
+					$HitDelayTimer.start()
+					parse_damage()
+					break
 		if area.is_in_group("FireGauge"):
 			pass
 		if area.is_in_group("Burning"):

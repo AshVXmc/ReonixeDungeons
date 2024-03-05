@@ -7,10 +7,10 @@
 
 			],
 			"portrait": "",
-			"question": "Several dusty tomes and books are stacked neatly on top on each other. Read one?"
+			"question": "A black grimoire with a pentacle on its cover is placed on the altar. Read a chapter?"
 		},
 		{
-			"choice": "Read \"Introduction to Magic: Part 1\"",
+			"choice": "Read \"Chapter I: Introduction to Magic\"",
 			"condition": "",
 			"definition": "",
 			"event_id": "dialogic_011",
@@ -26,7 +26,7 @@
 			"character": "character-1706163100.json",
 			"event_id": "dialogic_001",
 			"portrait": "",
-			"text": "Every living being can manipulate Mana, although the more intelligent that being is, the higher control it has over the Mana within itself. People who are proficient in spells that involve Mana are called Wizards."
+			"text": "Every living being can manipulate Mana, although the more intelligent that being is, the higher control it has over the Mana within itself. People who are proficient in Mana magic are called Mages."
 		},
 		{
 			"character": "character-1706163100.json",
@@ -38,7 +38,7 @@
 			"character": "character-1706163100.json",
 			"event_id": "dialogic_001",
 			"portrait": "",
-			"text": "The most powerful Wizards of our kind who can cast advanced magic and manipulate pure Mana are bestowed with the title of Archwizards. Rumors say that these Archwizards may have learned the power to create life itself..."
+			"text": "The most powerful Mages  of our kind who can cast advanced magic and manipulate pure Mana are bestowed with the title of Archmages. Rumors say that these Archmages may have learned the power to create life itself..."
 		},
 		{
 			"animation": "[Default]",
@@ -51,8 +51,8 @@
 			"portrait": "Default",
 			"portrait_definition": "",
 			"position": {
-				"0": false,
-				"1": true,
+				"0": true,
+				"1": false,
 				"2": false,
 				"3": false,
 				"4": false
@@ -64,7 +64,20 @@
 			"character": "character-1673439491.json",
 			"event_id": "dialogic_001",
 			"portrait": "",
-			"text": "(If that's not obvious foreshadowing, I don't know what is...)"
+			"text": "(Why do these pages smell like burnt incense...?)"
+		},
+		{
+			"choice": "Read \"Chapter II: The Winged Cyclops\"",
+			"condition": "",
+			"definition": "",
+			"event_id": "dialogic_011",
+			"value": ""
+		},
+		{
+			"character": "character-1709660121.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "It is said that the Mother Goddess, also known as the Progenitia or simply the [color=ffd703]Winged Cyclops[/color],"
 		},
 		{
 			"choice": "Nevermind",
@@ -77,7 +90,7 @@
 			"character": "character-1673439491.json",
 			"event_id": "dialogic_001",
 			"portrait": "",
-			"text": "(Literature really isn't my strong suit....)"
+			"text": "(Literature really isn't my strong suit..)"
 		},
 		{
 			"event_id": "dialogic_013"
@@ -86,6 +99,6 @@
 	"metadata": {
 		"dialogic-version": "1.4.5",
 		"file": "timeline-1706102539.json",
-		"name": "HubLevelLibraryBookshelf"
+		"name": "HubLevelBookOfShadowsBookshelf"
 	}
 }

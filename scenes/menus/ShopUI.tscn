@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://assets/fonts/Born2bSportyV2.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://assets/UI/button_pressed.png" type="Texture" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://assets/misc/dashing_cape.png" type="Texture" id=5]
 [ext_resource path="res://assets/UI/textbox.png" type="Texture" id=6]
 [ext_resource path="res://assets/characters/player/skins/cyber_ninja/player_idle.png" type="Texture" id=7]
+[ext_resource path="res://assets/misc/opal.png" type="Texture" id=8]
 [ext_resource path="res://themes/Blur.tres" type="Material" id=9]
 [ext_resource path="res://assets/UI/quiticon.png" type="Texture" id=11]
 
@@ -26,6 +27,14 @@ font_data = ExtResource( 1 )
 size = 32
 font_data = ExtResource( 1 )
 
+[sub_resource type="DynamicFont" id=10]
+size = 32
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=11]
+size = 32
+font_data = ExtResource( 1 )
+
 [node name="ShopUI" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -37,6 +46,7 @@ margin_bottom = 3.0
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="Main" type="Control" parent="CanvasLayer"]
+visible = false
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -143,40 +153,39 @@ margin_bottom = 98.0
 anchor_right = 21.766
 anchor_bottom = 15.255
 margin_left = 148.0
-margin_top = 83.0
-margin_right = -559.62
-margin_bottom = -222.985
-rect_min_size = Vector2( 500, 355 )
-rect_scale = Vector2( 0.8, 0.8 )
+margin_top = 98.0
+margin_right = -725.62
+margin_bottom = -207.985
+rect_min_size = Vector2( 500, 0 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Main/Skins/ScrollContainer"]
-margin_right = 625.0
+margin_right = 500.0
 margin_bottom = 804.0
 
 [node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/Main/Skins/ScrollContainer/VBoxContainer"]
-margin_right = 625.0
+margin_right = 500.0
 margin_bottom = 800.0
-rect_min_size = Vector2( 625, 800 )
+rect_min_size = Vector2( 500, 800 )
 custom_fonts/normal_font = SubResource( 7 )
 bbcode_enabled = true
 bbcode_text = "[color=#ffd703]Cyber Ninja[/color]
-A high-tech suit with a sleek metallic design and neon-green features. It is said that the previous owner of this suit possessed the power to summon spirit dragons.
+A high-tech suit with a sleek metallic design and neon-green features. It is said that this suit possesses the power to summon spirit dragons.
 "
 text = "Cyber Ninja
-A high-tech suit with a sleek metallic design and neon-green features. It is said that the previous owner of this suit possessed the power to summon spirit dragons.
+A high-tech suit with a sleek metallic design and neon-green features. It is said that this suit possesses the power to summon spirit dragons.
 "
 scroll_active = false
 
-[node name="Control" type="Control" parent="CanvasLayer/Main/Skins/ScrollContainer/VBoxContainer"]
+[node name="CyberNinjaControl" type="Control" parent="CanvasLayer/Main/Skins/ScrollContainer/VBoxContainer"]
 margin_top = 804.0
-margin_right = 625.0
+margin_right = 500.0
 margin_bottom = 804.0
 
-[node name="CyberNinja" type="TextureButton" parent="CanvasLayer/Main/Skins/ScrollContainer/VBoxContainer/Control"]
-margin_left = 650.0
-margin_top = -685.0
-margin_right = 750.0
-margin_bottom = -635.0
+[node name="CyberNinja" type="TextureButton" parent="CanvasLayer/Main/Skins/ScrollContainer/VBoxContainer/CyberNinjaControl"]
+margin_left = 512.0
+margin_top = -702.0
+margin_right = 612.0
+margin_bottom = -652.0
 rect_min_size = Vector2( 100, 50 )
 texture_normal = ExtResource( 4 )
 texture_pressed = ExtResource( 2 )
@@ -185,7 +194,7 @@ __meta__ = {
 "_edit_group_": true
 }
 
-[node name="Label" type="Label" parent="CanvasLayer/Main/Skins/ScrollContainer/VBoxContainer/Control/CyberNinja"]
+[node name="Label" type="Label" parent="CanvasLayer/Main/Skins/ScrollContainer/VBoxContainer/CyberNinjaControl/CyberNinja"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -198,10 +207,40 @@ custom_fonts/font = SubResource( 9 )
 text = "Unlock"
 align = 1
 
-[node name="Sprite" type="Sprite" parent="CanvasLayer/Main/Skins/ScrollContainer/VBoxContainer/Control"]
-position = Vector2( 695, -745 )
+[node name="ItemSprite" type="Sprite" parent="CanvasLayer/Main/Skins/ScrollContainer/VBoxContainer/CyberNinjaControl"]
+position = Vector2( 557, -762 )
 scale = Vector2( 5, 5 )
 texture = ExtResource( 7 )
 
+[node name="OpalSprite" type="Sprite" parent="CanvasLayer/Main/Skins/ScrollContainer/VBoxContainer/CyberNinjaControl"]
+position = Vector2( 585.75, -632.25 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 8 )
+
+[node name="Price" type="Label" parent="CanvasLayer/Main/Skins/ScrollContainer/VBoxContainer/CyberNinjaControl"]
+anchor_left = 1.119
+anchor_right = 1.119
+margin_left = -35.5
+margin_top = -648.0
+margin_right = 1.50006
+margin_bottom = -615.0
+custom_fonts/font = SubResource( 10 )
+text = "100"
+align = 3
+
+[node name="CyberNinjaCheckButton" type="CheckButton" parent="CanvasLayer/Main/Skins/ScrollContainer/VBoxContainer/CyberNinjaControl"]
+visible = false
+anchor_left = 1.122
+anchor_right = 1.122
+margin_left = -78.0001
+margin_top = -648.0
+margin_right = 77.9999
+margin_bottom = -608.0
+custom_fonts/font = SubResource( 11 )
+text = "Enable"
+align = 1
+
 [connection signal="pressed" from="CanvasLayer/Main/CloseButton" to="CanvasLayer/Main" method="_on_CloseButton_pressed"]
 [connection signal="pressed" from="CanvasLayer/Main/ButtonsControl/SkinsButton" to="CanvasLayer/Main" method="_on_SkinsButton_pressed"]
+[connection signal="pressed" from="CanvasLayer/Main/Skins/ScrollContainer/VBoxContainer/CyberNinjaControl/CyberNinja" to="CanvasLayer/Main" method="_on_buy_CyberNinja_pressed"]
+[connection signal="pressed" from="CanvasLayer/Main/Skins/ScrollContainer/VBoxContainer/CyberNinjaControl/CyberNinjaCheckButton" to="CanvasLayer/Main" method="_on_CyberNinjaCheckButton_pressed"]

@@ -1,11 +1,11 @@
 {
 	"color": "#ffffd703",
 	"description": "",
-	"display_name": "Bookshelf",
+	"display_name": "Book of Shadows",
 	"display_name_bool": true,
 	"id": "character-1706105694.json",
 	"mirror_portraits": false,
-	"name": "HubLevelLibraryBookshelf",
+	"name": "HubLevelBookOfShadowsBookshelf",
 	"nickname": "",
 	"nickname_bool": false,
 	"offset_x": 0,

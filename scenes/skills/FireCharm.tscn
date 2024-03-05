@@ -12,6 +12,7 @@ extents = Vector2( 9.64286, 3.5433 )
 [node name="FireCharm" type="KinematicBody2D"]
 scale = Vector2( 1.4, 1.4 )
 collision_layer = 0
+collision_mask = 0
 script = ExtResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="."]

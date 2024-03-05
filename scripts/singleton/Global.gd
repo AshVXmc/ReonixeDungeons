@@ -80,6 +80,9 @@ enum player_skins  {
 	DEFAULT,
 	CYBER_NINJA
 }
+var player_unlocked_skins = {
+	"CyberNinja": false
+}
 
 var player_talents : Dictionary = {
 	"CycloneSlashes" : {
@@ -240,9 +243,11 @@ var unlocked_skills : Dictionary = {
 }
 var character_level_data : Dictionary = {
 	# [current level, current xp, xp needed to level up]
-	"Player": [1, 0, 20],
-	"Glaciela": [1, 0, 20],
-	"Agnette": [1, 0, 20]
+	# for every level, the xp needed to level up is increased by 10.
+	# e.g: 20 XP to get from level 2 to 3, 30XP to get from level 3 to level 4
+	"Player": [1, 0, 10],
+	"Glaciela": [1, 0, 10],
+	"Agnette": [1, 0, 10]
 }
 
 

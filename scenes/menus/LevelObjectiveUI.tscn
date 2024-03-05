@@ -8,7 +8,6 @@ size = 80
 font_data = ExtResource( 1 )
 
 [sub_resource type="DynamicFont" id=2]
-size = 32
 font_data = ExtResource( 1 )
 
 [node name="LevelObjectiveUI" type="CanvasLayer"]
@@ -52,8 +51,8 @@ anchor_bottom = 1.0
 anchor_left = 0.5
 anchor_right = 0.5
 margin_left = -525.0
-margin_top = 255.0
+margin_top = 239.0
 margin_right = -127.0
-margin_bottom = 322.0
+margin_bottom = 306.0
 custom_fonts/font = SubResource( 2 )
 text = "Time elapsed: = 00:00"

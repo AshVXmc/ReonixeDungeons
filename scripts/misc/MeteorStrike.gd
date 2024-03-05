@@ -31,7 +31,7 @@ func explode():
 	
 	yield(get_tree().create_timer(0.75), "timeout")
 	get_parent().get_node("Player").cam_shake = false
-	queue_free()
+	call_deferred('free')
 
 func _on_DestroyedTimer_timeout():
 	explode()
@@ -41,6 +41,8 @@ func _on_ExplosionDelayTimer_timeout():
 	pass # Replace with function body.
 
 
-func _on_DetectorArea_area_entered(area):
-	if area.is_in_group("Enemy") or area.is_in_group("Enemy2"):
+
+
+func _on_DetectorArea_body_entered(body):
+	if body.is_in_group("TileMap"):
 		explode()

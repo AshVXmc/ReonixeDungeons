@@ -1,4 +1,4 @@
-[gd_scene load_steps=65 format=2]
+[gd_scene load_steps=66 format=2]
 
 [ext_resource path="res://assets/particles/smoke_particle.png" type="Texture" id=1]
 [ext_resource path="res://scripts/misc/HubLevelLibraryBookshelf.gd" type="Script" id=2]
@@ -25,6 +25,7 @@
 [ext_resource path="res://scenes/items/ChestSilver.tscn" type="PackedScene" id=23]
 [ext_resource path="res://scenes/levels/hublevel/DungeonEntrance.tscn" type="PackedScene" id=24]
 [ext_resource path="res://scenes/menus/EleganceMeterUI.tscn" type="PackedScene" id=25]
+[ext_resource path="res://assets/terrain/hub_level/prop_potionrack.png" type="Texture" id=26]
 [ext_resource path="res://scenes/menus/ManaUI.tscn" type="PackedScene" id=27]
 [ext_resource path="res://scenes/menus/SkillsUI.tscn" type="PackedScene" id=28]
 [ext_resource path="res://scenes/terrain/GenericInteractLabel.tscn" type="PackedScene" id=29]
@@ -47,7 +48,7 @@
 [ext_resource path="res://assets/terrain/hub_level/shop.png" type="Texture" id=46]
 [ext_resource path="res://assets/terrain/hub_level/prop_librarytable.png" type="Texture" id=47]
 [ext_resource path="res://assets/terrain/hub_level/library.png" type="Texture" id=48]
-[ext_resource path="res://assets/terrain/hub_level/library_desk_1.png" type="Texture" id=49]
+[ext_resource path="res://assets/terrain/hub_level/book_of_shadows_library_desk_1.png" type="Texture" id=49]
 [ext_resource path="res://assets/terrain/hub_level/teahouse.png" type="Texture" id=50]
 [ext_resource path="res://assets/fonts/Born2bSportyV2.ttf" type="DynamicFontData" id=51]
 [ext_resource path="res://assets/terrain/hub_level/prop_cauldron_rack.png" type="Texture" id=52]
@@ -62,7 +63,7 @@
 extents = Vector2( 60, 50 )
 
 [sub_resource type="DynamicFont" id=6]
-size = 64
+size = 48
 font_data = ExtResource( 51 )
 
 [sub_resource type="DynamicFont" id=7]
@@ -112,10 +113,10 @@ extents = Vector2( 4.43538, 5 )
 script = ExtResource( 3 )
 
 [node name="ColorRect" type="ColorRect" parent="."]
-margin_left = -637.0
-margin_top = -4885.0
-margin_right = 10656.0
-margin_bottom = -426.0
+margin_left = -585.0
+margin_top = -4736.0
+margin_right = 10708.0
+margin_bottom = -277.0
 color = Color( 0, 0, 0, 1 )
 
 [node name="EleganceMeterUI" parent="." instance=ExtResource( 25 )]
@@ -133,7 +134,7 @@ color = Color( 0, 0, 0, 1 )
 [node name="InventoryUI" parent="." instance=ExtResource( 15 )]
 
 [node name="MonumentOfVictories" parent="." instance=ExtResource( 39 )]
-position = Vector2( 1587.87, 432.386 )
+position = Vector2( 1544.87, 432.386 )
 
 [node name="SkillsUI" parent="." instance=ExtResource( 28 )]
 
@@ -199,7 +200,7 @@ position = Vector2( 2948.26, -1536.34 )
 position = Vector2( 69, -20 )
 
 [node name="PropCabinet1" type="Sprite" parent="HubShopBuilding"]
-position = Vector2( 2879, -1827 )
+position = Vector2( 3113, -1730 )
 scale = Vector2( 8, 8 )
 texture = ExtResource( 53 )
 
@@ -225,7 +226,7 @@ scale = Vector2( 8, 8 )
 texture = ExtResource( 12 )
 
 [node name="PropShopCabinet2" type="Sprite" parent="HubShopBuilding"]
-position = Vector2( 3219, -1830 )
+position = Vector2( 3453, -1733 )
 scale = Vector2( 8, 8 )
 texture = ExtResource( 55 )
 
@@ -271,6 +272,11 @@ texture = ExtResource( 52 )
 [node name="Cauldron" parent="PotionShopBuilding" instance=ExtResource( 56 )]
 position = Vector2( 5025, -1515 )
 
+[node name="PropPotionrack" type="Sprite" parent="PotionShopBuilding"]
+position = Vector2( 5193, -1500 )
+scale = Vector2( 8, 8 )
+texture = ExtResource( 26 )
+
 [node name="PotionShopBuildingSprite" type="Sprite" parent="."]
 position = Vector2( 2648, 505.046 )
 scale = Vector2( 12, 12 )
@@ -310,7 +316,7 @@ scale = Vector2( 2.4, 2.4 )
 target = "OutdoorLibraryDoor"
 
 [node name="Librarian" parent="." instance=ExtResource( 35 )]
-position = Vector2( 791.5, -1509.18 )
+position = Vector2( 776.5, -1509.18 )
 
 [node name="HubLibrary" type="Node2D" parent="."]
 
@@ -326,12 +332,12 @@ scale = Vector2( 8, 8 )
 texture = ExtResource( 45 )
 
 [node name="Prop1" type="Sprite" parent="HubLibrary"]
-position = Vector2( 791.5, -1504 )
+position = Vector2( 776.5, -1504 )
 scale = Vector2( 8, 8 )
 texture = ExtResource( 47 )
 
 [node name="Prop2" type="Sprite" parent="HubLibrary"]
-position = Vector2( 1005.16, -1520.5 )
+position = Vector2( 979.16, -1520.5 )
 scale = Vector2( 10, 10 )
 texture = ExtResource( 44 )
 
@@ -342,7 +348,7 @@ texture = ExtResource( 44 )
 flip_h = true
 
 [node name="Prop5" type="Sprite" parent="HubLibrary"]
-position = Vector2( 1165.16, -1520.5 )
+position = Vector2( 1392, -1520 )
 scale = Vector2( 10, 10 )
 texture = ExtResource( 42 )
 
@@ -353,36 +359,36 @@ texture = ExtResource( 41 )
 flip_h = true
 
 [node name="Prop7" type="Sprite" parent="HubLibrary"]
-position = Vector2( 1549.64, -1521.04 )
+position = Vector2( 1551.64, -1520 )
 scale = Vector2( 10, 10 )
 texture = ExtResource( 41 )
 flip_h = true
 
 [node name="LibraryCandleLight2D" type="Light2D" parent="HubLibrary"]
-position = Vector2( 731.25, -1557.27 )
+position = Vector2( 716.25, -1557.27 )
 scale = Vector2( 1.79861, 1.86857 )
 texture = ExtResource( 11 )
 energy = 0.4
 
 [node name="LibraryDesk1" type="Sprite" parent="HubLibrary"]
-position = Vector2( 1357, -1500 )
+position = Vector2( 1195, -1498 )
 scale = Vector2( 10, 10 )
 texture = ExtResource( 49 )
 
-[node name="BookshelfPlayerDetectorArea" type="Area2D" parent="HubLibrary"]
-position = Vector2( 1085, -1490 )
+[node name="BookOfShadowsPlayerDetectorArea" type="Area2D" parent="HubLibrary"]
+position = Vector2( 1188, -1490 )
 script = ExtResource( 2 )
 __meta__ = {
 "_edit_group_": true
 }
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HubLibrary/BookshelfPlayerDetectorArea"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HubLibrary/BookOfShadowsPlayerDetectorArea"]
 shape = SubResource( 5 )
 
-[node name="Label" type="RichTextLabel" parent="HubLibrary/BookshelfPlayerDetectorArea"]
-margin_left = -81.0
+[node name="Label" type="RichTextLabel" parent="HubLibrary/BookOfShadowsPlayerDetectorArea"]
+margin_left = -60.0
 margin_top = -121.0
-margin_right = 86.0
+margin_right = 107.0
 margin_bottom = -59.0
 custom_fonts/bold_font = SubResource( 6 )
 bbcode_enabled = true
@@ -390,13 +396,13 @@ bbcode_text = "[b]Read[/b] [img=36]res://assets/UI/icon_Empty.png[/img]"
 text = "Read "
 scroll_active = false
 
-[node name="Keybind" type="Label" parent="HubLibrary/BookshelfPlayerDetectorArea"]
+[node name="Keybind" type="Label" parent="HubLibrary/BookOfShadowsPlayerDetectorArea"]
 anchor_left = -3.732
 anchor_right = -3.732
-margin_left = 38.0
-margin_top = -109.0
-margin_right = 73.0
-margin_bottom = -29.0002
+margin_left = 31.0
+margin_top = -122.0
+margin_right = 66.0
+margin_bottom = -42.0002
 rect_scale = Vector2( 0.8, 0.8 )
 custom_colors/font_color = Color( 0.192157, 0.372549, 1, 1 )
 custom_fonts/font = SubResource( 7 )
@@ -408,7 +414,7 @@ valign = 1
 tile_set = SubResource( 1 )
 cell_size = Vector2( 96, 96 )
 format = 1
-tile_data = PoolIntArray( -1245156, 1, 0, -1245155, 1, 0, -1245154, 1, 0, -1245153, 1, 0, -1245152, 1, 0, -1245151, 1, 0, -1245150, 1, 0, -1245149, 1, 0, -1245148, 1, 0, -1179641, 1, 0, -1179640, 1, 0, -1179639, 1, 0, -1179638, 1, 0, -1179637, 1, 0, -1179636, 1, 0, -1179635, 1, 0, -1179634, 1, 0 )
+tile_data = PoolIntArray( -1179641, 1, 0, -1179640, 1, 0, -1179639, 1, 0, -1179638, 1, 0, -1179637, 1, 0, -1179636, 1, 0, -1179635, 1, 0, -1179634, 1, 0, -1179616, 1, 0, -1179615, 1, 0, -1179614, 1, 0, -1179613, 1, 0, -1179612, 1, 0, -1179611, 1, 0 )
 
 [node name="StaticBody2D" type="StaticBody2D" parent="TileMap2"]
 position = Vector2( -2593.45, 98 )
@@ -460,7 +466,7 @@ texture = ExtResource( 11 )
 energy = 0.65
 
 [node name="LampPostProp2" type="Sprite" parent="." groups=["Prop"]]
-position = Vector2( 1400, 536.291 )
+position = Vector2( 904, 536.291 )
 scale = Vector2( 8.5, 8.5 )
 texture = ExtResource( 43 )
 script = ExtResource( 14 )
@@ -497,7 +503,7 @@ Opals = 5
 position = Vector2( 1798, 598 )
 
 [node name="Player" parent="." instance=ExtResource( 34 )]
-position = Vector2( 2712, -1521 )
+position = Vector2( 973, -1759 )
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position = Vector2( -24.7189, -147.43 )
@@ -521,5 +527,5 @@ drops_table = {
 "sweet_herbs": 0
 }
 
-[connection signal="area_entered" from="HubLibrary/BookshelfPlayerDetectorArea" to="HubLibrary/BookshelfPlayerDetectorArea" method="_on_BookshelfPlayerDetectorArea_area_entered"]
-[connection signal="area_exited" from="HubLibrary/BookshelfPlayerDetectorArea" to="HubLibrary/BookshelfPlayerDetectorArea" method="_on_BookshelfPlayerDetectorArea_area_exited"]
+[connection signal="area_entered" from="HubLibrary/BookOfShadowsPlayerDetectorArea" to="HubLibrary/BookOfShadowsPlayerDetectorArea" method="_on_BookshelfPlayerDetectorArea_area_entered"]
+[connection signal="area_exited" from="HubLibrary/BookOfShadowsPlayerDetectorArea" to="HubLibrary/BookOfShadowsPlayerDetectorArea" method="_on_BookshelfPlayerDetectorArea_area_exited"]

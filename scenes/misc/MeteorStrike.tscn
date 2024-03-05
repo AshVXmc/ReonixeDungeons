@@ -6,7 +6,7 @@
 [ext_resource path="res://assets/particles/smoke_particle.png" type="Texture" id=4]
 
 [sub_resource type="CircleShape2D" id=1]
-radius = 270.005
+radius = 289.664
 
 [sub_resource type="ParticlesMaterial" id=6]
 flag_disable_z = true
@@ -78,10 +78,12 @@ orbit_velocity = 0.0
 orbit_velocity_random = 0.0
 
 [sub_resource type="CircleShape2D" id=5]
-radius = 108.94
+radius = 144.091
 
-[node name="MeteorStrike" type="Area2D" groups=["Sword2"]]
+[node name="MeteorStrike" type="Area2D" groups=["15", "Earth"]]
 position = Vector2( 388.35, 225.853 )
+collision_layer = 129
+collision_mask = 129
 script = ExtResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -147,6 +149,7 @@ position = Vector2( 1.5874, 3.05176e-05 )
 shape = SubResource( 5 )
 
 [connection signal="area_entered" from="." to="." method="_on_MeteorStrike_area_entered"]
+[connection signal="body_entered" from="." to="." method="_on_MeteorStrike_body_entered"]
 [connection signal="timeout" from="DestroyedTimer" to="." method="_on_DestroyedTimer_timeout"]
 [connection signal="timeout" from="ExplosionDelayTimer" to="." method="_on_ExplosionDelayTimer_timeout"]
-[connection signal="area_entered" from="DetectorArea" to="." method="_on_DetectorArea_area_entered"]
+[connection signal="body_entered" from="DetectorArea" to="." method="_on_DetectorArea_body_entered"]

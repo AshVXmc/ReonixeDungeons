@@ -41,7 +41,7 @@ func _on_DestroyedTimer_timeout():
 
 
 func _on_Area2D_body_entered(body):
-	if body.is_in_group("TileMap"):
+	if body.is_in_group("Tilemap"):
 		stop_charm()
 
 

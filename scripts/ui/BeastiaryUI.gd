@@ -4,6 +4,7 @@ var dict_beastiary : Dictionary
 var goblin_icon = preload("res://assets/enemies/goblin1.png")
 var bow_goblin_icon = preload("res://assets/enemies/bow_goblin1.png")
 var bat_icon = preload("res://assets/enemies/bat_1.png")
+var shaman_goblin = preload("res://assets/enemies/goblin_shaman_1.png")
 
 
 func _ready():
@@ -44,6 +45,8 @@ func open_beast_info_screen(beast_name : String):
 			$NinePatchRect/BeastInfoControl/Sprite.texture = bow_goblin_icon
 		"Bat":
 			$NinePatchRect/BeastInfoControl/Sprite.texture = bat_icon
+		"ShamanGoblin":
+			$NinePatchRect/BeastInfoControl/Sprite.texture = shaman_goblin
 	$NinePatchRect/BeastInfoControl.visible = true
 	
 func _on_CloseButton_pressed():
@@ -61,3 +64,7 @@ func _on_ButtonBowGoblin_pressed():
 
 func _on_ButtonBat_pressed():
 	open_beast_info_screen("Bat")
+
+
+func _on_ButtonShamanGoblin_pressed():
+	open_beast_info_screen("ShamanGoblin")
