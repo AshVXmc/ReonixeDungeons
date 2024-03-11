@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/teahouse.png-3bdac564ba753b0fefece52a9fdcaead.stex"
+path="res://.import/prop_furnace_lit.png-b25eb58f59b8ac599a307b083db8175c.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/terrain/hub_level/teahouse.png"
-dest_files=[ "res://.import/teahouse.png-3bdac564ba753b0fefece52a9fdcaead.stex" ]
+source_file="res://assets/terrain/hub_level/prop_furnace_lit.png"
+dest_files=[ "res://.import/prop_furnace_lit.png-b25eb58f59b8ac599a307b083db8175c.stex" ]
 
 [params]
 
