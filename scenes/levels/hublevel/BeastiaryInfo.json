@@ -2,7 +2,7 @@
     "Goblin":{
         "Name": "Goblin",
         "Description": "Goblins wield a crude spear and attack from melee range. Individually, they are relatively weak but can pose a threat in large numbers.",
-        "Flavortext": "Aberrations that have manifested from dark mana, summoned by an event known as the Awakening. These orc-like creatures have constructed rudimentary tools, clothing, and a tribal system. These particular ones seem to fulfill the role of soldiers in their tribes."
+        "Flavortext": "Aberrations that have manifested from dark mana, summoned by an event known as the Awakening. These humanoid creatures have constructed rudimentary tools, clothing, and a tribal system. These particular ones seem to fulfill the role of soldiers in their tribes."
     },
     "BowGoblin" :{
         "Name": "Goblin Bowyer",

@@ -1,20 +1,36 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://scripts/terrain/DungeonEntrance.gd" type="Script" id=1]
 [ext_resource path="res://assets/terrain/hub_level/dungeon_entrance.png" type="Texture" id=2]
-[ext_resource path="res://assets/fonts/FFFFORWA.ttf" type="DynamicFontData" id=3]
 [ext_resource path="res://assets/fonts/Born2bSportyV2.ttf" type="DynamicFontData" id=4]
 [ext_resource path="res://scenes/menus/CharacterSelectionUI.tscn" type="PackedScene" id=5]
+[ext_resource path="res://assets/UI/quiticon.png" type="Texture" id=9]
+[ext_resource path="res://assets/UI/textbox.png" type="Texture" id=13]
+[ext_resource path="res://assets/UI/button.png" type="Texture" id=14]
+[ext_resource path="res://assets/UI/button_pressed.png" type="Texture" id=15]
+[ext_resource path="res://themes/Blur.tres" type="Material" id=16]
 
 [sub_resource type="DynamicFont" id=2]
-size = 64
-font_data = ExtResource( 3 )
+size = 80
+font_data = ExtResource( 4 )
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 55.0921, 60.3552 )
 
 [sub_resource type="DynamicFont" id=3]
 size = 48
+font_data = ExtResource( 4 )
+
+[sub_resource type="DynamicFont" id=4]
+size = 48
+font_data = ExtResource( 4 )
+
+[sub_resource type="DynamicFont" id=5]
+size = 48
+font_data = ExtResource( 4 )
+
+[sub_resource type="DynamicFont" id=6]
+size = 32
 font_data = ExtResource( 4 )
 
 [node name="DungeonEntrance" type="Node2D"]
@@ -28,10 +44,10 @@ scale = Vector2( 5, 5 )
 texture = ExtResource( 2 )
 
 [node name="Label" type="RichTextLabel" parent="."]
-margin_left = -50.8921
-margin_top = -59.8374
-margin_right = 427.108
-margin_bottom = 137.163
+margin_left = -45.0
+margin_top = -69.5
+margin_right = 433.0
+margin_bottom = 127.5
 rect_scale = Vector2( 0.25, 0.25 )
 custom_fonts/bold_font = SubResource( 2 )
 bbcode_enabled = true
@@ -47,10 +63,10 @@ shape = SubResource( 1 )
 [node name="Keybind" type="Label" parent="."]
 anchor_left = -3.732
 anchor_right = -3.732
-margin_left = 39.6836
-margin_top = -44.8652
-margin_right = 74.6836
-margin_bottom = 35.1348
+margin_left = 24.0757
+margin_top = -58.5278
+margin_right = 59.0757
+margin_bottom = 21.4722
 rect_scale = Vector2( 0.5, 0.5 )
 custom_colors/font_color = Color( 0.192157, 0.372549, 1, 1 )
 custom_fonts/font = SubResource( 3 )
@@ -64,4 +80,193 @@ one_shot = true
 
 [node name="CharacterSelectionUI" parent="." instance=ExtResource( 5 )]
 
+[node name="LevelSelectionUI" type="CanvasLayer" parent="."]
+pause_mode = 2
+
+[node name="Control" type="Control" parent="LevelSelectionUI"]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -540.0
+margin_top = -360.0
+margin_right = 540.0
+margin_bottom = 360.0
+
+[node name="Blur" type="ColorRect" parent="LevelSelectionUI/Control"]
+material = ExtResource( 16 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -1176.64
+margin_top = -639.091
+margin_right = 2063.36
+margin_bottom = 1520.91
+color = Color( 1, 1, 1, 0 )
+
+[node name="NinePatchRect" type="NinePatchRect" parent="LevelSelectionUI/Control"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -250.0
+margin_top = -142.0
+margin_right = 250.0
+margin_bottom = 310.0
+texture = ExtResource( 13 )
+patch_margin_left = 64
+patch_margin_top = 64
+patch_margin_right = 64
+patch_margin_bottom = 64
+
+[node name="Header" type="RichTextLabel" parent="LevelSelectionUI/Control/NinePatchRect"]
+anchor_left = 0.5
+anchor_top = 0.498
+anchor_right = 0.5
+anchor_bottom = 0.498
+margin_left = -239.5
+margin_top = -205.136
+margin_right = 239.5
+margin_bottom = -157.136
+custom_colors/default_color = Color( 1, 1, 1, 1 )
+custom_fonts/normal_font = SubResource( 4 )
+bbcode_enabled = true
+bbcode_text = "[center]== [color=#ffd703]Level Select[/color] =="
+text = "== Level Select =="
+scroll_active = false
+
+[node name="SelectCharactersUI" type="Control" parent="LevelSelectionUI/Control/NinePatchRect"]
+margin_left = -54.0
+margin_top = -36.0
+margin_right = -14.0
+margin_bottom = 4.0
+
+[node name="CloseButtonMainUI" type="TextureButton" parent="LevelSelectionUI/Control/NinePatchRect"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -249.0
+margin_top = -216.0
+margin_right = -209.0
+margin_bottom = -176.0
+rect_scale = Vector2( 1.5, 1.5 )
+texture_normal = ExtResource( 9 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PartyCannotBeEmptyLabel" type="Label" parent="LevelSelectionUI/Control/NinePatchRect"]
+visible = false
+anchor_left = 0.5
+anchor_top = 1.093
+anchor_right = 0.5
+anchor_bottom = 1.093
+margin_left = -210.0
+margin_top = -39.176
+margin_right = 210.0
+margin_bottom = 8.82397
+custom_colors/font_color = Color( 1, 0, 0, 1 )
+custom_fonts/font = SubResource( 5 )
+text = "Party cannot be empty."
+align = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="LevelSelectionUI/Control/NinePatchRect"]
+anchor_right = 1.712
+anchor_bottom = 2.558
+margin_left = 25.0
+margin_top = 76.0
+margin_right = -373.0
+margin_bottom = -760.216
+rect_min_size = Vector2( 458, 330 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="LevelSelectionUI/Control/NinePatchRect/ScrollContainer"]
+margin_right = 450.0
+margin_bottom = 800.0
+rect_min_size = Vector2( 450, 800 )
+
+[node name="Control" type="Control" parent="LevelSelectionUI/Control/NinePatchRect/ScrollContainer/VBoxContainer"]
+margin_right = 450.0
+
+[node name="1" type="TextureButton" parent="LevelSelectionUI/Control/NinePatchRect/ScrollContainer/VBoxContainer/Control"]
+margin_left = 20.0
+margin_right = 140.0
+margin_bottom = 60.0
+rect_min_size = Vector2( 120, 60 )
+texture_normal = ExtResource( 14 )
+texture_pressed = ExtResource( 15 )
+expand = true
+
+[node name="Label" type="Label" parent="LevelSelectionUI/Control/NinePatchRect/ScrollContainer/VBoxContainer/Control/1"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -42.0
+margin_top = -16.0
+margin_right = 38.0
+margin_bottom = 16.0
+custom_fonts/font = SubResource( 6 )
+text = "Level 1"
+align = 1
+
+[node name="2" type="TextureButton" parent="LevelSelectionUI/Control/NinePatchRect/ScrollContainer/VBoxContainer/Control"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -60.0
+margin_right = 60.0
+margin_bottom = 60.0
+rect_min_size = Vector2( 120, 60 )
+texture_normal = ExtResource( 14 )
+texture_pressed = ExtResource( 15 )
+expand = true
+
+[node name="Label" type="Label" parent="LevelSelectionUI/Control/NinePatchRect/ScrollContainer/VBoxContainer/Control/2"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -43.0
+margin_top = -16.0
+margin_right = 43.0
+margin_bottom = 16.0
+custom_fonts/font = SubResource( 6 )
+text = "Level 2"
+align = 1
+
+[node name="3" type="TextureButton" parent="LevelSelectionUI/Control/NinePatchRect/ScrollContainer/VBoxContainer/Control"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = 85.0
+margin_right = 205.0
+margin_bottom = 60.0
+rect_min_size = Vector2( 120, 60 )
+texture_normal = ExtResource( 14 )
+texture_pressed = ExtResource( 15 )
+expand = true
+
+[node name="Label" type="Label" parent="LevelSelectionUI/Control/NinePatchRect/ScrollContainer/VBoxContainer/Control/3"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -42.0
+margin_top = -16.0
+margin_right = 44.0
+margin_bottom = 16.0
+custom_fonts/font = SubResource( 6 )
+text = "Level 3"
+align = 1
+
 [connection signal="area_exited" from="Area2D" to="." method="_on_Area2D_area_exited"]
+[connection signal="pressed" from="LevelSelectionUI/Control/NinePatchRect/CloseButtonMainUI" to="." method="_on_CloseButtonMainUI_pressed"]
+[connection signal="pressed" from="LevelSelectionUI/Control/NinePatchRect/ScrollContainer/VBoxContainer/Control/1" to="." method="_on_1_pressed"]
+[connection signal="pressed" from="LevelSelectionUI/Control/NinePatchRect/ScrollContainer/VBoxContainer/Control/2" to="." method="_on_2_pressed"]
+[connection signal="pressed" from="LevelSelectionUI/Control/NinePatchRect/ScrollContainer/VBoxContainer/Control/3" to="." method="_on_3_pressed"]
