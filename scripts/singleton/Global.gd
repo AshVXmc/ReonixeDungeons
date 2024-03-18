@@ -57,6 +57,8 @@ var player_skill_multipliers : Dictionary = {
 	"FireSawDuration": 8.0,
 	"FireFairy": 22.0,
 	"Fireball": 50.0,
+	"FireballCD": 5.0,
+	"FireballCharges": 3,
 	"FireSawCost": 15,
 	"FireFairyCost": 2,
 	"FireballCost": 2,

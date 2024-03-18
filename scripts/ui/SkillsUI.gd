@@ -11,6 +11,7 @@ onready var character1 : String = Global.equipped_characters[0]
 var can_swap_character : bool = true
 onready var firesaw_ui = $PrimarySkill/Player/FireSaw/TextureProgress
 onready var firefairy_ui = $SecondarySkill/Player/FireFairy/TextureProgress
+onready var fireball_ui = $TertiarySkill/Player/Fireball/TextureProgress
 onready var winterqueen_ui = $PrimarySkill/Glaciela/WinterQueen/TextureProgress
 onready var icelance_ui = $SecondarySkill/Glaciela/IceLance/TextureProgress
 const multiplier : int = 10
@@ -29,11 +30,13 @@ func _ready():
 	firesaw_ui.value = Global.player_skill_multipliers["FireSawCD"] * multiplier
 	firefairy_ui.max_value = Global.player_skill_multipliers["FireFairyCD"] * multiplier
 	firefairy_ui.value = Global.player_skill_multipliers["FireFairyCD"] * multiplier
+	fireball_ui.max_value = Global.player_skill_multipliers["FireballCD"] * multiplier
+	fireball_ui.value = Global.player_skill_multipliers["FireballCD"] * multiplier
 	winterqueen_ui.max_value = Global.glaciela_skill_multipliers["WinterQueenCD"] * multiplier
 	winterqueen_ui.value = Global.glaciela_skill_multipliers["WinterQueenCD"] * multiplier
 	icelance_ui.max_value = Global.glaciela_skill_multipliers["IceLanceCD"] * multiplier
 	icelance_ui.value = Global.glaciela_skill_multipliers["IceLanceCD"] * multiplier
-
+	
 #func update_maximum_endurance_ui():
 #	$EnduranceMeter/TextureProgress.max_value = Global.max_endurance
 func update_swap_character_status():
@@ -82,12 +85,16 @@ func update_skill_ui(primary : String, secondary : String):
 			$SecondarySkill/Glaciela/IceLance.visible = true
 			$SecondarySkill/Glaciela/IceLance/CostLabel.text = str(Global.glaciela_skill_multipliers["IceLance"])
 
+
+
 func on_skill_used(skill_name : String):
 	match skill_name:
 		"FireSaw":
 			toggle_firesaw()
 		"FireFairy":
 			toggle_fire_fairy()
+		"Fireball":
+			toggle_fireball()
 		"PlayerChargedAttack":
 			toggle_player_charged_attack()
 func toggle_firesaw():
@@ -99,9 +106,13 @@ func toggle_fire_fairy():
 	emit_signal("ability_on_cooldown", "FireFairy")
 	firefairy_ui.value = firefairy_ui.min_value
 	
+func toggle_fireball():
+	emit_signal("ability_on_cooldown", "Fireball")
+	fireball_ui.value = fireball_ui.min_value
 
 func toggle_player_charged_attack():
 	pass
+
 func _process(delta):
 	
 	if Global.current_character == "Player":
@@ -157,10 +168,35 @@ func _process(delta):
 				else:
 					firefairy_ui.self_modulate.a = 0.65
 				$SecondarySkill/Player/FireFairy/Label.text = ""
-
+		##############
+		# FIREBALL #
+		##############
+		if fireball_ui.value < fireball_ui.max_value:
+			$TertiarySkill/Player/Fireball/Label.text = str(stepify((fireball_ui.max_value - fireball_ui.value) / multiplier, 0.001))
+			fireball_ui.self_modulate.a = 0.65
+		elif fireball_ui.value >= fireball_ui.max_value:
+			if Global.equipped_characters[0] == "Player":
+#				if Global.mana >= Global.player_skill_multipliers["FireballCost"]:
+#					fireball_ui.self_modulate.a = 1.0
+#				else:
+#					fireball_ui.self_modulate.a = 0.65
+				$TertiarySkill/Player/Fireball/Label.text = ""
+			elif Global.equipped_characters[1] == "Player":
+#				if Global.character2_mana >= Global.player_skill_multipliers["FireballCost"]:
+#					fireball_ui.self_modulate.a = 1.0
+#				else:
+#					firefairy_ui.self_modulate.a = 0.65
+				$TertiarySkill/Player/Fireball/Label.text = ""
+			elif Global.equipped_characters[2] == "Player":
+#				if Global.character3_mana >= Global.player_skill_multipliers["FireballCost"]:
+#					fireball_ui.self_modulate.a = 1.0
+#				else:
+#					fireball_ui.self_modulate.a = 0.65
+				$TertiarySkill/Player/Fireball/Label.text = ""
 	else:
 		$PrimarySkill/Player.visible = false
 		$SecondarySkill/Player.visible = false
+		$TertiarySkill/Player.visible = false
 		################
 		# WINTER QUEEN #
 		################
@@ -190,7 +226,7 @@ func _process(delta):
 					winterqueen_ui.self_modulate.a = 0.65
 				$PrimarySkill/Glaciela/WinterQueen/Label.text = ""
 		##############
-		# FIRE FAIRY #
+		# ICE LANCE #
 		##############
 		if icelance_ui.value < icelance_ui.max_value:
 			$SecondarySkill/Glaciela/IceLance/Label.text = str(stepify((icelance_ui.max_value - icelance_ui.value) / multiplier, 0.001))
@@ -254,6 +290,7 @@ func _on_CooldownTickTimer_timeout():
 	if Global.equipped_characters.has("Player"):
 		firesaw_ui.value += 1 
 		firefairy_ui.value += 1 
+		fireball_ui.value += 1
 	if Global.equipped_characters.has("Glaciela"):
 		winterqueen_ui.value += 1 
 		icelance_ui.value += 1 
@@ -261,5 +298,8 @@ func _on_CooldownTickTimer_timeout():
 #func reduce_endurance(amount : int):
 #	$EnduranceMeter/TextureProgress.value -= amount
 
+func update_fireball_skill_ui(charges : int):
+	charges = clamp(charges, 0, Global.player_skill_multipliers["FireballCharges"])
+	$TertiarySkill/Player/Fireball/ManaIcon.size.y = charges * 16
 func _on_EnduranceRegenTimer_timeout():
 	$EnduranceMeter/TextureProgress.value += 2
