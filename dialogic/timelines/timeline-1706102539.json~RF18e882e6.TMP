@@ -108,7 +108,25 @@
 			"character": "character-1709710039.json",
 			"event_id": "dialogic_001",
 			"portrait": "",
-			"text": "The Moon and its  lunar phases greatly influence the presence of Mana"
+			"text": "The Moon and its lunar phases greatly influence the presence and potency of natural Mana. "
+		},
+		{
+			"character": "character-1709710039.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "The full moon is where Mana is most plentiful, during which Mages tap into their increased affinity of Mana to perform incredible feats. Priests also celebrate the full moon once every month with a ceremony."
+		},
+		{
+			"character": "character-1709710039.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "Conversely, the new moon phase is when Mana is in its least potent state. Harnessing simple spells during the new moon may be noticably more difficult, and high level spells become near- impossible to cast."
+		},
+		{
+			"character": "character-1709710039.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "The new moon is also when dark mana concentration reaches its peak, amplifying the presence and powers of beasts like goblins and bats."
 		},
 		{
 			"choice": "Nevermind",

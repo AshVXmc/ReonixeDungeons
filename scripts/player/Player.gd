@@ -20,6 +20,7 @@ signal change_hitcount(amount)
 signal force_character_swap(index)
 signal reduce_skill_cd(character_name, skill_type, amount_in_seconds)
 signal reduce_endurance(amount)
+signal update_fireball_charges_ui(charges)
 var target 
 
 var can_use_slash_flurry : bool = false
@@ -182,6 +183,7 @@ func _ready():
 	connect("ready_to_be_switched_in", get_parent().get_node("SkillsUI/Control"), "flicker_icon")
 	connect("action", Global, "parse_action")
 	connect("reduce_endurance", get_parent().get_node("SkillsUI/Control"), "reduce_endurance")
+	connect("update_fireball_charges_ui", get_parent().get_node("SkillsUI/Control"), "update_fireball_skill_ui")
 	connect("perfect_dash", get_parent().get_node("PauseUI/PerfectDash"), "trigger_perfect_dash_animation")
 	connect("ingredient_obtained", get_parent().get_node("InventoryUI/Control"), "on_ingredient_obtained")
 #	emit_signal("ingredient_obtained", "common_dust", Global.common_monster_dust_amount)
@@ -540,7 +542,7 @@ func use_skill():
 			use_primary_skill()
 		if sskill_ui.value >= sskill_ui.max_value and Input.is_action_just_pressed("secondary_skill") and !Input.is_action_just_pressed("primary_skill") and !is_frozen and !is_using_secondary_skill:
 			use_secondary_skill()
-		if tskill_ui.value >= tskill_ui.max_value and Input.is_action_just_pressed("tertiary_skill"):
+		if Global.player_skill_multipliers["FireballCharges"] > 0 and Input.is_action_just_pressed("tertiary_skill"):
 			use_tertiary_skill()
 
 func use_primary_skill():
@@ -564,17 +566,21 @@ func use_secondary_skill():
 		emit_signal("mana_changed", Global.character3_mana, "Player")
 
 func use_tertiary_skill():
-	if !$Sprite.flip_h:
-		emit_signal("skill_used", "Fireball", attack_buff, 1)
-	else:
-		emit_signal("skill_used", "Fireball", attack_buff, -1)
-	emit_signal("skill_ui_update", "Fireball")
-	if Global.current_character == Global.equipped_characters[0] and Global.mana >= Global.player_skill_multipliers["FireballCost"]:
-		emit_signal("mana_changed", Global.mana, "Player")
-	elif Global.current_character == Global.equipped_characters[1] and Global.character2_mana >= Global.player_skill_multipliers["FireballCost"]:
-		emit_signal("mana_changed", Global.character2_mana, "Player")
-	elif Global.current_character == Global.equipped_characters[2] and Global.character3_mana >= Global.player_skill_multipliers["FireballCost"]:
-		emit_signal("mana_changed", Global.character3_mana, "Player")
+	# FIREBALL (8d6 fire damage op pls nerf)
+
+		Global.player_skill_multipliers["FireballCharges"] -= 1
+		emit_signal("update_fireball_charges_ui", Global.player_skill_multipliers["FireballCharges"])
+		if !$Sprite.flip_h:
+			emit_signal("skill_used", "Fireball", attack_buff, 1)
+		else:
+			emit_signal("skill_used", "Fireball", attack_buff, -1)
+		emit_signal("skill_ui_update", "Fireball")
+		if Global.current_character == Global.equipped_characters[0] and Global.mana >= Global.player_skill_multipliers["FireballCost"]:
+			emit_signal("mana_changed", Global.mana, "Player")
+		elif Global.current_character == Global.equipped_characters[1] and Global.character2_mana >= Global.player_skill_multipliers["FireballCost"]:
+			emit_signal("mana_changed", Global.character2_mana, "Player")
+		elif Global.current_character == Global.equipped_characters[2] and Global.character3_mana >= Global.player_skill_multipliers["FireballCost"]:
+			emit_signal("mana_changed", Global.character3_mana, "Player")
 
 
 
@@ -598,7 +604,6 @@ func gp_effect():
 		gp_particle1.rotation_degrees = -40
 		gp_particle1.emitting = true
 		gp_particle1.one_shot = true
-		
 		get_parent().add_child(gp_particle2)
 		gp_particle2.position = $GroundPoundPositionLeft.global_position
 		gp_particle2.rotation_degrees = 220

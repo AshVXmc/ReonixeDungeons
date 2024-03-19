@@ -57,7 +57,7 @@ var player_skill_multipliers : Dictionary = {
 	"FireSawDuration": 8.0,
 	"FireFairy": 22.0,
 	"Fireball": 50.0,
-	"FireballCD": 5.0,
+	"FireballCD": 4.0,
 	"FireballCharges": 3,
 	"FireSawCost": 15,
 	"FireFairyCost": 2,
@@ -270,6 +270,7 @@ func reset_player_data():
 	Global.character3_hearts = Global.character_3_max_hearts
 	Global.alive = [true, true, true]
 	Global.mana = 0
+	
 	Global.character2_mana = 0
 	Global.character3_mana = 0
 	Global.healthpot_amount = 1
@@ -361,7 +362,6 @@ func save_player_data():
 		# Levels
 		"PlayerSkillMultipliers": Global.player_skill_multipliers,
 		"GlacielaSkillMultipliers": Global.glaciela_skill_multipliers,
-		
 		"PhysicalDMGBonus%": Global.damage_bonus["physical_dmg_bonus_%"],
 		"FireDMGBonus%": Global.damage_bonus["fire_dmg_bonus_%"],
 		"IceDMGBonus%": Global.damage_bonus["ice_dmg_bonus_%"],

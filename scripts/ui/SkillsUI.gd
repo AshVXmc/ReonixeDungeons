@@ -15,7 +15,7 @@ onready var fireball_ui = $TertiarySkill/Player/Fireball/TextureProgress
 onready var winterqueen_ui = $PrimarySkill/Glaciela/WinterQueen/TextureProgress
 onready var icelance_ui = $SecondarySkill/Glaciela/IceLance/TextureProgress
 const multiplier : int = 10
-
+var fireball_cooldown_is_ticking : bool = false
 
 
 func _ready():
@@ -171,28 +171,36 @@ func _process(delta):
 		##############
 		# FIREBALL #
 		##############
+		
 		if fireball_ui.value < fireball_ui.max_value:
+			fireball_cooldown_is_ticking = true
 			$TertiarySkill/Player/Fireball/Label.text = str(stepify((fireball_ui.max_value - fireball_ui.value) / multiplier, 0.001))
 			fireball_ui.self_modulate.a = 0.65
 		elif fireball_ui.value >= fireball_ui.max_value:
-			if Global.equipped_characters[0] == "Player":
-#				if Global.mana >= Global.player_skill_multipliers["FireballCost"]:
-#					fireball_ui.self_modulate.a = 1.0
-#				else:
-#					fireball_ui.self_modulate.a = 0.65
-				$TertiarySkill/Player/Fireball/Label.text = ""
-			elif Global.equipped_characters[1] == "Player":
-#				if Global.character2_mana >= Global.player_skill_multipliers["FireballCost"]:
-#					fireball_ui.self_modulate.a = 1.0
-#				else:
-#					firefairy_ui.self_modulate.a = 0.65
-				$TertiarySkill/Player/Fireball/Label.text = ""
-			elif Global.equipped_characters[2] == "Player":
-#				if Global.character3_mana >= Global.player_skill_multipliers["FireballCost"]:
-#					fireball_ui.self_modulate.a = 1.0
-#				else:
-#					fireball_ui.self_modulate.a = 0.65
-				$TertiarySkill/Player/Fireball/Label.text = ""
+			if Global.player_skill_multipliers["FireballCharges"] < 3:
+				Global.player_skill_multipliers["FireballCharges"] += 1
+				update_fireball_skill_ui(Global.player_skill_multipliers["FireballCharges"])
+				if Global.player_skill_multipliers["FireballCharges"] < 3:
+					fireball_ui.value = fireball_ui.min_value
+			else:
+				if Global.equipped_characters[0] == "Player":
+	#				if Global.mana >= Global.player_skill_multipliers["FireballCost"]:
+	#					fireball_ui.self_modulate.a = 1.0
+	#				else:
+	#					fireball_ui.self_modulate.a = 0.65
+					$TertiarySkill/Player/Fireball/Label.text = ""
+				elif Global.equipped_characters[1] == "Player":
+	#				if Global.character2_mana >= Global.player_skill_multipliers["FireballCost"]:
+	#					fireball_ui.self_modulate.a = 1.0
+	#				else:
+	#					firefairy_ui.self_modulate.a = 0.65
+					$TertiarySkill/Player/Fireball/Label.text = ""
+				elif Global.equipped_characters[2] == "Player":
+	#				if Global.character3_mana >= Global.player_skill_multipliers["FireballCost"]:
+	#					fireball_ui.self_modulate.a = 1.0
+	#				else:
+	#					fireball_ui.self_modulate.a = 0.65
+					$TertiarySkill/Player/Fireball/Label.text = ""
 	else:
 		$PrimarySkill/Player.visible = false
 		$SecondarySkill/Player.visible = false
@@ -300,6 +308,6 @@ func _on_CooldownTickTimer_timeout():
 
 func update_fireball_skill_ui(charges : int):
 	charges = clamp(charges, 0, Global.player_skill_multipliers["FireballCharges"])
-	$TertiarySkill/Player/Fireball/ManaIcon.size.y = charges * 16
+	$TertiarySkill/Player/Fireball/ManaIcon.rect_size.x = charges * 16
 func _on_EnduranceRegenTimer_timeout():
 	$EnduranceMeter/TextureProgress.value += 2
