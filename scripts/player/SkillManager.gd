@@ -20,6 +20,9 @@ func on_skill_used (
 	direction : int = 1
 	):
 	match skill_name:
+		###################
+		## SKILLS #########
+		###################
 		"FireSaw":
 			get_parent().is_using_primary_skill = true
 			var firesaw : FireSaw = FIRESAW.instance()
@@ -71,6 +74,7 @@ func on_skill_used (
 			fireball.direction = direction
 			get_parent().get_parent().add_child(fireball)
 			fireball.position = global_position
+		
 		"IceLance":
 		
 			get_parent().is_using_primary_skill = true
@@ -79,5 +83,5 @@ func on_skill_used (
 			icelance.position = global_position
 		"ColdBloodedThrust":
 			pass
+		
 
-	

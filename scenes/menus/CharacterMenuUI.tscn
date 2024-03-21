@@ -166,7 +166,6 @@ custom_fonts/font = SubResource( 3 )
 text = "Talents"
 
 [node name="CharacterTalentsControl" type="Control" parent="."]
-visible = false
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -258,13 +257,13 @@ rect_min_size = Vector2( 566, 355 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer"]
 margin_right = 510.0
-margin_bottom = 816.0
-rect_min_size = Vector2( 510, 800 )
+margin_bottom = 1116.0
+rect_min_size = Vector2( 510, 1100 )
 
 [node name="RichTextLabel" type="RichTextLabel" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer"]
 margin_right = 510.0
-margin_bottom = 800.0
-rect_min_size = Vector2( 510, 800 )
+margin_bottom = 1100.0
+rect_min_size = Vector2( 510, 1100 )
 custom_fonts/normal_font = SubResource( 2 )
 bbcode_enabled = true
 bbcode_text = "[color=#ffd703]Cyclone Slashes[/color]
@@ -281,7 +280,11 @@ Activating FireSaw releases a burst of flames that burn enemies.
 
 
 [color=#ffd703]Infernal Mark[/color]
-Enemies marked with the Sulphuric Sigil take more damage. "
+Enemies marked with the Sulphuric Sigil take more damage. 
+
+
+[color=#ffd703]Create Sugar Roll[/color]
+Conjure a Sugar Roll item at your location. A character can eat the roll, restoring XXXX. The roll cannot be eaten if there are enemies nearby, and using this talent again will summon a new roll and destroy the previous one. "
 text = "Cyclone Slashes
 Doing a charged attack after Basic Attack SEQ 2 unleashes a flurry of windblades to deal multiple instances of Physical DMG.
 (ATK, ATK, Hold ATK)
@@ -296,13 +299,17 @@ Activating FireSaw releases a burst of flames that burn enemies.
 
 
 Infernal Mark
-Enemies marked with the Sulphuric Sigil take more damage. "
+Enemies marked with the Sulphuric Sigil take more damage. 
+
+
+Create Sugar Roll
+Conjure a Sugar Roll item at your location. A character can eat the roll, restoring XXXX. The roll cannot be eaten if there are enemies nearby, and using this talent again will summon a new roll and destroy the previous one. "
 scroll_active = false
 
 [node name="TalentControl1" type="Control" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer"]
-margin_top = 804.0
+margin_top = 1104.0
 margin_right = 510.0
-margin_bottom = 804.0
+margin_bottom = 1104.0
 
 [node name="PlayerTalentButton" type="TextureButton" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl1"]
 anchor_left = 0.215
@@ -336,9 +343,9 @@ text = "Enable"
 align = 1
 
 [node name="TalentControl2" type="Control" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer"]
-margin_top = 808.0
+margin_top = 1108.0
 margin_right = 510.0
-margin_bottom = 808.0
+margin_bottom = 1108.0
 
 [node name="PlayerTalentButton" type="TextureButton" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl2"]
 anchor_left = 0.215
@@ -371,9 +378,9 @@ text = "Enable"
 align = 1
 
 [node name="TalentControl3" type="Control" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer"]
-margin_top = 812.0
+margin_top = 1112.0
 margin_right = 510.0
-margin_bottom = 812.0
+margin_bottom = 1112.0
 
 [node name="PlayerTalentButton" type="TextureButton" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl3"]
 anchor_left = 0.215
@@ -407,9 +414,9 @@ text = "Enable"
 align = 1
 
 [node name="TalentControl4" type="Control" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer"]
-margin_top = 816.0
+margin_top = 1116.0
 margin_right = 510.0
-margin_bottom = 816.0
+margin_bottom = 1116.0
 
 [node name="PlayerTalentButton" type="TextureButton" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl4"]
 anchor_left = 0.215

@@ -407,6 +407,46 @@ texture = ExtResource( 11 )
 expand = true
 stretch_mode = 2
 
+[node name="TalentSkill" type="Control" parent="Control"]
+margin_left = -4.0
+margin_top = -42.0
+margin_right = 36.0
+margin_bottom = -2.0
+
+[node name="Player" type="Control" parent="Control/TalentSkill"]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="CreateSugarRoll" type="Control" parent="Control/TalentSkill/Player"]
+visible = false
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="Sprite" type="Sprite" parent="Control/TalentSkill/Player/CreateSugarRoll"]
+self_modulate = Color( 1, 1, 1, 0.333333 )
+position = Vector2( 492, 190 )
+scale = Vector2( 4, 4 )
+texture = ExtResource( 7 )
+
+[node name="TextureProgress" type="TextureProgress" parent="Control/TalentSkill/Player/CreateSugarRoll"]
+margin_left = 452.0
+margin_top = 150.0
+margin_right = 472.0
+margin_bottom = 170.0
+rect_scale = Vector2( 4, 4 )
+texture_progress = ExtResource( 7 )
+fill_mode = 5
+
+[node name="Label" type="Label" parent="Control/TalentSkill/Player/CreateSugarRoll"]
+margin_left = 463.0
+margin_top = 170.0
+margin_right = 522.0
+margin_bottom = 218.0
+custom_fonts/font = SubResource( 1 )
+text = "60.0"
+align = 1
+valign = 1
+
 [node name="CooldownTickTimer" type="Timer" parent="Control"]
 wait_time = 0.1
 autostart = true

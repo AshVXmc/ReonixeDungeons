@@ -567,21 +567,19 @@ func use_secondary_skill():
 
 func use_tertiary_skill():
 	# FIREBALL (8d6 fire damage op pls nerf)
-
-		Global.player_skill_multipliers["FireballCharges"] -= 1
-		emit_signal("update_fireball_charges_ui", Global.player_skill_multipliers["FireballCharges"])
-		if !$Sprite.flip_h:
-			emit_signal("skill_used", "Fireball", attack_buff, 1)
-		else:
-			emit_signal("skill_used", "Fireball", attack_buff, -1)
-		emit_signal("skill_ui_update", "Fireball")
-		if Global.current_character == Global.equipped_characters[0] and Global.mana >= Global.player_skill_multipliers["FireballCost"]:
-			emit_signal("mana_changed", Global.mana, "Player")
-		elif Global.current_character == Global.equipped_characters[1] and Global.character2_mana >= Global.player_skill_multipliers["FireballCost"]:
-			emit_signal("mana_changed", Global.character2_mana, "Player")
-		elif Global.current_character == Global.equipped_characters[2] and Global.character3_mana >= Global.player_skill_multipliers["FireballCost"]:
-			emit_signal("mana_changed", Global.character3_mana, "Player")
-
+	Global.player_skill_multipliers["FireballCharges"] -= 1
+	emit_signal("update_fireball_charges_ui", Global.player_skill_multipliers["FireballCharges"])
+	if !$Sprite.flip_h:
+		emit_signal("skill_used", "Fireball", attack_buff, 1)
+	else:
+		emit_signal("skill_used", "Fireball", attack_buff, -1)
+	emit_signal("skill_ui_update", "Fireball")
+	if Global.current_character == Global.equipped_characters[0] and Global.mana >= Global.player_skill_multipliers["FireballCost"]:
+		emit_signal("mana_changed", Global.mana, "Player")
+	elif Global.current_character == Global.equipped_characters[1] and Global.character2_mana >= Global.player_skill_multipliers["FireballCost"]:
+		emit_signal("mana_changed", Global.character2_mana, "Player")
+	elif Global.current_character == Global.equipped_characters[2] and Global.character3_mana >= Global.player_skill_multipliers["FireballCost"]:
+		emit_signal("mana_changed", Global.character3_mana, "Player")
 
 
 func ground_pound():
@@ -1313,7 +1311,7 @@ func take_damage(damage : float):
 	if Global.current_character == "Player" and !is_invulnerable:
 		if Global.equipped_characters[0] == "Player":
 			Global.hearts -= damage
-			add_hurt_particles(damage )
+			add_hurt_particles(damage)
 			emit_signal("life_changed", Global.hearts, "Player")
 			#emit_signal("change_elegance"), "Hit")
 		elif Global.equipped_characters[1] == "Player":
@@ -1506,7 +1504,7 @@ func _on_ChargedAttackCollision_area_entered(area):
 			if Global.current_character == "Player" and $ManaRegenDelay.is_stopped():
 				$ManaRegenDelay.start()
 				print("charged attack restore mana")
-				change_mana_value(0.25)
+				change_mana_value(0.2)
 				print("mana: " + str(Global.mana))
 				if !is_flurry_attacking:
 					update_energy_meter(10)

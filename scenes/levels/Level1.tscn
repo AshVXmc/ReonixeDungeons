@@ -14,7 +14,7 @@
 [ext_resource path="res://scenes/items/LootBag.tscn" type="PackedScene" id=12]
 [ext_resource path="res://tilesets/Default.tres" type="TileSet" id=13]
 [ext_resource path="res://scenes/menus/SceneTransition.tscn" type="PackedScene" id=14]
-[ext_resource path="res://scenes/misc/MeteorStrike.tscn" type="PackedScene" id=15]
+[ext_resource path="res://scenes/items/SugarRoll.tscn" type="PackedScene" id=15]
 [ext_resource path="res://scenes/menus/PauseUI.tscn" type="PackedScene" id=16]
 [ext_resource path="res://scenes/menus/InventoryUI.tscn" type="PackedScene" id=17]
 [ext_resource path="res://scenes/enemies/Goblin.tscn" type="PackedScene" id=18]
@@ -151,7 +151,7 @@ shape = SubResource( 1 )
 one_way_collision = true
 
 [node name="Player" parent="." instance=ExtResource( 29 )]
-position = Vector2( 1494, 619 )
+position = Vector2( -1068, 904 )
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position = Vector2( 9.72693, -62.0423 )
@@ -169,5 +169,5 @@ editor_draw_limits = true
 position = Vector2( -1215, 709 )
 opals_amount = 20
 
-[node name="MeteorStrike" parent="." instance=ExtResource( 15 )]
-position = Vector2( -1066, 475 )
+[node name="ManaRoll" parent="." instance=ExtResource( 15 )]
+position = Vector2( -815, 682 )

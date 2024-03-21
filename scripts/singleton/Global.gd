@@ -59,7 +59,8 @@ var player_skill_multipliers : Dictionary = {
 	"Fireball": 50.0,
 	"FireballCD": 4.0,
 	"FireballCharges": 3,
-	"FireSawCost": 15,
+	"FireballMaxCharges": 3,
+	"FireSawCost": 18,
 	"FireFairyCost": 2,
 	"FireballCost": 2,
 	"FireSawCD": 30.0,
@@ -103,6 +104,11 @@ var player_talents : Dictionary = {
 		"unlocked" : false,
 		"enabled" : false,
 		"DamageIncrease" : 25
+	},
+	"CreateSugarRoll": {
+		"unlocked" : true,
+		"enabled": false,
+		"cooldown": 60.0
 	}
 }
 

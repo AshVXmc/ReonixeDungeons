@@ -14,12 +14,13 @@ onready var firefairy_ui = $SecondarySkill/Player/FireFairy/TextureProgress
 onready var fireball_ui = $TertiarySkill/Player/Fireball/TextureProgress
 onready var winterqueen_ui = $PrimarySkill/Glaciela/WinterQueen/TextureProgress
 onready var icelance_ui = $SecondarySkill/Glaciela/IceLance/TextureProgress
+onready var createsugarroll_ui = $TalentSkill/Player/CreateSugarRoll/TextureProgress
 const multiplier : int = 10
-var fireball_cooldown_is_ticking : bool = false
-
 
 func _ready():
 	update_character_ui()
+	if Global.player_talents["CreateSugarRoll"]["unlocked"]:
+		$TalentSkill/Player/CreateSugarRoll.visible = true
 #	update_maximum_endurance_ui()
 	Global.current_character = character1
 	print("Currently: " + Global.current_character)
@@ -27,15 +28,18 @@ func _ready():
 	update_skill_ui(Global.player_skills["PrimarySkill"], Global.player_skills["SecondarySkill"])
 	update_skill_ui(Global.glaciela_skills["PrimarySkill"], Global.glaciela_skills["SecondarySkill"])
 	firesaw_ui.max_value = Global.player_skill_multipliers["FireSawCD"] * multiplier
-	firesaw_ui.value = Global.player_skill_multipliers["FireSawCD"] * multiplier
+	firesaw_ui.value = firesaw_ui.max_value
 	firefairy_ui.max_value = Global.player_skill_multipliers["FireFairyCD"] * multiplier
-	firefairy_ui.value = Global.player_skill_multipliers["FireFairyCD"] * multiplier
+	firefairy_ui.value = firefairy_ui.max_value
 	fireball_ui.max_value = Global.player_skill_multipliers["FireballCD"] * multiplier
-	fireball_ui.value = Global.player_skill_multipliers["FireballCD"] * multiplier
+	fireball_ui.value = fireball_ui.max_value
 	winterqueen_ui.max_value = Global.glaciela_skill_multipliers["WinterQueenCD"] * multiplier
-	winterqueen_ui.value = Global.glaciela_skill_multipliers["WinterQueenCD"] * multiplier
+	winterqueen_ui.value = winterqueen_ui.max_value
 	icelance_ui.max_value = Global.glaciela_skill_multipliers["IceLanceCD"] * multiplier
-	icelance_ui.value = Global.glaciela_skill_multipliers["IceLanceCD"] * multiplier
+	icelance_ui.value = icelance_ui.max_value
+	
+	createsugarroll_ui.max_value = Global.player_talents["CreateSugarRoll"]["cooldown"] * multiplier
+	createsugarroll_ui.value = createsugarroll_ui.max_value
 	
 #func update_maximum_endurance_ui():
 #	$EnduranceMeter/TextureProgress.max_value = Global.max_endurance
@@ -90,34 +94,24 @@ func update_skill_ui(primary : String, secondary : String):
 func on_skill_used(skill_name : String):
 	match skill_name:
 		"FireSaw":
-			toggle_firesaw()
+			firesaw_ui.value = firesaw_ui.min_value
 		"FireFairy":
-			toggle_fire_fairy()
+			firefairy_ui.value = firefairy_ui.min_value
 		"Fireball":
-			toggle_fireball()
+			if fireball_ui.value >= fireball_ui.max_value:
+				fireball_ui.value = fireball_ui.min_value
+		"CreateSugarRoll":
+			createsugarroll_ui.value = createsugarroll_ui.min_value
 		"PlayerChargedAttack":
-			toggle_player_charged_attack()
-func toggle_firesaw():
-	emit_signal("ability_on_cooldown", "FireSaw")
-	firesaw_ui.value = firesaw_ui.min_value
+			pass
 
-func toggle_fire_fairy():
-	# 10 seconds is the duration of the fire fairy before expiring
-	emit_signal("ability_on_cooldown", "FireFairy")
-	firefairy_ui.value = firefairy_ui.min_value
-	
-func toggle_fireball():
-	emit_signal("ability_on_cooldown", "Fireball")
-	fireball_ui.value = fireball_ui.min_value
-
-func toggle_player_charged_attack():
-	pass
 
 func _process(delta):
 	
 	if Global.current_character == "Player":
 		$PrimarySkill/Player.visible = true
 		$SecondarySkill/Player.visible = true
+		$TertiarySkill/Player.visible = true
 		##############
 		# FIRE SAW ###
 		##############
@@ -173,34 +167,34 @@ func _process(delta):
 		##############
 		
 		if fireball_ui.value < fireball_ui.max_value:
-			fireball_cooldown_is_ticking = true
 			$TertiarySkill/Player/Fireball/Label.text = str(stepify((fireball_ui.max_value - fireball_ui.value) / multiplier, 0.001))
 			fireball_ui.self_modulate.a = 0.65
 		elif fireball_ui.value >= fireball_ui.max_value:
-			if Global.player_skill_multipliers["FireballCharges"] < 3:
+			if Global.player_skill_multipliers["FireballCharges"] < Global.player_skill_multipliers["FireballMaxCharges"]:
 				Global.player_skill_multipliers["FireballCharges"] += 1
 				update_fireball_skill_ui(Global.player_skill_multipliers["FireballCharges"])
-				if Global.player_skill_multipliers["FireballCharges"] < 3:
+				if Global.player_skill_multipliers["FireballCharges"] < Global.player_skill_multipliers["FireballMaxCharges"]:
 					fireball_ui.value = fireball_ui.min_value
 			else:
 				if Global.equipped_characters[0] == "Player":
-	#				if Global.mana >= Global.player_skill_multipliers["FireballCost"]:
-	#					fireball_ui.self_modulate.a = 1.0
-	#				else:
-	#					fireball_ui.self_modulate.a = 0.65
 					$TertiarySkill/Player/Fireball/Label.text = ""
 				elif Global.equipped_characters[1] == "Player":
-	#				if Global.character2_mana >= Global.player_skill_multipliers["FireballCost"]:
-	#					fireball_ui.self_modulate.a = 1.0
-	#				else:
-	#					firefairy_ui.self_modulate.a = 0.65
 					$TertiarySkill/Player/Fireball/Label.text = ""
 				elif Global.equipped_characters[2] == "Player":
-	#				if Global.character3_mana >= Global.player_skill_multipliers["FireballCost"]:
-	#					fireball_ui.self_modulate.a = 1.0
-	#				else:
-	#					fireball_ui.self_modulate.a = 0.65
 					$TertiarySkill/Player/Fireball/Label.text = ""
+		#####################
+		# CREATE MANA ROLL ##
+		#####################
+		if createsugarroll_ui.value < createsugarroll_ui.max_value:
+			$TalentSkill/Player/CreateSugarRoll/Label.text = str(stepify((createsugarroll_ui.max_value - createsugarroll_ui.value) / multiplier, 0.001))
+			createsugarroll_ui.self_modulate.a = 0.65
+		elif createsugarroll_ui.value >= createsugarroll_ui.max_value:
+			if Global.equipped_characters[0] == "Player":
+				$TalentSkill/Player/CreateSugarRoll/Label.text = ""
+			elif Global.equipped_characters[1] == "Player":
+				$TalentSkill/Player/CreateSugarRoll/Label.text = ""
+			elif Global.equipped_characters[2] == "Player":
+				$TalentSkill/Player/CreateSugarRoll/Label.text = ""
 	else:
 		$PrimarySkill/Player.visible = false
 		$SecondarySkill/Player.visible = false
@@ -299,6 +293,8 @@ func _on_CooldownTickTimer_timeout():
 		firesaw_ui.value += 1 
 		firefairy_ui.value += 1 
 		fireball_ui.value += 1
+		if Global.player_talents["CreateSugarRoll"]["enabled"]:
+			createsugarroll_ui.value += 1
 	if Global.equipped_characters.has("Glaciela"):
 		winterqueen_ui.value += 1 
 		icelance_ui.value += 1 

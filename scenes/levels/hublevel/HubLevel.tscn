@@ -1,4 +1,4 @@
-[gd_scene load_steps=75 format=2]
+[gd_scene load_steps=76 format=2]
 
 [ext_resource path="res://assets/particles/smoke_particle.png" type="Texture" id=1]
 [ext_resource path="res://scripts/misc/HubLevelLibraryBookshelf.gd" type="Script" id=2]
@@ -66,6 +66,7 @@
 [ext_resource path="res://assets/terrain/hub_level/prop_bartender_table.png" type="Texture" id=64]
 [ext_resource path="res://assets/terrain/hub_level/prop_tavern_desk_1.png" type="Texture" id=65]
 [ext_resource path="res://assets/terrain/hub_level/prop_tavern_desk_2.png" type="Texture" id=66]
+[ext_resource path="res://assets/terrain/hub_level/prop_tavern_desk_3.png" type="Texture" id=67]
 
 [sub_resource type="RectangleShape2D" id=5]
 extents = Vector2( 60, 50 )
@@ -112,7 +113,7 @@ font_data = ExtResource( 51 )
 extents = Vector2( 235, 11 )
 
 [sub_resource type="RectangleShape2D" id=8]
-extents = Vector2( 240, 10 )
+extents = Vector2( 283.5, 10 )
 
 [sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 7.5, 5 )
@@ -312,6 +313,11 @@ position = Vector2( 5112, -1500 )
 scale = Vector2( 9, 9 )
 texture = ExtResource( 66 )
 
+[node name="PropTavernDesk3" type="Sprite" parent="TavernBuilding"]
+position = Vector2( 5153, -1724 )
+scale = Vector2( 9, 9 )
+texture = ExtResource( 67 )
+
 [node name="PotionShopBuildingSprite" type="Sprite" parent="."]
 position = Vector2( 2648, 402.046 )
 scale = Vector2( 12, 12 )
@@ -460,7 +466,7 @@ texture = ExtResource( 60 )
 tile_set = SubResource( 1 )
 cell_size = Vector2( 96, 96 )
 format = 1
-tile_data = PoolIntArray( -1179643, 1, 0, -1179642, 1, 0, -1179641, 1, 0, -1179640, 1, 0, -1179639, 1, 0, -1179636, 1, 0, -1179635, 1, 0, -1179634, 1, 0, -1179633, 1, 0, -1179632, 1, 0, -1179616, 1, 0, -1179615, 1, 0, -1179614, 1, 0, -1179613, 1, 0, -1179612, 1, 0, -1179611, 1, 0, -1179598, 1, 0, -1179597, 1, 0, -1179596, 1, 0, -1179595, 1, 0, -1179594, 1, 0, -1179589, 1, 0, -1179588, 1, 0, -1179587, 1, 0, -1179586, 1, 0, -1179585, 1, 0 )
+tile_data = PoolIntArray( -1179643, 1, 0, -1179642, 1, 0, -1179641, 1, 0, -1179640, 1, 0, -1179639, 1, 0, -1179636, 1, 0, -1179635, 1, 0, -1179634, 1, 0, -1179633, 1, 0, -1179632, 1, 0, -1179616, 1, 0, -1179615, 1, 0, -1179614, 1, 0, -1179613, 1, 0, -1179612, 1, 0, -1179611, 1, 0, -1179598, 1, 0, -1179597, 1, 0, -1179596, 1, 0, -1179595, 1, 0, -1179594, 1, 0, -1179593, 1, 0, -1179590, 1, 0, -1179589, 1, 0, -1179588, 1, 0, -1179587, 1, 0, -1179586, 1, 0, -1179585, 1, 0 )
 
 [node name="StaticBody2D" type="StaticBody2D" parent="TileMap2"]
 position = Vector2( -2593.45, 98 )
@@ -491,12 +497,12 @@ __meta__ = {
 }
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TileMap2/StaticBody2D3"]
-position = Vector2( 7.5, 0 )
+position = Vector2( 54.5, 0 )
 shape = SubResource( 8 )
 one_way_collision = true
 
 [node name="StaticBody2D4" type="StaticBody2D" parent="TileMap2"]
-position = Vector2( 5896, -1653 )
+position = Vector2( 5854, -1653 )
 collision_layer = 129
 collision_mask = 129
 __meta__ = {
@@ -586,7 +592,7 @@ Opals = 5
 position = Vector2( 1798, 598 )
 
 [node name="Player" parent="." instance=ExtResource( 34 )]
-position = Vector2( 2712, 547 )
+position = Vector2( 3455, 608 )
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position = Vector2( -24.7189, -147.43 )
