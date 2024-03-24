@@ -73,6 +73,7 @@ onready var crit_damage : float = Global.glaciela_skill_multipliers["CritDamage"
 
 
 func _ready():
+#	print(get_path())
 	if Global.equipped_characters.has("Player"):
 		connect("trigger_quickswap", get_parent().get_parent(), "quickswap_event")
 	tundra_stars = 0
@@ -385,7 +386,7 @@ func add_heal_particles(heal_amount : float):
 	heal_particle.heal_amount = heal_amount * 2
 	get_parent().get_parent().get_parent().add_child(heal_particle)
 	heal_particle.position = global_position
-func heal(heal_amount : float):
+func heal(heal_amount : float, heal_to_max : bool = false, consumes_potion : bool = true):
 	# heal amount in percentage based on max HP
 	if Global.equipped_characters[0] == "Glaciela":
 		add_heal_particles(clamp(heal_amount, 0, Global.max_hearts - Global.hearts))
@@ -400,8 +401,9 @@ func heal(heal_amount : float):
 		add_heal_particles(clamp(heal_amount, 0, Global.character_3_max_hearts - Global.character3_hearts))
 		Global.character3_hearts += clamp(heal_amount, 0, Global.character_3_max_hearts - Global.character3_hearts)
 		emit_signal("life_changed", Global.character3_hearts, "Glaciela")
-	Global.healthpot_amount -= 1
-	emit_signal("healthpot_obtained", Global.healthpot_amount)
+	if consumes_potion:
+		Global.healthpot_amount -= 1
+		emit_signal("healthpot_obtained", Global.healthpot_amount)
 	
 
 func _on_SpecialAttackTimer_timeout():

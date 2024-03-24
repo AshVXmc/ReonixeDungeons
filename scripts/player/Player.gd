@@ -160,6 +160,7 @@ func set_attack_buff_value(new_value):
 	ATTACK = Global.attack_power + attack_buff
 
 func _ready():
+#	print(get_path())
 	if Global.current_character == "Player":
 		$Sprite.visible = true
 	$EnergyMeter.visible = false
@@ -581,6 +582,9 @@ func use_tertiary_skill():
 	elif Global.current_character == Global.equipped_characters[2] and Global.character3_mana >= Global.player_skill_multipliers["FireballCost"]:
 		emit_signal("mana_changed", Global.character3_mana, "Player")
 
+func use_talent_skill():
+	emit_signal("skill_used", "CreateManaRoll")
+	emit_signal("skill_ui_update", "CreateManaRoll")
 
 func ground_pound():
 	if !is_on_floor() and Input.is_action_just_pressed("ui_down"):
@@ -1324,8 +1328,8 @@ func take_damage(damage : float):
 			add_hurt_particles(damage)
 			#emit_signal("change_elegance"), "Hit")
 			emit_signal("life_changed", Global.character3_hearts, "Player")
-
-func heal(heal_amount : float, heal_to_max : bool = false):
+			
+func heal(heal_amount : float, heal_to_max : bool = false, consumes_potion : bool = true):
 	# heal amount in percentage based on max HP
 	if Global.equipped_characters[0] == "Player":
 		if !heal_to_max:
@@ -1351,11 +1355,11 @@ func heal(heal_amount : float, heal_to_max : bool = false):
 			add_heal_particles(Global.character_3_max_hearts - Global.character3_hearts)
 			Global.character3_hearts = Global.character_3_max_hearts 
 		emit_signal("life_changed", Global.character3_hearts, "Player")
-	if !heal_to_max:
+	if !heal_to_max and consumes_potion:
 		Global.healthpot_amount -= 1
 		emit_signal("healthpot_obtained", Global.healthpot_amount)
 	
-	
+
 	
 func _on_Area2D_area_exited(area):
 	if area.is_in_group("Water"):

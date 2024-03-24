@@ -170,4 +170,4 @@ position = Vector2( -1215, 709 )
 opals_amount = 20
 
 [node name="ManaRoll" parent="." instance=ExtResource( 15 )]
-position = Vector2( -815, 682 )
+position = Vector2( -829, 783 )

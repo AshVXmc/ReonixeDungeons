@@ -418,7 +418,6 @@ margin_right = 40.0
 margin_bottom = 40.0
 
 [node name="CreateSugarRoll" type="Control" parent="Control/TalentSkill/Player"]
-visible = false
 margin_right = 40.0
 margin_bottom = 40.0
 

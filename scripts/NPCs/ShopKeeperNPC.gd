@@ -21,8 +21,6 @@ func _process(delta):
 		add_child(HUBLEVEL_SHOP_DIALOGUE)
 
 func end_of_dialogue(timeline_name):
-	unstuck_player()
-func unstuck_player():
 	player.is_shopping = false
 
 # Override function

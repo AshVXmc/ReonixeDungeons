@@ -397,9 +397,6 @@ custom_fonts/font = SubResource( 10 )
 text = "R"
 align = 1
 valign = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [connection signal="pressed" from="Plaque/Control/HealthPotionRecipe/CraftButton" to="." method="_on_CraftHealthPotionButton_pressed"]
 [connection signal="pressed" from="Plaque/Control/CloseButton" to="." method="_on_CloseButton_pressed"]

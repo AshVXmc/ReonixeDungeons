@@ -1,0 +1,21 @@
+{
+	"events": [
+		{
+			"character": "character-1711277558.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "Greetings, Dear. Are you here to learn the art of alchemy? Feel free to use the Cauldron to brew Potions, if you have the necessary ingredients. "
+		},
+		{
+			"character": "character-1711277558.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "I'll let you know that this tavern brews the finest ale and wine thanks to an advice or two from yours truly. A sprinkle of magic in your drink goes a long way!"
+		}
+	],
+	"metadata": {
+		"dialogic-version": "1.4.5",
+		"file": "timeline-1711278170.json",
+		"name": "HubLevelAlchemist"
+	}
+}

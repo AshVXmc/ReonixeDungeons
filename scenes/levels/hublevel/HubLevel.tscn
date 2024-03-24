@@ -1,4 +1,4 @@
-[gd_scene load_steps=76 format=2]
+[gd_scene load_steps=80 format=2]
 
 [ext_resource path="res://assets/particles/smoke_particle.png" type="Texture" id=1]
 [ext_resource path="res://scripts/misc/HubLevelLibraryBookshelf.gd" type="Script" id=2]
@@ -67,6 +67,10 @@
 [ext_resource path="res://assets/terrain/hub_level/prop_tavern_desk_1.png" type="Texture" id=65]
 [ext_resource path="res://assets/terrain/hub_level/prop_tavern_desk_2.png" type="Texture" id=66]
 [ext_resource path="res://assets/terrain/hub_level/prop_tavern_desk_3.png" type="Texture" id=67]
+[ext_resource path="res://assets/terrain/hub_level/prop_tavern_desk_4.png" type="Texture" id=68]
+[ext_resource path="res://scenes/items/SugarRoll.tscn" type="PackedScene" id=69]
+[ext_resource path="res://scenes/NPC/AlchemistNPC.tscn" type="PackedScene" id=70]
+[ext_resource path="res://scenes/enemies/Goblin.tscn" type="PackedScene" id=71]
 
 [sub_resource type="RectangleShape2D" id=5]
 extents = Vector2( 60, 50 )
@@ -299,7 +303,7 @@ scale = Vector2( 8, 8 )
 texture = ExtResource( 26 )
 
 [node name="PropBartenderTable" type="Sprite" parent="TavernBuilding"]
-position = Vector2( 5420, -1510 )
+position = Vector2( 5457, -1510 )
 scale = Vector2( 9, 9 )
 texture = ExtResource( 64 )
 
@@ -309,14 +313,19 @@ scale = Vector2( 9, 9 )
 texture = ExtResource( 65 )
 
 [node name="PropTavernDesk2" type="Sprite" parent="TavernBuilding"]
-position = Vector2( 5112, -1500 )
+position = Vector2( 5201, -1725 )
 scale = Vector2( 9, 9 )
 texture = ExtResource( 66 )
 
 [node name="PropTavernDesk3" type="Sprite" parent="TavernBuilding"]
-position = Vector2( 5153, -1724 )
+position = Vector2( 5120, -1500 )
 scale = Vector2( 9, 9 )
 texture = ExtResource( 67 )
+
+[node name="PropTavernDesk4" type="Sprite" parent="TavernBuilding"]
+position = Vector2( 4913, -1725 )
+scale = Vector2( 9, 9 )
+texture = ExtResource( 68 )
 
 [node name="PotionShopBuildingSprite" type="Sprite" parent="."]
 position = Vector2( 2648, 402.046 )
@@ -592,7 +601,7 @@ Opals = 5
 position = Vector2( 1798, 598 )
 
 [node name="Player" parent="." instance=ExtResource( 34 )]
-position = Vector2( 3455, 608 )
+position = Vector2( 3351, 552 )
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position = Vector2( -24.7189, -147.43 )
@@ -615,6 +624,15 @@ drops_table = {
 "goblin_scales": 2,
 "sweet_herbs": 0
 }
+
+[node name="ManaRoll" parent="." instance=ExtResource( 69 )]
+position = Vector2( 3528, 597 )
+
+[node name="AlchemistNPC" parent="." instance=ExtResource( 70 )]
+position = Vector2( 6067, -1515 )
+
+[node name="Goblin" parent="." instance=ExtResource( 71 )]
+position = Vector2( 4062, 589 )
 
 [connection signal="area_entered" from="HubLibrary/BookOfShadowsPlayerDetectorArea" to="HubLibrary/BookOfShadowsPlayerDetectorArea" method="_on_BookshelfPlayerDetectorArea_area_entered"]
 [connection signal="area_exited" from="HubLibrary/BookOfShadowsPlayerDetectorArea" to="HubLibrary/BookOfShadowsPlayerDetectorArea" method="_on_BookshelfPlayerDetectorArea_area_exited"]
