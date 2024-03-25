@@ -14,11 +14,12 @@ func _ready():
 func _process(delta):
 	if $Area2D.overlaps_area(PLAYER) and Input.is_action_just_pressed("ui_use"):
 		player.is_shopping = true
-		var HUBLEVEL_SHOP_DIALOGUE = Dialogic.start("HubLevelShop")
-		HUBLEVEL_SHOP_DIALOGUE.connect("timeline_end",self , "end_of_dialogue")
-		add_child(HUBLEVEL_SHOP_DIALOGUE)
+		var HUBLEVEL_ALCHEMIST_DIALOGUE = Dialogic.start("HubLevelAlchemist")
+		HUBLEVEL_ALCHEMIST_DIALOGUE.connect("timeline_end",self , "end_of_dialogue")
+		add_child(HUBLEVEL_ALCHEMIST_DIALOGUE)
 
-		
+func end_of_dialogue(timeline_name):
+	player.is_shopping = false
 func _on_Area2D_area_entered(area):
 	if area.is_in_group("Player") and !$Label.visible:
 		$Label.visible = true

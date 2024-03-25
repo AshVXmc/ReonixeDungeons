@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://scripts/ui/SkillsUI.gd" type="Script" id=1]
 [ext_resource path="res://assets/UI/firesaw_skill_icon.png" type="Texture" id=2]
@@ -11,6 +11,7 @@
 [ext_resource path="res://assets/UI/empty_character_icon.png" type="Texture" id=9]
 [ext_resource path="res://assets/UI/skill_charges_empty.png" type="Texture" id=10]
 [ext_resource path="res://assets/UI/skill_charges_full.png" type="Texture" id=11]
+[ext_resource path="res://assets/UI/create_sugar_roll_talent_icon.png" type="Texture" id=12]
 
 [sub_resource type="DynamicFont" id=1]
 size = 32
@@ -418,28 +419,29 @@ margin_right = 40.0
 margin_bottom = 40.0
 
 [node name="CreateSugarRoll" type="Control" parent="Control/TalentSkill/Player"]
+visible = false
 margin_right = 40.0
 margin_bottom = 40.0
 
 [node name="Sprite" type="Sprite" parent="Control/TalentSkill/Player/CreateSugarRoll"]
 self_modulate = Color( 1, 1, 1, 0.333333 )
-position = Vector2( 492, 190 )
+position = Vector2( 500, 190 )
 scale = Vector2( 4, 4 )
-texture = ExtResource( 7 )
+texture = ExtResource( 12 )
 
 [node name="TextureProgress" type="TextureProgress" parent="Control/TalentSkill/Player/CreateSugarRoll"]
-margin_left = 452.0
+margin_left = 460.0
 margin_top = 150.0
-margin_right = 472.0
+margin_right = 480.0
 margin_bottom = 170.0
 rect_scale = Vector2( 4, 4 )
-texture_progress = ExtResource( 7 )
+texture_progress = ExtResource( 12 )
 fill_mode = 5
 
 [node name="Label" type="Label" parent="Control/TalentSkill/Player/CreateSugarRoll"]
-margin_left = 463.0
+margin_left = 471.0
 margin_top = 170.0
-margin_right = 522.0
+margin_right = 530.0
 margin_bottom = 218.0
 custom_fonts/font = SubResource( 1 )
 text = "60.0"

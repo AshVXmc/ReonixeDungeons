@@ -1,4 +1,4 @@
-[gd_scene load_steps=80 format=2]
+[gd_scene load_steps=78 format=2]
 
 [ext_resource path="res://assets/particles/smoke_particle.png" type="Texture" id=1]
 [ext_resource path="res://scripts/misc/HubLevelLibraryBookshelf.gd" type="Script" id=2]
@@ -56,7 +56,6 @@
 [ext_resource path="res://assets/terrain/hub_level/prop_grandfather_clock.png" type="Texture" id=54]
 [ext_resource path="res://assets/terrain/hub_level/prop_shop_cabinet_2.png" type="Texture" id=55]
 [ext_resource path="res://scenes/levels/hublevel/Cauldron.tscn" type="PackedScene" id=56]
-[ext_resource path="res://scenes/items/LootBag.tscn" type="PackedScene" id=57]
 [ext_resource path="res://assets/terrain/hub_level/prop_furnace.png" type="Texture" id=58]
 [ext_resource path="res://assets/terrain/hub_level/prop_firewood.png" type="Texture" id=59]
 [ext_resource path="res://assets/terrain/hub_level/prop_library_desk_1.png" type="Texture" id=60]
@@ -68,7 +67,6 @@
 [ext_resource path="res://assets/terrain/hub_level/prop_tavern_desk_2.png" type="Texture" id=66]
 [ext_resource path="res://assets/terrain/hub_level/prop_tavern_desk_3.png" type="Texture" id=67]
 [ext_resource path="res://assets/terrain/hub_level/prop_tavern_desk_4.png" type="Texture" id=68]
-[ext_resource path="res://scenes/items/SugarRoll.tscn" type="PackedScene" id=69]
 [ext_resource path="res://scenes/NPC/AlchemistNPC.tscn" type="PackedScene" id=70]
 [ext_resource path="res://scenes/enemies/Goblin.tscn" type="PackedScene" id=71]
 
@@ -347,7 +345,7 @@ scale = Vector2( 12, 12 )
 texture = ExtResource( 48 )
 
 [node name="IndoorTeaShopDoor" parent="." instance=ExtResource( 30 )]
-position = Vector2( 5933, -1521 )
+position = Vector2( 6078, -1521 )
 target = "OutdoorTeaShopDoor"
 
 [node name="OutdoorTeaShopDoor" parent="." instance=ExtResource( 30 )]
@@ -600,6 +598,12 @@ Opals = 5
 [node name="TalentRuneTablet" parent="." instance=ExtResource( 19 )]
 position = Vector2( 1798, 598 )
 
+[node name="AlchemistNPC" parent="." instance=ExtResource( 70 )]
+position = Vector2( 5785, -1513 )
+
+[node name="Goblin" parent="." instance=ExtResource( 71 )]
+position = Vector2( 3718, 575 )
+
 [node name="Player" parent="." instance=ExtResource( 34 )]
 position = Vector2( 3351, 552 )
 
@@ -614,25 +618,6 @@ limit_bottom = 1750
 drag_margin_h_enabled = true
 drag_margin_v_enabled = true
 editor_draw_limits = true
-
-[node name="LootBag" parent="." instance=ExtResource( 57 )]
-position = Vector2( 677, 558 )
-opals_amount = 25
-drops_table = {
-"bat_wings": 0,
-"common_dust": 2,
-"goblin_scales": 2,
-"sweet_herbs": 0
-}
-
-[node name="ManaRoll" parent="." instance=ExtResource( 69 )]
-position = Vector2( 3528, 597 )
-
-[node name="AlchemistNPC" parent="." instance=ExtResource( 70 )]
-position = Vector2( 6067, -1515 )
-
-[node name="Goblin" parent="." instance=ExtResource( 71 )]
-position = Vector2( 4062, 589 )
 
 [connection signal="area_entered" from="HubLibrary/BookOfShadowsPlayerDetectorArea" to="HubLibrary/BookOfShadowsPlayerDetectorArea" method="_on_BookshelfPlayerDetectorArea_area_entered"]
 [connection signal="area_exited" from="HubLibrary/BookOfShadowsPlayerDetectorArea" to="HubLibrary/BookOfShadowsPlayerDetectorArea" method="_on_BookshelfPlayerDetectorArea_area_exited"]

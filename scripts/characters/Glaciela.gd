@@ -71,6 +71,9 @@ var earth_dmg_bonus : float = Global.glaciela_skill_multipliers["EarthDamageBonu
 onready var crit_rate : float = Global.glaciela_skill_multipliers["CritRate"]
 onready var crit_damage : float = Global.glaciela_skill_multipliers["CritDamage"]
 
+onready var sskill_ui : TextureProgress = get_parent().get_parent().get_parent().get_node("SkillsUI/Control/SecondarySkill/Glaciela/IceLance/TextureProgress")
+
+
 
 func _ready():
 #	print(get_path())
@@ -153,12 +156,12 @@ func _physics_process(delta):
 		
 		if $ChargedAttackCooldown.is_stopped():
 			charged_attack(7.5)
-
+		use_skill()
 
 			
-		if Input.is_action_just_pressed("secondary_skill") and !Input.is_action_just_pressed("primary_skill"):
-			print("biatch")
-			emit_signal("skill_used", "IceLance")
+#		if Input.is_action_just_pressed("secondary_skill") and !Input.is_action_just_pressed("primary_skill"):
+#			print("biatch")
+#			emit_signal("skill_used", "IceLance")
 		
 func _input(event):
 	if Global.current_character == "Glaciela":
@@ -172,6 +175,26 @@ func _input(event):
 			print("awooga")
 			get_parent().get_parent().dash()
 			$DashInputPressTimer.start()
+
+func use_skill():
+	if Global.current_character == "Glaciela":
+		if sskill_ui.value >= sskill_ui.max_value and Input.is_action_just_pressed("secondary_skill") and !Input.is_action_just_pressed("primary_skill") and !get_parent().get_parent().is_frozen and !get_parent().get_parent().is_using_secondary_skill:
+			use_secondary_skill()
+
+func use_secondary_skill():
+	if Global.current_character == Global.equipped_characters[0] and Global.mana >= Global.glaciela_skill_multipliers["IceLanceCost"]:
+		emit_signal("skill_used", "IceLance", attack_buff)
+		get_parent().get_parent().emit_signal("skill_ui_update", "IceLance")
+		emit_signal("mana_changed", Global.mana, "Glaciela")
+	elif Global.current_character == Global.equipped_characters[1] and Global.character2_mana >= Global.glaciela_skill_multipliers["IceLanceCost"]:
+		emit_signal("skill_used", "IceLance", attack_buff)
+		get_parent().get_parent().emit_signal("skill_ui_update", "IceLance")
+		emit_signal("mana_changed", Global.character2_mana, "Glaciela")
+	elif Global.current_character == Global.equipped_characters[2] and Global.character3_mana >= Global.glaciela_skill_multipliers["IceLanceCost"]:
+		emit_signal("skill_used", "IceLance", attack_buff)
+		get_parent().get_parent().emit_signal("skill_ui_update", "IceLance")
+		emit_signal("mana_changed", Global.character3_mana, "Glaciela")
+
 
 func charged_dash():
 	$DashInputPressTimer.stop()
@@ -286,7 +309,7 @@ func play_attack_animation(direction : String):
 					attack_string_count = 4
 #					yield(get_tree().create_timer($MeleeTimer.wait_time * 1.5), "timeout")
 #					attack_string_count = 4
-					emit_signal("trigger_quickswap", "Glaciela")
+#					emit_signal("trigger_quickswap", "Glaciela")
 				else:
 					
 					$AnimationPlayer.play("SpearSwingRight4")
@@ -305,7 +328,7 @@ func play_attack_animation(direction : String):
 							break
 #					yield(get_tree().create_timer($MeleeTimer.wait_time * 1.5), "timeout")
 					attack_string_count = 4
-					emit_signal("trigger_quickswap", "Glaciela")
+#					emit_signal("trigger_quickswap", "Glaciela")
 				
 	elif direction == "Left":
 		match attack_string_count:
@@ -355,7 +378,7 @@ func play_attack_animation(direction : String):
 					attack_string_count = 4
 #					yield(get_tree().create_timer($MeleeTimer.wait_time * 1.5), "timeout")
 #					attack_string_count = 4
-					emit_signal("trigger_quickswap", "Glaciela")
+#					emit_signal("trigger_quickswap", "Glaciela")
 					
 				else:
 					
@@ -369,7 +392,7 @@ func play_attack_animation(direction : String):
 							break
 #					yield(get_tree().create_timer($MeleeTimer.wait_time * 1.5), "timeout")
 					attack_string_count = 4
-					emit_signal("trigger_quickswap", "Glaciela")
+#					emit_signal("trigger_quickswap", "Glaciela")
 #				$ResetAttackStringTimer.start()
 func change_mana_value(amount : float):
 	if Global.current_character == Global.equipped_characters[0] and Global.mana < Global.max_mana:

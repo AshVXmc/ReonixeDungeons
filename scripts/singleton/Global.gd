@@ -96,17 +96,19 @@ var player_talents : Dictionary = {
 		"unlocked" : false,
 		"enabled" : false
 	},
+	# Talent has not been implemented yet
 	"BreathOfFlame" : {
 		"unlocked" : false,
 		"enabled" : false
 	},
+	# Talent has not been implemented yet
 	"InfernalMark" : {
 		"unlocked" : false,
 		"enabled" : false,
 		"DamageIncrease" : 25
 	},
 	"CreateSugarRoll": {
-		"unlocked" : true,
+		"unlocked" : false,
 		"enabled": false,
 		"cooldown": 60.0
 	}

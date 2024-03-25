@@ -2,7 +2,7 @@ class_name RegenHealthNode extends Node2D
 
 var tick_amount : int = 4
 var tick_duration : int = 1
-var heal_per_tick_amount : float = 0.5
+var heal_per_tick_amount : float = 1
 var character_name : String 
 signal heal_player(amount)
 signal heal_glaciela(amount)

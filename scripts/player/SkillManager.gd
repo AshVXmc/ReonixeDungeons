@@ -7,6 +7,7 @@ var FIRESAW : PackedScene = preload("res://scenes/skills/FireSaw.tscn")
 var FIRE_FAIRY : PackedScene = preload("res://scenes/skills/FireFairy.tscn")
 var BURNING_STATUS : PackedScene = preload("res://scenes/status_effects/BurningStatus.tscn")
 var ICE_LANCE : PackedScene = preload("res://scenes/skills/IceLance.tscn")
+var SUGAR_ROLL : PackedScene = preload("res://scenes/items/SugarRoll.tscn")
 var playeratkbonus : float
 var glacielaatkbonus : float
 
@@ -74,13 +75,26 @@ func on_skill_used (
 			fireball.direction = direction
 			get_parent().get_parent().add_child(fireball)
 			fireball.position = global_position
-		
+		"CreateSugarRoll":
+			var sugar_roll = SUGAR_ROLL.instance()
+			get_parent().get_parent().add_child(sugar_roll)
+			sugar_roll.position = global_position
 		"IceLance":
-		
+			
 			get_parent().is_using_primary_skill = true
 			var icelance = ICE_LANCE.instance()
 			get_parent().get_parent().add_child(icelance)
 			icelance.position = global_position
+			if !Global.godmode:
+				if Global.equipped_characters[0] == "Glaciela" and Global.mana >= Global.glaciela_skill_multipliers["IceLanceCost"]:
+					Global.mana -= Global.glaciela_skill_multipliers["IceLanceCost"]
+					emit_signal("mana_changed", Global.mana, "Glaciela")
+				elif Global.equipped_characters[1] == "Glaciela" and Global.character2_mana >= Global.glaciela_skill_multipliers["IceLanceCost"]:
+					Global.character2_mana -= Global.glaciela_skill_multipliers["IceLanceCost"]
+					emit_signal("mana_changed", Global.character2_mana, "Glaciela")
+				elif Global.equipped_characters[2] == "Glaciela" and Global.character3_mana >= Global.glaciela_skill_multipliers["IceLanceCost"]:
+					Global.character3_mana -= Global.glaciela_skill_multipliers["IceLanceCost"]
+					emit_signal("mana_changed", Global.character3_mana, "Glaciela")
 		"ColdBloodedThrust":
 			pass
 		

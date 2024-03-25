@@ -10,7 +10,7 @@
 extents = Vector2( 43.9655, 57.7072 )
 
 [sub_resource type="DynamicFont" id=3]
-size = 32
+size = 48
 font_data = ExtResource( 7 )
 
 [sub_resource type="DynamicFont" id=7]
@@ -47,10 +47,10 @@ position = Vector2( -1.96555, 16 )
 shape = SubResource( 2 )
 
 [node name="Label" type="RichTextLabel" parent="."]
-margin_left = -41.0
-margin_top = -79.0
-margin_right = 44.0
-margin_bottom = -31.0
+margin_left = -52.0
+margin_top = -92.0
+margin_right = 71.0
+margin_bottom = -44.0
 custom_fonts/bold_font = SubResource( 3 )
 bbcode_enabled = true
 bbcode_text = "[b]Talk[/b] [img=32]res://assets/UI/icon_Empty.png[/img]"
@@ -60,10 +60,10 @@ scroll_active = false
 [node name="Keybind" type="Label" parent="."]
 anchor_left = -3.732
 anchor_right = -3.732
-margin_left = 18.0
-margin_top = -79.0
-margin_right = 39.0
-margin_bottom = -31.0
+margin_left = 31.0
+margin_top = -81.0
+margin_right = 52.0
+margin_bottom = -33.0
 rect_scale = Vector2( 0.75, 0.75 )
 custom_colors/font_color = Color( 0.192157, 0.372549, 1, 1 )
 custom_fonts/font = SubResource( 7 )

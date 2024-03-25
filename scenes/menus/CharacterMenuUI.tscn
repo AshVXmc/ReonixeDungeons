@@ -258,7 +258,7 @@ rect_min_size = Vector2( 566, 355 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer"]
 margin_right = 510.0
-margin_bottom = 1116.0
+margin_bottom = 1120.0
 rect_min_size = Vector2( 510, 1100 )
 
 [node name="RichTextLabel" type="RichTextLabel" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer"]
@@ -285,7 +285,7 @@ Enemies marked with the Sulphuric Sigil take more damage.
 
 
 [color=#ffd703]Create Sugar Roll[/color]
-Conjure a Sugar Roll item at your location. A character can eat the roll, restoring XXXX. The roll cannot be eaten if there are enemies nearby, and using this talent again will summon a new roll and destroy the previous one. "
+Conjure a [color=#bda662]Sugar Roll[/color] at your location. A character can eat the roll, restoring health over time. The roll cannot be eaten if there are enemies nearby, and only one roll may exist in a level. "
 text = "Cyclone Slashes
 Doing a charged attack after Basic Attack SEQ 2 unleashes a flurry of windblades to deal multiple instances of Physical DMG.
 (ATK, ATK, Hold ATK)
@@ -304,7 +304,7 @@ Enemies marked with the Sulphuric Sigil take more damage.
 
 
 Create Sugar Roll
-Conjure a Sugar Roll item at your location. A character can eat the roll, restoring XXXX. The roll cannot be eaten if there are enemies nearby, and using this talent again will summon a new roll and destroy the previous one. "
+Conjure a Sugar Roll at your location. A character can eat the roll, restoring health over time. The roll cannot be eaten if there are enemies nearby, and only one roll may exist in a level. "
 scroll_active = false
 
 [node name="TalentControl1" type="Control" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer"]
@@ -315,10 +315,10 @@ margin_bottom = 1104.0
 [node name="PlayerTalentButton" type="TextureButton" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl1"]
 anchor_left = 0.215
 anchor_right = 0.215
-margin_left = 428.9
-margin_top = -804.0
-margin_right = 460.9
-margin_bottom = -787.0
+margin_left = 426.35
+margin_top = -1104.0
+margin_right = 458.35
+margin_bottom = -1087.0
 rect_min_size = Vector2( 32, 16 )
 rect_scale = Vector2( 7.5, 7.5 )
 texture_normal = ExtResource( 5 )
@@ -351,10 +351,10 @@ margin_bottom = 1108.0
 [node name="PlayerTalentButton" type="TextureButton" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl2"]
 anchor_left = 0.215
 anchor_right = 0.215
-margin_left = 429.35
-margin_top = -553.0
-margin_right = 445.35
-margin_bottom = -544.0
+margin_left = 426.8
+margin_top = -853.0
+margin_right = 442.8
+margin_bottom = -844.0
 rect_scale = Vector2( 7.5, 7.5 )
 texture_normal = ExtResource( 5 )
 texture_pressed = ExtResource( 4 )
@@ -386,10 +386,10 @@ margin_bottom = 1112.0
 [node name="PlayerTalentButton" type="TextureButton" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl3"]
 anchor_left = 0.215
 anchor_right = 0.215
-margin_left = 428.9
-margin_top = -385.0
-margin_right = 460.9
-margin_bottom = -369.0
+margin_left = 426.35
+margin_top = -685.0
+margin_right = 458.35
+margin_bottom = -669.0
 rect_min_size = Vector2( 32, 16 )
 rect_scale = Vector2( 7.5, 7.5 )
 texture_normal = ExtResource( 5 )
@@ -422,10 +422,10 @@ margin_bottom = 1116.0
 [node name="PlayerTalentButton" type="TextureButton" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl4"]
 anchor_left = 0.215
 anchor_right = 0.215
-margin_left = 429.35
-margin_top = -222.0
-margin_right = 461.35
-margin_bottom = -206.0
+margin_left = 426.8
+margin_top = -522.0
+margin_right = 458.8
+margin_bottom = -506.0
 rect_min_size = Vector2( 32, 16 )
 rect_scale = Vector2( 7.5, 7.5 )
 texture_normal = ExtResource( 5 )
@@ -441,6 +441,42 @@ custom_fonts/font = SubResource( 3 )
 text = "Unlock"
 
 [node name="PlayerCheckButton" type="CheckButton" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl4/PlayerTalentButton"]
+margin_left = -5.33334
+margin_top = 8.66666
+margin_right = 116.667
+margin_bottom = 48.6667
+rect_scale = Vector2( 0.2, 0.2 )
+custom_fonts/font = SubResource( 4 )
+text = "Enable"
+align = 1
+
+[node name="TalentControl5" type="Control" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer"]
+margin_top = 1120.0
+margin_right = 510.0
+margin_bottom = 1120.0
+
+[node name="PlayerTalentButton" type="TextureButton" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl5"]
+anchor_left = 0.215
+anchor_right = 0.215
+margin_left = 426.35
+margin_top = -366.0
+margin_right = 458.35
+margin_bottom = -350.0
+rect_min_size = Vector2( 32, 16 )
+rect_scale = Vector2( 7.5, 7.5 )
+texture_normal = ExtResource( 5 )
+texture_pressed = ExtResource( 4 )
+
+[node name="ButtonLabel" type="Label" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl5/PlayerTalentButton"]
+margin_left = 1.60001
+margin_top = 1.6
+margin_right = 40.6
+margin_bottom = 18.6
+rect_scale = Vector2( 0.3, 0.3 )
+custom_fonts/font = SubResource( 3 )
+text = "Unlock"
+
+[node name="PlayerCheckButton" type="CheckButton" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl5/PlayerTalentButton"]
 margin_left = -5.33334
 margin_top = 8.66666
 margin_right = 116.667

@@ -147,6 +147,7 @@ onready var thrust_attack_power :float = Global.attack_power * (Global.player_sk
 onready var pskill_ui : TextureProgress = get_parent().get_node("SkillsUI/Control/PrimarySkill/Player/FireSaw/TextureProgress")
 onready var sskill_ui : TextureProgress =  get_parent().get_node("SkillsUI/Control/SecondarySkill/Player/FireFairy/TextureProgress")
 onready var tskill_ui : TextureProgress = get_parent().get_node("SkillsUI/Control/TertiarySkill/Player/Fireball/TextureProgress")
+onready var talentskill_ui : TextureProgress = get_parent().get_node("SkillsUI/Control/TalentSkill/Player/CreateSugarRoll/TextureProgress")
 onready var crit_rate : float = Global.player_skill_multipliers["CritRate"]
 onready var crit_damage : float = Global.player_skill_multipliers["CritDamage"]
 # when a flash appears after the 3rd string of basic attack, tap to thrust through enemies
@@ -539,31 +540,43 @@ func set_charged_attack_power(amount : float, duration : float, show_particles :
 		buffed_from_attack_crystals = false
 func use_skill():
 	if Global.current_character == "Player":
+		var player_array_index : int = Global.equipped_characters.find("Player")
 		if pskill_ui.value >= pskill_ui.max_value and Input.is_action_just_pressed("primary_skill") and !Input.is_action_just_pressed("secondary_skill") and !is_frozen and !is_using_primary_skill:
 			use_primary_skill()
 		if sskill_ui.value >= sskill_ui.max_value and Input.is_action_just_pressed("secondary_skill") and !Input.is_action_just_pressed("primary_skill") and !is_frozen and !is_using_secondary_skill:
 			use_secondary_skill()
-		if Global.player_skill_multipliers["FireballCharges"] > 0 and Input.is_action_just_pressed("tertiary_skill"):
+		if Global.player_skill_multipliers["FireballCharges"] > 0 and Input.is_action_just_pressed("tertiary_skill") and !is_frozen:
 			use_tertiary_skill()
+		if talentskill_ui.value >= talentskill_ui.max_value and Input.is_action_just_pressed("talent_skill") and !is_frozen:
+			use_talent_skill()
 
 func use_primary_skill():
-	emit_signal("skill_used", "FireSaw", attack_buff)
-	emit_signal("skill_ui_update", "FireSaw")
+	
 	if Global.current_character == Global.equipped_characters[0] and Global.mana >= Global.player_skill_multipliers["FireSawCost"]:
+		emit_signal("skill_used", "FireSaw", attack_buff)
+		emit_signal("skill_ui_update", "FireSaw")
 		emit_signal("mana_changed", Global.mana, "Player")
 	elif Global.current_character == Global.equipped_characters[1] and Global.character2_mana >= Global.player_skill_multipliers["FireSawCost"]:
+		emit_signal("skill_used", "FireSaw", attack_buff)
+		emit_signal("skill_ui_update", "FireSaw")
 		emit_signal("mana_changed", Global.character2_mana, "Player")
 	elif Global.current_character == Global.equipped_characters[2] and Global.character3_mana >= Global.player_skill_multipliers["FireSawCost"]:
+		emit_signal("skill_used", "FireSaw", attack_buff)
+		emit_signal("skill_ui_update", "FireSaw")
 		emit_signal("mana_changed", Global.character3_mana, "Player")
 	
 func use_secondary_skill():
-	emit_signal("skill_used", "FireFairy", attack_buff)
-	emit_signal("skill_ui_update", "FireFairy")
 	if Global.current_character == Global.equipped_characters[0] and Global.mana >= Global.player_skill_multipliers["FireFairyCost"]:
+		emit_signal("skill_used", "FireFairy", attack_buff)
+		emit_signal("skill_ui_update", "FireFairy")
 		emit_signal("mana_changed", Global.mana, "Player")
 	elif Global.current_character == Global.equipped_characters[1] and Global.character2_mana >= Global.player_skill_multipliers["FireFairyCost"]:
+		emit_signal("skill_used", "FireFairy", attack_buff)
+		emit_signal("skill_ui_update", "FireFairy")
 		emit_signal("mana_changed", Global.character2_mana, "Player")
 	elif Global.current_character == Global.equipped_characters[2] and Global.character3_mana >= Global.player_skill_multipliers["FireFairyCost"]:
+		emit_signal("skill_used", "FireFairy", attack_buff)
+		emit_signal("skill_ui_update", "FireFairy")
 		emit_signal("mana_changed", Global.character3_mana, "Player")
 
 func use_tertiary_skill():
@@ -583,8 +596,8 @@ func use_tertiary_skill():
 		emit_signal("mana_changed", Global.character3_mana, "Player")
 
 func use_talent_skill():
-	emit_signal("skill_used", "CreateManaRoll")
-	emit_signal("skill_ui_update", "CreateManaRoll")
+	emit_signal("skill_used", "CreateSugarRoll")
+	emit_signal("skill_ui_update", "CreateSugarRoll")
 
 func ground_pound():
 	if !is_on_floor() and Input.is_action_just_pressed("ui_down"):
@@ -946,8 +959,8 @@ func charged_attack(type : String = "Ground"):
 		yield(get_tree().create_timer(0.1), "timeout")
 		change_mana_value(0.45)
 		#emit_signal("change_elegance"), "ChargedAttackHeavy")
-		emit_signal("reduce_skill_cd", "Player", "PrimarySkill", 4)
-		emit_signal("reduce_skill_cd", "Player", "SecondarySkill", 2)
+		emit_signal("reduce_skill_cd", "Player", "PrimariesOnly", 4)
+		emit_signal("reduce_skill_cd", "Player", "SecondariesOnly", 2)
 		
 		
 		$SlashFlurryCD.start()

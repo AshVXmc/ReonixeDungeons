@@ -54,13 +54,9 @@ func get_closest_enemy():
 	var min_index = distances.find(min_distance)
 	var closest_enemy = enemies[min_index]
 	return closest_enemy
-	
-
 
 func _on_HomingOnEnemiesFireball_area_entered(area):
-	pass # Replace with function body.
-
-
+	pass
 
 func _on_DestroyedTimer_timeout():
 	queue_free() 

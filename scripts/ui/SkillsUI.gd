@@ -38,9 +38,12 @@ func _ready():
 	icelance_ui.max_value = Global.glaciela_skill_multipliers["IceLanceCD"] * multiplier
 	icelance_ui.value = icelance_ui.max_value
 	
-	createsugarroll_ui.max_value = Global.player_talents["CreateSugarRoll"]["cooldown"] * multiplier
-	createsugarroll_ui.value = createsugarroll_ui.max_value
-	
+	if Global.player_talents["CreateSugarRoll"]["unlocked"] and Global.player_talents["CreateSugarRoll"]["enabled"]:
+		$TalentSkill/Player/CreateSugarRoll.visible = true
+		createsugarroll_ui.max_value = Global.player_talents["CreateSugarRoll"]["cooldown"] * multiplier
+		createsugarroll_ui.value = createsugarroll_ui.max_value
+	else:
+		$TalentSkill/Player/CreateSugarRoll.visible = false
 #func update_maximum_endurance_ui():
 #	$EnduranceMeter/TextureProgress.max_value = Global.max_endurance
 func update_swap_character_status():
@@ -87,7 +90,7 @@ func update_skill_ui(primary : String, secondary : String):
 			$SecondarySkill/Player/FireFairy/CostLabel.text = str(Global.player_skill_multipliers["FireFairyCost"])
 		"IceLance":
 			$SecondarySkill/Glaciela/IceLance.visible = true
-			$SecondarySkill/Glaciela/IceLance/CostLabel.text = str(Global.glaciela_skill_multipliers["IceLance"])
+			$SecondarySkill/Glaciela/IceLance/CostLabel.text = str(Global.glaciela_skill_multipliers["IceLanceCost"])
 
 
 
@@ -102,6 +105,8 @@ func on_skill_used(skill_name : String):
 				fireball_ui.value = fireball_ui.min_value
 		"CreateSugarRoll":
 			createsugarroll_ui.value = createsugarroll_ui.min_value
+		"IceLance":
+			icelance_ui.value = icelance_ui.min_value
 		"PlayerChargedAttack":
 			pass
 
@@ -293,7 +298,8 @@ func _on_CooldownTickTimer_timeout():
 		firesaw_ui.value += 1 
 		firefairy_ui.value += 1 
 		fireball_ui.value += 1
-		if Global.player_talents["CreateSugarRoll"]["enabled"]:
+		
+		if Global.player_talents["CreateSugarRoll"]["unlocked"] and Global.player_talents["CreateSugarRoll"]["enabled"]:
 			createsugarroll_ui.value += 1
 	if Global.equipped_characters.has("Glaciela"):
 		winterqueen_ui.value += 1 
