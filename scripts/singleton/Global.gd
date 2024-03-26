@@ -88,29 +88,41 @@ var player_unlocked_skins = {
 }
 
 var player_talents : Dictionary = {
+	"TalentSlots": 5,
+	"MaxTalentSlots": 5,
 	"CycloneSlashes" : {
 		"unlocked" : false,
-		"enabled" : false
+		"enabled" : false,
+		"opalscost": 100,
+		"talentslotcost": 2
 	},
 	"SwiftThrust" : {
 		"unlocked" : false,
-		"enabled" : false
+		"enabled" : false,
+		"opalscost": 100,
+		"talentslotcost": 2
 	},
 	# Talent has not been implemented yet
-	"BreathOfFlame" : {
+	"BurningBreath" : {
 		"unlocked" : false,
-		"enabled" : false
+		"enabled" : false,
+		"opalscost": 100,
+		"talentslotcost": 3
 	},
 	# Talent has not been implemented yet
 	"InfernalMark" : {
 		"unlocked" : false,
 		"enabled" : false,
-		"DamageIncrease" : 25
+		"opalscost": 100,
+		"DamageIncrease" : 25,
+		"talentslotcost": 2
 	},
 	"CreateSugarRoll": {
 		"unlocked" : false,
 		"enabled": false,
-		"cooldown": 60.0
+		"opalscost": 100,
+		"cooldown": 60.0,
+		"talentslotcost": 3
 	}
 }
 
@@ -134,7 +146,7 @@ var glaciela_skill_multipliers : Dictionary = {
 	"IceLance": 70.0,
 	"MaxTundraSigils": 3,
 	"WinterQueenCost": 15,
-	"IceLanceCost": 2,
+	"IceLanceCost": 0,
 	"WinterQueenCD": 30.0,
 	"IceLanceCD": 10.0,
 	"BasePhysRes": 0.0,

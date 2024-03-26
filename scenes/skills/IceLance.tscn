@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://assets/misc/frost_lance.png" type="Texture" id=1]
 [ext_resource path="res://scripts/skills/IceLance.gd" type="Script" id=2]
@@ -30,18 +30,6 @@ tracks/1/keys = {
 "update": 0,
 "values": [ 0.0 ]
 }
-tracks/2/type = "value"
-tracks/2/path = NodePath("CollisionPolygon2D:rotation_degrees")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ 0.0 ]
-}
 
 [sub_resource type="Animation" id=2]
 resource_name = "Spin_clockwise"
@@ -54,18 +42,6 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.8 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ 0.0, 360.0 ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("CollisionPolygon2D:rotation_degrees")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
 "times": PoolRealArray( 0, 0.8 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
@@ -100,6 +76,9 @@ orbit_velocity_random = 0.0
 [sub_resource type="CircleShape2D" id=5]
 radius = 25.0
 
+[sub_resource type="RectangleShape2D" id=6]
+extents = Vector2( 29.3449, 112.784 )
+
 [node name="IceLance" type="Area2D" groups=["Ice"]]
 script = ExtResource( 2 )
 __meta__ = {
@@ -115,10 +94,6 @@ autoplay = "Spin_clockwise"
 anims/RESET = SubResource( 1 )
 anims/Spin_clockwise = SubResource( 2 )
 anims/Spin_counter_clockwise = SubResource( 3 )
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
-polygon = PoolVector2Array( -80.2142, -80.3146, -79.5071, -60.5156, -69.6076, -49.2019, -74.9109, -39.6559, -75.2645, -26.5745, -60.4152, -25.1603, -50.8693, -35.0598, -23.9992, -7.83614, -25.767, 8.07376, -6.67507, 26.4585, 6.40641, 26.105, 33.2765, 51.2073, 22.6699, 60.7532, 23.7305, 76.3096, 40.7011, 74.8953, 47.4186, 65.703, 59.4394, 80.5522, 79.9455, 80.5522, 79.9455, 60.7532, 65.4498, 49.793, 75.7029, 39.1864, 76.0564, 25.0443, 60.5001, 25.0443, 51.3077, 34.5903, 25.4983, 8.4273, 25.4983, -5.36128, 5.34573, -25.1603, -5.61443, -25.1603, -33.1916, -49.909, -23.6457, -58.7478, -23.2921, -75.0113, -39.9091, -75.3648, -47.6873, -67.5867, -59.001, -81.3753 )
-disabled = true
 
 [node name="TargetPlayerTimer" type="Timer" parent="."]
 one_shot = true
@@ -141,6 +116,11 @@ shape = SubResource( 5 )
 wait_time = 2.0
 one_shot = true
 autostart = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = -0.785398
+scale = Vector2( 1, 1 )
+shape = SubResource( 6 )
 
 [connection signal="area_entered" from="." to="." method="_on_IceLance_area_entered"]
 [connection signal="area_entered" from="PlayerDetector" to="." method="_on_PlayerDetector_area_entered"]

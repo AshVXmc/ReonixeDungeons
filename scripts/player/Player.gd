@@ -1445,6 +1445,9 @@ func add_heal_particles(heal_amount : float):
 	heal_particle.heal_amount = heal_amount * 2
 	get_parent().add_child(heal_particle)
 	heal_particle.position = global_position
+	
+	# trigger health effect particles
+	$HealingParticles.emitting = true
 # Obtaining mana by attacking enemies
 
 func is_a_critical_hit() -> bool:

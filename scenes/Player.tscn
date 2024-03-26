@@ -4,7 +4,6 @@
 [ext_resource path="res://scripts/player/Player.gd" type="Script" id=2]
 [ext_resource path="res://assets/characters/player/katana.png" type="Texture" id=3]
 [ext_resource path="res://assets/misc/frozen_block.png" type="Texture" id=4]
-[ext_resource path="res://scenes/particles/BreathOfFlameTalent.tscn" type="PackedScene" id=5]
 [ext_resource path="res://assets/characters/player/gliding_wings.png" type="Texture" id=6]
 [ext_resource path="res://assets/UI/chargebar_charging.png" type="Texture" id=7]
 [ext_resource path="res://assets/UI/healthbar_empty.png" type="Texture" id=8]
@@ -22,6 +21,7 @@
 [ext_resource path="res://assets/UI/energy_meter_empty.png" type="Texture" id=20]
 [ext_resource path="res://scenes/particles/TeleportingParticles.tscn" type="PackedScene" id=21]
 [ext_resource path="res://assets/misc/super_slash_projectile_2.png" type="Texture" id=22]
+[ext_resource path="res://scenes/particles/HealingParticle.tscn" type="PackedScene" id=23]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 37.6338
@@ -3769,10 +3769,6 @@ visible = false
 polygon = PoolVector2Array( 48.2045, -7.99997, 400.54, -110.589, 398.858, 108.044, 46.5227, 9.65884 )
 disabled = true
 
-[node name="FireBurstParticle" parent="." instance=ExtResource( 5 )]
-visible = false
-position = Vector2( 48, 0 )
-
 [node name="FireBurstTimer" type="Timer" parent="."]
 wait_time = 0.2
 
@@ -3939,6 +3935,8 @@ flip_v = true
 [node name="HideEnergyMeterTimer" type="Timer" parent="."]
 wait_time = 8.0
 one_shot = true
+
+[node name="HealingParticles" parent="." instance=ExtResource( 23 )]
 
 [connection signal="timeout" from="CharacterManager/SwapCooldownTimer" to="CharacterManager" method="_on_SwapCooldownTimer_timeout"]
 [connection signal="area_entered" from="AttackCollision" to="." method="_on_AttackCollision_area_entered"]

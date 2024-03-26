@@ -602,10 +602,10 @@ position = Vector2( 1798, 598 )
 position = Vector2( 5785, -1513 )
 
 [node name="Goblin" parent="." instance=ExtResource( 71 )]
-position = Vector2( 3718, 575 )
+position = Vector2( 3907, 345 )
 
 [node name="Player" parent="." instance=ExtResource( 34 )]
-position = Vector2( 3351, 552 )
+position = Vector2( 3034, 231 )
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position = Vector2( -24.7189, -147.43 )

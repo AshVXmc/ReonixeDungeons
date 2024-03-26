@@ -12,7 +12,7 @@ var attack_calculation : float
 
 func _ready():
 #	add_burning_stack(true)
-	print($BreathOfFlameTalentDetector.get_overlapping_bodies())
+	print($BurningBreathTalentDetector.get_overlapping_bodies())
 	$DestroyedTimer.start(Global.player_skill_multipliers["FireSawDuration"])
 	get_parent().add_to_group("FiresawActive")
 	if Global.equipped_characters[0] == "Player":
@@ -59,13 +59,13 @@ func _on_FireSaw_area_entered(area):
 		fire_hit_particle.position = get_closest_enemy().global_position 
 
 
-func _on_BreathOfFlameTalentDetector_area_entered(area):
-	if Global.player_talents["BreathOfFlame"]["unlocked"] and Global.player_talents["BreathOfFlame"]["enabled"]:
+func _on_BurningBreathTalentDetector_area_entered(area):
+	if Global.player_talents["BurningBreath"]["unlocked"] and Global.player_talents["BurningBreath"]["enabled"]:
 		if weakref(area).get_ref() != null:
 			if area.is_in_group("Enemy") and !area.is_in_group("BurnStack"):
 				var burning_status = BURNING.instance()
 				burning_status.burn_immediately = true
 				area.add_child(burning_status)
 				print("ENTERED")
-		$BreathOfFlameTalentDetector/CollisionShape2D.disabled = true
+		$BurningBreathTalentDetector/CollisionShape2D.disabled = true
 	

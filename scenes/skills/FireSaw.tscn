@@ -83,12 +83,12 @@ position = Vector2( 3.0942, 2.45024 )
 scale = Vector2( 1.20845, 1.03282 )
 polygon = PoolVector2Array( -30.6909, -49.7348, -30.6909, -175.048, 30.6034, -115.115, 31.2845, -49.0537, 58.5264, -27.2602, 58.5264, 28.5858, 28.5603, 46.2931, 29.9224, 173.649, -31.372, 117.803, -31.372, 45.612, -59.295, 28.5858, -59.976, -30.6654 )
 
-[node name="BreathOfFlameTalentDetector" type="Area2D" parent="."]
+[node name="BurningBreathTalentDetector" type="Area2D" parent="."]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="BreathOfFlameTalentDetector"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BurningBreathTalentDetector"]
 shape = SubResource( 4 )
 
 [connection signal="area_entered" from="." to="." method="_on_FireSaw_area_entered"]
 [connection signal="screen_exited" from="VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_exited"]
 [connection signal="timeout" from="DestroyedTimer" to="." method="_on_DestroyedTimer_timeout"]
-[connection signal="area_entered" from="BreathOfFlameTalentDetector" to="." method="_on_BreathOfFlameTalentDetector_area_entered"]
+[connection signal="area_entered" from="BurningBreathTalentDetector" to="." method="_on_BurningBreathTalentDetector_area_entered"]

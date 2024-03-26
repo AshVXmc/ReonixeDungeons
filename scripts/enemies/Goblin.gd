@@ -249,7 +249,9 @@ func _on_Area2D_area_entered(area):
 					parse_damage()
 					break
 		
+		
 		if area.is_in_group("Ice"):
+			print("ice entered")
 			var groups : Array = area.get_groups()
 			for group_names in groups:
 				if float(group_names) != 0 and $HitDelayTimer.is_stopped():

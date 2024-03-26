@@ -2,8 +2,9 @@ class_name Alchemist extends Node2D
 
 onready var PLAYER = get_parent().get_node("Player").get_node("Area2D")
 onready var player = get_parent().get_node("Player")
-
+signal shopping(value)
 func _ready():
+	connect("shopping", get_parent().get_node("Player"), "toggle_shopping")
 	$Label.visible = false
 	$Keybind.visible = false
 	$AnimationPlayer.play("Idle")
@@ -22,10 +23,11 @@ func end_of_dialogue(timeline_name):
 	player.is_shopping = false
 func _on_Area2D_area_entered(area):
 	if area.is_in_group("Player") and !$Label.visible:
+		emit_signal("shopping")
 		$Label.visible = true
 		$Keybind.visible = true
 func _on_Area2D_area_exited(area):
-	if $Label.visible:
+	if area.is_in_group("Player"):
 		$Label.visible = false
 		$Keybind.visible = false
 

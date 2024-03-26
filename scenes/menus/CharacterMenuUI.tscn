@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://scripts/ui/CharacterTalentsControl.gd" type="Script" id=1]
 [ext_resource path="res://assets/characters/glaciela/glaciela_idle.png" type="Texture" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://assets/UI/button.png" type="Texture" id=5]
 [ext_resource path="res://assets/UI/textbox.png" type="Texture" id=6]
 [ext_resource path="res://themes/Blur.tres" type="Material" id=7]
+[ext_resource path="res://assets/misc/opal.png" type="Texture" id=8]
 [ext_resource path="res://assets/UI/quiticon.png" type="Texture" id=9]
 [ext_resource path="res://assets/fonts/Born2bSportyV2.ttf" type="DynamicFontData" id=12]
 [ext_resource path="res://assets/characters/agnette/agnette_idle_1.png" type="Texture" id=13]
@@ -27,7 +28,18 @@ font_data = ExtResource( 12 )
 size = 32
 font_data = ExtResource( 12 )
 
+[sub_resource type="DynamicFont" id=8]
+font_data = ExtResource( 12 )
+
 [sub_resource type="DynamicFont" id=4]
+font_data = ExtResource( 12 )
+
+[sub_resource type="DynamicFont" id=6]
+size = 32
+font_data = ExtResource( 12 )
+
+[sub_resource type="DynamicFont" id=7]
+size = 48
 font_data = ExtResource( 12 )
 
 [node name="CharacterMenuUI" type="CanvasLayer"]
@@ -166,7 +178,6 @@ custom_fonts/font = SubResource( 3 )
 text = "Talents"
 
 [node name="CharacterTalentsControl" type="Control" parent="."]
-visible = false
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -276,8 +287,8 @@ Doing a charged attack after Basic Attack SEQ 2 unleashes a flurry of windblades
 Airborne charged attacks can now be chained up to 2 times.
 
 
-[color=#ffd703]Breath of Flame[/color]
-Activating FireSaw releases a burst of flames that burn enemies.
+[color=#ffd703]Burning Breath[/color]
+Activating your Primary Skill releases a burst of flames that burn enemies.
 
 
 [color=#ffd703]Infernal Mark[/color]
@@ -295,8 +306,8 @@ Swift Thrust
 Airborne charged attacks can now be chained up to 2 times.
 
 
-Breath of Flame
-Activating FireSaw releases a burst of flames that burn enemies.
+Burning Breath
+Activating your Primary Skill releases a burst of flames that burn enemies.
 
 
 Infernal Mark
@@ -333,7 +344,32 @@ rect_scale = Vector2( 0.3, 0.3 )
 custom_fonts/font = SubResource( 3 )
 text = "Unlock"
 
+[node name="OpalsCostLabel" type="Label" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl1/PlayerTalentButton"]
+margin_left = 5.66672
+margin_top = 10.0
+margin_right = 26.6667
+margin_bottom = 27.0
+rect_scale = Vector2( 0.3, 0.3 )
+custom_fonts/font = SubResource( 8 )
+text = "XXX"
+align = 2
+
+[node name="Sprite" type="Sprite" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl1/PlayerTalentButton/OpalsCostLabel"]
+position = Vector2( -6.22238, 7.11111 )
+texture = ExtResource( 8 )
+
+[node name="SlotsCostLabel" type="Label" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl1/PlayerTalentButton"]
+margin_left = -3.73331
+margin_top = 15.0667
+margin_right = 71.2667
+margin_bottom = 32.0667
+rect_scale = Vector2( 0.3, 0.3 )
+custom_fonts/font = SubResource( 8 )
+text = "Slot cost: X"
+align = 1
+
 [node name="PlayerCheckButton" type="CheckButton" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl1/PlayerTalentButton"]
+visible = false
 margin_left = -5.33334
 margin_top = 8.66666
 margin_right = 116.667
@@ -369,6 +405,7 @@ custom_fonts/font = SubResource( 3 )
 text = "Unlock"
 
 [node name="PlayerCheckButton" type="CheckButton" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl2/PlayerTalentButton"]
+visible = false
 margin_left = -5.33334
 margin_top = 8.66666
 margin_right = 116.667
@@ -405,6 +442,7 @@ custom_fonts/font = SubResource( 3 )
 text = "Unlock"
 
 [node name="PlayerCheckButton" type="CheckButton" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl3/PlayerTalentButton"]
+visible = false
 margin_left = -5.33334
 margin_top = 8.66666
 margin_right = 116.667
@@ -441,6 +479,7 @@ custom_fonts/font = SubResource( 3 )
 text = "Unlock"
 
 [node name="PlayerCheckButton" type="CheckButton" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl4/PlayerTalentButton"]
+visible = false
 margin_left = -5.33334
 margin_top = 8.66666
 margin_right = 116.667
@@ -477,6 +516,7 @@ custom_fonts/font = SubResource( 3 )
 text = "Unlock"
 
 [node name="PlayerCheckButton" type="CheckButton" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl5/PlayerTalentButton"]
+visible = false
 margin_left = -5.33334
 margin_top = 8.66666
 margin_right = 116.667
@@ -485,6 +525,26 @@ rect_scale = Vector2( 0.2, 0.2 )
 custom_fonts/font = SubResource( 4 )
 text = "Enable"
 align = 1
+
+[node name="TalentSlotsLabel" type="Label" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl"]
+margin_left = 19.0
+margin_top = 226.0
+margin_right = 110.0
+margin_bottom = 293.0
+custom_fonts/font = SubResource( 6 )
+text = "Talent Slots:"
+align = 1
+autowrap = true
+
+[node name="TalentSlotsCountLabel" type="Label" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl"]
+margin_left = 12.0
+margin_top = 299.0
+margin_right = 118.0
+margin_bottom = 398.0
+custom_fonts/font = SubResource( 7 )
+text = "0/5"
+align = 1
+autowrap = true
 
 [node name="CloseButtonMainUI" type="TextureButton" parent="CharacterTalentsControl"]
 anchor_left = 0.5

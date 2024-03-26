@@ -29,7 +29,7 @@ func _on_Area2D_area_entered(area):
 		$Keybind.visible = true
 		
 func _on_Area2D_area_exited(area):
-	if $Label.visible:
+	if area.is_in_group("Player"):
 		$Label.visible = false
 		$Keybind.visible = false
 
