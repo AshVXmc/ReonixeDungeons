@@ -20,8 +20,14 @@ func update_talent_tree_ui():
 	$NinePatchRect/TalentTreeControl/PlayerControl/TalentSlotsCountLabel.text = str(Global.player_talents["TalentSlots"]) + "/" + str(Global.player_talents["MaxTalentSlots"])
 	$NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl1/PlayerTalentButton/OpalsCostLabel.text = str(Global.player_talents["CycloneSlashes"]["opalscost"])
 	$NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl1/PlayerTalentButton/SlotsCostLabel.text = "Slot cost: " + str(Global.player_talents["CycloneSlashes"]["talentslotcost"])
-	
-	
+	$NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl2/PlayerTalentButton/OpalsCostLabel.text = str(Global.player_talents["SwiftThrust"]["opalscost"])
+	$NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl2/PlayerTalentButton/SlotsCostLabel.text = "Slot cost: " + str(Global.player_talents["SwiftThrust"]["talentslotcost"])
+	$NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl3/PlayerTalentButton/OpalsCostLabel.text = str(Global.player_talents["BurningBreath"]["opalscost"])
+	$NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl3/PlayerTalentButton/SlotsCostLabel.text = "Slot cost: " + str(Global.player_talents["BurningBreath"]["talentslotcost"])
+	$NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl4/PlayerTalentButton/OpalsCostLabel.text = str(Global.player_talents["InfernalMark"]["opalscost"])
+	$NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl4/PlayerTalentButton/SlotsCostLabel.text = "Slot cost: " + str(Global.player_talents["InfernalMark"]["talentslotcost"])
+func update_opals_ui():
+	pass
 func _on_CloseButtonMainUI_pressed():
 	visible = false
 	get_parent().get_node("CharactersUI").visible = true
