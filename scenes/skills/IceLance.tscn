@@ -119,7 +119,6 @@ autostart = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 rotation = -0.785398
-scale = Vector2( 1, 1 )
 shape = SubResource( 6 )
 
 [connection signal="area_entered" from="." to="." method="_on_IceLance_area_entered"]
