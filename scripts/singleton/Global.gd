@@ -104,8 +104,8 @@ var player_talents : Dictionary = {
 	},
 	# Talent has not been implemented yet
 	"BurningBreath" : {
-		"unlocked" : false,
-		"enabled" : false,
+		"unlocked" : true,
+		"enabled" : true,
 		"opalscost": 100,
 		"talentslotcost": 3
 	},
@@ -236,7 +236,7 @@ var glaciela_skills : Dictionary = {
 
 
 var current_character : String 
-var equipped_characters : Array = ["Player", "Glaciela", ""]
+var equipped_characters : Array = ["Player", "Glaciela", "Agnette"]
 var unlocked_characters : Array = ["Player", "Glaciela", ""]
 var alive : Array = [true, true, true]
 

@@ -1,0 +1,21 @@
+{
+	"color": "#ff62ff00",
+	"description": "",
+	"display_name": "Tavern Bard",
+	"display_name_bool": true,
+	"id": "character-1712050491.json",
+	"mirror_portraits": false,
+	"name": "TavernBard",
+	"nickname": "",
+	"nickname_bool": false,
+	"offset_x": 0,
+	"offset_y": 0,
+	"portraits": [
+		{
+			"name": "Default",
+			"path": ""
+		}
+	],
+	"scale": 100,
+	"theme": ""
+}

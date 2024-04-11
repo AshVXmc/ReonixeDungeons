@@ -5,7 +5,7 @@ signal ability_on_cooldown(ability_name, attack_bonus)
 var fireballcost : int = 2
 const playericon = preload("res://assets/UI/player_character_icon.png")
 const glacielaicon = preload("res://assets/UI/glaciela_character_icon.png")
-
+const agnetteicon = preload("res://assets/UI/agnette_character_icon.png")
 const empty_icon = preload("res://assets/UI/empty_character_icon.png")
 onready var character1 : String = Global.equipped_characters[0]
 var can_swap_character : bool = true
@@ -64,16 +64,22 @@ func update_character_ui():
 			$Characters/Slot1/Character1.texture = playericon
 		"Glaciela":
 			$Characters/Slot1/Character1.texture = glacielaicon
+		"Agnette":
+			$Characters/Slot1/Character1.texture = agnetteicon
 	match Global.equipped_characters[1]:
 		"Player":
 			$Characters/Slot2/Character2.texture = playericon
 		"Glaciela":
 			$Characters/Slot2/Character2.texture = glacielaicon
+		"Agnette":
+			$Characters/Slot2/Character2.texture = agnetteicon
 	match Global.equipped_characters[2]:
 		"Player":
 			$Characters/Slot3/Character3.texture = playericon
 		"Glaciela":
 			$Characters/Slot3/Character3.texture = glacielaicon
+		"Agnette":
+			$Characters/Slot3/Character3.texture = agnetteicon
 
 
 func update_skill_ui(primary : String, secondary : String):

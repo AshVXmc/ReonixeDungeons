@@ -1,0 +1,41 @@
+{
+	"events": [
+		{
+			"character": "character-1712050491.json",
+			"event_id": "dialogic_010",
+			"options": [
+
+			],
+			"portrait": "",
+			"question": "Hey mate, thanks for stopping by! Care to hear my latest work?"
+		},
+		{
+			"choice": "",
+			"condition": "",
+			"definition": "",
+			"event_id": "dialogic_011",
+			"value": ""
+		},
+		{
+			"choice": "",
+			"condition": "",
+			"definition": "",
+			"event_id": "dialogic_011",
+			"value": ""
+		},
+		{
+			"event_id": "dialogic_013"
+		},
+		{
+			"character": "character-1712050491.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "See you around. Cheers, mate!"
+		}
+	],
+	"metadata": {
+		"dialogic-version": "1.4.5",
+		"file": "timeline-1712050812.json",
+		"name": "HubLevelTavernBard"
+	}
+}

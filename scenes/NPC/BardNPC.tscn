@@ -1,10 +1,11 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://assets/NPC/bard_1.png" type="Texture" id=1]
 [ext_resource path="res://assets/NPC/bard_2.png" type="Texture" id=2]
 [ext_resource path="res://assets/NPC/bard_3.png" type="Texture" id=3]
 [ext_resource path="res://assets/NPC/bard_4.png" type="Texture" id=4]
 [ext_resource path="res://assets/particles/music_note_particles.png" type="Texture" id=5]
+[ext_resource path="res://scripts/NPCs/BardNPC.gd" type="Script" id=6]
 [ext_resource path="res://assets/fonts/Born2bSportyV2.ttf" type="DynamicFontData" id=7]
 
 [sub_resource type="RectangleShape2D" id=2]
@@ -46,12 +47,17 @@ particles_anim_loop = false
 
 [sub_resource type="ParticlesMaterial" id=9]
 flag_disable_z = true
-gravity = Vector3( 0, 98, 0 )
+spread = 25.0
+flatness = 0.2
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 40.0
+initial_velocity_random = 0.3
 orbit_velocity = 0.0
 orbit_velocity_random = 0.0
 anim_speed = 1.0
 
 [node name="BardNPC" type="Node2D"]
+script = ExtResource( 6 )
 
 [node name="Area2D" type="Area2D" parent="."]
 
@@ -85,6 +91,7 @@ align = 1
 valign = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "Idle"
 anims/Idle = SubResource( 5 )
 anims/RESET = SubResource( 6 )
 
@@ -95,7 +102,9 @@ texture = ExtResource( 2 )
 
 [node name="MusicNoteParticles2D" type="Particles2D" parent="."]
 material = SubResource( 8 )
+position = Vector2( 14, 16 )
 scale = Vector2( 3, 3 )
+amount = 1
 process_material = SubResource( 9 )
 texture = ExtResource( 5 )
 

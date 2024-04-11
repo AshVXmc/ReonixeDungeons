@@ -1,12 +1,17 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://assets/particles/flame_particle.png" type="Texture" id=1]
+[ext_resource path="res://scripts/skills/BurningBreathTalent.gd" type="Script" id=2]
 
 [node name="BurningBreathTalent" type="Node2D"]
+scale = Vector2( 3, 3 )
+script = ExtResource( 2 )
 
 [node name="FireBurstParticle" type="CPUParticles2D" parent="."]
+emitting = false
 amount = 36
 lifetime = 0.75
+one_shot = true
 explosiveness = 0.3
 randomness = 0.5
 texture = ExtResource( 1 )
@@ -20,3 +25,9 @@ angular_velocity = 250.0
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D"]
 polygon = PoolVector2Array( -0.25, -6, -0.25, 6, 87.5, 29.5, 87.25, -29.5 )
+
+[node name="DestroyTimer" type="Timer" parent="."]
+wait_time = 0.8
+one_shot = true
+
+[connection signal="timeout" from="DestroyTimer" to="." method="_on_DestroyTimer_timeout"]

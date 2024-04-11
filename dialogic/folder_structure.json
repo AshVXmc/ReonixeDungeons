@@ -8,7 +8,8 @@
 				"character-1673352342.json",
 				"character-1673439491.json",
 				"character-1673447896.json",
-				"character-1711277558.json"
+				"character-1711277558.json",
+				"character-1712050491.json"
 			],
 			"folders": {
 				"Interactables": {
@@ -37,7 +38,7 @@
 					},
 					"metadata": {
 						"color": null,
-						"folded": false
+						"folded": true
 					}
 				}
 			},
@@ -76,7 +77,8 @@
 				"timeline-1706102539.json~RF18e882e6.TMP",
 				"timeline-1709806710.json",
 				"timeline-1711272222.json",
-				"timeline-1711278170.json"
+				"timeline-1711278170.json",
+				"timeline-1712050812.json"
 			],
 			"folders": {
 				"Interactables": {

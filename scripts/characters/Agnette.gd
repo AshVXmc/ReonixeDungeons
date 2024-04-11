@@ -180,14 +180,14 @@ func attack():
 			$ChargedAttackCollision.set_scale(Vector2(1,1))
 			$MeleeTimer.start()
 		else:
-	
-			
 			$AttackCollision/CollisionShape2D.disabled = false
-			
 			$AttackCollision.set_scale(Vector2(-1,1))
 			$ChargedAttackCollision.set_scale(Vector2(-1,1))
 			$MeleeTimer.start()
 		$AttackTimer.start()
+
+func play_attack_animation():
+	pass
 
 func is_a_critical_hit() -> bool:
 	var rng = RandomNumberGenerator.new()

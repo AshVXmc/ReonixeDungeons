@@ -47,6 +47,7 @@ position = Vector2( -1.96555, 16 )
 shape = SubResource( 2 )
 
 [node name="Label" type="RichTextLabel" parent="."]
+visible = false
 margin_left = -52.0
 margin_top = -92.0
 margin_right = 71.0
@@ -58,6 +59,7 @@ text = "Talk "
 scroll_active = false
 
 [node name="Keybind" type="Label" parent="."]
+visible = false
 anchor_left = -3.732
 anchor_right = -3.732
 margin_left = 31.0
