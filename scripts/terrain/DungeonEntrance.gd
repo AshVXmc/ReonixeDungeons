@@ -58,6 +58,7 @@ func _on_CloseButtonMainUI_pressed():
 	get_tree().paused = false
 
 func _on_1_pressed():
+	
 	destination = "res://scenes/levels/Level1.tscn"
 	$CharacterSelectionUI/Control.initialize_ui()
 

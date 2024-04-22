@@ -67,10 +67,10 @@ autoplay = "glow"
 anims/RESET = SubResource( 5 )
 anims/glow = SubResource( 4 )
 
-[node name="CharacterMenuUI" parent="." instance=ExtResource( 3 )]
-
 [node name="Area2D" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2( 0, 4 )
 shape = SubResource( 6 )
+
+[node name="CharacterMenuUI" parent="." instance=ExtResource( 3 )]

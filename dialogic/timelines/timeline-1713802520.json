@@ -13,17 +13,23 @@
 
 			],
 			"portrait": "",
-			"question": ""
+			"question": "???"
 		},
 		{
-			"choice": "",
+			"choice": "test 1",
 			"condition": "",
 			"definition": "",
 			"event_id": "dialogic_011",
 			"value": ""
 		},
 		{
-			"choice": "",
+			"character": "",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "yayyy"
+		},
+		{
+			"choice": "test 2",
 			"condition": "",
 			"definition": "",
 			"event_id": "dialogic_011",

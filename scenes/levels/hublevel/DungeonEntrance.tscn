@@ -34,7 +34,6 @@ size = 32
 font_data = ExtResource( 4 )
 
 [node name="DungeonEntrance" type="Node2D"]
-pause_mode = 2
 scale = Vector2( 2, 2 )
 script = ExtResource( 1 )
 
@@ -82,6 +81,7 @@ one_shot = true
 
 [node name="LevelSelectionUI" type="CanvasLayer" parent="."]
 pause_mode = 2
+layer = 5
 
 [node name="Control" type="Control" parent="LevelSelectionUI"]
 visible = false
