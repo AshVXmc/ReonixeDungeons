@@ -4,18 +4,18 @@
 			"character": "character-1673447896.json",
 			"event_id": "dialogic_001",
 			"portrait": "",
-			"text": "H-hello, welcome to the Library! Feel free to browse our collection of books, a-and, uh, we don't have many visitors, and some of the books may be dusty, b-but anyways, e-enjoy your visit!"
+			"text": "(O-oh, a visitor?! Um, uh, I mean...)"
 		},
 		{
 			"character": "character-1673447896.json",
 			"event_id": "dialogic_001",
 			"portrait": "",
-			"text": "(Wonder what I should grab for lunch...)"
+			"text": "(Coughs) Ahem, h-hello, visitor! Please enjoy our comprehensive catalogue of books, scrolls, and tomes. Popular items include the mysterious Book of Shadows and the magical self-updating Beastiary."
 		}
 	],
 	"metadata": {
 		"dialogic-version": "1.4.5",
-		"file": "timeline-1711272222.json",
+		"file": "timeline-1713798282.json",
 		"name": "HubLevelLibrarian"
 	}
 }

@@ -1,9 +1,9 @@
 {
 	"color": "#ffffd703",
 	"description": "",
-	"display_name": "Winged Cyclops",
-	"display_name_bool": true,
-	"id": "character-1684315090.json",
+	"display_name": "",
+	"display_name_bool": false,
+	"id": "character-1713800816.json",
 	"mirror_portraits": false,
 	"name": "MonumentOfVictories",
 	"nickname": "",
@@ -13,9 +13,9 @@
 	"portraits": [
 		{
 			"name": "Default",
-			"path": "res://assets/terrain/hub_level/monument_of_victories.png"
+			"path": ""
 		}
 	],
 	"scale": 100,
-	"theme": "default-theme.cfg"
+	"theme": ""
 }

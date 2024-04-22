@@ -7,7 +7,7 @@
 extents = Vector2( 18.2143, 11.4286 )
 
 [sub_resource type="RectangleShape2D" id=6]
-extents = Vector2( 9.64286, 3.5433 )
+extents = Vector2( 16.0714, 10.7143 )
 
 [node name="FireCharm" type="KinematicBody2D"]
 scale = Vector2( 1.4, 1.4 )
@@ -32,7 +32,8 @@ one_shot = true
 autostart = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 0.357143, 2.52203 )
+position = Vector2( 2.5, 1.42857 )
+scale = Vector2( 1, 1 )
 shape = SubResource( 6 )
 
 [node name="StopMovingTimer" type="Timer" parent="."]

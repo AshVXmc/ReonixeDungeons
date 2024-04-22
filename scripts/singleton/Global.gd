@@ -123,6 +123,11 @@ var player_talents : Dictionary = {
 		"opalscost": 100,
 		"cooldown": 60.0,
 		"talentslotcost": 3
+	},
+	"ChaosMagic": {
+		"unlocked" : false,
+		"enabled": false,
+		"cooldown": 150
 	}
 }
 

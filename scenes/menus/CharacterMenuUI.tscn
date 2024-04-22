@@ -47,7 +47,6 @@ pause_mode = 2
 layer = 99
 
 [node name="CharactersUI" type="Control" parent="."]
-visible = false
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -72,6 +71,7 @@ margin_bottom = 1426.0
 color = Color( 1, 1, 1, 0 )
 
 [node name="NinePatchRect" type="NinePatchRect" parent="CharactersUI"]
+visible = false
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -195,10 +195,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -1300.0
-margin_top = -855.0
-margin_right = 1940.0
-margin_bottom = 1305.0
+margin_left = -1319.0
+margin_top = -1042.0
+margin_right = 1921.0
+margin_bottom = 1118.0
 color = Color( 1, 1, 1, 0 )
 
 [node name="NinePatchRect" type="NinePatchRect" parent="CharacterTalentsControl"]
@@ -406,10 +406,10 @@ custom_fonts/font = SubResource( 3 )
 text = "Unlock"
 
 [node name="OpalsCostLabel" type="Label" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl2/PlayerTalentButton"]
-margin_left = 5.66673
-margin_top = 10.0
+margin_left = 5.66672
+margin_top = 9.33334
 margin_right = 26.6667
-margin_bottom = 27.0
+margin_bottom = 26.3333
 rect_scale = Vector2( 0.3, 0.3 )
 custom_fonts/font = SubResource( 8 )
 text = "XXX"
@@ -421,9 +421,9 @@ texture = ExtResource( 8 )
 
 [node name="SlotsCostLabel" type="Label" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl2/PlayerTalentButton"]
 margin_left = -3.73331
-margin_top = 15.0667
+margin_top = 14.4
 margin_right = 71.2667
-margin_bottom = 32.0667
+margin_bottom = 31.4
 rect_scale = Vector2( 0.3, 0.3 )
 custom_fonts/font = SubResource( 8 )
 text = "Slot cost: X"
@@ -467,10 +467,10 @@ custom_fonts/font = SubResource( 3 )
 text = "Unlock"
 
 [node name="OpalsCostLabel" type="Label" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl3/PlayerTalentButton"]
-margin_left = 5.66673
-margin_top = 10.0
+margin_left = 5.66672
+margin_top = 9.33333
 margin_right = 26.6667
-margin_bottom = 27.0
+margin_bottom = 26.3333
 rect_scale = Vector2( 0.3, 0.3 )
 custom_fonts/font = SubResource( 8 )
 text = "XXX"
@@ -482,9 +482,9 @@ texture = ExtResource( 8 )
 
 [node name="SlotsCostLabel" type="Label" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl3/PlayerTalentButton"]
 margin_left = -3.73331
-margin_top = 15.0667
+margin_top = 14.4
 margin_right = 71.2667
-margin_bottom = 32.0667
+margin_bottom = 31.4
 rect_scale = Vector2( 0.3, 0.3 )
 custom_fonts/font = SubResource( 8 )
 text = "Slot cost: X"
@@ -528,10 +528,10 @@ custom_fonts/font = SubResource( 3 )
 text = "Unlock"
 
 [node name="OpalsCostLabel" type="Label" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl4/PlayerTalentButton"]
-margin_left = 5.66673
-margin_top = 10.0
+margin_left = 5.66672
+margin_top = 9.33333
 margin_right = 26.6667
-margin_bottom = 27.0
+margin_bottom = 26.3333
 rect_scale = Vector2( 0.3, 0.3 )
 custom_fonts/font = SubResource( 8 )
 text = "XXX"
@@ -543,9 +543,9 @@ texture = ExtResource( 8 )
 
 [node name="SlotsCostLabel" type="Label" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl4/PlayerTalentButton"]
 margin_left = -3.73331
-margin_top = 15.0667
+margin_top = 14.4
 margin_right = 71.2667
-margin_bottom = 32.0667
+margin_bottom = 31.4
 rect_scale = Vector2( 0.3, 0.3 )
 custom_fonts/font = SubResource( 8 )
 text = "Slot cost: X"

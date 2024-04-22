@@ -1,0 +1,45 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://assets/particles/large_smoke_particle.png" type="Texture" id=1]
+[ext_resource path="res://scenes/particles/StrongJumpParticle.tscn" type="PackedScene" id=2]
+
+[sub_resource type="CanvasItemMaterial" id=1]
+particles_animation = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 40, 100 )
+
+[node name="VerticalJumpParticle" type="CPUParticles2D"]
+material = SubResource( 1 )
+rotation = 4.71239
+scale = Vector2( 2.5, 2.5 )
+emitting = false
+amount = 6
+lifetime = 0.5
+one_shot = true
+lifetime_randomness = 0.15
+texture = ExtResource( 1 )
+emission_shape = 1
+emission_sphere_radius = 1.0
+spread = 0.0
+gravity = Vector2( 0, 0 )
+initial_velocity = 350.0
+anim_speed = 1.0
+
+[node name="KnockbackArea2D" type="Area2D" parent="." groups=["60", "CustomPoiseDamage"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="KnockbackArea2D"]
+position = Vector2( 40, 0 )
+shape = SubResource( 2 )
+
+[node name="StrongJumpParticle" parent="." instance=ExtResource( 2 )]
+position = Vector2( -30, 0 )
+rotation = 0.0
+scale = Vector2( 1.5, 1.5 )
+amount = 8
+lifetime = 0.5
+randomness = 0.2
+initial_velocity = 100.0

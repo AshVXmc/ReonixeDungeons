@@ -252,6 +252,23 @@ custom_fonts/font = SubResource( 4 )
 text = "99"
 align = 1
 
+[node name="KeyIcon" type="Sprite" parent="Control/PrimarySkill"]
+position = Vector2( 169.5, 207 )
+scale = Vector2( 1.5, 1.5 )
+texture = ExtResource( 4 )
+
+[node name="KeyBind" type="Label" parent="Control/PrimarySkill"]
+anchor_left = -3.732
+anchor_right = -3.732
+margin_left = 311.985
+margin_top = 195.013
+margin_right = 325.985
+margin_bottom = 227.013
+rect_scale = Vector2( 0.8, 0.8 )
+custom_colors/font_color = Color( 0.192157, 0.372549, 1, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Q"
+
 [node name="SecondarySkill" type="Control" parent="Control"]
 margin_top = -44.0
 margin_right = 40.0
@@ -351,6 +368,23 @@ custom_fonts/font = SubResource( 4 )
 text = "99"
 align = 1
 
+[node name="KeyIcon" type="Sprite" parent="Control/SecondarySkill"]
+position = Vector2( 270, 228 )
+scale = Vector2( 1.5, 1.5 )
+texture = ExtResource( 4 )
+
+[node name="KeyBind" type="Label" parent="Control/SecondarySkill"]
+anchor_left = -3.732
+anchor_right = -3.732
+margin_left = 412.985
+margin_top = 216.013
+margin_right = 426.985
+margin_bottom = 248.013
+rect_scale = Vector2( 0.8, 0.8 )
+custom_colors/font_color = Color( 0.192157, 0.372549, 1, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "E"
+
 [node name="TertiarySkill" type="Control" parent="Control"]
 margin_left = -4.0
 margin_top = -42.0
@@ -391,22 +425,39 @@ align = 1
 valign = 1
 
 [node name="ManaSlot" type="TextureRect" parent="Control/TertiarySkill/Player/Fireball"]
-margin_left = 373.0
-margin_top = 217.0
-margin_right = 421.0
-margin_bottom = 233.0
+margin_left = 386.0
+margin_top = 215.0
+margin_right = 434.0
+margin_bottom = 231.0
 texture = ExtResource( 10 )
 expand = true
 stretch_mode = 2
 
 [node name="ManaIcon" type="TextureRect" parent="Control/TertiarySkill/Player/Fireball"]
-margin_left = 373.0
-margin_top = 217.0
-margin_right = 421.0
-margin_bottom = 233.0
+margin_left = 386.0
+margin_top = 215.0
+margin_right = 434.0
+margin_bottom = 231.0
 texture = ExtResource( 11 )
 expand = true
 stretch_mode = 2
+
+[node name="KeyIcon" type="Sprite" parent="Control/TertiarySkill"]
+position = Vector2( 370, 226 )
+scale = Vector2( 1.5, 1.5 )
+texture = ExtResource( 4 )
+
+[node name="KeyBind" type="Label" parent="Control/TertiarySkill"]
+anchor_left = -3.732
+anchor_right = -3.732
+margin_left = 512.985
+margin_top = 214.013
+margin_right = 526.985
+margin_bottom = 246.013
+rect_scale = Vector2( 0.8, 0.8 )
+custom_colors/font_color = Color( 0.192157, 0.372549, 1, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "F"
 
 [node name="TalentSkill" type="Control" parent="Control"]
 margin_left = -4.0
@@ -419,7 +470,6 @@ margin_right = 40.0
 margin_bottom = 40.0
 
 [node name="CreateSugarRoll" type="Control" parent="Control/TalentSkill/Player"]
-visible = false
 margin_right = 40.0
 margin_bottom = 40.0
 
@@ -447,6 +497,23 @@ custom_fonts/font = SubResource( 1 )
 text = "60.0"
 align = 1
 valign = 1
+
+[node name="KeyIcon" type="Sprite" parent="Control/TalentSkill"]
+position = Vector2( 500, 226 )
+scale = Vector2( 1.5, 1.5 )
+texture = ExtResource( 4 )
+
+[node name="KeyBind" type="Label" parent="Control/TalentSkill"]
+anchor_left = -3.732
+anchor_right = -3.732
+margin_left = 642.985
+margin_top = 214.013
+margin_right = 656.985
+margin_bottom = 246.013
+rect_scale = Vector2( 0.8, 0.8 )
+custom_colors/font_color = Color( 0.192157, 0.372549, 1, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "C"
 
 [node name="CooldownTickTimer" type="Timer" parent="Control"]
 wait_time = 0.1

@@ -444,6 +444,7 @@ texture = ExtResource( 60 )
 [node name="TileMap2" type="TileMap" parent="."]
 tile_set = SubResource( 1 )
 cell_size = Vector2( 96, 96 )
+collision_layer = 129
 format = 1
 tile_data = PoolIntArray( -1376229, 2, 0, -1376204, 2, 0, -1310693, 2, 0, -1310668, 2, 0, -1245157, 2, 0, -1245132, 2, 0, -1179643, 1, 0, -1179642, 1, 0, -1179641, 1, 0, -1179640, 1, 0, -1179639, 1, 0, -1179636, 1, 0, -1179635, 1, 0, -1179634, 1, 0, -1179633, 1, 0, -1179632, 1, 0, -1179621, 2, 0, -1179616, 1, 0, -1179615, 1, 0, -1179614, 1, 0, -1179613, 1, 0, -1179612, 1, 0, -1179611, 1, 0, -1179598, 1, 0, -1179597, 1, 0, -1179596, 2, 0, -1179595, 1, 0, -1179594, 1, 0, -1179593, 1, 0, -1179590, 1, 0, -1179589, 1, 0, -1179588, 1, 0, -1179587, 1, 0, -1179586, 1, 0, -1179585, 1, 0 )
 
@@ -641,10 +642,10 @@ scale = Vector2( 20, 20 )
 texture = ExtResource( 69 )
 
 [node name="Goblin" parent="." instance=ExtResource( 71 )]
-position = Vector2( 3907, 345 )
+position = Vector2( 3665, 597 )
 
 [node name="Player" parent="." instance=ExtResource( 34 )]
-position = Vector2( 3468, 544 )
+position = Vector2( 3468, 551 )
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position = Vector2( -24.7189, -147.43 )

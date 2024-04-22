@@ -15,7 +15,7 @@ func _ready():
 
 func _process(delta):
 	if $Area2D.overlaps_area(PLAYER) and Input.is_action_just_pressed("ui_use") and !$ShopUI/CanvasLayer/Main.visible:
-		player.is_shopping = true
+#		player.is_shopping = true
 		var HUBLEVEL_SHOP_DIALOGUE = Dialogic.start("HubLevelShop")
 		HUBLEVEL_SHOP_DIALOGUE.connect("timeline_end",self , "end_of_dialogue")
 		add_child(HUBLEVEL_SHOP_DIALOGUE)

@@ -1,13 +1,19 @@
 {
 	"events": [
 		{
-			"character": "character-1712050491.json",
+			"character": "character-1713800816.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "tess"
+		},
+		{
+			"character": "",
 			"event_id": "dialogic_010",
 			"options": [
 
 			],
 			"portrait": "",
-			"question": "Hey mate, thanks for stopping by! Care to hear my latest work?"
+			"question": ""
 		},
 		{
 			"choice": "",
@@ -25,17 +31,11 @@
 		},
 		{
 			"event_id": "dialogic_013"
-		},
-		{
-			"character": "character-1712050491.json",
-			"event_id": "dialogic_001",
-			"portrait": "",
-			"text": "See you around. Cheers, mate!"
 		}
 	],
 	"metadata": {
 		"dialogic-version": "1.4.5",
-		"file": "timeline-1712050812.json",
-		"name": "HubLevelTavernBard"
+		"file": "timeline-1713802520.json",
+		"name": "MonumentOfVictories"
 	}
 }

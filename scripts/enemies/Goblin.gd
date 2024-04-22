@@ -193,6 +193,10 @@ func _on_Area2D_area_entered(area):
 		knockback(4.2)
 	if area.is_in_group("HeavyPoiseDamage"):
 		knockback(20)
+	if area.is_in_group("CustomPoiseDamage"):
+		for g in area.get_groups():
+			if float(g) != 0:
+				knockback(float(g))
 	if weakref(area).get_ref() != null:
 		if area.is_in_group("Sword"):
 			var groups : Array = area.get_groups()
