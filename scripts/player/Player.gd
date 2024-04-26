@@ -1284,9 +1284,9 @@ func _on_Area2D_area_entered(area : Area2D):
 						
 					match enemy_elemental_type:
 						"Physical":
-							var dmg = enemy_atk_value
-							take_damage(dmg * (1 - phys_res))
-
+							take_damage(enemy_atk_value * (1 - phys_res))
+						"Fire":
+							take_damage(enemy_atk_value - (1 - fire_res))
 					is_gliding = false
 					Input.action_release("ui_attack")
 					after_damaged()

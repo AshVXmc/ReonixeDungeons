@@ -2,28 +2,22 @@
 	"events": [
 		{
 			"character": "character-1713800816.json",
-			"event_id": "dialogic_001",
-			"portrait": "",
-			"text": "tess"
-		},
-		{
-			"character": "",
 			"event_id": "dialogic_010",
 			"options": [
 
 			],
 			"portrait": "",
-			"question": "???"
+			"question": "A winged, cyclopean statue carved out of black stone stands in front of you. Read the plaque? "
 		},
 		{
-			"choice": "test 1",
+			"choice": "Read it",
 			"condition": "",
 			"definition": "",
 			"event_id": "dialogic_011",
 			"value": ""
 		},
 		{
-			"character": "",
+			"character": "character-1713800816.json",
 			"event_id": "dialogic_001",
 			"portrait": "",
 			"text": "yayyy"

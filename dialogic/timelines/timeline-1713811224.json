@@ -1,6 +1,55 @@
 {
 	"events": [
+		{
+			"character": "character-1713974045.json",
+			"event_id": "dialogic_010",
+			"options": [
 
+			],
+			"portrait": "",
+			"question": "Hey mate, thanks for stopping by! Care to hear a ballad, a poem, a song, or perhaps a mere limerick?"
+		},
+		{
+			"choice": "Listen to \"The Goddess' Ballad\"",
+			"condition": "",
+			"definition": "",
+			"event_id": "dialogic_011",
+			"value": ""
+		},
+		{
+			"character": "character-1713974045.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "In the land of Reonixia, from years past, A being descended, her wings vast.\nHer eyes shine like gold, robes smooth as silk, She blessed our land with harvest, honey, and milk."
+		},
+		{
+			"character": "character-1713974045.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "But then, one fateful night, Her majesty, her highness, left our land.\nOur people mourn, our lands blight. Years passed, since we last had a helping hand."
+		},
+		{
+			"character": "character-1713974045.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "O goddess, we long for your presence! Bless us with your warm light, your godly essence, \nBless us with wine, ale, grains and nuts, What sin did we commit, for you to forego us?"
+		},
+		{
+			"choice": "No thanks.",
+			"condition": "",
+			"definition": "",
+			"event_id": "dialogic_011",
+			"value": ""
+		},
+		{
+			"character": "character-1713974045.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "Busy day, eh? Cheers, mate!"
+		},
+		{
+			"event_id": "dialogic_013"
+		}
 	],
 	"metadata": {
 		"dialogic-version": "1.4.5",

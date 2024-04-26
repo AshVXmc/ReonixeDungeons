@@ -1,7 +1,9 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://scripts/misc/MoteOfFlame.gd" type="Script" id=1]
 [ext_resource path="res://assets/misc/animated/mote_of_fire_spreadsheet.png" type="Texture" id=2]
+[ext_resource path="res://scenes/particles/FireDetonationParticle.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/particles/SmokeParticle.tscn" type="PackedScene" id=4]
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 2 )
@@ -46,13 +48,15 @@ tracks/0/keys = {
 }
 
 [sub_resource type="CircleShape2D" id=7]
+radius = 55.0
 
 [node name="MoteOfFlame" type="AnimatedSprite"]
-self_modulate = Color( 1, 0.902009, 0.902009, 1 )
-position = Vector2( 180, 171 )
-scale = Vector2( 8, 8 )
+scale = Vector2( 6, 6 )
 frames = SubResource( 5 )
 script = ExtResource( 1 )
+__meta__ = {
+"_edit_group_": true
+}
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 2.0
@@ -62,9 +66,31 @@ autostart = true
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/flicker = SubResource( 6 )
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="EnemyDamagerArea2D" type="Area2D" parent="." groups=["Fireball"]]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyDamagerArea2D"]
 shape = SubResource( 7 )
+disabled = true
+
+[node name="PlayerDamagerArea2D" type="Area2D" parent="." groups=["Enemy", "Hostile"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDamagerArea2D"]
+shape = SubResource( 7 )
+disabled = true
+
+[node name="FireDetonationParticle" parent="." instance=ExtResource( 3 )]
+scale = Vector2( 1, 1 )
+amount = 24
+lifetime = 0.5
+initial_velocity = 110.0
+
+[node name="SmokeParticle" parent="." instance=ExtResource( 4 )]
+scale = Vector2( 1, 1 )
+emitting = false
+amount = 10
+one_shot = true
+explosiveness = 0.45
+initial_velocity = 90.0
+color = Color( 0.305882, 0.305882, 0.305882, 1 )
 
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
