@@ -319,3 +319,8 @@ func update_fireball_skill_ui(charges : int):
 	$TertiarySkill/Player/Fireball/ManaIcon.rect_size.x = charges * 16
 func _on_EnduranceRegenTimer_timeout():
 	$EnduranceMeter/TextureProgress.value += 2
+	
+func trigger_global_silence_ui(duration : float):
+	$SilenceOverlay.visible = true
+	yield(get_tree().create_timer(duration), "timeout")
+	$SilenceOverlay.visible = false

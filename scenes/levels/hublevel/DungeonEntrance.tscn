@@ -81,7 +81,6 @@ one_shot = true
 
 [node name="LevelSelectionUI" type="CanvasLayer" parent="."]
 pause_mode = 2
-layer = 5
 
 [node name="Control" type="Control" parent="LevelSelectionUI"]
 visible = false
@@ -112,9 +111,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 margin_left = -250.0
-margin_top = -142.0
+margin_top = -117.0
 margin_right = 250.0
-margin_bottom = 310.0
+margin_bottom = 335.0
 texture = ExtResource( 13 )
 patch_margin_left = 64
 patch_margin_top = 64

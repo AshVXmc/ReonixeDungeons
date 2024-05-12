@@ -139,6 +139,8 @@ var magic_res : float = Global.player_skill_multipliers["BaseMagicRes"]
 var fire_res : float = Global.player_skill_multipliers["BaseFireRes"]
 var ice_res : float = Global.player_skill_multipliers["BaseIceRes"]
 var earth_res : float = Global.player_skill_multipliers["BaseEarthRes"]
+# amount of damage that a shield can absorb
+var shield_hp : float
 
 onready var basic_attack_power : float = Global.attack_power * (Global.player_skill_multipliers["BasicAttack"] / 100)
 onready var charged_attack_power : float = Global.attack_power * (Global.player_skill_multipliers["ChargedAttack"] / 100)
@@ -162,6 +164,7 @@ func set_attack_buff_value(new_value):
 	ATTACK = Global.attack_power + attack_buff
 
 func _ready():
+	
 #	print(get_path())
 	if Global.current_character == "Player":
 		$Sprite.visible = true
@@ -1901,6 +1904,9 @@ func get_opals(opals : int):
 	Global.opals_amount += opals
 	emit_signal("opals_obtained", opals)
 	emit_signal("record_opals_obtained", opals)
+
+func add_shield_hp(value : float):
+	shield_hp += value
 
 # Timers
 func _on_InvulnerabilityTimer_timeout():

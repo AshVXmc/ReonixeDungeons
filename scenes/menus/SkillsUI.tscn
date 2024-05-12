@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://scripts/ui/SkillsUI.gd" type="Script" id=1]
 [ext_resource path="res://assets/UI/firesaw_skill_icon.png" type="Texture" id=2]
@@ -12,6 +12,7 @@
 [ext_resource path="res://assets/UI/skill_charges_empty.png" type="Texture" id=10]
 [ext_resource path="res://assets/UI/skill_charges_full.png" type="Texture" id=11]
 [ext_resource path="res://assets/UI/create_sugar_roll_talent_icon.png" type="Texture" id=12]
+[ext_resource path="res://assets/UI/silence_ability_overlay.png" type="Texture" id=13]
 
 [sub_resource type="DynamicFont" id=1]
 size = 32
@@ -633,5 +634,30 @@ anims/RESET = SubResource( 8 )
 [node name="Flicker3" type="AnimationPlayer" parent="Control/Characters"]
 anims/Flicker = SubResource( 9 )
 anims/RESET = SubResource( 10 )
+
+[node name="SilenceOverlay" type="Control" parent="Control"]
+visible = false
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="PrimarySkill" type="Sprite" parent="Control/SilenceOverlay"]
+position = Vector2( 169.5, 146 )
+scale = Vector2( 4, 4 )
+texture = ExtResource( 13 )
+
+[node name="SecondarySkill" type="Sprite" parent="Control/SilenceOverlay"]
+position = Vector2( 269.5, 146 )
+scale = Vector2( 4, 4 )
+texture = ExtResource( 13 )
+
+[node name="TertiarySkill" type="Sprite" parent="Control/SilenceOverlay"]
+position = Vector2( 366, 148 )
+scale = Vector2( 3.85, 3.85 )
+texture = ExtResource( 13 )
+
+[node name="TalentSkill" type="Sprite" parent="Control/SilenceOverlay"]
+position = Vector2( 496, 148 )
+scale = Vector2( 3.85, 3.85 )
+texture = ExtResource( 13 )
 
 [connection signal="timeout" from="Control/CooldownTickTimer" to="Control" method="_on_CooldownTickTimer_timeout"]

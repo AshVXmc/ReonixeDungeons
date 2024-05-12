@@ -6,7 +6,7 @@ var enemy_attack_value : int = 25
 
 # for the player
 var elemental_type : String = "Fire"
-var atk_value : float = 7
+var atk_value : float = 5 + (Global.enemy_level_index * 2)  # result: 12 if enemy level = 1
 
 func _ready():
 	$EnemyDamagerArea2D.add_to_group(str(enemy_attack_value))
@@ -23,7 +23,8 @@ func explode():
 	$SmokeParticle.emitting = true
 	$EnemyDamagerArea2D/CollisionShape2D.disabled = false
 	$PlayerDamagerArea2D/CollisionShape2D.disabled = false
-#	call_deferred('free')
+	yield(get_tree().create_timer(0.85), "timeout")
+	call_deferred('free')
 
 func _on_Timer_timeout():
 	explode()

@@ -15,6 +15,8 @@ func _ready():
 func update_ui():
 	$NinePatchRect/PlayerStatsLabel.bbcode_text = "[center]Max HP: " + str(Global.player_skill_multipliers["BaseHearts"] * 10) + "\n" + "Attack: " + str(Global.attack_power)
 
+func handle_levelling_up():
+	pass
 
 func _on_PlayerOpenTalentButton_pressed():
 	get_parent().get_node("CharacterTalentsControl").visible = true

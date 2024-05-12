@@ -327,9 +327,9 @@ func play_attack_animation(direction : String):
 							$AttackCollision.add_to_group(str((ATTACK * (Global.glaciela_skill_multipliers["BasicAttack4"] / 100) + basic_attack_buff) * crit_dmg))
 							$AttackCollision.add_to_group("GlacielaBasicAttackFour")
 							break
-					if tundra_stars < Global.glaciela_skill_multipliers["MaxTundraStars"]:
-						tundra_stars += 1
-						update_tundra_sigil_ui()
+#					if tundra_stars < Global.glaciela_skill_multipliers["MaxTundraStars"]:
+#						tundra_stars += 1
+#						update_tundra_sigil_ui()
 #					yield(get_tree().create_timer($MeleeTimer.wait_time * 1.5), "timeout")
 					attack_string_count = 4
 #					emit_signal("trigger_quickswap", "Glaciela")
@@ -394,9 +394,9 @@ func play_attack_animation(direction : String):
 							$AttackCollision.add_to_group(str(ATTACK * (Global.glaciela_skill_multipliers["BasicAttack4"] / 100) + basic_attack_buff))
 							$AttackCollision.add_to_group("GlacielaBasicAttackFour")
 							break
-					if tundra_stars < Global.glaciela_skill_multipliers["MaxTundraStars"]:
-						tundra_stars += 1
-						update_tundra_sigil_ui()
+#					if tundra_stars < Global.glaciela_skill_multipliers["MaxTundraStars"]:
+#						tundra_stars += 1
+#						update_tundra_sigil_ui()
 #					yield(get_tree().create_timer($MeleeTimer.wait_time * 1.5), "timeout")
 					attack_string_count = 4
 #					emit_signal("trigger_quickswap", "Glaciela")
@@ -692,8 +692,7 @@ func _on_AttackCollision_area_entered(area):
 				get_parent().get_parent().get_node("AirborneTimer").stop()
 				get_parent().get_parent().get_node("AirborneTimer").start()
 			if $TundraStackRegen.is_stopped() and !is_performing_charged_attack and tundra_stars < Global.glaciela_skill_multipliers["MaxTundraStars"]:
-				
-				if attack_string_count == 0:
+				if attack_string_count == 4:
 					tundra_stars += 1
 					update_tundra_sigil_ui()
 					$TundraStackRegen.start()

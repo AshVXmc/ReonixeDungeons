@@ -16,11 +16,13 @@ func _process(delta):
 	if Input.is_action_just_pressed("ui_debug"):
 		if !visible:
 			visible = true
+			get_parent().layer += 1
 			get_tree().paused = true
 			emit_signal("debugcmd", "opened")
 			$LineEdit.text = ""
 			$Output.text = ""
 		else:
+			get_parent().layer -= 1
 			get_tree().paused = false
 			visible = false
 			emit_signal("debugcmd", "closed")

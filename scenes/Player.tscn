@@ -1,9 +1,10 @@
-[gd_scene load_steps=93 format=2]
+[gd_scene load_steps=94 format=2]
 
 [ext_resource path="res://spriteframes/Player_Default_spriteframes.tres" type="SpriteFrames" id=1]
 [ext_resource path="res://scripts/player/Player.gd" type="Script" id=2]
 [ext_resource path="res://assets/characters/player/katana.png" type="Texture" id=3]
 [ext_resource path="res://assets/misc/frozen_block.png" type="Texture" id=4]
+[ext_resource path="res://assets/misc/magic_shield.png" type="Texture" id=5]
 [ext_resource path="res://assets/characters/player/gliding_wings.png" type="Texture" id=6]
 [ext_resource path="res://assets/UI/chargebar_charging.png" type="Texture" id=7]
 [ext_resource path="res://assets/UI/healthbar_empty.png" type="Texture" id=8]
@@ -3532,11 +3533,6 @@ script = ExtResource( 13 )
 wait_time = 0.5
 one_shot = true
 
-[node name="FreezeMask" type="Sprite" parent="."]
-visible = false
-scale = Vector2( 6, 6 )
-texture = ExtResource( 4 )
-
 [node name="GliderWings" type="Sprite" parent="."]
 visible = false
 scale = Vector2( 5, 6 )
@@ -3557,6 +3553,16 @@ scale = Vector2( 5, 5 )
 frames = ExtResource( 1 )
 animation = "BackwardsDash"
 playing = true
+
+[node name="FreezeMask" type="Sprite" parent="."]
+visible = false
+scale = Vector2( 6, 6 )
+texture = ExtResource( 4 )
+
+[node name="ShieldMask" type="Sprite" parent="."]
+self_modulate = Color( 1, 1, 1, 0.490196 )
+scale = Vector2( 7.5, 7.5 )
+texture = ExtResource( 5 )
 
 [node name="KatanaSheathSprite" type="Sprite" parent="."]
 position = Vector2( -13, 18 )

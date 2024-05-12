@@ -2,16 +2,30 @@ extends Node
 
 var can_open_pause_menu : bool = false
 # GLOBALLY ACCESSED VARIABLES
-var max_hearts : float = 10
-var hearts : float = max_hearts
-var character_2_max_hearts : float = 10
-var character_3_max_hearts : float = 10
+var character_health_data : Dictionary = {
+	"Player": 10, 
+	"Glaciela": 10,
+	"Agnette": 10
+}
+
+var max_hearts : float
+var hearts : float
+var max_mana : float = 18
+var mana : float = max_mana
+var character_2_max_hearts : float
+var character2_hearts : float
+var character2_max_mana = max_mana
+var character2_mana = max_mana
+var character_3_max_hearts : float 
+var character3_hearts : float 
+var character3_max_mana = max_mana
+var character3_mana = max_mana
+
+
 var elegance_rank : String 
 var enemy_level_index : int = 1
 var max_endurance : int = 100
-
 var player_location_in_town 
-
 #func _ready():
 #	#CREATE SAVE FILE
 #	var dir : Directory = Directory.new()
@@ -25,8 +39,7 @@ const actions : Array = [
 	"primary_skill", "secondary_skill",
 	"dash", "perfect_dash"
 ]
-var max_mana : float = 18
-var mana : float = max_mana
+
 # attack_power is the player's atk
 var attack_power : int = 20
 var glaciela_attack : int = 20
@@ -176,12 +189,6 @@ var agnette_skill_multipliers = {
 var enemy_skill_multipliers : Dictionary = {
 	"GoblinSpearThrustAttack" : 100.0
 }
-var character2_hearts : float= character_2_max_hearts
-var character2_max_mana = max_mana
-var character2_mana = max_mana
-var character3_hearts : float = character_3_max_hearts
-var character3_max_mana = max_mana
-var character3_mana = max_mana
 
 
 
@@ -285,17 +292,30 @@ var masked_goblin_defeated : bool
 # Unsaved conditions
 var godmode : bool = false
 
+func assign_health_points():
+	for e in Global.equipped_characters:
+		if e != "":
+			var index : int = Global.equipped_characters.find(e)
+			match index:
+				0:
+					Global.max_hearts = Global.character_health_data[e]
+					Global.hearts = Global.max_hearts
+				1:
+					Global.character_2_max_hearts = Global.character_health_data[e]
+					Global.character2_hearts = Global.character_2_max_hearts
+				1:
+					Global.character_3_max_hearts = Global.character_health_data[e]
+					Global.character3_hearts = Global.character_3_max_hearts
 # Damage calc
+
 # if enemy type counters character type, deal 150% dmg.
 # if enemy type is same as character type or doesn't counter anything, deal 100% dmg.
 # if character type counters enemy type, deal 50% dmg
 func reset_player_data():
-	Global.hearts = Global.max_hearts
-	Global.character2_hearts = Global.character_2_max_hearts
-	Global.character3_hearts = Global.character_3_max_hearts
+	Global.equipped_characters = ["Player", "Glaciela", "Agnette"]
+	assign_health_points()
 	Global.alive = [true, true, true]
 	Global.mana = 0
-	
 	Global.character2_mana = 0
 	Global.character3_mana = 0
 	Global.healthpot_amount = 1
@@ -347,12 +367,15 @@ func save_player_data():
 	Global.is_loading_a_save = true
 	var load_data : Dictionary = {
 		"Level" : Global.levelpath,
-		"MaxHealth": Global.max_hearts ,
-		"Health" : Global.hearts ,
-		"Char2MaxHealth": Global.character_2_max_hearts,
-		"Char2Health": Global.character2_hearts,
-		"Char3MaxHealth": Global.character_3_max_hearts,
-		"Char3Health": Global.character3_hearts,
+		
+#		"MaxHealth": Global.max_hearts ,
+#		"Health" : Global.hearts ,
+#		"Char2MaxHealth": Global.character_2_max_hearts,
+#		"Char2Health": Global.character2_hearts,
+#		"Char3MaxHealth": Global.character_3_max_hearts,
+#		"Char3Health": Global.character3_hearts,
+		
+		
 		"MaxMana" : Global.max_mana ,
 		"Mana" : Global.mana ,
 		"Char2MaxMana": Global.character2_max_mana,

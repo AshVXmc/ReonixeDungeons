@@ -32,7 +32,6 @@ font_data = ExtResource( 2 )
 
 [node name="CharacterSelectionUI" type="CanvasLayer"]
 pause_mode = 2
-layer = 99
 
 [node name="Control" type="Control" parent="."]
 visible = false
@@ -64,9 +63,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 margin_left = -324.0
-margin_top = -216.0
+margin_top = -131.0
 margin_right = 324.0
-margin_bottom = 216.0
+margin_bottom = 301.0
 texture = ExtResource( 5 )
 patch_margin_left = 64
 patch_margin_top = 64
@@ -271,9 +270,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 margin_left = -540.0
-margin_top = -360.0
+margin_top = -264.0
 margin_right = 540.0
-margin_bottom = 360.0
+margin_bottom = 456.0
 
 [node name="Blur" type="ColorRect" parent="Control/CharacterOptionsList"]
 material = ExtResource( 9 )

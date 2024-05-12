@@ -33,19 +33,21 @@ func initialize_level_selection():
 	update_level_list()
 	$LevelSelectionUI/Control.visible = true
 	get_tree().paused = true
+	$LevelSelectionUI.layer = 2
 
 func update_level_list():
 	pass
 
 func load_next_scene(slot_one : String, slot_two : String, slot_three : String):
 	Global.equipped_characters = [slot_one, slot_two, slot_three]
+	Global.assign_health_points()
 #	Global.save_player_data()
 	get_parent().get_node("Player").is_shopping = true
 	transition.transition()
 	yield(get_tree().create_timer(1), "timeout")
 	get_parent().queue_free()
 	get_tree().change_scene(destination)
-
+	
 func _on_Area2D_area_exited(area):
 	$Label.visible = false
 	$Keybind.visible = false
@@ -56,15 +58,21 @@ func _on_CloseButtonMainUI_pressed():
 	$Sprite.set_texture(closed)
 	$LevelSelectionUI/Control.visible = false
 	get_tree().paused = false
+	$LevelSelectionUI.layer = 1
 
 func _on_1_pressed():
 	
 	destination = "res://scenes/levels/Level1.tscn"
 	$CharacterSelectionUI/Control.initialize_ui()
-
+	$LevelSelectionUI/Control.visible = false
+	$LevelSelectionUI.layer = 1
 func _on_2_pressed():
 	destination = "res://scenes/levels/Level2.tscn"
 	$CharacterSelectionUI/Control.initialize_ui()
+	$LevelSelectionUI/Control.visible = false
+	$LevelSelectionUI.layer = 1
 func _on_3_pressed():
 	destination = "res://scenes/levels/Level3.tscn"
 	$CharacterSelectionUI/Control.initialize_ui()
+	$LevelSelectionUI/Control.visible = false
+	$LevelSelectionUI.layer = 1

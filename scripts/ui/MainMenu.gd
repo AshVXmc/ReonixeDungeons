@@ -38,8 +38,8 @@ func _on_LoadGame_pressed():
 			# if player_data.has("varname"):
 			#		Global.varname = "varname
 			# Its so older save files are compatible.
-			Global.max_hearts = player_data["MaxHealth"]
-			Global.hearts = player_data["Health"]
+#			Global.max_hearts = player_data["MaxHealth"]
+#			Global.hearts = player_data["Health"]
 			Global.max_mana = player_data["MaxMana"]
 			Global.mana = player_data["Mana"]
 			Global.attack_power = player_data["AttackPower"]
