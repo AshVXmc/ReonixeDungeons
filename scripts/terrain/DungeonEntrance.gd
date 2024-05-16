@@ -32,8 +32,9 @@ func initialize_level_selection():
 	Global.is_opening_an_UI = true
 	update_level_list()
 	$LevelSelectionUI/Control.visible = true
-	get_tree().paused = true
 	$LevelSelectionUI.layer = 2
+	get_tree().paused = true
+	
 
 func update_level_list():
 	pass

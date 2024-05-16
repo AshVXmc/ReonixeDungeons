@@ -800,17 +800,29 @@ func add_hurt_particles(damage : float):
 func take_damage(damage : float):
 	if Global.current_character == "Glaciela":
 		if Global.equipped_characters[0] == "Glaciela":
-			Global.hearts -= damage
-			add_hurt_particles(damage)
-			emit_signal("life_changed", Global.hearts, "Glaciela")
+			if get_parent().get_parent().shield_hp > 0:
+				get_parent().get_parent().shield_hp = clamp(get_parent().get_parent().shield_hp - damage, 0, 999)
+				get_parent().get_parent().get_node("Shield/ShieldHPBar").value = get_parent().get_parent().shield_hp
+			else:
+				Global.hearts -= damage
+				add_hurt_particles(damage)
+				emit_signal("life_changed", Global.hearts, "Glaciela")
 		elif Global.equipped_characters[1] == "Glaciela":
-			Global.character2_hearts -= damage
-			add_hurt_particles(damage )
-			emit_signal("life_changed", Global.character2_hearts, "Glaciela")
+			if get_parent().get_parent().shield_hp > 0:
+				get_parent().get_parent().shield_hp = clamp(get_parent().get_parent().shield_hp - damage, 0, 999)
+				get_parent().get_parent().get_node("Shield/ShieldHPBar").value = get_parent().get_parent().shield_hp
+			else:
+				Global.character2_hearts -= damage
+				add_hurt_particles(damage )
+				emit_signal("life_changed", Global.character2_hearts, "Glaciela")
 		elif Global.equipped_characters[2] == "Glaciela":
-			Global.character3_hearts -= damage
-			add_hurt_particles(damage)
-			emit_signal("life_changed", Global.character3_hearts, "Glaciela")
+			if get_parent().get_parent().shield_hp > 0:
+				get_parent().get_parent().shield_hp = clamp(get_parent().get_parent().shield_hp - damage, 0, 999)
+				get_parent().get_parent().get_node("Shield/ShieldHPBar").value = get_parent().get_parent().shield_hp
+			else:
+				Global.character3_hearts -= damage
+				add_hurt_particles(damage)
+				emit_signal("life_changed", Global.character3_hearts, "Glaciela")
 
 	
 

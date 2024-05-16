@@ -1,4 +1,4 @@
-[gd_scene load_steps=94 format=2]
+[gd_scene load_steps=96 format=2]
 
 [ext_resource path="res://spriteframes/Player_Default_spriteframes.tres" type="SpriteFrames" id=1]
 [ext_resource path="res://scripts/player/Player.gd" type="Script" id=2]
@@ -23,10 +23,10 @@
 [ext_resource path="res://scenes/particles/TeleportingParticles.tscn" type="PackedScene" id=21]
 [ext_resource path="res://assets/misc/super_slash_projectile_2.png" type="Texture" id=22]
 [ext_resource path="res://scenes/particles/HealingParticle.tscn" type="PackedScene" id=23]
+[ext_resource path="res://assets/UI/chargebar_full.png" type="Texture" id=24]
 
-[sub_resource type="CapsuleShape2D" id=1]
-radius = 37.6338
-height = 17.3718
+[sub_resource type="RectangleShape2D" id=80]
+extents = Vector2( 34, 51 )
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 37.7159, 43.7237 )
@@ -51,6 +51,10 @@ extents = Vector2( 57.4021, 51.5498 )
 
 [sub_resource type="CapsuleShape2D" id=12]
 radius = 42.7822
+height = 17.3718
+
+[sub_resource type="CapsuleShape2D" id=1]
+radius = 37.6338
 height = 17.3718
 
 [sub_resource type="Animation" id=23]
@@ -3554,15 +3558,26 @@ frames = ExtResource( 1 )
 animation = "BackwardsDash"
 playing = true
 
+[node name="Shield" type="Node2D" parent="."]
+
+[node name="ShieldMask" type="Sprite" parent="Shield"]
+self_modulate = Color( 1, 1, 1, 0.490196 )
+scale = Vector2( 7.5, 7.5 )
+texture = ExtResource( 5 )
+
+[node name="ShieldHPBar" type="TextureProgress" parent="Shield"]
+margin_left = -40.0
+margin_top = 56.0
+margin_right = 40.0
+margin_bottom = 76.0
+texture_under = ExtResource( 8 )
+texture_progress = ExtResource( 24 )
+nine_patch_stretch = true
+
 [node name="FreezeMask" type="Sprite" parent="."]
 visible = false
 scale = Vector2( 6, 6 )
 texture = ExtResource( 4 )
-
-[node name="ShieldMask" type="Sprite" parent="."]
-self_modulate = Color( 1, 1, 1, 0.490196 )
-scale = Vector2( 7.5, 7.5 )
-texture = ExtResource( 5 )
 
 [node name="KatanaSheathSprite" type="Sprite" parent="."]
 position = Vector2( -13, 18 )
@@ -3573,8 +3588,8 @@ flip_h = true
 flip_v = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 0, 2 )
-shape = SubResource( 1 )
+position = Vector2( 0, 5 )
+shape = SubResource( 80 )
 
 [node name="AttackCollision" type="Area2D" parent="." groups=["LightPoiseDamage", "NoAirborneKnockback", "SmallEleganceValue", "Sword"]]
 
@@ -3672,7 +3687,7 @@ wait_time = 2.0
 one_shot = true
 
 [node name="DashUseTimer" type="Timer" parent="."]
-wait_time = 0.8
+wait_time = 0.7
 one_shot = true
 
 [node name="GlideTimer" type="Timer" parent="."]

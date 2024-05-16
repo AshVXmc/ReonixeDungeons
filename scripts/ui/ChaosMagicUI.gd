@@ -3,11 +3,10 @@ class_name ChaosMagicUI extends Control
 onready var player = get_parent().get_parent().get_node("Player")
 const VERTICAL_JUMP_PARTICLE = preload("res://scenes/particles/VerticalJumpParticle.tscn") 
 const MOTE_OF_FLAME = preload("res://scenes/misc/MoteOfFlame.tscn")
-
+# NOTE: chaos magic layer has to be -1 or else it will cause the other UIs to not work. idk why.
 func _ready():
-	pass
 #	chaos_magic(4)
-
+	pass
 func trigger_chaos_magic():
 	var rng = RandomNumberGenerator.new()
 	rng.randomize()
@@ -52,17 +51,18 @@ func chaos_magic(id : int):
 			$NinePatchRect.visible = true
 			yield(get_tree().create_timer(1), "timeout")
 			$NinePatchRect.visible = false
-			var list_of_party_member_levels : Array
+			var list_of_party_member_max_health : Array
 			for c in Global.equipped_characters:
 				if c != "":
-					list_of_party_member_levels.append(Global.character_level_data[c][0])
-			var level_mean : float
-			for l in list_of_party_member_levels:
-				level_mean += l
-			level_mean = level_mean / (list_of_party_member_levels.size())
-			
-			print("Lv mean:" + str(level_mean))
-			
+					list_of_party_member_max_health.append(Global.character_health_data[c])
+			var max_health_mean : float
+			for l in list_of_party_member_max_health:
+				max_health_mean += l
+			max_health_mean = max_health_mean / (list_of_party_member_max_health.size())
+			player.add_shield_hp(max_health_mean * 0.25)
+		5:
+			$NinePatchRect/DescLabel.text = "You shoot out seven magical missiles that home into enemies."
+			# you shoot out seven magical missiles that home into enemies
 			$NinePatchRect.visible = true
 			yield(get_tree().create_timer(1), "timeout")
 			$NinePatchRect.visible = false

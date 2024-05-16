@@ -9,6 +9,7 @@ size = 32
 font_data = ExtResource( 3 )
 
 [node name="ChaosMagicUI" type="CanvasLayer"]
+layer = 0
 
 [node name="Control" type="Control" parent="."]
 anchor_right = 1.0

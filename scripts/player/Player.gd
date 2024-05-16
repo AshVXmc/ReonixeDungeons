@@ -65,6 +65,7 @@ var is_dash_counter_attacking : bool = false
 var facing 
 var is_switch_in_attacking : bool = false
 var is_counter_attack_special_thrusting : bool = false
+var is_jumping : bool = false
 enum {
 	left, right
 }
@@ -315,7 +316,8 @@ func _physics_process(_delta):
 		$KatanaSheathPlayer.play("RightDefault")
 	else:
 		$KatanaSheathPlayer.play("LeftDefault")
-		
+
+	$Shield.visible = true if shield_hp > 0 else false
 #	if Input.is_action_just_pressed("slot_1"):
 #		if facing == left:
 #			facing = right
@@ -406,20 +408,22 @@ func _physics_process(_delta):
 						$EnemyEvasionArea.set_scale(Vector2(1,1))
 				
 					# Jump controls (ground)
-					if Input.is_action_just_pressed("jump") and is_on_floor() and !is_attacking and !is_frozen and !underwater and !Input.is_action_pressed("ui_dash"):
-						# Particles
-						var jump_particle : JumpParticle = JUMP_PARTICLE.instance()
-						jump_particle.emitting = true
-						get_parent().add_child(jump_particle)
-						jump_particle.position = $ParticlePosition.global_position
-						velocity.y = JUMP_POWER
-						$Sprite.play("Idle")
-						yield(get_tree().create_timer(0.2), "timeout")
-						var trail_particle = TRAIL_PARTICLE.instance()
-						trail_particle.emitting = true
-						trail_particle.one_shot = true
-						get_parent().add_child(trail_particle)
-						trail_particle.position = $ParticlePosition.global_position
+					if Input.is_action_just_pressed("jump") and !is_attacking and !is_frozen and !underwater and !Input.is_action_pressed("ui_dash"):
+						if is_on_floor():
+							# Particles
+							var jump_particle : JumpParticle = JUMP_PARTICLE.instance()
+							jump_particle.emitting = true
+							get_parent().add_child(jump_particle)
+							jump_particle.position = $ParticlePosition.global_position
+							velocity.y = JUMP_POWER
+							is_jumping = true
+							$Sprite.play("Idle")
+							yield(get_tree().create_timer(0.2), "timeout")
+							var trail_particle = TRAIL_PARTICLE.instance()
+							trail_particle.emitting = true
+							trail_particle.one_shot = true
+							get_parent().add_child(trail_particle)
+							trail_particle.position = $ParticlePosition.global_position
 					# Jump controls (water)
 					if Input.is_action_just_pressed("jump") and underwater and !is_attacking and !is_frozen:
 						var water_jump_particle = WATER_JUMP_PARTICLE.instance()
@@ -434,6 +438,9 @@ func _physics_process(_delta):
 				# Movement calculations
 	#			if !is_dashing and !is_gliding:
 	#				velocity.y += GRAVITY
+	
+				if is_jumping and velocity.y >= 0:
+					is_jumping = false
 				velocity = move_and_slide(velocity,Vector2.UP)
 				velocity.x = lerp(velocity.x,0,0.2)
 				if is_invulnerable:
@@ -1336,21 +1343,33 @@ func _on_Area2D_area_entered(area : Area2D):
 func take_damage(damage : float):
 	if Global.current_character == "Player" and !is_invulnerable:
 		if Global.equipped_characters[0] == "Player":
-			Global.hearts -= damage
-			add_hurt_particles(damage)
-			emit_signal("life_changed", Global.hearts, "Player")
-			#emit_signal("change_elegance"), "Hit")
+			if shield_hp > 0:
+				shield_hp = clamp(shield_hp - damage, 0, 999)
+				$Shield/ShieldHPBar.value = shield_hp
+			else:
+				Global.hearts -= damage
+				add_hurt_particles(damage)
+				emit_signal("life_changed", Global.hearts, "Player")
 		elif Global.equipped_characters[1] == "Player":
-			Global.character2_hearts -= damage
-			add_hurt_particles(damage)
-			#emit_signal("change_elegance"), "Hit")
-			emit_signal("life_changed", Global.character2_hearts, "Player")
+			if shield_hp > 0:
+				shield_hp = clamp(shield_hp - damage, 0, 999)
+				$Shield/ShieldHPBar.value = shield_hp
+			else:
+				Global.character2_hearts -= damage
+				add_hurt_particles(damage)
+				#emit_signal("change_elegance"), "Hit")
+				emit_signal("life_changed", Global.character2_hearts, "Player")
 		elif Global.equipped_characters[2] == "Player":
-			Global.character3_hearts -= damage
-			add_hurt_particles(damage)
-			#emit_signal("change_elegance"), "Hit")
-			emit_signal("life_changed", Global.character3_hearts, "Player")
-			
+			if shield_hp > 0:
+				shield_hp = clamp(shield_hp - damage, 0, 999)
+				$Shield/ShieldHPBar.value = shield_hp
+			else:
+				Global.character3_hearts -= damage
+				add_hurt_particles(damage)
+				#emit_signal("change_elegance"), "Hit")
+				emit_signal("life_changed", Global.character3_hearts, "Player")
+		print(shield_hp)
+
 func heal(heal_amount : float, heal_to_max : bool = false, consumes_potion : bool = true):
 	# heal amount in percentage based on max HP
 	if Global.equipped_characters[0] == "Player":
@@ -1644,7 +1663,7 @@ func dash():
 				else:
 					velocity.y = 0
 					$Sprite.play("Dash")
-					velocity = dashdirection.normalized() * 2500
+					velocity = dashdirection.normalized() * 2800
 			
 			if Input.is_action_pressed("ui_down") and !is_on_floor():
 				airborne_mode = false
@@ -1904,10 +1923,12 @@ func get_opals(opals : int):
 	Global.opals_amount += opals
 	emit_signal("opals_obtained", opals)
 	emit_signal("record_opals_obtained", opals)
+	
 
 func add_shield_hp(value : float):
 	shield_hp += value
-
+	$Shield/ShieldHPBar.max_value = shield_hp
+	$Shield/ShieldHPBar.value += shield_hp
 # Timers
 func _on_InvulnerabilityTimer_timeout():
 	$HurtAnimationPlayer.play("RESET")

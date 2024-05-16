@@ -26,7 +26,7 @@ func _ready():
 
 
 func initialize_ui():
-
+	
 	visible = true
 	update_equipped_characters_ui()
 	get_tree().paused = true
