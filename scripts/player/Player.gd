@@ -410,6 +410,7 @@ func _physics_process(_delta):
 					# Jump controls (ground)
 					if Input.is_action_just_pressed("jump") and !is_attacking and !is_frozen and !underwater and !Input.is_action_pressed("ui_dash"):
 						if is_on_floor():
+							$DashAfterJumpingDelayTimer.start()
 							# Particles
 							var jump_particle : JumpParticle = JUMP_PARTICLE.instance()
 							jump_particle.emitting = true
@@ -1626,7 +1627,7 @@ func _on_RightDectector_area_entered(area):
 
 func dash():
 	
-	if !is_frozen and !is_thrust_attacking and !$DashCooldown.is_stopped():
+	if !is_frozen and !is_thrust_attacking and !$DashCooldown.is_stopped() and $DashAfterJumpingDelayTimer.is_stopped():
 		if $DashUseTimer.is_stopped():
 			can_dash = true
 		if !$Sprite.flip_h:

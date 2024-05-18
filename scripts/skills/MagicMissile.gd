@@ -1,13 +1,17 @@
 class_name MagicMissile extends Area2D
 
 onready var player = get_parent().get_node("Player")
-export var speed = 350
+export var speed = 600
 export var steer_force = 50.0
 
 var velocity = Vector2.ZERO
 var acceleration = Vector2.ZERO
 var target = null
 
+# attack value is calculated in the chaos magic UI.
+
+	
+	
 func start(_transform, _target):
 	global_transform = _transform
 	rotation += rand_range(-0.09, 0.09)
@@ -19,11 +23,11 @@ func seek():
 	if target:
 		var desired = (target.position - position).normalized() * speed
 		steer = (desired - velocity).normalized() * steer_force
-		return steer
-	else:
-		return 0
+	return steer
+	
 
 func _physics_process(delta):
+	target = get_closest_enemy()
 	acceleration += seek()
 	velocity += acceleration * delta
 	velocity = velocity.clamped(speed)

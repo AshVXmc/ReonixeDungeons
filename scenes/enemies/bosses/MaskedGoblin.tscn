@@ -51,7 +51,6 @@ region = Rect2( 0, 0, 28, 4 )
 margin = Rect2( 1, 1, 1, 10 )
 
 [sub_resource type="Animation" id=6]
-resource_name = "Death"
 length = 0.25
 step = 0.05
 tracks/0/type = "method"
@@ -181,7 +180,6 @@ tracks/8/keys = {
 }
 
 [sub_resource type="Animation" id=13]
-resource_name = "SpearThrustAttackLeft"
 step = 0.05
 tracks/0/type = "value"
 tracks/0/path = NodePath("SpearSprite:rotation_degrees")

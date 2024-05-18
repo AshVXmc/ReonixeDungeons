@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://assets/particles/large_smoke_particle.png" type="Texture" id=1]
-[ext_resource path="res://scenes/particles/StrongJumpParticle.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scenes/particles/StrongJumpParticle.tscn" type="PackedScene" id=1]
+[ext_resource path="res://assets/particles/large_smoke_particle.png" type="Texture" id=2]
 
 [sub_resource type="CanvasItemMaterial" id=1]
 particles_animation = true
@@ -21,7 +21,7 @@ amount = 6
 lifetime = 0.5
 one_shot = true
 lifetime_randomness = 0.15
-texture = ExtResource( 1 )
+texture = ExtResource( 2 )
 emission_shape = 1
 emission_sphere_radius = 1.0
 spread = 0.0
@@ -35,7 +35,7 @@ anim_speed = 1.0
 position = Vector2( 40, 0 )
 shape = SubResource( 2 )
 
-[node name="StrongJumpParticle" parent="." instance=ExtResource( 2 )]
+[node name="StrongJumpParticle" parent="." instance=ExtResource( 1 )]
 position = Vector2( -30, 0 )
 rotation = 0.0
 scale = Vector2( 1.5, 1.5 )

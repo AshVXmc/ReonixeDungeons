@@ -1,8 +1,8 @@
 class_name MoteOfFlame extends AnimatedSprite
 
-# explosion damage is based on the player's ATK.
+# explosion damage is based on the party's average level. Calculated in the chaosmagic ui
 # damage is maybe halved or slightly reduced for the player?
-var enemy_attack_value : int = 25
+var enemy_attack_value : int 
 
 # for the player
 var elemental_type : String = "Fire"
