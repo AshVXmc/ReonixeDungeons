@@ -1,7 +1,7 @@
 class_name MagicMissile extends Area2D
 
 onready var player = get_parent().get_node("Player")
-export var speed = 600
+export var speed = 800
 export var steer_force = 50.0
 
 var velocity = Vector2.ZERO

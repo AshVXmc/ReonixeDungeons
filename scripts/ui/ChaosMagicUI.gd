@@ -86,8 +86,11 @@ func chaos_magic(id : int):
 				level_mean += l
 			level_mean = level_mean / (list_of_party_member_level.size())
 			
-			var magic_missile = MAGIC_MISSILE.instance()
-			magic_missile.add_to_group(str((level_mean * 2) + 5))
-#			print("atk value:" + str(magic_missile.attack_value))
-			get_parent().get_parent().add_child(magic_missile)
-			magic_missile.position = player.global_position
+			
+			for i in range(0, 7):
+				yield(get_tree().create_timer(0.15), "timeout")
+				var magic_missile = MAGIC_MISSILE.instance()
+				magic_missile.add_to_group(str((level_mean * 3) + 6))
+	#			print("atk value:" + str(magic_missile.attack_value))
+				get_parent().get_parent().add_child(magic_missile)
+				magic_missile.position = player.global_position

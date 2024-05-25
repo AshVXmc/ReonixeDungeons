@@ -104,8 +104,8 @@ var player_talents : Dictionary = {
 	"TalentSlots": 5,
 	"MaxTalentSlots": 5,
 	"CycloneSlashes" : {
-		"unlocked" : false,
-		"enabled" : false,
+		"unlocked" : true,
+		"enabled" : true,
 		"opalscost": 100,
 		"talentslotcost": 2
 	},
