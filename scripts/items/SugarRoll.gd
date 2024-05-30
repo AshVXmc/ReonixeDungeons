@@ -28,13 +28,14 @@ func _process(delta):
 			# restore tick_amount of HP , every tick_duration seconds
 			rgm.tick_amount = 4
 			rgm.tick_duration = 2
+			var coefficient : float = 0.2
 			# Heals 10% of the player's HP over 10 seconds
 			if Global.current_character == Global.equipped_characters[0]:
-				rgm.heal_per_tick_amount = (Global.max_hearts * 0.1) / 2
+				rgm.heal_per_tick_amount = (Global.max_hearts * coefficient) / 2
 			elif Global.current_character == Global.equipped_characters[1]:
-				rgm.heal_per_tick_amount = (Global.character_2_max_hearts * 0.1) / 2
+				rgm.heal_per_tick_amount = (Global.character_2_max_hearts * coefficient) / 2
 			elif Global.current_character == Global.equipped_characters[2]:
-				rgm.heal_per_tick_amount = (Global.character_3_max_hearts * 0.1) / 2
+				rgm.heal_per_tick_amount = (Global.character_3_max_hearts * coefficient) / 2
 			get_parent().get_node("Player").add_child(rgm)
 			call_deferred('free')
 #	print(enemies_inside_detector)

@@ -94,3 +94,9 @@ func chaos_magic(id : int):
 	#			print("atk value:" + str(magic_missile.attack_value))
 				get_parent().get_parent().add_child(magic_missile)
 				magic_missile.position = player.global_position
+		6: 
+			# create a sandstorm that damages you and enemies over time.
+			pass
+		7:
+			# shoot a laser in the direction you are facing
+			pass
