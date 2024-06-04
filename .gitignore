@@ -1,9 +1,9 @@
 @ -1,16 +1 @@
 # Plugin Specific ignores
-default_env.tres
-project.godot
-scn/
-override.cfg
+#default_env.tres
+#project.godot
+#scn/
+#override.cfg
 
 # Godot-specific ignores
 .import/

@@ -41,6 +41,7 @@ tracks/0/keys = {
 script = ExtResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="."]
+visible = false
 position = Vector2( 350, 0 )
 scale = Vector2( 12, 2 )
 texture = ExtResource( 1 )
@@ -51,9 +52,10 @@ scale = Vector2( 0.0833333, 0.0833333 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite/Area2D"]
 position = Vector2( 362, 0 )
-scale = Vector2( 1, 1 )
 shape = SubResource( 2 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/RESET = SubResource( 3 )
 anims/RightShoot = SubResource( 1 )
+
+[node name="Timer" type="Timer" parent="."]
