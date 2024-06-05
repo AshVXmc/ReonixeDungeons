@@ -1,0 +1,21 @@
+{
+	"color": "#ffc88aff",
+	"description": "",
+	"display_name": "Chapter 3: The Moon",
+	"display_name_bool": true,
+	"id": "character-1709710039.json",
+	"mirror_portraits": false,
+	"name": "Chapter 3",
+	"nickname": "",
+	"nickname_bool": false,
+	"offset_x": 0,
+	"offset_y": 0,
+	"portraits": [
+		{
+			"name": "Default",
+			"path": ""
+		}
+	],
+	"scale": 100,
+	"theme": ""
+}

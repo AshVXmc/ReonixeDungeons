@@ -1,7 +1,10 @@
-class_name Level extends Node2D
+ class_name Level extends Node2D
+# If true
+
 
 signal equipped_skills()
 func _ready():
+
 	connect("equipped_skills", $SkillsUI/Control, "update_skill_ui")
 	emit_signal("equipped_skills")
 #	Global.save_player_data()

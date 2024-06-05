@@ -13,7 +13,7 @@
 	"portraits": [
 		{
 			"name": "Default",
-			"path": ""
+			"path": "res://assets/characters/player/player_idle.png"
 		}
 	],
 	"scale": 100,

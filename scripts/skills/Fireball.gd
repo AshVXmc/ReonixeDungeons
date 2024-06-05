@@ -8,13 +8,15 @@ var direction : int = 1
 var destroyed : bool = false
 
 func _ready():
-	add_to_group(str((attack + 1) * Global.skill_levels["FireballLevel"] + (Global.damage_bonus["fire_dmg_bonus_%"] / 100 * attack)))
+	add_to_group(str(Global.attack_power * (Global.player_skill_multipliers["Fireball"] / 100)))
+	print(get_groups())
 
 func _physics_process(delta):
 	
 	if !destroyed:
 		velocity.x = SPEED * delta * direction
 		$AnimatedSprite.play("Shoot")
+		$AnimatedSprite.flip_h = false if direction > 0 else true
 	else:
 		velocity.x = 0
 	translate(velocity)
@@ -30,30 +32,32 @@ func add_burning_stack():
 func override_speed(ovr_speed : int):
 	SPEED = ovr_speed
 
-func flip_projectile(p_direction : int):
-	direction = p_direction
-	if p_direction == -1:
-		$AnimatedSprite.flip_h = true
+
 			
 func _on_VisibilityNotifier2D_screen_exited():
 	queue_free()
 
 func _on_Fireball_area_entered(area):
-	if area.is_in_group("Enemy") or area.is_in_group("Enemy2") or area.is_in_group("DestructableObject") or area.is_in_group("Campfire"):
+	if area.is_in_group("Enemy") or area.is_in_group("DestructableObject") or area.is_in_group("Campfire"):
 		add_burning_stack()
 		destroyed = true
+		
 		$AnimatedSprite.play("Destroyed")
 		$CollisionShape2D.disabled = true
 		yield(get_tree().create_timer(0.25), "timeout")
 		queue_free()
 
-
-func _on_Fireball_body_entered(body):
+func explode():
 	destroyed = true
+	$AnimatedSprite.scale.x = 6.5
+	$AnimatedSprite.scale.y = 6.5 
 	$AnimatedSprite.play("Destroyed")
 	$CollisionShape2D.disabled = true
 	yield(get_tree().create_timer(0.25), "timeout")
-	queue_free()
+	call_deferred('free')
+
+func _on_Fireball_body_entered(body):
+	explode()
 
 func _on_DestroyedTimer_timeout():
-	queue_free()
+	explode()

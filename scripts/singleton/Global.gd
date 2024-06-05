@@ -1,16 +1,31 @@
 extends Node 
 
+var can_open_pause_menu : bool = false
 # GLOBALLY ACCESSED VARIABLES
-var max_hearts : float = 10
-var hearts : float = max_hearts
-var character_2_max_hearts : float = 10
-var character_3_max_hearts : float = 10
+var character_health_data : Dictionary = {
+	"Player": 10, 
+	"Glaciela": 10,
+	"Agnette": 10
+}
+
+var max_hearts : float
+var hearts : float
+var max_mana : float = 18
+var mana : float = max_mana
+var character_2_max_hearts : float
+var character2_hearts : float
+var character2_max_mana = max_mana
+var character2_mana = max_mana
+var character_3_max_hearts : float 
+var character3_hearts : float 
+var character3_max_mana = max_mana
+var character3_mana = max_mana
+
+
 var elegance_rank : String 
 var enemy_level_index : int = 1
 var max_endurance : int = 100
-
 var player_location_in_town 
-
 #func _ready():
 #	#CREATE SAVE FILE
 #	var dir : Directory = Directory.new()
@@ -24,8 +39,7 @@ const actions : Array = [
 	"primary_skill", "secondary_skill",
 	"dash", "perfect_dash"
 ]
-var max_mana : float = 18
-var mana : float = max_mana
+
 # attack_power is the player's atk
 var attack_power : int = 20
 var glaciela_attack : int = 20
@@ -35,13 +49,15 @@ var player_skill_multipliers : Dictionary = {
 	"BasicAttack2": 20.0,
 	"BasicAttack3": 25.0,
 	"BasicAttack4": 52.5,
-	"ChargedAttack": 40.0,
-	"ThrustChargedAttack": 69.5,
+	"ChargedAttack": 47.0,
+	"ThrustAttack": 56.0,
+	"ThrustChargedAttack": 85.0,
 	"UpwardsChargedAttack": 28.0, # x 2
 	"DownwardsChargedAttack": 56.0,
 	"SpecialChargedAttack": 30.0 ,# x 4
 	"SpecialChargedAttackFinalStrike": 140.0,
-	"CircularFlurryAttack": 22.0, # x 3
+	"CircularFlurryAttack": 30.0, # x 3
+	"PiercingProjectile": 95.0,
 	"EntryAttack": 50.0, # x 3
 	"CounterAttack": 42.0, # x 2
 	"AirborneBasicAttack": 25.0,
@@ -51,9 +67,15 @@ var player_skill_multipliers : Dictionary = {
 	"SulphuricSigilSingleSlash": 40.0, # x 2
 	"SlashFlurryEnergyCost": 200,
 	"FireSaw": 35.0,
+	"FireSawDuration": 8.0,
 	"FireFairy": 22.0,
-	"FireSawCost": 15,
+	"Fireball": 50.0,
+	"FireballCD": 4.0,
+	"FireballCharges": 3,
+	"FireballMaxCharges": 3,
+	"FireSawCost": 18,
 	"FireFairyCost": 2,
+	"FireballCost": 2,
 	"FireSawCD": 30.0,
 	"FireFairyCD": 10.0,
 	"BasePhysRes": 0.0,
@@ -70,6 +92,57 @@ var player_skill_multipliers : Dictionary = {
 	"Birthday": [21,11]
 }
 
+enum player_skins  {
+	DEFAULT,
+	CYBER_NINJA
+}
+var player_unlocked_skins = {
+	"CyberNinja": false
+}
+
+var player_talents : Dictionary = {
+	"TalentSlots": 5,
+	"MaxTalentSlots": 5,
+	"CycloneSlashes" : {
+		"unlocked" : true,
+		"enabled" : true,
+		"opalscost": 100,
+		"talentslotcost": 2
+	},
+	"SwiftThrust" : {
+		"unlocked" : false,
+		"enabled" : false,
+		"opalscost": 100,
+		"talentslotcost": 2
+	},
+	# Talent has not been implemented yet
+	"BurningBreath" : {
+		"unlocked" : true,
+		"enabled" : true,
+		"opalscost": 100,
+		"talentslotcost": 3
+	},
+	# Talent has not been implemented yet
+	"InfernalMark" : {
+		"unlocked" : false,
+		"enabled" : false,
+		"opalscost": 100,
+		"DamageIncrease" : 25,
+		"talentslotcost": 2
+	},
+	"CreateSugarRoll": {
+		"unlocked" : true,
+		"enabled": true,
+		"opalscost": 100,
+		"cooldown": 45.0,
+		"talentslotcost": 3
+	},
+	"ChaosMagic": {
+		"unlocked" : false,
+		"enabled": false,
+		"cooldown": 150
+	}
+}
 
 
 var glaciela_skill_multipliers : Dictionary = {
@@ -83,15 +156,15 @@ var glaciela_skill_multipliers : Dictionary = {
 	"SpecialAttack2_1": 25.0,
 	"SpecialAttack2_2": 25.0,
 	"SpecialAttack2_3": 50.0,
-	"TundraSigilDMGBonus": 12.0,
+	"TundraStarsDMGBonus": 12.0,
 	"TundraSigilFreezeStackBonus": 20,
 	"TundraSigilManaBonus": 0.75,
-	"TundraSigilIceDamageBonus": 12,
+	"TundraStarsIceDamageBonus": 12,
 	"AirborneDuration": 2.5,
-	"IceLance": 65.0,
-	"MaxTundraSigils": 3,
+	"IceLance": 70.0,
+	"MaxTundraStars": 3,
 	"WinterQueenCost": 15,
-	"IceLanceCost": 2,
+	"IceLanceCost": 0,
 	"WinterQueenCD": 30.0,
 	"IceLanceCD": 10.0,
 	"BasePhysRes": 0.0,
@@ -108,15 +181,14 @@ var glaciela_skill_multipliers : Dictionary = {
 	"Birthday": [10,5]
 }
 
+
+var agnette_skill_multipliers = {
+	
+}
+
 var enemy_skill_multipliers : Dictionary = {
 	"GoblinSpearThrustAttack" : 100.0
 }
-var character2_hearts : float= character_2_max_hearts
-var character2_max_mana = max_mana
-var character2_mana = max_mana
-var character3_hearts : float = character_3_max_hearts
-var character3_max_mana = max_mana
-var character3_mana = max_mana
 
 
 
@@ -130,10 +202,7 @@ var crystals_amount : int = 0
 var opened_chests := []
 var soul_token_amount : int = 0
 const SAVE_DIR : String = "user://savedata/"
-var dash_unlocked : bool = true # 1 mana per use
-var glide_unlocked : bool = false # 1 mana per use
-var firesaw_unlocked : bool = true # 3 mana per use
-var fire_fairy_unlocked : bool = true # 1 mana per second of usage
+
 var max_item_storage : int = 5
 var levelpath : String
 var is_loading_a_save : bool
@@ -151,27 +220,36 @@ var pity_5_star : int = 60 # Soft pity at 50
 
 # Resources
 var opals_amount : int = 0
-var common_monster_dust_amount : int = 0
-var goblin_scales_amount : int = 0
+var drops_inventory : Dictionary = {
+	"common_dust" : 0,
+	"goblin_scales": 0,
+	"bat_wings": 0,
+	"sweet_herbs": 0
+}
+
 var tokens_amount : int = 0
 var lesser_soul_catalyst : int= 0
 
 
 # Skills that the player currently equips
 var player_skills : Dictionary = {
-	"PrimarySkill" : "",
-	"SecondarySkill" : "",
+	"PrimarySkill" : "FireSaw",
+	"SecondarySkill" : "FireFairy",
+	"RangedSkill" : ""
+}
+
+var glaciela_skills : Dictionary = {
+	"PrimarySkill" : "WinterQueen",
+	"SecondarySkill" : "IceLance",
 	"RangedSkill" : ""
 }
 
 
 
 
-
-
 var current_character : String 
-var equipped_characters : Array = ["Player", "Glaciela", ""]
-var unlocked_characters : Array = ["Player", "Glaciela", "Domiguine"]
+var equipped_characters : Array = ["Player", "Glaciela", "Agnette"]
+var unlocked_characters : Array = ["Player", "Glaciela", ""]
 var alive : Array = [true, true, true]
 
 # The level of skills. Higher levels = more damage and utility etc.
@@ -186,8 +264,8 @@ var damage_bonus : Dictionary = {
 
 # List of skills (Unlocked and locked)
 var list_of_skills : Dictionary = {
-	"PrimarySkill": ["FireSaw", "IceLance"], 
-	"SecondarySkill": ["FireFairy"],
+	"PrimarySkill": ["FireSaw", "WinterQueen"], 
+	"SecondarySkill": ["FireFairy", "IceLance"],
 	"RangedSkill": ["Fireball"]
 }
 
@@ -197,7 +275,14 @@ var unlocked_skills : Dictionary = {
 	"SecondarySkill": ["FireFairy"],
 	"RangedSkill": ["Fireball"]
 }
-
+var character_level_data : Dictionary = {
+	# [current level, current xp, xp needed to level up]
+	# for every level, the xp needed to level up is increased by 10.
+	# e.g: 20 XP to get from level 2 to 3, 30XP to get from level 3 to level 4
+	"Player": [1, 0, 10],
+	"Glaciela": [1, 0, 10],
+	"Agnette": [1, 0, 10]
+}
 
 
 var enemies_killed : int
@@ -207,39 +292,61 @@ var masked_goblin_defeated : bool
 # Unsaved conditions
 var godmode : bool = false
 
+func assign_health_points():
+	for e in Global.equipped_characters:
+		if e != "":
+			var index : int = Global.equipped_characters.find(e)
+			match index:
+				0:
+					Global.max_hearts = Global.character_health_data[e]
+					Global.hearts = Global.max_hearts
+				1:
+					Global.character_2_max_hearts = Global.character_health_data[e]
+					Global.character2_hearts = Global.character_2_max_hearts
+				1:
+					Global.character_3_max_hearts = Global.character_health_data[e]
+					Global.character3_hearts = Global.character_3_max_hearts
 # Damage calc
+
 # if enemy type counters character type, deal 150% dmg.
 # if enemy type is same as character type or doesn't counter anything, deal 100% dmg.
 # if character type counters enemy type, deal 50% dmg
 func reset_player_data():
-	Global.hearts = Global.max_hearts
-	Global.character2_hearts = Global.character_2_max_hearts
-	Global.character3_hearts = Global.character_3_max_hearts
+	Global.equipped_characters = ["Player", "Glaciela", "Agnette"]
+	assign_health_points()
 	Global.alive = [true, true, true]
 	Global.mana = 0
 	Global.character2_mana = 0
 	Global.character3_mana = 0
-	Global.healthpot_amount = 5
+	Global.healthpot_amount = 1
 	Global.lifewine_amount = 0
 	Global.manapot_amount = 0
 	Global.opals_amount = 0
 	Global.crystals_amount = 0
-	Global.common_monster_dust_amount = 0
-	Global.goblin_scales_amount = 0
+	Global.drops_inventory = {
+		"common_dust" : 0,
+		"goblin_scales": 0,
+		"bat_wings": 0,
+		"sweet_herbs": 0
+	}
 	Global.soul_token_amount = 0
-	Global.dash_unlocked = true
-	Global.glide_unlocked = false
-	Global.firesaw_unlocked = true
-	Global.fire_fairy_unlocked = true
+
 	Global.is_loading_a_save = false
 	Global.max_item_storage = 5
 	Global.lighting = false
 	Global.levelpath = ""
 	Global.enemies_killed = 0
 	Global.masked_goblin_defeated = false
-	Global.player_skills["PrimarySkill"] = "FireSaw"
-	Global.player_skills["SecondarySkill"] = "FireFairy"
-	Global.player_skills["RangedSkill"] = "Fireball"
+	Global.player_skills = {
+		"PrimarySkill": "FireSaw",
+		"SecondarySkill": "FireFairy",
+		"RangedSkill": "Fireball"
+	}
+	Global.character_level_data = {
+		"Player": [1, 0, 20],
+		"Glaciela": [1, 0, 20],
+		"Agnette": [1, 0, 20]
+	}
 	Global.vsync = false
 	Global.activated_portals.clear()
 
@@ -260,12 +367,15 @@ func save_player_data():
 	Global.is_loading_a_save = true
 	var load_data : Dictionary = {
 		"Level" : Global.levelpath,
-		"MaxHealth": Global.max_hearts ,
-		"Health" : Global.hearts ,
-		"Char2MaxHealth": Global.character_2_max_hearts,
-		"Char2Health": Global.character2_hearts,
-		"Char3MaxHealth": Global.character_3_max_hearts,
-		"Char3Health": Global.character3_hearts,
+		
+#		"MaxHealth": Global.max_hearts ,
+#		"Health" : Global.hearts ,
+#		"Char2MaxHealth": Global.character_2_max_hearts,
+#		"Char2Health": Global.character2_hearts,
+#		"Char3MaxHealth": Global.character_3_max_hearts,
+#		"Char3Health": Global.character3_hearts,
+		
+		
 		"MaxMana" : Global.max_mana ,
 		"Mana" : Global.mana ,
 		"Char2MaxMana": Global.character2_max_mana,
@@ -281,14 +391,13 @@ func save_player_data():
 		"LifeWine" : Global.lifewine_amount,
 		"Manapot":  Global.manapot_amount,
 		"Opals" : Global.opals_amount ,
-		"CommonMonsterDust": Global.common_monster_dust_amount,
-		"GoblinScales": Global.goblin_scales_amount,
+		"CommonDust": Global.drops_inventory["common_dust"],
+		"GoblinScales": Global.drops_inventory["goblin_scales"],
+		"BatWings": Global.drops_inventory["bat_wings"],
+		"SweetHerbs": Global.drops_inventory["sweet_herbs"],
 		"RevivementCrystals" : Global.crystals_amount,
 		"SoulTokens": Global.soul_token_amount,
-		"DashUnlocked" : Global.dash_unlocked ,
-		"GlideUnlocked" : Global.glide_unlocked,
-		"FireSawUnlocked": Global.firesaw_unlocked,
-		"FireFairyUnlocked": Global.fire_fairy_unlocked,
+
 		"ChestOpened": Global.opened_chests,
 		"MaxItemStorage":  Global.max_item_storage, 
 		
@@ -301,7 +410,6 @@ func save_player_data():
 		# Levels
 		"PlayerSkillMultipliers": Global.player_skill_multipliers,
 		"GlacielaSkillMultipliers": Global.glaciela_skill_multipliers,
-		
 		"PhysicalDMGBonus%": Global.damage_bonus["physical_dmg_bonus_%"],
 		"FireDMGBonus%": Global.damage_bonus["fire_dmg_bonus_%"],
 		"IceDMGBonus%": Global.damage_bonus["ice_dmg_bonus_%"],
@@ -311,7 +419,7 @@ func save_player_data():
 		"EnemiesKilled": Global.enemies_killed ,
 		"MaskedGoblinDefeated" : Global.masked_goblin_defeated,
 		"ActivatedPortals": Global.activated_portals,
-		
+		"CharacterLevelData": Global.character_level_data
 	}
 
 	var savefile : File = File.new()
@@ -341,10 +449,10 @@ func sync_playerOpals(player_opals : int):
 	player_opals = Global.opals_amount
 func sync_playerCrystals(player_crystals : int):
 	player_crystals = Global.crystals_amount
-func sync_playerCommonMonsterDust(player_common_monster_dust : int):
-	player_common_monster_dust = Global.common_monster_dust_amount
-func sync_playerGoblinScales(player_goblin_scales: int):
-	player_goblin_scales = Global.goblin_scales_amount
+#func sync_playerCommonMonsterDust(player_common_monster_dust : int):
+#	player_common_monster_dust = Global.common_monster_dust_amount
+#func sync_playerGoblinScales(player_goblin_scales: int):
+#	player_goblin_scales = Global.goblin_scales_amount
 
 
 

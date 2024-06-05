@@ -1,0 +1,112 @@
+[gd_scene load_steps=15 format=2]
+
+[ext_resource path="res://assets/NPC/bard_1.png" type="Texture" id=1]
+[ext_resource path="res://assets/NPC/bard_2.png" type="Texture" id=2]
+[ext_resource path="res://assets/NPC/bard_3.png" type="Texture" id=3]
+[ext_resource path="res://assets/NPC/bard_4.png" type="Texture" id=4]
+[ext_resource path="res://assets/particles/music_note_particles.png" type="Texture" id=5]
+[ext_resource path="res://scripts/NPCs/BardNPC.gd" type="Script" id=6]
+[ext_resource path="res://assets/fonts/Born2bSportyV2.ttf" type="DynamicFontData" id=7]
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 43.9655, 57.7072 )
+
+[sub_resource type="DynamicFont" id=3]
+size = 48
+font_data = ExtResource( 7 )
+
+[sub_resource type="DynamicFont" id=7]
+size = 48
+font_data = ExtResource( 7 )
+
+[sub_resource type="Animation" id=5]
+resource_name = "Idle"
+length = 4.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0.5, 1.6, 2.5, 3.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ ExtResource( 1 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 2 ) ]
+}
+
+[sub_resource type="Animation" id=6]
+length = 0.001
+
+[sub_resource type="CanvasItemMaterial" id=8]
+particles_animation = true
+particles_anim_h_frames = 3
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="ParticlesMaterial" id=9]
+flag_disable_z = true
+spread = 25.0
+flatness = 0.2
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 40.0
+initial_velocity_random = 0.3
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+anim_speed = 1.0
+
+[node name="BardNPC" type="Node2D"]
+script = ExtResource( 6 )
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2( -1.96555, 16 )
+shape = SubResource( 2 )
+
+[node name="Label" type="RichTextLabel" parent="."]
+margin_left = -52.0
+margin_top = -92.0
+margin_right = 71.0
+margin_bottom = -44.0
+custom_fonts/bold_font = SubResource( 3 )
+bbcode_enabled = true
+bbcode_text = "[b]Talk[/b] [img=32]res://assets/UI/icon_Empty.png[/img]"
+text = "Talk "
+scroll_active = false
+
+[node name="Keybind" type="Label" parent="."]
+anchor_left = -3.732
+anchor_right = -3.732
+margin_left = 31.0
+margin_top = -81.0
+margin_right = 52.0
+margin_bottom = -33.0
+rect_scale = Vector2( 0.75, 0.75 )
+custom_colors/font_color = Color( 0.192157, 0.372549, 1, 1 )
+custom_fonts/font = SubResource( 7 )
+text = "R"
+align = 1
+valign = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "Idle"
+anims/Idle = SubResource( 5 )
+anims/RESET = SubResource( 6 )
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 0, 10 )
+scale = Vector2( 5.2, 5.2 )
+texture = ExtResource( 2 )
+
+[node name="MusicNoteParticles2D" type="Particles2D" parent="."]
+material = SubResource( 8 )
+position = Vector2( 14, 16 )
+scale = Vector2( 3, 3 )
+amount = 1
+process_material = SubResource( 9 )
+texture = ExtResource( 5 )
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_Area2D_area_entered"]
+[connection signal="area_exited" from="Area2D" to="." method="_on_Area2D_area_exited"]

@@ -1,0 +1,21 @@
+{
+	"events": [
+		{
+			"character": "character-1673447896.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "(O-oh, a visitor?! Um, uh, I mean...)"
+		},
+		{
+			"character": "character-1673447896.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "(Coughs) Ahem, h-hello, visitor! Please enjoy our comprehensive catalogue of books, scrolls, and tomes. Popular items include the mysterious Book of Shadows and the magical self-updating Beastiary."
+		}
+	],
+	"metadata": {
+		"dialogic-version": "1.4.5",
+		"file": "timeline-1713798282.json",
+		"name": "HubLevelLibrarian"
+	}
+}

@@ -7,7 +7,7 @@ signal lifewine_obtained(player_lifewine)
 signal manapot_obtained(player_manapot)
 signal opals_obtained(player_opals, amount_added)
 signal crystals_obtained(player_crystals)
-
+signal record_opals_obtained(amount)
 signal ingredient_obtained(ingredient_name, amount)
 signal skill_used(skill_name, character)
 signal skill_ui_update()
@@ -20,7 +20,9 @@ signal change_hitcount(amount)
 signal force_character_swap(index)
 signal reduce_skill_cd(character_name, skill_type, amount_in_seconds)
 signal reduce_endurance(amount)
-var target
+signal update_fireball_charges_ui(charges)
+var target 
+
 var can_use_slash_flurry : bool = false
 var attack_area_overlaps_enemy : bool 
 var resist_interruption : bool = false
@@ -61,14 +63,22 @@ var is_thrust_attacking : bool = false
 var energy_full : bool 
 var is_dash_counter_attacking : bool = false
 var facing 
-
+var is_switch_in_attacking : bool = false
+var is_counter_attack_special_thrusting : bool = false
+var is_jumping : bool = false
 enum {
 	left, right
 }
 const TRAIL_PARTICLE = preload("res://scenes/particles/DashTrailParticle.tscn")
 const WALK_PARTICLE = preload("res://scenes/particles/WalkParticle.tscn")
-const SHEATHED = preload("res://assets/player/katana_sheath.png")
-const EMPTY_SHEATH = preload("res://assets/player/katana_sheath_empty.png")
+const TELEPORTING_PARTICLE = preload("res://scenes/particles/TeleportingParticles.tscn")
+const KATANA = preload("res://assets/characters/player/katana.png")
+const SHEATHED = preload("res://assets/characters/player/katana_sheath.png")
+const EMPTY_SHEATH = preload("res://assets/characters/player/katana_sheath_empty.png")
+const KATANA_CYBERNINJA = preload("res://assets/characters/player/skins/cyber_ninja/katana.png")
+const SHEATHED_CYBERNINJA = preload("res://assets/characters/player/skins/cyber_ninja/katana_sheath.png")
+const EMPTY_SHEATH_CYBERNINJA = preload("res://assets/characters/player/skins/cyber_ninja/katana_sheath_empty.png")
+const PIERCING_PROJECTILE = preload("res://scenes/skills/PiercingProjectile.tscn")
 const SLASH_FLURRY_AREA = preload("res://scenes/skills/SlashFlurryMovableArea.tscn")
 const SWORD_SLASH_EFFECT : PackedScene = preload("res://scenes/particles/SwordSlashEffect.tscn")
 const HURT_PARTICLE : PackedScene = preload("res://scenes/particles/HurtIndicatorParticle.tscn")
@@ -86,8 +96,12 @@ const FROZEN : PackedScene = preload("res://scenes/status_effects/FrozenStatus.t
 const MAXED_ENERGY_METER = preload("res://assets/UI/energy_meter_maxed.png")
 const ENERGY_METER = preload("res://assets/UI/energy_meter_partly_filled.png")
 const BURNING : PackedScene = preload("res://scenes/status_effects/BurningStatus.tscn")
+const BURNING_BREATH_TALENT : PackedScene = preload("res://scenes/particles/BurningBreathTalent.tscn")
 onready var FULL_CHARGE_METER = preload("res://assets/UI/chargebar_full.png")
 onready var CHARGING_CHARGE_METER = preload("res://assets/UI/chargebar_charging.png")
+
+const DEFAULT_SKIN = preload("res://spriteframes/Player_Default_spriteframes.tres")
+const CYBER_NINJA_SKIN = preload("res://spriteframes/Player_CyberNinja_spriteframes.tres")
 var is_attacking : bool = false
 var is_dead : bool = false
 var is_invulnerable : bool = false
@@ -126,6 +140,8 @@ var magic_res : float = Global.player_skill_multipliers["BaseMagicRes"]
 var fire_res : float = Global.player_skill_multipliers["BaseFireRes"]
 var ice_res : float = Global.player_skill_multipliers["BaseIceRes"]
 var earth_res : float = Global.player_skill_multipliers["BaseEarthRes"]
+# amount of damage that a shield can absorb
+var shield_hp : float
 
 onready var basic_attack_power : float = Global.attack_power * (Global.player_skill_multipliers["BasicAttack"] / 100)
 onready var charged_attack_power : float = Global.attack_power * (Global.player_skill_multipliers["ChargedAttack"] / 100)
@@ -134,6 +150,8 @@ onready var airborne_charged_attack_power :float = Global.attack_power * (Global
 onready var thrust_attack_power :float = Global.attack_power * (Global.player_skill_multipliers["ThrustChargedAttack"] / 100)
 onready var pskill_ui : TextureProgress = get_parent().get_node("SkillsUI/Control/PrimarySkill/Player/FireSaw/TextureProgress")
 onready var sskill_ui : TextureProgress =  get_parent().get_node("SkillsUI/Control/SecondarySkill/Player/FireFairy/TextureProgress")
+onready var tskill_ui : TextureProgress = get_parent().get_node("SkillsUI/Control/TertiarySkill/Player/Fireball/TextureProgress")
+onready var talentskill_ui : TextureProgress = get_parent().get_node("SkillsUI/Control/TalentSkill/Player/CreateSugarRoll/TextureProgress")
 onready var crit_rate : float = Global.player_skill_multipliers["CritRate"]
 onready var crit_damage : float = Global.player_skill_multipliers["CritDamage"]
 # when a flash appears after the 3rd string of basic attack, tap to thrust through enemies
@@ -148,15 +166,19 @@ func set_attack_buff_value(new_value):
 
 func _ready():
 	
+#	print(get_path())
 	if Global.current_character == "Player":
 		$Sprite.visible = true
+	$EnergyMeter.visible = false
 #	$EnergyMeter.value = $EnergyMeter.min_value
+
 	$SlashEffectSprite.visible = false
 	$AttackCollision.add_to_group(str(basic_attack_power))
+	$SwordSprite.flip_v = false
 	$ChargedAttackCollision.add_to_group(str(charged_attack_power))
 	$UpwardsChargedAttackCollision.add_to_group(str(upwards_and_downwards_charged_attack_power))
 	$DownwardsChargedAttackCollision.add_to_group(str(upwards_and_downwards_charged_attack_power))
-	
+	$SuperSlashProjectile2.visible  = false
 	$ThrustEffectArea.add_to_group(str(thrust_attack_power))
 	$OxygenBar.value = 100
 	$ChargeBar.value = 0
@@ -168,12 +190,15 @@ func _ready():
 	connect("ready_to_be_switched_in", get_parent().get_node("SkillsUI/Control"), "flicker_icon")
 	connect("action", Global, "parse_action")
 	connect("reduce_endurance", get_parent().get_node("SkillsUI/Control"), "reduce_endurance")
+	connect("update_fireball_charges_ui", get_parent().get_node("SkillsUI/Control"), "update_fireball_skill_ui")
 	connect("perfect_dash", get_parent().get_node("PauseUI/PerfectDash"), "trigger_perfect_dash_animation")
 	connect("ingredient_obtained", get_parent().get_node("InventoryUI/Control"), "on_ingredient_obtained")
-	emit_signal("ingredient_obtained", "common_dust", Global.common_monster_dust_amount)
-	emit_signal("ingredient_obtained", "goblin_scales", Global.goblin_scales_amount)
+#	emit_signal("ingredient_obtained", "common_dust", Global.common_monster_dust_amount)
+#	emit_signal("ingredient_obtained", "goblin_scales", Global.goblin_scales_amount)
+	
 	connect("skill_ui_update", get_parent().get_node("SkillsUI/Control"), "on_skill_used")
 	connect("skill_used", get_node("SkillManager"), "on_skill_used")
+	
 	connect("reduce_skill_cd", get_parent().get_node("SkillsUI/Control"), "reduce_skill_cooldown")
 # warning-ignore:return_value_discarded
 	connect("life_changed", get_parent().get_node("HeartUI/Life"), "on_player_life_changed")
@@ -187,6 +212,7 @@ func _ready():
 	connect("manapot_obtained", get_parent().get_node("ManaPotUI/ManaPotControl"), "on_player_manapot_obtained")
 # warning-ignore:return_value_discarded
 	connect("opals_obtained", get_parent().get_node("OpalsUI/OpalsControl"), "on_player_opals_obtained")
+	connect("record_opals_obtained", get_parent().get_node("LevelTransporterEnd"), "record_opals_obtained")
 # warning-ignore:return_value_discarded
 	connect("crystals_obtained", get_parent().get_node("RevivementCrystal/RevivementCrystalControl"), "on_player_crystal_obtained")
 	connect("life_changed", Global, "sync_hearts")
@@ -216,12 +242,28 @@ func _ready():
 	connect("crystals_obtained", Global, "sync_playerCrystals")
 	emit_signal("crystals_obtained", Global.crystals_amount)
 	
-	connect("common_monster_dust_obtained", Global, "sync_playerCommonMonsterDust")
-	emit_signal("common_monster_dust_obtained", Global.common_monster_dust_amount)
-	
-	connect("goblin_scales_obtained", Global, "sync_playerGoblinScales")
-	emit_signal("goblin_scales_obtained", Global.goblin_scales_amount)
-	
+#	connect("common_monster_dust_obtained", Global, "sync_playerCommonMonsterDust")
+#	emit_signal("common_monster_dust_obtained", Global.common_monster_dust_amount)
+#
+#	connect("goblin_scales_obtained", Global, "sync_playerGoblinScales")
+#	emit_signal("goblin_scales_obtained", Global.goblin_scales_amount)
+
+func change_skin(skin_name):
+	match skin_name:
+		DEFAULT_SKIN:
+			$Sprite.frames = DEFAULT_SKIN
+			$SwordSprite.texture = KATANA
+			$KatanaSheathSprite.texture = SHEATHED
+			$Sprite.scale.x = 5
+			$Sprite.scale.y = 5
+			$Sprite.position.y = 0
+		CYBER_NINJA_SKIN:
+			$Sprite.frames = CYBER_NINJA_SKIN
+			$SwordSprite.texture = KATANA_CYBERNINJA
+			$KatanaSheathSprite.texture = SHEATHED_CYBERNINJA
+			$Sprite.scale.x = 6
+			$Sprite.scale.y = 6
+			$Sprite.position.y = -10
 func quickswap_event(trigger_name : String):
 	match trigger_name:
 		"Glaciela":
@@ -231,8 +273,11 @@ func quickswap_event(trigger_name : String):
 # Trigger when player is switched in
 func switched_in(character):
 	if character == "Player":
+		$EnergyMeter.visible = true
+		$HideEnergyMeterTimer.start()
 		if waiting_for_quickswap:
-			quickswap_attack()
+			print("SWITCH in ATTACK")
+			switch_in_attack()
 			waiting_for_quickswap = false
 
 # WOO YEAH BABY
@@ -259,16 +304,20 @@ func get_closest_enemy() -> Node2D:
 	return closest_enemy
 	
 func _physics_process(_delta):
-	if Global.current_character == "Player":
-		$EnergyMeter.visible = true
-	else:
+	
+#	if Global.current_character == "Player":
+#		$EnergyMeter.visible = true
+#	else:
+#		$EnergyMeter.visible = false
+	if Global.current_character != "Player":
 		$EnergyMeter.visible = false
 #	if !is_sheathing:
 	if !$Sprite.flip_h:
 		$KatanaSheathPlayer.play("RightDefault")
 	else:
 		$KatanaSheathPlayer.play("LeftDefault")
-		
+
+	$Shield.visible = true if shield_hp > 0 else false
 #	if Input.is_action_just_pressed("slot_1"):
 #		if facing == left:
 #			facing = right
@@ -280,8 +329,8 @@ func _physics_process(_delta):
 			$KatanaSheathSprite.visible = true if Global.current_character == "Player" else false
 			target = get_closest_enemy()
 			# Function calls
-			if !is_thrust_attacking and Input.is_action_just_pressed("ui_dash") and !Input.is_action_pressed("ui_attack"):
-				dash()
+#			if !is_thrust_attacking and Input.is_action_just_pressed("ui_dash") and !Input.is_action_pressed("ui_attack"):
+#				dash()
 			if !is_charging:
 	#			glide() # Glide duration in seconds
 				useItems()
@@ -322,6 +371,8 @@ func _physics_process(_delta):
 						if sign($DashParticlePosition.position.x) == -1:
 							$DashParticlePosition.position.x *= -1
 						$AttackCollision.set_scale(Vector2(-1,1))
+						$SwitchAttackCollision.set_scale(Vector2(-1,1))
+						$StabAttackCollision.set_scale(Vector2(-1,1))
 						$ChargedAttackCollision.set_scale(Vector2(-1,1))
 						$ChargedAttackDetector.set_scale(Vector2(-1,1))
 						$UpwardsChargedAttackCollision.set_scale(Vector2(-1,1))
@@ -350,25 +401,30 @@ func _physics_process(_delta):
 						$AttackCollision.set_scale(Vector2(1,1))
 						$ChargedAttackCollision.set_scale(Vector2(1,1))
 						$ChargedAttackDetector.set_scale(Vector2(1,1))
+						$SwitchAttackCollision.set_scale(Vector2(1,1))
+						$StabAttackCollision.set_scale(Vector2(1,1))
 						$UpwardsChargedAttackCollision.set_scale(Vector2(1,1))
 						$DownwardsChargedAttackCollision.set_scale(Vector2(1,1))
 						$EnemyEvasionArea.set_scale(Vector2(1,1))
 				
 					# Jump controls (ground)
-					if Input.is_action_just_pressed("jump") and is_on_floor() and !is_attacking and !is_frozen and !underwater and !Input.is_action_pressed("ui_dash"):
-						# Particles
-						var jump_particle : JumpParticle = JUMP_PARTICLE.instance()
-						jump_particle.emitting = true
-						get_parent().add_child(jump_particle)
-						jump_particle.position = $ParticlePosition.global_position
-						velocity.y = JUMP_POWER
-						$Sprite.play("Idle")
-						yield(get_tree().create_timer(0.2), "timeout")
-						var trail_particle = TRAIL_PARTICLE.instance()
-						trail_particle.emitting = true
-						trail_particle.one_shot = true
-						get_parent().add_child(trail_particle)
-						trail_particle.position = $ParticlePosition.global_position
+					if Input.is_action_just_pressed("jump") and !is_attacking and !is_frozen and !underwater and !Input.is_action_pressed("ui_dash"):
+						if is_on_floor():
+							$DashAfterJumpingDelayTimer.start()
+							# Particles
+							var jump_particle : JumpParticle = JUMP_PARTICLE.instance()
+							jump_particle.emitting = true
+							get_parent().add_child(jump_particle)
+							jump_particle.position = $ParticlePosition.global_position
+							velocity.y = JUMP_POWER
+							is_jumping = true
+							$Sprite.play("Idle")
+							yield(get_tree().create_timer(0.2), "timeout")
+							var trail_particle = TRAIL_PARTICLE.instance()
+							trail_particle.emitting = true
+							trail_particle.one_shot = true
+							get_parent().add_child(trail_particle)
+							trail_particle.position = $ParticlePosition.global_position
 					# Jump controls (water)
 					if Input.is_action_just_pressed("jump") and underwater and !is_attacking and !is_frozen:
 						var water_jump_particle = WATER_JUMP_PARTICLE.instance()
@@ -383,6 +439,9 @@ func _physics_process(_delta):
 				# Movement calculations
 	#			if !is_dashing and !is_gliding:
 	#				velocity.y += GRAVITY
+	
+				if is_jumping and velocity.y >= 0:
+					is_jumping = false
 				velocity = move_and_slide(velocity,Vector2.UP)
 				velocity.x = lerp(velocity.x,0,0.2)
 				if is_invulnerable:
@@ -493,13 +552,18 @@ func set_charged_attack_power(amount : float, duration : float, show_particles :
 		buffed_from_attack_crystals = false
 func use_skill():
 	if Global.current_character == "Player":
+		var player_array_index : int = Global.equipped_characters.find("Player")
 		if pskill_ui.value >= pskill_ui.max_value and Input.is_action_just_pressed("primary_skill") and !Input.is_action_just_pressed("secondary_skill") and !is_frozen and !is_using_primary_skill:
 			use_primary_skill()
 		if sskill_ui.value >= sskill_ui.max_value and Input.is_action_just_pressed("secondary_skill") and !Input.is_action_just_pressed("primary_skill") and !is_frozen and !is_using_secondary_skill:
 			use_secondary_skill()
-			
+		if Global.player_skill_multipliers["FireballCharges"] > 0 and Input.is_action_just_pressed("tertiary_skill") and !is_frozen:
+			use_tertiary_skill()
+		if talentskill_ui.value >= talentskill_ui.max_value and Input.is_action_just_pressed("talent_skill") and !is_frozen:
+			use_talent_skill()
 
 func use_primary_skill():
+	
 	if Global.current_character == Global.equipped_characters[0] and Global.mana >= Global.player_skill_multipliers["FireSawCost"]:
 		emit_signal("skill_used", "FireSaw", attack_buff)
 		emit_signal("skill_ui_update", "FireSaw")
@@ -526,7 +590,27 @@ func use_secondary_skill():
 		emit_signal("skill_used", "FireFairy", attack_buff)
 		emit_signal("skill_ui_update", "FireFairy")
 		emit_signal("mana_changed", Global.character3_mana, "Player")
-	
+
+func use_tertiary_skill():
+	# FIREBALL (8d6 fire damage op pls nerf)
+	Global.player_skill_multipliers["FireballCharges"] -= 1
+	emit_signal("update_fireball_charges_ui", Global.player_skill_multipliers["FireballCharges"])
+	if !$Sprite.flip_h:
+		emit_signal("skill_used", "Fireball", attack_buff, 1)
+	else:
+		emit_signal("skill_used", "Fireball", attack_buff, -1)
+	emit_signal("skill_ui_update", "Fireball")
+	if Global.current_character == Global.equipped_characters[0] and Global.mana >= Global.player_skill_multipliers["FireballCost"]:
+		emit_signal("mana_changed", Global.mana, "Player")
+	elif Global.current_character == Global.equipped_characters[1] and Global.character2_mana >= Global.player_skill_multipliers["FireballCost"]:
+		emit_signal("mana_changed", Global.character2_mana, "Player")
+	elif Global.current_character == Global.equipped_characters[2] and Global.character3_mana >= Global.player_skill_multipliers["FireballCost"]:
+		emit_signal("mana_changed", Global.character3_mana, "Player")
+
+func use_talent_skill():
+	emit_signal("skill_used", "CreateSugarRoll")
+	emit_signal("skill_ui_update", "CreateSugarRoll")
+
 func ground_pound():
 	if !is_on_floor() and Input.is_action_just_pressed("ui_down"):
 		is_ground_pounding = true
@@ -547,7 +631,6 @@ func gp_effect():
 		gp_particle1.rotation_degrees = -40
 		gp_particle1.emitting = true
 		gp_particle1.one_shot = true
-		
 		get_parent().add_child(gp_particle2)
 		gp_particle2.position = $GroundPoundPositionLeft.global_position
 		gp_particle2.rotation_degrees = 220
@@ -573,7 +656,6 @@ func dash_counter_attack():
 		counterflurryeffect.scale.x = 0.8
 		counterflurryeffect.scale.y = 0.8
 		counterflurryarea.position = get_closest_enemy().global_position
-		
 		counterflurryarea.get_node("AnimationPlayer").play("PlayerCounterAttack")
 		counterflurryeffect.player_counter_attack_animation()
 		yield(get_tree().create_timer(0.1), "timeout")
@@ -585,7 +667,7 @@ func dash_counter_attack():
 		yield(get_tree().create_timer(0.2), "timeout")
 		is_dash_counter_attacking = false
 func attack():
-	if Global.current_character == "Player" and !is_attacking and !is_gliding and !is_frozen and $MeleeTimer.is_stopped() and $ChargeBar.value != $ChargeBar.max_value:
+	if Global.current_character == "Player" and !is_attacking and !is_gliding and !is_frozen and $MeleeTimer.is_stopped():
 		$Sprite.play("Attack")
 		$SwordSprite.visible = true
 		if $Sprite.flip_h:
@@ -596,34 +678,89 @@ func attack():
 		$AttackCollision/CollisionShape2D.disabled = false
 		$MeleeTimer.start()
 		$AttackTimer.start()
-		
-		# Upward attack controls
-#		if Input.is_action_pressed("ui_up"):
-#			$AttackCollision.position += Vector2(-60,-60) if !$Sprite.flip_h else Vector2(60,-55)
-#			$Sprite.play("AttackUp")
-#			print("up attack")
-#			$SwordSprite.visible = true
-#			$AnimationPlayer.play("SwordSwingUpper")
-##			$Sprite.position += Vector2(0, -20)
-#			is_attacking = true
-#			$AttackCollision/CollisionShape2D.disabled = false
-#			$AttackTimer.start()
-		# Downwards attack controls + tiny knock-up
-#		if Input.is_action_pressed("ui_down"):
-#			$AttackCollision.position += Vector2(-60,60) if !$Sprite.flip_h else Vector2(60,55)
-#			$Sprite.play("AttackDown")
-#
-#			$SwordSprite.visible = true
-#			$AnimationPlayer.play("SwordSwingLower")
-##			$Sprite.position += Vector2(0, 20)
-#			is_attacking = true
-#			$AttackCollision/CollisionShape2D.disabled = false
-#			$AttackTimer.start()
+
+func piercing_projectile_attack(direction : int):
+	var p = PIERCING_PROJECTILE.instance()
+	get_parent().add_child(p)
+	if direction == 1:
+		p.position.x = global_position.x + 32
+		p.direction = 1
+	elif direction == -1:
+		p.position.x = global_position.x - 32
+		p.direction = -1
+	p.position.y = global_position.y 
+	
+	
+func stab_attack():
+	if Global.current_character == "Player" and !is_attacking and !is_gliding and !is_frozen and $MeleeTimer.is_stopped():
+		var crit_dmg : float = 1.0
+		$Sprite.play("Attack")
+		$SwordSprite.visible = true
+		for groups in $StabAttackCollision.get_groups():
+			if float(groups) != 0:
+				print("its high noon")
+				$StabAttackCollision.remove_from_group(groups)
+				break
+		if is_a_critical_hit():
+			crit_dmg = (Global.player_skill_multipliers["CritDamage"] / 100 + 1)
+			$StabAttackCollision.add_to_group("IsCritHit")
+		else:
+			$StabAttackCollision.remove_from_group("IsCritHit")
+
+		$StabAttackCollision.add_to_group(str(ATTACK * (Global.player_skill_multipliers["EntryAttack"] / 100) * crit_dmg))
+			
+		if !$Sprite.flip_h:
+			$AnimationPlayer.play("SwordStabRight")
+		else:
+			print("REEEEEEEEEEEEEEEEEEEEEEE")
+			$AnimationPlayer.play("SwordStabLeft")
+		is_attacking = true
+		is_switch_in_attacking = true
+		$StabAttackCollision/CollisionShape2D.disabled = false
+
+func switch_in_attack():
+	if Global.current_character == "Player" and !is_attacking and !is_gliding and !is_frozen and $MeleeTimer.is_stopped():
+		var crit_dmg : float = 1.0
+		$Sprite.play("Attack")
+		$SwordSprite.visible = true
+		for groups in $SwitchAttackCollision.get_groups():
+			if float(groups) != 0:
+				print("its high noon")
+				$SwitchAttackCollision.remove_from_group(groups)
+				break
+		if is_a_critical_hit():
+			crit_dmg = (Global.player_skill_multipliers["CritDamage"] / 100 + 1)
+			$SwitchAttackCollision.add_to_group("IsCritHit")
+		else:
+			$SwitchAttackCollision.remove_from_group("IsCritHit")
+
+		$SwitchAttackCollision.add_to_group(str(ATTACK * (Global.player_skill_multipliers["EntryAttack"] / 100) * crit_dmg))
+			
+		if !$Sprite.flip_h:
+			$AnimationPlayer.play("SwitchAttackRight")
+		else:
+			
+			pass
+		is_attacking = true
+		is_switch_in_attacking = true
+		$SwitchAttackCollision/CollisionShape2D.disabled = false
+		# 0.7 is the duration of the animation
+
+
+func switch_in_attack_completed():
+	is_attacking = false
+	is_switch_in_attacking = false
+
 
 func _input(event):
 	if Global.current_character == "Player":
 		if event.is_action_pressed("ui_attack") and $InputPressTimer.is_stopped() and !is_quickswap_attacking:
 			if $DashCounterAttackTimer.is_stopped():
+				if has_node("FireSaw"):
+					if !$Sprite.flip_h:
+						piercing_projectile_attack(1)
+					else:
+						piercing_projectile_attack(-1)
 				attack()
 
 			else:
@@ -631,12 +768,45 @@ func _input(event):
 				is_invulnerable = true
 				thrust_attack(true)
 			$InputPressTimer.start()
+		if event.is_action_pressed("ui_dash") and $DashInputPressTimer.is_stopped() and !is_quickswap_attacking:
+			if get_parent().has_node("FireCharm") and weakref(get_parent().get_node("FireCharm")).get_ref() != null:
+				teleport_to_firecharm()
+			else:
+				dash()
+			$DashInputPressTimer.start()
 		if event.is_action_pressed("ui_down") and airborne_mode:
 			airborne_mode = false
 		if event.is_action_pressed("heal"):
 			if Global.healthpot_amount > 0:
 				heal(5)
 
+func charged_dash():
+	$DashInputPressTimer.stop()
+	var fc = preload("res://scenes/skills/FireCharm.tscn").instance()
+	get_parent().add_child(fc)
+	fc.position = global_position
+	if $Sprite.flip_h:
+		fc.x_direction *= -1
+		
+
+
+func teleport_to_firecharm():
+	var teleport_destination : Vector2 = get_parent().get_node("FireCharm").global_position
+	var tp_particle = TELEPORTING_PARTICLE.instance()
+	var tp_particle2 = TELEPORTING_PARTICLE.instance()
+	get_parent().add_child(tp_particle)
+	tp_particle.position = global_position
+	tp_particle.emitting = true
+	tp_particle.one_shot = true
+	position.x = teleport_destination.x
+	position.y = teleport_destination.y 
+	get_parent().add_child(tp_particle2)
+	tp_particle2.position = get_parent().get_node("FireCharm").global_position
+	tp_particle2.emitting = true
+	tp_particle2.one_shot = true
+	get_parent().get_node("FireCharm").call_deferred('free')
+
+	
 	
 func charged_attack(type : String = "Ground"):
 	$InputPressTimer.stop()
@@ -801,10 +971,15 @@ func charged_attack(type : String = "Ground"):
 		yield(get_tree().create_timer(0.1), "timeout")
 		change_mana_value(0.45)
 		#emit_signal("change_elegance"), "ChargedAttackHeavy")
-		emit_signal("reduce_skill_cd", "Player", "PrimarySkill", 4)
-		emit_signal("reduce_skill_cd", "Player", "SecondarySkill", 2)
+		emit_signal("reduce_skill_cd", "Player", "PrimariesOnly", 4)
+		emit_signal("reduce_skill_cd", "Player", "SecondariesOnly", 2)
 		
-		
+		# burningbreathtalent
+		if Global.player_talents["BurningBreath"]["unlocked"] and Global.player_talents["BurningBreath"]["enabled"]:
+			var burningbreath = BURNING_BREATH_TALENT.instance()
+			get_parent().add_child(burningbreath)
+			burningbreath.position = global_position
+			burningbreath.get_node("FireBurstParticle").emitting = true
 		$SlashFlurryCD.start()
 		cam_shake = false
 		
@@ -863,7 +1038,7 @@ func charge_meter():
 				
 
 func upwards_charged_attack():
-	if target and target != null and weakref(target).get_ref() != null: 
+	if target and target != null and weakref(target).get_ref() != null and !target.is_in_group("Projectile"): 
 		if target.get_node("Area2D").overlaps_area($ChargedAttackDetector) and !target.get_node("Area2D").is_in_group("IsAirborne"):
 			knock_airborne(target.get_node("Area2D"))
 	$ChargingParticle.visible = true
@@ -1022,16 +1197,14 @@ func play_attack_animation(direction : String):
 						$AttackCollision.remove_from_group(groups)
 						$AttackCollision.add_to_group("PlayerBasicAttackFour")
 						var crit_dmg : float = 1.0
-						if Input.is_action_pressed("ui_up"):
-							
-							$AnimationPlayer.play("SwordSwingRight4_Up")
-							$AttackCollision.add_to_group("Airborne")
-#							var airborne_status : AirborneStatus = AIRBORNE_STATUS.instance()
-#							airborne_status.time = 1.2
-#							target.add_child(airborne_status)
+						if Input.is_action_pressed("ui_down"):
+							stab_attack()
 						else:
-							$AnimationPlayer.play("SwordSwingRight4_Down")
-							$AttackCollision.remove_from_group("Airborne")
+							
+							$AnimationPlayer.play("SwordSwingRight4")
+			
+							
+						$AttackCollision.remove_from_group("Airborne")
 						if is_a_critical_hit():
 							crit_dmg = (Global.player_skill_multipliers["CritDamage"] / 100 + 1)
 							$AttackCollision.add_to_group("IsCritHit")
@@ -1066,16 +1239,11 @@ func play_attack_animation(direction : String):
 						$AttackCollision.remove_from_group(groups)
 						$AttackCollision.add_to_group("PlayerBasicAttackFour")
 						var crit_dmg : float = 1.0
-						if Input.is_action_pressed("ui_up"):
-							
-							$AnimationPlayer.play("SwordSwingRight4_Up")
-							$AttackCollision.add_to_group("Airborne")
-#							var airborne_status : AirborneStatus = AIRBORNE_STATUS.instance()
-#							airborne_status.time = 1.2
-#							target.add_child(airborne_status)
+						if Input.is_action_pressed("ui_down"):
+							stab_attack()
 						else:
-							$AnimationPlayer.play("SwordSwingRight4_Down")
-							$AttackCollision.remove_from_group("Airborne")
+							$AnimationPlayer.play("SwordSwingLeft4")
+						$AttackCollision.remove_from_group("Airborne")
 						if is_a_critical_hit():
 							crit_dmg = (Global.player_skill_multipliers["CritDamage"] / 100 + 1)
 							$AttackCollision.add_to_group("IsCritHit")
@@ -1098,6 +1266,19 @@ func _on_Area2D_area_entered(area : Area2D):
 		if area.is_in_group("HealthPot"):
 			Global.healthpot_amount += 1
 			emit_signal("healthpot_obtained", Global.healthpot_amount)
+		if area.is_in_group("LootBag"):
+			
+			on_loot_bag_obtained(
+				area.get_parent().opals_amount, 
+				area.get_parent().drops_table["common_dust"],
+				area.get_parent().drops_table["goblin_scales"],
+				area.get_parent().drops_table["bat_wings"],
+				area.get_parent().drops_table["sweet_herbs"]
+			)
+			
+		if area.is_in_group("HealthPack") and area.is_in_group("Active"):
+			# The 999 value is not relevant since health packs heal to maximum amount
+			heal(999, true)
 		if area.is_in_group("LifeWine"):
 			Global.lifewine_amount += 1
 			emit_signal("lifewine_obtained", Global.lifewine_amount)
@@ -1114,9 +1295,9 @@ func _on_Area2D_area_entered(area : Area2D):
 						
 					match enemy_elemental_type:
 						"Physical":
-							var dmg = enemy_atk_value
-							take_damage(dmg * (1 - phys_res))
-
+							take_damage(enemy_atk_value * (1 - phys_res))
+						"Fire":
+							take_damage(enemy_atk_value - (1 - fire_res))
 					is_gliding = false
 					Input.action_release("ui_attack")
 					after_damaged()
@@ -1163,39 +1344,64 @@ func _on_Area2D_area_entered(area : Area2D):
 func take_damage(damage : float):
 	if Global.current_character == "Player" and !is_invulnerable:
 		if Global.equipped_characters[0] == "Player":
-			Global.hearts -= damage
-			add_hurt_particles(damage )
-			emit_signal("life_changed", Global.hearts, "Player")
-			#emit_signal("change_elegance"), "Hit")
+			if shield_hp > 0:
+				shield_hp = clamp(shield_hp - damage, 0, 999)
+				$Shield/ShieldHPBar.value = shield_hp
+			else:
+				Global.hearts -= damage
+				add_hurt_particles(damage)
+				emit_signal("life_changed", Global.hearts, "Player")
 		elif Global.equipped_characters[1] == "Player":
-			Global.character2_hearts -= damage
-			add_hurt_particles(damage)
-			#emit_signal("change_elegance"), "Hit")
-			emit_signal("life_changed", Global.character2_hearts, "Player")
+			if shield_hp > 0:
+				shield_hp = clamp(shield_hp - damage, 0, 999)
+				$Shield/ShieldHPBar.value = shield_hp
+			else:
+				Global.character2_hearts -= damage
+				add_hurt_particles(damage)
+				#emit_signal("change_elegance"), "Hit")
+				emit_signal("life_changed", Global.character2_hearts, "Player")
 		elif Global.equipped_characters[2] == "Player":
-			Global.character3_hearts -= damage
-			add_hurt_particles(damage)
-			#emit_signal("change_elegance"), "Hit")
-			emit_signal("life_changed", Global.character3_hearts, "Player")
+			if shield_hp > 0:
+				shield_hp = clamp(shield_hp - damage, 0, 999)
+				$Shield/ShieldHPBar.value = shield_hp
+			else:
+				Global.character3_hearts -= damage
+				add_hurt_particles(damage)
+				#emit_signal("change_elegance"), "Hit")
+				emit_signal("life_changed", Global.character3_hearts, "Player")
+		print(shield_hp)
 
-func heal(heal_amount : float):
+func heal(heal_amount : float, heal_to_max : bool = false, consumes_potion : bool = true):
 	# heal amount in percentage based on max HP
 	if Global.equipped_characters[0] == "Player":
-		add_heal_particles(clamp(heal_amount, 0, Global.max_hearts - Global.hearts))
-		Global.hearts += clamp(heal_amount, 0, Global.max_hearts - Global.hearts)
+		if !heal_to_max:
+			add_heal_particles(clamp(heal_amount, 0, Global.max_hearts - Global.hearts))
+			Global.hearts += clamp(heal_amount, 0, Global.max_hearts - Global.hearts)
+		else:
+			add_heal_particles(Global.max_hearts - Global.hearts)
+			Global.hearts = Global.max_hearts
 		emit_signal("life_changed", Global.hearts, "Player")
 	elif Global.equipped_characters[1] == "Player":
-		add_heal_particles(clamp(heal_amount, 0, Global.character_2_max_hearts - Global.character2_hearts))
-		Global.character2_hearts += clamp(heal_amount, 0, Global.character_2_max_hearts - Global.character2_hearts)
+		if !heal_to_max:
+			add_heal_particles(clamp(heal_amount, 0, Global.character_2_max_hearts - Global.character2_hearts))
+			Global.character2_hearts += clamp(heal_amount, 0, Global.character_2_max_hearts - Global.character2_hearts)
+		else:
+			add_heal_particles(Global.character_2_max_hearts - Global.character2_hearts)
+			Global.character2_hearts = Global.character_2_max_hearts
 		emit_signal("life_changed", Global.character2_hearts, "Player")
 	elif Global.equipped_characters[2] == "Player":
-		add_heal_particles(clamp(heal_amount, 0, Global.character_3_max_hearts - Global.character3_hearts))
-		Global.character3_hearts += clamp(heal_amount, 0, Global.character_3_max_hearts - Global.character3_hearts)
+		if !heal_to_max:
+			add_heal_particles(clamp(heal_amount, 0, Global.character_3_max_hearts - Global.character3_hearts))
+			Global.character3_hearts += clamp(heal_amount, 0, Global.character_3_max_hearts - Global.character3_hearts)
+		else:
+			add_heal_particles(Global.character_3_max_hearts - Global.character3_hearts)
+			Global.character3_hearts = Global.character_3_max_hearts 
 		emit_signal("life_changed", Global.character3_hearts, "Player")
-	Global.healthpot_amount -= 1
-	emit_signal("healthpot_obtained", Global.healthpot_amount)
+	if !heal_to_max and consumes_potion:
+		Global.healthpot_amount -= 1
+		emit_signal("healthpot_obtained", Global.healthpot_amount)
 	
-	
+
 	
 func _on_Area2D_area_exited(area):
 	if area.is_in_group("Water"):
@@ -1268,6 +1474,9 @@ func add_heal_particles(heal_amount : float):
 	heal_particle.heal_amount = heal_amount * 2
 	get_parent().add_child(heal_particle)
 	heal_particle.position = global_position
+	
+	# trigger health effect particles
+	$HealingParticles.emitting = true
 # Obtaining mana by attacking enemies
 
 func is_a_critical_hit() -> bool:
@@ -1344,7 +1553,7 @@ func _on_ChargedAttackCollision_area_entered(area):
 			if Global.current_character == "Player" and $ManaRegenDelay.is_stopped():
 				$ManaRegenDelay.start()
 				print("charged attack restore mana")
-				change_mana_value(0.25)
+				change_mana_value(0.2)
 				print("mana: " + str(Global.mana))
 				if !is_flurry_attacking:
 					update_energy_meter(10)
@@ -1418,7 +1627,7 @@ func _on_RightDectector_area_entered(area):
 
 func dash():
 	
-	if Global.dash_unlocked and !is_frozen and !is_thrust_attacking and !$DashCooldown.is_stopped():
+	if !is_frozen and !is_thrust_attacking and !$DashCooldown.is_stopped() and $DashAfterJumpingDelayTimer.is_stopped():
 		if $DashUseTimer.is_stopped():
 			can_dash = true
 		if !$Sprite.flip_h:
@@ -1455,7 +1664,7 @@ func dash():
 				else:
 					velocity.y = 0
 					$Sprite.play("Dash")
-					velocity = dashdirection.normalized() * 2500
+					velocity = dashdirection.normalized() * 2800
 			
 			if Input.is_action_pressed("ui_down") and !is_on_floor():
 				airborne_mode = false
@@ -1518,35 +1727,33 @@ func thrust_attack(special : bool = false):
 	velocity.y = 0
 
 	$Sprite.play("Dash")
-#	$SlashEffectPlayer.play("HorizontalSlash")
+
 	if special:
 		is_invulnerable = true
 		velocity = thrustdirection.normalized() * 3600
-		
-#		airborne_mode = true
-#		$AirborneMaxDuration.start()
 		yield(get_tree().create_timer(0.2), "timeout")
-#		cam_shake = false
-#		is_invulnerable = false
 		$ThrustEffectArea/CollisionShape2D.disabled = true
-		yield(get_tree().create_timer(0.5), "timeout")
+		yield(get_tree().create_timer(0.25), "timeout")
 		dash_counter_attack()
 		is_thrust_attacking = false
 		yield(get_tree().create_timer(0.5), "timeout")
-		
 		if !is_flurry_attacking:
 			update_energy_meter(25)
 	else:
 		velocity = thrustdirection.normalized() * 2950
 		is_thrust_attacking = false
-		airborne_mode = true
+		
+		
 #		$AirborneMaxDuration.start()
 		yield(get_tree().create_timer(0.1), "timeout")
 		$ThrustEffectArea/CollisionShape2D.disabled = true
 		yield(get_tree().create_timer(0.35), "timeout")
 #		cam_shake = false
 		is_invulnerable = false
-		
+		if Global.player_talents["SwiftThrust"]["unlocked"] and Global.player_talents["SwiftThrust"]["enabled"]:
+			airborne_mode = true
+		else:
+			airborne_mode = false
 		if !is_flurry_attacking:
 			update_energy_meter(15)
 	
@@ -1617,42 +1824,16 @@ func on_manashrine_toggled():
 	emit_signal("mana_changed", Global.mana, Global.equipped_characters[2])
 	is_healing = false
 	
-#func on_lootbag_obtained(tier : int):
-#	match tier:
-#		1:
-#			# Drops a small amout of opals and common dust
-#			var lootrng : RandomNumberGenerator = RandomNumberGenerator.new()
-#			var num  = lootrng.randi_range(1,3)
-#			lootrng.randomize()
-#			Global.common_monster_dust_amount += num
-#
-#			emit_signal("ingredient_obtained", "common_dust", Global.common_monster_dust_amount)
-#
-#			var opalrng : RandomNumberGenerator = RandomNumberGenerator.new()
-#			opalrng.randomize()
-#			var opalnum = opalrng.randi_range(5,20)
-#			Global.opals_amount += opalnum
-#			emit_signal("opals_obtained", Global.opals_amount, opalnum)
-#		2:
-#			# Drops a small amout of opals, common dust and goblin scales
-#			var lootrng : RandomNumberGenerator = RandomNumberGenerator.new()
-#			var num  = lootrng.randi_range(1,5)
-#			lootrng.randomize()
-#			Global.common_monster_dust_amount += num
-#			emit_signal("ingredient_obtained", "common_dust", Global.common_monster_dust_amount)
-#			var opalrng : RandomNumberGenerator = RandomNumberGenerator.new()
-#			opalrng.randomize()
-#			var opalnum = opalrng.randi_range(5,20)
-#			Global.opals_amount += opalnum
-#			emit_signal("opals_obtained", Global.opals_amount, opalnum)
-#
-#			var scalesrng : RandomNumberGenerator = RandomNumberGenerator.new()
-#			scalesrng.randomize()
-#			var scalesnum = scalesrng.randi_range(1,3)
-#			Global.goblin_scales_amount += scalesnum
-#			emit_signal("ingredient_obtained", "goblin_scales", Global.goblin_scales_amount)
-			
-
+func on_loot_bag_obtained(opals : int = 0, common_dust : int = 0, goblin_scales : int = 0, bat_wings : int = 0, sweet_herbs : int = 0 ):
+	get_opals(opals)
+	Global.drops_inventory["common_dust"] += common_dust
+	emit_signal("ingredient_obtained", "common_dust", common_dust)
+	Global.drops_inventory["goblin_scales"] += goblin_scales
+	emit_signal("ingredient_obtained", "goblin_scales", goblin_scales)
+	Global.drops_inventory["bat_wings"] += bat_wings
+	emit_signal("ingredient_obtained", "bat_wings", bat_wings)
+	Global.drops_inventory["sweet_herbs"] += sweet_herbs
+	emit_signal("ingredient_obtained", "sweet_herbs", sweet_herbs)
 func on_Item_bought(item_name : String, item_price : int):
 	Global.opals_amount -= item_price
 	emit_signal("opals_obtained", Global.opals_amount)
@@ -1668,24 +1849,24 @@ func on_Item_bought(item_name : String, item_price : int):
 			emit_signal("lifewine_obtained", Global.lifewine_amount)
 		"ItemPouch_1":
 			pass
-func on_Item_crafted(item_name : String, common_dust : int, goblin_scales : int):
-	print("signal sent")
-	Global.common_monster_dust_amount -= common_dust
-	Global.goblin_scales_amount -= goblin_scales
-	emit_signal("common_monster_dust_obtained", Global.common_monster_dust_amount)
-	emit_signal("goblin_scales_obtained", Global.goblin_scales_amount)
-	match item_name:
-		"HealthPot":
-			Global.healthpot_amount += 1
-			emit_signal("healthpot_obtained", Global.healthpot_amount)
-		"ManaPot":
-			Global.manapot_amount += 1
-			emit_signal("manapot_obtained", Global.manapot_amount)
-		"LifeWine":
-			Global.lifewine_amount += 1
-			emit_signal("lifewine_obtained", Global.lifewine_amount)
-		"ItemPouch_1":
-			pass
+#func on_Item_crafted(item_name : String, common_dust : int, goblin_scales : int):
+#	print("signal sent")
+#	Global.common_monster_dust_amount -= common_dust
+#	Global.goblin_scales_amount -= goblin_scales
+#	emit_signal("common_monster_dust_obtained", Global.common_monster_dust_amount)
+#	emit_signal("goblin_scales_obtained", Global.goblin_scales_amount)
+#	match item_name:
+#		"HealthPot":
+#			Global.healthpot_amount += 1
+#			emit_signal("healthpot_obtained", Global.healthpot_amount)
+#		"ManaPot":
+#			Global.manapot_amount += 1
+#			emit_signal("manapot_obtained", Global.manapot_amount)
+#		"LifeWine":
+#			Global.lifewine_amount += 1
+#			emit_signal("lifewine_obtained", Global.lifewine_amount)
+#		"ItemPouch_1":
+#			pass
 
 
 func debug_commands(cmd : String):
@@ -1716,6 +1897,10 @@ func debug_commands(cmd : String):
 		"killall":
 			for enemy in get_tree().get_nodes_in_group("Enemy"):
 				enemy.queue_free()
+		"cyberninja":
+			change_skin(CYBER_NINJA_SKIN)
+		"defskin":
+			change_skin(DEFAULT_SKIN)
 # Utility functions
 
 func toggle_shopping(value : bool ):
@@ -1737,8 +1922,14 @@ func slow_player(time : float):
 	
 func get_opals(opals : int):
 	Global.opals_amount += opals
-	emit_signal("opals_obtained", Global.opals_amount)
+	emit_signal("opals_obtained", opals)
+	emit_signal("record_opals_obtained", opals)
+	
 
+func add_shield_hp(value : float):
+	shield_hp += value
+	$Shield/ShieldHPBar.max_value = shield_hp
+	$Shield/ShieldHPBar.value += shield_hp
 # Timers
 func _on_InvulnerabilityTimer_timeout():
 	$HurtAnimationPlayer.play("RESET")
@@ -1748,7 +1939,7 @@ func _on_InvulnerabilityTimer_timeout():
 	
 func _on_AttackTimer_timeout():
 	$AttackCollision.position = Vector2(0,0)
-	$Sprite.position = Vector2(0,0)
+#	$Sprite.position = Vector2(0,0)
 	is_attacking = false
 	$AttackCollision/CollisionShape2D.disabled = true
 	$Sprite.play("Idle")
@@ -1883,6 +2074,8 @@ func _on_AttackCollision_area_exited(area):
 
 func update_energy_meter(value : int):
 	$EnergyMeter.value += value
+	$EnergyMeter.visible = true
+	$HideEnergyMeterTimer.start()
 	if $EnergyMeter.value == $EnergyMeter.max_value:
 		if !energy_full:
 			$EnergyMeterFlickerEffectPlayer.play("Flicker")
@@ -1909,9 +2102,11 @@ func _on_InputPressTimer_timeout():
 						thrust_attack()
 				else:
 					if is_on_floor():
-						charged_attack("Circular") if attack_string_count == 1 else charged_attack("Ground")
+						charged_attack("Circular") if attack_string_count == 1 and Global.player_talents["CycloneSlashes"]["unlocked"] and Global.player_talents["CycloneSlashes"]["enabled"] else charged_attack("Ground")
 
-
+func _on_DashInputPressTimer_timeout():
+	if Global.current_character == "Player" and Input.is_action_pressed("ui_dash") and !Input.is_action_pressed("ui_attack") and !is_quickswap_attacking:
+		charged_dash()
 
 func _on_WalkParticleTimer_timeout():
 	if is_on_floor() and Input.is_action_pressed("right") or Input.is_action_pressed("left"):
@@ -1937,22 +2132,71 @@ func _on_GhostTrailTimer_timeout():
 	if is_dashing:
 		if Global.current_character == "Player" and velocity.x != 0:
 			var ghost_trail = preload("res://scenes/misc/GhostTrail.tscn").instance()
-			var texture = preload("res://assets/player/player_dash.png")
 			
+			if $Sprite.frames == DEFAULT_SKIN:
+				ghost_trail.texture = preload("res://assets/characters/player/player_idle.png")
+				ghost_trail.scale.x = 5
+				ghost_trail.scale.y = 5
+			elif $Sprite.frames == CYBER_NINJA_SKIN:
+				ghost_trail.texture = preload("res://assets/characters/player/skins/cyber_ninja/player_idle.png")
+				ghost_trail.scale.x = 6
+				ghost_trail.scale.y = 6
 			get_parent().add_child(ghost_trail)
 			ghost_trail.position = global_position
 			if !$Sprite.flip_h:
-				
 				ghost_trail.flip_h = false
 			else:
 				ghost_trail.flip_h = true
 				
-			ghost_trail.scale.x = 5
-			ghost_trail.scale.y = 5
-	
+
 
 
 
 func _on_ResetAttackStringTimer_timeout():
 	attack_string_count = 4
 
+
+
+func _on_SwitchAttackCollision_area_exited(area):
+	if area.is_in_group("Enemy"):
+		attack_area_overlaps_enemy = false
+		
+
+
+func _on_SwitchAttackCollision_area_entered(area):
+	if weakref(area).get_ref() != null:
+			if area.is_in_group("Enemy")  and !$AttackCollision/CollisionShape2D.disabled:
+				print(attack_string_count)
+				if !is_on_floor() and !$HeightRaycast2D.is_colliding():
+					airborne_mode = true
+					$AirborneTimer.stop()
+					$AirborneTimer.start()
+				attack_area_overlaps_enemy = true
+	#			attack_knock()
+	#			freeze_enemy()
+				if Global.current_character == "Player":
+					if weakref(area).get_ref() != null:
+						var slashparticle = SWORD_SLASH_EFFECT.instance()
+						var hitparticle = SWORD_HIT_PARTICLE.instance()
+						get_parent().add_child(slashparticle)
+						get_parent().add_child(hitparticle)
+						hitparticle.emitting = true
+						hitparticle.position = area.global_position
+						slashparticle.position = area.global_position
+						slashparticle.regular_slash_animation()
+		
+
+func _on_StabAttackCollision_area_entered(area):
+	pass # Replace with function body.
+
+
+func _on_StabAttackCollision_area_exited(area):
+	if area.is_in_group("Enemy"):
+		attack_area_overlaps_enemy = false
+
+
+
+
+
+func _on_HideEnergyMeterTimer_timeout():
+	$EnergyMeter.visible = false

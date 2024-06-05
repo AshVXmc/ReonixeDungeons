@@ -3,8 +3,10 @@ class_name Goblin extends KinematicBody2D
 const DMG_INDICATOR : PackedScene = preload("res://scenes/particles/DamageIndicatorParticle.tscn")
 const SWORD_HIT_PARTICLE : PackedScene = preload("res://scenes/particles/SwordHitParticle.tscn")
 const DEATH_SMOKE : PackedScene = preload("res://scenes/particles/DeathSmokeParticle.tscn")
-onready var max_HP : int = 25 + (Global.enemy_level_index * 25)
-onready var level : int = round(Global.enemy_level_index)
+var max_HP_calc : int = 25 + (Global.enemy_level_index * 35)
+var level_calc : int = round(Global.enemy_level_index)
+export var max_HP : int = max_HP_calc
+export var level : int = level_calc
 var atk_value : float = 1 * Global.enemy_level_index 
 onready var HP : int = max_HP
 export var flipped : bool = false
@@ -13,7 +15,7 @@ var direction : int = 1
 var is_dead : bool = false 
 const TYPE : String = "Enemy"
 const FLOOR = Vector2(0, -1)
-const MAX_SPEED : int = 140
+const MAX_SPEED : int = 110
 var SPEED : int = MAX_SPEED
 const MAX_GRAVITY : int = 45
 var GRAVITY : int = MAX_GRAVITY
@@ -45,7 +47,7 @@ var phys_res : float = 25
 var fire_res : float = 0
 var earth_res : float = 0 
 var ice_res : float = 0
-var magic_res : float = -50
+var global_res : float = 0
 #var overlaps_enemy_while_midair : bool = false
 var elemental_type : String = "Physical"
 
@@ -68,7 +70,6 @@ func _ready():
 	$HealthBar.value = $HealthBar.max_value
 	connect("change_hitcount", get_parent().get_node("EleganceMeterUI/Control"), "hitcount_changed")
 func _physics_process(delta):
-
 	if !is_airborne:
 		set_collision_mask_bit(2, true)
 	else:
@@ -77,12 +78,6 @@ func _physics_process(delta):
 		$Sprite.flip_h = true
 	if !is_airborne:
 		velocity.y += GRAVITY
-#	if is_airborne:
-#		velocity.y = 0
-#		velocity.y -= 250
-#		yield(get_tree().create_timer(1), "timeout")
-#		velocity.y = 0
-#	if !is_staggered and !is_frozen:
 	velocity = move_and_slide(velocity, FLOOR)
 	if !$Sprite.flip_h:
 		$OtherEnemyDetector.set_scale(Vector2(1,1))
@@ -90,11 +85,13 @@ func _physics_process(delta):
 	else:
 		$OtherEnemyDetector.set_scale(Vector2(-1,1))
 		$SpearThrustAttackCollision.set_scale(Vector2(-1,1))
-	if velocity.x == 0:
+	if 80 >= velocity.x and velocity.x >= 0:
+		yield(get_tree().create_timer(0.1), "timeout")
 		$Sprite.play("Idle")
 		if $Area2D.is_in_group("Hostile"):
 			$Area2D.remove_from_group("Hostile") 
 	else:
+		yield(get_tree().create_timer(0.1), "timeout")
 		$Sprite.play("Attacking")
 		if !$Area2D.is_in_group("Hostile"):
 			$Area2D.add_to_group("Hostile")
@@ -120,13 +117,6 @@ func _physics_process(delta):
 				if $Sprite.flip_h:
 					yield(get_tree().create_timer(0.5),"timeout")
 					velocity.x = SPEED
-#	else:
-#
-##		if other_enemy_detector_is_overlapping_player():
-#			if $Sprite.flip_h:
-#				velocity.x = -SPEED 
-#			else:
-#				velocity.x = SPEED 
 	if other_enemy_is_on_front():
 		velocity.x = 0
 		
@@ -136,17 +126,6 @@ func _physics_process(delta):
 			velocity.x = -SPEED * 1
 		else:
 			velocity.x = SPEED * 1
-#	if !is_staggered and other_enemy_detector_is_overlapping_player() and !other_enemy_detectors_is_overlapping():
-#		if AREA_RIGHT.overlaps_area(PLAYER):
-#			if $Sprite.flip_h:
-#				velocity.x = -SPEED 
-#			else:
-#				velocity.x = SPEED
-#		elif AREA_LEFT.overlaps_area(PLAYER):
-#			if $Sprite.flip_h:
-#				velocity.x = SPEED 
-#			else:
-#				velocity.x = -SPEED
 	if other_enemy_detectors_is_overlapping():
 		if $Sprite.flip_h:
 			velocity.x = -SPEED 
@@ -213,14 +192,19 @@ func _on_Area2D_area_entered(area):
 	if area.is_in_group("MediumPoiseDamage"):
 		knockback(4.2)
 	if area.is_in_group("HeavyPoiseDamage"):
-		knockback(7.5)
+		knockback(20)
+	if area.is_in_group("CustomPoiseDamage"):
+		for g in area.get_groups():
+			if float(g) != 0:
+				knockback(float(g))
 	if weakref(area).get_ref() != null:
 		if area.is_in_group("Sword"):
 			var groups : Array = area.get_groups()
 			for group_names in groups:
 				if float(group_names) != 0 and $HitDelayTimer.is_stopped():
 					var raw_damage = float(group_names)
-					var damage = round((raw_damage - (raw_damage * (phys_res / 100))) * armor_strength_coefficient)
+					var damage_after_global_res = raw_damage - (raw_damage * (global_res / 100))
+					var damage = round((damage_after_global_res - (damage_after_global_res * (phys_res / 100))) * armor_strength_coefficient)
 					print("HP reduced by " + str(damage))
 					HP -= float(damage)
 					$HealthBar.value  -= float(damage)
@@ -238,8 +222,8 @@ func _on_Area2D_area_entered(area):
 				for group_names in groups:
 					if float(group_names) != 0:
 						var raw_damage = float(group_names)
-						
-						var damage = ((raw_damage - (raw_damage * (phys_res / 100))) * armor_strength_coefficient)
+						var damage_after_global_res = raw_damage - (raw_damage * (global_res / 100))
+						var damage = ((damage_after_global_res - (damage_after_global_res * (phys_res / 100))) * armor_strength_coefficient)
 						print("HP reduced by " + str(damage))
 						HP -= float(damage)
 						$HealthBar.value  -= float(damage)
@@ -255,7 +239,8 @@ func _on_Area2D_area_entered(area):
 			for group_names in groups:
 				if float(group_names) != 0 and $HitDelayTimer.is_stopped():
 					var raw_damage = float(group_names)
-					var damage = round((raw_damage - (raw_damage * (fire_res / 100))) * armor_strength_coefficient)
+					var damage_after_global_res = raw_damage - (raw_damage * (global_res / 100))
+					var damage = round((damage_after_global_res - (damage_after_global_res * (fire_res / 100))) * armor_strength_coefficient)
 					print("HP reduced by " + str(damage))
 					HP -= float(damage)
 					$HealthBar.value  -= float(damage)
@@ -268,12 +253,15 @@ func _on_Area2D_area_entered(area):
 					parse_damage()
 					break
 		
+		
 		if area.is_in_group("Ice"):
+			print("ice entered")
 			var groups : Array = area.get_groups()
 			for group_names in groups:
 				if float(group_names) != 0 and $HitDelayTimer.is_stopped():
 					var raw_damage = float(group_names)
-					var damage = round((raw_damage - (raw_damage * (ice_res / 100))) * armor_strength_coefficient)
+					var damage_after_global_res = raw_damage - (raw_damage * (global_res / 100))
+					var damage = round((damage_after_global_res - (damage_after_global_res * (ice_res / 100))) * armor_strength_coefficient)
 					print("HP reduced by " + str(damage))
 					HP -= float(damage)
 					$HealthBar.value  -= float(damage)
@@ -285,18 +273,44 @@ func _on_Area2D_area_entered(area):
 					$HitDelayTimer.start()
 					parse_damage()
 					break
-
+		if area.is_in_group("Earth"):
+			var groups : Array = area.get_groups()
+			for group_names in groups:
+				if float(group_names) != 0 and $HitDelayTimer.is_stopped():
+					var raw_damage = float(group_names)
+					var damage_after_global_res = raw_damage - (raw_damage * (global_res / 100))
+					var damage = round((damage_after_global_res - (damage_after_global_res * (earth_res / 100))) * armor_strength_coefficient)
+					print("HP reduced by " + str(damage))
+					HP -= float(damage)
+					$HealthBar.value  -= float(damage)
+					if area.is_in_group("IsCritHit"):
+						
+						add_damage_particles("Earth", float(damage), true)
+					else:
+						add_damage_particles("Earth", float(damage), false)
+					$HitDelayTimer.start()
+					parse_damage()
+					break
 		if area.is_in_group("FireGauge"):
 			pass
 		if area.is_in_group("Burning"):
-			print("Burning")
-			var damage = (0.025 * max_HP) + (Global.damage_bonus["fire_dmg_bonus_%"] / 100 * (0.025 * max_HP))
-			HP -= damage
-
-			print("HP-" + str(damage))
-			$HealthBar.value -= damage
-			parse_status_effect_damage()
-			add_damage_particles("Fire", damage, false)
+			var groups : Array = area.get_groups()
+			for group_names in groups:
+				if float(group_names) != 0 and $HitDelayTimer.is_stopped():
+					var raw_damage = float(group_names)
+					var damage_after_global_res = raw_damage - (raw_damage * (global_res / 100))
+					var damage = round((damage_after_global_res - (damage_after_global_res * (fire_res / 100))) * armor_strength_coefficient)
+					print("HP reduced by " + str(damage))
+					HP -= float(damage)
+					$HealthBar.value  -= float(damage)
+					if area.is_in_group("IsCritHit"):
+						
+						add_damage_particles("Fire", float(damage), true)
+					else:
+						add_damage_particles("Fire", float(damage), false)
+					$HitDelayTimer.start()
+					parse_damage()
+					break
 		if area.is_in_group("Airborne") and !is_airborne:
 			is_airborne = true
 			velocity.y = AIRBORNE_SPEED
@@ -319,19 +333,18 @@ func _on_Area2D_area_entered(area):
 		
 		if is_airborne:
 			if !area.is_in_group("NoAirborneKnockback") and area.is_in_group("LightPoiseDamage") or area.is_in_group("MediumPoiseDamage"):
-				knockback(1.5)
+				knockback(1)
 		else:
 			if area.is_in_group("LightPoiseDamage"):
-				knockback(1.5)
+				knockback(1)
 		
 		if area.is_in_group("MediumPoiseDamage"):
-			knockback(4.2)
+			knockback(3.5)
 		if area.is_in_group("HeavyPoiseDamage"):
-			knockback(7.5)
+			knockback(10)
 	
-#	if area.is_in_group("Enemy"):
-#		set_collision_mask_bit(2, false)
-#
+		if area.is_in_group("EnemyHealingOrb") and self.is_in_group("CanBeHealed") and HP < max_HP:
+			heal(0.35)
 
 func add_damage_particles(type : String, dmg : int, is_crit : bool):
 	var dmgparticle = DMG_INDICATOR.instance()
@@ -342,6 +355,11 @@ func add_damage_particles(type : String, dmg : int, is_crit : bool):
 	get_parent().add_child(dmgparticle)
 	dmgparticle.position = global_position
 
+func heal(amount : float):
+	# amount = percent of max health that gets healed. (Float)
+	HP = clamp(HP + (max_HP * amount), 0, max_HP)
+	$HealthBar.value = HP
+	
 func knockback(knockback_coefficient : float = 1):
 	is_staggered = true
 	if $Sprite.flip_h:
@@ -380,7 +398,7 @@ func death():
 	var randomint = lootrng.randi_range(1,3)
 	if randomint == 1:
 		get_parent().add_child(loot)
-		loot.Tier = 2
+		loot.opals_amount = 25
 		loot.position = $Position2D.global_position
 	queue_free()
 	print("reached")

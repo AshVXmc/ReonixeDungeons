@@ -1,0 +1,21 @@
+{
+	"color": "#ffffd703",
+	"description": "",
+	"display_name": "Tavern Sign",
+	"display_name_bool": true,
+	"id": "character-1709805687.json",
+	"mirror_portraits": false,
+	"name": "TavernSign",
+	"nickname": "",
+	"nickname_bool": false,
+	"offset_x": 0,
+	"offset_y": 0,
+	"portraits": [
+		{
+			"name": "Default",
+			"path": ""
+		}
+	],
+	"scale": 100,
+	"theme": ""
+}

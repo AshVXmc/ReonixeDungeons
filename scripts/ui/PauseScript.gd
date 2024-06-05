@@ -21,17 +21,19 @@ func _ready():
 func _notification(what):
 	if !visible:
 		if what == MainLoop.NOTIFICATION_WM_FOCUS_IN:
+			
 			get_tree().paused = false
 			$Blur.visible = false
 			get_parent().get_node("OutOfFocus").visible = false
 		elif what == MainLoop.NOTIFICATION_WM_FOCUS_OUT:
+			
 			$Blur.visible = true
 			get_parent().get_node("OutOfFocus").visible = true
 			get_tree().paused = true
 
 func _process(delta):
-	if Input.is_action_just_pressed("ui_cancel") and !Global.is_opening_an_UI and !get_parent().get_parent().get_node("Player").is_shopping:
-
+	if Input.is_action_just_pressed("ui_cancel") and !get_parent().get_parent().get_node("Player").is_shopping:
+#		get_parent().layer = 2
 		get_parent().get_parent().get_node("DebugMenu").get_node("Control").visible = false
 		get_tree().paused = true
 		visible = true
@@ -39,12 +41,15 @@ func _process(delta):
 #			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 #		else:
 #			Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
-			
+	elif Input.is_action_just_pressed("ui_debug"):
+		get_tree().paused = false
+		visible = false
+		
 func _on_ResumeButton_pressed():
 	print("resumed game")
 	get_tree().paused = false
 	visible = false
-
+	get_parent().layer = 1
 
 func _on_SaveButton_pressed():
 	if get_tree().get_current_scene().get_name() != "MaskedGoblinLevel":

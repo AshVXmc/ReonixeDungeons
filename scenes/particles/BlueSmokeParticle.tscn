@@ -4,9 +4,10 @@
 
 [node name="BlueSmokeParticle" type="CPUParticles2D"]
 modulate = Color( 0.0352941, 0.858824, 0.772549, 1 )
-scale = Vector2( 6, 6 )
-amount = 6
-lifetime = 0.3
+scale = Vector2( 3, 3 )
+emitting = false
+lifetime = 0.5
+one_shot = true
 explosiveness = 1.0
 randomness = 0.5
 texture = ExtResource( 1 )

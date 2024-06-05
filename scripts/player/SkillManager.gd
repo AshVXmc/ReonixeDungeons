@@ -2,29 +2,29 @@ class_name PlayerSkillManager extends Node2D
 
 signal mana_changed(amount)
 var FIRE_PARTICLE : PackedScene = preload("res://scenes/particles/FlameParticle.tscn")
-var FIREBALL : PackedScene 
-var FIRESAW : PackedScene 
-var FIRE_FAIRY : PackedScene 
-var ICE_LANCE : PackedScene
+var FIREBALL : PackedScene = preload("res://scenes/skills/Fireball.tscn")
+var FIRESAW : PackedScene = preload("res://scenes/skills/FireSaw.tscn")
+var FIRE_FAIRY : PackedScene = preload("res://scenes/skills/FireFairy.tscn")
+var BURNING_STATUS : PackedScene = preload("res://scenes/status_effects/BurningStatus.tscn")
+var ICE_LANCE : PackedScene = preload("res://scenes/skills/IceLance.tscn")
+var SUGAR_ROLL : PackedScene = preload("res://scenes/items/SugarRoll.tscn")
+var chaos_magic_ui 
 var playeratkbonus : float
 var glacielaatkbonus : float
 
 func _ready():
 	connect("mana_changed", get_parent().get_parent().get_node("ManaUI/Mana"), "on_player_mana_changed")
-	match Global.player_skills["PrimarySkill"]:
-		"FireSaw":
-			FIRESAW = load("res://scenes/skills/FireSaw.tscn")
-	match Global.player_skills["SecondarySkill"]:
-		"FireFairy":
-			FIRE_FAIRY = load("res://scenes/skills/FireFairy.tscn")
-	match Global.player_skills["RangedSkill"]:
-		"Fireball":
-			FIREBALL = load("res://scenes/skills/Fireball.tscn")
 	
-	if Global.equipped_characters.has("Glaciela"):
-		ICE_LANCE = load("res://scenes/skills/IceLance.tscn")
-func on_skill_used(skill_name : String, attack_bonus : float = 0):
+func on_skill_used (
+	skill_name : String, 
+	attack_bonus : float = 0,
+	# direction is only used on skills with directional paramaters like Fireball 
+	direction : int = 1
+	):
 	match skill_name:
+		###################
+		## SKILLS #########
+		###################
 		"FireSaw":
 			get_parent().is_using_primary_skill = true
 			var firesaw : FireSaw = FIRESAW.instance()
@@ -48,6 +48,7 @@ func on_skill_used(skill_name : String, attack_bonus : float = 0):
 				
 			get_parent().is_attacking = false
 			get_parent().get_node("AttackCollision/CollisionShape2D").disabled = true
+
 			# 8 is the duration of the firesaw
 			yield(get_tree().create_timer(firesaw.get_node("DestroyedTimer").wait_time),"timeout")
 			get_parent().is_using_primary_skill = false
@@ -70,13 +71,32 @@ func on_skill_used(skill_name : String, attack_bonus : float = 0):
 					emit_signal("mana_changed", Global.character3_mana, "Player")
 			yield(get_tree().create_timer(fire_fairy.get_node("DestroyedTimer").wait_time), "timeout")
 			get_parent().is_using_secondary_skill = false
+		"Fireball":
+			var fireball = FIREBALL.instance()
+			fireball.direction = direction
+			get_parent().get_parent().add_child(fireball)
+			fireball.position = global_position
+		"CreateSugarRoll":
+			var sugar_roll = SUGAR_ROLL.instance()
+			get_parent().get_parent().add_child(sugar_roll)
+			sugar_roll.position = global_position
 		"IceLance":
-			print("ICE LANCE GO")
+			
 			get_parent().is_using_primary_skill = true
 			var icelance = ICE_LANCE.instance()
 			get_parent().get_parent().add_child(icelance)
 			icelance.position = global_position
+			if !Global.godmode:
+				if Global.equipped_characters[0] == "Glaciela" and Global.mana >= Global.glaciela_skill_multipliers["IceLanceCost"]:
+					Global.mana -= Global.glaciela_skill_multipliers["IceLanceCost"]
+					emit_signal("mana_changed", Global.mana, "Glaciela")
+				elif Global.equipped_characters[1] == "Glaciela" and Global.character2_mana >= Global.glaciela_skill_multipliers["IceLanceCost"]:
+					Global.character2_mana -= Global.glaciela_skill_multipliers["IceLanceCost"]
+					emit_signal("mana_changed", Global.character2_mana, "Glaciela")
+				elif Global.equipped_characters[2] == "Glaciela" and Global.character3_mana >= Global.glaciela_skill_multipliers["IceLanceCost"]:
+					Global.character3_mana -= Global.glaciela_skill_multipliers["IceLanceCost"]
+					emit_signal("mana_changed", Global.character3_mana, "Glaciela")
 		"ColdBloodedThrust":
 			pass
+		
 
-	

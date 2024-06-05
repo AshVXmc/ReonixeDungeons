@@ -56,7 +56,7 @@ modulate = Color( 0, 1, 0, 0 )
 margin_right = 40.0
 margin_bottom = 14.0
 grow_horizontal = 2
-rect_scale = Vector2( 1.25, 1.25 )
+rect_scale = Vector2( 0.75, 0.75 )
 custom_fonts/font = SubResource( 1 )
 text = "0"
 

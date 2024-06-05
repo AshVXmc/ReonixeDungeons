@@ -23,7 +23,7 @@ var ATTACK = Global.glaciela_attack
 func _ready():
 	direction = Right
 	add_to_group(str(ATTACK * (Global.glaciela_skill_multipliers["IceLance"] / 100)))
-	add_to_group("IceGaugeTwo")
+#	add_to_group("IceGaugeTwo")
 	if Global.equipped_characters.has("Glaciela"):
 		connect("restore_tundra_stacks", get_parent().get_node("Player/Glaciela"), "restore_tundra_stacks")
 func _physics_process(delta):

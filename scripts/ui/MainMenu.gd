@@ -3,7 +3,6 @@ class_name MainMenu extends Control
 func _ready():
 	$Popup1.visible = false
 	$SaveLabel.visible = false
-	
 	print(InputMap.get_action_list("ui_use")[0].as_text())
 	
 func _process(delta):
@@ -12,7 +11,7 @@ func _process(delta):
 	$SetKeybinds.text = "> Controls" if $SetKeybinds.is_hovered() else "Controls"
 	$Tutorial.text = "> How to play" if $Tutorial.is_hovered() else " How to play"
 	$Exit.text = "> Exit" if $Exit.is_hovered() else "Exit"
-
+	
 
 func _on_NewGame_pressed():
 	new_game()
@@ -23,7 +22,7 @@ func new_game():
 	$SceneTransition/ColorRect.visible = true
 	$SceneTransition.transition()
 	yield(get_tree().create_timer(1), "timeout")
-	get_tree().change_scene("res://scenes/levels/HubLevel.tscn")
+	get_tree().change_scene("res://scenes/levels/hublevel/HubLevel.tscn")
 	call_deferred('free')
 
 
@@ -39,18 +38,20 @@ func _on_LoadGame_pressed():
 			# if player_data.has("varname"):
 			#		Global.varname = "varname
 			# Its so older save files are compatible.
-			Global.max_hearts = player_data["MaxHealth"]
-			Global.hearts = player_data["Health"]
+#			Global.max_hearts = player_data["MaxHealth"]
+#			Global.hearts = player_data["Health"]
 			Global.max_mana = player_data["MaxMana"]
 			Global.mana = player_data["Mana"]
 			Global.attack_power = player_data["AttackPower"]
 			Global.opals_amount = player_data["Opals"]
 			Global.crystals_amount = player_data["RevivementCrystals"]
 			Global.healthpot_amount = player_data["Healthpot"]
-			Global.common_monster_dust_amount = player_data["CommonMonsterDust"]
-			Global.goblin_scales_amount = player_data["GoblinScales"]
-			Global.dash_unlocked = player_data["DashUnlocked"]
-			Global.glide_unlocked = player_data["GlideUnlocked"]
+			Global.drops_inventory["common_dust"] = player_data["CommonDust"]
+			Global.drops_inventory["goblin_scales"] = player_data["GoblinScales"]
+			Global.drops_inventory["bat_wings"] = player_data["BatWings"]
+			Global.drops_inventory["sweet_herbs"] = player_data["SweetHerbs"]
+#			Global.dash_unlocked = player_data["DashUnlocked"]
+#			Global.glide_unlocked = player_data["GlideUnlocked"]
 			Global.opened_chests = player_data["ChestOpened"]
 			Global.max_item_storage = player_data["MaxItemStorage"]
 			Global.lighting = player_data["Lighting"]
@@ -67,6 +68,7 @@ func _on_LoadGame_pressed():
 			Global.masked_goblin_defeated = player_data["MaskedGoblinDefeated"]
 			Global.activated_portals = player_data["ActivatedPortals"]
 			Global.enemy_level_index = player_data["EnemyLevelIndex"]
+			Global.character_level_data = player_data["CharacterLevelData"]
 			$SceneTransition/ColorRect.visible = true
 			$SceneTransition.transition()
 			yield(get_tree().create_timer(1), "timeout")

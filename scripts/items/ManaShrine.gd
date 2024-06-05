@@ -1,23 +1,15 @@
-extends Node2D
-
-onready var full = preload("res://assets/terrain/mana_shrine_full.png")
-onready var empty = preload("res://assets/terrain/mana_shrine_empty.png")
+class_name ManaShrine extends Node2D
 onready var PLAYER = get_parent().get_node("Player").get_node("Area2D")
-signal manashrine_heal()
 
 func _ready():
-	connect("manashrine_heal", get_parent().get_node("Player"), "on_manashrine_toggled")
-	$Sprite.texture = full
-	$Label.visible = false
+	$LabelNode.visible = false
 func _process(delta):
 	if $Area2D.overlaps_area(PLAYER):
+		$LabelNode.visible = true
 		if Input.is_action_just_pressed("ui_use"):
-			emit_signal("manashrine_heal")
+			start_challenge()
+			
 
-func _on_Area2D_area_exited(area):
-	$Label.visible = false
-
-
-func _on_Area2D_area_entered(area):
-	if area.is_in_group("Player") and !$Label.visible:
-		$Label.visible = true
+func start_challenge():
+	get_parent().initiate_enemy_wave(get_parent().WAVE)
+	call_deferred('free')

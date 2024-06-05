@@ -1,0 +1,21 @@
+{
+	"events": [
+		{
+			"character": "character-1713797814.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "Help yourself to this cauldron, wouldn't you? I donated it to this tavern. Its a family heirloom, held for generations, and an Archmage had even infused it with powerful magic... "
+		},
+		{
+			"character": "character-1713797814.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": ".... or at least that's how the fairy tale goes. Could it be true? Could it be not? Only one way to find out.."
+		}
+	],
+	"metadata": {
+		"dialogic-version": "1.4.5",
+		"file": "timeline-1713797769.json",
+		"name": "HubLevelAlchemist"
+	}
+}

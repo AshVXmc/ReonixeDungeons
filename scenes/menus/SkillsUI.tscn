@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://scripts/ui/SkillsUI.gd" type="Script" id=1]
 [ext_resource path="res://assets/UI/firesaw_skill_icon.png" type="Texture" id=2]
@@ -6,9 +6,13 @@
 [ext_resource path="res://assets/UI/icon_empty.png" type="Texture" id=4]
 [ext_resource path="res://assets/UI/fire_fairy_skill_icon.png" type="Texture" id=5]
 [ext_resource path="res://assets/UI/winter_queen_skill_icon.png" type="Texture" id=6]
+[ext_resource path="res://assets/UI/fireball_skill_icon.png" type="Texture" id=7]
 [ext_resource path="res://assets/UI/icelance_skill_icon.png" type="Texture" id=8]
 [ext_resource path="res://assets/UI/empty_character_icon.png" type="Texture" id=9]
-[ext_resource path="res://assets/UI/player_dash_skill_icon.png" type="Texture" id=10]
+[ext_resource path="res://assets/UI/skill_charges_empty.png" type="Texture" id=10]
+[ext_resource path="res://assets/UI/skill_charges_full.png" type="Texture" id=11]
+[ext_resource path="res://assets/UI/create_sugar_roll_talent_icon.png" type="Texture" id=12]
+[ext_resource path="res://assets/UI/silence_ability_overlay.png" type="Texture" id=13]
 
 [sub_resource type="DynamicFont" id=1]
 size = 32
@@ -249,6 +253,23 @@ custom_fonts/font = SubResource( 4 )
 text = "99"
 align = 1
 
+[node name="KeyIcon" type="Sprite" parent="Control/PrimarySkill"]
+position = Vector2( 169.5, 207 )
+scale = Vector2( 1.5, 1.5 )
+texture = ExtResource( 4 )
+
+[node name="KeyBind" type="Label" parent="Control/PrimarySkill"]
+anchor_left = -3.732
+anchor_right = -3.732
+margin_left = 311.985
+margin_top = 195.013
+margin_right = 325.985
+margin_bottom = 227.013
+rect_scale = Vector2( 0.8, 0.8 )
+custom_colors/font_color = Color( 0.192157, 0.372549, 1, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Q"
+
 [node name="SecondarySkill" type="Control" parent="Control"]
 margin_top = -44.0
 margin_right = 40.0
@@ -348,30 +369,152 @@ custom_fonts/font = SubResource( 4 )
 text = "99"
 align = 1
 
-[node name="EnduranceMeter" type="Control" parent="Control"]
+[node name="KeyIcon" type="Sprite" parent="Control/SecondarySkill"]
+position = Vector2( 270, 228 )
+scale = Vector2( 1.5, 1.5 )
+texture = ExtResource( 4 )
+
+[node name="KeyBind" type="Label" parent="Control/SecondarySkill"]
+anchor_left = -3.732
+anchor_right = -3.732
+margin_left = 412.985
+margin_top = 216.013
+margin_right = 426.985
+margin_bottom = 248.013
+rect_scale = Vector2( 0.8, 0.8 )
+custom_colors/font_color = Color( 0.192157, 0.372549, 1, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "E"
+
+[node name="TertiarySkill" type="Control" parent="Control"]
 margin_left = -4.0
 margin_top = -42.0
 margin_right = 36.0
 margin_bottom = -2.0
 
-[node name="Sprite" type="Sprite" parent="Control/EnduranceMeter"]
+[node name="Player" type="Control" parent="Control/TertiarySkill"]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="Fireball" type="Control" parent="Control/TertiarySkill/Player"]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="Sprite" type="Sprite" parent="Control/TertiarySkill/Player/Fireball"]
 self_modulate = Color( 1, 1, 1, 0.333333 )
 position = Vector2( 370, 190 )
 scale = Vector2( 4, 4 )
+texture = ExtResource( 7 )
+
+[node name="TextureProgress" type="TextureProgress" parent="Control/TertiarySkill/Player/Fireball"]
+margin_left = 330.0
+margin_top = 150.0
+margin_right = 350.0
+margin_bottom = 170.0
+rect_scale = Vector2( 4, 4 )
+texture_progress = ExtResource( 7 )
+fill_mode = 5
+
+[node name="Label" type="Label" parent="Control/TertiarySkill/Player/Fireball"]
+margin_left = 350.0
+margin_top = 170.0
+margin_right = 392.0
+margin_bottom = 218.0
+custom_fonts/font = SubResource( 1 )
+text = "15.0"
+align = 1
+valign = 1
+
+[node name="ManaSlot" type="TextureRect" parent="Control/TertiarySkill/Player/Fireball"]
+margin_left = 386.0
+margin_top = 215.0
+margin_right = 434.0
+margin_bottom = 231.0
 texture = ExtResource( 10 )
+expand = true
+stretch_mode = 2
 
-[node name="TextureProgress" type="TextureProgress" parent="Control/EnduranceMeter"]
-margin_left = 338.0
-margin_top = 158.0
-margin_right = 354.0
-margin_bottom = 174.0
-rect_scale = Vector2( 3.74057, 3.87602 )
-texture_progress = ExtResource( 10 )
-fill_mode = 3
+[node name="ManaIcon" type="TextureRect" parent="Control/TertiarySkill/Player/Fireball"]
+margin_left = 386.0
+margin_top = 215.0
+margin_right = 434.0
+margin_bottom = 231.0
+texture = ExtResource( 11 )
+expand = true
+stretch_mode = 2
 
-[node name="EnduranceRegenTimer" type="Timer" parent="Control/EnduranceMeter"]
-wait_time = 0.1
-autostart = true
+[node name="KeyIcon" type="Sprite" parent="Control/TertiarySkill"]
+position = Vector2( 370, 226 )
+scale = Vector2( 1.5, 1.5 )
+texture = ExtResource( 4 )
+
+[node name="KeyBind" type="Label" parent="Control/TertiarySkill"]
+anchor_left = -3.732
+anchor_right = -3.732
+margin_left = 512.985
+margin_top = 214.013
+margin_right = 526.985
+margin_bottom = 246.013
+rect_scale = Vector2( 0.8, 0.8 )
+custom_colors/font_color = Color( 0.192157, 0.372549, 1, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "F"
+
+[node name="TalentSkill" type="Control" parent="Control"]
+margin_left = -4.0
+margin_top = -42.0
+margin_right = 36.0
+margin_bottom = -2.0
+
+[node name="Player" type="Control" parent="Control/TalentSkill"]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="CreateSugarRoll" type="Control" parent="Control/TalentSkill/Player"]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="Sprite" type="Sprite" parent="Control/TalentSkill/Player/CreateSugarRoll"]
+self_modulate = Color( 1, 1, 1, 0.333333 )
+position = Vector2( 500, 190 )
+scale = Vector2( 4, 4 )
+texture = ExtResource( 12 )
+
+[node name="TextureProgress" type="TextureProgress" parent="Control/TalentSkill/Player/CreateSugarRoll"]
+margin_left = 460.0
+margin_top = 150.0
+margin_right = 480.0
+margin_bottom = 170.0
+rect_scale = Vector2( 4, 4 )
+texture_progress = ExtResource( 12 )
+fill_mode = 5
+
+[node name="Label" type="Label" parent="Control/TalentSkill/Player/CreateSugarRoll"]
+margin_left = 471.0
+margin_top = 170.0
+margin_right = 530.0
+margin_bottom = 218.0
+custom_fonts/font = SubResource( 1 )
+text = "60.0"
+align = 1
+valign = 1
+
+[node name="KeyIcon" type="Sprite" parent="Control/TalentSkill"]
+position = Vector2( 500, 226 )
+scale = Vector2( 1.5, 1.5 )
+texture = ExtResource( 4 )
+
+[node name="KeyBind" type="Label" parent="Control/TalentSkill"]
+anchor_left = -3.732
+anchor_right = -3.732
+margin_left = 642.985
+margin_top = 214.013
+margin_right = 656.985
+margin_bottom = 246.013
+rect_scale = Vector2( 0.8, 0.8 )
+custom_colors/font_color = Color( 0.192157, 0.372549, 1, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "C"
 
 [node name="CooldownTickTimer" type="Timer" parent="Control"]
 wait_time = 0.1
@@ -492,5 +635,29 @@ anims/RESET = SubResource( 8 )
 anims/Flicker = SubResource( 9 )
 anims/RESET = SubResource( 10 )
 
-[connection signal="timeout" from="Control/EnduranceMeter/EnduranceRegenTimer" to="Control" method="_on_EnduranceRegenTimer_timeout"]
+[node name="SilenceOverlay" type="Control" parent="Control"]
+visible = false
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="PrimarySkill" type="Sprite" parent="Control/SilenceOverlay"]
+position = Vector2( 169.5, 146 )
+scale = Vector2( 4, 4 )
+texture = ExtResource( 13 )
+
+[node name="SecondarySkill" type="Sprite" parent="Control/SilenceOverlay"]
+position = Vector2( 269.5, 146 )
+scale = Vector2( 4, 4 )
+texture = ExtResource( 13 )
+
+[node name="TertiarySkill" type="Sprite" parent="Control/SilenceOverlay"]
+position = Vector2( 366, 148 )
+scale = Vector2( 3.85, 3.85 )
+texture = ExtResource( 13 )
+
+[node name="TalentSkill" type="Sprite" parent="Control/SilenceOverlay"]
+position = Vector2( 496, 148 )
+scale = Vector2( 3.85, 3.85 )
+texture = ExtResource( 13 )
+
 [connection signal="timeout" from="Control/CooldownTickTimer" to="Control" method="_on_CooldownTickTimer_timeout"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://themes/Blur.tres" type="Material" id=1]
 [ext_resource path="res://scripts/ui/PauseScript.gd" type="Script" id=2]
@@ -12,12 +12,13 @@
 [ext_resource path="res://assets/UI/movesets_icon.png" type="Texture" id=10]
 [ext_resource path="res://themes/ScrollTextBox.tres" type="StyleBox" id=11]
 [ext_resource path="res://scripts/ui/MovesetList.gd" type="Script" id=12]
+[ext_resource path="res://themes/PauseUIFont.tres" type="DynamicFont" id=13]
 
 [sub_resource type="DynamicFont" id=6]
 size = 64
 font_data = ExtResource( 7 )
 
-[sub_resource type="DynamicFont" id=1]
+[sub_resource type="DynamicFont" id=12]
 size = 32
 font_data = ExtResource( 7 )
 
@@ -93,7 +94,7 @@ tracks/1/keys = {
 }
 
 [node name="PauseUI" type="CanvasLayer"]
-layer = 100
+pause_mode = 2
 
 [node name="OutOfFocus" type="Control" parent="."]
 visible = false
@@ -108,6 +109,18 @@ margin_bottom = -320.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Blur" type="ColorRect" parent="OutOfFocus"]
+material = ExtResource( 1 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -1090.0
+margin_top = -656.0
+margin_right = 2301.0
+margin_bottom = 1599.0
+color = Color( 1, 1, 1, 0 )
 
 [node name="NinePatchRect" type="NinePatchRect" parent="OutOfFocus"]
 margin_left = 349.0
@@ -143,9 +156,6 @@ margin_top = -232.0
 margin_right = 435.0
 margin_bottom = 239.0
 script = ExtResource( 2 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Blur" type="ColorRect" parent="Pause"]
 material = ExtResource( 1 )
@@ -160,9 +170,14 @@ margin_bottom = 512.5
 color = Color( 1, 1, 1, 0 )
 
 [node name="NinePatchRect" type="NinePatchRect" parent="Pause"]
-margin_top = 20.0
-margin_right = 850.0
-margin_bottom = 461.0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -326.5
+margin_top = -110.0
+margin_right = 326.5
+margin_bottom = 244.0
 texture = ExtResource( 8 )
 patch_margin_left = 64
 patch_margin_top = 64
@@ -172,10 +187,10 @@ patch_margin_bottom = 64
 [node name="ResumeButton" type="Button" parent="Pause"]
 anchor_top = 0.5
 anchor_bottom = 0.5
-margin_left = 62.0
-margin_top = -115.5
-margin_right = 182.0
-margin_bottom = 4.5
+margin_left = 134.0
+margin_top = -36.5
+margin_right = 254.0
+margin_bottom = 83.5
 custom_fonts/font = ExtResource( 3 )
 icon = ExtResource( 4 )
 flat = true
@@ -189,10 +204,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -163.0
-margin_top = -115.5
-margin_right = -43.0
-margin_bottom = 4.5
+margin_left = -136.0
+margin_top = -36.5
+margin_right = -16.0
+margin_bottom = 83.5
 icon = ExtResource( 6 )
 flat = true
 expand_icon = true
@@ -202,35 +217,23 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = 35.0
-margin_top = -115.5
-margin_right = 155.0
-margin_bottom = 4.5
+margin_left = 16.0
+margin_top = -36.5
+margin_right = 136.0
+margin_bottom = 83.5
 icon = ExtResource( 10 )
 flat = true
 expand_icon = true
-
-[node name="Label2" type="Label" parent="Pause"]
-margin_left = 249.868
-margin_top = 240.0
-margin_right = 399.868
-margin_bottom = 286.0
-custom_fonts/font = SubResource( 1 )
-text = "Save"
-align = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="QuitButton" type="Button" parent="Pause"]
 anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-margin_left = -192.0
-margin_top = -115.5
-margin_right = -72.0
-margin_bottom = 4.5
+margin_left = -252.0
+margin_top = -36.5
+margin_right = -132.0
+margin_bottom = 83.5
 custom_fonts/font = ExtResource( 3 )
 icon = ExtResource( 5 )
 flat = true
@@ -239,12 +242,24 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Label2" type="Label" parent="Pause"]
+margin_left = 274.868
+margin_top = 319.0
+margin_right = 424.868
+margin_bottom = 365.0
+custom_fonts/font = ExtResource( 13 )
+text = "Save"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="Label" type="Label" parent="Pause"]
-margin_left = 47.457
-margin_top = 240.0
-margin_right = 197.457
-margin_bottom = 286.0
-custom_fonts/font = SubResource( 1 )
+margin_left = 119.457
+margin_top = 319.0
+margin_right = 269.457
+margin_bottom = 365.0
+custom_fonts/font = ExtResource( 13 )
 text = "Resume"
 align = 1
 __meta__ = {
@@ -252,28 +267,22 @@ __meta__ = {
 }
 
 [node name="Label3" type="Label" parent="Pause"]
-margin_left = 637.544
-margin_top = 240.0
-margin_right = 809.544
-margin_bottom = 286.0
-custom_fonts/font = SubResource( 1 )
+margin_left = 580.544
+margin_top = 319.0
+margin_right = 752.544
+margin_bottom = 365.0
+custom_fonts/font = SubResource( 12 )
 text = "Main menu"
 align = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Label4" type="Label" parent="Pause"]
-margin_left = 438.544
-margin_top = 240.0
-margin_right = 610.544
-margin_bottom = 286.0
-custom_fonts/font = SubResource( 1 )
+margin_left = 417.544
+margin_top = 319.0
+margin_right = 589.544
+margin_bottom = 365.0
+custom_fonts/font = ExtResource( 13 )
 text = "Movesets"
 align = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="[Paused]" type="RichTextLabel" parent="Pause"]
 anchor_left = 0.5
@@ -281,9 +290,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 margin_left = -244.5
-margin_top = -209.0
+margin_top = -97.0
 margin_right = 244.5
-margin_bottom = -123.0
+margin_bottom = -11.0
 custom_fonts/normal_font = SubResource( 8 )
 bbcode_enabled = true
 bbcode_text = "[center]=== [color=#26b000]Paused[/color] ==="
@@ -321,15 +330,12 @@ anchor_top = 0.727
 anchor_right = 0.502
 anchor_bottom = 0.727
 margin_left = -292.945
-margin_top = -29.9906
+margin_top = 11.0094
 margin_right = 286.343
-margin_bottom = 26.009
+margin_bottom = 67.009
 custom_fonts/normal_font = SubResource( 7 )
 bbcode_enabled = true
 scroll_active = false
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="MovesetList" type="Control" parent="."]
 pause_mode = 2
@@ -385,8 +391,8 @@ bbcode_text = "[center][color=red]Player's moveset[/color][/center]
 [color=#ffd703]Basic Attack Combo[/color]
 [ATK], [ATK], [ATK], [ATK]
 
-[color=#ffd703]Basic Attack Launcher Combo[/color]
-[ATK], [ATK], [ATK], [ATK while pressing UP]
+[color=#ffd703]Basic Attack Stab Combo[/color]
+[ATK], [ATK], [ATK], [ATK while pressing DOWN]
 
 [color=#ffd703]Aerial Basic Attack Combo[/color]
 (While airborne) [ATK], [ATK], [ATK], [ATK] 
@@ -395,7 +401,7 @@ bbcode_text = "[center][color=red]Player's moveset[/color][/center]
 [Hold ATK]
 
 [color=#ffd703]Charged Attack B[/color]
-[ATK], [ATK], [ATK] and [Hold ATK]
+[ATK], [ATK], [Hold ATK]
 
 [color=#ffd703]EX Charged Attack[/color]
 [Hold ATK] when [color=purple]Energy[/color] is full
@@ -404,18 +410,18 @@ bbcode_text = "[center][color=red]Player's moveset[/color][/center]
 (While airborne) [Hold ATK] 
 Can be chained up to 2 times.
 
-[color=#ffd703]Dash Counteer Attack[/color]
+[color=#ffd703]Dash Counter Attack[/color]
 [ATK] after a perfect dodge
 
-
+[color=#ffd703]Secondary Skill[/color]
 
  "
 text = "Player's moveset
 Basic Attack Combo
 [ATK], [ATK], [ATK], [ATK]
 
-Basic Attack Launcher Combo
-[ATK], [ATK], [ATK], [ATK while pressing UP]
+Basic Attack Stab Combo
+[ATK], [ATK], [ATK], [ATK while pressing DOWN]
 
 Aerial Basic Attack Combo
 (While airborne) [ATK], [ATK], [ATK], [ATK] 
@@ -424,7 +430,7 @@ Charged Attack A
 [Hold ATK]
 
 Charged Attack B
-[ATK], [ATK], [ATK] and [Hold ATK]
+[ATK], [ATK], [Hold ATK]
 
 EX Charged Attack
 [Hold ATK] when Energy is full
@@ -433,10 +439,10 @@ Aerial Charged Attack
 (While airborne) [Hold ATK] 
 Can be chained up to 2 times.
 
-Dash Counteer Attack
+Dash Counter Attack
 [ATK] after a perfect dodge
 
-
+Secondary Skill
 
  "
 scroll_following = true
@@ -471,10 +477,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -1263.44
-margin_top = -477.363
-margin_right = 634.556
-margin_bottom = 591.637
+margin_left = -1201.55
+margin_top = -511.003
+margin_right = 696.446
+margin_bottom = 557.997
 color = Color( 0, 0, 0, 0.196078 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="PerfectDash"]

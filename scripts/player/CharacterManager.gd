@@ -2,6 +2,8 @@ class_name CharacterManager extends Node2D
 
 var GLACIELA : PackedScene = preload("res://scenes/characters/Glaciela.tscn")
 var glaciela = GLACIELA.instance()
+var AGNETTE : PackedScene = preload("res://scenes/characters/Agnette.tscn")
+var agnette = AGNETTE.instance()
 var PLAYER : PackedScene
 signal switch_in_signal(character)
 
@@ -20,13 +22,20 @@ func connect_for_switch_in_signals(charname : String):
 
 func update_party(character : String):
 	if Global.equipped_characters.has("Glaciela") and character == "Glaciela":
-		GLACIELA = load("res://scenes/characters/Glaciela.tscn")
+		
 		glaciela = GLACIELA.instance()
 		add_child(glaciela)
 		if Global.current_character == "Glaciela":
 			glaciela.visible = true
 		else:
 			glaciela.visible = false
+	if Global.equipped_characters.has("Agnette") and character == "Agnette":
+		agnette = AGNETTE.instance()
+		add_child(agnette)
+		if Global.current_character == "Agnette":
+			agnette.visible = true
+		else:
+			agnette.visible = false
 #	if Global.equipped_characters.has("Player") and character == "Player":
 #		GLACIELA = load("res://scenes/characters/Glaciela.tscn")
 #		glaciela = GLACIELA.instance()
@@ -83,12 +92,17 @@ func swap_in_character(character):
 		"Glaciela":
 			if glaciela:
 				glaciela.visible = true
-
+		"Agnette":
+			if agnette:
+				agnette.visible = true
 func swap_out_character(character):
 	match character:
 		"Glaciela":
 			if glaciela:
 				glaciela.visible = false
+		"Agnette":
+			if agnette:
+				agnette.visible = false
 
 
 

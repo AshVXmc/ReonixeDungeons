@@ -1,0 +1,21 @@
+{
+	"color": "#ffffd703",
+	"description": "",
+	"display_name": "Book of Shadows",
+	"display_name_bool": true,
+	"id": "character-1706105694.json",
+	"mirror_portraits": false,
+	"name": "HubLevelBookOfShadowsBookshelf",
+	"nickname": "",
+	"nickname_bool": false,
+	"offset_x": 0,
+	"offset_y": 0,
+	"portraits": [
+		{
+			"name": "Default",
+			"path": ""
+		}
+	],
+	"scale": 100,
+	"theme": "default-theme.cfg"
+}

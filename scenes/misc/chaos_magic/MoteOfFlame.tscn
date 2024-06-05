@@ -1,0 +1,96 @@
+[gd_scene load_steps=12 format=2]
+
+[ext_resource path="res://scenes/particles/FireDetonationParticle.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/particles/SmokeParticle.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scripts/misc/MoteOfFlame.gd" type="Script" id=3]
+[ext_resource path="res://assets/misc/animated/mote_of_fire_spreadsheet.png" type="Texture" id=4]
+
+[sub_resource type="AtlasTexture" id=1]
+atlas = ExtResource( 4 )
+region = Rect2( 0, 0, 8, 8 )
+
+[sub_resource type="AtlasTexture" id=2]
+atlas = ExtResource( 4 )
+region = Rect2( 8, 0, 8, 8 )
+
+[sub_resource type="AtlasTexture" id=3]
+atlas = ExtResource( 4 )
+region = Rect2( 16, 0, 8, 8 )
+
+[sub_resource type="AtlasTexture" id=4]
+atlas = ExtResource( 4 )
+region = Rect2( 24, 0, 8, 8 )
+
+[sub_resource type="SpriteFrames" id=5]
+animations = [ {
+"frames": [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ), SubResource( 4 ) ],
+"loop": true,
+"name": "default",
+"speed": 16.0
+} ]
+
+[sub_resource type="Animation" id=6]
+resource_name = "flicker"
+length = 0.3
+loop = true
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.15, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 0.0705882, 0.0705882, 1 ), Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="CircleShape2D" id=7]
+radius = 55.0
+
+[node name="MoteOfFlame" type="AnimatedSprite"]
+scale = Vector2( 6, 6 )
+frames = SubResource( 5 )
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+autostart = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/flicker = SubResource( 6 )
+
+[node name="EnemyDamagerArea2D" type="Area2D" parent="." groups=["Fireball"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyDamagerArea2D"]
+shape = SubResource( 7 )
+disabled = true
+
+[node name="PlayerDamagerArea2D" type="Area2D" parent="." groups=["Enemy", "Hostile"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDamagerArea2D"]
+shape = SubResource( 7 )
+disabled = true
+
+[node name="FireDetonationParticle" parent="." instance=ExtResource( 1 )]
+scale = Vector2( 1, 1 )
+amount = 24
+lifetime = 0.5
+initial_velocity = 110.0
+
+[node name="SmokeParticle" parent="." instance=ExtResource( 2 )]
+scale = Vector2( 1, 1 )
+emitting = false
+amount = 10
+one_shot = true
+explosiveness = 0.45
+initial_velocity = 90.0
+color = Color( 0.305882, 0.305882, 0.305882, 1 )
+
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

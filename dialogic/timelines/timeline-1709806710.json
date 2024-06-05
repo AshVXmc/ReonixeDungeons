@@ -1,0 +1,15 @@
+{
+	"events": [
+		{
+			"character": "character-1709805687.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "Apples, Ales and Alchemy"
+		}
+	],
+	"metadata": {
+		"dialogic-version": "1.4.5",
+		"file": "timeline-1709806710.json",
+		"name": "HubLevelTavernSign"
+	}
+}

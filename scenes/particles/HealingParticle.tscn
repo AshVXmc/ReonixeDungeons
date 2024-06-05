@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://assets/particles/healing_particle.png" type="Texture" id=1]
+
+[sub_resource type="ParticlesMaterial" id=1]
+emission_shape = 2
+emission_box_extents = Vector3( 25, 25, 1 )
+flag_disable_z = true
+gravity = Vector3( 0, -80, 0 )
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+
+[node name="HealingParticles" type="Particles2D"]
+scale = Vector2( 2, 2 )
+emitting = false
+amount = 6
+lifetime = 0.5
+one_shot = true
+process_material = SubResource( 1 )
+texture = ExtResource( 1 )

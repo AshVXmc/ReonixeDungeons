@@ -1430,7 +1430,7 @@ position = Vector2( 102.213, -11.0022 )
 shape = SubResource( 9 )
 
 [node name="MeleeTimer" type="Timer" parent="."]
-wait_time = 0.42
+wait_time = 0.35
 one_shot = true
 
 [node name="AttackTimer" type="Timer" parent="."]
@@ -1501,19 +1501,19 @@ one_shot = true
 wait_time = 1.5
 one_shot = true
 
-[node name="TundraSigilsUI" type="Node2D" parent="."]
+[node name="TundraStarsUI" type="Node2D" parent="."]
 
-[node name="TundraSigil1" type="Sprite" parent="TundraSigilsUI"]
+[node name="TundraStars1" type="Sprite" parent="TundraStarsUI"]
 position = Vector2( -50, -81 )
 scale = Vector2( 2.5, 2.5 )
 texture = ExtResource( 13 )
 
-[node name="TundraSigil2" type="Sprite" parent="TundraSigilsUI"]
+[node name="TundraStars2" type="Sprite" parent="TundraStarsUI"]
 position = Vector2( 0, -81 )
 scale = Vector2( 2.5, 2.5 )
 texture = ExtResource( 13 )
 
-[node name="TundraSigil3" type="Sprite" parent="TundraSigilsUI"]
+[node name="TundraStars3" type="Sprite" parent="TundraStarsUI"]
 position = Vector2( 50, -81 )
 scale = Vector2( 2.5, 2.5 )
 texture = ExtResource( 13 )
@@ -1556,6 +1556,10 @@ one_shot = true
 wait_time = 4.0
 one_shot = true
 
+[node name="DashInputPressTimer" type="Timer" parent="."]
+wait_time = 0.475
+one_shot = true
+
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
 [connection signal="area_entered" from="AttackCollision" to="." method="_on_AttackCollision_area_entered"]
 [connection signal="area_exited" from="AttackCollision" to="." method="_on_AttackCollision_area_exited"]
@@ -1570,3 +1574,4 @@ one_shot = true
 [connection signal="timeout" from="SpecialAttackTimer" to="." method="_on_SpecialAttackTimer_timeout"]
 [connection signal="timeout" from="SpecialSequenceWindow" to="." method="_on_Special4thSequenceWindow_timeout"]
 [connection signal="timeout" from="InvulnerabilityTimer" to="." method="_on_InvulnerabilityTimer_timeout"]
+[connection signal="timeout" from="DashInputPressTimer" to="." method="_on_DashInputPressTimer_timeout"]

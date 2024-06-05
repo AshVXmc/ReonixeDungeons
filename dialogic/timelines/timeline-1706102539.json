@@ -1,0 +1,102 @@
+{
+	"events": [
+		{
+			"character": "character-1706105694.json",
+			"event_id": "dialogic_010",
+			"options": [
+
+			],
+			"portrait": "",
+			"question": "A black grimoire with a pentacle on its cover is placed on the altar. Read a chapter?"
+		},
+		{
+			"choice": "Read \"Chapter I: Introduction to Magic\"",
+			"condition": "",
+			"definition": "",
+			"event_id": "dialogic_011",
+			"value": ""
+		},
+		{
+			"character": "character-1714469067.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "What we call magic is the manipulation of energy that exists within all beings attuned with life, like animals, plants and us. This energy is referred to as \"Mana\"."
+		},
+		{
+			"character": "character-1714469067.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "Every living being can manipulate Mana, although the more intelligent that being is, the higher control it has over the Mana within itself. People who are proficient in Mana magic are called Mages."
+		},
+		{
+			"character": "character-1714469067.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "Mana, in its purest form, takes the shape of white strings of light and is incredibly hard to produce and control. Instead, most Mages manifest Mana in their rougher yet still effective form, which are elements such as fire, ice, and earth. "
+		},
+		{
+			"character": "character-1714469067.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "The most powerful Mages of our kind who can cast advanced magic and manipulate pure Mana are bestowed with the title of Archmages. Rumors say that these Archmages may have learned the power to create life itself..."
+		},
+		{
+			"character": "character-1673439491.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "(Why do these pages smell like burnt incense...?)"
+		},
+		{
+			"choice": "Read \"Chapter II: The Winged Cyclops\"",
+			"condition": "",
+			"definition": "",
+			"event_id": "dialogic_011",
+			"value": ""
+		},
+		{
+			"character": "character-1714469058.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "It is said that the Mother Goddess, also known as the Genesis Lady or simply the [color=ffd703]Winged Cyclops[/color], taught humanity how to control the flow of Mana many, many years ago."
+		},
+		{
+			"character": "character-1714469058.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "The Winged Cyclops is worshipped by the Church of the Cyclops, and the priests believe that once a month, during the full moon, she would bless the land with bountiful harvest, good fortune, and health."
+		},
+		{
+			"character": "character-1714469058.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "However, some scholars of the magic academy believe that the full moon itself is the one that provides these blessings, enhancing the Mana present in all living beings, which can lead to accelerated growth in plants as well as boosted vitality in humans. "
+		},
+		{
+			"character": "character-1714469058.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "A controversial and hotly debated theory is that the origin of these blessings may be malicious, and that the Winged Cyclops isn't an all-benevolent deity that only serve humanity. Several sages think that the lunar phases are reflections of the deity's wills and powers."
+		},
+		{
+			"choice": "Nevermind",
+			"condition": "",
+			"definition": "",
+			"event_id": "dialogic_011",
+			"value": ""
+		},
+		{
+			"character": "character-1673439491.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "(Literature really isn't my strong suit..)"
+		},
+		{
+			"event_id": "dialogic_013"
+		}
+	],
+	"metadata": {
+		"dialogic-version": "1.4.5",
+		"file": "timeline-1706102539.json",
+		"name": "HubLevelBookOfShadowsBookshelf"
+	}
+}

@@ -8,7 +8,6 @@ onready var player = get_parent().get_node("Player")
 # to immobilize the player in place until it's set to false.
 
 func _ready():
-	
 	connect("force_toggle_label", get_node("GenericInteractLabel"), "toggle_label")
 func _process(delta):
 	if $Area2D.overlaps_area(PLAYER) and Input.is_action_just_pressed("ui_use"):
