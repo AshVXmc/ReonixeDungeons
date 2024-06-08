@@ -6,10 +6,14 @@ const MOTE_OF_FLAME = preload("res://scenes/misc/chaos_magic/MoteOfFlame.tscn")
 const MAGIC_MISSILE = preload("res://scenes/misc/chaos_magic/MagicMissile.tscn")
 const LASER_BEAM = preload("res://scenes/misc/chaos_magic/LaserBeam.tscn")
 const METEOR = preload("res://scenes/misc/MeteorStrike.tscn")
+signal heal(hearts, character)
+signal restore_mana(mana, character)
 # NOTE: chaos magic layer has to be -1 or else it will cause the other UIs to not work. idk why.
 func _ready():
-	yield(get_tree().create_timer(.5), "timeout")
-	chaos_magic(7)
+	connect("heal", get_parent().get_parent().get_node("HeartUI/Life"), "on_player_life_changed")
+	connect("restore_mana", get_parent().get_parent().get_node("ManaUI/Mana"), "on_player_mana_changed")
+	yield(get_tree().create_timer(5), "timeout")
+	chaos_magic(8)
 	pass
 func trigger_chaos_magic():
 	var rng = RandomNumberGenerator.new()
@@ -147,3 +151,24 @@ func chaos_magic(id : int):
 				get_parent().get_parent().add_child(meteor)
 				meteor.position.x = player.global_position.x + 400
 				meteor.position.y = player.global_position.y - 500
+		8:
+			$NinePatchRect/DescLabel.text = "All of your party member's health and mana is restored."
+			$NinePatchRect.visible = true
+			yield(get_tree().create_timer(1), "timeout")
+			$NinePatchRect.visible = false
+			if Global.equipped_characters[0] != "":
+				Global.hearts = Global.max_hearts
+				emit_signal("heal", Global.hearts, Global.equipped_characters[0])
+				Global.mana = Global.max_mana
+				emit_signal("restore_mana", Global.mana, Global.equipped_characters[0])
+			if Global.equipped_characters[1] != "":
+				Global.character2_hearts = Global.character_2_max_hearts
+				emit_signal("heal", Global.character2_hearts, Global.equipped_characters[1])
+				Global.character2_mana = Global.character2_max_mana
+				emit_signal("restore_mana", Global.character2_mana, Global.equipped_characters[1])
+			if Global.equipped_characters[2] != "":
+				Global.character3_hearts = Global.character_3_max_hearts
+				emit_signal("heal", Global.character3_hearts, Global.equipped_characters[2])
+				Global.character3_mana = Global.character3_max_mana
+				emit_signal("restore_mana", Global.character3_mana, Global.equipped_characters[2])
+			
