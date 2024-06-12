@@ -1,6 +1,6 @@
 class_name ChaosMagicUI extends Control
 
-onready var player = get_parent().get_parent().get_node("Player")
+onready var player = get_parent().get_parent()
 const VERTICAL_JUMP_PARTICLE = preload("res://scenes/misc/chaos_magic/VerticalJumpParticle.tscn") 
 const MOTE_OF_FLAME = preload("res://scenes/misc/chaos_magic/MoteOfFlame.tscn")
 const MAGIC_MISSILE = preload("res://scenes/misc/chaos_magic/MagicMissile.tscn")
@@ -10,18 +10,18 @@ signal heal(hearts, character)
 signal restore_mana(mana, character)
 # NOTE: chaos magic layer has to be -1 or else it will cause the other UIs to not work. idk why.
 func _ready():
-	connect("heal", get_parent().get_parent().get_node("HeartUI/Life"), "on_player_life_changed")
-	connect("restore_mana", get_parent().get_parent().get_node("ManaUI/Mana"), "on_player_mana_changed")
-	yield(get_tree().create_timer(5), "timeout")
-	chaos_magic(8)
-	pass
+	connect("heal",  get_parent().get_parent().get_parent().get_node("HeartUI/Life"), "on_player_life_changed")
+	connect("restore_mana",  get_parent().get_parent().get_parent().get_node("ManaUI/Mana"), "on_player_mana_changed")
+	
 func trigger_chaos_magic():
 	var rng = RandomNumberGenerator.new()
 	rng.randomize()
-	var num = rng.randi_range(1, 10)
+	var num = rng.randi_range(1, 8)
 	chaos_magic(num)
+	
 
-
+func _process(delta):
+	print("reee")
 func chaos_magic(id : int):
 	match id:
 		1:
@@ -31,7 +31,7 @@ func chaos_magic(id : int):
 			yield(get_tree().create_timer(1), "timeout")
 			$NinePatchRect.visible = false
 			var vjp = VERTICAL_JUMP_PARTICLE.instance()
-			get_parent().get_parent().add_child(vjp)
+			get_parent().get_parent().get_parent().add_child(vjp)
 			vjp.position = player.global_position
 			vjp.emitting = true
 			vjp.get_node("StrongJumpParticle").emitting = true
@@ -54,7 +54,7 @@ func chaos_magic(id : int):
 			
 			var mote_of_flame = MOTE_OF_FLAME.instance()
 			mote_of_flame.enemy_attack_value = (level_mean * 6) + 20
-			get_parent().get_parent().add_child(mote_of_flame)
+			get_parent().get_parent().get_parent().add_child(mote_of_flame)
 			mote_of_flame.position = player.global_position
 		3:
 			$NinePatchRect/DescLabel.text = "You temporarily get frozen in place."
@@ -62,7 +62,7 @@ func chaos_magic(id : int):
 			yield(get_tree().create_timer(1), "timeout")
 			$NinePatchRect.visible = false
 			player.freeze_player(3)
-			get_parent().get_parent().get_node("SkillsUI/Control").trigger_global_silence_ui(3)
+			get_parent().get_parent().get_parent().get_node("SkillsUI/Control").trigger_global_silence_ui(3)
 		4:
 			$NinePatchRect/DescLabel.text = "You gain a shield that absorbs damage, based on your party's average Max Health."
 			# the shield's HP is based on the average HP of all party members
@@ -99,7 +99,7 @@ func chaos_magic(id : int):
 				var magic_missile = MAGIC_MISSILE.instance()
 				magic_missile.add_to_group(str((level_mean * 5) + 6))
 	#			print("atk value:" + str(magic_missile.attack_value))
-				get_parent().get_parent().add_child(magic_missile)
+				get_parent().get_parent().get_parent().add_child(magic_missile)
 				magic_missile.position = player.global_position
 		6: 
 			# shoot a laser in the direction you are facing
@@ -143,12 +143,12 @@ func chaos_magic(id : int):
 			meteor.add_to_group(str((level_mean * 15) + 25))
 			if !player.get_node("Sprite").flip_h:
 				meteor.direction = 1
-				get_parent().get_parent().add_child(meteor)
+				get_parent().get_parent().get_parent().add_child(meteor)
 				meteor.position.x = player.global_position.x - 400
 				meteor.position.y = player.global_position.y - 500
 			else:
 				meteor.direction = -1
-				get_parent().get_parent().add_child(meteor)
+				get_parent().get_parent().get_parent().add_child(meteor)
 				meteor.position.x = player.global_position.x + 400
 				meteor.position.y = player.global_position.y - 500
 		8:

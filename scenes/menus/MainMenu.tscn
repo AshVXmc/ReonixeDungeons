@@ -94,9 +94,6 @@ custom_fonts/font = ExtResource( 4 )
 text = " Reonixe
 Dungeons"
 align = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="NewGame" type="Button" parent="."]
 anchor_left = 0.5

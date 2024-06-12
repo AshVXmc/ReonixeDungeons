@@ -131,16 +131,19 @@ var player_talents : Dictionary = {
 		"talentslotcost": 2
 	},
 	"CreateSugarRoll": {
-		"unlocked" : true,
-		"enabled": true,
+		"unlocked" : false,
+		"enabled": false,
 		"opalscost": 100,
-		"cooldown": 45.0,
+		"cooldown": 35.0,
 		"talentslotcost": 3
 	},
 	"ChaosMagic": {
-		"unlocked" : false,
-		"enabled": false,
-		"cooldown": 150
+		"unlocked" : true,
+		"enabled": true,
+		"opalscost": 100,
+		# 45? 60? 100?
+		"cooldown": 75,
+		"talentslotcost": 3
 	}
 }
 
