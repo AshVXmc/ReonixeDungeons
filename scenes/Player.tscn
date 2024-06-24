@@ -1,4 +1,4 @@
-[gd_scene load_steps=97 format=2]
+[gd_scene load_steps=96 format=2]
 
 [ext_resource path="res://spriteframes/Player_Default_spriteframes.tres" type="SpriteFrames" id=1]
 [ext_resource path="res://scripts/player/Player.gd" type="Script" id=2]
@@ -24,7 +24,6 @@
 [ext_resource path="res://assets/misc/super_slash_projectile_2.png" type="Texture" id=22]
 [ext_resource path="res://scenes/particles/HealingParticle.tscn" type="PackedScene" id=23]
 [ext_resource path="res://assets/UI/chargebar_full.png" type="Texture" id=24]
-[ext_resource path="res://scenes/misc/chaos_magic/LaserBeam.tscn" type="PackedScene" id=25]
 
 [sub_resource type="RectangleShape2D" id=80]
 extents = Vector2( 34, 51 )
@@ -3956,8 +3955,6 @@ one_shot = true
 [node name="DashAfterJumpingDelayTimer" type="Timer" parent="."]
 wait_time = 0.05
 one_shot = true
-
-[node name="LaserBeam" parent="." instance=ExtResource( 25 )]
 
 [connection signal="timeout" from="CharacterManager/SwapCooldownTimer" to="CharacterManager" method="_on_SwapCooldownTimer_timeout"]
 [connection signal="area_entered" from="AttackCollision" to="." method="_on_AttackCollision_area_entered"]

@@ -447,6 +447,8 @@ disabled = true
 wait_time = 0.06
 one_shot = true
 
+[node name="SpecialAttackStateTimer" type="Timer" parent="."]
+
 [connection signal="tree_exiting" from="." to="." method="_on_Goblin_tree_exiting"]
 [connection signal="area_exited" from="Left" to="." method="_on_Left_area_exited"]
 [connection signal="area_exited" from="Right" to="." method="_on_Right_area_exited"]

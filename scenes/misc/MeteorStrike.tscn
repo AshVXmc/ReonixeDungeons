@@ -80,8 +80,7 @@ orbit_velocity_random = 0.0
 [sub_resource type="CircleShape2D" id=5]
 radius = 144.091
 
-[node name="MeteorStrike" type="Area2D" groups=["15", "Earth"]]
-position = Vector2( 388.35, 225.853 )
+[node name="MeteorStrike" type="Area2D" groups=["60", "Earth"]]
 collision_layer = 129
 collision_mask = 129
 script = ExtResource( 2 )
@@ -90,23 +89,23 @@ script = ExtResource( 2 )
 shape = SubResource( 1 )
 disabled = true
 
-[node name="LeftTrails" type="Node2D" parent="."]
+[node name="Trails" type="Node2D" parent="."]
 
-[node name="Trail1" type="Particles2D" parent="LeftTrails"]
+[node name="Trail1" type="Particles2D" parent="Trails"]
 position = Vector2( -17, -100 )
 rotation = 2.18166
 scale = Vector2( 7, 7 )
 process_material = SubResource( 6 )
 texture = ExtResource( 4 )
 
-[node name="Trail2" type="Particles2D" parent="LeftTrails"]
+[node name="Trail2" type="Particles2D" parent="Trails"]
 position = Vector2( -86.8456, 36.5165 )
 rotation = 2.35619
 scale = Vector2( 7, 7 )
 process_material = SubResource( 7 )
 texture = ExtResource( 4 )
 
-[node name="Trail3" type="Particles2D" parent="LeftTrails"]
+[node name="Trail3" type="Particles2D" parent="Trails"]
 position = Vector2( -90.8456, -59.4835 )
 rotation = 2.13803
 scale = Vector2( 10, 10 )
@@ -139,10 +138,10 @@ texture = ExtResource( 3 )
 one_shot = true
 
 [node name="ExplosionDelayTimer" type="Timer" parent="."]
-wait_time = 0.5
+wait_time = 0.4
 one_shot = true
 
-[node name="DetectorArea" type="Area2D" parent="." groups=["Sword2"]]
+[node name="DetectorArea" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DetectorArea"]
 position = Vector2( 1.5874, 3.05176e-05 )

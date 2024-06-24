@@ -15,6 +15,8 @@ onready var fireball_ui = $TertiarySkill/Player/Fireball/TextureProgress
 onready var winterqueen_ui = $PrimarySkill/Glaciela/WinterQueen/TextureProgress
 onready var icelance_ui = $SecondarySkill/Glaciela/IceLance/TextureProgress
 onready var createsugarroll_ui = $TalentSkill/Player/CreateSugarRoll/TextureProgress
+onready var chaosmagic_ui = $TalentSkill/Player/ChaosMagic/TextureProgress
+onready var CHAOS_MAGIC_UI : PackedScene = preload("res://scenes/menus/ChaosMagicUI.tscn") 
 const multiplier : int = 10
 
 func _ready():
@@ -38,14 +40,25 @@ func _ready():
 	icelance_ui.max_value = Global.glaciela_skill_multipliers["IceLanceCD"] * multiplier
 	icelance_ui.value = icelance_ui.max_value
 	
+	update_talent_skill_ui()
+	
+#func update_maximum_endurance_ui():
+#	$EnduranceMeter/TextureProgress.max_value = Global.max_endurance
+func update_talent_skill_ui():
 	if Global.player_talents["CreateSugarRoll"]["unlocked"] and Global.player_talents["CreateSugarRoll"]["enabled"]:
 		$TalentSkill/Player/CreateSugarRoll.visible = true
 		createsugarroll_ui.max_value = Global.player_talents["CreateSugarRoll"]["cooldown"] * multiplier
 		createsugarroll_ui.value = createsugarroll_ui.max_value
 	else:
 		$TalentSkill/Player/CreateSugarRoll.visible = false
-#func update_maximum_endurance_ui():
-#	$EnduranceMeter/TextureProgress.max_value = Global.max_endurance
+	if Global.player_talents["ChaosMagic"]["unlocked"] and Global.player_talents["ChaosMagic"]["enabled"]:
+		$TalentSkill/Player/ChaosMagic.visible = true
+		chaosmagic_ui.max_value = Global.player_talents["ChaosMagic"]["cooldown"] * multiplier
+		chaosmagic_ui.value = chaosmagic_ui.max_value
+	else:
+		$TalentSkill/Player/CreateSugarRoll.visible = false
+		
+
 func update_swap_character_status():
 	can_swap_character = true if !can_swap_character else false
 	if can_swap_character:
@@ -111,6 +124,8 @@ func on_skill_used(skill_name : String):
 				fireball_ui.value = fireball_ui.min_value
 		"CreateSugarRoll":
 			createsugarroll_ui.value = createsugarroll_ui.min_value
+		"ChaosMagic":
+			chaosmagic_ui.value = chaosmagic_ui.min_value
 		"IceLance":
 			icelance_ui.value = icelance_ui.min_value
 		"PlayerChargedAttack":
@@ -174,7 +189,7 @@ func _process(delta):
 					firefairy_ui.self_modulate.a = 0.65
 				$SecondarySkill/Player/FireFairy/Label.text = ""
 		##############
-		# FIREBALL #
+		## FIREBALL ##
 		##############
 		
 		if fireball_ui.value < fireball_ui.max_value:
@@ -193,9 +208,9 @@ func _process(delta):
 					$TertiarySkill/Player/Fireball/Label.text = ""
 				elif Global.equipped_characters[2] == "Player":
 					$TertiarySkill/Player/Fireball/Label.text = ""
-		#####################
-		# CREATE MANA ROLL ##
-		#####################
+		#######################
+		## CREATE SUGAR ROLL ##
+		#######################
 		if createsugarroll_ui.value < createsugarroll_ui.max_value:
 			$TalentSkill/Player/CreateSugarRoll/Label.text = str(stepify((createsugarroll_ui.max_value - createsugarroll_ui.value) / multiplier, 0.001))
 			createsugarroll_ui.self_modulate.a = 0.65
@@ -206,6 +221,22 @@ func _process(delta):
 				$TalentSkill/Player/CreateSugarRoll/Label.text = ""
 			elif Global.equipped_characters[2] == "Player":
 				$TalentSkill/Player/CreateSugarRoll/Label.text = ""
+		###################
+		### CHAOS MAGIC ###
+		###################
+		if chaosmagic_ui.value < chaosmagic_ui.max_value:
+			$TalentSkill/Player/ChaosMagic/Label.text = str(stepify((chaosmagic_ui.max_value - chaosmagic_ui.value) / multiplier, 0.001))
+			chaosmagic_ui.self_modulate.a = 0.65
+		elif chaosmagic_ui.value >= chaosmagic_ui.max_value:
+			if Global.equipped_characters[0] == "Player":
+				$TalentSkill/Player/ChaosMagic/Label.text = ""
+			elif Global.equipped_characters[1] == "Player":
+				$TalentSkill/Player/ChaosMagic/Label.text = ""
+			elif Global.equipped_characters[2] == "Player":
+				$TalentSkill/Player/ChaosMagic/Label.text = ""
+		
+		
+		
 	else:
 		$PrimarySkill/Player.visible = false
 		$SecondarySkill/Player.visible = false
@@ -307,6 +338,8 @@ func _on_CooldownTickTimer_timeout():
 		
 		if Global.player_talents["CreateSugarRoll"]["unlocked"] and Global.player_talents["CreateSugarRoll"]["enabled"]:
 			createsugarroll_ui.value += 1
+		if Global.player_talents["ChaosMagic"]["unlocked"] and Global.player_talents["ChaosMagic"]["enabled"]:
+			chaosmagic_ui.value += 1
 	if Global.equipped_characters.has("Glaciela"):
 		winterqueen_ui.value += 1 
 		icelance_ui.value += 1 

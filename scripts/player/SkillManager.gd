@@ -8,13 +8,13 @@ var FIRE_FAIRY : PackedScene = preload("res://scenes/skills/FireFairy.tscn")
 var BURNING_STATUS : PackedScene = preload("res://scenes/status_effects/BurningStatus.tscn")
 var ICE_LANCE : PackedScene = preload("res://scenes/skills/IceLance.tscn")
 var SUGAR_ROLL : PackedScene = preload("res://scenes/items/SugarRoll.tscn")
-var chaos_magic_ui 
+
 var playeratkbonus : float
 var glacielaatkbonus : float
 
 func _ready():
 	connect("mana_changed", get_parent().get_parent().get_node("ManaUI/Mana"), "on_player_mana_changed")
-	
+
 func on_skill_used (
 	skill_name : String, 
 	attack_bonus : float = 0,
@@ -80,6 +80,9 @@ func on_skill_used (
 			var sugar_roll = SUGAR_ROLL.instance()
 			get_parent().get_parent().add_child(sugar_roll)
 			sugar_roll.position = global_position
+		"ChaosMagic":
+			var chaos_magic_ui = get_parent().get_node("ChaosMagicUI/Control")
+			chaos_magic_ui.trigger_chaos_magic()
 		"IceLance":
 			
 			get_parent().is_using_primary_skill = true

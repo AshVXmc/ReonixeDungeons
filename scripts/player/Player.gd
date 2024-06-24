@@ -151,7 +151,8 @@ onready var thrust_attack_power :float = Global.attack_power * (Global.player_sk
 onready var pskill_ui : TextureProgress = get_parent().get_node("SkillsUI/Control/PrimarySkill/Player/FireSaw/TextureProgress")
 onready var sskill_ui : TextureProgress =  get_parent().get_node("SkillsUI/Control/SecondarySkill/Player/FireFairy/TextureProgress")
 onready var tskill_ui : TextureProgress = get_parent().get_node("SkillsUI/Control/TertiarySkill/Player/Fireball/TextureProgress")
-onready var talentskill_ui : TextureProgress = get_parent().get_node("SkillsUI/Control/TalentSkill/Player/CreateSugarRoll/TextureProgress")
+onready var talentskill_ui : TextureProgress 
+onready var chaos_magic : PackedScene = preload("res://scenes/menus/ChaosMagicUI.tscn")
 onready var crit_rate : float = Global.player_skill_multipliers["CritRate"]
 onready var crit_damage : float = Global.player_skill_multipliers["CritDamage"]
 # when a flash appears after the 3rd string of basic attack, tap to thrust through enemies
@@ -184,6 +185,8 @@ func _ready():
 	$ChargeBar.value = 0
 	$SwordSprite.visible = false
 	$ChargeBar.visible = false
+	
+	update_talent_skill()
 	connect("force_character_swap", get_node("CharacterManager"), "swap_character")
 	connect("change_elegance", get_parent().get_node("EleganceMeterUI/Control"), "elegance_changed")
 	connect("change_hitcount", get_parent().get_node("EleganceMeterUI/Control"), "hitcount_changed")
@@ -242,12 +245,23 @@ func _ready():
 	connect("crystals_obtained", Global, "sync_playerCrystals")
 	emit_signal("crystals_obtained", Global.crystals_amount)
 	
+	
 #	connect("common_monster_dust_obtained", Global, "sync_playerCommonMonsterDust")
 #	emit_signal("common_monster_dust_obtained", Global.common_monster_dust_amount)
 #
 #	connect("goblin_scales_obtained", Global, "sync_playerGoblinScales")
 #	emit_signal("goblin_scales_obtained", Global.goblin_scales_amount)
 
+func update_talent_skill():
+	if Global.player_talents["CreateSugarRoll"]["unlocked"] and Global.player_talents["CreateSugarRoll"]["enabled"]:
+		talentskill_ui = get_parent().get_node("SkillsUI/Control/TalentSkill/Player/CreateSugarRoll/TextureProgress")
+		if has_node("ChaosMagicUI"):
+			get_node("ChaosMagicUI").call_deferred('free')
+	elif Global.player_talents["ChaosMagic"]["unlocked"] and Global.player_talents["ChaosMagic"]["enabled"]:
+		talentskill_ui = get_parent().get_node("SkillsUI/Control/TalentSkill/Player/ChaosMagic/TextureProgress")
+		if !has_node("ChaosMagicUI"):
+			add_child(chaos_magic.instance())
+		
 func change_skin(skin_name):
 	match skin_name:
 		DEFAULT_SKIN:
@@ -608,8 +622,13 @@ func use_tertiary_skill():
 		emit_signal("mana_changed", Global.character3_mana, "Player")
 
 func use_talent_skill():
-	emit_signal("skill_used", "CreateSugarRoll")
-	emit_signal("skill_ui_update", "CreateSugarRoll")
+	if Global.player_talents["CreateSugarRoll"]["unlocked"] and Global.player_talents["CreateSugarRoll"]["enabled"]:
+		emit_signal("skill_used", "CreateSugarRoll")
+		emit_signal("skill_ui_update", "CreateSugarRoll")
+	elif Global.player_talents["ChaosMagic"]["unlocked"] and Global.player_talents["ChaosMagic"]["enabled"]:
+		
+		emit_signal("skill_used", "ChaosMagic")
+		emit_signal("skill_ui_update", "ChaosMagic")
 
 func ground_pound():
 	if !is_on_floor() and Input.is_action_just_pressed("ui_down"):
@@ -1474,9 +1493,9 @@ func add_heal_particles(heal_amount : float):
 	heal_particle.heal_amount = heal_amount * 2
 	get_parent().add_child(heal_particle)
 	heal_particle.position = global_position
-	
 	# trigger health effect particles
 	$HealingParticles.emitting = true
+
 # Obtaining mana by attacking enemies
 
 func is_a_critical_hit() -> bool:
