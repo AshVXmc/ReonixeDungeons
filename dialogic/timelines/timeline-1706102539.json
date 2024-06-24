@@ -78,17 +78,23 @@
 			"text": "A controversial and hotly debated theory is that the origin of these blessings may be malicious, and that the Winged Cyclops isn't an all-benevolent deity that only serve humanity. Several sages think that the lunar phases are reflections of the deity's wills and powers."
 		},
 		{
-			"choice": "Nevermind",
+			"choice": "Read \"Chapter II: Familiars\"",
 			"condition": "",
 			"definition": "",
 			"event_id": "dialogic_011",
 			"value": ""
 		},
 		{
-			"character": "character-1673439491.json",
+			"character": "character-1709710039.json",
 			"event_id": "dialogic_001",
 			"portrait": "",
-			"text": "(Literature really isn't my strong suit..)"
+			"text": "Mages are seldom alone in their pursuit of magic, as most Mages opt to have a [color=ffd703]familiar[/color]. "
+		},
+		{
+			"character": "character-1709710039.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "A familiar can take many forms, but they most commonly manifest as a fey-like creature. They aid their masters by acting as a conduit for magic."
 		},
 		{
 			"event_id": "dialogic_013"

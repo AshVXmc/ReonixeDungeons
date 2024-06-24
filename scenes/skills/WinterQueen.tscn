@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://assets/particles/frost_particle.png" type="Texture" id=1]
+
+[sub_resource type="ParticlesMaterial" id=1]
+flag_disable_z = true
+gravity = Vector3( 0, 98, 0 )
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+radial_accel = 27.03
+
+[node name="WinterQueen" type="Particles2D"]
+lifetime = 2.0
+process_material = SubResource( 1 )
+texture = ExtResource( 1 )

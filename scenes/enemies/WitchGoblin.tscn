@@ -1,10 +1,17 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://assets/enemies/witch_goblin_summoning_3.png" type="Texture" id=1]
 [ext_resource path="res://assets/enemies/witch_goblin_1.png" type="Texture" id=2]
 [ext_resource path="res://assets/enemies/witch_goblin_summoning_1.png" type="Texture" id=3]
 [ext_resource path="res://assets/enemies/witch_goblin_summoning_2.png" type="Texture" id=4]
 [ext_resource path="res://scripts/enemies/WitchGoblin.gd" type="Script" id=5]
+[ext_resource path="res://assets/fonts/Born2bSportyV2.ttf" type="DynamicFontData" id=6]
+[ext_resource path="res://assets/UI/healthbar_enemy_empty.png" type="Texture" id=7]
+[ext_resource path="res://assets/UI/healthbar_enemy_full.png" type="Texture" id=8]
+[ext_resource path="res://assets/UI/armorbar_empty.png" type="Texture" id=9]
+[ext_resource path="res://assets/UI/armorbar_colours.png" type="Texture" id=10]
+[ext_resource path="res://assets/enemies/goblin_spear.png" type="Texture" id=11]
+[ext_resource path="res://assets/misc/physical_armor.png" type="Texture" id=12]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -33,13 +40,22 @@ extents = Vector2( 57.0278, 58.8172 )
 [sub_resource type="RectangleShape2D" id=5]
 extents = Vector2( 173.529, 62.6087 )
 
+[sub_resource type="DynamicFont" id=6]
+size = 32
+font_data = ExtResource( 6 )
+
+[sub_resource type="AtlasTexture" id=7]
+atlas = ExtResource( 10 )
+region = Rect2( 0, 0, 28, 4 )
+margin = Rect2( 1, 1, 1, 10 )
+
 [node name="WitchGoblin" type="KinematicBody2D" groups=["Enemy"]]
 scale = Vector2( 5, 5 )
 collision_layer = 33
 collision_mask = 162
 script = ExtResource( 5 )
 
-[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+[node name="Sprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 1 )
 animation = "summoning"
 
@@ -85,8 +101,59 @@ one_shot = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SummoningArea"]
 position = Vector2( -1.23591, 2.34752 )
-scale = Vector2( 1, 1 )
 shape = SubResource( 5 )
+
+[node name="LevelLabel" type="Label" parent="."]
+margin_left = -15.0
+margin_top = -118.0
+margin_right = 41.0
+margin_bottom = -86.0
+custom_fonts/font = SubResource( 6 )
+text = "Lv.1"
+align = 1
+
+[node name="HealthBar" type="TextureProgress" parent="."]
+margin_left = -46.6667
+margin_top = -91.1667
+margin_right = -16.6667
+margin_bottom = -85.1666
+rect_scale = Vector2( 4, 4 )
+value = 100.0
+texture_under = ExtResource( 7 )
+texture_progress = ExtResource( 8 )
+
+[node name="ArmorBar" type="TextureProgress" parent="."]
+margin_left = -47.4633
+margin_top = -67.3225
+margin_right = -17.4633
+margin_bottom = -61.3225
+rect_scale = Vector2( 3.5, 2.75 )
+value = 100.0
+texture_under = ExtResource( 9 )
+texture_progress = SubResource( 7 )
+
+[node name="SpearSprite" type="Sprite" parent="."]
+visible = false
+show_behind_parent = true
+position = Vector2( -45, 15 )
+rotation = -1.5708
+scale = Vector2( 5, 5 )
+texture = ExtResource( 11 )
+
+[node name="SpearThrustAttackWarning" type="ColorRect" parent="."]
+visible = false
+self_modulate = Color( 1, 1, 1, 0.513726 )
+margin_left = -112.0
+margin_top = -45.0
+margin_right = -48.0
+margin_bottom = 53.0
+color = Color( 1, 0.196078, 0, 1 )
+
+[node name="ArmorSprite" type="Sprite" parent="."]
+visible = false
+self_modulate = Color( 1, 1, 1, 0.490196 )
+scale = Vector2( 6, 6 )
+texture = ExtResource( 12 )
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_Area2D_area_entered"]
 [connection signal="area_entered" from="Left" to="." method="_on_Left_area_entered"]

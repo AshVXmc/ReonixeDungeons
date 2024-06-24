@@ -23,15 +23,15 @@ animations = [ {
 "name": "Attacking",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 4 ), ExtResource( 3 ) ],
-"loop": true,
-"name": "Spin",
-"speed": 10.0
-}, {
 "frames": [ ExtResource( 1 ) ],
 "loop": true,
 "name": "Idle",
 "speed": 5.0
+}, {
+"frames": [ ExtResource( 4 ), ExtResource( 3 ) ],
+"loop": true,
+"name": "Spin",
+"speed": 10.0
 } ]
 
 [node name="JesterGoblin" type="KinematicBody2D" groups=["Enemy"]]
