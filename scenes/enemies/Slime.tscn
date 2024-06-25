@@ -12,7 +12,7 @@ extents = Vector2( 26.36, 15.1008 )
 radius = 24.1874
 height = 20.9775
 
-[node name="Slime" type="KinematicBody2D" groups=["Enemy"]]
+[node name="Slime" type="KinematicBody2D" groups=["Enemy", "Physical"]]
 collision_layer = 0
 collision_mask = 11
 script = ExtResource( 1 )

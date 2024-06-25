@@ -16,6 +16,10 @@ var is_frozen : bool = false
 const DMG_INDICATOR : PackedScene = preload("res://scenes/particles/DamageIndicatorParticle.tscn")
 var is_staggered : bool = false
 
+var elemental_type = "Physical"
+var atk_value = 1 * Global.enemy_level_index
+
+
 func _ready():
 	$HealthBar.max_value = max_HP
 func _physics_process(delta):

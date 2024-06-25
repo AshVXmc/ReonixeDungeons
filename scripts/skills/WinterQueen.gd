@@ -1,5 +1,6 @@
 class_name WinterQueen extends Particles2D
 
+const FROZEN : PackedScene = preload("res://scenes/status_effects/FrozenStatus.tscn")
 
 # Declare member variables here. Examples:
 # var a = 2

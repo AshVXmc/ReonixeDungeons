@@ -36,7 +36,7 @@ resource_name = "Spin_clockwise"
 length = 0.8
 loop = true
 tracks/0/type = "value"
-tracks/0/path = NodePath("Sprite:rotation_degrees")
+tracks/0/path = NodePath(".:rotation_degrees")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -118,6 +118,12 @@ one_shot = true
 autostart = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = -0.785398
+shape = SubResource( 6 )
+
+[node name="FreezeGaugeArea" type="Area2D" parent="." groups=["250", "IceGauge"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FreezeGaugeArea"]
 rotation = -0.785398
 shape = SubResource( 6 )
 

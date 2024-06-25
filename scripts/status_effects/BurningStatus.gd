@@ -16,9 +16,13 @@ func _ready():
 		burn_immediately()
 	$CollisionShape2D.disabled = true
 	$BurningParticles.visible = false
+	# based on the player's attack power
 	add_to_group(str(Global.attack_power * BURN_MULTIPLIER))
 	if !get_parent().is_in_group("BurnStack"):
 		get_parent().add_to_group("Burnstack")
+
+
+
 
 func burn_immediately():
 	is_burning = true
