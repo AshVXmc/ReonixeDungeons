@@ -594,6 +594,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/misc/TutorialLevel.gd"
 }, {
+"base": "Particles2D",
+"class": "WinterQueen",
+"language": "GDScript",
+"path": "res://scripts/skills/WinterQueen.gd"
+}, {
 "base": "Goblin",
 "class": "WitchGoblin",
 "language": "GDScript",
@@ -717,6 +722,7 @@ _global_script_class_icons={
 "TargetingMissile": "",
 "TempusTardus": "",
 "TutorialLevel": "",
+"WinterQueen": "",
 "WitchGoblin": ""
 }
 
