@@ -272,7 +272,10 @@ func _on_Area2D_area_entered(area):
 					else:
 						add_damage_particles("Ice", float(damage), false)
 					$HitDelayTimer.start()
-					parse_damage()
+					if area.is_in_group("NoStagger"):
+						parse_damage(false)
+					else:
+						parse_damage()
 					break
 		if area.is_in_group("Earth"):
 			var groups : Array = area.get_groups()
@@ -297,11 +300,13 @@ func _on_Area2D_area_entered(area):
 		if area.is_in_group("Burning"):
 			var groups : Array = area.get_groups()
 			for group_names in groups:
-				if float(group_names) != 0 and $HitDelayTimer.is_stopped():
-					var raw_damage = float(group_names)
-					var damage_after_global_res = raw_damage - (raw_damage * (global_res / 100))
-					var damage = round((damage_after_global_res - (damage_after_global_res * (fire_res / 100))) * armor_strength_coefficient)
-					print("HP reduced by " + str(damage))
+				if $HitDelayTimer.is_stopped():
+					var damage = max_HP * 0.08
+					print("AAAGH IT BURNS")
+#					var raw_damage = float(group_names)
+#					var damage_after_global_res = raw_damage - (raw_damage * (global_res / 100))
+#					var damage = round((damage_after_global_res - (damage_after_global_res * (fire_res / 100))) * armor_strength_coefficient)
+#					print("HP reduced by " + str(damage))
 					HP -= float(damage)
 					$HealthBar.value  -= float(damage)
 					if area.is_in_group("IsCritHit"):
@@ -310,7 +315,7 @@ func _on_Area2D_area_entered(area):
 					else:
 						add_damage_particles("Fire", float(damage), false)
 					$HitDelayTimer.start()
-					parse_damage()
+					parse_damage(false)
 					break
 		if area.is_in_group("Airborne") and !is_airborne:
 			is_airborne = true
@@ -371,9 +376,9 @@ func knockback(knockback_coefficient : float = 1):
 	$HurtTimer.start()
 func armor_break():
 	pass
-func parse_damage():
-	is_staggered = true
-	
+func parse_damage(staggers : bool = true):
+	if staggers:
+		is_staggered = true
 	emit_signal("change_hitcount", 1)
 	$Sprite.set_modulate(Color(2,0.5,0.3,1))
 	if $HurtTimer.is_stopped():

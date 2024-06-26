@@ -164,8 +164,9 @@ var glaciela_skill_multipliers : Dictionary = {
 	"TundraSigilManaBonus": 0.75,
 	"TundraStarsIceDamageBonus": 12,
 	"AirborneDuration": 2.5,
-	"IceLance": 70.0,
+	"IceLance": 10.0, # prev: 70
 	"MaxTundraStars": 3,
+	"WinterQueen": 25.0,
 	"WinterQueenCost": 15,
 	"IceLanceCost": 0,
 	"WinterQueenCD": 30.0,

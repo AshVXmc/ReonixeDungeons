@@ -3,7 +3,7 @@
 [ext_resource path="res://scripts/status_effects/FrozenStatus.gd" type="Script" id=1]
 [ext_resource path="res://assets/misc/frozen_block.png" type="Texture" id=2]
 [ext_resource path="res://assets/UI/burning_bar_background.png" type="Texture" id=3]
-[ext_resource path="res://assets/UI/burning_bar_full.png" type="Texture" id=4]
+[ext_resource path="res://assets/UI/frozen_bar_full.png" type="Texture" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 19.875, 18.2558 )
@@ -18,8 +18,10 @@ script = ExtResource( 1 )
 position = Vector2( -0.5, -8.73846 )
 scale = Vector2( 2, 2 )
 shape = SubResource( 1 )
+disabled = true
 
 [node name="Sprite" type="Sprite" parent="."]
+visible = false
 position = Vector2( 0, -7.73859 )
 scale = Vector2( 5, 5 )
 texture = ExtResource( 2 )
@@ -35,6 +37,7 @@ margin_top = 41.9459
 margin_right = -18.0541
 margin_bottom = 47.9459
 rect_scale = Vector2( 4, 3 )
+max_value = 1000.0
 texture_under = ExtResource( 3 )
 texture_progress = ExtResource( 4 )
 
@@ -44,6 +47,12 @@ texture_progress = ExtResource( 4 )
 position = Vector2( 0.11028, -8.34331 )
 scale = Vector2( 2, 2 )
 shape = SubResource( 2 )
+
+[node name="DecayTimer" type="Timer" parent="."]
+wait_time = 0.2
+one_shot = true
+
+[node name="DecayDelayTimer" type="Timer" parent="."]
 
 [connection signal="area_entered" from="." to="." method="_on_FrozenStatus_area_entered"]
 [connection signal="timeout" from="DestroyedTimer" to="." method="_on_DestroyedTimer_timeout"]

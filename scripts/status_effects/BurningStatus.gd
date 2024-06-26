@@ -16,8 +16,8 @@ func _ready():
 		burn_immediately()
 	$CollisionShape2D.disabled = true
 	$BurningParticles.visible = false
-	# based on the player's attack power
-	add_to_group(str(Global.attack_power * BURN_MULTIPLIER))
+	# deals damage based on max HP
+#	add_to_group(str(Global.attack_power * BURN_MULTIPLIER))
 	if !get_parent().is_in_group("BurnStack"):
 		get_parent().add_to_group("Burnstack")
 

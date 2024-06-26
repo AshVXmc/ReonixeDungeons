@@ -74,7 +74,7 @@
 [ext_resource path="res://assets/terrain/lichen_ruins_spritesheet.png" type="Texture" id=72]
 [ext_resource path="res://scenes/NPC/BardNPC.tscn" type="PackedScene" id=73]
 [ext_resource path="res://scenes/enemies/WitchGoblin (new).tscn" type="PackedScene" id=74]
-[ext_resource path="res://scenes/enemies/Slime.tscn" type="PackedScene" id=75]
+[ext_resource path="res://scenes/skills/WinterQueen.tscn" type="PackedScene" id=75]
 
 [sub_resource type="RectangleShape2D" id=5]
 extents = Vector2( 60, 50 )
@@ -646,8 +646,14 @@ texture = ExtResource( 69 )
 [node name="Goblin" parent="." instance=ExtResource( 71 )]
 position = Vector2( 3665, 597 )
 
+[node name="Goblin2" parent="." instance=ExtResource( 71 )]
+position = Vector2( 3437, 614 )
+
+[node name="Goblin3" parent="." instance=ExtResource( 71 )]
+position = Vector2( 3172, 612 )
+
 [node name="Player" parent="." instance=ExtResource( 34 )]
-position = Vector2( 3419, 601 )
+position = Vector2( 2953, 596 )
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position = Vector2( -24.7189, -147.43 )
@@ -662,10 +668,10 @@ drag_margin_v_enabled = true
 editor_draw_limits = true
 
 [node name="WitchGoblin" parent="." instance=ExtResource( 74 )]
-position = Vector2( 2922.57, 591.191 )
+position = Vector2( 2788, 561 )
 
-[node name="Slime" parent="." instance=ExtResource( 75 )]
-position = Vector2( 3217, 623 )
+[node name="WinterQueen" parent="." instance=ExtResource( 75 )]
+position = Vector2( 3331, 533 )
 
 [connection signal="area_entered" from="HubLibrary/BookOfShadowsPlayerDetectorArea" to="HubLibrary/BookOfShadowsPlayerDetectorArea" method="_on_BookshelfPlayerDetectorArea_area_entered"]
 [connection signal="area_exited" from="HubLibrary/BookOfShadowsPlayerDetectorArea" to="HubLibrary/BookOfShadowsPlayerDetectorArea" method="_on_BookshelfPlayerDetectorArea_area_exited"]
