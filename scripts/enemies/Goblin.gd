@@ -3,11 +3,11 @@ class_name Goblin extends KinematicBody2D
 const DMG_INDICATOR : PackedScene = preload("res://scenes/particles/DamageIndicatorParticle.tscn")
 const SWORD_HIT_PARTICLE : PackedScene = preload("res://scenes/particles/SwordHitParticle.tscn")
 const DEATH_SMOKE : PackedScene = preload("res://scenes/particles/DeathSmokeParticle.tscn")
-var max_HP_calc : int = 20 + (Global.enemy_level_index * 12)
+var max_HP_calc : int = 30 + (Global.enemy_level_index * 12)
 var level_calc : int = round(Global.enemy_level_index)
 export var max_HP : int = max_HP_calc
 export var level : int = level_calc
-var atk_value : float = 1 * Global.enemy_level_index 
+var atk_value : float = 2.5 * Global.enemy_level_index 
 onready var HP : int = max_HP
 export var flipped : bool = false
 var velocity = Vector2()
@@ -15,7 +15,7 @@ var direction : int = 1
 var is_dead : bool = false 
 const TYPE : String = "Enemy"
 const FLOOR = Vector2(0, -1)
-const MAX_SPEED : int = 140
+const MAX_SPEED : int = 150
 var SPEED : int = MAX_SPEED
 const MAX_GRAVITY : int = 45
 var GRAVITY : int = MAX_GRAVITY
@@ -251,7 +251,10 @@ func _on_Area2D_area_entered(area):
 					else:
 						add_damage_particles("Fire", float(damage), false)
 					$HitDelayTimer.start()
-					parse_damage()
+					if area.is_in_group("NoStagger"):
+						parse_damage(false)
+					else:
+						parse_damage()
 					break
 		
 		

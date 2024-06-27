@@ -229,6 +229,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/misc/EndlessLevel.gd"
 }, {
+"base": "KinematicBody2D",
+"class": "EnemyEldritchBlast",
+"language": "GDScript",
+"path": "res://scripts/enemies/EnemyEldritchBlast.gd"
+}, {
 "base": "Node2D",
 "class": "EnemyHealingOrb",
 "language": "GDScript",
@@ -649,6 +654,7 @@ _global_script_class_icons={
 "DungeonPortal": "",
 "EleganceMeterUI": "",
 "EndlessLevel": "",
+"EnemyEldritchBlast": "",
 "EnemyHealingOrb": "",
 "ExplodingFruit": "",
 "Familiar": "",

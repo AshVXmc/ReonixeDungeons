@@ -128,6 +128,8 @@ func on_skill_used(skill_name : String):
 			chaosmagic_ui.value = chaosmagic_ui.min_value
 		"IceLance":
 			icelance_ui.value = icelance_ui.min_value
+		"WinterQueen":
+			winterqueen_ui.value = winterqueen_ui.min_value
 		"PlayerChargedAttack":
 			pass
 

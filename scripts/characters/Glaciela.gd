@@ -72,7 +72,7 @@ onready var crit_rate : float = Global.glaciela_skill_multipliers["CritRate"]
 onready var crit_damage : float = Global.glaciela_skill_multipliers["CritDamage"]
 
 onready var sskill_ui : TextureProgress = get_parent().get_parent().get_parent().get_node("SkillsUI/Control/SecondarySkill/Glaciela/IceLance/TextureProgress")
-
+onready var pskill_ui : TextureProgress = get_parent().get_parent().get_parent().get_node("SkillsUI/Control/PrimarySkill/Glaciela/WinterQueen/TextureProgress")
 
 
 func _ready():
@@ -178,10 +178,27 @@ func _input(event):
 			$DashInputPressTimer.start()
 
 func use_skill():
-	if Global.current_character == "Glaciela":
-		if sskill_ui.value >= sskill_ui.max_value and Input.is_action_just_pressed("secondary_skill") and !Input.is_action_just_pressed("primary_skill") and !get_parent().get_parent().is_frozen and !get_parent().get_parent().is_using_secondary_skill:
+	if Global.current_character == "Glaciela" and !get_parent().get_parent().is_frozen and !get_parent().get_parent().is_using_secondary_skill:
+		
+		if sskill_ui.value >= sskill_ui.max_value and Input.is_action_just_pressed("secondary_skill") and !Input.is_action_just_pressed("primary_skill"):
 			use_secondary_skill()
+		if pskill_ui.value >= pskill_ui.max_value and Input.is_action_just_pressed("primary_skill") and !Input.is_action_just_pressed("secondary_skill"): 
+			use_primary_skill()
 
+func use_primary_skill():
+	if Global.current_character == Global.equipped_characters[0] and Global.mana >= Global.glaciela_skill_multipliers["WinterQueenCost"]:
+		emit_signal("skill_used", "WinterQueen", attack_buff)
+		get_parent().get_parent().emit_signal("skill_ui_update", "WinterQueen")
+		emit_signal("mana_changed", Global.mana, "Glaciela")
+	elif Global.current_character == Global.equipped_characters[1] and Global.character2_mana >= Global.glaciela_skill_multipliers["WinterQueenCost"]:
+		emit_signal("skill_used", "WinterQueen", attack_buff)
+		get_parent().get_parent().emit_signal("skill_ui_update", "WinterQueen")
+		emit_signal("mana_changed", Global.character2_mana, "Glaciela")
+	elif Global.current_character == Global.equipped_characters[2] and Global.character3_mana >= Global.glaciela_skill_multipliers["WinterQueenCost"]:
+		emit_signal("skill_used", "WinterQueen", attack_buff)
+		get_parent().get_parent().emit_signal("skill_ui_update", "WinterQueen")
+		emit_signal("mana_changed", Global.character3_mana, "Glaciela")
+		
 func use_secondary_skill():
 	if Global.current_character == Global.equipped_characters[0] and Global.mana >= Global.glaciela_skill_multipliers["IceLanceCost"]:
 		emit_signal("skill_used", "IceLance", attack_buff)
@@ -698,7 +715,9 @@ func _on_AttackCollision_area_entered(area):
 					$TundraStackRegen.start()
 				
 			emit_signal("change_elegance", "BasicAttack")
+#			if $ManaRegenDelay.is_stopped():
 			change_mana_value(0.25)
+				
 			var hitparticle = SWORD_HIT_PARTICLE.instance()
 			var slashparticle = SWORD_SLASH_EFFECT.instance()
 			hitparticle.emitting = true
@@ -707,6 +726,7 @@ func _on_AttackCollision_area_entered(area):
 			hitparticle.position = get_parent().get_parent().get_node("Position2D").global_position
 			slashparticle.position = get_parent().get_parent().get_node("Position2D").global_position
 			slashparticle.regular_slash_animation()
+			$ManaRegenDelay.start()
 			yield(get_tree().create_timer(0.1),"timeout")
 		
 	if weakref(area).get_ref() != null:
@@ -729,20 +749,26 @@ func _on_Area2D_area_entered(area):
 			emit_signal("lifewine_obtained", Global.lifewine_amount)
 		if !Global.godmode:
 			if $InvulnerabilityTimer.is_stopped() and !get_parent().get_parent().is_invulnerable and !get_parent().get_parent().is_dashing:
-				if area.is_in_group("Enemy") and area.is_in_group("Hostile") or area.is_in_group("Projectile"):
-					print("GLACIELA HURT")
-					match area.get_parent().elemental_type:
+				if area.is_in_group("Enemy") and area.is_in_group("Hostile")or area.is_in_group("Projectile"):
+					print("HURT")
+					var enemy_elemental_type : String
+					var enemy_atk_value : float
+					
+
+					enemy_elemental_type = area.get_parent().elemental_type
+					enemy_atk_value = area.get_parent().atk_value
+						
+					match enemy_elemental_type:
 						"Physical":
-							var dmg = area.get_parent().atk_value
-							take_damage(dmg * (1 - phys_res))
-#					get_parent().get_parent().is_invulnerable = true
+							take_damage(enemy_atk_value * (1 - phys_res))
+						"Fire":
+							take_damage(enemy_atk_value - (1 - fire_res))
 					get_parent().get_parent().is_gliding = false
-					Input.action_release("charge")
 					Input.action_release("ui_attack")
 					after_damaged()
 					if !area.is_in_group("LightEnemy") or !get_parent().get_parent().resist_interruption:
 						get_parent().get_parent().knockback()
-						
+#					$CampfireTimer.stop()
 #				if area.is_in_group("Enemy2"):
 #					take_damage(2)
 #					add_hurt_particles(1)
@@ -769,7 +795,11 @@ func _on_Area2D_area_entered(area):
 #	if area.is_in_group("Enemy") and !get_parent().get_parent().is_invulnerable:
 #		$AnimationPlayer.play("Hurt")
 func after_damaged():
-	
+	get_parent().get_parent().inv_timer.start() 
+#	$HurtAnimationPlayer.play("Hurt")
+	get_parent().get_parent().is_invulnerable = true
+#	emit_signal("life_changed", Global.hearts)
+#	$Sprite.play("Hurt")
 	$InvulnerabilityTimer.start()
 	
 #	emit_signal("life_changed", Global.hearts)

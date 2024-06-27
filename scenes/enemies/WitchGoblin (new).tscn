@@ -73,226 +73,10 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id=7]
 length = 0.001
-tracks/0/type = "value"
-tracks/0/path = NodePath("SpearSprite:rotation_degrees")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ -90.0 ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("SpearSprite:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Vector2( -45, 15 ) ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath("SpearSprite:show_behind_parent")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ true ]
-}
-tracks/3/type = "value"
-tracks/3/path = NodePath("SpearThrustAttackWarning:self_modulate")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 0.513726 ) ]
-}
-tracks/4/type = "value"
-tracks/4/path = NodePath("SpearThrustAttackWarning:color")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Color( 1, 0.196078, 0, 1 ) ]
-}
-tracks/5/type = "value"
-tracks/5/path = NodePath("SpearSprite:visible")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ true ]
-}
-tracks/6/type = "value"
-tracks/6/path = NodePath("SpearThrustAttackWarning:rect_position")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Vector2( -112, -45 ) ]
-}
-tracks/7/type = "value"
-tracks/7/path = NodePath("SpearThrustAttackWarning:visible")
-tracks/7/interp = 1
-tracks/7/loop_wrap = true
-tracks/7/imported = false
-tracks/7/enabled = true
-tracks/7/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ true ]
-}
-tracks/8/type = "value"
-tracks/8/path = NodePath("SpearThrustAttackCollision/CollisionShape2D:disabled")
-tracks/8/interp = 1
-tracks/8/loop_wrap = true
-tracks/8/imported = false
-tracks/8/enabled = true
-tracks/8/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ true ]
-}
 
 [sub_resource type="Animation" id=13]
 resource_name = "SpearThrustAttackLeft"
 step = 0.05
-tracks/0/type = "value"
-tracks/0/path = NodePath("SpearSprite:rotation_degrees")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ -90.0 ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("SpearSprite:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0.75, 0.9, 1 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 0,
-"values": [ Vector2( -24, 15 ), Vector2( -75, 15 ), Vector2( -20, 15 ) ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath("SpearSprite:show_behind_parent")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ true ]
-}
-tracks/3/type = "value"
-tracks/3/path = NodePath("SpearThrustAttackWarning:self_modulate")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/keys = {
-"times": PoolRealArray( 0, 0.13, 0.3, 0.45, 0.6 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 0.313726 ), Color( 1, 1, 1, 0.627451 ), Color( 1, 1, 1, 0.313726 ), Color( 1, 1, 1, 0.627451 ), Color( 1, 1, 1, 0.313726 ) ]
-}
-tracks/4/type = "value"
-tracks/4/path = NodePath("SpearThrustAttackWarning:color")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/keys = {
-"times": PoolRealArray( 0.01 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Color( 1, 0.196078, 0, 1 ) ]
-}
-tracks/5/type = "value"
-tracks/5/path = NodePath("SpearSprite:visible")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/keys = {
-"times": PoolRealArray( 0, 0.75, 1 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 1,
-"values": [ false, true, false ]
-}
-tracks/6/type = "value"
-tracks/6/path = NodePath("SpearThrustAttackWarning:rect_position")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Vector2( -112, -45 ) ]
-}
-tracks/7/type = "value"
-tracks/7/path = NodePath("SpearThrustAttackWarning:visible")
-tracks/7/interp = 1
-tracks/7/loop_wrap = true
-tracks/7/imported = false
-tracks/7/enabled = true
-tracks/7/keys = {
-"times": PoolRealArray( 0, 0.75, 1 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 1,
-"values": [ true, false, true ]
-}
-tracks/8/type = "value"
-tracks/8/path = NodePath("SpearThrustAttackCollision/CollisionShape2D:disabled")
-tracks/8/interp = 1
-tracks/8/loop_wrap = true
-tracks/8/imported = false
-tracks/8/enabled = true
-tracks/8/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ true ]
-}
 
 [sub_resource type="RectangleShape2D" id=9]
 extents = Vector2( 9.77439, 84.5919 )
@@ -303,7 +87,7 @@ extents = Vector2( 21.1124, 12.1701 )
 [sub_resource type="RectangleShape2D" id=12]
 extents = Vector2( 9.93562, 41.0079 )
 
-[sub_resource type="RectangleShape2D" id=14]
+[sub_resource type="RectangleShape2D" id=17]
 extents = Vector2( 32, 49 )
 
 [node name="WitchGoblin" type="KinematicBody2D" groups=["CanBeHealed", "Enemy", "EnemyEntity"]]
@@ -426,7 +210,12 @@ texture = ExtResource( 11 )
 position = Vector2( -44.3286, 0.422605 )
 shape = SubResource( 12 )
 
+[node name="HitDelayTimer" type="Timer" parent="."]
+wait_time = 0.06
+one_shot = true
+
 [node name="SpearSprite" type="Sprite" parent="."]
+visible = false
 show_behind_parent = true
 position = Vector2( -45, 15 )
 rotation = -1.5708
@@ -434,6 +223,7 @@ scale = Vector2( 5, 5 )
 texture = ExtResource( 12 )
 
 [node name="SpearThrustAttackWarning" type="ColorRect" parent="."]
+visible = false
 self_modulate = Color( 1, 1, 1, 0.513726 )
 margin_left = -112.0
 margin_top = -45.0
@@ -442,15 +232,12 @@ margin_bottom = 53.0
 color = Color( 1, 0.196078, 0, 1 )
 
 [node name="SpearThrustAttackCollision" type="Area2D" parent="." groups=["Enemy"]]
+visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SpearThrustAttackCollision"]
 position = Vector2( -79.9338, 3.80636 )
-shape = SubResource( 14 )
+shape = SubResource( 17 )
 disabled = true
-
-[node name="HitDelayTimer" type="Timer" parent="."]
-wait_time = 0.06
-one_shot = true
 
 [connection signal="tree_exiting" from="." to="." method="_on_Goblin_tree_exiting"]
 [connection signal="area_exited" from="Left" to="." method="_on_Left_area_exited"]

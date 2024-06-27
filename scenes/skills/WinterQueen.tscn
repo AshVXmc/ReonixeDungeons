@@ -34,7 +34,6 @@ tracks/0/keys = {
 radius = 100.0
 
 [node name="WinterQueen" type="Particles2D"]
-position = Vector2( 545, 404 )
 scale = Vector2( 5, 5 )
 emitting = false
 amount = 55
@@ -53,7 +52,7 @@ texture = ExtResource( 3 )
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/Idle = SubResource( 3 )
 
-[node name="Area2D" type="Area2D" parent="." groups=["Ice", "NoStagger"]]
+[node name="Area2D" type="Area2D" parent="." groups=["Ice"]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource( 2 )

@@ -49,17 +49,14 @@ one_shot = true
 position = Vector2( 0, -14 )
 
 [node name="HealthBar" type="TextureProgress" parent="."]
-margin_left = -44.8396
-margin_top = -57.9651
-margin_right = -14.8396
-margin_bottom = -51.9651
-rect_scale = Vector2( 3, 3 )
+margin_left = -59.8396
+margin_top = -68.9651
+margin_right = -29.8396
+margin_bottom = -62.9651
+rect_scale = Vector2( 4, 4 )
 value = 100.0
 texture_under = ExtResource( 4 )
 texture_progress = ExtResource( 3 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_Area2D_area_entered"]
 [connection signal="area_exited" from="Area2D" to="." method="_on_Area2D_area_exited"]

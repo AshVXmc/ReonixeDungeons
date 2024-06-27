@@ -166,10 +166,10 @@ var glaciela_skill_multipliers : Dictionary = {
 	"AirborneDuration": 2.5,
 	"IceLance": 10.0, # prev: 70
 	"MaxTundraStars": 3,
-	"WinterQueen": 25.0,
-	"WinterQueenCost": 15,
+	"WinterQueen": 15.0,
+	"WinterQueenCost": 1,
 	"IceLanceCost": 0,
-	"WinterQueenCD": 30.0,
+	"WinterQueenCD": 50.0,
 	"IceLanceCD": 10.0,
 	"BasePhysRes": 0.0,
 	"BaseMagicRes": 0.0,

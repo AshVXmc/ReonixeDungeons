@@ -150,7 +150,7 @@ shape = SubResource( 1 )
 one_way_collision = true
 
 [node name="Player" parent="." instance=ExtResource( 29 )]
-position = Vector2( 166.708, 679.508 )
+position = Vector2( -1333, 525 )
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position = Vector2( 9.72693, -62.0423 )

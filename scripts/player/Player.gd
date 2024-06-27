@@ -767,6 +767,7 @@ func switch_in_attack():
 
 
 func switch_in_attack_completed():
+
 	is_attacking = false
 	is_switch_in_attacking = false
 
@@ -1388,7 +1389,7 @@ func take_damage(damage : float):
 				add_hurt_particles(damage)
 				#emit_signal("change_elegance"), "Hit")
 				emit_signal("life_changed", Global.character3_hearts, "Player")
-		print(shield_hp)
+#		print(shield_hp)
 
 func heal(heal_amount : float, heal_to_max : bool = false, consumes_potion : bool = true):
 	# heal amount in percentage based on max HP

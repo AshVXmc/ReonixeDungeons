@@ -26,7 +26,7 @@ func destroy():
 	$DamageTickTimer.stop()
 	$Area2D/CollisionShape2D.disabled = true
 	$FreezeGaugeArea/CollisionShape2D.disabled = true
-	yield(get_tree().create_timer(0.15), "timeout")
+	yield(get_tree().create_timer(0.4), "timeout")
 	call_deferred('free')
 
 

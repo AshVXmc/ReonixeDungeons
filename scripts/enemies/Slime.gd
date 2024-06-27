@@ -1,7 +1,7 @@
 class_name Slime extends KinematicBody2D
 
 var velocity : Vector2 = Vector2()
-var max_HP : int = Global.enemy_level_index * 60
+var max_HP : int = Global.enemy_level_index * 40 + 30
 var HP : int = max_HP
 var is_dead : bool = false 
 var direction : int = 1

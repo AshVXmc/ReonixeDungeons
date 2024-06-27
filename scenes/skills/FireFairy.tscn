@@ -86,6 +86,11 @@ shape = SubResource( 5 )
 
 [node name="FieryRainParticle" type="CPUParticles2D" parent="."]
 
+[node name="FireGaugeArea" type="Area2D" parent="." groups=["350", "FireGauge"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FireGaugeArea"]
+shape = SubResource( 2 )
+
 [connection signal="area_entered" from="." to="." method="_on_HomingOnEnemiesFireball_area_entered"]
 [connection signal="body_entered" from="." to="." method="_on_FireFairy_body_entered"]
 [connection signal="timeout" from="DestroyedTimer" to="." method="_on_DestroyedTimer_timeout"]

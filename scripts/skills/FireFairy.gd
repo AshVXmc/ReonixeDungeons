@@ -1,6 +1,7 @@
 class_name FireFairy extends Area2D
 onready var player = get_parent().get_node("Player")
 const SULPHURIC_SIGIL = preload("res://scenes/status_effects/SulphuricSigil.tscn")
+const BURNING : PackedScene = preload("res://scenes/status_effects/BurningStatus.tscn")
 const SPEED = 450
 const steer_force = 225
 var attack : int = 5
