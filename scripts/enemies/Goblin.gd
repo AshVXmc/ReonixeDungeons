@@ -7,7 +7,7 @@ var max_HP_calc : int = 30 + (Global.enemy_level_index * 12)
 var level_calc : int = round(Global.enemy_level_index)
 export var max_HP : int = max_HP_calc
 export var level : int = level_calc
-var atk_value : float = 2.5 * Global.enemy_level_index 
+var atk_value : float = 3 * Global.enemy_level_index 
 onready var HP : int = max_HP
 export var flipped : bool = false
 var velocity = Vector2()
@@ -20,6 +20,10 @@ var SPEED : int = MAX_SPEED
 const MAX_GRAVITY : int = 45
 var GRAVITY : int = MAX_GRAVITY
 var is_staggered : bool = false
+
+# child entity uses only.
+var is_casting : bool = false
+
 
 const LOOT = preload("res://scenes/items/LootBag.tscn")
 onready var AREA_LEFT : Area2D = $Left
@@ -88,15 +92,17 @@ func _physics_process(delta):
 		$SpearThrustAttackCollision.set_scale(Vector2(-1,1))
 	if 80 >= velocity.x and velocity.x >= 0:
 		yield(get_tree().create_timer(0.1), "timeout")
-		$Sprite.play("Idle")
+		if !is_casting:
+			$Sprite.play("Idle")
 		if $Area2D.is_in_group("Hostile"):
 			$Area2D.remove_from_group("Hostile") 
 	else:
 		yield(get_tree().create_timer(0.1), "timeout")
-		$Sprite.play("Attacking")
+		if !is_casting:
+			$Sprite.play("Attacking")
 		if !$Area2D.is_in_group("Hostile"):
 			$Area2D.add_to_group("Hostile")
-	if is_on_floor():
+	if is_on_floor() and !is_casting:
 		if !is_staggered and !$Area2D.overlaps_area(PLAYER) and !other_enemy_detector_is_overlapping_player() and !is_frozen and !dead and !is_airborne and weakref(PLAYER).get_ref() != null: 
 			if AREA_LEFT.overlaps_area(PLAYER) and !AREA_LEFT.overlaps_area(DECOY) and !AREA_LEFT.overlaps_area(DECOY2) and !AREA_LEFT.overlaps_area(DECOY3):
 				$Sprite.flip_h = false

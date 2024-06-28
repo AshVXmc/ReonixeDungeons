@@ -55,7 +55,8 @@ var dashdirection : Vector2 = Vector2(1,0)
 var repulsion : Vector2 = Vector2()
 var knockback_power : int = 800
 var can_be_knocked : bool = true
-var SPEED : int = 400
+const MAX_SPEED = 400
+var SPEED : int = MAX_SPEED
 const GRAVITY : int = 38
 var JUMP_POWER : int = -1150
 var waiting_for_quickswap : bool = false
@@ -352,10 +353,10 @@ func _physics_process(_delta):
 				
 
 	#			ground_pound()
-				if airborne_mode:
-					SPEED = 380 * 0.75
-				else:
-					SPEED = 380
+#				if airborne_mode:
+#					SPEED = 380 * 0.75
+#				else:
+#					SPEED = 380
 				
 				if Input.is_action_just_pressed("right") or Input.is_action_just_pressed("left") and attack_string_count != 3:
 					attack_string_count = 4
@@ -1302,16 +1303,24 @@ func _on_Area2D_area_entered(area : Area2D):
 		if area.is_in_group("LifeWine"):
 			Global.lifewine_amount += 1
 			emit_signal("lifewine_obtained", Global.lifewine_amount)
+		if area.is_in_group("Snare"):
+			# from 0.1 - 0.9
+			var slowdown_coefficient : float = area.get_parent().slowdown_coefficient
+			var slowdown_duration : float = area.get_parent().slowdown_duration
+
+			SPEED = MAX_SPEED * (1 - slowdown_coefficient)
+			print("ENSNARED: " + str(SPEED))
+			
+			$SnareTimer.stop()
+			$SnareTimer.wait_time = slowdown_duration
+			$SnareTimer.start()
+			$SnaredParticles.emitting = true
 		if !Global.godmode:
 			if inv_timer.is_stopped() and !is_invulnerable and !is_dashing and !is_thrust_attacking:
-				if area.is_in_group("Enemy") and area.is_in_group("Hostile")or area.is_in_group("Projectile"):
+				if area.is_in_group("Enemy") and area.is_in_group("Hostile") or area.is_in_group("Projectile"):
 					print("HURT")
-					var enemy_elemental_type : String
-					var enemy_atk_value : float
-					
-
-					enemy_elemental_type = area.get_parent().elemental_type
-					enemy_atk_value = area.get_parent().atk_value
+					var enemy_elemental_type : String = area.get_parent().elemental_type
+					var enemy_atk_value : float = area.get_parent().atk_value
 						
 					match enemy_elemental_type:
 						"Physical":
@@ -1324,6 +1333,8 @@ func _on_Area2D_area_entered(area : Area2D):
 					if !area.is_in_group("LightEnemy") or !resist_interruption:
 						knockback()
 					$CampfireTimer.stop()
+			
+					 
 #				if area.is_in_group("Enemy2"):
 #					take_damage(2)
 #					add_hurt_particles(1)
@@ -1337,8 +1348,8 @@ func _on_Area2D_area_entered(area : Area2D):
 				Input.action_release("charge")
 				after_damaged()
 				$CampfireTimer.stop()
-		if area.is_in_group("SlowingPoison"):
-			slow_player(2.0)
+#		if area.is_in_group("SlowingPoison"):
+#			slow_player(2.0)
 		if area.is_in_group("Transporter"):
 			emit_signal("level_changed")
 		if area.is_in_group("Water"):
@@ -1931,15 +1942,7 @@ func freeze_player(time : float):
 	yield(get_tree().create_timer(time), "timeout")
 	is_frozen = false
 
-func slow_player(time : float):
-	slowed = true
-	set_modulate(Color(10, 0, 10, 1))
-	SPEED = 380 / 3
-	yield(get_tree().create_timer(time), "timeout")
-	slowed = false
-	set_modulate(Color(1,1,1,1))
-	SPEED = 380
-	
+
 func get_opals(opals : int):
 	Global.opals_amount += opals
 	emit_signal("opals_obtained", opals)
@@ -2220,3 +2223,8 @@ func _on_StabAttackCollision_area_exited(area):
 
 func _on_HideEnergyMeterTimer_timeout():
 	$EnergyMeter.visible = false
+
+
+func _on_SnareTimer_timeout():
+	SPEED = MAX_SPEED
+	$SnaredParticles.emitting = false

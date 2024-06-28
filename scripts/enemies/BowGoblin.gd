@@ -7,8 +7,8 @@ const ARROW = preload("res://scenes/enemies/Arrow.tscn")
 func _ready():
 	$ShootArrowTimer.start()
 	# Overrides
-	max_HP = 15 + (Global.enemy_level_index * 15)
-	SPEED = MAX_SPEED / 2.5
+	max_HP = 15 + (Global.enemy_level_index * 6)
+	SPEED = MAX_SPEED / 4
 
 func shoot_arrow():
 	is_shooting = true
@@ -38,31 +38,31 @@ func _physics_process(delta):
 				$Sprite.flip_h = false
 				if !$Sprite.flip_h:
 					yield(get_tree().create_timer(0.25),"timeout")
-					velocity.x = -SPEED
+					velocity.x = SPEED
 			elif AREA_LEFT.overlaps_area(DECOY) or AREA_LEFT.overlaps_area(DECOY2) or AREA_LEFT.overlaps_area(DECOY):
 				$Sprite.flip_h = false
 				if !$Sprite.flip_h:
 					yield(get_tree().create_timer(0.5),"timeout")
-					velocity.x = -SPEED 
+					velocity.x = SPEED 
 			if AREA_RIGHT.overlaps_area(PLAYER) and !AREA_RIGHT.overlaps_area(DECOY) and !AREA_RIGHT.overlaps_area(DECOY2) and !AREA_RIGHT.overlaps_area(DECOY3):
 				$Sprite.flip_h = true
 				if $Sprite.flip_h:
 					yield(get_tree().create_timer(0.25),"timeout")
-					velocity.x = SPEED 
+					velocity.x = -SPEED 
 			elif AREA_RIGHT.overlaps_area(DECOY) or AREA_RIGHT.overlaps_area(DECOY2) or AREA_RIGHT.overlaps_area(DECOY3):
 				$Sprite.flip_h = true
 				if $Sprite.flip_h:
 					yield(get_tree().create_timer(0.5),"timeout")
-					velocity.x = SPEED
+					velocity.x = -SPEED
 	if other_enemy_is_on_front():
 		velocity.x = 0
 		
 	if $Area2D.overlaps_area(PLAYER) or other_enemy_is_on_front() and !is_staggered:
 
 		if $Sprite.flip_h:
-			velocity.x = -SPEED * 1
-		else:
 			velocity.x = SPEED * 1
+		else:
+			velocity.x = -SPEED * 1
 	if other_enemy_detectors_is_overlapping():
 		if $Sprite.flip_h:
 			velocity.x = -SPEED 

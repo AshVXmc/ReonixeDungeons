@@ -73,7 +73,7 @@
 [ext_resource path="res://scenes/enemies/Goblin.tscn" type="PackedScene" id=71]
 [ext_resource path="res://assets/terrain/lichen_ruins_spritesheet.png" type="Texture" id=72]
 [ext_resource path="res://scenes/NPC/BardNPC.tscn" type="PackedScene" id=73]
-[ext_resource path="res://scenes/enemies/WitchGoblin (new).tscn" type="PackedScene" id=74]
+[ext_resource path="res://scenes/enemies/WitchGoblin.tscn" type="PackedScene" id=74]
 [ext_resource path="res://scenes/enemies/EnemyEldritchBlast.tscn" type="PackedScene" id=75]
 
 [sub_resource type="RectangleShape2D" id=5]
@@ -647,7 +647,7 @@ texture = ExtResource( 69 )
 position = Vector2( 3665, 597 )
 
 [node name="Player" parent="." instance=ExtResource( 34 )]
-position = Vector2( 2953, 596 )
+position = Vector2( 3045, 593 )
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position = Vector2( -24.7189, -147.43 )
@@ -662,7 +662,7 @@ drag_margin_v_enabled = true
 editor_draw_limits = true
 
 [node name="WitchGoblin" parent="." instance=ExtResource( 74 )]
-position = Vector2( 2788, 561 )
+position = Vector2( 4027, 588 )
 
 [node name="EnemyEldritchBlast" parent="." instance=ExtResource( 75 )]
 position = Vector2( 3314, 605 )

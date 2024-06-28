@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=2]
+[gd_scene load_steps=32 format=2]
 
 [ext_resource path="res://tilesets/Default.tres" type="TileSet" id=1]
 [ext_resource path="res://scenes/menus/RevivementCrystalUI.tscn" type="PackedScene" id=2]
@@ -25,7 +25,6 @@
 [ext_resource path="res://scenes/enemies/Slime.tscn" type="PackedScene" id=23]
 [ext_resource path="res://scenes/enemies/Bat.tscn" type="PackedScene" id=24]
 [ext_resource path="res://scenes/menus/InventoryUI.tscn" type="PackedScene" id=25]
-[ext_resource path="res://scenes/enemies/WitchGoblin.tscn" type="PackedScene" id=28]
 [ext_resource path="res://scenes/terrain/WoodenCrate.tscn" type="PackedScene" id=29]
 [ext_resource path="res://scenes/enemies/Goblin.tscn" type="PackedScene" id=30]
 [ext_resource path="res://assets/terrain/spiked_wooden_fence.png" type="Texture" id=31]
@@ -203,6 +202,3 @@ drag_margin_v_enabled = true
 drag_margin_left = 0.4
 drag_margin_right = 0.4
 editor_draw_limits = true
-
-[node name="WitchGoblin" parent="." instance=ExtResource( 28 )]
-position = Vector2( -852.362, 214.546 )

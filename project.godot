@@ -607,7 +607,7 @@ _global_script_classes=[ {
 "base": "Goblin",
 "class": "WitchGoblin",
 "language": "GDScript",
-"path": "res://scripts/enemies/WitchGoblin (new).gd"
+"path": "res://scripts/enemies/WitchGoblin.gd"
 } ]
 _global_script_class_icons={
 "Agnette": "",
