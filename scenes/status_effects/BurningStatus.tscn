@@ -10,11 +10,12 @@ extents = Vector2( 27.2505, 31.6564 )
 
 [sub_resource type="ParticlesMaterial" id=2]
 emission_shape = 2
-emission_box_extents = Vector3( 10, 15, 1 )
+emission_box_extents = Vector3( 36, 5, 1 )
 flag_disable_z = true
-gravity = Vector3( 0, -80, 0 )
+gravity = Vector3( 0, -65, 0 )
 orbit_velocity = 0.0
 orbit_velocity_random = 0.0
+scale = 1.2
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 27.0468, 31.8198 )

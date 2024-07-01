@@ -56,7 +56,7 @@ var player_skill_multipliers : Dictionary = {
 	"DownwardsChargedAttack": 56.0,
 	"SpecialChargedAttack": 30.0 ,# x 4
 	"SpecialChargedAttackFinalStrike": 140.0,
-	"CircularFlurryAttack": 30.0, # x 3
+	"CircularFlurryAttack": 40.0, # x 3
 	"PiercingProjectile": 95.0,
 	"EntryAttack": 50.0, # x 3
 	"CounterAttack": 42.0, # x 2
@@ -70,7 +70,7 @@ var player_skill_multipliers : Dictionary = {
 	"FireSawDuration": 8.0,
 	"FireFairy": 22.0,
 	"Fireball": 50.0,
-	"FireballCD": 4.0,
+	"FireballCD": 6.0,
 	"FireballCharges": 3,
 	"FireballMaxCharges": 3,
 	"FireSawCost": 18,

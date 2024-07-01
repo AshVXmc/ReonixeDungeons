@@ -1,11 +1,20 @@
 class_name WitchGoblin extends Goblin
 
 const ELDRITCH_BLAST = preload("res://scenes/enemies/EnemyEldritchBlast.tscn")
+const ELDRITCH_HEX = preload("res://scenes/enemies/EnemyEldritchHex.tscn")
 onready var player = get_parent().get_node("Player")
 
+var spell_history : Array = []
+
 func _ready():
-	SPEED = MAX_SPEED / 1.5
+	max_HP *= 0.7
+	HP = max_HP
+	$HealthBar.max_value = max_HP
+	$HealthBar.value = $HealthBar.max_value
+	SPEED = MAX_SPEED / 2.1
 	is_casting = true
+	
+	print(spell_history)
 func _physics_process(delta):
 	if !is_casting:
 		if is_on_floor():
@@ -63,14 +72,17 @@ func _physics_process(delta):
 
 func cast_spell():
 	is_casting = true
-	yield(get_tree().create_timer(2), "timeout")
-	eldritch_blast()
+	yield(get_tree().create_timer(1), "timeout")
+	var rng = RandomNumberGenerator.new()
+	rng.randomize()
+	var num = rng.randi_range(1, 2)	
+	match num:
+		1:
+			eldritch_blast()
+			
+		2:
+			eldritch_hex()
 	
-	
-	
-# summon a harmless cloud of smoke that bursts to deal damage after a short windup
-func eldritch_hex():
-	pass
 
 # slows/snares the player, mediocre damage, tracks the player until
 # it enters a radius, then starts a countdown timer
@@ -78,8 +90,17 @@ func eldritch_blast():
 	var eb = ELDRITCH_BLAST.instance()
 	get_parent().add_child(eb)
 	eb.position = global_position
+	yield(get_tree().create_timer(1),"timeout")
 	is_casting = false
-
+	
+# summon a smokecloud at the player's position, before casting down lighting
+func eldritch_hex():
+	var hex = ELDRITCH_HEX.instance()
+	get_parent().add_child(hex)
+	hex.position = player.global_position
+	yield(get_tree().create_timer(3.25), "timeout")
+	is_casting = false
+	
 func _on_CastSpellTimer_timeout():
 	var entities = $PlayerDetectorArea2D.get_overlapping_bodies()
 	if player in entities:

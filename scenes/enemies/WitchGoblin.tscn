@@ -96,7 +96,7 @@ extents = Vector2( 9.93562, 41.0079 )
 extents = Vector2( 32, 49 )
 
 [sub_resource type="CircleShape2D" id=18]
-radius = 400.0
+radius = 500.0
 
 [node name="WitchGoblin" type="KinematicBody2D" groups=["CanBeHealed", "Enemy", "EnemyEntity"]]
 scale = Vector2( 1.2, 1.2 )
@@ -248,7 +248,7 @@ shape = SubResource( 17 )
 disabled = true
 
 [node name="CastSpellTimer" type="Timer" parent="."]
-wait_time = 4.0
+wait_time = 3.8
 autostart = true
 
 [node name="PlayerDetectorArea2D" type="Area2D" parent="."]

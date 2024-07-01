@@ -98,7 +98,6 @@ anims/Explode = SubResource( 6 )
 [node name="PurpleSmokeParticle" parent="." instance=ExtResource( 4 )]
 emitting = false
 amount = 18
-lifetime = 0.3
 one_shot = true
 randomness = 0.0
 initial_velocity = 70.0

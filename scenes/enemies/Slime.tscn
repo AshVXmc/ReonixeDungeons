@@ -58,6 +58,10 @@ value = 100.0
 texture_under = ExtResource( 4 )
 texture_progress = ExtResource( 3 )
 
+[node name="HitDelayTimer" type="Timer" parent="."]
+wait_time = 0.06
+one_shot = true
+
 [connection signal="area_entered" from="Area2D" to="." method="_on_Area2D_area_entered"]
 [connection signal="area_exited" from="Area2D" to="." method="_on_Area2D_area_exited"]
 [connection signal="timeout" from="HurtTimer" to="." method="_on_HurtTimer_timeout"]

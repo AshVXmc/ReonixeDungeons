@@ -1,6 +1,6 @@
 class_name EnemyEldritchBlast extends KinematicBody2D
 
-const MAX_SPEED : int = 375
+const MAX_SPEED : int = 335
 var speed : int = MAX_SPEED
 export (int) var x_direction = -1
 
@@ -49,7 +49,6 @@ func explode():
 	yield(get_tree().create_timer(0.4), "timeout")
 	$PurpleSmokeParticle.emitting = true
 	$ExplosionArea2D/CollisionShape2D.disabled = false
-
 	$Sprite.visible = false
 	yield(get_tree().create_timer(0.3), "timeout")
 	call_deferred('free')

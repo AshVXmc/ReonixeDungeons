@@ -7,7 +7,7 @@ var max_HP_calc : int = 30 + (Global.enemy_level_index * 12)
 var level_calc : int = round(Global.enemy_level_index)
 export var max_HP : int = max_HP_calc
 export var level : int = level_calc
-var atk_value : float = 3 * Global.enemy_level_index 
+var atk_value : float = 2.5 * Global.enemy_level_index 
 onready var HP : int = max_HP
 export var flipped : bool = false
 var velocity = Vector2()
@@ -15,7 +15,7 @@ var direction : int = 1
 var is_dead : bool = false 
 const TYPE : String = "Enemy"
 const FLOOR = Vector2(0, -1)
-const MAX_SPEED : int = 150
+const MAX_SPEED : int = 140
 var SPEED : int = MAX_SPEED
 const MAX_GRAVITY : int = 45
 var GRAVITY : int = MAX_GRAVITY
@@ -37,8 +37,8 @@ var is_frozen : bool = false
 var is_airborne : bool = false
 var decoyed : bool = false
 var dead : bool = false
-const AIRBORNE_SPEED : int = -4000
 
+const AIRBORNE_SPEED : int = -4000
 export var Armored : bool = false
 export (String, "Physical", "Magical", "Fire", "Ice", "Earth") var Armor_Type = "Physical"
 export (int) var Armor_Durability = 100 # amount of poise/hits/elemental stacks needed to break the shield
@@ -381,7 +381,6 @@ func knockback(knockback_coefficient : float = 1):
 		velocity.x = -SPEED * knockback_coefficient
 	else:
 		velocity.x = SPEED * knockback_coefficient
-	print("Knocked back")
 	$HurtTimer.start()
 func armor_break():
 	pass

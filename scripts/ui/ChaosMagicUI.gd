@@ -14,11 +14,11 @@ func _ready():
 	connect("restore_mana",  get_parent().get_parent().get_parent().get_node("ManaUI/Mana"), "on_player_mana_changed")
 	
 func trigger_chaos_magic():
-#	var rng = RandomNumberGenerator.new()
-#	rng.randomize()
-#	var num = rng.randi_range(1, 8)
-#	chaos_magic(num)
-	chaos_magic(2)
+	var rng = RandomNumberGenerator.new()
+	rng.randomize()
+	var num = rng.randi_range(1, 8)
+	chaos_magic(num)
+	
 
 func chaos_magic(id : int):
 	match id:

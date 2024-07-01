@@ -7,19 +7,18 @@ var velocity: Vector2 = Vector2.ZERO
 var is_dead : bool = false
 var HP : int = 2
 var direction : int = 1
-var player = null
-var target = null
+onready var player = get_parent().get_node("Player")
+var target = player
 const LOOT : PackedScene = preload("res://scenes/items/LootBag.tscn")
 var rng : RandomNumberGenerator = RandomNumberGenerator.new()
 var acceleration = Vector2.ZERO
 var staggered : bool = false
 
+
+
 func _ready():
 	$AnimatedSprite.play("Idle")
-func start(_transform, _target):
-	global_transform = _transform
-	velocity = transform.x * SPEED
-	target = _target
+
 	
 func seek():
 	var steer = Vector2.ZERO
@@ -29,20 +28,18 @@ func seek():
 		return steer
 	
 func _physics_process(delta):
-	target = get_player()
-	if target and get_parent().get_node("Player/Area2D").overlaps_area($Detector) and !staggered:
+	
+	if player.get_node("Area2D").overlaps_area($Detector) and !staggered:
 		acceleration += seek()
 		velocity += acceleration * delta
 		velocity = velocity.clamped(SPEED)
 		position += velocity * delta
-	elif !get_parent().get_node("Player/Area2D").overlaps_area($Detector):
+	elif !player.get_node("Area2D").overlaps_area($Detector):
 		velocity.x = 0
 		velocity.y = 0
 
 
-func get_player():
-	var player = get_parent().get_node("Player")
-	return player
+
 
 # Player detector
 func _on_Detector_body_entered(body):
