@@ -142,7 +142,7 @@ var player_talents : Dictionary = {
 		"enabled": true,
 		"opalscost": 100,
 		# 45? 60? 100?
-		"cooldown": 75,
+		"cooldown": 10,
 		"talentslotcost": 3
 	}
 }

@@ -329,7 +329,6 @@ func _on_Area2D_area_entered(area):
 		if area.is_in_group("Airborne") and !is_airborne:
 			is_airborne = true
 			velocity.y = AIRBORNE_SPEED
-			
 			yield(get_tree().create_timer(0.05), "timeout")
 			velocity.y = 0
 		if area.is_in_group("Player"):
@@ -414,7 +413,7 @@ func death():
 		get_parent().add_child(loot)
 		loot.opals_amount = 25
 		loot.position = $Position2D.global_position
-	queue_free()
+	call_deferred('free')
 	print("reached")
 	Global.enemies_killed += 1
 

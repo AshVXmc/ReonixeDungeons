@@ -65,6 +65,17 @@ func _on_ButtonBowGoblin_pressed():
 func _on_ButtonBat_pressed():
 	open_beast_info_screen("Bat")
 
-
 func _on_ButtonShamanGoblin_pressed():
 	open_beast_info_screen("ShamanGoblin")
+
+
+func _on_ButtonSlime_pressed():
+	pass # Replace with function body.
+
+
+func _on_ButtonFireSlime_pressed():
+	pass # Replace with function body.
+
+
+func _on_ButtonWitchGoblin_pressed():
+	pass # Replace with function body.

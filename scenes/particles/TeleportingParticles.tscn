@@ -5,10 +5,11 @@
 [node name="TeleportingParticles" type="CPUParticles2D"]
 scale = Vector2( 2, 2 )
 emitting = false
-amount = 6
+amount = 10
 lifetime = 0.6
 one_shot = true
 explosiveness = 0.43
+randomness = 0.25
 texture = ExtResource( 1 )
 emission_shape = 1
 emission_sphere_radius = 15.0

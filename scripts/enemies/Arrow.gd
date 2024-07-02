@@ -5,7 +5,7 @@ var SPEED : int = MAX_SPEED
 var velocity := Vector2()
 export (int) var x_direction = 1
 var elemental_type = "Physical"
-var atk_value : int = 0.2 * Global.enemy_level_index + 0.2 
+var atk_value : int = 0.8 * Global.enemy_level_index + 0.2 
 
 func _ready():
 	$Area2D.add_to_group(elemental_type)

@@ -269,6 +269,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/misc/FireSaw.gd"
 }, {
+"base": "Slime",
+"class": "FireSlime",
+"language": "GDScript",
+"path": "res://scripts/enemies/FireSlime.gd"
+}, {
 "base": "Area2D",
 "class": "Fireball",
 "language": "GDScript",
@@ -667,6 +672,7 @@ _global_script_class_icons={
 "FireCharm": "",
 "FireFairy": "",
 "FireSaw": "",
+"FireSlime": "",
 "Fireball": "",
 "FrostFruit": "",
 "FrozenStatus": "",

@@ -1,17 +1,21 @@
 class_name Slime extends KinematicBody2D
 
 var velocity : Vector2 = Vector2()
-var max_HP : int = Global.enemy_level_index * 40 + 30
-const AIRBORNE_SPEED : int = -4000
+var max_HP : int = Global.enemy_level_index * 25 + 20
+const AIRBORNE_SPEED : int = -4750
+var level_calc : int = round(Global.enemy_level_index)
+export var level : int = level_calc
 var HP : int = max_HP
 var is_dead : bool = false 
 var direction : int = 1
 const TYPE : String = "Enemy"
 const FLOOR = Vector2(0, -1)
 var SPEED : int = 100
-var GRAVITY : int = 45
+const MAX_GRAVITY : int = 45
+var GRAVITY : int = MAX_GRAVITY
 const LOOT : PackedScene = preload("res://scenes/items/LootBag.tscn")
 var rng : RandomNumberGenerator = RandomNumberGenerator.new()
+const DEATH_SMOKE : PackedScene = preload("res://scenes/particles/DeathSmokeParticle.tscn")
 const FROZEN = preload("res://scenes/status_effects/FrozenStatus.tscn")
 var is_frozen : bool = false
 const DMG_INDICATOR : PackedScene = preload("res://scenes/particles/DamageIndicatorParticle.tscn")
@@ -25,29 +29,50 @@ var earth_res : float = 0
 var ice_res : float = 0
 var global_res : float = 0
 var armor_strength_coefficient = 1
+
+var damage_immunity : Dictionary = {
+	fire = false,
+	ice = false,
+	earth = false,
+	physical = false
+}
+
 func _ready():
+	$LevelLabel.text = "Lv " + str(level)
 	$HealthBar.max_value = max_HP
 func _physics_process(delta):
-	if !is_airborne:
-		set_collision_mask_bit(2, true)
-	else:
-		set_collision_mask_bit(2, false)
+	if !is_dead:
+		if !is_airborne:
+			set_collision_mask_bit(2, true)
+			$AnimatedSprite.play("slimeanim")
+		else:
+			set_collision_mask_bit(2, false)
+			$AnimatedSprite.stop()
 	if !is_airborne:
 		velocity.y += GRAVITY
 	if direction == 1 and !is_dead:
 		$AnimatedSprite.flip_h = false
 	elif !is_dead:
 		$AnimatedSprite.flip_h = true
+	velocity = move_and_slide(velocity, FLOOR)
+	if is_on_wall() or !$RayCast2D.is_colliding():
+		direction *= -1
+		$RayCast2D.position.x *= -1
 	if !is_dead and !is_frozen and !is_staggered and !is_airborne:
-		
 		velocity.x = SPEED * direction
-		$AnimatedSprite.play("slimeanim")
+		
 		velocity.y += GRAVITY
-		velocity = move_and_slide(velocity, FLOOR)
-		if is_on_wall() or !$RayCast2D.is_colliding():
-			direction *= -1
-			$RayCast2D.position.x *= -1
-
+	if 80 >= velocity.x and velocity.x >= 0:
+		yield(get_tree().create_timer(0.1), "timeout")
+		if $Area2D.is_in_group("Hostile"):
+			$Area2D.remove_from_group("Hostile") 
+	else:
+		yield(get_tree().create_timer(0.1), "timeout")
+		if !$Area2D.is_in_group("Hostile"):
+			$Area2D.add_to_group("Hostile")
+		
+	if is_staggered or is_frozen or is_airborne:
+		velocity.x = 0
 func _on_Area2D_area_entered(area):
 	var groups_to_remove : Array = [
 		"Sword", "SwordCharged", "Fireball", "Ice",
@@ -61,7 +86,7 @@ func _on_Area2D_area_entered(area):
 			knockback(1.5)
 
 	if area.is_in_group("MediumPoiseDamage"):
-		knockback(4.2)
+		knockback(8)
 	if area.is_in_group("HeavyPoiseDamage"):
 		knockback(20)
 	if area.is_in_group("CustomPoiseDamage"):
@@ -70,7 +95,7 @@ func _on_Area2D_area_entered(area):
 				knockback(float(g))
 
 	if weakref(area).get_ref() != null:
-		if area.is_in_group("Sword"):
+		if area.is_in_group("Sword") and !damage_immunity.physical:
 			var groups : Array = area.get_groups()
 			for group_names in groups:
 				if float(group_names) != 0 and $HitDelayTimer.is_stopped():
@@ -89,7 +114,7 @@ func _on_Area2D_area_entered(area):
 					parse_damage()
 					break
 					
-		if area.is_in_group("SwordCharged"):
+		if area.is_in_group("SwordCharged") and !damage_immunity.physical:
 				var groups : Array = area.get_groups()
 				for group_names in groups:
 					if float(group_names) != 0:
@@ -106,7 +131,7 @@ func _on_Area2D_area_entered(area):
 						parse_damage()
 						break
 				
-		if area.is_in_group("Fireball"):
+		if area.is_in_group("Fireball") and !damage_immunity.fire:
 			var groups : Array = area.get_groups()
 			for group_names in groups:
 				if float(group_names) != 0 and $HitDelayTimer.is_stopped():
@@ -129,7 +154,7 @@ func _on_Area2D_area_entered(area):
 					break
 		
 		
-		if area.is_in_group("Ice"):
+		if area.is_in_group("Ice") and !damage_immunity.ice:
 			print("ice entered")
 			var groups : Array = area.get_groups()
 			for group_names in groups:
@@ -151,7 +176,7 @@ func _on_Area2D_area_entered(area):
 					else:
 						parse_damage()
 					break
-		if area.is_in_group("Earth"):
+		if area.is_in_group("Earth") and !damage_immunity.earth:
 			var groups : Array = area.get_groups()
 			for group_names in groups:
 				if float(group_names) != 0 and $HitDelayTimer.is_stopped():
@@ -171,12 +196,12 @@ func _on_Area2D_area_entered(area):
 					break
 		if area.is_in_group("FireGauge"):
 			pass
-		if area.is_in_group("Burning"):
+		if area.is_in_group("Burning") and !damage_immunity.fire:
 			var groups : Array = area.get_groups()
 			for group_names in groups:
 				if $HitDelayTimer.is_stopped():
 					var damage = max_HP * 0.08
-					print("AAAGH IT BURNS")
+#					print("AAAGH IT BURNS")
 #					var raw_damage = float(group_names)
 #					var damage_after_global_res = raw_damage - (raw_damage * (global_res / 100))
 #					var damage = round((damage_after_global_res - (damage_after_global_res * (fire_res / 100))) * armor_strength_coefficient)
@@ -193,8 +218,9 @@ func _on_Area2D_area_entered(area):
 					break
 		if area.is_in_group("Airborne") and !is_airborne:
 			is_airborne = true
+			velocity.y = 0
 			velocity.y = AIRBORNE_SPEED
-			
+#			print(velocity.y)
 			yield(get_tree().create_timer(0.05), "timeout")
 			velocity.y = 0
 		if area.is_in_group("Player"):
@@ -223,7 +249,7 @@ func _on_Area2D_area_entered(area):
 		if area.is_in_group("HeavyPoiseDamage"):
 			knockback(10)
 	
-	drop_loot()
+#	drop_loot()
 func knockback(knockback_coefficient : float = 1):
 	is_staggered = true
 	if $AnimatedSprite.flip_h:
@@ -232,14 +258,19 @@ func knockback(knockback_coefficient : float = 1):
 		velocity.x = SPEED * knockback_coefficient
 	$HurtTimer.start()
 	
+	
 func parse_damage(staggers:bool = true):
 	if staggers:
 		is_staggered = true
 	$AnimatedSprite.set_modulate(Color(2,0.5,0.3,1))
 	$HurtTimer.start()
+	if HP <= 0:
+		drop_loot()
+		death()
 func parse_status_effect_damage():
 	$AnimatedSprite.set_modulate(Color(2,0.5,0.3,1))
 	$HurtTimer.start()
+	
 func add_damage_particles(type : String, dmg : int, is_crit : bool):
 	var dmgparticle = DMG_INDICATOR.instance()
 	dmgparticle.is_crit = is_crit
@@ -253,13 +284,24 @@ func drop_loot():
 	var lootrng : RandomNumberGenerator = RandomNumberGenerator.new()
 	lootrng.randomize()
 	var randomint = lootrng.randi_range(1,2)
-	if HP <= 0:
-		if randomint == 1:
-			get_parent().add_child(loot)
-			loot.position = $Position2D.global_position
-		queue_free()
-		Global.enemies_killed += 1
+	if randomint == 1:
+		get_parent().add_child(loot)
+		loot.position = $Position2D.global_position
 
+func death():
+	is_dead = true
+	$AnimatedSprite.stop()
+	$AnimatedSprite.play("dead")
+	$AnimationPlayer.play("Death")
+	var deathparticle = DEATH_SMOKE.instance()
+	deathparticle.emitting = true
+	deathparticle.position = global_position
+	get_parent().add_child(deathparticle)
+	yield(get_tree().create_timer(0.3), "timeout")
+	call_deferred('free')
+	Global.enemies_killed += 1
+	
+	
 func _on_HurtTimer_timeout():
 	is_staggered = false
 	velocity.x = SPEED * direction

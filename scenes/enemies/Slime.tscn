@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://scripts/enemies/Slime.gd" type="Script" id=1]
 [ext_resource path="res://spriteframes/slime_spriteframes.tres" type="SpriteFrames" id=2]
 [ext_resource path="res://assets/UI/healthbar_enemy_full.png" type="Texture" id=3]
 [ext_resource path="res://assets/UI/healthbar_enemy_empty.png" type="Texture" id=4]
+[ext_resource path="res://assets/fonts/Born2bSportyV2.ttf" type="DynamicFontData" id=5]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 26.36, 15.1008 )
@@ -12,8 +13,41 @@ extents = Vector2( 26.36, 15.1008 )
 radius = 24.1874
 height = 20.9775
 
-[node name="Slime" type="KinematicBody2D" groups=["Enemy", "Physical"]]
-collision_layer = 0
+[sub_resource type="DynamicFont" id=3]
+size = 32
+font_data = ExtResource( 5 )
+
+[sub_resource type="Animation" id=4]
+resource_name = "Death"
+length = 0.3
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("AnimatedSprite:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 0, 0, 0, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("AnimatedSprite:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.3 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+
+[node name="Slime" type="KinematicBody2D" groups=["Enemy", "EnemyEntity", "Physical"]]
+collision_layer = 4
 collision_mask = 11
 script = ExtResource( 1 )
 __meta__ = {
@@ -28,6 +62,9 @@ shape = SubResource( 1 )
 position = Vector2( 0, -29.326 )
 scale = Vector2( 5, 5 )
 frames = ExtResource( 2 )
+animation = "dead"
+frame = 2
+playing = true
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
 position = Vector2( 32, 0 )
@@ -42,7 +79,7 @@ rotation = 1.5708
 shape = SubResource( 2 )
 
 [node name="HurtTimer" type="Timer" parent="."]
-wait_time = 0.25
+wait_time = 0.55
 one_shot = true
 
 [node name="Position2D" type="Position2D" parent="."]
@@ -61,6 +98,18 @@ texture_progress = ExtResource( 3 )
 [node name="HitDelayTimer" type="Timer" parent="."]
 wait_time = 0.06
 one_shot = true
+
+[node name="LevelLabel" type="Label" parent="."]
+margin_left = -28.0
+margin_top = -96.0
+margin_right = 28.0
+margin_bottom = -64.0
+custom_fonts/font = SubResource( 3 )
+text = "Lv.1"
+align = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/Death = SubResource( 4 )
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_Area2D_area_entered"]
 [connection signal="area_exited" from="Area2D" to="." method="_on_Area2D_area_exited"]

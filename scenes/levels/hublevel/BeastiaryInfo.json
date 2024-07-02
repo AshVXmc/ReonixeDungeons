@@ -6,18 +6,23 @@
     },
     "BowGoblin" :{
         "Name": "Goblin Bowyer",
-        "Description": "Goblins with a bow and arrow to shoot enemies from afar. They are effective at range, but they lack fighting power and defense up close.",
+        "Description": "Goblins with a bow and arrow to shoot enemies from afar. They are dangerous at range, but they lack fighting power and defense up close.",
         "Flavortext": "Goblins who have been exposed to larger amounts of dark mana during the Awakening gain a slight, but not insignificant, increase in their intelligence levels and are able to perform more complex tasks such as crafting bows and hunting food for their tribe."
     },
     "ShamanGoblin":{
         "Name": "Goblin Shaman",
-        "Description": "Uses mana magic to heal goblins and other beasts. The healing orb has a travel time, and they can't heal other shaman goblins.",
+        "Description": "Casts spells to heal goblins and other beasts. The healing orb has a travel time, and they can't heal other shaman goblins.",
         "Flavortext": "Shamans are the apex of their tribes, as they manage tribe affairs and serve as protectors of their tribe. They possess a wealth of experience in ancient spells and show much higher levels of intelligence and dark mana concentration compared to their peers. They dyed several parts of their bodies and wore animal tooth charms as a sign of power. Their rudimentary staff seems to serve as a catalyst for their magic."
     },
     "Bat": {
         "Name": "Bat",
         "Description": "Bats float over you, dropping blood projectiles from above to deal damage. They have little to no defense when attacked mid-air.",
         "Flavortext": "Lesser accumulations of dark mana managed to form organic living matter and manifested as winged creatures with lust for blood. They use their venom-laced fangs to incapacitate their prey and absorb their blood. You will find plenty of them inhibiting murky dungeons and caverns."
+    },
+    "Witch": {
+        "Name": "Goblin Witch",
+        "Description": "Witches cast homing missiles that slow you down and call down deadly lightning strikes to pressure you from a distance.",
+        "Flavortext": ""
     }
 
 }

@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://assets/fonts/Born2bSportyV2.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://themes/Blur.tres" type="Material" id=2]
@@ -10,13 +10,16 @@
 [ext_resource path="res://assets/enemies/bow_goblin1.png" type="Texture" id=8]
 [ext_resource path="res://assets/enemies/bat_1.png" type="Texture" id=9]
 [ext_resource path="res://assets/enemies/goblin_shaman_1.png" type="Texture" id=10]
+[ext_resource path="res://assets/enemies/fire_slime_1.png" type="Texture" id=11]
+[ext_resource path="res://assets/enemies/slime1.png" type="Texture" id=12]
+[ext_resource path="res://assets/enemies/witch_goblin_1.png" type="Texture" id=13]
 
 [sub_resource type="DynamicFont" id=1]
 size = 48
 font_data = ExtResource( 1 )
 
 [sub_resource type="DynamicFont" id=2]
-size = 48
+size = 32
 font_data = ExtResource( 1 )
 
 [sub_resource type="DynamicFont" id=3]
@@ -37,7 +40,6 @@ font_data = ExtResource( 1 )
 pause_mode = 2
 
 [node name="Control" type="Control" parent="."]
-visible = false
 anchor_left = 0.5
 anchor_top = 0.33
 anchor_right = 0.5
@@ -72,10 +74,10 @@ margin_bottom = -23.0
 texture = ExtResource( 4 )
 
 [node name="Header" type="RichTextLabel" parent="Control/NinePatchRect"]
-margin_left = 39.0
-margin_top = 55.0
-margin_right = 784.0
-margin_bottom = 103.0
+margin_left = 28.0
+margin_top = 47.0
+margin_right = 773.0
+margin_bottom = 91.0
 custom_fonts/normal_font = SubResource( 1 )
 bbcode_enabled = true
 bbcode_text = "[center]======== [color=red]Beastiary[/color] ========"
@@ -83,23 +85,29 @@ text = "======== Beastiary ========"
 scroll_active = false
 
 [node name="ButtonsControl" type="Control" parent="Control/NinePatchRect"]
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -400.0
+margin_top = -250.0
+margin_right = 400.0
+margin_bottom = 250.0
 
 [node name="Text" type="RichTextLabel" parent="Control/NinePatchRect/ButtonsControl"]
 anchor_left = 0.513
 anchor_top = 0.251
 anchor_right = 0.513
 anchor_bottom = 0.251
-margin_left = -360.4
-margin_top = -24.5
-margin_right = 360.6
-margin_bottom = 24.5
+margin_left = -367.4
+margin_top = -39.5
+margin_right = 353.6
+margin_bottom = -9.49999
 custom_colors/default_color = Color( 0, 0, 0, 1 )
 custom_fonts/normal_font = SubResource( 2 )
 bbcode_enabled = true
-bbcode_text = "[center]Select a creature."
-text = "Select a creature."
+bbcode_text = "[center]Select a creature you would like to learn about."
+text = "Select a creature you would like to learn about."
 scroll_active = false
 
 [node name="ButtonGoblin" type="TextureButton" parent="Control/NinePatchRect/ButtonsControl"]
@@ -107,11 +115,11 @@ anchor_left = 0.219
 anchor_top = 0.424
 anchor_right = 0.219
 anchor_bottom = 0.424
-margin_left = -75.2
-margin_top = -62.0
-margin_right = -35.2
-margin_bottom = -22.0
-rect_scale = Vector2( 2.5, 2.5 )
+margin_left = -110.2
+margin_top = 7.0
+margin_right = -70.2
+margin_bottom = 47.0
+rect_scale = Vector2( 2, 2 )
 texture_normal = ExtResource( 6 )
 expand = true
 __meta__ = {
@@ -123,16 +131,58 @@ position = Vector2( 20.4, 20 )
 scale = Vector2( 1.5, 1.5 )
 texture = ExtResource( 7 )
 
+[node name="ButtonSlime" type="TextureButton" parent="Control/NinePatchRect/ButtonsControl"]
+anchor_left = 0.219
+anchor_top = 0.424
+anchor_right = 0.219
+anchor_bottom = 0.424
+margin_left = -110.2
+margin_top = -93.0
+margin_right = -70.2
+margin_bottom = -53.0
+rect_scale = Vector2( 2, 2 )
+texture_normal = ExtResource( 6 )
+expand = true
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Sprite" type="Sprite" parent="Control/NinePatchRect/ButtonsControl/ButtonSlime"]
+position = Vector2( 20.4, 20 )
+scale = Vector2( 1.5, 1.5 )
+texture = ExtResource( 12 )
+
+[node name="ButtonFireSlime" type="TextureButton" parent="Control/NinePatchRect/ButtonsControl"]
+anchor_left = 0.219
+anchor_top = 0.424
+anchor_right = 0.219
+anchor_bottom = 0.424
+margin_left = 4.8
+margin_top = -93.0
+margin_right = 44.8
+margin_bottom = -53.0
+rect_scale = Vector2( 2, 2 )
+texture_normal = ExtResource( 6 )
+expand = true
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Sprite" type="Sprite" parent="Control/NinePatchRect/ButtonsControl/ButtonFireSlime"]
+position = Vector2( 20.4, 20 )
+scale = Vector2( 1.5, 1.5 )
+texture = ExtResource( 11 )
+
 [node name="ButtonBowGoblin" type="TextureButton" parent="Control/NinePatchRect/ButtonsControl"]
 anchor_left = 0.219
 anchor_top = 0.424
 anchor_right = 0.219
 anchor_bottom = 0.424
-margin_left = 94.8
-margin_top = -62.0
-margin_right = 134.8
-margin_bottom = -22.0
-rect_scale = Vector2( 2.5, 2.5 )
+margin_left = 4.8
+margin_top = 7.0
+margin_right = 44.8
+margin_bottom = 47.0
+rect_scale = Vector2( 2, 2 )
 texture_normal = ExtResource( 6 )
 expand = true
 __meta__ = {
@@ -149,11 +199,11 @@ anchor_left = 0.219
 anchor_top = 0.424
 anchor_right = 0.219
 anchor_bottom = 0.424
-margin_left = 264.8
-margin_top = -62.0
-margin_right = 304.8
-margin_bottom = -22.0
-rect_scale = Vector2( 2.5, 2.5 )
+margin_left = 119.8
+margin_top = -93.0
+margin_right = 159.8
+margin_bottom = -53.0
+rect_scale = Vector2( 2, 2 )
 texture_normal = ExtResource( 6 )
 expand = true
 __meta__ = {
@@ -166,15 +216,15 @@ scale = Vector2( 1.5, 1.5 )
 texture = ExtResource( 9 )
 
 [node name="ButtonShamanGoblin" type="TextureButton" parent="Control/NinePatchRect/ButtonsControl"]
-anchor_left = 0.219
-anchor_top = 0.424
-anchor_right = 0.219
-anchor_bottom = 0.424
-margin_left = 434.8
-margin_top = -62.0
-margin_right = 474.8
-margin_bottom = -22.0
-rect_scale = Vector2( 2.5, 2.5 )
+anchor_left = 0.222
+anchor_top = 0.431
+anchor_right = 0.222
+anchor_bottom = 0.431
+margin_left = 117.4
+margin_top = 3.49998
+margin_right = 157.4
+margin_bottom = 43.5
+rect_scale = Vector2( 2, 2 )
 texture_normal = ExtResource( 6 )
 expand = true
 __meta__ = {
@@ -185,6 +235,27 @@ __meta__ = {
 position = Vector2( 20.4, 20 )
 scale = Vector2( 1.5, 1.5 )
 texture = ExtResource( 10 )
+
+[node name="ButtonWitchGoblin" type="TextureButton" parent="Control/NinePatchRect/ButtonsControl"]
+anchor_left = 0.222
+anchor_top = 0.431
+anchor_right = 0.222
+anchor_bottom = 0.431
+margin_left = 232.4
+margin_top = 3.49998
+margin_right = 272.4
+margin_bottom = 43.5
+rect_scale = Vector2( 2, 2 )
+texture_normal = ExtResource( 6 )
+expand = true
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Sprite" type="Sprite" parent="Control/NinePatchRect/ButtonsControl/ButtonWitchGoblin"]
+position = Vector2( 20.4, 20 )
+scale = Vector2( 1.35, 1.35 )
+texture = ExtResource( 13 )
 
 [node name="BeastInfoControl" type="Control" parent="Control/NinePatchRect"]
 visible = false
@@ -240,7 +311,10 @@ texture_normal = ExtResource( 3 )
 expand = true
 
 [connection signal="pressed" from="Control/NinePatchRect/ButtonsControl/ButtonGoblin" to="Control" method="_on_ButtonGoblin_pressed"]
+[connection signal="pressed" from="Control/NinePatchRect/ButtonsControl/ButtonSlime" to="Control" method="_on_ButtonSlime_pressed"]
+[connection signal="pressed" from="Control/NinePatchRect/ButtonsControl/ButtonFireSlime" to="Control" method="_on_ButtonFireSlime_pressed"]
 [connection signal="pressed" from="Control/NinePatchRect/ButtonsControl/ButtonBowGoblin" to="Control" method="_on_ButtonBowGoblin_pressed"]
 [connection signal="pressed" from="Control/NinePatchRect/ButtonsControl/ButtonBat" to="Control" method="_on_ButtonBat_pressed"]
 [connection signal="pressed" from="Control/NinePatchRect/ButtonsControl/ButtonShamanGoblin" to="Control" method="_on_ButtonShamanGoblin_pressed"]
+[connection signal="pressed" from="Control/NinePatchRect/ButtonsControl/ButtonWitchGoblin" to="Control" method="_on_ButtonWitchGoblin_pressed"]
 [connection signal="pressed" from="Control/CloseButton" to="Control" method="_on_CloseButton_pressed"]

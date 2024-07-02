@@ -3598,7 +3598,6 @@ flip_h = true
 flip_v = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 0, 5 )
 shape = SubResource( 80 )
 
 [node name="AttackCollision" type="Area2D" parent="." groups=["LightPoiseDamage", "NoAirborneKnockback", "SmallEleganceValue", "Sword"]]
