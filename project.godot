@@ -244,6 +244,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/enemies/EnemyHealingOrb.gd"
 }, {
+"base": "KinematicBody2D",
+"class": "EnemyTeleportAnchor",
+"language": "GDScript",
+"path": "res://scripts/enemies/EnemyTeleportAnchor.gd"
+}, {
 "base": "Area2D",
 "class": "ExplodingFruit",
 "language": "GDScript",
@@ -667,6 +672,7 @@ _global_script_class_icons={
 "EndlessLevel": "",
 "EnemyEldritchBlast": "",
 "EnemyHealingOrb": "",
+"EnemyTeleportAnchor": "",
 "ExplodingFruit": "",
 "Familiar": "",
 "FireCharm": "",

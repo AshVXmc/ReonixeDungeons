@@ -74,7 +74,7 @@ onready var crit_damage : float = Global.glaciela_skill_multipliers["CritDamage"
 onready var sskill_ui : TextureProgress = get_parent().get_parent().get_parent().get_node("SkillsUI/Control/SecondarySkill/Glaciela/IceLance/TextureProgress")
 onready var pskill_ui : TextureProgress = get_parent().get_parent().get_parent().get_node("SkillsUI/Control/PrimarySkill/Glaciela/WinterQueen/TextureProgress")
 
-
+var can_use_special_attack : bool = false
 func _ready():
 #	print(get_path())
 	if Global.equipped_characters.has("Player"):
@@ -159,7 +159,7 @@ func _physics_process(delta):
 			charged_attack(7.5)
 		use_skill()
 
-			
+		$StarParticle.visible = true if can_use_special_attack else false
 #		if Input.is_action_just_pressed("secondary_skill") and !Input.is_action_just_pressed("primary_skill"):
 #			print("biatch")
 #			emit_signal("skill_used", "IceLance")
@@ -316,9 +316,10 @@ func play_attack_animation(direction : String):
 							break
 					$ResetAttackStringTimer.start()
 					$SpecialAttackTimer.start()
-				
+					yield(get_tree().create_timer(0.4),"timeout")
+					can_use_special_attack = true
 			1:
-				
+
 				$SpecialAttackTimer.stop()
 				if $SpecialSequenceWindow.is_stopped():
 					$AttackCollision/CollisionShape2D.disabled = true
@@ -389,6 +390,8 @@ func play_attack_animation(direction : String):
 						break
 				$SpecialAttackTimer.start()
 				$ResetAttackStringTimer.start()
+				yield(get_tree().create_timer(0.4),"timeout")
+				can_use_special_attack = true
 			1:
 				
 				$SpecialAttackTimer.stop()
@@ -455,6 +458,7 @@ func heal(heal_amount : float, heal_to_max : bool = false, consumes_potion : boo
 
 func _on_SpecialAttackTimer_timeout():
 	$SpecialSequenceWindow.start()
+#	can_use_special_attack = true
 	
 func charge_meter():
 	if Global.current_character == "Glaciela":
@@ -858,7 +862,7 @@ func take_damage(damage : float):
 
 func _on_ResetAttackStringTimer_timeout():
 	attack_string_count = 4
-
+	can_use_special_attack = false
 
 
 

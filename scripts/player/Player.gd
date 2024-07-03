@@ -167,10 +167,11 @@ func set_attack_buff_value(new_value):
 	ATTACK = Global.attack_power + attack_buff
 
 func _ready():
-	
+
 #	print(get_path())
 	if Global.current_character == "Player":
 		$Sprite.visible = true
+	
 	$EnergyMeter.visible = false
 #	$EnergyMeter.value = $EnergyMeter.min_value
 
