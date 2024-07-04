@@ -15,6 +15,7 @@ size = 32
 font_data = ExtResource( 3 )
 
 [node name="HealthPotUI" type="CanvasLayer"]
+layer = 0
 
 [node name="HealthPotControl" type="Control" parent="."]
 margin_left = 399.726

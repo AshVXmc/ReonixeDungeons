@@ -571,12 +571,20 @@ func use_skill():
 		var player_array_index : int = Global.equipped_characters.find("Player")
 		if pskill_ui.value >= pskill_ui.max_value and Input.is_action_just_pressed("primary_skill") and !Input.is_action_just_pressed("secondary_skill") and !is_frozen and !is_using_primary_skill:
 			use_primary_skill()
+			if Global.player_talents["ChaosMagic"]["unlocked"] and Global.player_talents["ChaosMagic"]["enabled"]:
+				chaos_magic_surge()
 		if sskill_ui.value >= sskill_ui.max_value and Input.is_action_just_pressed("secondary_skill") and !Input.is_action_just_pressed("primary_skill") and !is_frozen and !is_using_secondary_skill:
 			use_secondary_skill()
+			if Global.player_talents["ChaosMagic"]["unlocked"] and Global.player_talents["ChaosMagic"]["enabled"]:
+				chaos_magic_surge()
 		if Global.player_skill_multipliers["FireballCharges"] > 0 and Input.is_action_just_pressed("tertiary_skill") and !is_frozen:
 			use_tertiary_skill()
+			if Global.player_talents["ChaosMagic"]["unlocked"] and Global.player_talents["ChaosMagic"]["enabled"]:
+				chaos_magic_surge()
 		if talentskill_ui.value >= talentskill_ui.max_value and Input.is_action_just_pressed("talent_skill") and !is_frozen:
 			use_talent_skill()
+			if Global.player_talents["ChaosMagic"]["unlocked"] and Global.player_talents["ChaosMagic"]["enabled"]:
+				chaos_magic_surge()
 
 func use_primary_skill():
 	
@@ -632,31 +640,14 @@ func use_talent_skill():
 		emit_signal("skill_used", "ChaosMagic")
 		emit_signal("skill_ui_update", "ChaosMagic")
 
-func ground_pound():
-	if !is_on_floor() and Input.is_action_just_pressed("ui_down"):
-		is_ground_pounding = true
-		velocity.y = 3000
-		$SwordSpreadArea/CollisionPolygon2D.disabled = false
-		yield(get_tree().create_timer(0.2), "timeout")
-		gp_effect()
-		cam_shake = true
-		is_ground_pounding = false
-		yield(get_tree().create_timer(0.35), "timeout")
-		$SwordSpreadArea/CollisionPolygon2D.disabled = true
-		cam_shake = false
-func gp_effect():
-		var gp_particle1 = GROUND_POUND_PARTICLE.instance()
-		var gp_particle2 = GROUND_POUND_PARTICLE.instance()
-		get_parent().add_child(gp_particle1)
-		gp_particle1.position = $GroundPoundPositionRight.global_position
-		gp_particle1.rotation_degrees = -40
-		gp_particle1.emitting = true
-		gp_particle1.one_shot = true
-		get_parent().add_child(gp_particle2)
-		gp_particle2.position = $GroundPoundPositionLeft.global_position
-		gp_particle2.rotation_degrees = 220
-		gp_particle2.emitting = true
-		gp_particle2.one_shot = true
+func chaos_magic_surge():
+	var rng = RandomNumberGenerator.new()
+	rng.randomize()
+	var num = rng.randi_range(1, 4)
+	if num == 1:
+		if talentskill_ui.value >= talentskill_ui.max_value and !is_frozen:
+			use_talent_skill()
+#	chaos_magic(num)
 
 
 func dash_counter_attack():
@@ -1784,6 +1775,8 @@ func thrust_attack(special : bool = false):
 		is_invulnerable = false
 		if Global.player_talents["SwiftThrust"]["unlocked"] and Global.player_talents["SwiftThrust"]["enabled"]:
 			airborne_mode = true
+			yield(get_tree().create_timer(0.5), "timeout")
+			airborne_mode = false
 		else:
 			airborne_mode = false
 		if !is_flurry_attacking:
@@ -1940,6 +1933,7 @@ func toggle_shopping(value : bool ):
 
 func freeze_player(time : float):
 	is_frozen = true
+	velocity.y = 0
 	yield(get_tree().create_timer(time), "timeout")
 	is_frozen = false
 

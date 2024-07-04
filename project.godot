@@ -125,6 +125,11 @@ _global_script_classes=[ {
 "path": "res://scripts/ui/CharacterSelectionUI.gd"
 }, {
 "base": "Control",
+"class": "CharacterSkillsControl",
+"language": "GDScript",
+"path": "res://scripts/ui/CharacterSkillsControl.gd"
+}, {
+"base": "Control",
 "class": "CharacterTalentsControl",
 "language": "GDScript",
 "path": "res://scripts/ui/CharacterTalentsControl.gd"
@@ -648,6 +653,7 @@ _global_script_class_icons={
 "ChaosMagicUI": "",
 "CharacterManager": "",
 "CharacterSelectionUI": "",
+"CharacterSkillsControl": "",
 "CharacterTalentsControl": "",
 "CharactersUI": "",
 "CombatGuidebook": "",
@@ -976,6 +982,11 @@ right_mouse={
 talent_skill={
 "deadzone": 0.5,
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":67,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
+}
+open_loadout={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":76,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
  ]
 }
 

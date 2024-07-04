@@ -20,9 +20,6 @@ onready var CHAOS_MAGIC_UI : PackedScene = preload("res://scenes/menus/ChaosMagi
 const multiplier : int = 10
 
 func _ready():
-	update_character_ui()
-	if Global.player_talents["CreateSugarRoll"]["unlocked"]:
-		$TalentSkill/Player/CreateSugarRoll.visible = true
 #	update_maximum_endurance_ui()
 	Global.current_character = character1
 	print("Currently: " + Global.current_character)

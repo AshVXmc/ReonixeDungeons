@@ -31,7 +31,7 @@ func update_opals_ui():
 func _on_CloseButtonMainUI_pressed():
 	visible = false
 	get_parent().get_node("CharactersUI").visible = true
-	print("dddddd")
+
 #	get_tree().paused = false
 
 func buy_player_talent(talentname : String, order : int):
@@ -51,6 +51,11 @@ func toggle_player_talent(talentname : String, button_pressed : bool):
 		Global.player_talents[talentname]["enabled"] = true
 	else:
 		Global.player_talents[talentname]["enabled"] = false
+
+func buy_glaciela_talent(talentname : String, order : int):
+	pass
+func toggle_glaciela_talent(talentname : String, button_pressed : bool):
+	pass
 
 
 

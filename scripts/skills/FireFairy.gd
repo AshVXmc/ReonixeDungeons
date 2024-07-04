@@ -12,6 +12,7 @@ var atkbonus : float
 func _ready():
 	add_to_group(str(Global.attack_power * (Global.player_skill_multipliers["FireFairy"] / 100)))
 	$AnimationPlayer.play("Flap")
+	$DestroyedTimer.wait_time = Global.player_skill_multipliers["FireFairyDuration"]
 	
 
 func start(_transform, _target):

@@ -66,10 +66,11 @@ var player_skill_multipliers : Dictionary = {
 	"AirborneBasicAttack4": 65.0,
 	"SulphuricSigilSingleSlash": 40.0, # x 2
 	"SlashFlurryEnergyCost": 200,
-	"FireSaw": 35.0,
+	"FireSaw": 45.0,
 	"FireSawDuration": 8.0,
-	"FireFairy": 22.0,
-	"Fireball": 50.0,
+	"FireFairy": 25.0,
+	"FireFairyDuration": 10.0,
+	"Fireball": 40.0,
 	"FireballCD": 6.0,
 	"FireballCharges": 3,
 	"FireballMaxCharges": 3,
@@ -104,8 +105,8 @@ var player_talents : Dictionary = {
 	"TalentSlots": 5,
 	"MaxTalentSlots": 5,
 	"CycloneSlashes" : {
-		"unlocked" : true,
-		"enabled" : true,
+		"unlocked" : false,
+		"enabled" : false,
 		"opalscost": 100,
 		"talentslotcost": 2
 	},

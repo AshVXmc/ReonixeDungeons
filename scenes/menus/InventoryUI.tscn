@@ -19,6 +19,7 @@ size = 48
 font_data = ExtResource( 2 )
 
 [node name="InventoryUI" type="CanvasLayer"]
+layer = 0
 
 [node name="Bag" type="Control" parent="."]
 anchor_left = 0.956
