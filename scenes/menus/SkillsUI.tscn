@@ -149,7 +149,6 @@ tracks/2/keys = {
 }
 
 [node name="SkillsUI" type="CanvasLayer"]
-layer = 0
 
 [node name="Control" type="Control" parent="."]
 anchor_left = 0.287
@@ -462,28 +461,28 @@ custom_colors/font_color = Color( 0.192157, 0.372549, 1, 1 )
 custom_fonts/font = SubResource( 3 )
 text = "F"
 
-[node name="TalentSkill" type="Control" parent="Control"]
+[node name="PerkSkill" type="Control" parent="Control"]
 margin_left = -4.0
 margin_top = -42.0
 margin_right = 36.0
 margin_bottom = -2.0
 
-[node name="Player" type="Control" parent="Control/TalentSkill"]
+[node name="Player" type="Control" parent="Control/PerkSkill"]
 margin_right = 40.0
 margin_bottom = 40.0
 
-[node name="CreateSugarRoll" type="Control" parent="Control/TalentSkill/Player"]
+[node name="CreateSugarRoll" type="Control" parent="Control/PerkSkill/Player"]
 visible = false
 margin_right = 40.0
 margin_bottom = 40.0
 
-[node name="Sprite" type="Sprite" parent="Control/TalentSkill/Player/CreateSugarRoll"]
+[node name="Sprite" type="Sprite" parent="Control/PerkSkill/Player/CreateSugarRoll"]
 self_modulate = Color( 1, 1, 1, 0.333333 )
 position = Vector2( 500, 190 )
 scale = Vector2( 4, 4 )
 texture = ExtResource( 12 )
 
-[node name="TextureProgress" type="TextureProgress" parent="Control/TalentSkill/Player/CreateSugarRoll"]
+[node name="TextureProgress" type="TextureProgress" parent="Control/PerkSkill/Player/CreateSugarRoll"]
 margin_left = 460.0
 margin_top = 150.0
 margin_right = 480.0
@@ -492,7 +491,7 @@ rect_scale = Vector2( 4, 4 )
 texture_progress = ExtResource( 12 )
 fill_mode = 5
 
-[node name="Label" type="Label" parent="Control/TalentSkill/Player/CreateSugarRoll"]
+[node name="Label" type="Label" parent="Control/PerkSkill/Player/CreateSugarRoll"]
 margin_left = 471.0
 margin_top = 170.0
 margin_right = 530.0
@@ -502,17 +501,17 @@ text = "60.0"
 align = 1
 valign = 1
 
-[node name="ChaosMagic" type="Control" parent="Control/TalentSkill/Player"]
+[node name="ChaosMagic" type="Control" parent="Control/PerkSkill/Player"]
 margin_right = 40.0
 margin_bottom = 40.0
 
-[node name="Sprite" type="Sprite" parent="Control/TalentSkill/Player/ChaosMagic"]
+[node name="Sprite" type="Sprite" parent="Control/PerkSkill/Player/ChaosMagic"]
 self_modulate = Color( 1, 1, 1, 0.333333 )
 position = Vector2( 500, 190 )
 scale = Vector2( 4, 4 )
 texture = ExtResource( 14 )
 
-[node name="TextureProgress" type="TextureProgress" parent="Control/TalentSkill/Player/ChaosMagic"]
+[node name="TextureProgress" type="TextureProgress" parent="Control/PerkSkill/Player/ChaosMagic"]
 margin_left = 460.0
 margin_top = 150.0
 margin_right = 480.0
@@ -521,7 +520,7 @@ rect_scale = Vector2( 4, 4 )
 texture_progress = ExtResource( 14 )
 fill_mode = 5
 
-[node name="Label" type="Label" parent="Control/TalentSkill/Player/ChaosMagic"]
+[node name="Label" type="Label" parent="Control/PerkSkill/Player/ChaosMagic"]
 margin_left = 471.0
 margin_top = 170.0
 margin_right = 530.0
@@ -531,12 +530,12 @@ text = "60.0"
 align = 1
 valign = 1
 
-[node name="KeyIcon" type="Sprite" parent="Control/TalentSkill"]
+[node name="KeyIcon" type="Sprite" parent="Control/PerkSkill"]
 position = Vector2( 500, 226 )
 scale = Vector2( 1.5, 1.5 )
 texture = ExtResource( 4 )
 
-[node name="KeyBind" type="Label" parent="Control/TalentSkill"]
+[node name="KeyBind" type="Label" parent="Control/PerkSkill"]
 anchor_left = -3.732
 anchor_right = -3.732
 margin_left = 642.985

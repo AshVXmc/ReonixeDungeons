@@ -5,7 +5,6 @@
 [ext_resource path="res://assets/UI/mana_slot.png" type="Texture" id=3]
 
 [node name="ManaUI" type="CanvasLayer"]
-layer = 0
 
 [node name="Mana" type="Control" parent="."]
 margin_left = 12.0

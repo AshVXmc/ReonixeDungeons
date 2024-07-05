@@ -63,6 +63,7 @@ font_data = ExtResource( 12 )
 pause_mode = 2
 
 [node name="CharactersUI" type="Control" parent="."]
+visible = false
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -218,7 +219,6 @@ text = "Talents"
 align = 1
 
 [node name="CharacterSkillsControl" type="Control" parent="."]
-visible = false
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -247,7 +247,7 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 margin_left = -462.0
-margin_top = -197.0
+margin_top = -252.0
 margin_right = 463.0
 margin_bottom = 330.0
 texture = ExtResource( 6 )
@@ -282,7 +282,7 @@ margin_bottom = 12.0
 [node name="BackgroundBox" type="NinePatchRect" parent="CharacterSkillsControl/NinePatchRect/SkillsControl"]
 margin_left = 183.0
 margin_top = 60.0
-margin_right = 899.0
+margin_right = 866.0
 margin_bottom = 469.0
 texture = ExtResource( 6 )
 patch_margin_left = 64
@@ -513,7 +513,7 @@ custom_fonts/font = SubResource( 4 )
 text = "Enable"
 align = 1
 
-[node name="TalentSkillScrollContainer" type="ScrollContainer" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/PlayerControl"]
+[node name="PerkSkillScrollContainer" type="ScrollContainer" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/PlayerControl"]
 visible = false
 anchor_right = 21.766
 anchor_bottom = 15.255
@@ -523,28 +523,28 @@ margin_right = 16.36
 margin_bottom = -168.2
 rect_min_size = Vector2( 566, 355 )
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/PlayerControl/TalentSkillScrollContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/PlayerControl/PerkSkillScrollContainer"]
 margin_right = 510.0
 margin_bottom = 1104.0
 rect_min_size = Vector2( 510, 1100 )
 
-[node name="RichTextLabel" type="RichTextLabel" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/PlayerControl/TalentSkillScrollContainer/VBoxContainer"]
+[node name="RichTextLabel" type="RichTextLabel" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/PlayerControl/PerkSkillScrollContainer/VBoxContainer"]
 margin_right = 510.0
 margin_bottom = 1100.0
 rect_min_size = Vector2( 510, 1100 )
 custom_fonts/italics_font = SubResource( 2 )
 custom_fonts/normal_font = SubResource( 2 )
 bbcode_enabled = true
-bbcode_text = "player tert"
-text = "player tert"
+bbcode_text = "player perk"
+text = "player perk"
 scroll_active = false
 
-[node name="TalentControl1" type="Control" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/PlayerControl/TalentSkillScrollContainer/VBoxContainer"]
+[node name="TalentControl1" type="Control" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/PlayerControl/PerkSkillScrollContainer/VBoxContainer"]
 margin_top = 1104.0
 margin_right = 510.0
 margin_bottom = 1104.0
 
-[node name="PlayerTalentButton" type="TextureButton" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/PlayerControl/TalentSkillScrollContainer/VBoxContainer/TalentControl1"]
+[node name="PlayerTalentButton" type="TextureButton" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/PlayerControl/PerkSkillScrollContainer/VBoxContainer/TalentControl1"]
 anchor_left = 0.215
 anchor_right = 0.215
 margin_left = 426.35
@@ -556,7 +556,7 @@ rect_scale = Vector2( 7.5, 7.5 )
 texture_normal = ExtResource( 5 )
 texture_pressed = ExtResource( 4 )
 
-[node name="ButtonLabel" type="Label" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/PlayerControl/TalentSkillScrollContainer/VBoxContainer/TalentControl1/PlayerTalentButton"]
+[node name="ButtonLabel" type="Label" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/PlayerControl/PerkSkillScrollContainer/VBoxContainer/TalentControl1/PlayerTalentButton"]
 margin_left = 1.73334
 margin_top = 2.0
 margin_right = 46.7333
@@ -566,7 +566,7 @@ custom_colors/font_color = Color( 1, 0.843137, 0.0117647, 1 )
 custom_fonts/font = SubResource( 3 )
 text = "Bought"
 
-[node name="PlayerCheckButton" type="CheckButton" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/PlayerControl/TalentSkillScrollContainer/VBoxContainer/TalentControl1/PlayerTalentButton"]
+[node name="PlayerCheckButton" type="CheckButton" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/PlayerControl/PerkSkillScrollContainer/VBoxContainer/TalentControl1/PlayerTalentButton"]
 visible = false
 margin_left = -5.33334
 margin_top = 8.66666
@@ -582,10 +582,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -455.0
-margin_top = -197.0
-margin_right = -415.0
-margin_bottom = -157.0
+margin_left = -456.0
+margin_top = -248.0
+margin_right = -416.0
+margin_bottom = -208.0
 rect_scale = Vector2( 1.5, 1.5 )
 texture_normal = ExtResource( 9 )
 expand = true
@@ -640,8 +640,8 @@ custom_colors/default_color = Color( 1, 1, 1, 1 )
 custom_colors/selection_color = Color( 1, 0.843137, 0.0117647, 1 )
 custom_fonts/normal_font = SubResource( 1 )
 bbcode_enabled = true
-bbcode_text = "[center]=== [color=#ffd703]Character Talent Tree[/color] ==="
-text = "=== Character Talent Tree ==="
+bbcode_text = "[center]=== [color=#ffd703]Character Talents[/color] ==="
+text = "=== Character Talents ==="
 scroll_active = false
 
 [node name="TalentTreeControl" type="Control" parent="CharacterTalentsControl/NinePatchRect"]
@@ -683,7 +683,7 @@ rect_min_size = Vector2( 566, 355 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer"]
 margin_right = 510.0
-margin_bottom = 1120.0
+margin_bottom = 1116.0
 rect_min_size = Vector2( 510, 1100 )
 
 [node name="RichTextLabel" type="RichTextLabel" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer"]
@@ -709,8 +709,7 @@ Activating an [color=purple]EX Charged Attack[/color] releases a burst of flames
 Enemies marked with the Sulphuric Sigil take more damage. 
 
 
-[color=#ffd703]Create Sugar Roll[/color]
-Conjure a [color=#bda662]Sugar Roll[/color] at your location. A character can eat the roll, restoring health over time. The roll cannot be eaten if there are enemies nearby, and only one roll may exist in a level. "
+"
 text = "Cyclone Slashes
 Doing a charged attack after Basic Attack SEQ 2 unleashes a flurry of windblades to deal multiple instances of Physical DMG.
 (ATK, ATK, Hold ATK)
@@ -728,8 +727,7 @@ Infernal Mark
 Enemies marked with the Sulphuric Sigil take more damage. 
 
 
-Create Sugar Roll
-Conjure a Sugar Roll at your location. A character can eat the roll, restoring health over time. The roll cannot be eaten if there are enemies nearby, and only one roll may exist in a level. "
+"
 scroll_active = false
 
 [node name="TalentControl1" type="Control" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer"]
@@ -965,54 +963,6 @@ text = "Slot cost: X"
 align = 1
 
 [node name="PlayerCheckButton" type="CheckButton" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl4/PlayerTalentButton"]
-visible = false
-margin_left = -5.33334
-margin_top = 8.66666
-margin_right = 116.667
-margin_bottom = 48.6667
-rect_scale = Vector2( 0.2, 0.2 )
-custom_fonts/font = SubResource( 4 )
-text = "Enable"
-align = 1
-
-[node name="TalentControl5" type="Control" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer"]
-margin_top = 1120.0
-margin_right = 510.0
-margin_bottom = 1120.0
-
-[node name="PlayerTalentButton" type="TextureButton" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl5"]
-anchor_left = 0.215
-anchor_right = 0.215
-margin_left = 426.35
-margin_top = -366.0
-margin_right = 458.35
-margin_bottom = -350.0
-rect_min_size = Vector2( 32, 16 )
-rect_scale = Vector2( 7.5, 7.5 )
-texture_normal = ExtResource( 5 )
-texture_pressed = ExtResource( 4 )
-
-[node name="SlotsCostLabel" type="Label" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl5/PlayerTalentButton"]
-margin_left = -4.66669
-margin_top = 8.66666
-margin_right = 78.3333
-margin_bottom = 43.6667
-rect_scale = Vector2( 0.3, 0.3 )
-custom_fonts/font = SubResource( 8 )
-text = "No slot cost
-Cooldown: 30s"
-align = 1
-
-[node name="ButtonLabel" type="Label" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl5/PlayerTalentButton"]
-margin_left = 1.60001
-margin_top = 1.6
-margin_right = 40.6
-margin_bottom = 18.6
-rect_scale = Vector2( 0.3, 0.3 )
-custom_fonts/font = SubResource( 3 )
-text = "Unlock"
-
-[node name="PlayerCheckButton" type="CheckButton" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl5/PlayerTalentButton"]
 visible = false
 margin_left = -5.33334
 margin_top = 8.66666

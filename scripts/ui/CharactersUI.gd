@@ -3,10 +3,12 @@ class_name CharactersUI extends Control
 func _ready():
 #	visible = true
 	update_ui()
-
+	
 
 func update_ui():
 	visible = false
+	get_parent().get_node("CharacterSkillsControl").visible = false
+	get_parent().get_node("CharacterTalentsControl").visible = false
 	$NinePatchRect/PlayerStatsLabel.bbcode_text = "[center]Max HP: " + str(Global.player_skill_multipliers["BaseHearts"] * 10) + "\n" + "Attack: " + str(Global.attack_power)
 
 func _process(delta):
@@ -15,7 +17,10 @@ func _process(delta):
 
 func toggle_ui():
 	visible = true if !visible else false
-#	get_parent().layer = 2 if get_parent().layer == 1 else 1
+	if get_parent().layer == 1:
+		get_parent().layer = 2
+	elif get_parent().layer == 2:
+		get_parent().layer = 1
 	get_tree().paused = true if !get_tree().paused else false
 func handle_levelling_up():
 	pass

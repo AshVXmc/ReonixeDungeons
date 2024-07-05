@@ -387,7 +387,7 @@ func parse_damage(staggers : bool = true):
 	if staggers:
 		is_staggered = true
 	emit_signal("change_hitcount", 1)
-	$Sprite.set_modulate(Color(2,0.5,0.3,1))
+	$Sprite.set_modulate(Color(1.5,0.5,0.3,1))
 	if $HurtTimer.is_stopped():
 		$HurtTimer.start()
 	if HP <= 0:
@@ -418,7 +418,7 @@ func death():
 	Global.enemies_killed += 1
 
 func parse_status_effect_damage():
-	$Sprite.set_modulate(Color(2,0.5,0.3,1))
+	$Sprite.set_modulate(Color(1.5,0.5,0.3,1))
 	if $HurtTimer.is_stopped():
 		$HurtTimer.start()
 	if HP <= 0:
@@ -431,7 +431,7 @@ func parse_status_effect_damage():
 		
 func _on_HurtTimer_timeout():
 	is_staggered = false
-	$Sprite.set_modulate(Color(1,1,1,1))
+	$Sprite.set_modulate(Color(1.5,1,1,1))
 
 func _on_AttackingTimer_timeout():
 	velocity.x = 0

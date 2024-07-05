@@ -101,6 +101,7 @@ var player_unlocked_skins = {
 	"CyberNinja": false
 }
 
+# player talents are passive skills
 var player_talents : Dictionary = {
 	"TalentSlots": 5,
 	"MaxTalentSlots": 5,
@@ -130,7 +131,11 @@ var player_talents : Dictionary = {
 		"opalscost": 100,
 		"DamageIncrease" : 25,
 		"talentslotcost": 2
-	},
+	}
+}
+
+# player perks are activated fourth skills
+var player_perks : Dictionary = {
 	"CreateSugarRoll": {
 		"unlocked" : false,
 		"enabled": false,
@@ -147,7 +152,6 @@ var player_talents : Dictionary = {
 		"talentslotcost": 3
 	}
 }
-
 
 var glaciela_skill_multipliers : Dictionary = {
 	"BasicAttack":  20.0,
@@ -418,7 +422,10 @@ func save_player_data():
 		"PhysicalDMGBonus%": Global.damage_bonus["physical_dmg_bonus_%"],
 		"FireDMGBonus%": Global.damage_bonus["fire_dmg_bonus_%"],
 		"IceDMGBonus%": Global.damage_bonus["ice_dmg_bonus_%"],
-		"EarthDMGBonus%": Global.damage_bonus["earth_dmg_bonus_%"],
+		"EarthDMGBonus%": Global.damage_bonus["earth_dmg_bonus_%"],\
+		
+		"PlayerTalents": Global.player_talents,
+		"PlayerPerks": Global.player_perks,
 		"Lighting" : Global.lighting,
 		"Vsync" : Global.vsync,
 		"EnemiesKilled": Global.enemies_killed ,

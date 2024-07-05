@@ -34,7 +34,7 @@ func initialize_level_selection():
 #	Global.is_opening_an_UI = true
 	update_level_list()
 	$LevelSelectionUI/Control.visible = true
-#	$LevelSelectionUI.layer = 2
+	$LevelSelectionUI.layer = 2
 	get_tree().paused = true
 	
 
@@ -62,7 +62,7 @@ func _on_CloseButtonMainUI_pressed():
 	$Sprite.set_texture(closed)
 	$LevelSelectionUI/Control.visible = false
 	get_tree().paused = false
-#	$LevelSelectionUI.layer = 1
+	$LevelSelectionUI.layer = 1
 
 func _on_1_pressed():
 	

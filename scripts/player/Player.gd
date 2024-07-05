@@ -152,7 +152,7 @@ onready var thrust_attack_power :float = Global.attack_power * (Global.player_sk
 onready var pskill_ui : TextureProgress = get_parent().get_node("SkillsUI/Control/PrimarySkill/Player/FireSaw/TextureProgress")
 onready var sskill_ui : TextureProgress =  get_parent().get_node("SkillsUI/Control/SecondarySkill/Player/FireFairy/TextureProgress")
 onready var tskill_ui : TextureProgress = get_parent().get_node("SkillsUI/Control/TertiarySkill/Player/Fireball/TextureProgress")
-onready var talentskill_ui : TextureProgress 
+onready var perkskill_ui : TextureProgress 
 onready var chaos_magic : PackedScene = preload("res://scenes/menus/ChaosMagicUI.tscn")
 onready var crit_rate : float = Global.player_skill_multipliers["CritRate"]
 onready var crit_damage : float = Global.player_skill_multipliers["CritDamage"]
@@ -188,7 +188,7 @@ func _ready():
 	$SwordSprite.visible = false
 	$ChargeBar.visible = false
 	
-	update_talent_skill()
+	update_perk_skill()
 	connect("force_character_swap", get_node("CharacterManager"), "swap_character")
 	connect("change_elegance", get_parent().get_node("EleganceMeterUI/Control"), "elegance_changed")
 	connect("change_hitcount", get_parent().get_node("EleganceMeterUI/Control"), "hitcount_changed")
@@ -254,13 +254,13 @@ func _ready():
 #	connect("goblin_scales_obtained", Global, "sync_playerGoblinScales")
 #	emit_signal("goblin_scales_obtained", Global.goblin_scales_amount)
 
-func update_talent_skill():
-	if Global.player_talents["CreateSugarRoll"]["unlocked"] and Global.player_talents["CreateSugarRoll"]["enabled"]:
-		talentskill_ui = get_parent().get_node("SkillsUI/Control/TalentSkill/Player/CreateSugarRoll/TextureProgress")
+func update_perk_skill():
+	if Global.player_perks["CreateSugarRoll"]["unlocked"] and Global.player_perks["CreateSugarRoll"]["enabled"]:
+		perkskill_ui = get_parent().get_node("SkillsUI/Control/PerkSkill/Player/CreateSugarRoll/TextureProgress")
 		if has_node("ChaosMagicUI"):
 			get_node("ChaosMagicUI").call_deferred('free')
-	elif Global.player_talents["ChaosMagic"]["unlocked"] and Global.player_talents["ChaosMagic"]["enabled"]:
-		talentskill_ui = get_parent().get_node("SkillsUI/Control/TalentSkill/Player/ChaosMagic/TextureProgress")
+	elif Global.player_perks["ChaosMagic"]["unlocked"] and Global.player_perks["ChaosMagic"]["enabled"]:
+		perkskill_ui = get_parent().get_node("SkillsUI/Control/PerkSkill/Player/ChaosMagic/TextureProgress")
 		if !has_node("ChaosMagicUI"):
 			add_child(chaos_magic.instance())
 		
@@ -571,20 +571,12 @@ func use_skill():
 		var player_array_index : int = Global.equipped_characters.find("Player")
 		if pskill_ui.value >= pskill_ui.max_value and Input.is_action_just_pressed("primary_skill") and !Input.is_action_just_pressed("secondary_skill") and !is_frozen and !is_using_primary_skill:
 			use_primary_skill()
-			if Global.player_talents["ChaosMagic"]["unlocked"] and Global.player_talents["ChaosMagic"]["enabled"]:
-				chaos_magic_surge()
 		if sskill_ui.value >= sskill_ui.max_value and Input.is_action_just_pressed("secondary_skill") and !Input.is_action_just_pressed("primary_skill") and !is_frozen and !is_using_secondary_skill:
 			use_secondary_skill()
-			if Global.player_talents["ChaosMagic"]["unlocked"] and Global.player_talents["ChaosMagic"]["enabled"]:
-				chaos_magic_surge()
-		if Global.player_skill_multipliers["FireballCharges"] > 0 and Input.is_action_just_pressed("tertiary_skill") and !is_frozen:
+		if Input.is_action_just_pressed("tertiary_skill") and !is_frozen:
 			use_tertiary_skill()
-			if Global.player_talents["ChaosMagic"]["unlocked"] and Global.player_talents["ChaosMagic"]["enabled"]:
-				chaos_magic_surge()
-		if talentskill_ui.value >= talentskill_ui.max_value and Input.is_action_just_pressed("talent_skill") and !is_frozen:
+		if perkskill_ui.value >= perkskill_ui.max_value and Input.is_action_just_pressed("talent_skill") and !is_frozen:
 			use_talent_skill()
-			if Global.player_talents["ChaosMagic"]["unlocked"] and Global.player_talents["ChaosMagic"]["enabled"]:
-				chaos_magic_surge()
 
 func use_primary_skill():
 	
@@ -592,50 +584,66 @@ func use_primary_skill():
 		emit_signal("skill_used", "FireSaw", attack_buff)
 		emit_signal("skill_ui_update", "FireSaw")
 		emit_signal("mana_changed", Global.mana, "Player")
+		if Global.player_perks["ChaosMagic"]["unlocked"] and Global.player_perks["ChaosMagic"]["enabled"]:
+			chaos_magic_surge()
 	elif Global.current_character == Global.equipped_characters[1] and Global.character2_mana >= Global.player_skill_multipliers["FireSawCost"]:
 		emit_signal("skill_used", "FireSaw", attack_buff)
 		emit_signal("skill_ui_update", "FireSaw")
 		emit_signal("mana_changed", Global.character2_mana, "Player")
+		if Global.player_perks["ChaosMagic"]["unlocked"] and Global.player_perks["ChaosMagic"]["enabled"]:
+			chaos_magic_surge()
 	elif Global.current_character == Global.equipped_characters[2] and Global.character3_mana >= Global.player_skill_multipliers["FireSawCost"]:
 		emit_signal("skill_used", "FireSaw", attack_buff)
 		emit_signal("skill_ui_update", "FireSaw")
 		emit_signal("mana_changed", Global.character3_mana, "Player")
+		if Global.player_perks["ChaosMagic"]["unlocked"] and Global.player_perks["ChaosMagic"]["enabled"]:
+			chaos_magic_surge()
 	
 func use_secondary_skill():
 	if Global.current_character == Global.equipped_characters[0] and Global.mana >= Global.player_skill_multipliers["FireFairyCost"]:
 		emit_signal("skill_used", "FireFairy", attack_buff)
 		emit_signal("skill_ui_update", "FireFairy")
 		emit_signal("mana_changed", Global.mana, "Player")
+		if Global.player_perks["ChaosMagic"]["unlocked"] and Global.player_perks["ChaosMagic"]["enabled"]:
+			chaos_magic_surge()
 	elif Global.current_character == Global.equipped_characters[1] and Global.character2_mana >= Global.player_skill_multipliers["FireFairyCost"]:
 		emit_signal("skill_used", "FireFairy", attack_buff)
 		emit_signal("skill_ui_update", "FireFairy")
 		emit_signal("mana_changed", Global.character2_mana, "Player")
+		if Global.player_perks["ChaosMagic"]["unlocked"] and Global.player_perks["ChaosMagic"]["enabled"]:
+			chaos_magic_surge()
 	elif Global.current_character == Global.equipped_characters[2] and Global.character3_mana >= Global.player_skill_multipliers["FireFairyCost"]:
 		emit_signal("skill_used", "FireFairy", attack_buff)
 		emit_signal("skill_ui_update", "FireFairy")
 		emit_signal("mana_changed", Global.character3_mana, "Player")
+		if Global.player_perks["ChaosMagic"]["unlocked"] and Global.player_perks["ChaosMagic"]["enabled"]:
+			chaos_magic_surge()
 
 func use_tertiary_skill():
 	# FIREBALL (8d6 fire damage op pls nerf)
-	Global.player_skill_multipliers["FireballCharges"] -= 1
-	emit_signal("update_fireball_charges_ui", Global.player_skill_multipliers["FireballCharges"])
-	if !$Sprite.flip_h:
-		emit_signal("skill_used", "Fireball", attack_buff, 1)
-	else:
-		emit_signal("skill_used", "Fireball", attack_buff, -1)
-	emit_signal("skill_ui_update", "Fireball")
-	if Global.current_character == Global.equipped_characters[0] and Global.mana >= Global.player_skill_multipliers["FireballCost"]:
-		emit_signal("mana_changed", Global.mana, "Player")
-	elif Global.current_character == Global.equipped_characters[1] and Global.character2_mana >= Global.player_skill_multipliers["FireballCost"]:
-		emit_signal("mana_changed", Global.character2_mana, "Player")
-	elif Global.current_character == Global.equipped_characters[2] and Global.character3_mana >= Global.player_skill_multipliers["FireballCost"]:
-		emit_signal("mana_changed", Global.character3_mana, "Player")
+	if Global.player_skill_multipliers["FireballCharges"] > 0:
+		Global.player_skill_multipliers["FireballCharges"] -= 1
+		emit_signal("update_fireball_charges_ui", Global.player_skill_multipliers["FireballCharges"])
+		if !$Sprite.flip_h:
+			emit_signal("skill_used", "Fireball", attack_buff, 1)
+		else:
+			emit_signal("skill_used", "Fireball", attack_buff, -1)
+		emit_signal("skill_ui_update", "Fireball")
+		if Global.player_perks["ChaosMagic"]["unlocked"] and Global.player_perks["ChaosMagic"]["enabled"]:
+			chaos_magic_surge()
+#	if Global.current_character == Global.equipped_characters[0] and Global.mana >= Global.player_skill_multipliers["FireballCost"]:
+#		emit_signal("mana_changed", Global.mana, "Player")
+#	elif Global.current_character == Global.equipped_characters[1] and Global.character2_mana >= Global.player_skill_multipliers["FireballCost"]:
+#		emit_signal("mana_changed", Global.character2_mana, "Player")
+#	elif Global.current_character == Global.equipped_characters[2] and Global.character3_mana >= Global.player_skill_multipliers["FireballCost"]:
+#		emit_signal("mana_changed", Global.character3_mana, "Player")
+
 
 func use_talent_skill():
-	if Global.player_talents["CreateSugarRoll"]["unlocked"] and Global.player_talents["CreateSugarRoll"]["enabled"]:
+	if Global.player_perks["CreateSugarRoll"]["unlocked"] and Global.player_perks["CreateSugarRoll"]["enabled"]:
 		emit_signal("skill_used", "CreateSugarRoll")
 		emit_signal("skill_ui_update", "CreateSugarRoll")
-	elif Global.player_talents["ChaosMagic"]["unlocked"] and Global.player_talents["ChaosMagic"]["enabled"]:
+	elif Global.player_perks["ChaosMagic"]["unlocked"] and Global.player_perks["ChaosMagic"]["enabled"]:
 		
 		emit_signal("skill_used", "ChaosMagic")
 		emit_signal("skill_ui_update", "ChaosMagic")
@@ -645,7 +653,7 @@ func chaos_magic_surge():
 	rng.randomize()
 	var num = rng.randi_range(1, 4)
 	if num == 1:
-		if talentskill_ui.value >= talentskill_ui.max_value and !is_frozen:
+		if perkskill_ui.value >= perkskill_ui.max_value and !is_frozen:
 			use_talent_skill()
 #	chaos_magic(num)
 
@@ -988,7 +996,7 @@ func charged_attack(type : String = "Ground"):
 		emit_signal("reduce_skill_cd", "Player", "SecondariesOnly", 2)
 		
 		# burningbreathtalent
-		if Global.player_talents["BurningBreath"]["unlocked"] and Global.player_talents["BurningBreath"]["enabled"]:
+		if Global.player_perks["BurningBreath"]["unlocked"] and Global.player_perks["BurningBreath"]["enabled"]:
 			var burningbreath = BURNING_BREATH_TALENT.instance()
 			get_parent().add_child(burningbreath)
 			burningbreath.position = global_position
@@ -1773,7 +1781,7 @@ func thrust_attack(special : bool = false):
 		yield(get_tree().create_timer(0.35), "timeout")
 #		cam_shake = false
 		is_invulnerable = false
-		if Global.player_talents["SwiftThrust"]["unlocked"] and Global.player_talents["SwiftThrust"]["enabled"]:
+		if Global.player_perks["SwiftThrust"]["unlocked"] and Global.player_perks["SwiftThrust"]["enabled"]:
 			airborne_mode = true
 			yield(get_tree().create_timer(0.5), "timeout")
 			airborne_mode = false
@@ -2120,7 +2128,7 @@ func _on_InputPressTimer_timeout():
 						thrust_attack()
 				else:
 					if is_on_floor():
-						charged_attack("Circular") if attack_string_count == 1 and Global.player_talents["CycloneSlashes"]["unlocked"] and Global.player_talents["CycloneSlashes"]["enabled"] else charged_attack("Ground")
+						charged_attack("Circular") if attack_string_count == 1 and Global.player_perks["CycloneSlashes"]["unlocked"] and Global.player_perks["CycloneSlashes"]["enabled"] else charged_attack("Ground")
 
 func _on_DashInputPressTimer_timeout():
 	if Global.current_character == "Player" and Input.is_action_pressed("ui_dash") and !Input.is_action_pressed("ui_attack") and !is_quickswap_attacking:
