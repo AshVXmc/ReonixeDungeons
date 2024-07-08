@@ -34,13 +34,16 @@ func get_closest_injured_enemy():
 	return most_injured_enemy
 
 
-func _physics_process(delta):
+func _process(delta):
 	if casting_healing:
 		SPEED = 0
 	else:
 		SPEED = MAX_SPEED / 2.5
 	target = get_closest_injured_enemy()
-
+#func _physics_process(delta):
+#		pass
+	
+	
 func summon_healing_orb():
 	casting_healing = true
 	$CastingParticle.visible = true
@@ -57,7 +60,7 @@ func summon_healing_orb():
 	$HealingOrbTimer.start()
 
 func _on_HealingOrbTimer_timeout():
-	if target != null and target.get_node("Area2D").overlaps_area($Detector):
+	if !is_frozen and target != null and target.get_node("Area2D").overlaps_area($Detector):
 		summon_healing_orb()
 	else:
 		$HealingOrbTimer.start()
@@ -99,5 +102,5 @@ func teleport_away():
 	
 
 func _on_PlayerDetectorArea2D_area_entered(area):
-	if area.is_in_group("Player") and $TeleportSpellCooldownTimer.is_stopped():
+	if !is_frozen and area.is_in_group("Player") and $TeleportSpellCooldownTimer.is_stopped():
 		teleport_away()

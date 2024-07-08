@@ -502,6 +502,7 @@ align = 1
 valign = 1
 
 [node name="ChaosMagic" type="Control" parent="Control/PerkSkill/Player"]
+visible = false
 margin_right = 40.0
 margin_bottom = 40.0
 

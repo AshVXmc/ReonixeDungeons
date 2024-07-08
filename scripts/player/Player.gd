@@ -1,3 +1,4 @@
+tool
 class_name Player extends KinematicBody2D
 
 signal life_changed(player_hearts)
@@ -167,10 +168,13 @@ func set_attack_buff_value(new_value):
 	ATTACK = Global.attack_power + attack_buff
 
 func _ready():
-
+	
 #	print(get_path())
 	if Global.current_character == "Player":
 		$Sprite.visible = true
+	update_perk_skill()
+#	perkskill_ui = get_parent().get_node("SkillsUI/Control/PerkSkill/Player/CreateSugarRoll/TextureProgress")
+
 	
 	$EnergyMeter.visible = false
 #	$EnergyMeter.value = $EnergyMeter.min_value
@@ -188,7 +192,6 @@ func _ready():
 	$SwordSprite.visible = false
 	$ChargeBar.visible = false
 	
-	update_perk_skill()
 	connect("force_character_swap", get_node("CharacterManager"), "swap_character")
 	connect("change_elegance", get_parent().get_node("EleganceMeterUI/Control"), "elegance_changed")
 	connect("change_hitcount", get_parent().get_node("EleganceMeterUI/Control"), "hitcount_changed")
@@ -255,11 +258,18 @@ func _ready():
 #	emit_signal("goblin_scales_obtained", Global.goblin_scales_amount)
 
 func update_perk_skill():
-	if Global.player_perks["CreateSugarRoll"]["unlocked"] and Global.player_perks["CreateSugarRoll"]["enabled"]:
+	Global.player_perks[Global.player_skills["PerkSkill"]]["enabled"] = true
+	for i in Global.player_perks.keys():
+		if i != Global.player_skills["PerkSkill"]:
+			Global.player_perks[i]["enabled"] = false
+
+	
+	if Global.player_perks["CreateSugarRoll"]["enabled"]:
+		print("PERK WENT ON")
 		perkskill_ui = get_parent().get_node("SkillsUI/Control/PerkSkill/Player/CreateSugarRoll/TextureProgress")
 		if has_node("ChaosMagicUI"):
 			get_node("ChaosMagicUI").call_deferred('free')
-	elif Global.player_perks["ChaosMagic"]["unlocked"] and Global.player_perks["ChaosMagic"]["enabled"]:
+	elif Global.player_perks["ChaosMagic"]["enabled"]:
 		perkskill_ui = get_parent().get_node("SkillsUI/Control/PerkSkill/Player/ChaosMagic/TextureProgress")
 		if !has_node("ChaosMagicUI"):
 			add_child(chaos_magic.instance())
@@ -979,16 +989,16 @@ func charged_attack(type : String = "Ground"):
 			num_of_slashes += 1
 		
 		#emit_signal("change_elegance"), "ChargedAttackLight")
-		change_mana_value(0.2)
+		change_mana_value(0.25)
 		yield(get_tree().create_timer(0.1), "timeout")
 		#emit_signal("change_elegance"), "ChargedAttackLight")
-		change_mana_value(0.2)
+		change_mana_value(0.25)
 		yield(get_tree().create_timer(0.1), "timeout")
 		#emit_signal("change_elegance"), "ChargedAttackLight")
-		change_mana_value(0.2)
+		change_mana_value(0.25)
 		yield(get_tree().create_timer(0.1), "timeout")
 		#emit_signal("change_elegance"), "ChargedAttackLight")
-		change_mana_value(0.2)
+		change_mana_value(0.25)
 		yield(get_tree().create_timer(0.1), "timeout")
 		change_mana_value(0.45)
 		#emit_signal("change_elegance"), "ChargedAttackHeavy")
@@ -996,7 +1006,7 @@ func charged_attack(type : String = "Ground"):
 		emit_signal("reduce_skill_cd", "Player", "SecondariesOnly", 2)
 		
 		# burningbreathtalent
-		if Global.player_perks["BurningBreath"]["unlocked"] and Global.player_perks["BurningBreath"]["enabled"]:
+		if Global.player_talents["BurningBreath"]["unlocked"] and Global.player_talents["BurningBreath"]["enabled"]:
 			var burningbreath = BURNING_BREATH_TALENT.instance()
 			get_parent().add_child(burningbreath)
 			burningbreath.position = global_position
@@ -1781,7 +1791,7 @@ func thrust_attack(special : bool = false):
 		yield(get_tree().create_timer(0.35), "timeout")
 #		cam_shake = false
 		is_invulnerable = false
-		if Global.player_perks["SwiftThrust"]["unlocked"] and Global.player_perks["SwiftThrust"]["enabled"]:
+		if Global.player_talents["SwiftThrust"]["unlocked"] and Global.player_talents["SwiftThrust"]["enabled"]:
 			airborne_mode = true
 			yield(get_tree().create_timer(0.5), "timeout")
 			airborne_mode = false
@@ -2128,7 +2138,7 @@ func _on_InputPressTimer_timeout():
 						thrust_attack()
 				else:
 					if is_on_floor():
-						charged_attack("Circular") if attack_string_count == 1 and Global.player_perks["CycloneSlashes"]["unlocked"] and Global.player_perks["CycloneSlashes"]["enabled"] else charged_attack("Ground")
+						charged_attack("Circular") if attack_string_count == 1 and Global.player_talents["CycloneSlashes"]["unlocked"] and Global.player_talents["CycloneSlashes"]["enabled"] else charged_attack("Ground")
 
 func _on_DashInputPressTimer_timeout():
 	if Global.current_character == "Player" and Input.is_action_pressed("ui_dash") and !Input.is_action_pressed("ui_attack") and !is_quickswap_attacking:

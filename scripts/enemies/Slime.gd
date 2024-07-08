@@ -78,21 +78,22 @@ func _on_Area2D_area_entered(area):
 		"Sword", "SwordCharged", "Fireball", "Ice",
 		"physics_process", "FireGauge", "FireGaugeTwo", "LightKnockback"
 	]
-	if is_airborne:
-		if !area.is_in_group("NoAirborneKnockback") and area.is_in_group("LightPoiseDamage") or area.is_in_group("MediumPoiseDamage"):
-			knockback(1.5)
-	else:
-		if area.is_in_group("LightPoiseDamage"):
-			knockback(1.5)
+	if !is_frozen:
+		if is_airborne:
+			if !area.is_in_group("NoAirborneKnockback") and area.is_in_group("LightPoiseDamage") or area.is_in_group("MediumPoiseDamage"):
+				knockback(1.5)
+		else:
+			if area.is_in_group("LightPoiseDamage"):
+				knockback(1.5)
 
-	if area.is_in_group("MediumPoiseDamage"):
-		knockback(8)
-	if area.is_in_group("HeavyPoiseDamage"):
-		knockback(20)
-	if area.is_in_group("CustomPoiseDamage"):
-		for g in area.get_groups():
-			if float(g) != 0:
-				knockback(float(g))
+		if area.is_in_group("MediumPoiseDamage"):
+			knockback(8)
+		if area.is_in_group("HeavyPoiseDamage"):
+			knockback(20)
+		if area.is_in_group("CustomPoiseDamage"):
+			for g in area.get_groups():
+				if float(g) != 0:
+					knockback(float(g))
 
 	if weakref(area).get_ref() != null:
 		if area.is_in_group("Sword") and !damage_immunity.physical:

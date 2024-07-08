@@ -55,3 +55,7 @@ func explode():
 func _on_MagicMissile_body_entered(body):
 	if body.is_in_group("EnemyEntity"):
 		explode()
+
+
+func _on_DestroyedTimer_timeout():
+	call_deferred('free')

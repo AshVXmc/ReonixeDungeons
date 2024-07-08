@@ -106,8 +106,8 @@ var player_talents : Dictionary = {
 	"TalentSlots": 5,
 	"MaxTalentSlots": 5,
 	"CycloneSlashes" : {
-		"unlocked" : false,
-		"enabled" : false,
+		"unlocked" : true,
+		"enabled" : true,
 		"opalscost": 100,
 		"talentslotcost": 2
 	},
@@ -119,8 +119,8 @@ var player_talents : Dictionary = {
 	},
 	# Talent has not been implemented yet
 	"BurningBreath" : {
-		"unlocked" : true,
-		"enabled" : true,
+		"unlocked" : false,
+		"enabled" : false,
 		"opalscost": 100,
 		"talentslotcost": 3
 	},
@@ -133,11 +133,25 @@ var player_talents : Dictionary = {
 		"talentslotcost": 2
 	}
 }
+var player_skills : Dictionary = {
+	"PrimarySkill" : "FireSaw",
+	"SecondarySkill" : "FireFairy",
+	"TertiarySkill" : "Fireball",
+	"PerkSkill": "ChaosMagic"
+}
+
+var glaciela_skills : Dictionary = {
+	"PrimarySkill" : "WinterQueen",
+	"SecondarySkill" : "IceLance",
+	"TertiarySkill" : "",
+	"PerkSkill": ""
+}
+
 
 # player perks are activated fourth skills
 var player_perks : Dictionary = {
 	"CreateSugarRoll": {
-		"unlocked" : false,
+		"unlocked" : true,
 		"enabled": false,
 		"opalscost": 100,
 		"cooldown": 35.0,
@@ -145,10 +159,10 @@ var player_perks : Dictionary = {
 	},
 	"ChaosMagic": {
 		"unlocked" : true,
-		"enabled": true,
+		"enabled": false,
 		"opalscost": 100,
 		# 45? 60? 100?
-		"cooldown": 10,
+		"cooldown": 20,
 		"talentslotcost": 3
 	}
 }
@@ -172,8 +186,8 @@ var glaciela_skill_multipliers : Dictionary = {
 	"IceLance": 10.0, # prev: 70
 	"MaxTundraStars": 3,
 	"WinterQueen": 15.0,
-	"WinterQueenCost": 1,
-	"IceLanceCost": 0,
+	"WinterQueenCost": 10,
+	"IceLanceCost": 3,
 	"WinterQueenCD": 50.0,
 	"IceLanceCD": 10.0,
 	"BasePhysRes": 0.0,
@@ -241,17 +255,6 @@ var lesser_soul_catalyst : int= 0
 
 
 # Skills that the player currently equips
-var player_skills : Dictionary = {
-	"PrimarySkill" : "FireSaw",
-	"SecondarySkill" : "FireFairy",
-	"RangedSkill" : ""
-}
-
-var glaciela_skills : Dictionary = {
-	"PrimarySkill" : "WinterQueen",
-	"SecondarySkill" : "IceLance",
-	"RangedSkill" : ""
-}
 
 
 
@@ -346,11 +349,18 @@ func reset_player_data():
 	Global.levelpath = ""
 	Global.enemies_killed = 0
 	Global.masked_goblin_defeated = false
-	Global.player_skills = {
-		"PrimarySkill": "FireSaw",
-		"SecondarySkill": "FireFairy",
-		"RangedSkill": "Fireball"
-	}
+#	Global.player_skills = {
+#		"PrimarySkill" : "FireSaw",
+#		"SecondarySkill" : "FireFairy",
+#		"TertiarySkill" : "Fireball",
+#		"PerkSkill": "CreateSugarRoll"
+#	}
+#	Global.glaciela_skills = {
+#		"PrimarySkill" : "WinterQueen",
+#		"SecondarySkill" : "IceLance",
+#		"TertiarySkill" : "",
+#		"PerkSkill": ""
+#	}
 	Global.character_level_data = {
 		"Player": [1, 0, 20],
 		"Glaciela": [1, 0, 20],

@@ -30,7 +30,14 @@ func shoot_arrow():
 func _physics_process(delta):
 	if !is_shooting:
 		$Sprite.play("BowIdle")
-	
+	if !is_airborne:
+		set_collision_mask_bit(2, true)
+	else:
+		set_collision_mask_bit(2, false)
+	if flipped:
+		$Sprite.flip_h = true
+	if !is_airborne:
+		velocity.y += GRAVITY
 	if is_on_floor() and !is_shooting:
 		
 		if !is_staggered and !$Area2D.overlaps_area(PLAYER) and !other_enemy_detector_is_overlapping_player() and !is_frozen and !dead and !is_airborne and weakref(PLAYER).get_ref() != null: 
@@ -84,5 +91,5 @@ func _physics_process(delta):
 
 
 func _on_ShootArrowTimer_timeout():
-	if !is_dead:
+	if !is_dead and !is_frozen and !is_airborne:
 		shoot_arrow()

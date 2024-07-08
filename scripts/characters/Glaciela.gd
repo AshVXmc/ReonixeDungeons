@@ -316,8 +316,9 @@ func play_attack_animation(direction : String):
 							break
 					$ResetAttackStringTimer.start()
 					$SpecialAttackTimer.start()
-					yield(get_tree().create_timer(0.4),"timeout")
-					can_use_special_attack = true
+					yield(get_tree().create_timer(0.5),"timeout")
+					if attack_string_count == 1:
+						can_use_special_attack = true
 			1:
 
 				$SpecialAttackTimer.stop()
@@ -330,7 +331,7 @@ func play_attack_animation(direction : String):
 #					attack_string_count = 4
 #					emit_signal("trigger_quickswap", "Glaciela")
 				else:
-					
+					can_use_special_attack = false
 					$AnimationPlayer.play("SpearSwingRight4")
 #					attack_string_count -= 1
 					var crit_dmg : float = 1.0
@@ -390,8 +391,9 @@ func play_attack_animation(direction : String):
 						break
 				$SpecialAttackTimer.start()
 				$ResetAttackStringTimer.start()
-				yield(get_tree().create_timer(0.4),"timeout")
-				can_use_special_attack = true
+				yield(get_tree().create_timer(0.5),"timeout")
+				if attack_string_count == 1:
+					can_use_special_attack = true
 			1:
 				
 				$SpecialAttackTimer.stop()
@@ -405,7 +407,7 @@ func play_attack_animation(direction : String):
 #					emit_signal("trigger_quickswap", "Glaciela")
 					
 				else:
-					
+					can_use_special_attack = false
 					$AnimationPlayer.play("SpearSwingLeft4")
 #					attack_string_count -= 1
 					for groups in $AttackCollision.get_groups():

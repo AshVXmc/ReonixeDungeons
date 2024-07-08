@@ -25,8 +25,8 @@ func _ready():
 	Global.current_character = character1
 	print("Currently: " + Global.current_character)
 	connect("ability_on_cooldown", get_parent().get_parent().get_node("Player"), "ability_on_entering_cooldown")
-	update_skill_ui(Global.player_skills["PrimarySkill"], Global.player_skills["SecondarySkill"])
-	update_skill_ui(Global.glaciela_skills["PrimarySkill"], Global.glaciela_skills["SecondarySkill"])
+	update_skill_ui(Global.player_skills["PrimarySkill"], Global.player_skills["SecondarySkill"], Global.player_skills["TertiarySkill"], Global.player_skills["PerkSkill"])
+	update_skill_ui(Global.glaciela_skills["PrimarySkill"], Global.glaciela_skills["SecondarySkill"], Global.glaciela_skills["TertiarySkill"], Global.glaciela_skills["PerkSkill"])
 	firesaw_ui.max_value = Global.player_skill_multipliers["FireSawCD"] * multiplier
 	firesaw_ui.value = firesaw_ui.max_value
 	firefairy_ui.max_value = Global.player_skill_multipliers["FireFairyCD"] * multiplier
@@ -43,21 +43,18 @@ func _ready():
 #func update_maximum_endurance_ui():
 #	$EnduranceMeter/TextureProgress.max_value = Global.max_endurance
 func update_perk_skill_ui():
-	if Global.player_perks["CreateSugarRoll"]["unlocked"] and Global.player_perks["CreateSugarRoll"]["enabled"]:
+	if Global.player_skills["PerkSkill"] == "CreateSugarRoll":
 		$PerkSkill/Player/CreateSugarRoll.visible = true
 		createsugarroll_ui.max_value = Global.player_perks["CreateSugarRoll"]["cooldown"] * multiplier
 		createsugarroll_ui.value = createsugarroll_ui.max_value
-	else:
-		$PerkSkill/Player/CreateSugarRoll.visible = false
-		
-	
-	if Global.player_perks["ChaosMagic"]["unlocked"] and Global.player_perks["ChaosMagic"]["enabled"]:
+		$PerkSkill/Player/ChaosMagic.visible = false
+	elif Global.player_skills["PerkSkill"] == "ChaosMagic":
 		$PerkSkill/Player/ChaosMagic.visible = true
 		chaosmagic_ui.max_value = Global.player_perks["ChaosMagic"]["cooldown"] * multiplier
 		chaosmagic_ui.value = chaosmagic_ui.max_value
-	else:
 		$PerkSkill/Player/CreateSugarRoll.visible = false
-		
+	
+	update_skill_ui(Global.player_skills["PrimarySkill"], Global.player_skills["SecondarySkill"], Global.player_skills["TertiarySkill"], Global.player_skills["PerkSkill"])
 
 func update_swap_character_status():
 	can_swap_character = true if !can_swap_character else false
@@ -95,7 +92,7 @@ func update_character_ui():
 			$Characters/Slot3/Character3.texture = agnetteicon
 
 
-func update_skill_ui(primary : String, secondary : String):
+func update_skill_ui(primary : String, secondary : String, tertiary : String, perk : String):
 	match primary:
 		"FireSaw":
 			$PrimarySkill/Player/FireSaw.visible = true
@@ -110,7 +107,16 @@ func update_skill_ui(primary : String, secondary : String):
 		"IceLance":
 			$SecondarySkill/Glaciela/IceLance.visible = true
 			$SecondarySkill/Glaciela/IceLance/CostLabel.text = str(Global.glaciela_skill_multipliers["IceLanceCost"])
+#	match tertiary:
 
+	match perk:
+		"CreateSugarRoll":
+			$PerkSkill/Player/CreateSugarRoll.visible = true
+			$PerkSkill/Player/ChaosMagic.visible = false
+		"ChaosMagic":
+			$PerkSkill/Player/CreateSugarRoll.visible = false
+			$PerkSkill/Player/ChaosMagic.visible = true
+			
 
 
 func on_skill_used(skill_name : String):

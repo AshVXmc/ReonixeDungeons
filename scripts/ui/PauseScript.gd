@@ -33,7 +33,7 @@ func _notification(what):
 
 func _process(delta):
 	if Input.is_action_just_pressed("ui_cancel") and !get_parent().get_parent().get_node("Player").is_shopping:
-#		get_parent().layer = 2
+		get_parent().layer = 2
 		get_parent().get_parent().get_node("DebugMenu").get_node("Control").visible = false
 		get_tree().paused = true
 		visible = true
@@ -44,13 +44,17 @@ func _process(delta):
 	elif Input.is_action_just_pressed("ui_debug"):
 		get_tree().paused = false
 		visible = false
-		
+	
+#	if visible and Input.is_action_just_pressed("ui_cancel"):
+#		resume_game()
+
 func _on_ResumeButton_pressed():
-	print("resumed game")
+	resume_game()
+	
+func resume_game():
 	get_tree().paused = false
 	visible = false
 	get_parent().layer = 1
-
 func _on_SaveButton_pressed():
 	if get_tree().get_current_scene().get_name() != "MaskedGoblinLevel":
 		Global.levelpath = get_parent().get_parent().filename
@@ -68,6 +72,7 @@ func _on_SaveButton_pressed():
 
 
 func _on_QuitButton_pressed():
+	get_parent().layer = 1
 	if get_tree().paused:
 		get_tree().paused = false
 		get_tree().change_scene("res://scenes/menus/MainMenu.tscn")

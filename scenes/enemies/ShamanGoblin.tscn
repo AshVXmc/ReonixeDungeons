@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=2]
+[gd_scene load_steps=37 format=2]
 
 [ext_resource path="res://assets/particles/smoke_particle.png" type="Texture" id=1]
 [ext_resource path="res://assets/enemies/goblin_shaman_2.png" type="Texture" id=2]
@@ -16,6 +16,7 @@
 [ext_resource path="res://assets/enemies/goblin_shaman_casting_1.png" type="Texture" id=14]
 [ext_resource path="res://scripts/enemies/ShamanGoblin.gd" type="Script" id=15]
 [ext_resource path="res://assets/particles/strike_particle.png" type="Texture" id=16]
+[ext_resource path="res://scenes/status_effects/FrozenStatus.tscn" type="PackedScene" id=17]
 
 [sub_resource type="Image" id=28]
 data = {
@@ -541,6 +542,8 @@ one_shot = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetectorArea2D"]
 shape = SubResource( 27 )
+
+[node name="FrozenStatus" parent="." instance=ExtResource( 17 )]
 
 [connection signal="tree_exiting" from="." to="." method="_on_Goblin_tree_exiting"]
 [connection signal="area_exited" from="Left" to="." method="_on_Left_area_exited"]

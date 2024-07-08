@@ -26,17 +26,10 @@ func handle_levelling_up():
 	pass
 
 func _on_PlayerOpenTalentButton_pressed():
-	
 	get_parent().get_node("CharacterTalentsControl").visible = true
-
-
-
 
 func _on_PlayerOpenSkillsButton_pressed():
 	get_parent().get_node("CharacterSkillsControl").visible = true
-
-
-
 
 func _on_CloseButtonMainUI_pressed():
 	toggle_ui()

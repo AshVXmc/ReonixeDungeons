@@ -103,5 +103,5 @@ func eldritch_hex():
 	
 func _on_CastSpellTimer_timeout():
 	var entities = $PlayerDetectorArea2D.get_overlapping_bodies()
-	if player in entities:
+	if player in entities and !is_frozen:
 		cast_spell()
