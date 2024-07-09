@@ -4,7 +4,8 @@
 
 signal equipped_skills()
 func _ready():
-
+#	$SceneTransition/ColorRect.visible = true
+	
 	connect("equipped_skills", $SkillsUI/Control, "update_skill_ui")
 	emit_signal("equipped_skills")
 #	Global.save_player_data()
@@ -14,6 +15,8 @@ func _ready():
 #		Global.is_loading_a_save = false
 #		print("reached")
 #		Global.save_player_data()
+	
+#	$SceneTransition.transition("FadeFromBlack")
 	$ParallaxBackground/Background1.visible = true
 	$GameOverUI/GameOver.visible = false
 	if Global.lighting:
@@ -26,6 +29,7 @@ func _ready():
 		OS.vsync_enabled = true
 	if get_tree().get_current_scene().get_name() == "Level5" and !Global.activated_portals.has("Level5"):
 		Global.activated_portals.append("Level5")
+	
 # warning-ignore:unused_argument
 func _process(delta):
 	# Screenshot

@@ -15,6 +15,8 @@ func _ready():
 
 		
 func _process(delta):
+	if freeze_stack == 0:
+		$FreezeBar.visible = false
 	$FreezeBar.value = freeze_stack
 	if freeze_stack >= MAX_FREEZE_STACK and !is_frozen:
 		

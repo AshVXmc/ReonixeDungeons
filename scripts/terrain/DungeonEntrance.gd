@@ -13,6 +13,7 @@ var destination : String
 func _ready():
 	$Label.visible = false
 	$Keybind.visible = false
+	$LevelSelectionUI/Control.visible = false
 func _process(delta):
 	if !is_opened:
 		$Sprite.set_texture(closed)

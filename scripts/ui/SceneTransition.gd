@@ -1,9 +1,17 @@
 extends CanvasLayer
 
 signal transitioned
+#func _ready():
+#	layer = 0
+#	$ColorRect.visible = false
+func transition(mode : String = "FadeToBlack"):
+	if mode == "FadeToBlack":
+		$AnimationPlayer.play("FADE_TO_BLACK")
+	elif mode == "FadeFromBlack":
+		$ColorRect.visible = true
+		layer = 5
+		$AnimationPlayer.play("FADE")
 
-func transition():
-	$AnimationPlayer.play("FADE_TO_BLACK")
 
 func _on_AnimationPlayer_animation_finished(anim_name):
 	if anim_name == "FADE_TO_BLACK":

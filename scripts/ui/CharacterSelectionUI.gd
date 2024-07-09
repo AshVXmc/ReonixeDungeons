@@ -11,10 +11,9 @@ const PLAYER_ICON = preload("res://assets/UI/player_character_icon.png")
 const GLACIELA_ICON = preload("res://assets/UI/glaciela_character_icon.png")
 const EMPTY_ICON = preload("res://assets/UI/empty_character_icon.png")
 signal chosen_party_members(slot_one, slot_two, slot_three)
-
+onready var charactermenu_ui = get_parent().get_parent().get_node("CharacterMenuUI/CharactersUI")
 func _ready():
 	visible = false
-	
 	# Comment the initialize UI function when done.
 #	initialize_ui()
 	connect("chosen_party_members", get_parent().get_parent(), "load_next_scene")
@@ -26,7 +25,6 @@ func _ready():
 
 
 func initialize_ui():
-	
 	visible = true
 	update_equipped_characters_ui()
 	get_tree().paused = true
@@ -158,3 +156,9 @@ func _on_EnterLevelButton_pressed():
 		$NinePatchRect/PartyCannotBeEmptyLabel.visible = true
 		yield(get_tree().create_timer(2.0), "timeout")
 		$NinePatchRect/PartyCannotBeEmptyLabel.visible = false
+
+
+func _on_LoadoutsButton_pressed():
+	visible = false
+	get_parent().layer = 1
+	charactermenu_ui.toggle_ui()

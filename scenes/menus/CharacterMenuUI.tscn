@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=2]
+[gd_scene load_steps=28 format=2]
 
 [ext_resource path="res://scripts/ui/CharacterTalentsControl.gd" type="Script" id=1]
 [ext_resource path="res://assets/characters/glaciela/glaciela_idle.png" type="Texture" id=2]
@@ -10,9 +10,11 @@
 [ext_resource path="res://assets/misc/opal.png" type="Texture" id=8]
 [ext_resource path="res://assets/UI/quiticon.png" type="Texture" id=9]
 [ext_resource path="res://scripts/ui/CharacterSkillsControl.gd" type="Script" id=10]
+[ext_resource path="res://assets/UI/keybind_button.png" type="Texture" id=11]
 [ext_resource path="res://assets/fonts/Born2bSportyV2.ttf" type="DynamicFontData" id=12]
 [ext_resource path="res://assets/characters/agnette/agnette_idle_1.png" type="Texture" id=13]
 [ext_resource path="res://scripts/ui/CharactersUI.gd" type="Script" id=14]
+[ext_resource path="res://assets/UI/long_button.png" type="Texture" id=15]
 
 [sub_resource type="DynamicFont" id=1]
 size = 48
@@ -80,10 +82,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -1283.0
-margin_top = -729.0
-margin_right = 1957.0
-margin_bottom = 1431.0
+margin_left = -1620.0
+margin_top = -1080.0
+margin_right = 1620.0
+margin_bottom = 1080.0
 color = Color( 1, 1, 1, 0 )
 
 [node name="NinePatchRect" type="NinePatchRect" parent="CharactersUI"]
@@ -91,10 +93,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -436.0
-margin_top = -208.0
-margin_right = 437.0
-margin_bottom = 272.0
+margin_left = -436.5
+margin_top = -240.0
+margin_right = 436.5
+margin_bottom = 240.0
 texture = ExtResource( 6 )
 patch_margin_left = 64
 patch_margin_top = 64
@@ -112,8 +114,8 @@ custom_colors/default_color = Color( 1, 1, 1, 1 )
 custom_colors/selection_color = Color( 1, 0.843137, 0.0117647, 1 )
 custom_fonts/normal_font = SubResource( 1 )
 bbcode_enabled = true
-bbcode_text = "[center]=== [color=#ffd703]Characters[/color] ==="
-text = "=== Characters ==="
+bbcode_text = "[center]=== [color=#ffd703]Character Loadouts[/color] ==="
+text = "=== Character Loadouts ==="
 scroll_active = false
 
 [node name="CloseButtonMainUI" type="TextureButton" parent="CharactersUI/NinePatchRect"]
@@ -178,6 +180,7 @@ margin_bottom = 383.0
 rect_min_size = Vector2( 32, 16 )
 texture_normal = ExtResource( 5 )
 texture_pressed = ExtResource( 4 )
+texture_hover = ExtResource( 11 )
 expand = true
 __meta__ = {
 "_edit_group_": true
@@ -203,6 +206,7 @@ margin_bottom = 463.0
 rect_min_size = Vector2( 32, 16 )
 texture_normal = ExtResource( 5 )
 texture_pressed = ExtResource( 4 )
+texture_hover = ExtResource( 11 )
 expand = true
 __meta__ = {
 "_edit_group_": true
@@ -249,7 +253,7 @@ anchor_bottom = 0.5
 margin_left = -462.0
 margin_top = -252.0
 margin_right = 463.0
-margin_bottom = 330.0
+margin_bottom = 355.0
 texture = ExtResource( 6 )
 patch_margin_left = 64
 patch_margin_top = 64
@@ -267,8 +271,8 @@ custom_colors/default_color = Color( 1, 1, 1, 1 )
 custom_colors/selection_color = Color( 1, 0.843137, 0.0117647, 1 )
 custom_fonts/normal_font = SubResource( 1 )
 bbcode_enabled = true
-bbcode_text = "[center]=== [color=#ffd703]Character Skills Loadout[/color] ==="
-text = "=== Character Skills Loadout ==="
+bbcode_text = "[center]=== [color=#ffd703]Character Skills[/color] ==="
+text = "=== Character Skills ==="
 scroll_active = false
 
 [node name="SkillsControl" type="Control" parent="CharacterSkillsControl/NinePatchRect"]
@@ -513,7 +517,11 @@ custom_fonts/font = SubResource( 4 )
 text = "Enable"
 align = 1
 
-[node name="PerkSkillScrollContainer" type="ScrollContainer" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/PlayerControl"]
+[node name="PerkSkillScrollContainerControl" type="Control" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/PlayerControl"]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="PerkSkillScrollContainer" type="ScrollContainer" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/PlayerControl/PerkSkillScrollContainerControl"]
 anchor_right = 21.766
 anchor_bottom = 15.255
 margin_left = 197.0
@@ -522,12 +530,12 @@ margin_right = 16.36
 margin_bottom = -168.2
 rect_min_size = Vector2( 566, 355 )
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/PlayerControl/PerkSkillScrollContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/PlayerControl/PerkSkillScrollContainerControl/PerkSkillScrollContainer"]
 margin_right = 510.0
 margin_bottom = 1108.0
 rect_min_size = Vector2( 510, 1100 )
 
-[node name="RichTextLabel" type="RichTextLabel" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/PlayerControl/PerkSkillScrollContainer/VBoxContainer"]
+[node name="RichTextLabel" type="RichTextLabel" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/PlayerControl/PerkSkillScrollContainerControl/PerkSkillScrollContainer/VBoxContainer"]
 margin_right = 510.0
 margin_bottom = 1100.0
 rect_min_size = Vector2( 510, 1100 )
@@ -538,12 +546,12 @@ bbcode_text = "player tert"
 text = "player tert"
 scroll_active = false
 
-[node name="TalentControl1" type="Control" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/PlayerControl/PerkSkillScrollContainer/VBoxContainer"]
+[node name="TalentControl1" type="Control" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/PlayerControl/PerkSkillScrollContainerControl/PerkSkillScrollContainer/VBoxContainer"]
 margin_top = 1104.0
 margin_right = 510.0
 margin_bottom = 1104.0
 
-[node name="PlayerTalentButton" type="TextureButton" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/PlayerControl/PerkSkillScrollContainer/VBoxContainer/TalentControl1"]
+[node name="PlayerTalentButton" type="TextureButton" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/PlayerControl/PerkSkillScrollContainerControl/PerkSkillScrollContainer/VBoxContainer/TalentControl1"]
 anchor_left = 0.215
 anchor_right = 0.215
 margin_left = 426.35
@@ -555,7 +563,7 @@ rect_scale = Vector2( 7.5, 7.5 )
 texture_normal = ExtResource( 5 )
 texture_pressed = ExtResource( 4 )
 
-[node name="ButtonLabel" type="Label" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/PlayerControl/PerkSkillScrollContainer/VBoxContainer/TalentControl1/PlayerTalentButton"]
+[node name="ButtonLabel" type="Label" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/PlayerControl/PerkSkillScrollContainerControl/PerkSkillScrollContainer/VBoxContainer/TalentControl1/PlayerTalentButton"]
 margin_left = 1.73334
 margin_top = 2.0
 margin_right = 46.7333
@@ -565,22 +573,23 @@ custom_colors/font_color = Color( 1, 0.843137, 0.0117647, 1 )
 custom_fonts/font = SubResource( 3 )
 text = "Bought"
 
-[node name="PlayerCheckButton" type="CheckButton" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/PlayerControl/PerkSkillScrollContainer/VBoxContainer/TalentControl1/PlayerTalentButton"]
+[node name="PlayerCheckButton" type="CheckButton" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/PlayerControl/PerkSkillScrollContainerControl/PerkSkillScrollContainer/VBoxContainer/TalentControl1/PlayerTalentButton"]
 margin_left = -5.33334
 margin_top = 8.66666
 margin_right = 116.667
 margin_bottom = 48.6667
 rect_scale = Vector2( 0.2, 0.2 )
 custom_fonts/font = SubResource( 4 )
+pressed = true
 text = "Enable"
 align = 1
 
-[node name="TalentControl2" type="Control" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/PlayerControl/PerkSkillScrollContainer/VBoxContainer"]
+[node name="TalentControl2" type="Control" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/PlayerControl/PerkSkillScrollContainerControl/PerkSkillScrollContainer/VBoxContainer"]
 margin_top = 1108.0
 margin_right = 510.0
 margin_bottom = 1108.0
 
-[node name="PlayerTalentButton" type="TextureButton" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/PlayerControl/PerkSkillScrollContainer/VBoxContainer/TalentControl2"]
+[node name="PlayerTalentButton" type="TextureButton" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/PlayerControl/PerkSkillScrollContainerControl/PerkSkillScrollContainer/VBoxContainer/TalentControl2"]
 anchor_left = 0.215
 anchor_right = 0.215
 margin_left = 426.35
@@ -592,7 +601,7 @@ rect_scale = Vector2( 7.5, 7.5 )
 texture_normal = ExtResource( 5 )
 texture_pressed = ExtResource( 4 )
 
-[node name="ButtonLabel" type="Label" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/PlayerControl/PerkSkillScrollContainer/VBoxContainer/TalentControl2/PlayerTalentButton"]
+[node name="ButtonLabel" type="Label" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/PlayerControl/PerkSkillScrollContainerControl/PerkSkillScrollContainer/VBoxContainer/TalentControl2/PlayerTalentButton"]
 margin_left = 1.73334
 margin_top = 2.0
 margin_right = 46.7333
@@ -602,15 +611,38 @@ custom_colors/font_color = Color( 1, 0.843137, 0.0117647, 1 )
 custom_fonts/font = SubResource( 3 )
 text = "Bought"
 
-[node name="PlayerCheckButton" type="CheckButton" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/PlayerControl/PerkSkillScrollContainer/VBoxContainer/TalentControl2/PlayerTalentButton"]
+[node name="PlayerCheckButton" type="CheckButton" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/PlayerControl/PerkSkillScrollContainerControl/PerkSkillScrollContainer/VBoxContainer/TalentControl2/PlayerTalentButton"]
 margin_left = -5.33334
 margin_top = 8.66666
 margin_right = 116.667
 margin_bottom = 48.6667
 rect_scale = Vector2( 0.2, 0.2 )
 custom_fonts/font = SubResource( 4 )
+pressed = true
 text = "Enable"
 align = 1
+
+[node name="PerkSkillSelectionLabel" type="Label" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/PlayerControl/PerkSkillScrollContainerControl"]
+margin_left = 333.5
+margin_top = 474.0
+margin_right = 555.5
+margin_bottom = 506.0
+custom_fonts/font = SubResource( 12 )
+text = "Selected Perk Skill"
+align = 1
+
+[node name="PerkSkillSelectionOptionSprite" type="Sprite" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/PlayerControl/PerkSkillScrollContainerControl"]
+position = Vector2( 449.5, 541 )
+scale = Vector2( 8, 8 )
+texture = ExtResource( 15 )
+
+[node name="PerkSkillSelectionOption" type="OptionButton" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/PlayerControl/PerkSkillScrollContainerControl"]
+margin_left = 330.0
+margin_top = 509.0
+margin_right = 570.0
+margin_bottom = 572.0
+custom_fonts/font = SubResource( 11 )
+flat = true
 
 [node name="CloseButtonMainUI" type="TextureButton" parent="CharacterSkillsControl"]
 anchor_left = 0.5
@@ -1065,8 +1097,8 @@ expand = true
 [connection signal="pressed" from="CharactersUI/NinePatchRect/PlayerOpenSkillsButton" to="CharactersUI" method="_on_PlayerOpenSkillsButton_pressed"]
 [connection signal="pressed" from="CharactersUI/NinePatchRect/PlayerOpenTalentButton" to="CharactersUI" method="_on_PlayerOpenTalentButton_pressed"]
 [connection signal="item_selected" from="CharacterSkillsControl/NinePatchRect/SkillsControl/PlayerControl/SkillTypeOptionButton" to="CharacterSkillsControl" method="_on_Player_SkillTypeOptionButton_item_selected"]
-[connection signal="toggled" from="CharacterSkillsControl/NinePatchRect/SkillsControl/PlayerControl/PerkSkillScrollContainer/VBoxContainer/TalentControl1/PlayerTalentButton/PlayerCheckButton" to="CharacterSkillsControl" method="_on_PlayerPerk_CreateSugarRoll_toggled"]
-[connection signal="toggled" from="CharacterSkillsControl/NinePatchRect/SkillsControl/PlayerControl/PerkSkillScrollContainer/VBoxContainer/TalentControl2/PlayerTalentButton/PlayerCheckButton" to="CharacterSkillsControl" method="_on_PlayerPerk_ChaosMagic_toggled"]
+[connection signal="toggled" from="CharacterSkillsControl/NinePatchRect/SkillsControl/PlayerControl/PerkSkillScrollContainerControl/PerkSkillScrollContainer/VBoxContainer/TalentControl1/PlayerTalentButton/PlayerCheckButton" to="CharacterSkillsControl" method="_on_PlayerPerk_CreateSugarRoll_toggled"]
+[connection signal="toggled" from="CharacterSkillsControl/NinePatchRect/SkillsControl/PlayerControl/PerkSkillScrollContainerControl/PerkSkillScrollContainer/VBoxContainer/TalentControl2/PlayerTalentButton/PlayerCheckButton" to="CharacterSkillsControl" method="_on_PlayerPerk_ChaosMagic_toggled"]
 [connection signal="pressed" from="CharacterSkillsControl/CloseButtonMainUI" to="CharacterSkillsControl" method="_on_CloseButtonMainUI_pressed"]
 [connection signal="pressed" from="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl1/PlayerTalentButton" to="CharacterTalentsControl" method="_on_PlayerTalentButton1_pressed"]
 [connection signal="toggled" from="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl1/PlayerTalentButton/PlayerCheckButton" to="CharacterTalentsControl" method="_on_PlayerCheckButton1_toggled"]

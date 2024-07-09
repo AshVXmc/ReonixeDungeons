@@ -2235,7 +2235,8 @@ func _on_StabAttackCollision_area_exited(area):
 
 
 func _on_HideEnergyMeterTimer_timeout():
-	$EnergyMeter.visible = false
+	pass
+#	$EnergyMeter.visible = false
 
 
 func _on_SnareTimer_timeout():
