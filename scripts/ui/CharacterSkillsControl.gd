@@ -9,7 +9,7 @@ onready var player_tskill = $NinePatchRect/SkillsControl/PlayerControl/TertiaryS
 onready var player_tskill_text = $NinePatchRect/SkillsControl/PlayerControl/TertiarySkillScrollContainer/VBoxContainer/RichTextLabel
 onready var player_perkskill = $NinePatchRect/SkillsControl/PlayerControl/PerkSkillScrollContainerControl
 onready var player_perkskill_text = $NinePatchRect/SkillsControl/PlayerControl/PerkSkillScrollContainerControl/PerkSkillScrollContainer/VBoxContainer/RichTextLabel
-onready var player_perkskill_options = $NinePatchRect/SkillsControl/PlayerControl/PerkSkillScrollContainerControl/PerkSkillSelectionOption
+onready var player_perkskill_optionbutton = $NinePatchRect/SkillsControl/PlayerControl/PerkSkillScrollContainerControl/PerkSkillSelectionOption
 onready var player_node = get_parent().get_parent().get_parent().get_node("Player")
 onready var skills_ui_node = get_parent().get_parent().get_parent().get_node("SkillsUI/Control")
 
@@ -27,12 +27,12 @@ func _ready():
 	skill_type_option_button.add_item("Tertiary", 2)
 	skill_type_option_button.add_item("Perk", 3)
 	
-	player_perkskill_options.add_item("Create Sugar Roll", 0)
-	player_perkskill_options.add_item("Chaos Magic", 1)
-	
+	player_perkskill_optionbutton.add_item("Create Sugar Roll", 0)
+	player_perkskill_optionbutton.add_item("Chaos Magic", 1)
 	connect("player_node_update_perk_skill", player_node, "update_perk_skill")
 	connect("skillsui_update_perk_skill_ui", skills_ui_node, "update_perk_skill_ui")
 	_on_Player_SkillTypeOptionButton_item_selected(0)
+	
 	update_description_text()
 	yield(get_tree().create_timer(0.1), "timeout")
 	update_perk_skill_selection_ui("Player", Global.player_skills["PerkSkill"])
@@ -74,38 +74,60 @@ Cooldown: {cooldown} seconds per charge
 	})
 	
 
-	var create_sugar_roll_text = """[color=#ffd703]Create Sugar Roll[/color]
+	var createsugarroll_text = """[color=#ffd703]Create Sugar Roll[/color]
 Conjure a [color=#bda662]Sugar Roll[/color] at your location. A character can eat the roll, restoring health over time. The roll cannot be eaten if there are enemies nearby, and only one roll may exist in a level.
 Cooldown: {cooldown} seconds
 	"""
-	player_perkskill_text.bbcode_text = create_sugar_roll_text.format({
-		"cooldown": str(Global.player_perks["CreateSugarRoll"]["cooldown"])
+	
+	var chaosmagic_text = """
+[color=#ffd703]Chaos Magic[/color]
+Upon casting, you produce one of the following effects at random. Casting your Primary, Secondary or Tertiary Skills also have a {triggerchance}% chance of triggering this skill.
+ [color=#cc0001]1[/color]:
+A gust of wind propels you upward, knocking enemies away.
+ [color=#fb940b]2[/color]:
+A small flame appears at your location, exploding after a short delay, dealing [color=#fd9628]Fire[/color] damage. You also take damage from the explosion.
+ [color=#ffff01]3[/color]:
+You temporarily get frozen in place. While frozen, you are immobile and you cannot attack.
+ [color=#01cc00]4[/color]:
+You gain a shield that absorbs damage, based on your party's average Max Health.
+ [color=#03c0c6]5[/color]:
+You shoot out seven magical missiles that home into enemies, dealing [color=#7df0ff]Ice[/color] damage.
+ [color=#0000fe]6[/color]:
+You summon a laser beam in the direction you are facing, dealing Physical damage.
+ [color=#762ca7]7[/color]:
+A meteor crashes down in front of your facing direction, dealing [color=#deb600]Earth[/color] damage.
+ [color=#fe98bf]8[/color]:
+All of your party member's health and mana is restored.
+	"""
+	player_perkskill_text.bbcode_text = createsugarroll_text.format({
+		"cooldown": str(Global.player_perks["CreateSugarRoll"]["cooldown"]),
+	}) + chaosmagic_text.format({
+		"triggerchance": str(Global.player_perks["ChaosMagic"]["triggerchance"])
 	})
 	
-
-
-func update_perk_skill_selection_ui(character_name : String, perk_name : String):
-	if character_name == "Player":
-		
-		for key in Global.player_perks.keys():
-			if perk_name == key:
-				Global.player_perks[key]["enabled"] = true
-				Global.player_skills["PerkSkill"] = perk_name
-			else:
-				Global.player_perks[key]["enabled"] = false
 	
-#		if perk_name == "CreateSugarRoll":
-##			toggle_player_perk("CreateSugarRoll", true)
-#			toggle_player_perk("ChaosMagic", false)
-#		elif perk_name == "ChaosMagic":
-#			toggle_player_perk("CreateSugarRoll", false)
-##			toggle_player_perk("ChaosMagic", true)
-			
+	
+func update_visbility():
+	pass
+# access the update_perk_skill function in player
+# access the update_perk_skill_ui function in skillsui
+#func print_out_layer():
+#	print("Layer is:" + str(get_parent().layer))
+func update_perk_skill_selection_ui(character_name : String, perk_name : String):
+	pass
+	if character_name == "Player":
+		Global.player_skills["PerkSkill"] = perk_name
+		match perk_name:
+			"CreateSugarRoll":
+				Global.player_perks["CreateSugarRoll"]["enabled"] = true
+				Global.player_perks["ChaosMagic"]["enabled"] = false
+				player_perkskill_optionbutton.selected = 0
+			"ChaosMagic":
+				Global.player_perks["CreateSugarRoll"]["enabled"] = false
+				Global.player_perks["ChaosMagic"]["enabled"] = true
+				player_perkskill_optionbutton.selected = 1
 		emit_signal("player_node_update_perk_skill")
 		emit_signal("skillsui_update_perk_skill_ui")
-#		print("NEW PERK: " + perk_name + str(Global.player_perks[perk_name]["enabled"]))
-		
-
 
 func _on_Player_SkillTypeOptionButton_item_selected(index):
 	match index:
@@ -130,13 +152,21 @@ func _on_Player_SkillTypeOptionButton_item_selected(index):
 			player_tskill.visible = false
 			player_perkskill.visible = true
 
-func _on_PlayerPerk_CreateSugarRoll_toggled(button_pressed):
-	update_perk_skill_selection_ui("Player", "CreateSugarRoll")
-
-func _on_PlayerPerk_ChaosMagic_toggled(button_pressed):
-	update_perk_skill_selection_ui("Player", "ChaosMagic")
+#func _on_PlayerPerk_CreateSugarRoll_toggled(button_pressed):
+#	update_perk_skill_selection_ui("Player", "CreateSugarRoll")
+#
+#func _on_PlayerPerk_ChaosMagic_toggled(button_pressed):
+#	update_perk_skill_selection_ui("Player", "ChaosMagic")
 
 
 func _on_CloseButtonMainUI_pressed():
 	visible = false
 	get_parent().get_node("CharactersUI").visible = true
+
+
+func _on_Player_PerkSkillSelectionOption_item_selected(index):
+	match index:
+		0:
+			update_perk_skill_selection_ui("Player", "CreateSugarRoll")
+		1:
+			update_perk_skill_selection_ui("Player", "ChaosMagic")

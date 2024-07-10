@@ -155,15 +155,17 @@ var player_perks : Dictionary = {
 		"enabled": false,
 		"opalscost": 100,
 		"cooldown": 35.0,
-		"talentslotcost": 3
+#		"talentslotcost": 3
 	},
 	"ChaosMagic": {
 		"unlocked" : true,
 		"enabled": false,
 		"opalscost": 100,
 		# 45? 60? 100?
-		"cooldown": 20,
-		"talentslotcost": 3
+		"cooldown": 5,
+		# 25% chance
+		"triggerchance": 25,
+#		"talentslotcost": 3
 	}
 }
 

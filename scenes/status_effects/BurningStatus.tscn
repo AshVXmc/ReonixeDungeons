@@ -8,9 +8,9 @@
 [sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 27.2505, 31.6564 )
 
-[sub_resource type="ParticlesMaterial" id=2]
+[sub_resource type="ParticlesMaterial" id=4]
 emission_shape = 2
-emission_box_extents = Vector3( 36, 5, 1 )
+emission_box_extents = Vector3( 15, 10, 1 )
 flag_disable_z = true
 gravity = Vector3( 0, -65, 0 )
 orbit_velocity = 0.0
@@ -36,7 +36,7 @@ autostart = true
 [node name="BurningParticles" type="Particles2D" parent="."]
 scale = Vector2( 2.6, 2.6 )
 lifetime = 0.75
-process_material = SubResource( 2 )
+process_material = SubResource( 4 )
 texture = ExtResource( 3 )
 
 [node name="DestroyedTimer" type="Timer" parent="."]

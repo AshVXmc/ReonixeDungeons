@@ -9,32 +9,36 @@ var picked_slot : int
 # Only use this variable in the characteroptionslist ui. Reset to 0 after done.
 const PLAYER_ICON = preload("res://assets/UI/player_character_icon.png")
 const GLACIELA_ICON = preload("res://assets/UI/glaciela_character_icon.png")
+const AGNETTE_ICON = preload("res://assets/UI/agnette_character_icon.png")
 const EMPTY_ICON = preload("res://assets/UI/empty_character_icon.png")
 signal chosen_party_members(slot_one, slot_two, slot_three)
 onready var charactermenu_ui = get_parent().get_parent().get_node("CharacterMenuUI/CharactersUI")
 func _ready():
 	visible = false
+	$CharacterOptionsList.visible = false
 	# Comment the initialize UI function when done.
 #	initialize_ui()
 	connect("chosen_party_members", get_parent().get_parent(), "load_next_scene")
-	
+	update_equipped_characters_ui()
 # FOR DEBUGGING PURPOSES
 #func _physics_process(delta):
 #	if Input.is_action_just_pressed("ui_cancel"):
 #		print(equipped_characters)
-
 
 func initialize_ui():
 	visible = true
 	update_equipped_characters_ui()
 	get_tree().paused = true
 
+
 func update_equipped_characters_ui():
 	if equipped_characters.has("Player"):
 		get_node("NinePatchRect/CharacterSlot" + str(equipped_characters.find("Player") + 1)).texture_normal = PLAYER_ICON
 	if equipped_characters.has("Glaciela"):
 		get_node("NinePatchRect/CharacterSlot" + str(equipped_characters.find("Glaciela") + 1)).texture_normal = GLACIELA_ICON
-
+	if equipped_characters.has("Agnette"):
+		get_node("NinePatchRect/CharacterSlot" + str(equipped_characters.find("Agnette") + 1)).texture_normal = AGNETTE_ICON
+		
 
 func update_character_options_list_ui():
 	if equipped_characters.has("Player"):
@@ -45,7 +49,10 @@ func update_character_options_list_ui():
 		$CharacterOptionsList/CharacterGlaciela.self_modulate = Color(1,1,1, 0.4)
 	else:
 		$CharacterOptionsList/CharacterGlaciela.self_modulate = Color(1,1,1,1)
-	
+	if equipped_characters.has("Agnette"):
+		$CharacterOptionsList/CharacterAgnette.self_modulate = Color(1,1,1, 0.4)
+	else:
+		$CharacterOptionsList/CharacterAgnette.self_modulate = Color(1,1,1,1)
 	
 	
 	
@@ -90,37 +97,26 @@ func open_character_options_list(slot : int):
 	$CharacterOptionsList.visible = true
 	picked_slot = slot
 
+func pick_character(character : String):
+	if equipped_characters.has(character):
+		toggle_character_already_selected_label()
+	else:
+		button_modulate(get_node("CharacterOptionsList/Character" + character))
+		yield(get_tree().create_timer(0.05), "timeout")
+		equipped_characters.remove(picked_slot - 1)
+		equipped_characters.insert(picked_slot - 1, character)
+		$CharacterOptionsList.visible = false
+	update_equipped_characters_ui()
+	picked_slot = 0
 
 func _on_CharacterPlayer_pressed():
-	if equipped_characters.has("Player"):
-		toggle_character_already_selected_label()
-	else:
-		button_modulate($CharacterOptionsList/CharacterPlayer)
-		yield(get_tree().create_timer(0.05), "timeout")
-		equipped_characters.remove(picked_slot - 1)
-		equipped_characters.insert(picked_slot - 1, "Player")
-		$CharacterOptionsList.visible = false
-	update_equipped_characters_ui()
-	picked_slot = 0
-	
-	
-
+	pick_character("Player")
 
 func _on_CharacterGlaciela_pressed():
-	if equipped_characters.has("Glaciela"):
-		toggle_character_already_selected_label()
-	else:
-		button_modulate($CharacterOptionsList/CharacterGlaciela)
-		yield(get_tree().create_timer(0.05), "timeout")
-		equipped_characters.remove(picked_slot - 1)
-		equipped_characters.insert(picked_slot - 1, "Glaciela")
-		$CharacterOptionsList.visible = false
-	update_equipped_characters_ui()
-	picked_slot = 0
-	
+	pick_character("Glaciela")
 
 func _on_CharacterAgnette_pressed():
-	pass
+	pick_character("Agnette")
 
 
 func _on_ClearSlot1_pressed():

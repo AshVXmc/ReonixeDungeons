@@ -1,6 +1,7 @@
 class_name CharactersUI extends Control
 
 onready var characterselection_ui = get_parent().get_parent().get_node("CharacterSelectionUI")
+
 func _ready():
 #	visible = true
 	update_ui()
@@ -18,12 +19,20 @@ func _process(delta):
 #		toggle_ui()
 
 func toggle_ui():
+	print("LOADOUT SCREEN TOGGLED")
 	visible = true if !visible else false
-	get_parent().get_parent().get_node("CharacterSelectionUI/Control").visible = true
+	grab_focus()
 	if get_parent().layer == 1:
-		get_parent().layer = 2
-	elif get_parent().layer == 2:
+		get_parent().layer = 3
+	elif get_parent().layer == 3:
 		get_parent().layer = 1
+	
+	
+	# for debug purposes only
+#	get_parent().get_node("CharacterSkillsControl").print_out_layer()
+	#####
+	
+#	get_parent().get_parent().get_node("CharacterSelectionUI/Control").visible = true	
 #	get_tree().paused = true if !get_tree().paused else false
 func handle_levelling_up():
 	pass
@@ -37,3 +46,9 @@ func _on_PlayerOpenSkillsButton_pressed():
 func _on_CloseButtonMainUI_pressed():
 	characterselection_ui.layer = 2
 	toggle_ui()
+	get_parent().get_parent().get_node("CharacterSelectionUI/Control").visible = true
+
+
+# debug
+#func _on_PlayerOpenSkillsButton_mouse_entered():
+#	print("HOVERED OVER")

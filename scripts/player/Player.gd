@@ -661,11 +661,11 @@ func use_talent_skill():
 func chaos_magic_surge():
 	var rng = RandomNumberGenerator.new()
 	rng.randomize()
-	var num = rng.randi_range(1, 4)
-	if num == 1:
+	var num = rng.randi_range(1, 100)
+	if num <= Global.player_perks["ChaosMagic"]["triggerchance"]:
 		if perkskill_ui.value >= perkskill_ui.max_value and !is_frozen:
 			use_talent_skill()
-#	chaos_magic(num)
+#	chaos_magic(num)   
 
 
 func dash_counter_attack():

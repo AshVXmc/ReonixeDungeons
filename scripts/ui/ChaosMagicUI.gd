@@ -8,17 +8,26 @@ const LASER_BEAM = preload("res://scenes/misc/chaos_magic/LaserBeam.tscn")
 const METEOR = preload("res://scenes/misc/MeteorStrike.tscn")
 signal heal(hearts, character)
 signal restore_mana(mana, character)
+
+# Better RNG: when a spell from the chaosmagic table is selected, it is
+# removed from the array, so every spell has a more uniform distribution
+var spells = [1,2,3,4,5,6,7,8]
+
 # NOTE: chaos magic layer has to be -1 or else it will cause the other UIs to not work. idk why.
 func _ready():
+	randomize()
+	spells.shuffle()
 	connect("heal",  get_parent().get_parent().get_parent().get_node("HeartUI/Life"), "on_player_life_changed")
 	connect("restore_mana",  get_parent().get_parent().get_parent().get_node("ManaUI/Mana"), "on_player_mana_changed")
 	
 func trigger_chaos_magic():
-	var rng = RandomNumberGenerator.new()
-	rng.randomize()
-	var num = rng.randi_range(1, 8)
-	chaos_magic(num)
-	
+	chaos_magic(spells[0])
+	spells.pop_front()
+	if spells.empty():
+		spells = [1,2,3,4,5,6,7,8]
+		randomize()
+		spells.shuffle()
+
 
 func chaos_magic(id : int):
 	match id:
