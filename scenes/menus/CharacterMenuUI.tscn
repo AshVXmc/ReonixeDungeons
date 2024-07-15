@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=2]
+[gd_scene load_steps=30 format=2]
 
 [ext_resource path="res://scripts/ui/CharacterTalentsControl.gd" type="Script" id=1]
 [ext_resource path="res://assets/characters/glaciela/glaciela_idle.png" type="Texture" id=2]
@@ -63,6 +63,10 @@ font_data = ExtResource( 12 )
 
 [sub_resource type="DynamicFont" id=7]
 size = 48
+font_data = ExtResource( 12 )
+
+[sub_resource type="DynamicFont" id=14]
+size = 32
 font_data = ExtResource( 12 )
 
 [node name="CharacterMenuUI" type="CanvasLayer"]
@@ -259,6 +263,7 @@ text = "Talents"
 align = 1
 
 [node name="CharacterSkillsControl" type="Control" parent="."]
+visible = false
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -700,10 +705,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -436.0
-margin_top = -240.0
-margin_right = 437.0
-margin_bottom = 275.0
+margin_left = -495.0
+margin_top = -281.0
+margin_right = 496.0
+margin_bottom = 298.0
 texture = ExtResource( 6 )
 patch_margin_left = 64
 patch_margin_top = 64
@@ -734,10 +739,10 @@ margin_right = 15.5
 margin_bottom = 12.0
 
 [node name="BackgroundBox" type="NinePatchRect" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl"]
-margin_left = 124.0
-margin_top = 60.0
-margin_right = 839.0
-margin_bottom = 469.0
+margin_left = 230.0
+margin_top = 62.0
+margin_right = 945.0
+margin_bottom = 471.0
 texture = ExtResource( 6 )
 patch_margin_left = 64
 patch_margin_top = 64
@@ -749,17 +754,17 @@ margin_right = 40.0
 margin_bottom = 40.0
 
 [node name="Sprite" type="Sprite" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl"]
-position = Vector2( 68, 125 )
+position = Vector2( 110, 125 )
 scale = Vector2( 7, 7 )
 texture = ExtResource( 3 )
 
 [node name="ScrollContainer" type="ScrollContainer" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl"]
 anchor_right = 21.766
 anchor_bottom = 15.255
-margin_left = 148.0
-margin_top = 83.0
-margin_right = -32.64
-margin_bottom = 637.8
+margin_left = 253.0
+margin_top = 81.0
+margin_right = 72.36
+margin_bottom = 635.8
 rect_min_size = Vector2( 566, 355 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer"]
@@ -783,8 +788,8 @@ Airborne charged attacks can now be chained up to 2 times.
 
 
 [color=#ffd703]Burning Breath[/color]
-Activating an [color=purple]EX Charged Attack[/color] releases a burst of flames that burn enemies.
-
+When you take damage, you unleash a fiery rebuke, [color=#fd9628]Burning[/color] enemies in a cone-shaped area.
+Cooldown: 10 seconds
 
 [color=#ffd703]Infernal Mark[/color]
 Enemies marked with the Sulphuric Sigil take more damage. 
@@ -801,8 +806,8 @@ Airborne charged attacks can now be chained up to 2 times.
 
 
 Burning Breath
-Activating an EX Charged Attack releases a burst of flames that burn enemies.
-
+When you take damage, you unleash a fiery rebuke, Burning enemies in a cone-shaped area.
+Cooldown: 10 seconds
 
 Infernal Mark
 Enemies marked with the Sulphuric Sigil take more damage. 
@@ -839,9 +844,9 @@ text = "Unlock"
 
 [node name="OpalsCostLabel" type="Label" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl1/PlayerTalentButton"]
 margin_left = 5.66672
-margin_top = 10.0
+margin_top = 8.66666
 margin_right = 26.6667
-margin_bottom = 27.0
+margin_bottom = 25.6667
 rect_scale = Vector2( 0.3, 0.3 )
 custom_fonts/font = SubResource( 8 )
 text = "XXX"
@@ -853,9 +858,9 @@ texture = ExtResource( 8 )
 
 [node name="SlotsCostLabel" type="Label" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl1/PlayerTalentButton"]
 margin_left = -3.73331
-margin_top = 15.0667
+margin_top = 13.7334
 margin_right = 71.2667
-margin_bottom = 32.0667
+margin_bottom = 30.7334
 rect_scale = Vector2( 0.3, 0.3 )
 custom_fonts/font = SubResource( 8 )
 text = "Slot cost: X"
@@ -864,9 +869,9 @@ align = 1
 [node name="PlayerCheckButton" type="CheckButton" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl1/PlayerTalentButton"]
 visible = false
 margin_left = -5.33334
-margin_top = 8.66666
+margin_top = 7.46666
 margin_right = 116.667
-margin_bottom = 48.6667
+margin_bottom = 47.4667
 rect_scale = Vector2( 0.2, 0.2 )
 custom_fonts/font = SubResource( 4 )
 text = "Enable"
@@ -913,9 +918,9 @@ texture = ExtResource( 8 )
 
 [node name="SlotsCostLabel" type="Label" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl2/PlayerTalentButton"]
 margin_left = -3.73331
-margin_top = 14.4
+margin_top = 14.5333
 margin_right = 71.2667
-margin_bottom = 31.4
+margin_bottom = 31.5333
 rect_scale = Vector2( 0.3, 0.3 )
 custom_fonts/font = SubResource( 8 )
 text = "Slot cost: X"
@@ -924,9 +929,9 @@ align = 1
 [node name="PlayerCheckButton" type="CheckButton" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl2/PlayerTalentButton"]
 visible = false
 margin_left = -5.33334
-margin_top = 8.66666
+margin_top = 7.60001
 margin_right = 116.667
-margin_bottom = 48.6667
+margin_bottom = 47.6
 rect_scale = Vector2( 0.2, 0.2 )
 custom_fonts/font = SubResource( 4 )
 text = "Enable"
@@ -974,9 +979,9 @@ texture = ExtResource( 8 )
 
 [node name="SlotsCostLabel" type="Label" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl3/PlayerTalentButton"]
 margin_left = -3.73331
-margin_top = 14.4
+margin_top = 14.5333
 margin_right = 71.2667
-margin_bottom = 31.4
+margin_bottom = 31.5333
 rect_scale = Vector2( 0.3, 0.3 )
 custom_fonts/font = SubResource( 8 )
 text = "Slot cost: X"
@@ -985,9 +990,9 @@ align = 1
 [node name="PlayerCheckButton" type="CheckButton" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl3/PlayerTalentButton"]
 visible = false
 margin_left = -5.33334
-margin_top = 8.66666
+margin_top = 7.60016
 margin_right = 116.667
-margin_bottom = 48.6667
+margin_bottom = 47.6002
 rect_scale = Vector2( 0.2, 0.2 )
 custom_fonts/font = SubResource( 4 )
 text = "Enable"
@@ -1002,9 +1007,9 @@ margin_bottom = 1116.0
 anchor_left = 0.215
 anchor_right = 0.215
 margin_left = 426.8
-margin_top = -522.0
+margin_top = -494.0
 margin_right = 458.8
-margin_bottom = -506.0
+margin_bottom = -478.0
 rect_min_size = Vector2( 32, 16 )
 rect_scale = Vector2( 7.5, 7.5 )
 texture_normal = ExtResource( 5 )
@@ -1035,9 +1040,9 @@ texture = ExtResource( 8 )
 
 [node name="SlotsCostLabel" type="Label" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl4/PlayerTalentButton"]
 margin_left = -3.73331
-margin_top = 14.4
+margin_top = 14.5333
 margin_right = 71.2667
-margin_bottom = 31.4
+margin_bottom = 31.5333
 rect_scale = Vector2( 0.3, 0.3 )
 custom_fonts/font = SubResource( 8 )
 text = "Slot cost: X"
@@ -1046,35 +1051,36 @@ align = 1
 [node name="PlayerCheckButton" type="CheckButton" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl4/PlayerTalentButton"]
 visible = false
 margin_left = -5.33334
-margin_top = 8.66666
+margin_top = 8.39999
 margin_right = 116.667
-margin_bottom = 48.6667
+margin_bottom = 48.4
 rect_scale = Vector2( 0.2, 0.2 )
 custom_fonts/font = SubResource( 4 )
 text = "Enable"
 align = 1
 
 [node name="TalentSlotsLabel" type="Label" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl"]
-margin_left = 19.0
+margin_left = 37.0
 margin_top = 226.0
-margin_right = 110.0
-margin_bottom = 293.0
+margin_right = 202.0
+margin_bottom = 259.0
 custom_fonts/font = SubResource( 6 )
 text = "Talent Slots:"
 align = 1
 autowrap = true
 
 [node name="TalentSlotsCountLabel" type="Label" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl"]
-margin_left = 12.0
-margin_top = 299.0
-margin_right = 118.0
-margin_bottom = 398.0
+margin_left = 58.5
+margin_top = 259.0
+margin_right = 164.5
+margin_bottom = 355.0
 custom_fonts/font = SubResource( 7 )
-text = "0/5"
+text = "0/6"
 align = 1
 autowrap = true
 
 [node name="OpalsLabel" type="Label" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl"]
+visible = false
 margin_left = 19.0
 margin_top = 395.0
 margin_right = 110.0
@@ -1085,6 +1091,7 @@ align = 1
 autowrap = true
 
 [node name="OpalsCountLabel" type="Label" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl"]
+visible = false
 margin_left = 12.0
 margin_top = 430.0
 margin_right = 118.0
@@ -1094,15 +1101,31 @@ text = "0/5"
 align = 1
 autowrap = true
 
+[node name="TalentSlotsWarningLabel" type="Label" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl"]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = 143.5
+margin_top = 465.0
+margin_right = 697.5
+margin_bottom = 516.0
+custom_colors/font_color = Color( 1, 0, 0, 1 )
+custom_fonts/font = SubResource( 14 )
+text = "Insufficient talent slots. Unequip other talents to free up slots."
+align = 1
+autowrap = true
+
 [node name="CloseButtonMainUI" type="TextureButton" parent="CharacterTalentsControl"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -436.0
-margin_top = -233.0
-margin_right = -396.0
-margin_bottom = -193.0
+margin_left = -486.0
+margin_top = -278.0
+margin_right = -446.0
+margin_bottom = -238.0
 rect_scale = Vector2( 1.5, 1.5 )
 texture_normal = ExtResource( 9 )
 expand = true

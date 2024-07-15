@@ -103,11 +103,12 @@ var player_unlocked_skins = {
 
 # player talents are passive skills
 var player_talents : Dictionary = {
-	"TalentSlots": 5,
-	"MaxTalentSlots": 5,
+	"TalentSlots": 0,
+	"MaxTalentSlots": 6,
+	
 	"CycloneSlashes" : {
-		"unlocked" : true,
-		"enabled" : true,
+		"unlocked" : false,
+		"enabled" : false,
 		"opalscost": 100,
 		"talentslotcost": 2
 	},
@@ -122,7 +123,9 @@ var player_talents : Dictionary = {
 		"unlocked" : false,
 		"enabled" : false,
 		"opalscost": 100,
-		"talentslotcost": 3
+		"talentslotcost": 2,
+		"attackpercentage": 70.0,
+		"cooldown": 10
 	},
 	# Talent has not been implemented yet
 	"InfernalMark" : {
@@ -290,12 +293,11 @@ var unlocked_skills : Dictionary = {
 	"RangedSkill": ["Fireball"]
 }
 var character_level_data : Dictionary = {
-	# [current level, current xp, xp needed to level up]
-	# for every level, the xp needed to level up is increased by 10.
-	# e.g: 20 XP to get from level 2 to 3, 30XP to get from level 3 to level 4
-	"Player": [1, 0, 10],
-	"Glaciela": [1, 0, 10],
-	"Agnette": [1, 0, 10]
+	# [current level, number of currency needed to level up.
+	# for now, the currency is opals. May add other later
+	"Player": [1, 250],
+	"Glaciela": [1, 250],
+	"Agnette": [1, 250]
 }
 
 
@@ -438,6 +440,7 @@ func save_player_data():
 		
 		"PlayerTalents": Global.player_talents,
 		"PlayerPerks": Global.player_perks,
+		
 		"Lighting" : Global.lighting,
 		"Vsync" : Global.vsync,
 		"EnemiesKilled": Global.enemies_killed ,

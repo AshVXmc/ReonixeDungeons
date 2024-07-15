@@ -14,12 +14,12 @@
 [ext_resource path="res://scenes/enemies/ShamanGoblin.tscn" type="PackedScene" id=12]
 [ext_resource path="res://tilesets/Default.tres" type="TileSet" id=13]
 [ext_resource path="res://scenes/menus/SceneTransition.tscn" type="PackedScene" id=14]
+[ext_resource path="res://scenes/terrain/WallTorch.tscn" type="PackedScene" id=15]
 [ext_resource path="res://scenes/menus/PauseUI.tscn" type="PackedScene" id=16]
 [ext_resource path="res://scenes/menus/InventoryUI.tscn" type="PackedScene" id=17]
 [ext_resource path="res://scenes/enemies/Goblin.tscn" type="PackedScene" id=18]
 [ext_resource path="res://scenes/misc/Light.tscn" type="PackedScene" id=20]
 [ext_resource path="res://scenes/menus/FPSCounter.tscn" type="PackedScene" id=21]
-[ext_resource path="res://scenes/skills/Fireball.tscn" type="PackedScene" id=22]
 [ext_resource path="res://scenes/menus/ManaUI.tscn" type="PackedScene" id=23]
 [ext_resource path="res://scenes/menus/SkillsUI.tscn" type="PackedScene" id=24]
 [ext_resource path="res://scenes/enemies/Bat.tscn" type="PackedScene" id=25]
@@ -135,9 +135,6 @@ position = Vector2( 2989, 1295 )
 chestID = 1
 Opals = 20
 
-[node name="Fireball" parent="." instance=ExtResource( 22 )]
-position = Vector2( 92, 720 )
-
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 position = Vector2( 3877, 995 )
 __meta__ = {
@@ -149,8 +146,20 @@ position = Vector2( 107.5, -27 )
 shape = SubResource( 1 )
 one_way_collision = true
 
+[node name="ShamanGoblin" parent="." instance=ExtResource( 12 )]
+position = Vector2( 919.239, 599.627 )
+
+[node name="WallTorch" parent="." instance=ExtResource( 15 )]
+position = Vector2( -1103, 516 )
+
+[node name="WallTorch3" parent="." instance=ExtResource( 15 )]
+position = Vector2( -1872, 516 )
+
+[node name="WallTorch2" parent="." instance=ExtResource( 15 )]
+position = Vector2( -144, 516 )
+
 [node name="Player" parent="." instance=ExtResource( 29 )]
-position = Vector2( -1333, 525 )
+position = Vector2( -1358, 621 )
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position = Vector2( 9.72693, -62.0423 )
@@ -163,6 +172,3 @@ limit_bottom = 1500
 drag_margin_h_enabled = true
 drag_margin_v_enabled = true
 editor_draw_limits = true
-
-[node name="ShamanGoblin" parent="." instance=ExtResource( 12 )]
-position = Vector2( 919.239, 599.627 )

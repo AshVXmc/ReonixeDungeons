@@ -453,7 +453,7 @@ wait_time = 0.06
 one_shot = true
 
 [node name="ShootArrowTimer" type="Timer" parent="."]
-wait_time = 3.0
+wait_time = 2.5
 
 [node name="FrozenStatus" parent="." instance=ExtResource( 14 )]
 

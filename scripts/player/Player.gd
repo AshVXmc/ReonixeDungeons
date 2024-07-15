@@ -99,6 +99,7 @@ const MAXED_ENERGY_METER = preload("res://assets/UI/energy_meter_maxed.png")
 const ENERGY_METER = preload("res://assets/UI/energy_meter_partly_filled.png")
 const BURNING : PackedScene = preload("res://scenes/status_effects/BurningStatus.tscn")
 const BURNING_BREATH_TALENT : PackedScene = preload("res://scenes/particles/BurningBreathTalent.tscn")
+var burning_breath_timer 
 onready var FULL_CHARGE_METER = preload("res://assets/UI/chargebar_full.png")
 onready var CHARGING_CHARGE_METER = preload("res://assets/UI/chargebar_charging.png")
 
@@ -174,7 +175,7 @@ func _ready():
 		$Sprite.visible = true
 	update_perk_skill()
 #	perkskill_ui = get_parent().get_node("SkillsUI/Control/PerkSkill/Player/CreateSugarRoll/TextureProgress")
-
+	$TalentsNode2D/BurningBreathCDTimer.wait_time = Global.player_talents["BurningBreath"]["cooldown"]
 	
 	$EnergyMeter.visible = false
 #	$EnergyMeter.value = $EnergyMeter.min_value
@@ -1006,11 +1007,7 @@ func charged_attack(type : String = "Ground"):
 		emit_signal("reduce_skill_cd", "Player", "SecondariesOnly", 2)
 		
 		# burningbreathtalent
-		if Global.player_talents["BurningBreath"]["unlocked"] and Global.player_talents["BurningBreath"]["enabled"]:
-			var burningbreath = BURNING_BREATH_TALENT.instance()
-			get_parent().add_child(burningbreath)
-			burningbreath.position = global_position
-			burningbreath.get_node("FireBurstParticle").emitting = true
+	
 		$SlashFlurryCD.start()
 		cam_shake = false
 		
@@ -1382,8 +1379,20 @@ func _on_Area2D_area_entered(area : Area2D):
 			atkbuffdur = area.duration
 			
 			set_attack_power(area.type, float(atkbuffmulti), float(atkbuffdur))
+			
 func take_damage(damage : float):
 	if Global.current_character == "Player" and !is_invulnerable:
+		if $TalentsNode2D/BurningBreathCDTimer.is_stopped() and Global.player_talents["BurningBreath"]["unlocked"] and Global.player_talents["BurningBreath"]["enabled"]:
+			var burningbreath = BURNING_BREATH_TALENT.instance()
+			if !$Sprite.flip_h:
+				burningbreath.direction = 1
+			else:
+				burningbreath.direction = -1
+			get_parent().add_child(burningbreath)
+			burningbreath.position = global_position
+			burningbreath.get_node("FireBurstParticle").emitting = true
+			$TalentsNode2D/BurningBreathCDTimer.start()
+#			print("HELLISH REBUKE")
 		if Global.equipped_characters[0] == "Player":
 			if shield_hp > 0:
 				shield_hp = clamp(shield_hp - damage, 0, 999)

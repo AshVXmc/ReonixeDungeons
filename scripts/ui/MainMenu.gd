@@ -57,6 +57,8 @@ func _on_LoadGame_pressed():
 			Global.lighting = player_data["Lighting"]
 			Global.vsync = player_data["Vsync"]
 			Global.levelpath = player_data["Level"]
+			Global.player_talents = player_data["PlayerTalents"]
+			Global.player_perks = player_data["PlayerPerks"]
 			Global.enemies_killed = player_data["EnemiesKilled"]
 			Global.player_position = player_data["PlayerPosition"]
 			Global.unlocked_characters = player_data["UnlockedCharacters"]
