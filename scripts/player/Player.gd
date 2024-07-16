@@ -1322,6 +1322,8 @@ func _on_Area2D_area_entered(area : Area2D):
 			$SnareTimer.wait_time = slowdown_duration
 			$SnareTimer.start()
 			$SnaredParticles.emitting = true
+		if area.is_in_group("AddMana"):
+			change_mana_value(area.add_mana)
 		if !Global.godmode:
 			if inv_timer.is_stopped() and !is_invulnerable and !is_dashing and !is_thrust_attacking:
 				if area.is_in_group("Enemy") and area.is_in_group("Hostile") or area.is_in_group("Projectile"):

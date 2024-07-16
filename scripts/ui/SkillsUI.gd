@@ -55,6 +55,7 @@ func update_perk_skill_ui():
 		$PerkSkill/Player/CreateSugarRoll.visible = false
 	
 	update_skill_ui(Global.player_skills["PrimarySkill"], Global.player_skills["SecondarySkill"], Global.player_skills["TertiarySkill"], Global.player_skills["PerkSkill"])
+	update_skill_ui(Global.glaciela_skills["PrimarySkill"], Global.glaciela_skills["SecondarySkill"], Global.glaciela_skills["TertiarySkill"], Global.glaciela_skills["PerkSkill"])
 
 func update_swap_character_status():
 	can_swap_character = true if !can_swap_character else false
@@ -242,9 +243,6 @@ func _process(delta):
 				$PerkSkill/Player/ChaosMagic/Label.text = ""
 			elif Global.equipped_characters[2] == "Player":
 				$PerkSkill/Player/ChaosMagic/Label.text = ""
-		
-		
-		
 	else:
 		$PrimarySkill/Player.visible = false
 		$SecondarySkill/Player.visible = false
@@ -284,20 +282,20 @@ func _process(delta):
 			$SecondarySkill/Glaciela/IceLance/Label.text = str(stepify((icelance_ui.max_value - icelance_ui.value) / multiplier, 0.001))
 			icelance_ui.self_modulate.a = 0.65
 		elif icelance_ui.value >= icelance_ui.max_value:
-			if Global.equipped_characters[0] == "Player":
-				if Global.mana >= Global.player_skill_multipliers["FireFairyCost"]:
+			if Global.equipped_characters[0] == "Glaciela":
+				if Global.mana >= Global.glaciela_skill_multipliers["IceLanceCost"]:
 					icelance_ui.self_modulate.a = 1.0
 				else:
 					icelance_ui.self_modulate.a = 0.65
 				$SecondarySkill/Glaciela/IceLance/Label.text = ""
-			elif Global.equipped_characters[1] == "Player":
-				if Global.character2_mana >= Global.player_skill_multipliers["FireFairyCost"]:
+			elif Global.equipped_characters[1] == "Glaciela":
+				if Global.character2_mana >= Global.glaciela_skill_multipliers["IceLanceCost"]:
 					icelance_ui.self_modulate.a = 1.0
 				else:
 					icelance_ui.self_modulate.a = 0.65
 				$SecondarySkill/Glaciela/IceLance/Label.text = ""
-			elif Global.equipped_characters[2] == "Player":
-				if Global.character3_mana >= Global.player_skill_multipliers["FireFairyCost"]:
+			elif Global.equipped_characters[2] == "Glaciela":
+				if Global.character3_mana >= Global.glaciela_skill_multipliers["IceLanceCost"]:
 					icelance_ui.self_modulate.a = 1.0
 				else:
 					icelance_ui.self_modulate.a = 0.65

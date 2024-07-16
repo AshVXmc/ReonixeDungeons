@@ -15,7 +15,7 @@ var direction : int = 1
 var is_dead : bool = false 
 const TYPE : String = "Enemy"
 const FLOOR = Vector2(0, -1)
-var MAX_SPEED : int = 140
+var MAX_SPEED : int = 125
 var SPEED : int = MAX_SPEED
 const MAX_GRAVITY : int = 45
 var GRAVITY : int = MAX_GRAVITY
@@ -23,7 +23,7 @@ var is_staggered : bool = false
 
 # child entity uses only.
 var is_casting : bool = false
-
+var debuff_damage_multiplier : float = 1
 
 const LOOT = preload("res://scenes/items/LootBag.tscn")
 onready var AREA_LEFT : Area2D = $Left
@@ -212,8 +212,8 @@ func _on_Area2D_area_entered(area):
 				if float(group_names) != 0 and $HitDelayTimer.is_stopped():
 					var raw_damage = float(group_names)
 					var damage_after_global_res = raw_damage - (raw_damage * (global_res / 100))
-					var damage = round((damage_after_global_res - (damage_after_global_res * (phys_res / 100))) * armor_strength_coefficient)
-					print("HP reduced by " + str(damage))
+					var damage = round(debuff_damage_multiplier * (damage_after_global_res - (damage_after_global_res * (phys_res / 100))) * armor_strength_coefficient)
+#					print("HP reduced by " + str(damage))
 					HP -= float(damage)
 					$HealthBar.value  -= float(damage)
 					if area.is_in_group("IsCritHit"):
@@ -231,7 +231,7 @@ func _on_Area2D_area_entered(area):
 					if float(group_names) != 0:
 						var raw_damage = float(group_names)
 						var damage_after_global_res = raw_damage - (raw_damage * (global_res / 100))
-						var damage = ((damage_after_global_res - (damage_after_global_res * (phys_res / 100))) * armor_strength_coefficient)
+						var damage = (debuff_damage_multiplier * (damage_after_global_res - (damage_after_global_res * (phys_res / 100))) * armor_strength_coefficient)
 						print("HP reduced by " + str(damage))
 						HP -= float(damage)
 						$HealthBar.value  -= float(damage)
@@ -248,7 +248,7 @@ func _on_Area2D_area_entered(area):
 				if float(group_names) != 0 and $HitDelayTimer.is_stopped():
 					var raw_damage = float(group_names)
 					var damage_after_global_res = raw_damage - (raw_damage * (global_res / 100))
-					var damage = round((damage_after_global_res - (damage_after_global_res * (fire_res / 100))) * armor_strength_coefficient)
+					var damage = round(debuff_damage_multiplier * (damage_after_global_res - (damage_after_global_res * (fire_res / 100))) * armor_strength_coefficient)
 					print("HP reduced by " + str(damage))
 					HP -= float(damage)
 					$HealthBar.value  -= float(damage)
@@ -272,7 +272,7 @@ func _on_Area2D_area_entered(area):
 				if float(group_names) != 0 and $HitDelayTimer.is_stopped():
 					var raw_damage = float(group_names)
 					var damage_after_global_res = raw_damage - (raw_damage * (global_res / 100))
-					var damage = round((damage_after_global_res - (damage_after_global_res * (ice_res / 100))) * armor_strength_coefficient)
+					var damage = round(debuff_damage_multiplier * (damage_after_global_res - (damage_after_global_res * (ice_res / 100))) * armor_strength_coefficient)
 					print("HP reduced by " + str(damage))
 					HP -= float(damage)
 					$HealthBar.value  -= float(damage)
@@ -293,7 +293,7 @@ func _on_Area2D_area_entered(area):
 				if float(group_names) != 0 and $HitDelayTimer.is_stopped():
 					var raw_damage = float(group_names)
 					var damage_after_global_res = raw_damage - (raw_damage * (global_res / 100))
-					var damage = round((damage_after_global_res - (damage_after_global_res * (earth_res / 100))) * armor_strength_coefficient)
+					var damage = round(debuff_damage_multiplier * (damage_after_global_res - (damage_after_global_res * (earth_res / 100))) * armor_strength_coefficient)
 					print("HP reduced by " + str(damage))
 					HP -= float(damage)
 					$HealthBar.value  -= float(damage)
@@ -311,8 +311,8 @@ func _on_Area2D_area_entered(area):
 			var groups : Array = area.get_groups()
 			for group_names in groups:
 				if $HitDelayTimer.is_stopped():
-					var damage = max_HP * 0.08
-					print("AAAGH IT BURNS")
+					var damage = debuff_damage_multiplier * max_HP * 0.08
+#					print("AAAGH IT BURNS")
 #					var raw_damage = float(group_names)
 #					var damage_after_global_res = raw_damage - (raw_damage * (global_res / 100))
 #					var damage = round((damage_after_global_res - (damage_after_global_res * (fire_res / 100))) * armor_strength_coefficient)
@@ -414,6 +414,15 @@ func death():
 		get_parent().add_child(loot)
 		loot.opals_amount = 25
 		loot.position = $Position2D.global_position
+	
+	if Global.player_talents["SoulSiphon"]["unlocked"] and Global.player_talents["SoulSiphon"]["enabled"]:
+		var rng = RandomNumberGenerator.new()
+		rng.randomize()
+		var num = rng.randi_range(1,100)
+		if num <= Global.player_talents["SoulSiphon"]["dropchance"]:
+			var soul_orb = preload("res://scenes/skills/SoulOrb.tscn").instance()
+			get_parent().add_child(soul_orb)
+			soul_orb.position = global_position
 	call_deferred('free')
 	print("reached")
 	Global.enemies_killed += 1

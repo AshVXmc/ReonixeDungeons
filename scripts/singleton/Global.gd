@@ -54,7 +54,7 @@ var player_skill_multipliers : Dictionary = {
 	"ThrustChargedAttack": 85.0,
 	"UpwardsChargedAttack": 28.0, # x 2
 	"DownwardsChargedAttack": 56.0,
-	"SpecialChargedAttack": 30.0 ,# x 4
+	"SpecialChargedAttack": 35.0 ,# x 4
 	"SpecialChargedAttackFinalStrike": 140.0,
 	"CircularFlurryAttack": 40.0, # x 3
 	"PiercingProjectile": 95.0,
@@ -104,7 +104,7 @@ var player_unlocked_skins = {
 # player talents are passive skills
 var player_talents : Dictionary = {
 	"TalentSlots": 0,
-	"MaxTalentSlots": 6,
+	"MaxTalentSlots": 5,
 	
 	"CycloneSlashes" : {
 		"unlocked" : false,
@@ -132,8 +132,24 @@ var player_talents : Dictionary = {
 		"unlocked" : false,
 		"enabled" : false,
 		"opalscost": 100,
-		"DamageIncrease" : 25,
-		"talentslotcost": 2
+		"DamageIncrease" : 75,
+		"talentslotcost": 3
+	},
+	"SoulSiphon": {
+		"unlocked" : false,
+		"enabled" : false,
+		"opalscost": 100,
+		"dropchance": 40,
+		"managranted" : 2,
+		"talentslotcost": 3
+	},
+	"BadBlood":{
+		# dropping to critical health grants temporary attack boost and speed boost
+		# cooldown
+		"unlocked" : false,
+		"enabled" : false,
+		"opalscost": 100,
+		"cooldown": 20
 	}
 }
 var player_skills : Dictionary = {
@@ -141,6 +157,24 @@ var player_skills : Dictionary = {
 	"SecondarySkill" : "FireFairy",
 	"TertiarySkill" : "Fireball",
 	"PerkSkill": "ChaosMagic"
+}
+
+
+var glaciela_talents : Dictionary = {
+	"TalentSlots": 0,
+	"MaxTalentSlots": 5,
+	"DanceOfRime" : {
+		"unlocked" : true,
+		"enabled" : true,
+		"opalscost": 100,
+		"talentslotcost": 2
+	},
+	"FrigidHailstorm": {
+		"unlocked" : true,
+		"enabled" : true,
+		"opalscost": 100,
+		"talentslotcost": 2
+	}
 }
 
 var glaciela_skills : Dictionary = {
@@ -156,6 +190,7 @@ var player_perks : Dictionary = {
 	"CreateSugarRoll": {
 		"unlocked" : true,
 		"enabled": false,
+		"health": 0.3,
 		"opalscost": 100,
 		"cooldown": 35.0,
 #		"talentslotcost": 3
@@ -193,7 +228,7 @@ var glaciela_skill_multipliers : Dictionary = {
 	"WinterQueen": 15.0,
 	"WinterQueenCost": 10,
 	"IceLanceCost": 3,
-	"WinterQueenCD": 50.0,
+	"WinterQueenCD": 30.0,
 	"IceLanceCD": 10.0,
 	"BasePhysRes": 0.0,
 	"BaseMagicRes": 0.0,
@@ -439,6 +474,7 @@ func save_player_data():
 		"EarthDMGBonus%": Global.damage_bonus["earth_dmg_bonus_%"],\
 		
 		"PlayerTalents": Global.player_talents,
+		"GlacielaTalents": Global.glaciela_talents,
 		"PlayerPerks": Global.player_perks,
 		
 		"Lighting" : Global.lighting,

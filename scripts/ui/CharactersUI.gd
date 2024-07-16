@@ -39,6 +39,13 @@ func handle_levelling_up():
 
 func _on_PlayerOpenTalentButton_pressed():
 	get_parent().get_node("CharacterTalentsControl").visible = true
+	get_parent().get_node("CharacterTalentsControl/NinePatchRect/TalentTreeControl/GlacielaControl").visible = false
+	get_parent().get_node("CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl").visible = true
+
+func _on_GlacielaOpenTalentButton_pressed():
+	get_parent().get_node("CharacterTalentsControl").visible = true
+	get_parent().get_node("CharacterTalentsControl/NinePatchRect/TalentTreeControl/GlacielaControl").visible = true
+	get_parent().get_node("CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl").visible = false
 
 func _on_PlayerOpenSkillsButton_pressed():
 	get_parent().get_node("CharacterSkillsControl").visible = true
@@ -52,3 +59,4 @@ func _on_CloseButtonMainUI_pressed():
 # debug
 #func _on_PlayerOpenSkillsButton_mouse_entered():
 #	print("HOVERED OVER")
+

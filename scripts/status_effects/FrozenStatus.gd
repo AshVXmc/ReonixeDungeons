@@ -17,6 +17,8 @@ func _ready():
 func _process(delta):
 	if freeze_stack == 0:
 		$FreezeBar.visible = false
+	else:
+		$FreezeBar.visible = true
 	$FreezeBar.value = freeze_stack
 	if freeze_stack >= MAX_FREEZE_STACK and !is_frozen:
 		
@@ -52,3 +54,4 @@ func _on_Detector_area_entered(area):
 			# fire gauges that replenish an already depleting bar is only half as effective
 			freeze_stack += clamp(ice_gauge / 2, 0, MAX_FREEZE_STACK)
 		$FreezeBar.value = freeze_stack
+		

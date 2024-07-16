@@ -158,7 +158,7 @@ func _physics_process(delta):
 		if $ChargedAttackCooldown.is_stopped():
 			charged_attack(7.5)
 		use_skill()
-
+		
 		$StarParticle.visible = true if can_use_special_attack else false
 #		if Input.is_action_just_pressed("secondary_skill") and !Input.is_action_just_pressed("primary_skill"):
 #			print("biatch")
@@ -178,12 +178,12 @@ func _input(event):
 			$DashInputPressTimer.start()
 
 func use_skill():
-	if Global.current_character == "Glaciela" and !get_parent().get_parent().is_frozen and !get_parent().get_parent().is_using_secondary_skill:
-		
-		if sskill_ui.value >= sskill_ui.max_value and Input.is_action_just_pressed("secondary_skill") and !Input.is_action_just_pressed("primary_skill"):
-			use_secondary_skill()
+	if Global.current_character == "Glaciela" and !get_parent().get_parent().is_frozen:
 		if pskill_ui.value >= pskill_ui.max_value and Input.is_action_just_pressed("primary_skill") and !Input.is_action_just_pressed("secondary_skill"): 
 			use_primary_skill()
+		if sskill_ui.value >= sskill_ui.max_value and Input.is_action_just_pressed("secondary_skill") and !Input.is_action_just_pressed("primary_skill"):
+			use_secondary_skill()
+		
 
 func use_primary_skill():
 	if Global.current_character == Global.equipped_characters[0] and Global.mana >= Global.glaciela_skill_multipliers["WinterQueenCost"]:
@@ -317,12 +317,12 @@ func play_attack_animation(direction : String):
 					$ResetAttackStringTimer.start()
 					$SpecialAttackTimer.start()
 					yield(get_tree().create_timer(0.5),"timeout")
-					if attack_string_count == 1:
+					if attack_string_count == 1 and Global.glaciela_talents["DanceOfRime"]["unlocked"] and Global.glaciela_talents["DanceOfRime"]["enabled"]:
 						can_use_special_attack = true
 			1:
 
 				$SpecialAttackTimer.stop()
-				if $SpecialSequenceWindow.is_stopped():
+				if $SpecialSequenceWindow.is_stopped() and Global.glaciela_talents["DanceOfRime"]["unlocked"] and Global.glaciela_talents["DanceOfRime"]["enabled"]:
 					$AttackCollision/CollisionShape2D.disabled = true
 					$SpecialAttackArea2D.set_scale(Vector2(1,1))
 					$AnimationPlayer.play("SpecialAttack1_Right")
@@ -392,12 +392,12 @@ func play_attack_animation(direction : String):
 				$SpecialAttackTimer.start()
 				$ResetAttackStringTimer.start()
 				yield(get_tree().create_timer(0.5),"timeout")
-				if attack_string_count == 1:
+				if attack_string_count == 1 and Global.glaciela_talents["DanceOfRime"]["unlocked"] and Global.glaciela_talents["DanceOfRime"]["enabled"]:
 					can_use_special_attack = true
 			1:
 				
 				$SpecialAttackTimer.stop()
-				if $SpecialSequenceWindow.is_stopped():
+				if $SpecialSequenceWindow.is_stopped() and Global.glaciela_talents["DanceOfRime"]["unlocked"] and Global.glaciela_talents["DanceOfRime"]["enabled"]:
 					$AttackCollision/CollisionShape2D.disabled = true
 					$SpecialAttackArea2D.set_scale(Vector2(-1,1))
 					$AnimationPlayer.play("SpecialAttack1_Left")

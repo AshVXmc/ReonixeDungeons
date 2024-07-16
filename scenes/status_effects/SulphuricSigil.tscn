@@ -75,7 +75,7 @@ tracks/1/keys = {
 }
 
 [sub_resource type="CircleShape2D" id=3]
-radius = 60.0
+radius = 25.0
 
 [sub_resource type="Animation" id=4]
 length = 0.001
@@ -305,11 +305,13 @@ shape = SubResource( 3 )
 disabled = true
 
 [node name="SecondSlash" type="Sprite" parent="."]
+visible = false
 self_modulate = Color( 0.921569, 0.411765, 0, 1 )
 rotation = 0.349066
 texture = ExtResource( 3 )
 
 [node name="FirstSlash" type="Sprite" parent="."]
+visible = false
 rotation = 0.378155
 scale = Vector2( 1.56667, 3.23333 )
 texture = ExtResource( 3 )

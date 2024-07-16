@@ -13,6 +13,7 @@ var is_dead : bool = false
 var direction : int = 1
 var is_near_player : bool = false
 var player = null
+var debuff_damage_multiplier : float = 1
 const LOOT : PackedScene = preload("res://scenes/items/LootBag.tscn")
 const PROJECTILE : PackedScene = preload("res://scenes/misc/BatProjectile.tscn")
 var rng : RandomNumberGenerator = RandomNumberGenerator.new()
@@ -82,6 +83,14 @@ func parse_status_effect_damage():
 	if $HurtTimer.is_stopped():
 		$HurtTimer.start()
 	if HP <= 0:
+		if Global.player_talents["SoulSiphon"]["unlocked"] and Global.player_talents["SoulSiphon"]["enabled"]:
+			var rng = RandomNumberGenerator.new()
+			rng.randomize()
+			var num = rng.randi_range(1,100)
+			if num <= Global.player_talents["SoulSiphon"]["dropchance"]:
+				var soul_orb = preload("res://scenes/skills/SoulOrb.tscn").instance()
+				get_parent().add_child(soul_orb)
+				soul_orb.position = global_position
 		call_deferred('free')
 
 func _on_Area2D_area_entered(area):
@@ -97,7 +106,7 @@ func _on_Area2D_area_entered(area):
 						var raw_damage = float(group_names)
 #						if poise < MAX_POISE:
 #							poise += 0.2 * MAX_POISE
-						var damage = round((raw_damage - (raw_damage * (phys_res / 100))))
+						var damage = round(debuff_damage_multiplier * (raw_damage - (raw_damage * (phys_res / 100))))
 						print("HP reduced by " + str(damage))
 						HP -= float(damage)
 						$HealthBar.value  -= float(damage)
@@ -111,7 +120,7 @@ func _on_Area2D_area_entered(area):
 					if float(group_names) != 0:
 						var raw_damage = float(group_names)
 						
-						var damage = (raw_damage - (raw_damage * (phys_res / 100)))
+						var damage = debuff_damage_multiplier * (raw_damage - (raw_damage * (phys_res / 100)))
 						print("HP reduced by " + str(damage))
 						HP -= float(damage)
 						$HealthBar.value  -= float(damage)
@@ -135,10 +144,10 @@ func _on_Area2D_area_entered(area):
 					if groups.has("physics_process"):
 						groups.erase("physics_process")
 					if !groups.has("Fireball") and !groups.has("FireGaugeOne") and !groups.has("physics_process"):
-						print("HP reduced by " + str(groups.max()))
-						HP -= float(groups.max())
+#						print("HP reduced by " + str(groups.max()))
+						HP -= debuff_damage_multiplier * float(groups.max())
 					
-						$HealthBar.value  -= float(groups.max())
+						$HealthBar.value  -= debuff_damage_multiplier * float(groups.max())
 						add_damage_particles("Fire", float(groups.max()))
 						if area.is_in_group("LightKnockback"):
 							parse_status_effect_damage()
@@ -152,8 +161,8 @@ func _on_Area2D_area_entered(area):
 					var raw_damage = float(group_names)
 					var damage = round((raw_damage - (raw_damage * (ice_res / 100))))
 					print("HP reduced by " + str(damage))
-					HP -= float(damage)
-					$HealthBar.value  -= float(damage)
+					HP -= debuff_damage_multiplier * float(damage)
+					$HealthBar.value  -= debuff_damage_multiplier * float(damage)
 					if area.is_in_group("IsCritHit"):
 						
 						add_damage_particles("Ice", float(damage), true)
@@ -168,10 +177,10 @@ func _on_Area2D_area_entered(area):
 		if area.is_in_group("Burning"):
 			print("Burning")
 			var damage = (0.025 * max_HP) + (Global.damage_bonus["fire_dmg_bonus_%"] / 100 * (0.025 * max_HP))
-			HP -= damage
+			HP -= debuff_damage_multiplier * damage
 	
 			print("HP-" + str(damage))
-			$HealthBar.value -= damage
+			$HealthBar.value -= debuff_damage_multiplier * damage
 			parse_status_effect_damage()
 			add_damage_particles("Fire", damage)
 		

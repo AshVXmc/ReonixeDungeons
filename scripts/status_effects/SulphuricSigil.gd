@@ -22,9 +22,9 @@ func _ready():
 	$FirstSlash.visible = false
 	if Global.player_talents["InfernalMark"]["unlocked"] and Global.player_talents["InfernalMark"]["enabled"]:
 		if weakref(get_parent()).get_ref() != null:
-			get_parent().global_res += Global.player_talents["InfernalMark"]["DamageIncrease"]
-			print("huzzah: " + str(get_parent().global_res))
-
+			get_parent().debuff_damage_multiplier += (Global.player_talents["InfernalMark"]["DamageIncrease"] / 100)
+#			print("huzzah: " + str(get_parent().global_res))
+	
 
 func _on_Area2D_body_entered(body):
 	if body.is_in_group("EnemyEntity"):
@@ -40,8 +40,7 @@ func trigger_slash():
 	$SlashAnimationPlayer.play("SulphuricSigilSlash")
 	if Global.player_talents["InfernalMark"]["unlocked"] and Global.player_talents["InfernalMark"]["enabled"]:
 		if weakref(get_parent()).get_ref() != null:
-			get_parent().global_res -= Global.player_talents["InfernalMark"]["DamageIncrease"]
-	
+			get_parent().debuff_damage_multiplier -= (Global.player_talents["InfernalMark"]["DamageIncrease"] / 100)
 
 func _on_Area2D_area_entered(area):
 	if area.is_in_group("SulphuricSigilTrigger"):
