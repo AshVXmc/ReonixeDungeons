@@ -66,7 +66,7 @@ var player_skill_multipliers : Dictionary = {
 	"AirborneBasicAttack4": 65.0,
 	"SulphuricSigilSingleSlash": 40.0, # x 2
 	"SlashFlurryEnergyCost": 200,
-	"FireSaw": 45.0,
+	"FireSaw": 65.0,
 	"FireSawDuration": 8.0,
 	"FireFairy": 25.0,
 	"FireFairyDuration": 10.0,
@@ -74,7 +74,7 @@ var player_skill_multipliers : Dictionary = {
 	"FireballCD": 6.0,
 	"FireballCharges": 3,
 	"FireballMaxCharges": 3,
-	"FireSawCost": 18,
+	"FireSawCost": 15,
 	"FireFairyCost": 2,
 	"FireballCost": 2,
 	"FireSawCD": 30.0,
@@ -164,14 +164,14 @@ var glaciela_talents : Dictionary = {
 	"TalentSlots": 0,
 	"MaxTalentSlots": 5,
 	"DanceOfRime" : {
-		"unlocked" : true,
-		"enabled" : true,
+		"unlocked" : false,
+		"enabled" : false,
 		"opalscost": 100,
 		"talentslotcost": 2
 	},
 	"FrigidHailstorm": {
-		"unlocked" : true,
-		"enabled" : true,
+		"unlocked" : false,
+		"enabled" : false,
 		"opalscost": 100,
 		"talentslotcost": 2
 	}
@@ -200,7 +200,7 @@ var player_perks : Dictionary = {
 		"enabled": false,
 		"opalscost": 100,
 		# 45? 60? 100?
-		"cooldown": 5,
+		"cooldown": 25.0,
 		# 25% chance
 		"triggerchance": 25,
 #		"talentslotcost": 3
@@ -221,22 +221,23 @@ var glaciela_skill_multipliers : Dictionary = {
 	"TundraStarsDMGBonus": 12.0,
 	"TundraSigilFreezeStackBonus": 20,
 	"TundraSigilManaBonus": 0.75,
-	"TundraStarsIceDamageBonus": 12,
+	"TundraStarsIceDamageBonus": 35,
 	"AirborneDuration": 2.5,
-	"IceLance": 10.0, # prev: 70
+	"IceLance": 50.0,
 	"MaxTundraStars": 3,
 	"WinterQueen": 15.0,
 	"WinterQueenCost": 10,
-	"IceLanceCost": 3,
+	"IceLanceCost": 2,
 	"WinterQueenCD": 30.0,
 	"IceLanceCD": 10.0,
+	"IceLanceDamageBonusPerTundraSigil": 50,
 	"BasePhysRes": 0.0,
 	"BaseMagicRes": 0.0,
 	"BaseFireRes": -50.0,
 	"BaseEarthRes": 0.0,
 	"BaseIceRes": 0.0,
-	"CritRate": 25.0,
-	"CritDamage": 75.0,
+	"CritRate": 10.0,
+	"CritDamage": 65.0,
 	"PhysDamageBonus": 0.0,
 	"FireDamageBonus": 0.0,
 	"IceDamageBonus": 0.0,

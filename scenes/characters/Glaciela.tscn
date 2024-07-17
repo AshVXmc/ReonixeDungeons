@@ -1528,7 +1528,6 @@ wait_time = 0.4
 one_shot = true
 
 [node name="StrongJumpParticle" parent="." instance=ExtResource( 14 )]
-visible = false
 position = Vector2( 130, 45 )
 scale = Vector2( 2, 2 )
 emitting = true

@@ -19,7 +19,9 @@ func on_skill_used (
 	skill_name : String, 
 	attack_bonus : float = 0,
 	# direction is only used on skills with directional paramaters like Fireball 
-	direction : int = 1
+	direction = 1,
+	# for icelance
+	tundra_sigil_consumed = 0
 	):
 	match skill_name:
 		###################
@@ -87,6 +89,8 @@ func on_skill_used (
 			
 			get_parent().is_using_secondary_skill = true
 			var icelance = ICE_LANCE.instance()
+			icelance.direction = direction
+			icelance.tundra_sigil_atkbonus += (tundra_sigil_consumed * Global.glaciela_skill_multipliers["IceLanceDamageBonusPerTundraSigil"]) / 100
 			get_parent().get_parent().add_child(icelance)
 			icelance.position = global_position
 			if !Global.godmode:

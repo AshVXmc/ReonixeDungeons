@@ -121,7 +121,7 @@ autostart = true
 rotation = -0.785398
 shape = SubResource( 6 )
 
-[node name="FreezeGaugeArea" type="Area2D" parent="." groups=["500", "IceGauge"]]
+[node name="FreezeGaugeArea" type="Area2D" parent="." groups=["250", "IceGauge"]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="FreezeGaugeArea"]
 rotation = -0.785398

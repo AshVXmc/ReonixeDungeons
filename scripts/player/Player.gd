@@ -1576,7 +1576,7 @@ func _on_AttackCollision_area_entered(area):
 #							emit_signal("reduce_skill_cd", "Player", "PrimarySkill", 1)
 #							emit_signal("reduce_skill_cd", "Player", "SecondarySkill", 1)
 #					#emit_signal("change_elegance"), "BasicAttack")
-					change_mana_value(0.2)
+					change_mana_value(0.25)
 					$ManaRegenDelay.start()
 				if weakref(area).get_ref() != null:
 					var slashparticle = SWORD_SLASH_EFFECT.instance()

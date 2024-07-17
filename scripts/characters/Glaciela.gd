@@ -30,7 +30,7 @@ var atkbuffdur = 0
 var atkbuffskill = 0
 # Permanent dmg bonus. Stacks additively with ice_dmg_bonus. 12% DMG bonus per sigil
 var ice_dmg_bonus_from_tundra_sigil : float
-
+var is_performing_special_attack : bool = false
 var buffed_from_attack_crystals = false
 var buffed_from_damage_bonus_crystals = false
 var prev_phys_dmg_bonus : Array 
@@ -105,8 +105,8 @@ func update_tundra_sigil_ui():
 	$TundraStarsUI/TundraStars2.visible = true if tundra_stars >= 2 else false
 	$TundraStarsUI/TundraStars1.visible = true if tundra_stars >= 1 else false
 	ice_dmg_bonus_from_tundra_sigil = Global.glaciela_skill_multipliers["TundraStarsIceDamageBonus"] * tundra_stars * 0.01
-	print(ice_dmg_bonus_from_tundra_sigil)
-	print("stack gaine")
+
+	
 func _physics_process(delta):
 	target = get_closest_enemy()
 	if !$AnimatedSprite.flip_h:
@@ -178,7 +178,7 @@ func _input(event):
 			$DashInputPressTimer.start()
 
 func use_skill():
-	if Global.current_character == "Glaciela" and !get_parent().get_parent().is_frozen:
+	if Global.current_character == "Glaciela" and !get_parent().get_parent().is_frozen and !is_performing_special_attack:
 		if pskill_ui.value >= pskill_ui.max_value and Input.is_action_just_pressed("primary_skill") and !Input.is_action_just_pressed("secondary_skill"): 
 			use_primary_skill()
 		if sskill_ui.value >= sskill_ui.max_value and Input.is_action_just_pressed("secondary_skill") and !Input.is_action_just_pressed("primary_skill"):
@@ -201,18 +201,19 @@ func use_primary_skill():
 		
 func use_secondary_skill():
 	if Global.current_character == Global.equipped_characters[0] and Global.mana >= Global.glaciela_skill_multipliers["IceLanceCost"]:
-		emit_signal("skill_used", "IceLance", attack_buff)
+		emit_signal("skill_used", "IceLance", attack_buff, 1, tundra_stars)
 		get_parent().get_parent().emit_signal("skill_ui_update", "IceLance")
 		emit_signal("mana_changed", Global.mana, "Glaciela")
 	elif Global.current_character == Global.equipped_characters[1] and Global.character2_mana >= Global.glaciela_skill_multipliers["IceLanceCost"]:
-		emit_signal("skill_used", "IceLance", attack_buff)
+		emit_signal("skill_used", "IceLance", attack_buff, 1, tundra_stars)
 		get_parent().get_parent().emit_signal("skill_ui_update", "IceLance")
 		emit_signal("mana_changed", Global.character2_mana, "Glaciela")
 	elif Global.current_character == Global.equipped_characters[2] and Global.character3_mana >= Global.glaciela_skill_multipliers["IceLanceCost"]:
-		emit_signal("skill_used", "IceLance", attack_buff)
+		emit_signal("skill_used", "IceLance", attack_buff, 1, tundra_stars)
 		get_parent().get_parent().emit_signal("skill_ui_update", "IceLance")
 		emit_signal("mana_changed", Global.character3_mana, "Glaciela")
-
+	tundra_stars = 0
+	update_tundra_sigil_ui()
 
 func charged_dash():
 	$DashInputPressTimer.stop()
@@ -541,7 +542,10 @@ func charged_attack(airborne_duration : float = 1, type : int = 1):
 			Input.action_release("ui_attack")
 			is_performing_charged_attack = false
 
+
+
 func special_attack_1_damage_calc(sequence : int = 1):
+	is_performing_special_attack = true
 	for groups in $SpecialAttackArea2D.get_groups():
 		if float(groups) != 0:
 			$SpecialAttackArea2D.remove_from_group(groups)
@@ -565,7 +569,10 @@ func special_attack_1_damage_calc(sequence : int = 1):
 						$SpecialAttackArea2D.remove_from_group("IsCritHit")
 					$SpecialAttackArea2D.add_to_group("HeavyPoiseDamage")
 					$SpecialAttackArea2D.add_to_group(str(ATTACK * (Global.glaciela_skill_multipliers["SpecialAttack1_2"] / 100) * (1 + ice_dmg_bonus + ice_dmg_bonus_from_tundra_sigil) * crit_dmg))
-					
+					tundra_stars = 0
+					update_tundra_sigil_ui()
+					is_performing_special_attack = false
+
 
 func special_attack_2_damage_Calc(sequence : int = 1):
 	for groups in $SpecialAttackArea2D.get_groups():

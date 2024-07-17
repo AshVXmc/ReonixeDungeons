@@ -49,6 +49,14 @@ func _on_GlacielaOpenTalentButton_pressed():
 
 func _on_PlayerOpenSkillsButton_pressed():
 	get_parent().get_node("CharacterSkillsControl").visible = true
+	get_parent().get_node("CharacterSkillsControl/NinePatchRect/SkillsControl/PlayerControl").visible = true
+	get_parent().get_node("CharacterSkillsControl/NinePatchRect/SkillsControl/GlacielaControl").visible = false
+
+func _on_GlacielaOpenSkillsButton_pressed():
+	get_parent().get_node("CharacterSkillsControl").visible = true
+	get_parent().get_node("CharacterSkillsControl/NinePatchRect/SkillsControl/PlayerControl").visible = false
+	get_parent().get_node("CharacterSkillsControl/NinePatchRect/SkillsControl/GlacielaControl").visible = true
+
 
 func _on_CloseButtonMainUI_pressed():
 	characterselection_ui.layer = 2
@@ -59,4 +67,6 @@ func _on_CloseButtonMainUI_pressed():
 # debug
 #func _on_PlayerOpenSkillsButton_mouse_entered():
 #	print("HOVERED OVER")
+
+
 

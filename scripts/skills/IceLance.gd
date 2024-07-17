@@ -1,17 +1,17 @@
 class_name IceLance extends Area2D
 
 onready var player = get_parent().get_node("Player")
+
 var SPEED = 550
 const steer_force = 750
 var attack : int = 5
 var target = null
 var velocity = Vector2.ZERO
 var acceleration = Vector2.ZERO
-onready var direction
+var direction : int = 1
 onready var atkbonus
-enum {
-	Left, Right
-}
+var tundra_sigil_atkbonus : int= 1
+
 signal restore_tundra_stacks(amount)
 var ATTACK = Global.glaciela_attack
 
@@ -21,16 +21,17 @@ var ATTACK = Global.glaciela_attack
 # The player throws a spinning ice lance forwards (left or right).
 # After some time, the ice lance homes towards the player and gets destroyed upon contact with the player.
 func _ready():
-	direction = Right
-	add_to_group(str(ATTACK * (Global.glaciela_skill_multipliers["IceLance"] / 100)))
+	
+	add_to_group(str(tundra_sigil_atkbonus * ATTACK * (Global.glaciela_skill_multipliers["IceLance"] / 100)))
+
 #	add_to_group("IceGaugeTwo")
 	if Global.equipped_characters.has("Glaciela"):
 		connect("restore_tundra_stacks", get_parent().get_node("Player/Glaciela"), "restore_tundra_stacks")
 func _physics_process(delta):
 	if !$TargetPlayerTimer.is_stopped():
-		if direction == Right:
+		if direction == 1:
 			velocity.x = SPEED * delta
-		elif direction == Left:
+		elif direction == -1:
 			velocity.x = -SPEED * delta
 		translate(velocity)
 	else:

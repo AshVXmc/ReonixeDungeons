@@ -4,7 +4,7 @@ var player_talents_list : Array = ["CycloneSlashes", "SwiftThrust", "BurningBrea
 onready var player_talent_slots_label = $NinePatchRect/TalentTreeControl/PlayerControl/TalentSlotsCountLabel
 onready var player_talent_desc_text = $NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/RichTextLabel
 
-var glaciela_talents_list : Array = ["DanceOfRime", "FrigidHailstorm"]
+var glaciela_talents_list : Array = ["DanceOfRime"]
 onready var glaciela_talent_slots_label = $NinePatchRect/TalentTreeControl/GlacielaControl/TalentSlotsCountLabel
 onready var glaciela_talent_desc_text = $NinePatchRect/TalentTreeControl/GlacielaControl/ScrollContainer/VBoxContainer/RichTextLabel
 
@@ -14,49 +14,20 @@ func _ready():
 	update_glaciela_description_text()
 	
 func update_player_description_text():
-	var talent1 = """[color=#ffd703]Cyclone Slashes[/color]
-Doing a charged attack after Basic Attack SEQ 2 unleashes a flurry of windblades to deal multiple instances of Physical DMG.
-([color=#ffd703]ATK[/color], [color=#ffd703]ATK[/color], Hold [color=#ffd703]ATK[/color])
-"""
-	var talent2 = """
-
-[color=#ffd703]Swift Thrust[/color]
-Airborne charged attacks can now be chained up to 2 times.
-	"""
-	var talent3 = """
+	player_talent_desc_text.bbcode_text = player_talent_desc_text.bbcode_text.replacen(
+		"BURNING_BREATH_COOLDOWN", str(Global.player_talents["BurningBreath"]["cooldown"]))
+	player_talent_desc_text.bbcode_text = player_talent_desc_text.bbcode_text.replacen(
+		"MARK_DMG_INCREASE", str(Global.player_talents["InfernalMark"]["DamageIncrease"]))
+	player_talent_desc_text.bbcode_text = player_talent_desc_text.bbcode_text.replacen(
+		"SOUL_SIPHON_DROP_CHANCE", str(Global.player_talents["SoulSiphon"]["dropchance"]))
+	player_talent_desc_text.bbcode_text = player_talent_desc_text.bbcode_text.replacen(
+		"SOUL_SIPHON_MANA", str(Global.player_talents["SoulSiphon"]["managranted"]))
 	
-[color=#ffd703]Burning Breath[/color]
-When you take damage, you unleash a fiery rebuke, [color=#fd9628]Burning[/color] enemies in a cone-shaped area.
-Cooldown: {cooldown} seconds
-	"""
-	var talent4 = """
-[color=#ffd703]Infernal Mark[/color]
-Enemies marked with the Sulphuric Sigil take {dmgincrease}% more damage. The Fire Fairy can apply the sigil to enemies.
-	"""
-	var talent5 = """
-	
-[color=#ffd703]Soul Siphon[/color]
-Upon death, enemies have a {chance}% chance to drop a [color=#540d17]Soul Orb[/color]. The Player and him alone can pick up these orbs to restore {mana} Mana.
-	"""
-	
-	player_talent_desc_text.bbcode_text = (
-		talent1 + talent2 + talent3.format({
-			"cooldown": str(Global.player_talents["BurningBreath"]["cooldown"])
-		}) + talent4.format({
-			"dmgincrease": str(Global.player_talents["InfernalMark"]["DamageIncrease"])
-		}) + talent5.format({
-			"chance": str(Global.player_talents["SoulSiphon"]["dropchance"]),
-			"mana": str(Global.player_talents["SoulSiphon"]["managranted"])
-		})
-	)  
 
 func update_glaciela_description_text():
-	var talent1 = """[color=#ffd703]Dance of Rime[/color]
-Doing the following attack sequence ([color=#ffd703]ATK[/color], [color=#ffd703]ATK[/color], [color=#ffd703]ATK[/color], pause until a [color=yellow]yellow star[/color] appears and press [color=#ffd703]ATK[/color]) unleashes a spear dance that deals multiple instances of [color=#7df0ff]Ice[/color] DMG and knocks enemies back.
-"""
-	glaciela_talent_desc_text.bbcode_text = (
-		talent1
-	)
+	pass
+	
+	
 func initialize_ui():
 #	visible = true
 #	$NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl1/PlayerTalentButton.pressed.connect()
@@ -69,11 +40,12 @@ func initialize_ui():
 	$NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl5/PlayerTalentButton/PlayerCheckButton.visible = false
 	
 	$NinePatchRect/TalentTreeControl/GlacielaControl/ScrollContainer/VBoxContainer/TalentControl1/GlacielaTalentButton/GlacielaCheckButton.visible = false
-	update_talent_tree_ui()
+	update_player_talent_tree_ui()
+	update_glaciela_talent_tree_ui()
 #	get_tree().paused = true
 
 
-func update_talent_tree_ui():
+func update_player_talent_tree_ui():
 	var cumulative_talent_slots_spending : int = 0
 	Global.player_talents["TalentSlots"] = 0
 	var pt_list_counter = 1
@@ -90,6 +62,7 @@ func update_talent_tree_ui():
 				var order = player_talents_list.find(pt) + 1
 				get_node("NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl" + str(order) + "/PlayerTalentButton/PlayerCheckButton").pressed = true
 	player_talent_slots_label.text = str(Global.player_talents["TalentSlots"]) + " / " + str(Global.player_talents["MaxTalentSlots"])
+
 
 
 func toggle_player_talent(talentname : String, button_pressed : bool, order : int):
@@ -113,6 +86,25 @@ func buy_player_talent(talentname : String, order : int):
 	get_node("NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl" + str(order) + "/PlayerTalentButton/PlayerCheckButton").pressed = false
 	get_node("NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl" + str(order) + "/PlayerTalentButton/OpalsCostLabel").visible = false
 #	get_node("NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl" + str(order) + "/PlayerTalentButton/SlotsCostLabel").visible = false
+
+func update_glaciela_talent_tree_ui():
+	var cumulative_talent_slots_spending : int = 0
+	Global.glaciela_talents["TalentSlots"] = 0
+	var gt_list_counter = 1
+	var labels_counter = 1
+	for gt in glaciela_talents_list:
+		get_node("NinePatchRect/TalentTreeControl/GlacielaControl/ScrollContainer/VBoxContainer/TalentControl" + str(labels_counter) + "/GlacielaTalentButton/OpalsCostLabel").text = str(Global.glaciela_talents[glaciela_talents_list[labels_counter - 1]]["opalscost"])
+		get_node("NinePatchRect/TalentTreeControl/GlacielaControl/ScrollContainer/VBoxContainer/TalentControl" + str(labels_counter) + "/GlacielaTalentButton/SlotsCostLabel").text = "Slot cost: " + str(Global.glaciela_talents[glaciela_talents_list[labels_counter - 1]]["talentslotcost"])
+		labels_counter += 1
+		if Global.glaciela_talents[gt]["unlocked"]:
+			buy_glaciela_talent(gt, gt_list_counter)
+			gt_list_counter += 1
+			if Global.glaciela_talents[gt]["enabled"]:
+				cumulative_talent_slots_spending += Global.glaciela_talents[gt]["talentslotcost"]
+				var order = glaciela_talents_list.find(gt) + 1
+				get_node("NinePatchRect/TalentTreeControl/GlacielaControl/ScrollContainer/VBoxContainer/TalentControl" + str(order) + "/GlacielaTalentButton/GlacielaCheckButton").pressed = true
+	glaciela_talent_slots_label.text = str(Global.glaciela_talents["TalentSlots"]) + " / " + str(Global.glaciela_talents["MaxTalentSlots"])
+
 
 	
 func toggle_glaciela_talent(talentname : String, button_pressed : bool, order : int):
@@ -167,16 +159,34 @@ func _on_PlayerCheckButton5_toggled(button_pressed):
 	toggle_player_talent("SoulSiphon", button_pressed, 5)
 
 
+func _on_GlacielaTalentButton1_pressed():
+	if !Global.glaciela_talents["DanceOfRime"]["unlocked"]:
+		buy_glaciela_talent("DanceOfRime", 1)
+
+func _on_GlacielaCheckButton1_toggled(button_pressed):
+	toggle_glaciela_talent("DanceOfRime", button_pressed, 1)
+
 
 
 func _on_CloseButtonMainUI_pressed():
-	if Global.player_talents["TalentSlots"] <= Global.player_talents["MaxTalentSlots"]:
-		visible = false
-		get_parent().get_node("CharactersUI").visible = true
-	else:
-		$NinePatchRect/TalentTreeControl/PlayerControl/TalentSlotsWarningLabel.visible = true
-		yield(get_tree().create_timer(2), "timeout")
-		$NinePatchRect/TalentTreeControl/PlayerControl/TalentSlotsWarningLabel.visible = false
+	if $NinePatchRect/TalentTreeControl/PlayerControl.visible:
+		if Global.player_talents["TalentSlots"] <= Global.player_talents["MaxTalentSlots"]:
+			visible = false
+			get_parent().get_node("CharactersUI").visible = true
+		else:
+			$NinePatchRect/TalentTreeControl/PlayerControl/TalentSlotsWarningLabel.visible = true
+			yield(get_tree().create_timer(2), "timeout")
+			$NinePatchRect/TalentTreeControl/PlayerControl/TalentSlotsWarningLabel.visible = false
+	elif $NinePatchRect/TalentTreeControl/GlacielaControl.visible:
+		if Global.glaciela_talents["TalentSlots"] <= Global.glaciela_talents["MaxTalentSlots"]:
+			visible = false
+			get_parent().get_node("CharactersUI").visible = true
+		else:
+			$NinePatchRect/TalentTreeControl/GlacielaControl/TalentSlotsWarningLabel.visible = true
+			yield(get_tree().create_timer(2), "timeout")
+			$NinePatchRect/TalentTreeControl/GlacielaControl/TalentSlotsWarningLabel.visible = false
+
+
 
 
 

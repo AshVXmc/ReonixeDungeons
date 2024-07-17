@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://themes/Blur.tres" type="Material" id=1]
 [ext_resource path="res://scripts/ui/PauseScript.gd" type="Script" id=2]
@@ -10,9 +10,11 @@
 [ext_resource path="res://assets/UI/textbox.png" type="Texture" id=8]
 [ext_resource path="res://scripts/ui/PerfectDash.gd" type="Script" id=9]
 [ext_resource path="res://assets/UI/movesets_icon.png" type="Texture" id=10]
-[ext_resource path="res://themes/ScrollTextBox.tres" type="StyleBox" id=11]
 [ext_resource path="res://scripts/ui/MovesetList.gd" type="Script" id=12]
 [ext_resource path="res://themes/PauseUIFont.tres" type="DynamicFont" id=13]
+[ext_resource path="res://assets/UI/player_character_icon.png" type="Texture" id=14]
+[ext_resource path="res://assets/UI/agnette_character_icon.png" type="Texture" id=15]
+[ext_resource path="res://assets/UI/glaciela_character_icon.png" type="Texture" id=16]
 
 [sub_resource type="DynamicFont" id=6]
 size = 64
@@ -364,11 +366,28 @@ color = Color( 1, 1, 1, 0 )
 
 [node name="NinePatchRect" type="NinePatchRect" parent="MovesetList"]
 anchor_left = 0.5
+anchor_top = 0.5
 anchor_right = 0.5
-margin_left = -340.0
-margin_top = -18.0
-margin_right = 340.0
-margin_bottom = 110.0
+anchor_bottom = 0.5
+margin_left = -360.0
+margin_top = -278.0
+margin_right = 360.0
+margin_bottom = -142.0
+texture = ExtResource( 8 )
+patch_margin_left = 64
+patch_margin_top = 64
+patch_margin_right = 64
+patch_margin_bottom = 64
+
+[node name="NinePatchRect2" type="NinePatchRect" parent="MovesetList"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -360.0
+margin_top = -130.5
+margin_right = 360.0
+margin_bottom = 264.5
 texture = ExtResource( 8 )
 patch_margin_left = 64
 patch_margin_top = 64
@@ -376,85 +395,130 @@ patch_margin_right = 64
 patch_margin_bottom = 64
 
 [node name="PlayerMovesetList" type="RichTextLabel" parent="MovesetList"]
+visible = false
 anchor_left = 0.5
-anchor_top = 1.0
+anchor_top = 0.5
 anchor_right = 0.5
-anchor_bottom = 1.0
-margin_left = -377.0
-margin_top = -338.0
-margin_right = 377.0
-margin_bottom = 33.0
+anchor_bottom = 0.5
+margin_left = -343.0
+margin_top = -112.5
+margin_right = 343.0
+margin_bottom = 247.5
 custom_fonts/normal_font = SubResource( 11 )
-custom_styles/normal = ExtResource( 11 )
 bbcode_enabled = true
 bbcode_text = "[center][color=red]Player's moveset[/color][/center]
 [color=#ffd703]Basic Attack Combo[/color]
 [ATK], [ATK], [ATK], [ATK]
 
-[color=#ffd703]Basic Attack Stab Combo[/color]
-[ATK], [ATK], [ATK], [ATK while pressing DOWN]
-
 [color=#ffd703]Aerial Basic Attack Combo[/color]
 (While airborne) [ATK], [ATK], [ATK], [ATK] 
 
-[color=#ffd703]Charged Attack A[/color]
+[color=#ffd703]Charged Attack[/color]
 [Hold ATK]
 
-[color=#ffd703]Charged Attack B[/color]
-[ATK], [ATK], [Hold ATK]
+[color=#ffd703]Knock-Up Charged Attack[/color] (Knocks enemies airborne)
+[Hold UP] and [Hold ATK]
+
+[color=#ffd703]Charged Attack: Bladestorm[/color]
+(Prerequisite: Cyclone Slashes talent)
+[ATK], [ATK], [ATK], [Hold ATK]
 
 [color=#ffd703]EX Charged Attack[/color]
 [Hold ATK] when [color=purple]Energy[/color] is full
 
 [color=#ffd703]Aerial Charged Attack[/color]
 (While airborne) [Hold ATK] 
-Can be chained up to 2 times.
 
 [color=#ffd703]Dash Counter Attack[/color]
 [ATK] after a perfect dodge
 
-[color=#ffd703]Secondary Skill[/color]
 
  "
 text = "Player's moveset
 Basic Attack Combo
 [ATK], [ATK], [ATK], [ATK]
 
-Basic Attack Stab Combo
-[ATK], [ATK], [ATK], [ATK while pressing DOWN]
-
 Aerial Basic Attack Combo
 (While airborne) [ATK], [ATK], [ATK], [ATK] 
 
-Charged Attack A
+Charged Attack
 [Hold ATK]
 
-Charged Attack B
-[ATK], [ATK], [Hold ATK]
+Knock-Up Charged Attack (Knocks enemies airborne)
+[Hold UP] and [Hold ATK]
+
+Charged Attack: Bladestorm
+(Prerequisite: Cyclone Slashes talent)
+[ATK], [ATK], [ATK], [Hold ATK]
 
 EX Charged Attack
 [Hold ATK] when Energy is full
 
 Aerial Charged Attack
 (While airborne) [Hold ATK] 
-Can be chained up to 2 times.
 
 Dash Counter Attack
 [ATK] after a perfect dodge
 
-Secondary Skill
 
  "
-scroll_following = true
+
+[node name="GlacielaMovesetList" type="RichTextLabel" parent="MovesetList"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -343.0
+margin_top = -112.5
+margin_right = 343.0
+margin_bottom = 247.5
+custom_fonts/normal_font = SubResource( 11 )
+bbcode_enabled = true
+bbcode_text = "[center][color=#7df0ff]Glaciela's moveset[/color][/center]
+[color=#ffd703]Basic Attack Combo[/color]
+[ATK], [ATK], [ATK], [ATK]
+Upon finishing the 4th sequence, gain a single stack of [color=#c4fdff]Tundra Sigil[/color], up to TUNDRA_SIGIL_MAX_STACKS stacks.
+
+[color=#ffd703]Aerial Basic Attack Combo[/color]
+(While airborne) [ATK], [ATK], [ATK], [ATK] 
+
+[color=#ffd703]Charged Attack[/color] (Knocks enemies airborne)
+[Hold ATK]
+
+[color=#ffd703]Special Attack: Wintry Waltz[/color]
+(Prerequisite: Dance of Rime talent)
+[ATK], [ATK], [ATK}, pause until a [color=yellow]yellow star[/color] appears, then [ATK]
+Consumes all stacks of [color=#c4fdff]Tundra Sigil[/color]. Each stack consumed grants a SP_ATK_1_BOOST% damage boost to the attack.
+
+
+ "
+text = "Glaciela's moveset
+Basic Attack Combo
+[ATK], [ATK], [ATK], [ATK]
+Upon finishing the 4th sequence, gain a single stack of Tundra Sigil, up to TUNDRA_SIGIL_MAX_STACKS stacks.
+
+Aerial Basic Attack Combo
+(While airborne) [ATK], [ATK], [ATK], [ATK] 
+
+Charged Attack (Knocks enemies airborne)
+[Hold ATK]
+
+Special Attack: Wintry Waltz
+(Prerequisite: Dance of Rime talent)
+[ATK], [ATK], [ATK}, pause until a yellow star appears, then [ATK]
+Consumes all stacks of Tundra Sigil. Each stack consumed grants a SP_ATK_1_BOOST% damage boost to the attack.
+
+
+ "
 
 [node name="CloseButton" type="TextureButton" parent="MovesetList"]
 anchor_left = 0.109
 anchor_top = -0.025
 anchor_right = 0.109
 anchor_bottom = -0.025
-margin_left = -30.0353
+margin_left = -25.0353
 margin_top = -29.8112
-margin_right = 9.96473
+margin_right = 14.9647
 margin_bottom = 10.1885
 rect_scale = Vector2( 1.5, 1.5 )
 texture_normal = ExtResource( 5 )
@@ -462,6 +526,30 @@ expand = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="PlayerTextureButton" type="TextureButton" parent="MovesetList"]
+margin_left = 150.0
+margin_top = -25.0
+margin_right = 170.0
+margin_bottom = -5.0
+rect_scale = Vector2( 5, 5 )
+texture_normal = ExtResource( 14 )
+
+[node name="GlacielaTextureButton" type="TextureButton" parent="MovesetList"]
+margin_left = 280.0
+margin_top = -25.0
+margin_right = 300.0
+margin_bottom = -5.0
+rect_scale = Vector2( 5, 5 )
+texture_normal = ExtResource( 16 )
+
+[node name="AgnetteTextureButton" type="TextureButton" parent="MovesetList"]
+margin_left = 410.0
+margin_top = -25.0
+margin_right = 430.0
+margin_bottom = -5.0
+rect_scale = Vector2( 5, 5 )
+texture_normal = ExtResource( 15 )
 
 [node name="PerfectDash" type="Control" parent="."]
 anchor_right = 1.0
@@ -494,3 +582,6 @@ anims/RESET = SubResource( 10 )
 [connection signal="toggled" from="Pause/Lighting" to="Pause" method="_on_Lighting_toggled"]
 [connection signal="toggled" from="Pause/Vsync" to="Pause" method="_on_Vsync_toggled"]
 [connection signal="pressed" from="MovesetList/CloseButton" to="MovesetList" method="_on_CloseButton_pressed"]
+[connection signal="pressed" from="MovesetList/PlayerTextureButton" to="MovesetList" method="_on_PlayerTextureButton_pressed"]
+[connection signal="pressed" from="MovesetList/GlacielaTextureButton" to="MovesetList" method="_on_GlacielaTextureButton_pressed"]
+[connection signal="pressed" from="MovesetList/AgnetteTextureButton" to="MovesetList" method="_on_AgnetteTextureButton_pressed"]
