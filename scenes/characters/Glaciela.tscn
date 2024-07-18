@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=2]
+[gd_scene load_steps=40 format=2]
 
 [ext_resource path="res://assets/characters/glaciela/glaciela_idle.png" type="Texture" id=1]
 [ext_resource path="res://assets/characters/glaciela/glaciela_walk.png" type="Texture" id=2]
@@ -15,6 +15,7 @@
 [ext_resource path="res://assets/UI/tundra_star.png" type="Texture" id=13]
 [ext_resource path="res://scenes/particles/StrongJumpParticle.tscn" type="PackedScene" id=14]
 [ext_resource path="res://assets/particles/star_particle.png" type="Texture" id=15]
+[ext_resource path="res://scenes/skills/ConeOfCold.tscn" type="PackedScene" id=16]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -1569,6 +1570,10 @@ visible = false
 position = Vector2( 0, 70 )
 scale = Vector2( 5, 5 )
 texture = ExtResource( 15 )
+
+[node name="ConeOfCold" parent="." instance=ExtResource( 16 )]
+position = Vector2( 45, 0 )
+scale = Vector2( 4, 4 )
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
 [connection signal="area_entered" from="AttackCollision" to="." method="_on_AttackCollision_area_entered"]

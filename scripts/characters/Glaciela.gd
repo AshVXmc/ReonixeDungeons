@@ -73,10 +73,12 @@ onready var crit_damage : float = Global.glaciela_skill_multipliers["CritDamage"
 
 onready var sskill_ui : TextureProgress = get_parent().get_parent().get_parent().get_node("SkillsUI/Control/SecondarySkill/Glaciela/IceLance/TextureProgress")
 onready var pskill_ui : TextureProgress = get_parent().get_parent().get_parent().get_node("SkillsUI/Control/PrimarySkill/Glaciela/WinterQueen/TextureProgress")
+onready var tskill_ui : TextureProgress = get_parent().get_parent().get_parent().get_node("SkillsUI/Control/TertiarySkill/Glaciela/ConeOfCold/TextureProgress")
+
 
 var can_use_special_attack : bool = false
 func _ready():
-#	print(get_path())
+	print(get_path())
 	if Global.equipped_characters.has("Player"):
 		connect("trigger_quickswap", get_parent().get_parent(), "quickswap_event")
 	tundra_stars = 0
@@ -92,7 +94,7 @@ func _ready():
 	connect("perfect_dash",  get_parent().get_parent().get_parent().get_node("PauseUI/PerfectDash"), "trigger_perfect_dash_animation")
 	connect("life_changed", get_parent().get_parent().get_parent().get_node("HeartUI/Life"), "on_player_life_changed")
 	connect("mana_changed", get_parent().get_parent().get_parent().get_node("ManaUI/Mana"), "on_player_mana_changed")
-	connect("skill_used", get_parent().get_parent().get_parent().get_node("SkillsUI/Control"), "on_skill_used")
+#	connect("skill_used", get_parent().get_parent().get_parent().get_node("SkillsUI/Control"), "on_skill_used")
 	connect("skill_used", get_parent().get_parent().get_node("SkillManager"), "on_skill_used")
 	$StrongJumpParticle.visible = false
 	$AnimatedSprite.play("Default")
@@ -117,7 +119,6 @@ func _physics_process(delta):
 		Input.action_release("left")
 		$AnimatedSprite.flip_h = false
 		$AnimatedSprite.play("Walk")
-		
 #		attack_string_count = 4
 	elif Input.is_action_pressed("left") and !Input.is_action_pressed("right") and !get_parent().get_parent().is_attacking and !get_parent().get_parent().is_dashing and !get_parent().get_parent().is_knocked_back:
 		Input.action_release("right")
@@ -183,6 +184,8 @@ func use_skill():
 			use_primary_skill()
 		if sskill_ui.value >= sskill_ui.max_value and Input.is_action_just_pressed("secondary_skill") and !Input.is_action_just_pressed("primary_skill"):
 			use_secondary_skill()
+		if tskill_ui.value >= tskill_ui.max_value and Input.is_action_just_pressed("tertiary_skill"):
+			use_tertiary_skill()
 		
 
 func use_primary_skill():
@@ -214,6 +217,29 @@ func use_secondary_skill():
 		emit_signal("mana_changed", Global.character3_mana, "Glaciela")
 	tundra_stars = 0
 	update_tundra_sigil_ui()
+
+func use_tertiary_skill():
+	if Global.current_character == Global.equipped_characters[0] and Global.mana >= Global.glaciela_skill_multipliers["ConeOfColdCost"]:
+		if !$ConeOfCold.active:
+			emit_signal("skill_used", "ConeOfCold", attack_buff, 1)
+		else:
+			emit_signal("skill_used", "ConeOfCold", attack_buff, -1)
+			get_parent().get_parent().emit_signal("skill_ui_update", "ConeOfCold")
+#		emit_signal("mana_changed", Global.mana, "Glaciela")
+	elif Global.current_character == Global.equipped_characters[1] and Global.character2_mana >= Global.glaciela_skill_multipliers["ConeOfColdCost"]:
+		if !$ConeOfCold.active:
+			emit_signal("skill_used", "ConeOfCold", attack_buff, 1)
+		else:
+			emit_signal("skill_used", "ConeOfCold", attack_buff, -1)
+			get_parent().get_parent().emit_signal("skill_ui_update", "ConeOfCold")
+#		emit_signal("mana_changed", Global.character2_mana, "Glaciela")
+	elif Global.current_character == Global.equipped_characters[2] and Global.character3_mana >= Global.glaciela_skill_multipliers["ConeOfColdCost"]:
+		if !$ConeOfCold.active:
+			emit_signal("skill_used", "ConeOfCold", attack_buff, 1)
+		else:
+			emit_signal("skill_used", "ConeOfCold", attack_buff, -1)
+			get_parent().get_parent().emit_signal("skill_ui_update", "ConeOfCold")
+#		emit_signal("mana_changed", Global.character3_mana, "Glaciela")
 
 func charged_dash():
 	$DashInputPressTimer.stop()
@@ -425,15 +451,20 @@ func play_attack_animation(direction : String):
 #					emit_signal("trigger_quickswap", "Glaciela")
 #				$ResetAttackStringTimer.start()
 func change_mana_value(amount : float):
+	
 	if Global.current_character == Global.equipped_characters[0] and Global.mana < Global.max_mana:
 		Global.mana += amount
+		Global.mana = clamp(Global.mana, 0, Global.max_mana)
 		emit_signal("mana_changed", Global.mana, "Glaciela")
 	elif Global.current_character == Global.equipped_characters[1] and Global.character2_mana < Global.character2_max_mana:
 		Global.character2_mana += amount
+		Global.character2_mana = clamp(Global.character2_mana,0, Global.character2_max_mana)
 		emit_signal("mana_changed", Global.character2_mana, "Glaciela")
 	elif Global.current_character == Global.equipped_characters[2] and Global.character3_mana < Global.character3_max_mana:
 		Global.character3_mana += amount
+		Global.character3_mana = clamp(Global.character3_mana,0, Global.character3_max_mana)
 		emit_signal("mana_changed", Global.character3_mana, "Glaciela")
+	
 func add_heal_particles(heal_amount : float):
 	var heal_particle = HEAL_PARTICLE.instance()
 	heal_particle.heal_amount = heal_amount * 2

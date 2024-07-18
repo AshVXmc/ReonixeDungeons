@@ -15,6 +15,10 @@ onready var firefairy_ui = $SecondarySkill/Player/FireFairy/TextureProgress
 onready var fireball_ui = $TertiarySkill/Player/Fireball/TextureProgress
 onready var winterqueen_ui = $PrimarySkill/Glaciela/WinterQueen/TextureProgress
 onready var icelance_ui = $SecondarySkill/Glaciela/IceLance/TextureProgress
+onready var coneofcold_ui = $TertiarySkill/Glaciela/ConeOfCold/TextureProgress
+
+var coneofcold_active : bool = false
+
 onready var createsugarroll_ui = $PerkSkill/Player/CreateSugarRoll/TextureProgress
 onready var chaosmagic_ui = $PerkSkill/Player/ChaosMagic/TextureProgress
 onready var CHAOS_MAGIC_UI : PackedScene = preload("res://scenes/menus/ChaosMagicUI.tscn") 
@@ -23,10 +27,11 @@ const multiplier : int = 10
 func _ready():
 #	update_maximum_endurance_ui()
 	Global.current_character = character1
-	print("Currently: " + Global.current_character)
+#	print("Currently: " + Global.current_character)
 	connect("ability_on_cooldown", get_parent().get_parent().get_node("Player"), "ability_on_entering_cooldown")
 	update_skill_ui(Global.player_skills["PrimarySkill"], Global.player_skills["SecondarySkill"], Global.player_skills["TertiarySkill"], Global.player_skills["PerkSkill"])
 	update_skill_ui(Global.glaciela_skills["PrimarySkill"], Global.glaciela_skills["SecondarySkill"], Global.glaciela_skills["TertiarySkill"], Global.glaciela_skills["PerkSkill"])
+	
 	firesaw_ui.max_value = Global.player_skill_multipliers["FireSawCD"] * multiplier
 	firesaw_ui.value = firesaw_ui.max_value
 	firefairy_ui.max_value = Global.player_skill_multipliers["FireFairyCD"] * multiplier
@@ -37,6 +42,9 @@ func _ready():
 	winterqueen_ui.value = winterqueen_ui.max_value
 	icelance_ui.max_value = Global.glaciela_skill_multipliers["IceLanceCD"] * multiplier
 	icelance_ui.value = icelance_ui.max_value
+	coneofcold_ui.max_value = Global.glaciela_skill_multipliers["ConeOfColdCD"] * multiplier
+	coneofcold_ui.value = coneofcold_ui.max_value
+
 	
 	update_perk_skill_ui()
 	update_character_ui()
@@ -53,7 +61,6 @@ func update_perk_skill_ui():
 		chaosmagic_ui.max_value = Global.player_perks["ChaosMagic"]["cooldown"] * multiplier
 		chaosmagic_ui.value = chaosmagic_ui.max_value
 		$PerkSkill/Player/CreateSugarRoll.visible = false
-	
 	update_skill_ui(Global.player_skills["PrimarySkill"], Global.player_skills["SecondarySkill"], Global.player_skills["TertiarySkill"], Global.player_skills["PerkSkill"])
 	update_skill_ui(Global.glaciela_skills["PrimarySkill"], Global.glaciela_skills["SecondarySkill"], Global.glaciela_skills["TertiarySkill"], Global.glaciela_skills["PerkSkill"])
 
@@ -67,6 +74,7 @@ func update_swap_character_status():
 		$Characters/Slot1/Character1.self_modulate = 0.65
 		$Characters/Slot2/Character2.self_modulate = 0.65
 		$Characters/Slot3/Character3.self_modulate = 0.65
+
 func flicker_icon(character):
 	pass
 func update_character_ui():
@@ -108,8 +116,11 @@ func update_skill_ui(primary : String, secondary : String, tertiary : String, pe
 		"IceLance":
 			$SecondarySkill/Glaciela/IceLance.visible = true
 			$SecondarySkill/Glaciela/IceLance/CostLabel.text = str(Global.glaciela_skill_multipliers["IceLanceCost"])
-#	match tertiary:
-
+	match tertiary:
+		"Fireball":
+			$TertiarySkill/Player/Fireball.visible = true
+		"ConeOfCold":
+			$TertiarySkill/Glaciela/ConeOfCold.visible = true
 	match perk:
 		"CreateSugarRoll":
 			$PerkSkill/Player/CreateSugarRoll.visible = true
@@ -129,6 +140,9 @@ func on_skill_used(skill_name : String):
 		"Fireball":
 			if fireball_ui.value >= fireball_ui.max_value:
 				fireball_ui.value = fireball_ui.min_value
+		
+		"ConeOfCold":
+			coneofcold_ui.value = coneofcold_ui.min_value
 		"CreateSugarRoll":
 			createsugarroll_ui.value = createsugarroll_ui.min_value
 		"ChaosMagic":
@@ -142,7 +156,6 @@ func on_skill_used(skill_name : String):
 
 
 func _process(delta):
-	
 	if Global.current_character == "Player":
 		$PrimarySkill/Player.visible = true
 		$SecondarySkill/Player.visible = true
@@ -253,6 +266,7 @@ func _process(delta):
 	if Global.current_character == "Glaciela":
 		$PrimarySkill/Glaciela.visible = true
 		$SecondarySkill/Glaciela.visible = true
+		$TertiarySkill/Glaciela.visible = true
 		if winterqueen_ui.value < winterqueen_ui.max_value:
 			$PrimarySkill/Glaciela/WinterQueen/Label.text = str(stepify((winterqueen_ui.max_value - winterqueen_ui.value) / multiplier, 0.001))
 			winterqueen_ui.self_modulate.a = 0.65
@@ -300,14 +314,40 @@ func _process(delta):
 				else:
 					icelance_ui.self_modulate.a = 0.65
 				$SecondarySkill/Glaciela/IceLance/Label.text = ""
-
-	
-	
+		################
+		# CONE OF COLD #
+		################
+		if coneofcold_ui.value < coneofcold_ui.max_value:
+			$TertiarySkill/Glaciela/ConeOfCold/Label.text = str(stepify((coneofcold_ui.max_value - coneofcold_ui.value) / multiplier, 0.001))
+			coneofcold_ui.self_modulate.a = 0.65
+		elif coneofcold_ui.value >= coneofcold_ui.max_value:
+			if Global.equipped_characters[0] == "Glaciela":
+				if Global.mana >= Global.glaciela_skill_multipliers["ConeOfColdCost"]:
+					coneofcold_ui.self_modulate.a = 1.0
+				else:
+					coneofcold_ui.self_modulate.a = 0.65
+				$TertiarySkill/Glaciela/ConeOfCold/Label.text = ""
+			elif Global.equipped_characters[1] == "Glaciela":
+				if Global.character2_mana >= Global.glaciela_skill_multipliers["ConeOfColdCost"]:
+					coneofcold_ui.self_modulate.a = 1.0
+				else:
+					coneofcold_ui.self_modulate.a = 0.65
+				$TertiarySkill/Glaciela/ConeOfCold/Label.text = ""
+			elif Global.equipped_characters[2] == "Glaciela":
+				if Global.character3_mana >= Global.glaciela_skill_multipliers["ConeOfColdCost"]:
+					coneofcold_ui.self_modulate.a = 1.0
+				else:
+					coneofcold_ui.self_modulate.a = 0.65
+				$TertiarySkill/Glaciela/ConeOfCold/Label.text = ""
 	else:
 		$PrimarySkill/Glaciela.visible = false
 		$SecondarySkill/Glaciela.visible = false
-
-
+		$TertiarySkill/Glaciela.visible = false
+	
+	if !coneofcold_active:
+		$TertiarySkill/Glaciela/ConeOfCold/ConeOfColdResource.value += Global.glaciela_skill_multipliers["ConeOfColdRegenRate"]
+	
+	
 
 func reduce_skill_cooldown(character_name : String = "All", skill_type : String = "PrimarySkill", amount_in_seconds : float = 1.0):
 	var amount : float = amount_in_seconds * multiplier
@@ -349,6 +389,7 @@ func _on_CooldownTickTimer_timeout():
 	if Global.equipped_characters.has("Glaciela"):
 		winterqueen_ui.value += 1 
 		icelance_ui.value += 1 
+		coneofcold_ui.value += 1
 
 #func reduce_endurance(amount : int):
 #	$EnduranceMeter/TextureProgress.value -= amount

@@ -784,6 +784,19 @@ margin_bottom = 572.0
 custom_fonts/font = SubResource( 11 )
 flat = true
 
+[node name="DisclaimerLabel" type="Label" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/PlayerControl/PerkSkillScrollContainerControl"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = 149.5
+margin_top = 563.0
+margin_right = 709.5
+margin_bottom = 595.0
+custom_fonts/font = SubResource( 12 )
+text = "Enter a level for these changes to take place."
+align = 1
+
 [node name="GlacielaControl" type="Control" parent="CharacterSkillsControl/NinePatchRect/SkillsControl"]
 margin_right = 40.0
 margin_bottom = 40.0
@@ -816,6 +829,7 @@ custom_fonts/font = SubResource( 11 )
 flat = true
 
 [node name="PrimarySkillScrollContainer" type="ScrollContainer" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/GlacielaControl"]
+visible = false
 anchor_right = 21.766
 anchor_bottom = 15.255
 margin_left = 197.0
@@ -906,14 +920,16 @@ rect_min_size = Vector2( 510, 1100 )
 custom_fonts/italics_font = SubResource( 2 )
 custom_fonts/normal_font = SubResource( 2 )
 bbcode_enabled = true
-bbcode_text = "[color=#ffd703]Fire Faerie[/color]
-Summon a fire spirit that automatically tracks enemies, dealing [u]FIREFAIRY_ATK% ATK[/u] as [color=#fd9628]Fire damage[/color]. Recast the skill to teleport the spirit to your location. The spirit lasts for FIREFAIRY_DUR seconds.
-Cooldown: FIREFAIRY_CD seconds
-Mana cost: FIREFAIRY_COST mana"
-text = "Fire Faerie
-Summon a fire spirit that automatically tracks enemies, dealing FIREFAIRY_ATK% ATK as Fire damage. Recast the skill to teleport the spirit to your location. The spirit lasts for FIREFAIRY_DUR seconds.
-Cooldown: FIREFAIRY_CD seconds
-Mana cost: FIREFAIRY_COST mana"
+bbcode_text = "[color=#ffd703]Ice Lance[/color]
+Hurl a double-bladed frost lance in your facing direction, dealing [u]ICELANCE_ATK% ATK[/u] as [color=#7df0ff]Ice[/color] damage to enemies. After it reaches maximum range, it homes back to you to deal further [color=#7df0ff]Ice[/color] damage. Each hit fills up ICELANCE_FREEZE_GAUGE% of the enemy's [color=#7df0ff]Freeze[/color] gauge.
+Consumes all stacks of [color=#c4fdff]Tundra Sigil[/color]. Each stack consumed grants a ICELANCE_DMG_BONUS% damage bonus to the attack.
+Cooldown: ICELANCE_CD seconds
+Mana cost: ICELANCE_COST mana"
+text = "Ice Lance
+Hurl a double-bladed frost lance in your facing direction, dealing ICELANCE_ATK% ATK as Ice damage to enemies. After it reaches maximum range, it homes back to you to deal further Ice damage. Each hit fills up ICELANCE_FREEZE_GAUGE% of the enemy's Freeze gauge.
+Consumes all stacks of Tundra Sigil. Each stack consumed grants a ICELANCE_DMG_BONUS% damage bonus to the attack.
+Cooldown: ICELANCE_CD seconds
+Mana cost: ICELANCE_COST mana"
 scroll_active = false
 
 [node name="TalentControl1" type="Control" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/GlacielaControl/SecondarySkillScrollContainer/VBoxContainer"]
@@ -955,7 +971,6 @@ text = "Enable"
 align = 1
 
 [node name="TertiarySkillScrollContainer" type="ScrollContainer" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/GlacielaControl"]
-visible = false
 anchor_right = 21.766
 anchor_bottom = 15.255
 margin_left = 197.0
@@ -976,12 +991,18 @@ rect_min_size = Vector2( 510, 1100 )
 custom_fonts/italics_font = SubResource( 2 )
 custom_fonts/normal_font = SubResource( 2 )
 bbcode_enabled = true
-bbcode_text = "[color=#ffd703]Fireball[/color]
-Shoot a fiery ball that travels forward in a straight line, dealing [u]FIREBALL_ATK% ATK[/u] as [color=#fd9628]Fire damage[/color]. This skill has FIREBALL_CHARGES initial charges.
-Cooldown: FIREBALL_CD seconds per charge"
-text = "Fireball
-Shoot a fiery ball that travels forward in a straight line, dealing FIREBALL_ATK% ATK as Fire damage. This skill has FIREBALL_CHARGES initial charges.
-Cooldown: FIREBALL_CD seconds per charge"
+bbcode_text = "[color=#ffd703]Cone Of Cold[/color]
+Shoot forth a torrent of cold air in a cone-shaped area in your facing direction that deals [u]COC_ATK% ATK[/u] as [color=#7df0ff]Ice[/color] damage per tick and fills up COC_FREEZE_GAUGE% of the enemy's [color=#7df0ff]Freeze[/color] gauge.
+
+Usage drains a resource meter. The skill enters cooldown when you recast it, change characters, or fully deplete the meter. While inactive, the resource meter regenerates over time.
+
+Cooldown: COC_CD seconds"
+text = "Cone Of Cold
+Shoot forth a torrent of cold air in a cone-shaped area in your facing direction that deals COC_ATK% ATK as Ice damage per tick and fills up COC_FREEZE_GAUGE% of the enemy's Freeze gauge.
+
+Usage drains a resource meter. The skill enters cooldown when you recast it, change characters, or fully deplete the meter. While inactive, the resource meter regenerates over time.
+
+Cooldown: COC_CD seconds"
 scroll_active = false
 
 [node name="TalentControl1" type="Control" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/GlacielaControl/TertiarySkillScrollContainer/VBoxContainer"]
@@ -1535,9 +1556,9 @@ margin_bottom = 2016.0
 anchor_left = 0.215
 anchor_right = 0.215
 margin_left = 426.8
-margin_top = -1360.0
+margin_top = -1402.0
 margin_right = 458.8
-margin_bottom = -1344.0
+margin_bottom = -1386.0
 rect_min_size = Vector2( 32, 16 )
 rect_scale = Vector2( 7.5, 7.5 )
 texture_normal = ExtResource( 5 )
@@ -1596,9 +1617,9 @@ margin_bottom = 2020.0
 anchor_left = 0.215
 anchor_right = 0.215
 margin_left = 426.8
-margin_top = -1195.0
+margin_top = -1226.0
 margin_right = 458.8
-margin_bottom = -1179.0
+margin_bottom = -1210.0
 rect_min_size = Vector2( 32, 16 )
 rect_scale = Vector2( 7.5, 7.5 )
 texture_normal = ExtResource( 5 )
@@ -1657,9 +1678,9 @@ margin_bottom = 2024.0
 anchor_left = 0.215
 anchor_right = 0.215
 margin_left = 426.8
-margin_top = -938.0
+margin_top = -1003.0
 margin_right = 458.8
-margin_bottom = -922.0
+margin_bottom = -987.0
 rect_min_size = Vector2( 32, 16 )
 rect_scale = Vector2( 7.5, 7.5 )
 texture_normal = ExtResource( 5 )

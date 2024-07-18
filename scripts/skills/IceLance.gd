@@ -23,7 +23,7 @@ var ATTACK = Global.glaciela_attack
 func _ready():
 	
 	add_to_group(str(tundra_sigil_atkbonus * ATTACK * (Global.glaciela_skill_multipliers["IceLance"] / 100)))
-
+	$FreezeGaugeArea.add_to_group(str(Global.glaciela_skill_multipliers["IceLanceFreezeGauge"]))
 #	add_to_group("IceGaugeTwo")
 	if Global.equipped_characters.has("Glaciela"):
 		connect("restore_tundra_stacks", get_parent().get_node("Player/Glaciela"), "restore_tundra_stacks")

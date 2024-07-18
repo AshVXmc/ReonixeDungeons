@@ -11,6 +11,7 @@ var SUGAR_ROLL : PackedScene = preload("res://scenes/items/SugarRoll.tscn")
 var WINTER_QUEEN : PackedScene = preload("res://scenes/skills/WinterQueen.tscn")
 var playeratkbonus : float
 var glacielaatkbonus : float
+onready var skills_ui  = get_parent().get_parent().get_node("SkillsUI/Control")
 
 func _ready():
 	connect("mana_changed", get_parent().get_parent().get_node("ManaUI/Mana"), "on_player_mana_changed")
@@ -118,7 +119,13 @@ func on_skill_used (
 				elif Global.equipped_characters[2] == "Glaciela" and Global.character3_mana >= Global.glaciela_skill_multipliers["WinterQueenCost"]:
 					Global.character3_mana -= Global.glaciela_skill_multipliers["WinterQueenCost"]
 					emit_signal("mana_changed", Global.character3_mana, "Glaciela")
-		"ColdBloodedThrust":
-			pass
-		
+		"ConeOfCold":
+			# use direction. 1 = active, -1 = inactive
+			var cone_of_cold = get_parent().get_parent().get_node("Player/CharacterManager/Glaciela/ConeOfCold")
+			if direction == 1:
+				cone_of_cold.activate_cone_of_cold()
+				skills_ui.coneofcold_active = true
+			elif direction == -1:
+				cone_of_cold.deactivate_cone_of_cold()
+				skills_ui.coneofcold_active = false
 

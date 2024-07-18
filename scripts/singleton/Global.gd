@@ -70,7 +70,7 @@ var player_skill_multipliers : Dictionary = {
 	"FireSawDuration": 8.0,
 	"FireFairy": 25.0,
 	"FireFairyDuration": 10.0,
-	"Fireball": 40.0,
+	"Fireball": 55.0,
 	"FireballCD": 6.0,
 	"FireballCharges": 3,
 	"FireballMaxCharges": 3,
@@ -180,7 +180,7 @@ var glaciela_talents : Dictionary = {
 var glaciela_skills : Dictionary = {
 	"PrimarySkill" : "WinterQueen",
 	"SecondarySkill" : "IceLance",
-	"TertiarySkill" : "",
+	"TertiarySkill" : "ConeOfCold",
 	"PerkSkill": ""
 }
 
@@ -223,7 +223,8 @@ var glaciela_skill_multipliers : Dictionary = {
 	"TundraSigilManaBonus": 0.75,
 	"TundraStarsIceDamageBonus": 35,
 	"AirborneDuration": 2.5,
-	"IceLance": 50.0,
+	"IceLance": 35.0,
+	"IceLanceFreezeGauge": 350.0,
 	"MaxTundraStars": 3,
 	"WinterQueen": 15.0,
 	"WinterQueenCost": 10,
@@ -231,6 +232,19 @@ var glaciela_skill_multipliers : Dictionary = {
 	"WinterQueenCD": 30.0,
 	"IceLanceCD": 10.0,
 	"IceLanceDamageBonusPerTundraSigil": 50,
+	
+	# for some reason it won't register any values below 100.
+	# so this is a fix. if it works, it works
+	"ConeOfCold": 100 * 0.15,
+	"ConeOfColdFreezeGauge": 100,
+	"ConeOfColdCD": 2.5,
+	"ConeOfColdResourceConsumption": 120, # per tick.
+	"ConeOfColdRegenRate": 0.8,
+	
+	# minimum amount of mana to be able to channel it.
+	"ConeOfColdCost": 0,
+	
+	
 	"BasePhysRes": 0.0,
 	"BaseMagicRes": 0.0,
 	"BaseFireRes": -50.0,
@@ -381,6 +395,94 @@ func reset_player_data():
 		"bat_wings": 0,
 		"sweet_herbs": 0
 	}
+	Global.player_talents = {
+		"TalentSlots": 0,
+		"MaxTalentSlots": 5,
+		
+		"CycloneSlashes" : {
+			"unlocked" : false,
+			"enabled" : false,
+			"opalscost": 100,
+			"talentslotcost": 2
+		},
+		"SwiftThrust" : {
+			"unlocked" : false,
+			"enabled" : false,
+			"opalscost": 100,
+			"talentslotcost": 2
+		},
+		# Talent has not been implemented yet
+		"BurningBreath" : {
+			"unlocked" : false,
+			"enabled" : false,
+			"opalscost": 100,
+			"talentslotcost": 2,
+			"attackpercentage": 70.0,
+			"cooldown": 10
+		},
+		# Talent has not been implemented yet
+		"InfernalMark" : {
+			"unlocked" : false,
+			"enabled" : false,
+			"opalscost": 100,
+			"DamageIncrease" : 75,
+			"talentslotcost": 3
+		},
+		"SoulSiphon": {
+			"unlocked" : false,
+			"enabled" : false,
+			"opalscost": 100,
+			"dropchance": 40,
+			"managranted" : 2,
+			"talentslotcost": 3
+		},
+		"BadBlood":{
+			# dropping to critical health grants temporary attack boost and speed boost
+			# cooldown
+			"unlocked" : false,
+			"enabled" : false,
+			"opalscost": 100,
+			"cooldown": 20
+		}
+	}
+	Global.player_perks = {
+			"CreateSugarRoll": {
+			"unlocked" : true,
+			"enabled": false,
+			"health": 0.3,
+			"opalscost": 100,
+			"cooldown": 35.0,
+	#		"talentslotcost": 3
+		},
+		"ChaosMagic": {
+			"unlocked" : true,
+			"enabled": false,
+			"opalscost": 100,
+			# 45? 60? 100?
+			"cooldown": 25.0,
+			# 25% chance
+			"triggerchance": 25,
+	#		"talentslotcost": 3
+		}
+	}
+	Global.glaciela_talents = {
+		"TalentSlots": 0,
+		"MaxTalentSlots": 5,
+		"DanceOfRime" : {
+			"unlocked" : false,
+			"enabled" : false,
+			"opalscost": 100,
+			"talentslotcost": 2
+		},
+		"FrigidHailstorm": {
+			"unlocked" : false,
+			"enabled" : false,
+			"opalscost": 100,
+			"talentslotcost": 2
+		}
+	}
+	
+	
 	Global.soul_token_amount = 0
 
 	Global.is_loading_a_save = false
@@ -389,18 +491,6 @@ func reset_player_data():
 	Global.levelpath = ""
 	Global.enemies_killed = 0
 	Global.masked_goblin_defeated = false
-#	Global.player_skills = {
-#		"PrimarySkill" : "FireSaw",
-#		"SecondarySkill" : "FireFairy",
-#		"TertiarySkill" : "Fireball",
-#		"PerkSkill": "CreateSugarRoll"
-#	}
-#	Global.glaciela_skills = {
-#		"PrimarySkill" : "WinterQueen",
-#		"SecondarySkill" : "IceLance",
-#		"TertiarySkill" : "",
-#		"PerkSkill": ""
-#	}
 	Global.character_level_data = {
 		"Player": [1, 0, 20],
 		"Glaciela": [1, 0, 20],

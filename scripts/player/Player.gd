@@ -1,4 +1,3 @@
-tool
 class_name Player extends KinematicBody2D
 
 signal life_changed(player_hearts)
@@ -1615,12 +1614,15 @@ func _on_ChargedAttackCollision_area_entered(area):
 func change_mana_value(amount : float):
 	if Global.current_character == Global.equipped_characters[0] and Global.mana < Global.max_mana:
 		Global.mana += amount
+		Global.mana = clamp(Global.mana, 0, Global.max_mana)
 		emit_signal("mana_changed", Global.mana, "Player")
 	elif Global.current_character == Global.equipped_characters[1] and Global.character2_mana < Global.character2_max_mana:
 		Global.character2_mana += amount
+		Global.character2_mana = clamp(Global.character2_mana, 0, Global.character2_max_mana)
 		emit_signal("mana_changed", Global.character2_mana, "Player")
 	elif Global.current_character == Global.equipped_characters[2] and Global.character3_mana < Global.character3_max_mana:
 		Global.character3_mana += amount
+		Global.character3_mana = clamp(Global.character3_mana, 0, Global.character3_max_mana)
 		emit_signal("mana_changed", Global.character3_mana, "Player")
 func freeze_enemy():
 	var frozen_status = FROZEN.instance()

@@ -9,6 +9,7 @@ func _ready():
 
 func update_ui():
 	visible = false
+#	get_parent().get_node("PerfectDash").visible = false
 	get_parent().get_node("CharacterSkillsControl").visible = false
 	get_parent().get_node("CharacterTalentsControl").visible = false
 	$NinePatchRect/PlayerStatsLabel.bbcode_text = "[center]Max HP: " + str(Global.player_skill_multipliers["BaseHearts"] * 10) + "\n" + "Attack: " + str(Global.attack_power)

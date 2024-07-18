@@ -19,7 +19,8 @@ onready var glaciela_pskill_text = $NinePatchRect/SkillsControl/GlacielaControl/
 onready var glaciela_sskill = $NinePatchRect/SkillsControl/GlacielaControl/SecondarySkillScrollContainer
 onready var glaciela_sskill_text = $NinePatchRect/SkillsControl/GlacielaControl/SecondarySkillScrollContainer/VBoxContainer/RichTextLabel
 
-onready var glaciela_tskill
+onready var glaciela_tskill = $NinePatchRect/SkillsControl/GlacielaControl/TertiarySkillScrollContainer
+onready var glaciela_tskill_text = $NinePatchRect/SkillsControl/GlacielaControl/TertiarySkillScrollContainer/VBoxContainer/RichTextLabel
 
 signal player_node_update_perk_skill()
 signal skillsui_update_perk_skill_ui()
@@ -40,7 +41,7 @@ func _ready():
 	connect("player_node_update_perk_skill", player_node, "update_perk_skill")
 	connect("skillsui_update_perk_skill_ui", skills_ui_node, "update_perk_skill_ui")
 	_on_Player_SkillTypeOptionButton_item_selected(0)
-	
+	_on_GlacielaSkillTypeOptionButton_item_selected(0)
 
 	update_player_description_text()
 	update_glaciela_description_text()
@@ -89,6 +90,27 @@ func update_glaciela_description_text():
 		"WQ_CD", str(Global.glaciela_skill_multipliers["WinterQueenCD"]))
 	glaciela_pskill_text.bbcode_text = glaciela_pskill_text.bbcode_text.replace(
 		"WQ_COST", str(Global.glaciela_skill_multipliers["WinterQueenCost"]))
+	
+	glaciela_sskill_text.bbcode_text = glaciela_sskill_text.bbcode_text.replace(
+		"ICELANCE_ATK", str(Global.glaciela_skill_multipliers["IceLance"]))
+	glaciela_sskill_text.bbcode_text = glaciela_sskill_text.bbcode_text.replace(
+		"ICELANCE_FREEZE_GAUGE", str(Global.glaciela_skill_multipliers["IceLanceFreezeGauge"] / 10))
+	glaciela_sskill_text.bbcode_text = glaciela_sskill_text.bbcode_text.replace(
+		"ICELANCE_DMG_BONUS", str(Global.glaciela_skill_multipliers["IceLanceDamageBonusPerTundraSigil"]))
+	glaciela_sskill_text.bbcode_text = glaciela_sskill_text.bbcode_text.replace(
+		"ICELANCE_CD", str(Global.glaciela_skill_multipliers["IceLanceCD"]))
+	glaciela_sskill_text.bbcode_text = glaciela_sskill_text.bbcode_text.replace(
+		"ICELANCE_COST", str(Global.glaciela_skill_multipliers["IceLance"]))
+	
+	glaciela_tskill_text.bbcode_text = glaciela_tskill_text.bbcode_text.replace(
+		"COC_ATK", str(Global.glaciela_skill_multipliers["ConeOfCold"]))
+	glaciela_tskill_text.bbcode_text = glaciela_tskill_text.bbcode_text.replace(
+		"COC_FREEZE_GAUGE", str(Global.glaciela_skill_multipliers["ConeOfColdFreezeGauge"] / 10))
+	glaciela_tskill_text.bbcode_text = glaciela_tskill_text.bbcode_text.replace(
+		"COC_CD", str(Global.glaciela_skill_multipliers["ConeOfColdCD"]))
+	
+	
+	
 	
 # access the update_perk_skill function in player
 # access the update_perk_skill_ui function in skillsui
@@ -151,6 +173,13 @@ func _on_GlacielaSkillTypeOptionButton_item_selected(index):
 		0:
 			glaciela_pskill.visible = true
 			glaciela_sskill.visible = false
+			glaciela_tskill.visible = false
 		1:
 			glaciela_pskill.visible = false
 			glaciela_sskill.visible = true
+			glaciela_tskill.visible = false
+		2:
+			glaciela_pskill.visible = false
+			glaciela_sskill.visible = false
+			glaciela_tskill.visible = true
+		

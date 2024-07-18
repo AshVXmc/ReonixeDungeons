@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=27 format=2]
 
 [ext_resource path="res://scripts/ui/SkillsUI.gd" type="Script" id=1]
 [ext_resource path="res://assets/UI/firesaw_skill_icon.png" type="Texture" id=2]
@@ -14,6 +14,9 @@
 [ext_resource path="res://assets/UI/create_sugar_roll_talent_icon.png" type="Texture" id=12]
 [ext_resource path="res://assets/UI/silence_ability_overlay.png" type="Texture" id=13]
 [ext_resource path="res://assets/UI/chaos_magic_talent_icon.png" type="Texture" id=14]
+[ext_resource path="res://assets/UI/cone_of_cold_skill_icon.png" type="Texture" id=15]
+[ext_resource path="res://assets/UI/resource_bar_empty.png" type="Texture" id=16]
+[ext_resource path="res://assets/UI/resource_bar_full.png" type="Texture" id=17]
 
 [sub_resource type="DynamicFont" id=1]
 size = 32
@@ -394,6 +397,7 @@ margin_right = 36.0
 margin_bottom = -2.0
 
 [node name="Player" type="Control" parent="Control/TertiarySkill"]
+visible = false
 margin_right = 40.0
 margin_bottom = 40.0
 
@@ -443,6 +447,49 @@ margin_bottom = 231.0
 texture = ExtResource( 11 )
 expand = true
 stretch_mode = 2
+
+[node name="Glaciela" type="Control" parent="Control/TertiarySkill"]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="ConeOfCold" type="Control" parent="Control/TertiarySkill/Glaciela"]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="Sprite" type="Sprite" parent="Control/TertiarySkill/Glaciela/ConeOfCold"]
+self_modulate = Color( 1, 1, 1, 0.333333 )
+position = Vector2( 370, 190 )
+scale = Vector2( 4, 4 )
+texture = ExtResource( 15 )
+
+[node name="TextureProgress" type="TextureProgress" parent="Control/TertiarySkill/Glaciela/ConeOfCold"]
+margin_left = 330.0
+margin_top = 150.0
+margin_right = 350.0
+margin_bottom = 170.0
+rect_scale = Vector2( 4, 4 )
+texture_progress = ExtResource( 15 )
+fill_mode = 5
+
+[node name="ConeOfColdResource" type="TextureProgress" parent="Control/TertiarySkill/Glaciela/ConeOfCold"]
+margin_left = 386.0
+margin_top = 215.0
+margin_right = 434.0
+margin_bottom = 255.0
+max_value = 1000.0
+value = 1000.0
+texture_under = ExtResource( 16 )
+texture_progress = ExtResource( 17 )
+
+[node name="Label" type="Label" parent="Control/TertiarySkill/Glaciela/ConeOfCold"]
+margin_left = 350.0
+margin_top = 170.0
+margin_right = 392.0
+margin_bottom = 218.0
+custom_fonts/font = SubResource( 1 )
+text = "15.0"
+align = 1
+valign = 1
 
 [node name="KeyIcon" type="Sprite" parent="Control/TertiarySkill"]
 position = Vector2( 370, 226 )

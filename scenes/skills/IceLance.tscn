@@ -74,16 +74,13 @@ orbit_velocity = 0.0
 orbit_velocity_random = 0.0
 
 [sub_resource type="CircleShape2D" id=5]
-radius = 25.0
+radius = 20.0
 
 [sub_resource type="RectangleShape2D" id=6]
-extents = Vector2( 29.3449, 112.784 )
+extents = Vector2( 13.9653, 112.784 )
 
 [node name="IceLance" type="Area2D" groups=["Ice"]]
 script = ExtResource( 2 )
-__meta__ = {
-"_edit_group_": true
-}
 
 [node name="Sprite" type="Sprite" parent="."]
 scale = Vector2( 5, 5 )
@@ -101,8 +98,8 @@ autostart = true
 
 [node name="FrostParticles" type="Particles2D" parent="."]
 scale = Vector2( 2.5, 2.5 )
-amount = 6
-lifetime = 0.5
+amount = 4
+lifetime = 0.7
 explosiveness = 0.5
 process_material = SubResource( 4 )
 texture = ExtResource( 3 )
@@ -121,7 +118,7 @@ autostart = true
 rotation = -0.785398
 shape = SubResource( 6 )
 
-[node name="FreezeGaugeArea" type="Area2D" parent="." groups=["250", "IceGauge"]]
+[node name="FreezeGaugeArea" type="Area2D" parent="." groups=["IceGauge"]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="FreezeGaugeArea"]
 rotation = -0.785398

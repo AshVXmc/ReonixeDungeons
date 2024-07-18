@@ -341,7 +341,6 @@ scroll_active = false
 
 [node name="MovesetList" type="Control" parent="."]
 pause_mode = 2
-visible = false
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -488,7 +487,7 @@ Upon finishing the 4th sequence, gain a single stack of [color=#c4fdff]Tundra Si
 [color=#ffd703]Special Attack: Wintry Waltz[/color]
 (Prerequisite: Dance of Rime talent)
 [ATK], [ATK], [ATK}, pause until a [color=yellow]yellow star[/color] appears, then [ATK]
-Consumes all stacks of [color=#c4fdff]Tundra Sigil[/color]. Each stack consumed grants a SP_ATK_1_BOOST% damage boost to the attack.
+Consumes all stacks of [color=#c4fdff]Tundra Sigil[/color]. Each stack consumed grants a SP_ATK_1_BOOST% damage bonus to the attack.
 
 
  "
@@ -506,7 +505,7 @@ Charged Attack (Knocks enemies airborne)
 Special Attack: Wintry Waltz
 (Prerequisite: Dance of Rime talent)
 [ATK], [ATK], [ATK}, pause until a yellow star appears, then [ATK]
-Consumes all stacks of Tundra Sigil. Each stack consumed grants a SP_ATK_1_BOOST% damage boost to the attack.
+Consumes all stacks of Tundra Sigil. Each stack consumed grants a SP_ATK_1_BOOST% damage bonus to the attack.
 
 
  "
