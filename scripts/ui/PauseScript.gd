@@ -55,6 +55,7 @@ func resume_game():
 	get_tree().paused = false
 	visible = false
 	get_parent().layer = 1
+
 func _on_SaveButton_pressed():
 	if get_tree().get_current_scene().get_name() != "MaskedGoblinLevel":
 		Global.levelpath = get_parent().get_parent().filename

@@ -845,9 +845,7 @@ func after_damaged():
 #	emit_signal("life_changed", Global.hearts)
 #	$Sprite.play("Hurt")
 	$InvulnerabilityTimer.start()
-	
-#	emit_signal("life_changed", Global.hearts)
-#	$Sprite.play("Hurt")
+
 	if !Global.godmode:
 		get_parent().get_parent().get_node("KnockbackTimer").start()
 		
@@ -855,16 +853,55 @@ func after_damaged():
 		if Global.hearts <= 0:
 			dead(Global.equipped_characters[0])
 	elif Global.equipped_characters[1] == Global.current_character:
-		if Global.hearts <= 0:
+		if Global.character2_hearts <= 0:
 			dead(Global.equipped_characters[1])
 	elif Global.equipped_characters[2] == Global.current_character:
-		if Global.hearts <= 0:
+		if Global.character3_hearts <= 0:
 			dead(Global.equipped_characters[2])
 
-func dead(character):
-	pass
+func dead(character_id):
+	is_dead = true
+	get_parent().get_parent().is_invulnerable = true
+	$InvulnerabilityTimer.start()
+#	swap_to_nearby_alive_characters()
+	if character_id == Global.equipped_characters[0]:
+		Global.alive[0] = false
+	elif character_id == Global.equipped_characters[1]:
+		Global.alive[1] = false
+	elif character_id == Global.equipped_characters[2]:
+		Global.alive[2] = false
+	
+	$HurtAnimationPlayer.play("Death")
+	yield(get_tree().create_timer(0.4), "timeout")
+	
+	var alive_status : Array = [true, true, true]
+	var counter : int = 0
+	for c in Global.equipped_characters:
+		if Global.character_list.find(Global.equipped_characters[counter]) != -1:
+			if !Global.alive[counter]:
+				alive_status[counter] = false
+		else:
+			alive_status[counter] = false
+		counter += 1
+
+	if !alive_status[0] and !alive_status[1] and !alive_status[2]:
+		var counter_sec : int = 0
+		for c in Global.equipped_characters:
+			if Global.character_list.find(Global.equipped_characters[counter_sec]) != -1:
+				get_parent().get_parent().heal(c, 999, true)
+			counter_sec += 1
+		get_parent().get_parent().get_parent().get_node("GameOverUI/GameOver").open_game_over_ui()
 
 
+func swap_to_nearby_alive_characters():
+	get_parent().get_parent().swap_to_nearby_alive_characters()
+	
+func add_death_particles():
+	var deathparticle = get_parent().get_parent().DEATH_SMOKE_PARTICLE.instance()
+	deathparticle.emitting = true
+	deathparticle.position = global_position
+	get_parent().get_parent().get_parent().add_child(deathparticle)
+	
 func add_hurt_particles(damage : float):
 	var hurt_particle = get_parent().get_parent().HURT_PARTICLE.instance()
 	hurt_particle.damage = damage * 2

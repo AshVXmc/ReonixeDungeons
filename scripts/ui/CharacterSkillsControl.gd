@@ -100,7 +100,7 @@ func update_glaciela_description_text():
 	glaciela_sskill_text.bbcode_text = glaciela_sskill_text.bbcode_text.replace(
 		"ICELANCE_CD", str(Global.glaciela_skill_multipliers["IceLanceCD"]))
 	glaciela_sskill_text.bbcode_text = glaciela_sskill_text.bbcode_text.replace(
-		"ICELANCE_COST", str(Global.glaciela_skill_multipliers["IceLance"]))
+		"ICELANCE_COST", str(Global.glaciela_skill_multipliers["IceLanceCost"]))
 	
 	glaciela_tskill_text.bbcode_text = glaciela_tskill_text.bbcode_text.replace(
 		"COC_ATK", str(Global.glaciela_skill_multipliers["ConeOfCold"]))

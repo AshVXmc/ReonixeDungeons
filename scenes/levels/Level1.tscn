@@ -1,8 +1,7 @@
-[gd_scene load_steps=29 format=2]
+[gd_scene load_steps=28 format=2]
 
 [ext_resource path="res://scripts/misc/Level.gd" type="Script" id=1]
 [ext_resource path="res://scenes/menus/DebugMenu.tscn" type="PackedScene" id=2]
-[ext_resource path="res://scenes/items/Sign.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scenes/enemies/logic/EnemySkillGlobalCD.tscn" type="PackedScene" id=4]
 [ext_resource path="res://scenes/menus/EleganceMeterUI.tscn" type="PackedScene" id=5]
 [ext_resource path="res://scenes/items/LevelTransporter.tscn" type="PackedScene" id=6]
@@ -106,10 +105,6 @@ level_exit = true
 position = Vector2( -1540, 685 )
 Destination = "res://scenes/levels/hublevel/HubLevel.tscn"
 
-[node name="Sign" parent="." instance=ExtResource( 3 )]
-position = Vector2( -1324.64, 728.772 )
-Text = "Welcome to Reonixe Dungeons! Press ENTER to attack enemies from a close range. Observe your surroundings and proceed with caution, Don't charge on more enemies than you can handle. "
-
 [node name="Bat3" parent="." instance=ExtResource( 25 )]
 position = Vector2( -472, 383 )
 
@@ -137,6 +132,8 @@ Opals = 20
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 position = Vector2( 3877, 995 )
+collision_layer = 129
+collision_mask = 129
 __meta__ = {
 "_edit_group_": true
 }
@@ -150,16 +147,16 @@ one_way_collision = true
 position = Vector2( 919.239, 599.627 )
 
 [node name="WallTorch" parent="." instance=ExtResource( 15 )]
-position = Vector2( -1103, 516 )
-
-[node name="WallTorch3" parent="." instance=ExtResource( 15 )]
-position = Vector2( -1872, 516 )
+position = Vector2( -1103, 608 )
 
 [node name="WallTorch2" parent="." instance=ExtResource( 15 )]
-position = Vector2( -144, 516 )
+position = Vector2( -144, 608 )
+
+[node name="WallTorch3" parent="." instance=ExtResource( 15 )]
+position = Vector2( -1872, 608 )
 
 [node name="Player" parent="." instance=ExtResource( 29 )]
-position = Vector2( -1358, 621 )
+position = Vector2( -1296, 655 )
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position = Vector2( 9.72693, -62.0423 )

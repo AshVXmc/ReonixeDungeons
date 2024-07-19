@@ -305,13 +305,11 @@ shape = SubResource( 3 )
 disabled = true
 
 [node name="SecondSlash" type="Sprite" parent="."]
-visible = false
 self_modulate = Color( 0.921569, 0.411765, 0, 1 )
 rotation = 0.349066
 texture = ExtResource( 3 )
 
 [node name="FirstSlash" type="Sprite" parent="."]
-visible = false
 rotation = 0.378155
 scale = Vector2( 1.56667, 3.23333 )
 texture = ExtResource( 3 )

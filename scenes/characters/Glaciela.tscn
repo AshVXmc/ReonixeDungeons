@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=2]
+[gd_scene load_steps=43 format=2]
 
 [ext_resource path="res://assets/characters/glaciela/glaciela_idle.png" type="Texture" id=1]
 [ext_resource path="res://assets/characters/glaciela/glaciela_walk.png" type="Texture" id=2]
@@ -1377,6 +1377,82 @@ extents = Vector2( 42.0083, 40 )
 [sub_resource type="RectangleShape2D" id=19]
 extents = Vector2( 100, 50 )
 
+[sub_resource type="Animation" id=24]
+resource_name = "Death"
+tracks/0/type = "value"
+tracks/0/path = NodePath("AnimatedSprite:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.7, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 0, 0, 0, 1 ), Color( 0, 0, 0, 1 ) ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.5, 0.9 ),
+"transitions": PoolRealArray( 1, 1 ),
+"values": [ {
+"args": [  ],
+"method": "add_death_particles"
+}, {
+"args": [  ],
+"method": "swap_to_nearby_alive_characters"
+} ]
+}
+
+[sub_resource type="Animation" id=25]
+resource_name = "Hurt"
+length = 0.2
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0.490196 ), Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=26]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+
 [node name="Glaciela" type="Node2D"]
 script = ExtResource( 4 )
 
@@ -1574,6 +1650,11 @@ texture = ExtResource( 15 )
 [node name="ConeOfCold" parent="." instance=ExtResource( 16 )]
 position = Vector2( 45, 0 )
 scale = Vector2( 4, 4 )
+
+[node name="HurtAnimationPlayer" type="AnimationPlayer" parent="."]
+anims/Death = SubResource( 24 )
+anims/Hurt = SubResource( 25 )
+anims/RESET = SubResource( 26 )
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
 [connection signal="area_entered" from="AttackCollision" to="." method="_on_AttackCollision_area_entered"]

@@ -589,7 +589,6 @@ func use_skill():
 			use_talent_skill()
 
 func use_primary_skill():
-	
 	if Global.current_character == Global.equipped_characters[0] and Global.mana >= Global.player_skill_multipliers["FireSawCost"]:
 		emit_signal("skill_used", "FireSaw", attack_buff)
 		emit_signal("skill_ui_update", "FireSaw")
@@ -809,7 +808,7 @@ func _input(event):
 			airborne_mode = false
 		if event.is_action_pressed("heal"):
 			if Global.healthpot_amount > 0:
-				heal(5)
+				heal("Player", 5)
 
 func charged_dash():
 	$DashInputPressTimer.stop()
@@ -860,6 +859,8 @@ func charged_attack(type : String = "Ground"):
 		var ss_projectile = SUPER_SLASH_PROJECTILE.instance()
 		ss_projectile.position = $Position2D.global_position
 		get_parent().add_child(ss_projectile)
+		$ChargedAttackCollision.add_to_group("SulphuricSigilTrigger")
+		
 		if $Sprite.flip_h:
 			ss_projectile.flip_projectile(-1)
 		for n in $ChargedAttackCollision.get_groups():
@@ -881,6 +882,9 @@ func charged_attack(type : String = "Ground"):
 		hitparticle.position = $Position2D.global_position
 		#emit_signal("change_elegance"), "ChargedAttackLight")
 		sheathe_katana()
+		yield(get_tree().create_timer(0.15),"timeout")
+		$ChargedAttackCollision.remove_from_group("SulphuricSigilTrigger")
+		
 	# the judgement cut-like attack
 	elif type == "Circular":
 		$ChargingParticle.visible = false
@@ -1305,7 +1309,7 @@ func _on_Area2D_area_entered(area : Area2D):
 			
 		if area.is_in_group("HealthPack") and area.is_in_group("Active"):
 			# The 999 value is not relevant since health packs heal to maximum amount
-			heal(999, true)
+			heal("Player", 999, true)
 		if area.is_in_group("LifeWine"):
 			Global.lifewine_amount += 1
 			emit_signal("lifewine_obtained", Global.lifewine_amount)
@@ -1422,32 +1426,33 @@ func take_damage(damage : float):
 				emit_signal("life_changed", Global.character3_hearts, "Player")
 #		print(shield_hp)
 
-func heal(heal_amount : float, heal_to_max : bool = false, consumes_potion : bool = true):
+func heal(character : String = "Player", heal_amount : float = 0, heal_to_max : bool = false, consumes_potion : bool = true):
 	# heal amount in percentage based on max HP
-	if Global.equipped_characters[0] == "Player":
+	if Global.equipped_characters[0] == character:
 		if !heal_to_max:
 			add_heal_particles(clamp(heal_amount, 0, Global.max_hearts - Global.hearts))
 			Global.hearts += clamp(heal_amount, 0, Global.max_hearts - Global.hearts)
 		else:
 			add_heal_particles(Global.max_hearts - Global.hearts)
 			Global.hearts = Global.max_hearts
-		emit_signal("life_changed", Global.hearts, "Player")
-	elif Global.equipped_characters[1] == "Player":
+		emit_signal("life_changed", Global.hearts, character)
+	elif Global.equipped_characters[1] == character:
 		if !heal_to_max:
 			add_heal_particles(clamp(heal_amount, 0, Global.character_2_max_hearts - Global.character2_hearts))
 			Global.character2_hearts += clamp(heal_amount, 0, Global.character_2_max_hearts - Global.character2_hearts)
 		else:
 			add_heal_particles(Global.character_2_max_hearts - Global.character2_hearts)
 			Global.character2_hearts = Global.character_2_max_hearts
-		emit_signal("life_changed", Global.character2_hearts, "Player")
-	elif Global.equipped_characters[2] == "Player":
+		emit_signal("life_changed", Global.character2_hearts, character)
+	elif Global.equipped_characters[2] == character:
 		if !heal_to_max:
 			add_heal_particles(clamp(heal_amount, 0, Global.character_3_max_hearts - Global.character3_hearts))
 			Global.character3_hearts += clamp(heal_amount, 0, Global.character_3_max_hearts - Global.character3_hearts)
 		else:
 			add_heal_particles(Global.character_3_max_hearts - Global.character3_hearts)
 			Global.character3_hearts = Global.character_3_max_hearts 
-		emit_signal("life_changed", Global.character3_hearts, "Player")
+		emit_signal("life_changed", Global.character3_hearts, character)
+	
 	if !heal_to_max and consumes_potion:
 		Global.healthpot_amount -= 1
 		emit_signal("healthpot_obtained", Global.healthpot_amount)
@@ -1488,7 +1493,6 @@ func after_damaged():
 			dead(Global.equipped_characters[2])
 
 func dead(character_id):
-	print("PLAYER DED")
 	is_dead = true
 	is_invulnerable = true
 	$InvulnerabilityTimer.start()
@@ -1501,6 +1505,25 @@ func dead(character_id):
 		Global.alive[2] = false
 	
 	$HurtAnimationPlayer.play("Death")
+	yield(get_tree().create_timer(0.4), "timeout")
+	
+	var alive_status : Array = [true, true, true]
+	var counter : int = 0
+	for c in Global.equipped_characters:
+		if Global.character_list.find(Global.equipped_characters[counter]) != -1:
+			if !Global.alive[counter]:
+				alive_status[counter] = false
+		else:
+			alive_status[counter] = false
+		counter += 1
+
+	if !alive_status[0] and !alive_status[1] and !alive_status[2]:
+		var counter_sec : int = 0
+		for c in Global.equipped_characters:
+			if Global.character_list.find(Global.equipped_characters[counter_sec]) != -1:
+				heal(c, 999, true)
+			counter_sec += 1
+		get_parent().get_node("GameOverUI/GameOver").open_game_over_ui()
 
 func add_death_particles():
 	var deathparticle = DEATH_SMOKE_PARTICLE.instance()
@@ -1514,6 +1537,8 @@ func swap_to_nearby_alive_characters():
 			var pos = Global.alive.find(c) + 1
 			emit_signal("force_character_swap", pos)
 			break
+
+
 func add_hurt_particles(damage : float):
 	var hurt_particle = HURT_PARTICLE.instance()
 	hurt_particle.damage = damage * 2

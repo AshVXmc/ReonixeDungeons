@@ -44,5 +44,6 @@ func trigger_slash():
 
 func _on_Area2D_area_entered(area):
 	if area.is_in_group("SulphuricSigilTrigger"):
-		trigger_slash()
-		get_parent().remove_from_group("MarkedWithSulphuricSigil")
+		if Global.player_talents["HellishFervor"]["unlocked"] and Global.player_talents["HellishFervor"]["enabled"]:
+			trigger_slash()
+			get_parent().remove_from_group("MarkedWithSulphuricSigil")

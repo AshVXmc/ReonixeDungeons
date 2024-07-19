@@ -10,8 +10,9 @@ var character_health_data : Dictionary = {
 
 var max_hearts : float
 var hearts : float
-var max_mana : float = 18
+var max_mana : float = 20
 var mana : float = max_mana
+
 var character_2_max_hearts : float
 var character2_hearts : float
 var character2_max_mana = max_mana
@@ -71,7 +72,7 @@ var player_skill_multipliers : Dictionary = {
 	"FireFairy": 25.0,
 	"FireFairyDuration": 10.0,
 	"Fireball": 55.0,
-	"FireballCD": 6.0,
+	"FireballCD": 5.0,
 	"FireballCharges": 3,
 	"FireballMaxCharges": 3,
 	"FireSawCost": 15,
@@ -104,7 +105,7 @@ var player_unlocked_skins = {
 # player talents are passive skills
 var player_talents : Dictionary = {
 	"TalentSlots": 0,
-	"MaxTalentSlots": 5,
+	"MaxTalentSlots": 6,
 	
 	"CycloneSlashes" : {
 		"unlocked" : false,
@@ -141,6 +142,13 @@ var player_talents : Dictionary = {
 		"opalscost": 100,
 		"dropchance": 40,
 		"managranted" : 2,
+		"talentslotcost": 3
+	},
+	# allows explosion of the sigil
+	"HellishFervor": {
+		"unlocked" : false,
+		"enabled" : false,
+		"opalscost": 100,
 		"talentslotcost": 3
 	},
 	"BadBlood":{
@@ -237,7 +245,7 @@ var glaciela_skill_multipliers : Dictionary = {
 	# so this is a fix. if it works, it works
 	"ConeOfCold": 100 * 0.15,
 	"ConeOfColdFreezeGauge": 100,
-	"ConeOfColdCD": 2.5,
+	"ConeOfColdCD": 6,
 	"ConeOfColdResourceConsumption": 120, # per tick.
 	"ConeOfColdRegenRate": 0.8,
 	
@@ -316,6 +324,7 @@ var lesser_soul_catalyst : int= 0
 
 var current_character : String 
 var equipped_characters : Array = ["Player", "Glaciela", "Agnette"]
+var character_list : Array = ["Player", "Glaciela", "Agnette"]
 var unlocked_characters : Array = ["Player", "Glaciela", ""]
 var alive : Array = [true, true, true]
 

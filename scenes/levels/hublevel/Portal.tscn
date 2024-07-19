@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://assets/terrain/hub_level/portal_opened.png" type="Texture" id=1]
 [ext_resource path="res://scripts/terrain/Portal.gd" type="Script" id=2]
@@ -10,6 +10,12 @@
 [ext_resource path="res://assets/terrain/hub_level/portal_opened_2.png" type="Texture" id=8]
 [ext_resource path="res://assets/terrain/hub_level/portal_opened_4.png" type="Texture" id=9]
 [ext_resource path="res://assets/particles/portal_particle.png" type="Texture" id=10]
+[ext_resource path="res://themes/Blur.tres" type="Material" id=11]
+[ext_resource path="res://scenes/menus/CharacterSelectionUI.tscn" type="PackedScene" id=12]
+[ext_resource path="res://scenes/menus/CharacterMenuUI.tscn" type="PackedScene" id=13]
+[ext_resource path="res://assets/UI/button_pressed.png" type="Texture" id=14]
+[ext_resource path="res://assets/UI/button.png" type="Texture" id=15]
+[ext_resource path="res://assets/UI/keybind_button.png" type="Texture" id=16]
 
 [sub_resource type="SpriteFrames" id=6]
 animations = [ {
@@ -26,18 +32,6 @@ extents = Vector2( 116.736, 134.134 )
 size = 36
 font_data = ExtResource( 3 )
 
-[sub_resource type="DynamicFont" id=3]
-size = 48
-font_data = ExtResource( 6 )
-
-[sub_resource type="DynamicFont" id=4]
-size = 32
-font_data = ExtResource( 6 )
-
-[sub_resource type="DynamicFont" id=5]
-size = 32
-font_data = ExtResource( 6 )
-
 [sub_resource type="ParticlesMaterial" id=7]
 lifetime_randomness = 0.1
 emission_shape = 1
@@ -49,6 +43,18 @@ gravity = Vector3( 0, 0, 0 )
 initial_velocity = 25.0
 orbit_velocity = 0.0
 orbit_velocity_random = 0.0
+
+[sub_resource type="DynamicFont" id=8]
+size = 32
+font_data = ExtResource( 6 )
+
+[sub_resource type="DynamicFont" id=9]
+size = 48
+font_data = ExtResource( 6 )
+
+[sub_resource type="DynamicFont" id=10]
+size = 32
+font_data = ExtResource( 6 )
 
 [node name="Portal" type="Node2D"]
 script = ExtResource( 2 )
@@ -79,100 +85,6 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Plaque" type="CanvasLayer" parent="."]
-
-[node name="Control" type="Control" parent="Plaque"]
-visible = false
-anchor_left = 0.5
-anchor_top = 0.33
-anchor_right = 0.5
-anchor_bottom = 0.33
-margin_left = -540.0
-margin_top = -237.6
-margin_right = 534.0
-margin_bottom = 484.4
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="NinePatchRect" type="NinePatchRect" parent="Plaque/Control"]
-anchor_left = 0.518
-anchor_top = 0.321
-anchor_right = 0.518
-anchor_bottom = 0.321
-margin_left = -283.787
-margin_top = -5.22173
-margin_right = 276.213
-margin_bottom = 431.778
-texture = ExtResource( 5 )
-patch_margin_left = 64
-patch_margin_top = 64
-patch_margin_right = 64
-patch_margin_bottom = 64
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Header" type="RichTextLabel" parent="Plaque/Control/NinePatchRect"]
-margin_left = 61.5767
-margin_right = 529.577
-margin_bottom = 48.0
-custom_fonts/normal_font = SubResource( 3 )
-bbcode_enabled = true
-bbcode_text = "=== [color=#cf9013]Ancient Portal[/color] ==="
-text = "=== Ancient Portal ==="
-scroll_active = false
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Text" type="RichTextLabel" parent="Plaque/Control/NinePatchRect"]
-margin_left = 103.0
-margin_top = 49.0
-margin_right = 458.0
-margin_bottom = 86.0
-custom_fonts/normal_font = SubResource( 4 )
-bbcode_enabled = true
-bbcode_text = "Select a level to teleport to."
-text = "Select a level to teleport to."
-scroll_active = false
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="CloseButton" type="TextureButton" parent="Plaque/Control/NinePatchRect"]
-margin_left = 500.056
-margin_right = 540.056
-margin_bottom = 40.0
-rect_scale = Vector2( 1.5, 1.5 )
-texture_normal = ExtResource( 4 )
-expand = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="HubLevel" type="Button" parent="Plaque/Control/NinePatchRect"]
-margin_left = 62.0
-margin_top = 86.0
-margin_right = 180.0
-margin_bottom = 146.0
-custom_fonts/font = SubResource( 5 )
-text = "Hub Level"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Level5" type="Button" parent="Plaque/Control/NinePatchRect"]
-margin_left = 215.0
-margin_top = 86.0
-margin_right = 341.0
-margin_bottom = 146.0
-custom_fonts/font = SubResource( 5 )
-text = "Level 5"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
 [node name="Particles2D" type="Particles2D" parent="."]
 visible = false
 position = Vector2( 0, 9 )
@@ -182,7 +94,144 @@ explosiveness = 0.25
 process_material = SubResource( 7 )
 texture = ExtResource( 10 )
 
-[connection signal="area_exited" from="Area2D" to="." method="_on_Area2D_area_exited"]
-[connection signal="pressed" from="Plaque/Control/NinePatchRect/CloseButton" to="." method="_on_CloseButton_pressed"]
-[connection signal="pressed" from="Plaque/Control/NinePatchRect/HubLevel" to="." method="_on_HubLevel_pressed"]
-[connection signal="pressed" from="Plaque/Control/NinePatchRect/Level5" to="." method="_on_Level5_pressed"]
+[node name="CharacterSelectionUI" parent="." instance=ExtResource( 12 )]
+
+[node name="LevelSelectionUI" type="CanvasLayer" parent="."]
+pause_mode = 2
+
+[node name="Control" type="Control" parent="LevelSelectionUI"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -540.0
+margin_top = -360.0
+margin_right = 540.0
+margin_bottom = 360.0
+
+[node name="Blur" type="ColorRect" parent="LevelSelectionUI/Control"]
+material = ExtResource( 11 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -1176.64
+margin_top = -639.091
+margin_right = 2063.36
+margin_bottom = 1520.91
+color = Color( 1, 1, 1, 0 )
+
+[node name="NinePatchRect" type="NinePatchRect" parent="LevelSelectionUI/Control"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -250.0
+margin_top = -226.0
+margin_right = 250.0
+margin_bottom = 226.0
+texture = ExtResource( 5 )
+patch_margin_left = 64
+patch_margin_top = 64
+patch_margin_right = 64
+patch_margin_bottom = 64
+
+[node name="Header" type="RichTextLabel" parent="LevelSelectionUI/Control/NinePatchRect"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -215.5
+margin_top = 10.0
+margin_right = 71.5
+margin_bottom = 37.0
+rect_scale = Vector2( 1.5, 1.5 )
+custom_colors/default_color = Color( 1, 1, 1, 1 )
+custom_fonts/normal_font = SubResource( 8 )
+bbcode_enabled = true
+bbcode_text = "[center]= [color=#ffd703]Level Selection[/color] ="
+text = "= Level Selection ="
+scroll_active = false
+
+[node name="SelectCharactersUI" type="Control" parent="LevelSelectionUI/Control/NinePatchRect"]
+margin_left = -54.0
+margin_top = -36.0
+margin_right = -14.0
+margin_bottom = 4.0
+
+[node name="CloseButtonMainUI" type="TextureButton" parent="LevelSelectionUI/Control/NinePatchRect"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -252.0
+margin_top = -227.0
+margin_right = -212.0
+margin_bottom = -187.0
+rect_scale = Vector2( 1.5, 1.5 )
+texture_normal = ExtResource( 4 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PartyCannotBeEmptyLabel" type="Label" parent="LevelSelectionUI/Control/NinePatchRect"]
+visible = false
+anchor_left = 0.5
+anchor_top = 1.093
+anchor_right = 0.5
+anchor_bottom = 1.093
+margin_left = -210.0
+margin_top = -39.176
+margin_right = 210.0
+margin_bottom = 8.82397
+custom_colors/font_color = Color( 1, 0, 0, 1 )
+custom_fonts/font = SubResource( 9 )
+text = "Party cannot be empty."
+align = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="LevelSelectionUI/Control/NinePatchRect"]
+anchor_right = 1.712
+anchor_bottom = 2.558
+margin_left = 25.0
+margin_top = 76.0
+margin_right = -373.0
+margin_bottom = -760.216
+rect_min_size = Vector2( 458, 330 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="LevelSelectionUI/Control/NinePatchRect/ScrollContainer"]
+margin_right = 450.0
+margin_bottom = 800.0
+rect_min_size = Vector2( 450, 800 )
+
+[node name="Control" type="Control" parent="LevelSelectionUI/Control/NinePatchRect/ScrollContainer/VBoxContainer"]
+margin_right = 450.0
+
+[node name="1" type="TextureButton" parent="LevelSelectionUI/Control/NinePatchRect/ScrollContainer/VBoxContainer/Control"]
+margin_left = 20.0
+margin_right = 140.0
+margin_bottom = 60.0
+rect_min_size = Vector2( 120, 60 )
+texture_normal = ExtResource( 15 )
+texture_pressed = ExtResource( 14 )
+texture_hover = ExtResource( 16 )
+expand = true
+
+[node name="Label" type="Label" parent="LevelSelectionUI/Control/NinePatchRect/ScrollContainer/VBoxContainer/Control/1"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -42.0
+margin_top = -16.0
+margin_right = 38.0
+margin_bottom = 16.0
+custom_fonts/font = SubResource( 10 )
+text = "Level 1"
+align = 1
+
+[node name="CharacterMenuUI" parent="." instance=ExtResource( 13 )]
+
+[node name="ButtonPressCD" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_Area2D_area_entered"]
