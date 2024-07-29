@@ -445,10 +445,12 @@ custom_fonts/normal_font = SubResource( 2 )
 bbcode_enabled = true
 bbcode_text = "[color=#ffd703]Flaming Firesaw[/color]
 Twin flame blades spin around you for FIRESAW_DUR seconds, dealing [u]FIRESAW_ATK% ATK[/u] as [color=#fd9628]Fire[/color] damage and applies stacks of [color=#fd9628]Burning[/color].
+
 Cooldown: FIRESAW_CD seconds
 Mana cost: FIRESAW_COST mana"
 text = "Flaming Firesaw
 Twin flame blades spin around you for FIRESAW_DUR seconds, dealing FIRESAW_ATK% ATK as Fire damage and applies stacks of Burning.
+
 Cooldown: FIRESAW_CD seconds
 Mana cost: FIRESAW_COST mana"
 scroll_active = false
@@ -515,10 +517,12 @@ custom_fonts/normal_font = SubResource( 2 )
 bbcode_enabled = true
 bbcode_text = "[color=#ffd703]Fire Faerie[/color]
 Summon a fire spirit that automatically tracks enemies, dealing [u]FIREFAIRY_ATK% ATK[/u] as [color=#fd9628]Fire damage[/color]. Recast the skill to teleport the spirit to your location. The spirit lasts for FIREFAIRY_DUR seconds.
+
 Cooldown: FIREFAIRY_CD seconds
 Mana cost: FIREFAIRY_COST mana"
 text = "Fire Faerie
 Summon a fire spirit that automatically tracks enemies, dealing FIREFAIRY_ATK% ATK as Fire damage. Recast the skill to teleport the spirit to your location. The spirit lasts for FIREFAIRY_DUR seconds.
+
 Cooldown: FIREFAIRY_CD seconds
 Mana cost: FIREFAIRY_COST mana"
 scroll_active = false
@@ -585,9 +589,11 @@ custom_fonts/normal_font = SubResource( 2 )
 bbcode_enabled = true
 bbcode_text = "[color=#ffd703]Fireball[/color]
 Shoot a fiery ball that travels forward in a straight line, dealing [u]FIREBALL_ATK% ATK[/u] as [color=#fd9628]Fire damage[/color]. This skill has FIREBALL_CHARGES initial charges.
+
 Cooldown: FIREBALL_CD seconds per charge"
 text = "Fireball
 Shoot a fiery ball that travels forward in a straight line, dealing FIREBALL_ATK% ATK as Fire damage. This skill has FIREBALL_CHARGES initial charges.
+
 Cooldown: FIREBALL_CD seconds per charge"
 scroll_active = false
 
@@ -657,11 +663,11 @@ custom_fonts/normal_font = SubResource( 2 )
 bbcode_enabled = true
 bbcode_text = "[color=#ffd703]Create Sugar Roll[/color]
 Conjure a [color=#bda662]Sugar Roll[/color] at your location. A character can eat the roll, restoring health over time. The roll cannot be eaten if there are enemies nearby, and only one roll may exist in a level.
+
 Cooldown: CREATE_SUGAR_ROLL_CD seconds
 
 [color=#ffd703]Chaos Magic[/color]
 Upon casting, you produce one of the following effects at random. Casting your Primary, Secondary or Tertiary Skills also have a CHAOS_MAGIC_TRIGGER_CHANCE% chance of triggering this skill.
-Cooldown: CHAOS_MAGIC_CD seconds
  [color=#cc0001]1[/color]:
 A gust of wind propels you upward, knocking enemies away.
  [color=#fb940b]2[/color]:
@@ -677,14 +683,16 @@ You summon a laser beam in the direction you are facing, dealing Physical damage
  [color=#762ca7]7[/color]:
 A meteor crashes down in front of your facing direction, dealing [color=#deb600]Earth[/color] damage.
  [color=#fe98bf]8[/color]:
-All of your party member's health and mana is restored."
+All of your party member's health and mana is restored.
+
+Cooldown: CHAOS_MAGIC_CD seconds"
 text = "Create Sugar Roll
 Conjure a Sugar Roll at your location. A character can eat the roll, restoring health over time. The roll cannot be eaten if there are enemies nearby, and only one roll may exist in a level.
+
 Cooldown: CREATE_SUGAR_ROLL_CD seconds
 
 Chaos Magic
 Upon casting, you produce one of the following effects at random. Casting your Primary, Secondary or Tertiary Skills also have a CHAOS_MAGIC_TRIGGER_CHANCE% chance of triggering this skill.
-Cooldown: CHAOS_MAGIC_CD seconds
  1:
 A gust of wind propels you upward, knocking enemies away.
  2:
@@ -700,7 +708,9 @@ You summon a laser beam in the direction you are facing, dealing Physical damage
  7:
 A meteor crashes down in front of your facing direction, dealing Earth damage.
  8:
-All of your party member's health and mana is restored."
+All of your party member's health and mana is restored.
+
+Cooldown: CHAOS_MAGIC_CD seconds"
 scroll_active = false
 
 [node name="TalentControl1" type="Control" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/PlayerControl/PerkSkillScrollContainerControl/PerkSkillScrollContainer/VBoxContainer"]
@@ -853,10 +863,12 @@ custom_fonts/normal_font = SubResource( 2 )
 bbcode_enabled = true
 bbcode_text = "[color=#ffd703]Winter Queen[/color]
 Call upon your patron familiar to unleash a blizzard in an area of effect, dealing [u]WQ_ATK% ATK[/u] as [color=#7df0ff]Ice[/color] damage per tick and gradually [color=#7df0ff]Freezing[/color] enemies caught in the storm. 
+
 Cooldown: WQ_CD seconds
 Mana cost: WQ_COST mana"
 text = "Winter Queen
 Call upon your patron familiar to unleash a blizzard in an area of effect, dealing WQ_ATK% ATK as Ice damage per tick and gradually Freezing enemies caught in the storm. 
+
 Cooldown: WQ_CD seconds
 Mana cost: WQ_COST mana"
 scroll_active = false
@@ -924,11 +936,13 @@ bbcode_enabled = true
 bbcode_text = "[color=#ffd703]Ice Lance[/color]
 Hurl a double-bladed frost lance in your facing direction, dealing [u]ICELANCE_ATK% ATK[/u] as [color=#7df0ff]Ice[/color] damage to enemies. After it reaches maximum range, it homes back to you to deal further [color=#7df0ff]Ice[/color] damage. Each hit fills up ICELANCE_FREEZE_GAUGE% of the enemy's [color=#7df0ff]Freeze[/color] gauge.
 Consumes all stacks of [color=#c4fdff]Tundra Sigil[/color]. Each stack consumed grants a ICELANCE_DMG_BONUS% damage bonus to the attack.
+
 Cooldown: ICELANCE_CD seconds
 Mana cost: ICELANCE_COST mana"
 text = "Ice Lance
 Hurl a double-bladed frost lance in your facing direction, dealing ICELANCE_ATK% ATK as Ice damage to enemies. After it reaches maximum range, it homes back to you to deal further Ice damage. Each hit fills up ICELANCE_FREEZE_GAUGE% of the enemy's Freeze gauge.
 Consumes all stacks of Tundra Sigil. Each stack consumed grants a ICELANCE_DMG_BONUS% damage bonus to the attack.
+
 Cooldown: ICELANCE_CD seconds
 Mana cost: ICELANCE_COST mana"
 scroll_active = false
@@ -993,13 +1007,13 @@ custom_fonts/italics_font = SubResource( 2 )
 custom_fonts/normal_font = SubResource( 2 )
 bbcode_enabled = true
 bbcode_text = "[color=#ffd703]Cone Of Cold[/color]
-Shoot forth a torrent of cold air in a cone-shaped area in your facing direction that deals [u]COC_ATK% ATK[/u] as [color=#7df0ff]Ice[/color] damage per tick and fills up COC_FREEZE_GAUGE% of the enemy's [color=#7df0ff]Freeze[/color] gauge.
+Shoot forth a torrent of cold air in a cone-shaped area in your facing direction that deals [u]COC_ATK% ATK[/u] as [color=#7df0ff]Ice[/color] damage per tick and fills up COC_FREEZE_GAUGE% of the enemy's [color=#7df0ff]Freeze[/color] gauge. While casting, your movement speed is reduced by COC_MOV_SPD_PENALTY%.
 
 Usage drains a resource meter. The skill enters cooldown when you recast it, change characters, or fully deplete the meter. While inactive, the resource meter regenerates over time.
 
 Cooldown: COC_CD seconds"
 text = "Cone Of Cold
-Shoot forth a torrent of cold air in a cone-shaped area in your facing direction that deals COC_ATK% ATK as Ice damage per tick and fills up COC_FREEZE_GAUGE% of the enemy's Freeze gauge.
+Shoot forth a torrent of cold air in a cone-shaped area in your facing direction that deals COC_ATK% ATK as Ice damage per tick and fills up COC_FREEZE_GAUGE% of the enemy's Freeze gauge. While casting, your movement speed is reduced by COC_MOV_SPD_PENALTY%.
 
 Usage drains a resource meter. The skill enters cooldown when you recast it, change characters, or fully deplete the meter. While inactive, the resource meter regenerates over time.
 

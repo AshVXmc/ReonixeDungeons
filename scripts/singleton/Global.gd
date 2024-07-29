@@ -55,8 +55,8 @@ var player_skill_multipliers : Dictionary = {
 	"ThrustChargedAttack": 85.0,
 	"UpwardsChargedAttack": 28.0, # x 2
 	"DownwardsChargedAttack": 56.0,
-	"SpecialChargedAttack": 35.0 ,# x 4
-	"SpecialChargedAttackFinalStrike": 140.0,
+	"SpecialChargedAttack": 40.0 ,# x 4
+	"SpecialChargedAttackFinalStrike": 150.0,
 	"CircularFlurryAttack": 40.0, # x 3
 	"PiercingProjectile": 95.0,
 	"EntryAttack": 50.0, # x 3
@@ -248,7 +248,7 @@ var glaciela_skill_multipliers : Dictionary = {
 	"ConeOfColdCD": 6,
 	"ConeOfColdResourceConsumption": 120, # per tick.
 	"ConeOfColdRegenRate": 0.8,
-	
+	"ConeOfColdMovementSpeedPenalty": 70.0,
 	# minimum amount of mana to be able to channel it.
 	"ConeOfColdCost": 0,
 	

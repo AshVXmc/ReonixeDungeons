@@ -60,10 +60,11 @@ func summon_healing_orb():
 	$HealingOrbTimer.start()
 
 func _on_HealingOrbTimer_timeout():
-	if !is_frozen and target != null and target.get_node("Area2D").overlaps_area($Detector):
-		summon_healing_orb()
-	else:
-		$HealingOrbTimer.start()
+	if weakref(target).get_ref() != null:
+		if !is_frozen and target != null and target.get_node("Area2D").overlaps_area($Detector):
+			summon_healing_orb()
+		else:
+			$HealingOrbTimer.start()
 
 func teleport_away():
 	is_casting = true

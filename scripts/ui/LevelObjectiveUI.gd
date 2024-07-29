@@ -1,6 +1,7 @@
 extends CanvasLayer
 
-
+func _ready():
+	$WaveControl.visible = false
 # probably only used in endless
 func initiative_wave_ui(wave : int):
 	$WaveControl/WaveLabel.text = "Wave " + str(wave)

@@ -10,7 +10,8 @@ var is_dead : bool = false
 var direction : int = 1
 const TYPE : String = "Enemy"
 const FLOOR = Vector2(0, -1)
-var SPEED : int = 100
+const MAX_SPEED : int = 100
+var SPEED : int = MAX_SPEED
 const MAX_GRAVITY : int = 45
 var GRAVITY : int = MAX_GRAVITY
 const LOOT : PackedScene = preload("res://scenes/items/LootBag.tscn")
@@ -81,15 +82,15 @@ func _on_Area2D_area_entered(area):
 	if !is_frozen:
 		if is_airborne:
 			if !area.is_in_group("NoAirborneKnockback") and area.is_in_group("LightPoiseDamage") or area.is_in_group("MediumPoiseDamage"):
-				knockback(1.5)
+				knockback(2.5)
 		else:
 			if area.is_in_group("LightPoiseDamage"):
-				knockback(1.5)
+				knockback(2.5)
 
 		if area.is_in_group("MediumPoiseDamage"):
-			knockback(8)
+			knockback(12)
 		if area.is_in_group("HeavyPoiseDamage"):
-			knockback(20)
+			knockback(25)
 		if area.is_in_group("CustomPoiseDamage"):
 			for g in area.get_groups():
 				if float(g) != 0:
@@ -254,9 +255,9 @@ func _on_Area2D_area_entered(area):
 func knockback(knockback_coefficient : float = 1):
 	is_staggered = true
 	if $AnimatedSprite.flip_h:
-		velocity.x = -SPEED * knockback_coefficient
-	else:
 		velocity.x = SPEED * knockback_coefficient
+	else:
+		velocity.x = -SPEED * knockback_coefficient
 	$HurtTimer.start()
 	
 	
@@ -323,4 +324,8 @@ func _on_Area2D_area_exited(area):
 		is_frozen = false
 	if area.is_in_group("Airborne"):
 		is_airborne = false
+	if area.is_in_group("TempusTardus"):
+		SPEED = MAX_SPEED
+		GRAVITY = MAX_GRAVITY
+		$AnimatedSprite.speed_scale = 1.0
 #		velocity.x = 0

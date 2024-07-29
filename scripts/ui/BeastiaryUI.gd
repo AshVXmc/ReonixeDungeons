@@ -4,8 +4,10 @@ var dict_beastiary : Dictionary
 var goblin_icon = preload("res://assets/enemies/goblin1.png")
 var bow_goblin_icon = preload("res://assets/enemies/bow_goblin1.png")
 var bat_icon = preload("res://assets/enemies/bat_1.png")
-var shaman_goblin = preload("res://assets/enemies/goblin_shaman_1.png")
-
+var shaman_goblin_icon = preload("res://assets/enemies/goblin_shaman_1.png")
+var slime_icon = preload("res://assets/enemies/slime1.png")
+var fire_slime_icon = preload("res://assets/enemies/fire_slime_1.png")
+var witch_goblin_icon = preload("res://assets/enemies/witch_goblin_summoning_1.png")
 
 func _ready():
 	close_ui()
@@ -46,7 +48,14 @@ func open_beast_info_screen(beast_name : String):
 		"Bat":
 			$NinePatchRect/BeastInfoControl/Sprite.texture = bat_icon
 		"ShamanGoblin":
-			$NinePatchRect/BeastInfoControl/Sprite.texture = shaman_goblin
+			$NinePatchRect/BeastInfoControl/Sprite.texture = shaman_goblin_icon
+		"WitchGoblin":
+			$NinePatchRect/BeastInfoControl/Sprite.texture = witch_goblin_icon
+		"Slime":
+			$NinePatchRect/BeastInfoControl/Sprite.texture = slime_icon
+		"FireSlime":
+			$NinePatchRect/BeastInfoControl/Sprite.texture = fire_slime_icon
+			
 	$NinePatchRect/BeastInfoControl.visible = true
 	
 func _on_CloseButton_pressed():
@@ -68,14 +77,11 @@ func _on_ButtonBat_pressed():
 func _on_ButtonShamanGoblin_pressed():
 	open_beast_info_screen("ShamanGoblin")
 
-
 func _on_ButtonSlime_pressed():
-	pass # Replace with function body.
-
+	open_beast_info_screen("Slime")
 
 func _on_ButtonFireSlime_pressed():
-	pass # Replace with function body.
-
+	open_beast_info_screen("FireSlime")
 
 func _on_ButtonWitchGoblin_pressed():
-	pass # Replace with function body.
+	open_beast_info_screen("WitchGoblin")

@@ -108,8 +108,9 @@ func update_glaciela_description_text():
 		"COC_FREEZE_GAUGE", str(Global.glaciela_skill_multipliers["ConeOfColdFreezeGauge"] / 10))
 	glaciela_tskill_text.bbcode_text = glaciela_tskill_text.bbcode_text.replace(
 		"COC_CD", str(Global.glaciela_skill_multipliers["ConeOfColdCD"]))
-	
-	
+	glaciela_tskill_text.bbcode_text = glaciela_tskill_text.bbcode_text.replace(
+		"COC_MOV_SPD_PENALTY", str(Global.glaciela_skill_multipliers["ConeOfColdMovementSpeedPenalty"]))
+
 	
 	
 # access the update_perk_skill function in player

@@ -1,9 +1,12 @@
 class_name EndlessLevel extends Level
 # NAME IDEAS
 # The Palace of Trials
-var WAVE : int = 1
+var WAVE : int = 3
 const GOBLIN = preload("res://scenes/enemies/Goblin.tscn")
 const BOW_GOBLIN = preload("res://scenes/enemies/BowGoblin.tscn")
+const SHAMAN_GOBLIN = preload("res://scenes/enemies/ShamanGoblin.tscn")
+const SLIME = preload("res://scenes/enemies/Slime.tscn")
+const FIRE_SLIME = preload("res://scenes/enemies/FireSlime.tscn")
 # Every member of the array will be spawned in the corresponding position2D node based on their index.
 var objective_label_text = "Defeat all enemies ({enemies_left}/{total_enemies})"
 var timer_label_text = "Time elapsed: "
@@ -14,20 +17,22 @@ var time_elapsed : float
 # be spawned in spawnpoint1.
 
 var wave_batches = {
-	1 : [GOBLIN, GOBLIN],
-	2: [BOW_GOBLIN,  BOW_GOBLIN]
+	1 : [SLIME, SLIME, FIRE_SLIME, FIRE_SLIME],
+	2: [GOBLIN, BOW_GOBLIN, GOBLIN],
+	3: [GOBLIN, SHAMAN_GOBLIN, GOBLIN]
 }
 
 # POINT 0: LEFT PILLAR
 # POINT 1: MIDDLE OF ROOM
 # POINT 2: RIGHT PILLAR
-# POINT 3: LEFT PLATFORM
-# POINT 4: MIDDLE LEFT PLATFORM
-# POINT 5: MIDDLE RIGHT PLATFORM
-# POINT 6: RIGHT PLATFORM
+# POINT 3: LOWER LEFT PLATFORM
+# POINT 4: UPPER LEFT PLATFORM
+# POINT 5: UPPER RIGHT PLATFORM
+# POINT 6: LOWER RIGHT PLATFORM
 var wave_spawn_points = {
-	1: [0, 2],
-	2: [0, 2]
+	1: [0, 2, 3, 6],
+	2: [0, 1, 2],
+	3: [0, [4,5], 2]
 }
 
 
@@ -70,11 +75,18 @@ func initiate_enemy_wave(wave : int):
 			var e = enemy.instance()
 			add_child(e)
 			e.add_to_group("WaveEnemy")
-			e.position = get_node("SpawnPoint" + str(wave_spawn_points[wave][e_index])).global_position
+			var spawn_pos = wave_spawn_points[wave][e_index]
+			if typeof(spawn_pos) == TYPE_INT:
+				e.position = get_node("SpawnPoint" + str(spawn_pos)).global_position
+			elif typeof(spawn_pos) == TYPE_ARRAY:
+				e.position = get_node("SpawnPoint" + str(pick_random_from_array(spawn_pos))).global_position
 			enemy_list.remove(e_index)
 			enemy_list.insert(e_index, "")
 	$LevelObjectiveUI.initiative_wave_ui(wave)
 
+func pick_random_from_array(arr : Array):
+	randomize()
+	return arr[randi() % arr.size()]
 
 func end_challenge():
 	challenge_ended = true

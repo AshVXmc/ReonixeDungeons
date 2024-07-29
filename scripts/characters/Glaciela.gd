@@ -791,6 +791,13 @@ func _on_Area2D_area_entered(area):
 		if area.is_in_group("LifeWine"):
 			Global.lifewine_amount += 1
 			emit_signal("lifewine_obtained", Global.lifewine_amount)
+		if area.is_in_group("ConeOfColdSnareOn"):
+			print("SNARE ON ON ON ONOO")
+			var slowdown_coefficient : float = area.get_parent().slowdown_coefficient
+			get_parent().get_parent().SPEED -= get_parent().get_parent().MAX_SPEED * slowdown_coefficient
+		if area.is_in_group("ConeOfColdSnareOff"):
+			var slowdown_coefficient : float = area.get_parent().slowdown_coefficient
+			get_parent().get_parent().SPEED += get_parent().get_parent().MAX_SPEED * slowdown_coefficient
 		if !Global.godmode:
 			if $InvulnerabilityTimer.is_stopped() and !get_parent().get_parent().is_invulnerable and !get_parent().get_parent().is_dashing:
 				if area.is_in_group("Enemy") and area.is_in_group("Hostile")or area.is_in_group("Projectile"):

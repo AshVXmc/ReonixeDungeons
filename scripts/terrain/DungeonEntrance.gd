@@ -47,9 +47,9 @@ func update_level_list():
 func load_next_scene(slot_one : String, slot_two : String, slot_three : String):
 	colorrect.visible = true
 	Global.equipped_characters = [slot_one, slot_two, slot_three]
-	
-	print(Global.equipped_characters)
-	print(Global.alive)
+
+#	print(Global.equipped_characters)
+#	print(Global.alive)
 	Global.assign_health_points()
 #	Global.save_player_data()
 

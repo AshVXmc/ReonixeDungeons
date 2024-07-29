@@ -43,6 +43,7 @@ var prev_charged_attack_power : Array
 var number_of_atk_buffs : int = 0
 var number_of_charged_atk_buffs : int = 0
 var number_of_basic_atk_buffs : int = 0
+var move_speed_multiplier : float = 1
 onready var inv_timer : Timer = $InvulnerabilityTimer
 onready var fb_timer : Timer = $FireballTimer
 var knockdir : Vector2 = Vector2.ZERO
@@ -689,10 +690,13 @@ func dash_counter_attack():
 		counterflurryeffect.player_counter_attack_animation()
 		yield(get_tree().create_timer(0.1), "timeout")
 		update_energy_meter(10)
+		change_mana_value(0.25)
 		yield(get_tree().create_timer(0.1), "timeout")
 		update_energy_meter(10)
+		change_mana_value(0.25)
 		yield(get_tree().create_timer(0.1), "timeout")
 		update_energy_meter(10)
+		change_mana_value(0.25)
 		yield(get_tree().create_timer(0.2), "timeout")
 		is_dash_counter_attacking = false
 func attack():
@@ -1317,14 +1321,16 @@ func _on_Area2D_area_entered(area : Area2D):
 			# from 0.1 - 0.9
 			var slowdown_coefficient : float = area.get_parent().slowdown_coefficient
 			var slowdown_duration : float = area.get_parent().slowdown_duration
-
+			
 			SPEED = MAX_SPEED * (1 - slowdown_coefficient)
-			print("ENSNARED: " + str(SPEED))
+#			print("ENSNARED: " + str(SPEED))
 			
 			$SnareTimer.stop()
 			$SnareTimer.wait_time = slowdown_duration
 			$SnareTimer.start()
 			$SnaredParticles.emitting = true
+		
+
 		if area.is_in_group("AddMana"):
 			change_mana_value(area.add_mana)
 		if !Global.godmode:
