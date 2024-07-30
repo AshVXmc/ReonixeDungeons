@@ -21,7 +21,7 @@ shape = SubResource( 1 )
 [node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="."]
 
 [node name="DestroyedTimer" type="Timer" parent="."]
-wait_time = 1.5
+wait_time = 0.5
 autostart = true
 
 [connection signal="area_entered" from="." to="." method="_on_Fireball_area_entered"]

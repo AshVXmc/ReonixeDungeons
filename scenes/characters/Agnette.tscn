@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://assets/characters/agnette/agnette_walk_1.png" type="Texture" id=1]
 [ext_resource path="res://assets/characters/agnette/agnette_idle_2.png" type="Texture" id=2]
@@ -6,13 +6,13 @@
 [ext_resource path="res://scripts/characters/Agnette.gd" type="Script" id=4]
 [ext_resource path="res://assets/characters/agnette/agnette_dash.png" type="Texture" id=5]
 [ext_resource path="res://assets/weapons/agnette_bow_1.png" type="Texture" id=6]
-[ext_resource path="res://assets/UI/chargebar_charging.png" type="Texture" id=7]
 [ext_resource path="res://scenes/particles/ChargingParticle.tscn" type="PackedScene" id=8]
 [ext_resource path="res://assets/weapons/agnette_bow_2.png" type="Texture" id=9]
-[ext_resource path="res://assets/UI/healthbar_empty.png" type="Texture" id=10]
 [ext_resource path="res://assets/weapons/agnette_bow_3.png" type="Texture" id=11]
 [ext_resource path="res://assets/weapons/agnette_bow_4.png" type="Texture" id=12]
+[ext_resource path="res://assets/UI/armorbar_empty.png" type="Texture" id=13]
 [ext_resource path="res://scenes/particles/StrongJumpParticle.tscn" type="PackedScene" id=14]
+[ext_resource path="res://assets/UI/armorbar_earth.png" type="Texture" id=15]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -34,7 +34,6 @@ animations = [ {
 
 [sub_resource type="Animation" id=20]
 resource_name = "BowAttackRight"
-length = 0.8
 tracks/0/type = "value"
 tracks/0/path = NodePath("BowSprite:texture")
 tracks/0/interp = 1
@@ -42,10 +41,10 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.2, 0.4, 0.8 ),
-"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"times": PoolRealArray( 0, 0.2, 0.4, 0.8, 1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
 "update": 1,
-"values": [ ExtResource( 6 ), ExtResource( 9 ), ExtResource( 11 ), ExtResource( 12 ) ]
+"values": [ ExtResource( 6 ), ExtResource( 9 ), ExtResource( 11 ), ExtResource( 12 ), ExtResource( 6 ) ]
 }
 
 [sub_resource type="RectangleShape2D" id=5]
@@ -64,6 +63,82 @@ extents = Vector2( 42.0083, 40 )
 [sub_resource type="RectangleShape2D" id=19]
 extents = Vector2( 100, 50 )
 
+[sub_resource type="Animation" id=21]
+resource_name = "Death"
+tracks/0/type = "value"
+tracks/0/path = NodePath("AnimatedSprite:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.7, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 0, 0, 0, 1 ), Color( 0, 0, 0, 1 ) ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.5, 0.9 ),
+"transitions": PoolRealArray( 1, 1 ),
+"values": [ {
+"args": [  ],
+"method": "add_death_particles"
+}, {
+"args": [  ],
+"method": "swap_to_nearby_alive_characters"
+} ]
+}
+
+[sub_resource type="Animation" id=22]
+resource_name = "Hurt"
+length = 0.2
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0.490196 ), Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=23]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+
 [node name="Agnette" type="Node2D"]
 script = ExtResource( 4 )
 
@@ -72,6 +147,22 @@ visible = false
 position = Vector2( -1.43051e-06, 0 )
 amount = 4
 
+[node name="ChargedAttackBar" type="TextureProgress" parent="."]
+visible = false
+margin_left = -60.0534
+margin_top = -86.9925
+margin_right = 59.9466
+margin_bottom = -62.9925
+texture_under = ExtResource( 13 )
+texture_progress = ExtResource( 15 )
+nine_patch_stretch = true
+
+[node name="BowSprite" type="Sprite" parent="."]
+position = Vector2( 40, 0 )
+scale = Vector2( 5, 5 )
+texture = ExtResource( 6 )
+flip_h = true
+
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 scale = Vector2( 5.25, 5.25 )
 frames = SubResource( 1 )
@@ -79,12 +170,6 @@ animation = "Dash"
 
 [node name="BowAnimationPlayer" type="AnimationPlayer" parent="."]
 anims/BowAttackRight = SubResource( 20 )
-
-[node name="BowSprite" type="Sprite" parent="."]
-position = Vector2( 43, 0 )
-scale = Vector2( 5, 5 )
-texture = ExtResource( 12 )
-flip_h = true
 
 [node name="AttackCollision" type="Area2D" parent="." groups=["MediumPoiseDamage", "Sword"]]
 
@@ -99,26 +184,13 @@ disabled = true
 position = Vector2( 102.213, -11.0022 )
 shape = SubResource( 9 )
 
-[node name="MeleeTimer" type="Timer" parent="."]
-wait_time = 0.35
+[node name="ShootTimer" type="Timer" parent="."]
+wait_time = 0.5
 one_shot = true
 
 [node name="AttackTimer" type="Timer" parent="."]
 wait_time = 0.1
 one_shot = true
-
-[node name="ChargeBar" type="TextureProgress" parent="."]
-visible = false
-margin_left = -49.805
-margin_top = -102.36
-margin_right = -29.805
-margin_bottom = -96.36
-rect_scale = Vector2( 5, 5 )
-texture_under = ExtResource( 10 )
-texture_progress = ExtResource( 7 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Area2D" type="Area2D" parent="."]
 
@@ -145,7 +217,7 @@ position = Vector2( 42, 0 )
 shape = SubResource( 17 )
 
 [node name="InputPressTimer" type="Timer" parent="."]
-wait_time = 0.5
+wait_time = 0.8
 one_shot = true
 
 [node name="AirborneTimer" type="Timer" parent="."]
@@ -174,8 +246,8 @@ position = Vector2( 148.451, -0.00581169 )
 shape = SubResource( 19 )
 disabled = true
 
-[node name="SpecialAttackTimer" type="Timer" parent="."]
-wait_time = 0.25
+[node name="ChargedAttackBarFillTimer" type="Timer" parent="."]
+wait_time = 0.1
 one_shot = true
 
 [node name="SpecialSequenceWindow" type="Timer" parent="."]
@@ -194,16 +266,22 @@ one_shot = true
 wait_time = 0.1
 one_shot = true
 
+[node name="HurtAnimationPlayer" type="AnimationPlayer" parent="."]
+anims/Death = SubResource( 21 )
+anims/Hurt = SubResource( 22 )
+anims/RESET = SubResource( 23 )
+
 [connection signal="area_entered" from="AttackCollision" to="." method="_on_AttackCollision_area_entered"]
 [connection signal="area_exited" from="AttackCollision" to="." method="_on_AttackCollision_area_exited"]
-[connection signal="timeout" from="MeleeTimer" to="." method="_on_MeleeTimer_timeout"]
+[connection signal="timeout" from="ShootTimer" to="." method="_on_ShootTimer_timeout"]
 [connection signal="timeout" from="AttackTimer" to="." method="_on_AttackTimer_timeout"]
 [connection signal="area_entered" from="Area2D" to="." method="_on_Area2D_area_entered"]
 [connection signal="timeout" from="ResetAttackStringTimer" to="." method="_on_ResetAttackStringTimer_timeout"]
 [connection signal="area_entered" from="EnemyEvasionArea" to="." method="_on_EnemyEvasionArea_area_entered"]
 [connection signal="area_exited" from="EnemyEvasionArea" to="." method="_on_EnemyEvasionArea_area_exited"]
+[connection signal="timeout" from="InputPressTimer" to="." method="_on_InputPressTimer_timeout"]
 [connection signal="timeout" from="AirborneTimer" to="." method="_on_AirborneTimer_timeout"]
-[connection signal="timeout" from="SpecialAttackTimer" to="." method="_on_SpecialAttackTimer_timeout"]
+[connection signal="timeout" from="ChargedAttackBarFillTimer" to="." method="_on_ChargedAttackBarFillTimer_timeout"]
 [connection signal="timeout" from="SpecialSequenceWindow" to="." method="_on_Special4thSequenceWindow_timeout"]
 [connection signal="timeout" from="InvulnerabilityTimer" to="." method="_on_InvulnerabilityTimer_timeout"]
 [connection signal="timeout" from="DashInputPressTimer" to="." method="_on_DashInputPressTimer_timeout"]

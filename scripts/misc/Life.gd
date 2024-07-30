@@ -39,7 +39,6 @@ func on_player_life_changed(hearts : float, character : String):
 
 		
 	elif character == Global.equipped_characters[1]:
-		print("char 2 glaciela hearts changed")
 		$Hearts2.rect_size.x = hearts * heart_size
 	elif character == Global.equipped_characters[2]:
 		$Hearts3.rect_size.x = hearts * heart_size

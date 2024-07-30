@@ -17,8 +17,10 @@ var character_2_max_hearts : float
 var character2_hearts : float
 var character2_max_mana = max_mana
 var character2_mana = max_mana
+
 var character_3_max_hearts : float 
 var character3_hearts : float 
+
 var character3_max_mana = max_mana
 var character3_mana = max_mana
 
@@ -44,14 +46,15 @@ const actions : Array = [
 # attack_power is the player's atk
 var attack_power : int = 20
 var glaciela_attack : int = 20
+var agnette_attack : int = 20
 var player_skill_multipliers : Dictionary = {
 	"BaseHearts": 2.5,
 	"BasicAttack": 15.0,
 	"BasicAttack2": 20.0,
 	"BasicAttack3": 25.0,
-	"BasicAttack4": 52.5,
-	"ChargedAttack": 47.0,
-	"ThrustAttack": 56.0,
+	"BasicAttack4": 55.0,
+	"ChargedAttack": 50.0,
+	"ThrustAttack": 65.0,
 	"ThrustChargedAttack": 85.0,
 	"UpwardsChargedAttack": 28.0, # x 2
 	"DownwardsChargedAttack": 56.0,
@@ -71,7 +74,7 @@ var player_skill_multipliers : Dictionary = {
 	"FireSawDuration": 8.0,
 	"FireFairy": 25.0,
 	"FireFairyDuration": 10.0,
-	"Fireball": 55.0,
+	"Fireball": 62.5,
 	"FireballCD": 5.0,
 	"FireballCharges": 3,
 	"FireballMaxCharges": 3,
@@ -144,11 +147,12 @@ var player_talents : Dictionary = {
 		"managranted" : 2,
 		"talentslotcost": 3
 	},
-	# allows explosion of the sigil
-	"HellishFervor": {
+	# allows pierce fireball
+	"PiercingFervor": {
 		"unlocked" : false,
 		"enabled" : false,
 		"opalscost": 100,
+		"damagepenalty": 25.0,
 		"talentslotcost": 3
 	},
 	"BadBlood":{
@@ -269,7 +273,8 @@ var glaciela_skill_multipliers : Dictionary = {
 
 
 var agnette_skill_multipliers = {
-	
+	"Arrow1": 25.0,
+	"ChargedAttackMovementSpeedPenalty": 40.0,
 }
 
 var enemy_skill_multipliers : Dictionary = {
@@ -325,7 +330,7 @@ var lesser_soul_catalyst : int= 0
 var current_character : String 
 var equipped_characters : Array = ["Player", "Glaciela", "Agnette"]
 var character_list : Array = ["Player", "Glaciela", "Agnette"]
-var unlocked_characters : Array = ["Player", "Glaciela", ""]
+var unlocked_characters : Array = ["Player", "Glaciela", "Agnette"]
 var alive : Array = [true, true, true]
 
 # The level of skills. Higher levels = more damage and utility etc.
@@ -378,7 +383,7 @@ func assign_health_points():
 				1:
 					Global.character_2_max_hearts = Global.character_health_data[e]
 					Global.character2_hearts = Global.character_2_max_hearts
-				1:
+				2:
 					Global.character_3_max_hearts = Global.character_health_data[e]
 					Global.character3_hearts = Global.character_3_max_hearts
 # Damage calc
@@ -443,6 +448,13 @@ func reset_player_data():
 			"opalscost": 100,
 			"dropchance": 40,
 			"managranted" : 2,
+			"talentslotcost": 3
+		},
+		"PiercingFervor": {
+			"unlocked" : false,
+			"enabled" : false,
+			"opalscost": 100,
+			"damagepenalty": 25.0,
 			"talentslotcost": 3
 		},
 		"BadBlood":{

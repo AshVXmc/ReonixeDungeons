@@ -343,7 +343,7 @@ extents = Vector2( 9.93562, 41.0079 )
 extents = Vector2( 32, 49 )
 
 [sub_resource type="CircleShape2D" id=23]
-radius = 650.0
+radius = 1000.0
 
 [sub_resource type="ParticlesMaterial" id=25]
 emission_shape = 2

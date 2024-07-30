@@ -1,6 +1,7 @@
 class_name MainMenu extends Control
 
 func _ready():
+	get_tree().set_auto_accept_quit(false)
 	$Popup1.visible = false
 	$SaveLabel.visible = false
 	print(InputMap.get_action_list("ui_use")[0].as_text())

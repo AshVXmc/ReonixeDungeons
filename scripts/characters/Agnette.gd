@@ -5,6 +5,7 @@ const SWORD_HIT_PARTICLE : PackedScene = preload("res://scenes/particles/SwordHi
 const AIRBORNE_STATUS : PackedScene = preload("res://scenes/status_effects/AirborneStatus.tscn")
 const TEMPUS_TARGUS : PackedScene = preload("res://scenes/misc/TempusTardus.tscn")
 const HEAL_PARTICLE : PackedScene = preload("res://scenes/particles/HealIndicatorParticle.tscn")
+const ARROW = preload("res://scenes/skills/AgnetteArrow.tscn")
 signal skill_used(skill_name)
 signal mana_changed(amount, character)
 signal life_changed(amount, character)
@@ -17,7 +18,7 @@ signal ready_to_be_switched_in(character)
 signal change_elegance(action_name)
 signal change_hitcount(amount)
 var target
-
+var is_
 var airborne_mode : bool = false
 var basicatkbuffmulti : float = 0
 var basicatkbuffdur : float = 0
@@ -47,8 +48,7 @@ var attack_string_count : int = 4
 var restore_mana_for_all_parties : int = 2
 var buffed_attack_power : float
 var is_charging = false
-onready var FULL_CHARGE_METER = preload("res://assets/UI/chargebar_full.png")
-onready var CHARGING_CHARGE_METER = preload("res://assets/UI/chargebar_charging.png")
+
 var attack_collsion_overlaps_enemy : bool = false
 var number_of_basic_atk_buffs : int
 var basic_attack_buff : float
@@ -70,6 +70,8 @@ onready var crit_damage : float = Global.glaciela_skill_multipliers["CritDamage"
 
 
 func _ready():
+	print("agnette:" + str(Global.character3_hearts))
+	
 	if Global.equipped_characters.has("Player"):
 		connect("trigger_quickswap", get_parent().get_parent(), "quickswap_event")
 
@@ -90,7 +92,7 @@ func _ready():
 	$StrongJumpParticle.visible = false
 	$AnimatedSprite.play("Default")
 
-	$AttackCollision.add_to_group(str(ATTACK * (Global.glaciela_skill_multipliers["BasicAttack"] / 100)))
+
 	$SpecialAttackArea2D.add_to_group(str(ATTACK * (Global.glaciela_skill_multipliers["SpecialAttack1_1"] / 100)))
 
 
@@ -100,6 +102,8 @@ func _physics_process(delta):
 		$EnemyEvasionArea.set_scale(Vector2(1,1))
 	else:
 		$EnemyEvasionArea.set_scale(Vector2(-1,1))
+		
+		
 	if Input.is_action_pressed("right") and !Input.is_action_pressed("left") and !get_parent().get_parent().is_attacking and !get_parent().get_parent().is_dashing and !get_parent().get_parent().is_knocked_back:
 		Input.action_release("left")
 		$AnimatedSprite.flip_h = false
@@ -114,21 +118,22 @@ func _physics_process(delta):
 	if Input.is_action_just_pressed("right") or Input.is_action_just_pressed("left") and attack_string_count != 3:
 		attack_string_count = 4
 	if Global.current_character == "Agnette":
-		charge_meter()
+#		charge_meter()
 		$AnimatedSprite.visible = true
-		if $AnimatedSprite.flip_h:
-			$ChargedAttackCollision.set_scale(Vector2(-1,1))
+		
+		if !$AnimatedSprite.flip_h:
+			$BowSprite.flip_h = true
+			$BowSprite.position.x = 40
 		else:
-			$ChargedAttackCollision.set_scale(Vector2(1,1))
-		# Animation handling 
-
+			$BowSprite.flip_h = false
+			$BowSprite.position.x = -40
+			
 		if get_parent().get_parent().velocity.x == 0:
 			$AnimatedSprite.play("Default")
 		
 		if get_parent().get_parent().can_dash:
 			if Input.is_action_pressed("left") or Input.is_action_pressed("right") and !Input.is_action_pressed("jump"):
 				$AnimatedSprite.play("Walk")
-				
 			else:
 				$AnimatedSprite.play("Default")
 		if Input.is_action_just_pressed("ui_dash") and !get_parent().get_parent().can_dash and !get_parent().get_parent().get_node("DashUseTimer").is_stopped():
@@ -142,8 +147,6 @@ func _physics_process(delta):
 #			attack_string_count = 4
 			$AnimatedSprite.play("Default")
 		
-		if $ChargedAttackCooldown.is_stopped():
-			charged_attack(7.5)
 
 
 			
@@ -163,28 +166,43 @@ func _input(event):
 			print("awooga")
 			get_parent().get_parent().dash()
 			$DashInputPressTimer.start()
+	
+		# CHARGED ATTACK
+		if event.is_action_released("ui_attack"):
+			is_charging = false
+			charged_attack()
+			$ChargedAttackBarFillTimer.stop()
+			$ChargedAttackBar.value = $ChargedAttackBar.min_value
 
+func charged_attack():
+	# the arrow deals earth damage and builds earth trauma
+	if $ShootTimer.is_stopped():
+		spawn_arrow($ChargedAttackBar.value)
+	
+	
 func charged_dash():
 	$DashInputPressTimer.stop()
 func attack():
-	if Global.current_character == "Agnette" and $MeleeTimer.is_stopped():
-		if get_parent().get_parent().is_on_floor():
-			airborne_mode = true
-			$AirborneTimer.start()
-		
-		if !$AnimatedSprite.flip_h:
-		
-			$AttackCollision/CollisionShape2D.disabled = false
-		
-			$AttackCollision.set_scale(Vector2(1,1))
-			$ChargedAttackCollision.set_scale(Vector2(1,1))
-			$MeleeTimer.start()
-		else:
-			$AttackCollision/CollisionShape2D.disabled = false
-			$AttackCollision.set_scale(Vector2(-1,1))
-			$ChargedAttackCollision.set_scale(Vector2(-1,1))
-			$MeleeTimer.start()
-		$AttackTimer.start()
+	if Global.current_character == "Agnette" and $ShootTimer.is_stopped():
+#		if get_parent().get_parent().is_on_floor():
+		airborne_mode = true
+		$AirborneTimer.start()
+		spawn_arrow()
+		$ShootTimer.start()
+
+func spawn_arrow(charge_value : int = 0):
+	var charged_bonus : float = 1 + (3 * charge_value / 100)
+	var arrow = ARROW.instance()
+	get_parent().get_parent().get_parent().add_child(arrow)
+	arrow.get_node("Area2D").add_to_group(str(charged_bonus * Global.agnette_attack * (Global.agnette_skill_multipliers["Arrow1"] / 100)))
+	
+	if !$AnimatedSprite.flip_h:
+		arrow.position.x = global_position.x + 40
+		arrow.position.y = global_position.y
+	else:
+		arrow.position.x = global_position.x - 40
+		arrow.position.y = global_position.y
+		arrow.x_direction = -1
 
 func play_attack_animation():
 	pass
@@ -234,84 +252,9 @@ func heal(heal_amount : float):
 	emit_signal("healthpot_obtained", Global.healthpot_amount)
 	
 
-func _on_SpecialAttackTimer_timeout():
-	$SpecialSequenceWindow.start()
-	
-func charge_meter():
-	if Global.current_character == "Agnette":
-		$ChargingParticle.visible = true if is_charging else false
 
-				
 
-#func downwards_charged_attack():
-#	if airborne_mode and Input.is_action_pressed("ui_attack") and $InputPressTimer.is_stopped() and !is_performing_charged_attack:
-#		if target and target != null and weakref(target).get_ref() != null: 
-#			if !target.is_in_group("Armored") and target.get_node("Area2D").overlaps_area($ChargedAttackCollision):
-#				pass
-#
-#
-		
-func charged_attack(airborne_duration : float = 1, type : int = 1):
-	if $KnockAirborneICD.is_stopped() and get_parent().get_parent().is_on_floor() and Input.is_action_pressed("ui_attack") and $InputPressTimer.is_stopped() and !is_performing_charged_attack:
-		attack_string_count = 4
-#		airborne_mode = false
-		is_performing_charged_attack = true
-		if !$AnimatedSprite.flip_h:
-			print("Played anim")
-			$AnimationPlayer.play("ChargedAttackRight")
-		else:
-			$AnimationPlayer.play("ChargedAttackLeft")
 
-		if target and target != null and weakref(target).get_ref() != null: 
-			if !target.is_in_group("Armored") and target.get_node("Area2D").overlaps_area($ChargedAttackCollision): 
-				if !target.get_node("Area2D").is_in_group("IsAirborne") and !get_parent().get_parent().airborne_mode:
-					for groups in $ChargedAttackCollision.get_groups():
-						if float(groups) != 0:
-							$ChargedAttackCollision.remove_from_group(groups)
-							if !airborne_mode:
-								$ChargedAttackCollision.add_to_group(str(ATTACK * (Global.player_skill_multipliers["BasicAttack"] / 100) + basic_attack_buff))
-								print("a")
-							else:
-								$ChargedAttackCollision.add_to_group(str(ATTACK * (Global.player_skill_multipliers["AirborneBasicAttack"] / 100) + basic_attack_buff))
-								print("b")
-							break
-					$KnockAirborneICD.start()
-
-					is_charging = false
-					is_performing_charged_attack = true
-	#				get_parent().get_parent().airborne_mode = false
-					var airborne_status : AirborneStatus = AIRBORNE_STATUS.instance()
-	#				airborne_status.time = airborne_duration
-					target.add_child(airborne_status)
-					var hitparticle = SWORD_HIT_PARTICLE.instance()
-					hitparticle.emitting = true
-					get_parent().get_parent().get_parent().add_child(hitparticle)
-					hitparticle.position = target.global_position
-
-					set_basic_attack_power(3, 0.1)
-					$ChargedAttackCooldown.start()
-					get_parent().get_parent().velocity.y = 0
-					get_parent().get_parent().velocity.y = -1050
-
-					yield(get_tree().create_timer(0.25), "timeout")
-					airborne_mode = true
-	#				Input.action_release("jump")
-					is_performing_charged_attack = false
-					
-				elif target.get_node("Area2D").is_in_group("IsAirborne") and get_parent().get_parent().airborne_mode:
-					# Aerial charged attack
-					for groups in $ChargedAttackCollision.get_groups():
-						if float(groups) != 0:
-							$ChargedAttackCollision.remove_from_group(groups)
-							if !airborne_mode:
-								$ChargedAttackCollision.add_to_group(str(ATTACK * (Global.player_skill_multipliers["BasicAttack"] / 100) + basic_attack_buff))
-								print("a")
-							else:
-								$ChargedAttackCollision.add_to_group(str(ATTACK * (Global.player_skill_multipliers["AirborneBasicAttack"] / 100) + basic_attack_buff))
-								print("b")
-							break
-			Input.action_release("ui_attack")
-			is_performing_charged_attack = false
 
 
 func get_closest_enemy():
@@ -410,44 +353,8 @@ func set_attack_power(amount : float, duration : float, show_particles : bool = 
 	buffed_from_attack_crystals = false
 	
 
-func infuse_element(element : String, duration : float = 10):
-	match element:
-		"Ice":
-			$AttackCollision.remove_from_group("Sword")
-			$AttackCollision.add_to_group("Ice")
-			yield(get_tree().create_timer(duration), "timeout")
-			$AttackCollision.remove_from_group("Ice")
-			$AttackCollision.add_to_group("Sword")
-
-func _on_AttackCollision_area_entered(area):
-	if weakref(area).get_ref() != null:
-		if area.is_in_group("Enemy") or area.is_in_group("Enemy2"):
-			if !get_parent().get_parent().is_on_floor() and !get_parent().get_parent().get_node("HeightRaycast2D").is_colliding():
-				get_parent().get_parent().airborne_mode = true
-				get_parent().get_parent().get_node("AirborneTimer").stop()
-				get_parent().get_parent().get_node("AirborneTimer").start()
 
 
-			emit_signal("change_elegance", "BasicAttack")
-			
-			var hitparticle = SWORD_HIT_PARTICLE.instance()
-			var slashparticle = SWORD_SLASH_EFFECT.instance()
-			hitparticle.emitting = true
-			get_parent().get_parent().get_parent().add_child(hitparticle)
-			get_parent().get_parent().get_parent().add_child(slashparticle)
-			hitparticle.position = get_parent().get_parent().get_node("Position2D").global_position
-			slashparticle.position = get_parent().get_parent().get_node("Position2D").global_position
-			slashparticle.regular_slash_animation()
-			yield(get_tree().create_timer(0.1),"timeout")
-		
-	if weakref(area).get_ref() != null:
-		if area.is_in_group("Airborne") and !is_performing_charged_attack:
-			get_parent().get_parent().get_node("AirborneTimer").start()
-			get_parent().get_parent().airborne_mode = true
-			airborne_mode = true
-
-#func _on_MeleeTimer_timeout():
-#	$AttackCollision/CollisionShape2D.disabled = true
 
 
 func _on_Area2D_area_entered(area):
@@ -500,7 +407,8 @@ func _on_Area2D_area_entered(area):
 #	if area.is_in_group("Enemy") and !get_parent().get_parent().is_invulnerable:
 #		$AnimationPlayer.play("Hurt")
 func after_damaged():
-	
+	get_parent().get_parent().inv_timer.start() 
+	get_parent().get_parent().is_invulnerable = true
 	$InvulnerabilityTimer.start()
 	
 #	emit_signal("life_changed", Global.hearts)
@@ -518,8 +426,38 @@ func after_damaged():
 		if Global.hearts <= 0:
 			dead(Global.equipped_characters[2])
 
-func dead(character):
-	pass
+func dead(character_id):
+	is_dead = true
+	get_parent().get_parent().is_invulnerable = true
+	$InvulnerabilityTimer.start()
+#	swap_to_nearby_alive_characters()
+	if character_id == Global.equipped_characters[0]:
+		Global.alive[0] = false
+	elif character_id == Global.equipped_characters[1]:
+		Global.alive[1] = false
+	elif character_id == Global.equipped_characters[2]:
+		Global.alive[2] = false
+	
+	$HurtAnimationPlayer.play("Death")
+	yield(get_tree().create_timer(0.4), "timeout")
+	
+	var alive_status : Array = [true, true, true]
+	var counter : int = 0
+	for c in Global.equipped_characters:
+		if Global.character_list.find(Global.equipped_characters[counter]) != -1:
+			if !Global.alive[counter]:
+				alive_status[counter] = false
+		else:
+			alive_status[counter] = false
+		counter += 1
+
+	if !alive_status[0] and !alive_status[1] and !alive_status[2]:
+		var counter_sec : int = 0
+		for c in Global.equipped_characters:
+			if Global.character_list.find(Global.equipped_characters[counter_sec]) != -1:
+				get_parent().get_parent().heal(c, 999, true)
+			counter_sec += 1
+		get_parent().get_parent().get_parent().get_node("GameOverUI/GameOver").open_game_over_ui()
 
 
 func add_hurt_particles(damage : float):
@@ -584,9 +522,6 @@ func _on_AirborneTimer_timeout():
 	get_parent().get_parent().velocity.y = 0
 
 
-func _on_AttackCollision_area_exited(area):
-	if area.is_in_group("Enemy"):
-		pass
 
 
 
@@ -594,25 +529,40 @@ func dash_effect():
 	if get_parent().get_parent().is_dashing:
 		yield(get_tree().create_timer(0.25), "timeout")
 
-func _on_Special4thSequenceWindow_timeout():
-#	attack_string_count = 4
-	pass
 
 
 func _on_InvulnerabilityTimer_timeout():
 	get_parent().get_parent().is_invulnerable = false
 
 
-func _on_AttackTimer_timeout():
-	$AttackCollision/CollisionShape2D.disabled = true
 
-
-func _on_AnimationPlayer_animation_finished(anim_name):
-	if anim_name == "SpecialAttack2_Right" or "SpecialAttack1_Right" or "SpecialAttack1_Left":
-		$SpecialAttackArea2D/CollisionShape2D.disabled = true
+#func _on_AnimationPlayer_animation_finished(anim_name):
+#	if anim_name == "SpecialAttack2_Right" or "SpecialAttack1_Right" or "SpecialAttack1_Left":
+#		$SpecialAttackArea2D/CollisionShape2D.disabled = true
 
 
 func _on_DashInputPressTimer_timeout():
 	if Global.current_character == "Agnette" and !Input.is_action_pressed("ui_attack"):
 		charged_dash()
 
+
+
+func _on_ShootTimer_timeout():
+	pass # Replace with function body.
+
+func _on_InputPressTimer_timeout():
+	$ChargedAttackBar.visible = true
+	if Input.is_action_pressed("ui_attack"):
+		is_charging = true
+		$ChargedAttackBarFillTimer.start()
+#	else:
+#		is_charging = false
+#		$ChargedAttackBarFillTimer.stop()
+#		$ChargedAttackBar.value = $ChargedAttackBar.min_value
+
+func _on_ChargedAttackBarFillTimer_timeout():
+	if is_charging:
+		$ChargedAttackBar.value += 10
+		$ChargedAttackBarFillTimer.start()
+	else:
+		$ChargedAttackBarFillTimer.stop()

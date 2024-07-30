@@ -1301,7 +1301,6 @@ patch_margin_right = 64
 patch_margin_bottom = 64
 
 [node name="PlayerControl" type="Control" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl"]
-visible = false
 margin_right = 40.0
 margin_bottom = 40.0
 
@@ -1340,15 +1339,22 @@ Airborne charged attacks can now be chained up to 2 times.
 
 
 [color=#ffd703]Burning Breath[/color]
-When you take damage, you unleash a fiery rebuke, [color=#fd9628]Burning[/color] enemies in a cone-shaped area.
+When you take damage, you unleash a fiery rebuke, dealing [u]BURNING_BREATH_DMG% ATK[/u] as [color=#fd9628]Fire[/color] damage and [color=#fd9628]Burning[/color] enemies in a cone-shaped area in front of you.
 Cooldown: BURNING_BREATH_COOLDOWN seconds
 
 [color=#ffd703]Infernal Mark[/color]
-Enemies marked with the Sulphuric Sigil take MARK_DMG_INCREASE% more damage. 
+Enemies marked with Sulphuric Sigil take MARK_DMG_INCREASE% more damage. 
 
 
 [color=#ffd703]Soul Siphon[/color]
 Upon death, enemies have a SOUL_SIPHON_DROP_CHANCE% chance to drop a [color=#540d17]Soul Orb[/color]. The Player and him alone can pick up these orbs to restore SOUL_SIPHON_MANA Mana.
+
+
+[color=#ffd703]Piercing Fervor[/color]
+Projectiles from the Fireball skill pierce enemies, but deal PF_DMG_PENALTY% less damage.
+
+
+
 
 
 [color=#ffd703]Bad Blood[/color]
@@ -1364,15 +1370,22 @@ Airborne charged attacks can now be chained up to 2 times.
 
 
 Burning Breath
-When you take damage, you unleash a fiery rebuke, Burning enemies in a cone-shaped area.
+When you take damage, you unleash a fiery rebuke, dealing BURNING_BREATH_DMG% ATK as Fire damage and Burning enemies in a cone-shaped area in front of you.
 Cooldown: BURNING_BREATH_COOLDOWN seconds
 
 Infernal Mark
-Enemies marked with the Sulphuric Sigil take MARK_DMG_INCREASE% more damage. 
+Enemies marked with Sulphuric Sigil take MARK_DMG_INCREASE% more damage. 
 
 
 Soul Siphon
 Upon death, enemies have a SOUL_SIPHON_DROP_CHANCE% chance to drop a Soul Orb. The Player and him alone can pick up these orbs to restore SOUL_SIPHON_MANA Mana.
+
+
+Piercing Fervor
+Projectiles from the Fireball skill pierce enemies, but deal PF_DMG_PENALTY% less damage.
+
+
+
 
 
 Bad Blood
@@ -1571,9 +1584,9 @@ margin_bottom = 2016.0
 anchor_left = 0.215
 anchor_right = 0.215
 margin_left = 426.8
-margin_top = -1402.0
+margin_top = -1368.0
 margin_right = 458.8
-margin_bottom = -1386.0
+margin_bottom = -1352.0
 rect_min_size = Vector2( 32, 16 )
 rect_scale = Vector2( 7.5, 7.5 )
 texture_normal = ExtResource( 5 )
@@ -1632,9 +1645,9 @@ margin_bottom = 2020.0
 anchor_left = 0.215
 anchor_right = 0.215
 margin_left = 426.8
-margin_top = -1226.0
+margin_top = -1192.0
 margin_right = 458.8
-margin_bottom = -1210.0
+margin_bottom = -1176.0
 rect_min_size = Vector2( 32, 16 )
 rect_scale = Vector2( 7.5, 7.5 )
 texture_normal = ExtResource( 5 )
@@ -1693,9 +1706,9 @@ margin_bottom = 2024.0
 anchor_left = 0.215
 anchor_right = 0.215
 margin_left = 426.8
-margin_top = -1003.0
+margin_top = -969.0
 margin_right = 458.8
-margin_bottom = -987.0
+margin_bottom = -953.0
 rect_min_size = Vector2( 32, 16 )
 rect_scale = Vector2( 7.5, 7.5 )
 texture_normal = ExtResource( 5 )
@@ -2013,6 +2026,8 @@ expand = true
 [connection signal="toggled" from="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl4/PlayerTalentButton/PlayerCheckButton" to="CharacterTalentsControl" method="_on_PlayerCheckButton4_toggled"]
 [connection signal="pressed" from="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl5/PlayerTalentButton" to="CharacterTalentsControl" method="_on_PlayerTalentButton5_pressed"]
 [connection signal="toggled" from="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl5/PlayerTalentButton/PlayerCheckButton" to="CharacterTalentsControl" method="_on_PlayerCheckButton5_toggled"]
+[connection signal="pressed" from="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl6/PlayerTalentButton" to="CharacterTalentsControl" method="_on_PlayerTalentButton6_pressed"]
+[connection signal="toggled" from="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl6/PlayerTalentButton/PlayerCheckButton" to="CharacterTalentsControl" method="_on_PlayerCheckButton6_toggled"]
 [connection signal="pressed" from="CharacterTalentsControl/NinePatchRect/TalentTreeControl/GlacielaControl/ScrollContainer/VBoxContainer/TalentControl1/GlacielaTalentButton" to="CharacterTalentsControl" method="_on_GlacielaTalentButton1_pressed"]
 [connection signal="toggled" from="CharacterTalentsControl/NinePatchRect/TalentTreeControl/GlacielaControl/ScrollContainer/VBoxContainer/TalentControl1/GlacielaTalentButton/GlacielaCheckButton" to="CharacterTalentsControl" method="_on_GlacielaCheckButton1_toggled"]
 [connection signal="pressed" from="CharacterTalentsControl/CloseButtonMainUI" to="CharacterTalentsControl" method="_on_CloseButtonMainUI_pressed"]

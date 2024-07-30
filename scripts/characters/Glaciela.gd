@@ -78,7 +78,7 @@ onready var tskill_ui : TextureProgress = get_parent().get_parent().get_parent()
 
 var can_use_special_attack : bool = false
 func _ready():
-	print(get_path())
+#	print(get_path())
 	if Global.equipped_characters.has("Player"):
 		connect("trigger_quickswap", get_parent().get_parent(), "quickswap_event")
 	tundra_stars = 0
@@ -500,12 +500,7 @@ func charge_meter():
 
 				
 
-#func downwards_charged_attack():
-#	if airborne_mode and Input.is_action_pressed("ui_attack") and $InputPressTimer.is_stopped() and !is_performing_charged_attack:
-#		if target and target != null and weakref(target).get_ref() != null: 
-#			if !target.is_in_group("Armored") and target.get_node("Area2D").overlaps_area($ChargedAttackCollision):
-#				pass
-#
+
 #
 		
 func charged_attack(airborne_duration : float = 1, type : int = 1):
@@ -792,7 +787,6 @@ func _on_Area2D_area_entered(area):
 			Global.lifewine_amount += 1
 			emit_signal("lifewine_obtained", Global.lifewine_amount)
 		if area.is_in_group("ConeOfColdSnareOn"):
-			print("SNARE ON ON ON ONOO")
 			var slowdown_coefficient : float = area.get_parent().slowdown_coefficient
 			get_parent().get_parent().SPEED -= get_parent().get_parent().MAX_SPEED * slowdown_coefficient
 		if area.is_in_group("ConeOfColdSnareOff"):

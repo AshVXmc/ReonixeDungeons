@@ -14,6 +14,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/characters/Agnette.gd"
 }, {
+"base": "KinematicBody2D",
+"class": "AgnetteArrow",
+"language": "GDScript",
+"path": "res://scripts/skills/AgnetteArrow.gd"
+}, {
 "base": "Node2D",
 "class": "AirborneStatus",
 "language": "GDScript",
@@ -646,6 +651,7 @@ _global_script_classes=[ {
 } ]
 _global_script_class_icons={
 "Agnette": "",
+"AgnetteArrow": "",
 "AirborneStatus": "",
 "Alchemist": "",
 "AlchemyGuidebook": "",

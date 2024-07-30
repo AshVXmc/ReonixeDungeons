@@ -7,7 +7,7 @@ onready var player : KinematicBody2D = get_parent().get_parent().get_node("Playe
 # Go to the node's "Pause Mode" property, change to "Process"
 func _ready():
 	
-	get_tree().set_auto_accept_quit(false)
+
 	
 	connect("playerpos", Global, "player_position")
 	if Global.lighting:
