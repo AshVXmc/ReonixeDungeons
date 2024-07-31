@@ -22,6 +22,7 @@
 [ext_resource path="res://scenes/enemies/Goblin.tscn" type="PackedScene" id=20]
 [ext_resource path="res://scenes/levels/hublevel/Portal.tscn" type="PackedScene" id=21]
 [ext_resource path="res://scenes/menus/SceneTransition.tscn" type="PackedScene" id=22]
+[ext_resource path="res://scenes/enemies/WitchGoblin.tscn" type="PackedScene" id=23]
 [ext_resource path="res://scenes/levels/hublevel/DungeonEntrance.tscn" type="PackedScene" id=24]
 [ext_resource path="res://scenes/menus/EleganceMeterUI.tscn" type="PackedScene" id=25]
 [ext_resource path="res://assets/terrain/hub_level/prop_potionrack.png" type="Texture" id=26]
@@ -69,7 +70,6 @@
 [ext_resource path="res://assets/terrain/hub_level/prop_tavern_desk_4.png" type="Texture" id=68]
 [ext_resource path="res://assets/terrain/hub_level/temple_holy_symbol.png" type="Texture" id=69]
 [ext_resource path="res://scenes/NPC/AlchemistNPC.tscn" type="PackedScene" id=70]
-[ext_resource path="res://scenes/enemies/BowGoblin.tscn" type="PackedScene" id=71]
 [ext_resource path="res://assets/terrain/lichen_ruins_spritesheet.png" type="Texture" id=72]
 [ext_resource path="res://scenes/NPC/BardNPC.tscn" type="PackedScene" id=73]
 [ext_resource path="res://scenes/enemies/ShamanGoblin.tscn" type="PackedScene" id=75]
@@ -133,7 +133,7 @@ font_data = ExtResource( 51 )
 extents = Vector2( 235, 11 )
 
 [sub_resource type="RectangleShape2D" id=8]
-extents = Vector2( 283.5, 10 )
+extents = Vector2( 291, 10 )
 
 [sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 7.5, 5 )
@@ -476,7 +476,7 @@ __meta__ = {
 }
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TileMap2/StaticBody2D3"]
-position = Vector2( 54.5, 0 )
+position = Vector2( 62, 0 )
 shape = SubResource( 8 )
 one_way_collision = true
 
@@ -653,8 +653,8 @@ editor_draw_limits = true
 [node name="Goblin" parent="." instance=ExtResource( 20 )]
 position = Vector2( 3681, 585 )
 
-[node name="BowGoblin" parent="." instance=ExtResource( 71 )]
-position = Vector2( 3476, 572 )
+[node name="WitchGoblin" parent="." instance=ExtResource( 23 )]
+position = Vector2( 2592, 581 )
 
 [connection signal="area_entered" from="HubLibrary/BookOfShadowsPlayerDetectorArea" to="HubLibrary/BookOfShadowsPlayerDetectorArea" method="_on_BookshelfPlayerDetectorArea_area_entered"]
 [connection signal="area_exited" from="HubLibrary/BookOfShadowsPlayerDetectorArea" to="HubLibrary/BookOfShadowsPlayerDetectorArea" method="_on_BookshelfPlayerDetectorArea_area_exited"]

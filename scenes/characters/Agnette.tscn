@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=26 format=2]
 
 [ext_resource path="res://assets/characters/agnette/agnette_walk_1.png" type="Texture" id=1]
 [ext_resource path="res://assets/characters/agnette/agnette_idle_2.png" type="Texture" id=2]
@@ -6,13 +6,13 @@
 [ext_resource path="res://scripts/characters/Agnette.gd" type="Script" id=4]
 [ext_resource path="res://assets/characters/agnette/agnette_dash.png" type="Texture" id=5]
 [ext_resource path="res://assets/weapons/agnette_bow_1.png" type="Texture" id=6]
+[ext_resource path="res://assets/UI/agnette_bar_empty.png" type="Texture" id=7]
 [ext_resource path="res://scenes/particles/ChargingParticle.tscn" type="PackedScene" id=8]
 [ext_resource path="res://assets/weapons/agnette_bow_2.png" type="Texture" id=9]
+[ext_resource path="res://assets/UI/agnette_bar_full.png" type="Texture" id=10]
 [ext_resource path="res://assets/weapons/agnette_bow_3.png" type="Texture" id=11]
 [ext_resource path="res://assets/weapons/agnette_bow_4.png" type="Texture" id=12]
-[ext_resource path="res://assets/UI/armorbar_empty.png" type="Texture" id=13]
 [ext_resource path="res://scenes/particles/StrongJumpParticle.tscn" type="PackedScene" id=14]
-[ext_resource path="res://assets/UI/armorbar_earth.png" type="Texture" id=15]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -34,6 +34,7 @@ animations = [ {
 
 [sub_resource type="Animation" id=20]
 resource_name = "BowAttackRight"
+length = 0.4
 tracks/0/type = "value"
 tracks/0/path = NodePath("BowSprite:texture")
 tracks/0/interp = 1
@@ -41,10 +42,26 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.2, 0.4, 0.8, 1 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"times": PoolRealArray( 0, 0.2, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
 "update": 1,
-"values": [ ExtResource( 6 ), ExtResource( 9 ), ExtResource( 11 ), ExtResource( 12 ), ExtResource( 6 ) ]
+"values": [ ExtResource( 12 ), ExtResource( 11 ), ExtResource( 6 ) ]
+}
+
+[sub_resource type="Animation" id=25]
+resource_name = "BowAttackRightCharged"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("BowSprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 1, 2 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ ExtResource( 12 ), ExtResource( 11 ), ExtResource( 9 ), ExtResource( 9 ) ]
 }
 
 [sub_resource type="RectangleShape2D" id=5]
@@ -139,6 +156,8 @@ tracks/1/keys = {
 "values": [ Color( 1, 1, 1, 1 ) ]
 }
 
+[sub_resource type="CircleShape2D" id=24]
+
 [node name="Agnette" type="Node2D"]
 script = ExtResource( 4 )
 
@@ -148,19 +167,18 @@ position = Vector2( -1.43051e-06, 0 )
 amount = 4
 
 [node name="ChargedAttackBar" type="TextureProgress" parent="."]
-visible = false
 margin_left = -60.0534
 margin_top = -86.9925
 margin_right = 59.9466
 margin_bottom = -62.9925
-texture_under = ExtResource( 13 )
-texture_progress = ExtResource( 15 )
+texture_under = ExtResource( 7 )
+texture_progress = ExtResource( 10 )
 nine_patch_stretch = true
 
 [node name="BowSprite" type="Sprite" parent="."]
 position = Vector2( 40, 0 )
 scale = Vector2( 5, 5 )
-texture = ExtResource( 6 )
+texture = ExtResource( 9 )
 flip_h = true
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
@@ -170,6 +188,7 @@ animation = "Dash"
 
 [node name="BowAnimationPlayer" type="AnimationPlayer" parent="."]
 anims/BowAttackRight = SubResource( 20 )
+anims/BowAttackRightCharged = SubResource( 25 )
 
 [node name="AttackCollision" type="Area2D" parent="." groups=["MediumPoiseDamage", "Sword"]]
 
@@ -185,7 +204,7 @@ position = Vector2( 102.213, -11.0022 )
 shape = SubResource( 9 )
 
 [node name="ShootTimer" type="Timer" parent="."]
-wait_time = 0.5
+wait_time = 0.65
 one_shot = true
 
 [node name="AttackTimer" type="Timer" parent="."]
@@ -199,6 +218,7 @@ position = Vector2( 1, 0.0585399 )
 shape = SubResource( 8 )
 
 [node name="ResetAttackStringTimer" type="Timer" parent="."]
+wait_time = 1.5
 one_shot = true
 
 [node name="ChargedAttackCooldown" type="Timer" parent="."]
@@ -217,7 +237,7 @@ position = Vector2( 42, 0 )
 shape = SubResource( 17 )
 
 [node name="InputPressTimer" type="Timer" parent="."]
-wait_time = 0.8
+wait_time = 0.6
 one_shot = true
 
 [node name="AirborneTimer" type="Timer" parent="."]
@@ -271,6 +291,16 @@ anims/Death = SubResource( 21 )
 anims/Hurt = SubResource( 22 )
 anims/RESET = SubResource( 23 )
 
+[node name="SelfSnareArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SelfSnareArea"]
+shape = SubResource( 24 )
+disabled = true
+
+[node name="MaxChargeHoldTimer" type="Timer" parent="."]
+wait_time = 3.5
+one_shot = true
+
 [connection signal="area_entered" from="AttackCollision" to="." method="_on_AttackCollision_area_entered"]
 [connection signal="area_exited" from="AttackCollision" to="." method="_on_AttackCollision_area_exited"]
 [connection signal="timeout" from="ShootTimer" to="." method="_on_ShootTimer_timeout"]
@@ -285,3 +315,4 @@ anims/RESET = SubResource( 23 )
 [connection signal="timeout" from="SpecialSequenceWindow" to="." method="_on_Special4thSequenceWindow_timeout"]
 [connection signal="timeout" from="InvulnerabilityTimer" to="." method="_on_InvulnerabilityTimer_timeout"]
 [connection signal="timeout" from="DashInputPressTimer" to="." method="_on_DashInputPressTimer_timeout"]
+[connection signal="timeout" from="MaxChargeHoldTimer" to="." method="_on_MaxChargeHoldTimer_timeout"]

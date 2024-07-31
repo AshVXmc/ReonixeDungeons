@@ -21,7 +21,7 @@ func _ready():
 	connect("restore_mana",  get_parent().get_parent().get_parent().get_node("ManaUI/Mana"), "on_player_mana_changed")
 	
 func trigger_chaos_magic():
-#	chaos_magic(8)
+#	chaos_magic(4)
 	chaos_magic(spells[0])
 	spells.pop_front()
 	if spells.empty():

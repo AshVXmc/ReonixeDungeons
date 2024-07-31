@@ -13,8 +13,7 @@ func _ready():
 	$HealthBar.value = $HealthBar.max_value
 	SPEED = MAX_SPEED / 2.1
 	is_casting = true
-	
-	print(spell_history)
+	cast_spell()
 func _physics_process(delta):
 	if !is_casting:
 		if is_on_floor():

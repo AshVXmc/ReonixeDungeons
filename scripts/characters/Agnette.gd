@@ -70,7 +70,7 @@ onready var crit_damage : float = Global.glaciela_skill_multipliers["CritDamage"
 
 
 func _ready():
-	print("agnette:" + str(Global.character3_hearts))
+#	print(get_path())
 	
 	if Global.equipped_characters.has("Player"):
 		connect("trigger_quickswap", get_parent().get_parent(), "quickswap_event")
@@ -147,7 +147,7 @@ func _physics_process(delta):
 #			attack_string_count = 4
 			$AnimatedSprite.play("Default")
 		
-
+#		print(is_charging)
 
 			
 		if Input.is_action_just_pressed("primary_skill") and !Input.is_action_just_pressed("secondary_skill"):
@@ -156,7 +156,7 @@ func _physics_process(delta):
 
 func _input(event):
 	if Global.current_character == "Agnette":
-		if event.is_action_pressed("ui_attack"):
+		if event.is_action_pressed("ui_attack") and !is_charging:
 			attack()
 			$InputPressTimer.start()
 		if event.is_action_pressed("heal"):
@@ -169,32 +169,76 @@ func _input(event):
 	
 		# CHARGED ATTACK
 		if event.is_action_released("ui_attack"):
+			if is_charging:
+				toggle_charged_attack_snare(false)
+			
 			is_charging = false
 			charged_attack()
+			
 			$ChargedAttackBarFillTimer.stop()
 			$ChargedAttackBar.value = $ChargedAttackBar.min_value
+#			$ChargedAttackBar.visible = false
+			$BowAnimationPlayer.play("BowAttackRight")
+func toggle_charged_attack_snare(active : bool):
+	if active:
+		$SelfSnareArea.remove_from_group("AgnetteChargedAttackSnareOff")
+		$SelfSnareArea.add_to_group("AgnetteChargedAttackSnareOn")
+		$SelfSnareArea/CollisionShape2D.disabled = false
+		yield(get_tree().create_timer(0.1), "timeout")
+		$SelfSnareArea/CollisionShape2D.disabled = true
+	else:
+		$SelfSnareArea.remove_from_group("AgnetteChargedAttackSnareOn")
+		$SelfSnareArea.add_to_group("AgnetteChargedAttackSnareOff")
+		$SelfSnareArea/CollisionShape2D.disabled = false
+		yield(get_tree().create_timer(0.1), "timeout")
+		$SelfSnareArea/CollisionShape2D.disabled = true
 
 func charged_attack():
 	# the arrow deals earth damage and builds earth trauma
 	if $ShootTimer.is_stopped():
-		spawn_arrow($ChargedAttackBar.value)
-	
-	
+		if $ChargedAttackBar.value >= $ChargedAttackBar.max_value / 2:
+			spawn_arrow($ChargedAttackBar.value, true)
+			attack_string_count = 4
+		else:
+			spawn_arrow($ChargedAttackBar.value)
+		$ShootTimer.start()
+
 func charged_dash():
 	$DashInputPressTimer.stop()
 func attack():
 	if Global.current_character == "Agnette" and $ShootTimer.is_stopped():
+
 #		if get_parent().get_parent().is_on_floor():
 		airborne_mode = true
 		$AirborneTimer.start()
+		$BowAnimationPlayer.play("BowAttackRight")
 		spawn_arrow()
-		$ShootTimer.start()
+		$ResetAttackStringTimer.stop()
 
-func spawn_arrow(charge_value : int = 0):
-	var charged_bonus : float = 1 + (3 * charge_value / 100)
+		$ShootTimer.start()
+		
+		$ResetAttackStringTimer.start()
+func spawn_arrow(charge_value : int = 0, earth_damage : bool = false):
+	var charged_bonus : float = 1 + (2.5 * charge_value / 100)
+#	print("charge value: " + str(charge_value))
+	if charge_value >= 50:
+		charged_bonus = 1 + (5.25 * charge_value / 100)
+
+	var crit_dmg : float = 1.0
 	var arrow = ARROW.instance()
+	
 	get_parent().get_parent().get_parent().add_child(arrow)
-	arrow.get_node("Area2D").add_to_group(str(charged_bonus * Global.agnette_attack * (Global.agnette_skill_multipliers["Arrow1"] / 100)))
+	if earth_damage:
+		arrow.get_node("Area2D").remove_from_group("Sword")
+		arrow.get_node("Area2D").add_to_group("Earth")
+	if is_a_critical_hit():
+		crit_dmg = (Global.agnette_skill_multipliers["CritDamage"] / 100 + 1)
+		arrow.get_node("Area2D").add_to_group("IsCritHit")
+	else:
+		arrow.get_node("Area2D").remove_from_group("IsCritHit")
+	
+	var mult : int = 4 - attack_string_count + 1
+	arrow.get_node("Area2D").add_to_group(str(charged_bonus * Global.agnette_attack * (Global.agnette_skill_multipliers["Arrow" + str(mult)] / 100) * crit_dmg))
 	
 	if !$AnimatedSprite.flip_h:
 		arrow.position.x = global_position.x + 40
@@ -203,16 +247,19 @@ func spawn_arrow(charge_value : int = 0):
 		arrow.position.x = global_position.x - 40
 		arrow.position.y = global_position.y
 		arrow.x_direction = -1
-
+	print("atk string: " + str(attack_string_count))
+	attack_string_count -= 1
+	attack_string_count = clamp(attack_string_count, 0, 4)
+	if attack_string_count == 0:
+		attack_string_count = 4
 func play_attack_animation():
 	pass
 
 func is_a_critical_hit() -> bool:
 	var rng = RandomNumberGenerator.new()
 	rng.randomize()
-	
 	var num = rng.randi_range(0 ,100)
-	if num <= Global.glaciela_skill_multipliers["CritRate"]:
+	if num <= Global.agnette_skill_multipliers["CritRate"]:
 		return true
 	else:
 		return false
@@ -358,6 +405,12 @@ func set_attack_power(amount : float, duration : float, show_particles : bool = 
 
 
 func _on_Area2D_area_entered(area):
+	if area.is_in_group("AgnetteChargedAttackSnareOn"):
+		var slowdown_coefficient : float = Global.agnette_skill_multipliers["ChargedAttackMovementSpeedPenalty"] / 100
+		get_parent().get_parent().SPEED -= get_parent().get_parent().MAX_SPEED * slowdown_coefficient
+	if area.is_in_group("AgnetteChargedAttackSnareOff"):
+		var slowdown_coefficient : float = Global.agnette_skill_multipliers["ChargedAttackMovementSpeedPenalty"] / 100
+		get_parent().get_parent().SPEED += get_parent().get_parent().MAX_SPEED * slowdown_coefficient
 	if Global.current_character == "Agnette":
 		if area.is_in_group("HealthPot"):
 			Global.healthpot_amount += 1
@@ -365,6 +418,7 @@ func _on_Area2D_area_entered(area):
 		if area.is_in_group("LifeWine"):
 			Global.lifewine_amount += 1
 			emit_signal("lifewine_obtained", Global.lifewine_amount)
+		
 		if !Global.godmode:
 			if $InvulnerabilityTimer.is_stopped() and !get_parent().get_parent().is_invulnerable and !get_parent().get_parent().is_dashing:
 				if area.is_in_group("Enemy") and area.is_in_group("Hostile") or area.is_in_group("Projectile"):
@@ -469,17 +523,29 @@ func add_hurt_particles(damage : float):
 func take_damage(damage : float):
 	if Global.current_character == "Agnette":
 		if Global.equipped_characters[0] == "Agnette":
-			Global.hearts -= damage
-			add_hurt_particles(damage)
-			emit_signal("life_changed", Global.hearts, "Agnette")
+			if get_parent().get_parent().shield_hp > 0:
+				get_parent().get_parent().shield_hp = clamp(get_parent().get_parent().shield_hp - damage, 0, 999)
+				get_parent().get_parent().get_node("Shield/ShieldHPBar").value = get_parent().get_parent().shield_hp
+			else:
+				Global.hearts -= damage
+				add_hurt_particles(damage)
+				emit_signal("life_changed", Global.hearts, "Agnette")
 		elif Global.equipped_characters[1] == "Agnette":
-			Global.character2_hearts -= damage
-			add_hurt_particles(damage )
-			emit_signal("life_changed", Global.character2_hearts, "Agnette")
+			if get_parent().get_parent().shield_hp > 0:
+				get_parent().get_parent().shield_hp = clamp(get_parent().get_parent().shield_hp - damage, 0, 999)
+				get_parent().get_parent().get_node("Shield/ShieldHPBar").value = get_parent().get_parent().shield_hp
+			else:
+				Global.character2_hearts -= damage
+				add_hurt_particles(damage )
+				emit_signal("life_changed", Global.character2_hearts, "Agnette")
 		elif Global.equipped_characters[2] == "Agnette":
-			Global.character3_hearts -= damage
-			add_hurt_particles(damage)
-			emit_signal("life_changed", Global.character3_hearts, "Agnette")
+			if get_parent().get_parent().shield_hp > 0:
+				get_parent().get_parent().shield_hp = clamp(get_parent().get_parent().shield_hp - damage, 0, 999)
+				get_parent().get_parent().get_node("Shield/ShieldHPBar").value = get_parent().get_parent().shield_hp
+			else:
+				Global.character3_hearts -= damage
+				add_hurt_particles(damage)
+				emit_signal("life_changed", Global.character3_hearts, "Agnette")
 
 	
 
@@ -551,18 +617,25 @@ func _on_ShootTimer_timeout():
 	pass # Replace with function body.
 
 func _on_InputPressTimer_timeout():
-	$ChargedAttackBar.visible = true
+#	$ChargedAttackBar.visible = true
 	if Input.is_action_pressed("ui_attack"):
 		is_charging = true
 		$ChargedAttackBarFillTimer.start()
-#	else:
-#		is_charging = false
-#		$ChargedAttackBarFillTimer.stop()
-#		$ChargedAttackBar.value = $ChargedAttackBar.min_value
-
+		toggle_charged_attack_snare(true)
+		$BowAnimationPlayer.play("BowAttackRightCharged")
+		$MaxChargeHoldTimer.start()
 func _on_ChargedAttackBarFillTimer_timeout():
 	if is_charging:
 		$ChargedAttackBar.value += 10
 		$ChargedAttackBarFillTimer.start()
 	else:
 		$ChargedAttackBarFillTimer.stop()
+
+
+func _on_MaxChargeHoldTimer_timeout():
+	if is_charging:
+		toggle_charged_attack_snare(false)
+		is_charging = false
+		charged_attack()
+		$ChargedAttackBarFillTimer.stop()
+		$ChargedAttackBar.value = $ChargedAttackBar.min_value

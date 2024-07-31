@@ -40,7 +40,7 @@ anims/default = SubResource( 1 )
 
 [node name="Light2D" type="Light2D" parent="."]
 position = Vector2( 0, -25.8824 )
-scale = Vector2( 8, 8 )
+scale = Vector2( 10, 10 )
 texture = ExtResource( 2 )
 energy = 0.7
 

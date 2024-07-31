@@ -651,13 +651,13 @@ rect_min_size = Vector2( 566, 355 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/PlayerControl/PerkSkillScrollContainerControl/PerkSkillScrollContainer"]
 margin_right = 510.0
-margin_bottom = 1508.0
-rect_min_size = Vector2( 510, 1500 )
+margin_bottom = 1808.0
+rect_min_size = Vector2( 510, 1800 )
 
 [node name="RichTextLabel" type="RichTextLabel" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/PlayerControl/PerkSkillScrollContainerControl/PerkSkillScrollContainer/VBoxContainer"]
 margin_right = 510.0
-margin_bottom = 1500.0
-rect_min_size = Vector2( 510, 1500 )
+margin_bottom = 1800.0
+rect_min_size = Vector2( 510, 1800 )
 custom_fonts/italics_font = SubResource( 2 )
 custom_fonts/normal_font = SubResource( 2 )
 bbcode_enabled = true
@@ -714,17 +714,17 @@ Cooldown: CHAOS_MAGIC_CD seconds"
 scroll_active = false
 
 [node name="TalentControl1" type="Control" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/PlayerControl/PerkSkillScrollContainerControl/PerkSkillScrollContainer/VBoxContainer"]
-margin_top = 1504.0
+margin_top = 1804.0
 margin_right = 510.0
-margin_bottom = 1504.0
+margin_bottom = 1804.0
 
 [node name="PlayerTalentButton" type="TextureButton" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/PlayerControl/PerkSkillScrollContainerControl/PerkSkillScrollContainer/VBoxContainer/TalentControl1"]
 anchor_left = 0.215
 anchor_right = 0.215
 margin_left = 426.35
-margin_top = -1503.0
+margin_top = -1803.0
 margin_right = 458.35
-margin_bottom = -1486.0
+margin_bottom = -1786.0
 rect_min_size = Vector2( 32, 16 )
 rect_scale = Vector2( 7.5, 7.5 )
 texture_normal = ExtResource( 5 )
@@ -744,17 +744,17 @@ custom_fonts/font = SubResource( 3 )
 text = "Bought"
 
 [node name="TalentControl2" type="Control" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/PlayerControl/PerkSkillScrollContainerControl/PerkSkillScrollContainer/VBoxContainer"]
-margin_top = 1508.0
+margin_top = 1808.0
 margin_right = 510.0
-margin_bottom = 1508.0
+margin_bottom = 1808.0
 
 [node name="PlayerTalentButton" type="TextureButton" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/PlayerControl/PerkSkillScrollContainerControl/PerkSkillScrollContainer/VBoxContainer/TalentControl2"]
 anchor_left = 0.215
 anchor_right = 0.215
 margin_left = 426.35
-margin_top = -1243.0
+margin_top = -1498.0
 margin_right = 458.35
-margin_bottom = -1226.0
+margin_bottom = -1481.0
 rect_min_size = Vector2( 32, 16 )
 rect_scale = Vector2( 7.5, 7.5 )
 texture_normal = ExtResource( 5 )
@@ -809,6 +809,7 @@ text = "Enter a level for these changes to take place."
 align = 1
 
 [node name="GlacielaControl" type="Control" parent="CharacterSkillsControl/NinePatchRect/SkillsControl"]
+visible = false
 margin_right = 40.0
 margin_bottom = 40.0
 

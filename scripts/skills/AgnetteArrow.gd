@@ -1,13 +1,16 @@
 class_name AgnetteArrow extends KinematicBody2D
 
-const MAX_SPEED : int = 350
+const MAX_SPEED : int = 450
 var SPEED : int = MAX_SPEED
 var velocity := Vector2()
 export (int) var x_direction = 1
 const TYPE = "Physical"
+onready var agnette = get_parent()
+signal add_mana_to_agnette(amount)
+onready var mana_granted : float = 0.25
 
 func _ready():
-	pass
+	connect("add_mana_to_agnette", get_parent().get_node("Player/CharacterManager/Agnette"), "change_mana_value")
 
 func _physics_process(delta):
 	position += transform.x * SPEED * delta * x_direction
@@ -23,6 +26,7 @@ func flip_arrow_direction(fb_direction : int):
 
 func _on_Area2D_area_entered(area):
 	if area.is_in_group("Enemy"):
+		emit_signal("add_mana_to_agnette", mana_granted)
 		call_deferred('free')
 
 

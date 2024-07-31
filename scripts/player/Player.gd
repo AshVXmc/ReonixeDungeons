@@ -1810,7 +1810,7 @@ func thrust_attack(special : bool = false):
 	swordslash.horizontal_slash_animation()
 	Input.action_release("jump")
 	velocity.y = 0
-
+	change_mana_value(0.5)
 	$Sprite.play("Dash")
 
 	if special:

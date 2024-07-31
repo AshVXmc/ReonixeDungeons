@@ -1,6 +1,6 @@
 class_name EldritchHex extends Node2D
 
-var atk_value : float = 0.35 *  Global.enemy_level_index + 1
+var atk_value : float = 0.45 *  Global.enemy_level_index + 1
 var elemental_type = "Physical"
 func _ready():
 	$LightningAnimatedSprite.visible = false

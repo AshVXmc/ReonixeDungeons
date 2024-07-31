@@ -49,17 +49,17 @@ var glaciela_attack : int = 20
 var agnette_attack : int = 20
 var player_skill_multipliers : Dictionary = {
 	"BaseHearts": 2.5,
-	"BasicAttack": 15.0,
-	"BasicAttack2": 20.0,
-	"BasicAttack3": 25.0,
-	"BasicAttack4": 55.0,
-	"ChargedAttack": 50.0,
-	"ThrustAttack": 65.0,
+	"BasicAttack": 20.0,
+	"BasicAttack2": 25.0,
+	"BasicAttack3": 35.0,
+	"BasicAttack4": 60.0,
+	"ChargedAttack": 52.0,
+	"ThrustAttack": 75.0,
 	"ThrustChargedAttack": 85.0,
 	"UpwardsChargedAttack": 28.0, # x 2
 	"DownwardsChargedAttack": 56.0,
-	"SpecialChargedAttack": 40.0 ,# x 4
-	"SpecialChargedAttackFinalStrike": 150.0,
+	"SpecialChargedAttack": 50.0 ,# x 4
+	"SpecialChargedAttackFinalStrike": 180.0,
 	"CircularFlurryAttack": 40.0, # x 3
 	"PiercingProjectile": 95.0,
 	"EntryAttack": 50.0, # x 3
@@ -220,16 +220,16 @@ var player_perks : Dictionary = {
 }
 
 var glaciela_skill_multipliers : Dictionary = {
-	"BasicAttack":  20.0,
-	"BasicAttack2": 27.5,
-	"BasicAttack3": 35.0,
-	"BasicAttack4": 55.0,
-	"ChargedAttack": 35.0,
-	"SpecialAttack1_1": 45.0,
-	"SpecialAttack1_2": 55.0,
-	"SpecialAttack2_1": 25.0,
-	"SpecialAttack2_2": 25.0,
-	"SpecialAttack2_3": 50.0,
+	"BasicAttack":  28.0,
+	"BasicAttack2": 42.0,
+	"BasicAttack3": 48.0,
+	"BasicAttack4": 60.0,
+	"ChargedAttack": 40.0,
+	"SpecialAttack1_1": 35.0,
+	"SpecialAttack1_2": 45.0,
+	"SpecialAttack2_1": 16.0,
+	"SpecialAttack2_2": 22.0,
+	"SpecialAttack2_3": 40.0,
 	"TundraStarsDMGBonus": 12.0,
 	"TundraSigilFreezeStackBonus": 20,
 	"TundraSigilManaBonus": 0.75,
@@ -273,8 +273,13 @@ var glaciela_skill_multipliers : Dictionary = {
 
 
 var agnette_skill_multipliers = {
-	"Arrow1": 25.0,
-	"ChargedAttackMovementSpeedPenalty": 40.0,
+	"Arrow1": 15.0,
+	"Arrow2": 25.0,
+	"Arrow3": 30.0,
+	"Arrow4": 45.0,
+	"ChargedAttackMovementSpeedPenalty": 80.0,
+	"CritRate": 0.0,
+	"CritDamage": 65.0,
 }
 
 var enemy_skill_multipliers : Dictionary = {

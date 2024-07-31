@@ -779,6 +779,12 @@ func _on_AttackCollision_area_entered(area):
 
 
 func _on_Area2D_area_entered(area):
+	if area.is_in_group("ConeOfColdSnareOn"):
+		var slowdown_coefficient : float = area.get_parent().slowdown_coefficient
+		get_parent().get_parent().SPEED -= get_parent().get_parent().MAX_SPEED * slowdown_coefficient
+	if area.is_in_group("ConeOfColdSnareOff"):
+		var slowdown_coefficient : float = area.get_parent().slowdown_coefficient
+		get_parent().get_parent().SPEED += get_parent().get_parent().MAX_SPEED * slowdown_coefficient
 	if Global.current_character == "Glaciela":
 		if area.is_in_group("HealthPot"):
 			Global.healthpot_amount += 1
@@ -786,12 +792,7 @@ func _on_Area2D_area_entered(area):
 		if area.is_in_group("LifeWine"):
 			Global.lifewine_amount += 1
 			emit_signal("lifewine_obtained", Global.lifewine_amount)
-		if area.is_in_group("ConeOfColdSnareOn"):
-			var slowdown_coefficient : float = area.get_parent().slowdown_coefficient
-			get_parent().get_parent().SPEED -= get_parent().get_parent().MAX_SPEED * slowdown_coefficient
-		if area.is_in_group("ConeOfColdSnareOff"):
-			var slowdown_coefficient : float = area.get_parent().slowdown_coefficient
-			get_parent().get_parent().SPEED += get_parent().get_parent().MAX_SPEED * slowdown_coefficient
+
 		if !Global.godmode:
 			if $InvulnerabilityTimer.is_stopped() and !get_parent().get_parent().is_invulnerable and !get_parent().get_parent().is_dashing:
 				if area.is_in_group("Enemy") and area.is_in_group("Hostile")or area.is_in_group("Projectile"):

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/magic_shield.png-3018d86f22d3d660ca83698c79524510.stex"
+path="res://.import/agnette_bar_full.png-97ac9585ed76fdb1ac9c2dbe13e183a6.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/misc/magic_shield.png"
-dest_files=[ "res://.import/magic_shield.png-3018d86f22d3d660ca83698c79524510.stex" ]
+source_file="res://assets/UI/agnette_bar_full.png"
+dest_files=[ "res://.import/agnette_bar_full.png-97ac9585ed76fdb1ac9c2dbe13e183a6.stex" ]
 
 [params]
 
