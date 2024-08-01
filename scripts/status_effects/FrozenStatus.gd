@@ -31,7 +31,9 @@ func _process(delta):
 	if is_frozen and freeze_stack <= 0:
 		is_frozen = false
 		freeze_stack = 0
-		call_deferred('free')
+		$Sprite.visible = false
+		$CollisionShape2D.disabled = true
+#		call_deferred('free')
 
 
 

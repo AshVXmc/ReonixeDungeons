@@ -13,9 +13,12 @@ var can_swap_character : bool = true
 onready var firesaw_ui = $PrimarySkill/Player/FireSaw/TextureProgress
 onready var firefairy_ui = $SecondarySkill/Player/FireFairy/TextureProgress
 onready var fireball_ui = $TertiarySkill/Player/Fireball/TextureProgress
+
 onready var winterqueen_ui = $PrimarySkill/Glaciela/WinterQueen/TextureProgress
 onready var icelance_ui = $SecondarySkill/Glaciela/IceLance/TextureProgress
 onready var coneofcold_ui = $TertiarySkill/Glaciela/ConeOfCold/TextureProgress
+
+onready var bearform_ui = $PrimarySkill/Agnette/BearForm/TextureProgress
 
 var coneofcold_active : bool = false
 
@@ -31,6 +34,7 @@ func _ready():
 	connect("ability_on_cooldown", get_parent().get_parent().get_node("Player"), "ability_on_entering_cooldown")
 	update_skill_ui(Global.player_skills["PrimarySkill"], Global.player_skills["SecondarySkill"], Global.player_skills["TertiarySkill"], Global.player_skills["PerkSkill"])
 	update_skill_ui(Global.glaciela_skills["PrimarySkill"], Global.glaciela_skills["SecondarySkill"], Global.glaciela_skills["TertiarySkill"], Global.glaciela_skills["PerkSkill"])
+	update_skill_ui(Global.agnette_skills["PrimarySkill"], Global.agnette_skills["SecondarySkill"], Global.agnette_skills["TertiarySkill"], Global.agnette_skills["PerkSkill"])
 	
 	firesaw_ui.max_value = Global.player_skill_multipliers["FireSawCD"] * multiplier
 	firesaw_ui.value = firesaw_ui.max_value
@@ -44,7 +48,8 @@ func _ready():
 	icelance_ui.value = icelance_ui.max_value
 	coneofcold_ui.max_value = Global.glaciela_skill_multipliers["ConeOfColdCD"] * multiplier
 	coneofcold_ui.value = coneofcold_ui.max_value
-
+	bearform_ui.max_value = Global.agnette_skill_multipliers["BearFormCD"] * multiplier
+	bearform_ui.value = bearform_ui.max_value
 	
 	update_perk_skill_ui()
 	update_character_ui()
@@ -63,6 +68,7 @@ func update_perk_skill_ui():
 		$PerkSkill/Player/CreateSugarRoll.visible = false
 	update_skill_ui(Global.player_skills["PrimarySkill"], Global.player_skills["SecondarySkill"], Global.player_skills["TertiarySkill"], Global.player_skills["PerkSkill"])
 	update_skill_ui(Global.glaciela_skills["PrimarySkill"], Global.glaciela_skills["SecondarySkill"], Global.glaciela_skills["TertiarySkill"], Global.glaciela_skills["PerkSkill"])
+	update_skill_ui(Global.agnette_skills["PrimarySkill"], Global.agnette_skills["SecondarySkill"], Global.agnette_skills["TertiarySkill"], Global.agnette_skills["PerkSkill"])
 
 func update_swap_character_status():
 	can_swap_character = true if !can_swap_character else false
@@ -109,6 +115,9 @@ func update_skill_ui(primary : String, secondary : String, tertiary : String, pe
 		"WinterQueen":
 			$PrimarySkill/Glaciela/WinterQueen.visible = true
 			$PrimarySkill/Glaciela/WinterQueen/CostLabel.text = str(Global.glaciela_skill_multipliers["WinterQueenCost"])
+		"BearForm":
+			$PrimarySkill/Agnette/BearForm.visible = true
+			$PrimarySkill/Agnette/BearForm/CostLabel.text = str(Global.agnette_skill_multipliers["BearFormCost"])
 	match secondary:
 		"FireFairy":
 			$SecondarySkill/Player/FireFairy.visible = true
@@ -151,6 +160,8 @@ func on_skill_used(skill_name : String):
 			icelance_ui.value = icelance_ui.min_value
 		"WinterQueen":
 			winterqueen_ui.value = winterqueen_ui.min_value
+		"BearForm":
+			bearform_ui.value = bearform_ui.min_value
 		"PlayerChargedAttack":
 			pass
 
@@ -344,6 +355,41 @@ func _process(delta):
 		$SecondarySkill/Glaciela.visible = false
 		$TertiarySkill/Glaciela.visible = false
 	
+	if Global.current_character == "Agnette":
+		$PrimarySkill/Agnette.visible = true
+		$SecondarySkill/Agnette.visible = true
+		$TertiarySkill/Agnette.visible = true
+		if bearform_ui.value < bearform_ui.max_value:
+			$PrimarySkill/Agnette/BearForm/Label.text = str(stepify((bearform_ui.max_value - bearform_ui.value) / multiplier, 0.001))
+			bearform_ui.self_modulate.a = 0.65
+		elif bearform_ui.value >= bearform_ui.max_value:
+			if Global.equipped_characters[0] == "Agnette":
+				if Global.mana >= Global.agnette_skill_multipliers["BearFormCost"]:
+					bearform_ui.self_modulate.a = 1.0
+				else:
+					bearform_ui.self_modulate.a = 0.65
+				$PrimarySkill/Agnette/BearForm/Label.text = ""
+			elif Global.equipped_characters[1] == "Agnette":
+				if Global.character2_mana >= Global.agnette_skill_multipliers["BearFormCost"]:
+					bearform_ui.self_modulate.a = 1.0
+				else:
+					bearform_ui.self_modulate.a = 0.65
+				$PrimarySkill/Agnette/BearForm/Label.text = ""
+			elif Global.equipped_characters[2] == "Agnette":
+				if Global.character3_mana >= Global.agnette_skill_multipliers["BearFormCost"]:
+					bearform_ui.self_modulate.a = 1.0
+				else:
+					bearform_ui.self_modulate.a = 0.65
+				$PrimarySkill/Agnette/BearForm/Label.text = ""
+
+
+	else:
+		$PrimarySkill/Agnette.visible = false
+		$SecondarySkill/Agnette.visible = false
+		$TertiarySkill/Agnette.visible = false
+	
+	
+	
 	if !coneofcold_active:
 		$TertiarySkill/Glaciela/ConeOfCold/ConeOfColdResource.value += Global.glaciela_skill_multipliers["ConeOfColdRegenRate"]
 	
@@ -390,7 +436,8 @@ func _on_CooldownTickTimer_timeout():
 		winterqueen_ui.value += 1 
 		icelance_ui.value += 1 
 		coneofcold_ui.value += 1
-
+	if Global.equipped_characters.has("Agnette"):
+		bearform_ui.value += 1
 #func reduce_endurance(amount : int):
 #	$EnduranceMeter/TextureProgress.value -= amount
 

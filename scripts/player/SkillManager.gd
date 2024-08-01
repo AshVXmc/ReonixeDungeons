@@ -13,6 +13,7 @@ var playeratkbonus : float
 var glacielaatkbonus : float
 onready var skills_ui  = get_parent().get_parent().get_node("SkillsUI/Control")
 
+
 func _ready():
 	connect("mana_changed", get_parent().get_parent().get_node("ManaUI/Mana"), "on_player_mana_changed")
 
@@ -87,7 +88,7 @@ func on_skill_used (
 			var chaos_magic_ui = get_parent().get_node("ChaosMagicUI/Control")
 			chaos_magic_ui.trigger_chaos_magic()
 		"IceLance":
-			
+#			print("ICE LANCE")
 			get_parent().is_using_secondary_skill = true
 			var icelance = ICE_LANCE.instance()
 			icelance.direction = direction
@@ -128,4 +129,6 @@ func on_skill_used (
 			elif direction == -1:
 				cone_of_cold.deactivate_cone_of_cold()
 				skills_ui.coneofcold_active = false
-
+		"BearForm":
+			get_parent().get_node("CharacterManager/Agnette").wild_shape(1)
+			get_parent().get_node("CharacterManager/Agnette/BearFormDurationTimer").start()

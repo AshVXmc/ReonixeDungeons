@@ -49,11 +49,11 @@ var glaciela_attack : int = 20
 var agnette_attack : int = 20
 var player_skill_multipliers : Dictionary = {
 	"BaseHearts": 2.5,
-	"BasicAttack": 20.0,
-	"BasicAttack2": 25.0,
+	"BasicAttack": 25.0,
+	"BasicAttack2": 30.0,
 	"BasicAttack3": 35.0,
-	"BasicAttack4": 60.0,
-	"ChargedAttack": 52.0,
+	"BasicAttack4": 65.0,
+	"ChargedAttack": 60.0,
 	"ThrustAttack": 75.0,
 	"ThrustChargedAttack": 85.0,
 	"UpwardsChargedAttack": 28.0, # x 2
@@ -72,7 +72,7 @@ var player_skill_multipliers : Dictionary = {
 	"SlashFlurryEnergyCost": 200,
 	"FireSaw": 65.0,
 	"FireSawDuration": 8.0,
-	"FireFairy": 25.0,
+	"FireFairy": 40.0,
 	"FireFairyDuration": 10.0,
 	"Fireball": 62.5,
 	"FireballCD": 5.0,
@@ -235,10 +235,10 @@ var glaciela_skill_multipliers : Dictionary = {
 	"TundraSigilManaBonus": 0.75,
 	"TundraStarsIceDamageBonus": 35,
 	"AirborneDuration": 2.5,
-	"IceLance": 35.0,
+	"IceLance": 40.0,
 	"IceLanceFreezeGauge": 350.0,
 	"MaxTundraStars": 3,
-	"WinterQueen": 15.0,
+	"WinterQueen": 20.0,
 	"WinterQueenCost": 10,
 	"IceLanceCost": 2,
 	"WinterQueenCD": 30.0,
@@ -278,8 +278,21 @@ var agnette_skill_multipliers = {
 	"Arrow3": 30.0,
 	"Arrow4": 45.0,
 	"ChargedAttackMovementSpeedPenalty": 80.0,
+	
+	"BearFormCost": 0,
+	"BearFormCD": 10,
+	"BearFormDuration": 8,
+	# health taken from agnette's max HP.
+	"BearFormHealth": 75.0,
 	"CritRate": 0.0,
 	"CritDamage": 65.0,
+}
+
+var agnette_skills : Dictionary = {
+	"PrimarySkill" : "BearForm",
+	"SecondarySkill" : "",
+	"TertiarySkill" : "",
+	"PerkSkill": ""
 }
 
 var enemy_skill_multipliers : Dictionary = {

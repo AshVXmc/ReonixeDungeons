@@ -67,7 +67,15 @@ var earth_dmg_bonus : float = Global.glaciela_skill_multipliers["EarthDamageBonu
 
 onready var crit_rate : float = Global.glaciela_skill_multipliers["CritRate"]
 onready var crit_damage : float = Global.glaciela_skill_multipliers["CritDamage"]
+onready var pskill_ui : TextureProgress = get_parent().get_parent().get_parent().get_node("SkillsUI/Control/PrimarySkill/Agnette/BearForm/TextureProgress")
+#onready var sskill_ui : TextureProgress = get_parent().get_parent().get_parent().get_node("SkillsUI/Control/SecondarySkill/Glaciela/IceLance/TextureProgress")
+#onready var tskill_ui : TextureProgress = get_parent().get_parent().get_parent().get_node("SkillsUI/Control/TertiarySkill/Glaciela/ConeOfCold/TextureProgress")
 
+
+var current_form = forms.ARCHER
+enum forms  {
+	ARCHER, BEAR
+}
 
 func _ready():
 #	print(get_path())
@@ -87,13 +95,13 @@ func _ready():
 	connect("perfect_dash",  get_parent().get_parent().get_parent().get_node("PauseUI/PerfectDash"), "trigger_perfect_dash_animation")
 	connect("life_changed", get_parent().get_parent().get_parent().get_node("HeartUI/Life"), "on_player_life_changed")
 	connect("mana_changed", get_parent().get_parent().get_parent().get_node("ManaUI/Mana"), "on_player_mana_changed")
-	connect("skill_used", get_parent().get_parent().get_parent().get_node("SkillsUI/Control"), "on_skill_used")
+#	connect("skill_used", get_parent().get_parent().get_parent().get_node("SkillsUI/Control"), "on_skill_used")
 	connect("skill_used", get_parent().get_parent().get_node("SkillManager"), "on_skill_used")
 	$StrongJumpParticle.visible = false
-	$AnimatedSprite.play("Default")
-
-
-	$SpecialAttackArea2D.add_to_group(str(ATTACK * (Global.glaciela_skill_multipliers["SpecialAttack1_1"] / 100)))
+	play_animated_sprite("Default")
+	$BearFormDurationTimer.wait_time = Global.agnette_skill_multipliers["BearFormDuration"]
+	
+#	$SpecialAttackArea2D.add_to_group(str(ATTACK * (Global.glaciela_skill_multipliers["SpecialAttack1_1"] / 100)))
 
 
 func _physics_process(delta):
@@ -102,63 +110,92 @@ func _physics_process(delta):
 		$EnemyEvasionArea.set_scale(Vector2(1,1))
 	else:
 		$EnemyEvasionArea.set_scale(Vector2(-1,1))
-		
+	
+	if is_charging and Global.current_character != "Agnette":
+		toggle_charged_attack_snare(false)
+		is_charging = false
+		$ChargedAttackBarFillTimer.stop()
+		$ChargedAttackBar.value = $ChargedAttackBar.min_value
 		
 	if Input.is_action_pressed("right") and !Input.is_action_pressed("left") and !get_parent().get_parent().is_attacking and !get_parent().get_parent().is_dashing and !get_parent().get_parent().is_knocked_back:
 		Input.action_release("left")
 		$AnimatedSprite.flip_h = false
-		$AnimatedSprite.play("Walk")
+		play_animated_sprite("Walk")
 		
 #		attack_string_count = 4
 	elif Input.is_action_pressed("left") and !Input.is_action_pressed("right") and !get_parent().get_parent().is_attacking and !get_parent().get_parent().is_dashing and !get_parent().get_parent().is_knocked_back:
 		Input.action_release("right")
 		$AnimatedSprite.flip_h = true
-		$AnimatedSprite.play("Walk")
+		play_animated_sprite("Walk")
+		
 #		attack_string_count = 4
 	if Input.is_action_just_pressed("right") or Input.is_action_just_pressed("left") and attack_string_count != 3:
 		attack_string_count = 4
 	if Global.current_character == "Agnette":
 #		charge_meter()
 		$AnimatedSprite.visible = true
-		
-		if !$AnimatedSprite.flip_h:
-			$BowSprite.flip_h = true
-			$BowSprite.position.x = 40
-		else:
-			$BowSprite.flip_h = false
-			$BowSprite.position.x = -40
-			
+
 		if get_parent().get_parent().velocity.x == 0:
-			$AnimatedSprite.play("Default")
+			play_animated_sprite("Default")
 		
 		if get_parent().get_parent().can_dash:
 			if Input.is_action_pressed("left") or Input.is_action_pressed("right") and !Input.is_action_pressed("jump"):
-				$AnimatedSprite.play("Walk")
+				play_animated_sprite("Walk")
 			else:
-				$AnimatedSprite.play("Default")
-		if Input.is_action_just_pressed("ui_dash") and !get_parent().get_parent().can_dash and !get_parent().get_parent().get_node("DashUseTimer").is_stopped():
-			$AnimatedSprite.play("Dash")
-			print("text")
-#			attack_string_count = 4
-			yield(get_tree().create_timer(0.25), "timeout")
-			$AnimatedSprite.play("Default")
-		
-		if Input.is_action_just_pressed("jump"):
-#			attack_string_count = 4
-			$AnimatedSprite.play("Default")
-		
+				play_animated_sprite("Default")
+
+		if current_form == forms.ARCHER:
+			if Input.is_action_just_pressed("ui_dash") and !get_parent().get_parent().can_dash and !get_parent().get_parent().get_node("DashUseTimer").is_stopped():
+				$AnimatedSprite.play("Dash")
+				
+				print("text")
+	#			attack_string_count = 4
+				yield(get_tree().create_timer(0.25), "timeout")
+				play_animated_sprite("Default")
+			if Input.is_action_just_pressed("jump"):
+				attack_string_count = 4
+				play_animated_sprite("Default")
+			if !$AnimatedSprite.flip_h:
+				$BowSprite.flip_h = true
+				$BowSprite.position.x = 40
+			else:
+				$BowSprite.flip_h = false
+				$BowSprite.position.x = -40
+		if current_form == forms.BEAR:
+			if !$AnimatedSprite.flip_h:
+				$BearFormNodes/AttackCollision.position.x = 100
+			else:
+				$BearFormNodes/AttackCollision.position.x = -100
+		use_skill()
 #		print(is_charging)
 
 			
-		if Input.is_action_just_pressed("primary_skill") and !Input.is_action_just_pressed("secondary_skill"):
-			print("skill emitted")
-			emit_signal("skill_used", "IceLance")
+#		if Input.is_action_just_pressed("primary_skill") and !Input.is_action_just_pressed("secondary_skill"):
+#			print("skill emitted")
+#			emit_signal("skill_used", "IceLance")
+
+func play_animated_sprite(anim_name : String):
+	match anim_name:
+		"Default":
+			if current_form == forms.ARCHER:
+				$AnimatedSprite.play("Default")
+			elif current_form == forms.BEAR:
+				$AnimatedSprite.play("BearDefault")
+		"Walk":
+			if current_form == forms.ARCHER:
+				$AnimatedSprite.play("Walk")
+			elif current_form == forms.BEAR:
+				$AnimatedSprite.play("BearWalk")
+
+
 
 func _input(event):
 	if Global.current_character == "Agnette":
-		if event.is_action_pressed("ui_attack") and !is_charging:
+		if current_form == forms.ARCHER and event.is_action_pressed("ui_attack") and !is_charging:
 			attack()
 			$InputPressTimer.start()
+			
+		
 		if event.is_action_pressed("heal"):
 			if Global.healthpot_amount > 0:
 				heal(5)
@@ -173,12 +210,66 @@ func _input(event):
 				toggle_charged_attack_snare(false)
 			
 			is_charging = false
-			charged_attack()
+			if current_form == forms.ARCHER:
+				charged_attack()
 			
 			$ChargedAttackBarFillTimer.stop()
 			$ChargedAttackBar.value = $ChargedAttackBar.min_value
-#			$ChargedAttackBar.visible = false
 			$BowAnimationPlayer.play("BowAttackRight")
+
+
+func use_skill():
+	if Global.current_character == "Agnette" and !get_parent().get_parent().is_frozen:
+		if pskill_ui.value >= pskill_ui.max_value and Input.is_action_just_pressed("primary_skill") and !Input.is_action_just_pressed("secondary_skill"): 
+			use_primary_skill()
+#		if sskill_ui.value >= sskill_ui.max_value and Input.is_action_just_pressed("secondary_skill") and !Input.is_action_just_pressed("primary_skill"):
+#			use_secondary_skill()
+#		if tskill_ui.value >= tskill_ui.max_value and Input.is_action_just_pressed("tertiary_skill"):
+#			use_tertiary_skill()
+
+func use_primary_skill():
+	if Global.current_character == Global.equipped_characters[0] and Global.mana >= Global.agnette_skill_multipliers["BearFormCost"]:
+		emit_signal("skill_used", "BearForm", attack_buff)
+		get_parent().get_parent().emit_signal("skill_ui_update", "BearForm")
+		emit_signal("mana_changed", Global.mana, "Agnette")
+	elif Global.current_character == Global.equipped_characters[1] and Global.character2_mana >= Global.agnette_skill_multipliers["BearFormCost"]:
+		emit_signal("skill_used", "BearForm", attack_buff)
+		get_parent().get_parent().emit_signal("skill_ui_update", "BearForm")
+		emit_signal("mana_changed", Global.character2_mana, "Agnette")
+	elif Global.current_character == Global.equipped_characters[2] and Global.character3_mana >= Global.agnette_skill_multipliers["BearFormCost"]:
+		emit_signal("skill_used", "BearForm", attack_buff)
+		get_parent().get_parent().emit_signal("skill_ui_update", "BearForm")
+		emit_signal("mana_changed", Global.character3_mana, "Agnette")
+	
+func use_secondary_skill():
+	pass
+
+func use_tertiary_skill():
+	pass
+
+
+func wild_shape(target_form : int, with_particles : bool = true):
+	current_form = target_form
+	if with_particles:
+		$WildShapeParticles.emitting = true
+	match target_form:
+		forms.ARCHER:
+			$ChargedAttackBar.visible = true
+			get_parent().get_parent().mobility_lock = false
+			$BearFormNodes/BearHealthBar.visible = false
+			$BowSprite.visible = true
+		forms.BEAR:
+			$ChargedAttackBar.visible = false
+			get_parent().get_parent().mobility_lock = true
+			$BearFormNodes/BearHealthBar.max_value = Global.character_health_data["Agnette"] * (Global.agnette_skill_multipliers["BearFormHealth"] / 100)
+			print("bear HP: " + str($BearFormNodes/BearHealthBar.max_value))
+			$BearFormNodes/BearHealthBar.value = $BearFormNodes/BearHealthBar.max_value
+			$BearFormNodes/BearHealthBar.visible = true
+			$BowSprite.visible = false
+			
+			
+
+
 func toggle_charged_attack_snare(active : bool):
 	if active:
 		$SelfSnareArea.remove_from_group("AgnetteChargedAttackSnareOff")
@@ -207,7 +298,6 @@ func charged_dash():
 	$DashInputPressTimer.stop()
 func attack():
 	if Global.current_character == "Agnette" and $ShootTimer.is_stopped():
-
 #		if get_parent().get_parent().is_on_floor():
 		airborne_mode = true
 		$AirborneTimer.start()
@@ -422,7 +512,7 @@ func _on_Area2D_area_entered(area):
 		if !Global.godmode:
 			if $InvulnerabilityTimer.is_stopped() and !get_parent().get_parent().is_invulnerable and !get_parent().get_parent().is_dashing:
 				if area.is_in_group("Enemy") and area.is_in_group("Hostile") or area.is_in_group("Projectile"):
-					print("GLACIELA HURT")
+#					print("GLACIELA HURT")
 					match area.get_parent().elemental_type:
 						"Physical":
 							var dmg = area.get_parent().atk_value
@@ -522,32 +612,36 @@ func add_hurt_particles(damage : float):
 
 func take_damage(damage : float):
 	if Global.current_character == "Agnette":
-		if Global.equipped_characters[0] == "Agnette":
-			if get_parent().get_parent().shield_hp > 0:
-				get_parent().get_parent().shield_hp = clamp(get_parent().get_parent().shield_hp - damage, 0, 999)
-				get_parent().get_parent().get_node("Shield/ShieldHPBar").value = get_parent().get_parent().shield_hp
-			else:
-				Global.hearts -= damage
-				add_hurt_particles(damage)
-				emit_signal("life_changed", Global.hearts, "Agnette")
-		elif Global.equipped_characters[1] == "Agnette":
-			if get_parent().get_parent().shield_hp > 0:
-				get_parent().get_parent().shield_hp = clamp(get_parent().get_parent().shield_hp - damage, 0, 999)
-				get_parent().get_parent().get_node("Shield/ShieldHPBar").value = get_parent().get_parent().shield_hp
-			else:
-				Global.character2_hearts -= damage
-				add_hurt_particles(damage )
-				emit_signal("life_changed", Global.character2_hearts, "Agnette")
-		elif Global.equipped_characters[2] == "Agnette":
-			if get_parent().get_parent().shield_hp > 0:
-				get_parent().get_parent().shield_hp = clamp(get_parent().get_parent().shield_hp - damage, 0, 999)
-				get_parent().get_parent().get_node("Shield/ShieldHPBar").value = get_parent().get_parent().shield_hp
-			else:
-				Global.character3_hearts -= damage
-				add_hurt_particles(damage)
-				emit_signal("life_changed", Global.character3_hearts, "Agnette")
-
-	
+		if current_form == forms.ARCHER:
+			if Global.equipped_characters[0] == "Agnette":
+				if get_parent().get_parent().shield_hp > 0:
+					get_parent().get_parent().shield_hp = clamp(get_parent().get_parent().shield_hp - damage, 0, 999)
+					get_parent().get_parent().get_node("Shield/ShieldHPBar").value = get_parent().get_parent().shield_hp
+				else:
+					Global.hearts -= damage
+					add_hurt_particles(damage)
+					emit_signal("life_changed", Global.hearts, "Agnette")
+			elif Global.equipped_characters[1] == "Agnette":
+				if get_parent().get_parent().shield_hp > 0:
+					get_parent().get_parent().shield_hp = clamp(get_parent().get_parent().shield_hp - damage, 0, 999)
+					get_parent().get_parent().get_node("Shield/ShieldHPBar").value = get_parent().get_parent().shield_hp
+				else:
+					Global.character2_hearts -= damage
+					add_hurt_particles(damage )
+					emit_signal("life_changed", Global.character2_hearts, "Agnette")
+			elif Global.equipped_characters[2] == "Agnette":
+				if get_parent().get_parent().shield_hp > 0:
+					get_parent().get_parent().shield_hp = clamp(get_parent().get_parent().shield_hp - damage, 0, 999)
+					get_parent().get_parent().get_node("Shield/ShieldHPBar").value = get_parent().get_parent().shield_hp
+				else:
+					Global.character3_hearts -= damage
+					add_hurt_particles(damage)
+					emit_signal("life_changed", Global.character3_hearts, "Agnette")
+		elif current_form == forms.BEAR:
+			
+			$BearFormNodes/BearHealthBar.value -= damage * 2
+			add_hurt_particles(damage)
+			print("BEAR takes dmg")
 
 func _on_ResetAttackStringTimer_timeout():
 	attack_string_count = 4
@@ -617,7 +711,6 @@ func _on_ShootTimer_timeout():
 	pass # Replace with function body.
 
 func _on_InputPressTimer_timeout():
-#	$ChargedAttackBar.visible = true
 	if Input.is_action_pressed("ui_attack"):
 		is_charging = true
 		$ChargedAttackBarFillTimer.start()
@@ -636,6 +729,20 @@ func _on_MaxChargeHoldTimer_timeout():
 	if is_charging:
 		toggle_charged_attack_snare(false)
 		is_charging = false
-		charged_attack()
+		if current_form == forms.ARCHER:
+			charged_attack()
 		$ChargedAttackBarFillTimer.stop()
 		$ChargedAttackBar.value = $ChargedAttackBar.min_value
+
+
+func _on_AttackCollision_area_entered(area):
+	pass # Replace with function body.
+
+
+func _on_AttackCollision_area_exited(area):
+	pass # Replace with function body.
+
+
+func _on_BearFormDurationTimer_timeout():
+	if current_form == forms.BEAR:
+		wild_shape(forms.ARCHER)

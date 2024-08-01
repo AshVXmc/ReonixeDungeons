@@ -161,6 +161,10 @@ onready var crit_damage : float = Global.player_skill_multipliers["CritDamage"]
 # when a flash appears after the 3rd string of basic attack, tap to thrust through enemies
 # this can be broken if enemy hits you first
 
+# if this TRUE, the player wont be able to jump or dash
+# used in agnette's bear form
+var mobility_lock : bool = false
+
 func move_sheath(node_name : String, layer : int):
 	move_child(get_node(node_name), layer)
 
@@ -435,7 +439,7 @@ func _physics_process(_delta):
 						$EnemyEvasionArea.set_scale(Vector2(1,1))
 				
 					# Jump controls (ground)
-					if Input.is_action_just_pressed("jump") and !is_attacking and !is_frozen and !underwater and !Input.is_action_pressed("ui_dash"):
+					if Input.is_action_just_pressed("jump") and !mobility_lock and !is_attacking and !is_frozen and !underwater and !Input.is_action_pressed("ui_dash"):
 						if is_on_floor():
 							$DashAfterJumpingDelayTimer.start()
 							# Particles
@@ -802,7 +806,7 @@ func _input(event):
 				is_invulnerable = true
 				thrust_attack(true)
 			$InputPressTimer.start()
-		if event.is_action_pressed("ui_dash") and $DashInputPressTimer.is_stopped() and !is_quickswap_attacking:
+		if event.is_action_pressed("ui_dash") and !mobility_lock and $DashInputPressTimer.is_stopped() and !is_quickswap_attacking:
 			if get_parent().has_node("FireCharm") and weakref(get_parent().get_node("FireCharm")).get_ref() != null:
 				teleport_to_firecharm()
 			else:
@@ -2165,7 +2169,7 @@ func update_energy_meter(value : int):
 		$EnergyMeter.texture_progress = ENERGY_METER
 
 func _on_InputPressTimer_timeout():
-	if !Input.is_action_pressed("ui_dash") and !is_quickswap_attacking:
+	if !Input.is_action_pressed("ui_dash") and !is_quickswap_attacking and !mobility_lock:
 		if Input.is_action_pressed("ui_up") and is_on_floor():
 			upwards_charged_attack()
 		if Input.is_action_pressed("ui_down") and airborne_mode and !is_on_floor():
@@ -2185,7 +2189,7 @@ func _on_InputPressTimer_timeout():
 						charged_attack("Circular") if attack_string_count == 1 and Global.player_talents["CycloneSlashes"]["unlocked"] and Global.player_talents["CycloneSlashes"]["enabled"] else charged_attack("Ground")
 
 func _on_DashInputPressTimer_timeout():
-	if Global.current_character == "Player" and Input.is_action_pressed("ui_dash") and !Input.is_action_pressed("ui_attack") and !is_quickswap_attacking:
+	if Global.current_character == "Player" and !mobility_lock and Input.is_action_pressed("ui_dash") and !Input.is_action_pressed("ui_attack") and !is_quickswap_attacking:
 		charged_dash()
 
 func _on_WalkParticleTimer_timeout():
