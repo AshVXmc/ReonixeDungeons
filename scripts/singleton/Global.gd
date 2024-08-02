@@ -281,9 +281,11 @@ var agnette_skill_multipliers = {
 	
 	"BearFormCost": 0,
 	"BearFormCD": 10,
-	"BearFormDuration": 8,
+	"BearFormDuration": 12,
 	# health taken from agnette's max HP.
-	"BearFormHealth": 75.0,
+	"BearFormHealth": 130.0,
+	"BearFormMovementSpeedPenalty": 20.0,
+	"BearFormAttack1": 102.0,
 	"CritRate": 0.0,
 	"CritDamage": 65.0,
 }

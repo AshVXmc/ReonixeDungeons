@@ -316,8 +316,36 @@ custom_fonts/font = SubResource( 10 )
 text = "Talents"
 align = 1
 
+[node name="AgnetteOpenSkillsButton" type="TextureButton" parent="CharactersUI/NinePatchRect"]
+anchor_left = 0.215
+anchor_right = 0.215
+margin_left = 300.805
+margin_top = 312.0
+margin_right = 410.805
+margin_bottom = 367.0
+rect_min_size = Vector2( 32, 16 )
+texture_normal = ExtResource( 5 )
+texture_pressed = ExtResource( 4 )
+texture_hover = ExtResource( 11 )
+expand = true
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="ButtonLabel" type="Label" parent="CharactersUI/NinePatchRect/AgnetteOpenSkillsButton"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -40.0
+margin_top = -15.5
+margin_right = 38.0
+margin_bottom = 19.5
+custom_fonts/font = SubResource( 9 )
+text = "Skills"
+align = 1
+
 [node name="CharacterSkillsControl" type="Control" parent="."]
-visible = false
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -1215,6 +1243,417 @@ margin_bottom = 572.0
 custom_fonts/font = SubResource( 11 )
 flat = true
 
+[node name="AgnetteControl" type="Control" parent="CharacterSkillsControl/NinePatchRect/SkillsControl"]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="Sprite" type="Sprite" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/AgnetteControl"]
+position = Vector2( 86, 125 )
+scale = Vector2( 7, 7 )
+texture = ExtResource( 13 )
+
+[node name="SkillTypeHeaderLabel" type="Label" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/AgnetteControl"]
+margin_left = 35.5
+margin_top = 218.0
+margin_right = 147.5
+margin_bottom = 250.0
+custom_fonts/font = SubResource( 12 )
+text = "Skill Type"
+align = 1
+
+[node name="SkillTypeOptionSprite" type="Sprite" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/AgnetteControl"]
+position = Vector2( 92.5, 295 )
+scale = Vector2( 10.125, 10.125 )
+texture = ExtResource( 5 )
+
+[node name="SkillTypeOptionButton" type="OptionButton" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/AgnetteControl"]
+margin_left = 21.0
+margin_top = 264.0
+margin_right = 162.0
+margin_bottom = 327.0
+custom_fonts/font = SubResource( 11 )
+flat = true
+
+[node name="PrimarySkillScrollContainer" type="ScrollContainer" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/AgnetteControl"]
+visible = false
+anchor_right = 21.766
+anchor_bottom = 15.255
+margin_left = 197.0
+margin_top = 79.0
+margin_right = 16.36
+margin_bottom = -168.2
+rect_min_size = Vector2( 566, 355 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/AgnetteControl/PrimarySkillScrollContainer"]
+margin_right = 510.0
+margin_bottom = 1104.0
+rect_min_size = Vector2( 510, 1100 )
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/AgnetteControl/PrimarySkillScrollContainer/VBoxContainer"]
+margin_right = 510.0
+margin_bottom = 1100.0
+rect_min_size = Vector2( 510, 1100 )
+custom_fonts/italics_font = SubResource( 2 )
+custom_fonts/normal_font = SubResource( 2 )
+bbcode_enabled = true
+bbcode_text = "[color=#ffd703]Bear Form[/color]
+Shapeshift into a ferocious [color=#3b1c06]Bear[/color] for BF_DUR seconds. It has BF_HP% of Agnette's Max HP as its HP. While in this form, you gain knockback resistance, but you cannot dash, jump or shoot arrows, and your speed is reduced by BF_SPD_PEN%. You may attack in melee range with your claws or ..... (fill later)
+
+You revert back to your Archer form when the duration ends or if you drop to 0 HP in [color=#3b1c06]Bear[/color] form.
+
+Cooldown: BF_CD seconds
+Mana cost: BF_COST mana"
+text = "Bear Form
+Shapeshift into a ferocious Bear for BF_DUR seconds. It has BF_HP% of Agnette's Max HP as its HP. While in this form, you gain knockback resistance, but you cannot dash, jump or shoot arrows, and your speed is reduced by BF_SPD_PEN%. You may attack in melee range with your claws or ..... (fill later)
+
+You revert back to your Archer form when the duration ends or if you drop to 0 HP in Bear form.
+
+Cooldown: BF_CD seconds
+Mana cost: BF_COST mana"
+scroll_active = false
+
+[node name="TalentControl1" type="Control" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/AgnetteControl/PrimarySkillScrollContainer/VBoxContainer"]
+margin_top = 1104.0
+margin_right = 510.0
+margin_bottom = 1104.0
+
+[node name="AgnetteTalentButton" type="TextureButton" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/AgnetteControl/PrimarySkillScrollContainer/VBoxContainer/TalentControl1"]
+anchor_left = 0.215
+anchor_right = 0.215
+margin_left = 426.35
+margin_top = -1104.0
+margin_right = 458.35
+margin_bottom = -1087.0
+rect_min_size = Vector2( 32, 16 )
+rect_scale = Vector2( 7.5, 7.5 )
+texture_normal = ExtResource( 5 )
+texture_pressed = ExtResource( 4 )
+
+[node name="ButtonLabel" type="Label" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/AgnetteControl/PrimarySkillScrollContainer/VBoxContainer/TalentControl1/AgnetteTalentButton"]
+margin_left = 1.73334
+margin_top = 2.0
+margin_right = 46.7333
+margin_bottom = 19.0
+rect_scale = Vector2( 0.3, 0.3 )
+custom_colors/font_color = Color( 1, 0.843137, 0.0117647, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Bought"
+
+[node name="AgnetteCheckButton" type="CheckButton" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/AgnetteControl/PrimarySkillScrollContainer/VBoxContainer/TalentControl1/AgnetteTalentButton"]
+visible = false
+margin_left = -5.33334
+margin_top = 8.66666
+margin_right = 116.667
+margin_bottom = 48.6667
+rect_scale = Vector2( 0.2, 0.2 )
+custom_fonts/font = SubResource( 4 )
+text = "Enable"
+align = 1
+
+[node name="SecondarySkillScrollContainer" type="ScrollContainer" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/AgnetteControl"]
+visible = false
+anchor_right = 21.766
+anchor_bottom = 15.255
+margin_left = 197.0
+margin_top = 79.0
+margin_right = 16.36
+margin_bottom = -168.2
+rect_min_size = Vector2( 566, 355 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/AgnetteControl/SecondarySkillScrollContainer"]
+margin_right = 510.0
+margin_bottom = 1104.0
+rect_min_size = Vector2( 510, 1100 )
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/AgnetteControl/SecondarySkillScrollContainer/VBoxContainer"]
+margin_right = 510.0
+margin_bottom = 1100.0
+rect_min_size = Vector2( 510, 1100 )
+custom_fonts/italics_font = SubResource( 2 )
+custom_fonts/normal_font = SubResource( 2 )
+bbcode_enabled = true
+bbcode_text = "[color=#ffd703]Ice Lance[/color]
+Hurl a double-bladed frost lance in your facing direction, dealing [u]ICELANCE_ATK% ATK[/u] as [color=#7df0ff]Ice[/color] damage to enemies. After it reaches maximum range, it homes back to you to deal further [color=#7df0ff]Ice[/color] damage. Each hit fills up ICELANCE_FREEZE_GAUGE% of the enemy's [color=#7df0ff]Freeze[/color] gauge.
+Consumes all stacks of [color=#c4fdff]Tundra Sigil[/color]. Each stack consumed grants a ICELANCE_DMG_BONUS% damage bonus to the attack.
+
+Cooldown: ICELANCE_CD seconds
+Mana cost: ICELANCE_COST mana"
+text = "Ice Lance
+Hurl a double-bladed frost lance in your facing direction, dealing ICELANCE_ATK% ATK as Ice damage to enemies. After it reaches maximum range, it homes back to you to deal further Ice damage. Each hit fills up ICELANCE_FREEZE_GAUGE% of the enemy's Freeze gauge.
+Consumes all stacks of Tundra Sigil. Each stack consumed grants a ICELANCE_DMG_BONUS% damage bonus to the attack.
+
+Cooldown: ICELANCE_CD seconds
+Mana cost: ICELANCE_COST mana"
+scroll_active = false
+
+[node name="TalentControl1" type="Control" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/AgnetteControl/SecondarySkillScrollContainer/VBoxContainer"]
+margin_top = 1104.0
+margin_right = 510.0
+margin_bottom = 1104.0
+
+[node name="AgnetteTalentButton" type="TextureButton" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/AgnetteControl/SecondarySkillScrollContainer/VBoxContainer/TalentControl1"]
+anchor_left = 0.215
+anchor_right = 0.215
+margin_left = 426.35
+margin_top = -1104.0
+margin_right = 458.35
+margin_bottom = -1087.0
+rect_min_size = Vector2( 32, 16 )
+rect_scale = Vector2( 7.5, 7.5 )
+texture_normal = ExtResource( 5 )
+texture_pressed = ExtResource( 4 )
+
+[node name="ButtonLabel" type="Label" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/AgnetteControl/SecondarySkillScrollContainer/VBoxContainer/TalentControl1/AgnetteTalentButton"]
+margin_left = 1.73334
+margin_top = 2.0
+margin_right = 46.7333
+margin_bottom = 19.0
+rect_scale = Vector2( 0.3, 0.3 )
+custom_colors/font_color = Color( 1, 0.843137, 0.0117647, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Bought"
+
+[node name="AgnetteCheckButton" type="CheckButton" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/AgnetteControl/SecondarySkillScrollContainer/VBoxContainer/TalentControl1/AgnetteTalentButton"]
+visible = false
+margin_left = -5.33334
+margin_top = 8.66666
+margin_right = 116.667
+margin_bottom = 48.6667
+rect_scale = Vector2( 0.2, 0.2 )
+custom_fonts/font = SubResource( 4 )
+text = "Enable"
+align = 1
+
+[node name="TertiarySkillScrollContainer" type="ScrollContainer" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/AgnetteControl"]
+visible = false
+anchor_right = 21.766
+anchor_bottom = 15.255
+margin_left = 197.0
+margin_top = 79.0
+margin_right = 16.36
+margin_bottom = -168.2
+rect_min_size = Vector2( 566, 355 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/AgnetteControl/TertiarySkillScrollContainer"]
+margin_right = 510.0
+margin_bottom = 1104.0
+rect_min_size = Vector2( 510, 1100 )
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/AgnetteControl/TertiarySkillScrollContainer/VBoxContainer"]
+margin_right = 510.0
+margin_bottom = 1100.0
+rect_min_size = Vector2( 510, 1100 )
+custom_fonts/italics_font = SubResource( 2 )
+custom_fonts/normal_font = SubResource( 2 )
+bbcode_enabled = true
+bbcode_text = "[color=#ffd703]Cone Of Cold[/color]
+Shoot forth a torrent of cold air in a cone-shaped area in your facing direction that deals [u]COC_ATK% ATK[/u] as [color=#7df0ff]Ice[/color] damage per tick and fills up COC_FREEZE_GAUGE% of the enemy's [color=#7df0ff]Freeze[/color] gauge. While casting, your movement speed is reduced by COC_MOV_SPD_PENALTY%.
+
+Usage drains a resource meter. The skill enters cooldown when you recast it, change characters, or fully deplete the meter. While inactive, the resource meter regenerates over time.
+
+Cooldown: COC_CD seconds"
+text = "Cone Of Cold
+Shoot forth a torrent of cold air in a cone-shaped area in your facing direction that deals COC_ATK% ATK as Ice damage per tick and fills up COC_FREEZE_GAUGE% of the enemy's Freeze gauge. While casting, your movement speed is reduced by COC_MOV_SPD_PENALTY%.
+
+Usage drains a resource meter. The skill enters cooldown when you recast it, change characters, or fully deplete the meter. While inactive, the resource meter regenerates over time.
+
+Cooldown: COC_CD seconds"
+scroll_active = false
+
+[node name="TalentControl1" type="Control" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/AgnetteControl/TertiarySkillScrollContainer/VBoxContainer"]
+margin_top = 1104.0
+margin_right = 510.0
+margin_bottom = 1104.0
+
+[node name="AgnetteTalentButton" type="TextureButton" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/AgnetteControl/TertiarySkillScrollContainer/VBoxContainer/TalentControl1"]
+anchor_left = 0.215
+anchor_right = 0.215
+margin_left = 426.35
+margin_top = -1104.0
+margin_right = 458.35
+margin_bottom = -1087.0
+rect_min_size = Vector2( 32, 16 )
+rect_scale = Vector2( 7.5, 7.5 )
+texture_normal = ExtResource( 5 )
+texture_pressed = ExtResource( 4 )
+
+[node name="ButtonLabel" type="Label" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/AgnetteControl/TertiarySkillScrollContainer/VBoxContainer/TalentControl1/AgnetteTalentButton"]
+margin_left = 1.73334
+margin_top = 2.0
+margin_right = 46.7333
+margin_bottom = 19.0
+rect_scale = Vector2( 0.3, 0.3 )
+custom_colors/font_color = Color( 1, 0.843137, 0.0117647, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Bought"
+
+[node name="AgnetteCheckButton" type="CheckButton" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/AgnetteControl/TertiarySkillScrollContainer/VBoxContainer/TalentControl1/AgnetteTalentButton"]
+visible = false
+margin_left = -5.33334
+margin_top = 8.66666
+margin_right = 116.667
+margin_bottom = 48.6667
+rect_scale = Vector2( 0.2, 0.2 )
+custom_fonts/font = SubResource( 4 )
+text = "Enable"
+align = 1
+
+[node name="PerkSkillScrollContainerControl" type="Control" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/AgnetteControl"]
+visible = false
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="PerkSkillScrollContainer" type="ScrollContainer" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/AgnetteControl/PerkSkillScrollContainerControl"]
+anchor_right = 21.766
+anchor_bottom = 15.255
+margin_left = 197.0
+margin_top = 79.0
+margin_right = 16.36
+margin_bottom = -168.2
+rect_min_size = Vector2( 566, 355 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/AgnetteControl/PerkSkillScrollContainerControl/PerkSkillScrollContainer"]
+margin_right = 510.0
+margin_bottom = 1508.0
+rect_min_size = Vector2( 510, 1500 )
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/AgnetteControl/PerkSkillScrollContainerControl/PerkSkillScrollContainer/VBoxContainer"]
+margin_right = 510.0
+margin_bottom = 1500.0
+rect_min_size = Vector2( 510, 1500 )
+custom_fonts/italics_font = SubResource( 2 )
+custom_fonts/normal_font = SubResource( 2 )
+bbcode_enabled = true
+bbcode_text = "[color=#ffd703]Create Sugar Roll[/color]
+Conjure a [color=#bda662]Sugar Roll[/color] at your location. A character can eat the roll, restoring health over time. The roll cannot be eaten if there are enemies nearby, and only one roll may exist in a level.
+Cooldown: CREATE_SUGAR_ROLL_CD seconds
+
+[color=#ffd703]Chaos Magic[/color]
+Upon casting, you produce one of the following effects at random. Casting your Primary, Secondary or Tertiary Skills also have a CHAOS_MAGIC_TRIGGER_CHANCE% chance of triggering this skill.
+Cooldown: CHAOS_MAGIC_CD seconds
+ [color=#cc0001]1[/color]:
+A gust of wind propels you upward, knocking enemies away.
+ [color=#fb940b]2[/color]:
+A small flame appears at your location, exploding after a short delay, dealing [color=#fd9628]Fire[/color] damage. You also take damage from the explosion.
+ [color=#ffff01]3[/color]:
+You temporarily get frozen in place. While frozen, you are immobile and you cannot attack.
+ [color=#01cc00]4[/color]:
+You gain a shield that absorbs damage, based on your party's average Max Health.
+ [color=#03c0c6]5[/color]:
+You shoot out seven magical missiles that home into enemies, dealing [color=#7df0ff]Ice[/color] damage.
+ [color=#0000fe]6[/color]:
+You summon a laser beam in the direction you are facing, dealing Physical damage.
+ [color=#762ca7]7[/color]:
+A meteor crashes down in front of your facing direction, dealing [color=#deb600]Earth[/color] damage.
+ [color=#fe98bf]8[/color]:
+All of your party member's health and mana is restored."
+text = "Create Sugar Roll
+Conjure a Sugar Roll at your location. A character can eat the roll, restoring health over time. The roll cannot be eaten if there are enemies nearby, and only one roll may exist in a level.
+Cooldown: CREATE_SUGAR_ROLL_CD seconds
+
+Chaos Magic
+Upon casting, you produce one of the following effects at random. Casting your Primary, Secondary or Tertiary Skills also have a CHAOS_MAGIC_TRIGGER_CHANCE% chance of triggering this skill.
+Cooldown: CHAOS_MAGIC_CD seconds
+ 1:
+A gust of wind propels you upward, knocking enemies away.
+ 2:
+A small flame appears at your location, exploding after a short delay, dealing Fire damage. You also take damage from the explosion.
+ 3:
+You temporarily get frozen in place. While frozen, you are immobile and you cannot attack.
+ 4:
+You gain a shield that absorbs damage, based on your party's average Max Health.
+ 5:
+You shoot out seven magical missiles that home into enemies, dealing Ice damage.
+ 6:
+You summon a laser beam in the direction you are facing, dealing Physical damage.
+ 7:
+A meteor crashes down in front of your facing direction, dealing Earth damage.
+ 8:
+All of your party member's health and mana is restored."
+scroll_active = false
+
+[node name="TalentControl1" type="Control" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/AgnetteControl/PerkSkillScrollContainerControl/PerkSkillScrollContainer/VBoxContainer"]
+margin_top = 1504.0
+margin_right = 510.0
+margin_bottom = 1504.0
+
+[node name="AgnetteTalentButton" type="TextureButton" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/AgnetteControl/PerkSkillScrollContainerControl/PerkSkillScrollContainer/VBoxContainer/TalentControl1"]
+anchor_left = 0.215
+anchor_right = 0.215
+margin_left = 426.35
+margin_top = -1503.0
+margin_right = 458.35
+margin_bottom = -1486.0
+rect_min_size = Vector2( 32, 16 )
+rect_scale = Vector2( 7.5, 7.5 )
+texture_normal = ExtResource( 5 )
+texture_pressed = ExtResource( 4 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="ButtonLabel" type="Label" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/AgnetteControl/PerkSkillScrollContainerControl/PerkSkillScrollContainer/VBoxContainer/TalentControl1/AgnetteTalentButton"]
+margin_left = 1.73334
+margin_top = 2.0
+margin_right = 46.7333
+margin_bottom = 19.0
+rect_scale = Vector2( 0.3, 0.3 )
+custom_colors/font_color = Color( 1, 0.843137, 0.0117647, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Bought"
+
+[node name="TalentControl2" type="Control" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/AgnetteControl/PerkSkillScrollContainerControl/PerkSkillScrollContainer/VBoxContainer"]
+margin_top = 1508.0
+margin_right = 510.0
+margin_bottom = 1508.0
+
+[node name="AgnetteTalentButton" type="TextureButton" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/AgnetteControl/PerkSkillScrollContainerControl/PerkSkillScrollContainer/VBoxContainer/TalentControl2"]
+anchor_left = 0.215
+anchor_right = 0.215
+margin_left = 426.35
+margin_top = -1243.0
+margin_right = 458.35
+margin_bottom = -1226.0
+rect_min_size = Vector2( 32, 16 )
+rect_scale = Vector2( 7.5, 7.5 )
+texture_normal = ExtResource( 5 )
+texture_pressed = ExtResource( 4 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="ButtonLabel" type="Label" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/AgnetteControl/PerkSkillScrollContainerControl/PerkSkillScrollContainer/VBoxContainer/TalentControl2/AgnetteTalentButton"]
+margin_left = 1.73334
+margin_top = 2.0
+margin_right = 46.7333
+margin_bottom = 19.0
+rect_scale = Vector2( 0.3, 0.3 )
+custom_colors/font_color = Color( 1, 0.843137, 0.0117647, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Bought"
+
+[node name="PerkSkillSelectionLabel" type="Label" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/AgnetteControl/PerkSkillScrollContainerControl"]
+margin_left = 333.5
+margin_top = 474.0
+margin_right = 555.5
+margin_bottom = 506.0
+custom_fonts/font = SubResource( 12 )
+text = "Selected Perk Skill"
+align = 1
+
+[node name="PerkSkillSelectionOptionSprite" type="Sprite" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/AgnetteControl/PerkSkillScrollContainerControl"]
+position = Vector2( 449.5, 541 )
+scale = Vector2( 8, 8 )
+texture = ExtResource( 15 )
+
+[node name="PerkSkillSelectionOption" type="OptionButton" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/AgnetteControl/PerkSkillScrollContainerControl"]
+margin_left = 330.0
+margin_top = 509.0
+margin_right = 570.0
+margin_bottom = 572.0
+custom_fonts/font = SubResource( 11 )
+flat = true
+
 [node name="CloseButtonMainUI" type="TextureButton" parent="CharacterSkillsControl"]
 anchor_left = 0.5
 anchor_top = 0.5
@@ -2012,10 +2451,13 @@ expand = true
 [connection signal="pressed" from="CharactersUI/NinePatchRect/PlayerOpenTalentButton" to="CharactersUI" method="_on_PlayerOpenTalentButton_pressed"]
 [connection signal="pressed" from="CharactersUI/NinePatchRect/GlacielaOpenSkillsButton" to="CharactersUI" method="_on_GlacielaOpenSkillsButton_pressed"]
 [connection signal="pressed" from="CharactersUI/NinePatchRect/GlacielaOpenTalentButton" to="CharactersUI" method="_on_GlacielaOpenTalentButton_pressed"]
+[connection signal="pressed" from="CharactersUI/NinePatchRect/AgnetteOpenSkillsButton" to="CharactersUI" method="_on_AgnetteOpenSkillsButton_pressed"]
 [connection signal="item_selected" from="CharacterSkillsControl/NinePatchRect/SkillsControl/PlayerControl/SkillTypeOptionButton" to="CharacterSkillsControl" method="_on_Player_SkillTypeOptionButton_item_selected"]
 [connection signal="item_selected" from="CharacterSkillsControl/NinePatchRect/SkillsControl/PlayerControl/PerkSkillScrollContainerControl/PerkSkillSelectionOption" to="CharacterSkillsControl" method="_on_Player_PerkSkillSelectionOption_item_selected"]
 [connection signal="item_selected" from="CharacterSkillsControl/NinePatchRect/SkillsControl/GlacielaControl/SkillTypeOptionButton" to="CharacterSkillsControl" method="_on_GlacielaSkillTypeOptionButton_item_selected"]
 [connection signal="item_selected" from="CharacterSkillsControl/NinePatchRect/SkillsControl/GlacielaControl/PerkSkillScrollContainerControl/PerkSkillSelectionOption" to="CharacterSkillsControl" method="_on_Player_PerkSkillSelectionOption_item_selected"]
+[connection signal="item_selected" from="CharacterSkillsControl/NinePatchRect/SkillsControl/AgnetteControl/SkillTypeOptionButton" to="CharacterSkillsControl" method="_on_AgnetteSkillTypeOptionButton_item_selected"]
+[connection signal="item_selected" from="CharacterSkillsControl/NinePatchRect/SkillsControl/AgnetteControl/PerkSkillScrollContainerControl/PerkSkillSelectionOption" to="CharacterSkillsControl" method="_on_Player_PerkSkillSelectionOption_item_selected"]
 [connection signal="pressed" from="CharacterSkillsControl/CloseButtonMainUI" to="CharacterSkillsControl" method="_on_CloseButtonMainUI_pressed"]
 [connection signal="pressed" from="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl1/PlayerTalentButton" to="CharacterTalentsControl" method="_on_PlayerTalentButton1_pressed"]
 [connection signal="toggled" from="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl1/PlayerTalentButton/PlayerCheckButton" to="CharacterTalentsControl" method="_on_PlayerCheckButton1_toggled"]

@@ -1,7 +1,16 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://assets/enemies/bosses/shockwave.png" type="Texture" id=1]
 [ext_resource path="res://scripts/enemies/Shockwave.gd" type="Script" id=2]
+[ext_resource path="res://assets/particles/large_smoke_particle.png" type="Texture" id=3]
+
+[sub_resource type="ParticlesMaterial" id=1]
+emission_shape = 2
+emission_box_extents = Vector3( 30, 1, 1 )
+flag_disable_z = true
+gravity = Vector3( 0, 300, 0 )
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
 
 [node name="Shockwave" type="Area2D" groups=["Enemy"]]
 position = Vector2( -1.5874, 21.4299 )
@@ -11,11 +20,21 @@ __meta__ = {
 }
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
-position = Vector2( 2.70255, -41.4594 )
-scale = Vector2( 1.20367, 1.47795 )
-polygon = PoolVector2Array( -100.645, 80.3093, -52.1378, 52.591, -4.26077, 30.5424, 60.6252, 55.1108, 104.092, 77.1595, 109.762, 92.9085, -105.054, 94.1684 )
+position = Vector2( 2.7, -40 )
+polygon = PoolVector2Array( -80.1152, 85.0295, -49.1152, 56.0295, -4.11515, 34.0295, 47.8848, 56.0295, 80.8848, 85.0295, 80.8848, 96.0295, -80.1152, 97.0295 )
+
+[node name="DirtParticles2D" type="Particles2D" parent="."]
+self_modulate = Color( 0.313726, 0.160784, 0, 1 )
+position = Vector2( -1, 20 )
+rotation = 1.5708
+amount = 12
+lifetime = 0.8
+preprocess = 0.5
+process_material = SubResource( 1 )
+texture = ExtResource( 3 )
 
 [node name="Sprite" type="Sprite" parent="."]
+self_modulate = Color( 0.313726, 0.160784, 0, 1 )
 position = Vector2( 3.61124, -26.0731 )
-scale = Vector2( 16.5683, 15.0946 )
+scale = Vector2( 10, 10 )
 texture = ExtResource( 1 )

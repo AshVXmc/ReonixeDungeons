@@ -2,6 +2,8 @@ class_name CharacterSkillsControl extends Control
 
 onready var player_skill_type_option_button = $NinePatchRect/SkillsControl/PlayerControl/SkillTypeOptionButton
 onready var glaciela_skill_type_option_button = $NinePatchRect/SkillsControl/GlacielaControl/SkillTypeOptionButton
+onready var agnette_skill_type_option_button = $NinePatchRect/SkillsControl/AgnetteControl/SkillTypeOptionButton
+
 onready var player_pskill = $NinePatchRect/SkillsControl/PlayerControl/PrimarySkillScrollContainer
 onready var player_pskill_text = $NinePatchRect/SkillsControl/PlayerControl/PrimarySkillScrollContainer/VBoxContainer/RichTextLabel
 onready var player_sskill = $NinePatchRect/SkillsControl/PlayerControl/SecondarySkillScrollContainer
@@ -22,6 +24,11 @@ onready var glaciela_sskill_text = $NinePatchRect/SkillsControl/GlacielaControl/
 onready var glaciela_tskill = $NinePatchRect/SkillsControl/GlacielaControl/TertiarySkillScrollContainer
 onready var glaciela_tskill_text = $NinePatchRect/SkillsControl/GlacielaControl/TertiarySkillScrollContainer/VBoxContainer/RichTextLabel
 
+onready var agnette_pskill = $NinePatchRect/SkillsControl/AgnetteControl/PrimarySkillScrollContainer
+onready var agnette_pskill_text = $NinePatchRect/SkillsControl/AgnetteControl/PrimarySkillScrollContainer/VBoxContainer/RichTextLabel
+
+
+
 signal player_node_update_perk_skill()
 signal skillsui_update_perk_skill_ui()
 
@@ -31,10 +38,16 @@ func _ready():
 	player_skill_type_option_button.add_item("Secondary", 1)
 	player_skill_type_option_button.add_item("Tertiary", 2)
 	player_skill_type_option_button.add_item("Perk", 3)
+	
 	glaciela_skill_type_option_button.add_item("Primary", 0)
 	glaciela_skill_type_option_button.add_item("Secondary", 1)
 	glaciela_skill_type_option_button.add_item("Tertiary", 2)
 	glaciela_skill_type_option_button.add_item("Perk", 3)
+	
+	agnette_skill_type_option_button.add_item("Primary", 0)
+	agnette_skill_type_option_button.add_item("Secondary", 1)
+	agnette_skill_type_option_button.add_item("Tertiary", 2)
+	agnette_skill_type_option_button.add_item("Perk", 3)
 	
 	player_perkskill_optionbutton.add_item("Create Sugar Roll", 0)
 	player_perkskill_optionbutton.add_item("Chaos Magic", 1)
@@ -42,9 +55,11 @@ func _ready():
 	connect("skillsui_update_perk_skill_ui", skills_ui_node, "update_perk_skill_ui")
 	_on_Player_SkillTypeOptionButton_item_selected(0)
 	_on_GlacielaSkillTypeOptionButton_item_selected(0)
+	_on_AgnetteSkillTypeOptionButton_item_selected(0)
 
 	update_player_description_text()
 	update_glaciela_description_text()
+	update_agnette_description_text()
 	
 	yield(get_tree().create_timer(0.1), "timeout")
 	update_perk_skill_selection_ui("Player", Global.player_skills["PerkSkill"])
@@ -111,6 +126,17 @@ func update_glaciela_description_text():
 	glaciela_tskill_text.bbcode_text = glaciela_tskill_text.bbcode_text.replace(
 		"COC_MOV_SPD_PENALTY", str(Global.glaciela_skill_multipliers["ConeOfColdMovementSpeedPenalty"]))
 
+func update_agnette_description_text():
+	agnette_pskill_text.bbcode_text = agnette_pskill_text.bbcode_text.replace(
+		"BF_DUR", str(Global.agnette_skill_multipliers["BearFormDuration"]))
+	agnette_pskill_text.bbcode_text = agnette_pskill_text.bbcode_text.replace(
+		"BF_HP", str(Global.agnette_skill_multipliers["BearFormHealth"]))
+	agnette_pskill_text.bbcode_text = agnette_pskill_text.bbcode_text.replace(
+		"BF_SPD_PEN", str(Global.agnette_skill_multipliers["BearFormMovementSpeedPenalty"]))
+	agnette_pskill_text.bbcode_text = agnette_pskill_text.bbcode_text.replace(
+		"BF_CD", str(Global.agnette_skill_multipliers["BearFormCD"]))
+	agnette_pskill_text.bbcode_text = agnette_pskill_text.bbcode_text.replace(
+		"BF_COST", str(Global.agnette_skill_multipliers["BearFormCost"]))
 	
 	
 # access the update_perk_skill function in player
@@ -183,4 +209,18 @@ func _on_GlacielaSkillTypeOptionButton_item_selected(index):
 			glaciela_pskill.visible = false
 			glaciela_sskill.visible = false
 			glaciela_tskill.visible = true
-		
+
+func _on_AgnetteSkillTypeOptionButton_item_selected(index):
+	match index:
+		0:
+			agnette_pskill.visible = true
+#			agnette_sskill.visible = false
+#			agnette_tskill.visible = false
+		1:
+			agnette_pskill.visible = false
+#			agnette_sskill.visible = true
+#			agnette_tskill.visible = false
+		2:
+			agnette_pskill.visible = false
+#			agnette_sskill.visible = false
+#			agnette_tskill.visible = true

@@ -55,7 +55,7 @@ var basic_attack_buff : float
 var prev_basic_attack_power : Array
 var attack_buff : float
 var is_dead: bool = false
-var ATTACK = Global.glaciela_attack
+var ATTACK = Global.agnette_attack
 var phys_res : float = Global.glaciela_skill_multipliers["BasePhysRes"]
 var fire_res : float = Global.glaciela_skill_multipliers["BaseFireRes"]
 var ice_res : float = Global.glaciela_skill_multipliers["BaseIceRes"]
@@ -71,11 +71,13 @@ onready var pskill_ui : TextureProgress = get_parent().get_parent().get_parent()
 #onready var sskill_ui : TextureProgress = get_parent().get_parent().get_parent().get_node("SkillsUI/Control/SecondarySkill/Glaciela/IceLance/TextureProgress")
 #onready var tskill_ui : TextureProgress = get_parent().get_parent().get_parent().get_node("SkillsUI/Control/TertiarySkill/Glaciela/ConeOfCold/TextureProgress")
 
+var bear_is_attacking : bool = false
 
 var current_form = forms.ARCHER
 enum forms  {
 	ARCHER, BEAR
 }
+var is_wild_shaping : bool = false
 
 func _ready():
 #	print(get_path())
@@ -100,7 +102,7 @@ func _ready():
 	$StrongJumpParticle.visible = false
 	play_animated_sprite("Default")
 	$BearFormDurationTimer.wait_time = Global.agnette_skill_multipliers["BearFormDuration"]
-	
+	$BearFormNodes/AttackCollision.add_to_group(str(ATTACK * (Global.agnette_skill_multipliers["BearFormAttack1"] / 100)))
 #	$SpecialAttackArea2D.add_to_group(str(ATTACK * (Global.glaciela_skill_multipliers["SpecialAttack1_1"] / 100)))
 
 
@@ -116,33 +118,35 @@ func _physics_process(delta):
 		is_charging = false
 		$ChargedAttackBarFillTimer.stop()
 		$ChargedAttackBar.value = $ChargedAttackBar.min_value
-		
-	if Input.is_action_pressed("right") and !Input.is_action_pressed("left") and !get_parent().get_parent().is_attacking and !get_parent().get_parent().is_dashing and !get_parent().get_parent().is_knocked_back:
-		Input.action_release("left")
-		$AnimatedSprite.flip_h = false
-		play_animated_sprite("Walk")
-		
-#		attack_string_count = 4
-	elif Input.is_action_pressed("left") and !Input.is_action_pressed("right") and !get_parent().get_parent().is_attacking and !get_parent().get_parent().is_dashing and !get_parent().get_parent().is_knocked_back:
-		Input.action_release("right")
-		$AnimatedSprite.flip_h = true
-		play_animated_sprite("Walk")
+	if !bear_is_attacking:
+		if get_parent().get_parent().velocity.x != 0:
+			if Input.is_action_pressed("right") and !Input.is_action_pressed("left") and !get_parent().get_parent().is_attacking and !get_parent().get_parent().is_dashing and !get_parent().get_parent().is_knocked_back:
+				Input.action_release("left")
+				$AnimatedSprite.flip_h = false
+				play_animated_sprite("Walk")
+				
+		#		attack_string_count = 4
+			elif Input.is_action_pressed("left") and !Input.is_action_pressed("right") and !get_parent().get_parent().is_attacking and !get_parent().get_parent().is_dashing and !get_parent().get_parent().is_knocked_back:
+				Input.action_release("right")
+				$AnimatedSprite.flip_h = true
+				play_animated_sprite("Walk")
 		
 #		attack_string_count = 4
 	if Input.is_action_just_pressed("right") or Input.is_action_just_pressed("left") and attack_string_count != 3:
 		attack_string_count = 4
 	if Global.current_character == "Agnette":
 #		charge_meter()
-		$AnimatedSprite.visible = true
-
-		if get_parent().get_parent().velocity.x == 0:
-			play_animated_sprite("Default")
-		
-		if get_parent().get_parent().can_dash:
-			if Input.is_action_pressed("left") or Input.is_action_pressed("right") and !Input.is_action_pressed("jump"):
-				play_animated_sprite("Walk")
-			else:
+		if !is_wild_shaping:
+			$AnimatedSprite.visible = true
+		if !bear_is_attacking:
+			if get_parent().get_parent().velocity.x == 0:
 				play_animated_sprite("Default")
+			
+			if get_parent().get_parent().can_dash:
+				if Input.is_action_pressed("left") or Input.is_action_pressed("right") and !Input.is_action_pressed("jump"):
+					play_animated_sprite("Walk")
+				else:
+					play_animated_sprite("Default")
 
 		if current_form == forms.ARCHER:
 			if Input.is_action_just_pressed("ui_dash") and !get_parent().get_parent().can_dash and !get_parent().get_parent().get_node("DashUseTimer").is_stopped():
@@ -162,10 +166,12 @@ func _physics_process(delta):
 				$BowSprite.flip_h = false
 				$BowSprite.position.x = -40
 		if current_form == forms.BEAR:
+			
 			if !$AnimatedSprite.flip_h:
-				$BearFormNodes/AttackCollision.position.x = 100
+				$BearFormNodes/AttackCollision/CollisionShape2D.position.x = 140
 			else:
-				$BearFormNodes/AttackCollision.position.x = -100
+				$BearFormNodes/AttackCollision/CollisionShape2D.position.x = -140
+				
 		use_skill()
 #		print(is_charging)
 
@@ -194,13 +200,19 @@ func _input(event):
 		if current_form == forms.ARCHER and event.is_action_pressed("ui_attack") and !is_charging:
 			attack()
 			$InputPressTimer.start()
+		if current_form == forms.BEAR and event.is_action_pressed("ui_attack") and !is_charging:
+			bear_attack()
+			bear_slam_attack()
+			$BearFormNodes/BearInputPressTimer.start()
+		
+#		if current_form == forms.BEAR and event.is_action_pressed("ui_attack"):
+#			$AnimatedSprite.play("BearJump")
 			
 		
 		if event.is_action_pressed("heal"):
 			if Global.healthpot_amount > 0:
 				heal(5)
-		if event.is_action_pressed("ui_dash") and $DashInputPressTimer.is_stopped():
-			print("awooga")
+		if event.is_action_pressed("ui_dash") and !get_parent().get_parent().mobility_lock and $DashInputPressTimer.is_stopped():
 			get_parent().get_parent().dash()
 			$DashInputPressTimer.start()
 	
@@ -252,22 +264,42 @@ func wild_shape(target_form : int, with_particles : bool = true):
 	current_form = target_form
 	if with_particles:
 		$WildShapeParticles.emitting = true
+	
 	match target_form:
 		forms.ARCHER:
+			is_wild_shaping = true
+			$AnimatedSprite.visible = false
+			$HurtAnimationPlayer.play("BeastDeath")
 			$ChargedAttackBar.visible = true
+			$AnimatedSprite.position = Vector2(0,0)
+			$Area2D/CollisionShape2D.shape.extents = Vector2(45,54)
+			$AnimatedSprite.scale = Vector2(5.25, 5.25)
 			get_parent().get_parent().mobility_lock = false
+			toggle_bear_form_snare(false)
 			$BearFormNodes/BearHealthBar.visible = false
 			$BowSprite.visible = true
+			$AnimatedSprite.play("Default")
+			yield(get_tree().create_timer(0.12),"timeout")
+			$AnimatedSprite.visible = true
+			is_wild_shaping = false
 		forms.BEAR:
+			is_wild_shaping = true
+			$AnimatedSprite.visible = false
 			$ChargedAttackBar.visible = false
+			$AnimatedSprite.position = Vector2(0,-29)
+			$Area2D/CollisionShape2D.shape.extents = Vector2(75,54)
+			$AnimatedSprite.scale = Vector2(6,6)
 			get_parent().get_parent().mobility_lock = true
+			toggle_bear_form_snare(true)
 			$BearFormNodes/BearHealthBar.max_value = Global.character_health_data["Agnette"] * (Global.agnette_skill_multipliers["BearFormHealth"] / 100)
-			print("bear HP: " + str($BearFormNodes/BearHealthBar.max_value))
 			$BearFormNodes/BearHealthBar.value = $BearFormNodes/BearHealthBar.max_value
 			$BearFormNodes/BearHealthBar.visible = true
 			$BowSprite.visible = false
-			
-			
+			$AnimatedSprite.stop()
+			$AnimatedSprite.play("BearDefault")
+			yield(get_tree().create_timer(0.12),"timeout")
+			$AnimatedSprite.visible = true
+			is_wild_shaping = false
 
 
 func toggle_charged_attack_snare(active : bool):
@@ -284,10 +316,24 @@ func toggle_charged_attack_snare(active : bool):
 		yield(get_tree().create_timer(0.1), "timeout")
 		$SelfSnareArea/CollisionShape2D.disabled = true
 
+func toggle_bear_form_snare(active : bool):
+	if active:
+		$BearFormNodes/BearSelfSnareArea.remove_from_group("BearFormSnareOff")
+		$BearFormNodes/BearSelfSnareArea.add_to_group("BearFormSnareOn")
+		$BearFormNodes/BearSelfSnareArea/CollisionShape2D.disabled = false
+		yield(get_tree().create_timer(0.1), "timeout")
+		$BearFormNodes/BearSelfSnareArea/CollisionShape2D.disabled = true
+	else:
+		$BearFormNodes/BearSelfSnareArea.remove_from_group("BearFormSnareOn")
+		$BearFormNodes/BearSelfSnareArea.add_to_group("BearFormSnareOff")
+		$BearFormNodes/BearSelfSnareArea/CollisionShape2D.disabled = false
+		yield(get_tree().create_timer(0.1), "timeout")
+		$BearFormNodes/BearSelfSnareArea/CollisionShape2D.disabled = true
+
 func charged_attack():
 	# the arrow deals earth damage and builds earth trauma
 	if $ShootTimer.is_stopped():
-		if $ChargedAttackBar.value >= $ChargedAttackBar.max_value / 2:
+		if $ChargedAttackBar.value >= $ChargedAttackBar.max_value * 0.7:
 			spawn_arrow($ChargedAttackBar.value, true)
 			attack_string_count = 4
 		else:
@@ -342,8 +388,25 @@ func spawn_arrow(charge_value : int = 0, earth_damage : bool = false):
 	attack_string_count = clamp(attack_string_count, 0, 4)
 	if attack_string_count == 0:
 		attack_string_count = 4
-func play_attack_animation():
-	pass
+
+func bear_attack():
+	if Global.current_character == "Agnette" and $BearFormNodes/BearAttackDelayTimer.is_stopped():
+		$BearFormNodes/AttackCollision/CollisionShape2D.disabled = false
+		bear_is_attacking = true
+		$AnimatedSprite.play("BearJump")
+		if !$AnimatedSprite.flip_h:
+			$BearFormNodes/BearAttackAnimationPlayer.play("BearAttack1Right")
+		else:
+			$BearFormNodes/BearAttackAnimationPlayer.play("BearAttack1Left")
+		$BearFormNodes/BearAttackDelayTimer.start()
+		$BearFormNodes/AttackTimer.start()
+		yield(get_tree().create_timer(0.5), "timeout")
+		bear_is_attacking = false
+		$AnimatedSprite.play("BearDefault")
+func bear_slam_attack():
+	var shockwave = preload("res://scenes/enemies/bosses/Shockwave.tscn").instance()
+	get_parent().get_parent().get_parent().add_child(shockwave)
+	shockwave.position = global_position
 
 func is_a_critical_hit() -> bool:
 	var rng = RandomNumberGenerator.new()
@@ -501,6 +564,13 @@ func _on_Area2D_area_entered(area):
 	if area.is_in_group("AgnetteChargedAttackSnareOff"):
 		var slowdown_coefficient : float = Global.agnette_skill_multipliers["ChargedAttackMovementSpeedPenalty"] / 100
 		get_parent().get_parent().SPEED += get_parent().get_parent().MAX_SPEED * slowdown_coefficient
+	
+	if area.is_in_group("BearFormSnareOn"):
+		var slowdown_coefficient : float = Global.agnette_skill_multipliers["BearFormMovementSpeedPenalty"] / 100
+		get_parent().get_parent().SPEED -= get_parent().get_parent().MAX_SPEED * slowdown_coefficient
+	if area.is_in_group("BearFormSnareOff"):
+		var slowdown_coefficient : float = Global.agnette_skill_multipliers["BearFormMovementSpeedPenalty"] / 100
+		get_parent().get_parent().SPEED += get_parent().get_parent().MAX_SPEED * slowdown_coefficient
 	if Global.current_character == "Agnette":
 		if area.is_in_group("HealthPot"):
 			Global.healthpot_amount += 1
@@ -522,7 +592,7 @@ func _on_Area2D_area_entered(area):
 					Input.action_release("charge")
 					Input.action_release("ui_attack")
 					after_damaged()
-					if !area.is_in_group("LightEnemy") or !get_parent().get_parent().resist_interruption:
+					if current_form != forms.BEAR and !area.is_in_group("LightEnemy") or !get_parent().get_parent().resist_interruption:
 						get_parent().get_parent().knockback()
 						
 #				if area.is_in_group("Enemy2"):
@@ -639,10 +709,13 @@ func take_damage(damage : float):
 					emit_signal("life_changed", Global.character3_hearts, "Agnette")
 		elif current_form == forms.BEAR:
 			
-			$BearFormNodes/BearHealthBar.value -= damage * 2
+			$BearFormNodes/BearHealthBar.value -= damage 
 			add_hurt_particles(damage)
-			print("BEAR takes dmg")
-
+			if $BearFormNodes/BearHealthBar.value <= $BearFormNodes/BearHealthBar.min_value:
+				$HurtAnimationPlayer.play("BeastDeath")
+#				yield(get_tree().create_timer(0.4), "timeout")
+				wild_shape(forms.ARCHER)
+				
 func _on_ResetAttackStringTimer_timeout():
 	attack_string_count = 4
 
@@ -702,7 +775,7 @@ func _on_InvulnerabilityTimer_timeout():
 
 
 func _on_DashInputPressTimer_timeout():
-	if Global.current_character == "Agnette" and !Input.is_action_pressed("ui_attack"):
+	if Global.current_character == "Agnette" and !get_parent().get_parent().mobility_lock and !Input.is_action_pressed("ui_attack"):
 		charged_dash()
 
 
@@ -746,3 +819,7 @@ func _on_AttackCollision_area_exited(area):
 func _on_BearFormDurationTimer_timeout():
 	if current_form == forms.BEAR:
 		wild_shape(forms.ARCHER)
+
+
+func _on_AttackTimer_timeout():
+	$BearFormNodes/AttackCollision/CollisionShape2D.disabled = true

@@ -1695,7 +1695,7 @@ func knockback():
 	Input.action_release("ui_up")
 
 func _on_LeftDetector_area_entered(area):
-	if !Global.godmode and !is_thrust_attacking:
+	if !Global.godmode and !is_thrust_attacking and !mobility_lock:
 		if $KnockbackCooldownTimer.is_stopped() and !is_invulnerable and area.is_in_group("Enemy") or area.is_in_group("Enemy2") and !is_knocked_back:
 			yield(get_tree().create_timer(0.1),"timeout")
 
@@ -1704,7 +1704,7 @@ func _on_LeftDetector_area_entered(area):
 				velocity.x = knockback_power
 			$KnockbackCooldownTimer.start()
 func _on_RightDectector_area_entered(area):
-	if !Global.godmode and !is_thrust_attacking:
+	if !Global.godmode and !is_thrust_attacking and !mobility_lock:
 		if $KnockbackCooldownTimer.is_stopped() and !is_invulnerable and area.is_in_group("Enemy") or area.is_in_group("Enemy2") and !is_knocked_back:
 			yield(get_tree().create_timer(0.1),"timeout")
 

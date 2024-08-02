@@ -42,23 +42,31 @@ func _on_PlayerOpenTalentButton_pressed():
 	get_parent().get_node("CharacterTalentsControl").visible = true
 	get_parent().get_node("CharacterTalentsControl/NinePatchRect/TalentTreeControl/GlacielaControl").visible = false
 	get_parent().get_node("CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl").visible = true
-
 func _on_GlacielaOpenTalentButton_pressed():
 	get_parent().get_node("CharacterTalentsControl").visible = true
 	get_parent().get_node("CharacterTalentsControl/NinePatchRect/TalentTreeControl/GlacielaControl").visible = true
 	get_parent().get_node("CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl").visible = false
 
+
 func _on_PlayerOpenSkillsButton_pressed():
 	get_parent().get_node("CharacterSkillsControl").visible = true
 	get_parent().get_node("CharacterSkillsControl/NinePatchRect/SkillsControl/PlayerControl").visible = true
 	get_parent().get_node("CharacterSkillsControl/NinePatchRect/SkillsControl/GlacielaControl").visible = false
-
+	get_parent().get_node("CharacterSkillsControl/NinePatchRect/SkillsControl/AgnetteControl").visible = false
 func _on_GlacielaOpenSkillsButton_pressed():
 	get_parent().get_node("CharacterSkillsControl").visible = true
 	get_parent().get_node("CharacterSkillsControl/NinePatchRect/SkillsControl/PlayerControl").visible = false
 	get_parent().get_node("CharacterSkillsControl/NinePatchRect/SkillsControl/GlacielaControl").visible = true
+	get_parent().get_node("CharacterSkillsControl/NinePatchRect/SkillsControl/AgnetteControl").visible = false
 
 
+func _on_AgnetteOpenSkillsButton_pressed():
+	get_parent().get_node("CharacterSkillsControl").visible = true
+	get_parent().get_node("CharacterSkillsControl/NinePatchRect/SkillsControl/PlayerControl").visible = false
+	get_parent().get_node("CharacterSkillsControl/NinePatchRect/SkillsControl/GlacielaControl").visible = false
+	get_parent().get_node("CharacterSkillsControl/NinePatchRect/SkillsControl/AgnetteControl").visible = true
+
+	
 func _on_CloseButtonMainUI_pressed():
 	characterselection_ui.layer = 2
 	toggle_ui()
@@ -68,6 +76,8 @@ func _on_CloseButtonMainUI_pressed():
 # debug
 #func _on_PlayerOpenSkillsButton_mouse_entered():
 #	print("HOVERED OVER")
+
+
 
 
 
