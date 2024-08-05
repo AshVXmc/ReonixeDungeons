@@ -8,11 +8,15 @@ var glaciela_talents_list : Array = ["DanceOfRime"]
 onready var glaciela_talent_slots_label = $NinePatchRect/TalentTreeControl/GlacielaControl/TalentSlotsCountLabel
 onready var glaciela_talent_desc_text = $NinePatchRect/TalentTreeControl/GlacielaControl/ScrollContainer/VBoxContainer/RichTextLabel
 
+var agnette_talents_list : Array = ["Stoneskin"]
+onready var agnette_talent_slots_label = $NinePatchRect/TalentTreeControl/AgnetteControl/TalentSlotsCountLabel
+onready var agnette_talent_desc_text = $NinePatchRect/TalentTreeControl/AgnetteControl/ScrollContainer/VBoxContainer/RichTextLabel
+
 func _ready():
 	initialize_ui()
 	update_player_description_text()
 	update_glaciela_description_text()
-	
+	update_agnette_description_text()
 func update_player_description_text():
 	player_talent_desc_text.bbcode_text = player_talent_desc_text.bbcode_text.replacen(
 		"BURNING_BREATH_DMG", str(Global.player_talents["BurningBreath"]["attackpercentage"]))
@@ -31,7 +35,12 @@ func update_player_description_text():
 func update_glaciela_description_text():
 	pass
 	
+func update_agnette_description_text():
+	agnette_talent_desc_text.bbcode_text = agnette_talent_desc_text.bbcode_text.replacen(
+		"SS_MIT", str(Global.agnette_talents["Stoneskin"]["damagereduction"]))
 	
+
+
 func initialize_ui():
 #	visible = true
 #	$NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl1/PlayerTalentButton.pressed.connect()
@@ -45,8 +54,11 @@ func initialize_ui():
 	$NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl6/PlayerTalentButton/PlayerCheckButton.visible = false
 	
 	$NinePatchRect/TalentTreeControl/GlacielaControl/ScrollContainer/VBoxContainer/TalentControl1/GlacielaTalentButton/GlacielaCheckButton.visible = false
+	
+	$NinePatchRect/TalentTreeControl/AgnetteControl/ScrollContainer/VBoxContainer/TalentControl1/AgnetteTalentButton/AgnetteCheckButton.visible = false
 	update_player_talent_tree_ui()
 	update_glaciela_talent_tree_ui()
+	update_agnette_talent_tree_ui()
 #	get_tree().paused = true
 
 
@@ -134,6 +146,44 @@ func buy_glaciela_talent(talentname : String, order : int):
 	get_node("NinePatchRect/TalentTreeControl/GlacielaControl/ScrollContainer/VBoxContainer/TalentControl" + str(order) + "/GlacielaTalentButton/OpalsCostLabel").visible = false
 #	get_node("NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl" + str(order) + "/PlayerTalentButton/SlotsCostLabel").visible = false
 
+func update_agnette_talent_tree_ui():
+	var cumulative_talent_slots_spending : int = 0
+	Global.agnette_talents["TalentSlots"] = 0
+	var ag_list_counter = 1
+	var labels_counter = 1
+	for ag in agnette_talents_list:
+		get_node("NinePatchRect/TalentTreeControl/AgnetteControl/ScrollContainer/VBoxContainer/TalentControl" + str(labels_counter) + "/AgnetteTalentButton/OpalsCostLabel").text = str(Global.agnette_talents[agnette_talents_list[labels_counter - 1]]["opalscost"])
+		get_node("NinePatchRect/TalentTreeControl/AgnetteControl/ScrollContainer/VBoxContainer/TalentControl" + str(labels_counter) + "/AgnetteTalentButton/SlotsCostLabel").text = "Slot cost: " + str(Global.agnette_talents[agnette_talents_list[labels_counter - 1]]["talentslotcost"])
+		labels_counter += 1
+		if Global.agnette_talents[ag]["unlocked"]:
+			buy_agnette_talent(ag, ag_list_counter)
+			ag_list_counter += 1
+			if Global.agnette_talents[ag]["enabled"]:
+				cumulative_talent_slots_spending += Global.agnette_talents[ag]["talentslotcost"]
+				var order = agnette_talents_list.find(ag) + 1
+				get_node("NinePatchRect/TalentTreeControl/AgnetteControl/ScrollContainer/VBoxContainer/TalentControl" + str(order) + "/AgnetteTalentButton/AgnetteCheckButton").pressed = true
+	agnette_talent_slots_label.text = str(Global.agnette_talents["TalentSlots"]) + " / " + str(Global.agnette_talents["MaxTalentSlots"])
+
+func toggle_agnette_talent(talentname : String, button_pressed : bool, order : int):
+	if button_pressed:
+		Global.agnette_talents["TalentSlots"] += Global.agnette_talents[talentname]["talentslotcost"]
+		agnette_talent_slots_label.text = str(Global.agnette_talents["TalentSlots"]) + " / " + str(Global.agnette_talents["MaxTalentSlots"])
+		Global.agnette_talents[talentname]["enabled"] = true
+	else:
+		Global.agnette_talents["TalentSlots"] -= Global.agnette_talents[talentname]["talentslotcost"]
+		agnette_talent_slots_label.text = str(Global.agnette_talents["TalentSlots"]) + " / " + str(Global.agnette_talents["MaxTalentSlots"])
+		Global.agnette_talents[talentname]["enabled"] = false
+		
+func buy_agnette_talent(talentname : String, order : int):
+	Global.agnette_talents[talentname]["unlocked"] = true
+#	Global.player_talents[talentname]["enabled"] = true
+	get_node("NinePatchRect/TalentTreeControl/AgnetteControl/ScrollContainer/VBoxContainer/TalentControl" + str(order) + "/AgnetteTalentButton").disabled = true
+	get_node("NinePatchRect/TalentTreeControl/AgnetteControl/ScrollContainer/VBoxContainer/TalentControl" + str(order) + "/AgnetteTalentButton/ButtonLabel").text = "Bought"
+	get_node("NinePatchRect/TalentTreeControl/AgnetteControl/ScrollContainer/VBoxContainer/TalentControl" + str(order) + "/AgnetteTalentButton/ButtonLabel").add_color_override("font_color", Color(1, 0.84, 0.01, 1))
+	get_node("NinePatchRect/TalentTreeControl/AgnetteControl/ScrollContainer/VBoxContainer/TalentControl" + str(order) + "/AgnetteTalentButton/AgnetteCheckButton").visible = true
+	get_node("NinePatchRect/TalentTreeControl/AgnetteControl/ScrollContainer/VBoxContainer/TalentControl" + str(order) + "/AgnetteTalentButton/AgnetteCheckButton").pressed = false
+	get_node("NinePatchRect/TalentTreeControl/AgnetteControl/ScrollContainer/VBoxContainer/TalentControl" + str(order) + "/AgnetteTalentButton/OpalsCostLabel").visible = false
+#	get_node("NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl" + str(order) + "/PlayerTalentButton/SlotsCostLabel").visible = false
 
 
 func _on_PlayerTalentButton1_pressed():
@@ -178,6 +228,14 @@ func _on_GlacielaCheckButton1_toggled(button_pressed):
 
 
 
+func _on_AgnetteTalentButton1_pressed():
+	if !Global.agnette_talents["Stoneskin"]["unlocked"]:
+		buy_agnette_talent("Stoneskin", 1)
+
+func _on_AgnetteCheckButton_toggled(button_pressed):
+	toggle_agnette_talent("Stoneskin", button_pressed, 1)
+
+
 func _on_CloseButtonMainUI_pressed():
 	if $NinePatchRect/TalentTreeControl/PlayerControl.visible:
 		if Global.player_talents["TalentSlots"] <= Global.player_talents["MaxTalentSlots"]:
@@ -195,7 +253,15 @@ func _on_CloseButtonMainUI_pressed():
 			$NinePatchRect/TalentTreeControl/GlacielaControl/TalentSlotsWarningLabel.visible = true
 			yield(get_tree().create_timer(2), "timeout")
 			$NinePatchRect/TalentTreeControl/GlacielaControl/TalentSlotsWarningLabel.visible = false
-
+	elif $NinePatchRect/TalentTreeControl/AgnetteControl.visible:
+		if Global.agnette_talents["TalentSlots"] <= Global.agnette_talents["MaxTalentSlots"]:
+			visible = false
+			get_parent().get_node("CharactersUI").visible = true
+		else:
+			$NinePatchRect/TalentTreeControl/AgnetteControl/TalentSlotsWarningLabel.visible = true
+			yield(get_tree().create_timer(2), "timeout")
+			$NinePatchRect/TalentTreeControl/AgnetteControl/TalentSlotsWarningLabel.visible = false
+	
 
 
 

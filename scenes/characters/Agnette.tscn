@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=2]
+[gd_scene load_steps=43 format=2]
 
 [ext_resource path="res://assets/characters/agnette/agnette_walk_1.png" type="Texture" id=1]
 [ext_resource path="res://assets/characters/agnette/agnette_idle_2.png" type="Texture" id=2]
@@ -21,7 +21,9 @@
 [ext_resource path="res://assets/UI/heart_bar.png" type="Texture" id=19]
 [ext_resource path="res://assets/particles/smoke_particle_spritesheet.png" type="Texture" id=20]
 [ext_resource path="res://assets/characters/agnette/bear_attack_1.png" type="Texture" id=21]
+[ext_resource path="res://scenes/particles/HealingParticle.tscn" type="PackedScene" id=22]
 [ext_resource path="res://assets/misc/super_slash_projectile_2.png" type="Texture" id=23]
+[ext_resource path="res://assets/particles/slow_particle_(snail_symbol).png" type="Texture" id=24]
 
 [sub_resource type="RectangleShape2D" id=5]
 extents = Vector2( 37.5, 50 )
@@ -379,6 +381,15 @@ orbit_velocity_random = 0.0
 scale = 1.2
 anim_speed = 2.0
 
+[sub_resource type="ParticlesMaterial" id=33]
+emission_shape = 2
+emission_box_extents = Vector3( 25, 25, 1 )
+flag_disable_z = true
+gravity = Vector3( 0, 70, 0 )
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+scale = 1.5
+
 [node name="Agnette" type="Node2D"]
 script = ExtResource( 4 )
 
@@ -413,7 +424,7 @@ texture_under = ExtResource( 18 )
 texture_progress = ExtResource( 19 )
 nine_patch_stretch = true
 
-[node name="AttackCollision" type="Area2D" parent="BearFormNodes" groups=["HeavyPoiseDamage", "Sword"]]
+[node name="AttackCollision" type="Area2D" parent="BearFormNodes" groups=["MediumPoiseDamage", "Sword"]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BearFormNodes/AttackCollision"]
 position = Vector2( 140, 0 )
@@ -445,6 +456,8 @@ wait_time = 0.5
 one_shot = true
 
 [node name="BearInputPressTimer" type="Timer" parent="BearFormNodes"]
+wait_time = 0.65
+one_shot = true
 
 [node name="AttackTimer" type="Timer" parent="BearFormNodes"]
 wait_time = 0.1
@@ -572,8 +585,20 @@ texture = ExtResource( 20 )
 
 [node name="BearFormDurationTimer" type="Timer" parent="."]
 
+[node name="WeakenedTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="WeakenParticles" parent="." instance=ExtResource( 22 )]
+visible = false
+emitting = true
+amount = 4
+one_shot = false
+process_material = SubResource( 33 )
+texture = ExtResource( 24 )
+
 [connection signal="area_entered" from="BearFormNodes/AttackCollision" to="." method="_on_AttackCollision_area_entered"]
 [connection signal="area_exited" from="BearFormNodes/AttackCollision" to="." method="_on_AttackCollision_area_exited"]
+[connection signal="timeout" from="BearFormNodes/BearInputPressTimer" to="." method="_on_BearInputPressTimer_timeout"]
 [connection signal="timeout" from="BearFormNodes/AttackTimer" to="." method="_on_AttackTimer_timeout"]
 [connection signal="timeout" from="ShootTimer" to="." method="_on_ShootTimer_timeout"]
 [connection signal="area_entered" from="Area2D" to="." method="_on_Area2D_area_entered"]

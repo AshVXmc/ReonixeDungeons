@@ -21,7 +21,7 @@
     },
     "WitchGoblin": {
         "Name": "Goblin Witch",
-        "Description": "Witches cast homing missiles that slow you down and call down deadly lightning strikes to damage you from a distance.",
+        "Description": "Witches cast homing orbs that weaken your attacks and call down deadly lightning strikes from a distance.",
         "Flavortext": "An intelligent spellcaster who commands dark mana to perform their evil biddings. Witches are shunned from their tribes because of their destructive practices, so they often strike deals with other goblins. In exchange for a place to study their spellbook and magical ingredients, Witches would protect goblin settlements."
     },
     "Slime": {

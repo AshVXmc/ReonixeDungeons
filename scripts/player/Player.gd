@@ -401,6 +401,8 @@ func _physics_process(_delta):
 							$Position2D.position.x *= -1
 						if sign($DashParticlePosition.position.x) == -1:
 							$DashParticlePosition.position.x *= -1
+						if Input.is_action_just_released("left"):
+							$Sprite.play("Walk")
 						$AttackCollision.set_scale(Vector2(-1,1))
 						$SwitchAttackCollision.set_scale(Vector2(-1,1))
 						$StabAttackCollision.set_scale(Vector2(-1,1))
@@ -512,7 +514,7 @@ func _physics_process(_delta):
 	else:
 		is_invulnerable = false
 	$AtkBuffParticle.visible = true if buffed_from_attack_crystals else false
-
+	$WeakenParticles.visible = true if !$WeakenedTimer.is_stopped() else false
 	charge_meter()
 	
 	$Sprite.visible = true if Global.current_character == "Player" else false
@@ -522,8 +524,9 @@ func _physics_process(_delta):
 		
 
 
-func set_attack_power(type : String ,amount : float, duration : float, show_particles : bool = true):
-		buffed_from_attack_crystals = true
+func set_attack_power(type : String ,amount : float, duration : float, from_crystal : bool = true):
+		if from_crystal:
+			buffed_from_attack_crystals = true
 		number_of_atk_buffs += 1
 		
 		var other_groups : Array
@@ -543,29 +546,28 @@ func set_attack_power(type : String ,amount : float, duration : float, show_part
 		print("DeBuffed: " + str(prev_attack_power[number_of_atk_buffs - 1]))
 		number_of_atk_buffs -= 1
 		prev_attack_power.remove(number_of_atk_buffs)
-		buffed_from_attack_crystals = false
+		if from_crystal:
+			buffed_from_attack_crystals = false
 
 
-func set_basic_attack_power(amount : float, duration : float, show_particles : bool = true):
+func set_basic_attack_power(amount : float, duration : float):
 	# DONT ASK THIS IS SO COMPLICATED ON GODDDD
 		buffed_from_attack_crystals = true
 		number_of_basic_atk_buffs += 1
 		prev_basic_attack_power.insert((number_of_basic_atk_buffs - 1), basic_attack_buff) 
 		print(prev_basic_attack_power)
 		basic_attack_buff = prev_basic_attack_power[number_of_basic_atk_buffs - 1] + amount
-		
 		print("Buffed: " + str(basic_attack_buff))
 		yield(get_tree().create_timer(duration), "timeout")
 		basic_attack_buff = prev_basic_attack_power[number_of_basic_atk_buffs - 1]
 		print("DeBuffed: " + str(prev_basic_attack_power[number_of_basic_atk_buffs - 1]))
 		number_of_basic_atk_buffs -= 1
 		prev_basic_attack_power.remove(number_of_basic_atk_buffs)
-		
 		buffed_from_attack_crystals = false
 
 
 		
-func set_charged_attack_power(amount : float, duration : float, show_particles : bool = true):
+func set_charged_attack_power(amount : float, duration : float):
 		buffed_from_attack_crystals = true
 		number_of_charged_atk_buffs += 1
 		
@@ -794,11 +796,11 @@ func _input(event):
 	if Global.current_character == "Player":
 		if event.is_action_pressed("ui_attack") and $InputPressTimer.is_stopped() and !is_quickswap_attacking:
 			if $DashCounterAttackTimer.is_stopped():
-				if has_node("FireSaw"):
-					if !$Sprite.flip_h:
-						piercing_projectile_attack(1)
-					else:
-						piercing_projectile_attack(-1)
+#				if has_node("FireSaw"):
+#					if !$Sprite.flip_h:
+#						piercing_projectile_attack(1)
+#					else:
+#						piercing_projectile_attack(-1)
 				attack()
 
 			else:
@@ -1253,8 +1255,6 @@ func play_attack_animation(direction : String):
 							$AttackCollision.add_to_group(str(ATTACK * (Global.player_skill_multipliers["BasicAttack4"] / 100) * crit_dmg))
 						else:
 							$AttackCollision.add_to_group(str(ATTACK * (Global.player_skill_multipliers["AirborneBasicAttack4"] / 100 * crit_dmg)))
-						
-						
 						break
 
 				sheathe_katana()
@@ -1301,6 +1301,7 @@ func play_attack_animation(direction : String):
 				mana_absorption_counter = mana_absorption_counter_max
 # Damage and interaction
 func _on_Area2D_area_entered(area : Area2D):
+	
 	if Global.current_character == "Player":
 		if area.is_in_group("HealthPot"):
 			Global.healthpot_amount += 1
@@ -1321,19 +1322,7 @@ func _on_Area2D_area_entered(area : Area2D):
 		if area.is_in_group("LifeWine"):
 			Global.lifewine_amount += 1
 			emit_signal("lifewine_obtained", Global.lifewine_amount)
-		if area.is_in_group("Snare"):
-			# from 0.1 - 0.9
-			var slowdown_coefficient : float = area.get_parent().slowdown_coefficient
-			var slowdown_duration : float = area.get_parent().slowdown_duration
-			
-			SPEED = MAX_SPEED * (1 - slowdown_coefficient)
-#			print("ENSNARED: " + str(SPEED))
-			
-			$SnareTimer.stop()
-			$SnareTimer.wait_time = slowdown_duration
-			$SnareTimer.start()
-			$SnaredParticles.emitting = true
-		
+	
 
 		if area.is_in_group("AddMana"):
 			change_mana_value(area.add_mana)
@@ -1388,14 +1377,19 @@ func _on_Area2D_area_entered(area : Area2D):
 			basicatkbuffmulti = area.amount
 			basicatkbuffdur = area.duration
 			set_basic_attack_power(float(basicatkbuffmulti), float(basicatkbuffdur))
-			print("STRONK")
 		if area.is_in_group("AttackBuff"):
 			atkbuffmulti = area.amount
 			atkbuffdur = area.duration
-			
 			set_attack_power(area.type, float(atkbuffmulti), float(atkbuffdur))
-			
+		if area.is_in_group("Weaken") and $WeakenedTimer.is_stopped():
+			atkbuffmulti = area.amount
+			atkbuffdur = area.duration
+			set_attack_power(area.type, float(atkbuffmulti), float(atkbuffdur), false)
+			$WeakenedTimer.wait_time = area.duration
+			$WeakenedTimer.start()
+		
 func take_damage(damage : float):
+	var def = Global.character_defense_data["Player"] / 100
 	if Global.current_character == "Player" and !is_invulnerable:
 		if $TalentsNode2D/BurningBreathCDTimer.is_stopped() and Global.player_talents["BurningBreath"]["unlocked"] and Global.player_talents["BurningBreath"]["enabled"]:
 			var burningbreath = BURNING_BREATH_TALENT.instance()
@@ -1413,16 +1407,16 @@ func take_damage(damage : float):
 				shield_hp = clamp(shield_hp - damage, 0, 999)
 				$Shield/ShieldHPBar.value = shield_hp
 			else:
-				Global.hearts -= damage
-				add_hurt_particles(damage)
+				Global.hearts -= damage * (1 - def)
+				add_hurt_particles(damage * (1 - def))
 				emit_signal("life_changed", Global.hearts, "Player")
 		elif Global.equipped_characters[1] == "Player":
 			if shield_hp > 0:
 				shield_hp = clamp(shield_hp - damage, 0, 999)
 				$Shield/ShieldHPBar.value = shield_hp
 			else:
-				Global.character2_hearts -= damage
-				add_hurt_particles(damage)
+				Global.character2_hearts -= damage * (1 - def) 
+				add_hurt_particles(damage * (1 - def))
 				#emit_signal("change_elegance"), "Hit")
 				emit_signal("life_changed", Global.character2_hearts, "Player")
 		elif Global.equipped_characters[2] == "Player":
@@ -1430,8 +1424,8 @@ func take_damage(damage : float):
 				shield_hp = clamp(shield_hp - damage, 0, 999)
 				$Shield/ShieldHPBar.value = shield_hp
 			else:
-				Global.character3_hearts -= damage
-				add_hurt_particles(damage)
+				Global.character3_hearts -= damage * (1 - def)
+				add_hurt_particles(damage * (1 - def))
 				#emit_signal("change_elegance"), "Hit")
 				emit_signal("life_changed", Global.character3_hearts, "Player")
 #		print(shield_hp)
@@ -1610,7 +1604,7 @@ func _on_AttackCollision_area_entered(area):
 #							emit_signal("reduce_skill_cd", "Player", "PrimarySkill", 1)
 #							emit_signal("reduce_skill_cd", "Player", "SecondarySkill", 1)
 #					#emit_signal("change_elegance"), "BasicAttack")
-					change_mana_value(0.25)
+					change_mana_value(0.4)
 					$ManaRegenDelay.start()
 				if weakref(area).get_ref() != null:
 					var slashparticle = SWORD_SLASH_EFFECT.instance()
@@ -2174,6 +2168,7 @@ func _on_InputPressTimer_timeout():
 			upwards_charged_attack()
 		if Input.is_action_pressed("ui_down") and airborne_mode and !is_on_floor():
 			downwards_charged_attack()
+		
 		elif !Input.is_action_pressed("ui_up"):
 
 			if $EnergyMeter.value >= Global.player_skill_multipliers["SlashFlurryEnergyCost"]:
@@ -2287,6 +2282,3 @@ func _on_HideEnergyMeterTimer_timeout():
 #	$EnergyMeter.visible = false
 
 
-func _on_SnareTimer_timeout():
-	SPEED = MAX_SPEED
-	$SnaredParticles.emitting = false

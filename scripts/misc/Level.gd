@@ -1,6 +1,7 @@
  class_name Level extends Node2D
 # If true
 
+onready var character_manager = get_node("Player/CharacterManager")
 
 signal equipped_skills()
 func _ready():
@@ -29,8 +30,15 @@ func _ready():
 	if get_tree().get_current_scene().get_name() == "Level5" and !Global.activated_portals.has("Level5"):
 		Global.activated_portals.append("Level5")
 		
-		
+	
 	save_player_data()
+	
+	if Global.equipped_characters[0] == "":
+		if Global.equipped_characters[1] == "":
+			character_manager.swap_character(3)
+		else:
+			character_manager.swap_character(2)
+	print(Global.current_character)
 # access the function in pause ui
 func save_player_data():
 	$PauseUI/Pause._on_SaveButton_pressed()

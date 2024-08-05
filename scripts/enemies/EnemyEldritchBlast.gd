@@ -9,8 +9,8 @@ export (int) var steer_force = 300
 
 var elemental_type : String = "Physical"
 var atk_value : float = 0.75 *  Global.enemy_level_index + 1
-var slowdown_coefficient : float = 0.65 
-var slowdown_duration : float = 2.5
+
+var weaken_duration : float = 5
 
 var velocity = Vector2.ZERO
 var acceleration = Vector2.ZERO

@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://assets/misc/firesaw.png" type="Texture" id=1]
 [ext_resource path="res://scripts/misc/FireSaw.gd" type="Script" id=2]
+[ext_resource path="res://assets/particles/flame_particle.png" type="Texture" id=3]
 
 [sub_resource type="Animation" id=2]
 length = 0.001
@@ -51,14 +52,32 @@ tracks/0/keys = {
 [sub_resource type="CircleShape2D" id=4]
 radius = 600.0
 
+[sub_resource type="Curve" id=1]
+min_value = -1.0
+_data = [ Vector2( 0.0229358, 1 ), 0.0, 0.0, 0, 0, Vector2( 0.986238, 1 ), 2.63796, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=7]
+curve = SubResource( 1 )
+
+[sub_resource type="ParticlesMaterial" id=6]
+emission_shape = 1
+emission_sphere_radius = 50.0
+flag_disable_z = true
+spread = 0.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 10.0
+orbit_velocity = -0.35
+orbit_velocity_random = 0.0
+hue_variation = -0.6
+hue_variation_random = 0.04
+hue_variation_curve = SubResource( 7 )
+
 [node name="FireSaw" type="Area2D" groups=["Fireball"]]
 scale = Vector2( 1.25, 1.25 )
 script = ExtResource( 2 )
 __meta__ = {
 "_edit_group_": true
 }
-
-[node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="."]
 
 [node name="DestroyedTimer" type="Timer" parent="."]
 wait_time = 8.0
@@ -78,7 +97,7 @@ position = Vector2( 1.8406, 2.45024 )
 scale = Vector2( 0.8416, 1.03282 )
 polygon = PoolVector2Array( -23.7446, -48.8471, -25.0007, -207.636, 21.5772, -157.288, 20.6097, -113.912, 19.9477, -48.8471, 30.1324, -17.8639, 31.0829, 13.8938, 20.6097, 47.2006, 23.4784, 209.862, -20.2479, 165.711, -22.4206, 46.4261, -36.4076, 16.2175, -36.4076, -18.6385 )
 
-[node name="FireGaugeArea" type="Area2D" parent="." groups=["250", "FireGauge"]]
+[node name="FireGaugeArea" type="Area2D" parent="." groups=["350", "FireGauge"]]
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="FireGaugeArea"]
 position = Vector2( 2.30731, 2.45024 )
@@ -90,7 +109,14 @@ polygon = PoolVector2Array( -23.7446, -48.8471, -24.4066, -165.034, 20.6097, -11
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BurningBreathTalentDetector"]
 shape = SubResource( 4 )
 
+[node name="FlameParticles2D" type="Particles2D" parent="."]
+scale = Vector2( 5, 5 )
+amount = 7
+lifetime = 0.7
+explosiveness = 0.2
+process_material = SubResource( 6 )
+texture = ExtResource( 3 )
+
 [connection signal="area_entered" from="." to="." method="_on_FireSaw_area_entered"]
-[connection signal="screen_exited" from="VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_exited"]
 [connection signal="timeout" from="DestroyedTimer" to="." method="_on_DestroyedTimer_timeout"]
 [connection signal="area_entered" from="BurningBreathTalentDetector" to="." method="_on_BurningBreathTalentDetector_area_entered"]

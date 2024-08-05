@@ -74,9 +74,18 @@ onready var crit_damage : float = Global.glaciela_skill_multipliers["CritDamage"
 onready var sskill_ui : TextureProgress = get_parent().get_parent().get_parent().get_node("SkillsUI/Control/SecondarySkill/Glaciela/IceLance/TextureProgress")
 onready var pskill_ui : TextureProgress = get_parent().get_parent().get_parent().get_node("SkillsUI/Control/PrimarySkill/Glaciela/WinterQueen/TextureProgress")
 onready var tskill_ui : TextureProgress = get_parent().get_parent().get_parent().get_node("SkillsUI/Control/TertiarySkill/Glaciela/ConeOfCold/TextureProgress")
-
+var facing
+enum {
+	left, right
+}
 
 var can_use_special_attack : bool = false
+
+
+func set_attack_buff_value(new_value):
+	attack_buff = new_value
+	ATTACK = Global.attack_power + attack_buff
+
 func _ready():
 #	print(get_path())
 	if Global.equipped_characters.has("Player"):
@@ -115,36 +124,34 @@ func _physics_process(delta):
 		$EnemyEvasionArea.set_scale(Vector2(1,1))
 	else:
 		$EnemyEvasionArea.set_scale(Vector2(-1,1))
-	if Input.is_action_pressed("right") and !Input.is_action_pressed("left") and !get_parent().get_parent().is_attacking and !get_parent().get_parent().is_dashing and !get_parent().get_parent().is_knocked_back:
-		Input.action_release("left")
-		$AnimatedSprite.flip_h = false
-		$AnimatedSprite.play("Walk")
-#		attack_string_count = 4
-	elif Input.is_action_pressed("left") and !Input.is_action_pressed("right") and !get_parent().get_parent().is_attacking and !get_parent().get_parent().is_dashing and !get_parent().get_parent().is_knocked_back:
-		Input.action_release("right")
-		$AnimatedSprite.flip_h = true
-		$AnimatedSprite.play("Walk")
-#		attack_string_count = 4
 	if Input.is_action_just_pressed("right") or Input.is_action_just_pressed("left") and attack_string_count != 3:
 		attack_string_count = 4
 	if Global.current_character == "Glaciela":
 		charge_meter()
 		$AnimatedSprite.visible = true
+		if Input.is_action_pressed("left") and !Input.is_action_pressed("right") and !get_parent().get_parent().is_attacking and !get_parent().get_parent().is_dashing and !get_parent().get_parent().is_knocked_back:
+			facing = left
+		elif Input.is_action_pressed("right") and !Input.is_action_pressed("left") and !get_parent().get_parent().is_attacking and !get_parent().get_parent().is_knocked_back and !get_parent().get_parent().is_dashing:
+			facing = right
+		else:
+			facing = null 
+		if facing == left:
+			Input.action_release("right")
+			$AnimatedSprite.flip_h = true
+		elif facing == right:
+			Input.action_release("left")
+			$AnimatedSprite.flip_h = false
+		if get_parent().get_parent().velocity.x <= 5 and get_parent().get_parent().velocity.x >= -5:
+			$AnimatedSprite.play("Default")
+		else:
+			$AnimatedSprite.play("Walk")
 		if $AnimatedSprite.flip_h:
 			$ChargedAttackCollision.set_scale(Vector2(-1,1))
 		else:
 			$ChargedAttackCollision.set_scale(Vector2(1,1))
 		# Animation handling 
 
-		if get_parent().get_parent().velocity.x == 0:
-			$AnimatedSprite.play("Default")
 		
-		if get_parent().get_parent().can_dash:
-			if Input.is_action_pressed("left") or Input.is_action_pressed("right") and !Input.is_action_pressed("jump"):
-				$AnimatedSprite.play("Walk")
-				
-			else:
-				$AnimatedSprite.play("Default")
 		if Input.is_action_just_pressed("ui_dash") and !get_parent().get_parent().can_dash and !get_parent().get_parent().get_node("DashUseTimer").is_stopped():
 			$AnimatedSprite.play("Dash")
 			print("text")
@@ -159,7 +166,7 @@ func _physics_process(delta):
 		if $ChargedAttackCooldown.is_stopped():
 			charged_attack(7.5)
 		use_skill()
-		
+		$WeakenParticles.visible = true if !$WeakenedTimer.is_stopped() else false
 		$StarParticle.visible = true if can_use_special_attack else false
 #		if Input.is_action_just_pressed("secondary_skill") and !Input.is_action_just_pressed("primary_skill"):
 #			print("biatch")
@@ -240,7 +247,30 @@ func use_tertiary_skill():
 			emit_signal("skill_used", "ConeOfCold", attack_buff, -1)
 			get_parent().get_parent().emit_signal("skill_ui_update", "ConeOfCold")
 #		emit_signal("mana_changed", Global.character3_mana, "Glaciela")
-
+func set_attack_power(type : String ,amount : float, duration : float, from_crystal : bool = true):
+		if from_crystal:
+			buffed_from_attack_crystals = true
+		number_of_atk_buffs += 1
+		
+		var other_groups : Array
+		prev_attack_power.insert((number_of_atk_buffs - 1),attack_buff ) 
+		print(prev_attack_power)
+		if type == "Flat":
+			attack_buff = prev_attack_power[number_of_atk_buffs - 1] + amount
+			set_attack_buff_value(attack_buff)
+		elif type == "Percentage":
+			attack_buff = prev_attack_power[number_of_atk_buffs - 1] + ((amount / 100) * Global.attack_power)
+			set_attack_buff_value(attack_buff)
+			
+		print("Buffed: " + str(attack_buff))
+		yield(get_tree().create_timer(duration), "timeout")
+		attack_buff = prev_attack_power[number_of_atk_buffs - 1]
+		set_attack_buff_value(attack_buff)
+		print("DeBuffed: " + str(prev_attack_power[number_of_atk_buffs - 1]))
+		number_of_atk_buffs -= 1
+		prev_attack_power.remove(number_of_atk_buffs)
+		if from_crystal:
+			buffed_from_attack_crystals = false
 func charged_dash():
 	$DashInputPressTimer.stop()
 func attack():
@@ -712,25 +742,6 @@ func set_damage_bonus(amount : float, duration : float, show_particles : bool , 
 		
 
 
-
-func set_attack_power(amount : float, duration : float, show_particles : bool = true):
-	buffed_from_attack_crystals = true
-	number_of_atk_buffs += 1
-	
-	var other_groups : Array
-	prev_attack_power.insert((number_of_atk_buffs - 1), attack_buff) 
-	print(prev_attack_power)
-	attack_buff = prev_attack_power[number_of_atk_buffs - 1] + amount
-	
-	print("Buffed: " + str(attack_buff))
-	yield(get_tree().create_timer(duration), "timeout")
-	attack_buff = prev_attack_power[number_of_atk_buffs - 1]
-	print("DeBuffed: " + str(prev_attack_power[number_of_atk_buffs - 1]))
-	number_of_atk_buffs -= 1
-	prev_attack_power.remove(number_of_atk_buffs)
-	buffed_from_attack_crystals = false
-	
-
 func infuse_element(element : String, duration : float = 10):
 	match element:
 		"Ice":
@@ -837,7 +848,12 @@ func _on_Area2D_area_entered(area):
 			print("STRONK")
 		if area.is_in_group("DamageBonusBuff"):
 			set_damage_bonus(float(area.amount), float(area.duration), true, area.type)
-			
+		if area.is_in_group("Weaken") and $WeakenedTimer.is_stopped():
+			atkbuffmulti = area.amount
+			atkbuffdur = area.duration
+			set_attack_power(area.type, float(atkbuffmulti), float(atkbuffdur), false)
+			$WeakenedTimer.wait_time = area.duration
+			$WeakenedTimer.start()
 #	if area.is_in_group("Enemy") and !get_parent().get_parent().is_invulnerable:
 #		$AnimationPlayer.play("Hurt")
 func after_damaged():
@@ -911,30 +927,31 @@ func add_hurt_particles(damage : float):
 	hurt_particle.position = global_position
 
 func take_damage(damage : float):
+	var def = Global.character_defense_data["Glaciela"] / 100
 	if Global.current_character == "Glaciela":
 		if Global.equipped_characters[0] == "Glaciela":
 			if get_parent().get_parent().shield_hp > 0:
 				get_parent().get_parent().shield_hp = clamp(get_parent().get_parent().shield_hp - damage, 0, 999)
 				get_parent().get_parent().get_node("Shield/ShieldHPBar").value = get_parent().get_parent().shield_hp
 			else:
-				Global.hearts -= damage
-				add_hurt_particles(damage)
+				Global.hearts -= damage * (1 - def)
+				add_hurt_particles(damage * (1 - def))
 				emit_signal("life_changed", Global.hearts, "Glaciela")
 		elif Global.equipped_characters[1] == "Glaciela":
 			if get_parent().get_parent().shield_hp > 0:
 				get_parent().get_parent().shield_hp = clamp(get_parent().get_parent().shield_hp - damage, 0, 999)
 				get_parent().get_parent().get_node("Shield/ShieldHPBar").value = get_parent().get_parent().shield_hp
 			else:
-				Global.character2_hearts -= damage
-				add_hurt_particles(damage )
+				Global.character2_hearts -= damage * (1 - def)
+				add_hurt_particles(damage * (1 - def))
 				emit_signal("life_changed", Global.character2_hearts, "Glaciela")
 		elif Global.equipped_characters[2] == "Glaciela":
 			if get_parent().get_parent().shield_hp > 0:
 				get_parent().get_parent().shield_hp = clamp(get_parent().get_parent().shield_hp - damage, 0, 999)
 				get_parent().get_parent().get_node("Shield/ShieldHPBar").value = get_parent().get_parent().shield_hp
 			else:
-				Global.character3_hearts -= damage
-				add_hurt_particles(damage)
+				Global.character3_hearts -= damage * (1 - def)
+				add_hurt_particles(damage * (1 - def))
 				emit_signal("life_changed", Global.character3_hearts, "Glaciela")
 
 	

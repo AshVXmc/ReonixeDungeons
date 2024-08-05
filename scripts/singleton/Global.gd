@@ -7,6 +7,13 @@ var character_health_data : Dictionary = {
 	"Glaciela": 10,
 	"Agnette": 10
 }
+var character_defense_data : Dictionary = {
+	"Player": 20.0, 
+	"Glaciela": 30.0,
+	"Agnette": 10.0
+}
+
+
 
 var max_hearts : float
 var hearts : float
@@ -70,15 +77,15 @@ var player_skill_multipliers : Dictionary = {
 	"AirborneBasicAttack4": 65.0,
 	"SulphuricSigilSingleSlash": 40.0, # x 2
 	"SlashFlurryEnergyCost": 200,
-	"FireSaw": 65.0,
-	"FireSawDuration": 8.0,
+	"FireSaw": 75.0,
+	"FireSawDuration": 10.0,
 	"FireFairy": 40.0,
 	"FireFairyDuration": 10.0,
 	"Fireball": 62.5,
 	"FireballCD": 5.0,
 	"FireballCharges": 3,
 	"FireballMaxCharges": 3,
-	"FireSawCost": 15,
+	"FireSawCost": 16,
 	"FireFairyCost": 2,
 	"FireballCost": 2,
 	"FireSawCD": 30.0,
@@ -220,10 +227,10 @@ var player_perks : Dictionary = {
 }
 
 var glaciela_skill_multipliers : Dictionary = {
-	"BasicAttack":  28.0,
-	"BasicAttack2": 42.0,
-	"BasicAttack3": 48.0,
-	"BasicAttack4": 60.0,
+	"BasicAttack":  36.0,
+	"BasicAttack2": 48.0,
+	"BasicAttack3": 55.0,
+	"BasicAttack4": 69.0,
 	"ChargedAttack": 40.0,
 	"SpecialAttack1_1": 35.0,
 	"SpecialAttack1_2": 45.0,
@@ -239,7 +246,7 @@ var glaciela_skill_multipliers : Dictionary = {
 	"IceLanceFreezeGauge": 350.0,
 	"MaxTundraStars": 3,
 	"WinterQueen": 20.0,
-	"WinterQueenCost": 10,
+	"WinterQueenCost": 12,
 	"IceLanceCost": 2,
 	"WinterQueenCD": 30.0,
 	"IceLanceCD": 10.0,
@@ -285,9 +292,23 @@ var agnette_skill_multipliers = {
 	# health taken from agnette's max HP.
 	"BearFormHealth": 130.0,
 	"BearFormMovementSpeedPenalty": 20.0,
-	"BearFormAttack1": 102.0,
-	"CritRate": 0.0,
+	"BearFormAttack1": 97.0,
+	"BearFormShockwave": 60.0,
+	
+	"CritRate": 20.0,
 	"CritDamage": 65.0,
+}
+
+var agnette_talents : Dictionary = {
+	"TalentSlots": 0,
+	"MaxTalentSlots": 5,
+	"Stoneskin" : {
+		"unlocked" : false,
+		"enabled": false,
+		"opalscost": 100,
+		"talentslotcost": 2,
+		"damagereduction": 25.0
+	}
 }
 
 var agnette_skills : Dictionary = {
@@ -576,6 +597,8 @@ func save_player_data():
 		"5StarPity": Global.pity_5_star,
 		"AttackPower": Global.attack_power,
 		"GlacielaAttackPower": Global.glaciela_attack,
+		"CharacterHealthData": Global.character_health_data,
+		"CharacterDefenseData": Global.character_defense_data,
 		"EnemyLevelIndex": Global.enemy_level_index,
 		"Healthpot": Global.healthpot_amount ,
 		"LifeWine" : Global.lifewine_amount,
@@ -596,6 +619,7 @@ func save_player_data():
 		"UnlockedCharacters": Global.unlocked_characters,
 		"IsLoadingASave": Global.is_loading_a_save,
 		"PlayerPosition": Global.player_position,
+
 		# Equipped skills
 		# Levels
 		"PlayerSkillMultipliers": Global.player_skill_multipliers,

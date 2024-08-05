@@ -7,7 +7,7 @@ var max_HP_calc : int = 40 + (Global.enemy_level_index * 14)
 var level_calc : int = round(Global.enemy_level_index)
 export var max_HP : int = max_HP_calc
 export var level : int = level_calc
-var atk_value : float = 2.5 * Global.enemy_level_index 
+var atk_value : float = 2.5 * Global.enemy_level_index + 1 
 onready var HP : int = max_HP
 export var flipped : bool = false
 var velocity = Vector2()
@@ -195,12 +195,14 @@ func _on_Area2D_area_entered(area):
 				knockback(1.5)
 		else:
 			if area.is_in_group("LightPoiseDamage"):
-				knockback(1.5)
+				knockback(2)
 
 		if area.is_in_group("MediumPoiseDamage"):
-			knockback(4.2)
+			knockback(12)
 		if area.is_in_group("HeavyPoiseDamage"):
 			knockback(20)
+		if area.is_in_group("ExtremePoiseDamage"):
+			knockback(36)
 		if area.is_in_group("CustomPoiseDamage"):
 			for g in area.get_groups():
 				if float(g) != 0:

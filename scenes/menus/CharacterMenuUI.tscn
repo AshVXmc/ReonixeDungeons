@@ -345,6 +345,31 @@ custom_fonts/font = SubResource( 9 )
 text = "Skills"
 align = 1
 
+[node name="AgnetteOpenTalentButton" type="TextureButton" parent="CharactersUI/NinePatchRect"]
+anchor_left = 0.215
+anchor_right = 0.215
+margin_left = 300.805
+margin_top = 383.0
+margin_right = 410.805
+margin_bottom = 438.0
+rect_min_size = Vector2( 32, 16 )
+texture_normal = ExtResource( 5 )
+texture_pressed = ExtResource( 4 )
+texture_hover = ExtResource( 11 )
+expand = true
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="ButtonLabel" type="Label" parent="CharactersUI/NinePatchRect/AgnetteOpenTalentButton"]
+margin_left = 11.0
+margin_top = 12.0
+margin_right = 97.0
+margin_bottom = 44.0
+custom_fonts/font = SubResource( 10 )
+text = "Talents"
+align = 1
+
 [node name="CharacterSkillsControl" type="Control" parent="."]
 anchor_left = 0.5
 anchor_top = 0.5
@@ -1297,14 +1322,14 @@ custom_fonts/italics_font = SubResource( 2 )
 custom_fonts/normal_font = SubResource( 2 )
 bbcode_enabled = true
 bbcode_text = "[color=#ffd703]Bear Form[/color]
-Shapeshift into a ferocious [color=#3b1c06]Bear[/color] for BF_DUR seconds. It has BF_HP% of Agnette's Max HP as its HP. While in this form, you gain knockback resistance, but you cannot dash, jump or shoot arrows, and your speed is reduced by BF_SPD_PEN%. You may attack in melee range with your claws or ..... (fill later)
+Shapeshift into a ferocious [color=#3b1c06]Bear[/color] for BF_DUR seconds. It has BF_HP% of Agnette's Max HP as its HP. While in this form, you gain knockback resistance, but you cannot dash, jump or shoot arrows, and your speed is reduced by BF_SPD_PEN%. You may attack in melee range with your claws to deal [u]BF_ATK% ATK[u] as Physical damage. Your Charged Attack summons a wave of earth 
 
 You revert back to your Archer form when the duration ends or if you drop to 0 HP in [color=#3b1c06]Bear[/color] form.
 
 Cooldown: BF_CD seconds
 Mana cost: BF_COST mana"
 text = "Bear Form
-Shapeshift into a ferocious Bear for BF_DUR seconds. It has BF_HP% of Agnette's Max HP as its HP. While in this form, you gain knockback resistance, but you cannot dash, jump or shoot arrows, and your speed is reduced by BF_SPD_PEN%. You may attack in melee range with your claws or ..... (fill later)
+Shapeshift into a ferocious Bear for BF_DUR seconds. It has BF_HP% of Agnette's Max HP as its HP. While in this form, you gain knockback resistance, but you cannot dash, jump or shoot arrows, and your speed is reduced by BF_SPD_PEN%. You may attack in melee range with your claws to deal BF_ATK% ATK as Physical damage. Your Charged Attack summons a wave of earth 
 
 You revert back to your Archer form when the duration ends or if you drop to 0 HP in Bear form.
 
@@ -1741,6 +1766,7 @@ patch_margin_right = 64
 patch_margin_bottom = 64
 
 [node name="PlayerControl" type="Control" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl"]
+visible = false
 margin_right = 40.0
 margin_bottom = 40.0
 
@@ -2433,6 +2459,160 @@ text = "Insufficient talent slots. Unequip other talents to free up slots."
 align = 1
 autowrap = true
 
+[node name="AgnetteControl" type="Control" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl"]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="Sprite" type="Sprite" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/AgnetteControl"]
+position = Vector2( 110, 125 )
+scale = Vector2( 7, 7 )
+texture = ExtResource( 13 )
+
+[node name="ScrollContainer" type="ScrollContainer" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/AgnetteControl"]
+anchor_right = 21.766
+anchor_bottom = 15.255
+margin_left = 253.0
+margin_top = 81.0
+margin_right = 72.36
+margin_bottom = -157.2
+rect_min_size = Vector2( 566, 355 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/AgnetteControl/ScrollContainer"]
+margin_right = 510.0
+margin_bottom = 1104.0
+rect_min_size = Vector2( 510, 1100 )
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/AgnetteControl/ScrollContainer/VBoxContainer"]
+margin_right = 510.0
+margin_bottom = 1100.0
+rect_min_size = Vector2( 510, 1100 )
+custom_fonts/normal_font = SubResource( 2 )
+bbcode_enabled = true
+bbcode_text = "[color=#ffd703]Stoneskin[/color]
+While charging your bow, you take SS_MIT% less damage."
+text = "Stoneskin
+While charging your bow, you take SS_MIT% less damage."
+scroll_active = false
+
+[node name="TalentControl1" type="Control" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/AgnetteControl/ScrollContainer/VBoxContainer"]
+margin_top = 1104.0
+margin_right = 510.0
+margin_bottom = 1104.0
+
+[node name="AgnetteTalentButton" type="TextureButton" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/AgnetteControl/ScrollContainer/VBoxContainer/TalentControl1"]
+anchor_left = 0.215
+anchor_right = 0.215
+margin_left = 426.35
+margin_top = -1104.0
+margin_right = 458.35
+margin_bottom = -1087.0
+rect_min_size = Vector2( 32, 16 )
+rect_scale = Vector2( 7.5, 7.5 )
+texture_normal = ExtResource( 5 )
+texture_pressed = ExtResource( 4 )
+
+[node name="ButtonLabel" type="Label" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/AgnetteControl/ScrollContainer/VBoxContainer/TalentControl1/AgnetteTalentButton"]
+margin_left = 2.0
+margin_top = 2.0
+margin_right = 47.0
+margin_bottom = 19.0
+rect_scale = Vector2( 0.3, 0.3 )
+custom_fonts/font = SubResource( 3 )
+text = "Unlock"
+
+[node name="OpalsCostLabel" type="Label" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/AgnetteControl/ScrollContainer/VBoxContainer/TalentControl1/AgnetteTalentButton"]
+margin_left = 5.66672
+margin_top = 8.66666
+margin_right = 26.6667
+margin_bottom = 25.6667
+rect_scale = Vector2( 0.3, 0.3 )
+custom_fonts/font = SubResource( 8 )
+text = "XXX"
+align = 2
+
+[node name="Sprite" type="Sprite" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/AgnetteControl/ScrollContainer/VBoxContainer/TalentControl1/AgnetteTalentButton/OpalsCostLabel"]
+position = Vector2( -6.22238, 7.11111 )
+texture = ExtResource( 8 )
+
+[node name="SlotsCostLabel" type="Label" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/AgnetteControl/ScrollContainer/VBoxContainer/TalentControl1/AgnetteTalentButton"]
+margin_left = -3.73331
+margin_top = 14.5334
+margin_right = 71.2667
+margin_bottom = 31.5334
+rect_scale = Vector2( 0.3, 0.3 )
+custom_fonts/font = SubResource( 8 )
+text = "Slot cost: X"
+align = 1
+
+[node name="AgnetteCheckButton" type="CheckButton" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/AgnetteControl/ScrollContainer/VBoxContainer/TalentControl1/AgnetteTalentButton"]
+visible = false
+margin_left = -5.33334
+margin_top = 7.59999
+margin_right = 116.667
+margin_bottom = 47.6
+rect_scale = Vector2( 0.2, 0.2 )
+custom_fonts/font = SubResource( 4 )
+text = "Enable"
+align = 1
+
+[node name="TalentSlotsLabel" type="Label" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/AgnetteControl"]
+margin_left = 37.0
+margin_top = 226.0
+margin_right = 202.0
+margin_bottom = 259.0
+custom_fonts/font = SubResource( 6 )
+text = "Talent Slots:"
+align = 1
+autowrap = true
+
+[node name="TalentSlotsCountLabel" type="Label" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/AgnetteControl"]
+margin_left = 58.5
+margin_top = 259.0
+margin_right = 164.5
+margin_bottom = 355.0
+custom_fonts/font = SubResource( 7 )
+text = "0/6"
+align = 1
+autowrap = true
+
+[node name="OpalsLabel" type="Label" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/AgnetteControl"]
+visible = false
+margin_left = 19.0
+margin_top = 395.0
+margin_right = 110.0
+margin_bottom = 462.0
+custom_fonts/font = SubResource( 6 )
+text = "Opals:"
+align = 1
+autowrap = true
+
+[node name="OpalsCountLabel" type="Label" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/AgnetteControl"]
+visible = false
+margin_left = 12.0
+margin_top = 430.0
+margin_right = 118.0
+margin_bottom = 529.0
+custom_fonts/font = SubResource( 7 )
+text = "0/5"
+align = 1
+autowrap = true
+
+[node name="TalentSlotsWarningLabel" type="Label" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/AgnetteControl"]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = 143.5
+margin_top = 465.0
+margin_right = 697.5
+margin_bottom = 516.0
+custom_colors/font_color = Color( 1, 0, 0, 1 )
+custom_fonts/font = SubResource( 14 )
+text = "Insufficient talent slots. Unequip other talents to free up slots."
+align = 1
+autowrap = true
+
 [node name="CloseButtonMainUI" type="TextureButton" parent="CharacterTalentsControl"]
 anchor_left = 0.5
 anchor_top = 0.5
@@ -2452,6 +2632,7 @@ expand = true
 [connection signal="pressed" from="CharactersUI/NinePatchRect/GlacielaOpenSkillsButton" to="CharactersUI" method="_on_GlacielaOpenSkillsButton_pressed"]
 [connection signal="pressed" from="CharactersUI/NinePatchRect/GlacielaOpenTalentButton" to="CharactersUI" method="_on_GlacielaOpenTalentButton_pressed"]
 [connection signal="pressed" from="CharactersUI/NinePatchRect/AgnetteOpenSkillsButton" to="CharactersUI" method="_on_AgnetteOpenSkillsButton_pressed"]
+[connection signal="pressed" from="CharactersUI/NinePatchRect/AgnetteOpenTalentButton" to="CharactersUI" method="_on_AgnetteOpenTalentButton_pressed"]
 [connection signal="item_selected" from="CharacterSkillsControl/NinePatchRect/SkillsControl/PlayerControl/SkillTypeOptionButton" to="CharacterSkillsControl" method="_on_Player_SkillTypeOptionButton_item_selected"]
 [connection signal="item_selected" from="CharacterSkillsControl/NinePatchRect/SkillsControl/PlayerControl/PerkSkillScrollContainerControl/PerkSkillSelectionOption" to="CharacterSkillsControl" method="_on_Player_PerkSkillSelectionOption_item_selected"]
 [connection signal="item_selected" from="CharacterSkillsControl/NinePatchRect/SkillsControl/GlacielaControl/SkillTypeOptionButton" to="CharacterSkillsControl" method="_on_GlacielaSkillTypeOptionButton_item_selected"]
@@ -2473,4 +2654,6 @@ expand = true
 [connection signal="toggled" from="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl6/PlayerTalentButton/PlayerCheckButton" to="CharacterTalentsControl" method="_on_PlayerCheckButton6_toggled"]
 [connection signal="pressed" from="CharacterTalentsControl/NinePatchRect/TalentTreeControl/GlacielaControl/ScrollContainer/VBoxContainer/TalentControl1/GlacielaTalentButton" to="CharacterTalentsControl" method="_on_GlacielaTalentButton1_pressed"]
 [connection signal="toggled" from="CharacterTalentsControl/NinePatchRect/TalentTreeControl/GlacielaControl/ScrollContainer/VBoxContainer/TalentControl1/GlacielaTalentButton/GlacielaCheckButton" to="CharacterTalentsControl" method="_on_GlacielaCheckButton1_toggled"]
+[connection signal="pressed" from="CharacterTalentsControl/NinePatchRect/TalentTreeControl/AgnetteControl/ScrollContainer/VBoxContainer/TalentControl1/AgnetteTalentButton" to="CharacterTalentsControl" method="_on_AgnetteTalentButton1_pressed"]
+[connection signal="toggled" from="CharacterTalentsControl/NinePatchRect/TalentTreeControl/AgnetteControl/ScrollContainer/VBoxContainer/TalentControl1/AgnetteTalentButton/AgnetteCheckButton" to="CharacterTalentsControl" method="_on_AgnetteCheckButton_toggled"]
 [connection signal="pressed" from="CharacterTalentsControl/CloseButtonMainUI" to="CharacterTalentsControl" method="_on_CloseButtonMainUI_pressed"]

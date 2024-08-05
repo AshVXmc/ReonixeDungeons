@@ -14,7 +14,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/characters/Agnette.gd"
 }, {
-"base": "KinematicBody2D",
+"base": "Reference",
 "class": "AgnetteArrow",
 "language": "GDScript",
 "path": "res://scripts/skills/AgnetteArrow.gd"
@@ -369,6 +369,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/enemies/GreenFruit.gd"
 }, {
+"base": "Area2D",
+"class": "GroundedStatus",
+"language": "GDScript",
+"path": "res://scripts/status_effects/GroundedStatus.gd"
+}, {
 "base": "KinematicBody2D",
 "class": "GuardianGolem",
 "language": "GDScript",
@@ -533,6 +538,11 @@ _global_script_classes=[ {
 "class": "RegenHealthNode",
 "language": "GDScript",
 "path": "res://scripts/misc/RegenHealthNode.gd"
+}, {
+"base": "KinematicBody2D",
+"class": "SeekingArrow",
+"language": "GDScript",
+"path": "res://scripts/skills/SeekingArrow.gd"
 }, {
 "base": "Control",
 "class": "SetKeybinds",
@@ -722,6 +732,7 @@ _global_script_class_icons={
 "Goblin": "",
 "GoldenChest": "",
 "GreenFruit": "",
+"GroundedStatus": "",
 "GuardianGolem": "",
 "HealIndicator": "",
 "HealthPack": "",
@@ -755,6 +766,7 @@ _global_script_class_icons={
 "PlayerSkillManager": "",
 "PrimarySkillManager": "",
 "RegenHealthNode": "",
+"SeekingArrow": "",
 "SetKeybinds": "",
 "ShamanGoblin": "",
 "ShieldGoblin": "",

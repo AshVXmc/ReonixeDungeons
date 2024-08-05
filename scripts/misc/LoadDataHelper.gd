@@ -26,6 +26,7 @@ func load_data(savefile):
 	Global.lighting = player_data["Lighting"]
 	Global.vsync = player_data["Vsync"]
 	Global.levelpath = player_data["Level"]
+	Global.character_health_data = player_data["CharacterHealthData"]
 	Global.player_talents = player_data["PlayerTalents"]
 	Global.glaciela_talents = player_data["GlacielaTalents"]
 	Global.player_perks = player_data["PlayerPerks"]
@@ -41,3 +42,4 @@ func load_data(savefile):
 	Global.activated_portals = player_data["ActivatedPortals"]
 	Global.enemy_level_index = player_data["EnemyLevelIndex"]
 	Global.character_level_data = player_data["CharacterLevelData"]
+	Global.character_defense_data = player_data["CharacterDefenseData"]
