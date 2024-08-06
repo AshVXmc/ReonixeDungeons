@@ -8,6 +8,9 @@ const TYPE = "Physical"
 onready var agnette = get_parent()
 signal add_mana_to_agnette(amount)
 onready var mana_granted : float = 0.25
+const AIRBORNE_STATUS : PackedScene = preload("res://scenes/status_effects/AirborneStatus.tscn")
+export (bool) var knocks_enemies_airborne = false
+
 
 func _ready():
 	connect("add_mana_to_agnette", get_parent().get_node("Player/CharacterManager/Agnette"), "change_mana_value")
@@ -22,6 +25,12 @@ func _physics_process(delta):
 func flip_arrow_direction(fb_direction : int):
 	# SouthEast = 5
 	x_direction = fb_direction
+	
+func knock_airborne(target):
+	if target and weakref(target).get_ref() != null and !target.is_in_group("IsAirborne") and !target.get_parent().is_in_group("Armored"):
+		var airborne_status := AIRBORNE_STATUS.instance()
+		target.get_parent().add_child(airborne_status)
+#		print("NEEEGA")
 
 
 func _on_Area2D_area_entered(area):
@@ -33,6 +42,8 @@ func _on_Area2D_area_entered(area):
 func _on_Area2D_body_entered(body):
 	if body.is_in_group("Tilemap"):
 		call_deferred('free')
+	if body.is_in_group("Enemy") and knocks_enemies_airborne:
+		knock_airborne(body.get_node("Area2D"))
 
 
 func _on_Timer_timeout():

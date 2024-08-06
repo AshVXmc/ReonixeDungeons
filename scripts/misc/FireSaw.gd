@@ -42,7 +42,6 @@ func get_closest_enemy():
 
 func add_burning_stack():
 	var enemy = get_overlapping_areas()
-
 	for e in enemy:
 		if e.is_in_group("Enemy"):
 			if !e.is_in_group("Burnstack"):
@@ -59,13 +58,4 @@ func _on_FireSaw_area_entered(area):
 		fire_hit_particle.position = get_closest_enemy().global_position 
 
 
-#func _on_BurningBreathTalentDetector_area_entered(area):
-#	if Global.player_talents["BurningBreath"]["unlocked"] and Global.player_talents["BurningBreath"]["enabled"]:
-#		if weakref(area).get_ref() != null:
-#			if area.is_in_group("Enemy") and !area.is_in_group("BurnStack"):
-#				var burning_status = BURNING.instance()
-#				burning_status.burn_immediately = true
-#				area.add_child(burning_status)
-#				print("ENTERED")
-#		$BurningBreathTalentDetector/CollisionShape2D.disabled = true
 	

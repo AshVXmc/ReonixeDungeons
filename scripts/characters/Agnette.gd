@@ -2,7 +2,7 @@ class_name Agnette extends Node2D
 
 const SWORD_SLASH_EFFECT : PackedScene = preload("res://scenes/particles/SwordSlashEffect.tscn")
 const SWORD_HIT_PARTICLE : PackedScene = preload("res://scenes/particles/SwordHitParticle.tscn")
-const AIRBORNE_STATUS : PackedScene = preload("res://scenes/status_effects/AirborneStatus.tscn")
+const RAIN_OF_ARROWS : PackedScene = preload("res://scenes/skills/RainOfArrows.tscn")
 const TEMPUS_TARGUS : PackedScene = preload("res://scenes/misc/TempusTardus.tscn")
 const HEAL_PARTICLE : PackedScene = preload("res://scenes/particles/HealIndicatorParticle.tscn")
 const ARROW = preload("res://scenes/skills/AgnetteArrow.tscn")
@@ -389,7 +389,7 @@ func spawn_arrow(charge_value : int = 0, earth_damage : bool = false):
 		charged_bonus = 1 + (5.25 * charge_value / 100)
 
 	var crit_dmg : float = 1.0
-	var arrow = SEEKING_ARROW.instance()
+	var arrow = ARROW.instance()
 	
 	get_parent().get_parent().get_parent().add_child(arrow)
 	if earth_damage:
@@ -416,6 +416,8 @@ func spawn_arrow(charge_value : int = 0, earth_damage : bool = false):
 	attack_string_count = clamp(attack_string_count, 0, 4)
 	if attack_string_count == 0:
 		attack_string_count = 4
+
+
 
 func bear_attack():
 	if Global.current_character == "Agnette" and $BearFormNodes/BearAttackDelayTimer.is_stopped():
@@ -773,6 +775,14 @@ func _on_EnemyEvasionArea_area_exited(area):
 				get_parent().get_parent().get_parent().add_child(tempus_targus)
 				tempus_targus.position = global_position
 				$TempusTardusTriggerCD.start()
+			var arrow_rain = RAIN_OF_ARROWS.instance()
+			arrow_rain.get_node("Area2D").add_to_group(str(ATTACK * (Global.agnette_skill_multipliers["RainOfArrows"] / 100)))
+			get_parent().get_parent().get_parent().add_child(arrow_rain)
+			if !$AnimatedSprite.flip_h:
+				arrow_rain.position = Vector2(global_position.x + 320, global_position.y - 130)
+			else:
+				arrow_rain.position = Vector2(global_position.x - 320, global_position.y - 130)
+				
 			get_parent().get_parent().is_invulnerable = false
 		elif !get_parent().get_parent().is_dashing and area.is_in_group("Enemy"):
 			get_parent().get_parent().perfect_dash = false

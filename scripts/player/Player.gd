@@ -1082,6 +1082,7 @@ func upwards_charged_attack():
 	if target and target != null and weakref(target).get_ref() != null and !target.is_in_group("Projectile"): 
 		if target.get_node("Area2D").overlaps_area($ChargedAttackDetector) and !target.get_node("Area2D").is_in_group("IsAirborne"):
 			knock_airborne(target.get_node("Area2D"))
+
 	$ChargingParticle.visible = true
 	resist_interruption = true
 	attack_string_count = 4
@@ -1604,7 +1605,7 @@ func _on_AttackCollision_area_entered(area):
 #							emit_signal("reduce_skill_cd", "Player", "PrimarySkill", 1)
 #							emit_signal("reduce_skill_cd", "Player", "SecondarySkill", 1)
 #					#emit_signal("change_elegance"), "BasicAttack")
-					change_mana_value(0.4)
+					change_mana_value(0.3)
 					$ManaRegenDelay.start()
 				if weakref(area).get_ref() != null:
 					var slashparticle = SWORD_SLASH_EFFECT.instance()
@@ -2128,7 +2129,8 @@ func _on_EnemyEvasionArea_area_exited(area):
 				$TempusTardusTriggerCD.start()
 	#		knock_airborne(area, 4)
 	#		Input.action_press("jump")
-	#
+	#		
+			
 			yield(get_tree().create_timer(2), "timeout")
 	#		Input.action_release("jump")
 	#		airborne_mode = true

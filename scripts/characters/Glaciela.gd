@@ -766,7 +766,7 @@ func _on_AttackCollision_area_entered(area):
 				
 			emit_signal("change_elegance", "BasicAttack")
 #			if $ManaRegenDelay.is_stopped():
-			change_mana_value(0.25)
+			change_mana_value(0.35)
 				
 			var hitparticle = SWORD_HIT_PARTICLE.instance()
 			var slashparticle = SWORD_SLASH_EFFECT.instance()

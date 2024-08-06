@@ -2,8 +2,8 @@ class_name FireFairy extends Area2D
 onready var player = get_parent().get_node("Player")
 const SULPHURIC_SIGIL = preload("res://scenes/status_effects/SulphuricSigil.tscn")
 const BURNING : PackedScene = preload("res://scenes/status_effects/BurningStatus.tscn")
-const SPEED = 450
-const steer_force = 225
+const SPEED = 500
+const steer_force = 275
 var attack : int = 5
 var target = null
 var velocity = Vector2.ZERO
@@ -57,8 +57,13 @@ func get_closest_enemy():
 	var closest_enemy = enemies[min_index]
 	return closest_enemy
 
-func _on_HomingOnEnemiesFireball_area_entered(area):
-	pass
+func add_burning_stack():
+	var enemy = get_overlapping_areas()
+	for e in enemy:
+		if e.is_in_group("Enemy"):
+			if !e.is_in_group("Burnstack"):
+				var burning_status = BURNING.instance()
+				e.add_child(burning_status)
 
 func _on_DestroyedTimer_timeout():
 	queue_free() 
@@ -68,3 +73,8 @@ func _on_FireFairy_body_entered(body):
 	if body.is_in_group("EnemyEntity") and !body.is_in_group("MarkedWithSulphuricSigil"):
 		var sigil = SULPHURIC_SIGIL.instance()
 		body.add_child(sigil)
+
+
+func _on_FireFairy_area_entered(area):
+	if area.is_in_group("Enemy"):
+		add_burning_stack()

@@ -77,9 +77,9 @@ func update_swap_character_status():
 		$Characters/Slot2/Character2.self_modulate = 1
 		$Characters/Slot3/Character3.self_modulate = 1
 	else:
-		$Characters/Slot1/Character1.self_modulate = 0.65
-		$Characters/Slot2/Character2.self_modulate = 0.65
-		$Characters/Slot3/Character3.self_modulate = 0.65
+		$Characters/Slot1/Character1.self_modulate = 0.4
+		$Characters/Slot2/Character2.self_modulate = 0.4
+		$Characters/Slot3/Character3.self_modulate = 0.4
 
 func flicker_icon(character):
 	pass
@@ -176,50 +176,50 @@ func _process(delta):
 		##############
 		if firesaw_ui.value < firesaw_ui.max_value:
 			$PrimarySkill/Player/FireSaw/Label.text = str(stepify((firesaw_ui.max_value - firesaw_ui.value) / multiplier, 0.001))
-			firesaw_ui.self_modulate.a = 0.65
+			firesaw_ui.self_modulate.a = 0.4
 		elif firesaw_ui.value >= firesaw_ui.max_value:
 			if Global.equipped_characters[0] == "Player":
 				if Global.mana >= Global.player_skill_multipliers["FireSawCost"]:
 					firesaw_ui.self_modulate.a = 1.0
 				else:
-					firesaw_ui.self_modulate.a = 0.65
+					firesaw_ui.self_modulate.a = 0.4
 				$PrimarySkill/Player/FireSaw/Label.text = ""
 			elif Global.equipped_characters[1] == "Player":
 				if Global.character2_mana >= Global.player_skill_multipliers["FireSawCost"]:
 					firesaw_ui.self_modulate.a = 1.0
 				else:
-					firesaw_ui.self_modulate.a = 0.65
+					firesaw_ui.self_modulate.a = 0.4
 				$PrimarySkill/Player/FireSaw/Label.text = ""
 			elif Global.equipped_characters[2] == "Player":
 				if Global.character3_mana >= Global.player_skill_multipliers["FireSawCost"]:
 					firesaw_ui.self_modulate.a = 1.0
 				else:
-					firesaw_ui.self_modulate.a = 0.65
+					firesaw_ui.self_modulate.a = 0.4
 				$PrimarySkill/Player/FireSaw/Label.text = ""
 		##############
 		# FIRE FAIRY #
 		##############
 		if firefairy_ui.value < firefairy_ui.max_value:
 			$SecondarySkill/Player/FireFairy/Label.text = str(stepify((firefairy_ui.max_value - firefairy_ui.value) / multiplier, 0.001))
-			firefairy_ui.self_modulate.a = 0.65
+			firefairy_ui.self_modulate.a = 0.4
 		elif firefairy_ui.value >= firefairy_ui.max_value:
 			if Global.equipped_characters[0] == "Player":
 				if Global.mana >= Global.player_skill_multipliers["FireFairyCost"]:
 					firefairy_ui.self_modulate.a = 1.0
 				else:
-					firefairy_ui.self_modulate.a = 0.65
+					firefairy_ui.self_modulate.a = 0.4
 				$SecondarySkill/Player/FireFairy/Label.text = ""
 			elif Global.equipped_characters[1] == "Player":
 				if Global.character2_mana >= Global.player_skill_multipliers["FireFairyCost"]:
 					firefairy_ui.self_modulate.a = 1.0
 				else:
-					firefairy_ui.self_modulate.a = 0.65
+					firefairy_ui.self_modulate.a = 0.4
 				$SecondarySkill/Player/FireFairy/Label.text = ""
 			elif Global.equipped_characters[2] == "Player":
 				if Global.character3_mana >= Global.player_skill_multipliers["FireFairyCost"]:
 					firefairy_ui.self_modulate.a = 1.0
 				else:
-					firefairy_ui.self_modulate.a = 0.65
+					firefairy_ui.self_modulate.a = 0.4
 				$SecondarySkill/Player/FireFairy/Label.text = ""
 		##############
 		## FIREBALL ##
@@ -227,7 +227,7 @@ func _process(delta):
 		
 		if fireball_ui.value < fireball_ui.max_value:
 			$TertiarySkill/Player/Fireball/Label.text = str(stepify((fireball_ui.max_value - fireball_ui.value) / multiplier, 0.001))
-			fireball_ui.self_modulate.a = 0.65
+			fireball_ui.self_modulate.a = 0.4
 		elif fireball_ui.value >= fireball_ui.max_value:
 			if Global.player_skill_multipliers["FireballCharges"] < Global.player_skill_multipliers["FireballMaxCharges"]:
 				Global.player_skill_multipliers["FireballCharges"] += 1
@@ -246,7 +246,7 @@ func _process(delta):
 		#######################
 		if createsugarroll_ui.value < createsugarroll_ui.max_value:
 			$PerkSkill/Player/CreateSugarRoll/Label.text = str(stepify((createsugarroll_ui.max_value - createsugarroll_ui.value) / multiplier, 0.001))
-			createsugarroll_ui.self_modulate.a = 0.65
+			createsugarroll_ui.self_modulate.a = 0.4
 		elif createsugarroll_ui.value >= createsugarroll_ui.max_value:
 			if Global.equipped_characters[0] == "Player":
 				$PerkSkill/Player/CreateSugarRoll/Label.text = ""
@@ -259,7 +259,7 @@ func _process(delta):
 		###################
 		if chaosmagic_ui.value < chaosmagic_ui.max_value:
 			$PerkSkill/Player/ChaosMagic/Label.text = str(stepify((chaosmagic_ui.max_value - chaosmagic_ui.value) / multiplier, 0.001))
-			chaosmagic_ui.self_modulate.a = 0.65
+			chaosmagic_ui.self_modulate.a = 0.4
 		elif chaosmagic_ui.value >= chaosmagic_ui.max_value:
 			if Global.equipped_characters[0] == "Player":
 				$PerkSkill/Player/ChaosMagic/Label.text = ""
@@ -280,75 +280,75 @@ func _process(delta):
 		$TertiarySkill/Glaciela.visible = true
 		if winterqueen_ui.value < winterqueen_ui.max_value:
 			$PrimarySkill/Glaciela/WinterQueen/Label.text = str(stepify((winterqueen_ui.max_value - winterqueen_ui.value) / multiplier, 0.001))
-			winterqueen_ui.self_modulate.a = 0.65
+			winterqueen_ui.self_modulate.a = 0.4
 		elif winterqueen_ui.value >= winterqueen_ui.max_value:
 			if Global.equipped_characters[0] == "Glaciela":
 				if Global.mana >= Global.glaciela_skill_multipliers["WinterQueenCost"]:
 					winterqueen_ui.self_modulate.a = 1.0
 				else:
-					winterqueen_ui.self_modulate.a = 0.65
+					winterqueen_ui.self_modulate.a = 0.4
 				$PrimarySkill/Glaciela/WinterQueen/Label.text = ""
 			elif Global.equipped_characters[1] == "Glaciela":
 				if Global.character2_mana >= Global.glaciela_skill_multipliers["WinterQueenCost"]:
 					winterqueen_ui.self_modulate.a = 1.0
 				else:
-					winterqueen_ui.self_modulate.a = 0.65
+					winterqueen_ui.self_modulate.a = 0.4
 				$PrimarySkill/Glaciela/WinterQueen/Label.text = ""
 			elif Global.equipped_characters[2] == "Glaciela":
 				if Global.character3_mana >= Global.glaciela_skill_multipliers["WinterQueenCost"]:
 					winterqueen_ui.self_modulate.a = 1.0
 				else:
-					winterqueen_ui.self_modulate.a = 0.65
+					winterqueen_ui.self_modulate.a = 0.4
 				$PrimarySkill/Glaciela/WinterQueen/Label.text = ""
 		##############
 		# ICE LANCE #
 		##############
 		if icelance_ui.value < icelance_ui.max_value:
 			$SecondarySkill/Glaciela/IceLance/Label.text = str(stepify((icelance_ui.max_value - icelance_ui.value) / multiplier, 0.001))
-			icelance_ui.self_modulate.a = 0.65
+			icelance_ui.self_modulate.a = 0.4
 		elif icelance_ui.value >= icelance_ui.max_value:
 			if Global.equipped_characters[0] == "Glaciela":
 				if Global.mana >= Global.glaciela_skill_multipliers["IceLanceCost"]:
 					icelance_ui.self_modulate.a = 1.0
 				else:
-					icelance_ui.self_modulate.a = 0.65
+					icelance_ui.self_modulate.a = 0.4
 				$SecondarySkill/Glaciela/IceLance/Label.text = ""
 			elif Global.equipped_characters[1] == "Glaciela":
 				if Global.character2_mana >= Global.glaciela_skill_multipliers["IceLanceCost"]:
 					icelance_ui.self_modulate.a = 1.0
 				else:
-					icelance_ui.self_modulate.a = 0.65
+					icelance_ui.self_modulate.a = 0.4
 				$SecondarySkill/Glaciela/IceLance/Label.text = ""
 			elif Global.equipped_characters[2] == "Glaciela":
 				if Global.character3_mana >= Global.glaciela_skill_multipliers["IceLanceCost"]:
 					icelance_ui.self_modulate.a = 1.0
 				else:
-					icelance_ui.self_modulate.a = 0.65
+					icelance_ui.self_modulate.a = 0.4
 				$SecondarySkill/Glaciela/IceLance/Label.text = ""
 		################
 		# CONE OF COLD #
 		################
 		if coneofcold_ui.value < coneofcold_ui.max_value:
 			$TertiarySkill/Glaciela/ConeOfCold/Label.text = str(stepify((coneofcold_ui.max_value - coneofcold_ui.value) / multiplier, 0.001))
-			coneofcold_ui.self_modulate.a = 0.65
+			coneofcold_ui.self_modulate.a = 0.4
 		elif coneofcold_ui.value >= coneofcold_ui.max_value:
 			if Global.equipped_characters[0] == "Glaciela":
 				if Global.mana >= Global.glaciela_skill_multipliers["ConeOfColdCost"]:
 					coneofcold_ui.self_modulate.a = 1.0
 				else:
-					coneofcold_ui.self_modulate.a = 0.65
+					coneofcold_ui.self_modulate.a = 0.4
 				$TertiarySkill/Glaciela/ConeOfCold/Label.text = ""
 			elif Global.equipped_characters[1] == "Glaciela":
 				if Global.character2_mana >= Global.glaciela_skill_multipliers["ConeOfColdCost"]:
 					coneofcold_ui.self_modulate.a = 1.0
 				else:
-					coneofcold_ui.self_modulate.a = 0.65
+					coneofcold_ui.self_modulate.a = 0.4
 				$TertiarySkill/Glaciela/ConeOfCold/Label.text = ""
 			elif Global.equipped_characters[2] == "Glaciela":
 				if Global.character3_mana >= Global.glaciela_skill_multipliers["ConeOfColdCost"]:
 					coneofcold_ui.self_modulate.a = 1.0
 				else:
-					coneofcold_ui.self_modulate.a = 0.65
+					coneofcold_ui.self_modulate.a = 0.4
 				$TertiarySkill/Glaciela/ConeOfCold/Label.text = ""
 	else:
 		$PrimarySkill/Glaciela.visible = false
@@ -361,25 +361,25 @@ func _process(delta):
 		$TertiarySkill/Agnette.visible = true
 		if bearform_ui.value < bearform_ui.max_value:
 			$PrimarySkill/Agnette/BearForm/Label.text = str(stepify((bearform_ui.max_value - bearform_ui.value) / multiplier, 0.001))
-			bearform_ui.self_modulate.a = 0.65
+			bearform_ui.self_modulate.a = 0.4
 		elif bearform_ui.value >= bearform_ui.max_value:
 			if Global.equipped_characters[0] == "Agnette":
 				if Global.mana >= Global.agnette_skill_multipliers["BearFormCost"]:
 					bearform_ui.self_modulate.a = 1.0
 				else:
-					bearform_ui.self_modulate.a = 0.65
+					bearform_ui.self_modulate.a = 0.4
 				$PrimarySkill/Agnette/BearForm/Label.text = ""
 			elif Global.equipped_characters[1] == "Agnette":
 				if Global.character2_mana >= Global.agnette_skill_multipliers["BearFormCost"]:
 					bearform_ui.self_modulate.a = 1.0
 				else:
-					bearform_ui.self_modulate.a = 0.65
+					bearform_ui.self_modulate.a = 0.4
 				$PrimarySkill/Agnette/BearForm/Label.text = ""
 			elif Global.equipped_characters[2] == "Agnette":
 				if Global.character3_mana >= Global.agnette_skill_multipliers["BearFormCost"]:
 					bearform_ui.self_modulate.a = 1.0
 				else:
-					bearform_ui.self_modulate.a = 0.65
+					bearform_ui.self_modulate.a = 0.4
 				$PrimarySkill/Agnette/BearForm/Label.text = ""
 
 
