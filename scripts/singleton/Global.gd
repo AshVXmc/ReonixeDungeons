@@ -8,9 +8,9 @@ var character_health_data : Dictionary = {
 	"Agnette": 10
 }
 var character_defense_data : Dictionary = {
-	"Player": 20.0, 
-	"Glaciela": 30.0,
-	"Agnette": 10.0
+	"Player": 30.0, 
+	"Glaciela": 40.0,
+	"Agnette": 20.0
 }
 
 
@@ -61,7 +61,7 @@ var player_skill_multipliers : Dictionary = {
 	"BasicAttack3": 35.0,
 	"BasicAttack4": 65.0,
 	"ChargedAttack": 60.0,
-	"ThrustAttack": 75.0,
+	"ThrustAttack": 80.0,
 	"ThrustChargedAttack": 85.0,
 	"UpwardsChargedAttack": 28.0, # x 2
 	"DownwardsChargedAttack": 56.0,
@@ -71,25 +71,27 @@ var player_skill_multipliers : Dictionary = {
 	"PiercingProjectile": 95.0,
 	"EntryAttack": 50.0, # x 3
 	"CounterAttack": 42.0, # x 2
-	"AirborneBasicAttack": 25.0,
-	"AirborneBasicAttack2": 30.0,
-	"AirborneBasicAttack3": 35.0,
-	"AirborneBasicAttack4": 65.0,
+	"AirborneBasicAttack": 30.0,
+	"AirborneBasicAttack2": 38.0,
+	"AirborneBasicAttack3": 48.0,
+	"AirborneBasicAttack4": 70.0,
 	"SulphuricSigilSingleSlash": 40.0, # x 2
 	"SlashFlurryEnergyCost": 200,
-	"FireSaw": 85.0,
+	"FireSaw": 95.0,
 	"FireSawDuration": 10.0,
 	"FireFairy": 40.0,
 	"FireFairyDuration": 10.0,
-	"Fireball": 55.0,
+	"Fireball": 30.0,
 	"FireballCD": 5.0,
 	"FireballCharges": 3,
 	"FireballMaxCharges": 3,
-	"FireSawCost": 16,
-	"FireFairyCost": 2,
+	"FireSawCost": 18,
+	"FireFairyCost": 3,
 	"FireballCost": 2,
 	"FireSawCD": 35.0,
 	"FireFairyCD": 15.0,
+	"FireCharmDuration": 6.0,
+	"FireCharmCD": 8.5,
 	"BasePhysRes": 0.0,
 	"BaseMagicRes": 0.0,
 	"BaseFireRes": 0.0,
@@ -121,13 +123,13 @@ var player_talents : Dictionary = {
 		"unlocked" : false,
 		"enabled" : false,
 		"opalscost": 100,
-		"talentslotcost": 2
+		"talentslotcost": 1
 	},
 	"SwiftThrust" : {
 		"unlocked" : false,
 		"enabled" : false,
 		"opalscost": 100,
-		"talentslotcost": 2
+		"talentslotcost": 1
 	},
 	# Talent has not been implemented yet
 	"BurningBreath" : {
@@ -150,8 +152,8 @@ var player_talents : Dictionary = {
 		"unlocked" : false,
 		"enabled" : false,
 		"opalscost": 100,
-		"dropchance": 40,
-		"managranted" : 2,
+		"dropchance": 25,
+		"healthgranted" : 25,
 		"talentslotcost": 3
 	},
 	# allows pierce fireball
@@ -160,6 +162,14 @@ var player_talents : Dictionary = {
 		"enabled" : false,
 		"opalscost": 100,
 		"damagepenalty": 25.0,
+		"talentslotcost": 3
+	},
+	"MeteorShower": {
+		"unlocked" : false,
+		"enabled" : false,
+		"opalscost": 100,
+		"meteordamage": 25.0,
+		
 		"talentslotcost": 3
 	},
 	"BadBlood":{
@@ -171,6 +181,8 @@ var player_talents : Dictionary = {
 		"cooldown": 20
 	}
 }
+
+
 var player_skills : Dictionary = {
 	"PrimarySkill" : "FireSaw",
 	"SecondarySkill" : "FireFairy",
@@ -238,11 +250,11 @@ var glaciela_skill_multipliers : Dictionary = {
 	"SpecialAttack2_2": 22.0,
 	"SpecialAttack2_3": 40.0,
 	"TundraStarsDMGBonus": 12.0,
-	"TundraSigilFreezeStackBonus": 20,
+	"TundraSigilFreezeStackBonus": 30,
 	"TundraSigilManaBonus": 0.75,
-	"TundraStarsIceDamageBonus": 35,
+	"TundraStarsIceDamageBonus": 48,
 	"AirborneDuration": 2.5,
-	"IceLance": 40.0,
+	"IceLance": 60.0,
 	"IceLanceFreezeGauge": 350.0,
 	"MaxTundraStars": 3,
 	"WinterQueen": 30.0,
@@ -254,12 +266,12 @@ var glaciela_skill_multipliers : Dictionary = {
 	
 	# for some reason it won't register any values below 100.
 	# so this is a fix. if it works, it works
-	"ConeOfCold": 100 * 0.15,
+	"ConeOfCold": 100 * 0.25,
 	"ConeOfColdFreezeGauge": 100,
-	"ConeOfColdCD": 6,
-	"ConeOfColdResourceConsumption": 120, # per tick.
+	"ConeOfColdCD": 5,
+	"ConeOfColdResourceConsumption": 100, # per tick.
 	"ConeOfColdRegenRate": 0.8,
-	"ConeOfColdMovementSpeedPenalty": 70.0,
+	"ConeOfColdMovementSpeedPenalty": 60.0,
 	# minimum amount of mana to be able to channel it.
 	"ConeOfColdCost": 0,
 	
@@ -280,22 +292,23 @@ var glaciela_skill_multipliers : Dictionary = {
 
 
 var agnette_skill_multipliers = {
-	"Arrow1": 15.0,
-	"Arrow2": 25.0,
+	"Arrow1": 18.0,
+	"Arrow2": 24.0,
 	"Arrow3": 30.0,
-	"Arrow4": 45.0,
+	"Arrow4": 42.0,
 	"ChargedAttackMovementSpeedPenalty": 80.0,
-	"RainOfArrows": 25.0,
+	"RainOfArrows": 40.0,
 	
-	"BearFormCost": 0,
-	"BearFormCD": 10,
+	"BearFormCost": 7,
+	"BearFormCD": 25,
 	"BearFormDuration": 12,
 	# health taken from agnette's max HP.
 	"BearFormHealth": 130.0,
 	"BearFormMovementSpeedPenalty": 20.0,
-	"BearFormAttack1": 97.0,
+	"BearFormAttack1": 108.0,
 	"BearFormShockwave": 60.0,
-	
+	"SpikeTrap": 16.0,
+	"SpikeTrapMaxCapacity": 2,
 	"CritRate": 20.0,
 	"CritDamage": 65.0,
 }
@@ -405,7 +418,9 @@ var character_level_data : Dictionary = {
 	"Glaciela": [1, 250],
 	"Agnette": [1, 250]
 }
-
+var player_talents_data = player_talents
+var player_perks_data = player_perks
+var glaciela_talents_data = glaciela_talents
 
 var enemies_killed : int
 # Boss Victories
@@ -451,99 +466,10 @@ func reset_player_data():
 		"bat_wings": 0,
 		"sweet_herbs": 0
 	}
-	Global.player_talents = {
-		"TalentSlots": 0,
-		"MaxTalentSlots": 5,
-		
-		"CycloneSlashes" : {
-			"unlocked" : false,
-			"enabled" : false,
-			"opalscost": 100,
-			"talentslotcost": 2
-		},
-		"SwiftThrust" : {
-			"unlocked" : false,
-			"enabled" : false,
-			"opalscost": 100,
-			"talentslotcost": 2
-		},
-		# Talent has not been implemented yet
-		"BurningBreath" : {
-			"unlocked" : false,
-			"enabled" : false,
-			"opalscost": 100,
-			"talentslotcost": 2,
-			"attackpercentage": 70.0,
-			"cooldown": 10
-		},
-		# Talent has not been implemented yet
-		"InfernalMark" : {
-			"unlocked" : false,
-			"enabled" : false,
-			"opalscost": 100,
-			"DamageIncrease" : 75,
-			"talentslotcost": 3
-		},
-		"SoulSiphon": {
-			"unlocked" : false,
-			"enabled" : false,
-			"opalscost": 100,
-			"dropchance": 40,
-			"managranted" : 2,
-			"talentslotcost": 3
-		},
-		"PiercingFervor": {
-			"unlocked" : false,
-			"enabled" : false,
-			"opalscost": 100,
-			"damagepenalty": 25.0,
-			"talentslotcost": 3
-		},
-		"BadBlood":{
-			# dropping to critical health grants temporary attack boost and speed boost
-			# cooldown
-			"unlocked" : false,
-			"enabled" : false,
-			"opalscost": 100,
-			"cooldown": 20
-		}
-	}
-	Global.player_perks = {
-			"CreateSugarRoll": {
-			"unlocked" : true,
-			"enabled": false,
-			"health": 0.3,
-			"opalscost": 100,
-			"cooldown": 35.0,
-	#		"talentslotcost": 3
-		},
-		"ChaosMagic": {
-			"unlocked" : true,
-			"enabled": false,
-			"opalscost": 100,
-			# 45? 60? 100?
-			"cooldown": 25.0,
-			# 25% chance
-			"triggerchance": 25,
-	#		"talentslotcost": 3
-		}
-	}
-	Global.glaciela_talents = {
-		"TalentSlots": 0,
-		"MaxTalentSlots": 5,
-		"DanceOfRime" : {
-			"unlocked" : false,
-			"enabled" : false,
-			"opalscost": 100,
-			"talentslotcost": 2
-		},
-		"FrigidHailstorm": {
-			"unlocked" : false,
-			"enabled" : false,
-			"opalscost": 100,
-			"talentslotcost": 2
-		}
-	}
+	# the data variable is fixed
+	Global.player_talents = Global.player_talents_data
+	Global.player_perks = Global.player_perks_data
+	Global.glaciela_talents = Global.glaciela_talents_data
 	
 	
 	Global.soul_token_amount = 0

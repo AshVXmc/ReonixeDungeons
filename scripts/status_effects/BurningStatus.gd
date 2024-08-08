@@ -4,7 +4,7 @@ class_name BurningStatus extends Area2D
 onready var burn_stack = 0
 var burn_immediately : bool = false
 const MAX_BURN_STACK = 1000
-const BURN_MULTIPLIER : float = 0.15
+const BURN_MULTIPLIER : float = 0.25
 export (bool) var is_burning : bool = false
 # Maximum duration of the burning effect. Enemy burning RES
 # Ticks every 0.25 secs

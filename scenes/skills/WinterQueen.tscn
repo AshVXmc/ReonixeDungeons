@@ -68,7 +68,7 @@ disabled = true
 wait_time = 0.2
 
 [node name="DestroyedTimer" type="Timer" parent="."]
-wait_time = 6.0
+wait_time = 8.5
 one_shot = true
 
 [connection signal="timeout" from="DamageTickTimer" to="." method="_on_DamageTickTimer_timeout"]

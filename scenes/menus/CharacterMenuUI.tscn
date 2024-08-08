@@ -1270,6 +1270,7 @@ custom_fonts/font = SubResource( 11 )
 flat = true
 
 [node name="AgnetteControl" type="Control" parent="CharacterSkillsControl/NinePatchRect/SkillsControl"]
+visible = false
 margin_right = 40.0
 margin_bottom = 40.0
 
@@ -1694,7 +1695,6 @@ texture_normal = ExtResource( 9 )
 expand = true
 
 [node name="CharacterTalentsControl" type="Control" parent="."]
-visible = false
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -1767,7 +1767,6 @@ patch_margin_right = 64
 patch_margin_bottom = 64
 
 [node name="PlayerControl" type="Control" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl"]
-visible = false
 margin_right = 40.0
 margin_bottom = 40.0
 
@@ -1782,12 +1781,12 @@ anchor_bottom = 15.255
 margin_left = 253.0
 margin_top = 81.0
 margin_right = 72.36
-margin_bottom = 635.8
+margin_bottom = 921.8
 rect_min_size = Vector2( 566, 355 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer"]
 margin_right = 510.0
-margin_bottom = 2024.0
+margin_bottom = 2028.0
 rect_min_size = Vector2( 510, 2000 )
 
 [node name="RichTextLabel" type="RichTextLabel" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer"]
@@ -1814,10 +1813,13 @@ Enemies marked with Sulphuric Sigil take MARK_DMG_INCREASE% more damage.
 
 
 [color=#ffd703]Soul Siphon[/color]
-Upon death, enemies have a SOUL_SIPHON_DROP_CHANCE% chance to drop a [color=#540d17]Soul Orb[/color]. The Player and him alone can pick up these orbs to restore SOUL_SIPHON_MANA Mana.
-
+Upon death, enemies have a SOUL_SIPHON_DROP_CHANCE% chance to drop a [color=#540d17]Soul Orb[/color]. The Player and him alone can pick up these orbs to restore SOUL_SIPHON_HP% Max HP.
 
 [color=#ffd703]Piercing Fervor[/color]
+Projectiles from the Fireball skill pierce enemies, but deal PF_DMG_PENALTY% less damage.
+
+
+[color=#ffd703]Meteor Shower[/color]
 Projectiles from the Fireball skill pierce enemies, but deal PF_DMG_PENALTY% less damage.
 
 
@@ -1845,10 +1847,13 @@ Enemies marked with Sulphuric Sigil take MARK_DMG_INCREASE% more damage.
 
 
 Soul Siphon
-Upon death, enemies have a SOUL_SIPHON_DROP_CHANCE% chance to drop a Soul Orb. The Player and him alone can pick up these orbs to restore SOUL_SIPHON_MANA Mana.
-
+Upon death, enemies have a SOUL_SIPHON_DROP_CHANCE% chance to drop a Soul Orb. The Player and him alone can pick up these orbs to restore SOUL_SIPHON_HP% Max HP.
 
 Piercing Fervor
+Projectiles from the Fireball skill pierce enemies, but deal PF_DMG_PENALTY% less damage.
+
+
+Meteor Shower
 Projectiles from the Fireball skill pierce enemies, but deal PF_DMG_PENALTY% less damage.
 
 
@@ -2173,9 +2178,9 @@ margin_bottom = 2024.0
 anchor_left = 0.215
 anchor_right = 0.215
 margin_left = 426.8
-margin_top = -969.0
+margin_top = -1003.0
 margin_right = 458.8
-margin_bottom = -953.0
+margin_bottom = -987.0
 rect_min_size = Vector2( 32, 16 )
 rect_scale = Vector2( 7.5, 7.5 )
 texture_normal = ExtResource( 5 )
@@ -2215,6 +2220,67 @@ text = "Slot cost: X"
 align = 1
 
 [node name="PlayerCheckButton" type="CheckButton" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl6/PlayerTalentButton"]
+visible = false
+margin_left = -5.33334
+margin_top = 8.39999
+margin_right = 116.667
+margin_bottom = 48.4
+rect_scale = Vector2( 0.2, 0.2 )
+custom_fonts/font = SubResource( 4 )
+text = "Enable"
+align = 1
+
+[node name="TalentControl7" type="Control" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer"]
+margin_top = 2028.0
+margin_right = 510.0
+margin_bottom = 2028.0
+
+[node name="PlayerTalentButton" type="TextureButton" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl7"]
+anchor_left = 0.215
+anchor_right = 0.215
+margin_left = 426.8
+margin_top = -838.0
+margin_right = 458.8
+margin_bottom = -822.0
+rect_min_size = Vector2( 32, 16 )
+rect_scale = Vector2( 7.5, 7.5 )
+texture_normal = ExtResource( 5 )
+texture_pressed = ExtResource( 4 )
+
+[node name="ButtonLabel" type="Label" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl7/PlayerTalentButton"]
+margin_left = 1.60001
+margin_top = 1.6
+margin_right = 40.6
+margin_bottom = 18.6
+rect_scale = Vector2( 0.3, 0.3 )
+custom_fonts/font = SubResource( 3 )
+text = "Unlock"
+
+[node name="OpalsCostLabel" type="Label" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl7/PlayerTalentButton"]
+margin_left = 5.66672
+margin_top = 9.33333
+margin_right = 26.6667
+margin_bottom = 26.3333
+rect_scale = Vector2( 0.3, 0.3 )
+custom_fonts/font = SubResource( 8 )
+text = "XXX"
+align = 2
+
+[node name="Sprite" type="Sprite" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl7/PlayerTalentButton/OpalsCostLabel"]
+position = Vector2( -6.22238, 7.11111 )
+texture = ExtResource( 8 )
+
+[node name="SlotsCostLabel" type="Label" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl7/PlayerTalentButton"]
+margin_left = -3.73331
+margin_top = 14.5333
+margin_right = 71.2667
+margin_bottom = 31.5333
+rect_scale = Vector2( 0.3, 0.3 )
+custom_fonts/font = SubResource( 8 )
+text = "Slot cost: X"
+align = 1
+
+[node name="PlayerCheckButton" type="CheckButton" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl7/PlayerTalentButton"]
 visible = false
 margin_left = -5.33334
 margin_top = 8.39999
@@ -2653,6 +2719,8 @@ expand = true
 [connection signal="toggled" from="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl5/PlayerTalentButton/PlayerCheckButton" to="CharacterTalentsControl" method="_on_PlayerCheckButton5_toggled"]
 [connection signal="pressed" from="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl6/PlayerTalentButton" to="CharacterTalentsControl" method="_on_PlayerTalentButton6_pressed"]
 [connection signal="toggled" from="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl6/PlayerTalentButton/PlayerCheckButton" to="CharacterTalentsControl" method="_on_PlayerCheckButton6_toggled"]
+[connection signal="pressed" from="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl7/PlayerTalentButton" to="CharacterTalentsControl" method="_on_PlayerTalentButton7_pressed"]
+[connection signal="toggled" from="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl7/PlayerTalentButton/PlayerCheckButton" to="CharacterTalentsControl" method="_on_PlayerCheckButton7_toggled"]
 [connection signal="pressed" from="CharacterTalentsControl/NinePatchRect/TalentTreeControl/GlacielaControl/ScrollContainer/VBoxContainer/TalentControl1/GlacielaTalentButton" to="CharacterTalentsControl" method="_on_GlacielaTalentButton1_pressed"]
 [connection signal="toggled" from="CharacterTalentsControl/NinePatchRect/TalentTreeControl/GlacielaControl/ScrollContainer/VBoxContainer/TalentControl1/GlacielaTalentButton/GlacielaCheckButton" to="CharacterTalentsControl" method="_on_GlacielaCheckButton1_toggled"]
 [connection signal="pressed" from="CharacterTalentsControl/NinePatchRect/TalentTreeControl/AgnetteControl/ScrollContainer/VBoxContainer/TalentControl1/AgnetteTalentButton" to="CharacterTalentsControl" method="_on_AgnetteTalentButton1_pressed"]

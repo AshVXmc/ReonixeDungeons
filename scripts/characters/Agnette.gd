@@ -343,7 +343,16 @@ func charged_attack():
 
 func charged_dash():
 	$DashInputPressTimer.stop()
-
+	# no more than 2 traps may exist
+	if get_tree().get_nodes_in_group("SpikeTrap").size() < Global.agnette_skill_multipliers["SpikeTrapMaxCapacity"]:
+		var trap = preload("res://scenes/skills/SpikeTrap.tscn").instance()
+		trap.get_node("Area2D").add_to_group(str(ATTACK * (Global.agnette_skill_multipliers["SpikeTrap"] / 100)))
+		get_parent().get_parent().get_parent().add_child(trap)
+		if !$AnimatedSprite.flip_h:
+			trap.position = Vector2(global_position.x + 80, global_position.y)
+		else:
+			trap.position = Vector2(global_position.x - 80, global_position.y)
+		
 func set_attack_power(type : String ,amount : float, duration : float, from_crystal : bool = true):
 	if from_crystal:
 		buffed_from_attack_crystals = true
@@ -386,7 +395,7 @@ func spawn_arrow(charge_value : int = 0, earth_damage : bool = false):
 	var charged_bonus : float = 1.5 + (1.5 * charge_value / 100)
 #	print("charge value: " + str(charge_value))
 	if charge_value >= 50:
-		charged_bonus = 1 + (5.25 * charge_value / 100)
+		charged_bonus = 1.5 + (3.5 * charge_value / 100)
 
 	var crit_dmg : float = 1.0
 	var arrow = ARROW.instance()
@@ -598,7 +607,8 @@ func _on_Area2D_area_entered(area):
 		if area.is_in_group("LifeWine"):
 			Global.lifewine_amount += 1
 			emit_signal("lifewine_obtained", Global.lifewine_amount)
-		
+		if area.is_in_group("AddMana"):
+			change_mana_value(area.get_parent().mana_granted)
 		if !Global.godmode:
 			if $InvulnerabilityTimer.is_stopped() and !get_parent().get_parent().is_invulnerable and !get_parent().get_parent().is_dashing:
 				if area.is_in_group("Enemy") and area.is_in_group("Hostile") or area.is_in_group("Projectile"):
@@ -775,14 +785,14 @@ func _on_EnemyEvasionArea_area_exited(area):
 				get_parent().get_parent().get_parent().add_child(tempus_targus)
 				tempus_targus.position = global_position
 				$TempusTardusTriggerCD.start()
-			var arrow_rain = RAIN_OF_ARROWS.instance()
-			arrow_rain.get_node("Area2D").add_to_group(str(ATTACK * (Global.agnette_skill_multipliers["RainOfArrows"] / 100)))
-			get_parent().get_parent().get_parent().add_child(arrow_rain)
-			if !$AnimatedSprite.flip_h:
-				arrow_rain.position = Vector2(global_position.x + 320, global_position.y - 130)
-			else:
-				arrow_rain.position = Vector2(global_position.x - 320, global_position.y - 130)
-				
+				var arrow_rain = RAIN_OF_ARROWS.instance()
+				arrow_rain.get_node("Area2D").add_to_group(str(ATTACK * (Global.agnette_skill_multipliers["RainOfArrows"] / 100)))
+				get_parent().get_parent().get_parent().add_child(arrow_rain)
+				if !$AnimatedSprite.flip_h:
+					arrow_rain.position = Vector2(global_position.x + 320, global_position.y - 130)
+				else:
+					arrow_rain.position = Vector2(global_position.x - 320, global_position.y - 130)
+					
 			get_parent().get_parent().is_invulnerable = false
 		elif !get_parent().get_parent().is_dashing and area.is_in_group("Enemy"):
 			get_parent().get_parent().perfect_dash = false
@@ -813,7 +823,7 @@ func _on_InvulnerabilityTimer_timeout():
 
 
 func _on_DashInputPressTimer_timeout():
-	if Global.current_character == "Agnette" and !get_parent().get_parent().mobility_lock and !Input.is_action_pressed("ui_attack"):
+	if Global.current_character == "Agnette" and !get_parent().get_parent().mobility_lock and Input.is_action_pressed("ui_dash") and !Input.is_action_pressed("ui_attack"):
 		charged_dash()
 
 

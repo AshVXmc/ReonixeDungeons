@@ -5,16 +5,17 @@ var SPEED : int = MAX_SPEED
 var velocity := Vector2()
 export (int) var x_direction = 1
 const TYPE = "Physical"
-onready var agnette = get_parent()
+
 signal add_mana_to_agnette(amount)
-onready var mana_granted : float = 0.25
+onready var mana_granted : float = 0.35
 const AIRBORNE_STATUS : PackedScene = preload("res://scenes/status_effects/AirborneStatus.tscn")
 export (bool) var knocks_enemies_airborne = false
 
 
 func _ready():
 	connect("add_mana_to_agnette", get_parent().get_node("Player/CharacterManager/Agnette"), "change_mana_value")
-
+	if TYPE == "Earth":
+		mana_granted = 0.65
 func _physics_process(delta):
 	position += transform.x * SPEED * delta * x_direction
 	$Sprite.flip_h = true if x_direction < 0 else false

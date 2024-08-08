@@ -1,6 +1,6 @@
 class_name SoulOrb extends Area2D
 
-var add_mana : float = Global.player_talents["SoulSiphon"]["managranted"]
+var add_health : float = Global.player_talents["SoulSiphon"]["healthgranted"]
 
 
 func _on_DestroyedTimer_timeout():

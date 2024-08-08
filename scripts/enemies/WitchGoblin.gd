@@ -89,7 +89,7 @@ func eldritch_blast():
 	var eb = ELDRITCH_BLAST.instance()
 	get_parent().add_child(eb)
 	eb.position = global_position
-	yield(get_tree().create_timer(1),"timeout")
+	yield(get_tree().create_timer(1.75),"timeout")
 	is_casting = false
 	
 # summon a smokecloud at the player's position, before casting down lighting

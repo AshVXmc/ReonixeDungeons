@@ -3,11 +3,11 @@ class_name Goblin extends KinematicBody2D
 const DMG_INDICATOR : PackedScene = preload("res://scenes/particles/DamageIndicatorParticle.tscn")
 const SWORD_HIT_PARTICLE : PackedScene = preload("res://scenes/particles/SwordHitParticle.tscn")
 const DEATH_SMOKE : PackedScene = preload("res://scenes/particles/DeathSmokeParticle.tscn")
-var max_HP_calc : int = 40 + (Global.enemy_level_index * 14)
+var max_HP_calc : int = 50 + (Global.enemy_level_index * 18)
 var level_calc : int = round(Global.enemy_level_index)
 export var max_HP : int = max_HP_calc
 export var level : int = level_calc
-var atk_value : float = 2.5 * Global.enemy_level_index + 1 
+var atk_value : float = 2.25 * Global.enemy_level_index + 1
 onready var HP : int = max_HP
 export var flipped : bool = false
 var velocity = Vector2()
@@ -156,6 +156,13 @@ func _physics_process(delta):
 func spear_thrust_attack():
 	$SpearThrustAttackCollision.add_to_group(str(atk_value))
 
+func drop_mana_bits(amount : int):
+	var counter : int = 0
+	while counter < amount:
+		var mana_bit = preload("res://scenes/misc/ManaBits.tscn").instance()
+		get_parent().add_child(mana_bit)
+		mana_bit.position = global_position
+		counter += 1
 
 func other_enemy_detector_is_overlapping_player():
 	var bodies = $OtherEnemyDetector.get_overlapping_bodies()
@@ -224,7 +231,10 @@ func _on_Area2D_area_entered(area):
 					else:
 						add_damage_particles("Physical", float(damage), false)
 					$HitDelayTimer.start()
-					parse_damage()
+					if area.is_in_group("NoStagger"):
+						parse_damage(false)
+					else:
+						parse_damage()
 					break
 					
 		if area.is_in_group("SwordCharged"):
@@ -300,7 +310,7 @@ func _on_Area2D_area_entered(area):
 					HP -= float(damage)
 					$HealthBar.value  -= float(damage)
 					if area.is_in_group("IsCritHit"):
-						
+		
 						add_damage_particles("Earth", float(damage), true)
 					else:
 						add_damage_particles("Earth", float(damage), false)
@@ -367,7 +377,7 @@ func add_damage_particles(type : String, dmg : int, is_crit : bool):
 	var dmgparticle = DMG_INDICATOR.instance()
 	dmgparticle.is_crit = is_crit
 	dmgparticle.damage_type = type
-	dmgparticle.damage = dmg
+	dmgparticle.damage = round(dmg)
 	
 	get_parent().add_child(dmgparticle)
 	dmgparticle.position = global_position
@@ -425,6 +435,7 @@ func death():
 			var soul_orb = preload("res://scenes/skills/SoulOrb.tscn").instance()
 			get_parent().add_child(soul_orb)
 			soul_orb.position = global_position
+	drop_mana_bits(3)
 	call_deferred('free')
 	print("reached")
 	Global.enemies_killed += 1

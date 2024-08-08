@@ -308,10 +308,18 @@ func death():
 			var soul_orb = preload("res://scenes/skills/SoulOrb.tscn").instance()
 			get_parent().add_child(soul_orb)
 			soul_orb.position = global_position
+	drop_mana_bits(2)
 	call_deferred('free')
 	Global.enemies_killed += 1
 	
-	
+
+func drop_mana_bits(amount : int):
+	var counter : int = 0
+	while counter < amount:
+		var mana_bit = preload("res://scenes/misc/ManaBits.tscn").instance()
+		get_parent().add_child(mana_bit)
+		mana_bit.position = global_position
+		counter += 1
 func _on_HurtTimer_timeout():
 	is_staggered = false
 	velocity.x = SPEED * direction

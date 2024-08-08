@@ -1,7 +1,7 @@
 class_name FireSaw extends Area2D
 
 const BURNING : PackedScene = preload("res://scenes/status_effects/BurningStatus.tscn")
-var SPEED : int = 500
+var SPEED : int = 600
 var velocity = Vector2()
 var direction : int = 1
 var destroyed : bool = false

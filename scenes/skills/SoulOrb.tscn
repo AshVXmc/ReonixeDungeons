@@ -24,7 +24,7 @@ tracks/0/keys = {
 "values": [ 0, 1, 2 ]
 }
 
-[node name="SoulOrb" type="Area2D" groups=["AddMana"]]
+[node name="SoulOrb" type="Area2D" groups=["Heal"]]
 position = Vector2( 0, 25 )
 script = ExtResource( 2 )
 __meta__ = {

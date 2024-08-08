@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=25 format=2]
 
 [ext_resource path="res://themes/Blur.tres" type="Material" id=1]
 [ext_resource path="res://scripts/ui/PauseScript.gd" type="Script" id=2]
@@ -10,6 +10,7 @@
 [ext_resource path="res://assets/UI/textbox.png" type="Texture" id=8]
 [ext_resource path="res://scripts/ui/PerfectDash.gd" type="Script" id=9]
 [ext_resource path="res://assets/UI/movesets_icon.png" type="Texture" id=10]
+[ext_resource path="res://assets/UI/locked_character_icon.png" type="Texture" id=11]
 [ext_resource path="res://scripts/ui/MovesetList.gd" type="Script" id=12]
 [ext_resource path="res://themes/PauseUIFont.tres" type="DynamicFont" id=13]
 [ext_resource path="res://assets/UI/player_character_icon.png" type="Texture" id=14]
@@ -341,7 +342,6 @@ scroll_active = false
 
 [node name="MovesetList" type="Control" parent="."]
 pause_mode = 2
-visible = false
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -414,17 +414,17 @@ bbcode_text = "[center][color=red]Player's moveset[/color][/center]
 (While airborne) [ATK], [ATK], [ATK], [ATK] 
 
 [color=#ffd703]Charged Attack[/color]
-[Hold ATK]
+Hold [ATK] after at least one basic attack
 
 [color=#ffd703]Knock-Up Charged Attack[/color] (Knocks enemies airborne)
-[Hold UP] and [Hold ATK]
+Hold [UP] and [Hold ATK]
 
 [color=#ffd703]Charged Attack: Bladestorm[/color]
 (Prerequisite: Cyclone Slashes talent)
 [ATK], [ATK], [ATK], [Hold ATK]
 
 [color=#ffd703]EX Charged Attack[/color]
-[Hold ATK] when [color=purple]Energy[/color] is full
+Hold [ATK] when [color=purple]Energy[/color] is full
 
 [color=#ffd703]Aerial Charged Attack[/color]
 (While airborne) [Hold ATK] 
@@ -432,8 +432,9 @@ bbcode_text = "[center][color=red]Player's moveset[/color][/center]
 [color=#ffd703]Dash Counter Attack[/color]
 [ATK] after a perfect dodge
 
-
- "
+[color=#ffd703]Fire Charm[/color]
+Hold [DASH] to send a charm forward. [DASH] to teleport to the charm's location. 
+Cooldown: FC_CD seconds"
 text = "Player's moveset
 Basic Attack Combo
 [ATK], [ATK], [ATK], [ATK]
@@ -442,17 +443,17 @@ Aerial Basic Attack Combo
 (While airborne) [ATK], [ATK], [ATK], [ATK] 
 
 Charged Attack
-[Hold ATK]
+Hold [ATK] after at least one basic attack
 
 Knock-Up Charged Attack (Knocks enemies airborne)
-[Hold UP] and [Hold ATK]
+Hold [UP] and [Hold ATK]
 
 Charged Attack: Bladestorm
 (Prerequisite: Cyclone Slashes talent)
 [ATK], [ATK], [ATK], [Hold ATK]
 
 EX Charged Attack
-[Hold ATK] when Energy is full
+Hold [ATK] when Energy is full
 
 Aerial Charged Attack
 (While airborne) [Hold ATK] 
@@ -460,10 +461,12 @@ Aerial Charged Attack
 Dash Counter Attack
 [ATK] after a perfect dodge
 
-
- "
+Fire Charm
+Hold [DASH] to send a charm forward. [DASH] to teleport to the charm's location. 
+Cooldown: FC_CD seconds"
 
 [node name="GlacielaMovesetList" type="RichTextLabel" parent="MovesetList"]
+visible = false
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -483,7 +486,7 @@ Upon finishing the 4th sequence, gain a single stack of [color=#c4fdff]Tundra Si
 (While airborne) [ATK], [ATK], [ATK], [ATK] 
 
 [color=#ffd703]Charged Attack[/color] (Knocks enemies airborne)
-[Hold ATK]
+Hold [ATK]
 
 [color=#ffd703]Special Attack: Wintry Waltz[/color]
 (Prerequisite: Dance of Rime talent)
@@ -501,7 +504,7 @@ Aerial Basic Attack Combo
 (While airborne) [ATK], [ATK], [ATK], [ATK] 
 
 Charged Attack (Knocks enemies airborne)
-[Hold ATK]
+Hold [ATK]
 
 Special Attack: Wintry Waltz
 (Prerequisite: Dance of Rime talent)
@@ -509,6 +512,51 @@ Special Attack: Wintry Waltz
 Consumes all stacks of Tundra Sigil. Each stack consumed grants a SP_ATK_1_BOOST% damage bonus to the attack.
 
 
+ "
+
+[node name="AgnetteMovesetList" type="RichTextLabel" parent="MovesetList"]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -343.0
+margin_top = -112.5
+margin_right = 343.0
+margin_bottom = 247.5
+custom_fonts/normal_font = SubResource( 11 )
+bbcode_enabled = true
+bbcode_text = "[center][color=#deb600]Agnette''s moveset[/color][/center]
+[color=#ffd703]Basic Attack Combo[/color] ([color=#668709]Archer[/color] form)
+[ATK], [ATK], [ATK], [ATK]
+
+[color=#ffd703]Charged Attack[/color] ([color=#668709]Archer[/color] form)
+Hold [ATK]
+
+[color=#ffd703]Spike Trap[/color] ([color=#668709]Archer[/color] form)
+Hold [DASH] to place down a spike trap that damages enemies. Only TR_MAX traps may exist at any given time.
+
+[color=#ffd703]Basic Attack[/color] ([color=#3b1c06]Bear[/color] form)
+[ATK]
+
+[color=#ffd703]Charged Attack[/color] ([color=#3b1c06]Bear[/color] form)
+[Hold ATK]
+ "
+text = "Agnette''s moveset
+Basic Attack Combo (Archer form)
+[ATK], [ATK], [ATK], [ATK]
+
+Charged Attack (Archer form)
+Hold [ATK]
+
+Spike Trap (Archer form)
+Hold [DASH] to place down a spike trap that damages enemies. Only TR_MAX traps may exist at any given time.
+
+Basic Attack (Bear form)
+[ATK]
+
+Charged Attack (Bear form)
+[Hold ATK]
  "
 
 [node name="CloseButton" type="TextureButton" parent="MovesetList"]
@@ -534,6 +582,7 @@ margin_right = 170.0
 margin_bottom = -5.0
 rect_scale = Vector2( 5, 5 )
 texture_normal = ExtResource( 14 )
+texture_pressed = ExtResource( 11 )
 
 [node name="GlacielaTextureButton" type="TextureButton" parent="MovesetList"]
 margin_left = 280.0
@@ -542,6 +591,7 @@ margin_right = 300.0
 margin_bottom = -5.0
 rect_scale = Vector2( 5, 5 )
 texture_normal = ExtResource( 16 )
+texture_pressed = ExtResource( 11 )
 
 [node name="AgnetteTextureButton" type="TextureButton" parent="MovesetList"]
 margin_left = 410.0
@@ -550,6 +600,7 @@ margin_right = 430.0
 margin_bottom = -5.0
 rect_scale = Vector2( 5, 5 )
 texture_normal = ExtResource( 15 )
+texture_pressed = ExtResource( 11 )
 
 [node name="PerfectDash" type="Control" parent="."]
 anchor_right = 1.0

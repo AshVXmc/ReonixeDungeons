@@ -95,6 +95,7 @@ func on_skill_used (
 			icelance.tundra_sigil_atkbonus += (tundra_sigil_consumed * Global.glaciela_skill_multipliers["IceLanceDamageBonusPerTundraSigil"]) / 100
 			get_parent().get_parent().add_child(icelance)
 			icelance.position = global_position
+			
 			if !Global.godmode:
 				if Global.equipped_characters[0] == "Glaciela" and Global.mana >= Global.glaciela_skill_multipliers["IceLanceCost"]:
 					Global.mana -= Global.glaciela_skill_multipliers["IceLanceCost"]
@@ -132,3 +133,13 @@ func on_skill_used (
 		"BearForm":
 			get_parent().get_node("CharacterManager/Agnette").wild_shape(1)
 			get_parent().get_node("CharacterManager/Agnette/BearFormDurationTimer").start()
+			if !Global.godmode:
+				if Global.equipped_characters[0] == "Agnette" and Global.mana >= Global.agnette_skill_multipliers["BearFormCost"]:
+					Global.mana -= Global.agnette_skill_multipliers["BearFormCost"]
+					emit_signal("mana_changed", Global.mana, "Agnette")
+				elif Global.equipped_characters[1] == "Agnette" and Global.character2_mana >= Global.agnette_skill_multipliers["BearFormCost"]:
+					Global.character2_mana -= Global.agnette_skill_multipliers["BearFormCost"]
+					emit_signal("mana_changed", Global.character2_mana, "Agnette")
+				elif Global.equipped_characters[2] == "Agnette" and Global.character3_mana >= Global.agnette_skill_multipliers["BearFormCost"]:
+					Global.character3_mana -= Global.agnette_skill_multipliers["BearFormCost"]
+					emit_signal("mana_changed", Global.character3_mana, "Agnette")

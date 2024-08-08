@@ -1,6 +1,6 @@
 class_name CharacterTalentsControl extends Control
 
-var player_talents_list : Array = ["CycloneSlashes", "SwiftThrust", "BurningBreath", "InfernalMark", "SoulSiphon", "PiercingFervor"]
+var player_talents_list : Array = ["CycloneSlashes", "SwiftThrust", "BurningBreath", "InfernalMark", "SoulSiphon", "PiercingFervor", "MeteorShower"]
 onready var player_talent_slots_label = $NinePatchRect/TalentTreeControl/PlayerControl/TalentSlotsCountLabel
 onready var player_talent_desc_text = $NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/RichTextLabel
 
@@ -27,7 +27,7 @@ func update_player_description_text():
 	player_talent_desc_text.bbcode_text = player_talent_desc_text.bbcode_text.replacen(
 		"SOUL_SIPHON_DROP_CHANCE", str(Global.player_talents["SoulSiphon"]["dropchance"]))
 	player_talent_desc_text.bbcode_text = player_talent_desc_text.bbcode_text.replacen(
-		"SOUL_SIPHON_MANA", str(Global.player_talents["SoulSiphon"]["managranted"]))
+		"SOUL_SIPHON_HP", str(Global.player_talents["SoulSiphon"]["healthgranted"]))
 	player_talent_desc_text.bbcode_text = player_talent_desc_text.bbcode_text.replacen(
 		"PF_DMG_PENALTY", str(Global.player_talents["PiercingFervor"]["damagepenalty"]))
 	
@@ -46,13 +46,17 @@ func initialize_ui():
 #	$NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl1/PlayerTalentButton.pressed.connect()
 	$NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer.rect_size.x = 690
 	$NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer.rect_size.y = 375
-	$NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl1/PlayerTalentButton/PlayerCheckButton.visible = false
-	$NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl2/PlayerTalentButton/PlayerCheckButton.visible = false
-	$NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl3/PlayerTalentButton/PlayerCheckButton.visible = false
-	$NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl4/PlayerTalentButton/PlayerCheckButton.visible = false
-	$NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl5/PlayerTalentButton/PlayerCheckButton.visible = false
-	$NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl6/PlayerTalentButton/PlayerCheckButton.visible = false
-	
+#	$NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl1/PlayerTalentButton/PlayerCheckButton.visible = false
+#	$NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl2/PlayerTalentButton/PlayerCheckButton.visible = false
+#	$NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl3/PlayerTalentButton/PlayerCheckButton.visible = false
+#	$NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl4/PlayerTalentButton/PlayerCheckButton.visible = false
+#	$NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl5/PlayerTalentButton/PlayerCheckButton.visible = false
+#	$NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl6/PlayerTalentButton/PlayerCheckButton.visible = false
+#
+	var counter : int = 1
+	for i in player_talents_list:
+		get_node("NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl" + str(counter) + "/PlayerTalentButton/PlayerCheckButton").visible = false
+		counter += 1
 	$NinePatchRect/TalentTreeControl/GlacielaControl/ScrollContainer/VBoxContainer/TalentControl1/GlacielaTalentButton/GlacielaCheckButton.visible = false
 	
 	$NinePatchRect/TalentTreeControl/AgnetteControl/ScrollContainer/VBoxContainer/TalentControl1/AgnetteTalentButton/AgnetteCheckButton.visible = false
@@ -204,6 +208,8 @@ func _on_PlayerTalentButton5_pressed():
 func _on_PlayerTalentButton6_pressed():
 	if !Global.player_talents["PiercingFervor"]["unlocked"]:
 		buy_player_talent("PiercingFervor", 6)
+func _on_PlayerTalentButton7_pressed():
+	pass # Replace with function body.
 
 func _on_PlayerCheckButton1_toggled(button_pressed):
 	toggle_player_talent("CycloneSlashes", button_pressed, 1)
@@ -217,7 +223,8 @@ func _on_PlayerCheckButton5_toggled(button_pressed):
 	toggle_player_talent("SoulSiphon", button_pressed, 5)
 func _on_PlayerCheckButton6_toggled(button_pressed):
 	toggle_player_talent("PiercingFervor", button_pressed, 6)
-
+func _on_PlayerCheckButton7_toggled(button_pressed):
+	pass # Replace with function body.
 
 func _on_GlacielaTalentButton1_pressed():
 	if !Global.glaciela_talents["DanceOfRime"]["unlocked"]:
@@ -262,6 +269,10 @@ func _on_CloseButtonMainUI_pressed():
 			yield(get_tree().create_timer(2), "timeout")
 			$NinePatchRect/TalentTreeControl/AgnetteControl/TalentSlotsWarningLabel.visible = false
 	
+
+
+
+
 
 
 

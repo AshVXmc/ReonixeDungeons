@@ -27,9 +27,8 @@ position = Vector2( 4.64286, -5.10897e-07 )
 shape = SubResource( 7 )
 
 [node name="DestroyedTimer" type="Timer" parent="."]
-wait_time = 8.0
+wait_time = 4.0
 one_shot = true
-autostart = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 2.5, 1.42857 )

@@ -489,6 +489,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/ui/MainMenu.gd"
 }, {
+"base": "RigidBody2D",
+"class": "ManaBits",
+"language": "GDScript",
+"path": "res://scripts/misc/ManaBits.gd"
+}, {
 "base": "Node2D",
 "class": "ManaShrine",
 "language": "GDScript",
@@ -498,6 +503,11 @@ _global_script_classes=[ {
 "class": "MaskedGoblin",
 "language": "GDScript",
 "path": "res://scripts/enemies/MaskedGoblin.gd"
+}, {
+"base": "Node2D",
+"class": "MeteorShower",
+"language": "GDScript",
+"path": "res://scripts/skills/MeteorShower.gd"
 }, {
 "base": "Area2D",
 "class": "MeteorStrike",
@@ -613,6 +623,11 @@ _global_script_classes=[ {
 "class": "Spider",
 "language": "GDScript",
 "path": "res://scripts/enemies/Spider.gd"
+}, {
+"base": "Node2D",
+"class": "SpikeTrap",
+"language": "GDScript",
+"path": "res://scripts/skills/SpikeTrap.gd"
 }, {
 "base": "RigidBody2D",
 "class": "SugarRoll",
@@ -761,8 +776,10 @@ _global_script_class_icons={
 "MagicMissile": "",
 "MagicPedestal": "",
 "MainMenu": "",
+"ManaBits": "",
 "ManaShrine": "",
 "MaskedGoblin": "",
+"MeteorShower": "",
 "MeteorStrike": "",
 "MoteOfFlame": "",
 "PerfectDash": "",
@@ -786,6 +803,7 @@ _global_script_class_icons={
 "SlowingPoison": "",
 "SoulOrb": "",
 "Spider": "",
+"SpikeTrap": "",
 "SugarRoll": "",
 "SulphuricSigil": "",
 "SuperSlashProjectile": "",

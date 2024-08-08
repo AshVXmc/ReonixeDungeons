@@ -210,16 +210,19 @@ func use_primary_skill():
 		emit_signal("mana_changed", Global.character3_mana, "Glaciela")
 		
 func use_secondary_skill():
+	var dir : int = 1
+	if $AnimatedSprite.flip_h:
+		dir = -1
 	if Global.current_character == Global.equipped_characters[0] and Global.mana >= Global.glaciela_skill_multipliers["IceLanceCost"]:
-		emit_signal("skill_used", "IceLance", attack_buff, 1, tundra_stars)
+		emit_signal("skill_used", "IceLance", attack_buff, dir, tundra_stars)
 		get_parent().get_parent().emit_signal("skill_ui_update", "IceLance")
 		emit_signal("mana_changed", Global.mana, "Glaciela")
 	elif Global.current_character == Global.equipped_characters[1] and Global.character2_mana >= Global.glaciela_skill_multipliers["IceLanceCost"]:
-		emit_signal("skill_used", "IceLance", attack_buff, 1, tundra_stars)
+		emit_signal("skill_used", "IceLance", attack_buff, dir, tundra_stars)
 		get_parent().get_parent().emit_signal("skill_ui_update", "IceLance")
 		emit_signal("mana_changed", Global.character2_mana, "Glaciela")
 	elif Global.current_character == Global.equipped_characters[2] and Global.character3_mana >= Global.glaciela_skill_multipliers["IceLanceCost"]:
-		emit_signal("skill_used", "IceLance", attack_buff, 1, tundra_stars)
+		emit_signal("skill_used", "IceLance", attack_buff, dir, tundra_stars)
 		get_parent().get_parent().emit_signal("skill_ui_update", "IceLance")
 		emit_signal("mana_changed", Global.character3_mana, "Glaciela")
 	tundra_stars = 0
@@ -766,7 +769,7 @@ func _on_AttackCollision_area_entered(area):
 				
 			emit_signal("change_elegance", "BasicAttack")
 #			if $ManaRegenDelay.is_stopped():
-			change_mana_value(0.35)
+			change_mana_value(0.25)
 				
 			var hitparticle = SWORD_HIT_PARTICLE.instance()
 			var slashparticle = SWORD_SLASH_EFFECT.instance()
@@ -803,7 +806,8 @@ func _on_Area2D_area_entered(area):
 		if area.is_in_group("LifeWine"):
 			Global.lifewine_amount += 1
 			emit_signal("lifewine_obtained", Global.lifewine_amount)
-
+		if area.is_in_group("AddMana"):
+			change_mana_value(area.get_parent().mana_granted)
 		if !Global.godmode:
 			if $InvulnerabilityTimer.is_stopped() and !get_parent().get_parent().is_invulnerable and !get_parent().get_parent().is_dashing:
 				if area.is_in_group("Enemy") and area.is_in_group("Hostile")or area.is_in_group("Projectile"):

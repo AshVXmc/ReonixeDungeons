@@ -7,7 +7,7 @@ const ARROW = preload("res://scenes/enemies/Arrow.tscn")
 func _ready():
 	$ShootArrowTimer.start()
 	# Overrides
-	max_HP = 15 + (Global.enemy_level_index * 6)
+	max_HP = max_HP_calc * 0.75
 	SPEED = MAX_SPEED / 4
 
 func shoot_arrow():

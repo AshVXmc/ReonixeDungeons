@@ -207,6 +207,7 @@ func _on_Area2D_area_entered(area):
 func parse_damage():
 	if HP <= 0:
 		drop_loot()
+		drop_mana_bits(2)
 		call_deferred('free')
 func drop_loot():
 	var loot = LOOT.instance()
@@ -216,7 +217,13 @@ func drop_loot():
 	if randomint == 1:
 		get_parent().add_child(loot)
 		loot.position = $Position2D.global_position
-
+func drop_mana_bits(amount : int):
+	var counter : int = 0
+	while counter < amount:
+		var mana_bit = preload("res://scenes/misc/ManaBits.tscn").instance()
+		get_parent().add_child(mana_bit)
+		mana_bit.position = global_position
+		counter += 1
 
 # Player detector
 #func _on_Detector_body_entered(body):

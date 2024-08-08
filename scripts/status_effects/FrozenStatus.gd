@@ -27,7 +27,7 @@ func _process(delta):
 		is_frozen = true
 		$FreezeBar.visible = true
 	if is_frozen:
-		freeze_stack -= clamp(0, 3.5 , MAX_FREEZE_STACK)
+		freeze_stack -= clamp(0, 5 , MAX_FREEZE_STACK)
 	if is_frozen and freeze_stack <= 0:
 		is_frozen = false
 		freeze_stack = 0

@@ -196,7 +196,7 @@ func _ready():
 	$ChargeBar.value = 0
 	$SwordSprite.visible = false
 	$ChargeBar.visible = false
-	
+	$FireCharmTimer.wait_time = Global.player_skill_multipliers["FireCharmCD"]
 	connect("force_character_swap", get_node("CharacterManager"), "swap_character")
 	connect("change_elegance", get_parent().get_node("EleganceMeterUI/Control"), "elegance_changed")
 	connect("change_hitcount", get_parent().get_node("EleganceMeterUI/Control"), "hitcount_changed")
@@ -696,10 +696,10 @@ func dash_counter_attack():
 		counterflurryeffect.player_counter_attack_animation()
 		yield(get_tree().create_timer(0.1), "timeout")
 		update_energy_meter(10)
-		change_mana_value(0.25)
+		change_mana_value(0.2)
 		yield(get_tree().create_timer(0.1), "timeout")
 		update_energy_meter(10)
-		change_mana_value(0.25)
+		change_mana_value(0.2)
 		yield(get_tree().create_timer(0.1), "timeout")
 		update_energy_meter(10)
 		change_mana_value(0.25)
@@ -822,12 +822,13 @@ func _input(event):
 
 func charged_dash():
 	$DashInputPressTimer.stop()
-	var fc = preload("res://scenes/skills/FireCharm.tscn").instance()
-	get_parent().add_child(fc)
-	fc.position = global_position
-	if $Sprite.flip_h:
-		fc.x_direction *= -1
-		
+	if $FireCharmTimer.is_stopped():
+		var fc = preload("res://scenes/skills/FireCharm.tscn").instance()
+		get_parent().add_child(fc)
+		fc.position = global_position
+		if $Sprite.flip_h:
+			fc.x_direction *= -1
+		$FireCharmTimer.start()
 
 
 func teleport_to_firecharm():
@@ -1009,12 +1010,12 @@ func charged_attack(type : String = "Ground"):
 		change_mana_value(0.25)
 		yield(get_tree().create_timer(0.1), "timeout")
 		#emit_signal("change_elegance"), "ChargedAttackLight")
-		change_mana_value(0.25)
+		change_mana_value(0.3)
 		yield(get_tree().create_timer(0.1), "timeout")
 		#emit_signal("change_elegance"), "ChargedAttackLight")
-		change_mana_value(0.25)
+		change_mana_value(0.3)
 		yield(get_tree().create_timer(0.1), "timeout")
-		change_mana_value(0.45)
+		change_mana_value(0.5)
 		#emit_signal("change_elegance"), "ChargedAttackHeavy")
 		emit_signal("reduce_skill_cd", "Player", "PrimariesOnly", 4)
 		emit_signal("reduce_skill_cd", "Player", "SecondariesOnly", 2)
@@ -1323,10 +1324,11 @@ func _on_Area2D_area_entered(area : Area2D):
 		if area.is_in_group("LifeWine"):
 			Global.lifewine_amount += 1
 			emit_signal("lifewine_obtained", Global.lifewine_amount)
-	
-
 		if area.is_in_group("AddMana"):
-			change_mana_value(area.add_mana)
+			change_mana_value(area.get_parent().mana_granted)
+
+		if area.is_in_group("Heal"):
+			heal("Player", area.add_health / 100 * Global.character_health_data["Player"])
 		if !Global.godmode:
 			if inv_timer.is_stopped() and !is_invulnerable and !is_dashing and !is_thrust_attacking:
 				if area.is_in_group("Enemy") and area.is_in_group("Hostile") or area.is_in_group("Projectile"):
@@ -1605,7 +1607,7 @@ func _on_AttackCollision_area_entered(area):
 #							emit_signal("reduce_skill_cd", "Player", "PrimarySkill", 1)
 #							emit_signal("reduce_skill_cd", "Player", "SecondarySkill", 1)
 #					#emit_signal("change_elegance"), "BasicAttack")
-					change_mana_value(0.3)
+					change_mana_value(0.25)
 					$ManaRegenDelay.start()
 				if weakref(area).get_ref() != null:
 					var slashparticle = SWORD_SLASH_EFFECT.instance()
@@ -1634,7 +1636,7 @@ func _on_ChargedAttackCollision_area_entered(area):
 			if Global.current_character == "Player" and $ManaRegenDelay.is_stopped():
 				$ManaRegenDelay.start()
 				print("charged attack restore mana")
-				change_mana_value(0.2)
+				change_mana_value(0.35)
 				print("mana: " + str(Global.mana))
 				if !is_flurry_attacking:
 					update_energy_meter(10)
@@ -1776,6 +1778,7 @@ func thrust_attack(special : bool = false):
 				$ThrustEffectArea.add_to_group(str(ATTACK * (Global.player_skill_multipliers["ThrustChargedAttack"] / 100) * crit_dmg))
 				$ThrustEffectArea.remove_from_group("IsCritHit")
 			#emit_signal("change_elegance"), "ChargedAttackLight")
+	$ThrustEffectArea/CollisionShape2D.add_to_group("SulphuricSigilTrigger")
 	$ThrustEffectArea/CollisionShape2D.disabled = false
 	
 	is_thrust_attacking = true

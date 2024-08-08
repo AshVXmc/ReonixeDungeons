@@ -9,7 +9,10 @@ var target = null
 var velocity = Vector2.ZERO
 var acceleration = Vector2.ZERO
 var atkbonus : float
+signal add_mana_to_player(amount)
+
 func _ready():
+	connect("add_mana_to_player", player, "change_mana_value")
 	add_to_group(str(Global.attack_power * (Global.player_skill_multipliers["FireFairy"] / 100)))
 	$AnimationPlayer.play("Flap")
 	$DestroyedTimer.wait_time = Global.player_skill_multipliers["FireFairyDuration"]
@@ -78,3 +81,4 @@ func _on_FireFairy_body_entered(body):
 func _on_FireFairy_area_entered(area):
 	if area.is_in_group("Enemy"):
 		add_burning_stack()
+		emit_signal("add_mana_to_player", 0.4)

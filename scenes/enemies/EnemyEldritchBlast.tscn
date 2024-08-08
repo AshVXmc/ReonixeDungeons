@@ -89,8 +89,8 @@ shape = SubResource( 5 )
 
 [node name="ExplosionArea2D" type="Area2D" parent="." groups=["Enemy", "Hostile", "LightEnemy", "Projectile", "Weaken"]]
 script = ExtResource( 5 )
-amount = -50.0
-duration = 6.0
+amount = -40.0
+duration = 4.5
 type = "Percentage"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ExplosionArea2D"]
