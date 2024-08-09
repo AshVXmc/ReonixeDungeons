@@ -80,6 +80,8 @@ func update_player_description_text():
 	player_sskill_text.bbcode_text = player_sskill_text.bbcode_text.replace(
 		"FIREFAIRY_ATK", str(Global.player_skill_multipliers["FireFairy"]))
 	player_sskill_text.bbcode_text = player_sskill_text.bbcode_text.replace(
+		"FIREFAIRY_EX_ATK", str(Global.player_skill_multipliers["FireFairyDetonation"]))
+	player_sskill_text.bbcode_text = player_sskill_text.bbcode_text.replace(
 		"FIREFAIRY_CD", str(Global.player_skill_multipliers["FireFairyCD"]))
 	player_sskill_text.bbcode_text = player_sskill_text.bbcode_text.replace(
 		"FIREFAIRY_COST", str(Global.player_skill_multipliers["FireFairyCost"]))

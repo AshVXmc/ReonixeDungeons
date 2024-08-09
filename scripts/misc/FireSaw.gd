@@ -21,6 +21,25 @@ func _ready():
 	add_to_group(str(attack_calculation))
 	$AnimationPlayer.play("SPIN")
 	
+	if Global.player_talents["MeteorShower"]["unlocked"] and Global.player_talents["MeteorShower"]["enabled"]:
+		meteor_shower_talent() 
+
+
+func meteor_shower_talent():
+	for i in range(0, Global.player_talents["MeteorShower"]["amount"]):
+		var meteor = preload("res://scenes/skills/MeteorShower.tscn").instance()
+		get_parent().get_parent().add_child(meteor)
+		
+		match i:
+			0:
+				meteor.position = Vector2(global_position.x - 145, global_position.y - 370)
+			1:
+				meteor.position = Vector2(global_position.x + 145, global_position.y - 370)
+			2:
+				meteor.position = Vector2(global_position.x - 330, global_position.y - 340)
+			3:
+				meteor.position = Vector2(global_position.x + 330, global_position.y - 340)
+				
 func _on_DestroyedTimer_timeout():
 	get_parent().remove_from_group("FiresawActive")
 	call_deferred('free')

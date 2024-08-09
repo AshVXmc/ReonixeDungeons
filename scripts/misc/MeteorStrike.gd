@@ -51,5 +51,5 @@ func _on_ExplosionDelayTimer_timeout():
 
 
 func _on_DetectorArea_body_entered(body):
-	if body.is_in_group("TileMap") and $ExplosionDelayTimer.is_stopped():
+	if body.is_in_group("Tilemap") and $ExplosionDelayTimer.is_stopped():
 		explode()

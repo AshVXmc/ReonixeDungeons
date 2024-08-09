@@ -495,7 +495,7 @@ one_shot = true
 shape = SubResource( 28 )
 
 [node name="ResetAttackStringTimer" type="Timer" parent="."]
-wait_time = 1.5
+wait_time = 5.0
 one_shot = true
 
 [node name="ChargedAttackCooldown" type="Timer" parent="."]
@@ -510,7 +510,7 @@ one_shot = true
 [node name="EnemyEvasionArea" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyEvasionArea"]
-position = Vector2( 42, 0 )
+position = Vector2( 65, 0 )
 shape = SubResource( 17 )
 
 [node name="InputPressTimer" type="Timer" parent="."]
@@ -595,6 +595,9 @@ amount = 4
 one_shot = false
 process_material = SubResource( 33 )
 texture = ExtResource( 24 )
+
+[node name="VolleyShootCooldownTimer" type="Timer" parent="."]
+one_shot = true
 
 [connection signal="area_entered" from="BearFormNodes/AttackCollision" to="." method="_on_AttackCollision_area_entered"]
 [connection signal="area_exited" from="BearFormNodes/AttackCollision" to="." method="_on_AttackCollision_area_exited"]

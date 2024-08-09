@@ -371,7 +371,6 @@ text = "Talents"
 align = 1
 
 [node name="CharacterSkillsControl" type="Control" parent="."]
-visible = false
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -569,14 +568,18 @@ rect_min_size = Vector2( 510, 1100 )
 custom_fonts/italics_font = SubResource( 2 )
 custom_fonts/normal_font = SubResource( 2 )
 bbcode_enabled = true
-bbcode_text = "[color=#ffd703]Fire Faerie[/color]
-Summon a fire spirit that automatically tracks enemies, dealing [u]FIREFAIRY_ATK% ATK[/u] as [color=#fd9628]Fire damage[/color]. Recast the skill to teleport the spirit to your location. The spirit lasts for FIREFAIRY_DUR seconds.
+bbcode_text = "[color=#ffd703]Fire Fairy[/color]
+Summon a fire spirit that automatically tracks enemies, dealing [u]FIREFAIRY_ATK% ATK[/u] as [color=#fd9628]Fire damage[/color]. Enemies hit are marked with Sulphuric Sigil. At the end of its duration, it detonates and deals [u]FIREFAIRY_EX_ATK% ATK[/u] as [color=#fd9628]Fire damage[/color].
+Recast the skill to teleport the spirit to your location. 
 
+Duration: FIREFAIRY_DUR seconds
 Cooldown: FIREFAIRY_CD seconds
 Mana cost: FIREFAIRY_COST mana"
-text = "Fire Faerie
-Summon a fire spirit that automatically tracks enemies, dealing FIREFAIRY_ATK% ATK as Fire damage. Recast the skill to teleport the spirit to your location. The spirit lasts for FIREFAIRY_DUR seconds.
+text = "Fire Fairy
+Summon a fire spirit that automatically tracks enemies, dealing FIREFAIRY_ATK% ATK as Fire damage. Enemies hit are marked with Sulphuric Sigil. At the end of its duration, it detonates and deals FIREFAIRY_EX_ATK% ATK as Fire damage.
+Recast the skill to teleport the spirit to your location. 
 
+Duration: FIREFAIRY_DUR seconds
 Cooldown: FIREFAIRY_CD seconds
 Mana cost: FIREFAIRY_COST mana"
 scroll_active = false
@@ -1767,6 +1770,7 @@ patch_margin_right = 64
 patch_margin_bottom = 64
 
 [node name="PlayerControl" type="Control" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl"]
+visible = false
 margin_right = 40.0
 margin_bottom = 40.0
 
@@ -1820,7 +1824,7 @@ Projectiles from the Fireball skill pierce enemies, but deal PF_DMG_PENALTY% les
 
 
 [color=#ffd703]Meteor Shower[/color]
-Projectiles from the Fireball skill pierce enemies, but deal PF_DMG_PENALTY% less damage.
+Casting Firesaw calls down MS_AMT blazing meteors, dealing [u]MS_DMG% ATK[/u] as [color=#fd9628]Fire[/color] damage.
 
 
 
@@ -1854,7 +1858,7 @@ Projectiles from the Fireball skill pierce enemies, but deal PF_DMG_PENALTY% les
 
 
 Meteor Shower
-Projectiles from the Fireball skill pierce enemies, but deal PF_DMG_PENALTY% less damage.
+Casting Firesaw calls down MS_AMT blazing meteors, dealing MS_DMG% ATK as Fire damage.
 
 
 
@@ -2178,9 +2182,9 @@ margin_bottom = 2024.0
 anchor_left = 0.215
 anchor_right = 0.215
 margin_left = 426.8
-margin_top = -1003.0
+margin_top = -1010.0
 margin_right = 458.8
-margin_bottom = -987.0
+margin_bottom = -994.0
 rect_min_size = Vector2( 32, 16 )
 rect_scale = Vector2( 7.5, 7.5 )
 texture_normal = ExtResource( 5 )
@@ -2239,9 +2243,9 @@ margin_bottom = 2028.0
 anchor_left = 0.215
 anchor_right = 0.215
 margin_left = 426.8
-margin_top = -838.0
+margin_top = -843.0
 margin_right = 458.8
-margin_bottom = -822.0
+margin_bottom = -827.0
 rect_min_size = Vector2( 32, 16 )
 rect_scale = Vector2( 7.5, 7.5 )
 texture_normal = ExtResource( 5 )
@@ -2556,9 +2560,19 @@ rect_min_size = Vector2( 510, 1100 )
 custom_fonts/normal_font = SubResource( 2 )
 bbcode_enabled = true
 bbcode_text = "[color=#ffd703]Stoneskin[/color]
-While charging your bow, you take SS_MIT% less damage."
+While charging your bow, you take SS_MIT% less damage.
+
+
+[color=#ffd703]Volley Shot[/color]
+Your bow's Charged Attack fires 2 extra arrows that deal VS_PEN% of the arrow's damage. The Charge meter must be at least 70% full.
+Cooldown: VS_CD seconds"
 text = "Stoneskin
-While charging your bow, you take SS_MIT% less damage."
+While charging your bow, you take SS_MIT% less damage.
+
+
+Volley Shot
+Your bow's Charged Attack fires 2 extra arrows that deal VS_PEN% of the arrow's damage. The Charge meter must be at least 70% full.
+Cooldown: VS_CD seconds"
 scroll_active = false
 
 [node name="TalentControl1" type="Control" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/AgnetteControl/ScrollContainer/VBoxContainer"]
@@ -2603,9 +2617,9 @@ texture = ExtResource( 8 )
 
 [node name="SlotsCostLabel" type="Label" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/AgnetteControl/ScrollContainer/VBoxContainer/TalentControl1/AgnetteTalentButton"]
 margin_left = -3.73331
-margin_top = 14.5334
+margin_top = 14.4001
 margin_right = 71.2667
-margin_bottom = 31.5334
+margin_bottom = 31.4001
 rect_scale = Vector2( 0.3, 0.3 )
 custom_fonts/font = SubResource( 8 )
 text = "Slot cost: X"

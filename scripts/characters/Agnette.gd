@@ -110,7 +110,7 @@ func _ready():
 	$BearFormDurationTimer.wait_time = Global.agnette_skill_multipliers["BearFormDuration"]
 	$BearFormNodes/AttackCollision.add_to_group(str(ATTACK * (Global.agnette_skill_multipliers["BearFormAttack1"] / 100)))
 #	$SpecialAttackArea2D.add_to_group(str(ATTACK * (Global.glaciela_skill_multipliers["SpecialAttack1_1"] / 100)))
-
+	$VolleyShootCooldownTimer.wait_time = Global.agnette_talents["VolleyShot"]["cooldown"]
 
 func _physics_process(delta):
 	target = get_closest_enemy()
@@ -176,7 +176,12 @@ func _physics_process(delta):
 		use_skill()
 #		print(is_charging)
 
-			
+	if Global.current_character != "Agnette":
+		if current_form == forms.BEAR:
+			wild_shape(forms.ARCHER)
+		if attack_string_count != 4:
+			attack_string_count = 4
+			$ResetAttackStringTimer.stop()
 #		if Input.is_action_just_pressed("primary_skill") and !Input.is_action_just_pressed("secondary_skill"):
 #			print("skill emitted")
 #			emit_signal("skill_used", "IceLance")
@@ -230,7 +235,8 @@ func _input(event):
 			$ChargedAttackBarFillTimer.stop()
 			$ChargedAttackBar.value = $ChargedAttackBar.min_value
 			$BowAnimationPlayer.play("BowAttackRight")
-
+		
+		
 
 func use_skill():
 	if Global.current_character == "Agnette" and !is_charging and !get_parent().get_parent().is_frozen:
@@ -336,7 +342,13 @@ func charged_attack():
 	if $ShootTimer.is_stopped():
 		if $ChargedAttackBar.value >= $ChargedAttackBar.max_value * 0.7:
 			spawn_arrow($ChargedAttackBar.value, true)
+			if Global.agnette_talents["VolleyShot"]["unlocked"] and Global.agnette_talents["VolleyShot"]["enabled"] and $VolleyShootCooldownTimer.is_stopped():
+				spawn_arrow($ChargedAttackBar.value * (Global.agnette_talents["VolleyShot"]["arrowdamagepercentage"] / 100), true, true, false)
+				spawn_arrow($ChargedAttackBar.value * (Global.agnette_talents["VolleyShot"]["arrowdamagepercentage"] / 100), true, false, true)
+				$VolleyShootCooldownTimer.start()
 			attack_string_count = 4
+			
+			
 		else:
 			spawn_arrow($ChargedAttackBar.value)
 		$ShootTimer.start()
@@ -391,15 +403,16 @@ func attack():
 		$ResetAttackStringTimer.start()
 
 
-func spawn_arrow(charge_value : int = 0, earth_damage : bool = false):
-	var charged_bonus : float = 1.5 + (1.5 * charge_value / 100)
+func spawn_arrow(charge_value : int = 0, earth_damage : bool = false, is_up : bool = false, is_down : bool = false):
+	var charged_bonus : float = 1 + (1.25 * charge_value / 100)
 #	print("charge value: " + str(charge_value))
 	if charge_value >= 50:
-		charged_bonus = 1.5 + (3.5 * charge_value / 100)
+		charged_bonus = 1.25 + (2 * charge_value / 100)
 
 	var crit_dmg : float = 1.0
 	var arrow = ARROW.instance()
 	
+#
 	get_parent().get_parent().get_parent().add_child(arrow)
 	if earth_damage:
 		arrow.get_node("Area2D").remove_from_group("Sword")
@@ -409,7 +422,10 @@ func spawn_arrow(charge_value : int = 0, earth_damage : bool = false):
 		arrow.get_node("Area2D").add_to_group("IsCritHit")
 	else:
 		arrow.get_node("Area2D").remove_from_group("IsCritHit")
-	
+	if is_up:
+		arrow.up = true
+	elif is_down:
+		arrow.down = true
 	var mult : int = 4 - attack_string_count + 1
 	arrow.get_node("Area2D").add_to_group(str(charged_bonus * ATTACK * (Global.agnette_skill_multipliers["Arrow" + str(mult)] / 100) * crit_dmg))
 	
@@ -420,13 +436,14 @@ func spawn_arrow(charge_value : int = 0, earth_damage : bool = false):
 		arrow.position.x = global_position.x - 40
 		arrow.position.y = global_position.y
 		arrow.x_direction = -1
-	print("atk string: " + str(attack_string_count))
+#	print("atk string: " + str(attack_string_count))
 	attack_string_count -= 1
 	attack_string_count = clamp(attack_string_count, 0, 4)
 	if attack_string_count == 0:
 		attack_string_count = 4
 
-
+func spread_shot_arrow():
+	pass
 
 func bear_attack():
 	if Global.current_character == "Agnette" and $BearFormNodes/BearAttackDelayTimer.is_stopped():
@@ -446,10 +463,13 @@ func bear_attack():
 		yield(get_tree().create_timer(0.5), "timeout")
 		bear_is_attacking = false
 		$AnimatedSprite.play("BearDefault")
-func bear_slam_attack():
+
+func bear_charged_attack():
 	$BearFormNodes/BearInputPressTimer.stop()
 	var shockwave = preload("res://scenes/enemies/bosses/Shockwave.tscn").instance()
 	get_parent().get_parent().get_parent().add_child(shockwave)
+	if $AnimatedSprite.flip_h:
+		shockwave.direction = -1
 	shockwave.position = global_position
 
 func is_a_critical_hit() -> bool:
@@ -759,11 +779,6 @@ func take_damage(damage : float):
 func _on_ResetAttackStringTimer_timeout():
 	attack_string_count = 4
 
-
-
-
-
-
 func _on_EnemyEvasionArea_area_entered(area):
 	pass # Replace with function body.
 
@@ -789,9 +804,9 @@ func _on_EnemyEvasionArea_area_exited(area):
 				arrow_rain.get_node("Area2D").add_to_group(str(ATTACK * (Global.agnette_skill_multipliers["RainOfArrows"] / 100)))
 				get_parent().get_parent().get_parent().add_child(arrow_rain)
 				if !$AnimatedSprite.flip_h:
-					arrow_rain.position = Vector2(global_position.x + 320, global_position.y - 130)
+					arrow_rain.position = Vector2(global_position.x + 200, global_position.y - 130)
 				else:
-					arrow_rain.position = Vector2(global_position.x - 320, global_position.y - 130)
+					arrow_rain.position = Vector2(global_position.x - 200, global_position.y - 130)
 					
 			get_parent().get_parent().is_invulnerable = false
 		elif !get_parent().get_parent().is_dashing and area.is_in_group("Enemy"):
@@ -875,4 +890,4 @@ func _on_AttackTimer_timeout():
 
 func _on_BearInputPressTimer_timeout():
 	if Input.is_action_pressed("ui_attack") and current_form == forms.BEAR:
-		bear_slam_attack()
+		bear_charged_attack()

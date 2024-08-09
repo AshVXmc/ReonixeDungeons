@@ -180,8 +180,7 @@ func _input(event):
 		if event.is_action_pressed("heal"):
 			if Global.healthpot_amount > 0:
 				heal(5)
-		if event.is_action_pressed("ui_dash") and $DashInputPressTimer.is_stopped():
-			print("awooga")
+		if event.is_action_pressed("ui_dash") and !get_parent().get_parent().mobility_lock and $DashInputPressTimer.is_stopped():
 			get_parent().get_parent().dash()
 			$DashInputPressTimer.start()
 

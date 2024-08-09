@@ -1,13 +1,15 @@
 class_name AgnetteArrow extends KinematicBody2D
 
-const MAX_SPEED : int = 450
+const MAX_SPEED : int = 800
 var SPEED : int = MAX_SPEED
 var velocity := Vector2()
 export (int) var x_direction = 1
 const TYPE = "Physical"
 
+export (bool) var up : bool = false
+export (bool) var down : bool = false
 signal add_mana_to_agnette(amount)
-onready var mana_granted : float = 0.35
+onready var mana_granted : float = 0.2
 const AIRBORNE_STATUS : PackedScene = preload("res://scenes/status_effects/AirborneStatus.tscn")
 export (bool) var knocks_enemies_airborne = false
 
@@ -15,11 +17,18 @@ export (bool) var knocks_enemies_airborne = false
 func _ready():
 	connect("add_mana_to_agnette", get_parent().get_node("Player/CharacterManager/Agnette"), "change_mana_value")
 	if TYPE == "Earth":
-		mana_granted = 0.65
+		mana_granted = 0.5
 func _physics_process(delta):
-	position += transform.x * SPEED * delta * x_direction
+#	position += transform.x * SPEED * delta * x_direction
 	$Sprite.flip_h = true if x_direction < 0 else false
 	velocity.x = SPEED * delta * x_direction
+	
+	if up:
+		velocity.y = -3 * x_direction
+		rotation_degrees = -30
+	elif down:
+		velocity.y = 3 * x_direction
+		rotation_degrees = 30
 	translate(velocity)
 
 
@@ -41,7 +50,7 @@ func _on_Area2D_area_entered(area):
 
 
 func _on_Area2D_body_entered(body):
-	if body.is_in_group("Tilemap"):
+	if body.is_in_group("Tilemap") and !up and !down:
 		call_deferred('free')
 	if body.is_in_group("Enemy") and knocks_enemies_airborne:
 		knock_airborne(body.get_node("Area2D"))

@@ -5,7 +5,7 @@
 
 [sub_resource type="ParticlesMaterial" id=1]
 emission_shape = 2
-emission_box_extents = Vector3( -15, 40, 1 )
+emission_box_extents = Vector3( -15, 50, 1 )
 flag_disable_z = true
 spread = 0.0
 gravity = Vector3( 0, 0, 0 )
@@ -23,7 +23,7 @@ script = ExtResource( 1 )
 position = Vector2( 0, -246 )
 rotation = 1.5708
 scale = Vector2( 5, 5 )
-amount = 5
+amount = 4
 lifetime = 0.4
 randomness = 0.25
 process_material = SubResource( 1 )

@@ -79,10 +79,11 @@ var player_skill_multipliers : Dictionary = {
 	"SlashFlurryEnergyCost": 200,
 	"FireSaw": 95.0,
 	"FireSawDuration": 10.0,
-	"FireFairy": 40.0,
+	"FireFairy": 50.0,
+	"FireFairyDetonation": 72.0,
 	"FireFairyDuration": 10.0,
-	"Fireball": 30.0,
-	"FireballCD": 5.0,
+	"Fireball": 55.0,
+	"FireballCD": 7.0,
 	"FireballCharges": 3,
 	"FireballMaxCharges": 3,
 	"FireSawCost": 18,
@@ -117,7 +118,7 @@ var player_unlocked_skins = {
 # player talents are passive skills
 var player_talents : Dictionary = {
 	"TalentSlots": 0,
-	"MaxTalentSlots": 6,
+	"MaxTalentSlots": 5,
 	
 	"CycloneSlashes" : {
 		"unlocked" : false,
@@ -168,9 +169,9 @@ var player_talents : Dictionary = {
 		"unlocked" : false,
 		"enabled" : false,
 		"opalscost": 100,
-		"meteordamage": 25.0,
-		
-		"talentslotcost": 3
+		"damage": 82.0,
+		"amount": 4,
+		"talentslotcost": 4
 	},
 	"BadBlood":{
 		# dropping to critical health grants temporary attack boost and speed boost
@@ -268,10 +269,10 @@ var glaciela_skill_multipliers : Dictionary = {
 	# so this is a fix. if it works, it works
 	"ConeOfCold": 100 * 0.25,
 	"ConeOfColdFreezeGauge": 100,
-	"ConeOfColdCD": 5,
-	"ConeOfColdResourceConsumption": 100, # per tick.
-	"ConeOfColdRegenRate": 0.8,
-	"ConeOfColdMovementSpeedPenalty": 60.0,
+	"ConeOfColdCD": 6,
+	"ConeOfColdResourceConsumption": 90, # per tick.
+	"ConeOfColdRegenRate": 0.95,
+	"ConeOfColdMovementSpeedPenalty": 65.0,
 	# minimum amount of mana to be able to channel it.
 	"ConeOfColdCost": 0,
 	
@@ -299,17 +300,17 @@ var agnette_skill_multipliers = {
 	"ChargedAttackMovementSpeedPenalty": 80.0,
 	"RainOfArrows": 40.0,
 	
-	"BearFormCost": 7,
+	"BearFormCost": 1,
 	"BearFormCD": 25,
 	"BearFormDuration": 12,
 	# health taken from agnette's max HP.
 	"BearFormHealth": 130.0,
 	"BearFormMovementSpeedPenalty": 20.0,
-	"BearFormAttack1": 108.0,
-	"BearFormShockwave": 60.0,
+	"BearFormAttack1": 115.0,
+	"BearFormShockwave": 72.0,
 	"SpikeTrap": 16.0,
 	"SpikeTrapMaxCapacity": 2,
-	"CritRate": 20.0,
+	"CritRate": 10.0,
 	"CritDamage": 65.0,
 }
 
@@ -322,6 +323,14 @@ var agnette_talents : Dictionary = {
 		"opalscost": 100,
 		"talentslotcost": 2,
 		"damagereduction": 25.0
+	},
+	"VolleyShot" : {
+		"unlocked" : true,
+		"enabled": true,
+		"opalscost": 100,
+		"talentslotcost": 3,
+		"cooldown": 12.0,
+		"arrowdamagepercentage": 40.0
 	}
 }
 
