@@ -14,6 +14,7 @@ signal heal_agnette(amount)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+
 	$RegenTimer.wait_time = tick_duration
 	connect("heal_player", get_parent(), "heal")
 	connect("heal_glaciela", get_parent().get_node("CharacterManager/Glaciela"), "heal")
@@ -28,12 +29,13 @@ func _on_RegenTimer_timeout():
 #		emit_signal("heal_player", 1, false, false)
 		match character_name:
 			"Player":
-				emit_signal("heal_player", heal_per_tick_amount, false,false)
+				emit_signal("heal_player", character_name, heal_per_tick_amount, false,false)
+				print("regen module")
 #				print("heal")
 			"Glaciela":
-				emit_signal("heal_glaciela", heal_per_tick_amount, false,false)
+				emit_signal("heal_glaciela", character_name, heal_per_tick_amount, false,false)
 			"Agnette":
-				emit_signal("heal_agnette", heal_per_tick_amount, false, false)
+				emit_signal("heal_agnette", character_name, heal_per_tick_amount, false, false)
 		tick_amount -= 1
 	else:
 		call_deferred('free')

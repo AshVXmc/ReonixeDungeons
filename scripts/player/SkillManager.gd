@@ -9,6 +9,7 @@ var BURNING_STATUS : PackedScene = preload("res://scenes/status_effects/BurningS
 var ICE_LANCE : PackedScene = preload("res://scenes/skills/IceLance.tscn")
 var SUGAR_ROLL : PackedScene = preload("res://scenes/items/SugarRoll.tscn")
 var WINTER_QUEEN : PackedScene = preload("res://scenes/skills/WinterQueen.tscn")
+var SPIKE_TRAP : PackedScene = preload("res://scenes/skills/SpikeTrap.tscn")
 var playeratkbonus : float
 var glacielaatkbonus : float
 onready var skills_ui  = get_parent().get_parent().get_node("SkillsUI/Control")
@@ -143,3 +144,12 @@ func on_skill_used (
 				elif Global.equipped_characters[2] == "Agnette" and Global.character3_mana >= Global.agnette_skill_multipliers["BearFormCost"]:
 					Global.character3_mana -= Global.agnette_skill_multipliers["BearFormCost"]
 					emit_signal("mana_changed", Global.character3_mana, "Agnette")
+		"SpikeGrowth":
+			var trap = SPIKE_TRAP.instance()
+			if get_tree().get_nodes_in_group("SpikeTrap").size() < Global.agnette_skill_multipliers["SpikeGrowthMaxCharges"]:
+				trap.get_node("Area2D").add_to_group(str(Global.agnette_attack * (Global.agnette_skill_multipliers["SpikeGrowth"] / 100)))
+				get_parent().get_parent().add_child(trap)
+				if direction == 1:
+					trap.position = Vector2(global_position.x + 120, global_position.y)
+				elif direction == -1:
+					trap.position = Vector2(global_position.x - 120, global_position.y)

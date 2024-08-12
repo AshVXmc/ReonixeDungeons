@@ -106,7 +106,7 @@ position = Vector2( -1540, 685 )
 Destination = "res://scenes/levels/hublevel/HubLevel.tscn"
 
 [node name="Bat3" parent="." instance=ExtResource( 25 )]
-position = Vector2( -472, 383 )
+position = Vector2( -472, 500 )
 
 [node name="Position2D" type="Position2D" parent="."]
 position = Vector2( -1139, 144 )

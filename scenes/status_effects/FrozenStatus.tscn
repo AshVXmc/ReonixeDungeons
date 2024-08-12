@@ -32,10 +32,11 @@ one_shot = true
 autostart = true
 
 [node name="FreezeBar" type="TextureProgress" parent="."]
-margin_left = -36.0541
-margin_top = 41.9459
-margin_right = -18.0541
-margin_bottom = 47.9459
+visible = false
+margin_left = -36.054
+margin_top = 32.0
+margin_right = -18.054
+margin_bottom = 38.0
 rect_scale = Vector2( 4, 3 )
 max_value = 1000.0
 texture_under = ExtResource( 3 )

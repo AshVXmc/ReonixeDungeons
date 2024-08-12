@@ -179,7 +179,7 @@ func _input(event):
 			$InputPressTimer.start()
 		if event.is_action_pressed("heal"):
 			if Global.healthpot_amount > 0:
-				heal(5)
+				heal("Glaciela", 5)
 		if event.is_action_pressed("ui_dash") and !get_parent().get_parent().mobility_lock and $DashInputPressTimer.is_stopped():
 			get_parent().get_parent().dash()
 			$DashInputPressTimer.start()
@@ -502,24 +502,36 @@ func add_heal_particles(heal_amount : float):
 	heal_particle.heal_amount = heal_amount * 2
 	get_parent().get_parent().get_parent().add_child(heal_particle)
 	heal_particle.position = global_position
-func heal(heal_amount : float, heal_to_max : bool = false, consumes_potion : bool = true):
-	# heal amount in percentage based on max HP
-	if Global.equipped_characters[0] == "Glaciela":
-		add_heal_particles(clamp(heal_amount, 0, Global.max_hearts - Global.hearts))
-		Global.hearts += clamp(heal_amount, 0, Global.max_hearts - Global.hearts)
-		emit_signal("life_changed", Global.hearts, "Glaciela")
-	elif Global.equipped_characters[1] == "Glaciela":
-		add_heal_particles(clamp(heal_amount, 0, Global.character_2_max_hearts - Global.character2_hearts))
-		Global.character2_hearts += clamp(heal_amount, 0, Global.character_2_max_hearts - Global.character2_hearts)
-		emit_signal("life_changed", Global.character2_hearts, "Glaciela")
-		print("healed")
-	elif Global.equipped_characters[2] == "Glaciela":
-		add_heal_particles(clamp(heal_amount, 0, Global.character_3_max_hearts - Global.character3_hearts))
-		Global.character3_hearts += clamp(heal_amount, 0, Global.character_3_max_hearts - Global.character3_hearts)
-		emit_signal("life_changed", Global.character3_hearts, "Glaciela")
-	if consumes_potion:
-		Global.healthpot_amount -= 1
-		emit_signal("healthpot_obtained", Global.healthpot_amount)
+	
+func heal(character : String = "Glaciela", heal_amount : float = 0, heal_to_max : bool = false, consumes_potion : bool = true):
+		if Global.equipped_characters[0] == character:
+			if !heal_to_max:
+				add_heal_particles(clamp(heal_amount, 0, Global.max_hearts - Global.hearts))
+				Global.hearts += clamp(heal_amount, 0, Global.max_hearts - Global.hearts)
+			else:
+				add_heal_particles(Global.max_hearts - Global.hearts)
+				Global.hearts = Global.max_hearts
+			emit_signal("life_changed", Global.hearts, character)
+		elif Global.equipped_characters[1] == character:
+			if !heal_to_max:
+				add_heal_particles(clamp(heal_amount, 0, Global.character_2_max_hearts - Global.character2_hearts))
+				Global.character2_hearts += clamp(heal_amount, 0, Global.character_2_max_hearts - Global.character2_hearts)
+			else:
+				add_heal_particles(Global.character_2_max_hearts - Global.character2_hearts)
+				Global.character2_hearts = Global.character_2_max_hearts
+			emit_signal("life_changed", Global.character2_hearts, character)
+		elif Global.equipped_characters[2] == character:
+			if !heal_to_max:
+				add_heal_particles(clamp(heal_amount, 0, Global.character_3_max_hearts - Global.character3_hearts))
+				Global.character3_hearts += clamp(heal_amount, 0, Global.character_3_max_hearts - Global.character3_hearts)
+			else:
+				add_heal_particles(Global.character_3_max_hearts - Global.character3_hearts)
+				Global.character3_hearts = Global.character_3_max_hearts 
+			emit_signal("life_changed", Global.character3_hearts, character)
+		
+		if !heal_to_max and consumes_potion:
+			Global.healthpot_amount -= 1
+			emit_signal("healthpot_obtained", Global.healthpot_amount)
 	
 
 func _on_SpecialAttackTimer_timeout():

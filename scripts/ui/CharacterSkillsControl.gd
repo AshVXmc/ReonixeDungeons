@@ -26,6 +26,8 @@ onready var glaciela_tskill_text = $NinePatchRect/SkillsControl/GlacielaControl/
 
 onready var agnette_pskill = $NinePatchRect/SkillsControl/AgnetteControl/PrimarySkillScrollContainer
 onready var agnette_pskill_text = $NinePatchRect/SkillsControl/AgnetteControl/PrimarySkillScrollContainer/VBoxContainer/RichTextLabel
+onready var agnette_tskill = $NinePatchRect/SkillsControl/AgnetteControl/TertiarySkillScrollContainer
+onready var agnette_tskill_text = $NinePatchRect/SkillsControl/AgnetteControl/TertiarySkillScrollContainer/VBoxContainer/RichTextLabel
 
 
 
@@ -139,6 +141,20 @@ func update_agnette_description_text():
 		"BF_CD", str(Global.agnette_skill_multipliers["BearFormCD"]))
 	agnette_pskill_text.bbcode_text = agnette_pskill_text.bbcode_text.replace(
 		"BF_COST", str(Global.agnette_skill_multipliers["BearFormCost"]))
+	agnette_pskill_text.bbcode_text = agnette_pskill_text.bbcode_text.replace(
+		"BF_ATK", str(Global.agnette_skill_multipliers["BearFormAttack1"]))
+	agnette_pskill_text.bbcode_text = agnette_pskill_text.bbcode_text.replace(
+		"BF_CATK", str(Global.agnette_skill_multipliers["BearFormShockwave"]))
+	
+	agnette_tskill_text.bbcode_text = agnette_tskill_text.bbcode_text.replace(
+		"SG_DMG", str(Global.agnette_skill_multipliers["SpikeGrowth"]))
+	agnette_tskill_text.bbcode_text = agnette_tskill_text.bbcode_text.replace(
+		"SG_CHARGES", str(Global.agnette_skill_multipliers["SpikeGrowthCharges"]))
+	agnette_tskill_text.bbcode_text = agnette_tskill_text.bbcode_text.replace(
+		"SG_CD", str(Global.agnette_skill_multipliers["SpikeGrowthCD"]))
+	agnette_tskill_text.bbcode_text = agnette_tskill_text.bbcode_text.replace(
+		"SG_DUR", str(Global.agnette_skill_multipliers["SpikeGrowthDuration"]))
+	
 	
 	
 # access the update_perk_skill function in player
@@ -217,12 +233,12 @@ func _on_AgnetteSkillTypeOptionButton_item_selected(index):
 		0:
 			agnette_pskill.visible = true
 #			agnette_sskill.visible = false
-#			agnette_tskill.visible = false
+			agnette_tskill.visible = false
 		1:
 			agnette_pskill.visible = false
 #			agnette_sskill.visible = true
-#			agnette_tskill.visible = false
+			agnette_tskill.visible = false
 		2:
 			agnette_pskill.visible = false
 #			agnette_sskill.visible = false
-#			agnette_tskill.visible = true
+			agnette_tskill.visible = true

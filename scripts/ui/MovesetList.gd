@@ -20,7 +20,6 @@ func _ready():
 	$AgnetteMovesetList.bbcode_text = $AgnetteMovesetList.bbcode_text.replace("UP", "[color=#ffd073]" + InputMap.get_action_list("ui_up")[0].as_text() + "[/color]")
 	$AgnetteMovesetList.bbcode_text = $AgnetteMovesetList.bbcode_text.replace("DOWN", "[color=#ffd073]" + InputMap.get_action_list("ui_down")[0].as_text() + "[/color]")
 	$AgnetteMovesetList.bbcode_text = $AgnetteMovesetList.bbcode_text.replace("DASH", "[color=#ffd073]" + InputMap.get_action_list("ui_dash")[0].as_text() + "[/color]")
-	$AgnetteMovesetList.bbcode_text = $AgnetteMovesetList.bbcode_text.replace("TR_MAX", str(Global.agnette_skill_multipliers["SpikeTrapMaxCapacity"]))
 
 	$PlayerMovesetList.visible = true
 	$GlacielaMovesetList.visible = false

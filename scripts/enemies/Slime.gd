@@ -1,7 +1,7 @@
 class_name Slime extends KinematicBody2D
 
 var velocity : Vector2 = Vector2()
-var max_HP : int = Global.enemy_level_index * 25 + 20
+var max_HP : int = Global.enemy_level_index * 30 + 35
 const AIRBORNE_SPEED : int = -4450
 var level_calc : int = round(Global.enemy_level_index)
 export var level : int = level_calc
@@ -194,7 +194,10 @@ func _on_Area2D_area_entered(area):
 					else:
 						add_damage_particles("Earth", float(damage), false)
 					$HitDelayTimer.start()
-					parse_damage()
+					if area.is_in_group("NoStagger"):
+						parse_damage(false)
+					else:
+						parse_damage()
 					break
 		if area.is_in_group("FireGauge"):
 			pass

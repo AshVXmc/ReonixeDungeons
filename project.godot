@@ -119,6 +119,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/ui/ChaosMagicUI.gd"
 }, {
+"base": "Control",
+"class": "CharacterGuideUI",
+"language": "GDScript",
+"path": "res://scripts/ui/CharacterGuideUI.gd"
+}, {
 "base": "Node2D",
 "class": "CharacterManager",
 "language": "GDScript",
@@ -702,6 +707,7 @@ _global_script_class_icons={
 "BurningStatus": "",
 "Cauldron": "",
 "ChaosMagicUI": "",
+"CharacterGuideUI": "",
 "CharacterManager": "",
 "CharacterSelectionUI": "",
 "CharacterSkillsControl": "",

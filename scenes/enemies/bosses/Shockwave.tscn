@@ -12,7 +12,7 @@ gravity = Vector3( 0, 300, 0 )
 orbit_velocity = 0.0
 orbit_velocity_random = 0.0
 
-[node name="Shockwave" type="Area2D" groups=["Earth", "MediumPoiseDamage"]]
+[node name="Shockwave" type="Area2D" groups=["Earth", "HeavyPoiseDamage"]]
 position = Vector2( -1.5874, 21.4299 )
 script = ExtResource( 2 )
 __meta__ = {
@@ -20,8 +20,8 @@ __meta__ = {
 }
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
-position = Vector2( 2.7, -28.5369 )
-scale = Vector2( 1, 0.734127 )
+position = Vector2( 4.39619, -28.5369 )
+scale = Vector2( 0.496894, 0.734127 )
 polygon = PoolVector2Array( -80.1152, 85.0295, -49.1152, 56.0295, -4.11515, 34.0295, 47.8848, 56.0295, 80.8848, 85.0295, 80.8848, 96.0295, -80.1152, 97.0295 )
 
 [node name="DirtParticles2D" type="Particles2D" parent="."]

@@ -8,9 +8,9 @@ var character_health_data : Dictionary = {
 	"Agnette": 10
 }
 var character_defense_data : Dictionary = {
-	"Player": 30.0, 
-	"Glaciela": 40.0,
-	"Agnette": 20.0
+	"Player": 15.0, 
+	"Glaciela": 20.0,
+	"Agnette": 10.0
 }
 
 
@@ -62,7 +62,7 @@ var player_skill_multipliers : Dictionary = {
 	"BasicAttack4": 65.0,
 	"ChargedAttack": 60.0,
 	"ThrustAttack": 80.0,
-	"ThrustChargedAttack": 85.0,
+	"ThrustChargedAttack": 88.0,
 	"UpwardsChargedAttack": 28.0, # x 2
 	"DownwardsChargedAttack": 56.0,
 	"SpecialChargedAttack": 50.0 ,# x 4
@@ -188,7 +188,7 @@ var player_skills : Dictionary = {
 	"PrimarySkill" : "FireSaw",
 	"SecondarySkill" : "FireFairy",
 	"TertiarySkill" : "Fireball",
-	"PerkSkill": "ChaosMagic"
+	"PerkSkill": "CreateSugarRoll"
 }
 
 
@@ -293,7 +293,7 @@ var glaciela_skill_multipliers : Dictionary = {
 
 
 var agnette_skill_multipliers = {
-	"Arrow1": 18.0,
+	"Arrow1": 19.0,
 	"Arrow2": 24.0,
 	"Arrow3": 30.0,
 	"Arrow4": 42.0,
@@ -306,10 +306,14 @@ var agnette_skill_multipliers = {
 	# health taken from agnette's max HP.
 	"BearFormHealth": 130.0,
 	"BearFormMovementSpeedPenalty": 20.0,
-	"BearFormAttack1": 115.0,
-	"BearFormShockwave": 72.0,
-	"SpikeTrap": 16.0,
-	"SpikeTrapMaxCapacity": 2,
+	"BearFormAttack1": 140.0,
+	"BearFormShockwave": 20.0,
+	"BearFormShockwaveMaxHits": 5,
+	"SpikeGrowth": 15.0,
+	"SpikeGrowthCD": 10,
+	"SpikeGrowthCharges": 2,
+	"SpikeGrowthDuration": 5,
+	"SpikeGrowthMaxCharges": 2,
 	"CritRate": 10.0,
 	"CritDamage": 65.0,
 }
@@ -325,8 +329,8 @@ var agnette_talents : Dictionary = {
 		"damagereduction": 25.0
 	},
 	"VolleyShot" : {
-		"unlocked" : true,
-		"enabled": true,
+		"unlocked" : false,
+		"enabled": false,
 		"opalscost": 100,
 		"talentslotcost": 3,
 		"cooldown": 12.0,
@@ -338,7 +342,7 @@ var agnette_skills : Dictionary = {
 	"PrimarySkill" : "BearForm",
 	"SecondarySkill" : "",
 	"TertiarySkill" : "",
-	"PerkSkill": ""
+	"PerkSkill": "SpikeGrowth"
 }
 
 var enemy_skill_multipliers : Dictionary = {

@@ -533,9 +533,6 @@ bbcode_text = "[center][color=#deb600]Agnette''s moveset[/color][/center]
 [color=#ffd703]Charged Attack[/color] ([color=#668709]Archer[/color] form)
 Hold [ATK]
 
-[color=#ffd703]Spike Trap[/color] ([color=#668709]Archer[/color] form)
-Hold [DASH] to place down a spike trap that damages enemies. Only TR_MAX traps may exist at any given time.
-
 [color=#ffd703]Basic Attack[/color] ([color=#3b1c06]Bear[/color] form)
 [ATK]
 
@@ -548,9 +545,6 @@ Basic Attack Combo (Archer form)
 
 Charged Attack (Archer form)
 Hold [ATK]
-
-Spike Trap (Archer form)
-Hold [DASH] to place down a spike trap that damages enemies. Only TR_MAX traps may exist at any given time.
 
 Basic Attack (Bear form)
 [ATK]

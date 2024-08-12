@@ -3936,6 +3936,10 @@ anims/RightDefaultSheath = SubResource( 43 )
 wait_time = 2.0
 one_shot = true
 
+[node name="DashCounterAttackDelayTimer" type="Timer" parent="."]
+wait_time = 0.4
+one_shot = true
+
 [node name="TempusTardusTriggerCD" type="Timer" parent="."]
 wait_time = 20.0
 one_shot = true
@@ -4026,6 +4030,7 @@ one_shot = true
 [connection signal="body_entered" from="ThrustEffectArea" to="." method="_on_ThrustEffectArea_body_entered"]
 [connection signal="timeout" from="WalkParticleTimer" to="." method="_on_WalkParticleTimer_timeout"]
 [connection signal="timeout" from="KatanaSheatheWindowTimer" to="." method="_on_KatanaSheatheWindowTimer_timeout"]
+[connection signal="timeout" from="DashCounterAttackDelayTimer" to="." method="_on_DashCounterAttackDelayTimer_timeout"]
 [connection signal="timeout" from="GhostTrailTimer" to="." method="_on_GhostTrailTimer_timeout"]
 [connection signal="timeout" from="ResetAttackStringTimer" to="." method="_on_ResetAttackStringTimer_timeout"]
 [connection signal="timeout" from="HideEnergyMeterTimer" to="." method="_on_HideEnergyMeterTimer_timeout"]

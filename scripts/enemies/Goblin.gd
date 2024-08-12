@@ -3,7 +3,7 @@ class_name Goblin extends KinematicBody2D
 const DMG_INDICATOR : PackedScene = preload("res://scenes/particles/DamageIndicatorParticle.tscn")
 const SWORD_HIT_PARTICLE : PackedScene = preload("res://scenes/particles/SwordHitParticle.tscn")
 const DEATH_SMOKE : PackedScene = preload("res://scenes/particles/DeathSmokeParticle.tscn")
-var max_HP_calc : int = 50 + (Global.enemy_level_index * 18)
+var max_HP_calc : int = 65 + (Global.enemy_level_index * 20)
 var level_calc : int = round(Global.enemy_level_index)
 export var max_HP : int = max_HP_calc
 export var level : int = level_calc
@@ -314,7 +314,10 @@ func _on_Area2D_area_entered(area):
 						add_damage_particles("Earth", float(damage), true)
 					else:
 						add_damage_particles("Earth", float(damage), false)
-					parse_damage()
+					if area.is_in_group("NoStagger"):
+						parse_damage(false)
+					else:
+						parse_damage()
 					break
 		if area.is_in_group("FireGauge"):
 			pass

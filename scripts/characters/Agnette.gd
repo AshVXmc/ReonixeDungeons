@@ -18,6 +18,7 @@ signal trigger_quickswap(trigger_name)
 signal ready_to_be_switched_in(character)
 signal change_elegance(action_name)
 signal change_hitcount(amount)
+signal update_spikegrowth_charges_ui(charges)
 var target
 var is_
 var airborne_mode : bool = false
@@ -70,7 +71,7 @@ onready var crit_rate : float = Global.glaciela_skill_multipliers["CritRate"]
 onready var crit_damage : float = Global.glaciela_skill_multipliers["CritDamage"]
 onready var pskill_ui : TextureProgress = get_parent().get_parent().get_parent().get_node("SkillsUI/Control/PrimarySkill/Agnette/BearForm/TextureProgress")
 #onready var sskill_ui : TextureProgress = get_parent().get_parent().get_parent().get_node("SkillsUI/Control/SecondarySkill/Glaciela/IceLance/TextureProgress")
-#onready var tskill_ui : TextureProgress = get_parent().get_parent().get_parent().get_node("SkillsUI/Control/TertiarySkill/Glaciela/ConeOfCold/TextureProgress")
+onready var tskill_ui : TextureProgress = get_parent().get_parent().get_parent().get_node("SkillsUI/Control/TertiarySkill/Agnette/SpikeGrowth/TextureProgress")
 
 var bear_is_attacking : bool = false
 var facing
@@ -104,6 +105,7 @@ func _ready():
 	connect("life_changed", get_parent().get_parent().get_parent().get_node("HeartUI/Life"), "on_player_life_changed")
 	connect("mana_changed", get_parent().get_parent().get_parent().get_node("ManaUI/Mana"), "on_player_mana_changed")
 #	connect("skill_used", get_parent().get_parent().get_parent().get_node("SkillsUI/Control"), "on_skill_used")
+	connect("update_spikegrowth_charges_ui", get_parent().get_parent().get_parent().get_node("SkillsUI/Control"), "update_spikegrowth_skill_ui")
 	connect("skill_used", get_parent().get_parent().get_node("SkillManager"), "on_skill_used")
 	$StrongJumpParticle.visible = false
 	play_animated_sprite("Default")
@@ -142,10 +144,11 @@ func _physics_process(delta):
 		elif facing == right:
 			Input.action_release("left")
 			$AnimatedSprite.flip_h = false
-		if get_parent().get_parent().velocity.x <= 5 and get_parent().get_parent().velocity.x >= -5:
-			play_animated_sprite("Default")
-		else:
-			play_animated_sprite("Walk")
+		if !bear_is_attacking:
+			if get_parent().get_parent().velocity.x <= 5 and get_parent().get_parent().velocity.x >= -5:
+				play_animated_sprite("Default")
+			else:
+				play_animated_sprite("Walk")
 				
 
 		if current_form == forms.ARCHER:
@@ -218,7 +221,7 @@ func _input(event):
 		
 		if event.is_action_pressed("heal"):
 			if Global.healthpot_amount > 0:
-				heal(5)
+				heal("Agnette", 5)
 		if event.is_action_pressed("ui_dash") and !get_parent().get_parent().mobility_lock and $DashInputPressTimer.is_stopped():
 			get_parent().get_parent().dash()
 			$DashInputPressTimer.start()
@@ -240,13 +243,13 @@ func _input(event):
 
 func use_skill():
 	if Global.current_character == "Agnette" and !is_charging and !get_parent().get_parent().is_frozen:
-		if pskill_ui.value >= pskill_ui.max_value and Input.is_action_just_pressed("primary_skill") and !Input.is_action_just_pressed("secondary_skill"): 
+		if pskill_ui.value >= pskill_ui.max_value and Input.is_action_just_pressed("primary_skill"): 
 			use_primary_skill()
 			
 #		if sskill_ui.value >= sskill_ui.max_value and Input.is_action_just_pressed("secondary_skill") and !Input.is_action_just_pressed("primary_skill"):
 #			use_secondary_skill()
-#		if tskill_ui.value >= tskill_ui.max_value and Input.is_action_just_pressed("tertiary_skill"):
-#			use_tertiary_skill()
+		if Input.is_action_just_pressed("tertiary_skill"):
+			use_tertiary_skill()
 
 func use_primary_skill():
 	if Global.current_character == Global.equipped_characters[0] and Global.mana >= Global.agnette_skill_multipliers["BearFormCost"]:
@@ -266,7 +269,15 @@ func use_secondary_skill():
 	pass
 
 func use_tertiary_skill():
-	pass
+	if Global.agnette_skill_multipliers["SpikeGrowthCharges"] > 0 and get_parent().get_parent().is_on_floor():
+		Global.agnette_skill_multipliers["SpikeGrowthCharges"] -= 1
+		emit_signal("update_spikegrowth_charges_ui", Global.agnette_skill_multipliers["SpikeGrowthCharges"])
+		if !$AnimatedSprite.flip_h:
+			emit_signal("skill_used", "SpikeGrowth", attack_buff, 1)
+		else:
+			emit_signal("skill_used", "SpikeGrowth", attack_buff, -1)
+		get_parent().get_parent().emit_signal("skill_ui_update", "SpikeGrowth")
+	
 
 
 func wild_shape(target_form : int, with_particles : bool = true):
@@ -355,15 +366,8 @@ func charged_attack():
 
 func charged_dash():
 	$DashInputPressTimer.stop()
-	# no more than 2 traps may exist
-	if get_tree().get_nodes_in_group("SpikeTrap").size() < Global.agnette_skill_multipliers["SpikeTrapMaxCapacity"]:
-		var trap = preload("res://scenes/skills/SpikeTrap.tscn").instance()
-		trap.get_node("Area2D").add_to_group(str(ATTACK * (Global.agnette_skill_multipliers["SpikeTrap"] / 100)))
-		get_parent().get_parent().get_parent().add_child(trap)
-		if !$AnimatedSprite.flip_h:
-			trap.position = Vector2(global_position.x + 80, global_position.y)
-		else:
-			trap.position = Vector2(global_position.x - 80, global_position.y)
+	# tendril go
+	
 		
 func set_attack_power(type : String ,amount : float, duration : float, from_crystal : bool = true):
 	if from_crystal:
@@ -462,7 +466,7 @@ func bear_attack():
 		$BearFormNodes/AttackTimer.start()
 		yield(get_tree().create_timer(0.5), "timeout")
 		bear_is_attacking = false
-		$AnimatedSprite.play("BearDefault")
+#		$AnimatedSprite.play("BearDefault")
 
 func bear_charged_attack():
 	$BearFormNodes/BearInputPressTimer.stop()
@@ -497,23 +501,36 @@ func add_heal_particles(heal_amount : float):
 	heal_particle.heal_amount = heal_amount * 2
 	get_parent().get_parent().get_parent().add_child(heal_particle)
 	heal_particle.position = global_position
-func heal(heal_amount : float):
-	# heal amount in percentage based on max HP
-	if Global.equipped_characters[0] == "Agnette":
-		add_heal_particles(clamp(heal_amount, 0, Global.max_hearts - Global.hearts))
-		Global.hearts += clamp(heal_amount, 0, Global.max_hearts - Global.hearts)
-		emit_signal("life_changed", Global.hearts, "Agnette")
-	elif Global.equipped_characters[1] == "Agnette":
-		add_heal_particles(clamp(heal_amount, 0, Global.character_2_max_hearts - Global.character2_hearts))
-		Global.character2_hearts += clamp(heal_amount, 0, Global.character_2_max_hearts - Global.character2_hearts)
-		emit_signal("life_changed", Global.character2_hearts, "Agnette")
-		print("healed")
-	elif Global.equipped_characters[2] == "Agnette":
-		add_heal_particles(clamp(heal_amount, 0, Global.character_3_max_hearts - Global.character3_hearts))
-		Global.character3_hearts += clamp(heal_amount, 0, Global.character_3_max_hearts - Global.character3_hearts)
-		emit_signal("life_changed", Global.character3_hearts, "Agnette")
-	Global.healthpot_amount -= 1
-	emit_signal("healthpot_obtained", Global.healthpot_amount)
+	
+func heal(character : String = "Agnette", heal_amount : float = 0, heal_to_max : bool = false, consumes_potion : bool = true):
+		if Global.equipped_characters[0] == character:
+			if !heal_to_max:
+				add_heal_particles(clamp(heal_amount, 0, Global.max_hearts - Global.hearts))
+				Global.hearts += clamp(heal_amount, 0, Global.max_hearts - Global.hearts)
+			else:
+				add_heal_particles(Global.max_hearts - Global.hearts)
+				Global.hearts = Global.max_hearts
+			emit_signal("life_changed", Global.hearts, character)
+		elif Global.equipped_characters[1] == character:
+			if !heal_to_max:
+				add_heal_particles(clamp(heal_amount, 0, Global.character_2_max_hearts - Global.character2_hearts))
+				Global.character2_hearts += clamp(heal_amount, 0, Global.character_2_max_hearts - Global.character2_hearts)
+			else:
+				add_heal_particles(Global.character_2_max_hearts - Global.character2_hearts)
+				Global.character2_hearts = Global.character_2_max_hearts
+			emit_signal("life_changed", Global.character2_hearts, character)
+		elif Global.equipped_characters[2] == character:
+			if !heal_to_max:
+				add_heal_particles(clamp(heal_amount, 0, Global.character_3_max_hearts - Global.character3_hearts))
+				Global.character3_hearts += clamp(heal_amount, 0, Global.character_3_max_hearts - Global.character3_hearts)
+			else:
+				add_heal_particles(Global.character_3_max_hearts - Global.character3_hearts)
+				Global.character3_hearts = Global.character_3_max_hearts 
+			emit_signal("life_changed", Global.character3_hearts, character)
+		
+		if !heal_to_max and consumes_potion:
+			Global.healthpot_amount -= 1
+			emit_signal("healthpot_obtained", Global.healthpot_amount)
 	
 
 
@@ -613,7 +630,6 @@ func _on_Area2D_area_entered(area):
 	if area.is_in_group("AgnetteChargedAttackSnareOff"):
 		var slowdown_coefficient : float = Global.agnette_skill_multipliers["ChargedAttackMovementSpeedPenalty"] / 100
 		get_parent().get_parent().SPEED += get_parent().get_parent().MAX_SPEED * slowdown_coefficient
-	
 	if area.is_in_group("BearFormSnareOn"):
 		var slowdown_coefficient : float = Global.agnette_skill_multipliers["BearFormMovementSpeedPenalty"] / 100
 		get_parent().get_parent().SPEED -= get_parent().get_parent().MAX_SPEED * slowdown_coefficient

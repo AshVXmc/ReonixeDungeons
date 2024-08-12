@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=2]
+[gd_scene load_steps=40 format=2]
 
 [ext_resource path="res://scripts/ui/CharacterTalentsControl.gd" type="Script" id=1]
 [ext_resource path="res://assets/characters/glaciela/glaciela_idle.png" type="Texture" id=2]
@@ -15,6 +15,16 @@
 [ext_resource path="res://assets/characters/agnette/agnette_idle_1.png" type="Texture" id=13]
 [ext_resource path="res://scripts/ui/CharactersUI.gd" type="Script" id=14]
 [ext_resource path="res://assets/UI/long_button.png" type="Texture" id=15]
+[ext_resource path="res://assets/UI/firesaw_skill_icon.png" type="Texture" id=16]
+[ext_resource path="res://assets/UI/fire_fairy_skill_icon.png" type="Texture" id=17]
+[ext_resource path="res://assets/UI/fireball_skill_icon.png" type="Texture" id=18]
+[ext_resource path="res://assets/UI/create_sugar_roll_talent_icon.png" type="Texture" id=19]
+[ext_resource path="res://assets/UI/chaos_magic_talent_icon.png" type="Texture" id=20]
+[ext_resource path="res://assets/UI/winter_queen_skill_icon.png" type="Texture" id=21]
+[ext_resource path="res://assets/UI/icelance_skill_icon.png" type="Texture" id=22]
+[ext_resource path="res://assets/UI/cone_of_cold_skill_icon.png" type="Texture" id=23]
+[ext_resource path="res://assets/UI/bear_form_skill_icon.png" type="Texture" id=24]
+[ext_resource path="res://assets/UI/spikegrowth_skill_icon.png" type="Texture" id=25]
 
 [sub_resource type="DynamicFont" id=1]
 size = 48
@@ -73,7 +83,6 @@ font_data = ExtResource( 12 )
 pause_mode = 2
 
 [node name="CharactersUI" type="Control" parent="."]
-visible = false
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -546,6 +555,11 @@ custom_fonts/font = SubResource( 4 )
 text = "Enable"
 align = 1
 
+[node name="SkillIcon" type="Sprite" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/PlayerControl/PrimarySkillScrollContainer/VBoxContainer"]
+position = Vector2( 597, 120 )
+scale = Vector2( 5, 5 )
+texture = ExtResource( 16 )
+
 [node name="SecondarySkillScrollContainer" type="ScrollContainer" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/PlayerControl"]
 visible = false
 anchor_right = 21.766
@@ -622,6 +636,11 @@ custom_fonts/font = SubResource( 4 )
 text = "Enable"
 align = 1
 
+[node name="SkillIcon" type="Sprite" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/PlayerControl/SecondarySkillScrollContainer/VBoxContainer"]
+position = Vector2( 597, 120 )
+scale = Vector2( 5, 5 )
+texture = ExtResource( 17 )
+
 [node name="TertiarySkillScrollContainer" type="ScrollContainer" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/PlayerControl"]
 visible = false
 anchor_right = 21.766
@@ -645,13 +664,15 @@ custom_fonts/italics_font = SubResource( 2 )
 custom_fonts/normal_font = SubResource( 2 )
 bbcode_enabled = true
 bbcode_text = "[color=#ffd703]Fireball[/color]
-Shoot a fiery ball that travels forward in a straight line, dealing [u]FIREBALL_ATK% ATK[/u] as [color=#fd9628]Fire damage[/color]. This skill has FIREBALL_CHARGES initial charges.
+Shoot a flaming orb that travels forward in a straight line, dealing [u]FIREBALL_ATK% ATK[/u] as [color=#fd9628]Fire damage[/color].
 
-Cooldown: FIREBALL_CD seconds per charge"
+Cooldown: FIREBALL_CD seconds per charge
+Max charges: FIREBALL_CHARGES"
 text = "Fireball
-Shoot a fiery ball that travels forward in a straight line, dealing FIREBALL_ATK% ATK as Fire damage. This skill has FIREBALL_CHARGES initial charges.
+Shoot a flaming orb that travels forward in a straight line, dealing FIREBALL_ATK% ATK as Fire damage.
 
-Cooldown: FIREBALL_CD seconds per charge"
+Cooldown: FIREBALL_CD seconds per charge
+Max charges: FIREBALL_CHARGES"
 scroll_active = false
 
 [node name="TalentControl1" type="Control" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/PlayerControl/TertiarySkillScrollContainer/VBoxContainer"]
@@ -692,6 +713,11 @@ custom_fonts/font = SubResource( 4 )
 text = "Enable"
 align = 1
 
+[node name="SkillIcon" type="Sprite" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/PlayerControl/TertiarySkillScrollContainer/VBoxContainer"]
+position = Vector2( 597, 120 )
+scale = Vector2( 5, 5 )
+texture = ExtResource( 18 )
+
 [node name="PerkSkillScrollContainerControl" type="Control" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/PlayerControl"]
 visible = false
 margin_right = 40.0
@@ -710,6 +736,16 @@ rect_min_size = Vector2( 566, 355 )
 margin_right = 510.0
 margin_bottom = 1808.0
 rect_min_size = Vector2( 510, 1800 )
+
+[node name="SkillIcon1" type="Sprite" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/PlayerControl/PerkSkillScrollContainerControl/PerkSkillScrollContainer/VBoxContainer"]
+position = Vector2( 597, 120 )
+scale = Vector2( 5, 5 )
+texture = ExtResource( 19 )
+
+[node name="SkillIcon2" type="Sprite" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/PlayerControl/PerkSkillScrollContainerControl/PerkSkillScrollContainer/VBoxContainer"]
+position = Vector2( 597, 426 )
+scale = Vector2( 5, 5 )
+texture = ExtResource( 20 )
 
 [node name="RichTextLabel" type="RichTextLabel" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/PlayerControl/PerkSkillScrollContainerControl/PerkSkillScrollContainer/VBoxContainer"]
 margin_right = 510.0
@@ -969,6 +1005,11 @@ custom_fonts/font = SubResource( 4 )
 text = "Enable"
 align = 1
 
+[node name="SkillIcon" type="Sprite" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/GlacielaControl/PrimarySkillScrollContainer/VBoxContainer"]
+position = Vector2( 597, 120 )
+scale = Vector2( 5, 5 )
+texture = ExtResource( 21 )
+
 [node name="SecondarySkillScrollContainer" type="ScrollContainer" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/GlacielaControl"]
 visible = false
 anchor_right = 21.766
@@ -1043,7 +1084,13 @@ custom_fonts/font = SubResource( 4 )
 text = "Enable"
 align = 1
 
+[node name="SkillIcon" type="Sprite" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/GlacielaControl/SecondarySkillScrollContainer/VBoxContainer"]
+position = Vector2( 597, 120 )
+scale = Vector2( 5, 5 )
+texture = ExtResource( 22 )
+
 [node name="TertiarySkillScrollContainer" type="ScrollContainer" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/GlacielaControl"]
+visible = false
 anchor_right = 21.766
 anchor_bottom = 15.255
 margin_left = 197.0
@@ -1115,6 +1162,11 @@ rect_scale = Vector2( 0.2, 0.2 )
 custom_fonts/font = SubResource( 4 )
 text = "Enable"
 align = 1
+
+[node name="SkillIcon" type="Sprite" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/GlacielaControl/TertiarySkillScrollContainer"]
+position = Vector2( 597, 120 )
+scale = Vector2( 5, 5 )
+texture = ExtResource( 23 )
 
 [node name="PerkSkillScrollContainerControl" type="Control" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/GlacielaControl"]
 visible = false
@@ -1273,7 +1325,6 @@ custom_fonts/font = SubResource( 11 )
 flat = true
 
 [node name="AgnetteControl" type="Control" parent="CharacterSkillsControl/NinePatchRect/SkillsControl"]
-visible = false
 margin_right = 40.0
 margin_bottom = 40.0
 
@@ -1327,16 +1378,22 @@ custom_fonts/italics_font = SubResource( 2 )
 custom_fonts/normal_font = SubResource( 2 )
 bbcode_enabled = true
 bbcode_text = "[color=#ffd703]Bear Form[/color]
-Shapeshift into a ferocious [color=#3b1c06]Bear[/color] for BF_DUR seconds. It has BF_HP% of Agnette's Max HP as its HP. While in this form, you gain knockback resistance, but you cannot dash, jump or shoot arrows, and your speed is reduced by BF_SPD_PEN%. You may attack in melee range with your claws to deal [u]BF_ATK% ATK[u] as Physical damage. Your Charged Attack summons a wave of earth 
+Shapeshift into a ferocious [color=#3b1c06]Bear[/color] for BF_DUR seconds. It has BF_HP% of Agnette's Max HP as its HP.
 
-You revert back to your Archer form when the duration ends or if you drop to 0 HP in [color=#3b1c06]Bear[/color] form.
+[color=#3b1c06]Bear form[/color]
+	You gain knockback resistance, but you cannot dash, jump or shoot arrows, and your speed is reduced by BF_SPD_PEN%. You attack with your claws in melee range to deal [u]BF_ATK% ATK[/u] as Physical damage. Your Charged Attack unleashes a landslide that deals [u]BF_CATK% ATK[/u] as [color=#deb600]Earth[/color] damage and knocks enemies back.
+
+You revert to your [color=#668709]Archer[/color] form when the duration ends or if you drop to 0 HP.
 
 Cooldown: BF_CD seconds
 Mana cost: BF_COST mana"
 text = "Bear Form
-Shapeshift into a ferocious Bear for BF_DUR seconds. It has BF_HP% of Agnette's Max HP as its HP. While in this form, you gain knockback resistance, but you cannot dash, jump or shoot arrows, and your speed is reduced by BF_SPD_PEN%. You may attack in melee range with your claws to deal BF_ATK% ATK as Physical damage. Your Charged Attack summons a wave of earth 
+Shapeshift into a ferocious Bear for BF_DUR seconds. It has BF_HP% of Agnette's Max HP as its HP.
 
-You revert back to your Archer form when the duration ends or if you drop to 0 HP in Bear form.
+Bear form
+	You gain knockback resistance, but you cannot dash, jump or shoot arrows, and your speed is reduced by BF_SPD_PEN%. You attack with your claws in melee range to deal BF_ATK% ATK as Physical damage. Your Charged Attack unleashes a landslide that deals BF_CATK% ATK as Earth damage and knocks enemies back.
+
+You revert to your Archer form when the duration ends or if you drop to 0 HP.
 
 Cooldown: BF_CD seconds
 Mana cost: BF_COST mana"
@@ -1379,6 +1436,11 @@ rect_scale = Vector2( 0.2, 0.2 )
 custom_fonts/font = SubResource( 4 )
 text = "Enable"
 align = 1
+
+[node name="SkillIcon" type="Sprite" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/AgnetteControl/PrimarySkillScrollContainer/VBoxContainer"]
+position = Vector2( 597, 120 )
+scale = Vector2( 5, 5 )
+texture = ExtResource( 24 )
 
 [node name="SecondarySkillScrollContainer" type="ScrollContainer" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/AgnetteControl"]
 visible = false
@@ -1454,6 +1516,11 @@ custom_fonts/font = SubResource( 4 )
 text = "Enable"
 align = 1
 
+[node name="SkillIcon" type="Sprite" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/AgnetteControl/SecondarySkillScrollContainer/VBoxContainer"]
+position = Vector2( 597, 120 )
+scale = Vector2( 5, 5 )
+texture = ExtResource( 17 )
+
 [node name="TertiarySkillScrollContainer" type="ScrollContainer" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/AgnetteControl"]
 visible = false
 anchor_right = 21.766
@@ -1476,18 +1543,20 @@ rect_min_size = Vector2( 510, 1100 )
 custom_fonts/italics_font = SubResource( 2 )
 custom_fonts/normal_font = SubResource( 2 )
 bbcode_enabled = true
-bbcode_text = "[color=#ffd703]Cone Of Cold[/color]
-Shoot forth a torrent of cold air in a cone-shaped area in your facing direction that deals [u]COC_ATK% ATK[/u] as [color=#7df0ff]Ice[/color] damage per tick and fills up COC_FREEZE_GAUGE% of the enemy's [color=#7df0ff]Freeze[/color] gauge. While casting, your movement speed is reduced by COC_MOV_SPD_PENALTY%.
+bbcode_text = "[color=#ffd703]Spike Growth[/color]
+Lay down a patch of thorny vines and spikes. Enemies in its area are dealt [u]SG_DMG% ATK[/u] as [color=#deb600]Earth[/color] damage over time and builds up their [color=#deb600]Grounded[/color] stacks. Only SG_CHARGES spike patches may exist at any given time.
 
-Usage drains a resource meter. The skill enters cooldown when you recast it, change characters, or fully deplete the meter. While inactive, the resource meter regenerates over time.
+Cooldown: SG_CD seconds
+Duration: SG_DUR seconds per spike patch
+Max charges: SG_CHARGES charges
+"
+text = "Spike Growth
+Lay down a patch of thorny vines and spikes. Enemies in its area are dealt SG_DMG% ATK as Earth damage over time and builds up their Grounded stacks. Only SG_CHARGES spike patches may exist at any given time.
 
-Cooldown: COC_CD seconds"
-text = "Cone Of Cold
-Shoot forth a torrent of cold air in a cone-shaped area in your facing direction that deals COC_ATK% ATK as Ice damage per tick and fills up COC_FREEZE_GAUGE% of the enemy's Freeze gauge. While casting, your movement speed is reduced by COC_MOV_SPD_PENALTY%.
-
-Usage drains a resource meter. The skill enters cooldown when you recast it, change characters, or fully deplete the meter. While inactive, the resource meter regenerates over time.
-
-Cooldown: COC_CD seconds"
+Cooldown: SG_CD seconds
+Duration: SG_DUR seconds per spike patch
+Max charges: SG_CHARGES charges
+"
 scroll_active = false
 
 [node name="TalentControl1" type="Control" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/AgnetteControl/TertiarySkillScrollContainer/VBoxContainer"]
@@ -1527,6 +1596,11 @@ rect_scale = Vector2( 0.2, 0.2 )
 custom_fonts/font = SubResource( 4 )
 text = "Enable"
 align = 1
+
+[node name="SkillIcon" type="Sprite" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/AgnetteControl/TertiarySkillScrollContainer"]
+position = Vector2( 597, 120 )
+scale = Vector2( 5, 5 )
+texture = ExtResource( 25 )
 
 [node name="PerkSkillScrollContainerControl" type="Control" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/AgnetteControl"]
 visible = false
@@ -1698,6 +1772,7 @@ texture_normal = ExtResource( 9 )
 expand = true
 
 [node name="CharacterTalentsControl" type="Control" parent="."]
+visible = false
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5

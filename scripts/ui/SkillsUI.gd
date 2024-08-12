@@ -3,7 +3,7 @@ class_name SkillsUI extends Control
 
 signal ability_on_cooldown(ability_name, attack_bonus)
 
-var fireballcost : int = 2
+
 const playericon = preload("res://assets/UI/player_character_icon.png")
 const glacielaicon = preload("res://assets/UI/glaciela_character_icon.png")
 const agnetteicon = preload("res://assets/UI/agnette_character_icon.png")
@@ -19,6 +19,7 @@ onready var icelance_ui = $SecondarySkill/Glaciela/IceLance/TextureProgress
 onready var coneofcold_ui = $TertiarySkill/Glaciela/ConeOfCold/TextureProgress
 
 onready var bearform_ui = $PrimarySkill/Agnette/BearForm/TextureProgress
+onready var spikegrowth_ui = $TertiarySkill/Agnette/SpikeGrowth/TextureProgress
 
 var coneofcold_active : bool = false
 
@@ -42,14 +43,18 @@ func _ready():
 	firefairy_ui.value = firefairy_ui.max_value
 	fireball_ui.max_value = Global.player_skill_multipliers["FireballCD"] * multiplier
 	fireball_ui.value = fireball_ui.max_value
+	
 	winterqueen_ui.max_value = Global.glaciela_skill_multipliers["WinterQueenCD"] * multiplier
 	winterqueen_ui.value = winterqueen_ui.max_value
 	icelance_ui.max_value = Global.glaciela_skill_multipliers["IceLanceCD"] * multiplier
 	icelance_ui.value = icelance_ui.max_value
 	coneofcold_ui.max_value = Global.glaciela_skill_multipliers["ConeOfColdCD"] * multiplier
 	coneofcold_ui.value = coneofcold_ui.max_value
+	
 	bearform_ui.max_value = Global.agnette_skill_multipliers["BearFormCD"] * multiplier
 	bearform_ui.value = bearform_ui.max_value
+	spikegrowth_ui.max_value = Global.agnette_skill_multipliers["SpikeGrowthCD"] * multiplier
+	spikegrowth_ui.value = spikegrowth_ui.max_value
 	
 	update_perk_skill_ui()
 	update_character_ui()
@@ -130,6 +135,8 @@ func update_skill_ui(primary : String, secondary : String, tertiary : String, pe
 			$TertiarySkill/Player/Fireball.visible = true
 		"ConeOfCold":
 			$TertiarySkill/Glaciela/ConeOfCold.visible = true
+		"SpikeGrowth":
+			$TertiarySkill/Agnette/SpikeGrowth.visible = true
 	match perk:
 		"CreateSugarRoll":
 			$PerkSkill/Player/CreateSugarRoll.visible = true
@@ -162,8 +169,8 @@ func on_skill_used(skill_name : String):
 			winterqueen_ui.value = winterqueen_ui.min_value
 		"BearForm":
 			bearform_ui.value = bearform_ui.min_value
-		"PlayerChargedAttack":
-			pass
+		"SpikeGrowth":
+			spikegrowth_ui.value = spikegrowth_ui.min_value
 
 
 func _process(delta):
@@ -381,7 +388,26 @@ func _process(delta):
 				else:
 					bearform_ui.self_modulate.a = 0.4
 				$PrimarySkill/Agnette/BearForm/Label.text = ""
-
+		##################
+		## SPIKE GROWTH ##
+		##################
+		
+		if spikegrowth_ui.value < spikegrowth_ui.max_value:
+			$TertiarySkill/Agnette/SpikeGrowth/Label.text = str(stepify((spikegrowth_ui.max_value - spikegrowth_ui.value) / multiplier, 0.001))
+			spikegrowth_ui.self_modulate.a = 0.4
+		elif spikegrowth_ui.value >= spikegrowth_ui.max_value:
+			if Global.agnette_skill_multipliers["SpikeGrowthCharges"] < Global.agnette_skill_multipliers["SpikeGrowthMaxCharges"]:
+				Global.agnette_skill_multipliers["SpikeGrowthCharges"] += 1
+				update_spikegrowth_skill_ui(Global.agnette_skill_multipliers["SpikeGrowthCharges"])
+				if Global.agnette_skill_multipliers["SpikeGrowthCharges"] < Global.agnette_skill_multipliers["SpikeGrowthMaxCharges"]:
+					spikegrowth_ui.value = spikegrowth_ui.min_value
+			else:
+				if Global.equipped_characters[0] == "Agnette":
+					$TertiarySkill/Agnette/SpikeGrowth/Label.text = ""
+				elif Global.equipped_characters[1] == "Agnette":
+					$TertiarySkill/Agnette/SpikeGrowth/Label.text = ""
+				elif Global.equipped_characters[2] == "Agnette":
+					$TertiarySkill/Agnette/SpikeGrowth/Label.text = ""
 
 	else:
 		$PrimarySkill/Agnette.visible = false
@@ -438,12 +464,19 @@ func _on_CooldownTickTimer_timeout():
 		coneofcold_ui.value += 1
 	if Global.equipped_characters.has("Agnette"):
 		bearform_ui.value += 1
+		spikegrowth_ui.value += 1
 #func reduce_endurance(amount : int):
 #	$EnduranceMeter/TextureProgress.value -= amount
 
 func update_fireball_skill_ui(charges : int):
 	charges = clamp(charges, 0, Global.player_skill_multipliers["FireballCharges"])
 	$TertiarySkill/Player/Fireball/ManaIcon.rect_size.x = charges * 16
+
+func update_spikegrowth_skill_ui(charges : int):
+	charges = clamp(charges, 0, Global.agnette_skill_multipliers["SpikeGrowthCharges"])
+	$TertiarySkill/Agnette/SpikeGrowth/ManaIcon.rect_size.x = charges * 16
+	print("SPIKE PLANTED")
+
 func _on_EnduranceRegenTimer_timeout():
 	$EnduranceMeter/TextureProgress.value += 2
 	

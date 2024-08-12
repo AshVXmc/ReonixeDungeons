@@ -676,11 +676,13 @@ func chaos_magic_surge():
 
 func dash_counter_attack():
 	if Global.current_character == "Player" and !is_attacking and get_closest_enemy() != null:
+#		is_dash_counter_attacking = true
+#		$DashCounterAttackDelayTimer.start()
 		if !is_on_floor() and !$HeightRaycast2D.is_colliding():
 			airborne_mode = true
 			$AirborneTimer.stop()
 			$AirborneTimer.start()
-		is_dash_counter_attacking = true
+		
 		$DashCounterAttackTimer.stop()
 		var counterflurryeffect = SWORD_SLASH_EFFECT.instance()
 		var counterflurryarea = SLASH_FLURRY_AREA.instance()
@@ -703,8 +705,8 @@ func dash_counter_attack():
 		yield(get_tree().create_timer(0.1), "timeout")
 		update_energy_meter(10)
 		change_mana_value(0.25)
-		yield(get_tree().create_timer(0.2), "timeout")
-		is_dash_counter_attacking = false
+#		yield(get_tree().create_timer(0.4), "timeout")
+#		is_dash_counter_attacking = false
 func attack():
 	if Global.current_character == "Player" and !is_attacking and !is_gliding and !is_frozen and $MeleeTimer.is_stopped():
 		$Sprite.play("Attack")
@@ -737,7 +739,6 @@ func stab_attack():
 		$SwordSprite.visible = true
 		for groups in $StabAttackCollision.get_groups():
 			if float(groups) != 0:
-				print("its high noon")
 				$StabAttackCollision.remove_from_group(groups)
 				break
 		if is_a_critical_hit():
@@ -751,7 +752,6 @@ func stab_attack():
 		if !$Sprite.flip_h:
 			$AnimationPlayer.play("SwordStabRight")
 		else:
-			print("REEEEEEEEEEEEEEEEEEEEEEE")
 			$AnimationPlayer.play("SwordStabLeft")
 		is_attacking = true
 		is_switch_in_attacking = true
@@ -805,8 +805,9 @@ func _input(event):
 
 			else:
 				# Initiates counterattack.
-				is_invulnerable = true
-				thrust_attack(true)
+				if !is_dash_counter_attacking and $DashCounterAttackDelayTimer.is_stopped():
+					is_invulnerable = true
+					thrust_attack(true)
 			$InputPressTimer.start()
 		if event.is_action_pressed("ui_dash") and !mobility_lock and $DashInputPressTimer.is_stopped() and !is_quickswap_attacking:
 			if get_parent().has_node("FireCharm") and weakref(get_parent().get_node("FireCharm")).get_ref() != null:
@@ -1435,6 +1436,7 @@ func take_damage(damage : float):
 
 func heal(character : String = "Player", heal_amount : float = 0, heal_to_max : bool = false, consumes_potion : bool = true):
 	# heal amount in percentage based on max HP
+	print("HEALLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL")
 	if Global.equipped_characters[0] == character:
 		if !heal_to_max:
 			add_heal_particles(clamp(heal_amount, 0, Global.max_hearts - Global.hearts))
@@ -1765,88 +1767,92 @@ func dash():
 			is_dashing = false
 
 func thrust_attack(special : bool = false):
-	is_invulnerable = true
-	for n in $ThrustEffectArea.get_groups():
-		if float(n) != 0:
-			$ThrustEffectArea.remove_from_group(n)
-			var crit_dmg = 1.0
-			if is_a_critical_hit():
-				crit_dmg = (Global.player_skill_multipliers["CritDamage"] / 100 + 1)
-				$ThrustEffectArea.add_to_group(str(ATTACK * (Global.player_skill_multipliers["ThrustChargedAttack"] / 100) * crit_dmg))
-				$ThrustEffectArea.add_to_group("IsCritHit")
-			else:
-				$ThrustEffectArea.add_to_group(str(ATTACK * (Global.player_skill_multipliers["ThrustChargedAttack"] / 100) * crit_dmg))
-				$ThrustEffectArea.remove_from_group("IsCritHit")
-			#emit_signal("change_elegance"), "ChargedAttackLight")
-	$ThrustEffectArea/CollisionShape2D.add_to_group("SulphuricSigilTrigger")
-	$ThrustEffectArea/CollisionShape2D.disabled = false
-	
-	is_thrust_attacking = true
-	
-	var thrustdirection : Vector2
-#	cam_shake = true
-	var swordslash = SWORD_SLASH_EFFECT.instance()
-	if  weakref(get_closest_enemy()).get_ref() != null:
-		if get_closest_enemy().position.x < position.x:
-			thrustdirection = Vector2(-1, 0)
-			$Sprite.flip_h = true
-		elif get_closest_enemy().position.x >= position.x:
-			thrustdirection = Vector2(1, 0)
-			$Sprite.flip_h = false
-	else:
-		if !$Sprite.flip_h:
-			thrustdirection = Vector2(1,0)
-		if $Sprite.flip_h:
-			thrustdirection = Vector2(-1, 0)
-	attack_string_count = 4
-	mana_absorption_counter = mana_absorption_counter_max
-	var dash_particle = DASH_PARTICLE.instance()
-	get_parent().add_child(dash_particle)
-	if !$Sprite.flip_h:
-		dash_particle.rotation_degrees = 180
-	dash_particle.position = $DashParticlePosition.global_position
-	dash_particle.emitting = true
-	dash_particle.one_shot = true
-	get_parent().add_child(swordslash)
-	swordslash.position = global_position
-	swordslash.horizontal_slash_animation()
-	Input.action_release("jump")
-	velocity.y = 0
-	change_mana_value(0.5)
-	$Sprite.play("Dash")
-
-	if special:
+	if !is_dash_counter_attacking and $DashCounterAttackDelayTimer.is_stopped():
 		is_invulnerable = true
-		velocity = thrustdirection.normalized() * 3600
-		yield(get_tree().create_timer(0.2), "timeout")
-		$ThrustEffectArea/CollisionShape2D.disabled = true
-		yield(get_tree().create_timer(0.25), "timeout")
-		dash_counter_attack()
-		is_thrust_attacking = false
-		yield(get_tree().create_timer(0.5), "timeout")
-		if !is_flurry_attacking:
-			update_energy_meter(25)
-	else:
-		velocity = thrustdirection.normalized() * 2950
-		is_thrust_attacking = false
+		print("THRUSTING TTTHTHHTTH")
+		is_dash_counter_attacking = true
+		$DashCounterAttackDelayTimer.start()
+		for n in $ThrustEffectArea.get_groups():
+			if float(n) != 0:
+				$ThrustEffectArea.remove_from_group(n)
+				var crit_dmg = 1.0
+				if is_a_critical_hit():
+					crit_dmg = (Global.player_skill_multipliers["CritDamage"] / 100 + 1)
+					$ThrustEffectArea.add_to_group(str(ATTACK * (Global.player_skill_multipliers["ThrustChargedAttack"] / 100) * crit_dmg))
+					$ThrustEffectArea.add_to_group("IsCritHit")
+				else:
+					$ThrustEffectArea.add_to_group(str(ATTACK * (Global.player_skill_multipliers["ThrustChargedAttack"] / 100) * crit_dmg))
+					$ThrustEffectArea.remove_from_group("IsCritHit")
+				#emit_signal("change_elegance"), "ChargedAttackLight")
+		$ThrustEffectArea/CollisionShape2D.add_to_group("SulphuricSigilTrigger")
+		$ThrustEffectArea/CollisionShape2D.disabled = false
 		
+		is_thrust_attacking = true
 		
-#		$AirborneMaxDuration.start()
-		yield(get_tree().create_timer(0.1), "timeout")
-		$ThrustEffectArea/CollisionShape2D.disabled = true
-		yield(get_tree().create_timer(0.35), "timeout")
-#		cam_shake = false
-		is_invulnerable = false
-		if Global.player_talents["SwiftThrust"]["unlocked"] and Global.player_talents["SwiftThrust"]["enabled"]:
-			airborne_mode = true
-			yield(get_tree().create_timer(0.5), "timeout")
-			airborne_mode = false
+		var thrustdirection : Vector2
+	#	cam_shake = true
+		var swordslash = SWORD_SLASH_EFFECT.instance()
+		if  weakref(get_closest_enemy()).get_ref() != null:
+			if get_closest_enemy().position.x < position.x:
+				thrustdirection = Vector2(-1, 0)
+				$Sprite.flip_h = true
+			elif get_closest_enemy().position.x >= position.x:
+				thrustdirection = Vector2(1, 0)
+				$Sprite.flip_h = false
 		else:
-			airborne_mode = false
-		if !is_flurry_attacking:
-			update_energy_meter(15)
-	
-	sheathe_katana()
+			if !$Sprite.flip_h:
+				thrustdirection = Vector2(1,0)
+			if $Sprite.flip_h:
+				thrustdirection = Vector2(-1, 0)
+		attack_string_count = 4
+		mana_absorption_counter = mana_absorption_counter_max
+		var dash_particle = DASH_PARTICLE.instance()
+		get_parent().add_child(dash_particle)
+		if !$Sprite.flip_h:
+			dash_particle.rotation_degrees = 180
+		dash_particle.position = $DashParticlePosition.global_position
+		dash_particle.emitting = true
+		dash_particle.one_shot = true
+		get_parent().add_child(swordslash)
+		swordslash.position = global_position
+		swordslash.horizontal_slash_animation()
+		Input.action_release("jump")
+		velocity.y = 0
+		change_mana_value(0.5)
+		$Sprite.play("Dash")
+
+		if special:
+			is_invulnerable = true
+			velocity = thrustdirection.normalized() * 3600
+			yield(get_tree().create_timer(0.2), "timeout")
+			$ThrustEffectArea/CollisionShape2D.disabled = true
+			yield(get_tree().create_timer(0.25), "timeout")
+			dash_counter_attack()
+			is_thrust_attacking = false
+			yield(get_tree().create_timer(0.5), "timeout")
+			if !is_flurry_attacking:
+				update_energy_meter(25)
+		else:
+			velocity = thrustdirection.normalized() * 2950
+			is_thrust_attacking = false
+			
+			
+	#		$AirborneMaxDuration.start()
+			yield(get_tree().create_timer(0.1), "timeout")
+			$ThrustEffectArea/CollisionShape2D.disabled = true
+			yield(get_tree().create_timer(0.35), "timeout")
+	#		cam_shake = false
+			is_invulnerable = false
+			if Global.player_talents["SwiftThrust"]["unlocked"] and Global.player_talents["SwiftThrust"]["enabled"]:
+				airborne_mode = true
+				yield(get_tree().create_timer(0.5), "timeout")
+				airborne_mode = false
+			else:
+				airborne_mode = false
+			if !is_flurry_attacking:
+				update_energy_meter(15)
+		
+		sheathe_katana()
 	
 func knock_airborne(target):
 	if target and weakref(target).get_ref() != null and !target.is_in_group("IsAirborne") and !target.get_parent().is_in_group("Armored"):
@@ -2182,7 +2188,7 @@ func _on_InputPressTimer_timeout():
 				$EnergyMeter.value -= Global.player_skill_multipliers["SlashFlurryEnergyCost"]
 			else:
 				if airborne_mode:
-					if !is_flurry_attacking:
+					if !is_flurry_attacking and !is_dash_counter_attacking:
 						thrust_attack()
 				else:
 					if is_on_floor():
@@ -2278,12 +2284,10 @@ func _on_StabAttackCollision_area_exited(area):
 	if area.is_in_group("Enemy"):
 		attack_area_overlaps_enemy = false
 
-
-
-
-
 func _on_HideEnergyMeterTimer_timeout():
 	pass
 #	$EnergyMeter.visible = false
 
 
+func _on_DashCounterAttackDelayTimer_timeout():
+	is_dash_counter_attacking = false
