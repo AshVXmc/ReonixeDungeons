@@ -132,7 +132,7 @@ func on_skill_used (
 				cone_of_cold.deactivate_cone_of_cold()
 				skills_ui.coneofcold_active = false
 		"BearForm":
-			get_parent().get_node("CharacterManager/Agnette").wild_shape(1)
+			get_parent().get_node("CharacterManager/Agnette").wild_shape(get_parent().get_node("CharacterManager/Agnette").forms.BEAR)
 			get_parent().get_node("CharacterManager/Agnette/BearFormDurationTimer").start()
 			if !Global.godmode:
 				if Global.equipped_characters[0] == "Agnette" and Global.mana >= Global.agnette_skill_multipliers["BearFormCost"]:
@@ -143,6 +143,19 @@ func on_skill_used (
 					emit_signal("mana_changed", Global.character2_mana, "Agnette")
 				elif Global.equipped_characters[2] == "Agnette" and Global.character3_mana >= Global.agnette_skill_multipliers["BearFormCost"]:
 					Global.character3_mana -= Global.agnette_skill_multipliers["BearFormCost"]
+					emit_signal("mana_changed", Global.character3_mana, "Agnette")
+		"RavenForm":
+			get_parent().get_node("CharacterManager/Agnette").wild_shape(get_parent().get_node("CharacterManager/Agnette").forms.RAVEN)
+			get_parent().get_node("CharacterManager/Agnette/RavenFormDurationTimer").start()
+			if !Global.godmode:
+				if Global.equipped_characters[0] == "Agnette" and Global.mana >= Global.agnette_skill_multipliers["RavenFormCost"]:
+					Global.mana -= Global.agnette_skill_multipliers["RavenFormCost"]
+					emit_signal("mana_changed", Global.mana, "Agnette")
+				elif Global.equipped_characters[1] == "Agnette" and Global.character2_mana >= Global.agnette_skill_multipliers["RavenFormCost"]:
+					Global.character2_mana -= Global.agnette_skill_multipliers["RavenFormCost"]
+					emit_signal("mana_changed", Global.character2_mana, "Agnette")
+				elif Global.equipped_characters[2] == "Agnette" and Global.character3_mana >= Global.agnette_skill_multipliers["RavenFormCost"]:
+					Global.character3_mana -= Global.agnette_skill_multipliers["RavenFormCost"]
 					emit_signal("mana_changed", Global.character3_mana, "Agnette")
 		"SpikeGrowth":
 			var trap = SPIKE_TRAP.instance()

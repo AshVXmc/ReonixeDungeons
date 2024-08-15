@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=2]
+[gd_scene load_steps=30 format=2]
 
 [ext_resource path="res://scripts/ui/SkillsUI.gd" type="Script" id=1]
 [ext_resource path="res://assets/UI/firesaw_skill_icon.png" type="Texture" id=2]
@@ -19,6 +19,7 @@
 [ext_resource path="res://assets/UI/resource_bar_full.png" type="Texture" id=17]
 [ext_resource path="res://assets/UI/bear_form_skill_icon.png" type="Texture" id=18]
 [ext_resource path="res://assets/UI/spikegrowth_skill_icon.png" type="Texture" id=19]
+[ext_resource path="res://assets/UI/raven_form_skill_icon.png" type="Texture" id=20]
 
 [sub_resource type="DynamicFont" id=1]
 size = 32
@@ -426,26 +427,26 @@ align = 1
 margin_right = 40.0
 margin_bottom = 40.0
 
-[node name="\?\?\?" type="Control" parent="Control/SecondarySkill/Agnette"]
+[node name="RavenForm" type="Control" parent="Control/SecondarySkill/Agnette"]
 margin_right = 40.0
 margin_bottom = 40.0
 
-[node name="BackgroundIcon" type="Sprite" parent="Control/SecondarySkill/Agnette/\?\?\?"]
+[node name="BackgroundIcon" type="Sprite" parent="Control/SecondarySkill/Agnette/RavenForm"]
 self_modulate = Color( 1, 1, 1, 0.333333 )
 position = Vector2( 270, 190 )
 scale = Vector2( 4, 4 )
-texture = ExtResource( 8 )
+texture = ExtResource( 20 )
 
-[node name="TextureProgress" type="TextureProgress" parent="Control/SecondarySkill/Agnette/\?\?\?"]
+[node name="TextureProgress" type="TextureProgress" parent="Control/SecondarySkill/Agnette/RavenForm"]
 margin_left = 230.0
 margin_top = 150.0
 margin_right = 250.0
 margin_bottom = 170.0
 rect_scale = Vector2( 4, 4 )
-texture_progress = ExtResource( 8 )
+texture_progress = ExtResource( 20 )
 fill_mode = 5
 
-[node name="Label" type="Label" parent="Control/SecondarySkill/Agnette/\?\?\?"]
+[node name="Label" type="Label" parent="Control/SecondarySkill/Agnette/RavenForm"]
 margin_left = 249.0
 margin_top = 170.0
 margin_right = 291.0
@@ -458,7 +459,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="CostLabel" type="Label" parent="Control/SecondarySkill/Agnette/\?\?\?"]
+[node name="CostLabel" type="Label" parent="Control/SecondarySkill/Agnette/RavenForm"]
 margin_left = 285.0
 margin_top = 208.0
 margin_right = 319.0

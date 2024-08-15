@@ -8,9 +8,9 @@ var character_health_data : Dictionary = {
 	"Agnette": 10
 }
 var character_defense_data : Dictionary = {
-	"Player": 15.0, 
-	"Glaciela": 20.0,
-	"Agnette": 10.0
+	"Player": 12.0, 
+	"Glaciela": 21.0,
+	"Agnette": 6.0
 }
 
 
@@ -304,15 +304,22 @@ var agnette_skill_multipliers = {
 	"ChargedAttackMovementSpeedPenalty": 80.0,
 	"RainOfArrows": 40.0,
 	
-	"BearFormCost": 1,
-	"BearFormCD": 25,
-	"BearFormDuration": 12,
+	"BearFormCost": 8,
+	"BearFormCD": 30,
+	"BearFormDuration": 15,
 	# health taken from agnette's max HP.
-	"BearFormHealth": 130.0,
+	"BearFormHealth": 110.0,
 	"BearFormMovementSpeedPenalty": 20.0,
 	"BearFormAttack1": 140.0,
 	"BearFormShockwave": 20.0,
 	"BearFormShockwaveMaxHits": 5,
+	
+	"RavenFormCost": 0,
+	"RavenFormCD": 14.0,
+	"RavenFormDuration": 7.5,
+	"RavenFormHealth": 42.0,
+	"RavenFormPeckAttack": 35.0,
+	
 	"SpikeGrowth": 15.0,
 	"SpikeGrowthCD": 10,
 	"SpikeGrowthCharges": 2,
@@ -344,9 +351,9 @@ var agnette_talents : Dictionary = {
 
 var agnette_skills : Dictionary = {
 	"PrimarySkill" : "BearForm",
-	"SecondarySkill" : "",
-	"TertiarySkill" : "",
-	"PerkSkill": "SpikeGrowth"
+	"SecondarySkill" : "RavenForm",
+	"TertiarySkill" : "SpikeGrowth",
+	"PerkSkill": ""
 }
 
 var enemy_skill_multipliers : Dictionary = {

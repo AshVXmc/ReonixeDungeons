@@ -116,6 +116,8 @@ var can_dash : bool = false
 var is_healing : bool = false
 var is_shopping : bool = false
 var is_frozen : bool = false
+var can_fly : bool = false
+const VERTICAL_FLYING_SPEED : int = 300
 var is_using_primary_skill : bool = false
 var is_using_secondary_skill : bool = false
 var glider_equipped : bool = false
@@ -360,20 +362,11 @@ func _physics_process(_delta):
 			$KatanaSheathSprite.visible = true if Global.current_character == "Player" else false
 			target = get_closest_enemy()
 			# Function calls
-#			if !is_thrust_attacking and Input.is_action_just_pressed("ui_dash") and !Input.is_action_pressed("ui_attack"):
-#				dash()
 			if !is_charging:
-	#			glide() # Glide duration in seconds
+#				if can_fly:
+#					glide()
 				useItems()
 				use_skill()
-				
-
-	#			ground_pound()
-#				if airborne_mode:
-#					SPEED = 380 * 0.75
-#				else:
-#					SPEED = 380
-				
 				if Input.is_action_just_pressed("right") or Input.is_action_just_pressed("left") and attack_string_count != 3:
 					attack_string_count = 4
 				# Movement controls
@@ -393,7 +386,7 @@ func _physics_process(_delta):
 						mana_absorption_counter = mana_absorption_counter_max
 	#					$AirborneMaxDuration.start()
 	#					airborne_mode = false
-						$Sprite.play("Glide") if is_gliding else $Sprite.play("Walk")
+#						$Sprite.play("Glide") if is_gliding else $Sprite.play("Walk")
 						$Sprite.flip_h = true
 						if velocity.x == 0 and !is_attacking and !is_gliding:
 							$Sprite.play("Idle")
@@ -420,7 +413,7 @@ func _physics_process(_delta):
 	#					$AirborneMaxDuration.start()
 	#					airborne_mode = false
 					# warning-ignore:standalone_ternary
-						$Sprite.play("Glide") if is_gliding else $Sprite.play("Walk")
+#						$Sprite.play("Glide") if is_gliding else $Sprite.play("Walk")
 						$Sprite.flip_h = false
 						if velocity.x == 0 and !is_attacking and is_gliding:
 							$Sprite.play("Idle")
@@ -441,7 +434,7 @@ func _physics_process(_delta):
 						$EnemyEvasionArea.set_scale(Vector2(1,1))
 				
 					# Jump controls (ground)
-					if Input.is_action_just_pressed("jump") and !mobility_lock and !is_attacking and !is_frozen and !underwater and !Input.is_action_pressed("ui_dash"):
+					if Input.is_action_just_pressed("jump") and !can_fly and !mobility_lock and !is_attacking and !is_frozen and !underwater and !Input.is_action_pressed("ui_dash"):
 						if is_on_floor():
 							$DashAfterJumpingDelayTimer.start()
 							# Particles
@@ -449,6 +442,9 @@ func _physics_process(_delta):
 							jump_particle.emitting = true
 							get_parent().add_child(jump_particle)
 							jump_particle.position = $ParticlePosition.global_position
+#							if can_fly:
+#								velocity.y = JUMP_POWER * 1.2
+#							else:
 							velocity.y = JUMP_POWER
 							is_jumping = true
 							$Sprite.play("Idle")
@@ -472,7 +468,13 @@ func _physics_process(_delta):
 				# Movement calculations
 	#			if !is_dashing and !is_gliding:
 	#				velocity.y += GRAVITY
-	
+				if can_fly:
+					if Input.is_action_pressed("ui_up"):
+						velocity.y = -VERTICAL_FLYING_SPEED
+					elif Input.is_action_pressed("ui_down"):
+						velocity.y = VERTICAL_FLYING_SPEED
+					else:
+						velocity.y = 0
 				if is_jumping and velocity.y >= 0:
 					is_jumping = false
 				velocity = move_and_slide(velocity,Vector2.UP)
@@ -483,7 +485,7 @@ func _physics_process(_delta):
 					$ToggleArea/CollisionShape2D.disabled = false
 					yield(get_tree().create_timer(0.5), "timeout")
 					$ToggleArea/CollisionShape2D.disabled = true
-		if !is_dashing and !is_gliding and !airborne_mode and !is_thrust_attacking:
+		if !can_fly and !is_dashing and !is_gliding and !airborne_mode and !is_thrust_attacking:
 			if underwater:
 				velocity.y += GRAVITY / 2
 			else:
@@ -1862,29 +1864,25 @@ func knock_airborne(target):
 			$KnockAirborneICD.start()
 
 #func glide():
-#	if Global.glide_unlocked and Input.is_action_just_pressed("toggle_glider"):
-#		if !glider_equipped:
-#			glider_equipped = true
-#		elif glider_equipped:
-#			glider_equipped = false
 #	# Press SPACE while in mid-air to temporarily glide
-#	if Global.glide_unlocked and Input.is_action_just_pressed("jump") and !is_on_floor() and Global.mana >= 1 and glider_equipped:
-#			if !Global.godmode:
-#				$GlideTimer.start(0)
-#			is_gliding = true
-#			if is_on_floor() or is_on_wall() or is_on_ceiling():
-#				$GlideTimer.stop()
-#				is_gliding = false
-#				velocity.y += GRAVITY * 3
-#			if is_gliding:
-#				velocity.y = 0
-#				velocity.y += GRAVITY * 1.5
-	# Stop gliding
-	if Input.is_action_just_released("jump") or is_on_floor():
-		$GlideTimer.stop()
-		is_gliding = false
-#		if !airborne_mode:
-		velocity.y += GRAVITY * 3
+#	if Input.is_action_just_pressed("jump") and !is_on_floor():
+##		if !Global.godmode:
+##			$GlideTimer.start(0)
+#		is_gliding = true
+#		if is_on_floor() or is_on_wall() or is_on_ceiling():
+##			$GlideTimer.stop()
+#			is_gliding = false
+#			velocity.y += GRAVITY * 3
+#		if is_gliding:
+#			velocity.y = 0
+#			velocity.y += GRAVITY * 0.75
+#		print("GLIDDINH")
+#	# Stop gliding
+#	if Input.is_action_just_released("jump") or is_on_floor():
+#		$GlideTimer.stop()
+#		is_gliding = false
+##		if !airborne_mode:
+#		velocity.y += GRAVITY * 3
 
 
 func useItems():

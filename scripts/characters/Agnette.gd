@@ -20,7 +20,6 @@ signal change_elegance(action_name)
 signal change_hitcount(amount)
 signal update_spikegrowth_charges_ui(charges)
 var target
-var is_
 var airborne_mode : bool = false
 var basicatkbuffmulti : float = 0
 var basicatkbuffdur : float = 0
@@ -70,7 +69,7 @@ var earth_dmg_bonus : float = Global.glaciela_skill_multipliers["EarthDamageBonu
 onready var crit_rate : float = Global.glaciela_skill_multipliers["CritRate"]
 onready var crit_damage : float = Global.glaciela_skill_multipliers["CritDamage"]
 onready var pskill_ui : TextureProgress = get_parent().get_parent().get_parent().get_node("SkillsUI/Control/PrimarySkill/Agnette/BearForm/TextureProgress")
-#onready var sskill_ui : TextureProgress = get_parent().get_parent().get_parent().get_node("SkillsUI/Control/SecondarySkill/Glaciela/IceLance/TextureProgress")
+onready var sskill_ui : TextureProgress = get_parent().get_parent().get_parent().get_node("SkillsUI/Control/SecondarySkill/Agnette/RavenForm/TextureProgress")
 onready var tskill_ui : TextureProgress = get_parent().get_parent().get_parent().get_node("SkillsUI/Control/TertiarySkill/Agnette/SpikeGrowth/TextureProgress")
 
 var bear_is_attacking : bool = false
@@ -80,7 +79,7 @@ enum {
 }
 var current_form = forms.ARCHER
 enum forms  {
-	ARCHER, BEAR
+	ARCHER, BEAR, RAVEN
 }
 var is_wild_shaping : bool = false
 func set_attack_buff_value(new_value):
@@ -111,6 +110,8 @@ func _ready():
 	play_animated_sprite("Default")
 	$BearFormDurationTimer.wait_time = Global.agnette_skill_multipliers["BearFormDuration"]
 	$BearFormNodes/AttackCollision.add_to_group(str(ATTACK * (Global.agnette_skill_multipliers["BearFormAttack1"] / 100)))
+	$RavenFormNodes/AttackCollision.add_to_group(str(ATTACK * (Global.agnette_skill_multipliers["RavenFormPeckAttack"] / 100)))
+	$RavenFormDurationTimer.wait_time = Global.agnette_skill_multipliers["RavenFormDuration"]
 #	$SpecialAttackArea2D.add_to_group(str(ATTACK * (Global.glaciela_skill_multipliers["SpecialAttack1_1"] / 100)))
 	$VolleyShootCooldownTimer.wait_time = Global.agnette_talents["VolleyShot"]["cooldown"]
 
@@ -182,6 +183,8 @@ func _physics_process(delta):
 	if Global.current_character != "Agnette":
 		if current_form == forms.BEAR:
 			wild_shape(forms.ARCHER)
+		elif current_form == forms.RAVEN:
+			wild_shape(forms.ARCHER)
 		if attack_string_count != 4:
 			attack_string_count = 4
 			$ResetAttackStringTimer.stop()
@@ -243,11 +246,10 @@ func _input(event):
 
 func use_skill():
 	if Global.current_character == "Agnette" and !is_charging and !get_parent().get_parent().is_frozen:
-		if pskill_ui.value >= pskill_ui.max_value and Input.is_action_just_pressed("primary_skill"): 
+		if pskill_ui.value >= pskill_ui.max_value and Input.is_action_just_pressed("primary_skill") and current_form == forms.ARCHER: 
 			use_primary_skill()
-			
-#		if sskill_ui.value >= sskill_ui.max_value and Input.is_action_just_pressed("secondary_skill") and !Input.is_action_just_pressed("primary_skill"):
-#			use_secondary_skill()
+		if sskill_ui.value >= sskill_ui.max_value and Input.is_action_just_pressed("secondary_skill") and current_form == forms.ARCHER:
+			use_secondary_skill()
 		if Input.is_action_just_pressed("tertiary_skill"):
 			use_tertiary_skill()
 
@@ -266,7 +268,18 @@ func use_primary_skill():
 		emit_signal("mana_changed", Global.character3_mana, "Agnette")
 	
 func use_secondary_skill():
-	pass
+	if Global.current_character == Global.equipped_characters[0] and Global.mana >= Global.agnette_skill_multipliers["RavenFormCost"]:
+		emit_signal("skill_used", "RavenForm", attack_buff)
+		get_parent().get_parent().emit_signal("skill_ui_update", "RavenForm")
+		emit_signal("mana_changed", Global.mana, "Agnette")
+	elif Global.current_character == Global.equipped_characters[1] and Global.character2_mana >= Global.agnette_skill_multipliers["RavenFormCost"]:
+		emit_signal("skill_used", "RavenForm", attack_buff)
+		get_parent().get_parent().emit_signal("skill_ui_update", "RavenForm")
+		emit_signal("mana_changed", Global.character2_mana, "Agnette")
+	elif Global.current_character == Global.equipped_characters[2] and Global.character3_mana >= Global.agnette_skill_multipliers["RavenFormCost"]:
+		emit_signal("skill_used", "RavenForm", attack_buff)
+		get_parent().get_parent().emit_signal("skill_ui_update", "RavenForm")
+		emit_signal("mana_changed", Global.character3_mana, "Agnette")
 
 func use_tertiary_skill():
 	if Global.agnette_skill_multipliers["SpikeGrowthCharges"] > 0 and get_parent().get_parent().is_on_floor():
@@ -280,10 +293,10 @@ func use_tertiary_skill():
 	
 
 
-func wild_shape(target_form : int, with_particles : bool = true):
+func wild_shape(target_form : int, previous_form : int = -1):
 	current_form = target_form
-	if with_particles:
-		$WildShapeParticles.emitting = true
+	
+	$WildShapeParticles.emitting = true
 	match target_form:
 		forms.ARCHER:
 			is_wild_shaping = true
@@ -294,8 +307,11 @@ func wild_shape(target_form : int, with_particles : bool = true):
 			$Area2D/CollisionShape2D.shape.extents = Vector2(45,54)
 			$AnimatedSprite.scale = Vector2(5.25, 5.25)
 			get_parent().get_parent().mobility_lock = false
-			toggle_bear_form_snare(false)
-			$BearFormNodes/BearHealthBar.visible = false
+			get_parent().get_parent().can_fly = false
+			if previous_form == forms.BEAR:
+				toggle_bear_form_snare(false)
+				$BearFormNodes/BearHealthBar.visible = false
+			$RavenFormNodes/RavenHealthBar.visible = false
 			$BowSprite.visible = true
 			$AnimatedSprite.stop()
 			$AnimatedSprite.play("Default")
@@ -306,9 +322,10 @@ func wild_shape(target_form : int, with_particles : bool = true):
 			$AnimatedSprite.visible = false
 			$ChargedAttackBar.visible = false
 			$AnimatedSprite.position = Vector2(0,-29)
-			$Area2D/CollisionShape2D.shape.extents = Vector2(75,54)
+			$Area2D/CollisionShape2D.shape.extents = Vector2(105,54)
 			$AnimatedSprite.scale = Vector2(6,6)
 			get_parent().get_parent().mobility_lock = true
+			get_parent().get_parent().can_fly = false
 			toggle_bear_form_snare(true)
 			$BearFormNodes/BearHealthBar.max_value = Global.character_health_data["Agnette"] * (Global.agnette_skill_multipliers["BearFormHealth"] / 100)
 			$BearFormNodes/BearHealthBar.value = $BearFormNodes/BearHealthBar.max_value
@@ -318,7 +335,23 @@ func wild_shape(target_form : int, with_particles : bool = true):
 			$AnimatedSprite.play("BearDefault")
 			$AnimatedSprite.visible = true
 			is_wild_shaping = false
-
+		forms.RAVEN:
+			is_wild_shaping = true
+			$AnimatedSprite.visible = false
+			$ChargedAttackBar.visible = false
+#			$AnimatedSprite.position = Vector2(0,-29)
+			$Area2D/CollisionShape2D.shape.extents = Vector2(45,54)
+			$AnimatedSprite.scale = Vector2(3.75,3.75)
+			get_parent().get_parent().can_fly = true
+			$RavenFormNodes/RavenHealthBar.max_value = Global.character_health_data["Agnette"] * (Global.agnette_skill_multipliers["RavenFormHealth"] / 100)
+			$RavenFormNodes/RavenHealthBar.value = $RavenFormNodes/RavenHealthBar.max_value
+			$RavenFormNodes/RavenHealthBar.visible = true
+			
+			$BowSprite.visible = false
+			$AnimatedSprite.stop()
+			$AnimatedSprite.play("RavenDefault")
+			$AnimatedSprite.visible = true
+			is_wild_shaping = false
 
 func toggle_charged_attack_snare(active : bool):
 	if active:
@@ -411,8 +444,7 @@ func spawn_arrow(charge_value : int = 0, earth_damage : bool = false, is_up : bo
 	var charged_bonus : float = 1 + (1.25 * charge_value / 100)
 #	print("charge value: " + str(charge_value))
 	if charge_value >= 50:
-		charged_bonus = 1.25 + (2 * charge_value / 100)
-
+		charged_bonus = 1.35 + (2.25 * charge_value / 100)
 	var crit_dmg : float = 1.0
 	var arrow = ARROW.instance()
 	
@@ -653,6 +685,7 @@ func _on_Area2D_area_entered(area):
 						"Physical":
 							var dmg = area.get_parent().atk_value
 							take_damage(dmg * (1 - phys_res))
+							
 #					get_parent().get_parent().is_invulnerable = true
 					get_parent().get_parent().is_gliding = false
 					Input.action_release("charge")
@@ -791,7 +824,13 @@ func take_damage(damage : float):
 				$HurtAnimationPlayer.play("BeastDeath")
 #				yield(get_tree().create_timer(0.4), "timeout")
 				wild_shape(forms.ARCHER)
-				
+		elif current_form == forms.RAVEN:
+			$RavenFormNodes/RavenHealthBar.value -= damage 
+			add_hurt_particles(damage)
+			if $RavenFormNodes/RavenHealthBar.value <= $RavenFormNodes/RavenHealthBar.min_value:
+				$HurtAnimationPlayer.play("BeastDeath")
+#				yield(get_tree().create_timer(0.4), "timeout")
+				wild_shape(forms.ARCHER)
 func _on_ResetAttackStringTimer_timeout():
 	attack_string_count = 4
 
@@ -897,7 +936,7 @@ func _on_AttackCollision_area_exited(area):
 
 func _on_BearFormDurationTimer_timeout():
 	if current_form == forms.BEAR:
-		wild_shape(forms.ARCHER)
+		wild_shape(forms.ARCHER, forms.BEAR)
 
 
 func _on_AttackTimer_timeout():
@@ -907,3 +946,17 @@ func _on_AttackTimer_timeout():
 func _on_BearInputPressTimer_timeout():
 	if Input.is_action_pressed("ui_attack") and current_form == forms.BEAR:
 		bear_charged_attack()
+
+
+func _on_RavenAttackCollision_area_entered(area):
+	pass # Replace with function body.
+
+
+func _on_RavenAttackCollision_area_exited(area):
+	pass # Replace with function body.
+
+
+func _on_RavenFormDurationTimer_timeout():
+	if current_form == forms.RAVEN:
+		wild_shape(forms.ARCHER, forms.RAVEN)
+

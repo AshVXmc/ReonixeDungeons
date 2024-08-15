@@ -26,6 +26,8 @@ onready var glaciela_tskill_text = $NinePatchRect/SkillsControl/GlacielaControl/
 
 onready var agnette_pskill = $NinePatchRect/SkillsControl/AgnetteControl/PrimarySkillScrollContainer
 onready var agnette_pskill_text = $NinePatchRect/SkillsControl/AgnetteControl/PrimarySkillScrollContainer/VBoxContainer/RichTextLabel
+onready var agnette_sskill = $NinePatchRect/SkillsControl/AgnetteControl/SecondarySkillScrollContainer
+onready var agnette_sskill_text = $NinePatchRect/SkillsControl/AgnetteControl/SecondarySkillScrollContainer/VBoxContainer/RichTextLabel
 onready var agnette_tskill = $NinePatchRect/SkillsControl/AgnetteControl/TertiarySkillScrollContainer
 onready var agnette_tskill_text = $NinePatchRect/SkillsControl/AgnetteControl/TertiarySkillScrollContainer/VBoxContainer/RichTextLabel
 
@@ -155,6 +157,18 @@ func update_agnette_description_text():
 	agnette_tskill_text.bbcode_text = agnette_tskill_text.bbcode_text.replace(
 		"SG_DUR", str(Global.agnette_skill_multipliers["SpikeGrowthDuration"]))
 	
+	agnette_sskill_text.bbcode_text = agnette_sskill_text.bbcode_text.replace(
+		"RF_DUR", str(Global.agnette_skill_multipliers["RavenFormDuration"]))
+	agnette_sskill_text.bbcode_text = agnette_sskill_text.bbcode_text.replace(
+		"RF_HP", str(Global.agnette_skill_multipliers["RavenFormHealth"]))
+	agnette_sskill_text.bbcode_text = agnette_sskill_text.bbcode_text.replace(
+		"RF_CD", str(Global.agnette_skill_multipliers["RavenFormCD"]))
+	agnette_sskill_text.bbcode_text = agnette_sskill_text.bbcode_text.replace(
+		"RF_COST", str(Global.agnette_skill_multipliers["RavenFormCost"]))
+	agnette_sskill_text.bbcode_text = agnette_sskill_text.bbcode_text.replace(
+		"UI_UP", "[color=#ffd073]" + InputMap.get_action_list("ui_up")[0].as_text() + "[/color]")
+	agnette_sskill_text.bbcode_text = agnette_sskill_text.bbcode_text.replace(
+		"UI_DOWN", "[color=#ffd073]" + InputMap.get_action_list("ui_down")[0].as_text() + "[/color]")
 	
 	
 # access the update_perk_skill function in player
@@ -232,13 +246,13 @@ func _on_AgnetteSkillTypeOptionButton_item_selected(index):
 	match index:
 		0:
 			agnette_pskill.visible = true
-#			agnette_sskill.visible = false
+			agnette_sskill.visible = false
 			agnette_tskill.visible = false
 		1:
 			agnette_pskill.visible = false
-#			agnette_sskill.visible = true
+			agnette_sskill.visible = true
 			agnette_tskill.visible = false
 		2:
 			agnette_pskill.visible = false
-#			agnette_sskill.visible = false
+			agnette_sskill.visible = false
 			agnette_tskill.visible = true

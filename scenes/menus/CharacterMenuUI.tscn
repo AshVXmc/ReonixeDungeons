@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=2]
+[gd_scene load_steps=41 format=2]
 
 [ext_resource path="res://scripts/ui/CharacterTalentsControl.gd" type="Script" id=1]
 [ext_resource path="res://assets/characters/glaciela/glaciela_idle.png" type="Texture" id=2]
@@ -25,6 +25,7 @@
 [ext_resource path="res://assets/UI/cone_of_cold_skill_icon.png" type="Texture" id=23]
 [ext_resource path="res://assets/UI/bear_form_skill_icon.png" type="Texture" id=24]
 [ext_resource path="res://assets/UI/spikegrowth_skill_icon.png" type="Texture" id=25]
+[ext_resource path="res://assets/UI/raven_form_skill_icon.png" type="Texture" id=26]
 
 [sub_resource type="DynamicFont" id=1]
 size = 48
@@ -381,7 +382,6 @@ text = "Talents"
 align = 1
 
 [node name="CharacterSkillsControl" type="Control" parent="."]
-visible = false
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -1385,7 +1385,7 @@ Shapeshift into a ferocious [color=#3b1c06]Bear[/color] for BF_DUR seconds. It h
 [color=#3b1c06]Bear form[/color]
 	You gain knockback resistance, but you cannot dash, jump or shoot arrows, and your speed is reduced by BF_SPD_PEN%. You attack with your claws in melee range to deal [u]BF_ATK% ATK[/u] as Physical damage. Your Charged Attack unleashes a landslide that deals [u]BF_CATK% ATK[/u] as [color=#deb600]Earth[/color] damage and knocks enemies back.
 
-You revert to your [color=#668709]Archer[/color] form when the duration ends or if you drop to 0 HP.
+You revert to your [color=#668709]Archer[/color] form when the duration ends, if you switch to another character, or if you drop to 0 HP.
 
 Cooldown: BF_CD seconds
 Mana cost: BF_COST mana"
@@ -1395,7 +1395,7 @@ Shapeshift into a ferocious Bear for BF_DUR seconds. It has BF_HP% of Agnette's 
 Bear form
 	You gain knockback resistance, but you cannot dash, jump or shoot arrows, and your speed is reduced by BF_SPD_PEN%. You attack with your claws in melee range to deal BF_ATK% ATK as Physical damage. Your Charged Attack unleashes a landslide that deals BF_CATK% ATK as Earth damage and knocks enemies back.
 
-You revert to your Archer form when the duration ends or if you drop to 0 HP.
+You revert to your Archer form when the duration ends, if you switch to another character, or if you drop to 0 HP.
 
 Cooldown: BF_CD seconds
 Mana cost: BF_COST mana"
@@ -1445,7 +1445,6 @@ scale = Vector2( 5, 5 )
 texture = ExtResource( 24 )
 
 [node name="SecondarySkillScrollContainer" type="ScrollContainer" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/AgnetteControl"]
-visible = false
 anchor_right = 21.766
 anchor_bottom = 15.255
 margin_left = 197.0
@@ -1466,18 +1465,24 @@ rect_min_size = Vector2( 510, 1100 )
 custom_fonts/italics_font = SubResource( 2 )
 custom_fonts/normal_font = SubResource( 2 )
 bbcode_enabled = true
-bbcode_text = "[color=#ffd703]Ice Lance[/color]
-Hurl a double-bladed frost lance in your facing direction, dealing [u]ICELANCE_ATK% ATK[/u] as [color=#7df0ff]Ice[/color] damage to enemies. After it reaches maximum range, it homes back to you to deal further [color=#7df0ff]Ice[/color] damage. Each hit fills up ICELANCE_FREEZE_GAUGE% of the enemy's [color=#7df0ff]Freeze[/color] gauge.
-Consumes all stacks of [color=#c4fdff]Tundra Sigil[/color]. Each stack consumed grants a ICELANCE_DMG_BONUS% damage bonus to the attack.
+bbcode_text = "[color=#ffd703]Raven Form[/color]
+Shapeshift into a cunning [color=#1f1f1f]Raven[/color] for RF_DUR seconds. It has RF_HP% of Agnette's Max HP as its HP. 
 
-Cooldown: ICELANCE_CD seconds
-Mana cost: ICELANCE_COST mana"
-text = "Ice Lance
-Hurl a double-bladed frost lance in your facing direction, dealing ICELANCE_ATK% ATK as Ice damage to enemies. After it reaches maximum range, it homes back to you to deal further Ice damage. Each hit fills up ICELANCE_FREEZE_GAUGE% of the enemy's Freeze gauge.
-Consumes all stacks of Tundra Sigil. Each stack consumed grants a ICELANCE_DMG_BONUS% damage bonus to the attack.
+[color=#1f1f1f]Raven form[/color]
+	You gain the ability to fly, and you cannot shoot arrows. Press [UI_UP] to ascend and [UI_DOWN] to descend. 
 
-Cooldown: ICELANCE_CD seconds
-Mana cost: ICELANCE_COST mana"
+You revert to your [color=#668709]Archer[/color] form when the duration ends, if you switch to another character, or if you drop to 0 HP.
+Cooldown: RF_CD seconds
+Mana cost: RF_COST mana"
+text = "Raven Form
+Shapeshift into a cunning Raven for RF_DUR seconds. It has RF_HP% of Agnette's Max HP as its HP. 
+
+Raven form
+	You gain the ability to fly, and you cannot shoot arrows. Press [UI_UP] to ascend and [UI_DOWN] to descend. 
+
+You revert to your Archer form when the duration ends, if you switch to another character, or if you drop to 0 HP.
+Cooldown: RF_CD seconds
+Mana cost: RF_COST mana"
 scroll_active = false
 
 [node name="TalentControl1" type="Control" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/AgnetteControl/SecondarySkillScrollContainer/VBoxContainer"]
@@ -1521,7 +1526,7 @@ align = 1
 [node name="SkillIcon" type="Sprite" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/AgnetteControl/SecondarySkillScrollContainer/VBoxContainer"]
 position = Vector2( 597, 120 )
 scale = Vector2( 5, 5 )
-texture = ExtResource( 17 )
+texture = ExtResource( 26 )
 
 [node name="TertiarySkillScrollContainer" type="ScrollContainer" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/AgnetteControl"]
 visible = false
@@ -1774,6 +1779,7 @@ texture_normal = ExtResource( 9 )
 expand = true
 
 [node name="CharacterTalentsControl" type="Control" parent="."]
+visible = false
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5

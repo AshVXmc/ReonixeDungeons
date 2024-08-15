@@ -19,6 +19,7 @@ onready var icelance_ui = $SecondarySkill/Glaciela/IceLance/TextureProgress
 onready var coneofcold_ui = $TertiarySkill/Glaciela/ConeOfCold/TextureProgress
 
 onready var bearform_ui = $PrimarySkill/Agnette/BearForm/TextureProgress
+onready var ravenform_ui = $SecondarySkill/Agnette/RavenForm/TextureProgress
 onready var spikegrowth_ui = $TertiarySkill/Agnette/SpikeGrowth/TextureProgress
 
 var coneofcold_active : bool = false
@@ -53,6 +54,8 @@ func _ready():
 	
 	bearform_ui.max_value = Global.agnette_skill_multipliers["BearFormCD"] * multiplier
 	bearform_ui.value = bearform_ui.max_value
+	ravenform_ui.max_value = Global.agnette_skill_multipliers["RavenFormCD"] * multiplier
+	ravenform_ui.value = ravenform_ui.max_value
 	spikegrowth_ui.max_value = Global.agnette_skill_multipliers["SpikeGrowthCD"] * multiplier
 	spikegrowth_ui.value = spikegrowth_ui.max_value
 	
@@ -130,6 +133,9 @@ func update_skill_ui(primary : String, secondary : String, tertiary : String, pe
 		"IceLance":
 			$SecondarySkill/Glaciela/IceLance.visible = true
 			$SecondarySkill/Glaciela/IceLance/CostLabel.text = str(Global.glaciela_skill_multipliers["IceLanceCost"])
+		"RavenForm":
+			$SecondarySkill/Agnette/RavenForm.visible = true
+			$SecondarySkill/Agnette/RavenForm/CostLabel.text = str(Global.agnette_skill_multipliers["RavenFormCost"])
 	match tertiary:
 		"Fireball":
 			$TertiarySkill/Player/Fireball.visible = true
@@ -169,6 +175,8 @@ func on_skill_used(skill_name : String):
 			winterqueen_ui.value = winterqueen_ui.min_value
 		"BearForm":
 			bearform_ui.value = bearform_ui.min_value
+		"RavenForm":
+			ravenform_ui.value = ravenform_ui.min_value
 		"SpikeGrowth":
 			spikegrowth_ui.value = spikegrowth_ui.min_value
 
@@ -389,6 +397,31 @@ func _process(delta):
 					bearform_ui.self_modulate.a = 0.4
 				$PrimarySkill/Agnette/BearForm/Label.text = ""
 		##################
+		## RAVEN_FORM ####
+		##################
+		if ravenform_ui.value < ravenform_ui.max_value:
+			$SecondarySkill/Agnette/RavenForm/Label.text = str(stepify((ravenform_ui.max_value - ravenform_ui.value) / multiplier, 0.001))
+			ravenform_ui.self_modulate.a = 0.4
+		elif ravenform_ui.value >= ravenform_ui.max_value:
+			if Global.equipped_characters[0] == "Agnette":
+				if Global.mana >= Global.agnette_skill_multipliers["RavenFormCost"]:
+					ravenform_ui.self_modulate.a = 1.0
+				else:
+					ravenform_ui.self_modulate.a = 0.4
+				$SecondarySkill/Agnette/RavenForm/Label.text = ""
+			elif Global.equipped_characters[1] == "Agnette":
+				if Global.character2_mana >= Global.agnette_skill_multipliers["RavenFormCost"]:
+					ravenform_ui.self_modulate.a = 1.0
+				else:
+					ravenform_ui.self_modulate.a = 0.4
+				$SecondarySkill/Agnette/RavenForm/Label.text = ""
+			elif Global.equipped_characters[2] == "Agnette":
+				if Global.character3_mana >= Global.agnette_skill_multipliers["RavenFormCost"]:
+					ravenform_ui.self_modulate.a = 1.0
+				else:
+					ravenform_ui.self_modulate.a = 0.4
+				$SecondarySkill/Agnette/RavenForm/Label.text = ""
+		##################
 		## SPIKE GROWTH ##
 		##################
 		
@@ -465,6 +498,7 @@ func _on_CooldownTickTimer_timeout():
 	if Global.equipped_characters.has("Agnette"):
 		bearform_ui.value += 1
 		spikegrowth_ui.value += 1
+		ravenform_ui.value += 1
 #func reduce_endurance(amount : int):
 #	$EnduranceMeter/TextureProgress.value -= amount
 
