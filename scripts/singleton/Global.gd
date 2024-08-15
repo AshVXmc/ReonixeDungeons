@@ -173,6 +173,8 @@ var player_talents : Dictionary = {
 		"amount": 4,
 		"talentslotcost": 4
 	},
+	
+	
 	"BadBlood":{
 		# dropping to critical health grants temporary attack boost and speed boost
 		# cooldown
@@ -199,13 +201,15 @@ var glaciela_talents : Dictionary = {
 		"unlocked" : false,
 		"enabled" : false,
 		"opalscost": 100,
-		"talentslotcost": 2
+		"talentslotcost": 1
 	},
-	"FrigidHailstorm": {
+	# a stack of tundra sigil is consumed every time u take damage to reduce it
+	"WardOfBoreas": {
 		"unlocked" : false,
 		"enabled" : false,
 		"opalscost": 100,
-		"talentslotcost": 2
+		"talentslotcost": 2,
+		"damagemitigation": 35.0
 	}
 }
 
@@ -250,7 +254,7 @@ var glaciela_skill_multipliers : Dictionary = {
 	"SpecialAttack2_1": 16.0,
 	"SpecialAttack2_2": 22.0,
 	"SpecialAttack2_3": 40.0,
-	"TundraStarsDMGBonus": 12.0,
+	"IceLanceDamageBonusPerTundraSigil": 85,
 	"TundraSigilFreezeStackBonus": 30,
 	"TundraSigilManaBonus": 0.75,
 	"TundraStarsIceDamageBonus": 48,
@@ -263,7 +267,7 @@ var glaciela_skill_multipliers : Dictionary = {
 	"IceLanceCost": 2,
 	"WinterQueenCD": 30.0,
 	"IceLanceCD": 10.0,
-	"IceLanceDamageBonusPerTundraSigil": 50,
+	
 	
 	# for some reason it won't register any values below 100.
 	# so this is a fix. if it works, it works
@@ -325,15 +329,15 @@ var agnette_talents : Dictionary = {
 		"unlocked" : false,
 		"enabled": false,
 		"opalscost": 100,
-		"talentslotcost": 2,
-		"damagereduction": 25.0
+		"talentslotcost": 1,
+		"damagereduction": 20.0
 	},
 	"VolleyShot" : {
 		"unlocked" : false,
 		"enabled": false,
 		"opalscost": 100,
 		"talentslotcost": 3,
-		"cooldown": 12.0,
+		"cooldown": 10.0,
 		"arrowdamagepercentage": 40.0
 	}
 }

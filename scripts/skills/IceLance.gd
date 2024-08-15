@@ -2,15 +2,15 @@ class_name IceLance extends Area2D
 
 onready var player = get_parent().get_node("Player")
 
-var SPEED = 550
-const steer_force = 750
+var SPEED = 750
+const steer_force = 880
 var attack : int = 5
 var target = null
 var velocity = Vector2.ZERO
 var acceleration = Vector2.ZERO
 var direction : int = 1
 onready var atkbonus
-var tundra_sigil_atkbonus : int= 1
+var tundra_sigil_atkbonus : int = 1
 
 signal restore_tundra_stacks(amount)
 var ATTACK = Global.glaciela_attack

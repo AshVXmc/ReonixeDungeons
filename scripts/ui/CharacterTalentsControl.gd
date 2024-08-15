@@ -4,11 +4,11 @@ var player_talents_list : Array = ["CycloneSlashes", "SwiftThrust", "BurningBrea
 onready var player_talent_slots_label = $NinePatchRect/TalentTreeControl/PlayerControl/TalentSlotsCountLabel
 onready var player_talent_desc_text = $NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/RichTextLabel
 
-var glaciela_talents_list : Array = ["DanceOfRime"]
+var glaciela_talents_list : Array = ["DanceOfRime", "WardOfBoreas"]
 onready var glaciela_talent_slots_label = $NinePatchRect/TalentTreeControl/GlacielaControl/TalentSlotsCountLabel
 onready var glaciela_talent_desc_text = $NinePatchRect/TalentTreeControl/GlacielaControl/ScrollContainer/VBoxContainer/RichTextLabel
 
-var agnette_talents_list : Array = ["Stoneskin"]
+var agnette_talents_list : Array = ["Stoneskin", "VolleyShot"]
 onready var agnette_talent_slots_label = $NinePatchRect/TalentTreeControl/AgnetteControl/TalentSlotsCountLabel
 onready var agnette_talent_desc_text = $NinePatchRect/TalentTreeControl/AgnetteControl/ScrollContainer/VBoxContainer/RichTextLabel
 
@@ -38,11 +38,17 @@ func update_player_description_text():
 	
 
 func update_glaciela_description_text():
-	pass
+	glaciela_talent_desc_text.bbcode_text = glaciela_talent_desc_text.bbcode_text.replacen(
+		"WOB_MIT", str(Global.glaciela_talents["WardOfBoreas"]["damagemitigation"]))
+	
 	
 func update_agnette_description_text():
 	agnette_talent_desc_text.bbcode_text = agnette_talent_desc_text.bbcode_text.replacen(
 		"SS_MIT", str(Global.agnette_talents["Stoneskin"]["damagereduction"]))
+	agnette_talent_desc_text.bbcode_text = agnette_talent_desc_text.bbcode_text.replacen(
+		"VS_CD", str(Global.agnette_talents["VolleyShot"]["cooldown"]))
+	agnette_talent_desc_text.bbcode_text = agnette_talent_desc_text.bbcode_text.replacen(
+		"VS_PEN", str(Global.agnette_talents["VolleyShot"]["arrowdamagepercentage"]))
 	
 
 
@@ -56,9 +62,18 @@ func initialize_ui():
 	for i in player_talents_list:
 		get_node("NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl" + str(counter) + "/PlayerTalentButton/PlayerCheckButton").visible = false
 		counter += 1
-	$NinePatchRect/TalentTreeControl/GlacielaControl/ScrollContainer/VBoxContainer/TalentControl1/GlacielaTalentButton/GlacielaCheckButton.visible = false
+
+	var counter2 : int = 1
+	for i in glaciela_talents_list:
+		
+		get_node("NinePatchRect/TalentTreeControl/GlacielaControl/ScrollContainer/VBoxContainer/TalentControl" + str(counter2) + "/GlacielaTalentButton/GlacielaCheckButton").visible = false
+		counter2 += 1
 	
-	$NinePatchRect/TalentTreeControl/AgnetteControl/ScrollContainer/VBoxContainer/TalentControl1/AgnetteTalentButton/AgnetteCheckButton.visible = false
+	var counter3 : int = 1
+	for i in agnette_talents_list:
+		get_node("NinePatchRect/TalentTreeControl/AgnetteControl/ScrollContainer/VBoxContainer/TalentControl" + str(counter3) + "/AgnetteTalentButton/AgnetteCheckButton").visible = false
+		counter3 += 1
+	
 	update_player_talent_tree_ui()
 	update_glaciela_talent_tree_ui()
 	update_agnette_talent_tree_ui()
@@ -229,19 +244,26 @@ func _on_PlayerCheckButton7_toggled(button_pressed):
 func _on_GlacielaTalentButton1_pressed():
 	if !Global.glaciela_talents["DanceOfRime"]["unlocked"]:
 		buy_glaciela_talent("DanceOfRime", 1)
-
+func _on_GlacielaTalentButton2_pressed():
+	if !Global.glaciela_talents["WardOfBoreas"]["unlocked"]:
+		buy_glaciela_talent("WardOfBoreas", 2)
+	
 func _on_GlacielaCheckButton1_toggled(button_pressed):
 	toggle_glaciela_talent("DanceOfRime", button_pressed, 1)
-
-
+func _on_GlacielaCheckButton2_toggled(button_pressed):
+	toggle_glaciela_talent("WardOfBoreas", button_pressed, 2)
 
 func _on_AgnetteTalentButton1_pressed():
 	if !Global.agnette_talents["Stoneskin"]["unlocked"]:
 		buy_agnette_talent("Stoneskin", 1)
+func _on_AgnetteTalentButton2_pressed():
+	if !Global.agnette_talents["VolleyShot"]["unlocked"]:
+		buy_agnette_talent("VolleyShot", 2)
 
 func _on_AgnetteCheckButton_toggled(button_pressed):
 	toggle_agnette_talent("Stoneskin", button_pressed, 1)
-
+func _on_AgnetteCheckButton2_toggled(button_pressed):
+	toggle_agnette_talent("VolleyShot", button_pressed, 2)
 
 func _on_CloseButtonMainUI_pressed():
 	if $NinePatchRect/TalentTreeControl/PlayerControl.visible:
@@ -269,6 +291,15 @@ func _on_CloseButtonMainUI_pressed():
 			yield(get_tree().create_timer(2), "timeout")
 			$NinePatchRect/TalentTreeControl/AgnetteControl/TalentSlotsWarningLabel.visible = false
 	
+
+
+
+
+
+
+
+
+
 
 
 

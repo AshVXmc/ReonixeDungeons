@@ -83,6 +83,7 @@ font_data = ExtResource( 12 )
 pause_mode = 2
 
 [node name="CharactersUI" type="Control" parent="."]
+visible = false
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -380,6 +381,7 @@ text = "Talents"
 align = 1
 
 [node name="CharacterSkillsControl" type="Control" parent="."]
+visible = false
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -1034,13 +1036,13 @@ custom_fonts/normal_font = SubResource( 2 )
 bbcode_enabled = true
 bbcode_text = "[color=#ffd703]Ice Lance[/color]
 Hurl a double-bladed frost lance in your facing direction, dealing [u]ICELANCE_ATK% ATK[/u] as [color=#7df0ff]Ice[/color] damage to enemies. After it reaches maximum range, it homes back to you to deal further [color=#7df0ff]Ice[/color] damage. Each hit fills up ICELANCE_FREEZE_GAUGE% of the enemy's [color=#7df0ff]Freeze[/color] gauge.
-Consumes all stacks of [color=#c4fdff]Tundra Sigil[/color]. Each stack consumed grants a ICELANCE_DMG_BONUS% damage bonus to the attack.
+Consumes all stacks of [color=#c4fdff]Tundra Stars[/color], granting a ICELANCE_DMG_BONUS% damage bonus per stack.
 
 Cooldown: ICELANCE_CD seconds
 Mana cost: ICELANCE_COST mana"
 text = "Ice Lance
 Hurl a double-bladed frost lance in your facing direction, dealing ICELANCE_ATK% ATK as Ice damage to enemies. After it reaches maximum range, it homes back to you to deal further Ice damage. Each hit fills up ICELANCE_FREEZE_GAUGE% of the enemy's Freeze gauge.
-Consumes all stacks of Tundra Sigil. Each stack consumed grants a ICELANCE_DMG_BONUS% damage bonus to the attack.
+Consumes all stacks of Tundra Stars, granting a ICELANCE_DMG_BONUS% damage bonus per stack.
 
 Cooldown: ICELANCE_CD seconds
 Mana cost: ICELANCE_COST mana"
@@ -1772,7 +1774,6 @@ texture_normal = ExtResource( 9 )
 expand = true
 
 [node name="CharacterTalentsControl" type="Control" parent="."]
-visible = false
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -2429,7 +2430,6 @@ align = 1
 autowrap = true
 
 [node name="GlacielaControl" type="Control" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl"]
-visible = false
 margin_right = 40.0
 margin_bottom = 40.0
 
@@ -2449,7 +2449,7 @@ rect_min_size = Vector2( 566, 355 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/GlacielaControl/ScrollContainer"]
 margin_right = 510.0
-margin_bottom = 1104.0
+margin_bottom = 1108.0
 rect_min_size = Vector2( 510, 1100 )
 
 [node name="RichTextLabel" type="RichTextLabel" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/GlacielaControl/ScrollContainer/VBoxContainer"]
@@ -2461,27 +2461,25 @@ bbcode_enabled = true
 bbcode_text = "[color=#ffd703]Dance of Rime[/color]
 Doing the following attack sequence ([color=#ffd703]ATK[/color], [color=#ffd703]ATK[/color], [color=#ffd703]ATK[/color], pause until a [color=yellow]yellow star[/color] appears and press [color=#ffd703]ATK[/color]) unleashes a spear dance that deals multiple instances of [color=#7df0ff]Ice[/color] DMG and knocks enemies back.
 
+[color=#ffd703]Ward of Boreas[/color]
+When you take damage, a stack of Tundra Star is consumed to reduce the  damage by WOB_MIT%.
+
 [color=#ffd703]Frigid Hailstorm[/color]
 Attacing Frozen enemies with a Charged or Special attack shatters the freezing ice, dealing AoE [color=#7df0ff]Ice[/color] DMG.
 
-text
-text
-text
-text
-text
+
 
 "
 text = "Dance of Rime
 Doing the following attack sequence (ATK, ATK, ATK, pause until a yellow star appears and press ATK) unleashes a spear dance that deals multiple instances of Ice DMG and knocks enemies back.
 
+Ward of Boreas
+When you take damage, a stack of Tundra Star is consumed to reduce the  damage by WOB_MIT%.
+
 Frigid Hailstorm
 Attacing Frozen enemies with a Charged or Special attack shatters the freezing ice, dealing AoE Ice DMG.
 
-text
-text
-text
-text
-text
+
 
 "
 scroll_active = false
@@ -2537,6 +2535,67 @@ text = "Slot cost: X"
 align = 1
 
 [node name="GlacielaCheckButton" type="CheckButton" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/GlacielaControl/ScrollContainer/VBoxContainer/TalentControl1/GlacielaTalentButton"]
+visible = false
+margin_left = -5.33334
+margin_top = 7.59999
+margin_right = 116.667
+margin_bottom = 47.6
+rect_scale = Vector2( 0.2, 0.2 )
+custom_fonts/font = SubResource( 4 )
+text = "Enable"
+align = 1
+
+[node name="TalentControl2" type="Control" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/GlacielaControl/ScrollContainer/VBoxContainer"]
+margin_top = 1108.0
+margin_right = 510.0
+margin_bottom = 1108.0
+
+[node name="GlacielaTalentButton" type="TextureButton" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/GlacielaControl/ScrollContainer/VBoxContainer/TalentControl2"]
+anchor_left = 0.215
+anchor_right = 0.215
+margin_left = 426.35
+margin_top = -846.0
+margin_right = 458.35
+margin_bottom = -829.0
+rect_min_size = Vector2( 32, 16 )
+rect_scale = Vector2( 7.5, 7.5 )
+texture_normal = ExtResource( 5 )
+texture_pressed = ExtResource( 4 )
+
+[node name="ButtonLabel" type="Label" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/GlacielaControl/ScrollContainer/VBoxContainer/TalentControl2/GlacielaTalentButton"]
+margin_left = 2.0
+margin_top = 2.0
+margin_right = 47.0
+margin_bottom = 19.0
+rect_scale = Vector2( 0.3, 0.3 )
+custom_fonts/font = SubResource( 3 )
+text = "Unlock"
+
+[node name="OpalsCostLabel" type="Label" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/GlacielaControl/ScrollContainer/VBoxContainer/TalentControl2/GlacielaTalentButton"]
+margin_left = 5.66672
+margin_top = 8.66666
+margin_right = 26.6667
+margin_bottom = 25.6667
+rect_scale = Vector2( 0.3, 0.3 )
+custom_fonts/font = SubResource( 8 )
+text = "XXX"
+align = 2
+
+[node name="Sprite" type="Sprite" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/GlacielaControl/ScrollContainer/VBoxContainer/TalentControl2/GlacielaTalentButton/OpalsCostLabel"]
+position = Vector2( -6.22238, 7.11111 )
+texture = ExtResource( 8 )
+
+[node name="SlotsCostLabel" type="Label" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/GlacielaControl/ScrollContainer/VBoxContainer/TalentControl2/GlacielaTalentButton"]
+margin_left = -3.73331
+margin_top = 14.5334
+margin_right = 71.2667
+margin_bottom = 31.5334
+rect_scale = Vector2( 0.3, 0.3 )
+custom_fonts/font = SubResource( 8 )
+text = "Slot cost: X"
+align = 1
+
+[node name="GlacielaCheckButton" type="CheckButton" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/GlacielaControl/ScrollContainer/VBoxContainer/TalentControl2/GlacielaTalentButton"]
 visible = false
 margin_left = -5.33334
 margin_top = 7.59999
@@ -2606,6 +2665,7 @@ align = 1
 autowrap = true
 
 [node name="AgnetteControl" type="Control" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl"]
+visible = false
 margin_right = 40.0
 margin_bottom = 40.0
 
@@ -2625,7 +2685,7 @@ rect_min_size = Vector2( 566, 355 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/AgnetteControl/ScrollContainer"]
 margin_right = 510.0
-margin_bottom = 1104.0
+margin_bottom = 1108.0
 rect_min_size = Vector2( 510, 1100 )
 
 [node name="RichTextLabel" type="RichTextLabel" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/AgnetteControl/ScrollContainer/VBoxContainer"]
@@ -2701,6 +2761,67 @@ text = "Slot cost: X"
 align = 1
 
 [node name="AgnetteCheckButton" type="CheckButton" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/AgnetteControl/ScrollContainer/VBoxContainer/TalentControl1/AgnetteTalentButton"]
+visible = false
+margin_left = -5.33334
+margin_top = 7.59999
+margin_right = 116.667
+margin_bottom = 47.6
+rect_scale = Vector2( 0.2, 0.2 )
+custom_fonts/font = SubResource( 4 )
+text = "Enable"
+align = 1
+
+[node name="TalentControl2" type="Control" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/AgnetteControl/ScrollContainer/VBoxContainer"]
+margin_top = 1108.0
+margin_right = 510.0
+margin_bottom = 1108.0
+
+[node name="AgnetteTalentButton" type="TextureButton" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/AgnetteControl/ScrollContainer/VBoxContainer/TalentControl2"]
+anchor_left = 0.215
+anchor_right = 0.215
+margin_left = 426.35
+margin_top = -944.0
+margin_right = 458.35
+margin_bottom = -927.0
+rect_min_size = Vector2( 32, 16 )
+rect_scale = Vector2( 7.5, 7.5 )
+texture_normal = ExtResource( 5 )
+texture_pressed = ExtResource( 4 )
+
+[node name="ButtonLabel" type="Label" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/AgnetteControl/ScrollContainer/VBoxContainer/TalentControl2/AgnetteTalentButton"]
+margin_left = 2.0
+margin_top = 2.0
+margin_right = 47.0
+margin_bottom = 19.0
+rect_scale = Vector2( 0.3, 0.3 )
+custom_fonts/font = SubResource( 3 )
+text = "Unlock"
+
+[node name="OpalsCostLabel" type="Label" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/AgnetteControl/ScrollContainer/VBoxContainer/TalentControl2/AgnetteTalentButton"]
+margin_left = 5.66672
+margin_top = 8.66666
+margin_right = 26.6667
+margin_bottom = 25.6667
+rect_scale = Vector2( 0.3, 0.3 )
+custom_fonts/font = SubResource( 8 )
+text = "XXX"
+align = 2
+
+[node name="Sprite" type="Sprite" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/AgnetteControl/ScrollContainer/VBoxContainer/TalentControl2/AgnetteTalentButton/OpalsCostLabel"]
+position = Vector2( -6.22238, 7.11111 )
+texture = ExtResource( 8 )
+
+[node name="SlotsCostLabel" type="Label" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/AgnetteControl/ScrollContainer/VBoxContainer/TalentControl2/AgnetteTalentButton"]
+margin_left = -3.73331
+margin_top = 14.4001
+margin_right = 71.2667
+margin_bottom = 31.4001
+rect_scale = Vector2( 0.3, 0.3 )
+custom_fonts/font = SubResource( 8 )
+text = "Slot cost: X"
+align = 1
+
+[node name="AgnetteCheckButton" type="CheckButton" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/AgnetteControl/ScrollContainer/VBoxContainer/TalentControl2/AgnetteTalentButton"]
 visible = false
 margin_left = -5.33334
 margin_top = 7.59999
@@ -2812,6 +2933,10 @@ expand = true
 [connection signal="toggled" from="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl7/PlayerTalentButton/PlayerCheckButton" to="CharacterTalentsControl" method="_on_PlayerCheckButton7_toggled"]
 [connection signal="pressed" from="CharacterTalentsControl/NinePatchRect/TalentTreeControl/GlacielaControl/ScrollContainer/VBoxContainer/TalentControl1/GlacielaTalentButton" to="CharacterTalentsControl" method="_on_GlacielaTalentButton1_pressed"]
 [connection signal="toggled" from="CharacterTalentsControl/NinePatchRect/TalentTreeControl/GlacielaControl/ScrollContainer/VBoxContainer/TalentControl1/GlacielaTalentButton/GlacielaCheckButton" to="CharacterTalentsControl" method="_on_GlacielaCheckButton1_toggled"]
+[connection signal="pressed" from="CharacterTalentsControl/NinePatchRect/TalentTreeControl/GlacielaControl/ScrollContainer/VBoxContainer/TalentControl2/GlacielaTalentButton" to="CharacterTalentsControl" method="_on_GlacielaTalentButton2_pressed"]
+[connection signal="toggled" from="CharacterTalentsControl/NinePatchRect/TalentTreeControl/GlacielaControl/ScrollContainer/VBoxContainer/TalentControl2/GlacielaTalentButton/GlacielaCheckButton" to="CharacterTalentsControl" method="_on_GlacielaCheckButton2_toggled"]
 [connection signal="pressed" from="CharacterTalentsControl/NinePatchRect/TalentTreeControl/AgnetteControl/ScrollContainer/VBoxContainer/TalentControl1/AgnetteTalentButton" to="CharacterTalentsControl" method="_on_AgnetteTalentButton1_pressed"]
 [connection signal="toggled" from="CharacterTalentsControl/NinePatchRect/TalentTreeControl/AgnetteControl/ScrollContainer/VBoxContainer/TalentControl1/AgnetteTalentButton/AgnetteCheckButton" to="CharacterTalentsControl" method="_on_AgnetteCheckButton_toggled"]
+[connection signal="pressed" from="CharacterTalentsControl/NinePatchRect/TalentTreeControl/AgnetteControl/ScrollContainer/VBoxContainer/TalentControl2/AgnetteTalentButton" to="CharacterTalentsControl" method="_on_AgnetteTalentButton2_pressed"]
+[connection signal="toggled" from="CharacterTalentsControl/NinePatchRect/TalentTreeControl/AgnetteControl/ScrollContainer/VBoxContainer/TalentControl2/AgnetteTalentButton/AgnetteCheckButton" to="CharacterTalentsControl" method="_on_AgnetteCheckButton2_toggled"]
 [connection signal="pressed" from="CharacterTalentsControl/CloseButtonMainUI" to="CharacterTalentsControl" method="_on_CloseButtonMainUI_pressed"]

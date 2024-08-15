@@ -468,7 +468,6 @@ one_shot = true
 [node name="FrozenStatus" parent="." instance=ExtResource( 14 )]
 
 [node name="GroundedStatus" parent="." instance=ExtResource( 15 )]
-is_grounded = false
 damage_shred = 50.0
 
 [connection signal="tree_exiting" from="." to="." method="_on_Goblin_tree_exiting"]

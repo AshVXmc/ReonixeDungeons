@@ -342,6 +342,7 @@ scroll_active = false
 
 [node name="MovesetList" type="Control" parent="."]
 pause_mode = 2
+visible = false
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -480,7 +481,7 @@ bbcode_enabled = true
 bbcode_text = "[center][color=#7df0ff]Glaciela's moveset[/color][/center]
 [color=#ffd703]Basic Attack Combo[/color]
 [ATK], [ATK], [ATK], [ATK]
-Upon finishing the 4th sequence, gain a single stack of [color=#c4fdff]Tundra Sigil[/color], up to TUNDRA_SIGIL_MAX_STACKS stacks.
+Upon finishing the 4th sequence, gain a stack of [color=#c4fdff]Tundra Star[/color], up to TUNDRA_SIGIL_MAX_STACKS stacks.
 
 [color=#ffd703]Aerial Basic Attack Combo[/color]
 (While airborne) [ATK], [ATK], [ATK], [ATK] 
@@ -498,7 +499,7 @@ Consumes all stacks of [color=#c4fdff]Tundra Sigil[/color]. Each stack consumed 
 text = "Glaciela's moveset
 Basic Attack Combo
 [ATK], [ATK], [ATK], [ATK]
-Upon finishing the 4th sequence, gain a single stack of Tundra Sigil, up to TUNDRA_SIGIL_MAX_STACKS stacks.
+Upon finishing the 4th sequence, gain a stack of Tundra Star, up to TUNDRA_SIGIL_MAX_STACKS stacks.
 
 Aerial Basic Attack Combo
 (While airborne) [ATK], [ATK], [ATK], [ATK] 
