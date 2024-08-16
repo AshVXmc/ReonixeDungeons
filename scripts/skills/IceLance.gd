@@ -1,6 +1,7 @@
 class_name IceLance extends Area2D
 
-onready var player = get_parent().get_node("Player")
+signal add_mana_to_glaciela(amount)
+onready var mana_granted : float = 0.125
 
 var SPEED = 750
 const steer_force = 880
@@ -12,7 +13,6 @@ var direction : int = 1
 onready var atkbonus
 var tundra_sigil_atkbonus : int = 1
 
-signal restore_tundra_stacks(amount)
 var ATTACK = Global.glaciela_attack
 
 
@@ -25,8 +25,8 @@ func _ready():
 	add_to_group(str(tundra_sigil_atkbonus * ATTACK * (Global.glaciela_skill_multipliers["IceLance"] / 100)))
 	$FreezeGaugeArea.add_to_group(str(Global.glaciela_skill_multipliers["IceLanceFreezeGauge"]))
 #	add_to_group("IceGaugeTwo")
-	if Global.equipped_characters.has("Glaciela"):
-		connect("restore_tundra_stacks", get_parent().get_node("Player/Glaciela"), "restore_tundra_stacks")
+	connect("add_mana_to_glaciela", get_parent().get_node("Player/CharacterManager/Glaciela"), "change_mana_value")
+		
 func _physics_process(delta):
 	if !$TargetPlayerTimer.is_stopped():
 		if direction == 1:
@@ -42,7 +42,10 @@ func _physics_process(delta):
 			velocity += acceleration * delta
 			velocity = velocity.clamped(SPEED)
 			position += velocity * delta
-		
+	
+	if Global.current_character == "Glaciela" and !$TargetPlayerTimer.is_stopped():
+		if Input.is_action_just_pressed("secondary_skill"):
+			$TargetPlayerTimer.stop()
 func seek_player():
 	var steer = Vector2.ZERO
 	if target:
@@ -55,14 +58,14 @@ func seek_player():
 
 func _on_PlayerDetector_area_entered(area):
 	if area.is_in_group("Player") and $TargetPlayerTimer.is_stopped():
-		queue_free()
+		call_deferred('free')
 
 
 func _on_DestroyedTimer_timeout():
-	queue_free()
+	call_deferred('free')
 
 
-func _on_IceLance_area_entered(area):
-	pass
-#	if area.is_in_group("Enemy"):
-#		emit_signal("restore_tundra_stacks", 12)
+func _on_IceLance_body_entered(body):
+	if body.is_in_group("EnemyEntity"):
+		emit_signal("add_mana_to_glaciela", mana_granted * tundra_sigil_atkbonus)
+		print("mana granted")

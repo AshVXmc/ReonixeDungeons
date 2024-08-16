@@ -310,7 +310,6 @@ func _on_Area2D_area_entered(area):
 					HP -= float(damage)
 					$HealthBar.value  -= float(damage)
 					if area.is_in_group("IsCritHit"):
-		
 						add_damage_particles("Earth", float(damage), true)
 					else:
 						add_damage_particles("Earth", float(damage), false)

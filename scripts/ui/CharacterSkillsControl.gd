@@ -169,6 +169,12 @@ func update_agnette_description_text():
 		"UI_UP", "[color=#ffd073]" + InputMap.get_action_list("ui_up")[0].as_text() + "[/color]")
 	agnette_sskill_text.bbcode_text = agnette_sskill_text.bbcode_text.replace(
 		"UI_DOWN", "[color=#ffd073]" + InputMap.get_action_list("ui_down")[0].as_text() + "[/color]")
+	agnette_sskill_text.bbcode_text = agnette_sskill_text.bbcode_text.replace(
+		"UI_JUMP", "[color=#ffd073]" + InputMap.get_action_list("jump")[0].as_text() + "[/color]")
+	agnette_sskill_text.bbcode_text = agnette_sskill_text.bbcode_text.replace(
+		"RF_PECK", str(Global.agnette_skill_multipliers["RavenFormPeckAttack"]))
+	agnette_sskill_text.bbcode_text = agnette_sskill_text.bbcode_text.replace(
+		"RF_ROCK", str(Global.agnette_skill_multipliers["RavenFormBombardmentAttack"]))
 	
 	
 # access the update_perk_skill function in player

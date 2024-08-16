@@ -7,6 +7,7 @@ const TEMPUS_TARGUS : PackedScene = preload("res://scenes/misc/TempusTardus.tscn
 const HEAL_PARTICLE : PackedScene = preload("res://scenes/particles/HealIndicatorParticle.tscn")
 const ARROW = preload("res://scenes/skills/AgnetteArrow.tscn")
 const SEEKING_ARROW = preload("res://scenes/skills/SeekingArrow.tscn")
+const RAVEN_PROJECTILE = preload("res://scenes/skills/RavenProjectile.tscn")
 signal skill_used(skill_name)
 signal mana_changed(amount, character)
 signal life_changed(amount, character)
@@ -24,7 +25,7 @@ var airborne_mode : bool = false
 var basicatkbuffmulti : float = 0
 var basicatkbuffdur : float = 0
 var is_performing_charged_attack : bool
-var attack_area_overlaps_enemy : bool 
+var attack_area_overlaps_enemy : bool
 # Attack buff for BASIC ATTACKS ONLY.
 var atkbuffmulti = 0
 var atkbuffdur = 0
@@ -34,10 +35,10 @@ var atkbuffskill = 0
 
 var buffed_from_attack_crystals = false
 var buffed_from_damage_bonus_crystals = false
-var prev_phys_dmg_bonus : Array 
-var prev_fire_dmg_bonus : Array 
-var prev_ice_dmg_bonus : Array 
-var prev_earth_dmg_bonus : Array 
+var prev_phys_dmg_bonus : Array
+var prev_fire_dmg_bonus : Array
+var prev_ice_dmg_bonus : Array
+var prev_earth_dmg_bonus : Array
 var number_of_phys_dmg_bonus_buffs : int
 var number_of_fire_dmg_bonus_buffs : int
 var number_of_ice_dmg_bonus_buffs : int
@@ -73,6 +74,7 @@ onready var sskill_ui : TextureProgress = get_parent().get_parent().get_parent()
 onready var tskill_ui : TextureProgress = get_parent().get_parent().get_parent().get_node("SkillsUI/Control/TertiarySkill/Agnette/SpikeGrowth/TextureProgress")
 
 var bear_is_attacking : bool = false
+var raven_is_attacking : bool = false
 var facing
 enum {
 	left, right
@@ -86,7 +88,7 @@ func set_attack_buff_value(new_value):
 	attack_buff = new_value
 	ATTACK = Global.attack_power + attack_buff
 func _ready():
-#	print(get_path())
+	print(get_path())
 	
 	if Global.equipped_characters.has("Player"):
 		connect("trigger_quickswap", get_parent().get_parent(), "quickswap_event")
@@ -122,11 +124,12 @@ func _physics_process(delta):
 	else:
 		$EnemyEvasionArea.set_scale(Vector2(-1,1))
 	
-	if is_charging and Global.current_character != "Agnette":
-		toggle_charged_attack_snare(false)
+	if $ChargedAttackBar.value > $ChargedAttackBar.min_value and Global.current_character != "Agnette":
 		is_charging = false
+		toggle_charged_attack_snare(false)
 		$ChargedAttackBarFillTimer.stop()
 		$ChargedAttackBar.value = $ChargedAttackBar.min_value
+	
 	if !bear_is_attacking:
 		pass
 #		attack_string_count = 4
@@ -138,7 +141,7 @@ func _physics_process(delta):
 		elif Input.is_action_pressed("right") and !Input.is_action_pressed("left") and !get_parent().get_parent().is_attacking and !get_parent().get_parent().is_knocked_back and !get_parent().get_parent().is_dashing:
 			facing = right
 		else:
-			facing = null 
+			facing = null
 		if facing == left:
 			Input.action_release("right")
 			$AnimatedSprite.flip_h = true
@@ -170,21 +173,30 @@ func _physics_process(delta):
 		if current_form == forms.BEAR:
 			
 			if !$AnimatedSprite.flip_h:
-				$BearFormNodes/AttackCollision/CollisionShape2D.position.x = 140
+				$BearFormNodes/AttackCollision.position.x = 140
 			else:
-				$BearFormNodes/AttackCollision/CollisionShape2D.position.x = -140
+				$BearFormNodes/AttackCollision.position.x = -140
 			
 			if !Input.is_action_pressed("ui_attack") and !$BearFormNodes/BearInputPressTimer.is_stopped():
 				$BearFormNodes/BearInputPressTimer.stop()
+		if current_form == forms.RAVEN:
+			if !$AnimatedSprite.flip_h:
+				$RavenFormNodes/AttackCollision.position.x = 95
+			else:
+				$RavenFormNodes/AttackCollision.position.x = -95
+			
+			if !Input.is_action_pressed("ui_attack") and !$RavenFormNodes/RavenInputPressTimer.is_stopped():
+				$RavenFormNodes/RavenInputPressTimer.stop()
+				
 		$WeakenParticles.visible = true if !$WeakenedTimer.is_stopped() else false
 		use_skill()
 #		print(is_charging)
 
 	if Global.current_character != "Agnette":
 		if current_form == forms.BEAR:
-			wild_shape(forms.ARCHER)
+			wild_shape(forms.ARCHER, forms.BEAR)
 		elif current_form == forms.RAVEN:
-			wild_shape(forms.ARCHER)
+			wild_shape(forms.ARCHER, forms.RAVEN)
 		if attack_string_count != 4:
 			attack_string_count = 4
 			$ResetAttackStringTimer.stop()
@@ -216,12 +228,10 @@ func _input(event):
 			
 			bear_attack()
 			$BearFormNodes/BearInputPressTimer.start()
-#			bear_slam_attack()
-		
-#		if current_form == forms.BEAR and event.is_action_pressed("ui_attack"):
-#			$AnimatedSprite.play("BearJump")
-			
-		
+		if current_form == forms.RAVEN and event.is_action_pressed("ui_attack") and $RavenFormNodes/RavenInputPressTimer.is_stopped() and !is_charging:
+			raven_attack()
+			$RavenFormNodes/RavenInputPressTimer.start()
+
 		if event.is_action_pressed("heal"):
 			if Global.healthpot_amount > 0:
 				heal("Agnette", 5)
@@ -246,9 +256,9 @@ func _input(event):
 
 func use_skill():
 	if Global.current_character == "Agnette" and !is_charging and !get_parent().get_parent().is_frozen:
-		if pskill_ui.value >= pskill_ui.max_value and Input.is_action_just_pressed("primary_skill") and current_form == forms.ARCHER: 
+		if pskill_ui.value >= pskill_ui.max_value and Input.is_action_just_pressed("primary_skill") and current_form != forms.BEAR:
 			use_primary_skill()
-		if sskill_ui.value >= sskill_ui.max_value and Input.is_action_just_pressed("secondary_skill") and current_form == forms.ARCHER:
+		if sskill_ui.value >= sskill_ui.max_value and Input.is_action_just_pressed("secondary_skill") and current_form != forms.RAVEN:
 			use_secondary_skill()
 		if Input.is_action_just_pressed("tertiary_skill"):
 			use_tertiary_skill()
@@ -330,6 +340,7 @@ func wild_shape(target_form : int, previous_form : int = -1):
 			$BearFormNodes/BearHealthBar.max_value = Global.character_health_data["Agnette"] * (Global.agnette_skill_multipliers["BearFormHealth"] / 100)
 			$BearFormNodes/BearHealthBar.value = $BearFormNodes/BearHealthBar.max_value
 			$BearFormNodes/BearHealthBar.visible = true
+			$RavenFormNodes/RavenHealthBar.visible = false
 			$BowSprite.visible = false
 			$AnimatedSprite.stop()
 			$AnimatedSprite.play("BearDefault")
@@ -346,7 +357,9 @@ func wild_shape(target_form : int, previous_form : int = -1):
 			$RavenFormNodes/RavenHealthBar.max_value = Global.character_health_data["Agnette"] * (Global.agnette_skill_multipliers["RavenFormHealth"] / 100)
 			$RavenFormNodes/RavenHealthBar.value = $RavenFormNodes/RavenHealthBar.max_value
 			$RavenFormNodes/RavenHealthBar.visible = true
-			
+			if previous_form == forms.BEAR:
+				toggle_bear_form_snare(false)
+				$BearFormNodes/BearHealthBar.visible = false
 			$BowSprite.visible = false
 			$AnimatedSprite.stop()
 			$AnimatedSprite.play("RavenDefault")
@@ -408,7 +421,7 @@ func set_attack_power(type : String ,amount : float, duration : float, from_crys
 	number_of_atk_buffs += 1
 	
 	var other_groups : Array
-	prev_attack_power.insert((number_of_atk_buffs - 1),attack_buff ) 
+	prev_attack_power.insert((number_of_atk_buffs - 1),attack_buff )
 	print(prev_attack_power)
 	if type == "Flat":
 		attack_buff = prev_attack_power[number_of_atk_buffs - 1] + amount
@@ -484,9 +497,9 @@ func spread_shot_arrow():
 func bear_attack():
 	if Global.current_character == "Agnette" and $BearFormNodes/BearAttackDelayTimer.is_stopped():
 		for groups in $BearFormNodes/AttackCollision.get_groups():
-				if float(groups) != 0:
-					$BearFormNodes/AttackCollision.remove_from_group(groups)
-					$BearFormNodes/AttackCollision.add_to_group(str((ATTACK * (Global.agnette_skill_multipliers["BearFormAttack1"] / 100) + basic_attack_buff)))
+			if float(groups) != 0:
+				$BearFormNodes/AttackCollision.remove_from_group(groups)
+				$BearFormNodes/AttackCollision.add_to_group(str((ATTACK * (Global.agnette_skill_multipliers["BearFormAttack1"] / 100) + basic_attack_buff)))
 		$BearFormNodes/AttackCollision/CollisionShape2D.disabled = false
 		bear_is_attacking = true
 		$AnimatedSprite.play("BearJump")
@@ -507,6 +520,31 @@ func bear_charged_attack():
 	if $AnimatedSprite.flip_h:
 		shockwave.direction = -1
 	shockwave.position = global_position
+
+func raven_attack():
+	if Global.current_character == "Agnette" and $RavenFormNodes/RavenAttackDelayTimer.is_stopped():
+		for groups in $RavenFormNodes/AttackCollision.get_groups():
+			if float(groups) != 0:
+				$RavenFormNodes/AttackCollision.remove_from_group(groups)
+				$RavenFormNodes/AttackCollision.add_to_group(str((ATTACK * (Global.agnette_skill_multipliers["RavenFormPeckAttack"] / 100) + basic_attack_buff)))
+		$RavenFormNodes/AttackCollision/CollisionShape2D.disabled = false
+		raven_is_attacking = true
+#		$AnimatedSprite.play("BearJump")
+		if !$AnimatedSprite.flip_h:
+			$RavenFormNodes/RavenAttackAnimationPlayer.play("RavenPeckAttackRight")
+		else:
+			$RavenFormNodes/RavenAttackAnimationPlayer.play("RavenPeckAttackLeft")
+		$RavenFormNodes/RavenAttackDelayTimer.start()
+		$RavenFormNodes/AttackTimer.start()
+		yield(get_tree().create_timer(0.5), "timeout")
+		raven_is_attacking = false
+
+func raven_charged_attack():
+	$RavenFormNodes/RavenInputPressTimer.stop()
+	var rp = RAVEN_PROJECTILE.instance()
+	get_parent().get_parent().get_parent().add_child(rp)
+	rp.position = global_position
+
 
 func is_a_critical_hit() -> bool:
 	var rng = RandomNumberGenerator.new()
@@ -535,34 +573,34 @@ func add_heal_particles(heal_amount : float):
 	heal_particle.position = global_position
 	
 func heal(character : String = "Agnette", heal_amount : float = 0, heal_to_max : bool = false, consumes_potion : bool = true):
-		if Global.equipped_characters[0] == character:
-			if !heal_to_max:
-				add_heal_particles(clamp(heal_amount, 0, Global.max_hearts - Global.hearts))
-				Global.hearts += clamp(heal_amount, 0, Global.max_hearts - Global.hearts)
-			else:
-				add_heal_particles(Global.max_hearts - Global.hearts)
-				Global.hearts = Global.max_hearts
-			emit_signal("life_changed", Global.hearts, character)
-		elif Global.equipped_characters[1] == character:
-			if !heal_to_max:
-				add_heal_particles(clamp(heal_amount, 0, Global.character_2_max_hearts - Global.character2_hearts))
-				Global.character2_hearts += clamp(heal_amount, 0, Global.character_2_max_hearts - Global.character2_hearts)
-			else:
-				add_heal_particles(Global.character_2_max_hearts - Global.character2_hearts)
-				Global.character2_hearts = Global.character_2_max_hearts
-			emit_signal("life_changed", Global.character2_hearts, character)
-		elif Global.equipped_characters[2] == character:
-			if !heal_to_max:
-				add_heal_particles(clamp(heal_amount, 0, Global.character_3_max_hearts - Global.character3_hearts))
-				Global.character3_hearts += clamp(heal_amount, 0, Global.character_3_max_hearts - Global.character3_hearts)
-			else:
-				add_heal_particles(Global.character_3_max_hearts - Global.character3_hearts)
-				Global.character3_hearts = Global.character_3_max_hearts 
-			emit_signal("life_changed", Global.character3_hearts, character)
+	if Global.equipped_characters[0] == character:
+		if !heal_to_max:
+			add_heal_particles(clamp(heal_amount, 0, Global.max_hearts - Global.hearts))
+			Global.hearts += clamp(heal_amount, 0, Global.max_hearts - Global.hearts)
+		else:
+			add_heal_particles(Global.max_hearts - Global.hearts)
+			Global.hearts = Global.max_hearts
+		emit_signal("life_changed", Global.hearts, character)
+	elif Global.equipped_characters[1] == character:
+		if !heal_to_max:
+			add_heal_particles(clamp(heal_amount, 0, Global.character_2_max_hearts - Global.character2_hearts))
+			Global.character2_hearts += clamp(heal_amount, 0, Global.character_2_max_hearts - Global.character2_hearts)
+		else:
+			add_heal_particles(Global.character_2_max_hearts - Global.character2_hearts)
+			Global.character2_hearts = Global.character_2_max_hearts
+		emit_signal("life_changed", Global.character2_hearts, character)
+	elif Global.equipped_characters[2] == character:
+		if !heal_to_max:
+			add_heal_particles(clamp(heal_amount, 0, Global.character_3_max_hearts - Global.character3_hearts))
+			Global.character3_hearts += clamp(heal_amount, 0, Global.character_3_max_hearts - Global.character3_hearts)
+		else:
+			add_heal_particles(Global.character_3_max_hearts - Global.character3_hearts)
+			Global.character3_hearts = Global.character_3_max_hearts
+		emit_signal("life_changed", Global.character3_hearts, character)
 		
-		if !heal_to_max and consumes_potion:
-			Global.healthpot_amount -= 1
-			emit_signal("healthpot_obtained", Global.healthpot_amount)
+	if !heal_to_max and consumes_potion:
+		Global.healthpot_amount -= 1
+		emit_signal("healthpot_obtained", Global.healthpot_amount)
 	
 
 
@@ -572,7 +610,7 @@ func heal(character : String = "Agnette", heal_amount : float = 0, heal_to_max :
 
 func get_closest_enemy():
 	var enemies = get_tree().get_nodes_in_group("Enemy")
-	if enemies.empty(): 
+	if enemies.empty():
 		return null
 	var distances = []
 	for enemy in enemies:
@@ -592,16 +630,16 @@ func get_closest_enemy():
 
 func set_basic_attack_power(amount : float, duration : float, show_particles : bool = true):
 	# DONT ASK THIS IS SO COMPLICATED ON GODDDD
-		buffed_from_attack_crystals = true
-		number_of_basic_atk_buffs += 1
-		prev_basic_attack_power.insert((number_of_basic_atk_buffs - 1), basic_attack_buff) 
-		basic_attack_buff = prev_basic_attack_power[number_of_basic_atk_buffs - 1] + amount
-		yield(get_tree().create_timer(duration), "timeout")
-		basic_attack_buff = prev_basic_attack_power[number_of_basic_atk_buffs - 1]
-		number_of_basic_atk_buffs -= 1
-		prev_basic_attack_power.remove(number_of_basic_atk_buffs)
+	buffed_from_attack_crystals = true
+	number_of_basic_atk_buffs += 1
+	prev_basic_attack_power.insert((number_of_basic_atk_buffs - 1), basic_attack_buff)
+	basic_attack_buff = prev_basic_attack_power[number_of_basic_atk_buffs - 1] + amount
+	yield(get_tree().create_timer(duration), "timeout")
+	basic_attack_buff = prev_basic_attack_power[number_of_basic_atk_buffs - 1]
+	number_of_basic_atk_buffs -= 1
+	prev_basic_attack_power.remove(number_of_basic_atk_buffs)
 
-		buffed_from_attack_crystals = false
+	buffed_from_attack_crystals = false
 
 
 func set_damage_bonus(amount : float, duration : float, show_particles : bool , type : String):
@@ -640,7 +678,7 @@ func set_damage_bonus(amount : float, duration : float, show_particles : bool , 
 			prev_earth_dmg_bonus.insert((number_of_earth_dmg_bonus_buffs - 1), earth_dmg_bonus)
 			earth_dmg_bonus =  prev_earth_dmg_bonus[number_of_earth_dmg_bonus_buffs- 1] + amount
 			yield(get_tree().create_timer(duration), "timeout")
-			earth_dmg_bonus =  prev_earth_dmg_bonus[number_of_earth_dmg_bonus_buffs- 1] 
+			earth_dmg_bonus =  prev_earth_dmg_bonus[number_of_earth_dmg_bonus_buffs- 1]
 			number_of_earth_dmg_bonus_buffs -= 1
 			prev_earth_dmg_bonus.remove(number_of_earth_dmg_bonus_buffs)
 			buffed_from_damage_bonus_crystals = false
@@ -725,7 +763,7 @@ func _on_Area2D_area_entered(area):
 #	if area.is_in_group("Enemy") and !get_parent().get_parent().is_invulnerable:
 #		$AnimationPlayer.play("Hurt")
 func after_damaged():
-	get_parent().get_parent().inv_timer.start() 
+	get_parent().get_parent().inv_timer.start()
 	get_parent().get_parent().is_invulnerable = true
 	$InvulnerabilityTimer.start()
 	
@@ -818,19 +856,19 @@ func take_damage(damage : float):
 					emit_signal("life_changed", Global.character3_hearts, "Agnette")
 		elif current_form == forms.BEAR:
 			
-			$BearFormNodes/BearHealthBar.value -= damage 
+			$BearFormNodes/BearHealthBar.value -= damage
 			add_hurt_particles(damage)
 			if $BearFormNodes/BearHealthBar.value <= $BearFormNodes/BearHealthBar.min_value:
 				$HurtAnimationPlayer.play("BeastDeath")
 #				yield(get_tree().create_timer(0.4), "timeout")
-				wild_shape(forms.ARCHER)
+				wild_shape(forms.ARCHER, forms.BEAR)
 		elif current_form == forms.RAVEN:
-			$RavenFormNodes/RavenHealthBar.value -= damage 
+			$RavenFormNodes/RavenHealthBar.value -= damage
 			add_hurt_particles(damage)
 			if $RavenFormNodes/RavenHealthBar.value <= $RavenFormNodes/RavenHealthBar.min_value:
 				$HurtAnimationPlayer.play("BeastDeath")
 #				yield(get_tree().create_timer(0.4), "timeout")
-				wild_shape(forms.ARCHER)
+				wild_shape(forms.ARCHER, forms.RAVEN)
 func _on_ResetAttackStringTimer_timeout():
 	attack_string_count = 4
 
@@ -947,7 +985,10 @@ func _on_BearInputPressTimer_timeout():
 	if Input.is_action_pressed("ui_attack") and current_form == forms.BEAR:
 		bear_charged_attack()
 
-
+func _on_RavenInputPressTimer_timeout():
+	if Input.is_action_pressed("ui_attack") and current_form == forms.RAVEN:
+		raven_charged_attack()
+		print("POOOPOPOPO")
 func _on_RavenAttackCollision_area_entered(area):
 	pass # Replace with function body.
 
@@ -960,3 +1001,6 @@ func _on_RavenFormDurationTimer_timeout():
 	if current_form == forms.RAVEN:
 		wild_shape(forms.ARCHER, forms.RAVEN)
 
+
+func _on_RavenAttackTimer_timeout():
+	$RavenFormNodes/AttackCollision/CollisionShape2D.disabled = true

@@ -264,9 +264,9 @@ var glaciela_skill_multipliers : Dictionary = {
 	"MaxTundraStars": 3,
 	"WinterQueen": 30.0,
 	"WinterQueenCost": 12,
-	"IceLanceCost": 2,
+	"IceLanceCost": 3,
 	"WinterQueenCD": 30.0,
-	"IceLanceCD": 10.0,
+	"IceLanceCD": 11.0,
 	
 	
 	# for some reason it won't register any values below 100.
@@ -304,22 +304,22 @@ var agnette_skill_multipliers = {
 	"ChargedAttackMovementSpeedPenalty": 80.0,
 	"RainOfArrows": 40.0,
 	
-	"BearFormCost": 8,
+	"BearFormCost": 0,
 	"BearFormCD": 30,
 	"BearFormDuration": 15,
 	# health taken from agnette's max HP.
 	"BearFormHealth": 110.0,
-	"BearFormMovementSpeedPenalty": 20.0,
+	"BearFormMovementSpeedPenalty": 26.0,
 	"BearFormAttack1": 140.0,
 	"BearFormShockwave": 20.0,
 	"BearFormShockwaveMaxHits": 5,
 	
 	"RavenFormCost": 0,
-	"RavenFormCD": 14.0,
-	"RavenFormDuration": 7.5,
-	"RavenFormHealth": 42.0,
-	"RavenFormPeckAttack": 35.0,
-	
+	"RavenFormCD": 16,
+	"RavenFormDuration": 8.5,
+	"RavenFormHealth": 65.0,
+	"RavenFormPeckAttack": 58.0,
+	"RavenFormBombardmentAttack": 64.0,
 	"SpikeGrowth": 15.0,
 	"SpikeGrowthCD": 10,
 	"SpikeGrowthCharges": 2,

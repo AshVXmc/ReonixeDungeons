@@ -124,6 +124,6 @@ shape = SubResource( 6 )
 rotation = -0.785398
 shape = SubResource( 6 )
 
-[connection signal="area_entered" from="." to="." method="_on_IceLance_area_entered"]
+[connection signal="body_entered" from="." to="." method="_on_IceLance_body_entered"]
 [connection signal="area_entered" from="PlayerDetector" to="." method="_on_PlayerDetector_area_entered"]
 [connection signal="timeout" from="DestroyedTimer" to="." method="_on_DestroyedTimer_timeout"]

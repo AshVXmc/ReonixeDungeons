@@ -132,8 +132,9 @@ func on_skill_used (
 				cone_of_cold.deactivate_cone_of_cold()
 				skills_ui.coneofcold_active = false
 		"BearForm":
-			get_parent().get_node("CharacterManager/Agnette").wild_shape(get_parent().get_node("CharacterManager/Agnette").forms.BEAR)
-			get_parent().get_node("CharacterManager/Agnette/BearFormDurationTimer").start()
+			var agnette = get_parent().get_node("CharacterManager/Agnette")
+			agnette.wild_shape(agnette.forms.BEAR, agnette.current_form)
+			agnette.get_node("BearFormDurationTimer").start()
 			if !Global.godmode:
 				if Global.equipped_characters[0] == "Agnette" and Global.mana >= Global.agnette_skill_multipliers["BearFormCost"]:
 					Global.mana -= Global.agnette_skill_multipliers["BearFormCost"]
@@ -145,8 +146,9 @@ func on_skill_used (
 					Global.character3_mana -= Global.agnette_skill_multipliers["BearFormCost"]
 					emit_signal("mana_changed", Global.character3_mana, "Agnette")
 		"RavenForm":
-			get_parent().get_node("CharacterManager/Agnette").wild_shape(get_parent().get_node("CharacterManager/Agnette").forms.RAVEN)
-			get_parent().get_node("CharacterManager/Agnette/RavenFormDurationTimer").start()
+			var agnette = get_parent().get_node("CharacterManager/Agnette")
+			agnette.wild_shape(agnette.forms.RAVEN, agnette.current_form)
+			agnette.get_node("RavenFormDurationTimer").start()
 			if !Global.godmode:
 				if Global.equipped_characters[0] == "Agnette" and Global.mana >= Global.agnette_skill_multipliers["RavenFormCost"]:
 					Global.mana -= Global.agnette_skill_multipliers["RavenFormCost"]

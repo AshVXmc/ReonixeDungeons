@@ -56,7 +56,7 @@ var dashdirection : Vector2 = Vector2(1,0)
 var repulsion : Vector2 = Vector2()
 var knockback_power : int = 800
 var can_be_knocked : bool = true
-const MAX_SPEED = 400
+const MAX_SPEED = 350
 var SPEED : int = MAX_SPEED
 const GRAVITY : int = 38
 var JUMP_POWER : int = -1150
@@ -469,7 +469,7 @@ func _physics_process(_delta):
 	#			if !is_dashing and !is_gliding:
 	#				velocity.y += GRAVITY
 				if can_fly:
-					if Input.is_action_pressed("ui_up"):
+					if Input.is_action_pressed("ui_up") or Input.is_action_pressed("jump"):
 						velocity.y = -VERTICAL_FLYING_SPEED
 					elif Input.is_action_pressed("ui_down"):
 						velocity.y = VERTICAL_FLYING_SPEED
