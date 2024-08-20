@@ -59,7 +59,7 @@ tracks/1/keys = {
 }
 
 [node name="Shuriken" type="Area2D"]
-position = Vector2( 77.912, 266.699 )
+position = Vector2( 123, 331 )
 scale = Vector2( 1.4, 1.4 )
 script = ExtResource( 2 )
 __meta__ = {

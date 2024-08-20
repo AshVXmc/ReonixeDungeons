@@ -1,6 +1,7 @@
 class_name HubLevel extends Node2D
 
 
+
 func _ready():
 	# Disabling this feature, but keeping it here if needed.
 #	if Global.is_loading_a_save:
@@ -9,10 +10,10 @@ func _ready():
 	$ColorRect.visible = true
 	$ParallaxBackground/Background1.visible = true
 	$GameOverUI/GameOver.visible = false
-	if Global.lighting:
-		$Light2D.visible = false
-	else:
-		$Light2D.visible = true
+#	if Global.lighting:
+#		$Light2D.visible = true
+#	else:
+#		$Light2D.visible = false
 	if Global.vsync:
 		OS.vsync_enabled = false
 	else:

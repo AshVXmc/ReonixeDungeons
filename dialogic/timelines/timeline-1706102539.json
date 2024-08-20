@@ -78,7 +78,7 @@
 			"text": "A controversial and hotly debated theory is that the origin of these blessings may be malicious, and that the Winged Cyclops isn't an all-benevolent deity that only serve humanity. Several sages think that the lunar phases are reflections of the deity's wills and powers."
 		},
 		{
-			"choice": "Read \"Chapter II: Familiars\"",
+			"choice": "Read \"Chapter III: Spells and Familiars\"",
 			"condition": "",
 			"definition": "",
 			"event_id": "dialogic_011",
@@ -88,13 +88,31 @@
 			"character": "character-1709710039.json",
 			"event_id": "dialogic_001",
 			"portrait": "",
-			"text": "Mages are seldom alone in their pursuit of magic, as most Mages opt to have a [color=ffd703]familiar[/color]. "
+			"text": "Spells are mentally taxing to prepare and cast. In order to tap into Mana and cast a spell, a Mage must visualize it in their mind while running complex incantations and rituals through their mind. "
+		},
+		{
+			"character": "character-1709710039.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "A spell's sophisticated ritual must also be memorized by the Mage in order for them to be able to cast it at will. Even so, they need time to recharge their mental state before they can cast it again."
+		},
+		{
+			"character": "character-1709710039.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "Some Mages carry a spellbook or grimoire to aid them in casting spells without the need to memorize them, but plenty of Mages also opt to have a [color=ffd703]familiar[/color]. "
 		},
 		{
 			"character": "character-1709710039.json",
 			"event_id": "dialogic_001",
 			"portrait": "",
 			"text": "A familiar can take many forms, but they most commonly manifest as a fey-like creature. They aid their masters by acting as a conduit for magic."
+		},
+		{
+			"character": "character-1709710039.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "Gaining the trust of a familiar is a varied process. Some met them in the wild and befriended them. Some summoned them via a ritual and struck a deal in exchange for their aid."
 		},
 		{
 			"event_id": "dialogic_013"

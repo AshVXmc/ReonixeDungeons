@@ -6,6 +6,9 @@ onready var player : KinematicBody2D = get_parent().get_parent().get_node("Playe
 # HOW TO MAKE THE UI STILL RESPONSIVE EVEN WHEN PAUSED
 # Go to the node's "Pause Mode" property, change to "Process"
 func _ready():
+	
+
+	
 	connect("playerpos", Global, "player_position")
 	if Global.lighting:
 		$Lighting.pressed = false
@@ -30,10 +33,12 @@ func _notification(what):
 			$Blur.visible = true
 			get_parent().get_node("OutOfFocus").visible = true
 			get_tree().paused = true
+	if what == MainLoop.NOTIFICATION_WM_QUIT_REQUEST:
+		quit_game()
 
 func _process(delta):
 	if Input.is_action_just_pressed("ui_cancel") and !get_parent().get_parent().get_node("Player").is_shopping:
-#		get_parent().layer = 2
+		get_parent().layer = 2
 		get_parent().get_parent().get_node("DebugMenu").get_node("Control").visible = false
 		get_tree().paused = true
 		visible = true
@@ -44,9 +49,14 @@ func _process(delta):
 	elif Input.is_action_just_pressed("ui_debug"):
 		get_tree().paused = false
 		visible = false
-		
+	
+#	if visible and Input.is_action_just_pressed("ui_cancel"):
+#		resume_game()
+
 func _on_ResumeButton_pressed():
-	print("resumed game")
+	resume_game()
+	
+func resume_game():
 	get_tree().paused = false
 	visible = false
 	get_parent().layer = 1
@@ -68,20 +78,24 @@ func _on_SaveButton_pressed():
 
 
 func _on_QuitButton_pressed():
+	quit_game()
+
+func quit_game():
+	get_parent().layer = 1
 	if get_tree().paused:
 		get_tree().paused = false
 		get_tree().change_scene("res://scenes/menus/MainMenu.tscn")
 
-
 func _on_Lighting_toggled(button_pressed : bool):
-	if get_parent().get_parent().get_node("Light2D").visible:
-		get_parent().get_parent().get_node("Light2D").visible = false
-		Global.lighting = false
-		button_pressed = false
-	else:
-		get_parent().get_parent().get_node("Light2D").visible = true
-		Global.lighting = true
-		button_pressed = true
+	pass
+#	if get_parent().get_parent().get_node("Light2D").visible:
+#		get_parent().get_parent().get_node("Light2D").visible = false
+#		Global.lighting = false
+#		button_pressed = false
+#	else:
+#		get_parent().get_parent().get_node("Light2D").visible = true
+#		Global.lighting = true
+#		button_pressed = true
 #	_on_SaveButton_pressed()
 
 

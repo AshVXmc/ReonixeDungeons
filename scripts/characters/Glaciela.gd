@@ -29,8 +29,8 @@ var atkbuffdur = 0
 # Attack buff for all abilities (Skills)
 var atkbuffskill = 0
 # Permanent dmg bonus. Stacks additively with ice_dmg_bonus. 12% DMG bonus per sigil
-var ice_dmg_bonus_from_tundra_sigil : float
-
+var ice_dmg_bonus_from_tundra_star : float
+var is_performing_special_attack : bool = false
 var buffed_from_attack_crystals = false
 var buffed_from_damage_bonus_crystals = false
 var prev_phys_dmg_bonus : Array 
@@ -72,15 +72,26 @@ onready var crit_rate : float = Global.glaciela_skill_multipliers["CritRate"]
 onready var crit_damage : float = Global.glaciela_skill_multipliers["CritDamage"]
 
 onready var sskill_ui : TextureProgress = get_parent().get_parent().get_parent().get_node("SkillsUI/Control/SecondarySkill/Glaciela/IceLance/TextureProgress")
+onready var pskill_ui : TextureProgress = get_parent().get_parent().get_parent().get_node("SkillsUI/Control/PrimarySkill/Glaciela/WinterQueen/TextureProgress")
+onready var tskill_ui : TextureProgress = get_parent().get_parent().get_parent().get_node("SkillsUI/Control/TertiarySkill/Glaciela/ConeOfCold/TextureProgress")
+var facing
+enum {
+	left, right
+}
+
+var can_use_special_attack : bool = false
 
 
+func set_attack_buff_value(new_value):
+	attack_buff = new_value
+	ATTACK = Global.attack_power + attack_buff
 
 func _ready():
 #	print(get_path())
 	if Global.equipped_characters.has("Player"):
 		connect("trigger_quickswap", get_parent().get_parent(), "quickswap_event")
 	tundra_stars = 0
-	update_tundra_sigil_ui()
+	update_tundra_star_ui()
 	connect("action", Global, "parse_action")
 	connect("change_elegance", get_parent().get_parent().get_parent().get_node("EleganceMeterUI/Control"), "elegance_changed")
 	connect("change_hitcount", get_parent().get_parent().get_parent().get_node("EleganceMeterUI/Control"), "hitcount_changed")
@@ -92,7 +103,7 @@ func _ready():
 	connect("perfect_dash",  get_parent().get_parent().get_parent().get_node("PauseUI/PerfectDash"), "trigger_perfect_dash_animation")
 	connect("life_changed", get_parent().get_parent().get_parent().get_node("HeartUI/Life"), "on_player_life_changed")
 	connect("mana_changed", get_parent().get_parent().get_parent().get_node("ManaUI/Mana"), "on_player_mana_changed")
-	connect("skill_used", get_parent().get_parent().get_parent().get_node("SkillsUI/Control"), "on_skill_used")
+#	connect("skill_used", get_parent().get_parent().get_parent().get_node("SkillsUI/Control"), "on_skill_used")
 	connect("skill_used", get_parent().get_parent().get_node("SkillManager"), "on_skill_used")
 	$StrongJumpParticle.visible = false
 	$AnimatedSprite.play("Default")
@@ -100,50 +111,50 @@ func _ready():
 	$AttackCollision.add_to_group(str(ATTACK * (Global.glaciela_skill_multipliers["BasicAttack"] / 100)))
 	$SpecialAttackArea2D.add_to_group(str(ATTACK * (Global.glaciela_skill_multipliers["SpecialAttack1_1"] / 100)))
 
-func update_tundra_sigil_ui():
+func update_tundra_star_ui():
 	$TundraStarsUI/TundraStars3.visible = true if tundra_stars >= 3 else false
 	$TundraStarsUI/TundraStars2.visible = true if tundra_stars >= 2 else false
 	$TundraStarsUI/TundraStars1.visible = true if tundra_stars >= 1 else false
-	ice_dmg_bonus_from_tundra_sigil = Global.glaciela_skill_multipliers["TundraStarsIceDamageBonus"] * tundra_stars * 0.01
-	print(ice_dmg_bonus_from_tundra_sigil)
-	print("stack gaine")
+	ice_dmg_bonus_from_tundra_star = Global.glaciela_skill_multipliers["TundraStarsIceDamageBonus"] * tundra_stars * 0.01
+	if tundra_stars >= 1 and Global.glaciela_talents["WardOfBoreas"]["unlocked"] and Global.glaciela_talents["WardOfBoreas"]["enabled"]: 
+		$WardOfBoreasSprite.visible = true
+	else:
+		$WardOfBoreasSprite.visible = false
+	
 func _physics_process(delta):
 	target = get_closest_enemy()
 	if !$AnimatedSprite.flip_h:
 		$EnemyEvasionArea.set_scale(Vector2(1,1))
 	else:
 		$EnemyEvasionArea.set_scale(Vector2(-1,1))
-	if Input.is_action_pressed("right") and !Input.is_action_pressed("left") and !get_parent().get_parent().is_attacking and !get_parent().get_parent().is_dashing and !get_parent().get_parent().is_knocked_back:
-		Input.action_release("left")
-		$AnimatedSprite.flip_h = false
-		$AnimatedSprite.play("Walk")
-		
-#		attack_string_count = 4
-	elif Input.is_action_pressed("left") and !Input.is_action_pressed("right") and !get_parent().get_parent().is_attacking and !get_parent().get_parent().is_dashing and !get_parent().get_parent().is_knocked_back:
-		Input.action_release("right")
-		$AnimatedSprite.flip_h = true
-		$AnimatedSprite.play("Walk")
-#		attack_string_count = 4
 	if Input.is_action_just_pressed("right") or Input.is_action_just_pressed("left") and attack_string_count != 3:
 		attack_string_count = 4
 	if Global.current_character == "Glaciela":
 		charge_meter()
 		$AnimatedSprite.visible = true
+		if Input.is_action_pressed("left") and !Input.is_action_pressed("right") and !get_parent().get_parent().is_attacking and !get_parent().get_parent().is_dashing and !get_parent().get_parent().is_knocked_back:
+			facing = left
+		elif Input.is_action_pressed("right") and !Input.is_action_pressed("left") and !get_parent().get_parent().is_attacking and !get_parent().get_parent().is_knocked_back and !get_parent().get_parent().is_dashing:
+			facing = right
+		else:
+			facing = null 
+		if facing == left:
+			Input.action_release("right")
+			$AnimatedSprite.flip_h = true
+		elif facing == right:
+			Input.action_release("left")
+			$AnimatedSprite.flip_h = false
+		if get_parent().get_parent().velocity.x <= 5 and get_parent().get_parent().velocity.x >= -5:
+			$AnimatedSprite.play("Default")
+		else:
+			$AnimatedSprite.play("Walk")
 		if $AnimatedSprite.flip_h:
 			$ChargedAttackCollision.set_scale(Vector2(-1,1))
 		else:
 			$ChargedAttackCollision.set_scale(Vector2(1,1))
 		# Animation handling 
 
-		if get_parent().get_parent().velocity.x == 0:
-			$AnimatedSprite.play("Default")
 		
-		if get_parent().get_parent().can_dash:
-			if Input.is_action_pressed("left") or Input.is_action_pressed("right") and !Input.is_action_pressed("jump"):
-				$AnimatedSprite.play("Walk")
-				
-			else:
-				$AnimatedSprite.play("Default")
 		if Input.is_action_just_pressed("ui_dash") and !get_parent().get_parent().can_dash and !get_parent().get_parent().get_node("DashUseTimer").is_stopped():
 			$AnimatedSprite.play("Dash")
 			print("text")
@@ -158,8 +169,8 @@ func _physics_process(delta):
 		if $ChargedAttackCooldown.is_stopped():
 			charged_attack(7.5)
 		use_skill()
-
-			
+		$WeakenParticles.visible = true if !$WeakenedTimer.is_stopped() else false
+		$StarParticle.visible = true if can_use_special_attack else false
 #		if Input.is_action_just_pressed("secondary_skill") and !Input.is_action_just_pressed("primary_skill"):
 #			print("biatch")
 #			emit_signal("skill_used", "IceLance")
@@ -171,32 +182,100 @@ func _input(event):
 			$InputPressTimer.start()
 		if event.is_action_pressed("heal"):
 			if Global.healthpot_amount > 0:
-				heal(5)
-		if event.is_action_pressed("ui_dash") and $DashInputPressTimer.is_stopped():
-			print("awooga")
+				heal("Glaciela", 5)
+		if event.is_action_pressed("ui_dash") and !get_parent().get_parent().mobility_lock and $DashInputPressTimer.is_stopped():
 			get_parent().get_parent().dash()
 			$DashInputPressTimer.start()
 
 func use_skill():
-	if Global.current_character == "Glaciela":
-		if sskill_ui.value >= sskill_ui.max_value and Input.is_action_just_pressed("secondary_skill") and !Input.is_action_just_pressed("primary_skill") and !get_parent().get_parent().is_frozen and !get_parent().get_parent().is_using_secondary_skill:
+	if Global.current_character == "Glaciela" and !get_parent().get_parent().is_frozen and !is_performing_special_attack:
+		if pskill_ui.value >= pskill_ui.max_value and Input.is_action_just_pressed("primary_skill") and !Input.is_action_just_pressed("secondary_skill"): 
+			use_primary_skill()
+		if sskill_ui.value >= sskill_ui.max_value and Input.is_action_just_pressed("secondary_skill") and !Input.is_action_just_pressed("primary_skill"):
 			use_secondary_skill()
+		if tskill_ui.value >= tskill_ui.max_value and Input.is_action_just_pressed("tertiary_skill"):
+			use_tertiary_skill()
+		
 
+func use_primary_skill():
+	if Global.current_character == Global.equipped_characters[0] and Global.mana >= Global.glaciela_skill_multipliers["WinterQueenCost"]:
+		emit_signal("skill_used", "WinterQueen", attack_buff)
+		get_parent().get_parent().emit_signal("skill_ui_update", "WinterQueen")
+		emit_signal("mana_changed", Global.mana, "Glaciela")
+	elif Global.current_character == Global.equipped_characters[1] and Global.character2_mana >= Global.glaciela_skill_multipliers["WinterQueenCost"]:
+		emit_signal("skill_used", "WinterQueen", attack_buff)
+		get_parent().get_parent().emit_signal("skill_ui_update", "WinterQueen")
+		emit_signal("mana_changed", Global.character2_mana, "Glaciela")
+	elif Global.current_character == Global.equipped_characters[2] and Global.character3_mana >= Global.glaciela_skill_multipliers["WinterQueenCost"]:
+		emit_signal("skill_used", "WinterQueen", attack_buff)
+		get_parent().get_parent().emit_signal("skill_ui_update", "WinterQueen")
+		emit_signal("mana_changed", Global.character3_mana, "Glaciela")
+		
 func use_secondary_skill():
+	var dir : int = 1
+	if $AnimatedSprite.flip_h:
+		dir = -1
 	if Global.current_character == Global.equipped_characters[0] and Global.mana >= Global.glaciela_skill_multipliers["IceLanceCost"]:
-		emit_signal("skill_used", "IceLance", attack_buff)
+		emit_signal("skill_used", "IceLance", attack_buff, dir, tundra_stars)
 		get_parent().get_parent().emit_signal("skill_ui_update", "IceLance")
 		emit_signal("mana_changed", Global.mana, "Glaciela")
 	elif Global.current_character == Global.equipped_characters[1] and Global.character2_mana >= Global.glaciela_skill_multipliers["IceLanceCost"]:
-		emit_signal("skill_used", "IceLance", attack_buff)
+		emit_signal("skill_used", "IceLance", attack_buff, dir, tundra_stars)
 		get_parent().get_parent().emit_signal("skill_ui_update", "IceLance")
 		emit_signal("mana_changed", Global.character2_mana, "Glaciela")
 	elif Global.current_character == Global.equipped_characters[2] and Global.character3_mana >= Global.glaciela_skill_multipliers["IceLanceCost"]:
-		emit_signal("skill_used", "IceLance", attack_buff)
+		emit_signal("skill_used", "IceLance", attack_buff, dir, tundra_stars)
 		get_parent().get_parent().emit_signal("skill_ui_update", "IceLance")
 		emit_signal("mana_changed", Global.character3_mana, "Glaciela")
+	tundra_stars = 0
+	update_tundra_star_ui()
 
-
+func use_tertiary_skill():
+	if Global.current_character == Global.equipped_characters[0] and Global.mana >= Global.glaciela_skill_multipliers["ConeOfColdCost"]:
+		if !$ConeOfCold.active:
+			emit_signal("skill_used", "ConeOfCold", attack_buff, 1)
+		else:
+			emit_signal("skill_used", "ConeOfCold", attack_buff, -1)
+			get_parent().get_parent().emit_signal("skill_ui_update", "ConeOfCold")
+#		emit_signal("mana_changed", Global.mana, "Glaciela")
+	elif Global.current_character == Global.equipped_characters[1] and Global.character2_mana >= Global.glaciela_skill_multipliers["ConeOfColdCost"]:
+		if !$ConeOfCold.active:
+			emit_signal("skill_used", "ConeOfCold", attack_buff, 1)
+		else:
+			emit_signal("skill_used", "ConeOfCold", attack_buff, -1)
+			get_parent().get_parent().emit_signal("skill_ui_update", "ConeOfCold")
+#		emit_signal("mana_changed", Global.character2_mana, "Glaciela")
+	elif Global.current_character == Global.equipped_characters[2] and Global.character3_mana >= Global.glaciela_skill_multipliers["ConeOfColdCost"]:
+		if !$ConeOfCold.active:
+			emit_signal("skill_used", "ConeOfCold", attack_buff, 1)
+		else:
+			emit_signal("skill_used", "ConeOfCold", attack_buff, -1)
+			get_parent().get_parent().emit_signal("skill_ui_update", "ConeOfCold")
+#		emit_signal("mana_changed", Global.character3_mana, "Glaciela")
+func set_attack_power(type : String ,amount : float, duration : float, from_crystal : bool = true):
+		if from_crystal:
+			buffed_from_attack_crystals = true
+		number_of_atk_buffs += 1
+		
+		var other_groups : Array
+		prev_attack_power.insert((number_of_atk_buffs - 1),attack_buff ) 
+		print(prev_attack_power)
+		if type == "Flat":
+			attack_buff = prev_attack_power[number_of_atk_buffs - 1] + amount
+			set_attack_buff_value(attack_buff)
+		elif type == "Percentage":
+			attack_buff = prev_attack_power[number_of_atk_buffs - 1] + ((amount / 100) * Global.attack_power)
+			set_attack_buff_value(attack_buff)
+			
+		print("Buffed: " + str(attack_buff))
+		yield(get_tree().create_timer(duration), "timeout")
+		attack_buff = prev_attack_power[number_of_atk_buffs - 1]
+		set_attack_buff_value(attack_buff)
+		print("DeBuffed: " + str(prev_attack_power[number_of_atk_buffs - 1]))
+		number_of_atk_buffs -= 1
+		prev_attack_power.remove(number_of_atk_buffs)
+		if from_crystal:
+			buffed_from_attack_crystals = false
 func charged_dash():
 	$DashInputPressTimer.stop()
 func attack():
@@ -299,11 +378,13 @@ func play_attack_animation(direction : String):
 							break
 					$ResetAttackStringTimer.start()
 					$SpecialAttackTimer.start()
-				
+					yield(get_tree().create_timer(0.5),"timeout")
+					if attack_string_count == 1 and Global.glaciela_talents["DanceOfRime"]["unlocked"] and Global.glaciela_talents["DanceOfRime"]["enabled"]:
+						can_use_special_attack = true
 			1:
-				
+
 				$SpecialAttackTimer.stop()
-				if $SpecialSequenceWindow.is_stopped():
+				if $SpecialSequenceWindow.is_stopped() and Global.glaciela_talents["DanceOfRime"]["unlocked"] and Global.glaciela_talents["DanceOfRime"]["enabled"]:
 					$AttackCollision/CollisionShape2D.disabled = true
 					$SpecialAttackArea2D.set_scale(Vector2(1,1))
 					$AnimationPlayer.play("SpecialAttack1_Right")
@@ -312,7 +393,7 @@ func play_attack_animation(direction : String):
 #					attack_string_count = 4
 #					emit_signal("trigger_quickswap", "Glaciela")
 				else:
-					
+					can_use_special_attack = false
 					$AnimationPlayer.play("SpearSwingRight4")
 #					attack_string_count -= 1
 					var crit_dmg : float = 1.0
@@ -329,7 +410,7 @@ func play_attack_animation(direction : String):
 							break
 #					if tundra_stars < Global.glaciela_skill_multipliers["MaxTundraStars"]:
 #						tundra_stars += 1
-#						update_tundra_sigil_ui()
+#						update_tundra_star_ui()
 #					yield(get_tree().create_timer($MeleeTimer.wait_time * 1.5), "timeout")
 					attack_string_count = 4
 #					emit_signal("trigger_quickswap", "Glaciela")
@@ -372,10 +453,13 @@ func play_attack_animation(direction : String):
 						break
 				$SpecialAttackTimer.start()
 				$ResetAttackStringTimer.start()
+				yield(get_tree().create_timer(0.5),"timeout")
+				if attack_string_count == 1 and Global.glaciela_talents["DanceOfRime"]["unlocked"] and Global.glaciela_talents["DanceOfRime"]["enabled"]:
+					can_use_special_attack = true
 			1:
 				
 				$SpecialAttackTimer.stop()
-				if $SpecialSequenceWindow.is_stopped():
+				if $SpecialSequenceWindow.is_stopped() and Global.glaciela_talents["DanceOfRime"]["unlocked"] and Global.glaciela_talents["DanceOfRime"]["enabled"]:
 					$AttackCollision/CollisionShape2D.disabled = true
 					$SpecialAttackArea2D.set_scale(Vector2(-1,1))
 					$AnimationPlayer.play("SpecialAttack1_Left")
@@ -385,7 +469,7 @@ func play_attack_animation(direction : String):
 #					emit_signal("trigger_quickswap", "Glaciela")
 					
 				else:
-					
+					can_use_special_attack = false
 					$AnimationPlayer.play("SpearSwingLeft4")
 #					attack_string_count -= 1
 					for groups in $AttackCollision.get_groups():
@@ -396,48 +480,66 @@ func play_attack_animation(direction : String):
 							break
 #					if tundra_stars < Global.glaciela_skill_multipliers["MaxTundraStars"]:
 #						tundra_stars += 1
-#						update_tundra_sigil_ui()
+#						update_tundra_star_ui()
 #					yield(get_tree().create_timer($MeleeTimer.wait_time * 1.5), "timeout")
 					attack_string_count = 4
 #					emit_signal("trigger_quickswap", "Glaciela")
 #				$ResetAttackStringTimer.start()
 func change_mana_value(amount : float):
+	
 	if Global.current_character == Global.equipped_characters[0] and Global.mana < Global.max_mana:
 		Global.mana += amount
+		Global.mana = clamp(Global.mana, 0, Global.max_mana)
 		emit_signal("mana_changed", Global.mana, "Glaciela")
 	elif Global.current_character == Global.equipped_characters[1] and Global.character2_mana < Global.character2_max_mana:
 		Global.character2_mana += amount
+		Global.character2_mana = clamp(Global.character2_mana,0, Global.character2_max_mana)
 		emit_signal("mana_changed", Global.character2_mana, "Glaciela")
 	elif Global.current_character == Global.equipped_characters[2] and Global.character3_mana < Global.character3_max_mana:
 		Global.character3_mana += amount
+		Global.character3_mana = clamp(Global.character3_mana,0, Global.character3_max_mana)
 		emit_signal("mana_changed", Global.character3_mana, "Glaciela")
+	
 func add_heal_particles(heal_amount : float):
 	var heal_particle = HEAL_PARTICLE.instance()
 	heal_particle.heal_amount = heal_amount * 2
 	get_parent().get_parent().get_parent().add_child(heal_particle)
 	heal_particle.position = global_position
-func heal(heal_amount : float, heal_to_max : bool = false, consumes_potion : bool = true):
-	# heal amount in percentage based on max HP
-	if Global.equipped_characters[0] == "Glaciela":
-		add_heal_particles(clamp(heal_amount, 0, Global.max_hearts - Global.hearts))
-		Global.hearts += clamp(heal_amount, 0, Global.max_hearts - Global.hearts)
-		emit_signal("life_changed", Global.hearts, "Glaciela")
-	elif Global.equipped_characters[1] == "Glaciela":
-		add_heal_particles(clamp(heal_amount, 0, Global.character_2_max_hearts - Global.character2_hearts))
-		Global.character2_hearts += clamp(heal_amount, 0, Global.character_2_max_hearts - Global.character2_hearts)
-		emit_signal("life_changed", Global.character2_hearts, "Glaciela")
-		print("healed")
-	elif Global.equipped_characters[2] == "Glaciela":
-		add_heal_particles(clamp(heal_amount, 0, Global.character_3_max_hearts - Global.character3_hearts))
-		Global.character3_hearts += clamp(heal_amount, 0, Global.character_3_max_hearts - Global.character3_hearts)
-		emit_signal("life_changed", Global.character3_hearts, "Glaciela")
-	if consumes_potion:
-		Global.healthpot_amount -= 1
-		emit_signal("healthpot_obtained", Global.healthpot_amount)
+	
+func heal(character : String = "Glaciela", heal_amount : float = 0, heal_to_max : bool = false, consumes_potion : bool = true):
+		if Global.equipped_characters[0] == character:
+			if !heal_to_max:
+				add_heal_particles(clamp(heal_amount, 0, Global.max_hearts - Global.hearts))
+				Global.hearts += clamp(heal_amount, 0, Global.max_hearts - Global.hearts)
+			else:
+				add_heal_particles(Global.max_hearts - Global.hearts)
+				Global.hearts = Global.max_hearts
+			emit_signal("life_changed", Global.hearts, character)
+		elif Global.equipped_characters[1] == character:
+			if !heal_to_max:
+				add_heal_particles(clamp(heal_amount, 0, Global.character_2_max_hearts - Global.character2_hearts))
+				Global.character2_hearts += clamp(heal_amount, 0, Global.character_2_max_hearts - Global.character2_hearts)
+			else:
+				add_heal_particles(Global.character_2_max_hearts - Global.character2_hearts)
+				Global.character2_hearts = Global.character_2_max_hearts
+			emit_signal("life_changed", Global.character2_hearts, character)
+		elif Global.equipped_characters[2] == character:
+			if !heal_to_max:
+				add_heal_particles(clamp(heal_amount, 0, Global.character_3_max_hearts - Global.character3_hearts))
+				Global.character3_hearts += clamp(heal_amount, 0, Global.character_3_max_hearts - Global.character3_hearts)
+			else:
+				add_heal_particles(Global.character_3_max_hearts - Global.character3_hearts)
+				Global.character3_hearts = Global.character_3_max_hearts 
+			emit_signal("life_changed", Global.character3_hearts, character)
+		
+		if !heal_to_max and consumes_potion:
+			Global.healthpot_amount -= 1
+			emit_signal("healthpot_obtained", Global.healthpot_amount)
 	
 
 func _on_SpecialAttackTimer_timeout():
 	$SpecialSequenceWindow.start()
+#	can_use_special_attack = true
 	
 func charge_meter():
 	if Global.current_character == "Glaciela":
@@ -445,12 +547,7 @@ func charge_meter():
 
 				
 
-#func downwards_charged_attack():
-#	if airborne_mode and Input.is_action_pressed("ui_attack") and $InputPressTimer.is_stopped() and !is_performing_charged_attack:
-#		if target and target != null and weakref(target).get_ref() != null: 
-#			if !target.is_in_group("Armored") and target.get_node("Area2D").overlaps_area($ChargedAttackCollision):
-#				pass
-#
+
 #
 		
 func charged_attack(airborne_duration : float = 1, type : int = 1):
@@ -481,7 +578,7 @@ func charged_attack(airborne_duration : float = 1, type : int = 1):
 					if $TundraSigilChargedAttackGainDelayTimer.is_stopped():
 						tundra_stars += 1
 						$TundraSigilChargedAttackGainDelayTimer.start()
-					update_tundra_sigil_ui()
+					update_tundra_star_ui()
 					is_charging = false
 					is_performing_charged_attack = true
 	#				get_parent().get_parent().airborne_mode = false
@@ -518,7 +615,10 @@ func charged_attack(airborne_duration : float = 1, type : int = 1):
 			Input.action_release("ui_attack")
 			is_performing_charged_attack = false
 
+
+
 func special_attack_1_damage_calc(sequence : int = 1):
+	is_performing_special_attack = true
 	for groups in $SpecialAttackArea2D.get_groups():
 		if float(groups) != 0:
 			$SpecialAttackArea2D.remove_from_group(groups)
@@ -531,7 +631,7 @@ func special_attack_1_damage_calc(sequence : int = 1):
 					else:
 						$SpecialAttackArea2D.remove_from_group("IsCritHit")
 					$SpecialAttackArea2D.add_to_group("HeavyPoiseDamage")
-					$SpecialAttackArea2D.add_to_group(str(ATTACK * (Global.glaciela_skill_multipliers["SpecialAttack1_1"] / 100) * (1 + ice_dmg_bonus + ice_dmg_bonus_from_tundra_sigil) * crit_dmg))
+					$SpecialAttackArea2D.add_to_group(str(ATTACK * (Global.glaciela_skill_multipliers["SpecialAttack1_1"] / 100) * (1 + ice_dmg_bonus + ice_dmg_bonus_from_tundra_star) * crit_dmg))
 					
 				2:
 					var crit_dmg : float = 1.0
@@ -541,8 +641,11 @@ func special_attack_1_damage_calc(sequence : int = 1):
 					else:
 						$SpecialAttackArea2D.remove_from_group("IsCritHit")
 					$SpecialAttackArea2D.add_to_group("HeavyPoiseDamage")
-					$SpecialAttackArea2D.add_to_group(str(ATTACK * (Global.glaciela_skill_multipliers["SpecialAttack1_2"] / 100) * (1 + ice_dmg_bonus + ice_dmg_bonus_from_tundra_sigil) * crit_dmg))
-					
+					$SpecialAttackArea2D.add_to_group(str(ATTACK * (Global.glaciela_skill_multipliers["SpecialAttack1_2"] / 100) * (1 + ice_dmg_bonus + ice_dmg_bonus_from_tundra_star) * crit_dmg))
+					tundra_stars = 0
+					update_tundra_star_ui()
+					is_performing_special_attack = false
+
 
 func special_attack_2_damage_Calc(sequence : int = 1):
 	for groups in $SpecialAttackArea2D.get_groups():
@@ -557,7 +660,7 @@ func special_attack_2_damage_Calc(sequence : int = 1):
 					else:
 						$SpecialAttackArea2D.remove_from_group("IsCritHit")
 					$SpecialAttackArea2D.add_to_group("LightPoiseDamage")
-					$SpecialAttackArea2D.add_to_group(str(ATTACK * (Global.glaciela_skill_multipliers["SpecialAttack2_1"] / 100) * (1 + ice_dmg_bonus + ice_dmg_bonus_from_tundra_sigil) * crit_dmg))
+					$SpecialAttackArea2D.add_to_group(str(ATTACK * (Global.glaciela_skill_multipliers["SpecialAttack2_1"] / 100) * (1 + ice_dmg_bonus + ice_dmg_bonus_from_tundra_star) * crit_dmg))
 				2:
 					var crit_dmg : float = 1.0
 					if is_a_critical_hit():
@@ -566,7 +669,7 @@ func special_attack_2_damage_Calc(sequence : int = 1):
 					else:
 						$SpecialAttackArea2D.remove_from_group("IsCritHit")
 					$SpecialAttackArea2D.add_to_group("LightPoiseDamage")
-					$SpecialAttackArea2D.add_to_group(str(ATTACK * (Global.glaciela_skill_multipliers["SpecialAttack2_2"] / 100) * (1 + ice_dmg_bonus + ice_dmg_bonus_from_tundra_sigil) * crit_dmg))
+					$SpecialAttackArea2D.add_to_group(str(ATTACK * (Global.glaciela_skill_multipliers["SpecialAttack2_2"] / 100) * (1 + ice_dmg_bonus + ice_dmg_bonus_from_tundra_star) * crit_dmg))
 				3:
 					var crit_dmg : float = 1.0
 					if is_a_critical_hit():
@@ -575,7 +678,7 @@ func special_attack_2_damage_Calc(sequence : int = 1):
 					else:
 						$SpecialAttackArea2D.remove_from_group("IsCritHit")
 					$SpecialAttackArea2D.add_to_group("MediumPoiseDamage")
-					$SpecialAttackArea2D.add_to_group(str(ATTACK * (Global.glaciela_skill_multipliers["SpecialAttack2_3"] / 100) * (1 + ice_dmg_bonus + ice_dmg_bonus_from_tundra_sigil) * crit_dmg))
+					$SpecialAttackArea2D.add_to_group(str(ATTACK * (Global.glaciela_skill_multipliers["SpecialAttack2_3"] / 100) * (1 + ice_dmg_bonus + ice_dmg_bonus_from_tundra_star) * crit_dmg))
 					
 func get_closest_enemy():
 	var enemies = get_tree().get_nodes_in_group("Enemy")
@@ -656,25 +759,6 @@ func set_damage_bonus(amount : float, duration : float, show_particles : bool , 
 		
 
 
-
-func set_attack_power(amount : float, duration : float, show_particles : bool = true):
-	buffed_from_attack_crystals = true
-	number_of_atk_buffs += 1
-	
-	var other_groups : Array
-	prev_attack_power.insert((number_of_atk_buffs - 1), attack_buff) 
-	print(prev_attack_power)
-	attack_buff = prev_attack_power[number_of_atk_buffs - 1] + amount
-	
-	print("Buffed: " + str(attack_buff))
-	yield(get_tree().create_timer(duration), "timeout")
-	attack_buff = prev_attack_power[number_of_atk_buffs - 1]
-	print("DeBuffed: " + str(prev_attack_power[number_of_atk_buffs - 1]))
-	number_of_atk_buffs -= 1
-	prev_attack_power.remove(number_of_atk_buffs)
-	buffed_from_attack_crystals = false
-	
-
 func infuse_element(element : String, duration : float = 10):
 	match element:
 		"Ice":
@@ -694,11 +778,13 @@ func _on_AttackCollision_area_entered(area):
 			if $TundraStackRegen.is_stopped() and !is_performing_charged_attack and tundra_stars < Global.glaciela_skill_multipliers["MaxTundraStars"]:
 				if attack_string_count == 4:
 					tundra_stars += 1
-					update_tundra_sigil_ui()
+					update_tundra_star_ui()
 					$TundraStackRegen.start()
 				
 			emit_signal("change_elegance", "BasicAttack")
-			change_mana_value(0.25)
+#			if $ManaRegenDelay.is_stopped():
+			change_mana_value(0.2)
+				
 			var hitparticle = SWORD_HIT_PARTICLE.instance()
 			var slashparticle = SWORD_SLASH_EFFECT.instance()
 			hitparticle.emitting = true
@@ -707,6 +793,7 @@ func _on_AttackCollision_area_entered(area):
 			hitparticle.position = get_parent().get_parent().get_node("Position2D").global_position
 			slashparticle.position = get_parent().get_parent().get_node("Position2D").global_position
 			slashparticle.regular_slash_animation()
+			$ManaRegenDelay.start()
 			yield(get_tree().create_timer(0.1),"timeout")
 		
 	if weakref(area).get_ref() != null:
@@ -720,6 +807,12 @@ func _on_AttackCollision_area_entered(area):
 
 
 func _on_Area2D_area_entered(area):
+	if area.is_in_group("ConeOfColdSnareOn"):
+		var slowdown_coefficient : float = area.get_parent().slowdown_coefficient
+		get_parent().get_parent().SPEED -= get_parent().get_parent().MAX_SPEED * slowdown_coefficient
+	if area.is_in_group("ConeOfColdSnareOff"):
+		var slowdown_coefficient : float = area.get_parent().slowdown_coefficient
+		get_parent().get_parent().SPEED += get_parent().get_parent().MAX_SPEED * slowdown_coefficient
 	if Global.current_character == "Glaciela":
 		if area.is_in_group("HealthPot"):
 			Global.healthpot_amount += 1
@@ -727,22 +820,30 @@ func _on_Area2D_area_entered(area):
 		if area.is_in_group("LifeWine"):
 			Global.lifewine_amount += 1
 			emit_signal("lifewine_obtained", Global.lifewine_amount)
+		if area.is_in_group("AddMana"):
+			change_mana_value(area.get_parent().mana_granted)
 		if !Global.godmode:
 			if $InvulnerabilityTimer.is_stopped() and !get_parent().get_parent().is_invulnerable and !get_parent().get_parent().is_dashing:
-				if area.is_in_group("Enemy") and area.is_in_group("Hostile") or area.is_in_group("Projectile"):
-					print("GLACIELA HURT")
-					match area.get_parent().elemental_type:
+				if area.is_in_group("Enemy") and area.is_in_group("Hostile")or area.is_in_group("Projectile"):
+					print("HURT")
+					var enemy_elemental_type : String
+					var enemy_atk_value : float
+					
+
+					enemy_elemental_type = area.get_parent().elemental_type
+					enemy_atk_value = area.get_parent().atk_value
+						
+					match enemy_elemental_type:
 						"Physical":
-							var dmg = area.get_parent().atk_value
-							take_damage(dmg * (1 - phys_res))
-#					get_parent().get_parent().is_invulnerable = true
+							take_damage(enemy_atk_value * (1 - phys_res))
+						"Fire":
+							take_damage(enemy_atk_value - (1 - fire_res))
 					get_parent().get_parent().is_gliding = false
-					Input.action_release("charge")
 					Input.action_release("ui_attack")
 					after_damaged()
 					if !area.is_in_group("LightEnemy") or !get_parent().get_parent().resist_interruption:
 						get_parent().get_parent().knockback()
-						
+#					$CampfireTimer.stop()
 #				if area.is_in_group("Enemy2"):
 #					take_damage(2)
 #					add_hurt_particles(1)
@@ -765,15 +866,22 @@ func _on_Area2D_area_entered(area):
 			print("STRONK")
 		if area.is_in_group("DamageBonusBuff"):
 			set_damage_bonus(float(area.amount), float(area.duration), true, area.type)
-			
+		if area.is_in_group("Weaken") and $WeakenedTimer.is_stopped():
+			atkbuffmulti = area.amount
+			atkbuffdur = area.duration
+			set_attack_power(area.type, float(atkbuffmulti), float(atkbuffdur), false)
+			$WeakenedTimer.wait_time = area.duration
+			$WeakenedTimer.start()
 #	if area.is_in_group("Enemy") and !get_parent().get_parent().is_invulnerable:
 #		$AnimationPlayer.play("Hurt")
 func after_damaged():
-	
-	$InvulnerabilityTimer.start()
-	
+	get_parent().get_parent().inv_timer.start() 
+#	$HurtAnimationPlayer.play("Hurt")
+	get_parent().get_parent().is_invulnerable = true
 #	emit_signal("life_changed", Global.hearts)
 #	$Sprite.play("Hurt")
+	$InvulnerabilityTimer.start()
+
 	if !Global.godmode:
 		get_parent().get_parent().get_node("KnockbackTimer").start()
 		
@@ -781,16 +889,55 @@ func after_damaged():
 		if Global.hearts <= 0:
 			dead(Global.equipped_characters[0])
 	elif Global.equipped_characters[1] == Global.current_character:
-		if Global.hearts <= 0:
+		if Global.character2_hearts <= 0:
 			dead(Global.equipped_characters[1])
 	elif Global.equipped_characters[2] == Global.current_character:
-		if Global.hearts <= 0:
+		if Global.character3_hearts <= 0:
 			dead(Global.equipped_characters[2])
 
-func dead(character):
-	pass
+func dead(character_id):
+	is_dead = true
+	get_parent().get_parent().is_invulnerable = true
+	$InvulnerabilityTimer.start()
+#	swap_to_nearby_alive_characters()
+	if character_id == Global.equipped_characters[0]:
+		Global.alive[0] = false
+	elif character_id == Global.equipped_characters[1]:
+		Global.alive[1] = false
+	elif character_id == Global.equipped_characters[2]:
+		Global.alive[2] = false
+	
+	$HurtAnimationPlayer.play("Death")
+	yield(get_tree().create_timer(0.4), "timeout")
+	
+	var alive_status : Array = [true, true, true]
+	var counter : int = 0
+	for c in Global.equipped_characters:
+		if Global.character_list.find(Global.equipped_characters[counter]) != -1:
+			if !Global.alive[counter]:
+				alive_status[counter] = false
+		else:
+			alive_status[counter] = false
+		counter += 1
+
+	if !alive_status[0] and !alive_status[1] and !alive_status[2]:
+		var counter_sec : int = 0
+		for c in Global.equipped_characters:
+			if Global.character_list.find(Global.equipped_characters[counter_sec]) != -1:
+				get_parent().get_parent().heal(c, 999, true)
+			counter_sec += 1
+		get_parent().get_parent().get_parent().get_node("GameOverUI/GameOver").open_game_over_ui()
 
 
+func swap_to_nearby_alive_characters():
+	get_parent().get_parent().swap_to_nearby_alive_characters()
+	
+func add_death_particles():
+	var deathparticle = get_parent().get_parent().DEATH_SMOKE_PARTICLE.instance()
+	deathparticle.emitting = true
+	deathparticle.position = global_position
+	get_parent().get_parent().get_parent().add_child(deathparticle)
+	
 func add_hurt_particles(damage : float):
 	var hurt_particle = get_parent().get_parent().HURT_PARTICLE.instance()
 	hurt_particle.damage = damage * 2
@@ -798,7 +945,15 @@ func add_hurt_particles(damage : float):
 	hurt_particle.position = global_position
 
 func take_damage(damage : float):
+	var def = Global.character_defense_data["Glaciela"] / 100
 	if Global.current_character == "Glaciela":
+		
+		damage = damage * (1 - def)
+		if tundra_stars >= 1 and Global.glaciela_talents["WardOfBoreas"]["unlocked"] and Global.glaciela_talents["WardOfBoreas"]["enabled"]: 
+			damage *= 1 - (Global.glaciela_talents["WardOfBoreas"]["damagemitigation"] / 100)
+			tundra_stars -= 1
+			update_tundra_star_ui()
+			
 		if Global.equipped_characters[0] == "Glaciela":
 			if get_parent().get_parent().shield_hp > 0:
 				get_parent().get_parent().shield_hp = clamp(get_parent().get_parent().shield_hp - damage, 0, 999)
@@ -813,7 +968,7 @@ func take_damage(damage : float):
 				get_parent().get_parent().get_node("Shield/ShieldHPBar").value = get_parent().get_parent().shield_hp
 			else:
 				Global.character2_hearts -= damage
-				add_hurt_particles(damage )
+				add_hurt_particles(damage)
 				emit_signal("life_changed", Global.character2_hearts, "Glaciela")
 		elif Global.equipped_characters[2] == "Glaciela":
 			if get_parent().get_parent().shield_hp > 0:
@@ -828,7 +983,7 @@ func take_damage(damage : float):
 
 func _on_ResetAttackStringTimer_timeout():
 	attack_string_count = 4
-
+	can_use_special_attack = false
 
 
 

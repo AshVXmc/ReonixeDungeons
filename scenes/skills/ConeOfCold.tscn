@@ -1,0 +1,54 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://assets/particles/frost_particle_spritesheet.png" type="Texture" id=1]
+[ext_resource path="res://scripts/skills/ConeOfCold.gd" type="Script" id=2]
+
+[sub_resource type="CanvasItemMaterial" id=1]
+particles_animation = true
+particles_anim_h_frames = 4
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="CircleShape2D" id=2]
+
+[node name="ConeOfCold" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="FrostBurstParticle" type="CPUParticles2D" parent="."]
+visible = false
+material = SubResource( 1 )
+amount = 36
+lifetime = 0.75
+explosiveness = 0.1
+randomness = 0.5
+texture = ExtResource( 1 )
+direction = Vector2( 0, 0 )
+spread = 24.0
+gravity = Vector2( 0, 0 )
+initial_velocity = 120.0
+angular_velocity = 300.0
+anim_speed = 1.0
+
+[node name="Area2D" type="Area2D" parent="." groups=["Ice"]]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D"]
+polygon = PoolVector2Array( -0.25, -6, -0.25, 6, 86, 33, 85, -35 )
+disabled = true
+
+[node name="FreezeGaugeArea" type="Area2D" parent="." groups=["IceGauge"]]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="FreezeGaugeArea"]
+polygon = PoolVector2Array( -0.25, -6, -0.25, 6, 86, 33, 85, -35 )
+disabled = true
+
+[node name="DamageTickTimer" type="Timer" parent="."]
+wait_time = 0.2
+
+[node name="SelfSnareArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SelfSnareArea"]
+shape = SubResource( 2 )
+disabled = true
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_Area2D_area_entered"]
+[connection signal="timeout" from="DamageTickTimer" to="." method="_on_DamageTickTimer_timeout"]

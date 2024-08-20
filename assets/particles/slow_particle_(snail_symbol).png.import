@@ -1,0 +1,35 @@
+[remap]
+
+importer="texture"
+type="StreamTexture"
+path="res://.import/slow_particle_(snail_symbol).png-816396b16c9985c28fda051b548a1d84.stex"
+metadata={
+"vram_texture": false
+}
+
+[deps]
+
+source_file="res://assets/particles/slow_particle_(snail_symbol).png"
+dest_files=[ "res://.import/slow_particle_(snail_symbol).png-816396b16c9985c28fda051b548a1d84.stex" ]
+
+[params]
+
+compress/mode=0
+compress/lossy_quality=0.7
+compress/hdr_mode=0
+compress/bptc_ldr=0
+compress/normal_map=0
+flags/repeat=0
+flags/filter=false
+flags/mipmaps=false
+flags/anisotropic=false
+flags/srgb=2
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/HDR_as_SRGB=false
+process/invert_color=false
+process/normal_map_invert_y=false
+stream=false
+size_limit=0
+detect_3d=false
+svg/scale=1.0

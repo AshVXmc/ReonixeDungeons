@@ -21,13 +21,19 @@ gravity = Vector2( 0, 0 )
 initial_velocity = 120.0
 angular_velocity = 250.0
 
-[node name="Area2D" type="Area2D" parent="." groups=["10", "Fireball"]]
+[node name="Area2D" type="Area2D" parent="." groups=["Fireball"]]
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D"]
+polygon = PoolVector2Array( -0.25, -6, -0.25, 6, 87.5, 29.5, 87.25, -29.5 )
+
+[node name="FireGaugeArea" type="Area2D" parent="." groups=["1000", "FireGauge"]]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="FireGaugeArea"]
 polygon = PoolVector2Array( -0.25, -6, -0.25, 6, 87.5, 29.5, 87.25, -29.5 )
 
 [node name="DestroyTimer" type="Timer" parent="."]
 wait_time = 0.8
 one_shot = true
 
+[connection signal="area_entered" from="Area2D" to="." method="_on_Area2D_area_entered"]
 [connection signal="timeout" from="DestroyTimer" to="." method="_on_DestroyTimer_timeout"]

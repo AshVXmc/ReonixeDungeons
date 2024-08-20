@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=2]
+[gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://assets/enemies/goblin2_attack.png" type="Texture" id=1]
 [ext_resource path="res://scripts/enemies/Goblin.gd" type="Script" id=2]
@@ -13,6 +13,8 @@
 [ext_resource path="res://assets/misc/physical_armor.png" type="Texture" id=11]
 [ext_resource path="res://assets/enemies/goblin_spear.png" type="Texture" id=12]
 [ext_resource path="res://assets/fonts/Born2bSportyV2.ttf" type="DynamicFontData" id=13]
+[ext_resource path="res://scenes/status_effects/FrozenStatus.tscn" type="PackedScene" id=14]
+[ext_resource path="res://scenes/status_effects/GroundedStatus.tscn" type="PackedScene" id=15]
 
 [sub_resource type="CapsuleShape2D" id=8]
 radius = 30.0
@@ -69,6 +71,18 @@ tracks/0/keys = {
 "args": [  ],
 "method": "death"
 } ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite:self_modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 0, 0, 0, 1 ) ]
 }
 
 [sub_resource type="Animation" id=7]
@@ -354,7 +368,7 @@ collision_mask = 3075
 collide_with_areas = true
 
 [node name="HurtTimer" type="Timer" parent="."]
-wait_time = 0.7
+wait_time = 0.35
 one_shot = true
 
 [node name="AttackingTimer" type="Timer" parent="."]
@@ -450,6 +464,11 @@ disabled = true
 [node name="HitDelayTimer" type="Timer" parent="."]
 wait_time = 0.06
 one_shot = true
+
+[node name="FrozenStatus" parent="." instance=ExtResource( 14 )]
+
+[node name="GroundedStatus" parent="." instance=ExtResource( 15 )]
+damage_shred = 50.0
 
 [connection signal="tree_exiting" from="." to="." method="_on_Goblin_tree_exiting"]
 [connection signal="area_exited" from="Left" to="." method="_on_Left_area_exited"]

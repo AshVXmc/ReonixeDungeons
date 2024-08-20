@@ -1,24 +1,96 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=18 format=2]
 
-[ext_resource path="res://scripts/enemies/Slime.gd" type="Script" id=1]
-[ext_resource path="res://spriteframes/slime_spriteframes.tres" type="SpriteFrames" id=2]
+[ext_resource path="res://scripts/enemies/FireSlime.gd" type="Script" id=1]
+[ext_resource path="res://assets/enemies/fire_slime_2.png" type="Texture" id=2]
+[ext_resource path="res://assets/UI/healthbar_enemy_full.png" type="Texture" id=3]
+[ext_resource path="res://assets/UI/healthbar_enemy_empty.png" type="Texture" id=4]
+[ext_resource path="res://assets/enemies/fire_slime_1.png" type="Texture" id=5]
+[ext_resource path="res://scenes/particles/FireDetonationParticle.tscn" type="PackedScene" id=6]
+[ext_resource path="res://assets/fonts/Born2bSportyV2.ttf" type="DynamicFontData" id=7]
+[ext_resource path="res://assets/enemies/fire_slime_death.png" type="Texture" id=8]
+[ext_resource path="res://scenes/status_effects/FrozenStatus.tscn" type="PackedScene" id=9]
+[ext_resource path="res://scenes/status_effects/GroundedStatus.tscn" type="PackedScene" id=10]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 26.36, 15.1008 )
+
+[sub_resource type="SpriteFrames" id=3]
+animations = [ {
+"frames": [ ExtResource( 2 ), ExtResource( 5 ), ExtResource( 8 ) ],
+"loop": true,
+"name": "dead",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 5 ), ExtResource( 2 ) ],
+"loop": true,
+"name": "slimeanim",
+"speed": 4.0
+} ]
 
 [sub_resource type="CapsuleShape2D" id=2]
 radius = 24.1874
 height = 20.9775
 
-[node name="FireSlime" type="KinematicBody2D" groups=["Enemy"]]
-position = Vector2( 0, -13.2945 )
+[sub_resource type="Animation" id=7]
+resource_name = "Death"
+length = 0.3
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("AnimatedSprite:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 0, 0, 0, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("AnimatedSprite:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.3 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+
+[sub_resource type="Animation" id=4]
+resource_name = "explode"
+length = 0.4
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("AnimatedSprite:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 0.498039, 0.301961, 1 ), Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="CircleShape2D" id=5]
+radius = 150.0
+
+[sub_resource type="DynamicFont" id=6]
+size = 32
+font_data = ExtResource( 7 )
+
+[node name="FireSlime" type="KinematicBody2D" groups=["Enemy", "EnemyEntity", "Physical"]]
 collision_layer = 4
 collision_mask = 11
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_group_": true
 }
-HP = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 0.793701, -4.96062 )
@@ -27,14 +99,15 @@ shape = SubResource( 1 )
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 position = Vector2( 0, -29.326 )
 scale = Vector2( 5, 5 )
-frames = ExtResource( 2 )
+frames = SubResource( 3 )
+animation = "slimeanim"
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
 position = Vector2( 32, 0 )
 enabled = true
 cast_to = Vector2( 0, 28 )
 
-[node name="Area2D" type="Area2D" parent="." groups=["Enemy"]]
+[node name="Area2D" type="Area2D" parent="." groups=["Enemy", "Hostile"]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2( 0.595276, -14.6835 )
@@ -42,11 +115,57 @@ rotation = 1.5708
 shape = SubResource( 2 )
 
 [node name="HurtTimer" type="Timer" parent="."]
-wait_time = 0.3
+wait_time = 0.55
 one_shot = true
 
 [node name="Position2D" type="Position2D" parent="."]
 position = Vector2( 0, -14 )
+
+[node name="HealthBar" type="TextureProgress" parent="."]
+margin_left = -59.8396
+margin_top = -68.9651
+margin_right = -29.8396
+margin_bottom = -62.9651
+rect_scale = Vector2( 4, 4 )
+value = 100.0
+texture_under = ExtResource( 4 )
+texture_progress = ExtResource( 3 )
+
+[node name="HitDelayTimer" type="Timer" parent="."]
+wait_time = 0.06
+one_shot = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/Death = SubResource( 7 )
+anims/explode = SubResource( 4 )
+
+[node name="FireDetonationParticle" parent="." instance=ExtResource( 6 )]
+scale = Vector2( 3.7, 3.7 )
+amount = 12
+lifetime = 0.4
+one_shot = false
+explosiveness = 0.75
+randomness = 0.2
+initial_velocity = 95.0
+
+[node name="ExplosionArea2D" type="Area2D" parent="." groups=["Enemy", "Hostile"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ExplosionArea2D"]
+shape = SubResource( 5 )
+disabled = true
+
+[node name="LevelLabel" type="Label" parent="."]
+margin_left = -28.0
+margin_top = -96.0
+margin_right = 28.0
+margin_bottom = -64.0
+custom_fonts/font = SubResource( 6 )
+text = "Lv.1"
+align = 1
+
+[node name="FrozenStatus" parent="." instance=ExtResource( 9 )]
+
+[node name="GroundedStatus" parent="." instance=ExtResource( 10 )]
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_Area2D_area_entered"]
 [connection signal="area_exited" from="Area2D" to="." method="_on_Area2D_area_exited"]

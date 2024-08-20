@@ -72,7 +72,7 @@ tracks/2/keys = {
 "times": PoolRealArray( 0, 0.3, 1 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
-"values": [ Color( 0.411765, 0.176471, 0.0588235, 0 ), Color( 0.411765, 0.176471, 0.0588235, 1 ), Color( 0.411765, 0.176471, 0.0588235, 0 ) ]
+"values": [ Color( 0.411765, 0.176471, 0.0588235, 0 ), Color( 0.870588, 0.713726, 0, 1 ), Color( 0.411765, 0.176471, 0.0588235, 0 ) ]
 }
 
 [sub_resource type="Animation" id=4]
@@ -113,7 +113,7 @@ tracks/2/keys = {
 "times": PoolRealArray( 0, 0.3, 1 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
-"values": [ Color( 1, 0.45098, 0.0196078, 0 ), Color( 0.992157, 0.588235, 0.156863, 1 ), Color( 1, 0.45098, 0.0196078, 0 ) ]
+"values": [ Color( 1, 0.45098, 0.0196078, 0 ), Color( 0.992157, 0.588235, 0.156863, 1 ), Color( 1, 0.443137, 0.00784314, 0 ) ]
 }
 
 [sub_resource type="Animation" id=6]
@@ -276,7 +276,7 @@ anims/ice_particle = SubResource( 6 )
 anims/physical_particle = SubResource( 2 )
 
 [node name="CritLabel" type="Label" parent="."]
-visible = false
+self_modulate = Color( 1, 1, 1, 0 )
 margin_left = -2.0
 margin_top = -27.0
 margin_right = 46.0

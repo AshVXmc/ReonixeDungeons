@@ -1,9 +1,11 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://scripts/terrain/DungeonEntrance.gd" type="Script" id=1]
 [ext_resource path="res://assets/terrain/hub_level/dungeon_entrance.png" type="Texture" id=2]
+[ext_resource path="res://scenes/menus/CharacterMenuUI.tscn" type="PackedScene" id=3]
 [ext_resource path="res://assets/fonts/Born2bSportyV2.ttf" type="DynamicFontData" id=4]
 [ext_resource path="res://scenes/menus/CharacterSelectionUI.tscn" type="PackedScene" id=5]
+[ext_resource path="res://assets/UI/keybind_button.png" type="Texture" id=6]
 [ext_resource path="res://assets/UI/quiticon.png" type="Texture" id=9]
 [ext_resource path="res://assets/UI/textbox.png" type="Texture" id=13]
 [ext_resource path="res://assets/UI/button.png" type="Texture" id=14]
@@ -22,7 +24,7 @@ size = 48
 font_data = ExtResource( 4 )
 
 [sub_resource type="DynamicFont" id=4]
-size = 48
+size = 32
 font_data = ExtResource( 4 )
 
 [sub_resource type="DynamicFont" id=5]
@@ -111,9 +113,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 margin_left = -250.0
-margin_top = -117.0
+margin_top = -226.0
 margin_right = 250.0
-margin_bottom = 335.0
+margin_bottom = 226.0
 texture = ExtResource( 13 )
 patch_margin_left = 64
 patch_margin_top = 64
@@ -122,18 +124,17 @@ patch_margin_bottom = 64
 
 [node name="Header" type="RichTextLabel" parent="LevelSelectionUI/Control/NinePatchRect"]
 anchor_left = 0.5
-anchor_top = 0.498
 anchor_right = 0.5
-anchor_bottom = 0.498
-margin_left = -239.5
-margin_top = -205.136
-margin_right = 239.5
-margin_bottom = -157.136
+margin_left = -215.5
+margin_top = 10.0
+margin_right = 71.5
+margin_bottom = 37.0
+rect_scale = Vector2( 1.5, 1.5 )
 custom_colors/default_color = Color( 1, 1, 1, 1 )
 custom_fonts/normal_font = SubResource( 4 )
 bbcode_enabled = true
-bbcode_text = "[center]== [color=#ffd703]Level Select[/color] =="
-text = "== Level Select =="
+bbcode_text = "[center]= [color=#ffd703]Level Selection[/color] ="
+text = "= Level Selection ="
 scroll_active = false
 
 [node name="SelectCharactersUI" type="Control" parent="LevelSelectionUI/Control/NinePatchRect"]
@@ -147,10 +148,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -249.0
-margin_top = -216.0
-margin_right = -209.0
-margin_bottom = -176.0
+margin_left = -252.0
+margin_top = -227.0
+margin_right = -212.0
+margin_bottom = -187.0
 rect_scale = Vector2( 1.5, 1.5 )
 texture_normal = ExtResource( 9 )
 expand = true
@@ -197,6 +198,7 @@ margin_bottom = 60.0
 rect_min_size = Vector2( 120, 60 )
 texture_normal = ExtResource( 14 )
 texture_pressed = ExtResource( 15 )
+texture_hover = ExtResource( 6 )
 expand = true
 
 [node name="Label" type="Label" parent="LevelSelectionUI/Control/NinePatchRect/ScrollContainer/VBoxContainer/Control/1"]
@@ -223,6 +225,7 @@ margin_bottom = 60.0
 rect_min_size = Vector2( 120, 60 )
 texture_normal = ExtResource( 14 )
 texture_pressed = ExtResource( 15 )
+texture_hover = ExtResource( 6 )
 expand = true
 
 [node name="Label" type="Label" parent="LevelSelectionUI/Control/NinePatchRect/ScrollContainer/VBoxContainer/Control/2"]
@@ -249,6 +252,7 @@ margin_bottom = 60.0
 rect_min_size = Vector2( 120, 60 )
 texture_normal = ExtResource( 14 )
 texture_pressed = ExtResource( 15 )
+texture_hover = ExtResource( 6 )
 expand = true
 
 [node name="Label" type="Label" parent="LevelSelectionUI/Control/NinePatchRect/ScrollContainer/VBoxContainer/Control/3"]
@@ -263,6 +267,8 @@ margin_bottom = 16.0
 custom_fonts/font = SubResource( 6 )
 text = "Level 3"
 align = 1
+
+[node name="CharacterMenuUI" parent="." instance=ExtResource( 3 )]
 
 [connection signal="area_exited" from="Area2D" to="." method="_on_Area2D_area_exited"]
 [connection signal="pressed" from="LevelSelectionUI/Control/NinePatchRect/CloseButtonMainUI" to="." method="_on_CloseButtonMainUI_pressed"]

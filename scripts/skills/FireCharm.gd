@@ -7,7 +7,8 @@ var velocity := Vector2()
 export (int) var x_direction = 1
 var stopped : bool = false
 func _ready():
-	pass
+	$DestroyedTimer.wait_time = Global.player_skill_multipliers["FireCharmDuration"]
+	$DestroyedTimer.start()
 func _physics_process(delta):
 	if !stopped:
 		position += transform.x * SPEED * delta * x_direction

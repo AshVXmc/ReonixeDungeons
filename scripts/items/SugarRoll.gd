@@ -28,7 +28,7 @@ func _process(delta):
 			# restore tick_amount of HP , every tick_duration seconds
 			rgm.tick_amount = 4
 			rgm.tick_duration = 2
-			var coefficient : float = 0.2
+			var coefficient : float = Global.player_perks["CreateSugarRoll"]["health"]
 			# Heals 10% of the player's HP over 10 seconds
 			if Global.current_character == Global.equipped_characters[0]:
 				rgm.heal_per_tick_amount = (Global.max_hearts * coefficient) / 2

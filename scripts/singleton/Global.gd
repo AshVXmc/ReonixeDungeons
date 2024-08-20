@@ -7,17 +7,27 @@ var character_health_data : Dictionary = {
 	"Glaciela": 10,
 	"Agnette": 10
 }
+var character_defense_data : Dictionary = {
+	"Player": 12.0, 
+	"Glaciela": 21.0,
+	"Agnette": 6.0
+}
+
+
 
 var max_hearts : float
 var hearts : float
-var max_mana : float = 18
+var max_mana : float = 20
 var mana : float = max_mana
+
 var character_2_max_hearts : float
 var character2_hearts : float
 var character2_max_mana = max_mana
 var character2_mana = max_mana
+
 var character_3_max_hearts : float 
 var character3_hearts : float 
+
 var character3_max_mana = max_mana
 var character3_mana = max_mana
 
@@ -43,41 +53,46 @@ const actions : Array = [
 # attack_power is the player's atk
 var attack_power : int = 20
 var glaciela_attack : int = 20
+var agnette_attack : int = 20
 var player_skill_multipliers : Dictionary = {
 	"BaseHearts": 2.5,
-	"BasicAttack": 15.0,
-	"BasicAttack2": 20.0,
-	"BasicAttack3": 25.0,
-	"BasicAttack4": 52.5,
-	"ChargedAttack": 47.0,
-	"ThrustAttack": 56.0,
-	"ThrustChargedAttack": 85.0,
+	"BasicAttack": 25.0,
+	"BasicAttack2": 30.0,
+	"BasicAttack3": 35.0,
+	"BasicAttack4": 65.0,
+	"ChargedAttack": 60.0,
+	"ThrustAttack": 80.0,
+	"ThrustChargedAttack": 88.0,
 	"UpwardsChargedAttack": 28.0, # x 2
 	"DownwardsChargedAttack": 56.0,
-	"SpecialChargedAttack": 30.0 ,# x 4
-	"SpecialChargedAttackFinalStrike": 140.0,
-	"CircularFlurryAttack": 30.0, # x 3
+	"SpecialChargedAttack": 50.0 ,# x 4
+	"SpecialChargedAttackFinalStrike": 180.0,
+	"CircularFlurryAttack": 40.0, # x 3
 	"PiercingProjectile": 95.0,
 	"EntryAttack": 50.0, # x 3
 	"CounterAttack": 42.0, # x 2
-	"AirborneBasicAttack": 25.0,
-	"AirborneBasicAttack2": 30.0,
-	"AirborneBasicAttack3": 35.0,
-	"AirborneBasicAttack4": 65.0,
+	"AirborneBasicAttack": 30.0,
+	"AirborneBasicAttack2": 38.0,
+	"AirborneBasicAttack3": 48.0,
+	"AirborneBasicAttack4": 70.0,
 	"SulphuricSigilSingleSlash": 40.0, # x 2
 	"SlashFlurryEnergyCost": 200,
-	"FireSaw": 35.0,
-	"FireSawDuration": 8.0,
-	"FireFairy": 22.0,
-	"Fireball": 50.0,
-	"FireballCD": 4.0,
+	"FireSaw": 95.0,
+	"FireSawDuration": 10.0,
+	"FireFairy": 50.0,
+	"FireFairyDetonation": 72.0,
+	"FireFairyDuration": 10.0,
+	"Fireball": 55.0,
+	"FireballCD": 7.0,
 	"FireballCharges": 3,
 	"FireballMaxCharges": 3,
 	"FireSawCost": 18,
-	"FireFairyCost": 2,
+	"FireFairyCost": 3,
 	"FireballCost": 2,
-	"FireSawCD": 30.0,
-	"FireFairyCD": 10.0,
+	"FireSawCD": 35.0,
+	"FireFairyCD": 15.0,
+	"FireCharmDuration": 6.0,
+	"FireCharmCD": 8.5,
 	"BasePhysRes": 0.0,
 	"BaseMagicRes": 0.0,
 	"BaseFireRes": 0.0,
@@ -100,83 +115,179 @@ var player_unlocked_skins = {
 	"CyberNinja": false
 }
 
+# player talents are passive skills
 var player_talents : Dictionary = {
-	"TalentSlots": 5,
+	"TalentSlots": 0,
 	"MaxTalentSlots": 5,
+	
 	"CycloneSlashes" : {
-		"unlocked" : true,
-		"enabled" : true,
+		"unlocked" : false,
+		"enabled" : false,
 		"opalscost": 100,
-		"talentslotcost": 2
+		"talentslotcost": 1
 	},
 	"SwiftThrust" : {
 		"unlocked" : false,
 		"enabled" : false,
 		"opalscost": 100,
-		"talentslotcost": 2
+		"talentslotcost": 1
 	},
 	# Talent has not been implemented yet
 	"BurningBreath" : {
-		"unlocked" : true,
-		"enabled" : true,
+		"unlocked" : false,
+		"enabled" : false,
 		"opalscost": 100,
-		"talentslotcost": 3
+		"talentslotcost": 2,
+		"attackpercentage": 70.0,
+		"cooldown": 10
 	},
 	# Talent has not been implemented yet
 	"InfernalMark" : {
 		"unlocked" : false,
 		"enabled" : false,
 		"opalscost": 100,
-		"DamageIncrease" : 25,
-		"talentslotcost": 2
+		"DamageIncrease" : 75,
+		"talentslotcost": 3
 	},
-	"CreateSugarRoll": {
+	"SoulSiphon": {
 		"unlocked" : false,
-		"enabled": false,
+		"enabled" : false,
 		"opalscost": 100,
-		"cooldown": 35.0,
+		"dropchance": 25,
+		"healthgranted" : 25,
 		"talentslotcost": 3
 	},
-	"ChaosMagic": {
-		"unlocked" : true,
-		"enabled": true,
+	# allows pierce fireball
+	"PiercingFervor": {
+		"unlocked" : false,
+		"enabled" : false,
 		"opalscost": 100,
-		# 45? 60? 100?
-		"cooldown": 75,
+		"damagepenalty": 25.0,
 		"talentslotcost": 3
+	},
+	"MeteorShower": {
+		"unlocked" : false,
+		"enabled" : false,
+		"opalscost": 100,
+		"damage": 82.0,
+		"amount": 4,
+		"talentslotcost": 4
+	},
+	
+	
+	"BadBlood":{
+		# dropping to critical health grants temporary attack boost and speed boost
+		# cooldown
+		"unlocked" : false,
+		"enabled" : false,
+		"opalscost": 100,
+		"cooldown": 20
 	}
 }
 
 
+var player_skills : Dictionary = {
+	"PrimarySkill" : "FireSaw",
+	"SecondarySkill" : "FireFairy",
+	"TertiarySkill" : "Fireball",
+	"PerkSkill": "CreateSugarRoll"
+}
+
+
+var glaciela_talents : Dictionary = {
+	"TalentSlots": 0,
+	"MaxTalentSlots": 5,
+	"DanceOfRime" : {
+		"unlocked" : false,
+		"enabled" : false,
+		"opalscost": 100,
+		"talentslotcost": 1
+	},
+	# a stack of tundra sigil is consumed every time u take damage to reduce it
+	"WardOfBoreas": {
+		"unlocked" : false,
+		"enabled" : false,
+		"opalscost": 100,
+		"talentslotcost": 2,
+		"damagemitigation": 35.0
+	}
+}
+
+var glaciela_skills : Dictionary = {
+	"PrimarySkill" : "WinterQueen",
+	"SecondarySkill" : "IceLance",
+	"TertiarySkill" : "ConeOfCold",
+	"PerkSkill": ""
+}
+
+
+# player perks are activated fourth skills
+var player_perks : Dictionary = {
+	"CreateSugarRoll": {
+		"unlocked" : true,
+		"enabled": false,
+		"health": 0.3,
+		"opalscost": 100,
+		"cooldown": 35.0,
+#		"talentslotcost": 3
+	},
+	"ChaosMagic": {
+		"unlocked" : true,
+		"enabled": false,
+		"opalscost": 100,
+		# 45? 60? 100?
+		"cooldown": 25.0,
+		# 25% chance
+		"triggerchance": 25,
+#		"talentslotcost": 3
+	}
+}
+
 var glaciela_skill_multipliers : Dictionary = {
-	"BasicAttack":  20.0,
-	"BasicAttack2": 27.5,
-	"BasicAttack3": 35.0,
-	"BasicAttack4": 55.0,
-	"ChargedAttack": 35.0,
-	"SpecialAttack1_1": 45.0,
-	"SpecialAttack1_2": 55.0,
-	"SpecialAttack2_1": 25.0,
-	"SpecialAttack2_2": 25.0,
-	"SpecialAttack2_3": 50.0,
-	"TundraStarsDMGBonus": 12.0,
-	"TundraSigilFreezeStackBonus": 20,
+	"BasicAttack":  36.0,
+	"BasicAttack2": 48.0,
+	"BasicAttack3": 55.0,
+	"BasicAttack4": 69.0,
+	"ChargedAttack": 40.0,
+	"SpecialAttack1_1": 35.0,
+	"SpecialAttack1_2": 45.0,
+	"SpecialAttack2_1": 16.0,
+	"SpecialAttack2_2": 22.0,
+	"SpecialAttack2_3": 40.0,
+	"IceLanceDamageBonusPerTundraSigil": 85,
+	"TundraSigilFreezeStackBonus": 30,
 	"TundraSigilManaBonus": 0.75,
-	"TundraStarsIceDamageBonus": 12,
+	"TundraStarsIceDamageBonus": 48,
 	"AirborneDuration": 2.5,
-	"IceLance": 70.0,
+	"IceLance": 60.0,
+	"IceLanceFreezeGauge": 350.0,
 	"MaxTundraStars": 3,
-	"WinterQueenCost": 15,
-	"IceLanceCost": 0,
+	"WinterQueen": 30.0,
+	"WinterQueenCost": 12,
+	"IceLanceCost": 3,
 	"WinterQueenCD": 30.0,
-	"IceLanceCD": 10.0,
+	"IceLanceCD": 11.0,
+	
+	
+	# for some reason it won't register any values below 100.
+	# so this is a fix. if it works, it works
+	"ConeOfCold": 100 * 0.25,
+	"ConeOfColdFreezeGauge": 100,
+	"ConeOfColdCD": 6,
+	"ConeOfColdResourceConsumption": 90, # per tick.
+	"ConeOfColdRegenRate": 0.95,
+	"ConeOfColdMovementSpeedPenalty": 65.0,
+	# minimum amount of mana to be able to channel it.
+	"ConeOfColdCost": 0,
+	
+	
 	"BasePhysRes": 0.0,
 	"BaseMagicRes": 0.0,
 	"BaseFireRes": -50.0,
 	"BaseEarthRes": 0.0,
 	"BaseIceRes": 0.0,
-	"CritRate": 25.0,
-	"CritDamage": 75.0,
+	"CritRate": 10.0,
+	"CritDamage": 65.0,
 	"PhysDamageBonus": 0.0,
 	"FireDamageBonus": 0.0,
 	"IceDamageBonus": 0.0,
@@ -186,7 +297,63 @@ var glaciela_skill_multipliers : Dictionary = {
 
 
 var agnette_skill_multipliers = {
+	"Arrow1": 19.0,
+	"Arrow2": 24.0,
+	"Arrow3": 30.0,
+	"Arrow4": 42.0,
+	"ChargedAttackMovementSpeedPenalty": 80.0,
+	"RainOfArrows": 40.0,
 	
+	"BearFormCost": 0,
+	"BearFormCD": 30,
+	"BearFormDuration": 15,
+	# health taken from agnette's max HP.
+	"BearFormHealth": 110.0,
+	"BearFormMovementSpeedPenalty": 26.0,
+	"BearFormAttack1": 140.0,
+	"BearFormShockwave": 20.0,
+	"BearFormShockwaveMaxHits": 5,
+	
+	"RavenFormCost": 0,
+	"RavenFormCD": 16,
+	"RavenFormDuration": 8.5,
+	"RavenFormHealth": 65.0,
+	"RavenFormPeckAttack": 58.0,
+	"RavenFormBombardmentAttack": 64.0,
+	"SpikeGrowth": 15.0,
+	"SpikeGrowthCD": 10,
+	"SpikeGrowthCharges": 2,
+	"SpikeGrowthDuration": 5,
+	"SpikeGrowthMaxCharges": 2,
+	"CritRate": 10.0,
+	"CritDamage": 65.0,
+}
+
+var agnette_talents : Dictionary = {
+	"TalentSlots": 0,
+	"MaxTalentSlots": 5,
+	"Stoneskin" : {
+		"unlocked" : false,
+		"enabled": false,
+		"opalscost": 100,
+		"talentslotcost": 1,
+		"damagereduction": 20.0
+	},
+	"VolleyShot" : {
+		"unlocked" : false,
+		"enabled": false,
+		"opalscost": 100,
+		"talentslotcost": 3,
+		"cooldown": 10.0,
+		"arrowdamagepercentage": 40.0
+	}
+}
+
+var agnette_skills : Dictionary = {
+	"PrimarySkill" : "BearForm",
+	"SecondarySkill" : "RavenForm",
+	"TertiarySkill" : "SpikeGrowth",
+	"PerkSkill": ""
 }
 
 var enemy_skill_multipliers : Dictionary = {
@@ -235,24 +402,14 @@ var lesser_soul_catalyst : int= 0
 
 
 # Skills that the player currently equips
-var player_skills : Dictionary = {
-	"PrimarySkill" : "FireSaw",
-	"SecondarySkill" : "FireFairy",
-	"RangedSkill" : ""
-}
-
-var glaciela_skills : Dictionary = {
-	"PrimarySkill" : "WinterQueen",
-	"SecondarySkill" : "IceLance",
-	"RangedSkill" : ""
-}
 
 
 
 
 var current_character : String 
 var equipped_characters : Array = ["Player", "Glaciela", "Agnette"]
-var unlocked_characters : Array = ["Player", "Glaciela", ""]
+var character_list : Array = ["Player", "Glaciela", "Agnette"]
+var unlocked_characters : Array = ["Player", "Glaciela", "Agnette"]
 var alive : Array = [true, true, true]
 
 # The level of skills. Higher levels = more damage and utility etc.
@@ -279,14 +436,15 @@ var unlocked_skills : Dictionary = {
 	"RangedSkill": ["Fireball"]
 }
 var character_level_data : Dictionary = {
-	# [current level, current xp, xp needed to level up]
-	# for every level, the xp needed to level up is increased by 10.
-	# e.g: 20 XP to get from level 2 to 3, 30XP to get from level 3 to level 4
-	"Player": [1, 0, 10],
-	"Glaciela": [1, 0, 10],
-	"Agnette": [1, 0, 10]
+	# [current level, number of currency needed to level up.
+	# for now, the currency is opals. May add other later
+	"Player": [1, 250],
+	"Glaciela": [1, 250],
+	"Agnette": [1, 250]
 }
-
+var player_talents_data = player_talents
+var player_perks_data = player_perks
+var glaciela_talents_data = glaciela_talents
 
 var enemies_killed : int
 # Boss Victories
@@ -306,7 +464,7 @@ func assign_health_points():
 				1:
 					Global.character_2_max_hearts = Global.character_health_data[e]
 					Global.character2_hearts = Global.character_2_max_hearts
-				1:
+				2:
 					Global.character_3_max_hearts = Global.character_health_data[e]
 					Global.character3_hearts = Global.character_3_max_hearts
 # Damage calc
@@ -332,6 +490,12 @@ func reset_player_data():
 		"bat_wings": 0,
 		"sweet_herbs": 0
 	}
+	# the data variable is fixed
+	Global.player_talents = Global.player_talents_data
+	Global.player_perks = Global.player_perks_data
+	Global.glaciela_talents = Global.glaciela_talents_data
+	
+	
 	Global.soul_token_amount = 0
 
 	Global.is_loading_a_save = false
@@ -340,11 +504,6 @@ func reset_player_data():
 	Global.levelpath = ""
 	Global.enemies_killed = 0
 	Global.masked_goblin_defeated = false
-	Global.player_skills = {
-		"PrimarySkill": "FireSaw",
-		"SecondarySkill": "FireFairy",
-		"RangedSkill": "Fireball"
-	}
 	Global.character_level_data = {
 		"Player": [1, 0, 20],
 		"Glaciela": [1, 0, 20],
@@ -389,6 +548,8 @@ func save_player_data():
 		"5StarPity": Global.pity_5_star,
 		"AttackPower": Global.attack_power,
 		"GlacielaAttackPower": Global.glaciela_attack,
+		"CharacterHealthData": Global.character_health_data,
+		"CharacterDefenseData": Global.character_defense_data,
 		"EnemyLevelIndex": Global.enemy_level_index,
 		"Healthpot": Global.healthpot_amount ,
 		"LifeWine" : Global.lifewine_amount,
@@ -409,6 +570,7 @@ func save_player_data():
 		"UnlockedCharacters": Global.unlocked_characters,
 		"IsLoadingASave": Global.is_loading_a_save,
 		"PlayerPosition": Global.player_position,
+
 		# Equipped skills
 		# Levels
 		"PlayerSkillMultipliers": Global.player_skill_multipliers,
@@ -416,7 +578,12 @@ func save_player_data():
 		"PhysicalDMGBonus%": Global.damage_bonus["physical_dmg_bonus_%"],
 		"FireDMGBonus%": Global.damage_bonus["fire_dmg_bonus_%"],
 		"IceDMGBonus%": Global.damage_bonus["ice_dmg_bonus_%"],
-		"EarthDMGBonus%": Global.damage_bonus["earth_dmg_bonus_%"],
+		"EarthDMGBonus%": Global.damage_bonus["earth_dmg_bonus_%"],\
+		
+		"PlayerTalents": Global.player_talents,
+		"GlacielaTalents": Global.glaciela_talents,
+		"PlayerPerks": Global.player_perks,
+		
 		"Lighting" : Global.lighting,
 		"Vsync" : Global.vsync,
 		"EnemiesKilled": Global.enemies_killed ,

@@ -1,84 +1,106 @@
-extends Goblin
+class_name WitchGoblin extends Goblin
 
-#export var HP : int = 3
-#const LOOT = preload("res://scenes/items/LootBag.tscn")
-#const FAMILIAR = preload("res://scenes/enemies/Familiar.tscn")
-#const GRAVITY : int = 45
-#const FLOOR = Vector2(0, -1)
-#var initial_pos : int = -7
-#var velocity = Vector2()
-#onready var PLAYER = get_parent().get_node("Player").get_node("Area2D")
-#var player_inside : bool = false
-#
-#func _physics_process(delta):
-#	velocity.y += GRAVITY
-#	velocity = move_and_slide(velocity, FLOOR)
-#	if !$AnimatedSprite.flip_h:
-#		$SummoningPos.position.x = initial_pos
-#	elif $AnimatedSprite.flip_h:
-#		$SummoningPos.position.x = initial_pos * -1
-#
-#	if $Left.overlaps_area(PLAYER):
-#		$AnimatedSprite.flip_h = false
-#	elif $Right.overlaps_area(PLAYER):
-#		$AnimatedSprite.flip_h = true
-#	if $SummoningArea.overlaps_area(PLAYER):
-#		player_inside = true
-#		$AnimatedSprite.play("summoning")
-#	if !player_inside:
-#		$SummoningTimer.stop()
-#	if !$SummoningArea.overlaps_area(PLAYER):
-#		player_inside = false
-##		$AnimatedSprite.play("default")
-#
-#func summon_familiars():
-#	var familiar : Familiar = FAMILIAR.instance()
-#	get_parent().add_child(familiar)
-#	familiar.position = $SummoningPos.global_position
-#
-#
-##func _on_Left_area_entered(area):
-##		$SummoningTimer.start()
-##
-##func _on_Right_area_entered(area):
-##		$SummoningTimer.start()
-#
-#
-#func _on_SummoningTimer_timeout():
-#	summon_familiars()
-#	if player_inside:
-#		$SummoningTimer.start()
-#	else:
-#		$SummoningTimer.stop()
-#
-#
-#func _on_Area2D_area_entered(area):
-#	if area.is_in_group("Sword") or area.is_in_group("Fireball") and HP > 0:
-#		HP -= 1
-#		parse_damage()
-#	elif area.is_in_group("Sword2"):
-#		HP -= 3
-#		parse_damage()
-#func parse_damage():
-#	velocity.x = 0
-#	set_modulate(Color(2,0.5,0.3,1))
-#	if $HurtTimer.is_stopped():
-#		$HurtTimer.start()
-#	if HP <= 0:
-#		var loot = LOOT.instance()
-#		var lootrng : RandomNumberGenerator = RandomNumberGenerator.new()
-#		lootrng.randomize()
-#		var randomint = lootrng.randi_range(1,3)
-#		if randomint == 1:
-#			get_parent().add_child(loot)
-#			loot.position = $Position2D.global_position
-#		queue_free()
-#		Global.enemies_killed += 1
-#
-#
-#func _on_HurtTimer_timeout():
-#	set_modulate(Color(1,1,1,1))
-#
-#
-#func _on_SummoningArea_area_entered(area):
-#	$SummoningTimer.start()
+const ELDRITCH_BLAST = preload("res://scenes/enemies/EnemyEldritchBlast.tscn")
+const ELDRITCH_HEX = preload("res://scenes/enemies/EnemyEldritchHex.tscn")
+onready var player = get_parent().get_node("Player")
+
+var spell_history : Array = []
+
+func _ready():
+	max_HP *= 0.7
+	HP = max_HP
+	$HealthBar.max_value = max_HP
+	$HealthBar.value = $HealthBar.max_value
+	SPEED = MAX_SPEED / 2.1
+	is_casting = true
+	cast_spell()
+func _physics_process(delta):
+	if !is_casting:
+		if is_on_floor():
+			if !is_staggered and !$Area2D.overlaps_area(PLAYER) and !other_enemy_detector_is_overlapping_player() and !is_frozen and !dead and !is_airborne and weakref(PLAYER).get_ref() != null: 
+				if AREA_LEFT.overlaps_area(PLAYER) and !AREA_LEFT.overlaps_area(DECOY) and !AREA_LEFT.overlaps_area(DECOY2) and !AREA_LEFT.overlaps_area(DECOY3):
+					$Sprite.flip_h = false
+					if !$Sprite.flip_h:
+						yield(get_tree().create_timer(0.25),"timeout")
+						velocity.x = SPEED
+				elif AREA_LEFT.overlaps_area(DECOY) or AREA_LEFT.overlaps_area(DECOY2) or AREA_LEFT.overlaps_area(DECOY):
+					$Sprite.flip_h = false
+					if !$Sprite.flip_h:
+						yield(get_tree().create_timer(0.5),"timeout")
+						velocity.x = SPEED 
+				if AREA_RIGHT.overlaps_area(PLAYER) and !AREA_RIGHT.overlaps_area(DECOY) and !AREA_RIGHT.overlaps_area(DECOY2) and !AREA_RIGHT.overlaps_area(DECOY3):
+					$Sprite.flip_h = true
+					if $Sprite.flip_h:
+						yield(get_tree().create_timer(0.25),"timeout")
+						velocity.x = -SPEED 
+				elif AREA_RIGHT.overlaps_area(DECOY) or AREA_RIGHT.overlaps_area(DECOY2) or AREA_RIGHT.overlaps_area(DECOY3):
+					$Sprite.flip_h = true
+					if $Sprite.flip_h:
+						yield(get_tree().create_timer(0.5),"timeout")
+						velocity.x = -SPEED
+		if other_enemy_is_on_front():
+			velocity.x = 0
+			
+		if $Area2D.overlaps_area(PLAYER) or other_enemy_is_on_front() and !is_staggered:
+
+			if $Sprite.flip_h:
+				velocity.x = -SPEED * 1
+			else:
+				velocity.x = SPEED * 1
+		if other_enemy_detectors_is_overlapping():
+			if $Sprite.flip_h:
+				velocity.x = -SPEED 
+			else:
+				velocity.x = SPEED 
+		if other_enemy_is_on_front():
+			if other_enemy_detector_is_overlapping_player():
+				if $Sprite.flip_h:
+					velocity.x = -SPEED 
+				else:
+					velocity.x = SPEED
+			elif AREA_LEFT.overlaps_area(PLAYER) or AREA_RIGHT.overlaps_area(PLAYER):
+				if $Sprite.flip_h:
+					velocity.x = -SPEED 
+				else:
+					velocity.x = SPEED
+	if is_casting:
+		$Sprite.play("Casting")
+	if is_staggered or is_frozen or is_airborne:
+		velocity.x = 0
+		
+
+func cast_spell():
+	is_casting = true
+	yield(get_tree().create_timer(1), "timeout")
+	var rng = RandomNumberGenerator.new()
+	rng.randomize()
+	var num = rng.randi_range(1, 2)	
+	match num:
+		1:
+			eldritch_blast()
+			
+		2:
+			eldritch_hex()
+	
+
+# slows/snares the player, mediocre damage, tracks the player until
+# it enters a radius, then starts a countdown timer
+func eldritch_blast():
+	var eb = ELDRITCH_BLAST.instance()
+	get_parent().add_child(eb)
+	eb.position = global_position
+	yield(get_tree().create_timer(1.75),"timeout")
+	is_casting = false
+	
+# summon a smokecloud at the player's position, before casting down lighting
+func eldritch_hex():
+	var hex = ELDRITCH_HEX.instance()
+	get_parent().add_child(hex)
+	hex.position = player.global_position
+	yield(get_tree().create_timer(3.25), "timeout")
+	is_casting = false
+	
+func _on_CastSpellTimer_timeout():
+	var entities = $PlayerDetectorArea2D.get_overlapping_bodies()
+	if player in entities and !is_frozen:
+		cast_spell()

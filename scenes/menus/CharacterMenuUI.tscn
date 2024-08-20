@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=41 format=2]
 
 [ext_resource path="res://scripts/ui/CharacterTalentsControl.gd" type="Script" id=1]
 [ext_resource path="res://assets/characters/glaciela/glaciela_idle.png" type="Texture" id=2]
@@ -9,29 +9,63 @@
 [ext_resource path="res://themes/Blur.tres" type="Material" id=7]
 [ext_resource path="res://assets/misc/opal.png" type="Texture" id=8]
 [ext_resource path="res://assets/UI/quiticon.png" type="Texture" id=9]
+[ext_resource path="res://scripts/ui/CharacterSkillsControl.gd" type="Script" id=10]
+[ext_resource path="res://assets/UI/keybind_button.png" type="Texture" id=11]
 [ext_resource path="res://assets/fonts/Born2bSportyV2.ttf" type="DynamicFontData" id=12]
 [ext_resource path="res://assets/characters/agnette/agnette_idle_1.png" type="Texture" id=13]
 [ext_resource path="res://scripts/ui/CharactersUI.gd" type="Script" id=14]
+[ext_resource path="res://assets/UI/long_button.png" type="Texture" id=15]
+[ext_resource path="res://assets/UI/firesaw_skill_icon.png" type="Texture" id=16]
+[ext_resource path="res://assets/UI/fire_fairy_skill_icon.png" type="Texture" id=17]
+[ext_resource path="res://assets/UI/fireball_skill_icon.png" type="Texture" id=18]
+[ext_resource path="res://assets/UI/create_sugar_roll_talent_icon.png" type="Texture" id=19]
+[ext_resource path="res://assets/UI/chaos_magic_talent_icon.png" type="Texture" id=20]
+[ext_resource path="res://assets/UI/winter_queen_skill_icon.png" type="Texture" id=21]
+[ext_resource path="res://assets/UI/icelance_skill_icon.png" type="Texture" id=22]
+[ext_resource path="res://assets/UI/cone_of_cold_skill_icon.png" type="Texture" id=23]
+[ext_resource path="res://assets/UI/bear_form_skill_icon.png" type="Texture" id=24]
+[ext_resource path="res://assets/UI/spikegrowth_skill_icon.png" type="Texture" id=25]
+[ext_resource path="res://assets/UI/raven_form_skill_icon.png" type="Texture" id=26]
 
 [sub_resource type="DynamicFont" id=1]
 size = 48
+font_data = ExtResource( 12 )
+
+[sub_resource type="DynamicFont" id=13]
+size = 32
 font_data = ExtResource( 12 )
 
 [sub_resource type="DynamicFont" id=5]
 size = 32
 font_data = ExtResource( 12 )
 
-[sub_resource type="DynamicFont" id=3]
+[sub_resource type="DynamicFont" id=9]
+size = 32
+font_data = ExtResource( 12 )
+
+[sub_resource type="DynamicFont" id=10]
+size = 32
+font_data = ExtResource( 12 )
+
+[sub_resource type="DynamicFont" id=12]
+size = 32
+font_data = ExtResource( 12 )
+
+[sub_resource type="DynamicFont" id=11]
+size = 32
 font_data = ExtResource( 12 )
 
 [sub_resource type="DynamicFont" id=2]
 size = 32
 font_data = ExtResource( 12 )
 
-[sub_resource type="DynamicFont" id=8]
+[sub_resource type="DynamicFont" id=3]
 font_data = ExtResource( 12 )
 
 [sub_resource type="DynamicFont" id=4]
+font_data = ExtResource( 12 )
+
+[sub_resource type="DynamicFont" id=8]
 font_data = ExtResource( 12 )
 
 [sub_resource type="DynamicFont" id=6]
@@ -40,6 +74,10 @@ font_data = ExtResource( 12 )
 
 [sub_resource type="DynamicFont" id=7]
 size = 48
+font_data = ExtResource( 12 )
+
+[sub_resource type="DynamicFont" id=14]
+size = 32
 font_data = ExtResource( 12 )
 
 [node name="CharacterMenuUI" type="CanvasLayer"]
@@ -58,16 +96,15 @@ margin_bottom = 360.0
 script = ExtResource( 14 )
 
 [node name="Blur" type="ColorRect" parent="CharactersUI"]
-visible = false
 material = ExtResource( 7 )
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -1284.0
-margin_top = -734.0
-margin_right = 1956.0
-margin_bottom = 1426.0
+margin_left = -1620.0
+margin_top = -1080.0
+margin_right = 1620.0
+margin_bottom = 1080.0
 color = Color( 1, 1, 1, 0 )
 
 [node name="NinePatchRect" type="NinePatchRect" parent="CharactersUI"]
@@ -75,10 +112,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -436.5
-margin_top = -307.0
-margin_right = 436.5
-margin_bottom = 307.0
+margin_left = -436.0
+margin_top = -268.0
+margin_right = 437.0
+margin_bottom = 240.0
 texture = ExtResource( 6 )
 patch_margin_left = 64
 patch_margin_top = 64
@@ -89,15 +126,15 @@ patch_margin_bottom = 64
 anchor_left = 0.5
 anchor_right = 0.5
 margin_left = -306.0
-margin_top = 13.0
+margin_top = 11.0
 margin_right = 306.0
-margin_bottom = 61.0
+margin_bottom = 59.0
 custom_colors/default_color = Color( 1, 1, 1, 1 )
 custom_colors/selection_color = Color( 1, 0.843137, 0.0117647, 1 )
 custom_fonts/normal_font = SubResource( 1 )
 bbcode_enabled = true
-bbcode_text = "[center]=== [color=#ffd703]Characters[/color] ==="
-text = "=== Characters ==="
+bbcode_text = "[center]=== [color=#ffd703]Character Loadouts[/color] ==="
+text = "=== Character Loadouts ==="
 scroll_active = false
 
 [node name="CloseButtonMainUI" type="TextureButton" parent="CharactersUI/NinePatchRect"]
@@ -105,36 +142,66 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -436.0
-margin_top = -307.0
-margin_right = -396.0
-margin_bottom = -267.0
+margin_left = -436.5
+margin_top = -240.0
+margin_right = -396.5
+margin_bottom = -200.0
 rect_scale = Vector2( 1.5, 1.5 )
 texture_normal = ExtResource( 9 )
 expand = true
 
+[node name="PlayerNameLabel" type="Label" parent="CharactersUI/NinePatchRect"]
+margin_left = 82.0
+margin_top = 68.0
+margin_right = 158.0
+margin_bottom = 100.0
+custom_colors/font_color = Color( 1, 0.176471, 0.176471, 1 )
+custom_fonts/font = SubResource( 13 )
+text = "Player"
+align = 1
+
 [node name="PlayerSprite" type="Sprite" parent="CharactersUI/NinePatchRect"]
-position = Vector2( 180, 181 )
-scale = Vector2( 7, 7 )
+position = Vector2( 120, 167 )
+scale = Vector2( 6, 6 )
 texture = ExtResource( 3 )
 
+[node name="GlacielaNameLabel" type="Label" parent="CharactersUI/NinePatchRect"]
+margin_left = 288.0
+margin_top = 68.0
+margin_right = 376.0
+margin_bottom = 100.0
+custom_colors/font_color = Color( 0.490196, 0.941176, 1, 1 )
+custom_fonts/font = SubResource( 13 )
+text = "Glaciela"
+align = 1
+
 [node name="GlacielaSprite" type="Sprite" parent="CharactersUI/NinePatchRect"]
-position = Vector2( 436, 181 )
-scale = Vector2( 7, 7 )
+position = Vector2( 330, 167 )
+scale = Vector2( 6, 6 )
 texture = ExtResource( 2 )
 
+[node name="AgnetteNameLabel" type="Label" parent="CharactersUI/NinePatchRect"]
+margin_left = 504.0
+margin_top = 68.0
+margin_right = 594.0
+margin_bottom = 100.0
+custom_colors/font_color = Color( 0.870588, 0.713726, 0, 1 )
+custom_fonts/font = SubResource( 13 )
+text = "Agnette"
+align = 1
+
 [node name="AgnetteSprite" type="Sprite" parent="CharactersUI/NinePatchRect"]
-position = Vector2( 693, 181 )
-scale = Vector2( 7, 7 )
+position = Vector2( 540, 167 )
+scale = Vector2( 6, 6 )
 texture = ExtResource( 13 )
 
 [node name="PlayerStatsLabel" type="RichTextLabel" parent="CharactersUI/NinePatchRect"]
 anchor_left = 0.5
 anchor_right = 0.5
-margin_left = -375.5
-margin_top = 269.0
-margin_right = -122.5
-margin_bottom = 434.0
+margin_left = -435.5
+margin_top = 237.0
+margin_right = -182.5
+margin_bottom = 402.0
 custom_colors/default_color = Color( 1, 1, 1, 1 )
 custom_colors/selection_color = Color( 1, 0.843137, 0.0117647, 1 )
 custom_fonts/normal_font = SubResource( 5 )
@@ -152,29 +219,1565 @@ Attack: 20
 fit_content_height = true
 scroll_active = false
 
-[node name="PlayerOpenTalentButton" type="TextureButton" parent="CharactersUI/NinePatchRect"]
+[node name="PlayerOpenSkillsButton" type="TextureButton" parent="CharactersUI/NinePatchRect"]
 anchor_left = 0.215
 anchor_right = 0.215
-margin_left = -63.195
-margin_top = 400.0
-margin_right = 66.805
-margin_bottom = 465.0
+margin_left = -115.195
+margin_top = 312.0
+margin_right = -5.19501
+margin_bottom = 367.0
 rect_min_size = Vector2( 32, 16 )
 texture_normal = ExtResource( 5 )
 texture_pressed = ExtResource( 4 )
+texture_hover = ExtResource( 11 )
+expand = true
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="ButtonLabel" type="Label" parent="CharactersUI/NinePatchRect/PlayerOpenSkillsButton"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -40.0
+margin_top = -15.5
+margin_right = 38.0
+margin_bottom = 19.5
+custom_fonts/font = SubResource( 9 )
+text = "Skills"
+align = 1
+
+[node name="PlayerOpenTalentButton" type="TextureButton" parent="CharactersUI/NinePatchRect"]
+anchor_left = 0.215
+anchor_right = 0.215
+margin_left = -115.195
+margin_top = 383.0
+margin_right = -5.19501
+margin_bottom = 438.0
+rect_min_size = Vector2( 32, 16 )
+texture_normal = ExtResource( 5 )
+texture_pressed = ExtResource( 4 )
+texture_hover = ExtResource( 11 )
 expand = true
 __meta__ = {
 "_edit_group_": true
 }
 
 [node name="ButtonLabel" type="Label" parent="CharactersUI/NinePatchRect/PlayerOpenTalentButton"]
-margin_left = 11.5001
-margin_top = 14.0
-margin_right = 355.5
-margin_bottom = 142.0
-rect_scale = Vector2( 0.3, 0.3 )
-custom_fonts/font = SubResource( 3 )
+margin_left = 11.0
+margin_top = 12.0
+margin_right = 97.0
+margin_bottom = 44.0
+custom_fonts/font = SubResource( 10 )
 text = "Talents"
+align = 1
+
+[node name="GlacielaOpenSkillsButton" type="TextureButton" parent="CharactersUI/NinePatchRect"]
+anchor_left = 0.215
+anchor_right = 0.215
+margin_left = 92.805
+margin_top = 312.0
+margin_right = 202.805
+margin_bottom = 367.0
+rect_min_size = Vector2( 32, 16 )
+texture_normal = ExtResource( 5 )
+texture_pressed = ExtResource( 4 )
+texture_hover = ExtResource( 11 )
+expand = true
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="ButtonLabel" type="Label" parent="CharactersUI/NinePatchRect/GlacielaOpenSkillsButton"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -40.0
+margin_top = -15.5
+margin_right = 38.0
+margin_bottom = 19.5
+custom_fonts/font = SubResource( 9 )
+text = "Skills"
+align = 1
+
+[node name="GlacielaOpenTalentButton" type="TextureButton" parent="CharactersUI/NinePatchRect"]
+anchor_left = 0.215
+anchor_right = 0.215
+margin_left = 92.805
+margin_top = 383.0
+margin_right = 202.805
+margin_bottom = 438.0
+rect_min_size = Vector2( 32, 16 )
+texture_normal = ExtResource( 5 )
+texture_pressed = ExtResource( 4 )
+texture_hover = ExtResource( 11 )
+expand = true
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="ButtonLabel" type="Label" parent="CharactersUI/NinePatchRect/GlacielaOpenTalentButton"]
+margin_left = 11.0
+margin_top = 12.0
+margin_right = 97.0
+margin_bottom = 44.0
+custom_fonts/font = SubResource( 10 )
+text = "Talents"
+align = 1
+
+[node name="AgnetteOpenSkillsButton" type="TextureButton" parent="CharactersUI/NinePatchRect"]
+anchor_left = 0.215
+anchor_right = 0.215
+margin_left = 300.805
+margin_top = 312.0
+margin_right = 410.805
+margin_bottom = 367.0
+rect_min_size = Vector2( 32, 16 )
+texture_normal = ExtResource( 5 )
+texture_pressed = ExtResource( 4 )
+texture_hover = ExtResource( 11 )
+expand = true
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="ButtonLabel" type="Label" parent="CharactersUI/NinePatchRect/AgnetteOpenSkillsButton"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -40.0
+margin_top = -15.5
+margin_right = 38.0
+margin_bottom = 19.5
+custom_fonts/font = SubResource( 9 )
+text = "Skills"
+align = 1
+
+[node name="AgnetteOpenTalentButton" type="TextureButton" parent="CharactersUI/NinePatchRect"]
+anchor_left = 0.215
+anchor_right = 0.215
+margin_left = 300.805
+margin_top = 383.0
+margin_right = 410.805
+margin_bottom = 438.0
+rect_min_size = Vector2( 32, 16 )
+texture_normal = ExtResource( 5 )
+texture_pressed = ExtResource( 4 )
+texture_hover = ExtResource( 11 )
+expand = true
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="ButtonLabel" type="Label" parent="CharactersUI/NinePatchRect/AgnetteOpenTalentButton"]
+margin_left = 11.0
+margin_top = 12.0
+margin_right = 97.0
+margin_bottom = 44.0
+custom_fonts/font = SubResource( 10 )
+text = "Talents"
+align = 1
+
+[node name="CharacterSkillsControl" type="Control" parent="."]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -540.0
+margin_top = -419.0
+margin_right = 540.0
+margin_bottom = 301.0
+script = ExtResource( 10 )
+
+[node name="Blur" type="ColorRect" parent="CharacterSkillsControl"]
+material = ExtResource( 7 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -1151.0
+margin_top = -881.0
+margin_right = 2089.0
+margin_bottom = 1279.0
+color = Color( 1, 1, 1, 0 )
+
+[node name="NinePatchRect" type="NinePatchRect" parent="CharacterSkillsControl"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -462.0
+margin_top = -252.0
+margin_right = 463.0
+margin_bottom = 355.0
+texture = ExtResource( 6 )
+patch_margin_left = 64
+patch_margin_top = 64
+patch_margin_right = 64
+patch_margin_bottom = 64
+
+[node name="Header" type="RichTextLabel" parent="CharacterSkillsControl/NinePatchRect"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -306.0
+margin_top = 13.0
+margin_right = 306.0
+margin_bottom = 61.0
+custom_colors/default_color = Color( 1, 1, 1, 1 )
+custom_colors/selection_color = Color( 1, 0.843137, 0.0117647, 1 )
+custom_fonts/normal_font = SubResource( 1 )
+bbcode_enabled = true
+bbcode_text = "[center]=== [color=#ffd703]Character Skills[/color] ==="
+text = "=== Character Skills ==="
+scroll_active = false
+
+[node name="SkillsControl" type="Control" parent="CharacterSkillsControl/NinePatchRect"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 6.5
+margin_top = 12.0
+margin_right = 15.5
+margin_bottom = 12.0
+
+[node name="BackgroundBox" type="NinePatchRect" parent="CharacterSkillsControl/NinePatchRect/SkillsControl"]
+margin_left = 183.0
+margin_top = 60.0
+margin_right = 876.0
+margin_bottom = 469.0
+texture = ExtResource( 6 )
+patch_margin_left = 64
+patch_margin_top = 64
+patch_margin_right = 64
+patch_margin_bottom = 64
+
+[node name="PlayerControl" type="Control" parent="CharacterSkillsControl/NinePatchRect/SkillsControl"]
+visible = false
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="Sprite" type="Sprite" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/PlayerControl"]
+position = Vector2( 86, 125 )
+scale = Vector2( 7, 7 )
+texture = ExtResource( 3 )
+
+[node name="SkillTypeHeaderLabel" type="Label" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/PlayerControl"]
+margin_left = 35.5
+margin_top = 218.0
+margin_right = 147.5
+margin_bottom = 250.0
+custom_fonts/font = SubResource( 12 )
+text = "Skill Type"
+align = 1
+
+[node name="SkillTypeOptionSprite" type="Sprite" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/PlayerControl"]
+position = Vector2( 92.5, 295 )
+scale = Vector2( 10.125, 10.125 )
+texture = ExtResource( 5 )
+
+[node name="SkillTypeOptionButton" type="OptionButton" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/PlayerControl"]
+margin_left = 21.0
+margin_top = 264.0
+margin_right = 162.0
+margin_bottom = 327.0
+custom_fonts/font = SubResource( 11 )
+flat = true
+
+[node name="PrimarySkillScrollContainer" type="ScrollContainer" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/PlayerControl"]
+visible = false
+anchor_right = 21.766
+anchor_bottom = 15.255
+margin_left = 197.0
+margin_top = 79.0
+margin_right = 16.36
+margin_bottom = -168.2
+rect_min_size = Vector2( 566, 355 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/PlayerControl/PrimarySkillScrollContainer"]
+margin_right = 510.0
+margin_bottom = 1104.0
+rect_min_size = Vector2( 510, 1100 )
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/PlayerControl/PrimarySkillScrollContainer/VBoxContainer"]
+margin_right = 510.0
+margin_bottom = 1100.0
+rect_min_size = Vector2( 510, 1100 )
+custom_fonts/italics_font = SubResource( 2 )
+custom_fonts/normal_font = SubResource( 2 )
+bbcode_enabled = true
+bbcode_text = "[color=#ffd703]Flaming Firesaw[/color]
+Twin flame blades spin around you for FIRESAW_DUR seconds, dealing [u]FIRESAW_ATK% ATK[/u] as [color=#fd9628]Fire[/color] damage and applies stacks of [color=#fd9628]Burning[/color].
+
+Cooldown: FIRESAW_CD seconds
+Mana cost: FIRESAW_COST mana"
+text = "Flaming Firesaw
+Twin flame blades spin around you for FIRESAW_DUR seconds, dealing FIRESAW_ATK% ATK as Fire damage and applies stacks of Burning.
+
+Cooldown: FIRESAW_CD seconds
+Mana cost: FIRESAW_COST mana"
+scroll_active = false
+
+[node name="TalentControl1" type="Control" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/PlayerControl/PrimarySkillScrollContainer/VBoxContainer"]
+margin_top = 1104.0
+margin_right = 510.0
+margin_bottom = 1104.0
+
+[node name="PlayerTalentButton" type="TextureButton" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/PlayerControl/PrimarySkillScrollContainer/VBoxContainer/TalentControl1"]
+anchor_left = 0.215
+anchor_right = 0.215
+margin_left = 426.35
+margin_top = -1104.0
+margin_right = 458.35
+margin_bottom = -1087.0
+rect_min_size = Vector2( 32, 16 )
+rect_scale = Vector2( 7.5, 7.5 )
+texture_normal = ExtResource( 5 )
+texture_pressed = ExtResource( 4 )
+
+[node name="ButtonLabel" type="Label" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/PlayerControl/PrimarySkillScrollContainer/VBoxContainer/TalentControl1/PlayerTalentButton"]
+margin_left = 1.73334
+margin_top = 2.0
+margin_right = 46.7333
+margin_bottom = 19.0
+rect_scale = Vector2( 0.3, 0.3 )
+custom_colors/font_color = Color( 1, 0.843137, 0.0117647, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Bought"
+
+[node name="PlayerCheckButton" type="CheckButton" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/PlayerControl/PrimarySkillScrollContainer/VBoxContainer/TalentControl1/PlayerTalentButton"]
+visible = false
+margin_left = -5.33334
+margin_top = 8.66666
+margin_right = 116.667
+margin_bottom = 48.6667
+rect_scale = Vector2( 0.2, 0.2 )
+custom_fonts/font = SubResource( 4 )
+text = "Enable"
+align = 1
+
+[node name="SkillIcon" type="Sprite" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/PlayerControl/PrimarySkillScrollContainer/VBoxContainer"]
+position = Vector2( 597, 120 )
+scale = Vector2( 5, 5 )
+texture = ExtResource( 16 )
+
+[node name="SecondarySkillScrollContainer" type="ScrollContainer" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/PlayerControl"]
+visible = false
+anchor_right = 21.766
+anchor_bottom = 15.255
+margin_left = 197.0
+margin_top = 79.0
+margin_right = 16.36
+margin_bottom = -168.2
+rect_min_size = Vector2( 566, 355 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/PlayerControl/SecondarySkillScrollContainer"]
+margin_right = 510.0
+margin_bottom = 1104.0
+rect_min_size = Vector2( 510, 1100 )
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/PlayerControl/SecondarySkillScrollContainer/VBoxContainer"]
+margin_right = 510.0
+margin_bottom = 1100.0
+rect_min_size = Vector2( 510, 1100 )
+custom_fonts/italics_font = SubResource( 2 )
+custom_fonts/normal_font = SubResource( 2 )
+bbcode_enabled = true
+bbcode_text = "[color=#ffd703]Fire Fairy[/color]
+Summon a fire spirit that automatically tracks enemies, dealing [u]FIREFAIRY_ATK% ATK[/u] as [color=#fd9628]Fire damage[/color]. Enemies hit are marked with Sulphuric Sigil. At the end of its duration, it detonates and deals [u]FIREFAIRY_EX_ATK% ATK[/u] as [color=#fd9628]Fire damage[/color].
+Recast the skill to teleport the spirit to your location. 
+
+Duration: FIREFAIRY_DUR seconds
+Cooldown: FIREFAIRY_CD seconds
+Mana cost: FIREFAIRY_COST mana"
+text = "Fire Fairy
+Summon a fire spirit that automatically tracks enemies, dealing FIREFAIRY_ATK% ATK as Fire damage. Enemies hit are marked with Sulphuric Sigil. At the end of its duration, it detonates and deals FIREFAIRY_EX_ATK% ATK as Fire damage.
+Recast the skill to teleport the spirit to your location. 
+
+Duration: FIREFAIRY_DUR seconds
+Cooldown: FIREFAIRY_CD seconds
+Mana cost: FIREFAIRY_COST mana"
+scroll_active = false
+
+[node name="TalentControl1" type="Control" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/PlayerControl/SecondarySkillScrollContainer/VBoxContainer"]
+margin_top = 1104.0
+margin_right = 510.0
+margin_bottom = 1104.0
+
+[node name="PlayerTalentButton" type="TextureButton" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/PlayerControl/SecondarySkillScrollContainer/VBoxContainer/TalentControl1"]
+anchor_left = 0.215
+anchor_right = 0.215
+margin_left = 426.35
+margin_top = -1104.0
+margin_right = 458.35
+margin_bottom = -1087.0
+rect_min_size = Vector2( 32, 16 )
+rect_scale = Vector2( 7.5, 7.5 )
+texture_normal = ExtResource( 5 )
+texture_pressed = ExtResource( 4 )
+
+[node name="ButtonLabel" type="Label" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/PlayerControl/SecondarySkillScrollContainer/VBoxContainer/TalentControl1/PlayerTalentButton"]
+margin_left = 1.73334
+margin_top = 2.0
+margin_right = 46.7333
+margin_bottom = 19.0
+rect_scale = Vector2( 0.3, 0.3 )
+custom_colors/font_color = Color( 1, 0.843137, 0.0117647, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Bought"
+
+[node name="PlayerCheckButton" type="CheckButton" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/PlayerControl/SecondarySkillScrollContainer/VBoxContainer/TalentControl1/PlayerTalentButton"]
+visible = false
+margin_left = -5.33334
+margin_top = 8.66666
+margin_right = 116.667
+margin_bottom = 48.6667
+rect_scale = Vector2( 0.2, 0.2 )
+custom_fonts/font = SubResource( 4 )
+text = "Enable"
+align = 1
+
+[node name="SkillIcon" type="Sprite" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/PlayerControl/SecondarySkillScrollContainer/VBoxContainer"]
+position = Vector2( 597, 120 )
+scale = Vector2( 5, 5 )
+texture = ExtResource( 17 )
+
+[node name="TertiarySkillScrollContainer" type="ScrollContainer" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/PlayerControl"]
+visible = false
+anchor_right = 21.766
+anchor_bottom = 15.255
+margin_left = 197.0
+margin_top = 79.0
+margin_right = 16.36
+margin_bottom = -168.2
+rect_min_size = Vector2( 566, 355 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/PlayerControl/TertiarySkillScrollContainer"]
+margin_right = 510.0
+margin_bottom = 1104.0
+rect_min_size = Vector2( 510, 1100 )
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/PlayerControl/TertiarySkillScrollContainer/VBoxContainer"]
+margin_right = 510.0
+margin_bottom = 1100.0
+rect_min_size = Vector2( 510, 1100 )
+custom_fonts/italics_font = SubResource( 2 )
+custom_fonts/normal_font = SubResource( 2 )
+bbcode_enabled = true
+bbcode_text = "[color=#ffd703]Fireball[/color]
+Shoot a flaming orb that travels forward in a straight line, dealing [u]FIREBALL_ATK% ATK[/u] as [color=#fd9628]Fire damage[/color].
+
+Cooldown: FIREBALL_CD seconds per charge
+Max charges: FIREBALL_CHARGES"
+text = "Fireball
+Shoot a flaming orb that travels forward in a straight line, dealing FIREBALL_ATK% ATK as Fire damage.
+
+Cooldown: FIREBALL_CD seconds per charge
+Max charges: FIREBALL_CHARGES"
+scroll_active = false
+
+[node name="TalentControl1" type="Control" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/PlayerControl/TertiarySkillScrollContainer/VBoxContainer"]
+margin_top = 1104.0
+margin_right = 510.0
+margin_bottom = 1104.0
+
+[node name="PlayerTalentButton" type="TextureButton" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/PlayerControl/TertiarySkillScrollContainer/VBoxContainer/TalentControl1"]
+anchor_left = 0.215
+anchor_right = 0.215
+margin_left = 426.35
+margin_top = -1104.0
+margin_right = 458.35
+margin_bottom = -1087.0
+rect_min_size = Vector2( 32, 16 )
+rect_scale = Vector2( 7.5, 7.5 )
+texture_normal = ExtResource( 5 )
+texture_pressed = ExtResource( 4 )
+
+[node name="ButtonLabel" type="Label" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/PlayerControl/TertiarySkillScrollContainer/VBoxContainer/TalentControl1/PlayerTalentButton"]
+margin_left = 1.73334
+margin_top = 2.0
+margin_right = 46.7333
+margin_bottom = 19.0
+rect_scale = Vector2( 0.3, 0.3 )
+custom_colors/font_color = Color( 1, 0.843137, 0.0117647, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Bought"
+
+[node name="PlayerCheckButton" type="CheckButton" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/PlayerControl/TertiarySkillScrollContainer/VBoxContainer/TalentControl1/PlayerTalentButton"]
+visible = false
+margin_left = -5.33334
+margin_top = 8.66666
+margin_right = 116.667
+margin_bottom = 48.6667
+rect_scale = Vector2( 0.2, 0.2 )
+custom_fonts/font = SubResource( 4 )
+text = "Enable"
+align = 1
+
+[node name="SkillIcon" type="Sprite" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/PlayerControl/TertiarySkillScrollContainer/VBoxContainer"]
+position = Vector2( 597, 120 )
+scale = Vector2( 5, 5 )
+texture = ExtResource( 18 )
+
+[node name="PerkSkillScrollContainerControl" type="Control" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/PlayerControl"]
+visible = false
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="PerkSkillScrollContainer" type="ScrollContainer" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/PlayerControl/PerkSkillScrollContainerControl"]
+anchor_right = 21.766
+anchor_bottom = 15.255
+margin_left = 197.0
+margin_top = 79.0
+margin_right = 16.36
+margin_bottom = -168.2
+rect_min_size = Vector2( 566, 355 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/PlayerControl/PerkSkillScrollContainerControl/PerkSkillScrollContainer"]
+margin_right = 510.0
+margin_bottom = 1808.0
+rect_min_size = Vector2( 510, 1800 )
+
+[node name="SkillIcon1" type="Sprite" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/PlayerControl/PerkSkillScrollContainerControl/PerkSkillScrollContainer/VBoxContainer"]
+position = Vector2( 597, 120 )
+scale = Vector2( 5, 5 )
+texture = ExtResource( 19 )
+
+[node name="SkillIcon2" type="Sprite" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/PlayerControl/PerkSkillScrollContainerControl/PerkSkillScrollContainer/VBoxContainer"]
+position = Vector2( 597, 426 )
+scale = Vector2( 5, 5 )
+texture = ExtResource( 20 )
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/PlayerControl/PerkSkillScrollContainerControl/PerkSkillScrollContainer/VBoxContainer"]
+margin_right = 510.0
+margin_bottom = 1800.0
+rect_min_size = Vector2( 510, 1800 )
+custom_fonts/italics_font = SubResource( 2 )
+custom_fonts/normal_font = SubResource( 2 )
+bbcode_enabled = true
+bbcode_text = "[color=#ffd703]Create Sugar Roll[/color]
+Conjure a [color=#bda662]Sugar Roll[/color] at your location. A character can eat the roll, restoring health over time. The roll cannot be eaten if there are enemies nearby, and only one roll may exist in a level.
+
+Cooldown: CREATE_SUGAR_ROLL_CD seconds
+
+[color=#ffd703]Chaos Magic[/color]
+Upon casting, you produce one of the following effects at random. Casting your Primary, Secondary or Tertiary Skills also have a CHAOS_MAGIC_TRIGGER_CHANCE% chance of triggering this skill.
+ [color=#cc0001]1[/color]:
+A gust of wind propels you upward, knocking enemies away.
+ [color=#fb940b]2[/color]:
+A small flame appears at your location, exploding after a short delay, dealing [color=#fd9628]Fire[/color] damage. You also take damage from the explosion.
+ [color=#ffff01]3[/color]:
+You temporarily get frozen in place. While frozen, you are immobile and you cannot attack.
+ [color=#01cc00]4[/color]:
+You gain a shield that absorbs damage, based on your party's average Max Health.
+ [color=#03c0c6]5[/color]:
+You shoot out seven magical missiles that home into enemies, dealing [color=#7df0ff]Ice[/color] damage.
+ [color=#0000fe]6[/color]:
+You summon a laser beam in the direction you are facing, dealing Physical damage.
+ [color=#762ca7]7[/color]:
+A meteor crashes down in front of your facing direction, dealing [color=#deb600]Earth[/color] damage.
+ [color=#fe98bf]8[/color]:
+All of your party member's health and mana is restored.
+
+Cooldown: CHAOS_MAGIC_CD seconds"
+text = "Create Sugar Roll
+Conjure a Sugar Roll at your location. A character can eat the roll, restoring health over time. The roll cannot be eaten if there are enemies nearby, and only one roll may exist in a level.
+
+Cooldown: CREATE_SUGAR_ROLL_CD seconds
+
+Chaos Magic
+Upon casting, you produce one of the following effects at random. Casting your Primary, Secondary or Tertiary Skills also have a CHAOS_MAGIC_TRIGGER_CHANCE% chance of triggering this skill.
+ 1:
+A gust of wind propels you upward, knocking enemies away.
+ 2:
+A small flame appears at your location, exploding after a short delay, dealing Fire damage. You also take damage from the explosion.
+ 3:
+You temporarily get frozen in place. While frozen, you are immobile and you cannot attack.
+ 4:
+You gain a shield that absorbs damage, based on your party's average Max Health.
+ 5:
+You shoot out seven magical missiles that home into enemies, dealing Ice damage.
+ 6:
+You summon a laser beam in the direction you are facing, dealing Physical damage.
+ 7:
+A meteor crashes down in front of your facing direction, dealing Earth damage.
+ 8:
+All of your party member's health and mana is restored.
+
+Cooldown: CHAOS_MAGIC_CD seconds"
+scroll_active = false
+
+[node name="TalentControl1" type="Control" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/PlayerControl/PerkSkillScrollContainerControl/PerkSkillScrollContainer/VBoxContainer"]
+margin_top = 1804.0
+margin_right = 510.0
+margin_bottom = 1804.0
+
+[node name="PlayerTalentButton" type="TextureButton" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/PlayerControl/PerkSkillScrollContainerControl/PerkSkillScrollContainer/VBoxContainer/TalentControl1"]
+anchor_left = 0.215
+anchor_right = 0.215
+margin_left = 426.35
+margin_top = -1803.0
+margin_right = 458.35
+margin_bottom = -1786.0
+rect_min_size = Vector2( 32, 16 )
+rect_scale = Vector2( 7.5, 7.5 )
+texture_normal = ExtResource( 5 )
+texture_pressed = ExtResource( 4 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="ButtonLabel" type="Label" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/PlayerControl/PerkSkillScrollContainerControl/PerkSkillScrollContainer/VBoxContainer/TalentControl1/PlayerTalentButton"]
+margin_left = 1.73334
+margin_top = 2.0
+margin_right = 46.7333
+margin_bottom = 19.0
+rect_scale = Vector2( 0.3, 0.3 )
+custom_colors/font_color = Color( 1, 0.843137, 0.0117647, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Bought"
+
+[node name="TalentControl2" type="Control" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/PlayerControl/PerkSkillScrollContainerControl/PerkSkillScrollContainer/VBoxContainer"]
+margin_top = 1808.0
+margin_right = 510.0
+margin_bottom = 1808.0
+
+[node name="PlayerTalentButton" type="TextureButton" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/PlayerControl/PerkSkillScrollContainerControl/PerkSkillScrollContainer/VBoxContainer/TalentControl2"]
+anchor_left = 0.215
+anchor_right = 0.215
+margin_left = 426.35
+margin_top = -1498.0
+margin_right = 458.35
+margin_bottom = -1481.0
+rect_min_size = Vector2( 32, 16 )
+rect_scale = Vector2( 7.5, 7.5 )
+texture_normal = ExtResource( 5 )
+texture_pressed = ExtResource( 4 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="ButtonLabel" type="Label" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/PlayerControl/PerkSkillScrollContainerControl/PerkSkillScrollContainer/VBoxContainer/TalentControl2/PlayerTalentButton"]
+margin_left = 1.73334
+margin_top = 2.0
+margin_right = 46.7333
+margin_bottom = 19.0
+rect_scale = Vector2( 0.3, 0.3 )
+custom_colors/font_color = Color( 1, 0.843137, 0.0117647, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Bought"
+
+[node name="PerkSkillSelectionLabel" type="Label" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/PlayerControl/PerkSkillScrollContainerControl"]
+margin_left = 333.5
+margin_top = 474.0
+margin_right = 555.5
+margin_bottom = 506.0
+custom_fonts/font = SubResource( 12 )
+text = "Selected Perk Skill"
+align = 1
+
+[node name="PerkSkillSelectionOptionSprite" type="Sprite" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/PlayerControl/PerkSkillScrollContainerControl"]
+position = Vector2( 449.5, 541 )
+scale = Vector2( 8, 8 )
+texture = ExtResource( 15 )
+
+[node name="PerkSkillSelectionOption" type="OptionButton" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/PlayerControl/PerkSkillScrollContainerControl"]
+margin_left = 330.0
+margin_top = 509.0
+margin_right = 570.0
+margin_bottom = 572.0
+custom_fonts/font = SubResource( 11 )
+flat = true
+
+[node name="DisclaimerLabel" type="Label" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/PlayerControl/PerkSkillScrollContainerControl"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = 149.5
+margin_top = 563.0
+margin_right = 709.5
+margin_bottom = 595.0
+custom_fonts/font = SubResource( 12 )
+text = "Enter a level for these changes to take place."
+align = 1
+
+[node name="GlacielaControl" type="Control" parent="CharacterSkillsControl/NinePatchRect/SkillsControl"]
+visible = false
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="Sprite" type="Sprite" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/GlacielaControl"]
+position = Vector2( 86, 125 )
+scale = Vector2( 7, 7 )
+texture = ExtResource( 2 )
+
+[node name="SkillTypeHeaderLabel" type="Label" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/GlacielaControl"]
+margin_left = 35.5
+margin_top = 218.0
+margin_right = 147.5
+margin_bottom = 250.0
+custom_fonts/font = SubResource( 12 )
+text = "Skill Type"
+align = 1
+
+[node name="SkillTypeOptionSprite" type="Sprite" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/GlacielaControl"]
+position = Vector2( 92.5, 295 )
+scale = Vector2( 10.125, 10.125 )
+texture = ExtResource( 5 )
+
+[node name="SkillTypeOptionButton" type="OptionButton" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/GlacielaControl"]
+margin_left = 21.0
+margin_top = 264.0
+margin_right = 162.0
+margin_bottom = 327.0
+custom_fonts/font = SubResource( 11 )
+flat = true
+
+[node name="PrimarySkillScrollContainer" type="ScrollContainer" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/GlacielaControl"]
+visible = false
+anchor_right = 21.766
+anchor_bottom = 15.255
+margin_left = 197.0
+margin_top = 79.0
+margin_right = 16.36
+margin_bottom = -168.2
+rect_min_size = Vector2( 566, 355 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/GlacielaControl/PrimarySkillScrollContainer"]
+margin_right = 510.0
+margin_bottom = 1104.0
+rect_min_size = Vector2( 510, 1100 )
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/GlacielaControl/PrimarySkillScrollContainer/VBoxContainer"]
+margin_right = 510.0
+margin_bottom = 1100.0
+rect_min_size = Vector2( 510, 1100 )
+custom_fonts/italics_font = SubResource( 2 )
+custom_fonts/normal_font = SubResource( 2 )
+bbcode_enabled = true
+bbcode_text = "[color=#ffd703]Winter Queen[/color]
+Call upon your patron familiar to unleash a blizzard in an area of effect, dealing [u]WQ_ATK% ATK[/u] as [color=#7df0ff]Ice[/color] damage per tick and gradually [color=#7df0ff]Freezing[/color] enemies caught in the storm. 
+
+Cooldown: WQ_CD seconds
+Mana cost: WQ_COST mana"
+text = "Winter Queen
+Call upon your patron familiar to unleash a blizzard in an area of effect, dealing WQ_ATK% ATK as Ice damage per tick and gradually Freezing enemies caught in the storm. 
+
+Cooldown: WQ_CD seconds
+Mana cost: WQ_COST mana"
+scroll_active = false
+
+[node name="TalentControl1" type="Control" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/GlacielaControl/PrimarySkillScrollContainer/VBoxContainer"]
+margin_top = 1104.0
+margin_right = 510.0
+margin_bottom = 1104.0
+
+[node name="GlacielaTalentButton" type="TextureButton" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/GlacielaControl/PrimarySkillScrollContainer/VBoxContainer/TalentControl1"]
+anchor_left = 0.215
+anchor_right = 0.215
+margin_left = 426.35
+margin_top = -1104.0
+margin_right = 458.35
+margin_bottom = -1087.0
+rect_min_size = Vector2( 32, 16 )
+rect_scale = Vector2( 7.5, 7.5 )
+texture_normal = ExtResource( 5 )
+texture_pressed = ExtResource( 4 )
+
+[node name="ButtonLabel" type="Label" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/GlacielaControl/PrimarySkillScrollContainer/VBoxContainer/TalentControl1/GlacielaTalentButton"]
+margin_left = 1.73334
+margin_top = 2.0
+margin_right = 46.7333
+margin_bottom = 19.0
+rect_scale = Vector2( 0.3, 0.3 )
+custom_colors/font_color = Color( 1, 0.843137, 0.0117647, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Bought"
+
+[node name="GlacielaCheckButton" type="CheckButton" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/GlacielaControl/PrimarySkillScrollContainer/VBoxContainer/TalentControl1/GlacielaTalentButton"]
+visible = false
+margin_left = -5.33334
+margin_top = 8.66666
+margin_right = 116.667
+margin_bottom = 48.6667
+rect_scale = Vector2( 0.2, 0.2 )
+custom_fonts/font = SubResource( 4 )
+text = "Enable"
+align = 1
+
+[node name="SkillIcon" type="Sprite" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/GlacielaControl/PrimarySkillScrollContainer/VBoxContainer"]
+position = Vector2( 597, 120 )
+scale = Vector2( 5, 5 )
+texture = ExtResource( 21 )
+
+[node name="SecondarySkillScrollContainer" type="ScrollContainer" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/GlacielaControl"]
+visible = false
+anchor_right = 21.766
+anchor_bottom = 15.255
+margin_left = 197.0
+margin_top = 79.0
+margin_right = 16.36
+margin_bottom = -168.2
+rect_min_size = Vector2( 566, 355 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/GlacielaControl/SecondarySkillScrollContainer"]
+margin_right = 510.0
+margin_bottom = 1104.0
+rect_min_size = Vector2( 510, 1100 )
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/GlacielaControl/SecondarySkillScrollContainer/VBoxContainer"]
+margin_right = 510.0
+margin_bottom = 1100.0
+rect_min_size = Vector2( 510, 1100 )
+custom_fonts/italics_font = SubResource( 2 )
+custom_fonts/normal_font = SubResource( 2 )
+bbcode_enabled = true
+bbcode_text = "[color=#ffd703]Ice Lance[/color]
+Hurl a double-bladed frost lance in your facing direction, dealing [u]ICELANCE_ATK% ATK[/u] as [color=#7df0ff]Ice[/color] damage to enemies. After it reaches maximum range, it homes back to you to deal further [color=#7df0ff]Ice[/color] damage. Each hit fills up ICELANCE_FREEZE_GAUGE% of the enemy's [color=#7df0ff]Freeze[/color] gauge. Recast the skill to recall the lance.
+Consumes all stacks of [color=#c4fdff]Tundra Stars[/color], granting a ICELANCE_DMG_BONUS% damage bonus per stack.
+
+Cooldown: ICELANCE_CD seconds
+Mana cost: ICELANCE_COST mana"
+text = "Ice Lance
+Hurl a double-bladed frost lance in your facing direction, dealing ICELANCE_ATK% ATK as Ice damage to enemies. After it reaches maximum range, it homes back to you to deal further Ice damage. Each hit fills up ICELANCE_FREEZE_GAUGE% of the enemy's Freeze gauge. Recast the skill to recall the lance.
+Consumes all stacks of Tundra Stars, granting a ICELANCE_DMG_BONUS% damage bonus per stack.
+
+Cooldown: ICELANCE_CD seconds
+Mana cost: ICELANCE_COST mana"
+scroll_active = false
+
+[node name="TalentControl1" type="Control" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/GlacielaControl/SecondarySkillScrollContainer/VBoxContainer"]
+margin_top = 1104.0
+margin_right = 510.0
+margin_bottom = 1104.0
+
+[node name="GlacielaTalentButton" type="TextureButton" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/GlacielaControl/SecondarySkillScrollContainer/VBoxContainer/TalentControl1"]
+anchor_left = 0.215
+anchor_right = 0.215
+margin_left = 426.35
+margin_top = -1104.0
+margin_right = 458.35
+margin_bottom = -1087.0
+rect_min_size = Vector2( 32, 16 )
+rect_scale = Vector2( 7.5, 7.5 )
+texture_normal = ExtResource( 5 )
+texture_pressed = ExtResource( 4 )
+
+[node name="ButtonLabel" type="Label" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/GlacielaControl/SecondarySkillScrollContainer/VBoxContainer/TalentControl1/GlacielaTalentButton"]
+margin_left = 1.73334
+margin_top = 2.0
+margin_right = 46.7333
+margin_bottom = 19.0
+rect_scale = Vector2( 0.3, 0.3 )
+custom_colors/font_color = Color( 1, 0.843137, 0.0117647, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Bought"
+
+[node name="GlacielaCheckButton" type="CheckButton" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/GlacielaControl/SecondarySkillScrollContainer/VBoxContainer/TalentControl1/GlacielaTalentButton"]
+visible = false
+margin_left = -5.33334
+margin_top = 8.66666
+margin_right = 116.667
+margin_bottom = 48.6667
+rect_scale = Vector2( 0.2, 0.2 )
+custom_fonts/font = SubResource( 4 )
+text = "Enable"
+align = 1
+
+[node name="SkillIcon" type="Sprite" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/GlacielaControl/SecondarySkillScrollContainer/VBoxContainer"]
+position = Vector2( 597, 120 )
+scale = Vector2( 5, 5 )
+texture = ExtResource( 22 )
+
+[node name="TertiarySkillScrollContainer" type="ScrollContainer" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/GlacielaControl"]
+visible = false
+anchor_right = 21.766
+anchor_bottom = 15.255
+margin_left = 197.0
+margin_top = 79.0
+margin_right = 16.36
+margin_bottom = -168.2
+rect_min_size = Vector2( 566, 355 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/GlacielaControl/TertiarySkillScrollContainer"]
+margin_right = 510.0
+margin_bottom = 1104.0
+rect_min_size = Vector2( 510, 1100 )
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/GlacielaControl/TertiarySkillScrollContainer/VBoxContainer"]
+margin_right = 510.0
+margin_bottom = 1100.0
+rect_min_size = Vector2( 510, 1100 )
+custom_fonts/italics_font = SubResource( 2 )
+custom_fonts/normal_font = SubResource( 2 )
+bbcode_enabled = true
+bbcode_text = "[color=#ffd703]Cone Of Cold[/color]
+Shoot forth a torrent of cold air in a cone-shaped area in your facing direction that deals [u]COC_ATK% ATK[/u] as [color=#7df0ff]Ice[/color] damage per tick and fills up COC_FREEZE_GAUGE% of the enemy's [color=#7df0ff]Freeze[/color] gauge. While casting, your movement speed is reduced by COC_MOV_SPD_PENALTY%.
+
+Usage drains a resource meter. The skill enters cooldown when you recast it, change characters, or fully deplete the meter. While inactive, the resource meter regenerates over time.
+
+Cooldown: COC_CD seconds"
+text = "Cone Of Cold
+Shoot forth a torrent of cold air in a cone-shaped area in your facing direction that deals COC_ATK% ATK as Ice damage per tick and fills up COC_FREEZE_GAUGE% of the enemy's Freeze gauge. While casting, your movement speed is reduced by COC_MOV_SPD_PENALTY%.
+
+Usage drains a resource meter. The skill enters cooldown when you recast it, change characters, or fully deplete the meter. While inactive, the resource meter regenerates over time.
+
+Cooldown: COC_CD seconds"
+scroll_active = false
+
+[node name="TalentControl1" type="Control" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/GlacielaControl/TertiarySkillScrollContainer/VBoxContainer"]
+margin_top = 1104.0
+margin_right = 510.0
+margin_bottom = 1104.0
+
+[node name="GlacielaTalentButton" type="TextureButton" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/GlacielaControl/TertiarySkillScrollContainer/VBoxContainer/TalentControl1"]
+anchor_left = 0.215
+anchor_right = 0.215
+margin_left = 426.35
+margin_top = -1104.0
+margin_right = 458.35
+margin_bottom = -1087.0
+rect_min_size = Vector2( 32, 16 )
+rect_scale = Vector2( 7.5, 7.5 )
+texture_normal = ExtResource( 5 )
+texture_pressed = ExtResource( 4 )
+
+[node name="ButtonLabel" type="Label" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/GlacielaControl/TertiarySkillScrollContainer/VBoxContainer/TalentControl1/GlacielaTalentButton"]
+margin_left = 1.73334
+margin_top = 2.0
+margin_right = 46.7333
+margin_bottom = 19.0
+rect_scale = Vector2( 0.3, 0.3 )
+custom_colors/font_color = Color( 1, 0.843137, 0.0117647, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Bought"
+
+[node name="GlacielaCheckButton" type="CheckButton" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/GlacielaControl/TertiarySkillScrollContainer/VBoxContainer/TalentControl1/GlacielaTalentButton"]
+visible = false
+margin_left = -5.33334
+margin_top = 8.66666
+margin_right = 116.667
+margin_bottom = 48.6667
+rect_scale = Vector2( 0.2, 0.2 )
+custom_fonts/font = SubResource( 4 )
+text = "Enable"
+align = 1
+
+[node name="SkillIcon" type="Sprite" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/GlacielaControl/TertiarySkillScrollContainer"]
+position = Vector2( 597, 120 )
+scale = Vector2( 5, 5 )
+texture = ExtResource( 23 )
+
+[node name="PerkSkillScrollContainerControl" type="Control" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/GlacielaControl"]
+visible = false
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="PerkSkillScrollContainer" type="ScrollContainer" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/GlacielaControl/PerkSkillScrollContainerControl"]
+anchor_right = 21.766
+anchor_bottom = 15.255
+margin_left = 197.0
+margin_top = 79.0
+margin_right = 16.36
+margin_bottom = -168.2
+rect_min_size = Vector2( 566, 355 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/GlacielaControl/PerkSkillScrollContainerControl/PerkSkillScrollContainer"]
+margin_right = 510.0
+margin_bottom = 1508.0
+rect_min_size = Vector2( 510, 1500 )
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/GlacielaControl/PerkSkillScrollContainerControl/PerkSkillScrollContainer/VBoxContainer"]
+margin_right = 510.0
+margin_bottom = 1500.0
+rect_min_size = Vector2( 510, 1500 )
+custom_fonts/italics_font = SubResource( 2 )
+custom_fonts/normal_font = SubResource( 2 )
+bbcode_enabled = true
+bbcode_text = "[color=#ffd703]Create Sugar Roll[/color]
+Conjure a [color=#bda662]Sugar Roll[/color] at your location. A character can eat the roll, restoring health over time. The roll cannot be eaten if there are enemies nearby, and only one roll may exist in a level.
+Cooldown: CREATE_SUGAR_ROLL_CD seconds
+
+[color=#ffd703]Chaos Magic[/color]
+Upon casting, you produce one of the following effects at random. Casting your Primary, Secondary or Tertiary Skills also have a CHAOS_MAGIC_TRIGGER_CHANCE% chance of triggering this skill.
+Cooldown: CHAOS_MAGIC_CD seconds
+ [color=#cc0001]1[/color]:
+A gust of wind propels you upward, knocking enemies away.
+ [color=#fb940b]2[/color]:
+A small flame appears at your location, exploding after a short delay, dealing [color=#fd9628]Fire[/color] damage. You also take damage from the explosion.
+ [color=#ffff01]3[/color]:
+You temporarily get frozen in place. While frozen, you are immobile and you cannot attack.
+ [color=#01cc00]4[/color]:
+You gain a shield that absorbs damage, based on your party's average Max Health.
+ [color=#03c0c6]5[/color]:
+You shoot out seven magical missiles that home into enemies, dealing [color=#7df0ff]Ice[/color] damage.
+ [color=#0000fe]6[/color]:
+You summon a laser beam in the direction you are facing, dealing Physical damage.
+ [color=#762ca7]7[/color]:
+A meteor crashes down in front of your facing direction, dealing [color=#deb600]Earth[/color] damage.
+ [color=#fe98bf]8[/color]:
+All of your party member's health and mana is restored."
+text = "Create Sugar Roll
+Conjure a Sugar Roll at your location. A character can eat the roll, restoring health over time. The roll cannot be eaten if there are enemies nearby, and only one roll may exist in a level.
+Cooldown: CREATE_SUGAR_ROLL_CD seconds
+
+Chaos Magic
+Upon casting, you produce one of the following effects at random. Casting your Primary, Secondary or Tertiary Skills also have a CHAOS_MAGIC_TRIGGER_CHANCE% chance of triggering this skill.
+Cooldown: CHAOS_MAGIC_CD seconds
+ 1:
+A gust of wind propels you upward, knocking enemies away.
+ 2:
+A small flame appears at your location, exploding after a short delay, dealing Fire damage. You also take damage from the explosion.
+ 3:
+You temporarily get frozen in place. While frozen, you are immobile and you cannot attack.
+ 4:
+You gain a shield that absorbs damage, based on your party's average Max Health.
+ 5:
+You shoot out seven magical missiles that home into enemies, dealing Ice damage.
+ 6:
+You summon a laser beam in the direction you are facing, dealing Physical damage.
+ 7:
+A meteor crashes down in front of your facing direction, dealing Earth damage.
+ 8:
+All of your party member's health and mana is restored."
+scroll_active = false
+
+[node name="TalentControl1" type="Control" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/GlacielaControl/PerkSkillScrollContainerControl/PerkSkillScrollContainer/VBoxContainer"]
+margin_top = 1504.0
+margin_right = 510.0
+margin_bottom = 1504.0
+
+[node name="GlacielaTalentButton" type="TextureButton" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/GlacielaControl/PerkSkillScrollContainerControl/PerkSkillScrollContainer/VBoxContainer/TalentControl1"]
+anchor_left = 0.215
+anchor_right = 0.215
+margin_left = 426.35
+margin_top = -1503.0
+margin_right = 458.35
+margin_bottom = -1486.0
+rect_min_size = Vector2( 32, 16 )
+rect_scale = Vector2( 7.5, 7.5 )
+texture_normal = ExtResource( 5 )
+texture_pressed = ExtResource( 4 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="ButtonLabel" type="Label" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/GlacielaControl/PerkSkillScrollContainerControl/PerkSkillScrollContainer/VBoxContainer/TalentControl1/GlacielaTalentButton"]
+margin_left = 1.73334
+margin_top = 2.0
+margin_right = 46.7333
+margin_bottom = 19.0
+rect_scale = Vector2( 0.3, 0.3 )
+custom_colors/font_color = Color( 1, 0.843137, 0.0117647, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Bought"
+
+[node name="TalentControl2" type="Control" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/GlacielaControl/PerkSkillScrollContainerControl/PerkSkillScrollContainer/VBoxContainer"]
+margin_top = 1508.0
+margin_right = 510.0
+margin_bottom = 1508.0
+
+[node name="GlacielaTalentButton" type="TextureButton" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/GlacielaControl/PerkSkillScrollContainerControl/PerkSkillScrollContainer/VBoxContainer/TalentControl2"]
+anchor_left = 0.215
+anchor_right = 0.215
+margin_left = 426.35
+margin_top = -1243.0
+margin_right = 458.35
+margin_bottom = -1226.0
+rect_min_size = Vector2( 32, 16 )
+rect_scale = Vector2( 7.5, 7.5 )
+texture_normal = ExtResource( 5 )
+texture_pressed = ExtResource( 4 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="ButtonLabel" type="Label" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/GlacielaControl/PerkSkillScrollContainerControl/PerkSkillScrollContainer/VBoxContainer/TalentControl2/GlacielaTalentButton"]
+margin_left = 1.73334
+margin_top = 2.0
+margin_right = 46.7333
+margin_bottom = 19.0
+rect_scale = Vector2( 0.3, 0.3 )
+custom_colors/font_color = Color( 1, 0.843137, 0.0117647, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Bought"
+
+[node name="PerkSkillSelectionLabel" type="Label" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/GlacielaControl/PerkSkillScrollContainerControl"]
+margin_left = 333.5
+margin_top = 474.0
+margin_right = 555.5
+margin_bottom = 506.0
+custom_fonts/font = SubResource( 12 )
+text = "Selected Perk Skill"
+align = 1
+
+[node name="PerkSkillSelectionOptionSprite" type="Sprite" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/GlacielaControl/PerkSkillScrollContainerControl"]
+position = Vector2( 449.5, 541 )
+scale = Vector2( 8, 8 )
+texture = ExtResource( 15 )
+
+[node name="PerkSkillSelectionOption" type="OptionButton" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/GlacielaControl/PerkSkillScrollContainerControl"]
+margin_left = 330.0
+margin_top = 509.0
+margin_right = 570.0
+margin_bottom = 572.0
+custom_fonts/font = SubResource( 11 )
+flat = true
+
+[node name="AgnetteControl" type="Control" parent="CharacterSkillsControl/NinePatchRect/SkillsControl"]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="Sprite" type="Sprite" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/AgnetteControl"]
+position = Vector2( 86, 125 )
+scale = Vector2( 7, 7 )
+texture = ExtResource( 13 )
+
+[node name="SkillTypeHeaderLabel" type="Label" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/AgnetteControl"]
+margin_left = 35.5
+margin_top = 218.0
+margin_right = 147.5
+margin_bottom = 250.0
+custom_fonts/font = SubResource( 12 )
+text = "Skill Type"
+align = 1
+
+[node name="SkillTypeOptionSprite" type="Sprite" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/AgnetteControl"]
+position = Vector2( 92.5, 295 )
+scale = Vector2( 10.125, 10.125 )
+texture = ExtResource( 5 )
+
+[node name="SkillTypeOptionButton" type="OptionButton" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/AgnetteControl"]
+margin_left = 21.0
+margin_top = 264.0
+margin_right = 162.0
+margin_bottom = 327.0
+custom_fonts/font = SubResource( 11 )
+flat = true
+
+[node name="PrimarySkillScrollContainer" type="ScrollContainer" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/AgnetteControl"]
+visible = false
+anchor_right = 21.766
+anchor_bottom = 15.255
+margin_left = 197.0
+margin_top = 79.0
+margin_right = 16.36
+margin_bottom = -168.2
+rect_min_size = Vector2( 566, 355 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/AgnetteControl/PrimarySkillScrollContainer"]
+margin_right = 510.0
+margin_bottom = 1104.0
+rect_min_size = Vector2( 510, 1100 )
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/AgnetteControl/PrimarySkillScrollContainer/VBoxContainer"]
+margin_right = 510.0
+margin_bottom = 1100.0
+rect_min_size = Vector2( 510, 1100 )
+custom_fonts/italics_font = SubResource( 2 )
+custom_fonts/normal_font = SubResource( 2 )
+bbcode_enabled = true
+bbcode_text = "[color=#ffd703]Bear Form[/color]
+Shapeshift into a ferocious [color=#3b1c06]Bear[/color] for BF_DUR seconds. It has BF_HP% of Agnette's Max HP as its HP.
+
+[color=#3b1c06]Bear form[/color]
+	You gain knockback resistance, but you cannot dash, jump or shoot arrows, and your speed is reduced by BF_SPD_PEN%. You attack with your claws in melee range to deal [u]BF_ATK% ATK[/u] as Physical damage. Your Charged Attack unleashes a landslide that deals [u]BF_CATK% ATK[/u] as [color=#deb600]Earth[/color] damage and knocks enemies back.
+
+You revert to your [color=#668709]Archer[/color] form when the duration ends, if you switch to another character, or if you drop to 0 HP.
+
+Cooldown: BF_CD seconds
+Mana cost: BF_COST mana"
+text = "Bear Form
+Shapeshift into a ferocious Bear for BF_DUR seconds. It has BF_HP% of Agnette's Max HP as its HP.
+
+Bear form
+	You gain knockback resistance, but you cannot dash, jump or shoot arrows, and your speed is reduced by BF_SPD_PEN%. You attack with your claws in melee range to deal BF_ATK% ATK as Physical damage. Your Charged Attack unleashes a landslide that deals BF_CATK% ATK as Earth damage and knocks enemies back.
+
+You revert to your Archer form when the duration ends, if you switch to another character, or if you drop to 0 HP.
+
+Cooldown: BF_CD seconds
+Mana cost: BF_COST mana"
+scroll_active = false
+
+[node name="TalentControl1" type="Control" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/AgnetteControl/PrimarySkillScrollContainer/VBoxContainer"]
+margin_top = 1104.0
+margin_right = 510.0
+margin_bottom = 1104.0
+
+[node name="AgnetteTalentButton" type="TextureButton" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/AgnetteControl/PrimarySkillScrollContainer/VBoxContainer/TalentControl1"]
+anchor_left = 0.215
+anchor_right = 0.215
+margin_left = 426.35
+margin_top = -1104.0
+margin_right = 458.35
+margin_bottom = -1087.0
+rect_min_size = Vector2( 32, 16 )
+rect_scale = Vector2( 7.5, 7.5 )
+texture_normal = ExtResource( 5 )
+texture_pressed = ExtResource( 4 )
+
+[node name="ButtonLabel" type="Label" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/AgnetteControl/PrimarySkillScrollContainer/VBoxContainer/TalentControl1/AgnetteTalentButton"]
+margin_left = 1.73334
+margin_top = 2.0
+margin_right = 46.7333
+margin_bottom = 19.0
+rect_scale = Vector2( 0.3, 0.3 )
+custom_colors/font_color = Color( 1, 0.843137, 0.0117647, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Bought"
+
+[node name="AgnetteCheckButton" type="CheckButton" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/AgnetteControl/PrimarySkillScrollContainer/VBoxContainer/TalentControl1/AgnetteTalentButton"]
+visible = false
+margin_left = -5.33334
+margin_top = 8.66666
+margin_right = 116.667
+margin_bottom = 48.6667
+rect_scale = Vector2( 0.2, 0.2 )
+custom_fonts/font = SubResource( 4 )
+text = "Enable"
+align = 1
+
+[node name="SkillIcon" type="Sprite" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/AgnetteControl/PrimarySkillScrollContainer/VBoxContainer"]
+position = Vector2( 597, 120 )
+scale = Vector2( 5, 5 )
+texture = ExtResource( 24 )
+
+[node name="SecondarySkillScrollContainer" type="ScrollContainer" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/AgnetteControl"]
+anchor_right = 21.766
+anchor_bottom = 15.255
+margin_left = 197.0
+margin_top = 79.0
+margin_right = 16.36
+margin_bottom = -168.2
+rect_min_size = Vector2( 566, 355 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/AgnetteControl/SecondarySkillScrollContainer"]
+margin_right = 510.0
+margin_bottom = 1104.0
+rect_min_size = Vector2( 510, 1100 )
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/AgnetteControl/SecondarySkillScrollContainer/VBoxContainer"]
+margin_right = 510.0
+margin_bottom = 1100.0
+rect_min_size = Vector2( 510, 1100 )
+custom_fonts/italics_font = SubResource( 2 )
+custom_fonts/normal_font = SubResource( 2 )
+bbcode_enabled = true
+bbcode_text = "[color=#ffd703]Raven Form[/color]
+Shapeshift into a cunning [color=#1f1f1f]Raven[/color] for RF_DUR seconds. It has RF_HP% of Agnette's Max HP as its HP. 
+
+[color=#1f1f1f]Raven form[/color]
+	You gain the ability to fly, and you cannot shoot arrows. Press [UI_UP] or [UI_JUMP] to ascend and [UI_DOWN] to descend. You can peck  in melee range with your beak to deal [u]RF_PECK% ATK[/u] as Physical damage, and your Charged Attack drops a rock below you, dealing [u]RF_ROCK% ATK[/u] as [color=#deb600]Earth[/color] damage and builds up [color=#deb600]Grounded[/color] stacks.
+
+You revert to your [color=#668709]Archer[/color] form when the duration ends, if you switch to another character, or if you drop to 0 HP.
+Cooldown: RF_CD seconds
+Mana cost: RF_COST mana"
+text = "Raven Form
+Shapeshift into a cunning Raven for RF_DUR seconds. It has RF_HP% of Agnette's Max HP as its HP. 
+
+Raven form
+	You gain the ability to fly, and you cannot shoot arrows. Press [UI_UP] or [UI_JUMP] to ascend and [UI_DOWN] to descend. You can peck  in melee range with your beak to deal RF_PECK% ATK as Physical damage, and your Charged Attack drops a rock below you, dealing RF_ROCK% ATK as Earth damage and builds up Grounded stacks.
+
+You revert to your Archer form when the duration ends, if you switch to another character, or if you drop to 0 HP.
+Cooldown: RF_CD seconds
+Mana cost: RF_COST mana"
+scroll_active = false
+
+[node name="TalentControl1" type="Control" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/AgnetteControl/SecondarySkillScrollContainer/VBoxContainer"]
+margin_top = 1104.0
+margin_right = 510.0
+margin_bottom = 1104.0
+
+[node name="AgnetteTalentButton" type="TextureButton" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/AgnetteControl/SecondarySkillScrollContainer/VBoxContainer/TalentControl1"]
+anchor_left = 0.215
+anchor_right = 0.215
+margin_left = 426.35
+margin_top = -1104.0
+margin_right = 458.35
+margin_bottom = -1087.0
+rect_min_size = Vector2( 32, 16 )
+rect_scale = Vector2( 7.5, 7.5 )
+texture_normal = ExtResource( 5 )
+texture_pressed = ExtResource( 4 )
+
+[node name="ButtonLabel" type="Label" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/AgnetteControl/SecondarySkillScrollContainer/VBoxContainer/TalentControl1/AgnetteTalentButton"]
+margin_left = 1.73334
+margin_top = 2.0
+margin_right = 46.7333
+margin_bottom = 19.0
+rect_scale = Vector2( 0.3, 0.3 )
+custom_colors/font_color = Color( 1, 0.843137, 0.0117647, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Bought"
+
+[node name="AgnetteCheckButton" type="CheckButton" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/AgnetteControl/SecondarySkillScrollContainer/VBoxContainer/TalentControl1/AgnetteTalentButton"]
+visible = false
+margin_left = -5.33334
+margin_top = 8.66666
+margin_right = 116.667
+margin_bottom = 48.6667
+rect_scale = Vector2( 0.2, 0.2 )
+custom_fonts/font = SubResource( 4 )
+text = "Enable"
+align = 1
+
+[node name="SkillIcon" type="Sprite" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/AgnetteControl/SecondarySkillScrollContainer/VBoxContainer"]
+position = Vector2( 597, 120 )
+scale = Vector2( 5, 5 )
+texture = ExtResource( 26 )
+
+[node name="TertiarySkillScrollContainer" type="ScrollContainer" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/AgnetteControl"]
+visible = false
+anchor_right = 21.766
+anchor_bottom = 15.255
+margin_left = 197.0
+margin_top = 79.0
+margin_right = 16.36
+margin_bottom = -168.2
+rect_min_size = Vector2( 566, 355 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/AgnetteControl/TertiarySkillScrollContainer"]
+margin_right = 510.0
+margin_bottom = 1104.0
+rect_min_size = Vector2( 510, 1100 )
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/AgnetteControl/TertiarySkillScrollContainer/VBoxContainer"]
+margin_right = 510.0
+margin_bottom = 1100.0
+rect_min_size = Vector2( 510, 1100 )
+custom_fonts/italics_font = SubResource( 2 )
+custom_fonts/normal_font = SubResource( 2 )
+bbcode_enabled = true
+bbcode_text = "[color=#ffd703]Spike Growth[/color]
+Lay down a patch of thorny vines and spikes. Enemies in its area are dealt [u]SG_DMG% ATK[/u] as [color=#deb600]Earth[/color] damage over time and builds up their [color=#deb600]Grounded[/color] stacks. Only SG_CHARGES spike patches may exist at any given time.
+
+Cooldown: SG_CD seconds
+Duration: SG_DUR seconds per spike patch
+Max charges: SG_CHARGES charges
+"
+text = "Spike Growth
+Lay down a patch of thorny vines and spikes. Enemies in its area are dealt SG_DMG% ATK as Earth damage over time and builds up their Grounded stacks. Only SG_CHARGES spike patches may exist at any given time.
+
+Cooldown: SG_CD seconds
+Duration: SG_DUR seconds per spike patch
+Max charges: SG_CHARGES charges
+"
+scroll_active = false
+
+[node name="TalentControl1" type="Control" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/AgnetteControl/TertiarySkillScrollContainer/VBoxContainer"]
+margin_top = 1104.0
+margin_right = 510.0
+margin_bottom = 1104.0
+
+[node name="AgnetteTalentButton" type="TextureButton" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/AgnetteControl/TertiarySkillScrollContainer/VBoxContainer/TalentControl1"]
+anchor_left = 0.215
+anchor_right = 0.215
+margin_left = 426.35
+margin_top = -1104.0
+margin_right = 458.35
+margin_bottom = -1087.0
+rect_min_size = Vector2( 32, 16 )
+rect_scale = Vector2( 7.5, 7.5 )
+texture_normal = ExtResource( 5 )
+texture_pressed = ExtResource( 4 )
+
+[node name="ButtonLabel" type="Label" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/AgnetteControl/TertiarySkillScrollContainer/VBoxContainer/TalentControl1/AgnetteTalentButton"]
+margin_left = 1.73334
+margin_top = 2.0
+margin_right = 46.7333
+margin_bottom = 19.0
+rect_scale = Vector2( 0.3, 0.3 )
+custom_colors/font_color = Color( 1, 0.843137, 0.0117647, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Bought"
+
+[node name="AgnetteCheckButton" type="CheckButton" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/AgnetteControl/TertiarySkillScrollContainer/VBoxContainer/TalentControl1/AgnetteTalentButton"]
+visible = false
+margin_left = -5.33334
+margin_top = 8.66666
+margin_right = 116.667
+margin_bottom = 48.6667
+rect_scale = Vector2( 0.2, 0.2 )
+custom_fonts/font = SubResource( 4 )
+text = "Enable"
+align = 1
+
+[node name="SkillIcon" type="Sprite" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/AgnetteControl/TertiarySkillScrollContainer"]
+position = Vector2( 597, 120 )
+scale = Vector2( 5, 5 )
+texture = ExtResource( 25 )
+
+[node name="PerkSkillScrollContainerControl" type="Control" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/AgnetteControl"]
+visible = false
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="PerkSkillScrollContainer" type="ScrollContainer" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/AgnetteControl/PerkSkillScrollContainerControl"]
+anchor_right = 21.766
+anchor_bottom = 15.255
+margin_left = 197.0
+margin_top = 79.0
+margin_right = 16.36
+margin_bottom = -168.2
+rect_min_size = Vector2( 566, 355 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/AgnetteControl/PerkSkillScrollContainerControl/PerkSkillScrollContainer"]
+margin_right = 510.0
+margin_bottom = 1508.0
+rect_min_size = Vector2( 510, 1500 )
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/AgnetteControl/PerkSkillScrollContainerControl/PerkSkillScrollContainer/VBoxContainer"]
+margin_right = 510.0
+margin_bottom = 1500.0
+rect_min_size = Vector2( 510, 1500 )
+custom_fonts/italics_font = SubResource( 2 )
+custom_fonts/normal_font = SubResource( 2 )
+bbcode_enabled = true
+bbcode_text = "[color=#ffd703]Create Sugar Roll[/color]
+Conjure a [color=#bda662]Sugar Roll[/color] at your location. A character can eat the roll, restoring health over time. The roll cannot be eaten if there are enemies nearby, and only one roll may exist in a level.
+Cooldown: CREATE_SUGAR_ROLL_CD seconds
+
+[color=#ffd703]Chaos Magic[/color]
+Upon casting, you produce one of the following effects at random. Casting your Primary, Secondary or Tertiary Skills also have a CHAOS_MAGIC_TRIGGER_CHANCE% chance of triggering this skill.
+Cooldown: CHAOS_MAGIC_CD seconds
+ [color=#cc0001]1[/color]:
+A gust of wind propels you upward, knocking enemies away.
+ [color=#fb940b]2[/color]:
+A small flame appears at your location, exploding after a short delay, dealing [color=#fd9628]Fire[/color] damage. You also take damage from the explosion.
+ [color=#ffff01]3[/color]:
+You temporarily get frozen in place. While frozen, you are immobile and you cannot attack.
+ [color=#01cc00]4[/color]:
+You gain a shield that absorbs damage, based on your party's average Max Health.
+ [color=#03c0c6]5[/color]:
+You shoot out seven magical missiles that home into enemies, dealing [color=#7df0ff]Ice[/color] damage.
+ [color=#0000fe]6[/color]:
+You summon a laser beam in the direction you are facing, dealing Physical damage.
+ [color=#762ca7]7[/color]:
+A meteor crashes down in front of your facing direction, dealing [color=#deb600]Earth[/color] damage.
+ [color=#fe98bf]8[/color]:
+All of your party member's health and mana is restored."
+text = "Create Sugar Roll
+Conjure a Sugar Roll at your location. A character can eat the roll, restoring health over time. The roll cannot be eaten if there are enemies nearby, and only one roll may exist in a level.
+Cooldown: CREATE_SUGAR_ROLL_CD seconds
+
+Chaos Magic
+Upon casting, you produce one of the following effects at random. Casting your Primary, Secondary or Tertiary Skills also have a CHAOS_MAGIC_TRIGGER_CHANCE% chance of triggering this skill.
+Cooldown: CHAOS_MAGIC_CD seconds
+ 1:
+A gust of wind propels you upward, knocking enemies away.
+ 2:
+A small flame appears at your location, exploding after a short delay, dealing Fire damage. You also take damage from the explosion.
+ 3:
+You temporarily get frozen in place. While frozen, you are immobile and you cannot attack.
+ 4:
+You gain a shield that absorbs damage, based on your party's average Max Health.
+ 5:
+You shoot out seven magical missiles that home into enemies, dealing Ice damage.
+ 6:
+You summon a laser beam in the direction you are facing, dealing Physical damage.
+ 7:
+A meteor crashes down in front of your facing direction, dealing Earth damage.
+ 8:
+All of your party member's health and mana is restored."
+scroll_active = false
+
+[node name="TalentControl1" type="Control" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/AgnetteControl/PerkSkillScrollContainerControl/PerkSkillScrollContainer/VBoxContainer"]
+margin_top = 1504.0
+margin_right = 510.0
+margin_bottom = 1504.0
+
+[node name="AgnetteTalentButton" type="TextureButton" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/AgnetteControl/PerkSkillScrollContainerControl/PerkSkillScrollContainer/VBoxContainer/TalentControl1"]
+anchor_left = 0.215
+anchor_right = 0.215
+margin_left = 426.35
+margin_top = -1503.0
+margin_right = 458.35
+margin_bottom = -1486.0
+rect_min_size = Vector2( 32, 16 )
+rect_scale = Vector2( 7.5, 7.5 )
+texture_normal = ExtResource( 5 )
+texture_pressed = ExtResource( 4 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="ButtonLabel" type="Label" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/AgnetteControl/PerkSkillScrollContainerControl/PerkSkillScrollContainer/VBoxContainer/TalentControl1/AgnetteTalentButton"]
+margin_left = 1.73334
+margin_top = 2.0
+margin_right = 46.7333
+margin_bottom = 19.0
+rect_scale = Vector2( 0.3, 0.3 )
+custom_colors/font_color = Color( 1, 0.843137, 0.0117647, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Bought"
+
+[node name="TalentControl2" type="Control" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/AgnetteControl/PerkSkillScrollContainerControl/PerkSkillScrollContainer/VBoxContainer"]
+margin_top = 1508.0
+margin_right = 510.0
+margin_bottom = 1508.0
+
+[node name="AgnetteTalentButton" type="TextureButton" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/AgnetteControl/PerkSkillScrollContainerControl/PerkSkillScrollContainer/VBoxContainer/TalentControl2"]
+anchor_left = 0.215
+anchor_right = 0.215
+margin_left = 426.35
+margin_top = -1243.0
+margin_right = 458.35
+margin_bottom = -1226.0
+rect_min_size = Vector2( 32, 16 )
+rect_scale = Vector2( 7.5, 7.5 )
+texture_normal = ExtResource( 5 )
+texture_pressed = ExtResource( 4 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="ButtonLabel" type="Label" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/AgnetteControl/PerkSkillScrollContainerControl/PerkSkillScrollContainer/VBoxContainer/TalentControl2/AgnetteTalentButton"]
+margin_left = 1.73334
+margin_top = 2.0
+margin_right = 46.7333
+margin_bottom = 19.0
+rect_scale = Vector2( 0.3, 0.3 )
+custom_colors/font_color = Color( 1, 0.843137, 0.0117647, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Bought"
+
+[node name="PerkSkillSelectionLabel" type="Label" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/AgnetteControl/PerkSkillScrollContainerControl"]
+margin_left = 333.5
+margin_top = 474.0
+margin_right = 555.5
+margin_bottom = 506.0
+custom_fonts/font = SubResource( 12 )
+text = "Selected Perk Skill"
+align = 1
+
+[node name="PerkSkillSelectionOptionSprite" type="Sprite" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/AgnetteControl/PerkSkillScrollContainerControl"]
+position = Vector2( 449.5, 541 )
+scale = Vector2( 8, 8 )
+texture = ExtResource( 15 )
+
+[node name="PerkSkillSelectionOption" type="OptionButton" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/AgnetteControl/PerkSkillScrollContainerControl"]
+margin_left = 330.0
+margin_top = 509.0
+margin_right = 570.0
+margin_bottom = 572.0
+custom_fonts/font = SubResource( 11 )
+flat = true
+
+[node name="CloseButtonMainUI" type="TextureButton" parent="CharacterSkillsControl"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -456.0
+margin_top = -248.0
+margin_right = -416.0
+margin_bottom = -208.0
+rect_scale = Vector2( 1.5, 1.5 )
+texture_normal = ExtResource( 9 )
+expand = true
 
 [node name="CharacterTalentsControl" type="Control" parent="."]
 visible = false
@@ -183,9 +1786,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 margin_left = -540.0
-margin_top = -360.0
+margin_top = -365.0
 margin_right = 540.0
-margin_bottom = 360.0
+margin_bottom = 355.0
 script = ExtResource( 1 )
 
 [node name="Blur" type="ColorRect" parent="CharacterTalentsControl"]
@@ -205,10 +1808,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -436.5
-margin_top = -307.0
-margin_right = 436.5
-margin_bottom = 307.0
+margin_left = -495.0
+margin_top = -281.0
+margin_right = 496.0
+margin_bottom = 298.0
 texture = ExtResource( 6 )
 patch_margin_left = 64
 patch_margin_top = 64
@@ -226,8 +1829,8 @@ custom_colors/default_color = Color( 1, 1, 1, 1 )
 custom_colors/selection_color = Color( 1, 0.843137, 0.0117647, 1 )
 custom_fonts/normal_font = SubResource( 1 )
 bbcode_enabled = true
-bbcode_text = "[center]=== [color=#ffd703]Character Talent Tree[/color] ==="
-text = "=== Character Talent Tree ==="
+bbcode_text = "[center]=== [color=#ffd703]Character Talents[/color] ==="
+text = "=== Character Talents ==="
 scroll_active = false
 
 [node name="TalentTreeControl" type="Control" parent="CharacterTalentsControl/NinePatchRect"]
@@ -239,10 +1842,10 @@ margin_right = 15.5
 margin_bottom = 12.0
 
 [node name="BackgroundBox" type="NinePatchRect" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl"]
-margin_left = 124.0
-margin_top = 60.0
-margin_right = 839.0
-margin_bottom = 469.0
+margin_left = 236.0
+margin_top = 62.0
+margin_right = 939.0
+margin_bottom = 471.0
 texture = ExtResource( 6 )
 patch_margin_left = 64
 patch_margin_top = 64
@@ -250,32 +1853,33 @@ patch_margin_right = 64
 patch_margin_bottom = 64
 
 [node name="PlayerControl" type="Control" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl"]
+visible = false
 margin_right = 40.0
 margin_bottom = 40.0
 
 [node name="Sprite" type="Sprite" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl"]
-position = Vector2( 68, 125 )
+position = Vector2( 110, 125 )
 scale = Vector2( 7, 7 )
 texture = ExtResource( 3 )
 
 [node name="ScrollContainer" type="ScrollContainer" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl"]
 anchor_right = 21.766
 anchor_bottom = 15.255
-margin_left = 148.0
-margin_top = 83.0
-margin_right = -32.64
-margin_bottom = 637.8
+margin_left = 253.0
+margin_top = 81.0
+margin_right = 72.36
+margin_bottom = 921.8
 rect_min_size = Vector2( 566, 355 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer"]
 margin_right = 510.0
-margin_bottom = 1120.0
-rect_min_size = Vector2( 510, 1100 )
+margin_bottom = 2028.0
+rect_min_size = Vector2( 510, 2000 )
 
 [node name="RichTextLabel" type="RichTextLabel" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer"]
 margin_right = 510.0
-margin_bottom = 1100.0
-rect_min_size = Vector2( 510, 1100 )
+margin_bottom = 2000.0
+rect_min_size = Vector2( 510, 2000 )
 custom_fonts/normal_font = SubResource( 2 )
 bbcode_enabled = true
 bbcode_text = "[color=#ffd703]Cyclone Slashes[/color]
@@ -288,15 +1892,30 @@ Airborne charged attacks can now be chained up to 2 times.
 
 
 [color=#ffd703]Burning Breath[/color]
-Activating an [color=purple]EX Charged Attack[/color] releases a burst of flames that burn enemies.
-
+When you take damage, you unleash a fiery rebuke, dealing [u]BURNING_BREATH_DMG% ATK[/u] as [color=#fd9628]Fire[/color] damage and [color=#fd9628]Burning[/color] enemies in a cone-shaped area in front of you.
+Cooldown: BURNING_BREATH_COOLDOWN seconds
 
 [color=#ffd703]Infernal Mark[/color]
-Enemies marked with the Sulphuric Sigil take more damage. 
+Enemies marked with Sulphuric Sigil take MARK_DMG_INCREASE% more damage. 
 
 
-[color=#ffd703]Create Sugar Roll[/color]
-Conjure a [color=#bda662]Sugar Roll[/color] at your location. A character can eat the roll, restoring health over time. The roll cannot be eaten if there are enemies nearby, and only one roll may exist in a level. "
+[color=#ffd703]Soul Siphon[/color]
+Upon death, enemies have a SOUL_SIPHON_DROP_CHANCE% chance to drop a [color=#540d17]Soul Orb[/color]. The Player and him alone can pick up these orbs to restore SOUL_SIPHON_HP% Max HP.
+
+[color=#ffd703]Piercing Fervor[/color]
+Projectiles from the Fireball skill pierce enemies, but deal PF_DMG_PENALTY% less damage.
+
+
+[color=#ffd703]Meteor Shower[/color]
+Casting Firesaw calls down MS_AMT blazing meteors, dealing [u]MS_DMG% ATK[/u] as [color=#fd9628]Fire[/color] damage.
+
+
+
+
+
+[color=#ffd703]Bad Blood[/color]
+Dropping below BAD_BLOOD_HEALTH_THRESHOLD% of your Max HP grants a BAD_BLOOD_ATK_BUFF% attack buff for BAD_BLOOD_BUFF_DUR seconds.
+Cooldown: BAD_BLOOD_CD seconds"
 text = "Cyclone Slashes
 Doing a charged attack after Basic Attack SEQ 2 unleashes a flurry of windblades to deal multiple instances of Physical DMG.
 (ATK, ATK, Hold ATK)
@@ -307,29 +1926,44 @@ Airborne charged attacks can now be chained up to 2 times.
 
 
 Burning Breath
-Activating an EX Charged Attack releases a burst of flames that burn enemies.
-
+When you take damage, you unleash a fiery rebuke, dealing BURNING_BREATH_DMG% ATK as Fire damage and Burning enemies in a cone-shaped area in front of you.
+Cooldown: BURNING_BREATH_COOLDOWN seconds
 
 Infernal Mark
-Enemies marked with the Sulphuric Sigil take more damage. 
+Enemies marked with Sulphuric Sigil take MARK_DMG_INCREASE% more damage. 
 
 
-Create Sugar Roll
-Conjure a Sugar Roll at your location. A character can eat the roll, restoring health over time. The roll cannot be eaten if there are enemies nearby, and only one roll may exist in a level. "
+Soul Siphon
+Upon death, enemies have a SOUL_SIPHON_DROP_CHANCE% chance to drop a Soul Orb. The Player and him alone can pick up these orbs to restore SOUL_SIPHON_HP% Max HP.
+
+Piercing Fervor
+Projectiles from the Fireball skill pierce enemies, but deal PF_DMG_PENALTY% less damage.
+
+
+Meteor Shower
+Casting Firesaw calls down MS_AMT blazing meteors, dealing MS_DMG% ATK as Fire damage.
+
+
+
+
+
+Bad Blood
+Dropping below BAD_BLOOD_HEALTH_THRESHOLD% of your Max HP grants a BAD_BLOOD_ATK_BUFF% attack buff for BAD_BLOOD_BUFF_DUR seconds.
+Cooldown: BAD_BLOOD_CD seconds"
 scroll_active = false
 
 [node name="TalentControl1" type="Control" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer"]
-margin_top = 1104.0
+margin_top = 2004.0
 margin_right = 510.0
-margin_bottom = 1104.0
+margin_bottom = 2004.0
 
 [node name="PlayerTalentButton" type="TextureButton" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl1"]
 anchor_left = 0.215
 anchor_right = 0.215
 margin_left = 426.35
-margin_top = -1104.0
+margin_top = -2000.0
 margin_right = 458.35
-margin_bottom = -1087.0
+margin_bottom = -1983.0
 rect_min_size = Vector2( 32, 16 )
 rect_scale = Vector2( 7.5, 7.5 )
 texture_normal = ExtResource( 5 )
@@ -346,9 +1980,9 @@ text = "Unlock"
 
 [node name="OpalsCostLabel" type="Label" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl1/PlayerTalentButton"]
 margin_left = 5.66672
-margin_top = 10.0
+margin_top = 8.66666
 margin_right = 26.6667
-margin_bottom = 27.0
+margin_bottom = 25.6667
 rect_scale = Vector2( 0.3, 0.3 )
 custom_fonts/font = SubResource( 8 )
 text = "XXX"
@@ -360,9 +1994,9 @@ texture = ExtResource( 8 )
 
 [node name="SlotsCostLabel" type="Label" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl1/PlayerTalentButton"]
 margin_left = -3.73331
-margin_top = 15.0667
+margin_top = 14.5334
 margin_right = 71.2667
-margin_bottom = 32.0667
+margin_bottom = 31.5334
 rect_scale = Vector2( 0.3, 0.3 )
 custom_fonts/font = SubResource( 8 )
 text = "Slot cost: X"
@@ -371,26 +2005,26 @@ align = 1
 [node name="PlayerCheckButton" type="CheckButton" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl1/PlayerTalentButton"]
 visible = false
 margin_left = -5.33334
-margin_top = 8.66666
+margin_top = 7.59999
 margin_right = 116.667
-margin_bottom = 48.6667
+margin_bottom = 47.6
 rect_scale = Vector2( 0.2, 0.2 )
 custom_fonts/font = SubResource( 4 )
 text = "Enable"
 align = 1
 
 [node name="TalentControl2" type="Control" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer"]
-margin_top = 1108.0
+margin_top = 2008.0
 margin_right = 510.0
-margin_bottom = 1108.0
+margin_bottom = 2008.0
 
 [node name="PlayerTalentButton" type="TextureButton" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl2"]
 anchor_left = 0.215
 anchor_right = 0.215
 margin_left = 426.8
-margin_top = -853.0
+margin_top = -1743.0
 margin_right = 442.8
-margin_bottom = -844.0
+margin_bottom = -1734.0
 rect_scale = Vector2( 7.5, 7.5 )
 texture_normal = ExtResource( 5 )
 texture_pressed = ExtResource( 4 )
@@ -420,9 +2054,9 @@ texture = ExtResource( 8 )
 
 [node name="SlotsCostLabel" type="Label" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl2/PlayerTalentButton"]
 margin_left = -3.73331
-margin_top = 14.4
+margin_top = 14.5333
 margin_right = 71.2667
-margin_bottom = 31.4
+margin_bottom = 31.5333
 rect_scale = Vector2( 0.3, 0.3 )
 custom_fonts/font = SubResource( 8 )
 text = "Slot cost: X"
@@ -431,26 +2065,26 @@ align = 1
 [node name="PlayerCheckButton" type="CheckButton" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl2/PlayerTalentButton"]
 visible = false
 margin_left = -5.33334
-margin_top = 8.66666
+margin_top = 7.60001
 margin_right = 116.667
-margin_bottom = 48.6667
+margin_bottom = 47.6
 rect_scale = Vector2( 0.2, 0.2 )
 custom_fonts/font = SubResource( 4 )
 text = "Enable"
 align = 1
 
 [node name="TalentControl3" type="Control" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer"]
-margin_top = 1112.0
+margin_top = 2012.0
 margin_right = 510.0
-margin_bottom = 1112.0
+margin_bottom = 2012.0
 
 [node name="PlayerTalentButton" type="TextureButton" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl3"]
 anchor_left = 0.215
 anchor_right = 0.215
 margin_left = 426.35
-margin_top = -685.0
+margin_top = -1585.0
 margin_right = 458.35
-margin_bottom = -669.0
+margin_bottom = -1569.0
 rect_min_size = Vector2( 32, 16 )
 rect_scale = Vector2( 7.5, 7.5 )
 texture_normal = ExtResource( 5 )
@@ -481,9 +2115,9 @@ texture = ExtResource( 8 )
 
 [node name="SlotsCostLabel" type="Label" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl3/PlayerTalentButton"]
 margin_left = -3.73331
-margin_top = 14.4
+margin_top = 14.5333
 margin_right = 71.2667
-margin_bottom = 31.4
+margin_bottom = 31.5333
 rect_scale = Vector2( 0.3, 0.3 )
 custom_fonts/font = SubResource( 8 )
 text = "Slot cost: X"
@@ -492,26 +2126,26 @@ align = 1
 [node name="PlayerCheckButton" type="CheckButton" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl3/PlayerTalentButton"]
 visible = false
 margin_left = -5.33334
-margin_top = 8.66666
+margin_top = 7.60016
 margin_right = 116.667
-margin_bottom = 48.6667
+margin_bottom = 47.6002
 rect_scale = Vector2( 0.2, 0.2 )
 custom_fonts/font = SubResource( 4 )
 text = "Enable"
 align = 1
 
 [node name="TalentControl4" type="Control" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer"]
-margin_top = 1116.0
+margin_top = 2016.0
 margin_right = 510.0
-margin_bottom = 1116.0
+margin_bottom = 2016.0
 
 [node name="PlayerTalentButton" type="TextureButton" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl4"]
 anchor_left = 0.215
 anchor_right = 0.215
 margin_left = 426.8
-margin_top = -522.0
+margin_top = -1368.0
 margin_right = 458.8
-margin_bottom = -506.0
+margin_bottom = -1352.0
 rect_min_size = Vector2( 32, 16 )
 rect_scale = Vector2( 7.5, 7.5 )
 texture_normal = ExtResource( 5 )
@@ -542,9 +2176,9 @@ texture = ExtResource( 8 )
 
 [node name="SlotsCostLabel" type="Label" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl4/PlayerTalentButton"]
 margin_left = -3.73331
-margin_top = 14.4
+margin_top = 14.5333
 margin_right = 71.2667
-margin_bottom = 31.4
+margin_bottom = 31.5333
 rect_scale = Vector2( 0.3, 0.3 )
 custom_fonts/font = SubResource( 8 )
 text = "Slot cost: X"
@@ -553,26 +2187,26 @@ align = 1
 [node name="PlayerCheckButton" type="CheckButton" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl4/PlayerTalentButton"]
 visible = false
 margin_left = -5.33334
-margin_top = 8.66666
+margin_top = 8.39999
 margin_right = 116.667
-margin_bottom = 48.6667
+margin_bottom = 48.4
 rect_scale = Vector2( 0.2, 0.2 )
 custom_fonts/font = SubResource( 4 )
 text = "Enable"
 align = 1
 
 [node name="TalentControl5" type="Control" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer"]
-margin_top = 1120.0
+margin_top = 2020.0
 margin_right = 510.0
-margin_bottom = 1120.0
+margin_bottom = 2020.0
 
 [node name="PlayerTalentButton" type="TextureButton" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl5"]
 anchor_left = 0.215
 anchor_right = 0.215
-margin_left = 426.35
-margin_top = -366.0
-margin_right = 458.35
-margin_bottom = -350.0
+margin_left = 426.8
+margin_top = -1192.0
+margin_right = 458.8
+margin_bottom = -1176.0
 rect_min_size = Vector2( 32, 16 )
 rect_scale = Vector2( 7.5, 7.5 )
 texture_normal = ExtResource( 5 )
@@ -587,38 +2221,185 @@ rect_scale = Vector2( 0.3, 0.3 )
 custom_fonts/font = SubResource( 3 )
 text = "Unlock"
 
+[node name="OpalsCostLabel" type="Label" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl5/PlayerTalentButton"]
+margin_left = 5.66672
+margin_top = 9.33333
+margin_right = 26.6667
+margin_bottom = 26.3333
+rect_scale = Vector2( 0.3, 0.3 )
+custom_fonts/font = SubResource( 8 )
+text = "XXX"
+align = 2
+
+[node name="Sprite" type="Sprite" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl5/PlayerTalentButton/OpalsCostLabel"]
+position = Vector2( -6.22238, 7.11111 )
+texture = ExtResource( 8 )
+
+[node name="SlotsCostLabel" type="Label" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl5/PlayerTalentButton"]
+margin_left = -3.73331
+margin_top = 14.5333
+margin_right = 71.2667
+margin_bottom = 31.5333
+rect_scale = Vector2( 0.3, 0.3 )
+custom_fonts/font = SubResource( 8 )
+text = "Slot cost: X"
+align = 1
+
 [node name="PlayerCheckButton" type="CheckButton" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl5/PlayerTalentButton"]
 visible = false
 margin_left = -5.33334
-margin_top = 8.66666
+margin_top = 8.39999
 margin_right = 116.667
-margin_bottom = 48.6667
+margin_bottom = 48.4
+rect_scale = Vector2( 0.2, 0.2 )
+custom_fonts/font = SubResource( 4 )
+text = "Enable"
+align = 1
+
+[node name="TalentControl6" type="Control" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer"]
+margin_top = 2024.0
+margin_right = 510.0
+margin_bottom = 2024.0
+
+[node name="PlayerTalentButton" type="TextureButton" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl6"]
+anchor_left = 0.215
+anchor_right = 0.215
+margin_left = 426.8
+margin_top = -1010.0
+margin_right = 458.8
+margin_bottom = -994.0
+rect_min_size = Vector2( 32, 16 )
+rect_scale = Vector2( 7.5, 7.5 )
+texture_normal = ExtResource( 5 )
+texture_pressed = ExtResource( 4 )
+
+[node name="ButtonLabel" type="Label" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl6/PlayerTalentButton"]
+margin_left = 1.60001
+margin_top = 1.6
+margin_right = 40.6
+margin_bottom = 18.6
+rect_scale = Vector2( 0.3, 0.3 )
+custom_fonts/font = SubResource( 3 )
+text = "Unlock"
+
+[node name="OpalsCostLabel" type="Label" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl6/PlayerTalentButton"]
+margin_left = 5.66672
+margin_top = 9.33333
+margin_right = 26.6667
+margin_bottom = 26.3333
+rect_scale = Vector2( 0.3, 0.3 )
+custom_fonts/font = SubResource( 8 )
+text = "XXX"
+align = 2
+
+[node name="Sprite" type="Sprite" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl6/PlayerTalentButton/OpalsCostLabel"]
+position = Vector2( -6.22238, 7.11111 )
+texture = ExtResource( 8 )
+
+[node name="SlotsCostLabel" type="Label" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl6/PlayerTalentButton"]
+margin_left = -3.73331
+margin_top = 14.5333
+margin_right = 71.2667
+margin_bottom = 31.5333
+rect_scale = Vector2( 0.3, 0.3 )
+custom_fonts/font = SubResource( 8 )
+text = "Slot cost: X"
+align = 1
+
+[node name="PlayerCheckButton" type="CheckButton" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl6/PlayerTalentButton"]
+visible = false
+margin_left = -5.33334
+margin_top = 8.39999
+margin_right = 116.667
+margin_bottom = 48.4
+rect_scale = Vector2( 0.2, 0.2 )
+custom_fonts/font = SubResource( 4 )
+text = "Enable"
+align = 1
+
+[node name="TalentControl7" type="Control" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer"]
+margin_top = 2028.0
+margin_right = 510.0
+margin_bottom = 2028.0
+
+[node name="PlayerTalentButton" type="TextureButton" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl7"]
+anchor_left = 0.215
+anchor_right = 0.215
+margin_left = 426.8
+margin_top = -843.0
+margin_right = 458.8
+margin_bottom = -827.0
+rect_min_size = Vector2( 32, 16 )
+rect_scale = Vector2( 7.5, 7.5 )
+texture_normal = ExtResource( 5 )
+texture_pressed = ExtResource( 4 )
+
+[node name="ButtonLabel" type="Label" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl7/PlayerTalentButton"]
+margin_left = 1.60001
+margin_top = 1.6
+margin_right = 40.6
+margin_bottom = 18.6
+rect_scale = Vector2( 0.3, 0.3 )
+custom_fonts/font = SubResource( 3 )
+text = "Unlock"
+
+[node name="OpalsCostLabel" type="Label" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl7/PlayerTalentButton"]
+margin_left = 5.66672
+margin_top = 9.33333
+margin_right = 26.6667
+margin_bottom = 26.3333
+rect_scale = Vector2( 0.3, 0.3 )
+custom_fonts/font = SubResource( 8 )
+text = "XXX"
+align = 2
+
+[node name="Sprite" type="Sprite" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl7/PlayerTalentButton/OpalsCostLabel"]
+position = Vector2( -6.22238, 7.11111 )
+texture = ExtResource( 8 )
+
+[node name="SlotsCostLabel" type="Label" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl7/PlayerTalentButton"]
+margin_left = -3.73331
+margin_top = 14.5333
+margin_right = 71.2667
+margin_bottom = 31.5333
+rect_scale = Vector2( 0.3, 0.3 )
+custom_fonts/font = SubResource( 8 )
+text = "Slot cost: X"
+align = 1
+
+[node name="PlayerCheckButton" type="CheckButton" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl7/PlayerTalentButton"]
+visible = false
+margin_left = -5.33334
+margin_top = 8.39999
+margin_right = 116.667
+margin_bottom = 48.4
 rect_scale = Vector2( 0.2, 0.2 )
 custom_fonts/font = SubResource( 4 )
 text = "Enable"
 align = 1
 
 [node name="TalentSlotsLabel" type="Label" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl"]
-margin_left = 19.0
+margin_left = 37.0
 margin_top = 226.0
-margin_right = 110.0
-margin_bottom = 293.0
+margin_right = 202.0
+margin_bottom = 259.0
 custom_fonts/font = SubResource( 6 )
 text = "Talent Slots:"
 align = 1
 autowrap = true
 
 [node name="TalentSlotsCountLabel" type="Label" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl"]
-margin_left = 12.0
-margin_top = 299.0
-margin_right = 118.0
-margin_bottom = 398.0
+margin_left = 58.5
+margin_top = 259.0
+margin_right = 164.5
+margin_bottom = 355.0
 custom_fonts/font = SubResource( 7 )
-text = "0/5"
+text = "0/6"
 align = 1
 autowrap = true
 
 [node name="OpalsLabel" type="Label" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl"]
+visible = false
 margin_left = 19.0
 margin_top = 395.0
 margin_right = 110.0
@@ -629,6 +2410,7 @@ align = 1
 autowrap = true
 
 [node name="OpalsCountLabel" type="Label" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl"]
+visible = false
 margin_left = 12.0
 margin_top = 430.0
 margin_right = 118.0
@@ -638,21 +2420,510 @@ text = "0/5"
 align = 1
 autowrap = true
 
+[node name="TalentSlotsWarningLabel" type="Label" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl"]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = 143.5
+margin_top = 465.0
+margin_right = 697.5
+margin_bottom = 516.0
+custom_colors/font_color = Color( 1, 0, 0, 1 )
+custom_fonts/font = SubResource( 14 )
+text = "Insufficient talent slots. Unequip other talents to free up slots."
+align = 1
+autowrap = true
+
+[node name="GlacielaControl" type="Control" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl"]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="Sprite" type="Sprite" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/GlacielaControl"]
+position = Vector2( 110, 125 )
+scale = Vector2( 7, 7 )
+texture = ExtResource( 2 )
+
+[node name="ScrollContainer" type="ScrollContainer" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/GlacielaControl"]
+anchor_right = 21.766
+anchor_bottom = 15.255
+margin_left = 253.0
+margin_top = 81.0
+margin_right = 72.36
+margin_bottom = -157.2
+rect_min_size = Vector2( 566, 355 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/GlacielaControl/ScrollContainer"]
+margin_right = 510.0
+margin_bottom = 1108.0
+rect_min_size = Vector2( 510, 1100 )
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/GlacielaControl/ScrollContainer/VBoxContainer"]
+margin_right = 510.0
+margin_bottom = 1100.0
+rect_min_size = Vector2( 510, 1100 )
+custom_fonts/normal_font = SubResource( 2 )
+bbcode_enabled = true
+bbcode_text = "[color=#ffd703]Dance of Rime[/color]
+Doing the following attack sequence ([color=#ffd703]ATK[/color], [color=#ffd703]ATK[/color], [color=#ffd703]ATK[/color], pause until a [color=yellow]yellow star[/color] appears and press [color=#ffd703]ATK[/color]) unleashes a spear dance that deals multiple instances of [color=#7df0ff]Ice[/color] DMG and knocks enemies back.
+
+[color=#ffd703]Ward of Boreas[/color]
+When you take damage, a stack of Tundra Star is consumed to reduce the  damage by WOB_MIT%.
+
+[color=#ffd703]Frigid Hailstorm[/color]
+Attacing Frozen enemies with a Charged or Special attack shatters the freezing ice, dealing AoE [color=#7df0ff]Ice[/color] DMG.
+
+
+
+"
+text = "Dance of Rime
+Doing the following attack sequence (ATK, ATK, ATK, pause until a yellow star appears and press ATK) unleashes a spear dance that deals multiple instances of Ice DMG and knocks enemies back.
+
+Ward of Boreas
+When you take damage, a stack of Tundra Star is consumed to reduce the  damage by WOB_MIT%.
+
+Frigid Hailstorm
+Attacing Frozen enemies with a Charged or Special attack shatters the freezing ice, dealing AoE Ice DMG.
+
+
+
+"
+scroll_active = false
+
+[node name="TalentControl1" type="Control" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/GlacielaControl/ScrollContainer/VBoxContainer"]
+margin_top = 1104.0
+margin_right = 510.0
+margin_bottom = 1104.0
+
+[node name="GlacielaTalentButton" type="TextureButton" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/GlacielaControl/ScrollContainer/VBoxContainer/TalentControl1"]
+anchor_left = 0.215
+anchor_right = 0.215
+margin_left = 426.35
+margin_top = -1104.0
+margin_right = 458.35
+margin_bottom = -1087.0
+rect_min_size = Vector2( 32, 16 )
+rect_scale = Vector2( 7.5, 7.5 )
+texture_normal = ExtResource( 5 )
+texture_pressed = ExtResource( 4 )
+
+[node name="ButtonLabel" type="Label" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/GlacielaControl/ScrollContainer/VBoxContainer/TalentControl1/GlacielaTalentButton"]
+margin_left = 2.0
+margin_top = 2.0
+margin_right = 47.0
+margin_bottom = 19.0
+rect_scale = Vector2( 0.3, 0.3 )
+custom_fonts/font = SubResource( 3 )
+text = "Unlock"
+
+[node name="OpalsCostLabel" type="Label" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/GlacielaControl/ScrollContainer/VBoxContainer/TalentControl1/GlacielaTalentButton"]
+margin_left = 5.66672
+margin_top = 8.66666
+margin_right = 26.6667
+margin_bottom = 25.6667
+rect_scale = Vector2( 0.3, 0.3 )
+custom_fonts/font = SubResource( 8 )
+text = "XXX"
+align = 2
+
+[node name="Sprite" type="Sprite" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/GlacielaControl/ScrollContainer/VBoxContainer/TalentControl1/GlacielaTalentButton/OpalsCostLabel"]
+position = Vector2( -6.22238, 7.11111 )
+texture = ExtResource( 8 )
+
+[node name="SlotsCostLabel" type="Label" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/GlacielaControl/ScrollContainer/VBoxContainer/TalentControl1/GlacielaTalentButton"]
+margin_left = -3.73331
+margin_top = 14.5334
+margin_right = 71.2667
+margin_bottom = 31.5334
+rect_scale = Vector2( 0.3, 0.3 )
+custom_fonts/font = SubResource( 8 )
+text = "Slot cost: X"
+align = 1
+
+[node name="GlacielaCheckButton" type="CheckButton" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/GlacielaControl/ScrollContainer/VBoxContainer/TalentControl1/GlacielaTalentButton"]
+visible = false
+margin_left = -5.33334
+margin_top = 7.59999
+margin_right = 116.667
+margin_bottom = 47.6
+rect_scale = Vector2( 0.2, 0.2 )
+custom_fonts/font = SubResource( 4 )
+text = "Enable"
+align = 1
+
+[node name="TalentControl2" type="Control" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/GlacielaControl/ScrollContainer/VBoxContainer"]
+margin_top = 1108.0
+margin_right = 510.0
+margin_bottom = 1108.0
+
+[node name="GlacielaTalentButton" type="TextureButton" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/GlacielaControl/ScrollContainer/VBoxContainer/TalentControl2"]
+anchor_left = 0.215
+anchor_right = 0.215
+margin_left = 426.35
+margin_top = -846.0
+margin_right = 458.35
+margin_bottom = -829.0
+rect_min_size = Vector2( 32, 16 )
+rect_scale = Vector2( 7.5, 7.5 )
+texture_normal = ExtResource( 5 )
+texture_pressed = ExtResource( 4 )
+
+[node name="ButtonLabel" type="Label" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/GlacielaControl/ScrollContainer/VBoxContainer/TalentControl2/GlacielaTalentButton"]
+margin_left = 2.0
+margin_top = 2.0
+margin_right = 47.0
+margin_bottom = 19.0
+rect_scale = Vector2( 0.3, 0.3 )
+custom_fonts/font = SubResource( 3 )
+text = "Unlock"
+
+[node name="OpalsCostLabel" type="Label" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/GlacielaControl/ScrollContainer/VBoxContainer/TalentControl2/GlacielaTalentButton"]
+margin_left = 5.66672
+margin_top = 8.66666
+margin_right = 26.6667
+margin_bottom = 25.6667
+rect_scale = Vector2( 0.3, 0.3 )
+custom_fonts/font = SubResource( 8 )
+text = "XXX"
+align = 2
+
+[node name="Sprite" type="Sprite" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/GlacielaControl/ScrollContainer/VBoxContainer/TalentControl2/GlacielaTalentButton/OpalsCostLabel"]
+position = Vector2( -6.22238, 7.11111 )
+texture = ExtResource( 8 )
+
+[node name="SlotsCostLabel" type="Label" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/GlacielaControl/ScrollContainer/VBoxContainer/TalentControl2/GlacielaTalentButton"]
+margin_left = -3.73331
+margin_top = 14.5334
+margin_right = 71.2667
+margin_bottom = 31.5334
+rect_scale = Vector2( 0.3, 0.3 )
+custom_fonts/font = SubResource( 8 )
+text = "Slot cost: X"
+align = 1
+
+[node name="GlacielaCheckButton" type="CheckButton" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/GlacielaControl/ScrollContainer/VBoxContainer/TalentControl2/GlacielaTalentButton"]
+visible = false
+margin_left = -5.33334
+margin_top = 7.59999
+margin_right = 116.667
+margin_bottom = 47.6
+rect_scale = Vector2( 0.2, 0.2 )
+custom_fonts/font = SubResource( 4 )
+text = "Enable"
+align = 1
+
+[node name="TalentSlotsLabel" type="Label" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/GlacielaControl"]
+margin_left = 37.0
+margin_top = 226.0
+margin_right = 202.0
+margin_bottom = 259.0
+custom_fonts/font = SubResource( 6 )
+text = "Talent Slots:"
+align = 1
+autowrap = true
+
+[node name="TalentSlotsCountLabel" type="Label" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/GlacielaControl"]
+margin_left = 58.5
+margin_top = 259.0
+margin_right = 164.5
+margin_bottom = 355.0
+custom_fonts/font = SubResource( 7 )
+text = "0/6"
+align = 1
+autowrap = true
+
+[node name="OpalsLabel" type="Label" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/GlacielaControl"]
+visible = false
+margin_left = 19.0
+margin_top = 395.0
+margin_right = 110.0
+margin_bottom = 462.0
+custom_fonts/font = SubResource( 6 )
+text = "Opals:"
+align = 1
+autowrap = true
+
+[node name="OpalsCountLabel" type="Label" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/GlacielaControl"]
+visible = false
+margin_left = 12.0
+margin_top = 430.0
+margin_right = 118.0
+margin_bottom = 529.0
+custom_fonts/font = SubResource( 7 )
+text = "0/5"
+align = 1
+autowrap = true
+
+[node name="TalentSlotsWarningLabel" type="Label" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/GlacielaControl"]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = 143.5
+margin_top = 465.0
+margin_right = 697.5
+margin_bottom = 516.0
+custom_colors/font_color = Color( 1, 0, 0, 1 )
+custom_fonts/font = SubResource( 14 )
+text = "Insufficient talent slots. Unequip other talents to free up slots."
+align = 1
+autowrap = true
+
+[node name="AgnetteControl" type="Control" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl"]
+visible = false
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="Sprite" type="Sprite" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/AgnetteControl"]
+position = Vector2( 110, 125 )
+scale = Vector2( 7, 7 )
+texture = ExtResource( 13 )
+
+[node name="ScrollContainer" type="ScrollContainer" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/AgnetteControl"]
+anchor_right = 21.766
+anchor_bottom = 15.255
+margin_left = 253.0
+margin_top = 81.0
+margin_right = 72.36
+margin_bottom = -157.2
+rect_min_size = Vector2( 566, 355 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/AgnetteControl/ScrollContainer"]
+margin_right = 510.0
+margin_bottom = 1108.0
+rect_min_size = Vector2( 510, 1100 )
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/AgnetteControl/ScrollContainer/VBoxContainer"]
+margin_right = 510.0
+margin_bottom = 1100.0
+rect_min_size = Vector2( 510, 1100 )
+custom_fonts/normal_font = SubResource( 2 )
+bbcode_enabled = true
+bbcode_text = "[color=#ffd703]Stoneskin[/color]
+While charging your bow, you take SS_MIT% less damage.
+
+
+[color=#ffd703]Volley Shot[/color]
+Your bow's Charged Attack fires 2 extra arrows that deal VS_PEN% of the arrow's damage. The Charge meter must be at least 70% full.
+Cooldown: VS_CD seconds"
+text = "Stoneskin
+While charging your bow, you take SS_MIT% less damage.
+
+
+Volley Shot
+Your bow's Charged Attack fires 2 extra arrows that deal VS_PEN% of the arrow's damage. The Charge meter must be at least 70% full.
+Cooldown: VS_CD seconds"
+scroll_active = false
+
+[node name="TalentControl1" type="Control" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/AgnetteControl/ScrollContainer/VBoxContainer"]
+margin_top = 1104.0
+margin_right = 510.0
+margin_bottom = 1104.0
+
+[node name="AgnetteTalentButton" type="TextureButton" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/AgnetteControl/ScrollContainer/VBoxContainer/TalentControl1"]
+anchor_left = 0.215
+anchor_right = 0.215
+margin_left = 426.35
+margin_top = -1104.0
+margin_right = 458.35
+margin_bottom = -1087.0
+rect_min_size = Vector2( 32, 16 )
+rect_scale = Vector2( 7.5, 7.5 )
+texture_normal = ExtResource( 5 )
+texture_pressed = ExtResource( 4 )
+
+[node name="ButtonLabel" type="Label" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/AgnetteControl/ScrollContainer/VBoxContainer/TalentControl1/AgnetteTalentButton"]
+margin_left = 2.0
+margin_top = 2.0
+margin_right = 47.0
+margin_bottom = 19.0
+rect_scale = Vector2( 0.3, 0.3 )
+custom_fonts/font = SubResource( 3 )
+text = "Unlock"
+
+[node name="OpalsCostLabel" type="Label" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/AgnetteControl/ScrollContainer/VBoxContainer/TalentControl1/AgnetteTalentButton"]
+margin_left = 5.66672
+margin_top = 8.66666
+margin_right = 26.6667
+margin_bottom = 25.6667
+rect_scale = Vector2( 0.3, 0.3 )
+custom_fonts/font = SubResource( 8 )
+text = "XXX"
+align = 2
+
+[node name="Sprite" type="Sprite" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/AgnetteControl/ScrollContainer/VBoxContainer/TalentControl1/AgnetteTalentButton/OpalsCostLabel"]
+position = Vector2( -6.22238, 7.11111 )
+texture = ExtResource( 8 )
+
+[node name="SlotsCostLabel" type="Label" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/AgnetteControl/ScrollContainer/VBoxContainer/TalentControl1/AgnetteTalentButton"]
+margin_left = -3.73331
+margin_top = 14.4001
+margin_right = 71.2667
+margin_bottom = 31.4001
+rect_scale = Vector2( 0.3, 0.3 )
+custom_fonts/font = SubResource( 8 )
+text = "Slot cost: X"
+align = 1
+
+[node name="AgnetteCheckButton" type="CheckButton" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/AgnetteControl/ScrollContainer/VBoxContainer/TalentControl1/AgnetteTalentButton"]
+visible = false
+margin_left = -5.33334
+margin_top = 7.59999
+margin_right = 116.667
+margin_bottom = 47.6
+rect_scale = Vector2( 0.2, 0.2 )
+custom_fonts/font = SubResource( 4 )
+text = "Enable"
+align = 1
+
+[node name="TalentControl2" type="Control" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/AgnetteControl/ScrollContainer/VBoxContainer"]
+margin_top = 1108.0
+margin_right = 510.0
+margin_bottom = 1108.0
+
+[node name="AgnetteTalentButton" type="TextureButton" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/AgnetteControl/ScrollContainer/VBoxContainer/TalentControl2"]
+anchor_left = 0.215
+anchor_right = 0.215
+margin_left = 426.35
+margin_top = -944.0
+margin_right = 458.35
+margin_bottom = -927.0
+rect_min_size = Vector2( 32, 16 )
+rect_scale = Vector2( 7.5, 7.5 )
+texture_normal = ExtResource( 5 )
+texture_pressed = ExtResource( 4 )
+
+[node name="ButtonLabel" type="Label" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/AgnetteControl/ScrollContainer/VBoxContainer/TalentControl2/AgnetteTalentButton"]
+margin_left = 2.0
+margin_top = 2.0
+margin_right = 47.0
+margin_bottom = 19.0
+rect_scale = Vector2( 0.3, 0.3 )
+custom_fonts/font = SubResource( 3 )
+text = "Unlock"
+
+[node name="OpalsCostLabel" type="Label" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/AgnetteControl/ScrollContainer/VBoxContainer/TalentControl2/AgnetteTalentButton"]
+margin_left = 5.66672
+margin_top = 8.66666
+margin_right = 26.6667
+margin_bottom = 25.6667
+rect_scale = Vector2( 0.3, 0.3 )
+custom_fonts/font = SubResource( 8 )
+text = "XXX"
+align = 2
+
+[node name="Sprite" type="Sprite" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/AgnetteControl/ScrollContainer/VBoxContainer/TalentControl2/AgnetteTalentButton/OpalsCostLabel"]
+position = Vector2( -6.22238, 7.11111 )
+texture = ExtResource( 8 )
+
+[node name="SlotsCostLabel" type="Label" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/AgnetteControl/ScrollContainer/VBoxContainer/TalentControl2/AgnetteTalentButton"]
+margin_left = -3.73331
+margin_top = 14.4001
+margin_right = 71.2667
+margin_bottom = 31.4001
+rect_scale = Vector2( 0.3, 0.3 )
+custom_fonts/font = SubResource( 8 )
+text = "Slot cost: X"
+align = 1
+
+[node name="AgnetteCheckButton" type="CheckButton" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/AgnetteControl/ScrollContainer/VBoxContainer/TalentControl2/AgnetteTalentButton"]
+visible = false
+margin_left = -5.33334
+margin_top = 7.59999
+margin_right = 116.667
+margin_bottom = 47.6
+rect_scale = Vector2( 0.2, 0.2 )
+custom_fonts/font = SubResource( 4 )
+text = "Enable"
+align = 1
+
+[node name="TalentSlotsLabel" type="Label" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/AgnetteControl"]
+margin_left = 37.0
+margin_top = 226.0
+margin_right = 202.0
+margin_bottom = 259.0
+custom_fonts/font = SubResource( 6 )
+text = "Talent Slots:"
+align = 1
+autowrap = true
+
+[node name="TalentSlotsCountLabel" type="Label" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/AgnetteControl"]
+margin_left = 58.5
+margin_top = 259.0
+margin_right = 164.5
+margin_bottom = 355.0
+custom_fonts/font = SubResource( 7 )
+text = "0/6"
+align = 1
+autowrap = true
+
+[node name="OpalsLabel" type="Label" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/AgnetteControl"]
+visible = false
+margin_left = 19.0
+margin_top = 395.0
+margin_right = 110.0
+margin_bottom = 462.0
+custom_fonts/font = SubResource( 6 )
+text = "Opals:"
+align = 1
+autowrap = true
+
+[node name="OpalsCountLabel" type="Label" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/AgnetteControl"]
+visible = false
+margin_left = 12.0
+margin_top = 430.0
+margin_right = 118.0
+margin_bottom = 529.0
+custom_fonts/font = SubResource( 7 )
+text = "0/5"
+align = 1
+autowrap = true
+
+[node name="TalentSlotsWarningLabel" type="Label" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/AgnetteControl"]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = 143.5
+margin_top = 465.0
+margin_right = 697.5
+margin_bottom = 516.0
+custom_colors/font_color = Color( 1, 0, 0, 1 )
+custom_fonts/font = SubResource( 14 )
+text = "Insufficient talent slots. Unequip other talents to free up slots."
+align = 1
+autowrap = true
+
 [node name="CloseButtonMainUI" type="TextureButton" parent="CharacterTalentsControl"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -436.0
-margin_top = -307.0
-margin_right = -396.0
-margin_bottom = -267.0
+margin_left = -486.0
+margin_top = -278.0
+margin_right = -446.0
+margin_bottom = -238.0
 rect_scale = Vector2( 1.5, 1.5 )
 texture_normal = ExtResource( 9 )
 expand = true
 
 [connection signal="pressed" from="CharactersUI/NinePatchRect/CloseButtonMainUI" to="CharactersUI" method="_on_CloseButtonMainUI_pressed"]
+[connection signal="pressed" from="CharactersUI/NinePatchRect/PlayerOpenSkillsButton" to="CharactersUI" method="_on_PlayerOpenSkillsButton_pressed"]
 [connection signal="pressed" from="CharactersUI/NinePatchRect/PlayerOpenTalentButton" to="CharactersUI" method="_on_PlayerOpenTalentButton_pressed"]
+[connection signal="pressed" from="CharactersUI/NinePatchRect/GlacielaOpenSkillsButton" to="CharactersUI" method="_on_GlacielaOpenSkillsButton_pressed"]
+[connection signal="pressed" from="CharactersUI/NinePatchRect/GlacielaOpenTalentButton" to="CharactersUI" method="_on_GlacielaOpenTalentButton_pressed"]
+[connection signal="pressed" from="CharactersUI/NinePatchRect/AgnetteOpenSkillsButton" to="CharactersUI" method="_on_AgnetteOpenSkillsButton_pressed"]
+[connection signal="pressed" from="CharactersUI/NinePatchRect/AgnetteOpenTalentButton" to="CharactersUI" method="_on_AgnetteOpenTalentButton_pressed"]
+[connection signal="item_selected" from="CharacterSkillsControl/NinePatchRect/SkillsControl/PlayerControl/SkillTypeOptionButton" to="CharacterSkillsControl" method="_on_Player_SkillTypeOptionButton_item_selected"]
+[connection signal="item_selected" from="CharacterSkillsControl/NinePatchRect/SkillsControl/PlayerControl/PerkSkillScrollContainerControl/PerkSkillSelectionOption" to="CharacterSkillsControl" method="_on_Player_PerkSkillSelectionOption_item_selected"]
+[connection signal="item_selected" from="CharacterSkillsControl/NinePatchRect/SkillsControl/GlacielaControl/SkillTypeOptionButton" to="CharacterSkillsControl" method="_on_GlacielaSkillTypeOptionButton_item_selected"]
+[connection signal="item_selected" from="CharacterSkillsControl/NinePatchRect/SkillsControl/GlacielaControl/PerkSkillScrollContainerControl/PerkSkillSelectionOption" to="CharacterSkillsControl" method="_on_Player_PerkSkillSelectionOption_item_selected"]
+[connection signal="item_selected" from="CharacterSkillsControl/NinePatchRect/SkillsControl/AgnetteControl/SkillTypeOptionButton" to="CharacterSkillsControl" method="_on_AgnetteSkillTypeOptionButton_item_selected"]
+[connection signal="item_selected" from="CharacterSkillsControl/NinePatchRect/SkillsControl/AgnetteControl/PerkSkillScrollContainerControl/PerkSkillSelectionOption" to="CharacterSkillsControl" method="_on_Player_PerkSkillSelectionOption_item_selected"]
+[connection signal="pressed" from="CharacterSkillsControl/CloseButtonMainUI" to="CharacterSkillsControl" method="_on_CloseButtonMainUI_pressed"]
 [connection signal="pressed" from="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl1/PlayerTalentButton" to="CharacterTalentsControl" method="_on_PlayerTalentButton1_pressed"]
 [connection signal="toggled" from="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl1/PlayerTalentButton/PlayerCheckButton" to="CharacterTalentsControl" method="_on_PlayerCheckButton1_toggled"]
 [connection signal="pressed" from="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl2/PlayerTalentButton" to="CharacterTalentsControl" method="_on_PlayerTalentButton2_pressed"]
@@ -661,4 +2932,18 @@ expand = true
 [connection signal="toggled" from="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl3/PlayerTalentButton/PlayerCheckButton" to="CharacterTalentsControl" method="_on_PlayerCheckButton3_toggled"]
 [connection signal="pressed" from="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl4/PlayerTalentButton" to="CharacterTalentsControl" method="_on_PlayerTalentButton4_pressed"]
 [connection signal="toggled" from="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl4/PlayerTalentButton/PlayerCheckButton" to="CharacterTalentsControl" method="_on_PlayerCheckButton4_toggled"]
+[connection signal="pressed" from="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl5/PlayerTalentButton" to="CharacterTalentsControl" method="_on_PlayerTalentButton5_pressed"]
+[connection signal="toggled" from="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl5/PlayerTalentButton/PlayerCheckButton" to="CharacterTalentsControl" method="_on_PlayerCheckButton5_toggled"]
+[connection signal="pressed" from="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl6/PlayerTalentButton" to="CharacterTalentsControl" method="_on_PlayerTalentButton6_pressed"]
+[connection signal="toggled" from="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl6/PlayerTalentButton/PlayerCheckButton" to="CharacterTalentsControl" method="_on_PlayerCheckButton6_toggled"]
+[connection signal="pressed" from="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl7/PlayerTalentButton" to="CharacterTalentsControl" method="_on_PlayerTalentButton7_pressed"]
+[connection signal="toggled" from="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl7/PlayerTalentButton/PlayerCheckButton" to="CharacterTalentsControl" method="_on_PlayerCheckButton7_toggled"]
+[connection signal="pressed" from="CharacterTalentsControl/NinePatchRect/TalentTreeControl/GlacielaControl/ScrollContainer/VBoxContainer/TalentControl1/GlacielaTalentButton" to="CharacterTalentsControl" method="_on_GlacielaTalentButton1_pressed"]
+[connection signal="toggled" from="CharacterTalentsControl/NinePatchRect/TalentTreeControl/GlacielaControl/ScrollContainer/VBoxContainer/TalentControl1/GlacielaTalentButton/GlacielaCheckButton" to="CharacterTalentsControl" method="_on_GlacielaCheckButton1_toggled"]
+[connection signal="pressed" from="CharacterTalentsControl/NinePatchRect/TalentTreeControl/GlacielaControl/ScrollContainer/VBoxContainer/TalentControl2/GlacielaTalentButton" to="CharacterTalentsControl" method="_on_GlacielaTalentButton2_pressed"]
+[connection signal="toggled" from="CharacterTalentsControl/NinePatchRect/TalentTreeControl/GlacielaControl/ScrollContainer/VBoxContainer/TalentControl2/GlacielaTalentButton/GlacielaCheckButton" to="CharacterTalentsControl" method="_on_GlacielaCheckButton2_toggled"]
+[connection signal="pressed" from="CharacterTalentsControl/NinePatchRect/TalentTreeControl/AgnetteControl/ScrollContainer/VBoxContainer/TalentControl1/AgnetteTalentButton" to="CharacterTalentsControl" method="_on_AgnetteTalentButton1_pressed"]
+[connection signal="toggled" from="CharacterTalentsControl/NinePatchRect/TalentTreeControl/AgnetteControl/ScrollContainer/VBoxContainer/TalentControl1/AgnetteTalentButton/AgnetteCheckButton" to="CharacterTalentsControl" method="_on_AgnetteCheckButton_toggled"]
+[connection signal="pressed" from="CharacterTalentsControl/NinePatchRect/TalentTreeControl/AgnetteControl/ScrollContainer/VBoxContainer/TalentControl2/AgnetteTalentButton" to="CharacterTalentsControl" method="_on_AgnetteTalentButton2_pressed"]
+[connection signal="toggled" from="CharacterTalentsControl/NinePatchRect/TalentTreeControl/AgnetteControl/ScrollContainer/VBoxContainer/TalentControl2/AgnetteTalentButton/AgnetteCheckButton" to="CharacterTalentsControl" method="_on_AgnetteCheckButton2_toggled"]
 [connection signal="pressed" from="CharacterTalentsControl/CloseButtonMainUI" to="CharacterTalentsControl" method="_on_CloseButtonMainUI_pressed"]

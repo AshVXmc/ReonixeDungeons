@@ -1,10 +1,10 @@
-[gd_scene load_steps=96 format=2]
+[gd_scene load_steps=98 format=2]
 
 [ext_resource path="res://spriteframes/Player_Default_spriteframes.tres" type="SpriteFrames" id=1]
 [ext_resource path="res://scripts/player/Player.gd" type="Script" id=2]
 [ext_resource path="res://assets/characters/player/katana.png" type="Texture" id=3]
 [ext_resource path="res://assets/misc/frozen_block.png" type="Texture" id=4]
-[ext_resource path="res://assets/misc/magic_shield.png" type="Texture" id=5]
+[ext_resource path="res://assets/misc/shield_bubble.png" type="Texture" id=5]
 [ext_resource path="res://assets/characters/player/gliding_wings.png" type="Texture" id=6]
 [ext_resource path="res://assets/UI/chargebar_charging.png" type="Texture" id=7]
 [ext_resource path="res://assets/UI/healthbar_empty.png" type="Texture" id=8]
@@ -24,9 +24,10 @@
 [ext_resource path="res://assets/misc/super_slash_projectile_2.png" type="Texture" id=22]
 [ext_resource path="res://scenes/particles/HealingParticle.tscn" type="PackedScene" id=23]
 [ext_resource path="res://assets/UI/chargebar_full.png" type="Texture" id=24]
+[ext_resource path="res://assets/particles/slow_particle_(snail_symbol).png" type="Texture" id=25]
 
-[sub_resource type="RectangleShape2D" id=80]
-extents = Vector2( 34, 51 )
+[sub_resource type="RectangleShape2D" id=82]
+extents = Vector2( 34, 48 )
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 37.7159, 43.7237 )
@@ -3515,6 +3516,15 @@ tracks/10/keys = {
 "values": [ true ]
 }
 
+[sub_resource type="ParticlesMaterial" id=81]
+emission_shape = 2
+emission_box_extents = Vector3( 25, 25, 1 )
+flag_disable_z = true
+gravity = Vector3( 0, 70, 0 )
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+scale = 1.5
+
 [node name="Player" type="KinematicBody2D" groups=["PlayerEntity"]]
 collision_layer = 128
 collision_mask = 144
@@ -3559,10 +3569,11 @@ animation = "BackwardsDash"
 playing = true
 
 [node name="Shield" type="Node2D" parent="."]
+visible = false
 
 [node name="ShieldMask" type="Sprite" parent="Shield"]
 self_modulate = Color( 1, 1, 1, 0.490196 )
-scale = Vector2( 7.5, 7.5 )
+scale = Vector2( 6, 6 )
 texture = ExtResource( 5 )
 
 [node name="ShieldHPBar" type="TextureProgress" parent="Shield"]
@@ -3588,8 +3599,7 @@ flip_h = true
 flip_v = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 0, 5 )
-shape = SubResource( 80 )
+shape = SubResource( 82 )
 
 [node name="AttackCollision" type="Area2D" parent="." groups=["LightPoiseDamage", "NoAirborneKnockback", "SmallEleganceValue", "Sword"]]
 
@@ -3810,7 +3820,7 @@ texture_under = ExtResource( 10 )
 texture_progress = ExtResource( 11 )
 
 [node name="MeleeTimer" type="Timer" parent="."]
-wait_time = 0.25
+wait_time = 0.3
 one_shot = true
 
 [node name="OxygenTimer" type="Timer" parent="."]
@@ -3831,7 +3841,7 @@ one_shot = true
 position = Vector2( 18, 0 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyEvasionArea"]
-position = Vector2( 67.145, -8.70296 )
+position = Vector2( 65, -8.703 )
 shape = SubResource( 20 )
 
 [node name="AtkBuffParticle" parent="." instance=ExtResource( 14 )]
@@ -3926,6 +3936,10 @@ anims/RightDefaultSheath = SubResource( 43 )
 wait_time = 2.0
 one_shot = true
 
+[node name="DashCounterAttackDelayTimer" type="Timer" parent="."]
+wait_time = 0.4
+one_shot = true
+
 [node name="TempusTardusTriggerCD" type="Timer" parent="."]
 wait_time = 20.0
 one_shot = true
@@ -3952,8 +3966,29 @@ one_shot = true
 
 [node name="HealingParticles" parent="." instance=ExtResource( 23 )]
 
+[node name="WeakenParticles" parent="." instance=ExtResource( 23 )]
+visible = false
+emitting = true
+amount = 4
+one_shot = false
+process_material = SubResource( 81 )
+texture = ExtResource( 25 )
+
 [node name="DashAfterJumpingDelayTimer" type="Timer" parent="."]
 wait_time = 0.05
+one_shot = true
+
+[node name="TalentsNode2D" type="Node2D" parent="."]
+
+[node name="BurningBreathCDTimer" type="Timer" parent="TalentsNode2D"]
+wait_time = 12.0
+one_shot = true
+
+[node name="WeakenedTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="FireCharmTimer" type="Timer" parent="."]
+wait_time = 7.0
 one_shot = true
 
 [connection signal="timeout" from="CharacterManager/SwapCooldownTimer" to="CharacterManager" method="_on_SwapCooldownTimer_timeout"]
@@ -3995,6 +4030,7 @@ one_shot = true
 [connection signal="body_entered" from="ThrustEffectArea" to="." method="_on_ThrustEffectArea_body_entered"]
 [connection signal="timeout" from="WalkParticleTimer" to="." method="_on_WalkParticleTimer_timeout"]
 [connection signal="timeout" from="KatanaSheatheWindowTimer" to="." method="_on_KatanaSheatheWindowTimer_timeout"]
+[connection signal="timeout" from="DashCounterAttackDelayTimer" to="." method="_on_DashCounterAttackDelayTimer_timeout"]
 [connection signal="timeout" from="GhostTrailTimer" to="." method="_on_GhostTrailTimer_timeout"]
 [connection signal="timeout" from="ResetAttackStringTimer" to="." method="_on_ResetAttackStringTimer_timeout"]
 [connection signal="timeout" from="HideEnergyMeterTimer" to="." method="_on_HideEnergyMeterTimer_timeout"]

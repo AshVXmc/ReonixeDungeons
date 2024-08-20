@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://scripts/misc/Life.gd" type="Script" id=1]
-[ext_resource path="res://assets/UI/heart.png" type="Texture" id=2]
+[ext_resource path="res://assets/UI/heart_bar.png" type="Texture" id=2]
 [ext_resource path="res://assets/UI/heart_slot.png" type="Texture" id=3]
 
 [node name="HeartUI" type="CanvasLayer"]
@@ -17,7 +17,6 @@ visible = false
 margin_top = -4.0
 margin_right = 96.0
 margin_bottom = 92.0
-rect_scale = Vector2( 0.75, 0.75 )
 texture = ExtResource( 3 )
 expand = true
 stretch_mode = 2
@@ -27,20 +26,15 @@ visible = false
 margin_top = -4.0
 margin_right = 96.0
 margin_bottom = 92.0
-rect_scale = Vector2( 0.75, 0.75 )
 texture = ExtResource( 2 )
 expand = true
 stretch_mode = 2
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="HeartSlot2" type="TextureRect" parent="Life"]
 visible = false
 margin_top = -4.0
 margin_right = 96.0
 margin_bottom = 92.0
-rect_scale = Vector2( 0.75, 0.75 )
 texture = ExtResource( 3 )
 expand = true
 stretch_mode = 2
@@ -53,7 +47,6 @@ visible = false
 margin_top = -4.0
 margin_right = 96.0
 margin_bottom = 92.0
-rect_scale = Vector2( 0.75, 0.75 )
 texture = ExtResource( 2 )
 expand = true
 stretch_mode = 2
@@ -66,7 +59,6 @@ visible = false
 margin_top = -4.0
 margin_right = 96.0
 margin_bottom = 92.0
-rect_scale = Vector2( 0.75, 0.75 )
 texture = ExtResource( 3 )
 expand = true
 stretch_mode = 2
@@ -79,7 +71,6 @@ visible = false
 margin_top = -4.0
 margin_right = 96.0
 margin_bottom = 92.0
-rect_scale = Vector2( 0.75, 0.75 )
 texture = ExtResource( 2 )
 expand = true
 stretch_mode = 2

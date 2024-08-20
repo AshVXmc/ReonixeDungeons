@@ -48,7 +48,7 @@ tracks/0/keys = {
 }
 
 [sub_resource type="CircleShape2D" id=7]
-radius = 55.0
+radius = 40.0
 
 [node name="MoteOfFlame" type="AnimatedSprite"]
 scale = Vector2( 6, 6 )
@@ -81,8 +81,8 @@ disabled = true
 [node name="FireDetonationParticle" parent="." instance=ExtResource( 1 )]
 scale = Vector2( 1, 1 )
 amount = 24
-lifetime = 0.5
-initial_velocity = 110.0
+lifetime = 0.45
+initial_velocity = 80.0
 
 [node name="SmokeParticle" parent="." instance=ExtResource( 2 )]
 scale = Vector2( 1, 1 )

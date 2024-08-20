@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://scripts/ui/MainMenu.gd" type="Script" id=1]
 [ext_resource path="res://assets/UI/textbox.png" type="Texture" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://assets/misc/background_2.png" type="Texture" id=7]
 [ext_resource path="res://assets/UI/button_pressed.png" type="Texture" id=8]
 [ext_resource path="res://assets/UI/button.png" type="Texture" id=9]
+[ext_resource path="res://scripts/misc/LoadDataHelper.gd" type="Script" id=10]
 
 [sub_resource type="DynamicFont" id=15]
 size = 64
@@ -334,6 +335,9 @@ expand = true
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "New Anim"
 "anims/New Anim" = SubResource( 20 )
+
+[node name="LoadDataHelper" type="Node2D" parent="."]
+script = ExtResource( 10 )
 
 [connection signal="pressed" from="NewGame" to="." method="_on_NewGame_pressed"]
 [connection signal="pressed" from="LoadGame" to="." method="_on_LoadGame_pressed"]

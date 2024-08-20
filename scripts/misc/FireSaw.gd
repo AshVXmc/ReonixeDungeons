@@ -1,7 +1,7 @@
 class_name FireSaw extends Area2D
 
 const BURNING : PackedScene = preload("res://scenes/status_effects/BurningStatus.tscn")
-var SPEED : int = 500
+var SPEED : int = 600
 var velocity = Vector2()
 var direction : int = 1
 var destroyed : bool = false
@@ -12,7 +12,7 @@ var attack_calculation : float
 
 func _ready():
 #	add_burning_stack(true)
-	print($BurningBreathTalentDetector.get_overlapping_bodies())
+#	print($BurningBreathTalentDetector.get_overlapping_bodies())
 	$DestroyedTimer.start(Global.player_skill_multipliers["FireSawDuration"])
 	get_parent().add_to_group("FiresawActive")
 	if Global.equipped_characters[0] == "Player":
@@ -21,6 +21,25 @@ func _ready():
 	add_to_group(str(attack_calculation))
 	$AnimationPlayer.play("SPIN")
 	
+	if Global.player_talents["MeteorShower"]["unlocked"] and Global.player_talents["MeteorShower"]["enabled"]:
+		meteor_shower_talent() 
+
+
+func meteor_shower_talent():
+	for i in range(0, Global.player_talents["MeteorShower"]["amount"]):
+		var meteor = preload("res://scenes/skills/MeteorShower.tscn").instance()
+		get_parent().get_parent().add_child(meteor)
+		
+		match i:
+			0:
+				meteor.position = Vector2(global_position.x - 145, global_position.y - 370)
+			1:
+				meteor.position = Vector2(global_position.x + 145, global_position.y - 370)
+			2:
+				meteor.position = Vector2(global_position.x - 330, global_position.y - 340)
+			3:
+				meteor.position = Vector2(global_position.x + 330, global_position.y - 340)
+				
 func _on_DestroyedTimer_timeout():
 	get_parent().remove_from_group("FiresawActive")
 	call_deferred('free')
@@ -42,7 +61,6 @@ func get_closest_enemy():
 
 func add_burning_stack():
 	var enemy = get_overlapping_areas()
-
 	for e in enemy:
 		if e.is_in_group("Enemy"):
 			if !e.is_in_group("Burnstack"):
@@ -59,13 +77,4 @@ func _on_FireSaw_area_entered(area):
 		fire_hit_particle.position = get_closest_enemy().global_position 
 
 
-func _on_BurningBreathTalentDetector_area_entered(area):
-	if Global.player_talents["BurningBreath"]["unlocked"] and Global.player_talents["BurningBreath"]["enabled"]:
-		if weakref(area).get_ref() != null:
-			if area.is_in_group("Enemy") and !area.is_in_group("BurnStack"):
-				var burning_status = BURNING.instance()
-				burning_status.burn_immediately = true
-				area.add_child(burning_status)
-				print("ENTERED")
-		$BurningBreathTalentDetector/CollisionShape2D.disabled = true
 	

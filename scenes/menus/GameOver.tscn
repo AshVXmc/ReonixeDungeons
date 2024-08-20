@@ -1,36 +1,32 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://assets/fonts/Born2bSportyV2.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://scripts/ui/GameOver.gd" type="Script" id=2]
 [ext_resource path="res://themes/Blur.tres" type="Material" id=3]
 [ext_resource path="res://assets/UI/restarticon.png" type="Texture" id=4]
-[ext_resource path="res://assets/UI/loadsaveicon.png" type="Texture" id=5]
+[ext_resource path="res://assets/UI/textbox.png" type="Texture" id=5]
 [ext_resource path="res://assets/UI/quiticon.png" type="Texture" id=6]
+[ext_resource path="res://scripts/misc/LoadDataHelper.gd" type="Script" id=7]
 
-[sub_resource type="DynamicFont" id=1]
-size = 75
+[sub_resource type="DynamicFont" id=3]
+size = 64
 font_data = ExtResource( 1 )
 
 [sub_resource type="DynamicFont" id=2]
-size = 45
+size = 32
 font_data = ExtResource( 1 )
 
 [node name="GameOverUI" type="CanvasLayer"]
+pause_mode = 2
 
 [node name="GameOver" type="Control" parent="."]
 visible = false
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -540.0
-margin_top = -360.0
-margin_right = -500.0
-margin_bottom = -320.0
+anchor_right = 1.0
+anchor_bottom = 1.0
 script = ExtResource( 2 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+
+[node name="LoadDataHelper" type="Node2D" parent="GameOver"]
+script = ExtResource( 7 )
 
 [node name="Blur" type="ColorRect" parent="GameOver"]
 material = ExtResource( 3 )
@@ -38,150 +34,89 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -578.751
-margin_top = -204.525
-margin_right = 1601.25
-margin_bottom = 964.475
+margin_left = -1082.0
+margin_top = -610.0
+margin_right = 1098.0
+margin_bottom = 559.0
 color = Color( 1, 1, 1, 0 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
-[node name="ColorRect" type="ColorRect" parent="GameOver"]
-anchor_left = 2.699
-anchor_top = 2.751
-anchor_right = 2.699
-anchor_bottom = 2.751
-margin_left = 5.88742
-margin_top = 110.887
-margin_right = 855.887
-margin_bottom = 571.887
-color = Color( 0.0196078, 0.0196078, 0.0196078, 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+[node name="NinePatchRect" type="NinePatchRect" parent="GameOver"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -309.5
+margin_top = -188.0
+margin_right = 309.5
+margin_bottom = 188.0
+texture = ExtResource( 5 )
+patch_margin_left = 64
+patch_margin_top = 64
+patch_margin_right = 64
+patch_margin_bottom = 64
 
 [node name="[GameOver]" type="Label" parent="GameOver"]
 anchor_left = 13.6
 anchor_top = 3.75
 anchor_right = 13.6
 anchor_bottom = 3.75
-margin_left = -160.096
-margin_top = 81.872
-margin_right = 139.904
-margin_bottom = 167.872
+margin_left = -14678.0
+margin_top = -2519.0
+margin_right = -13643.0
+margin_bottom = -2443.0
 custom_colors/font_color = Color( 0.87451, 0, 0, 1 )
-custom_fonts/font = SubResource( 1 )
+custom_fonts/font = SubResource( 3 )
 text = "Game Over"
 align = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
-[node name="RestartLabel" type="Label" parent="GameOver"]
+[node name="ReturnLabel" type="Label" parent="GameOver"]
 anchor_left = 7.697
 anchor_top = 9.846
 anchor_right = 7.697
 anchor_bottom = 9.846
-margin_left = -58.1049
-margin_top = 87.032
-margin_right = 69.8951
-margin_bottom = 133.032
+margin_left = -7987.76
+margin_top = -6695.12
+margin_right = -7825.76
+margin_bottom = -6628.12
 custom_fonts/font = SubResource( 2 )
-text = "Restart"
-__meta__ = {
-"_edit_use_anchors_": false
-}
+text = "Restart
+Level"
+align = 1
 
-[node name="RestartButton" type="Button" parent="GameOver"]
-anchor_left = 7.682
+[node name="ReturnButton" type="Button" parent="GameOver"]
+anchor_left = 6.64
 anchor_top = 7.125
-anchor_right = 7.682
+anchor_right = 6.64
 anchor_bottom = 7.125
-margin_left = -69.0959
-margin_top = 35.872
-margin_right = 80.9041
-margin_bottom = 185.872
+margin_left = -6841.2
+margin_top = -4884.0
+margin_right = -6691.2
+margin_bottom = -4734.0
 icon = ExtResource( 4 )
 flat = true
 expand_icon = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="LoadSaveLabel" type="Label" parent="GameOver"]
-anchor_left = 13.366
-anchor_top = 9.846
-anchor_right = 13.366
-anchor_bottom = 9.846
-margin_left = -81.0899
-margin_top = 87.032
-margin_right = 92.9101
-margin_bottom = 133.032
-custom_fonts/font = SubResource( 2 )
-text = "Load save"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="NoSaveData" type="Label" parent="GameOver"]
-visible = false
-anchor_left = 13.366
-anchor_top = 9.846
-anchor_right = 13.366
-anchor_bottom = 9.846
-margin_left = -194.596
-margin_top = 44.4865
-margin_right = 197.404
-margin_bottom = 90.4865
-custom_colors/font_color = Color( 1, 0, 0, 1 )
-custom_fonts/font = SubResource( 2 )
-text = "No save data detected."
-align = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="LoadSaveButton" type="Button" parent="GameOver"]
-anchor_left = 13.39
-anchor_top = 7.125
-anchor_right = 13.39
-anchor_bottom = 7.125
-margin_left = -69.1001
-margin_top = 35.872
-margin_right = 80.8999
-margin_bottom = 185.872
-icon = ExtResource( 5 )
-flat = true
-expand_icon = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="ExitLabel" type="Label" parent="GameOver"]
 anchor_left = 19.041
 anchor_top = 9.825
 anchor_right = 19.041
 anchor_bottom = 9.825
-margin_left = -81.0899
-margin_top = 87.872
-margin_right = 92.9101
-margin_bottom = 133.872
+margin_left = -19955.3
+margin_top = -6680.0
+margin_right = -19826.3
+margin_bottom = -6634.0
 custom_fonts/font = SubResource( 2 )
 text = "Main menu"
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="ExitButton" type="Button" parent="GameOver"]
 anchor_left = 18.99
 anchor_top = 7.125
 anchor_right = 18.99
 anchor_bottom = 7.125
-margin_left = -69.1002
-margin_top = 35.872
-margin_right = 80.8998
-margin_bottom = 185.872
+margin_left = -19912.2
+margin_top = -4884.0
+margin_right = -19762.2
+margin_bottom = -4734.0
 icon = ExtResource( 6 )
 flat = true
 expand_icon = true
@@ -190,6 +125,5 @@ __meta__ = {
 }
 
 [connection signal="visibility_changed" from="GameOver" to="GameOver" method="_on_GameOver_visibility_changed"]
-[connection signal="pressed" from="GameOver/RestartButton" to="GameOver" method="_on_RestartButton_pressed"]
-[connection signal="pressed" from="GameOver/LoadSaveButton" to="GameOver" method="_on_LoadSaveButton_pressed"]
+[connection signal="pressed" from="GameOver/ReturnButton" to="GameOver" method="_on_ReturnButton_pressed"]
 [connection signal="pressed" from="GameOver/ExitButton" to="GameOver" method="_on_ExitButton_pressed"]

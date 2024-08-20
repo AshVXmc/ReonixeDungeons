@@ -146,7 +146,7 @@ anims/expand = SubResource( 3 )
 anims/fadeout = SubResource( 4 )
 
 [node name="DestroyedTimer" type="Timer" parent="."]
-wait_time = 5.0
+wait_time = 3.5
 one_shot = true
 
 [connection signal="timeout" from="DestroyedTimer" to="." method="_on_DestroyedTimer_timeout"]

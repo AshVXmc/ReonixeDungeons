@@ -6,10 +6,15 @@ var attack : int = 5
 var velocity = Vector2()
 var direction : int = 1
 var destroyed : bool = false
+signal add_mana_to_player(amount)
 
 func _ready():
-	add_to_group(str(Global.attack_power * (Global.player_skill_multipliers["Fireball"] / 100)))
-	print(get_groups())
+	connect("add_mana_to_player", get_parent().get_node("Player"), "change_mana_value")
+	if Global.player_talents["PiercingFervor"]["unlocked"] and Global.player_talents["PiercingFervor"]["enabled"]: 
+		add_to_group(str((1 - Global.player_talents["PiercingFervor"]["damagepenalty"] / 100) * Global.attack_power * (Global.player_skill_multipliers["Fireball"] / 100)))
+	else:
+		add_to_group(str(Global.attack_power * (Global.player_skill_multipliers["Fireball"] / 100)))
+#	print(get_groups())
 
 func _physics_process(delta):
 	
@@ -40,12 +45,13 @@ func _on_VisibilityNotifier2D_screen_exited():
 func _on_Fireball_area_entered(area):
 	if area.is_in_group("Enemy") or area.is_in_group("DestructableObject") or area.is_in_group("Campfire"):
 		add_burning_stack()
-		destroyed = true
-		
-		$AnimatedSprite.play("Destroyed")
-		$CollisionShape2D.disabled = true
-		yield(get_tree().create_timer(0.25), "timeout")
-		queue_free()
+		emit_signal("add_mana_to_player", 0.5)
+		if !Global.player_talents["PiercingFervor"]["enabled"]:
+			destroyed = true
+			$AnimatedSprite.play("Destroyed")
+			$CollisionShape2D.disabled = true
+			yield(get_tree().create_timer(0.25), "timeout")
+			queue_free()
 
 func explode():
 	destroyed = true
@@ -57,7 +63,8 @@ func explode():
 	call_deferred('free')
 
 func _on_Fireball_body_entered(body):
-	explode()
+	if !Global.player_talents["PiercingFervor"]["enabled"]:
+		explode()
 
 func _on_DestroyedTimer_timeout():
 	explode()

@@ -1,8 +1,8 @@
 class_name MagicMissile extends Area2D
 
 onready var player = get_parent().get_node("Player")
-export var speed = 800
-export var steer_force = 50.0
+export var speed = 625
+export var steer_force = 450.0
 
 var velocity = Vector2.ZERO
 var acceleration = Vector2.ZERO
@@ -55,3 +55,7 @@ func explode():
 func _on_MagicMissile_body_entered(body):
 	if body.is_in_group("EnemyEntity"):
 		explode()
+
+
+func _on_DestroyedTimer_timeout():
+	call_deferred('free')

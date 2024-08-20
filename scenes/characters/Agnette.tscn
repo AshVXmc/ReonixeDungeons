@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=52 format=2]
 
 [ext_resource path="res://assets/characters/agnette/agnette_walk_1.png" type="Texture" id=1]
 [ext_resource path="res://assets/characters/agnette/agnette_idle_2.png" type="Texture" id=2]
@@ -6,25 +6,346 @@
 [ext_resource path="res://scripts/characters/Agnette.gd" type="Script" id=4]
 [ext_resource path="res://assets/characters/agnette/agnette_dash.png" type="Texture" id=5]
 [ext_resource path="res://assets/weapons/agnette_bow_1.png" type="Texture" id=6]
-[ext_resource path="res://assets/UI/chargebar_charging.png" type="Texture" id=7]
+[ext_resource path="res://assets/UI/agnette_bar_empty.png" type="Texture" id=7]
 [ext_resource path="res://scenes/particles/ChargingParticle.tscn" type="PackedScene" id=8]
 [ext_resource path="res://assets/weapons/agnette_bow_2.png" type="Texture" id=9]
-[ext_resource path="res://assets/UI/healthbar_empty.png" type="Texture" id=10]
+[ext_resource path="res://assets/UI/agnette_bar_full.png" type="Texture" id=10]
 [ext_resource path="res://assets/weapons/agnette_bow_3.png" type="Texture" id=11]
 [ext_resource path="res://assets/weapons/agnette_bow_4.png" type="Texture" id=12]
+[ext_resource path="res://assets/characters/agnette/bear_1.png" type="Texture" id=13]
 [ext_resource path="res://scenes/particles/StrongJumpParticle.tscn" type="PackedScene" id=14]
+[ext_resource path="res://assets/characters/agnette/bear_2.png" type="Texture" id=15]
+[ext_resource path="res://assets/characters/agnette/bear_3.png" type="Texture" id=16]
+[ext_resource path="res://assets/characters/agnette/agnette_idle_1.png" type="Texture" id=17]
+[ext_resource path="res://assets/UI/heart_slot.png" type="Texture" id=18]
+[ext_resource path="res://assets/UI/heart_bar.png" type="Texture" id=19]
+[ext_resource path="res://assets/particles/smoke_particle_spritesheet.png" type="Texture" id=20]
+[ext_resource path="res://assets/characters/agnette/bear_attack_1.png" type="Texture" id=21]
+[ext_resource path="res://scenes/particles/HealingParticle.tscn" type="PackedScene" id=22]
+[ext_resource path="res://assets/misc/super_slash_projectile_2.png" type="Texture" id=23]
+[ext_resource path="res://assets/particles/slow_particle_(snail_symbol).png" type="Texture" id=24]
+[ext_resource path="res://assets/characters/agnette/raven_1.png" type="Texture" id=25]
+[ext_resource path="res://assets/characters/agnette/raven_3.png" type="Texture" id=26]
+[ext_resource path="res://assets/characters/agnette/raven_2.png" type="Texture" id=27]
+[ext_resource path="res://assets/characters/agnette/raven_4.png" type="Texture" id=28]
+[ext_resource path="res://assets/misc/peck_attack_projectile.png" type="Texture" id=29]
+
+[sub_resource type="RectangleShape2D" id=5]
+extents = Vector2( 37.5, 50 )
+
+[sub_resource type="CircleShape2D" id=24]
+radius = 5.0
+
+[sub_resource type="Animation" id=32]
+resource_name = "BearAttack1Left"
+length = 0.2
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("BearFormNodes/BearAttackSprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0.1 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ ExtResource( 23 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("BearFormNodes/BearAttackSprite:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ false, true, false ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("BearFormNodes/BearAttackSprite:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0.1 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -140, 4 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("BearFormNodes/BearAttackSprite:rotation_degrees")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0.1 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ -11.0 ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("BearFormNodes/BearAttackSprite:flip_h")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0.1 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+
+[sub_resource type="Animation" id=30]
+resource_name = "BearAttack1Right"
+length = 0.2
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("BearFormNodes/BearAttackSprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0.1 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ ExtResource( 23 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("BearFormNodes/BearAttackSprite:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ false, true, false ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("BearFormNodes/BearAttackSprite:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0.1 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 140, 4 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("BearFormNodes/BearAttackSprite:rotation_degrees")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0.1 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 11.0 ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("BearFormNodes/BearAttackSprite:flip_h")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0.1 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+
+[sub_resource type="Animation" id=31]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("BearFormNodes/BearAttackSprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 125, 24 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("BearFormNodes/BearAttackSprite:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 11.0 ]
+}
+
+[sub_resource type="RectangleShape2D" id=37]
+extents = Vector2( 30, 35 )
+
+[sub_resource type="Animation" id=36]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("BearFormNodes/BearAttackSprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 125, 24 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("BearFormNodes/BearAttackSprite:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 11.0 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("RavenFormNodes/RavenPeckAttackSprite:flip_h")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+
+[sub_resource type="Animation" id=39]
+resource_name = "RavenPeckAttackLeft"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/path = NodePath("RavenFormNodes/RavenPeckAttackSprite:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ false, true, false ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("RavenFormNodes/RavenPeckAttackSprite:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -95, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("RavenFormNodes/RavenPeckAttackSprite:flip_h")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+
+[sub_resource type="Animation" id=38]
+resource_name = "RavenPeckAttackRight"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/path = NodePath("RavenFormNodes/RavenPeckAttackSprite:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ false, true, false ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("RavenFormNodes/RavenPeckAttackSprite:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 95, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("RavenFormNodes/RavenPeckAttackSprite:flip_h")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
+"frames": [ ExtResource( 13 ) ],
+"loop": true,
+"name": "BearDefault",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 13 ), ExtResource( 21 ), ExtResource( 15 ) ],
+"loop": true,
+"name": "BearJump",
+"speed": 6.0
+}, {
+"frames": [ ExtResource( 15 ), ExtResource( 13 ), ExtResource( 16 ) ],
+"loop": true,
+"name": "BearWalk",
+"speed": 6.0
+}, {
 "frames": [ ExtResource( 5 ) ],
 "loop": false,
 "name": "Dash",
 "speed": 1.0
 }, {
-"frames": [ ExtResource( 1 ), ExtResource( 3 ) ],
+"frames": [ ExtResource( 17 ), ExtResource( 2 ) ],
 "loop": true,
 "name": "Default",
 "speed": 5.0
+}, {
+"frames": [ ExtResource( 25 ), ExtResource( 26 ), ExtResource( 27 ), ExtResource( 28 ) ],
+"loop": true,
+"name": "RavenDefault",
+"speed": 10.0
 }, {
 "frames": [ ExtResource( 2 ), ExtResource( 1 ), ExtResource( 3 ) ],
 "loop": true,
@@ -34,7 +355,7 @@ animations = [ {
 
 [sub_resource type="Animation" id=20]
 resource_name = "BowAttackRight"
-length = 0.8
+length = 0.4
 tracks/0/type = "value"
 tracks/0/path = NodePath("BowSprite:texture")
 tracks/0/interp = 1
@@ -42,27 +363,164 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.2, 0.4, 0.8 ),
-"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"times": PoolRealArray( 0, 0.2, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
 "update": 1,
-"values": [ ExtResource( 6 ), ExtResource( 9 ), ExtResource( 11 ), ExtResource( 12 ) ]
+"values": [ ExtResource( 12 ), ExtResource( 11 ), ExtResource( 6 ) ]
 }
 
-[sub_resource type="RectangleShape2D" id=5]
-extents = Vector2( 63.4052, 39.1389 )
+[sub_resource type="Animation" id=25]
+resource_name = "BowAttackRightCharged"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("BowSprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 1, 2 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ ExtResource( 12 ), ExtResource( 11 ), ExtResource( 9 ), ExtResource( 9 ) ]
+}
 
 [sub_resource type="RectangleShape2D" id=9]
-extents = Vector2( 66.6314, 55.1411 )
+extents = Vector2( 33.5, 55.1411 )
 
-[sub_resource type="CapsuleShape2D" id=8]
-radius = 45.9563
-height = 17.3718
+[sub_resource type="RectangleShape2D" id=28]
+extents = Vector2( 45, 54 )
 
 [sub_resource type="RectangleShape2D" id=17]
 extents = Vector2( 42.0083, 40 )
 
-[sub_resource type="RectangleShape2D" id=19]
-extents = Vector2( 100, 50 )
+[sub_resource type="Animation" id=29]
+resource_name = "BeastDeath"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/path = NodePath("AnimatedSprite:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.4, 0.5, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 0, 0, 0, 1 ), Color( 0, 0, 0, 1 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray(  ),
+"transitions": PoolRealArray(  ),
+"values": [  ]
+}
+
+[sub_resource type="Animation" id=21]
+resource_name = "Death"
+tracks/0/type = "value"
+tracks/0/path = NodePath("AnimatedSprite:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.7, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 0, 0, 0, 1 ), Color( 0, 0, 0, 1 ) ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.5, 0.9 ),
+"transitions": PoolRealArray( 1, 1 ),
+"values": [ {
+"args": [  ],
+"method": "add_death_particles"
+}, {
+"args": [  ],
+"method": "swap_to_nearby_alive_characters"
+} ]
+}
+
+[sub_resource type="Animation" id=22]
+resource_name = "Hurt"
+length = 0.2
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0.490196 ), Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=23]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="CanvasItemMaterial" id=27]
+particles_animation = true
+particles_anim_h_frames = 3
+particles_anim_v_frames = 1
+particles_anim_loop = true
+
+[sub_resource type="ParticlesMaterial" id=26]
+emission_shape = 2
+emission_box_extents = Vector3( 20, 15, 1 )
+flag_disable_z = true
+gravity = Vector3( 0, -65, 0 )
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+scale = 1.2
+anim_speed = 2.0
+
+[sub_resource type="ParticlesMaterial" id=33]
+emission_shape = 2
+emission_box_extents = Vector3( 25, 25, 1 )
+flag_disable_z = true
+gravity = Vector3( 0, 70, 0 )
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+scale = 1.5
 
 [node name="Agnette" type="Node2D"]
 script = ExtResource( 4 )
@@ -72,61 +530,151 @@ visible = false
 position = Vector2( -1.43051e-06, 0 )
 amount = 4
 
+[node name="ChargedAttackBar" type="TextureProgress" parent="."]
+margin_left = -60.0534
+margin_top = -86.9925
+margin_right = 59.9466
+margin_bottom = -62.9925
+texture_under = ExtResource( 7 )
+texture_progress = ExtResource( 10 )
+nine_patch_stretch = true
+
+[node name="BearFormNodes" type="Node2D" parent="."]
+
+[node name="BearHealthBar" type="TextureProgress" parent="BearFormNodes"]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -35.0
+margin_top = -150.0
+margin_right = 35.0
+margin_bottom = -80.0
+max_value = 10.0
+texture_under = ExtResource( 18 )
+texture_progress = ExtResource( 19 )
+nine_patch_stretch = true
+
+[node name="AttackCollision" type="Area2D" parent="BearFormNodes" groups=["MediumPoiseDamage", "Sword"]]
+position = Vector2( 140, 0 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BearFormNodes/AttackCollision"]
+shape = SubResource( 5 )
+disabled = true
+
+[node name="BearAttackSprite" type="Sprite" parent="BearFormNodes"]
+visible = false
+position = Vector2( 125, 24 )
+rotation = 0.191986
+scale = Vector2( 7, 7 )
+texture = ExtResource( 23 )
+
+[node name="BearSelfSnareArea" type="Area2D" parent="BearFormNodes"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BearFormNodes/BearSelfSnareArea"]
+shape = SubResource( 24 )
+disabled = true
+
+[node name="BearAttackAnimationPlayer" type="AnimationPlayer" parent="BearFormNodes"]
+root_node = NodePath("../..")
+anims/BearAttack1Left = SubResource( 32 )
+anims/BearAttack1Right = SubResource( 30 )
+anims/RESET = SubResource( 31 )
+
+[node name="BearAttackDelayTimer" type="Timer" parent="BearFormNodes"]
+wait_time = 0.5
+one_shot = true
+
+[node name="BearInputPressTimer" type="Timer" parent="BearFormNodes"]
+wait_time = 0.65
+one_shot = true
+
+[node name="AttackTimer" type="Timer" parent="BearFormNodes"]
+wait_time = 0.1
+one_shot = true
+
+[node name="RavenFormNodes" type="Node2D" parent="."]
+
+[node name="RavenHealthBar" type="TextureProgress" parent="RavenFormNodes"]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -35.0
+margin_top = -132.0
+margin_right = 35.0
+margin_bottom = -62.0
+max_value = 10.0
+texture_under = ExtResource( 18 )
+texture_progress = ExtResource( 19 )
+nine_patch_stretch = true
+
+[node name="AttackCollision" type="Area2D" parent="RavenFormNodes" groups=["LightPoiseDamage", "Sword"]]
+position = Vector2( 95, 0 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RavenFormNodes/AttackCollision"]
+shape = SubResource( 37 )
+disabled = true
+
+[node name="RavenInputPressTimer" type="Timer" parent="RavenFormNodes"]
+wait_time = 0.65
+one_shot = true
+
+[node name="RavenAttackDelayTimer" type="Timer" parent="RavenFormNodes"]
+wait_time = 0.35
+one_shot = true
+
+[node name="AttackTimer" type="Timer" parent="RavenFormNodes"]
+wait_time = 0.1
+one_shot = true
+
+[node name="RavenPeckAttackSprite" type="Sprite" parent="RavenFormNodes"]
+visible = false
+position = Vector2( 95, 0 )
+scale = Vector2( 6.5, 6.5 )
+texture = ExtResource( 29 )
+
+[node name="RavenAttackAnimationPlayer" type="AnimationPlayer" parent="RavenFormNodes"]
+root_node = NodePath("../..")
+anims/RESET = SubResource( 36 )
+anims/RavenPeckAttackLeft = SubResource( 39 )
+anims/RavenPeckAttackRight = SubResource( 38 )
+
+[node name="BowSprite" type="Sprite" parent="."]
+position = Vector2( 40, 0 )
+scale = Vector2( 5, 5 )
+texture = ExtResource( 9 )
+flip_h = true
+
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 scale = Vector2( 5.25, 5.25 )
 frames = SubResource( 1 )
-animation = "Dash"
+animation = "RavenDefault"
 
 [node name="BowAnimationPlayer" type="AnimationPlayer" parent="."]
 anims/BowAttackRight = SubResource( 20 )
-
-[node name="BowSprite" type="Sprite" parent="."]
-position = Vector2( 43, 0 )
-scale = Vector2( 5, 5 )
-texture = ExtResource( 12 )
-flip_h = true
-
-[node name="AttackCollision" type="Area2D" parent="." groups=["MediumPoiseDamage", "Sword"]]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackCollision"]
-position = Vector2( 100, 5.059 )
-shape = SubResource( 5 )
-disabled = true
+anims/BowAttackRightCharged = SubResource( 25 )
 
 [node name="ChargedAttackCollision" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ChargedAttackCollision"]
-position = Vector2( 102.213, -11.0022 )
+position = Vector2( 100, 0 )
 shape = SubResource( 9 )
+disabled = true
 
-[node name="MeleeTimer" type="Timer" parent="."]
-wait_time = 0.35
+[node name="ShootTimer" type="Timer" parent="."]
+wait_time = 0.65
 one_shot = true
-
-[node name="AttackTimer" type="Timer" parent="."]
-wait_time = 0.1
-one_shot = true
-
-[node name="ChargeBar" type="TextureProgress" parent="."]
-visible = false
-margin_left = -49.805
-margin_top = -102.36
-margin_right = -29.805
-margin_bottom = -96.36
-rect_scale = Vector2( 5, 5 )
-texture_under = ExtResource( 10 )
-texture_progress = ExtResource( 7 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Area2D" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2( 1, 0.0585399 )
-shape = SubResource( 8 )
+shape = SubResource( 28 )
 
 [node name="ResetAttackStringTimer" type="Timer" parent="."]
+wait_time = 5.0
 one_shot = true
 
 [node name="ChargedAttackCooldown" type="Timer" parent="."]
@@ -141,11 +689,11 @@ one_shot = true
 [node name="EnemyEvasionArea" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyEvasionArea"]
-position = Vector2( 42, 0 )
+position = Vector2( 65, 0 )
 shape = SubResource( 17 )
 
 [node name="InputPressTimer" type="Timer" parent="."]
-wait_time = 0.5
+wait_time = 0.6
 one_shot = true
 
 [node name="AirborneTimer" type="Timer" parent="."]
@@ -167,15 +715,8 @@ scale = Vector2( 2, 2 )
 emitting = true
 one_shot = false
 
-[node name="SpecialAttackArea2D" type="Area2D" parent="." groups=["Ice", "SulphuricSigilTrigger"]]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="SpecialAttackArea2D"]
-position = Vector2( 148.451, -0.00581169 )
-shape = SubResource( 19 )
-disabled = true
-
-[node name="SpecialAttackTimer" type="Timer" parent="."]
-wait_time = 0.25
+[node name="ChargedAttackBarFillTimer" type="Timer" parent="."]
+wait_time = 0.1
 one_shot = true
 
 [node name="SpecialSequenceWindow" type="Timer" parent="."]
@@ -190,16 +731,74 @@ one_shot = true
 wait_time = 0.475
 one_shot = true
 
-[connection signal="area_entered" from="AttackCollision" to="." method="_on_AttackCollision_area_entered"]
-[connection signal="area_exited" from="AttackCollision" to="." method="_on_AttackCollision_area_exited"]
-[connection signal="timeout" from="MeleeTimer" to="." method="_on_MeleeTimer_timeout"]
-[connection signal="timeout" from="AttackTimer" to="." method="_on_AttackTimer_timeout"]
+[node name="ManaRegenDelay" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
+
+[node name="HurtAnimationPlayer" type="AnimationPlayer" parent="."]
+anims/BeastDeath = SubResource( 29 )
+anims/Death = SubResource( 21 )
+anims/Hurt = SubResource( 22 )
+anims/RESET = SubResource( 23 )
+
+[node name="SelfSnareArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SelfSnareArea"]
+shape = SubResource( 24 )
+disabled = true
+
+[node name="MaxChargeHoldTimer" type="Timer" parent="."]
+wait_time = 3.5
+one_shot = true
+
+[node name="WildShapeParticles" type="Particles2D" parent="."]
+material = SubResource( 27 )
+scale = Vector2( 4, 4 )
+emitting = false
+amount = 16
+lifetime = 0.6
+one_shot = true
+preprocess = 0.15
+process_material = SubResource( 26 )
+texture = ExtResource( 20 )
+
+[node name="BearFormDurationTimer" type="Timer" parent="."]
+
+[node name="RavenFormDurationTimer" type="Timer" parent="."]
+
+[node name="WeakenedTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="WeakenParticles" parent="." instance=ExtResource( 22 )]
+visible = false
+emitting = true
+amount = 4
+one_shot = false
+process_material = SubResource( 33 )
+texture = ExtResource( 24 )
+
+[node name="VolleyShootCooldownTimer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="area_entered" from="BearFormNodes/AttackCollision" to="." method="_on_AttackCollision_area_entered"]
+[connection signal="area_exited" from="BearFormNodes/AttackCollision" to="." method="_on_AttackCollision_area_exited"]
+[connection signal="timeout" from="BearFormNodes/BearInputPressTimer" to="." method="_on_BearInputPressTimer_timeout"]
+[connection signal="timeout" from="BearFormNodes/AttackTimer" to="." method="_on_AttackTimer_timeout"]
+[connection signal="area_entered" from="RavenFormNodes/AttackCollision" to="." method="_on_RavenAttackCollision_area_entered"]
+[connection signal="area_exited" from="RavenFormNodes/AttackCollision" to="." method="_on_RavenAttackCollision_area_exited"]
+[connection signal="timeout" from="RavenFormNodes/RavenInputPressTimer" to="." method="_on_RavenInputPressTimer_timeout"]
+[connection signal="timeout" from="RavenFormNodes/AttackTimer" to="." method="_on_RavenAttackTimer_timeout"]
+[connection signal="timeout" from="ShootTimer" to="." method="_on_ShootTimer_timeout"]
 [connection signal="area_entered" from="Area2D" to="." method="_on_Area2D_area_entered"]
 [connection signal="timeout" from="ResetAttackStringTimer" to="." method="_on_ResetAttackStringTimer_timeout"]
 [connection signal="area_entered" from="EnemyEvasionArea" to="." method="_on_EnemyEvasionArea_area_entered"]
 [connection signal="area_exited" from="EnemyEvasionArea" to="." method="_on_EnemyEvasionArea_area_exited"]
+[connection signal="timeout" from="InputPressTimer" to="." method="_on_InputPressTimer_timeout"]
 [connection signal="timeout" from="AirborneTimer" to="." method="_on_AirborneTimer_timeout"]
-[connection signal="timeout" from="SpecialAttackTimer" to="." method="_on_SpecialAttackTimer_timeout"]
+[connection signal="timeout" from="ChargedAttackBarFillTimer" to="." method="_on_ChargedAttackBarFillTimer_timeout"]
 [connection signal="timeout" from="SpecialSequenceWindow" to="." method="_on_Special4thSequenceWindow_timeout"]
 [connection signal="timeout" from="InvulnerabilityTimer" to="." method="_on_InvulnerabilityTimer_timeout"]
 [connection signal="timeout" from="DashInputPressTimer" to="." method="_on_DashInputPressTimer_timeout"]
+[connection signal="timeout" from="MaxChargeHoldTimer" to="." method="_on_MaxChargeHoldTimer_timeout"]
+[connection signal="timeout" from="BearFormDurationTimer" to="." method="_on_BearFormDurationTimer_timeout"]
+[connection signal="timeout" from="RavenFormDurationTimer" to="." method="_on_RavenFormDurationTimer_timeout"]

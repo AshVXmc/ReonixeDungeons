@@ -14,6 +14,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/characters/Agnette.gd"
 }, {
+"base": "KinematicBody2D",
+"class": "AgnetteArrow",
+"language": "GDScript",
+"path": "res://scripts/skills/AgnetteArrow.gd"
+}, {
 "base": "Node2D",
 "class": "AirborneStatus",
 "language": "GDScript",
@@ -114,6 +119,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/ui/ChaosMagicUI.gd"
 }, {
+"base": "Control",
+"class": "CharacterGuideUI",
+"language": "GDScript",
+"path": "res://scripts/ui/CharacterGuideUI.gd"
+}, {
 "base": "Node2D",
 "class": "CharacterManager",
 "language": "GDScript",
@@ -123,6 +133,11 @@ _global_script_classes=[ {
 "class": "CharacterSelectionUI",
 "language": "GDScript",
 "path": "res://scripts/ui/CharacterSelectionUI.gd"
+}, {
+"base": "Control",
+"class": "CharacterSkillsControl",
+"language": "GDScript",
+"path": "res://scripts/ui/CharacterSkillsControl.gd"
 }, {
 "base": "Control",
 "class": "CharacterTalentsControl",
@@ -138,6 +153,11 @@ _global_script_classes=[ {
 "class": "CombatGuidebook",
 "language": "GDScript",
 "path": "res://scripts/terrain/CombatGuidebook.gd"
+}, {
+"base": "Node2D",
+"class": "ConeOfCold",
+"language": "GDScript",
+"path": "res://scripts/skills/ConeOfCold.gd"
 }, {
 "base": "KinematicBody2D",
 "class": "CornucopiaGoblin",
@@ -219,6 +239,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/terrain/Portal.gd"
 }, {
+"base": "Node2D",
+"class": "EldritchHex",
+"language": "GDScript",
+"path": "res://scripts/enemies/EnemyEldritchHex.gd"
+}, {
 "base": "Control",
 "class": "EleganceMeterUI",
 "language": "GDScript",
@@ -229,10 +254,20 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/misc/EndlessLevel.gd"
 }, {
+"base": "KinematicBody2D",
+"class": "EnemyEldritchBlast",
+"language": "GDScript",
+"path": "res://scripts/enemies/EnemyEldritchBlast.gd"
+}, {
 "base": "Node2D",
 "class": "EnemyHealingOrb",
 "language": "GDScript",
 "path": "res://scripts/enemies/EnemyHealingOrb.gd"
+}, {
+"base": "KinematicBody2D",
+"class": "EnemyTeleportAnchor",
+"language": "GDScript",
+"path": "res://scripts/enemies/EnemyTeleportAnchor.gd"
 }, {
 "base": "Area2D",
 "class": "ExplodingFruit",
@@ -258,6 +293,11 @@ _global_script_classes=[ {
 "class": "FireSaw",
 "language": "GDScript",
 "path": "res://scripts/misc/FireSaw.gd"
+}, {
+"base": "Slime",
+"class": "FireSlime",
+"language": "GDScript",
+"path": "res://scripts/enemies/FireSlime.gd"
 }, {
 "base": "Area2D",
 "class": "Fireball",
@@ -333,6 +373,11 @@ _global_script_classes=[ {
 "class": "GreenFruit",
 "language": "GDScript",
 "path": "res://scripts/enemies/GreenFruit.gd"
+}, {
+"base": "Area2D",
+"class": "GroundedStatus",
+"language": "GDScript",
+"path": "res://scripts/status_effects/GroundedStatus.gd"
 }, {
 "base": "KinematicBody2D",
 "class": "GuardianGolem",
@@ -424,6 +469,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/NPCs/LibrarianNPC.gd"
 }, {
+"base": "Node2D",
+"class": "LoadDataHelper",
+"language": "GDScript",
+"path": "res://scripts/misc/LoadDataHelper.gd"
+}, {
 "base": "RigidBody2D",
 "class": "LootBag",
 "language": "GDScript",
@@ -444,6 +494,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/ui/MainMenu.gd"
 }, {
+"base": "RigidBody2D",
+"class": "ManaBits",
+"language": "GDScript",
+"path": "res://scripts/misc/ManaBits.gd"
+}, {
 "base": "Node2D",
 "class": "ManaShrine",
 "language": "GDScript",
@@ -453,6 +508,11 @@ _global_script_classes=[ {
 "class": "MaskedGoblin",
 "language": "GDScript",
 "path": "res://scripts/enemies/MaskedGoblin.gd"
+}, {
+"base": "Node2D",
+"class": "MeteorShower",
+"language": "GDScript",
+"path": "res://scripts/skills/MeteorShower.gd"
 }, {
 "base": "Area2D",
 "class": "MeteorStrike",
@@ -490,9 +550,24 @@ _global_script_classes=[ {
 "path": "res://scripts/items/PrimarySkillManager.gd"
 }, {
 "base": "Node2D",
+"class": "RainOfArrows",
+"language": "GDScript",
+"path": "res://scripts/skills/RainOfArrows.gd"
+}, {
+"base": "Area2D",
+"class": "RavenProjectile",
+"language": "GDScript",
+"path": "res://scripts/skills/RavenProjectile.gd"
+}, {
+"base": "Node2D",
 "class": "RegenHealthNode",
 "language": "GDScript",
 "path": "res://scripts/misc/RegenHealthNode.gd"
+}, {
+"base": "KinematicBody2D",
+"class": "SeekingArrow",
+"language": "GDScript",
+"path": "res://scripts/skills/SeekingArrow.gd"
 }, {
 "base": "Control",
 "class": "SetKeybinds",
@@ -549,10 +624,20 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/misc/SlowingPoison.gd"
 }, {
+"base": "Area2D",
+"class": "SoulOrb",
+"language": "GDScript",
+"path": "res://scripts/skills/SoulOrb.gd"
+}, {
 "base": "KinematicBody2D",
 "class": "Spider",
 "language": "GDScript",
 "path": "res://scripts/enemies/Spider.gd"
+}, {
+"base": "Node2D",
+"class": "SpikeTrap",
+"language": "GDScript",
+"path": "res://scripts/skills/SpikeTrap.gd"
 }, {
 "base": "RigidBody2D",
 "class": "SugarRoll",
@@ -594,13 +679,19 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/misc/TutorialLevel.gd"
 }, {
+"base": "Particles2D",
+"class": "WinterQueen",
+"language": "GDScript",
+"path": "res://scripts/skills/WinterQueen.gd"
+}, {
 "base": "Goblin",
 "class": "WitchGoblin",
 "language": "GDScript",
-"path": "res://scripts/enemies/WitchGoblin (new).gd"
+"path": "res://scripts/enemies/WitchGoblin.gd"
 } ]
 _global_script_class_icons={
 "Agnette": "",
+"AgnetteArrow": "",
 "AirborneStatus": "",
 "Alchemist": "",
 "AlchemyGuidebook": "",
@@ -621,11 +712,14 @@ _global_script_class_icons={
 "BurningStatus": "",
 "Cauldron": "",
 "ChaosMagicUI": "",
+"CharacterGuideUI": "",
 "CharacterManager": "",
 "CharacterSelectionUI": "",
+"CharacterSkillsControl": "",
 "CharacterTalentsControl": "",
 "CharactersUI": "",
 "CombatGuidebook": "",
+"ConeOfCold": "",
 "CornucopiaGoblin": "",
 "DTS": "",
 "DamageBonusBuff": "",
@@ -642,14 +736,18 @@ _global_script_class_icons={
 "DialogicUtil": "",
 "DungeonEntrance": "",
 "DungeonPortal": "",
+"EldritchHex": "",
 "EleganceMeterUI": "",
 "EndlessLevel": "",
+"EnemyEldritchBlast": "",
 "EnemyHealingOrb": "",
+"EnemyTeleportAnchor": "",
 "ExplodingFruit": "",
 "Familiar": "",
 "FireCharm": "",
 "FireFairy": "",
 "FireSaw": "",
+"FireSlime": "",
 "Fireball": "",
 "FrostFruit": "",
 "FrozenStatus": "",
@@ -665,6 +763,7 @@ _global_script_class_icons={
 "Goblin": "",
 "GoldenChest": "",
 "GreenFruit": "",
+"GroundedStatus": "",
 "GuardianGolem": "",
 "HealIndicator": "",
 "HealthPack": "",
@@ -683,12 +782,15 @@ _global_script_class_icons={
 "Level": "",
 "LevelTransporter": "",
 "Librarian": "",
+"LoadDataHelper": "",
 "LootBag": "",
 "MagicMissile": "",
 "MagicPedestal": "",
 "MainMenu": "",
+"ManaBits": "",
 "ManaShrine": "",
 "MaskedGoblin": "",
+"MeteorShower": "",
 "MeteorStrike": "",
 "MoteOfFlame": "",
 "PerfectDash": "",
@@ -696,7 +798,10 @@ _global_script_class_icons={
 "Player": "",
 "PlayerSkillManager": "",
 "PrimarySkillManager": "",
+"RainOfArrows": "",
+"RavenProjectile": "",
 "RegenHealthNode": "",
+"SeekingArrow": "",
 "SetKeybinds": "",
 "ShamanGoblin": "",
 "ShieldGoblin": "",
@@ -708,7 +813,9 @@ _global_script_class_icons={
 "SkillsUI": "",
 "Slime": "",
 "SlowingPoison": "",
+"SoulOrb": "",
 "Spider": "",
+"SpikeTrap": "",
 "SugarRoll": "",
 "SulphuricSigil": "",
 "SuperSlashProjectile": "",
@@ -717,6 +824,7 @@ _global_script_class_icons={
 "TargetingMissile": "",
 "TempusTardus": "",
 "TutorialLevel": "",
+"WinterQueen": "",
 "WitchGoblin": ""
 }
 
@@ -757,6 +865,7 @@ singletons=[  ]
 [global]
 
 window=false
+fps=false
 
 [importer_defaults]
 
@@ -946,6 +1055,11 @@ right_mouse={
 talent_skill={
 "deadzone": 0.5,
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":67,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
+}
+open_loadout={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":76,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
  ]
 }
 

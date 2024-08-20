@@ -1,16 +1,21 @@
 class_name FireFairy extends Area2D
 onready var player = get_parent().get_node("Player")
 const SULPHURIC_SIGIL = preload("res://scenes/status_effects/SulphuricSigil.tscn")
-const SPEED = 450
-const steer_force = 225
+const BURNING : PackedScene = preload("res://scenes/status_effects/BurningStatus.tscn")
+const SPEED = 500
+const steer_force = 325
 var attack : int = 5
 var target = null
 var velocity = Vector2.ZERO
 var acceleration = Vector2.ZERO
 var atkbonus : float
+signal add_mana_to_player(amount)
+var is_exploding = false
 func _ready():
+	connect("add_mana_to_player", player, "change_mana_value")
 	add_to_group(str(Global.attack_power * (Global.player_skill_multipliers["FireFairy"] / 100)))
 	$AnimationPlayer.play("Flap")
+	$DestroyedTimer.wait_time = Global.player_skill_multipliers["FireFairyDuration"]
 	
 
 func start(_transform, _target):
@@ -32,16 +37,15 @@ func seek():
 func _physics_process(delta):
 	if Input.is_action_just_pressed("secondary_skill"):
 		position = player.global_position
-	target = get_closest_enemy()
-	if target and target.get_node("Area2D").overlaps_area($Detector):
-		acceleration += seek()
-	else:
-		yield(get_tree().create_timer(8), "timeout")
-		queue_free()
-	velocity += acceleration * delta
-	velocity = velocity.clamped(SPEED)
-#	rotation = velocity.angle()
-	position += velocity * delta
+	if !is_exploding:
+		target = get_closest_enemy()
+		
+		if weakref(target).get_ref() != null and target and target.get_node("Area2D").overlaps_area($Detector):
+			acceleration += seek()
+			velocity += acceleration * delta
+			velocity = velocity.clamped(SPEED)
+		#	rotation = velocity.angle()
+			position += velocity * delta
 func get_closest_enemy():
 	var enemies = get_tree().get_nodes_in_group("EnemyEntity")
 	if enemies.empty(): 
@@ -55,14 +59,35 @@ func get_closest_enemy():
 	var closest_enemy = enemies[min_index]
 	return closest_enemy
 
-func _on_HomingOnEnemiesFireball_area_entered(area):
-	pass
+func add_burning_stack():
+	var enemy = get_overlapping_areas()
+	for e in enemy:
+		if e.is_in_group("Enemy"):
+			if !e.is_in_group("Burnstack"):
+				var burning_status = BURNING.instance()
+				e.add_child(burning_status)
 
 func _on_DestroyedTimer_timeout():
-	queue_free() 
+	explode()
 
-
+func explode():
+	is_exploding = true
+	$AnimationPlayer.play("Flicker")
+	yield(get_tree().create_timer(0.4), "timeout")
+	$Sprite.visible = false
+	$ExplodeArea2D.add_to_group(str(Global.attack_power * (Global.player_skill_multipliers["FireFairyDetonation"] / 100)))
+	$ExplodeArea2D/CollisionShape2D.disabled = false
+	$FireDetonationParticle.emitting = true
+	yield(get_tree().create_timer(0.55), "timeout")
+	call_deferred('free')
+	
 func _on_FireFairy_body_entered(body):
 	if body.is_in_group("EnemyEntity") and !body.is_in_group("MarkedWithSulphuricSigil"):
 		var sigil = SULPHURIC_SIGIL.instance()
 		body.add_child(sigil)
+
+
+func _on_FireFairy_area_entered(area):
+	if area.is_in_group("Enemy"):
+		add_burning_stack()
+		emit_signal("add_mana_to_player", 0.4)
