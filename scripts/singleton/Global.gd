@@ -116,6 +116,7 @@ var player_unlocked_skins = {
 }
 
 # player talents are passive skills
+# valid categories: Primary Skill, Secondary Skill, Tertiary Skill, Moveset, Perk skill, Passive
 var player_talents : Dictionary = {
 	"TalentSlots": 0,
 	"MaxTalentSlots": 5,
@@ -124,13 +125,15 @@ var player_talents : Dictionary = {
 		"unlocked" : false,
 		"enabled" : false,
 		"opalscost": 100,
-		"talentslotcost": 1
+		"talentslotcost": 1,
+		"category": "Moveset"
 	},
 	"SwiftThrust" : {
 		"unlocked" : false,
 		"enabled" : false,
 		"opalscost": 100,
-		"talentslotcost": 1
+		"talentslotcost": 1,
+		"category": "Moveset"
 	},
 	# Talent has not been implemented yet
 	"BurningBreath" : {
@@ -139,7 +142,8 @@ var player_talents : Dictionary = {
 		"opalscost": 100,
 		"talentslotcost": 2,
 		"attackpercentage": 70.0,
-		"cooldown": 10
+		"cooldown": 10,
+		"category": "Passive"
 	},
 	# Talent has not been implemented yet
 	"InfernalMark" : {
@@ -147,7 +151,8 @@ var player_talents : Dictionary = {
 		"enabled" : false,
 		"opalscost": 100,
 		"DamageIncrease" : 75,
-		"talentslotcost": 3
+		"talentslotcost": 3,
+		"category": "SecondarySkill"
 	},
 	"SoulSiphon": {
 		"unlocked" : false,
@@ -155,7 +160,8 @@ var player_talents : Dictionary = {
 		"opalscost": 100,
 		"dropchance": 25,
 		"healthgranted" : 25,
-		"talentslotcost": 3
+		"talentslotcost": 3,
+		"category": "Passive"
 	},
 	# allows pierce fireball
 	"PiercingFervor": {
@@ -163,7 +169,8 @@ var player_talents : Dictionary = {
 		"enabled" : false,
 		"opalscost": 100,
 		"damagepenalty": 25.0,
-		"talentslotcost": 3
+		"talentslotcost": 3,
+		"category": "TertiarySkill"
 	},
 	"MeteorShower": {
 		"unlocked" : false,
@@ -171,7 +178,8 @@ var player_talents : Dictionary = {
 		"opalscost": 100,
 		"damage": 82.0,
 		"amount": 4,
-		"talentslotcost": 4
+		"talentslotcost": 4,
+		"category": "PrimarySkill"
 	},
 	
 	
@@ -205,6 +213,14 @@ var glaciela_talents : Dictionary = {
 	},
 	# a stack of tundra sigil is consumed every time u take damage to reduce it
 	"WardOfBoreas": {
+		"unlocked" : false,
+		"enabled" : false,
+		"opalscost": 100,
+		"talentslotcost": 2,
+		"damagemitigation": 35.0
+	},
+	# like bap's immortality field, triggered during ult
+	"SanctuaryOfSolstice": {
 		"unlocked" : false,
 		"enabled" : false,
 		"opalscost": 100,
@@ -346,6 +362,13 @@ var agnette_talents : Dictionary = {
 		"talentslotcost": 3,
 		"cooldown": 10.0,
 		"arrowdamagepercentage": 40.0
+	},
+	# bear can dash, releasing earthquakes 
+	"RoaringTrample" : {
+		"unlocked" : true,
+		"enabled": true,
+		"opalscost": 100,
+		"talentslotcost": 3,
 	}
 }
 

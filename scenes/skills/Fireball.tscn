@@ -24,6 +24,12 @@ shape = SubResource( 1 )
 wait_time = 0.8
 autostart = true
 
+[node name="FireGaugeArea" type="Area2D" parent="." groups=["200", "FireGauge"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FireGaugeArea"]
+position = Vector2( 0.200509, 1.89254 )
+shape = SubResource( 1 )
+
 [connection signal="area_entered" from="." to="." method="_on_Fireball_area_entered"]
 [connection signal="body_entered" from="." to="." method="_on_Fireball_body_entered"]
 [connection signal="screen_exited" from="VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_exited"]

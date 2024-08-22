@@ -1780,7 +1780,6 @@ texture_normal = ExtResource( 9 )
 expand = true
 
 [node name="CharacterTalentsControl" type="Control" parent="."]
-visible = false
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -1842,9 +1841,9 @@ margin_right = 15.5
 margin_bottom = 12.0
 
 [node name="BackgroundBox" type="NinePatchRect" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl"]
-margin_left = 236.0
+margin_left = 163.0
 margin_top = 62.0
-margin_right = 939.0
+margin_right = 962.0
 margin_bottom = 471.0
 texture = ExtResource( 6 )
 patch_margin_left = 64
@@ -1858,28 +1857,28 @@ margin_right = 40.0
 margin_bottom = 40.0
 
 [node name="Sprite" type="Sprite" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl"]
-position = Vector2( 110, 125 )
+position = Vector2( 84, 125 )
 scale = Vector2( 7, 7 )
 texture = ExtResource( 3 )
 
 [node name="ScrollContainer" type="ScrollContainer" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl"]
 anchor_right = 21.766
 anchor_bottom = 15.255
-margin_left = 253.0
+margin_left = 181.0
 margin_top = 81.0
-margin_right = 72.36
-margin_bottom = 921.8
-rect_min_size = Vector2( 566, 355 )
+margin_right = 86.36
+margin_bottom = 832.8
+rect_min_size = Vector2( 776, 380 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer"]
-margin_right = 510.0
+margin_right = 600.0
 margin_bottom = 2028.0
-rect_min_size = Vector2( 510, 2000 )
+rect_min_size = Vector2( 600, 2000 )
 
 [node name="RichTextLabel" type="RichTextLabel" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer"]
-margin_right = 510.0
+margin_right = 600.0
 margin_bottom = 2000.0
-rect_min_size = Vector2( 510, 2000 )
+rect_min_size = Vector2( 600, 2000 )
 custom_fonts/normal_font = SubResource( 2 )
 bbcode_enabled = true
 bbcode_text = "[color=#ffd703]Cyclone Slashes[/color]
@@ -1954,16 +1953,16 @@ scroll_active = false
 
 [node name="TalentControl1" type="Control" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer"]
 margin_top = 2004.0
-margin_right = 510.0
+margin_right = 600.0
 margin_bottom = 2004.0
 
 [node name="PlayerTalentButton" type="TextureButton" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl1"]
 anchor_left = 0.215
 anchor_right = 0.215
-margin_left = 426.35
-margin_top = -2000.0
-margin_right = 458.35
-margin_bottom = -1983.0
+margin_left = 493.35
+margin_top = -2003.0
+margin_right = 525.35
+margin_bottom = -1986.0
 rect_min_size = Vector2( 32, 16 )
 rect_scale = Vector2( 7.5, 7.5 )
 texture_normal = ExtResource( 5 )
@@ -2015,16 +2014,16 @@ align = 1
 
 [node name="TalentControl2" type="Control" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer"]
 margin_top = 2008.0
-margin_right = 510.0
+margin_right = 600.0
 margin_bottom = 2008.0
 
 [node name="PlayerTalentButton" type="TextureButton" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl2"]
 anchor_left = 0.215
 anchor_right = 0.215
-margin_left = 426.8
-margin_top = -1743.0
-margin_right = 442.8
-margin_bottom = -1734.0
+margin_left = 493.8
+margin_top = -1778.0
+margin_right = 509.8
+margin_bottom = -1769.0
 rect_scale = Vector2( 7.5, 7.5 )
 texture_normal = ExtResource( 5 )
 texture_pressed = ExtResource( 4 )
@@ -2075,16 +2074,16 @@ align = 1
 
 [node name="TalentControl3" type="Control" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer"]
 margin_top = 2012.0
-margin_right = 510.0
+margin_right = 600.0
 margin_bottom = 2012.0
 
 [node name="PlayerTalentButton" type="TextureButton" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl3"]
 anchor_left = 0.215
 anchor_right = 0.215
-margin_left = 426.35
-margin_top = -1585.0
-margin_right = 458.35
-margin_bottom = -1569.0
+margin_left = 493.35
+margin_top = -1616.0
+margin_right = 525.35
+margin_bottom = -1600.0
 rect_min_size = Vector2( 32, 16 )
 rect_scale = Vector2( 7.5, 7.5 )
 texture_normal = ExtResource( 5 )
@@ -2136,16 +2135,16 @@ align = 1
 
 [node name="TalentControl4" type="Control" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer"]
 margin_top = 2016.0
-margin_right = 510.0
+margin_right = 600.0
 margin_bottom = 2016.0
 
 [node name="PlayerTalentButton" type="TextureButton" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl4"]
 anchor_left = 0.215
 anchor_right = 0.215
-margin_left = 426.8
-margin_top = -1368.0
-margin_right = 458.8
-margin_bottom = -1352.0
+margin_left = 493.8
+margin_top = -1391.0
+margin_right = 525.8
+margin_bottom = -1375.0
 rect_min_size = Vector2( 32, 16 )
 rect_scale = Vector2( 7.5, 7.5 )
 texture_normal = ExtResource( 5 )
@@ -2197,16 +2196,16 @@ align = 1
 
 [node name="TalentControl5" type="Control" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer"]
 margin_top = 2020.0
-margin_right = 510.0
+margin_right = 600.0
 margin_bottom = 2020.0
 
 [node name="PlayerTalentButton" type="TextureButton" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl5"]
 anchor_left = 0.215
 anchor_right = 0.215
-margin_left = 426.8
-margin_top = -1192.0
-margin_right = 458.8
-margin_bottom = -1176.0
+margin_left = 493.8
+margin_top = -1229.0
+margin_right = 525.8
+margin_bottom = -1213.0
 rect_min_size = Vector2( 32, 16 )
 rect_scale = Vector2( 7.5, 7.5 )
 texture_normal = ExtResource( 5 )
@@ -2258,16 +2257,16 @@ align = 1
 
 [node name="TalentControl6" type="Control" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer"]
 margin_top = 2024.0
-margin_right = 510.0
+margin_right = 600.0
 margin_bottom = 2024.0
 
 [node name="PlayerTalentButton" type="TextureButton" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl6"]
 anchor_left = 0.215
 anchor_right = 0.215
-margin_left = 426.8
-margin_top = -1010.0
-margin_right = 458.8
-margin_bottom = -994.0
+margin_left = 493.8
+margin_top = -1039.0
+margin_right = 525.8
+margin_bottom = -1023.0
 rect_min_size = Vector2( 32, 16 )
 rect_scale = Vector2( 7.5, 7.5 )
 texture_normal = ExtResource( 5 )
@@ -2319,16 +2318,16 @@ align = 1
 
 [node name="TalentControl7" type="Control" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer"]
 margin_top = 2028.0
-margin_right = 510.0
+margin_right = 600.0
 margin_bottom = 2028.0
 
 [node name="PlayerTalentButton" type="TextureButton" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl7"]
 anchor_left = 0.215
 anchor_right = 0.215
-margin_left = 426.8
-margin_top = -843.0
-margin_right = 458.8
-margin_bottom = -827.0
+margin_left = 493.8
+margin_top = -875.0
+margin_right = 525.8
+margin_bottom = -859.0
 rect_min_size = Vector2( 32, 16 )
 rect_scale = Vector2( 7.5, 7.5 )
 texture_normal = ExtResource( 5 )
@@ -2379,20 +2378,21 @@ text = "Enable"
 align = 1
 
 [node name="TalentSlotsLabel" type="Label" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl"]
-margin_left = 37.0
+margin_left = 2.0
 margin_top = 226.0
-margin_right = 202.0
-margin_bottom = 259.0
+margin_right = 167.0
+margin_bottom = 293.0
 custom_fonts/font = SubResource( 6 )
-text = "Talent Slots:"
+text = " Talent 
+Slots:"
 align = 1
 autowrap = true
 
 [node name="TalentSlotsCountLabel" type="Label" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/PlayerControl"]
-margin_left = 58.5
-margin_top = 259.0
-margin_right = 164.5
-margin_bottom = 355.0
+margin_left = 29.5
+margin_top = 293.0
+margin_right = 135.5
+margin_bottom = 389.0
 custom_fonts/font = SubResource( 7 )
 text = "0/6"
 align = 1
@@ -2437,22 +2437,23 @@ align = 1
 autowrap = true
 
 [node name="GlacielaControl" type="Control" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl"]
+visible = false
 margin_right = 40.0
 margin_bottom = 40.0
 
 [node name="Sprite" type="Sprite" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/GlacielaControl"]
-position = Vector2( 110, 125 )
+position = Vector2( 84, 125 )
 scale = Vector2( 7, 7 )
 texture = ExtResource( 2 )
 
 [node name="ScrollContainer" type="ScrollContainer" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/GlacielaControl"]
 anchor_right = 21.766
 anchor_bottom = 15.255
-margin_left = 253.0
+margin_left = 181.0
 margin_top = 81.0
-margin_right = 72.36
+margin_right = 86.36
 margin_bottom = -157.2
-rect_min_size = Vector2( 566, 355 )
+rect_min_size = Vector2( 776, 355 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/GlacielaControl/ScrollContainer"]
 margin_right = 510.0
@@ -2499,9 +2500,9 @@ margin_bottom = 1104.0
 [node name="GlacielaTalentButton" type="TextureButton" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/GlacielaControl/ScrollContainer/VBoxContainer/TalentControl1"]
 anchor_left = 0.215
 anchor_right = 0.215
-margin_left = 426.35
+margin_left = 512.35
 margin_top = -1104.0
-margin_right = 458.35
+margin_right = 544.35
 margin_bottom = -1087.0
 rect_min_size = Vector2( 32, 16 )
 rect_scale = Vector2( 7.5, 7.5 )
@@ -2560,9 +2561,9 @@ margin_bottom = 1108.0
 [node name="GlacielaTalentButton" type="TextureButton" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/GlacielaControl/ScrollContainer/VBoxContainer/TalentControl2"]
 anchor_left = 0.215
 anchor_right = 0.215
-margin_left = 426.35
+margin_left = 512.35
 margin_top = -846.0
-margin_right = 458.35
+margin_right = 544.35
 margin_bottom = -829.0
 rect_min_size = Vector2( 32, 16 )
 rect_scale = Vector2( 7.5, 7.5 )
@@ -2614,20 +2615,21 @@ text = "Enable"
 align = 1
 
 [node name="TalentSlotsLabel" type="Label" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/GlacielaControl"]
-margin_left = 37.0
+margin_left = 2.0
 margin_top = 226.0
-margin_right = 202.0
+margin_right = 167.0
 margin_bottom = 259.0
 custom_fonts/font = SubResource( 6 )
-text = "Talent Slots:"
+text = " Talent 
+Slots:"
 align = 1
 autowrap = true
 
 [node name="TalentSlotsCountLabel" type="Label" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/GlacielaControl"]
-margin_left = 58.5
-margin_top = 259.0
-margin_right = 164.5
-margin_bottom = 355.0
+margin_left = 29.5
+margin_top = 293.0
+margin_right = 135.5
+margin_bottom = 389.0
 custom_fonts/font = SubResource( 7 )
 text = "0/6"
 align = 1
@@ -2672,23 +2674,22 @@ align = 1
 autowrap = true
 
 [node name="AgnetteControl" type="Control" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl"]
-visible = false
 margin_right = 40.0
 margin_bottom = 40.0
 
 [node name="Sprite" type="Sprite" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/AgnetteControl"]
-position = Vector2( 110, 125 )
+position = Vector2( 84, 125 )
 scale = Vector2( 7, 7 )
 texture = ExtResource( 13 )
 
 [node name="ScrollContainer" type="ScrollContainer" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/AgnetteControl"]
 anchor_right = 21.766
 anchor_bottom = 15.255
-margin_left = 253.0
+margin_left = 181.0
 margin_top = 81.0
-margin_right = 72.36
+margin_right = 86.36
 margin_bottom = -157.2
-rect_min_size = Vector2( 566, 355 )
+rect_min_size = Vector2( 776, 355 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/AgnetteControl/ScrollContainer"]
 margin_right = 510.0
@@ -2725,9 +2726,9 @@ margin_bottom = 1104.0
 [node name="AgnetteTalentButton" type="TextureButton" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/AgnetteControl/ScrollContainer/VBoxContainer/TalentControl1"]
 anchor_left = 0.215
 anchor_right = 0.215
-margin_left = 426.35
+margin_left = 512.35
 margin_top = -1104.0
-margin_right = 458.35
+margin_right = 544.35
 margin_bottom = -1087.0
 rect_min_size = Vector2( 32, 16 )
 rect_scale = Vector2( 7.5, 7.5 )
@@ -2786,9 +2787,9 @@ margin_bottom = 1108.0
 [node name="AgnetteTalentButton" type="TextureButton" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/AgnetteControl/ScrollContainer/VBoxContainer/TalentControl2"]
 anchor_left = 0.215
 anchor_right = 0.215
-margin_left = 426.35
+margin_left = 512.35
 margin_top = -944.0
-margin_right = 458.35
+margin_right = 544.35
 margin_bottom = -927.0
 rect_min_size = Vector2( 32, 16 )
 rect_scale = Vector2( 7.5, 7.5 )
@@ -2840,20 +2841,21 @@ text = "Enable"
 align = 1
 
 [node name="TalentSlotsLabel" type="Label" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/AgnetteControl"]
-margin_left = 37.0
+margin_left = 2.0
 margin_top = 226.0
-margin_right = 202.0
-margin_bottom = 259.0
+margin_right = 167.0
+margin_bottom = 293.0
 custom_fonts/font = SubResource( 6 )
-text = "Talent Slots:"
+text = " Talent 
+Slots:"
 align = 1
 autowrap = true
 
 [node name="TalentSlotsCountLabel" type="Label" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/AgnetteControl"]
-margin_left = 58.5
-margin_top = 259.0
-margin_right = 164.5
-margin_bottom = 355.0
+margin_left = 29.5
+margin_top = 293.0
+margin_right = 135.5
+margin_bottom = 389.0
 custom_fonts/font = SubResource( 7 )
 text = "0/6"
 align = 1

@@ -26,7 +26,8 @@ func _ready():
 			$AnimationPlayer.play("ice_particle")
 		"Earth":
 			$AnimationPlayer.play("earth_particle")
-	$Label.text = str(damage)
+	$Label.text = str(round(damage))
+	
 	direction_shift = Vector2(rand_range(-1,1), rand_range(-1,1))
 	
 	

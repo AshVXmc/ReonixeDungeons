@@ -224,14 +224,17 @@ func _input(event):
 		if current_form == forms.ARCHER and event.is_action_pressed("ui_attack") and !is_charging:
 			attack()
 			$InputPressTimer.start()
-		if current_form == forms.BEAR and event.is_action_pressed("ui_attack") and $BearFormNodes/BearInputPressTimer.is_stopped() and !is_charging:
-			
-			bear_attack()
-			$BearFormNodes/BearInputPressTimer.start()
+		if current_form == forms.BEAR: 
+			if event.is_action_pressed("ui_attack") and $BearFormNodes/BearInputPressTimer.is_stopped() and !is_charging:
+				bear_attack()
+				$BearFormNodes/BearInputPressTimer.start()
+#			if event.is_action_pressed("primary_skill"):
+#				if Global.agnette_talents["PrimalRegrowth"]["enabled"] and Global.agnette_talents["PrimalRegrowth"]["unlocked"]:
+#					heal_in_wild_shape_form(forms.BEAR, 4)
 		if current_form == forms.RAVEN and event.is_action_pressed("ui_attack") and $RavenFormNodes/RavenInputPressTimer.is_stopped() and !is_charging:
 			raven_attack()
 			$RavenFormNodes/RavenInputPressTimer.start()
-
+		
 		if event.is_action_pressed("heal"):
 			if Global.healthpot_amount > 0:
 				heal("Agnette", 5)
@@ -251,7 +254,9 @@ func _input(event):
 			$ChargedAttackBarFillTimer.stop()
 			$ChargedAttackBar.value = $ChargedAttackBar.min_value
 			$BowAnimationPlayer.play("BowAttackRight")
-		
+		if current_form == forms.BEAR and event.is_action_pressed("ui_dash") and get_parent().get_parent().get_node("DashInputPressTimer").is_stopped():
+			if Global.agnette_talents["RoaringTrample"]["enabled"] and Global.agnette_talents["RoaringTrample"]["unlocked"]:
+				get_parent().get_parent().dash()
 		
 
 func use_skill():
@@ -332,7 +337,7 @@ func wild_shape(target_form : int, previous_form : int = -1):
 			$AnimatedSprite.visible = false
 			$ChargedAttackBar.visible = false
 			$AnimatedSprite.position = Vector2(0,-29)
-			$Area2D/CollisionShape2D.shape.extents = Vector2(105,54)
+			$Area2D/CollisionShape2D.shape.extents = Vector2(85,54)
 			$AnimatedSprite.scale = Vector2(6,6)
 			get_parent().get_parent().mobility_lock = true
 			get_parent().get_parent().can_fly = false
@@ -603,6 +608,12 @@ func heal(character : String = "Agnette", heal_amount : float = 0, heal_to_max :
 		emit_signal("healthpot_obtained", Global.healthpot_amount)
 	
 
+func heal_in_wild_shape_form(form : int, heal_amount : float = 0):
+	match form:
+		forms.BEAR:
+			add_heal_particles(clamp(heal_amount, 0, $BearFormNodes/BearHealthBar.max_value - $BearFormNodes/BearHealthBar.value))
+			$BearFormNodes/BearHealthBar.value += heal_amount
+			
 
 
 
