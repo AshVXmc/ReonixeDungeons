@@ -51,7 +51,7 @@ func load_next_scene(slot_one : String, slot_two : String, slot_three : String):
 #	print(Global.equipped_characters)
 #	print(Global.alive)
 	Global.assign_health_points()
-#	Global.save_player_data()
+	Global.assign_mana_points()
 
 	get_parent().get_node("Player").is_shopping = true
 	transition.transition()

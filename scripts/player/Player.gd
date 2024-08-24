@@ -147,7 +147,7 @@ var ice_res : float = Global.player_skill_multipliers["BaseIceRes"]
 var earth_res : float = Global.player_skill_multipliers["BaseEarthRes"]
 # amount of damage that a shield can absorb
 var shield_hp : float
-
+var is_in_immortality_field : bool = false
 onready var basic_attack_power : float = Global.attack_power * (Global.player_skill_multipliers["BasicAttack"] / 100)
 onready var charged_attack_power : float = Global.attack_power * (Global.player_skill_multipliers["ChargedAttack"] / 100)
 onready var upwards_and_downwards_charged_attack_power :float = Global.attack_power * (Global.player_skill_multipliers["UpwardsChargedAttack"] / 100)
@@ -1320,7 +1320,8 @@ func _on_Area2D_area_entered(area : Area2D):
 				area.get_parent().drops_table["bat_wings"],
 				area.get_parent().drops_table["sweet_herbs"]
 			)
-			
+		if area.is_in_group("ImmortalityField"):
+			is_in_immortality_field = true
 		if area.is_in_group("HealthPack") and area.is_in_group("Active"):
 			# The 999 value is not relevant since health packs heal to maximum amount
 			heal("Player", 999, true)
@@ -1408,6 +1409,7 @@ func take_damage(damage : float):
 			burningbreath.get_node("FireBurstParticle").emitting = true
 			$TalentsNode2D/BurningBreathCDTimer.start()
 #			print("HELLISH REBUKE")
+		
 		if Global.equipped_characters[0] == "Player":
 			if shield_hp > 0:
 				shield_hp = clamp(shield_hp - damage, 0, 999)
@@ -1479,7 +1481,8 @@ func _on_Area2D_area_exited(area):
 		if $OxygenBar.value < 100:
 			$OxygenRefillTimer.start()
 		print("not underwater")
-
+	if area.is_in_group("ImmortalityField"):
+		is_in_immortality_field = false
 func attack_knock():
 	var KNOCK_POWER : int = 75
 	velocity.x = -KNOCK_POWER if !$Sprite.flip_h else KNOCK_POWER

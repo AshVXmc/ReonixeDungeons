@@ -74,6 +74,7 @@ onready var crit_damage : float = Global.glaciela_skill_multipliers["CritDamage"
 onready var sskill_ui : TextureProgress = get_parent().get_parent().get_parent().get_node("SkillsUI/Control/SecondarySkill/Glaciela/IceLance/TextureProgress")
 onready var pskill_ui : TextureProgress = get_parent().get_parent().get_parent().get_node("SkillsUI/Control/PrimarySkill/Glaciela/WinterQueen/TextureProgress")
 onready var tskill_ui : TextureProgress = get_parent().get_parent().get_parent().get_node("SkillsUI/Control/TertiarySkill/Glaciela/ConeOfCold/TextureProgress")
+
 var facing
 enum {
 	left, right
@@ -202,14 +203,26 @@ func use_primary_skill():
 		emit_signal("skill_used", "WinterQueen", attack_buff)
 		get_parent().get_parent().emit_signal("skill_ui_update", "WinterQueen")
 		emit_signal("mana_changed", Global.mana, "Glaciela")
+		if Global.glaciela_talents["GiftOfTheStorm"]["unlocked"] and Global.glaciela_talents["GiftOfTheStorm"]["enabled"]:
+			tundra_stars = 3
+			update_tundra_star_ui()
+			
 	elif Global.current_character == Global.equipped_characters[1] and Global.character2_mana >= Global.glaciela_skill_multipliers["WinterQueenCost"]:
 		emit_signal("skill_used", "WinterQueen", attack_buff)
 		get_parent().get_parent().emit_signal("skill_ui_update", "WinterQueen")
 		emit_signal("mana_changed", Global.character2_mana, "Glaciela")
+		if Global.glaciela_talents["GiftOfTheStorm"]["unlocked"] and Global.glaciela_talents["GiftOfTheStorm"]["enabled"]:
+			tundra_stars = 3
+			update_tundra_star_ui()
+			tskill_ui.get_parent().get_node("ConeOfColdResource").value = tskill_ui.get_parent().get_node("ConeOfColdResource").max_value
 	elif Global.current_character == Global.equipped_characters[2] and Global.character3_mana >= Global.glaciela_skill_multipliers["WinterQueenCost"]:
 		emit_signal("skill_used", "WinterQueen", attack_buff)
 		get_parent().get_parent().emit_signal("skill_ui_update", "WinterQueen")
 		emit_signal("mana_changed", Global.character3_mana, "Glaciela")
+		if Global.glaciela_talents["GiftOfTheStorm"]["unlocked"] and Global.glaciela_talents["GiftOfTheStorm"]["enabled"]:
+			tundra_stars = 3
+			update_tundra_star_ui()
+			
 		
 func use_secondary_skill():
 	var dir : int = 1

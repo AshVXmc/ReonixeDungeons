@@ -4,7 +4,7 @@ var player_talents_list : Array = ["CycloneSlashes", "SwiftThrust", "BurningBrea
 onready var player_talent_slots_label = $NinePatchRect/TalentTreeControl/PlayerControl/TalentSlotsCountLabel
 onready var player_talent_desc_text = $NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/RichTextLabel
 
-var glaciela_talents_list : Array = ["DanceOfRime", "WardOfBoreas"]
+var glaciela_talents_list : Array = ["DanceOfRime", "WardOfBoreas", "GiftOfTheStorm"]
 onready var glaciela_talent_slots_label = $NinePatchRect/TalentTreeControl/GlacielaControl/TalentSlotsCountLabel
 onready var glaciela_talent_desc_text = $NinePatchRect/TalentTreeControl/GlacielaControl/ScrollContainer/VBoxContainer/RichTextLabel
 
@@ -247,11 +247,16 @@ func _on_GlacielaTalentButton1_pressed():
 func _on_GlacielaTalentButton2_pressed():
 	if !Global.glaciela_talents["WardOfBoreas"]["unlocked"]:
 		buy_glaciela_talent("WardOfBoreas", 2)
-	
+func _on_GlacielaTalentButton3_pressed():
+	if !Global.glaciela_talents["GiftOfTheStorm"]["unlocked"]:
+		buy_glaciela_talent("GiftOfTheStorm", 3)
+
 func _on_GlacielaCheckButton1_toggled(button_pressed):
 	toggle_glaciela_talent("DanceOfRime", button_pressed, 1)
 func _on_GlacielaCheckButton2_toggled(button_pressed):
 	toggle_glaciela_talent("WardOfBoreas", button_pressed, 2)
+func _on_GlacielaCheckButton3_toggled(button_pressed):
+	toggle_glaciela_talent("GiftOfTheStorm", button_pressed, 3)
 
 func _on_AgnetteTalentButton1_pressed():
 	if !Global.agnette_talents["Stoneskin"]["unlocked"]:
@@ -291,6 +296,10 @@ func _on_CloseButtonMainUI_pressed():
 			yield(get_tree().create_timer(2), "timeout")
 			$NinePatchRect/TalentTreeControl/AgnetteControl/TalentSlotsWarningLabel.visible = false
 	
+
+
+
+
 
 
 

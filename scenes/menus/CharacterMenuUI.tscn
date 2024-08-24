@@ -1780,6 +1780,7 @@ texture_normal = ExtResource( 9 )
 expand = true
 
 [node name="CharacterTalentsControl" type="Control" parent="."]
+visible = false
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -2452,12 +2453,12 @@ anchor_bottom = 15.255
 margin_left = 181.0
 margin_top = 81.0
 margin_right = 86.36
-margin_bottom = -157.2
+margin_bottom = -151.2
 rect_min_size = Vector2( 776, 355 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/GlacielaControl/ScrollContainer"]
 margin_right = 510.0
-margin_bottom = 1108.0
+margin_bottom = 1112.0
 rect_min_size = Vector2( 510, 1100 )
 
 [node name="RichTextLabel" type="RichTextLabel" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/GlacielaControl/ScrollContainer/VBoxContainer"]
@@ -2472,10 +2473,11 @@ Doing the following attack sequence ([color=#ffd703]ATK[/color], [color=#ffd703]
 [color=#ffd703]Ward of Boreas[/color]
 When you take damage, a stack of Tundra Star is consumed to reduce the  damage by WOB_MIT%.
 
+[color=#ffd703]Gift of the Storm[/color]
+Casting Winter Queen grants you the maximum amount of Tundra Stars and fully restores Cone Of Cold's meter.
+
 [color=#ffd703]Frigid Hailstorm[/color]
 Attacing Frozen enemies with a Charged or Special attack shatters the freezing ice, dealing AoE [color=#7df0ff]Ice[/color] DMG.
-
-
 
 "
 text = "Dance of Rime
@@ -2484,10 +2486,11 @@ Doing the following attack sequence (ATK, ATK, ATK, pause until a yellow star ap
 Ward of Boreas
 When you take damage, a stack of Tundra Star is consumed to reduce the  damage by WOB_MIT%.
 
+Gift of the Storm
+Casting Winter Queen grants you the maximum amount of Tundra Stars and fully restores Cone Of Cold's meter.
+
 Frigid Hailstorm
 Attacing Frozen enemies with a Charged or Special attack shatters the freezing ice, dealing AoE Ice DMG.
-
-
 
 "
 scroll_active = false
@@ -2614,6 +2617,67 @@ custom_fonts/font = SubResource( 4 )
 text = "Enable"
 align = 1
 
+[node name="TalentControl3" type="Control" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/GlacielaControl/ScrollContainer/VBoxContainer"]
+margin_top = 1112.0
+margin_right = 510.0
+margin_bottom = 1112.0
+
+[node name="GlacielaTalentButton" type="TextureButton" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/GlacielaControl/ScrollContainer/VBoxContainer/TalentControl3"]
+anchor_left = 0.215
+anchor_right = 0.215
+margin_left = 512.35
+margin_top = -687.0
+margin_right = 544.35
+margin_bottom = -670.0
+rect_min_size = Vector2( 32, 16 )
+rect_scale = Vector2( 7.5, 7.5 )
+texture_normal = ExtResource( 5 )
+texture_pressed = ExtResource( 4 )
+
+[node name="ButtonLabel" type="Label" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/GlacielaControl/ScrollContainer/VBoxContainer/TalentControl3/GlacielaTalentButton"]
+margin_left = 2.0
+margin_top = 2.0
+margin_right = 47.0
+margin_bottom = 19.0
+rect_scale = Vector2( 0.3, 0.3 )
+custom_fonts/font = SubResource( 3 )
+text = "Unlock"
+
+[node name="OpalsCostLabel" type="Label" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/GlacielaControl/ScrollContainer/VBoxContainer/TalentControl3/GlacielaTalentButton"]
+margin_left = 5.66672
+margin_top = 8.66666
+margin_right = 26.6667
+margin_bottom = 25.6667
+rect_scale = Vector2( 0.3, 0.3 )
+custom_fonts/font = SubResource( 8 )
+text = "XXX"
+align = 2
+
+[node name="Sprite" type="Sprite" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/GlacielaControl/ScrollContainer/VBoxContainer/TalentControl3/GlacielaTalentButton/OpalsCostLabel"]
+position = Vector2( -6.22238, 7.11111 )
+texture = ExtResource( 8 )
+
+[node name="SlotsCostLabel" type="Label" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/GlacielaControl/ScrollContainer/VBoxContainer/TalentControl3/GlacielaTalentButton"]
+margin_left = -3.73331
+margin_top = 14.5334
+margin_right = 71.2667
+margin_bottom = 31.5334
+rect_scale = Vector2( 0.3, 0.3 )
+custom_fonts/font = SubResource( 8 )
+text = "Slot cost: X"
+align = 1
+
+[node name="GlacielaCheckButton" type="CheckButton" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/GlacielaControl/ScrollContainer/VBoxContainer/TalentControl3/GlacielaTalentButton"]
+visible = false
+margin_left = -5.33334
+margin_top = 7.59999
+margin_right = 116.667
+margin_bottom = 47.6
+rect_scale = Vector2( 0.2, 0.2 )
+custom_fonts/font = SubResource( 4 )
+text = "Enable"
+align = 1
+
 [node name="TalentSlotsLabel" type="Label" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/GlacielaControl"]
 margin_left = 2.0
 margin_top = 226.0
@@ -2674,6 +2738,7 @@ align = 1
 autowrap = true
 
 [node name="AgnetteControl" type="Control" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl"]
+visible = false
 margin_right = 40.0
 margin_bottom = 40.0
 
@@ -2944,6 +3009,8 @@ expand = true
 [connection signal="toggled" from="CharacterTalentsControl/NinePatchRect/TalentTreeControl/GlacielaControl/ScrollContainer/VBoxContainer/TalentControl1/GlacielaTalentButton/GlacielaCheckButton" to="CharacterTalentsControl" method="_on_GlacielaCheckButton1_toggled"]
 [connection signal="pressed" from="CharacterTalentsControl/NinePatchRect/TalentTreeControl/GlacielaControl/ScrollContainer/VBoxContainer/TalentControl2/GlacielaTalentButton" to="CharacterTalentsControl" method="_on_GlacielaTalentButton2_pressed"]
 [connection signal="toggled" from="CharacterTalentsControl/NinePatchRect/TalentTreeControl/GlacielaControl/ScrollContainer/VBoxContainer/TalentControl2/GlacielaTalentButton/GlacielaCheckButton" to="CharacterTalentsControl" method="_on_GlacielaCheckButton2_toggled"]
+[connection signal="pressed" from="CharacterTalentsControl/NinePatchRect/TalentTreeControl/GlacielaControl/ScrollContainer/VBoxContainer/TalentControl3/GlacielaTalentButton" to="CharacterTalentsControl" method="_on_GlacielaTalentButton3_pressed"]
+[connection signal="toggled" from="CharacterTalentsControl/NinePatchRect/TalentTreeControl/GlacielaControl/ScrollContainer/VBoxContainer/TalentControl3/GlacielaTalentButton/GlacielaCheckButton" to="CharacterTalentsControl" method="_on_GlacielaCheckButton3_toggled"]
 [connection signal="pressed" from="CharacterTalentsControl/NinePatchRect/TalentTreeControl/AgnetteControl/ScrollContainer/VBoxContainer/TalentControl1/AgnetteTalentButton" to="CharacterTalentsControl" method="_on_AgnetteTalentButton1_pressed"]
 [connection signal="toggled" from="CharacterTalentsControl/NinePatchRect/TalentTreeControl/AgnetteControl/ScrollContainer/VBoxContainer/TalentControl1/AgnetteTalentButton/AgnetteCheckButton" to="CharacterTalentsControl" method="_on_AgnetteCheckButton_toggled"]
 [connection signal="pressed" from="CharacterTalentsControl/NinePatchRect/TalentTreeControl/AgnetteControl/ScrollContainer/VBoxContainer/TalentControl2/AgnetteTalentButton" to="CharacterTalentsControl" method="_on_AgnetteTalentButton2_pressed"]

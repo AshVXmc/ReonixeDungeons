@@ -3,10 +3,12 @@ class_name ConeOfCold extends Node2D
 var active : bool = false
 onready var resource_meter_ui : TextureProgress = get_parent().get_parent().get_parent().get_parent().get_node("SkillsUI/Control/TertiarySkill/Glaciela/ConeOfCold/ConeOfColdResource")
 var slowdown_coefficient : float = Global.glaciela_skill_multipliers["ConeOfColdMovementSpeedPenalty"] / 100
+signal add_mana_to_glaciela(amount)
+onready var mana_granted : float = 0.15
+
 
 func _ready():
-	print(get_path())
-	print("brr:" + str(Global.glaciela_skill_multipliers["ConeOfCold"] / 100 * Global.glaciela_attack))
+	connect("add_mana_to_glaciela", get_parent(), "change_mana_value")
 	$Area2D.add_to_group(str(Global.glaciela_skill_multipliers["ConeOfCold"] / 100 * Global.glaciela_attack))
 	
 	$FreezeGaugeArea.add_to_group(str(Global.glaciela_skill_multipliers["ConeOfColdFreezeGauge"]))
@@ -48,7 +50,8 @@ func _process(delta):
 			position.x = -45
 		
 func _on_Area2D_area_entered(area):
-	pass # Replace with function body.
+	if area.is_in_group("Enemy"):
+		emit_signal("add_mana_to_glaciela", mana_granted)
 
 
 

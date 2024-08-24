@@ -15,6 +15,7 @@ var character_defense_data : Dictionary = {
 
 
 
+
 var max_hearts : float
 var hearts : float
 var max_mana : float = 20
@@ -219,14 +220,21 @@ var glaciela_talents : Dictionary = {
 		"talentslotcost": 2,
 		"damagemitigation": 35.0
 	},
-	# like bap's immortality field, triggered during ult
-	"SanctuaryOfSolstice": {
+	# casting ult restores tundra stacks to full and fully restores cone of cold meter
+	"GiftOfTheStorm": {
 		"unlocked" : false,
 		"enabled" : false,
 		"opalscost": 100,
-		"talentslotcost": 2,
-		"damagemitigation": 35.0
-	}
+		"talentslotcost": 2
+	},
+#	# like bap's immortality field, triggered during ult
+#	"SanctuaryOfSolstice": {
+#		"unlocked" : false,
+#		"enabled" : false,
+#		"opalscost": 100,
+#		"talentslotcost": 2,
+#		"healththreshold": 0.1
+#	}
 }
 
 var glaciela_skills : Dictionary = {
@@ -242,7 +250,7 @@ var player_perks : Dictionary = {
 	"CreateSugarRoll": {
 		"unlocked" : true,
 		"enabled": false,
-		"health": 0.3,
+		"health": 0.4,
 		"opalscost": 100,
 		"cooldown": 35.0,
 #		"talentslotcost": 3
@@ -278,7 +286,7 @@ var glaciela_skill_multipliers : Dictionary = {
 	"IceLance": 60.0,
 	"IceLanceFreezeGauge": 350.0,
 	"MaxTundraStars": 3,
-	"WinterQueen": 30.0,
+	"WinterQueen": 12.0,
 	"WinterQueenCost": 12,
 	"IceLanceCost": 3,
 	"WinterQueenCD": 30.0,
@@ -289,7 +297,7 @@ var glaciela_skill_multipliers : Dictionary = {
 	# so this is a fix. if it works, it works
 	"ConeOfCold": 100 * 0.25,
 	"ConeOfColdFreezeGauge": 100,
-	"ConeOfColdCD": 6,
+	"ConeOfColdCD": 4,
 	"ConeOfColdResourceConsumption": 90, # per tick.
 	"ConeOfColdRegenRate": 0.95,
 	"ConeOfColdMovementSpeedPenalty": 65.0,
@@ -490,6 +498,18 @@ func assign_health_points():
 				2:
 					Global.character_3_max_hearts = Global.character_health_data[e]
 					Global.character3_hearts = Global.character_3_max_hearts
+
+func assign_mana_points():
+	for e in Global.equipped_characters:
+		if e != "":
+			var index : int = Global.equipped_characters.find(e)
+			match index:
+				0:
+					Global.mana = 0
+				1:
+					Global.character2_mana = 0
+				2:
+					Global.character3_mana = 0
 # Damage calc
 
 # if enemy type counters character type, deal 150% dmg.
