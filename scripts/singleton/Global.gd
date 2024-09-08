@@ -371,13 +371,23 @@ var agnette_talents : Dictionary = {
 		"cooldown": 10.0,
 		"arrowdamagepercentage": 40.0
 	},
-	# bear can dash, releasing earthquakes 
-	"RoaringTrample" : {
-		"unlocked" : true,
-		"enabled": true,
+	# raven dash to unleash lightning
+	"StormyTempest" : {
+		"unlocked" : false,
+		"enabled": false,
+		"damage": 35.0,
+		"cooldown": 4.0,
 		"opalscost": 100,
 		"talentslotcost": 3,
-	}
+	},
+	
+	# bear can dash, releasing earthquakes 
+#	"RoaringTrample" : {
+#		"unlocked" : true,
+#		"enabled": true,
+#		"opalscost": 100,
+#		"talentslotcost": 3,
+#	}
 }
 
 var agnette_skills : Dictionary = {

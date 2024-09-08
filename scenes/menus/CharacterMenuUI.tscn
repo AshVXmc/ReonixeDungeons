@@ -1780,7 +1780,6 @@ texture_normal = ExtResource( 9 )
 expand = true
 
 [node name="CharacterTalentsControl" type="Control" parent="."]
-visible = false
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -2738,7 +2737,6 @@ align = 1
 autowrap = true
 
 [node name="AgnetteControl" type="Control" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl"]
-visible = false
 margin_right = 40.0
 margin_bottom = 40.0
 
@@ -2753,12 +2751,12 @@ anchor_bottom = 15.255
 margin_left = 181.0
 margin_top = 81.0
 margin_right = 86.36
-margin_bottom = -157.2
-rect_min_size = Vector2( 776, 355 )
+margin_bottom = -149.2
+rect_min_size = Vector2( 776, 380 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/AgnetteControl/ScrollContainer"]
 margin_right = 510.0
-margin_bottom = 1108.0
+margin_bottom = 1112.0
 rect_min_size = Vector2( 510, 1100 )
 
 [node name="RichTextLabel" type="RichTextLabel" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/AgnetteControl/ScrollContainer/VBoxContainer"]
@@ -2773,14 +2771,22 @@ While charging your bow, you take SS_MIT% less damage.
 
 [color=#ffd703]Volley Shot[/color]
 Your bow's Charged Attack fires 2 extra arrows that deal VS_PEN% of the arrow's damage. The Charge meter must be at least 70% full.
-Cooldown: VS_CD seconds"
+Cooldown: VS_CD seconds
+
+[color=#ffd703]Stormy Tempest[/color]
+Dashing in [color=#1f1f1f]Raven form[/color] calls down lightning strikes that deal [u]ST_ATK% ATK[/u] as [color=#deb600]Earth[/color] damage.  
+Cooldown: ST_CD seconds"
 text = "Stoneskin
 While charging your bow, you take SS_MIT% less damage.
 
 
 Volley Shot
 Your bow's Charged Attack fires 2 extra arrows that deal VS_PEN% of the arrow's damage. The Charge meter must be at least 70% full.
-Cooldown: VS_CD seconds"
+Cooldown: VS_CD seconds
+
+Stormy Tempest
+Dashing in Raven form calls down lightning strikes that deal ST_ATK% ATK as Earth damage.  
+Cooldown: ST_CD seconds"
 scroll_active = false
 
 [node name="TalentControl1" type="Control" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/AgnetteControl/ScrollContainer/VBoxContainer"]
@@ -2905,6 +2911,67 @@ custom_fonts/font = SubResource( 4 )
 text = "Enable"
 align = 1
 
+[node name="TalentControl3" type="Control" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/AgnetteControl/ScrollContainer/VBoxContainer"]
+margin_top = 1112.0
+margin_right = 510.0
+margin_bottom = 1112.0
+
+[node name="AgnetteTalentButton" type="TextureButton" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/AgnetteControl/ScrollContainer/VBoxContainer/TalentControl3"]
+anchor_left = 0.215
+anchor_right = 0.215
+margin_left = 512.35
+margin_top = -721.0
+margin_right = 544.35
+margin_bottom = -704.0
+rect_min_size = Vector2( 32, 16 )
+rect_scale = Vector2( 7.5, 7.5 )
+texture_normal = ExtResource( 5 )
+texture_pressed = ExtResource( 4 )
+
+[node name="ButtonLabel" type="Label" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/AgnetteControl/ScrollContainer/VBoxContainer/TalentControl3/AgnetteTalentButton"]
+margin_left = 2.0
+margin_top = 2.0
+margin_right = 47.0
+margin_bottom = 19.0
+rect_scale = Vector2( 0.3, 0.3 )
+custom_fonts/font = SubResource( 3 )
+text = "Unlock"
+
+[node name="OpalsCostLabel" type="Label" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/AgnetteControl/ScrollContainer/VBoxContainer/TalentControl3/AgnetteTalentButton"]
+margin_left = 5.66672
+margin_top = 8.66666
+margin_right = 26.6667
+margin_bottom = 25.6667
+rect_scale = Vector2( 0.3, 0.3 )
+custom_fonts/font = SubResource( 8 )
+text = "XXX"
+align = 2
+
+[node name="Sprite" type="Sprite" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/AgnetteControl/ScrollContainer/VBoxContainer/TalentControl3/AgnetteTalentButton/OpalsCostLabel"]
+position = Vector2( -6.22238, 7.11111 )
+texture = ExtResource( 8 )
+
+[node name="SlotsCostLabel" type="Label" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/AgnetteControl/ScrollContainer/VBoxContainer/TalentControl3/AgnetteTalentButton"]
+margin_left = -3.73331
+margin_top = 14.4001
+margin_right = 71.2667
+margin_bottom = 31.4001
+rect_scale = Vector2( 0.3, 0.3 )
+custom_fonts/font = SubResource( 8 )
+text = "Slot cost: X"
+align = 1
+
+[node name="AgnetteCheckButton" type="CheckButton" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/AgnetteControl/ScrollContainer/VBoxContainer/TalentControl3/AgnetteTalentButton"]
+visible = false
+margin_left = -5.33334
+margin_top = 7.59999
+margin_right = 116.667
+margin_bottom = 47.6
+rect_scale = Vector2( 0.2, 0.2 )
+custom_fonts/font = SubResource( 4 )
+text = "Enable"
+align = 1
+
 [node name="TalentSlotsLabel" type="Label" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl/AgnetteControl"]
 margin_left = 2.0
 margin_top = 226.0
@@ -3015,4 +3082,6 @@ expand = true
 [connection signal="toggled" from="CharacterTalentsControl/NinePatchRect/TalentTreeControl/AgnetteControl/ScrollContainer/VBoxContainer/TalentControl1/AgnetteTalentButton/AgnetteCheckButton" to="CharacterTalentsControl" method="_on_AgnetteCheckButton_toggled"]
 [connection signal="pressed" from="CharacterTalentsControl/NinePatchRect/TalentTreeControl/AgnetteControl/ScrollContainer/VBoxContainer/TalentControl2/AgnetteTalentButton" to="CharacterTalentsControl" method="_on_AgnetteTalentButton2_pressed"]
 [connection signal="toggled" from="CharacterTalentsControl/NinePatchRect/TalentTreeControl/AgnetteControl/ScrollContainer/VBoxContainer/TalentControl2/AgnetteTalentButton/AgnetteCheckButton" to="CharacterTalentsControl" method="_on_AgnetteCheckButton2_toggled"]
+[connection signal="pressed" from="CharacterTalentsControl/NinePatchRect/TalentTreeControl/AgnetteControl/ScrollContainer/VBoxContainer/TalentControl3/AgnetteTalentButton" to="CharacterTalentsControl" method="_on_AgnetteTalentButton3_pressed"]
+[connection signal="toggled" from="CharacterTalentsControl/NinePatchRect/TalentTreeControl/AgnetteControl/ScrollContainer/VBoxContainer/TalentControl3/AgnetteTalentButton/AgnetteCheckButton" to="CharacterTalentsControl" method="_on_AgnetteCheckButton3_toggled"]
 [connection signal="pressed" from="CharacterTalentsControl/CloseButtonMainUI" to="CharacterTalentsControl" method="_on_CloseButtonMainUI_pressed"]

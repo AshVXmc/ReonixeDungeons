@@ -180,6 +180,8 @@ func _ready():
 	if Global.current_character == "Player":
 		$Sprite.visible = true
 	update_perk_skill()
+	
+
 #	perkskill_ui = get_parent().get_node("SkillsUI/Control/PerkSkill/Player/CreateSugarRoll/TextureProgress")
 	$TalentsNode2D/BurningBreathCDTimer.wait_time = Global.player_talents["BurningBreath"]["cooldown"]
 	

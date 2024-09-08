@@ -8,6 +8,7 @@ const HEAL_PARTICLE : PackedScene = preload("res://scenes/particles/HealIndicato
 const ARROW = preload("res://scenes/skills/AgnetteArrow.tscn")
 const SEEKING_ARROW = preload("res://scenes/skills/SeekingArrow.tscn")
 const RAVEN_PROJECTILE = preload("res://scenes/skills/RavenProjectile.tscn")
+const RAVEN_TEMPEST = preload("res://scenes/skills/RavenTempest.tscn")
 signal skill_used(skill_name)
 signal mana_changed(amount, character)
 signal life_changed(amount, character)
@@ -115,8 +116,10 @@ func _ready():
 	$RavenFormNodes/AttackCollision.add_to_group(str(ATTACK * (Global.agnette_skill_multipliers["RavenFormPeckAttack"] / 100)))
 	$RavenFormDurationTimer.wait_time = Global.agnette_skill_multipliers["RavenFormDuration"]
 #	$SpecialAttackArea2D.add_to_group(str(ATTACK * (Global.glaciela_skill_multipliers["SpecialAttack1_1"] / 100)))
-	$VolleyShootCooldownTimer.wait_time = Global.agnette_talents["VolleyShot"]["cooldown"]
-
+	if Global.agnette_talents["VolleyShot"]["unlocked"] and Global.agnette_talents["VolleyShot"]["enabled"]:
+		$TalentsNode2D/VolleyShootCooldownTimer.wait_time = Global.agnette_talents["VolleyShot"]["cooldown"]
+	if Global.agnette_talents["StormyTempest"]["unlocked"] and Global.agnette_talents["StormyTempest"]["enabled"]:
+		$TalentsNode2D/StormyTempestCDTimer.wait_time = Global.agnette_talents["StormyTempest"]["cooldown"]
 func _physics_process(delta):
 	target = get_closest_enemy()
 	if !$AnimatedSprite.flip_h:
@@ -240,6 +243,13 @@ func _input(event):
 				heal("Agnette", 5)
 		if event.is_action_pressed("ui_dash") and !get_parent().get_parent().mobility_lock and $DashInputPressTimer.is_stopped():
 			get_parent().get_parent().dash()
+			if current_form == forms.RAVEN and Global.agnette_talents["StormyTempest"]["unlocked"] and Global.agnette_talents["StormyTempest"]["enabled"] and $TalentsNode2D/StormyTempestCDTimer.is_stopped():
+				var tempest = RAVEN_TEMPEST.instance()
+				get_parent().get_parent().get_parent().add_child(tempest)
+				if !$AnimatedSprite.flip_h:
+					tempest.direction = -1
+				tempest.position = Vector2(global_position.x, global_position.y + 50)
+				$TalentsNode2D/StormyTempestCDTimer.start()
 			$DashInputPressTimer.start()
 	
 		# CHARGED ATTACK
@@ -404,10 +414,10 @@ func charged_attack():
 	if $ShootTimer.is_stopped():
 		if $ChargedAttackBar.value >= $ChargedAttackBar.max_value * 0.7:
 			spawn_arrow($ChargedAttackBar.value, true)
-			if Global.agnette_talents["VolleyShot"]["unlocked"] and Global.agnette_talents["VolleyShot"]["enabled"] and $VolleyShootCooldownTimer.is_stopped():
+			if Global.agnette_talents["VolleyShot"]["unlocked"] and Global.agnette_talents["VolleyShot"]["enabled"] and $TalentsNode2D/VolleyShootCooldownTimer.is_stopped():
 				spawn_arrow($ChargedAttackBar.value * (Global.agnette_talents["VolleyShot"]["arrowdamagepercentage"] / 100), true, true, false)
 				spawn_arrow($ChargedAttackBar.value * (Global.agnette_talents["VolleyShot"]["arrowdamagepercentage"] / 100), true, false, true)
-				$VolleyShootCooldownTimer.start()
+				$TalentsNode2D/VolleyShootCooldownTimer.start()
 			attack_string_count = 4
 			
 			

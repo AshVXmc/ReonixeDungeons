@@ -1,7 +1,8 @@
-[gd_scene load_steps=28 format=2]
+[gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://scripts/misc/Level.gd" type="Script" id=1]
 [ext_resource path="res://scenes/menus/DebugMenu.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scenes/skills/RavenTempest.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scenes/enemies/logic/EnemySkillGlobalCD.tscn" type="PackedScene" id=4]
 [ext_resource path="res://scenes/menus/EleganceMeterUI.tscn" type="PackedScene" id=5]
 [ext_resource path="res://scenes/items/LevelTransporter.tscn" type="PackedScene" id=6]
@@ -155,8 +156,10 @@ position = Vector2( -144, 608 )
 [node name="WallTorch3" parent="." instance=ExtResource( 15 )]
 position = Vector2( -1872, 608 )
 
+[node name="RavenTempest" parent="." instance=ExtResource( 3 )]
+
 [node name="Player" parent="." instance=ExtResource( 29 )]
-position = Vector2( -1296, 655 )
+position = Vector2( -1601, 704 )
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position = Vector2( 9.72693, -62.0423 )

@@ -8,7 +8,7 @@ var glaciela_talents_list : Array = ["DanceOfRime", "WardOfBoreas", "GiftOfTheSt
 onready var glaciela_talent_slots_label = $NinePatchRect/TalentTreeControl/GlacielaControl/TalentSlotsCountLabel
 onready var glaciela_talent_desc_text = $NinePatchRect/TalentTreeControl/GlacielaControl/ScrollContainer/VBoxContainer/RichTextLabel
 
-var agnette_talents_list : Array = ["Stoneskin", "VolleyShot"]
+var agnette_talents_list : Array = ["Stoneskin", "VolleyShot", "StormyTempest"]
 onready var agnette_talent_slots_label = $NinePatchRect/TalentTreeControl/AgnetteControl/TalentSlotsCountLabel
 onready var agnette_talent_desc_text = $NinePatchRect/TalentTreeControl/AgnetteControl/ScrollContainer/VBoxContainer/RichTextLabel
 
@@ -49,6 +49,11 @@ func update_agnette_description_text():
 		"VS_CD", str(Global.agnette_talents["VolleyShot"]["cooldown"]))
 	agnette_talent_desc_text.bbcode_text = agnette_talent_desc_text.bbcode_text.replacen(
 		"VS_PEN", str(Global.agnette_talents["VolleyShot"]["arrowdamagepercentage"]))
+	agnette_talent_desc_text.bbcode_text = agnette_talent_desc_text.bbcode_text.replacen(
+		"ST_ATK", str(Global.agnette_talents["StormyTempest"]["damage"]))
+	agnette_talent_desc_text.bbcode_text = agnette_talent_desc_text.bbcode_text.replacen(
+		"ST_CD", str(Global.agnette_talents["StormyTempest"]["cooldown"]))
+	
 	
 
 
@@ -264,11 +269,17 @@ func _on_AgnetteTalentButton1_pressed():
 func _on_AgnetteTalentButton2_pressed():
 	if !Global.agnette_talents["VolleyShot"]["unlocked"]:
 		buy_agnette_talent("VolleyShot", 2)
-
+func _on_AgnetteTalentButton3_pressed():
+	if !Global.agnette_talents["StormyTempest"]["unlocked"]:
+		buy_agnette_talent("StormyTempest", 3)
+	
 func _on_AgnetteCheckButton_toggled(button_pressed):
 	toggle_agnette_talent("Stoneskin", button_pressed, 1)
 func _on_AgnetteCheckButton2_toggled(button_pressed):
 	toggle_agnette_talent("VolleyShot", button_pressed, 2)
+func _on_AgnetteCheckButton3_toggled(button_pressed):
+	toggle_agnette_talent("StormyTempest", button_pressed, 3)
+	
 
 func _on_CloseButtonMainUI_pressed():
 	if $NinePatchRect/TalentTreeControl/PlayerControl.visible:

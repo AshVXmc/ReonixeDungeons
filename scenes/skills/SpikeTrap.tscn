@@ -30,7 +30,7 @@ autostart = true
 wait_time = 5.0
 autostart = true
 
-[node name="GroundedGaugeArea" type="Area2D" parent="." groups=["120", "EarthGauge"]]
+[node name="GroundedGaugeArea" type="Area2D" parent="." groups=["80", "EarthGauge"]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="GroundedGaugeArea"]
 position = Vector2( 0, 30 )

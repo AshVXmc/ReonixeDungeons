@@ -777,7 +777,13 @@ one_shot = false
 process_material = SubResource( 33 )
 texture = ExtResource( 24 )
 
-[node name="VolleyShootCooldownTimer" type="Timer" parent="."]
+[node name="TalentsNode2D" type="Node2D" parent="."]
+
+[node name="StormyTempestCDTimer" type="Timer" parent="TalentsNode2D"]
+wait_time = 12.0
+one_shot = true
+
+[node name="VolleyShootCooldownTimer" type="Timer" parent="TalentsNode2D"]
 one_shot = true
 
 [connection signal="area_entered" from="BearFormNodes/AttackCollision" to="." method="_on_AttackCollision_area_entered"]
