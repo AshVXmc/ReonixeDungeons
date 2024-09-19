@@ -1,0 +1,183 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://assets/misc/snow_boulder.png" type="Texture" id=1]
+[ext_resource path="res://scripts/skills/SnowBoulder.gd" type="Script" id=2]
+[ext_resource path="res://assets/particles/snow_particle.png" type="Texture" id=3]
+
+[sub_resource type="ParticlesMaterial" id=6]
+flag_disable_z = true
+direction = Vector3( -25, 0, 0 )
+spread = 10.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 80.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 46.0
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 10, 15 )
+
+[sub_resource type="Animation" id=3]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Particles2D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -12, 50 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Particles2D:rotation_degrees")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 15.0 ]
+}
+
+[sub_resource type="Animation" id=4]
+resource_name = "rollleft"
+length = 1.6
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1.6 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, -360.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Particles2D:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 170.0 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Particles2D:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 12, 50 ) ]
+}
+
+[sub_resource type="Animation" id=5]
+resource_name = "rollright"
+length = 1.6
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1.6 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 360.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Particles2D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -12, 50 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Particles2D:rotation_degrees")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 10.0 ]
+}
+
+[node name="SnowBoulder" type="KinematicBody2D"]
+collision_layer = 4096
+collision_mask = 4096
+script = ExtResource( 2 )
+
+[node name="Particles2D" type="Particles2D" parent="."]
+position = Vector2( -12, 50 )
+rotation = 0.261799
+scale = Vector2( 2, 2 )
+lifetime = 0.8
+process_material = SubResource( 6 )
+texture = ExtResource( 3 )
+
+[node name="Sprite" type="Sprite" parent="."]
+scale = Vector2( 6.5, 6.5 )
+texture = ExtResource( 1 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
+
+[node name="Area2D" type="Area2D" parent="." groups=["Ice"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2( 42, 0 )
+shape = SubResource( 2 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/RESET = SubResource( 3 )
+anims/rollleft = SubResource( 4 )
+anims/rollright = SubResource( 5 )
+
+[node name="ManualKnockCooldown" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[node name="SizeDecayTimer" type="Timer" parent="."]
+wait_time = 0.5
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_Area2D_area_entered"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]
+[connection signal="timeout" from="SizeDecayTimer" to="." method="_on_SizeDecayTimer_timeout"]

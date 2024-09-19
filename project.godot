@@ -629,6 +629,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/misc/SlowingPoison.gd"
 }, {
+"base": "KinematicBody2D",
+"class": "SnowBoulder",
+"language": "GDScript",
+"path": "res://scripts/skills/SnowBoulder.gd"
+}, {
 "base": "Area2D",
 "class": "SoulOrb",
 "language": "GDScript",
@@ -819,6 +824,7 @@ _global_script_class_icons={
 "SkillsUI": "",
 "Slime": "",
 "SlowingPoison": "",
+"SnowBoulder": "",
 "SoulOrb": "",
 "Spider": "",
 "SpikeTrap": "",

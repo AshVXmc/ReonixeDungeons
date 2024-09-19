@@ -74,7 +74,7 @@ onready var crit_damage : float = Global.glaciela_skill_multipliers["CritDamage"
 onready var sskill_ui : TextureProgress = get_parent().get_parent().get_parent().get_node("SkillsUI/Control/SecondarySkill/Glaciela/IceLance/TextureProgress")
 onready var pskill_ui : TextureProgress = get_parent().get_parent().get_parent().get_node("SkillsUI/Control/PrimarySkill/Glaciela/WinterQueen/TextureProgress")
 onready var tskill_ui : TextureProgress = get_parent().get_parent().get_parent().get_node("SkillsUI/Control/TertiarySkill/Glaciela/ConeOfCold/TextureProgress")
-
+onready var perkskill_ui : TextureProgress = get_parent().get_parent().get_parent().get_node("SkillsUI/Control/PerkSkill/Glaciela/SnowBoulder/TextureProgress")
 var facing
 enum {
 	left, right
@@ -196,6 +196,8 @@ func use_skill():
 			use_secondary_skill()
 		if tskill_ui.value >= tskill_ui.max_value and Input.is_action_just_pressed("tertiary_skill"):
 			use_tertiary_skill()
+		if perkskill_ui.value >= perkskill_ui.max_value and Input.is_action_just_pressed("talent_skill"):
+			use_perk_skill()
 		
 
 func use_primary_skill():
@@ -264,6 +266,22 @@ func use_tertiary_skill():
 		else:
 			emit_signal("skill_used", "ConeOfCold", attack_buff, -1)
 			get_parent().get_parent().emit_signal("skill_ui_update", "ConeOfCold")
+
+func use_perk_skill():
+	var dir : int = 1
+	if $AnimatedSprite.flip_h:
+		dir = -1
+	if Global.current_character == Global.equipped_characters[0]:
+		emit_signal("skill_used", "SnowBoulder", attack_buff, dir, tundra_stars)
+		get_parent().get_parent().emit_signal("skill_ui_update", "SnowBoulder")
+	elif Global.current_character == Global.equipped_characters[1]:
+		emit_signal("skill_used", "SnowBoulder", attack_buff, dir, tundra_stars)
+		get_parent().get_parent().emit_signal("skill_ui_update", "SnowBoulder")
+	elif Global.current_character == Global.equipped_characters[2]:
+		emit_signal("skill_used", "SnowBoulder", attack_buff, dir, tundra_stars)
+		get_parent().get_parent().emit_signal("skill_ui_update", "SnowBoulder")
+	tundra_stars = 0
+	update_tundra_star_ui()
 #		emit_signal("mana_changed", Global.character3_mana, "Glaciela")
 func set_attack_power(type : String ,amount : float, duration : float, from_crystal : bool = true):
 		if from_crystal:

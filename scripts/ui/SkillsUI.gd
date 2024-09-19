@@ -27,6 +27,8 @@ var coneofcold_active : bool = false
 onready var createsugarroll_ui = $PerkSkill/Player/CreateSugarRoll/TextureProgress
 onready var chaosmagic_ui = $PerkSkill/Player/ChaosMagic/TextureProgress
 onready var CHAOS_MAGIC_UI : PackedScene = preload("res://scenes/menus/ChaosMagicUI.tscn") 
+onready var snowboulder_ui = $PerkSkill/Glaciela/SnowBoulder/TextureProgress
+
 const multiplier : int = 10
 
 func _ready():
@@ -51,6 +53,8 @@ func _ready():
 	icelance_ui.value = icelance_ui.max_value
 	coneofcold_ui.max_value = Global.glaciela_skill_multipliers["ConeOfColdCD"] * multiplier
 	coneofcold_ui.value = coneofcold_ui.max_value
+	snowboulder_ui.max_value = Global.glaciela_skill_multipliers["SnowBoulderCD"] * multiplier
+	snowboulder_ui.value = snowboulder_ui.max_value
 	
 	bearform_ui.max_value = Global.agnette_skill_multipliers["BearFormCD"] * multiplier
 	bearform_ui.value = bearform_ui.max_value
@@ -150,6 +154,8 @@ func update_skill_ui(primary : String, secondary : String, tertiary : String, pe
 		"ChaosMagic":
 			$PerkSkill/Player/CreateSugarRoll.visible = false
 			$PerkSkill/Player/ChaosMagic.visible = true
+		"SnowBoulder":
+			$PerkSkill/Glaciela/SnowBoulder.visible = true
 			
 
 
@@ -173,6 +179,8 @@ func on_skill_used(skill_name : String):
 			icelance_ui.value = icelance_ui.min_value
 		"WinterQueen":
 			winterqueen_ui.value = winterqueen_ui.min_value
+		"SnowBoulder":
+			snowboulder_ui.value = snowboulder_ui.min_value
 		"BearForm":
 			bearform_ui.value = bearform_ui.min_value
 		"RavenForm":
@@ -186,6 +194,7 @@ func _process(delta):
 		$PrimarySkill/Player.visible = true
 		$SecondarySkill/Player.visible = true
 		$TertiarySkill/Player.visible = true
+		$PerkSkill/Player.visible = true
 		##############
 		# FIRE SAW ###
 		##############
@@ -286,6 +295,7 @@ func _process(delta):
 		$PrimarySkill/Player.visible = false
 		$SecondarySkill/Player.visible = false
 		$TertiarySkill/Player.visible = false
+		$PerkSkill/Player.visible = false
 		################
 		# WINTER QUEEN #
 		################
@@ -293,6 +303,7 @@ func _process(delta):
 		$PrimarySkill/Glaciela.visible = true
 		$SecondarySkill/Glaciela.visible = true
 		$TertiarySkill/Glaciela.visible = true
+		$PerkSkill/Glaciela.visible = true
 		if winterqueen_ui.value < winterqueen_ui.max_value:
 			$PrimarySkill/Glaciela/WinterQueen/Label.text = str(stepify((winterqueen_ui.max_value - winterqueen_ui.value) / multiplier, 0.001))
 			winterqueen_ui.self_modulate.a = 0.4
@@ -365,11 +376,24 @@ func _process(delta):
 				else:
 					coneofcold_ui.self_modulate.a = 0.4
 				$TertiarySkill/Glaciela/ConeOfCold/Label.text = ""
+		##################
+		## SNOW BOULDER ##
+		##################
+		if snowboulder_ui.value < snowboulder_ui.max_value:
+			$PerkSkill/Glaciela/SnowBoulder/Label.text = str(stepify((snowboulder_ui.max_value - snowboulder_ui.value) / multiplier, 0.001))
+			snowboulder_ui.self_modulate.a = 0.4
+		elif snowboulder_ui.value >= snowboulder_ui.max_value:
+			if Global.equipped_characters[0] == "Glaciela":
+				$PerkSkill/Glaciela/SnowBoulder/Label.text = ""
+			elif Global.equipped_characters[1] == "Glaciela":
+				$PerkSkill/Glaciela/SnowBoulder/Label.text = ""
+			elif Global.equipped_characters[2] == "Glaciela":
+				$PerkSkill/Glaciela/SnowBoulder/Label.text = ""
 	else:
 		$PrimarySkill/Glaciela.visible = false
 		$SecondarySkill/Glaciela.visible = false
 		$TertiarySkill/Glaciela.visible = false
-	
+		$PerkSkill/Glaciela.visible = false
 	if Global.current_character == "Agnette":
 		$PrimarySkill/Agnette.visible = true
 		$SecondarySkill/Agnette.visible = true
@@ -495,6 +519,7 @@ func _on_CooldownTickTimer_timeout():
 		winterqueen_ui.value += 1 
 		icelance_ui.value += 1 
 		coneofcold_ui.value += 1
+		snowboulder_ui.value += 1
 	if Global.equipped_characters.has("Agnette"):
 		bearform_ui.value += 1
 		spikegrowth_ui.value += 1

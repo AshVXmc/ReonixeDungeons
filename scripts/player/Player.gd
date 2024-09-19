@@ -597,7 +597,7 @@ func use_skill():
 		if Input.is_action_just_pressed("tertiary_skill") and !is_frozen:
 			use_tertiary_skill()
 		if perkskill_ui.value >= perkskill_ui.max_value and Input.is_action_just_pressed("talent_skill") and !is_frozen:
-			use_talent_skill()
+			use_perk_skill()
 
 func use_primary_skill():
 	if Global.current_character == Global.equipped_characters[0] and Global.mana >= Global.player_skill_multipliers["FireSawCost"]:
@@ -659,7 +659,7 @@ func use_tertiary_skill():
 #		emit_signal("mana_changed", Global.character3_mana, "Player")
 
 
-func use_talent_skill():
+func use_perk_skill():
 	if Global.player_perks["CreateSugarRoll"]["unlocked"] and Global.player_perks["CreateSugarRoll"]["enabled"]:
 		emit_signal("skill_used", "CreateSugarRoll")
 		emit_signal("skill_ui_update", "CreateSugarRoll")
@@ -674,7 +674,7 @@ func chaos_magic_surge():
 	var num = rng.randi_range(1, 100)
 	if num <= Global.player_perks["ChaosMagic"]["triggerchance"]:
 		if perkskill_ui.value >= perkskill_ui.max_value and !is_frozen:
-			use_talent_skill()
+			use_perk_skill()
 #	chaos_magic(num)   
 
 

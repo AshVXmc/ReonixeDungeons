@@ -248,7 +248,7 @@ func _input(event):
 				get_parent().get_parent().get_parent().add_child(tempest)
 				if !$AnimatedSprite.flip_h:
 					tempest.direction = -1
-				tempest.position = Vector2(global_position.x, global_position.y + 50)
+				tempest.position = Vector2(global_position.x, global_position.y + 75)
 				$TalentsNode2D/StormyTempestCDTimer.start()
 			$DashInputPressTimer.start()
 	

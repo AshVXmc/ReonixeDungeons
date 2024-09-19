@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=2]
+[gd_scene load_steps=31 format=2]
 
 [ext_resource path="res://scripts/ui/SkillsUI.gd" type="Script" id=1]
 [ext_resource path="res://assets/UI/firesaw_skill_icon.png" type="Texture" id=2]
@@ -20,6 +20,7 @@
 [ext_resource path="res://assets/UI/bear_form_skill_icon.png" type="Texture" id=18]
 [ext_resource path="res://assets/UI/spikegrowth_skill_icon.png" type="Texture" id=19]
 [ext_resource path="res://assets/UI/raven_form_skill_icon.png" type="Texture" id=20]
+[ext_resource path="res://assets/UI/snow_boulder_skill_icon.png" type="Texture" id=21]
 
 [sub_resource type="DynamicFont" id=1]
 size = 32
@@ -718,6 +719,39 @@ texture_progress = ExtResource( 14 )
 fill_mode = 5
 
 [node name="Label" type="Label" parent="Control/PerkSkill/Player/ChaosMagic"]
+margin_left = 471.0
+margin_top = 170.0
+margin_right = 530.0
+margin_bottom = 218.0
+custom_fonts/font = SubResource( 1 )
+text = "60.0"
+align = 1
+valign = 1
+
+[node name="Glaciela" type="Control" parent="Control/PerkSkill"]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="SnowBoulder" type="Control" parent="Control/PerkSkill/Glaciela"]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="Sprite" type="Sprite" parent="Control/PerkSkill/Glaciela/SnowBoulder"]
+self_modulate = Color( 1, 1, 1, 0.333333 )
+position = Vector2( 500, 190 )
+scale = Vector2( 4, 4 )
+texture = ExtResource( 21 )
+
+[node name="TextureProgress" type="TextureProgress" parent="Control/PerkSkill/Glaciela/SnowBoulder"]
+margin_left = 460.0
+margin_top = 150.0
+margin_right = 480.0
+margin_bottom = 170.0
+rect_scale = Vector2( 4, 4 )
+texture_progress = ExtResource( 21 )
+fill_mode = 5
+
+[node name="Label" type="Label" parent="Control/PerkSkill/Glaciela/SnowBoulder"]
 margin_left = 471.0
 margin_top = 170.0
 margin_right = 530.0

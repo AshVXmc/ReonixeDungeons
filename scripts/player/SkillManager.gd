@@ -131,6 +131,11 @@ func on_skill_used (
 			elif direction == -1:
 				cone_of_cold.deactivate_cone_of_cold()
 				skills_ui.coneofcold_active = false
+		"SnowBoulder":
+			var snow_boulder = preload("res://scenes/skills/SnowBoulder.tscn").instance()
+			snow_boulder.direction = direction
+			get_parent().get_parent().add_child(snow_boulder)
+			snow_boulder.position = global_position
 		"BearForm":
 			var agnette = get_parent().get_node("CharacterManager/Agnette")
 			agnette.wild_shape(agnette.forms.BEAR, agnette.current_form)

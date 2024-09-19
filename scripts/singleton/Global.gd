@@ -304,7 +304,8 @@ var glaciela_skill_multipliers : Dictionary = {
 	# minimum amount of mana to be able to channel it.
 	"ConeOfColdCost": 0,
 	
-	
+	"SnowBoulder": 78.0,
+	"SnowBoulderCD": 30,
 	"BasePhysRes": 0.0,
 	"BaseMagicRes": 0.0,
 	"BaseFireRes": -50.0,
@@ -328,7 +329,7 @@ var agnette_skill_multipliers = {
 	"ChargedAttackMovementSpeedPenalty": 80.0,
 	"RainOfArrows": 40.0,
 	
-	"BearFormCost": 0,
+	"BearFormCost": 16,
 	"BearFormCD": 30,
 	"BearFormDuration": 15,
 	# health taken from agnette's max HP.
@@ -394,7 +395,7 @@ var agnette_skills : Dictionary = {
 	"PrimarySkill" : "BearForm",
 	"SecondarySkill" : "RavenForm",
 	"TertiarySkill" : "SpikeGrowth",
-	"PerkSkill": ""
+	"PerkSkill": "SnowBoulder"
 }
 
 var enemy_skill_multipliers : Dictionary = {
