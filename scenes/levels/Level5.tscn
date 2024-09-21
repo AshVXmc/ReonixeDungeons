@@ -1,26 +1,23 @@
-[gd_scene load_steps=31 format=2]
+[gd_scene load_steps=28 format=2]
 
 [ext_resource path="res://assets/terrain/lichen_ruins_oneway_spritesheet.png" type="Texture" id=1]
-[ext_resource path="res://scenes/items/LevelTransporter.tscn" type="PackedScene" id=2]
-[ext_resource path="res://scenes/menus/ManaPotUI.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/enemies/bosses/MaskedGoblin.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scenes/menus/EleganceMeterUI.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scenes/menus/HeartUI.tscn" type="PackedScene" id=4]
 [ext_resource path="res://scenes/menus/ManaUI.tscn" type="PackedScene" id=5]
 [ext_resource path="res://scenes/menus/HealthPotUI.tscn" type="PackedScene" id=6]
 [ext_resource path="res://scenes/menus/FPSCounter.tscn" type="PackedScene" id=7]
 [ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=8]
-[ext_resource path="res://scenes/menus/LifeWineUI.tscn" type="PackedScene" id=9]
 [ext_resource path="res://scenes/menus/OpalsUI.tscn" type="PackedScene" id=10]
 [ext_resource path="res://assets/terrain/background_dungeons.png" type="Texture" id=11]
 [ext_resource path="res://scenes/menus/DebugMenu.tscn" type="PackedScene" id=12]
 [ext_resource path="res://scenes/menus/PauseUI.tscn" type="PackedScene" id=13]
 [ext_resource path="res://scenes/misc/Light.tscn" type="PackedScene" id=14]
-[ext_resource path="res://scenes/levels/hublevel/Portal.tscn" type="PackedScene" id=15]
 [ext_resource path="res://scripts/misc/Level.gd" type="Script" id=16]
 [ext_resource path="res://assets/terrain/lichen_ruins_misc_spritesheet.png" type="Texture" id=17]
 [ext_resource path="res://assets/terrain/lichen_ruins_spritesheet.png" type="Texture" id=18]
 [ext_resource path="res://scenes/items/Sign.tscn" type="PackedScene" id=19]
 [ext_resource path="res://scenes/menus/SceneTransition.tscn" type="PackedScene" id=20]
-[ext_resource path="res://scenes/menus/RevivementCrystalUI.tscn" type="PackedScene" id=21]
 [ext_resource path="res://scenes/menus/GameOver.tscn" type="PackedScene" id=22]
 [ext_resource path="res://scenes/menus/InventoryUI.tscn" type="PackedScene" id=23]
 [ext_resource path="res://scenes/items/BossLevelTransporter.tscn" type="PackedScene" id=25]
@@ -230,55 +227,6 @@ points = PoolVector2Array( 96, 96, 0, 96, 0, 0, 96, 0 )
 [node name="Level5" type="Node2D"]
 script = ExtResource( 16 )
 
-[node name="PauseUI" parent="." instance=ExtResource( 13 )]
-
-[node name="HealthPotUI" parent="." instance=ExtResource( 6 )]
-
-[node name="HeartUI" parent="." instance=ExtResource( 4 )]
-
-[node name="ManaUI" parent="." instance=ExtResource( 5 )]
-
-[node name="ManaPotUI" parent="." instance=ExtResource( 3 )]
-
-[node name="LifeWineUI" parent="." instance=ExtResource( 9 )]
-
-[node name="OpalsUI" parent="." instance=ExtResource( 10 )]
-
-[node name="SkillsUI" parent="." instance=ExtResource( 27 )]
-
-[node name="InventoryUI" parent="." instance=ExtResource( 23 )]
-
-[node name="GameOverUI" parent="." instance=ExtResource( 22 )]
-
-[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
-
-[node name="Background1" type="ParallaxLayer" parent="ParallaxBackground"]
-visible = false
-z_as_relative = false
-motion_mirroring = Vector2( 1920, 640 )
-
-[node name="TextureRect" type="ColorRect" parent="ParallaxBackground/Background1"]
-margin_right = 1938.0
-margin_bottom = 1355.0
-color = Color( 0.113725, 0.145098, 0.113725, 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Sprite" type="Sprite" parent="ParallaxBackground/Background1"]
-scale = Vector2( 20, 20 )
-texture = ExtResource( 11 )
-centered = false
-__meta__ = {
-"_editor_description_": ""
-}
-
-[node name="RevivementCrystal" parent="." instance=ExtResource( 21 )]
-
-[node name="DebugMenu" parent="." instance=ExtResource( 12 )]
-
-[node name="FPSCounter" parent="." instance=ExtResource( 7 )]
-
 [node name="Light2D" parent="." instance=ExtResource( 14 )]
 visible = false
 position = Vector2( 1751.34, 769.09 )
@@ -286,10 +234,12 @@ scale = Vector2( 123.492, 44.8937 )
 energy = 0.65
 mode = 1
 
-[node name="TileMap" type="TileMap" parent="."]
+[node name="TileMap" type="TileMap" parent="." groups=["Tilemap"]]
 tile_set = SubResource( 4 )
 cell_size = Vector2( 96, 96 )
 cell_tile_origin = 1
+collision_layer = 4225
+collision_mask = 129
 format = 1
 tile_data = PoolIntArray( -917504, 6, 0, -851968, 6, 0, -786432, 6, 0, -786429, 7, 0, -786428, 7, 0, -786427, 7, 0, -786426, 7, 0, -720896, 6, 0, -720893, 6, 0, -720892, 6, 0, -720891, 6, 0, -720890, 6, 0, -655360, 6, 0, -655357, 8, 0, -655356, 8, 0, -655355, 8, 0, -655354, 8, 0, -589824, 6, 0, -589821, 12, 0, -589818, 12, 0, -524288, 6, 0, -524285, 13, 0, -524282, 13, 0, -458752, 6, 0, -458749, 13, 0, -458746, 13, 0, -393216, 6, 0, -393213, 14, 0, -393210, 14, 0, -327680, 6, 0, -327674, 7, 0, -262144, 6, 0, -262143, 7, 0, -262141, 6, 0, -262140, 6, 0, -262124, 6, 0, -196608, 6, 0, -196588, 6, 0, -131072, 6, 0, -131052, 6, 0, -65536, 6, 0, -65516, 6, 0, 0, 6, 0, 20, 6, 0, 65536, 6, 0, 65556, 6, 0, 131072, 6, 0, 131092, 6, 0, 196608, 6, 0, 196609, 7, 0, 196610, 7, 0, 196611, 7, 0, 196612, 7, 0, 196613, 7, 0, 196614, 7, 0, 196615, 7, 0, 196616, 7, 0, 196617, 7, 0, 196618, 7, 0, 196619, 7, 0, 196620, 7, 0, 196621, 7, 0, 196622, 7, 0, 196623, 7, 0, 196624, 7, 0, 196625, 7, 0, 196626, 7, 0, 196627, 7, 0, 196628, 6, 0, 262144, 6, 0, 262145, 6, 0, 262146, 6, 0, 262147, 6, 0, 262148, 6, 0, 262149, 6, 0, 262150, 6, 0, 262151, 6, 0, 262152, 6, 0, 262153, 6, 0, 262154, 6, 0, 262155, 6, 0, 262156, 6, 0, 262157, 6, 0, 262158, 6, 0, 262159, 6, 0, 262160, 6, 0, 262161, 6, 0, 262162, 6, 0, 262163, 6, 0, 262164, 6, 0, 327680, 6, 0, 327681, 6, 0, 327682, 6, 0, 327683, 6, 0, 327684, 6, 0, 327685, 6, 0, 327686, 6, 0, 327687, 6, 0, 327688, 6, 0, 327689, 6, 0, 327690, 6, 0, 327691, 6, 0, 327692, 6, 0, 327693, 6, 0, 327694, 6, 0, 327695, 6, 0, 327696, 6, 0, 327697, 6, 0, 327698, 6, 0, 327699, 6, 0, 327700, 6, 0, 393216, 6, 0, 393217, 6, 0, 393218, 6, 0, 393219, 6, 0, 393220, 6, 0, 393221, 6, 0, 393222, 6, 0, 393223, 6, 0, 393224, 6, 0, 393225, 6, 0, 393226, 6, 0, 393227, 6, 0, 393228, 6, 0, 393229, 6, 0, 393230, 6, 0, 393231, 6, 0, 393232, 6, 0, 393233, 6, 0, 393234, 6, 0, 393235, 6, 0, 393236, 6, 0, 458752, 6, 0, 458753, 6, 0, 458754, 6, 0, 458755, 6, 0, 458756, 6, 0, 458757, 6, 0, 458758, 6, 0, 458759, 6, 0, 458760, 6, 0, 458761, 6, 0, 458762, 6, 0, 458763, 6, 0, 458764, 6, 0, 458765, 6, 0, 458766, 6, 0, 458767, 6, 0, 458768, 6, 0, 458769, 6, 0, 458770, 6, 0, 458771, 6, 0, 458772, 6, 0 )
 
@@ -300,18 +250,9 @@ cell_tile_origin = 1
 format = 1
 tile_data = PoolIntArray( -917504, 6, 0, -851968, 6, 0, -786432, 6, 0, -786429, 7, 0, -786428, 7, 0, -786427, 7, 0, -786426, 7, 0, -720896, 6, 0, -720893, 6, 0, -720892, 6, 0, -720891, 6, 0, -720890, 6, 0, -655360, 6, 0, -655357, 8, 0, -655356, 8, 0, -655355, 8, 0, -655354, 8, 0, -589824, 6, 0, -589821, 12, 0, -589818, 12, 0, -524288, 6, 0, -524285, 13, 0, -524282, 13, 0, -458752, 6, 0, -458749, 13, 0, -458746, 13, 0, -393216, 6, 0, -393213, 14, 0, -393210, 14, 0, -327680, 6, 0, -327674, 7, 0, -262144, 6, 0, -262143, 7, 0, -262141, 6, 0, -262140, 6, 0, -262124, 6, 0, -196608, 6, 0, -196588, 6, 0, -131072, 6, 0, -131058, 0, 0, -131057, 0, 0, -131056, 0, 0, -131055, 0, 0, -131054, 0, 0, -131053, 0, 0, -131052, 6, 0, -65536, 6, 0, -65522, 0, 0, -65521, 0, 0, -65520, 0, 0, -65519, 0, 0, -65518, 0, 0, -65517, 0, 0, -65516, 6, 0, 0, 6, 0, 14, 0, 0, 15, 0, 0, 16, 0, 0, 17, 0, 0, 18, 0, 0, 19, 0, 0, 20, 6, 0, 65536, 6, 0, 65550, 0, 0, 65551, 0, 0, 65552, 0, 0, 65553, 0, 0, 65554, 0, 0, 65555, 0, 0, 65556, 6, 0, 131072, 6, 0, 131086, 0, 0, 131087, 0, 0, 131088, 0, 0, 131089, 0, 0, 131090, 0, 0, 131091, 0, 0, 131092, 6, 0, 196608, 6, 0, 196609, 7, 0, 196610, 7, 0, 196611, 7, 0, 196612, 7, 0, 196613, 7, 0, 196614, 7, 0, 196615, 7, 0, 196616, 7, 0, 196617, 7, 0, 196618, 7, 0, 196619, 7, 0, 196620, 7, 0, 196621, 7, 0, 196622, 7, 0, 196623, 7, 0, 196624, 7, 0, 196625, 7, 0, 196626, 7, 0, 196627, 7, 0, 196628, 6, 0, 262144, 6, 0, 262145, 6, 0, 262146, 6, 0, 262147, 6, 0, 262148, 6, 0, 262149, 6, 0, 262150, 6, 0, 262151, 6, 0, 262152, 6, 0, 262153, 6, 0, 262154, 6, 0, 262155, 6, 0, 262156, 6, 0, 262157, 6, 0, 262158, 6, 0, 262159, 6, 0, 262160, 6, 0, 262161, 6, 0, 262162, 6, 0, 262163, 6, 0, 262164, 6, 0, 327680, 6, 0, 327681, 6, 0, 327682, 6, 0, 327683, 6, 0, 327684, 6, 0, 327685, 6, 0, 327686, 6, 0, 327687, 6, 0, 327688, 6, 0, 327689, 6, 0, 327690, 6, 0, 327691, 6, 0, 327692, 6, 0, 327693, 6, 0, 327694, 6, 0, 327695, 6, 0, 327696, 6, 0, 327697, 6, 0, 327698, 6, 0, 327699, 6, 0, 327700, 6, 0, 393216, 6, 0, 393217, 6, 0, 393218, 6, 0, 393219, 6, 0, 393220, 6, 0, 393221, 6, 0, 393222, 6, 0, 393223, 6, 0, 393224, 6, 0, 393225, 6, 0, 393226, 6, 0, 393227, 6, 0, 393228, 6, 0, 393229, 6, 0, 393230, 6, 0, 393231, 6, 0, 393232, 6, 0, 393233, 6, 0, 393234, 6, 0, 393235, 6, 0, 393236, 6, 0, 458752, 6, 0, 458753, 6, 0, 458754, 6, 0, 458755, 6, 0, 458756, 6, 0, 458757, 6, 0, 458758, 6, 0, 458759, 6, 0, 458760, 6, 0, 458761, 6, 0, 458762, 6, 0, 458763, 6, 0, 458764, 6, 0, 458765, 6, 0, 458766, 6, 0, 458767, 6, 0, 458768, 6, 0, 458769, 6, 0, 458770, 6, 0, 458771, 6, 0, 458772, 6, 0 )
 
-[node name="LevelTransporter" parent="." instance=ExtResource( 2 )]
-position = Vector2( 914.405, 212.063 )
-Destination = "res://scenes/levels/Level2.tscn"
-
 [node name="Sign" parent="." instance=ExtResource( 19 )]
 position = Vector2( 451.941, 246.203 )
 Text = "Welcome to level 5! For every five levels, a portal will spawn and you will be able to fast-travel between them and the hub level. Remember to save for the game to record portal progress!"
-
-[node name="Portal" parent="." instance=ExtResource( 15 )]
-position = Vector2( 244.933, 135.238 )
-
-[node name="SceneTransition" parent="." instance=ExtResource( 20 )]
 
 [node name="BossLevelTransporter" parent="." instance=ExtResource( 25 )]
 position = Vector2( 1634.2, 206.217 )
@@ -335,3 +276,45 @@ drag_margin_v_enabled = true
 drag_margin_left = 0.4
 drag_margin_right = 0.4
 editor_draw_limits = true
+
+[node name="PauseUI" parent="." instance=ExtResource( 13 )]
+
+[node name="SceneTransition" parent="." instance=ExtResource( 20 )]
+
+[node name="HeartUI" parent="." instance=ExtResource( 4 )]
+
+[node name="ManaUI" parent="." instance=ExtResource( 5 )]
+
+[node name="OpalsUI" parent="." instance=ExtResource( 10 )]
+
+[node name="HealthPotUI" parent="." instance=ExtResource( 6 )]
+
+[node name="InventoryUI" parent="." instance=ExtResource( 23 )]
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+scroll_ignore_camera_zoom = true
+
+[node name="Background1" type="ParallaxLayer" parent="ParallaxBackground"]
+z_as_relative = false
+motion_mirroring = Vector2( 1440, 1050 )
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/Background1"]
+scale = Vector2( 15, 15 )
+texture = ExtResource( 11 )
+centered = false
+__meta__ = {
+"_editor_description_": ""
+}
+
+[node name="SkillsUI" parent="." instance=ExtResource( 27 )]
+
+[node name="GameOverUI" parent="." instance=ExtResource( 22 )]
+
+[node name="DebugMenu" parent="." instance=ExtResource( 12 )]
+
+[node name="FPSCounter" parent="." instance=ExtResource( 7 )]
+
+[node name="EleganceMeterUI" parent="." instance=ExtResource( 3 )]
+
+[node name="MaskedGoblin" parent="." instance=ExtResource( 2 )]
+position = Vector2( 1165, 222 )

@@ -60,7 +60,6 @@ signal on_death()
 func _ready():
 	
 	$LevelLabel.text = "Lv " + str(level)
-	$SpearSprite.visible = false
 	$SpearThrustAttackWarning.visible = false
 	if Armored:
 		$ArmorBar.visible = true
@@ -401,7 +400,7 @@ func parse_damage(staggers : bool = true):
 	if staggers:
 		is_staggered = true
 	emit_signal("change_hitcount", 1)
-	$Sprite.set_modulate(Color(1.5,0.5,0.3,1))
+	$Sprite.set_modulate(Color(1,0.5,0.3,1))
 	if $HurtTimer.is_stopped():
 		$HurtTimer.start()
 	if HP <= 0:
@@ -442,7 +441,7 @@ func death():
 	Global.enemies_killed += 1
 
 func parse_status_effect_damage():
-	$Sprite.set_modulate(Color(1.5,0.5,0.3,1))
+	$Sprite.set_modulate(Color(1,0.5,0.3,1))
 	if $HurtTimer.is_stopped():
 		$HurtTimer.start()
 	if HP <= 0:
