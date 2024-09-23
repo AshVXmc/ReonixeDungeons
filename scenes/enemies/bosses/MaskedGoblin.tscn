@@ -1,9 +1,10 @@
-[gd_scene load_steps=29 format=2]
+[gd_scene load_steps=34 format=2]
 
 [ext_resource path="res://scripts/enemies/MaskedGoblin.gd" type="Script" id=1]
 [ext_resource path="res://assets/enemies/bosses/masked_goblin_2.png" type="Texture" id=2]
 [ext_resource path="res://assets/enemies/bosses/masked_goblin_1.png" type="Texture" id=3]
 [ext_resource path="res://assets/weapons/greatsword.png" type="Texture" id=4]
+[ext_resource path="res://scenes/particles/StrongJumpParticle.tscn" type="PackedScene" id=5]
 [ext_resource path="res://assets/UI/healthbar_enemy_empty.png" type="Texture" id=6]
 [ext_resource path="res://assets/UI/healthbar_enemy_full.png" type="Texture" id=7]
 [ext_resource path="res://assets/UI/physical_type_icon.png" type="Texture" id=8]
@@ -132,10 +133,70 @@ tracks/7/keys = {
 "update": 0,
 "values": [ Vector2( 0, 0 ) ]
 }
+tracks/8/type = "value"
+tracks/8/path = NodePath("StrongJumpParticle:position")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -55, 52 ) ]
+}
+tracks/9/type = "value"
+tracks/9/path = NodePath("StrongJumpParticle:emitting")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ true ]
+}
+tracks/10/type = "value"
+tracks/10/path = NodePath("AttackArea2D/CollisionShape2D:shape:extents")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 45, 60 ) ]
+}
+tracks/11/type = "value"
+tracks/11/path = NodePath("AttackArea2D/CollisionShape2D:disabled")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ true ]
+}
+tracks/12/type = "value"
+tracks/12/path = NodePath("AttackArea2D/CollisionShape2D:position")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -80, -6 ) ]
+}
 
 [sub_resource type="Animation" id=19]
 resource_name = "SwordAttackCombo1_Left"
-length = 0.6
+length = 0.45
 step = 0.05
 tracks/0/type = "value"
 tracks/0/path = NodePath("SwordSprite:rotation_degrees")
@@ -144,7 +205,7 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.2, 0.35, 0.6 ),
+"times": PoolRealArray( 0, 0.15, 0.3, 0.45 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 0,
 "values": [ 20.0, -125.0, -125.0, 20.0 ]
@@ -173,10 +234,60 @@ tracks/2/keys = {
 "update": 0,
 "values": [ Vector2( 0, -11 ) ]
 }
+tracks/3/type = "value"
+tracks/3/path = NodePath("AttackArea2D/CollisionShape2D:shape:extents")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 45, 60 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("AttackArea2D/CollisionShape2D:disabled")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 0.15, 0.35, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ true, false, false, true ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("AttackArea2D/CollisionShape2D:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -80, -6 ) ]
+}
+tracks/6/type = "method"
+tracks/6/path = NodePath(".")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0.15 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [ 1 ],
+"method": "handle_combo_attack_area"
+} ]
+}
 
 [sub_resource type="Animation" id=20]
 resource_name = "SwordAttackCombo1_Right"
-length = 0.6
+length = 0.45
 step = 0.05
 tracks/0/type = "value"
 tracks/0/path = NodePath("SwordSprite:rotation_degrees")
@@ -185,7 +296,7 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.2, 0.35, 0.6 ),
+"times": PoolRealArray( 0, 0.15, 0.3, 0.45 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 0,
 "values": [ -20.0, 125.0, 125.0, -20.0 ]
@@ -214,10 +325,60 @@ tracks/2/keys = {
 "update": 0,
 "values": [ Vector2( 0, -11 ) ]
 }
+tracks/3/type = "value"
+tracks/3/path = NodePath("AttackArea2D/CollisionShape2D:shape:extents")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 45, 60 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("AttackArea2D/CollisionShape2D:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 80, -6 ) ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("AttackArea2D/CollisionShape2D:disabled")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0, 0.15, 0.35, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ true, false, false, true ]
+}
+tracks/6/type = "method"
+tracks/6/path = NodePath(".")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0.15 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [ 1 ],
+"method": "handle_combo_attack_area"
+} ]
+}
 
 [sub_resource type="Animation" id=21]
 resource_name = "SwordAttackCombo2_Left"
-length = 0.8
+length = 0.75
 step = 0.05
 tracks/0/type = "value"
 tracks/0/path = NodePath("SwordSprite:rotation_degrees")
@@ -226,7 +387,7 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.2, 0.6, 0.8 ),
+"times": PoolRealArray( 0, 0.1, 0.5, 0.75 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 0,
 "values": [ 20.0, -90.0, -90.0, 20.0 ]
@@ -238,7 +399,7 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 0.25, 0.4, 0.55, 0.8 ),
+"times": PoolRealArray( 0, 0.15, 0.3, 0.45, 0.75 ),
 "transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
 "update": 0,
 "values": [ Vector2( -23.5, 15 ), Vector2( -2.5, 15 ), Vector2( -2.5, 15 ), Vector2( -35, 15 ), Vector2( -23.5, 15 ) ]
@@ -254,6 +415,361 @@ tracks/2/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 0,
 "values": [ Vector2( 0, -11 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("AttackArea2D/CollisionShape2D:shape:extents")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 50, 52 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("AttackArea2D/CollisionShape2D:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -85.5, 2.5 ) ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("AttackArea2D/CollisionShape2D:disabled")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0, 0.1, 0.45, 0.55 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ true, false, false, true ]
+}
+tracks/6/type = "method"
+tracks/6/path = NodePath(".")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0.1 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [ 2 ],
+"method": "handle_combo_attack_area"
+} ]
+}
+
+[sub_resource type="Animation" id=22]
+resource_name = "SwordAttackCombo2_Right"
+length = 0.75
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("SwordSprite:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.5, 0.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ -20.0, 90.0, 90.0, -20.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("SwordSprite:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.15, 0.3, 0.45, 0.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 23.5, 15 ), Vector2( 2.5, 15 ), Vector2( 2.5, 15 ), Vector2( 35, 15 ), Vector2( 23.5, 15 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("SwordSprite:offset")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, -11 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("AttackArea2D/CollisionShape2D:disabled")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.1, 0.45, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ true, false, false, true ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("AttackArea2D/CollisionShape2D:shape:extents")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 50, 52 ) ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("AttackArea2D/CollisionShape2D:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 85.5, 2.5 ) ]
+}
+tracks/6/type = "method"
+tracks/6/path = NodePath(".")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0.1 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [ 2 ],
+"method": "handle_combo_attack_area"
+} ]
+}
+
+[sub_resource type="Animation" id=23]
+resource_name = "SwordAttackCombo3_Left"
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("SwordSprite:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3, 0.65, 1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ 20.0, -160.0, -160.0, 20.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("SwordSprite:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.3, 0.45, 0.55, 0.65, 1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( -23.5, 15 ), Vector2( -23.5, -50 ), Vector2( -11.8333, -95.8333 ), Vector2( -23.5, -38 ), Vector2( -23.5, -38 ), Vector2( -23.5, 15 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("SwordSprite:offset")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, -11 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("StrongJumpParticle:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0.55 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -55, 52 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("StrongJumpParticle:emitting")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0.55 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("AttackArea2D/CollisionShape2D:shape:extents")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 35, 52 ) ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("AttackArea2D/CollisionShape2D:position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -67, 2.5 ) ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("AttackArea2D/CollisionShape2D:disabled")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0, 0.35, 0.65, 0.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ true, false, false, true ]
+}
+tracks/8/type = "method"
+tracks/8/path = NodePath(".")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"times": PoolRealArray( 0.35 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [ 0 ],
+"method": "handle_combo_attack_area"
+} ]
+}
+
+[sub_resource type="Animation" id=24]
+resource_name = "SwordAttackCombo3_Right"
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("SwordSprite:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3, 0.65, 1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ -20.0, 160.0, 160.0, -20.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("SwordSprite:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.3, 0.45, 0.55, 0.65, 1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 23.5, 15 ), Vector2( 23.5, -50 ), Vector2( 11.833, -95.833 ), Vector2( 23.5, -38 ), Vector2( 23.5, -38 ), Vector2( 23.5, 15 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("SwordSprite:offset")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, -11 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("StrongJumpParticle:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0.55 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 55, 52 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("StrongJumpParticle:emitting")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0.55 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("AttackArea2D/CollisionShape2D:shape:extents")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 35, 52 ) ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("AttackArea2D/CollisionShape2D:position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 67, 2.5 ) ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("AttackArea2D/CollisionShape2D:disabled")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0, 0.35, 0.65, 0.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ true, false, false, true ]
 }
 
 [sub_resource type="Animation" id=17]
@@ -353,6 +869,9 @@ animations = [ {
 "speed": 6.0
 } ]
 
+[sub_resource type="RectangleShape2D" id=25]
+extents = Vector2( 45, 60 )
+
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 166.268, 50.3433 )
 
@@ -408,6 +927,9 @@ anims/RESET = SubResource( 7 )
 anims/SwordAttackCombo1_Left = SubResource( 19 )
 anims/SwordAttackCombo1_Right = SubResource( 20 )
 anims/SwordAttackCombo2_Left = SubResource( 21 )
+anims/SwordAttackCombo2_Right = SubResource( 22 )
+anims/SwordAttackCombo3_Left = SubResource( 23 )
+anims/SwordAttackCombo3_Right = SubResource( 24 )
 anims/SwordIdleLeft = SubResource( 17 )
 anims/SwordIdleRight = SubResource( 18 )
 
@@ -415,6 +937,13 @@ anims/SwordIdleRight = SubResource( 18 )
 scale = Vector2( 5.25, 5.25 )
 frames = SubResource( 16 )
 animation = "Dead"
+
+[node name="AttackArea2D" type="Area2D" parent="." groups=["Enemy"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea2D"]
+position = Vector2( -80, -6 )
+shape = SubResource( 25 )
+disabled = true
 
 [node name="Left" type="Area2D" parent="."]
 collision_layer = 129
@@ -530,6 +1059,13 @@ wait_time = 0.06
 one_shot = true
 
 [node name="SpecialAttackStateTimer" type="Timer" parent="."]
+
+[node name="StrongJumpParticle" parent="." instance=ExtResource( 5 )]
+position = Vector2( -55, 52 )
+scale = Vector2( 1.75, 1.75 )
+emitting = true
+lifetime = 0.35
+initial_velocity = 85.0
 
 [connection signal="tree_exiting" from="." to="." method="_on_Goblin_tree_exiting"]
 [connection signal="area_exited" from="Left" to="." method="_on_Left_area_exited"]

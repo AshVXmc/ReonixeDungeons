@@ -1328,6 +1328,7 @@ custom_fonts/font = SubResource( 11 )
 flat = true
 
 [node name="AgnetteControl" type="Control" parent="CharacterSkillsControl/NinePatchRect/SkillsControl"]
+visible = false
 margin_right = 40.0
 margin_bottom = 40.0
 
@@ -1780,6 +1781,7 @@ texture_normal = ExtResource( 9 )
 expand = true
 
 [node name="CharacterTalentsControl" type="Control" parent="."]
+visible = false
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5

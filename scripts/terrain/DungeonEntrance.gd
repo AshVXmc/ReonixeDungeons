@@ -73,17 +73,17 @@ func _on_CloseButtonMainUI_pressed():
 	$CharacterSelectionUI.layer = 1
 
 func _on_1_pressed():
-	destination = "res://scenes/levels/Level1.tscn"
-	$CharacterSelectionUI/Control.initialize_ui()
-	$LevelSelectionUI/Control.visible = false
-#	$LevelSelectionUI.layer = 1
+	load_level(1)
 func _on_2_pressed():
-	destination = "res://scenes/levels/Level2.tscn"
-	$CharacterSelectionUI/Control.initialize_ui()
-	$LevelSelectionUI/Control.visible = false
-#	$LevelSelectionUI.layer = 1
+	load_level(2)
 func _on_3_pressed():
-	destination = "res://scenes/levels/Level3.tscn"
+	load_level(3)
+func _on_4_pressed():
+	load_level(4)
+func _on_5_pressed():
+	load_level(5)
+
+func load_level(level : int):
+	destination = "res://scenes/levels/Level" + str(level) + ".tscn"
 	$CharacterSelectionUI/Control.initialize_ui()
 	$LevelSelectionUI/Control.visible = false
-#	$LevelSelectionUI.layer = 1

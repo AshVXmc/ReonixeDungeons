@@ -85,7 +85,6 @@ one_shot = true
 pause_mode = 2
 
 [node name="Control" type="Control" parent="LevelSelectionUI"]
-visible = false
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -214,13 +213,57 @@ custom_fonts/font = SubResource( 6 )
 text = "Level 1"
 align = 1
 
-[node name="2" type="TextureButton" parent="LevelSelectionUI/Control/NinePatchRect/ScrollContainer/VBoxContainer/Control"]
+[node name="4" type="TextureButton" parent="LevelSelectionUI/Control/NinePatchRect/ScrollContainer/VBoxContainer/Control"]
+margin_left = 20.0
+margin_top = 85.0
+margin_right = 140.0
+margin_bottom = 145.0
+rect_min_size = Vector2( 120, 60 )
+texture_normal = ExtResource( 14 )
+texture_pressed = ExtResource( 15 )
+texture_hover = ExtResource( 6 )
+expand = true
+
+[node name="Label" type="Label" parent="LevelSelectionUI/Control/NinePatchRect/ScrollContainer/VBoxContainer/Control/4"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -60.0
-margin_right = 60.0
+margin_left = -42.0
+margin_top = -16.0
+margin_right = 38.0
+margin_bottom = 16.0
+custom_fonts/font = SubResource( 6 )
+text = "Level 4"
+align = 1
+
+[node name="5" type="TextureButton" parent="LevelSelectionUI/Control/NinePatchRect/ScrollContainer/VBoxContainer/Control"]
+margin_left = 165.0
+margin_top = 85.0
+margin_right = 285.0
+margin_bottom = 145.0
+rect_min_size = Vector2( 120, 60 )
+texture_normal = ExtResource( 14 )
+texture_pressed = ExtResource( 15 )
+texture_hover = ExtResource( 6 )
+expand = true
+
+[node name="Label" type="Label" parent="LevelSelectionUI/Control/NinePatchRect/ScrollContainer/VBoxContainer/Control/5"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -42.0
+margin_top = -16.0
+margin_right = 38.0
+margin_bottom = 16.0
+custom_fonts/font = SubResource( 6 )
+text = "Level 5"
+align = 1
+
+[node name="2" type="TextureButton" parent="LevelSelectionUI/Control/NinePatchRect/ScrollContainer/VBoxContainer/Control"]
+margin_left = 165.0
+margin_right = 285.0
 margin_bottom = 60.0
 rect_min_size = Vector2( 120, 60 )
 texture_normal = ExtResource( 14 )
@@ -242,12 +285,8 @@ text = "Level 2"
 align = 1
 
 [node name="3" type="TextureButton" parent="LevelSelectionUI/Control/NinePatchRect/ScrollContainer/VBoxContainer/Control"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = 85.0
-margin_right = 205.0
+margin_left = 310.0
+margin_right = 430.0
 margin_bottom = 60.0
 rect_min_size = Vector2( 120, 60 )
 texture_normal = ExtResource( 14 )
@@ -273,5 +312,7 @@ align = 1
 [connection signal="area_exited" from="Area2D" to="." method="_on_Area2D_area_exited"]
 [connection signal="pressed" from="LevelSelectionUI/Control/NinePatchRect/CloseButtonMainUI" to="." method="_on_CloseButtonMainUI_pressed"]
 [connection signal="pressed" from="LevelSelectionUI/Control/NinePatchRect/ScrollContainer/VBoxContainer/Control/1" to="." method="_on_1_pressed"]
+[connection signal="pressed" from="LevelSelectionUI/Control/NinePatchRect/ScrollContainer/VBoxContainer/Control/4" to="." method="_on_4_pressed"]
+[connection signal="pressed" from="LevelSelectionUI/Control/NinePatchRect/ScrollContainer/VBoxContainer/Control/5" to="." method="_on_5_pressed"]
 [connection signal="pressed" from="LevelSelectionUI/Control/NinePatchRect/ScrollContainer/VBoxContainer/Control/2" to="." method="_on_2_pressed"]
 [connection signal="pressed" from="LevelSelectionUI/Control/NinePatchRect/ScrollContainer/VBoxContainer/Control/3" to="." method="_on_3_pressed"]

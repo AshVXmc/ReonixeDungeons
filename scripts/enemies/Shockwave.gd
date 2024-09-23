@@ -14,8 +14,7 @@ func _physics_process(delta):
 	translate(velocity)
 	if direction == -1:
 		$DirtParticles2D.rotation_degrees = -90
-func _on_VisibilityNotifier2D_screen_exited():
-	queue_free()
+
 
 
 
