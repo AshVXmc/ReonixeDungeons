@@ -853,8 +853,7 @@ run/main_scene="res://scenes/menus/MainMenu.tscn"
 config/use_custom_user_dir=true
 boot_splash/fullsize=false
 boot_splash/use_filter=false
-config/icon="res://icon.ico"
-config/windows_native_icon="res://icon.ico"
+config/icon="res://icon.png"
 
 [autoload]
 
@@ -885,6 +884,7 @@ singletons=[  ]
 
 window=false
 fps=false
+export=false
 
 [importer_defaults]
 

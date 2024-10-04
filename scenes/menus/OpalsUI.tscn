@@ -25,17 +25,17 @@ __meta__ = {
 
 [node name="TextureRect" type="TextureRect" parent="OpalsControl"]
 margin_left = -146.67
-margin_top = 107.894
+margin_top = 129.894
 margin_right = -130.67
-margin_bottom = 127.894
+margin_bottom = 149.894
 rect_scale = Vector2( 3, 3 )
 texture = ExtResource( 3 )
 
 [node name="Label" type="Label" parent="OpalsControl"]
 margin_left = -106.0
-margin_top = 117.0
+margin_top = 139.0
 margin_right = -46.0
-margin_bottom = 216.0
+margin_bottom = 238.0
 rect_scale = Vector2( 0.75, 0.75 )
 custom_fonts/font = SubResource( 1 )
 text = "0
