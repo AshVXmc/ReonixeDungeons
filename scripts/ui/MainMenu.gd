@@ -72,3 +72,8 @@ func _on_Tutorial_pressed():
 func _on_SetKeybinds_pressed():
 	get_tree().change_scene("res://scenes/menus/SetKeybinds.tscn")
 	call_deferred('free')
+
+
+func _on_Credits_pressed():
+	get_tree().change_scene("res://scenes/menus/CreditsUI.tscn")
+	call_deferred('free')

@@ -3671,7 +3671,7 @@ wait_time = 0.1
 one_shot = true
 
 [node name="DashCooldown" type="Timer" parent="."]
-wait_time = 0.35
+wait_time = 0.15
 autostart = true
 
 [node name="KnockbackTimer" type="Timer" parent="."]

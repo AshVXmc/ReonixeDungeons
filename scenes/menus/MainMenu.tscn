@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://scripts/ui/MainMenu.gd" type="Script" id=1]
 [ext_resource path="res://assets/UI/textbox.png" type="Texture" id=2]
@@ -29,6 +29,10 @@ font_data = ExtResource( 6 )
 
 [sub_resource type="DynamicFont" id=19]
 size = 64
+font_data = ExtResource( 6 )
+
+[sub_resource type="DynamicFont" id=21]
+size = 48
 font_data = ExtResource( 6 )
 
 [sub_resource type="DynamicFont" id=9]
@@ -145,6 +149,7 @@ text = "Controls"
 flat = true
 
 [node name="Tutorial" type="Button" parent="."]
+visible = false
 anchor_left = 0.499
 anchor_top = 0.767
 anchor_right = 0.499
@@ -175,6 +180,29 @@ custom_colors/font_color_pressed = Color( 1, 0.843137, 0.0117647, 1 )
 custom_fonts/font = SubResource( 19 )
 text = "Exit"
 flat = true
+
+[node name="Credits" type="TextureButton" parent="."]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -160.0
+margin_top = -80.0
+texture_normal = ExtResource( 9 )
+texture_pressed = ExtResource( 8 )
+expand = true
+
+[node name="Label" type="Label" parent="Credits"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -64.5
+margin_top = -24.0
+margin_right = 64.5
+margin_bottom = 24.0
+custom_fonts/font = SubResource( 21 )
+text = "Credits"
 
 [node name="NoSaveData" type="Label" parent="."]
 visible = false
@@ -344,3 +372,4 @@ script = ExtResource( 10 )
 [connection signal="pressed" from="SetKeybinds" to="." method="_on_SetKeybinds_pressed"]
 [connection signal="pressed" from="Tutorial" to="." method="_on_Tutorial_pressed"]
 [connection signal="pressed" from="Exit" to="." method="_on_Exit_pressed"]
+[connection signal="pressed" from="Credits" to="." method="_on_Credits_pressed"]

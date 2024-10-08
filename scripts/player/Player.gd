@@ -102,7 +102,7 @@ const BURNING_BREATH_TALENT : PackedScene = preload("res://scenes/particles/Burn
 var burning_breath_timer 
 onready var FULL_CHARGE_METER = preload("res://assets/UI/chargebar_full.png")
 onready var CHARGING_CHARGE_METER = preload("res://assets/UI/chargebar_charging.png")
-
+const DASH_STAMINA_COST : int = 100
 const DEFAULT_SKIN = preload("res://spriteframes/Player_Default_spriteframes.tres")
 const CYBER_NINJA_SKIN = preload("res://spriteframes/Player_CyberNinja_spriteframes.tres")
 var is_attacking : bool = false
@@ -158,6 +158,7 @@ onready var sskill_ui : TextureProgress =  get_parent().get_node("SkillsUI/Contr
 onready var tskill_ui : TextureProgress = get_parent().get_node("SkillsUI/Control/TertiarySkill/Player/Fireball/TextureProgress")
 onready var perkskill_ui : TextureProgress 
 onready var chaos_magic : PackedScene = preload("res://scenes/menus/ChaosMagicUI.tscn")
+onready var stamina_bar_ui : TextureProgress = get_parent().get_node("StaminaBarUI/StaminaBarUI/TextureProgress")
 onready var crit_rate : float = Global.player_skill_multipliers["CritRate"]
 onready var crit_damage : float = Global.player_skill_multipliers["CritDamage"]
 # when a flash appears after the 3rd string of basic attack, tap to thrust through enemies
@@ -1722,13 +1723,14 @@ func _on_RightDectector_area_entered(area):
 
 func dash():
 	
-	if !is_frozen and !is_thrust_attacking and !$DashCooldown.is_stopped() and $DashAfterJumpingDelayTimer.is_stopped():
+	if stamina_bar_ui.value >= DASH_STAMINA_COST and !is_frozen and !is_thrust_attacking and !$DashCooldown.is_stopped() and $DashAfterJumpingDelayTimer.is_stopped():
 		if $DashUseTimer.is_stopped():
 			can_dash = true
 		if !$Sprite.flip_h:
 			dashdirection = Vector2(1,0)
 		if $Sprite.flip_h:
 			dashdirection = Vector2(-1, 0)
+		stamina_bar_ui.value -= DASH_STAMINA_COST
 		if can_dash and $DashUseTimer.is_stopped():
 			attack_string_count = 4
 			mana_absorption_counter = mana_absorption_counter_max

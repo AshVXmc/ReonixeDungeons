@@ -14,9 +14,9 @@ func _ready():
 	atk_value = 2.5 * Global.enemy_level_index + 1.25
 	yield(get_tree().create_timer(0.5), "timeout")
 	$AnimationPlayer.play("SwordAttackCombo2_Left")
-	yield(get_tree().create_timer(0.25), "timeout")
+#	yield(get_tree().create_timer(0.25), "timeout")
 	$AnimationPlayer.queue("SwordAttackCombo1_Left")
-	yield(get_tree().create_timer(0.25), "timeout")
+#	yield(get_tree().create_timer(0.25), "timeout")
 	$AnimationPlayer.queue("SwordAttackCombo3_Left")
 	
 func _physics_process(delta):

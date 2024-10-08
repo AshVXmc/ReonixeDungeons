@@ -851,7 +851,7 @@ _global_script_class_icons={
 config/name="ReonixeDungeons"
 run/main_scene="res://scenes/menus/MainMenu.tscn"
 config/use_custom_user_dir=true
-boot_splash/fullsize=false
+boot_splash/image="res://assets/UI/boot_splash_screen.png"
 boot_splash/use_filter=false
 config/icon="res://icon.png"
 
