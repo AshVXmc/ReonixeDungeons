@@ -85,6 +85,7 @@ one_shot = true
 pause_mode = 2
 
 [node name="Control" type="Control" parent="LevelSelectionUI"]
+visible = false
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5

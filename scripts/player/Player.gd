@@ -105,6 +105,7 @@ onready var CHARGING_CHARGE_METER = preload("res://assets/UI/chargebar_charging.
 const DASH_STAMINA_COST : int = 100
 const DEFAULT_SKIN = preload("res://spriteframes/Player_Default_spriteframes.tres")
 const CYBER_NINJA_SKIN = preload("res://spriteframes/Player_CyberNinja_spriteframes.tres")
+const WHITE_MAGE_SKIN = preload("res://spriteframes/Player_WhiteMage_spriteframes.tres")
 var is_attacking : bool = false
 var is_dead : bool = false
 var is_invulnerable : bool = false
@@ -1722,7 +1723,6 @@ func _on_RightDectector_area_entered(area):
 
 
 func dash():
-	
 	if stamina_bar_ui.value >= DASH_STAMINA_COST and !is_frozen and !is_thrust_attacking and !$DashCooldown.is_stopped() and $DashAfterJumpingDelayTimer.is_stopped():
 		if $DashUseTimer.is_stopped():
 			can_dash = true

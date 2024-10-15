@@ -694,6 +694,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/misc/TutorialLevel.gd"
 }, {
+"base": "Node2D",
+"class": "Wardrobe",
+"language": "GDScript",
+"path": "res://scripts/items/Wardrobe.gd"
+}, {
 "base": "Particles2D",
 "class": "WinterQueen",
 "language": "GDScript",
@@ -842,6 +847,7 @@ _global_script_class_icons={
 "TargetingMissile": "",
 "TempusTardus": "",
 "TutorialLevel": "",
+"Wardrobe": "",
 "WinterQueen": "",
 "WitchGoblin": ""
 }
@@ -854,6 +860,7 @@ config/use_custom_user_dir=true
 boot_splash/image="res://assets/UI/boot_splash_screen.png"
 boot_splash/use_filter=false
 config/icon="res://icon.png"
+config/windows_native_icon="res://icon.ico"
 
 [autoload]
 
@@ -861,7 +868,7 @@ Global="*res://scripts/singleton/Global.gd"
 
 [debug]
 
-settings/fps/force_fps=60
+settings/fps/force_fps=120
 gdscript/warnings/return_value_discarded=false
 
 [display]
@@ -871,6 +878,7 @@ window/size/height=720
 window/size/always_on_top=true
 window/size/test_width=1080
 window/size/test_height=720
+window/vsync/use_vsync=false
 
 [editor_plugins]
 

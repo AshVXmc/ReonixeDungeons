@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=2]
+[gd_scene load_steps=35 format=2]
 
 [ext_resource path="res://scripts/enemies/MaskedGoblin.gd" type="Script" id=1]
 [ext_resource path="res://assets/enemies/bosses/masked_goblin_2.png" type="Texture" id=2]
@@ -32,6 +32,23 @@ tracks/0/keys = {
 "values": [ {
 "args": [  ],
 "method": "death"
+} ]
+}
+
+[sub_resource type="Animation" id=26]
+resource_name = "EndAttackAnimation"
+tracks/0/type = "method"
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "end_attack_animation"
 } ]
 }
 
@@ -939,6 +956,7 @@ texture = ExtResource( 4 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/Death = SubResource( 6 )
+anims/EndAttackAnimation = SubResource( 26 )
 anims/RESET = SubResource( 7 )
 anims/SwordAttackCombo1_Left = SubResource( 19 )
 anims/SwordAttackCombo1_Right = SubResource( 20 )
