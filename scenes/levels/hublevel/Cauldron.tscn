@@ -24,6 +24,10 @@ extents = Vector2( 56.3815, 59.0309 )
 size = 48
 font_data = ExtResource( 2 )
 
+[sub_resource type="DynamicFont" id=10]
+size = 64
+font_data = ExtResource( 2 )
+
 [sub_resource type="ParticlesMaterial" id=4]
 lifetime_randomness = 0.3
 emission_shape = 2
@@ -56,10 +60,6 @@ font_data = ExtResource( 2 )
 [sub_resource type="DynamicFont" id=14]
 font_data = ExtResource( 2 )
 
-[sub_resource type="DynamicFont" id=10]
-size = 64
-font_data = ExtResource( 2 )
-
 [node name="Cauldron" type="Node2D"]
 script = ExtResource( 10 )
 
@@ -85,6 +85,20 @@ bbcode_enabled = true
 bbcode_text = "[b]Use[/b] [img=40]res://assets/UI/icon_Empty.png[/img]"
 text = "Use "
 scroll_active = false
+
+[node name="Keybind" type="Label" parent="."]
+anchor_left = -3.732
+anchor_right = -3.732
+margin_left = 26.7341
+margin_top = -70.0
+margin_right = 54.7341
+margin_bottom = -6.0
+rect_scale = Vector2( 0.75, 0.75 )
+custom_colors/font_color = Color( 0.192157, 0.372549, 1, 1 )
+custom_fonts/font = SubResource( 10 )
+text = "R"
+align = 1
+valign = 1
 
 [node name="BubbleParticles" type="Particles2D" parent="."]
 scale = Vector2( 2, 2 )
@@ -383,20 +397,6 @@ rect_scale = Vector2( 1.5, 1.5 )
 custom_fonts/font = SubResource( 14 )
 text = "Power potion"
 autowrap = true
-
-[node name="Keybind" type="Label" parent="."]
-anchor_left = -3.732
-anchor_right = -3.732
-margin_left = 26.7341
-margin_top = -70.0
-margin_right = 54.7341
-margin_bottom = -6.0
-rect_scale = Vector2( 0.75, 0.75 )
-custom_colors/font_color = Color( 0.192157, 0.372549, 1, 1 )
-custom_fonts/font = SubResource( 10 )
-text = "R"
-align = 1
-valign = 1
 
 [connection signal="pressed" from="Plaque/Control/HealthPotionRecipe/CraftButton" to="." method="_on_CraftHealthPotionButton_pressed"]
 [connection signal="pressed" from="Plaque/Control/CloseButton" to="." method="_on_CloseButton_pressed"]

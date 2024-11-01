@@ -1,6 +1,6 @@
 class_name Cauldron extends Node2D
 
-onready var PLAYER = get_parent().get_parent().get_node("Player").get_node("Area2D")
+onready var PLAYER : Area2D = get_parent().get_parent().get_node("Player").get_node("Area2D")
 export var Paid : bool = false
 onready var HEALTH_POTION = preload("res://assets/misc/health_pot.png")
 onready var MANA_POTION = preload("res://assets/misc/mana_pot.png")

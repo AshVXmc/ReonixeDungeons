@@ -182,7 +182,7 @@ func _ready():
 	if Global.current_character == "Player":
 		$Sprite.visible = true
 	update_perk_skill()
-	
+	change_skin(Global.equipped_character_skins["Player"])
 
 #	perkskill_ui = get_parent().get_node("SkillsUI/Control/PerkSkill/Player/CreateSugarRoll/TextureProgress")
 	$TalentsNode2D/BurningBreathCDTimer.wait_time = Global.player_talents["BurningBreath"]["cooldown"]
@@ -285,22 +285,30 @@ func update_perk_skill():
 		if !has_node("ChaosMagicUI"):
 			add_child(chaos_magic.instance())
 		
-func change_skin(skin_name):
+func change_skin(skin_name : String):
 	match skin_name:
-		DEFAULT_SKIN:
+		"DEFAULT_SKIN":
 			$Sprite.frames = DEFAULT_SKIN
 			$SwordSprite.texture = KATANA
 			$KatanaSheathSprite.texture = SHEATHED
 			$Sprite.scale.x = 5
 			$Sprite.scale.y = 5
 			$Sprite.position.y = 0
-		CYBER_NINJA_SKIN:
+		"WHITE_MAGE_SKIN":
+			$Sprite.frames = WHITE_MAGE_SKIN
+			$SwordSprite.texture = KATANA
+			$KatanaSheathSprite.texture = SHEATHED
+			$Sprite.scale.x = 5
+			$Sprite.scale.y = 5
+			$Sprite.position.y = 0
+		"CYBER_NINJA_SKIN":
 			$Sprite.frames = CYBER_NINJA_SKIN
 			$SwordSprite.texture = KATANA_CYBERNINJA
 			$KatanaSheathSprite.texture = SHEATHED_CYBERNINJA
 			$Sprite.scale.x = 6
 			$Sprite.scale.y = 6
 			$Sprite.position.y = -10
+	Global.equipped_character_skins["Player"] = skin_name
 func quickswap_event(trigger_name : String):
 	match trigger_name:
 		"Glaciela":
@@ -1998,9 +2006,11 @@ func debug_commands(cmd : String):
 			for enemy in get_tree().get_nodes_in_group("Enemy"):
 				enemy.queue_free()
 		"cyberninja":
-			change_skin(CYBER_NINJA_SKIN)
+			change_skin("CYBER_NINJA_SKIN")
+		"whitemage":
+			change_skin("WHITE_MAGE_SKIN")
 		"defskin":
-			change_skin(DEFAULT_SKIN)
+			change_skin("DEFAULT_SKIN")
 # Utility functions
 
 func toggle_shopping(value : bool ):
@@ -2234,6 +2244,10 @@ func _on_GhostTrailTimer_timeout():
 				ghost_trail.scale.y = 5
 			elif $Sprite.frames == CYBER_NINJA_SKIN:
 				ghost_trail.texture = preload("res://assets/characters/player/skins/cyber_ninja/player_idle.png")
+				ghost_trail.scale.x = 6
+				ghost_trail.scale.y = 6
+			elif $Sprite.frames == WHITE_MAGE_SKIN:
+				ghost_trail.texture = preload("res://assets/characters/player/skins/white_mage/player_idle.png")
 				ghost_trail.scale.x = 6
 				ghost_trail.scale.y = 6
 			get_parent().add_child(ghost_trail)

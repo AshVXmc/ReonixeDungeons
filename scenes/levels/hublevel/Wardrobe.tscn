@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://assets/gacha/gachapon_machine.png" type="Texture" id=1]
 [ext_resource path="res://assets/fonts/Born2bSportyV2.ttf" type="DynamicFontData" id=2]
@@ -8,6 +8,10 @@
 [ext_resource path="res://assets/characters/player/player_idle.png" type="Texture" id=6]
 [ext_resource path="res://assets/UI/dialogue_background_large.png" type="Texture" id=7]
 [ext_resource path="res://assets/UI/quiticon.png" type="Texture" id=8]
+[ext_resource path="res://assets/characters/player/skins/cyber_ninja/player_idle.png" type="Texture" id=9]
+[ext_resource path="res://assets/characters/player/skins/white_mage/player_idle.png" type="Texture" id=10]
+[ext_resource path="res://assets/UI/button_pressed.png" type="Texture" id=11]
+[ext_resource path="res://assets/UI/button.png" type="Texture" id=12]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 55, 55 )
@@ -35,6 +39,12 @@ font_data = ExtResource( 2 )
 [sub_resource type="DynamicFont" id=7]
 font_data = ExtResource( 2 )
 
+[sub_resource type="DynamicFont" id=8]
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=9]
+font_data = ExtResource( 2 )
+
 [node name="Wardrobe" type="Node2D"]
 script = ExtResource( 3 )
 
@@ -49,6 +59,7 @@ position = Vector2( 5, 15.5 )
 shape = SubResource( 1 )
 
 [node name="Label" type="RichTextLabel" parent="."]
+visible = false
 margin_left = -59.0
 margin_top = -131.0
 margin_right = 85.0
@@ -61,6 +72,7 @@ text = "Use "
 scroll_active = false
 
 [node name="Keybind" type="Label" parent="."]
+visible = false
 anchor_left = -3.732
 anchor_right = -3.732
 margin_left = 26.7341
@@ -78,6 +90,7 @@ valign = 1
 pause_mode = 2
 
 [node name="Control" type="Control" parent="WardrobeUI"]
+visible = false
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -221,6 +234,113 @@ custom_colors/font_color = Color( 1, 1, 1, 1 )
 custom_fonts/font = SubResource( 7 )
 text = "Current Skin"
 
+[node name="DefaultSkin" type="Sprite" parent="WardrobeUI/Control/NinePatchRect/ScrollContainer/VBoxContainer/PlayerControl"]
+position = Vector2( 180, 70 )
+scale = Vector2( 3, 3 )
+texture = ExtResource( 6 )
+
+[node name="DefaultSkinLabel" type="Label" parent="WardrobeUI/Control/NinePatchRect/ScrollContainer/VBoxContainer/PlayerControl"]
+margin_left = 211.0
+margin_top = 34.0
+margin_right = 280.0
+margin_bottom = 50.0
+rect_scale = Vector2( 1.25, 1.25 )
+custom_colors/font_color = Color( 1, 0.843137, 0.0117647, 1 )
+custom_fonts/font = SubResource( 8 )
+text = "Default"
+align = 1
+
+[node name="DefaultSkinSelectButton" type="TextureButton" parent="WardrobeUI/Control/NinePatchRect/ScrollContainer/VBoxContainer/PlayerControl"]
+margin_left = 215.0
+margin_top = 57.0
+margin_right = 295.0
+margin_bottom = 97.0
+texture_normal = ExtResource( 12 )
+texture_pressed = ExtResource( 11 )
+expand = true
+
+[node name="Label" type="Label" parent="WardrobeUI/Control/NinePatchRect/ScrollContainer/VBoxContainer/PlayerControl/DefaultSkinSelectButton"]
+margin_left = 13.0
+margin_top = 9.0
+margin_right = 49.0
+margin_bottom = 25.0
+rect_scale = Vector2( 1.5, 1.5 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_fonts/font = SubResource( 9 )
+text = "Select"
+align = 1
+
 [node name="WhiteMage" type="Sprite" parent="WardrobeUI/Control/NinePatchRect/ScrollContainer/VBoxContainer/PlayerControl"]
+position = Vector2( 332, 70 )
+scale = Vector2( 3, 3 )
+texture = ExtResource( 10 )
+
+[node name="WhiteMageLabel" type="Label" parent="WardrobeUI/Control/NinePatchRect/ScrollContainer/VBoxContainer/PlayerControl"]
+margin_left = 363.0
+margin_top = 34.0
+margin_right = 432.0
+margin_bottom = 50.0
+rect_scale = Vector2( 1.25, 1.25 )
+custom_colors/font_color = Color( 1, 0.843137, 0.0117647, 1 )
+custom_fonts/font = SubResource( 8 )
+text = "White Mage"
+
+[node name="WhiteMageSelectButton" type="TextureButton" parent="WardrobeUI/Control/NinePatchRect/ScrollContainer/VBoxContainer/PlayerControl"]
+margin_left = 367.0
+margin_top = 57.0
+margin_right = 447.0
+margin_bottom = 97.0
+texture_normal = ExtResource( 12 )
+texture_pressed = ExtResource( 11 )
+expand = true
+
+[node name="Label" type="Label" parent="WardrobeUI/Control/NinePatchRect/ScrollContainer/VBoxContainer/PlayerControl/WhiteMageSelectButton"]
+margin_left = 13.0
+margin_top = 9.0
+margin_right = 49.0
+margin_bottom = 25.0
+rect_scale = Vector2( 1.5, 1.5 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_fonts/font = SubResource( 9 )
+text = "Select"
+align = 1
+
+[node name="CyberNinja" type="Sprite" parent="WardrobeUI/Control/NinePatchRect/ScrollContainer/VBoxContainer/PlayerControl"]
+position = Vector2( 180, 150 )
+scale = Vector2( 3, 3 )
+texture = ExtResource( 9 )
+
+[node name="CyberNinjaLabel" type="Label" parent="WardrobeUI/Control/NinePatchRect/ScrollContainer/VBoxContainer/PlayerControl"]
+margin_left = 211.0
+margin_top = 120.0
+margin_right = 280.0
+margin_bottom = 136.0
+rect_scale = Vector2( 1.25, 1.25 )
+custom_colors/font_color = Color( 1, 0.843137, 0.0117647, 1 )
+custom_fonts/font = SubResource( 8 )
+text = "Cyber Ninja"
+
+[node name="CyberNinjaSelectButton" type="TextureButton" parent="WardrobeUI/Control/NinePatchRect/ScrollContainer/VBoxContainer/PlayerControl"]
+margin_left = 215.0
+margin_top = 144.0
+margin_right = 295.0
+margin_bottom = 184.0
+texture_normal = ExtResource( 12 )
+texture_pressed = ExtResource( 11 )
+expand = true
+
+[node name="Label" type="Label" parent="WardrobeUI/Control/NinePatchRect/ScrollContainer/VBoxContainer/PlayerControl/CyberNinjaSelectButton"]
+margin_left = 13.0
+margin_top = 9.0
+margin_right = 49.0
+margin_bottom = 25.0
+rect_scale = Vector2( 1.5, 1.5 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_fonts/font = SubResource( 9 )
+text = "Select"
+align = 1
 
 [connection signal="pressed" from="WardrobeUI/Control/NinePatchRect/CloseButtonMainUI" to="." method="_on_CloseButtonMainUI_pressed"]
+[connection signal="pressed" from="WardrobeUI/Control/NinePatchRect/ScrollContainer/VBoxContainer/PlayerControl/DefaultSkinSelectButton" to="." method="_on_DefaultSkinSelectButton_pressed"]
+[connection signal="pressed" from="WardrobeUI/Control/NinePatchRect/ScrollContainer/VBoxContainer/PlayerControl/WhiteMageSelectButton" to="." method="_on_WhiteMageSelectButton_pressed"]
+[connection signal="pressed" from="WardrobeUI/Control/NinePatchRect/ScrollContainer/VBoxContainer/PlayerControl/CyberNinjaSelectButton" to="." method="_on_CyberNinjaSelectButton_pressed"]

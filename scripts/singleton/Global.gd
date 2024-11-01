@@ -50,6 +50,16 @@ const actions : Array = [
 	"primary_skill", "secondary_skill",
 	"dash", "perfect_dash"
 ]
+var equipped_character_skins_data : Dictionary = {
+	"Player": "DEFAULT_SKIN",
+	"Glaciela": "DEFAULT_SKIN",
+	"Agnette": "DEFAULT_SKIN"
+}
+var equipped_character_skins : Dictionary = {
+	"Player": "DEFAULT_SKIN",
+	"Glaciela": "DEFAULT_SKIN",
+	"Agnette": "DEFAULT_SKIN"
+}
 
 # attack_power is the player's atk
 var attack_power : int = 20
@@ -548,7 +558,7 @@ func reset_player_data():
 	Global.player_talents = Global.player_talents_data
 	Global.player_perks = Global.player_perks_data
 	Global.glaciela_talents = Global.glaciela_talents_data
-	
+	Global.equipped_character_skins = Global.equipped_character_skins_data
 	
 	Global.soul_token_amount = 0
 
@@ -624,7 +634,7 @@ func save_player_data():
 		"UnlockedCharacters": Global.unlocked_characters,
 		"IsLoadingASave": Global.is_loading_a_save,
 		"PlayerPosition": Global.player_position,
-
+		"EquippedSkins": Global.equipped_character_skins,
 		# Equipped skills
 		# Levels
 		"PlayerSkillMultipliers": Global.player_skill_multipliers,
