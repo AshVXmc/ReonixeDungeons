@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://scripts/items/LevelTransporter.gd" type="Script" id=1]
 [ext_resource path="res://assets/terrain/door.png" type="Texture" id=2]
@@ -6,11 +6,17 @@
 [ext_resource path="res://assets/fonts/Born2bSportyV2.ttf" type="DynamicFontData" id=4]
 [ext_resource path="res://assets/UI/textbox.png" type="Texture" id=5]
 [ext_resource path="res://themes/Blur.tres" type="Material" id=6]
+[ext_resource path="res://shaders/outline2D_outer.gdshader" type="Shader" id=7]
 [ext_resource path="res://assets/UI/long_button.png" type="Texture" id=10]
 [ext_resource path="res://assets/UI/long_button_pressed.png" type="Texture" id=11]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 39.25, 50.4134 )
+
+[sub_resource type="ShaderMaterial" id=7]
+shader = ExtResource( 7 )
+shader_param/line_color = Color( 1, 0.843137, 0.0117647, 1 )
+shader_param/line_thickness = 0.4
 
 [sub_resource type="DynamicFont" id=2]
 size = 64
@@ -43,6 +49,7 @@ position = Vector2( 0.25, -10.0113 )
 shape = SubResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="."]
+material = SubResource( 7 )
 position = Vector2( 1.49829, -8.25084 )
 scale = Vector2( 5, 5 )
 texture = ExtResource( 2 )

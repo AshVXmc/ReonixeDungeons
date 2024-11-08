@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/gachapon_machine_3.png-babd5bfa4ff5b417d9e44c8f6e4aa52d.stex"
+path="res://.import/wardrobe.png-dbbd3e0cd77b4554dc2b8e2460a673ea.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/gacha/gachapon_machine_3.png"
-dest_files=[ "res://.import/gachapon_machine_3.png-babd5bfa4ff5b417d9e44c8f6e4aa52d.stex" ]
+source_file="res://assets/terrain/wardrobe.png"
+dest_files=[ "res://.import/wardrobe.png-dbbd3e0cd77b4554dc2b8e2460a673ea.stex" ]
 
 [params]
 

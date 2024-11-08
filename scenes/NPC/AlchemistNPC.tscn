@@ -1,9 +1,10 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://assets/NPC/alchemist_3.png" type="Texture" id=1]
 [ext_resource path="res://assets/NPC/alchemist_1.png" type="Texture" id=2]
 [ext_resource path="res://scripts/NPCs/AlchemistNPC.gd" type="Script" id=3]
 [ext_resource path="res://assets/NPC/alchemist_2.png" type="Texture" id=4]
+[ext_resource path="res://shaders/outline2D_outer.gdshader" type="Shader" id=5]
 [ext_resource path="res://assets/fonts/Born2bSportyV2.ttf" type="DynamicFontData" id=7]
 
 [sub_resource type="RectangleShape2D" id=2]
@@ -36,6 +37,11 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id=6]
 length = 0.001
+
+[sub_resource type="ShaderMaterial" id=15]
+shader = ExtResource( 5 )
+shader_param/line_color = Color( 1, 0.843137, 0.0117647, 1 )
+shader_param/line_thickness = 0.7
 
 [node name="AlchemistNPC" type="Node2D"]
 script = ExtResource( 3 )
@@ -78,6 +84,7 @@ anims/Idle = SubResource( 5 )
 anims/RESET = SubResource( 6 )
 
 [node name="Sprite" type="Sprite" parent="."]
+material = SubResource( 15 )
 position = Vector2( 0, 10 )
 scale = Vector2( 5, 5 )
 texture = ExtResource( 1 )

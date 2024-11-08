@@ -1,7 +1,8 @@
-[gd_scene load_steps=27 format=2]
+[gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://assets/terrain/cauldron.png" type="Texture" id=1]
 [ext_resource path="res://assets/fonts/Born2bSportyV2.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://shaders/outline2D_outer.gdshader" type="Shader" id=3]
 [ext_resource path="res://assets/UI/quiticon.png" type="Texture" id=4]
 [ext_resource path="res://assets/misc/goblin_scales.png" type="Texture" id=5]
 [ext_resource path="res://assets/particles/cauldron_bubble_particle.png" type="Texture" id=6]
@@ -16,6 +17,11 @@
 [ext_resource path="res://assets/UI/long_button_pressed.png" type="Texture" id=15]
 [ext_resource path="res://assets/misc/mana_pot.png" type="Texture" id=16]
 [ext_resource path="res://assets/misc/power_pot.png" type="Texture" id=17]
+
+[sub_resource type="ShaderMaterial" id=15]
+shader = ExtResource( 3 )
+shader_param/line_color = Color( 1, 0.843137, 0.0117647, 1 )
+shader_param/line_thickness = 0.7
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 56.3815, 59.0309 )
@@ -64,6 +70,7 @@ font_data = ExtResource( 2 )
 script = ExtResource( 10 )
 
 [node name="Sprite" type="Sprite" parent="."]
+material = SubResource( 15 )
 position = Vector2( -0.35199, 46.2996 )
 scale = Vector2( 5, 5 )
 texture = ExtResource( 1 )

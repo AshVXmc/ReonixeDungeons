@@ -1,11 +1,17 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://scripts/items/HouseDoorTransporter.gd" type="Script" id=1]
 [ext_resource path="res://assets/terrain/hub_level/door_house.png" type="Texture" id=2]
+[ext_resource path="res://shaders/outline2D_outer.gdshader" type="Shader" id=3]
 [ext_resource path="res://assets/fonts/Born2bSportyV2.ttf" type="DynamicFontData" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 25.7144, 27.9508 )
+
+[sub_resource type="ShaderMaterial" id=3]
+shader = ExtResource( 3 )
+shader_param/line_color = Color( 1, 0.843137, 0.0117647, 1 )
+shader_param/line_thickness = 0.375
 
 [sub_resource type="DynamicFont" id=2]
 size = 48
@@ -22,6 +28,7 @@ position = Vector2( 0.163406, 11.9513 )
 shape = SubResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="."]
+material = SubResource( 3 )
 scale = Vector2( 5, 5 )
 texture = ExtResource( 2 )
 
