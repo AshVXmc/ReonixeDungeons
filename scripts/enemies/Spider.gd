@@ -4,7 +4,6 @@ class_name Spider extends KinematicBody2D
 enum clingside {Down, Left, Right}
 export (clingside) var Cling
 
-var HP : int = 2
 var velocity : Vector2 = Vector2()
 var is_dead : bool = false 
 var direction : int = 1
@@ -12,12 +11,32 @@ var jumping : int = 1
 const TYPE : String = "Enemy"
 const FLOOR_DOWN = Vector2(0, 1)
 const FLOOR_LEFT = Vector2(-1, 0)
-const SPEED : int = -100
-const GRAVITY : int = -45
+var SPEED : int = -100
+var GRAVITY : int = -45
 const LOOT : PackedScene = preload("res://scenes/items/LootBag.tscn")
-
+const DEATH_SMOKE : PackedScene = preload("res://scenes/particles/DeathSmokeParticle.tscn")
+const DMG_INDICATOR : PackedScene = preload("res://scenes/particles/DamageIndicatorParticle.tscn")
+var max_HP : int = Global.enemy_level_index * 30 + 35
+var level_calc : int = round(Global.enemy_level_index)
+export var level : int = level_calc
+var HP : int = max_HP
+var is_frozen = false
+var is_airborne = false
+var phys_res : float = 0
+var fire_res : float = 0
+var earth_res : float = 0 
+var ice_res : float = 0
+var global_res : float = 0
+var debuff_damage_multiplier = 1
+var armor_strength_coefficient = 1
+var is_staggered : bool = false
 func _ready():
 	$JumpTimer.start()
+	if Cling == clingside.Down:
+		$LevelLabel.rect_rotation = 180
+	$LevelLabel.text = "Lv " + str(level)
+	$HealthBar.max_value = max_HP
+	
 func _physics_process(delta):
 	if Cling == clingside.Down:
 		if direction == 1 and !is_dead:
@@ -44,39 +63,241 @@ func _physics_process(delta):
 			direction *= -1
 			$RayCast2D.position.x *= -1
 
+
 func _on_Area2D_area_entered(area):
-	if HP > 0:
+	var groups_to_remove : Array = [
+		"Sword", "SwordCharged", "Fireball", "Ice",
+		"physics_process", "FireGauge", "FireGaugeTwo", "LightKnockback"
+	]
+#	if !is_frozen:
+#		if is_airborne:
+#			if !area.is_in_group("NoAirborneKnockback") and area.is_in_group("LightPoiseDamage") or area.is_in_group("MediumPoiseDamage"):
+#				knockback(2.5)
+#		else:
+#			if area.is_in_group("LightPoiseDamage"):
+#				knockback(2.5)
+#
+#		if area.is_in_group("MediumPoiseDamage"):
+#			knockback(12)
+#		if area.is_in_group("HeavyPoiseDamage"):
+#			knockback(25)
+#		if area.is_in_group("CustomPoiseDamage"):
+#			for g in area.get_groups():
+#				if float(g) != 0:
+#					knockback(float(g))
+
+	if weakref(area).get_ref() != null:
 		if area.is_in_group("Sword"):
-			HP -= 1
-			set_modulate(Color(2,0.5,0.3,1))
-			velocity.x = 0
-			$HurtTimer.start()
-		elif area.is_in_group("Fireball"):
-			HP -= 1
-			set_modulate(Color(2,0.5,0.3,1))
-			velocity.x = 0
-			$HurtTimer.start()
-		elif area.is_in_group("Sword2"):
-			HP -= 3
-			set_modulate(Color(2,0.5,0.3,1))
-			velocity.x = 0
-			$HurtTimer.start()
+			var groups : Array = area.get_groups()
+			for group_names in groups:
+				if float(group_names) != 0 and $HitDelayTimer.is_stopped():
+					var raw_damage = float(group_names)
+					var damage_after_global_res = raw_damage - (raw_damage * (global_res / 100))
+					var damage = round(debuff_damage_multiplier * (damage_after_global_res - (damage_after_global_res * (phys_res / 100))) * armor_strength_coefficient)
+					print("HP reduced by " + str(damage))
+					HP -= float(damage)
+					$HealthBar.value  -= float(damage)
+					if area.is_in_group("IsCritHit"):
+						
+						add_damage_particles("Physical", float(damage), true)
+					else:
+						add_damage_particles("Physical", float(damage), false)
+					$HitDelayTimer.start()
+					parse_damage()
+					break
+					
+		if area.is_in_group("SwordCharged"):
+				var groups : Array = area.get_groups()
+				for group_names in groups:
+					if float(group_names) != 0:
+						var raw_damage = float(group_names)
+						var damage_after_global_res = raw_damage - (raw_damage * (global_res / 100))
+						var damage = (debuff_damage_multiplier * (damage_after_global_res - (damage_after_global_res * (phys_res / 100))) * armor_strength_coefficient)
+						print("HP reduced by " + str(damage))
+						HP -= float(damage)
+						$HealthBar.value  -= float(damage)
+						if area.is_in_group("IsCritHit"):
+							add_damage_particles("Physical", float(damage), true)
+						else:
+							add_damage_particles("Physical", float(damage), false)
+						parse_damage()
+						break
+				
+		if area.is_in_group("Fireball"):
+			var groups : Array = area.get_groups()
+			for group_names in groups:
+				if float(group_names) != 0 and $HitDelayTimer.is_stopped():
+					var raw_damage = float(group_names)
+					var damage_after_global_res = raw_damage - (raw_damage * (global_res / 100))
+					var damage = round(debuff_damage_multiplier * (damage_after_global_res - (damage_after_global_res * (fire_res / 100))) * armor_strength_coefficient)
+					print("HP reduced by " + str(damage))
+					HP -= float(damage)
+					$HealthBar.value  -= float(damage)
+					if area.is_in_group("IsCritHit"):
+						
+						add_damage_particles("Fire", float(damage), true)
+					else:
+						add_damage_particles("Fire", float(damage), false)
+					$HitDelayTimer.start()
+					if area.is_in_group("NoStagger"):
+						parse_damage(false)
+					else:
+						parse_damage()
+					break
+		
+		
+		if area.is_in_group("Ice"):
+			print("ice entered")
+			var groups : Array = area.get_groups()
+			for group_names in groups:
+				if float(group_names) != 0 and $HitDelayTimer.is_stopped():
+					var raw_damage = float(group_names)
+					var damage_after_global_res = raw_damage - (raw_damage * (global_res / 100))
+					var damage = round(debuff_damage_multiplier * (damage_after_global_res - (damage_after_global_res * (ice_res / 100))) * armor_strength_coefficient)
+					print("HP reduced by " + str(damage))
+					HP -= float(damage)
+					$HealthBar.value  -= float(damage)
+					if area.is_in_group("IsCritHit"):
+						
+						add_damage_particles("Ice", float(damage), true)
+					else:
+						add_damage_particles("Ice", float(damage), false)
+					$HitDelayTimer.start()
+					if area.is_in_group("NoStagger"):
+						parse_damage(false)
+					else:
+						parse_damage()
+					break
+		if area.is_in_group("Earth"):
+			var groups : Array = area.get_groups()
+			for group_names in groups:
+				if float(group_names) != 0 and $HitDelayTimer.is_stopped():
+					var raw_damage = float(group_names)
+					var damage_after_global_res = raw_damage - (raw_damage * (global_res / 100))
+					var damage = round(debuff_damage_multiplier * (damage_after_global_res - (damage_after_global_res * (earth_res / 100))) * armor_strength_coefficient)
+					print("HP reduced by " + str(damage))
+					HP -= float(damage)
+					$HealthBar.value  -= float(damage)
+					if area.is_in_group("IsCritHit"):
+						
+						add_damage_particles("Earth", float(damage), true)
+					else:
+						add_damage_particles("Earth", float(damage), false)
+					$HitDelayTimer.start()
+					if area.is_in_group("NoStagger"):
+						parse_damage(false)
+					else:
+						parse_damage()
+					break
+		if area.is_in_group("FireGauge"):
+			pass
+		if area.is_in_group("Burning"):
+			var groups : Array = area.get_groups()
+			for group_names in groups:
+				if $HitDelayTimer.is_stopped():
+					var damage = debuff_damage_multiplier * max_HP * 0.08
+#					print("AAAGH IT BURNS")
+#					var raw_damage = float(group_names)
+#					var damage_after_global_res = raw_damage - (raw_damage * (global_res / 100))
+#					var damage = round((damage_after_global_res - (damage_after_global_res * (fire_res / 100))) * armor_strength_coefficient)
+#					print("HP reduced by " + str(damage))
+					HP -= float(damage)
+					$HealthBar.value  -= float(damage)
+					if area.is_in_group("IsCritHit"):
+						
+						add_damage_particles("Fire", float(damage), true)
+					else:
+						add_damage_particles("Fire", float(damage), false)
+					$HitDelayTimer.start()
+					parse_damage(false)
+					break
+#		if area.is_in_group("Airborne") and !is_airborne:
+#			is_airborne = true
+#			velocity.y = 0
+#			velocity.y = AIRBORNE_SPEED
+##			print(velocity.y)
+#			yield(get_tree().create_timer(0.05), "timeout")
+#			velocity.y = 0
+		if area.is_in_group("Player"):
+			is_staggered = true
+			yield(get_tree().create_timer(0.5), "timeout")
+			is_staggered = false
+
+		if area.is_in_group("Frozen"):
+			is_frozen = true
+		
+		if area.is_in_group("TempusTardus"):
+			SPEED *= 0.05
+			velocity.y = 0
+			GRAVITY *= 0.05
+			$AnimatedSprite.speed_scale = 0.1
+		
+#		if is_airborne:
+#			if !area.is_in_group("NoAirborneKnockback") and area.is_in_group("LightPoiseDamage") or area.is_in_group("MediumPoiseDamage"):
+#				knockback(1)
+#		else:
+#			if area.is_in_group("LightPoiseDamage"):
+#				knockback(1)
+#
+#		if area.is_in_group("MediumPoiseDamage"):
+#			knockback(3.5)
+#		if area.is_in_group("HeavyPoiseDamage"):
+#			knockback(10)
+			
+func parse_damage(staggers:bool = true):
+	if staggers:
+		is_staggered = true
+	$AnimatedSprite.set_modulate(Color(2,0.5,0.3,1))
+	$HurtTimer.start()
+	if HP <= 0:
+		drop_loot()
+		death()
+		
+func add_damage_particles(type : String, dmg : int, is_crit : bool):
+	var dmgparticle = DMG_INDICATOR.instance()
+	dmgparticle.is_crit = is_crit
+	dmgparticle.damage_type = type
+	dmgparticle.damage = dmg
+	get_parent().add_child(dmgparticle)
+	dmgparticle.position = global_position
 	
-	drop_loot()
-	
+func death():
+	is_dead = true
+	var deathparticle = DEATH_SMOKE.instance()
+	deathparticle.emitting = true
+	deathparticle.position = global_position
+	get_parent().add_child(deathparticle)
+	yield(get_tree().create_timer(0.3), "timeout")
+	if Global.player_talents["SoulSiphon"]["unlocked"] and Global.player_talents["SoulSiphon"]["enabled"]:
+		var rng = RandomNumberGenerator.new()
+		rng.randomize()
+		var num = rng.randi_range(1,100)
+		if num <= Global.player_talents["SoulSiphon"]["dropchance"]:
+			var soul_orb = preload("res://scenes/skills/SoulOrb.tscn").instance()
+			get_parent().add_child(soul_orb)
+			soul_orb.position = global_position
+	drop_mana_bits(2)
+	call_deferred('free')
+	Global.enemies_killed += 1
+
 func drop_loot():
-	var loot := LOOT.instance()
+	var loot = LOOT.instance()
 	var lootrng : RandomNumberGenerator = RandomNumberGenerator.new()
 	lootrng.randomize()
-	var randomint : int = lootrng.randi_range(1,4)
-	if HP <= 0:
-		if randomint == 1:
-			get_parent().add_child(loot)
-			loot.position = global_position
-		queue_free()
-		Global.enemies_killed += 1
+	var randomint = lootrng.randi_range(1,2)
+	if randomint == 1:
+		get_parent().add_child(loot)
+		loot.position = global_position
 
+func drop_mana_bits(amount : int):
+	var counter : int = 0
+	while counter < amount:
+		var mana_bit = preload("res://scenes/misc/ManaBits.tscn").instance()
+		get_parent().add_child(mana_bit)
+		mana_bit.position = global_position
+		counter += 1
 
 func _on_HurtTimer_timeout():
+	is_staggered = false
 	velocity.x = SPEED * direction
-	set_modulate(Color(1,1,1,1))
+	$AnimatedSprite.set_modulate(Color(1,1,1,1))

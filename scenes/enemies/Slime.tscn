@@ -97,10 +97,6 @@ value = 100.0
 texture_under = ExtResource( 4 )
 texture_progress = ExtResource( 3 )
 
-[node name="HitDelayTimer" type="Timer" parent="."]
-wait_time = 0.06
-one_shot = true
-
 [node name="LevelLabel" type="Label" parent="."]
 margin_left = -28.0
 margin_top = -96.0
@@ -110,13 +106,16 @@ custom_fonts/font = SubResource( 3 )
 text = "Lv.1"
 align = 1
 
+[node name="HitDelayTimer" type="Timer" parent="."]
+wait_time = 0.06
+one_shot = true
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/Death = SubResource( 4 )
 
 [node name="FrozenStatus" parent="." instance=ExtResource( 6 )]
 
 [node name="GroundedStatus" parent="." instance=ExtResource( 7 )]
-is_grounded = false
 damage_shred = 50.0
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_Area2D_area_entered"]

@@ -3,6 +3,8 @@ class_name Wardrobe extends Node2D
 signal change_skin(skin_name)
 onready var PLAYER_SPRITE_DISPLAY : Sprite = $WardrobeUI/Control/NinePatchRect/ScrollContainer/VBoxContainer/PlayerControl/PlayerSprite
 onready var PLAYER : Area2D = get_parent().get_node("Player").get_node("Area2D")
+const CLOSED_WARDROBE : StreamTexture = preload("res://assets/terrain/wardrobe.png")
+const OPENED_WARDROBE : StreamTexture = preload("res://assets/terrain/wardrobe_open.png")
 
 func _ready():
 	connect("change_skin", get_parent().get_node("Player"), "change_skin")
@@ -58,3 +60,11 @@ func _on_CyberNinjaSelectButton_pressed():
 	update_sprite_display("Player", "CyberNinja")
 
 
+func _on_Area2D_area_entered(area):
+	if area.is_in_group("Player"):
+		$Sprite.texture = OPENED_WARDROBE
+
+
+func _on_Area2D_area_exited(area):
+	if area.is_in_group("Player"):
+		$Sprite.texture = CLOSED_WARDROBE
