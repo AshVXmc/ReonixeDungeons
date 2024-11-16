@@ -32,9 +32,9 @@ polygon = PoolVector2Array( -35.6917, 37.456, -35.1304, 24.5477, -31.2018, 23.98
 
 [node name="HealthBar" type="TextureProgress" parent="."]
 margin_left = -59.8396
-margin_top = -32.1651
+margin_top = -40.1651
 margin_right = -29.8396
-margin_bottom = -26.1651
+margin_bottom = -34.1651
 rect_scale = Vector2( 4, 4 )
 value = 100.0
 texture_under = ExtResource( 6 )
@@ -42,9 +42,9 @@ texture_progress = ExtResource( 5 )
 
 [node name="LevelLabel" type="Label" parent="."]
 margin_left = -28.0
-margin_top = -59.2
+margin_top = -67.2
 margin_right = 28.0
-margin_bottom = -27.2
+margin_bottom = -35.2
 rect_pivot_offset = Vector2( 28, 16 )
 custom_fonts/font = SubResource( 3 )
 text = "Lv.1"

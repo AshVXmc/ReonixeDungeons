@@ -46,16 +46,17 @@ func _physics_process(delta):
 	if !is_dead:
 		$AnimatedSprite.play("slimeanim")
 	
-	match Cling:
-		clingside.Down:
-			rotation_degrees = 180
-			velocity.x = SPEED * direction
-			velocity.y += GRAVITY
-			velocity = move_and_slide(velocity, FLOOR_DOWN)
-		clingside.Left:
-			rotation_degrees = 90
-			velocity.y = SPEED * direction
-			velocity = move_and_slide(velocity, FLOOR_LEFT)
+	if !is_staggered:
+		match Cling:
+			clingside.Down:
+				rotation_degrees = 180
+				velocity.x = SPEED * direction
+				velocity.y += GRAVITY
+				velocity = move_and_slide(velocity, FLOOR_DOWN)
+			clingside.Left:
+				rotation_degrees = 90
+				velocity.y = SPEED * direction
+				velocity = move_and_slide(velocity, FLOOR_LEFT)
 		
 	
 	if is_on_wall() or !$RayCast2D.is_colliding():
@@ -69,22 +70,22 @@ func _on_Area2D_area_entered(area):
 		"Sword", "SwordCharged", "Fireball", "Ice",
 		"physics_process", "FireGauge", "FireGaugeTwo", "LightKnockback"
 	]
-#	if !is_frozen:
-#		if is_airborne:
-#			if !area.is_in_group("NoAirborneKnockback") and area.is_in_group("LightPoiseDamage") or area.is_in_group("MediumPoiseDamage"):
-#				knockback(2.5)
-#		else:
-#			if area.is_in_group("LightPoiseDamage"):
-#				knockback(2.5)
-#
-#		if area.is_in_group("MediumPoiseDamage"):
-#			knockback(12)
-#		if area.is_in_group("HeavyPoiseDamage"):
-#			knockback(25)
-#		if area.is_in_group("CustomPoiseDamage"):
-#			for g in area.get_groups():
-#				if float(g) != 0:
-#					knockback(float(g))
+	if !is_frozen:
+		if is_airborne:
+			if !area.is_in_group("NoAirborneKnockback") and area.is_in_group("LightPoiseDamage") or area.is_in_group("MediumPoiseDamage"):
+				knockback(2.5)
+		else:
+			if area.is_in_group("LightPoiseDamage"):
+				knockback(2.5)
+
+		if area.is_in_group("MediumPoiseDamage"):
+			knockback(12)
+		if area.is_in_group("HeavyPoiseDamage"):
+			knockback(25)
+		if area.is_in_group("CustomPoiseDamage"):
+			for g in area.get_groups():
+				if float(g) != 0:
+					knockback(float(g))
 
 	if weakref(area).get_ref() != null:
 		if area.is_in_group("Sword"):
@@ -232,27 +233,34 @@ func _on_Area2D_area_entered(area):
 			GRAVITY *= 0.05
 			$AnimatedSprite.speed_scale = 0.1
 		
-#		if is_airborne:
-#			if !area.is_in_group("NoAirborneKnockback") and area.is_in_group("LightPoiseDamage") or area.is_in_group("MediumPoiseDamage"):
-#				knockback(1)
-#		else:
-#			if area.is_in_group("LightPoiseDamage"):
-#				knockback(1)
-#
-#		if area.is_in_group("MediumPoiseDamage"):
-#			knockback(3.5)
-#		if area.is_in_group("HeavyPoiseDamage"):
-#			knockback(10)
+		if is_airborne:
+			if !area.is_in_group("NoAirborneKnockback") and area.is_in_group("LightPoiseDamage") or area.is_in_group("MediumPoiseDamage"):
+				knockback(1)
+		else:
+			if area.is_in_group("LightPoiseDamage"):
+				knockback(1)
+
+		if area.is_in_group("MediumPoiseDamage"):
+			knockback(3.5)
+		if area.is_in_group("HeavyPoiseDamage"):
+			knockback(10)
 			
 func parse_damage(staggers:bool = true):
-	if staggers:
-		is_staggered = true
+	if staggers: is_staggered = true
 	$AnimatedSprite.set_modulate(Color(2,0.5,0.3,1))
 	$HurtTimer.start()
 	if HP <= 0:
 		drop_loot()
 		death()
 		
+func knockback(knockback_coefficient : float = 1):
+	is_staggered = true
+	if $AnimatedSprite.flip_h:
+		velocity.x = -SPEED * knockback_coefficient
+	else:
+		velocity.x = SPEED * knockback_coefficient
+	$HurtTimer.start()
+
 func add_damage_particles(type : String, dmg : int, is_crit : bool):
 	var dmgparticle = DMG_INDICATOR.instance()
 	dmgparticle.is_crit = is_crit
