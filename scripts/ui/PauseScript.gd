@@ -87,15 +87,14 @@ func quit_game():
 		get_tree().change_scene("res://scenes/menus/MainMenu.tscn")
 
 func _on_Lighting_toggled(button_pressed : bool):
-	pass
-#	if get_parent().get_parent().get_node("Light2D").visible:
-#		get_parent().get_parent().get_node("Light2D").visible = false
-#		Global.lighting = false
-#		button_pressed = false
-#	else:
-#		get_parent().get_parent().get_node("Light2D").visible = true
-#		Global.lighting = true
-#		button_pressed = true
+	if get_parent().get_parent().get_node("Light2D").visible:
+		get_parent().get_parent().get_node("Light2D").visible = false
+		Global.lighting = false
+		button_pressed = false
+	else:
+		get_parent().get_parent().get_node("Light2D").visible = true
+		Global.lighting = true
+		button_pressed = true
 #	_on_SaveButton_pressed()
 
 

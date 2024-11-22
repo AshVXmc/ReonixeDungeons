@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://scripts/terrain/DungeonEntrance.gd" type="Script" id=1]
 [ext_resource path="res://assets/terrain/hub_level/dungeon_entrance.png" type="Texture" id=2]
@@ -7,7 +7,10 @@
 [ext_resource path="res://scenes/menus/CharacterSelectionUI.tscn" type="PackedScene" id=5]
 [ext_resource path="res://assets/UI/keybind_button.png" type="Texture" id=6]
 [ext_resource path="res://shaders/outline2D_outer.gdshader" type="Shader" id=7]
+[ext_resource path="res://assets/UI/long_button.png" type="Texture" id=8]
 [ext_resource path="res://assets/UI/quiticon.png" type="Texture" id=9]
+[ext_resource path="res://assets/UI/long_button_pressed.png" type="Texture" id=10]
+[ext_resource path="res://assets/UI/keybind_long_button.png" type="Texture" id=11]
 [ext_resource path="res://assets/UI/textbox.png" type="Texture" id=13]
 [ext_resource path="res://assets/UI/button.png" type="Texture" id=14]
 [ext_resource path="res://assets/UI/button_pressed.png" type="Texture" id=15]
@@ -39,6 +42,9 @@ font_data = ExtResource( 4 )
 
 [sub_resource type="DynamicFont" id=6]
 size = 32
+font_data = ExtResource( 4 )
+
+[sub_resource type="DynamicFont" id=16]
 font_data = ExtResource( 4 )
 
 [node name="DungeonEntrance" type="Node2D"]
@@ -207,6 +213,9 @@ texture_normal = ExtResource( 14 )
 texture_pressed = ExtResource( 15 )
 texture_hover = ExtResource( 6 )
 expand = true
+__meta__ = {
+"_edit_group_": true
+}
 
 [node name="Label" type="Label" parent="LevelSelectionUI/Control/NinePatchRect/ScrollContainer/VBoxContainer/Control/1"]
 anchor_left = 0.5
@@ -221,6 +230,58 @@ custom_fonts/font = SubResource( 6 )
 text = "Level 1"
 align = 1
 
+[node name="2" type="TextureButton" parent="LevelSelectionUI/Control/NinePatchRect/ScrollContainer/VBoxContainer/Control"]
+margin_left = 165.0
+margin_right = 285.0
+margin_bottom = 60.0
+rect_min_size = Vector2( 120, 60 )
+texture_normal = ExtResource( 14 )
+texture_pressed = ExtResource( 15 )
+texture_hover = ExtResource( 6 )
+expand = true
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Label" type="Label" parent="LevelSelectionUI/Control/NinePatchRect/ScrollContainer/VBoxContainer/Control/2"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -43.0
+margin_top = -16.0
+margin_right = 43.0
+margin_bottom = 16.0
+custom_fonts/font = SubResource( 6 )
+text = "Level 2"
+align = 1
+
+[node name="3" type="TextureButton" parent="LevelSelectionUI/Control/NinePatchRect/ScrollContainer/VBoxContainer/Control"]
+margin_left = 310.0
+margin_right = 430.0
+margin_bottom = 60.0
+rect_min_size = Vector2( 120, 60 )
+texture_normal = ExtResource( 14 )
+texture_pressed = ExtResource( 15 )
+texture_hover = ExtResource( 6 )
+expand = true
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Label" type="Label" parent="LevelSelectionUI/Control/NinePatchRect/ScrollContainer/VBoxContainer/Control/3"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -42.0
+margin_top = -16.0
+margin_right = 44.0
+margin_bottom = 16.0
+custom_fonts/font = SubResource( 6 )
+text = "Level 3"
+align = 1
+
 [node name="4" type="TextureButton" parent="LevelSelectionUI/Control/NinePatchRect/ScrollContainer/VBoxContainer/Control"]
 margin_left = 20.0
 margin_top = 85.0
@@ -231,6 +292,9 @@ texture_normal = ExtResource( 14 )
 texture_pressed = ExtResource( 15 )
 texture_hover = ExtResource( 6 )
 expand = true
+__meta__ = {
+"_edit_group_": true
+}
 
 [node name="Label" type="Label" parent="LevelSelectionUI/Control/NinePatchRect/ScrollContainer/VBoxContainer/Control/4"]
 anchor_left = 0.5
@@ -255,6 +319,9 @@ texture_normal = ExtResource( 14 )
 texture_pressed = ExtResource( 15 )
 texture_hover = ExtResource( 6 )
 expand = true
+__meta__ = {
+"_edit_group_": true
+}
 
 [node name="Label" type="Label" parent="LevelSelectionUI/Control/NinePatchRect/ScrollContainer/VBoxContainer/Control/5"]
 anchor_left = 0.5
@@ -269,50 +336,50 @@ custom_fonts/font = SubResource( 6 )
 text = "Level 5"
 align = 1
 
-[node name="2" type="TextureButton" parent="LevelSelectionUI/Control/NinePatchRect/ScrollContainer/VBoxContainer/Control"]
-margin_left = 165.0
-margin_right = 285.0
-margin_bottom = 60.0
-rect_min_size = Vector2( 120, 60 )
-texture_normal = ExtResource( 14 )
-texture_pressed = ExtResource( 15 )
-texture_hover = ExtResource( 6 )
-expand = true
-
-[node name="Label" type="Label" parent="LevelSelectionUI/Control/NinePatchRect/ScrollContainer/VBoxContainer/Control/2"]
+[node name="DebugLevelDevMessage" type="Label" parent="LevelSelectionUI/Control/NinePatchRect/ScrollContainer/VBoxContainer/Control"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -43.0
-margin_top = -16.0
-margin_right = 43.0
-margin_bottom = 16.0
-custom_fonts/font = SubResource( 6 )
-text = "Level 2"
+margin_left = -106.0
+margin_top = 182.0
+margin_right = 64.0
+margin_bottom = 198.0
+rect_scale = Vector2( 1.25, 1.25 )
+custom_colors/font_color = Color( 1, 0, 0, 1 )
+custom_fonts/font = SubResource( 16 )
+text = "Dev only players stay out!!!"
 align = 1
 
-[node name="3" type="TextureButton" parent="LevelSelectionUI/Control/NinePatchRect/ScrollContainer/VBoxContainer/Control"]
-margin_left = 310.0
-margin_right = 430.0
-margin_bottom = 60.0
-rect_min_size = Vector2( 120, 60 )
-texture_normal = ExtResource( 14 )
-texture_pressed = ExtResource( 15 )
-texture_hover = ExtResource( 6 )
+[node name="DebugLevel" type="TextureButton" parent="LevelSelectionUI/Control/NinePatchRect/ScrollContainer/VBoxContainer/Control"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -100.0
+margin_top = 206.0
+margin_right = 100.0
+margin_bottom = 256.0
+rect_min_size = Vector2( 160, 40 )
+texture_normal = ExtResource( 8 )
+texture_pressed = ExtResource( 10 )
+texture_hover = ExtResource( 11 )
 expand = true
+__meta__ = {
+"_edit_group_": true
+}
 
-[node name="Label" type="Label" parent="LevelSelectionUI/Control/NinePatchRect/ScrollContainer/VBoxContainer/Control/3"]
+[node name="Label" type="Label" parent="LevelSelectionUI/Control/NinePatchRect/ScrollContainer/VBoxContainer/Control/DebugLevel"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -42.0
+margin_left = -85.0
 margin_top = -16.0
-margin_right = 44.0
+margin_right = 85.0
 margin_bottom = 16.0
 custom_fonts/font = SubResource( 6 )
-text = "Level 3"
+text = "Debug Level"
 align = 1
 
 [node name="CharacterMenuUI" parent="." instance=ExtResource( 3 )]
@@ -320,7 +387,8 @@ align = 1
 [connection signal="area_exited" from="Area2D" to="." method="_on_Area2D_area_exited"]
 [connection signal="pressed" from="LevelSelectionUI/Control/NinePatchRect/CloseButtonMainUI" to="." method="_on_CloseButtonMainUI_pressed"]
 [connection signal="pressed" from="LevelSelectionUI/Control/NinePatchRect/ScrollContainer/VBoxContainer/Control/1" to="." method="_on_1_pressed"]
-[connection signal="pressed" from="LevelSelectionUI/Control/NinePatchRect/ScrollContainer/VBoxContainer/Control/4" to="." method="_on_4_pressed"]
-[connection signal="pressed" from="LevelSelectionUI/Control/NinePatchRect/ScrollContainer/VBoxContainer/Control/5" to="." method="_on_5_pressed"]
 [connection signal="pressed" from="LevelSelectionUI/Control/NinePatchRect/ScrollContainer/VBoxContainer/Control/2" to="." method="_on_2_pressed"]
 [connection signal="pressed" from="LevelSelectionUI/Control/NinePatchRect/ScrollContainer/VBoxContainer/Control/3" to="." method="_on_3_pressed"]
+[connection signal="pressed" from="LevelSelectionUI/Control/NinePatchRect/ScrollContainer/VBoxContainer/Control/4" to="." method="_on_4_pressed"]
+[connection signal="pressed" from="LevelSelectionUI/Control/NinePatchRect/ScrollContainer/VBoxContainer/Control/5" to="." method="_on_5_pressed"]
+[connection signal="pressed" from="LevelSelectionUI/Control/NinePatchRect/ScrollContainer/VBoxContainer/Control/DebugLevel" to="." method="_on_DebugLevel_pressed"]

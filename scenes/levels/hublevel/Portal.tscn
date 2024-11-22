@@ -19,7 +19,7 @@
 [sub_resource type="ShaderMaterial" id=13]
 shader = ExtResource( 3 )
 shader_param/line_color = Color( 1, 0.843137, 0.0117647, 1 )
-shader_param/line_thickness = 0.3
+shader_param/line_thickness = 0.4
 
 [sub_resource type="SpriteFrames" id=6]
 animations = [ {

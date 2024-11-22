@@ -1,0 +1,104 @@
+[gd_scene load_steps=20 format=2]
+
+[ext_resource path="res://scripts/misc/Level.gd" type="Script" id=1]
+[ext_resource path="res://scenes/menus/DebugMenu.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scenes/menus/EleganceMeterUI.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scenes/menus/HealthPotUI.tscn" type="PackedScene" id=7]
+[ext_resource path="res://scenes/menus/GameOver.tscn" type="PackedScene" id=8]
+[ext_resource path="res://scenes/menus/HeartUI.tscn" type="PackedScene" id=11]
+[ext_resource path="res://tilesets/Default.tres" type="TileSet" id=13]
+[ext_resource path="res://scenes/menus/SceneTransition.tscn" type="PackedScene" id=14]
+[ext_resource path="res://scenes/menus/PauseUI.tscn" type="PackedScene" id=16]
+[ext_resource path="res://scenes/menus/InventoryUI.tscn" type="PackedScene" id=17]
+[ext_resource path="res://scenes/misc/Light.tscn" type="PackedScene" id=20]
+[ext_resource path="res://scenes/menus/FPSCounter.tscn" type="PackedScene" id=21]
+[ext_resource path="res://scenes/menus/StaminaBarUI.tscn" type="PackedScene" id=22]
+[ext_resource path="res://scenes/menus/ManaUI.tscn" type="PackedScene" id=23]
+[ext_resource path="res://scenes/menus/SkillsUI.tscn" type="PackedScene" id=24]
+[ext_resource path="res://assets/terrain/background_dungeons.png" type="Texture" id=26]
+[ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=29]
+[ext_resource path="res://tilesets/one_way_tilesets.tres" type="TileSet" id=30]
+[ext_resource path="res://scenes/menus/OpalsUI.tscn" type="PackedScene" id=31]
+
+[node name="Level1" type="Node2D"]
+script = ExtResource( 1 )
+
+[node name="PauseUI" parent="." instance=ExtResource( 16 )]
+
+[node name="SceneTransition" parent="." instance=ExtResource( 14 )]
+
+[node name="StaminaBarUI" parent="." instance=ExtResource( 22 )]
+
+[node name="HeartUI" parent="." instance=ExtResource( 11 )]
+
+[node name="ManaUI" parent="." instance=ExtResource( 23 )]
+
+[node name="OpalsUI" parent="." instance=ExtResource( 31 )]
+
+[node name="HealthPotUI" parent="." instance=ExtResource( 7 )]
+
+[node name="InventoryUI" parent="." instance=ExtResource( 17 )]
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+scroll_ignore_camera_zoom = true
+
+[node name="Background1" type="ParallaxLayer" parent="ParallaxBackground"]
+z_as_relative = false
+motion_mirroring = Vector2( 1440, 1050 )
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/Background1"]
+scale = Vector2( 15, 15 )
+texture = ExtResource( 26 )
+centered = false
+__meta__ = {
+"_editor_description_": ""
+}
+
+[node name="SkillsUI" parent="." instance=ExtResource( 24 )]
+
+[node name="GameOverUI" parent="." instance=ExtResource( 8 )]
+
+[node name="DebugMenu" parent="." instance=ExtResource( 2 )]
+
+[node name="FPSCounter" parent="." instance=ExtResource( 21 )]
+
+[node name="EleganceMeterUI" parent="." instance=ExtResource( 5 )]
+
+[node name="TileMap (Back)" type="TileMap" parent="."]
+tile_set = ExtResource( 30 )
+cell_size = Vector2( 96, 96 )
+format = 1
+tile_data = PoolIntArray( 327660, 0, 0, 327661, 0, 0, 327662, 0, 0, 327663, 0, 0, 327664, 0, 0, 327665, 0, 0, 327666, 0, 0, 327667, 0, 0, 327668, 0, 0, 393196, 0, 0, 393197, 0, 0, 393198, 0, 0, 393199, 0, 0, 393200, 0, 0, 393201, 0, 0, 393202, 0, 0, 393203, 0, 0, 393204, 0, 0, 458732, 0, 0, 458733, 0, 0, 458734, 0, 0, 458735, 0, 0, 458740, 0, 0, 524268, 0, 0, 524269, 0, 0, 524270, 0, 0, 524271, 0, 0, 524272, 0, 0, 524273, 0, 0, 524274, 0, 0, 524275, 0, 0, 589804, 0, 0, 589805, 0, 0, 589806, 0, 0, 589807, 0, 0, 589808, 0, 0, 589809, 0, 0, 589810, 0, 0, 589811, 0, 0, 589812, 0, 0, 655340, 0, 0, 655341, 0, 0, 655342, 0, 0, 655343, 0, 0, 655344, 0, 0, 655345, 0, 0, 655346, 0, 0, 655347, 0, 0, 655348, 0, 0 )
+
+[node name="TIleMap" type="TileMap" parent="." groups=["Tilemap"]]
+tile_set = ExtResource( 13 )
+cell_size = Vector2( 96, 96 )
+collision_layer = 4225
+collision_mask = 129
+format = 1
+tile_data = PoolIntArray( -131087, 6, 0, -131086, 6, 0, -131085, 6, 0, -131084, 6, 0, -131083, 6, 0, -131082, 6, 0, -131081, 6, 0, -131080, 6, 0, -131079, 6, 0, -131078, 6, 0, -131077, 6, 0, -131076, 6, 0, -131075, 6, 0, -131074, 6, 0, -131073, 6, 0, -196608, 6, 0, -196607, 6, 0, -196606, 6, 0, -196605, 6, 0, -65551, 6, 0, -65550, 6, 0, -65549, 6, 0, -65548, 6, 0, -65547, 6, 0, -65546, 6, 0, -65545, 6, 0, -65544, 6, 0, -65543, 6, 0, -65542, 6, 0, -65541, 6, 0, -65540, 6, 0, -65539, 6, 0, -65538, 6, 0, -65537, 6, 0, -131072, 6, 0, -131071, 6, 0, -131070, 6, 0, -131069, 6, 0, -15, 6, 0, -14, 6, 0, -13, 6, 0, -12, 6, 0, -11, 6, 0, -10, 6, 0, -9, 6, 0, -8, 6, 0, -7, 6, 0, -6, 6, 0, -5, 6, 0, -4, 6, 0, -3, 6, 0, -2, 6, 0, -1, 6, 0, -65536, 6, 0, -65535, 6, 0, -65534, 6, 0, -65533, 6, 0, 65521, 6, 0, 65522, 6, 0, 65523, 6, 0, 65524, 6, 0, 65525, 6, 0, 65526, 6, 0, 65527, 6, 0, 65528, 8, 0, 65529, 8, 0, 65530, 8, 0, 65531, 8, 0, 65532, 8, 0, 65533, 6, 0, 65534, 6, 0, 65535, 6, 0, 0, 6, 0, 1, 6, 0, 2, 6, 0, 3, 6, 0, 131057, 6, 0, 131058, 6, 0, 131059, 6, 0, 131060, 6, 0, 131061, 8, 0, 131062, 8, 0, 131063, 8, 0, 131064, 12, 0, 131065, 9, 0, 131067, 9, 0, 131068, 12, 0, 131069, 8, 0, 131070, 8, 0, 131071, 8, 0, 65536, 6, 0, 65537, 6, 0, 65538, 6, 0, 65539, 6, 0, 196593, 6, 0, 196594, 6, 0, 196595, 6, 0, 196596, 6, 0, 196597, 12, 0, 196598, 9, 0, 196600, 13, 0, 196601, 9, 0, 196603, 9, 0, 196604, 13, 0, 196606, 9, 0, 196607, 12, 0, 131072, 6, 0, 131073, 6, 0, 131074, 6, 0, 131075, 6, 0, 262129, 6, 0, 262130, 8, 0, 262131, 8, 0, 262132, 8, 0, 262133, 13, 0, 262134, 9, 0, 262136, 13, 0, 262139, 9, 0, 262140, 13, 0, 262142, 9, 0, 262143, 13, 0, 196608, 8, 0, 196609, 8, 0, 196610, 8, 0, 196611, 6, 0, 327665, 6, 0, 327666, 12, 0, 327667, 9, 0, 327668, 9, 0, 327669, 13, 0, 327670, 9, 0, 327672, 13, 0, 327675, 9, 0, 327676, 13, 0, 327679, 13, 0, 262145, 9, 0, 262146, 12, 0, 262147, 6, 0, 393201, 6, 0, 393202, 13, 0, 393205, 13, 0, 393208, 13, 0, 393211, 9, 0, 393212, 13, 0, 393215, 13, 0, 327681, 9, 0, 327682, 13, 0, 327683, 6, 0, 458737, 6, 0, 458738, 13, 0, 458741, 13, 0, 458744, 13, 0, 458748, 13, 0, 458751, 13, 0, 393218, 13, 0, 393219, 6, 0, 524273, 6, 0, 524274, 14, 0, 524275, 11, 0, 524277, 13, 0, 524280, 13, 0, 524284, 13, 0, 524287, 13, 0, 458753, 10, 0, 458754, 14, 0, 458755, 6, 0, 589809, 6, 0, 589810, 7, 0, 589811, 7, 0, 589812, 7, 0, 589813, 13, 0, 589816, 13, 0, 589820, 13, 0, 589823, 13, 0, 524288, 7, 0, 524289, 7, 0, 524290, 7, 0, 524291, 6, 0, 655345, 6, 0, 655346, 6, 0, 655347, 6, 0, 655348, 6, 0, 655349, 14, 0, 655350, 10, 0, 655352, 13, 0, 655356, 13, 0, 655358, 11, 0, 655359, 14, 0, 589824, 6, 0, 589825, 6, 0, 589826, 6, 0, 589827, 6, 0, 720881, 6, 0, 720882, 6, 0, 720883, 6, 0, 720884, 6, 0, 720885, 7, 0, 720886, 7, 0, 720887, 7, 0, 720888, 14, 0, 720892, 14, 0, 720893, 7, 0, 720894, 7, 0, 720895, 7, 0, 655360, 6, 0, 655361, 6, 0, 655362, 6, 0, 655363, 6, 0, 786417, 6, 0, 786418, 6, 0, 786419, 6, 0, 786420, 6, 0, 786421, 6, 0, 786422, 6, 0, 786423, 6, 0, 786424, 7, 0, 786425, 7, 0, 786426, 7, 0, 786427, 7, 0, 786428, 7, 0, 786429, 6, 0, 786430, 6, 0, 786431, 6, 0, 720896, 6, 0, 720897, 6, 0, 720898, 6, 0, 720899, 6, 0, 851953, 6, 0, 851954, 6, 0, 851955, 6, 0, 851956, 6, 0, 851957, 6, 0, 851958, 6, 0, 851959, 6, 0, 851960, 6, 0, 851961, 6, 0, 851962, 6, 0, 851963, 6, 0, 851964, 6, 0, 851965, 6, 0, 851966, 6, 0, 851967, 6, 0, 786432, 6, 0, 786433, 6, 0, 786434, 6, 0, 786435, 6, 0, 917489, 6, 0, 917490, 6, 0, 917491, 6, 0, 917492, 6, 0, 917493, 6, 0, 917494, 6, 0, 917495, 6, 0, 917496, 6, 0, 917497, 6, 0, 917498, 6, 0, 917499, 6, 0, 917500, 6, 0, 917501, 6, 0, 917502, 6, 0, 917503, 6, 0, 851968, 6, 0, 851969, 6, 0, 851970, 6, 0, 851971, 6, 0 )
+__meta__ = {
+"_edit_ik_": true
+}
+
+[node name="Light2D" parent="." instance=ExtResource( 20 )]
+visible = false
+position = Vector2( 1725.87, 747.09 )
+scale = Vector2( 123.492, 44.8937 )
+energy = 0.65
+mode = 1
+
+[node name="Player" parent="." instance=ExtResource( 29 )]
+position = Vector2( -521, 991 )
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+position = Vector2( 9.72693, -62.0423 )
+current = true
+zoom = Vector2( 1.3, 1.3 )
+limit_left = -1430
+limit_top = -280
+limit_right = 380
+limit_bottom = 1300
+drag_margin_h_enabled = true
+drag_margin_v_enabled = true
+editor_draw_limits = true

@@ -564,7 +564,7 @@ func reset_player_data():
 
 	Global.is_loading_a_save = false
 	Global.max_item_storage = 5
-	Global.lighting = false
+	Global.lighting = true
 	Global.levelpath = ""
 	Global.enemies_killed = 0
 	Global.masked_goblin_defeated = false

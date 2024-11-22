@@ -29,8 +29,6 @@ func _ready():
 		OS.vsync_enabled = true
 	if get_tree().get_current_scene().get_name() == "Level5" and !Global.activated_portals.has("Level5"):
 		Global.activated_portals.append("Level5")
-		
-	
 	save_player_data()
 	
 	if Global.equipped_characters[0] == "":

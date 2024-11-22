@@ -7,10 +7,10 @@
 [ext_resource path="res://assets/misc/light_circle.png" type="Texture" id=5]
 [ext_resource path="res://shaders/outline2D_outer.gdshader" type="Shader" id=6]
 
-[sub_resource type="ShaderMaterial" id=15]
+[sub_resource type="ShaderMaterial" id=2]
 shader = ExtResource( 6 )
 shader_param/line_color = Color( 1, 0.843137, 0.0117647, 1 )
-shader_param/line_thickness = 0.4
+shader_param/line_thickness = 0.5
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 61.056, 62.0495 )
@@ -92,7 +92,7 @@ gravity = Vector2( 0, -40 )
 scale_amount = 2.5
 
 [node name="Sprite" type="Sprite" parent="."]
-material = SubResource( 15 )
+material = SubResource( 2 )
 position = Vector2( 0, 47.9458 )
 scale = Vector2( 8, 8 )
 texture = ExtResource( 1 )

@@ -83,7 +83,14 @@ func _on_4_pressed():
 func _on_5_pressed():
 	load_level(5)
 
-func load_level(level : int):
-	destination = "res://scenes/levels/Level" + str(level) + ".tscn"
+func _on_DebugLevel_pressed():
+	load_level("Debug")
+
+func load_level(level):
+	if typeof(level) == TYPE_INT:
+		destination = "res://scenes/levels/Level" + str(level) + ".tscn"
+	elif level == "Debug":
+		destination = "res://scenes/levels/DebugLevel.tscn"
 	$CharacterSelectionUI/Control.initialize_ui()
 	$LevelSelectionUI/Control.visible = false
+
