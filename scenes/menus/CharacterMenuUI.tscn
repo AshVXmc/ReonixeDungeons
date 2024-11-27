@@ -959,12 +959,12 @@ custom_fonts/italics_font = SubResource( 2 )
 custom_fonts/normal_font = SubResource( 2 )
 bbcode_enabled = true
 bbcode_text = "[color=#ffd703]Winter Queen[/color]
-Call upon your patron familiar to unleash a blizzard in an area of effect, dealing [u]WQ_ATK% ATK[/u] as [color=#7df0ff]Ice[/color] damage per tick and gradually [color=#7df0ff]Freezing[/color] enemies caught in the storm. 
+Call upon your patron familiar to unleash a blizzard in an area of effect, dealing [u]WQ_ATK% ATK[/u] as [color=#7df0ff]Ice[/color] damage per tick and gradually [color=#7df0ff]Freezing[/color] enemies caught in the storm. The blizzard lasts for WQ_DUR seconds.
 
 Cooldown: WQ_CD seconds
 Mana cost: WQ_COST mana"
 text = "Winter Queen
-Call upon your patron familiar to unleash a blizzard in an area of effect, dealing WQ_ATK% ATK as Ice damage per tick and gradually Freezing enemies caught in the storm. 
+Call upon your patron familiar to unleash a blizzard in an area of effect, dealing WQ_ATK% ATK as Ice damage per tick and gradually Freezing enemies caught in the storm. The blizzard lasts for WQ_DUR seconds.
 
 Cooldown: WQ_CD seconds
 Mana cost: WQ_COST mana"

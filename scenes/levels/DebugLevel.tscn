@@ -1,7 +1,8 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://scripts/misc/Level.gd" type="Script" id=1]
 [ext_resource path="res://scenes/menus/DebugMenu.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scenes/enemies/Goblin.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scenes/menus/EleganceMeterUI.tscn" type="PackedScene" id=5]
 [ext_resource path="res://scenes/menus/HealthPotUI.tscn" type="PackedScene" id=7]
 [ext_resource path="res://scenes/menus/GameOver.tscn" type="PackedScene" id=8]
@@ -102,3 +103,15 @@ limit_bottom = 1300
 drag_margin_h_enabled = true
 drag_margin_v_enabled = true
 editor_draw_limits = true
+
+[node name="Goblin" parent="." instance=ExtResource( 3 )]
+position = Vector2( -730, 968 )
+
+[node name="Goblin2" parent="." instance=ExtResource( 3 )]
+position = Vector2( -321, 978 )
+
+[node name="Goblin3" parent="." instance=ExtResource( 3 )]
+position = Vector2( -1212, 682 )
+
+[node name="Goblin4" parent="." instance=ExtResource( 3 )]
+position = Vector2( 153, 686 )

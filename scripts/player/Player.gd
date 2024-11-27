@@ -1998,10 +1998,21 @@ func debug_commands(cmd : String):
 			Global.opals_amount += 999 - Global.opals_amount
 			emit_signal("opals_obtained", Global.opals_amount)
 		"healall":
-			Global.hearts += Global.max_hearts - Global.hearts
-			emit_signal("life_changed", Global.hearts)
-			Global.mana += Global.max_mana - Global.mana
-			emit_signal("mana_changed", Global.mana, "Player")
+			if Global.equipped_characters[0] != "":
+				Global.hearts = Global.max_hearts
+				emit_signal("life_changed", Global.hearts)
+				Global.mana = Global.max_mana
+				emit_signal("mana_changed", Global.mana, Global.equipped_characters[0])
+			if Global.equipped_characters[1] != "":
+				Global.character2_hearts = Global.character_2_max_hearts 
+				emit_signal("life_changed", Global.character2_hearts)
+				Global.character2_mana = Global.character2_max_mana
+				emit_signal("mana_changed", Global.character2_mana, Global.equipped_characters[1])
+			if Global.equipped_characters[2] != "":
+				Global.character3_hearts = Global.character_3_max_hearts
+				emit_signal("life_changed", Global.character3_hearts)
+				Global.character3_mana = Global.character3_max_mana
+				emit_signal("mana_changed", Global.character3_mana, Global.equipped_characters[2])
 		"killall":
 			for enemy in get_tree().get_nodes_in_group("Enemy"):
 				enemy.queue_free()

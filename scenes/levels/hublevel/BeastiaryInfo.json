@@ -33,6 +33,16 @@
         "Name": "Fire Slime",
         "Description": "Slimes move back-and-forth in a horizontal line, damaging you on contact. Fire slimes are immune to Fire damage and explode in a burst of flames shortly after death.",
         "Flavortext": "Their volatile, explosive properties are speculated to be due to prolonged stays in hot environments such as volcanoes and deserts."
+    },
+    "Spider": {
+        "Name": "Spider",
+        "Description": "Spiders cling to floors or ceilings, crawling in their facing direction, damaging you on contact.",
+        "Flavortext": "These critters scavenge the dungeon's vegetation for sustenance, seeking small critters and plants to eat and, if its lucky enough, leftover mana from deposits or recently deceased creatures. They have small, claw-like appendages beneath their feet that allow them to stick to surfaces."
+    },
+    "ElderSpider": {
+        "Name": "Elder Spider",
+        "Description": "Elder spiders cling to floors or ceilings, crawling in their facing direction, damaging you on contact and spraying its venom to poison you.",
+        "Flavortext": "As they mature, spiders start to produce venom, which they can use to incapacitate larger prey. Their skin also grows thicker, forming a carapace that protects them."
     }
 
 }

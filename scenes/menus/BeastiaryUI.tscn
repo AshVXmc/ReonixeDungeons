@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://assets/fonts/Born2bSportyV2.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://themes/Blur.tres" type="Material" id=2]
@@ -13,6 +13,8 @@
 [ext_resource path="res://assets/enemies/fire_slime_1.png" type="Texture" id=11]
 [ext_resource path="res://assets/enemies/slime1.png" type="Texture" id=12]
 [ext_resource path="res://assets/enemies/witch_goblin_1.png" type="Texture" id=13]
+[ext_resource path="res://assets/enemies/spider1.png" type="Texture" id=14]
+[ext_resource path="res://assets/enemies/elder_spider1.png" type="Texture" id=15]
 
 [sub_resource type="DynamicFont" id=1]
 size = 48
@@ -40,7 +42,6 @@ font_data = ExtResource( 1 )
 pause_mode = 2
 
 [node name="Control" type="Control" parent="."]
-visible = false
 anchor_left = 0.5
 anchor_top = 0.33
 anchor_right = 0.5
@@ -65,13 +66,13 @@ color = Color( 1, 1, 1, 0 )
 
 [node name="NinePatchRect" type="NinePatchRect" parent="Control"]
 anchor_left = 0.5
-anchor_top = 1.0
+anchor_top = 0.5
 anchor_right = 0.5
-anchor_bottom = 1.0
+anchor_bottom = 0.5
 margin_left = -400.0
-margin_top = -523.0
+margin_top = -250.0
 margin_right = 400.0
-margin_bottom = -23.0
+margin_bottom = 250.0
 texture = ExtResource( 4 )
 
 [node name="Header" type="RichTextLabel" parent="Control/NinePatchRect"]
@@ -216,6 +217,48 @@ position = Vector2( 20.4, 20 )
 scale = Vector2( 1.5, 1.5 )
 texture = ExtResource( 9 )
 
+[node name="ButtonSpider" type="TextureButton" parent="Control/NinePatchRect/ButtonsControl"]
+anchor_left = 0.219
+anchor_top = 0.424
+anchor_right = 0.219
+anchor_bottom = 0.424
+margin_left = 234.8
+margin_top = -93.0
+margin_right = 274.8
+margin_bottom = -53.0
+rect_scale = Vector2( 2, 2 )
+texture_normal = ExtResource( 6 )
+expand = true
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Sprite" type="Sprite" parent="Control/NinePatchRect/ButtonsControl/ButtonSpider"]
+position = Vector2( 20.4, 19 )
+scale = Vector2( 1.75, 1.75 )
+texture = ExtResource( 14 )
+
+[node name="ButtonElderSpider" type="TextureButton" parent="Control/NinePatchRect/ButtonsControl"]
+anchor_left = 0.219
+anchor_top = 0.424
+anchor_right = 0.219
+anchor_bottom = 0.424
+margin_left = 349.8
+margin_top = -93.0
+margin_right = 389.8
+margin_bottom = -53.0
+rect_scale = Vector2( 2, 2 )
+texture_normal = ExtResource( 6 )
+expand = true
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Sprite" type="Sprite" parent="Control/NinePatchRect/ButtonsControl/ButtonElderSpider"]
+position = Vector2( 20.4, 19 )
+scale = Vector2( 1.75, 1.75 )
+texture = ExtResource( 15 )
+
 [node name="ButtonShamanGoblin" type="TextureButton" parent="Control/NinePatchRect/ButtonsControl"]
 anchor_left = 0.222
 anchor_top = 0.431
@@ -303,10 +346,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = 323.0
-margin_top = -158.0
-margin_right = 363.0
-margin_bottom = -118.0
+margin_left = 340.0
+margin_top = -250.0
+margin_right = 380.0
+margin_bottom = -210.0
 rect_scale = Vector2( 1.5, 1.5 )
 texture_normal = ExtResource( 3 )
 expand = true
@@ -316,6 +359,8 @@ expand = true
 [connection signal="pressed" from="Control/NinePatchRect/ButtonsControl/ButtonFireSlime" to="Control" method="_on_ButtonFireSlime_pressed"]
 [connection signal="pressed" from="Control/NinePatchRect/ButtonsControl/ButtonBowGoblin" to="Control" method="_on_ButtonBowGoblin_pressed"]
 [connection signal="pressed" from="Control/NinePatchRect/ButtonsControl/ButtonBat" to="Control" method="_on_ButtonBat_pressed"]
+[connection signal="pressed" from="Control/NinePatchRect/ButtonsControl/ButtonSpider" to="Control" method="_on_ButtonSpider_pressed"]
+[connection signal="pressed" from="Control/NinePatchRect/ButtonsControl/ButtonElderSpider" to="Control" method="_on_ButtonElderSpider_pressed"]
 [connection signal="pressed" from="Control/NinePatchRect/ButtonsControl/ButtonShamanGoblin" to="Control" method="_on_ButtonShamanGoblin_pressed"]
 [connection signal="pressed" from="Control/NinePatchRect/ButtonsControl/ButtonWitchGoblin" to="Control" method="_on_ButtonWitchGoblin_pressed"]
 [connection signal="pressed" from="Control/CloseButton" to="Control" method="_on_CloseButton_pressed"]

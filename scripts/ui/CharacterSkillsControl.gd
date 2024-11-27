@@ -111,6 +111,9 @@ func update_glaciela_description_text():
 		"WQ_CD", str(Global.glaciela_skill_multipliers["WinterQueenCD"]))
 	glaciela_pskill_text.bbcode_text = glaciela_pskill_text.bbcode_text.replace(
 		"WQ_COST", str(Global.glaciela_skill_multipliers["WinterQueenCost"]))
+	glaciela_pskill_text.bbcode_text = glaciela_pskill_text.bbcode_text.replace(
+		"WQ_DUR", str(Global.glaciela_skill_multipliers["WinterQueenDuration"]))
+	
 	
 	glaciela_sskill_text.bbcode_text = glaciela_sskill_text.bbcode_text.replace(
 		"ICELANCE_ATK", str(Global.glaciela_skill_multipliers["IceLance"]))
