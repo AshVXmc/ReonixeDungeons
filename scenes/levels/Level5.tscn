@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=2]
+[gd_scene load_steps=30 format=2]
 
 [ext_resource path="res://assets/terrain/lichen_ruins_oneway_spritesheet.png" type="Texture" id=1]
 [ext_resource path="res://scenes/enemies/bosses/MaskedGoblin.tscn" type="PackedScene" id=2]
@@ -14,6 +14,7 @@
 [ext_resource path="res://scenes/menus/DebugMenu.tscn" type="PackedScene" id=12]
 [ext_resource path="res://scenes/menus/PauseUI.tscn" type="PackedScene" id=13]
 [ext_resource path="res://scenes/misc/Light.tscn" type="PackedScene" id=14]
+[ext_resource path="res://scenes/menus/ScreenshotHelper.tscn" type="PackedScene" id=15]
 [ext_resource path="res://scripts/misc/Level.gd" type="Script" id=16]
 [ext_resource path="res://assets/terrain/lichen_ruins_misc_spritesheet.png" type="Texture" id=17]
 [ext_resource path="res://assets/terrain/lichen_ruins_spritesheet.png" type="Texture" id=18]
@@ -318,6 +319,8 @@ __meta__ = {
 [node name="FPSCounter" parent="." instance=ExtResource( 7 )]
 
 [node name="EleganceMeterUI" parent="." instance=ExtResource( 3 )]
+
+[node name="ScreenShotHelperUI" parent="." instance=ExtResource( 15 )]
 
 [node name="MaskedGoblin" parent="." instance=ExtResource( 2 )]
 position = Vector2( 1165, 222 )

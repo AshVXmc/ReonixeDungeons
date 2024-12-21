@@ -41,8 +41,8 @@
     },
     "ElderSpider": {
         "Name": "Elder Spider",
-        "Description": "Elder spiders cling to floors or ceilings, crawling in their facing direction, damaging you on contact and spraying its venom to poison you.",
-        "Flavortext": "As they mature, spiders start to produce venom, which they can use to incapacitate larger prey. Their skin also grows thicker, forming a carapace that protects them."
+        "Description": "Elder spiders cling to floors or ceilings, crawling in their facing direction, damaging you on contact and creating webs to ensnare you.",
+        "Flavortext": "As they mature, spiders start to produce and weave durable silk to create a nest or capture prey. Their skin also grows thicker, forming a carapace that protects them."
     }
 
 }

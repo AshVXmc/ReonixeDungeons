@@ -1,8 +1,10 @@
 class_name Spider extends KinematicBody2D
 
 
-enum clingside {Down, Left, Right}
+enum clingside {Down, Left, Right, Up}
 export (clingside) var Cling
+
+
 
 var velocity : Vector2 = Vector2()
 var is_dead : bool = false 
@@ -11,6 +13,7 @@ var jumping : int = 1
 const TYPE : String = "Enemy"
 const FLOOR_DOWN = Vector2(0, 1)
 const FLOOR_LEFT = Vector2(-1, 0)
+const FLOOR_UP = Vector2(0, -1)
 var SPEED : int = -100
 var GRAVITY : int = -45
 const LOOT : PackedScene = preload("res://scenes/items/LootBag.tscn")
@@ -30,10 +33,15 @@ var global_res : float = 0
 var debuff_damage_multiplier = 1
 var armor_strength_coefficient = 1
 var is_staggered : bool = false
+
+
 func _ready():
 	$JumpTimer.start()
 	if Cling == clingside.Down:
 		$LevelLabel.rect_rotation = 180
+		rotation_degrees = 180
+	if Cling == clingside.Left:
+		rotation_degrees = 90
 	$LevelLabel.text = "Lv " + str(level)
 	$HealthBar.max_value = max_HP
 	
@@ -43,24 +51,30 @@ func _physics_process(delta):
 			$AnimatedSprite.flip_h = false
 		elif !is_dead:
 			$AnimatedSprite.flip_h = true
+	if Cling == clingside.Up:
+		if direction == 1 and !is_dead:
+			$AnimatedSprite.flip_h = true
+		elif !is_dead:
+			$AnimatedSprite.flip_h = false
 	if !is_dead:
-		$AnimatedSprite.play("slimeanim")
-	
-	if !is_staggered:
-		match Cling:
-			clingside.Down:
-				rotation_degrees = 180
-				velocity.x = SPEED * direction
-				velocity.y += GRAVITY
-				velocity = move_and_slide(velocity, FLOOR_DOWN)
-			clingside.Left:
-				rotation_degrees = 90
-				velocity.y = SPEED * direction
-				velocity = move_and_slide(velocity, FLOOR_LEFT)
+		$AnimatedSprite.play("Idle")
 		
 	
+	if !is_staggered:
+		velocity.x = SPEED * direction
+		match Cling:
+			clingside.Down:
+				velocity.y += GRAVITY
+				velocity = move_and_slide(velocity, FLOOR_DOWN)
+			clingside.Up:
+				velocity.y += -GRAVITY 
+				velocity = move_and_slide(velocity, FLOOR_UP)
+			clingside.Left:
+				velocity = move_and_slide(velocity, FLOOR_LEFT)
+		
+		
 	if is_on_wall() or !$RayCast2D.is_colliding():
-		if Cling == clingside.Down:
+		if Cling == clingside.Down or clingside.Up:
 			direction *= -1
 			$RayCast2D.position.x *= -1
 

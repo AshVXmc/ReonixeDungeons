@@ -1,0 +1,52 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://assets/UI/textbox.png" type="Texture" id=1]
+[ext_resource path="res://assets/fonts/Born2bSportyV2.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://themes/Blur.tres" type="Material" id=3]
+[ext_resource path="res://scripts/ui/ScreenShotHelperControl.gd" type="Script" id=4]
+
+[sub_resource type="DynamicFont" id=1]
+size = 64
+font_data = ExtResource( 2 )
+
+[node name="ScreenShotHelperUI" type="CanvasLayer"]
+
+[node name="ScreenShotHelperControl" type="Control" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 4 )
+
+[node name="Blur" type="ColorRect" parent="ScreenShotHelperControl"]
+material = ExtResource( 3 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -1090.0
+margin_top = -656.0
+margin_right = 2301.0
+margin_bottom = 1599.0
+color = Color( 1, 1, 1, 0 )
+
+[node name="NinePatchRect" type="NinePatchRect" parent="ScreenShotHelperControl"]
+margin_left = 349.0
+margin_top = 310.0
+margin_right = 749.0
+margin_bottom = 430.0
+texture = ExtResource( 1 )
+patch_margin_left = 64
+patch_margin_top = 64
+patch_margin_right = 64
+patch_margin_bottom = 64
+
+[node name="Label" type="Label" parent="ScreenShotHelperControl"]
+margin_left = 374.902
+margin_top = 340.861
+margin_right = 722.902
+margin_bottom = 404.861
+custom_fonts/font = SubResource( 1 )
+text = "Click to Focus!"
+__meta__ = {
+"_edit_use_anchors_": false
+}

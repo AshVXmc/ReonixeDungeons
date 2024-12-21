@@ -1,9 +1,11 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://scripts/misc/Level.gd" type="Script" id=1]
 [ext_resource path="res://scenes/menus/DebugMenu.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scenes/enemies/Goblin.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/enemies/ElderSpider.tscn" type="PackedScene" id=4]
 [ext_resource path="res://scenes/menus/EleganceMeterUI.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scenes/enemies/WitchGoblin.tscn" type="PackedScene" id=6]
 [ext_resource path="res://scenes/menus/HealthPotUI.tscn" type="PackedScene" id=7]
 [ext_resource path="res://scenes/menus/GameOver.tscn" type="PackedScene" id=8]
 [ext_resource path="res://scenes/menus/HeartUI.tscn" type="PackedScene" id=11]
@@ -105,13 +107,11 @@ drag_margin_v_enabled = true
 editor_draw_limits = true
 
 [node name="Goblin" parent="." instance=ExtResource( 3 )]
-position = Vector2( -730, 968 )
+position = Vector2( -1154, 719 )
 
-[node name="Goblin2" parent="." instance=ExtResource( 3 )]
-position = Vector2( -321, 978 )
+[node name="ElderSpider" parent="." instance=ExtResource( 4 )]
+position = Vector2( -218, 901 )
+Cling = 3
 
-[node name="Goblin3" parent="." instance=ExtResource( 3 )]
-position = Vector2( -1212, 682 )
-
-[node name="Goblin4" parent="." instance=ExtResource( 3 )]
-position = Vector2( 153, 686 )
+[node name="WitchGoblin" parent="." instance=ExtResource( 6 )]
+position = Vector2( -892, 890 )

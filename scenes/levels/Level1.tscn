@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=2]
+[gd_scene load_steps=26 format=2]
 
 [ext_resource path="res://scripts/misc/Level.gd" type="Script" id=1]
 [ext_resource path="res://scenes/menus/DebugMenu.tscn" type="PackedScene" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://scenes/menus/HealthPotUI.tscn" type="PackedScene" id=7]
 [ext_resource path="res://scenes/menus/GameOver.tscn" type="PackedScene" id=8]
 [ext_resource path="res://scenes/items/ChestSilver.tscn" type="PackedScene" id=9]
+[ext_resource path="res://scenes/menus/ScreenshotHelper.tscn" type="PackedScene" id=10]
 [ext_resource path="res://scenes/menus/HeartUI.tscn" type="PackedScene" id=11]
 [ext_resource path="res://tilesets/Default.tres" type="TileSet" id=13]
 [ext_resource path="res://scenes/menus/SceneTransition.tscn" type="PackedScene" id=14]
@@ -68,6 +69,8 @@ __meta__ = {
 [node name="FPSCounter" parent="." instance=ExtResource( 21 )]
 
 [node name="EleganceMeterUI" parent="." instance=ExtResource( 5 )]
+
+[node name="ScreenShotHelperUI" parent="." instance=ExtResource( 10 )]
 
 [node name="TileMap (Back)" type="TileMap" parent="."]
 tile_set = ExtResource( 30 )

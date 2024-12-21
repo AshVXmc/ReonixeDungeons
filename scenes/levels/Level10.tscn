@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://scenes/enemies/bosses/AlphaGuardian.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/menus/HeartUI.tscn" type="PackedScene" id=2]
@@ -20,6 +20,7 @@
 [ext_resource path="res://scenes/menus/DebugMenu.tscn" type="PackedScene" id=18]
 [ext_resource path="res://scenes/menus/RevivementCrystalUI.tscn" type="PackedScene" id=19]
 [ext_resource path="res://assets/terrain/background_dungeons.png" type="Texture" id=20]
+[ext_resource path="res://scenes/menus/ScreenshotHelper.tscn" type="PackedScene" id=21]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 47.7336, 7.95237 )
@@ -172,3 +173,5 @@ __meta__ = {
 [node name="FPSCounter" parent="." instance=ExtResource( 17 )]
 
 [node name="PauseUI2" parent="." instance=ExtResource( 6 )]
+
+[node name="ScreenShotHelperUI" parent="." instance=ExtResource( 21 )]

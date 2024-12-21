@@ -1,4 +1,4 @@
-[gd_scene load_steps=87 format=2]
+[gd_scene load_steps=88 format=2]
 
 [ext_resource path="res://assets/particles/smoke_particle.png" type="Texture" id=1]
 [ext_resource path="res://scripts/misc/HubLevelLibraryBookshelf.gd" type="Script" id=2]
@@ -19,6 +19,7 @@
 [ext_resource path="res://scenes/menus/HeartUI.tscn" type="PackedScene" id=17]
 [ext_resource path="res://scenes/menus/DebugMenu.tscn" type="PackedScene" id=18]
 [ext_resource path="res://scenes/levels/hublevel/TalentRuneTablet.tscn" type="PackedScene" id=19]
+[ext_resource path="res://scenes/menus/ScreenshotHelper.tscn" type="PackedScene" id=20]
 [ext_resource path="res://scenes/levels/hublevel/Portal.tscn" type="PackedScene" id=21]
 [ext_resource path="res://scenes/menus/SceneTransition.tscn" type="PackedScene" id=22]
 [ext_resource path="res://scenes/menus/StaminaBarUI.tscn" type="PackedScene" id=23]
@@ -228,6 +229,8 @@ __meta__ = {
 [node name="DebugMenu" parent="." instance=ExtResource( 18 )]
 
 [node name="SceneTransition" parent="." instance=ExtResource( 22 )]
+
+[node name="ScreenShotHelperUI" parent="." instance=ExtResource( 20 )]
 
 [node name="TileMap" type="TileMap" parent="." groups=["Tilemap"]]
 tile_set = ExtResource( 6 )

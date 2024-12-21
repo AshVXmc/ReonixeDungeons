@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=2]
+[gd_scene load_steps=32 format=2]
 
 [ext_resource path="res://assets/terrain/lichen_ruins_oneway_spritesheet.png" type="Texture" id=1]
 [ext_resource path="res://scenes/items/LevelTransporter.tscn" type="PackedScene" id=2]
@@ -23,6 +23,7 @@
 [ext_resource path="res://scenes/menus/RevivementCrystalUI.tscn" type="PackedScene" id=21]
 [ext_resource path="res://scenes/menus/GameOver.tscn" type="PackedScene" id=22]
 [ext_resource path="res://scenes/menus/InventoryUI.tscn" type="PackedScene" id=23]
+[ext_resource path="res://scenes/menus/ScreenshotHelper.tscn" type="PackedScene" id=24]
 [ext_resource path="res://scenes/menus/SkillsUI.tscn" type="PackedScene" id=25]
 [ext_resource path="res://scenes/tilemaps/WaterTileMap.tscn" type="PackedScene" id=26]
 
@@ -280,6 +281,8 @@ __meta__ = {
 [node name="DebugMenu" parent="." instance=ExtResource( 12 )]
 
 [node name="FPSCounter" parent="." instance=ExtResource( 7 )]
+
+[node name="ScreenShotHelperUI" parent="." instance=ExtResource( 24 )]
 
 [node name="Light2D" parent="." instance=ExtResource( 14 )]
 visible = false
