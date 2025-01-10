@@ -20,9 +20,9 @@ func _ready():
 	$ParallaxBackground/Background1.visible = true
 #	$GameOverUI/GameOver.visible = false
 	if Global.lighting:
-		$Light2D.visible = false
-	else:
 		$Light2D.visible = true
+	else:
+		$Light2D.visible = false
 	if Global.vsync:
 		OS.vsync_enabled = false
 	else:
