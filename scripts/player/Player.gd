@@ -59,7 +59,7 @@ var can_be_knocked : bool = true
 const MAX_SPEED = 350
 var SPEED : int = MAX_SPEED
 const GRAVITY : int = 38
-var JUMP_POWER : int = -1150
+var JUMP_POWER : int = -1200
 var waiting_for_quickswap : bool = false
 var is_thrust_attacking : bool = false
 var energy_full : bool 
@@ -472,7 +472,7 @@ func _physics_process(_delta):
 						water_jump_particle.emitting = true
 						get_parent().add_child(water_jump_particle)
 						water_jump_particle.position = $ParticlePosition.global_position
-						velocity.y = JUMP_POWER / 1.8
+						velocity.y = JUMP_POWER / 1.5
 						$Sprite.play("Idle")
 					
 	#				is_attacking = false

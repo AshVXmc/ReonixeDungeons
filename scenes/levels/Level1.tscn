@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=2]
+[gd_scene load_steps=36 format=2]
 
 [ext_resource path="res://scripts/misc/Level.gd" type="Script" id=1]
 [ext_resource path="res://scenes/menus/DebugMenu.tscn" type="PackedScene" id=2]
@@ -11,20 +11,78 @@
 [ext_resource path="res://scenes/items/ChestSilver.tscn" type="PackedScene" id=9]
 [ext_resource path="res://scenes/menus/ScreenshotHelper.tscn" type="PackedScene" id=10]
 [ext_resource path="res://scenes/menus/HeartUI.tscn" type="PackedScene" id=11]
+[ext_resource path="res://scenes/items/Barrel.tscn" type="PackedScene" id=12]
 [ext_resource path="res://tilesets/Default.tres" type="TileSet" id=13]
 [ext_resource path="res://scenes/menus/SceneTransition.tscn" type="PackedScene" id=14]
 [ext_resource path="res://scenes/terrain/WallTorch.tscn" type="PackedScene" id=15]
 [ext_resource path="res://scenes/menus/PauseUI.tscn" type="PackedScene" id=16]
 [ext_resource path="res://scenes/menus/InventoryUI.tscn" type="PackedScene" id=17]
+[ext_resource path="res://assets/terrain/brick_terrain_cracked.png" type="Texture" id=18]
+[ext_resource path="res://scripts/terrain/DestructibleTileMap.gd" type="Script" id=19]
 [ext_resource path="res://scenes/misc/Light.tscn" type="PackedScene" id=20]
 [ext_resource path="res://scenes/menus/FPSCounter.tscn" type="PackedScene" id=21]
 [ext_resource path="res://scenes/menus/StaminaBarUI.tscn" type="PackedScene" id=22]
 [ext_resource path="res://scenes/menus/ManaUI.tscn" type="PackedScene" id=23]
 [ext_resource path="res://scenes/menus/SkillsUI.tscn" type="PackedScene" id=24]
+[ext_resource path="res://assets/terrain/brick_terrain_cracked2.png" type="Texture" id=25]
 [ext_resource path="res://assets/terrain/background_dungeons.png" type="Texture" id=26]
+[ext_resource path="res://scripts/terrain/FireDetector.gd" type="Script" id=27]
 [ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=29]
 [ext_resource path="res://tilesets/one_way_tilesets.tres" type="TileSet" id=30]
 [ext_resource path="res://scenes/menus/OpalsUI.tscn" type="PackedScene" id=31]
+
+[sub_resource type="ConvexPolygonShape2D" id=2]
+points = PoolVector2Array( 96, 96, 0, 96, 0, 0, 96, 0 )
+
+[sub_resource type="ConvexPolygonShape2D" id=4]
+points = PoolVector2Array( 96, 96, 0, 96, 0, 0, 96, 0 )
+
+[sub_resource type="TileSet" id=3]
+0/name = "brick_terrain_cracked.png 0"
+0/texture = ExtResource( 18 )
+0/tex_offset = Vector2( 0, 0 )
+0/modulate = Color( 1, 1, 1, 1 )
+0/region = Rect2( 0, 0, 96, 96 )
+0/tile_mode = 0
+0/occluder_offset = Vector2( 0, 0 )
+0/navigation_offset = Vector2( 0, 0 )
+0/shape_offset = Vector2( 0, 0 )
+0/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+0/shape = SubResource( 2 )
+0/shape_one_way = false
+0/shape_one_way_margin = 1.0
+0/shapes = [ {
+"autotile_coord": Vector2( 0, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 2 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+} ]
+0/z_index = 0
+1/name = "brick_terrain_cracked2.png 1"
+1/texture = ExtResource( 25 )
+1/tex_offset = Vector2( 0, 0 )
+1/modulate = Color( 1, 1, 1, 1 )
+1/region = Rect2( 0, 0, 96, 96 )
+1/tile_mode = 0
+1/occluder_offset = Vector2( 0, 0 )
+1/navigation_offset = Vector2( 0, 0 )
+1/shape_offset = Vector2( 0, 0 )
+1/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+1/shape = SubResource( 4 )
+1/shape_one_way = false
+1/shape_one_way_margin = 1.0
+1/shapes = [ {
+"autotile_coord": Vector2( 0, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 4 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+} ]
+1/z_index = 0
+
+[sub_resource type="RectangleShape2D" id=5]
+extents = Vector2( 32, 32 )
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 225, 10 )
@@ -75,6 +133,37 @@ __meta__ = {
 
 [node name="ScreenShotHelperUI" parent="." instance=ExtResource( 10 )]
 
+[node name="IceBlockTileMap" type="TileMap" parent="." groups=["IceBlockTileMap"]]
+tile_set = SubResource( 3 )
+cell_size = Vector2( 96, 96 )
+collision_layer = 4225
+collision_mask = 129
+format = 1
+tile_data = PoolIntArray( 262137, 0, 0, 327673, 0, 0 )
+script = ExtResource( 19 )
+
+[node name="FireDetector1" type="Area2D" parent="IceBlockTileMap"]
+position = Vector2( -621.844, 327.759 )
+script = ExtResource( 27 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="IceBlockTileMap/FireDetector1"]
+position = Vector2( -2, 8 )
+shape = SubResource( 5 )
+
+[node name="FireDetector2" type="Area2D" parent="IceBlockTileMap"]
+position = Vector2( -621.844, 423.759 )
+script = ExtResource( 27 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="IceBlockTileMap/FireDetector2"]
+position = Vector2( -2, 8 )
+shape = SubResource( 5 )
+
 [node name="TileMap (Back)" type="TileMap" parent="."]
 tile_set = ExtResource( 30 )
 cell_size = Vector2( 96, 96 )
@@ -100,7 +189,7 @@ energy = 0.65
 mode = 1
 
 [node name="LevelTransporterEnd" parent="." instance=ExtResource( 6 )]
-position = Vector2( 525, 1854 )
+position = Vector2( 637.783, 679.869 )
 Destination = "res://scenes/levels/Level2.tscn"
 level_exit = true
 
@@ -112,18 +201,46 @@ Destination = "res://scenes/levels/hublevel/HubLevel.tscn"
 position = Vector2( -1139, 144 )
 
 [node name="ChestSilver" parent="." instance=ExtResource( 9 )]
-position = Vector2( -7.99951, 1836 )
+position = Vector2( -1229.82, 717.909 )
 chestID = 1
-Opals = 20
+Opals = 25
 
 [node name="WallTorch" parent="." instance=ExtResource( 15 )]
 position = Vector2( -1103, 608 )
 
 [node name="WallTorch2" parent="." instance=ExtResource( 15 )]
-position = Vector2( 48, 608 )
+position = Vector2( 47.625, 608 )
 
 [node name="WallTorch3" parent="." instance=ExtResource( 15 )]
 position = Vector2( -1872, 608 )
+
+[node name="Barrel" parent="." instance=ExtResource( 12 )]
+position = Vector2( -716.319, 920.685 )
+
+[node name="Barrel2" parent="." instance=ExtResource( 12 )]
+position = Vector2( -330.102, 439.775 )
+
+[node name="Spider" parent="." instance=ExtResource( 3 )]
+position = Vector2( 152.44, 268.052 )
+
+[node name="Slime" parent="." instance=ExtResource( 4 )]
+position = Vector2( -527, 432 )
+
+[node name="Slime2" parent="." instance=ExtResource( 4 )]
+position = Vector2( -527, 906 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2( 432.75, 483.661 )
+collision_layer = 129
+collision_mask = 129
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2( 0, 7 )
+shape = SubResource( 1 )
+one_way_collision = true
 
 [node name="Player" parent="." instance=ExtResource( 29 )]
 position = Vector2( -1601, 704 )
@@ -140,22 +257,5 @@ drag_margin_h_enabled = true
 drag_margin_v_enabled = true
 editor_draw_limits = true
 
-[node name="Spider" parent="." instance=ExtResource( 3 )]
-position = Vector2( 152.44, 268.052 )
-
-[node name="Slime" parent="." instance=ExtResource( 4 )]
-position = Vector2( -527, 432 )
-
-[node name="Slime2" parent="." instance=ExtResource( 4 )]
-position = Vector2( -527, 906 )
-
-[node name="StaticBody2D" type="StaticBody2D" parent="."]
-position = Vector2( 432.75, 483.661 )
-__meta__ = {
-"_edit_group_": true
-}
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2( 0, 7 )
-shape = SubResource( 1 )
-one_way_collision = true
+[connection signal="area_entered" from="IceBlockTileMap/FireDetector1" to="IceBlockTileMap/FireDetector1" method="_on_FireDetector1_area_entered"]
+[connection signal="area_entered" from="IceBlockTileMap/FireDetector2" to="IceBlockTileMap/FireDetector2" method="_on_FireDetector1_area_entered"]

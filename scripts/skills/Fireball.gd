@@ -8,6 +8,8 @@ var direction : int = 1
 var destroyed : bool = false
 signal add_mana_to_player(amount)
 
+var collision
+
 func _ready():
 	connect("add_mana_to_player", get_parent().get_node("Player"), "change_mana_value")
 	if Global.player_talents["PiercingFervor"]["unlocked"] and Global.player_talents["PiercingFervor"]["enabled"]: 
@@ -40,7 +42,7 @@ func override_speed(ovr_speed : int):
 
 			
 func _on_VisibilityNotifier2D_screen_exited():
-	queue_free()
+	call_deferred('free')
 
 func _on_Fireball_area_entered(area):
 	if area.is_in_group("Enemy") or area.is_in_group("DestructableObject") or area.is_in_group("Campfire"):
@@ -51,7 +53,8 @@ func _on_Fireball_area_entered(area):
 			$AnimatedSprite.play("Destroyed")
 			$CollisionShape2D.disabled = true
 			yield(get_tree().create_timer(0.25), "timeout")
-			queue_free()
+			call_deferred('free')
+	
 
 func explode():
 	destroyed = true
@@ -63,6 +66,22 @@ func explode():
 	call_deferred('free')
 
 func _on_Fireball_body_entered(body):
+	if body.is_in_group("IceBlockTileMap"):
+		var tilemap : TileMap = get_parent().get_node("IceBlockTileMap")
+		var cell : Vector2 = tilemap.world_to_map(self.global_position - Vector2(40,0))
+		if direction == 1:
+			cell = tilemap.world_to_map(self.global_position - Vector2(-40,0))
+		var tile_id : int = tilemap.get_cellv(cell)
+		print("fireball entered tilemap " + str(cell))
+		if tile_id == 0:
+			tilemap.set_cellv(cell, 1)
+		if tile_id == 1:
+			tilemap.set_cellv(cell, -1)
+		
+		
+		
+		
+	
 	if !Global.player_talents["PiercingFervor"]["enabled"]:
 		explode()
 
