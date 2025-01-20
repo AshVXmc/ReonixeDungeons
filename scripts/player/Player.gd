@@ -53,13 +53,14 @@ var collision : KinematicCollision2D
 const TYPE : String = "Player"
 const AIRBORNE_STATUS : PackedScene = preload("res://scenes/status_effects/AirborneStatus.tscn")
 var dashdirection : Vector2 = Vector2(1,0)
-var repulsion : Vector2 = Vector2()
+
 var knockback_power : int = 800
 var can_be_knocked : bool = true
-const MAX_SPEED = 350
+const MAX_SPEED : int = 350
 var SPEED : int = MAX_SPEED
 const GRAVITY : int = 38
-var JUMP_POWER : int = -1200
+var JUMP_POWER : int = -810 # for double jumping
+var can_double_jump : bool = true
 var waiting_for_quickswap : bool = false
 var is_thrust_attacking : bool = false
 var energy_full : bool 
@@ -103,6 +104,7 @@ var burning_breath_timer
 onready var FULL_CHARGE_METER = preload("res://assets/UI/chargebar_full.png")
 onready var CHARGING_CHARGE_METER = preload("res://assets/UI/chargebar_charging.png")
 const DASH_STAMINA_COST : int = 100
+const DOUBLE_JUMP_STAMINA_COST : int = 100
 const DEFAULT_SKIN = preload("res://spriteframes/Player_Default_spriteframes.tres")
 const CYBER_NINJA_SKIN = preload("res://spriteframes/Player_CyberNinja_spriteframes.tres")
 const WHITE_MAGE_SKIN = preload("res://spriteframes/Player_WhiteMage_spriteframes.tres")
@@ -447,7 +449,10 @@ func _physics_process(_delta):
 				
 					# Jump controls (ground)
 					if Input.is_action_just_pressed("jump") and !can_fly and !mobility_lock and !is_attacking and !is_frozen and !underwater and !Input.is_action_pressed("ui_dash"):
-						if is_on_floor():
+						if can_double_jump or is_on_floor():
+							if !is_on_floor() and stamina_bar_ui.value >= DOUBLE_JUMP_STAMINA_COST: 
+								can_double_jump = false
+								stamina_bar_ui.value -= DOUBLE_JUMP_STAMINA_COST
 							$DashAfterJumpingDelayTimer.start()
 							# Particles
 							var jump_particle : JumpParticle = JUMP_PARTICLE.instance()
@@ -504,6 +509,8 @@ func _physics_process(_delta):
 				velocity.y += GRAVITY
 		if airborne_mode:
 			velocity.y = 0
+		if !can_double_jump and is_on_floor():
+			can_double_jump = true
 
 	if is_healing:
 		$Sprite.play("Healing")
@@ -2063,7 +2070,7 @@ func _on_DashCooldown_timeout():
 	$Sprite.play("Idle")
 	
 func _on_KnockbackTimer_timeout():
-
+	var repulsion : Vector2 = Vector2()
 	is_knocked_back = false
 	repulsion.x = knockback_power
 	velocity.x = 0
