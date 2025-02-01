@@ -51,10 +51,10 @@ func _physics_process(delta):
 			$AnimatedSprite.stop()
 	if !is_airborne:
 		velocity.y += GRAVITY
-	if direction == 1 and !is_dead:
-		$AnimatedSprite.flip_h = false
-	elif !is_dead:
-		$AnimatedSprite.flip_h = true
+		if direction == 1 and !is_dead:
+			$AnimatedSprite.flip_h = false
+		elif !is_dead:
+			$AnimatedSprite.flip_h = true
 	velocity = move_and_slide(velocity, FLOOR)
 	if is_on_wall() or !$RayCast2D.is_colliding():
 		direction *= -1

@@ -3,4 +3,4 @@ class_name JumpParticle extends CPUParticles2D
 
 
 func _on_Timer_timeout():
-	queue_free()
+	call_deferred('free')

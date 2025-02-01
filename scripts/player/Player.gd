@@ -59,7 +59,7 @@ var can_be_knocked : bool = true
 const MAX_SPEED : int = 350
 var SPEED : int = MAX_SPEED
 const GRAVITY : int = 38
-var JUMP_POWER : int = -810 # for double jumping
+var JUMP_POWER : int = -830 # for double jumping
 var can_double_jump : bool = true
 var waiting_for_quickswap : bool = false
 var is_thrust_attacking : bool = false
@@ -448,12 +448,13 @@ func _physics_process(_delta):
 						$EnemyEvasionArea.set_scale(Vector2(1,1))
 				
 					# Jump controls (ground)
-					if Input.is_action_just_pressed("jump") and !can_fly and !mobility_lock and !is_attacking and !is_frozen and !underwater and !Input.is_action_pressed("ui_dash"):
+					if Input.is_action_just_pressed("jump") and $DoubleJumpDelayTimer.is_stopped() and !can_fly and !mobility_lock and !is_attacking and !is_frozen and !underwater and !Input.is_action_pressed("ui_dash"):
 						if can_double_jump or is_on_floor():
 							if !is_on_floor() and stamina_bar_ui.value >= DOUBLE_JUMP_STAMINA_COST: 
 								can_double_jump = false
 								stamina_bar_ui.value -= DOUBLE_JUMP_STAMINA_COST
 							$DashAfterJumpingDelayTimer.start()
+							$DoubleJumpDelayTimer.start()
 							# Particles
 							var jump_particle : JumpParticle = JUMP_PARTICLE.instance()
 							jump_particle.emitting = true

@@ -27,10 +27,12 @@ func load_data(savefile):
 	Global.vsync = player_data["Vsync"]
 	Global.levelpath = player_data["Level"]
 	Global.character_health_data = player_data["CharacterHealthData"]
+	Global.character_defense_data = player_data["CharacterDefenseData"]
 	Global.equipped_character_skins = player_data["EquippedSkins"]
-	Global.player_talents = player_data["PlayerTalents"]
-	Global.glaciela_talents = player_data["GlacielaTalents"]
-
+	Global.player_talents_data = player_data["PlayerTalentsData"]
+	Global.glaciela_talents_data = player_data["GlacielaTalentsData"]
+	# agnette data
+	Global.enemies_encountered_data = player_data["EnemiesEncounteredData"]
 	Global.player_perks = player_data["PlayerPerks"]
 	Global.enemies_killed = player_data["EnemiesKilled"]
 	Global.player_position = player_data["PlayerPosition"]
