@@ -28,6 +28,8 @@ func initialize_ui():
 	get_tree().paused = true
 	get_parent().layer = 3
 	Global.can_open_pause_menu = false
+	for enemy in Global.enemies_encountered_data:
+		pass
 
 func close_ui():
 	visible = false

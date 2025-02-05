@@ -29,7 +29,7 @@ animations = [ {
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 34.1214, 22.5793 )
 
-[node name="ElderSpider" type="KinematicBody2D" groups=["Enemy"]]
+[node name="ElderSpider" type="KinematicBody2D" groups=["Enemy", "EnemyEntity"]]
 scale = Vector2( 1.25, 1.25 )
 script = ExtResource( 3 )
 

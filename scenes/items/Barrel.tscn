@@ -10,7 +10,6 @@ extents = Vector2( 8.57007, 10.4653 )
 resource_name = "NormalBarrel"
 
 [node name="Barrel" type="Sprite"]
-self_modulate = Color( 0.858824, 0.2, 0.2, 1 )
 scale = Vector2( 5, 5 )
 texture = ExtResource( 1 )
 script = ExtResource( 2 )

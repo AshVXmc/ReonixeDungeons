@@ -27,7 +27,7 @@
 [ext_resource path="res://assets/particles/slow_particle_(snail_symbol).png" type="Texture" id=25]
 
 [sub_resource type="RectangleShape2D" id=82]
-extents = Vector2( 34, 48 )
+extents = Vector2( 34, 44.3992 )
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 37.7159, 43.7237 )
@@ -3599,6 +3599,7 @@ flip_h = true
 flip_v = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0, 3.60078 )
 shape = SubResource( 82 )
 
 [node name="AttackCollision" type="Area2D" parent="." groups=["LightPoiseDamage", "NoAirborneKnockback", "SmallEleganceValue", "Sword"]]
@@ -3989,6 +3990,10 @@ one_shot = true
 
 [node name="FireCharmTimer" type="Timer" parent="."]
 wait_time = 7.0
+one_shot = true
+
+[node name="DoubleJumpDelayTimer" type="Timer" parent="."]
+wait_time = 0.25
 one_shot = true
 
 [connection signal="timeout" from="CharacterManager/SwapCooldownTimer" to="CharacterManager" method="_on_SwapCooldownTimer_timeout"]

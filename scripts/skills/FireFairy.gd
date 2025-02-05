@@ -2,7 +2,7 @@ class_name FireFairy extends Area2D
 onready var player = get_parent().get_node("Player")
 const SULPHURIC_SIGIL = preload("res://scenes/status_effects/SulphuricSigil.tscn")
 const BURNING : PackedScene = preload("res://scenes/status_effects/BurningStatus.tscn")
-const SPEED = 500
+const SPEED = 350
 const steer_force = 325
 var attack : int = 5
 var target = null
@@ -85,7 +85,18 @@ func _on_FireFairy_body_entered(body):
 	if body.is_in_group("EnemyEntity") and !body.is_in_group("MarkedWithSulphuricSigil"):
 		var sigil = SULPHURIC_SIGIL.instance()
 		body.add_child(sigil)
-
+	# handled with area2ds instead.
+#	if body.is_in_group("IceBlockTileMap"):
+#		var tilemap : TileMap = get_parent().get_node("IceBlockTileMap")
+#
+#		var cell = tilemap.world_to_map(body.get_position())
+#		var tile_id : int = tilemap.get_cellv(cell)
+#		print("entered tilemap " + str(cell))
+#
+#		if tile_id == 0:
+#			tilemap.set_cellv(cell, 1)
+#		if tile_id == 1:
+#			tilemap.set_cellv(cell, -1)
 
 func _on_FireFairy_area_entered(area):
 	if area.is_in_group("Enemy"):
