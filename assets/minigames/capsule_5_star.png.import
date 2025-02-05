@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/gachapon_machine.png-49c7cf56937bf5607b3f33e0fc85b3ba.stex"
+path="res://.import/capsule_5_star.png-58198a35cb70cc89ee8969b5ee3feff4.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/gacha/gachapon_machine.png"
-dest_files=[ "res://.import/gachapon_machine.png-49c7cf56937bf5607b3f33e0fc85b3ba.stex" ]
+source_file="res://assets/minigames/capsule_5_star.png"
+dest_files=[ "res://.import/capsule_5_star.png-58198a35cb70cc89ee8969b5ee3feff4.stex" ]
 
 [params]
 

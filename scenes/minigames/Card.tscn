@@ -1,0 +1,13 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://scripts/minigames/Card.gd" type="Script" id=1]
+[ext_resource path="res://assets/minigames/playing_cards_spritesheet.png" type="Texture" id=2]
+
+[sub_resource type="AtlasTexture" id=1]
+atlas = ExtResource( 2 )
+region = Rect2( 0, 0, 12, 16 )
+
+[node name="Card" type="Sprite"]
+scale = Vector2( 8, 8 )
+texture = SubResource( 1 )
+script = ExtResource( 1 )

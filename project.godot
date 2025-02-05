@@ -84,6 +84,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/ui/BeastiaryUI.gd"
 }, {
+"base": "Control",
+"class": "BlackJack",
+"language": "GDScript",
+"path": "res://scripts/minigames/BlackJack.gd"
+}, {
 "base": "Node2D",
 "class": "BossLevelTransporter",
 "language": "GDScript",
@@ -108,6 +113,11 @@ _global_script_classes=[ {
 "class": "BurningStatus",
 "language": "GDScript",
 "path": "res://scripts/status_effects/BurningStatus.gd"
+}, {
+"base": "Sprite",
+"class": "Card",
+"language": "GDScript",
+"path": "res://scripts/minigames/Card.gd"
 }, {
 "base": "Node2D",
 "class": "Cauldron",
@@ -333,11 +343,6 @@ _global_script_classes=[ {
 "class": "GameOver",
 "language": "GDScript",
 "path": "res://scripts/ui/GameOver.gd"
-}, {
-"base": "Node2D",
-"class": "GashaponMachine",
-"language": "GDScript",
-"path": "res://scripts/gacha/GashaponMachine.gd"
 }, {
 "base": "Node2D",
 "class": "GenericInteractLabel",
@@ -735,11 +740,13 @@ _global_script_class_icons={
 "BatProjectile": "",
 "Beastiary": "",
 "BeastiaryUI": "",
+"BlackJack": "",
 "BossLevelTransporter": "",
 "BowGoblin": "",
 "Bullet": "",
 "BurningBreathTalent": "",
 "BurningStatus": "",
+"Card": "",
 "Cauldron": "",
 "ChaosMagicUI": "",
 "CharacterGuideUI": "",
@@ -785,7 +792,6 @@ _global_script_class_icons={
 "FrozenStatus": "",
 "FruitBat": "",
 "GameOver": "",
-"GashaponMachine": "",
 "GenericInteractLabel": "",
 "GenericInteractable": "",
 "GenericSpike": "",

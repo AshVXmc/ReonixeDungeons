@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/5_star.png-21350a935d53aba783ad6936db7a2af2.stex"
+path="res://.import/gacha_token.png-aad14979b26026733d268a1829c4c4ab.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/gacha/5_star.png"
-dest_files=[ "res://.import/5_star.png-21350a935d53aba783ad6936db7a2af2.stex" ]
+source_file="res://assets/minigames/gacha_token.png"
+dest_files=[ "res://.import/gacha_token.png-aad14979b26026733d268a1829c4c4ab.stex" ]
 
 [params]
 
