@@ -26,9 +26,18 @@ func start_new_round():
 	deck = INITIAL_DECK
 	randomize()
 	deck.shuffle()
-	for i in 2:
-		dealer_hand.append(deck.pop_back())
-		player_hand.append(deck.pop_back())
+#	for i in 2:
+#		dealer_hand.append(deck.pop_back())
+#		player_hand.append(deck.pop_back())
+	
+	
+	dealer_hand.append([7, 'D'])
+	dealer_hand.append([14, 'C'])
+	
+	player_hand.append([14, 'S'])
+	player_hand.append([14, 'H'])
+
+	
 	
 	var d : int = 1
 	while d <= 2:
@@ -42,9 +51,8 @@ func start_new_round():
 	while p <= 2:
 		deal_card("Player", p, player_hand[p - 1])
 		p += 1
-#	print(dealer_hand)
-#	print(player_hand)
-#
+
+
 	update_scores()
 
 func deal_card(card_owner : String, index : int, card_info : Array, face_down : bool = false):
@@ -66,12 +74,40 @@ func deal_card(card_owner : String, index : int, card_info : Array, face_down : 
 func update_scores():
 	var dealer_score : int = 0
 	var player_score : int = 0
+	
+	var num_of_dealer_aces : int = 0
+	var num_of_player_aces : int = 0
+	
 	for card in dealer_hand:
+		# this if-statement turns the first card in the dealer's hand face-down.
 		if !dealer_hand.find(card) == 0:
-			dealer_score += card[0]
+			if card[0] == Card.NUMBER.ACE:
+				dealer_score += 11
+				num_of_dealer_aces += 1
+			elif card[0] == Card.NUMBER.JACK or card[0] == Card.NUMBER.QUEEN or card[0] == Card.NUMBER.KING:
+				dealer_score += 10
+			else:
+				dealer_score += card[0]
+	
+	while num_of_dealer_aces > 0:
+		if dealer_score > 21:
+			dealer_score -= 10
+		num_of_dealer_aces -= 1
 	$DealerControl/DealerLabel.text = "Dealer: " + str(dealer_score)
 	
+	
 	for card in player_hand:
-		player_score += card[0]
+		if card[0] == Card.NUMBER.ACE:
+			player_score += 11
+			num_of_player_aces += 1
+		elif card[0] == Card.NUMBER.JACK or card[0] == Card.NUMBER.QUEEN or card[0] == Card.NUMBER.KING:
+			player_score += 10
+		else:
+			player_score += card[0]
+	
+	while num_of_player_aces > 0:
+		if player_score > 21:
+			player_score -= 10
+		num_of_player_aces -= 1
 	$PlayerControl/PlayerLabel.text = "Player: " + str(player_score)
 	
