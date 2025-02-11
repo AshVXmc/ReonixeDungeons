@@ -18,27 +18,38 @@ const MAX_CARDS : int = 5
 
 var dealer_hand : Array 
 var player_hand : Array
+var first_dealer_card : Card
+
+var dealer_score : int = 0
+var player_score : int = 0
+var num_of_dealer_aces : int = 0
+var num_of_player_aces : int = 0
+var is_standing : bool = false
+
+enum {
+	DEALER_WINS, PLAYER_WINS, DRAW
+}
 
 func _ready():
 	start_new_round()
 
 func start_new_round():
 	deck = INITIAL_DECK
+	player_score = 0
+	dealer_score = 0
+	player_hand.clear()
+	dealer_hand.clear()
+	num_of_dealer_aces = 0
+	num_of_player_aces = 0
+	first_dealer_card = null
 	randomize()
 	deck.shuffle()
-#	for i in 2:
-#		dealer_hand.append(deck.pop_back())
-#		player_hand.append(deck.pop_back())
-	
-	
-	dealer_hand.append([7, 'D'])
-	dealer_hand.append([14, 'C'])
-	
-	player_hand.append([14, 'S'])
-	player_hand.append([14, 'H'])
+	for i in 2:
+		dealer_hand.append(deck.pop_back())
+		player_hand.append(deck.pop_back())
 
-	
-	
+
+
 	var d : int = 1
 	while d <= 2:
 		if d == 1:
@@ -52,10 +63,14 @@ func start_new_round():
 		deal_card("Player", p, player_hand[p - 1])
 		p += 1
 
-
-	update_scores()
+	for i in range(1, dealer_hand.size() + 1):
+		if i != 1:
+			update_dealer_score(i)
+	for i in range(1, player_hand.size() + 1):
+		update_player_score(i)
 
 func deal_card(card_owner : String, index : int, card_info : Array, face_down : bool = false):
+	# index starts at 1.
 	var card : Card = CARD.instance()
 	get_node(card_owner + "Control").add_child(card)
 	card.name = "Card" + str(index)
@@ -70,44 +85,112 @@ func deal_card(card_owner : String, index : int, card_info : Array, face_down : 
 	else:
 		card.set_card_texture(card_info[0], card_info[1])
 	
+	if card_owner == "Dealer" and index == 1:
+		first_dealer_card = card
 
-func update_scores():
-	var dealer_score : int = 0
-	var player_score : int = 0
-	
-	var num_of_dealer_aces : int = 0
-	var num_of_player_aces : int = 0
-	
-	for card in dealer_hand:
-		# this if-statement turns the first card in the dealer's hand face-down.
-		if !dealer_hand.find(card) == 0:
-			if card[0] == Card.NUMBER.ACE:
-				dealer_score += 11
-				num_of_dealer_aces += 1
-			elif card[0] == Card.NUMBER.JACK or card[0] == Card.NUMBER.QUEEN or card[0] == Card.NUMBER.KING:
-				dealer_score += 10
-			else:
-				dealer_score += card[0]
-	
+
+
+func update_dealer_score(card_index : int):
+	var card_info = dealer_hand[card_index - 1]
+
+	if card_info[0] == Card.NUMBER.ACE:
+		dealer_score += 11
+		num_of_dealer_aces += 1
+	elif card_info[0] == Card.NUMBER.JACK or card_info[0] == Card.NUMBER.QUEEN or card_info[0] == Card.NUMBER.KING:
+		dealer_score += 10
+	else:
+		dealer_score += card_info[0]
+
 	while num_of_dealer_aces > 0:
 		if dealer_score > 21:
 			dealer_score -= 10
 		num_of_dealer_aces -= 1
 	$DealerControl/DealerLabel.text = "Dealer: " + str(dealer_score)
 	
-	
-	for card in player_hand:
-		if card[0] == Card.NUMBER.ACE:
-			player_score += 11
-			num_of_player_aces += 1
-		elif card[0] == Card.NUMBER.JACK or card[0] == Card.NUMBER.QUEEN or card[0] == Card.NUMBER.KING:
-			player_score += 10
-		else:
-			player_score += card[0]
-	
+
+func update_player_score(card_index : int):
+	var card_info = player_hand[card_index - 1]
+
+	if card_info[0] == Card.NUMBER.ACE:
+		player_score += 11
+		num_of_player_aces += 1
+	elif card_info[0] == Card.NUMBER.JACK or card_info[0] == Card.NUMBER.QUEEN or card_info[0] == Card.NUMBER.KING:
+		player_score += 10
+	else:
+		player_score += card_info[0]
+
 	while num_of_player_aces > 0:
 		if player_score > 21:
 			player_score -= 10
 		num_of_player_aces -= 1
 	$PlayerControl/PlayerLabel.text = "Player: " + str(player_score)
+
+
+func _on_HitButton_pressed():
+	hit("Player")
+
+func _on_StandButton_pressed():
+	stand("Player")
+
+
+func hit(hand_owner : String):
+	if !is_standing and hand_owner == "Player" and player_hand.size() < MAX_CARDS and !deck.empty():
+		var card : Array = deck.pop_back()
+		player_hand.append(card)
+		deal_card("Player", player_hand.size(), card)
+		update_player_score(player_hand.size())
 	
+	if hand_owner == "Dealer":
+		var card : Array = deck.pop_back()
+		dealer_hand.append(card)
+		deal_card("Dealer", dealer_hand.size(), card)
+		update_dealer_score(dealer_hand.size())
+
+func stand(hand_owner : String):
+	
+	if !is_standing and hand_owner == "Player":
+		is_standing = true
+		start_dealer_turn()
+	elif hand_owner == "Dealer":
+		print("Dealer stand")
+#
+func start_dealer_turn():
+	yield(get_tree().create_timer(0.75), "timeout")
+	first_dealer_card.set_card_texture(first_dealer_card.number, first_dealer_card.suit)
+	update_dealer_score(1)
+	
+	# shitty dealer AI
+	
+	while dealer_score < 16:
+		yield(get_tree().create_timer(0.75), "timeout")
+		hit("Dealer")
+	stand("Dealer")
+
+	print(determine_winner())
+
+
+func determine_winner() -> int:
+	
+	if dealer_score == player_score:
+		return DRAW
+	if dealer_score == 21:
+		return DEALER_WINS
+	if player_score == 21:
+		return PLAYER_WINS
+	
+	if dealer_score > 21 and player_score <= 21:
+		return PLAYER_WINS
+	if player_score > 21 and dealer_score <= 21:
+		return DEALER_WINS
+	
+	if dealer_score < 21 and player_score < 21:
+		if dealer_score > player_score:
+			return DEALER_WINS
+		return PLAYER_WINS
+	
+	if dealer_score > 21 and player_score > 21:
+		if dealer_score > player_score:
+			return PLAYER_WINS
+		return DEALER_WINS
+	
+	return -1

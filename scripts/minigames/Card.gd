@@ -20,7 +20,7 @@ func _ready():
 func set_texture_to_face_down():
 	texture.set_region(Rect2(0, 64, 12, 16))
 	
-func set_card_texture(number : int, suit : String):
+func set_card_texture(number : int, suit):
 	var suit_num : int = 0
 	match suit:
 		'H':
@@ -30,6 +30,14 @@ func set_card_texture(number : int, suit : String):
 		'C':
 			suit_num = SUITS.CLUBS
 		'D':
+			suit_num = SUITS.DIAMONDS
+		0:
+			suit_num = SUITS.HEARTS
+		1:
+			suit_num = SUITS.SPADES
+		2:
+			suit_num = SUITS.CLUBS
+		3:
 			suit_num = SUITS.DIAMONDS
 	texture.set_region(Rect2(12 * (number - 2), 16 * suit_num, 12, 16))
 

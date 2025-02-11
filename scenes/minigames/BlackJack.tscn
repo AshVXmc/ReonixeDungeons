@@ -1,8 +1,10 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://scripts/minigames/BlackJack.gd" type="Script" id=1]
+[ext_resource path="res://assets/UI/button_pressed.png" type="Texture" id=2]
 [ext_resource path="res://themes/Blur.tres" type="Material" id=3]
 [ext_resource path="res://assets/UI/textbox.png" type="Texture" id=4]
+[ext_resource path="res://assets/UI/button.png" type="Texture" id=5]
 [ext_resource path="res://assets/fonts/Born2bSportyV2.ttf" type="DynamicFontData" id=13]
 
 [sub_resource type="DynamicFont" id=1]
@@ -10,6 +12,10 @@ size = 32
 font_data = ExtResource( 13 )
 
 [sub_resource type="DynamicFont" id=2]
+size = 32
+font_data = ExtResource( 13 )
+
+[sub_resource type="DynamicFont" id=3]
 size = 32
 font_data = ExtResource( 13 )
 
@@ -46,7 +52,7 @@ anchor_bottom = 0.5
 margin_left = -325.0
 margin_top = -200.0
 margin_right = 325.0
-margin_bottom = 200.0
+margin_bottom = 222.0
 texture = ExtResource( 4 )
 patch_margin_left = 64
 patch_margin_top = 64
@@ -59,9 +65,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 margin_left = -200.0
-margin_top = -181.0
+margin_top = -182.0
 margin_right = 200.0
-margin_bottom = -131.0
+margin_bottom = -132.0
 custom_fonts/normal_font = SubResource( 1 )
 bbcode_enabled = true
 bbcode_text = "[center]====== [color=green]Card Game[/color] ======"
@@ -74,9 +80,9 @@ margin_bottom = 40.0
 
 [node name="DealerLabel" type="Label" parent="BlackJackControl/DealerControl"]
 margin_left = 250.0
-margin_top = 235.0
+margin_top = 220.0
 margin_right = 370.0
-margin_bottom = 271.0
+margin_bottom = 256.0
 custom_fonts/font = SubResource( 2 )
 text = "Dealer: XX"
 align = 1
@@ -87,15 +93,24 @@ position = Vector2( 440, 285 )
 [node name="Card2Position2D" type="Position2D" parent="BlackJackControl/DealerControl"]
 position = Vector2( 500, 285 )
 
+[node name="Card3Position2D" type="Position2D" parent="BlackJackControl/DealerControl"]
+position = Vector2( 560, 285 )
+
+[node name="Card4Position2D" type="Position2D" parent="BlackJackControl/DealerControl"]
+position = Vector2( 620, 285 )
+
+[node name="Card5Position2D" type="Position2D" parent="BlackJackControl/DealerControl"]
+position = Vector2( 680, 285 )
+
 [node name="PlayerControl" type="Control" parent="BlackJackControl"]
 margin_right = 40.0
 margin_bottom = 40.0
 
 [node name="PlayerLabel" type="Label" parent="BlackJackControl/PlayerControl"]
 margin_left = 250.0
-margin_top = 415.0
+margin_top = 400.0
 margin_right = 370.0
-margin_bottom = 451.0
+margin_bottom = 436.0
 custom_fonts/font = SubResource( 2 )
 text = "Player: XX"
 align = 1
@@ -105,3 +120,125 @@ position = Vector2( 440, 465 )
 
 [node name="Card2Position2D" type="Position2D" parent="BlackJackControl/PlayerControl"]
 position = Vector2( 500, 465 )
+
+[node name="Card3Position2D" type="Position2D" parent="BlackJackControl/PlayerControl"]
+position = Vector2( 560, 465 )
+
+[node name="Card4Position2D" type="Position2D" parent="BlackJackControl/PlayerControl"]
+position = Vector2( 620, 465 )
+
+[node name="Card5Position2D" type="Position2D" parent="BlackJackControl/PlayerControl"]
+position = Vector2( 680, 465 )
+
+[node name="HitButton" type="TextureButton" parent="BlackJackControl/PlayerControl"]
+anchor_left = -1.4
+anchor_top = 0.5
+anchor_right = -1.4
+anchor_bottom = 0.5
+margin_left = 316.0
+margin_top = 421.0
+margin_right = 416.0
+margin_bottom = 471.0
+texture_normal = ExtResource( 5 )
+texture_pressed = ExtResource( 2 )
+expand = true
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Label" type="Label" parent="BlackJackControl/PlayerControl/HitButton"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -20.0
+margin_top = -16.0
+margin_right = 20.0
+margin_bottom = 16.0
+custom_fonts/font = SubResource( 3 )
+text = "Hit"
+align = 1
+
+[node name="StandButton" type="TextureButton" parent="BlackJackControl/PlayerControl"]
+anchor_left = -1.4
+anchor_top = 0.5
+anchor_right = -1.4
+anchor_bottom = 0.5
+margin_left = 316.0
+margin_top = 486.0
+margin_right = 416.0
+margin_bottom = 536.0
+texture_normal = ExtResource( 5 )
+texture_pressed = ExtResource( 2 )
+expand = true
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Label" type="Label" parent="BlackJackControl/PlayerControl/StandButton"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -33.0
+margin_top = -16.0
+margin_right = 33.0
+margin_bottom = 16.0
+custom_fonts/font = SubResource( 3 )
+text = "Stand"
+align = 1
+
+[node name="WinnerControl" type="Control" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -537.0
+margin_top = -361.0
+margin_right = 537.0
+margin_bottom = 361.0
+
+[node name="Blur" type="ColorRect" parent="WinnerControl"]
+material = ExtResource( 3 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -1265.65
+margin_top = -827.3
+margin_right = 1974.35
+margin_bottom = 1332.7
+color = Color( 1, 1, 1, 0 )
+
+[node name="NinePatchRect" type="NinePatchRect" parent="WinnerControl"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -150.0
+margin_top = -90.0
+margin_right = 150.0
+margin_bottom = 90.0
+texture = ExtResource( 4 )
+patch_margin_left = 64
+patch_margin_top = 64
+patch_margin_right = 64
+patch_margin_bottom = 64
+
+[node name="Header" type="RichTextLabel" parent="WinnerControl"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -140.0
+margin_top = -78.0
+margin_right = 138.0
+margin_bottom = -28.0
+custom_fonts/normal_font = SubResource( 1 )
+bbcode_enabled = true
+bbcode_text = "[center]== [color=#ffd703]XXXXXX Wins[/color] =="
+text = "== XXXXXX Wins =="
+scroll_active = false
+
+[connection signal="pressed" from="BlackJackControl/PlayerControl/HitButton" to="BlackJackControl" method="_on_HitButton_pressed"]
+[connection signal="pressed" from="BlackJackControl/PlayerControl/StandButton" to="BlackJackControl" method="_on_StandButton_pressed"]
