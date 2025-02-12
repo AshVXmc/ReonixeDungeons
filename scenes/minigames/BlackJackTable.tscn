@@ -1,0 +1,290 @@
+[gd_scene load_steps=20 format=2]
+
+[ext_resource path="res://assets/minigames/gachapon_machine.png" type="Texture" id=1]
+[ext_resource path="res://scripts/minigames/BlackJackTable.gd" type="Script" id=2]
+[ext_resource path="res://scenes/minigames/BlackJack.tscn" type="PackedScene" id=3]
+[ext_resource path="res://assets/fonts/Born2bSportyV2.ttf" type="DynamicFontData" id=4]
+[ext_resource path="res://themes/Blur.tres" type="Material" id=5]
+[ext_resource path="res://assets/UI/textbox.png" type="Texture" id=6]
+[ext_resource path="res://assets/minigames/capsule_3_star.png" type="Texture" id=7]
+[ext_resource path="res://assets/minigames/capsule_4_star.png" type="Texture" id=8]
+[ext_resource path="res://assets/minigames/capsule_1_star.png" type="Texture" id=9]
+[ext_resource path="res://assets/minigames/capsule_2_star.png" type="Texture" id=10]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 50, 80 )
+
+[sub_resource type="DynamicFontData" id=7]
+font_path = "res://assets/fonts/Born2bSportyV2.ttf"
+
+[sub_resource type="DynamicFont" id=6]
+size = 32
+font_data = SubResource( 7 )
+
+[sub_resource type="DynamicFont" id=8]
+size = 48
+font_data = SubResource( 7 )
+
+[sub_resource type="DynamicFont" id=10]
+font_data = ExtResource( 4 )
+
+[sub_resource type="StreamTexture" id=9]
+load_path = "res://.import/capsule_5_star.png-58198a35cb70cc89ee8969b5ee3feff4.stex"
+
+[sub_resource type="DynamicFont" id=4]
+size = 48
+font_data = ExtResource( 4 )
+
+[sub_resource type="DynamicFont" id=5]
+size = 48
+font_data = ExtResource( 4 )
+
+[sub_resource type="DynamicFont" id=3]
+size = 64
+font_data = ExtResource( 4 )
+
+[node name="BlackJackTable" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="Sprite" type="Sprite" parent="."]
+scale = Vector2( 5, 5 )
+texture = ExtResource( 1 )
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource( 1 )
+
+[node name="BetOpalsUI" type="CanvasLayer" parent="."]
+pause_mode = 2
+
+[node name="Control" type="Control" parent="BetOpalsUI"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Blur" type="ColorRect" parent="BetOpalsUI/Control"]
+material = ExtResource( 5 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -1266.0
+margin_top = -834.0
+margin_right = 1974.0
+margin_bottom = 1326.0
+color = Color( 1, 1, 1, 0 )
+
+[node name="NinePatchRect" type="NinePatchRect" parent="BetOpalsUI/Control"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -225.0
+margin_top = -260.0
+margin_right = 225.0
+margin_bottom = 302.0
+texture = ExtResource( 6 )
+patch_margin_left = 64
+patch_margin_top = 64
+patch_margin_right = 64
+patch_margin_bottom = 64
+
+[node name="Header" type="RichTextLabel" parent="BetOpalsUI/Control"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -200.0
+margin_top = -246.0
+margin_right = 200.0
+margin_bottom = -78.0
+custom_fonts/normal_font = SubResource( 6 )
+bbcode_enabled = true
+bbcode_text = "[center]=== [color=green]Pick your bets[/color] ===
+[color=#ffd703]You[/color] winning [color=#ffd703]rewards[/color] the amount of opals you bet.
+[color=red]Dealer[/color] winning makes you [color=red]lose[/color]
+the opals you bet.
+"
+text = "=== Pick your bets ===
+You winning rewards the amount of opals you bet.
+Dealer winning makes you lose
+the opals you bet.
+"
+scroll_active = false
+
+[node name="CurrentOpalsLabel" type="RichTextLabel" parent="BetOpalsUI/Control"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -200.0
+margin_top = -66.0
+margin_right = 200.0
+margin_bottom = -8.0
+custom_fonts/normal_font = SubResource( 8 )
+bbcode_enabled = true
+bbcode_text = "[center]Opals: XXXX[img= 40x40]res://assets/misc/opal.png[/img]"
+text = "Opals: XXXX"
+scroll_active = false
+
+[node name="BetButtonTiny" type="TextureButton" parent="BetOpalsUI/Control"]
+anchor_right = 0.019
+margin_left = 352.0
+margin_top = 370.0
+margin_right = 371.48
+margin_bottom = 410.0
+rect_scale = Vector2( 2.7, 2.7 )
+texture_normal = ExtResource( 9 )
+expand = true
+
+[node name="Label" type="Label" parent="BetOpalsUI/Control/BetButtonTiny"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -9.5
+margin_top = -8.0
+margin_right = 9.5
+margin_bottom = 8.0
+custom_fonts/font = SubResource( 10 )
+text = "25"
+align = 1
+
+[node name="BetButtonSmall" type="TextureButton" parent="BetOpalsUI/Control"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -54.0
+margin_top = 9.99997
+margin_right = -14.0
+margin_bottom = 50.0
+rect_scale = Vector2( 2.7, 2.7 )
+texture_normal = ExtResource( 10 )
+expand = true
+
+[node name="Label" type="Label" parent="BetOpalsUI/Control/BetButtonSmall"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -9.5
+margin_top = -8.0
+margin_right = 9.5
+margin_bottom = 8.0
+custom_fonts/font = SubResource( 10 )
+text = "50"
+align = 1
+
+[node name="BetButtonMedium" type="TextureButton" parent="BetOpalsUI/Control"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = 80.0
+margin_top = 10.0
+margin_right = 120.0
+margin_bottom = 50.0
+rect_scale = Vector2( 2.7, 2.7 )
+texture_normal = ExtResource( 7 )
+expand = true
+
+[node name="Label" type="Label" parent="BetOpalsUI/Control/BetButtonMedium"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -9.5
+margin_top = -8.0
+margin_right = 9.5
+margin_bottom = 8.0
+custom_fonts/font = SubResource( 10 )
+text = "100"
+align = 1
+
+[node name="BetButtonLarge" type="TextureButton" parent="BetOpalsUI/Control"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -121.0
+margin_top = 137.0
+margin_right = -81.0
+margin_bottom = 177.0
+rect_scale = Vector2( 2.7, 2.7 )
+texture_normal = ExtResource( 8 )
+expand = true
+
+[node name="Label" type="Label" parent="BetOpalsUI/Control/BetButtonLarge"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -10.5
+margin_top = -8.0
+margin_right = 10.5
+margin_bottom = 8.0
+custom_fonts/font = SubResource( 10 )
+text = "500"
+align = 1
+
+[node name="BetButtonMassive" type="TextureButton" parent="BetOpalsUI/Control"]
+self_modulate = Color( 0.92549, 0.72549, 0.0156863, 1 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = 13.0
+margin_top = 137.0
+margin_right = 53.0
+margin_bottom = 177.0
+rect_scale = Vector2( 2.7, 2.7 )
+texture_normal = SubResource( 9 )
+expand = true
+
+[node name="Label" type="Label" parent="BetOpalsUI/Control/BetButtonMassive"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -12.5
+margin_top = -8.0
+margin_right = 12.5
+margin_bottom = 8.0
+custom_fonts/font = SubResource( 10 )
+text = "1000"
+align = 1
+
+[node name="BlackJackUI" parent="." instance=ExtResource( 3 )]
+
+[node name="Label" type="RichTextLabel" parent="."]
+margin_left = -59.0
+margin_top = -133.0
+margin_right = 85.0
+margin_bottom = -79.0
+custom_fonts/bold_font = SubResource( 4 )
+custom_fonts/normal_font = SubResource( 5 )
+bbcode_enabled = true
+bbcode_text = "[b]Use[/b] [img=40]res://assets/UI/icon_Empty.png[/img]"
+text = "Use "
+scroll_active = false
+
+[node name="Keybind" type="Label" parent="."]
+anchor_left = -3.732
+anchor_right = -3.732
+margin_left = 26.7341
+margin_top = -135.0
+margin_right = 54.7341
+margin_bottom = -71.0
+rect_scale = Vector2( 0.75, 0.75 )
+custom_colors/font_color = Color( 0.192157, 0.372549, 1, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "R"
+align = 1
+valign = 1
+
+[connection signal="pressed" from="BetOpalsUI/Control/BetButtonTiny" to="." method="_on_BetButtonTiny_pressed"]
+[connection signal="pressed" from="BetOpalsUI/Control/BetButtonSmall" to="." method="_on_BetButtonSmall_pressed"]
+[connection signal="pressed" from="BetOpalsUI/Control/BetButtonMedium" to="." method="_on_BetButtonMedium_pressed"]
+[connection signal="pressed" from="BetOpalsUI/Control/BetButtonLarge" to="." method="_on_BetButtonLarge_pressed"]
+[connection signal="pressed" from="BetOpalsUI/Control/BetButtonMassive" to="." method="_on_BetButtonMassive_pressed"]

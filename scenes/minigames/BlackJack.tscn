@@ -1,10 +1,12 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://scripts/minigames/BlackJack.gd" type="Script" id=1]
 [ext_resource path="res://assets/UI/button_pressed.png" type="Texture" id=2]
 [ext_resource path="res://themes/Blur.tres" type="Material" id=3]
 [ext_resource path="res://assets/UI/textbox.png" type="Texture" id=4]
 [ext_resource path="res://assets/UI/button.png" type="Texture" id=5]
+[ext_resource path="res://assets/UI/long_button.png" type="Texture" id=6]
+[ext_resource path="res://assets/UI/long_button_pressed.png" type="Texture" id=7]
 [ext_resource path="res://assets/fonts/Born2bSportyV2.ttf" type="DynamicFontData" id=13]
 
 [sub_resource type="DynamicFont" id=1]
@@ -19,9 +21,15 @@ font_data = ExtResource( 13 )
 size = 32
 font_data = ExtResource( 13 )
 
+[sub_resource type="DynamicFont" id=4]
+size = 48
+font_data = ExtResource( 13 )
+
 [node name="BlackJackUI" type="CanvasLayer"]
+pause_mode = 2
 
 [node name="BlackJackControl" type="Control" parent="."]
+visible = false
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -38,10 +46,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -1265.65
-margin_top = -827.3
-margin_right = 1974.35
-margin_bottom = 1332.7
+margin_left = -1266.0
+margin_top = -834.0
+margin_right = 1974.0
+margin_bottom = 1326.0
 color = Color( 1, 1, 1, 0 )
 
 [node name="NinePatchRect" type="NinePatchRect" parent="BlackJackControl"]
@@ -52,7 +60,7 @@ anchor_bottom = 0.5
 margin_left = -325.0
 margin_top = -200.0
 margin_right = 325.0
-margin_bottom = 222.0
+margin_bottom = 250.0
 texture = ExtResource( 4 )
 patch_margin_left = 64
 patch_margin_top = 64
@@ -65,13 +73,13 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 margin_left = -200.0
-margin_top = -182.0
+margin_top = -186.0
 margin_right = 200.0
-margin_bottom = -132.0
+margin_bottom = -136.0
 custom_fonts/normal_font = SubResource( 1 )
 bbcode_enabled = true
-bbcode_text = "[center]====== [color=green]Card Game[/color] ======"
-text = "====== Card Game ======"
+bbcode_text = "[center]====== [color=green]BlackJack[/color] ======"
+text = "====== BlackJack ======"
 scroll_active = false
 
 [node name="DealerControl" type="Control" parent="BlackJackControl"]
@@ -80,27 +88,27 @@ margin_bottom = 40.0
 
 [node name="DealerLabel" type="Label" parent="BlackJackControl/DealerControl"]
 margin_left = 250.0
-margin_top = 220.0
+margin_top = 221.0
 margin_right = 370.0
-margin_bottom = 256.0
+margin_bottom = 257.0
 custom_fonts/font = SubResource( 2 )
 text = "Dealer: XX"
 align = 1
 
 [node name="Card1Position2D" type="Position2D" parent="BlackJackControl/DealerControl"]
-position = Vector2( 440, 285 )
+position = Vector2( 440, 286 )
 
 [node name="Card2Position2D" type="Position2D" parent="BlackJackControl/DealerControl"]
-position = Vector2( 500, 285 )
+position = Vector2( 500, 286 )
 
 [node name="Card3Position2D" type="Position2D" parent="BlackJackControl/DealerControl"]
-position = Vector2( 560, 285 )
+position = Vector2( 560, 286 )
 
 [node name="Card4Position2D" type="Position2D" parent="BlackJackControl/DealerControl"]
-position = Vector2( 620, 285 )
+position = Vector2( 620, 286 )
 
 [node name="Card5Position2D" type="Position2D" parent="BlackJackControl/DealerControl"]
-position = Vector2( 680, 285 )
+position = Vector2( 680, 286 )
 
 [node name="PlayerControl" type="Control" parent="BlackJackControl"]
 margin_right = 40.0
@@ -108,27 +116,27 @@ margin_bottom = 40.0
 
 [node name="PlayerLabel" type="Label" parent="BlackJackControl/PlayerControl"]
 margin_left = 250.0
-margin_top = 400.0
+margin_top = 430.0
 margin_right = 370.0
-margin_bottom = 436.0
+margin_bottom = 466.0
 custom_fonts/font = SubResource( 2 )
 text = "Player: XX"
 align = 1
 
 [node name="Card1Position2D" type="Position2D" parent="BlackJackControl/PlayerControl"]
-position = Vector2( 440, 465 )
+position = Vector2( 440, 495 )
 
 [node name="Card2Position2D" type="Position2D" parent="BlackJackControl/PlayerControl"]
-position = Vector2( 500, 465 )
+position = Vector2( 500, 495 )
 
 [node name="Card3Position2D" type="Position2D" parent="BlackJackControl/PlayerControl"]
-position = Vector2( 560, 465 )
+position = Vector2( 560, 495 )
 
 [node name="Card4Position2D" type="Position2D" parent="BlackJackControl/PlayerControl"]
-position = Vector2( 620, 465 )
+position = Vector2( 620, 495 )
 
 [node name="Card5Position2D" type="Position2D" parent="BlackJackControl/PlayerControl"]
-position = Vector2( 680, 465 )
+position = Vector2( 680, 495 )
 
 [node name="HitButton" type="TextureButton" parent="BlackJackControl/PlayerControl"]
 anchor_left = -1.4
@@ -136,9 +144,9 @@ anchor_top = 0.5
 anchor_right = -1.4
 anchor_bottom = 0.5
 margin_left = 316.0
-margin_top = 421.0
+margin_top = 451.0
 margin_right = 416.0
-margin_bottom = 471.0
+margin_bottom = 501.0
 texture_normal = ExtResource( 5 )
 texture_pressed = ExtResource( 2 )
 expand = true
@@ -165,9 +173,9 @@ anchor_top = 0.5
 anchor_right = -1.4
 anchor_bottom = 0.5
 margin_left = 316.0
-margin_top = 486.0
+margin_top = 516.0
 margin_right = 416.0
-margin_bottom = 536.0
+margin_bottom = 566.0
 texture_normal = ExtResource( 5 )
 texture_pressed = ExtResource( 2 )
 expand = true
@@ -188,7 +196,23 @@ custom_fonts/font = SubResource( 3 )
 text = "Stand"
 align = 1
 
+[node name="BetAmountLabel" type="RichTextLabel" parent="BlackJackControl"]
+anchor_left = 0.2
+anchor_top = 0.5
+anchor_right = 0.2
+anchor_bottom = 0.5
+margin_left = 24.2
+margin_top = 1.0
+margin_right = 448.2
+margin_bottom = 55.0
+custom_fonts/normal_font = SubResource( 4 )
+bbcode_enabled = true
+bbcode_text = "[color=#ffd703]Bet[/color]: 9999[img= 40x40]res://assets/misc/opal.png[/img]"
+text = "Bet: 9999"
+scroll_active = false
+
 [node name="WinnerControl" type="Control" parent="."]
+visible = false
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -216,9 +240,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 margin_left = -150.0
-margin_top = -90.0
+margin_top = -120.0
 margin_right = 150.0
-margin_bottom = 90.0
+margin_bottom = 170.0
 texture = ExtResource( 4 )
 patch_margin_left = 64
 patch_margin_top = 64
@@ -231,14 +255,74 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 margin_left = -140.0
-margin_top = -78.0
+margin_top = -107.0
 margin_right = 138.0
-margin_bottom = -28.0
+margin_bottom = -57.0
 custom_fonts/normal_font = SubResource( 1 )
 bbcode_enabled = true
 bbcode_text = "[center]== [color=#ffd703]XXXXXX Wins[/color] =="
 text = "== XXXXXX Wins =="
 scroll_active = false
 
+[node name="AgainButton" type="TextureButton" parent="WinnerControl"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -106.0
+margin_top = 32.0
+margin_right = 104.0
+margin_bottom = 84.0
+texture_normal = ExtResource( 6 )
+texture_pressed = ExtResource( 7 )
+expand = true
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Label" type="Label" parent="WinnerControl/AgainButton"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -96.0
+margin_top = -16.0
+margin_right = 96.0
+margin_bottom = 16.0
+custom_fonts/font = SubResource( 3 )
+text = "One more round"
+align = 1
+
+[node name="QuitButton" type="TextureButton" parent="WinnerControl"]
+anchor_left = 0.5
+anchor_top = 0.672
+anchor_right = 0.5
+anchor_bottom = 0.672
+margin_left = -52.0
+margin_top = -26.1841
+margin_right = 52.0
+margin_bottom = 25.8159
+texture_normal = ExtResource( 5 )
+texture_pressed = ExtResource( 2 )
+expand = true
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Label" type="Label" parent="WinnerControl/QuitButton"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -96.0
+margin_top = -16.0
+margin_right = 96.0
+margin_bottom = 16.0
+custom_fonts/font = SubResource( 3 )
+text = "Quit"
+align = 1
+
 [connection signal="pressed" from="BlackJackControl/PlayerControl/HitButton" to="BlackJackControl" method="_on_HitButton_pressed"]
 [connection signal="pressed" from="BlackJackControl/PlayerControl/StandButton" to="BlackJackControl" method="_on_StandButton_pressed"]
+[connection signal="pressed" from="WinnerControl/AgainButton" to="BlackJackControl" method="_on_AgainButton_pressed"]
+[connection signal="pressed" from="WinnerControl/QuitButton" to="BlackJackControl" method="_on_QuitButton_pressed"]

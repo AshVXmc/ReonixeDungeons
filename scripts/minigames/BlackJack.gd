@@ -2,6 +2,7 @@ class_name BlackJack extends Control
 
 
 const CARD : PackedScene = preload("res://scenes/minigames/Card.tscn")
+onready var PLAYER : Player = get_parent().get_parent().get_parent().get_parent().get_node("Player")
 const INITIAL_DECK : Array = [
 	# 52 initial standard playing cards 
 	# 2-10, J (11) , Q (12) , K (13) , A (14)
@@ -26,14 +27,20 @@ var num_of_dealer_aces : int = 0
 var num_of_player_aces : int = 0
 var is_standing : bool = false
 
+var bet : int 
 enum {
 	DEALER_WINS, PLAYER_WINS, DRAW
 }
 
-func _ready():
-	start_new_round()
+#func _ready():
+#	start_new_round()
 
-func start_new_round():
+func start_new_round(new_bet : int):
+	visible = true
+	get_parent().layer = 3
+	get_parent().get_node("WinnerControl").visible = false
+	bet = new_bet
+	$BetAmountLabel.bbcode_text = "[color=#ffd703]Bet[/color]: " + str(new_bet) + "[img= 40x40]res://assets/misc/opal.png[/img]"
 	deck = INITIAL_DECK
 	player_score = 0
 	dealer_score = 0
@@ -42,8 +49,18 @@ func start_new_round():
 	num_of_dealer_aces = 0
 	num_of_player_aces = 0
 	first_dealer_card = null
+	is_standing = false
+	
 	randomize()
 	deck.shuffle()
+	
+	for child in $DealerControl.get_children():
+		if child is Card:
+			child.call_deferred('free')
+	
+	for child in $PlayerControl.get_children():
+		if child is Card:
+			child.call_deferred('free')
 	for i in 2:
 		dealer_hand.append(deck.pop_back())
 		player_hand.append(deck.pop_back())
@@ -123,7 +140,7 @@ func update_player_score(card_index : int):
 		if player_score > 21:
 			player_score -= 10
 		num_of_player_aces -= 1
-	$PlayerControl/PlayerLabel.text = "Player: " + str(player_score)
+	$PlayerControl/PlayerLabel.text = "You: " + str(player_score)
 
 
 func _on_HitButton_pressed():
@@ -160,21 +177,25 @@ func start_dealer_turn():
 	update_dealer_score(1)
 	
 	# shitty dealer AI
-	
-	while dealer_score < 16:
+	var rng = RandomNumberGenerator.new()
+	rng.randomize()
+	var num = rng.randi_range(14, 16)
+
+	while dealer_score < num:
 		yield(get_tree().create_timer(0.75), "timeout")
 		hit("Dealer")
 	stand("Dealer")
-
-	print(determine_winner())
+	
+	
+	yield(get_tree().create_timer(1), "timeout")
+	end_current_round()
 
 
 func determine_winner() -> int:
-	
 	if dealer_score == player_score:
 		return DRAW
 	if dealer_score == 21:
-		return DEALER_WINS
+		return DEALER_WINS  
 	if player_score == 21:
 		return PLAYER_WINS
 	
@@ -194,3 +215,29 @@ func determine_winner() -> int:
 		return DEALER_WINS
 	
 	return -1
+
+func end_current_round():
+	var winner : String
+	var s : String = ""
+	if determine_winner() == DEALER_WINS:
+		winner = "Dealer"
+		s = "s"
+		PLAYER.get_opals(-bet)
+	elif determine_winner() == PLAYER_WINS:
+		winner = "You"
+		PLAYER.get_opals(bet)
+	get_parent().get_node("WinnerControl/Header").bbcode_text = "[center]== [color=#ffd703]" + winner + " Win" + s + "[/color] =="
+	get_parent().get_node("WinnerControl").visible = true
+	
+	
+func _on_AgainButton_pressed():
+	start_new_round(bet)
+	get_parent().get_node("WinnerControl").visible = false
+
+
+func _on_QuitButton_pressed():
+	visible = false
+	get_parent().get_node("WinnerControl").visible = false
+	get_parent().layer = 1
+	get_tree().paused = false
+	get_parent().get_parent().unstuck_player()
