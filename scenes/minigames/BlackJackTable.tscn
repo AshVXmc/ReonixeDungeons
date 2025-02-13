@@ -59,6 +59,7 @@ shape = SubResource( 1 )
 pause_mode = 2
 
 [node name="Control" type="Control" parent="BetOpalsUI"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 

@@ -7,23 +7,21 @@
 
 			],
 			"portrait": "",
-			"question": "A winged, cyclopean statue carved out of black stone stands in front of you. Read the plaque? "
+			"question": "A winged, cyclopean statue of a goddess carved out of black stone stands in front of you. Do you wish to accept the [color=#ffd703]Goddess's Trials[/color]?"
 		},
 		{
-			"choice": "Read it",
+			"choice": "Accept",
 			"condition": "",
 			"definition": "",
 			"event_id": "dialogic_011",
 			"value": ""
 		},
 		{
-			"character": "character-1713800816.json",
-			"event_id": "dialogic_001",
-			"portrait": "",
-			"text": "yayyy"
+			"emit_signal": "accept_trials",
+			"event_id": "dialogic_040"
 		},
 		{
-			"choice": "test 2",
+			"choice": "Leave",
 			"condition": "",
 			"definition": "",
 			"event_id": "dialogic_011",

@@ -539,6 +539,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/misc/MeteorStrike.gd"
 }, {
+"base": "GenericInteractable",
+"class": "MonumentOfVictories",
+"language": "GDScript",
+"path": "res://scripts/terrain/MonumentOfVictories.gd"
+}, {
 "base": "AnimatedSprite",
 "class": "MoteOfFlame",
 "language": "GDScript",
@@ -836,6 +841,7 @@ _global_script_class_icons={
 "MaskedGoblin": "",
 "MeteorShower": "",
 "MeteorStrike": "",
+"MonumentOfVictories": "",
 "MoteOfFlame": "",
 "PerfectDash": "",
 "PiercingProjectile": "",

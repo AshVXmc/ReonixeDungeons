@@ -24,7 +24,7 @@ shape = SubResource( 1 )
 wait_time = 0.8
 autostart = true
 
-[node name="FireGaugeArea" type="Area2D" parent="." groups=["200", "FireGauge"]]
+[node name="FireGaugeArea" type="Area2D" parent="." groups=["250", "FireGauge"]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="FireGaugeArea"]
 position = Vector2( 0.200509, 1.89254 )

@@ -26,6 +26,8 @@ func end_of_dialogue(timeline_name):
 func add_dialogue():
 	var DIALOGUE = Dialogic.start(dialogic_timeline)
 	DIALOGUE.connect("timeline_start", self, "start_of_dialogue")
+	
+	
 	DIALOGUE.connect("timeline_end",self , "end_of_dialogue")
 	add_child(DIALOGUE)
 	

@@ -1,7 +1,7 @@
 class_name FireCharm extends Node2D
 
 
-const MAX_SPEED : int = 400
+const MAX_SPEED : int = 225
 var SPEED : int = MAX_SPEED
 var velocity := Vector2()
 export (int) var x_direction = 1
