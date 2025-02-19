@@ -47,7 +47,7 @@ func _on_VisibilityNotifier2D_screen_exited():
 func _on_Fireball_area_entered(area):
 	if area.is_in_group("Enemy") or area.is_in_group("DestructableObject") or area.is_in_group("Campfire"):
 		add_burning_stack()
-		emit_signal("add_mana_to_player", 0.5)
+		emit_signal("add_mana_to_player", 0.25)
 		if !Global.player_talents["PiercingFervor"]["enabled"]:
 			destroyed = true
 			$AnimatedSprite.play("Destroyed")

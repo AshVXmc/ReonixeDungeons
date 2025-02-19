@@ -269,10 +269,10 @@ func parse_damage(staggers:bool = true):
 		
 func knockback(knockback_coefficient : float = 1):
 	is_staggered = true
-	if $AnimatedSprite.flip_h:
-		velocity.x = -SPEED * knockback_coefficient
-	else:
-		velocity.x = SPEED * knockback_coefficient
+#	if $AnimatedSprite.flip_h:
+#		velocity.x = -SPEED * knockback_coefficient
+#	else:
+#		velocity.x = SPEED * knockback_coefficient
 	$HurtTimer.start()
 
 func add_damage_particles(type : String, dmg : int, is_crit : bool):

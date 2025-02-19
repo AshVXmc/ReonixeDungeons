@@ -101,4 +101,4 @@ func _on_FireFairy_body_entered(body):
 func _on_FireFairy_area_entered(area):
 	if area.is_in_group("Enemy"):
 		add_burning_stack()
-		emit_signal("add_mana_to_player", 0.4)
+		emit_signal("add_mana_to_player", 0.15)

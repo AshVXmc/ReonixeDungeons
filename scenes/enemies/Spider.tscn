@@ -20,7 +20,7 @@ animations = [ {
 } ]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 34.1214, 22.5793 )
+extents = Vector2( 34.1214, 27.7792 )
 
 [node name="Spider" type="KinematicBody2D" groups=["Enemy", "EnemyEntity"]]
 scale = Vector2( 1.25, 1.25 )
@@ -58,7 +58,8 @@ animation = "Idle"
 [node name="Area2D" type="Area2D" parent="." groups=["Enemy"]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2( -2.35798, 16.1792 )
+position = Vector2( -2.35798, 10.9793 )
+scale = Vector2( 1, 1 )
 shape = SubResource( 1 )
 
 [node name="RayCast2D" type="RayCast2D" parent="."]

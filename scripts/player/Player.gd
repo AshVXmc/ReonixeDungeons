@@ -720,13 +720,13 @@ func dash_counter_attack():
 		counterflurryeffect.player_counter_attack_animation()
 		yield(get_tree().create_timer(0.1), "timeout")
 		update_energy_meter(10)
-		change_mana_value(0.2)
+		change_mana_value(0.15)
+		yield(get_tree().create_timer(0.1), "timeout")
+		update_energy_meter(10)
+		change_mana_value(0.15)
 		yield(get_tree().create_timer(0.1), "timeout")
 		update_energy_meter(10)
 		change_mana_value(0.2)
-		yield(get_tree().create_timer(0.1), "timeout")
-		update_energy_meter(10)
-		change_mana_value(0.25)
 #		yield(get_tree().create_timer(0.4), "timeout")
 #		is_dash_counter_attacking = false
 func attack():
@@ -1027,18 +1027,18 @@ func charged_attack(type : String = "Ground"):
 			num_of_slashes += 1
 		
 		#emit_signal("change_elegance"), "ChargedAttackLight")
-		change_mana_value(0.25)
+		change_mana_value(0.2)
+		yield(get_tree().create_timer(0.1), "timeout")
+		#emit_signal("change_elegance"), "ChargedAttackLight")
+		change_mana_value(0.2)
 		yield(get_tree().create_timer(0.1), "timeout")
 		#emit_signal("change_elegance"), "ChargedAttackLight")
 		change_mana_value(0.25)
 		yield(get_tree().create_timer(0.1), "timeout")
 		#emit_signal("change_elegance"), "ChargedAttackLight")
-		change_mana_value(0.3)
+		change_mana_value(0.25)
 		yield(get_tree().create_timer(0.1), "timeout")
-		#emit_signal("change_elegance"), "ChargedAttackLight")
-		change_mana_value(0.3)
-		yield(get_tree().create_timer(0.1), "timeout")
-		change_mana_value(0.5)
+		change_mana_value(0.4)
 		#emit_signal("change_elegance"), "ChargedAttackHeavy")
 		emit_signal("reduce_skill_cd", "Player", "PrimariesOnly", 4)
 		emit_signal("reduce_skill_cd", "Player", "SecondariesOnly", 2)
@@ -1634,7 +1634,7 @@ func _on_AttackCollision_area_entered(area):
 #							emit_signal("reduce_skill_cd", "Player", "PrimarySkill", 1)
 #							emit_signal("reduce_skill_cd", "Player", "SecondarySkill", 1)
 #					#emit_signal("change_elegance"), "BasicAttack")
-					change_mana_value(0.25)
+					change_mana_value(0.15)
 					$ManaRegenDelay.start()
 				if weakref(area).get_ref() != null:
 					var slashparticle = SWORD_SLASH_EFFECT.instance()
@@ -1843,7 +1843,7 @@ func thrust_attack(special : bool = false):
 		swordslash.horizontal_slash_animation()
 		Input.action_release("jump")
 		velocity.y = 0
-		change_mana_value(0.5)
+		change_mana_value(0.35)
 		$Sprite.play("Dash")
 
 		if special:

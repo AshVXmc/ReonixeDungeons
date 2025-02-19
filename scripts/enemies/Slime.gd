@@ -1,8 +1,8 @@
 class_name Slime extends KinematicBody2D
 
 var velocity : Vector2 = Vector2()
-var max_HP : int = Global.enemy_level_index * 30 + 35
-const AIRBORNE_SPEED : int = -4450
+var max_HP : int = Global.enemy_level_index * 25 + 28
+const AIRBORNE_SPEED : int = -3360
 var level_calc : int = round(Global.enemy_level_index)
 export var level : int = level_calc
 var HP : int = max_HP
@@ -257,10 +257,10 @@ func _on_Area2D_area_entered(area):
 #	drop_loot()
 func knockback(knockback_coefficient : float = 1):
 	is_staggered = true
-	if $AnimatedSprite.flip_h:
-		velocity.x = SPEED * knockback_coefficient
-	else:
-		velocity.x = -SPEED * knockback_coefficient
+#	if $AnimatedSprite.flip_h:
+#		velocity.x = SPEED * knockback_coefficient
+#	else:
+#		velocity.x = -SPEED * knockback_coefficient
 	$HurtTimer.start()
 	
 	

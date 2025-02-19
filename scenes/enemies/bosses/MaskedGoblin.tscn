@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=2]
+[gd_scene load_steps=37 format=2]
 
 [ext_resource path="res://scripts/enemies/MaskedGoblin.gd" type="Script" id=1]
 [ext_resource path="res://assets/enemies/bosses/masked_goblin_2.png" type="Texture" id=2]
@@ -908,6 +908,12 @@ extents = Vector2( 45, 60 )
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 166.268, 50.3433 )
 
+[sub_resource type="RectangleShape2D" id=27]
+extents = Vector2( 70, 50.343 )
+
+[sub_resource type="RectangleShape2D" id=28]
+extents = Vector2( 70, 50.343 )
+
 [sub_resource type="CapsuleShape2D" id=3]
 radius = 37.9007
 height = 41.7494
@@ -933,7 +939,7 @@ extents = Vector2( 9.93562, 41.0079 )
 [sub_resource type="RectangleShape2D" id=14]
 extents = Vector2( 32, 49 )
 
-[node name="MaskedGoblin" type="KinematicBody2D" groups=["CanBeHealed", "Enemy", "EnemyEntity"]]
+[node name="MaskedGoblin" type="KinematicBody2D" groups=["AirborneImmune", "CanBeHealed", "Enemy", "EnemyEntity"]]
 scale = Vector2( 1.2, 1.2 )
 collision_layer = 4
 collision_mask = 11
@@ -992,6 +998,20 @@ shape = SubResource( 2 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Right"]
 position = Vector2( 198.333, 0 )
 shape = SubResource( 2 )
+
+[node name="PlayerDetectorLeft" type="Area2D" parent="."]
+collision_layer = 129
+collision_mask = 129
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetectorLeft"]
+position = Vector2( -100, 0 )
+shape = SubResource( 27 )
+
+[node name="PlayerDetectorRight" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetectorRight"]
+position = Vector2( 100, 0 )
+shape = SubResource( 28 )
 
 [node name="Area2D" type="Area2D" parent="." groups=["Enemy"]]
 
@@ -1101,9 +1121,15 @@ emitting = true
 lifetime = 0.35
 initial_velocity = 85.0
 
+[node name="ComboAttack1CooldownTimer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
 [connection signal="tree_exiting" from="." to="." method="_on_Goblin_tree_exiting"]
 [connection signal="area_exited" from="Left" to="." method="_on_Left_area_exited"]
 [connection signal="area_exited" from="Right" to="." method="_on_Right_area_exited"]
+[connection signal="body_entered" from="PlayerDetectorLeft" to="." method="_on_PlayerDetectorLeft_body_entered"]
+[connection signal="body_entered" from="PlayerDetectorRight" to="." method="_on_PlayerDetectorRight_body_entered"]
 [connection signal="area_entered" from="Area2D" to="." method="_on_Area2D_area_entered"]
 [connection signal="area_exited" from="Area2D" to="." method="_on_Area2D_area_exited"]
 [connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]
