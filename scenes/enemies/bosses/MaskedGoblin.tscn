@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=2]
+[gd_scene load_steps=36 format=2]
 
 [ext_resource path="res://scripts/enemies/MaskedGoblin.gd" type="Script" id=1]
 [ext_resource path="res://assets/enemies/bosses/masked_goblin_2.png" type="Texture" id=2]
@@ -33,6 +33,18 @@ tracks/0/keys = {
 "args": [  ],
 "method": "death"
 } ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite:self_modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 0, 0, 0, 1 ) ]
 }
 
 [sub_resource type="Animation" id=26]
@@ -682,7 +694,7 @@ tracks/8/loop_wrap = true
 tracks/8/imported = false
 tracks/8/enabled = true
 tracks/8/keys = {
-"times": PoolRealArray( 0.2 ),
+"times": PoolRealArray( 0.55 ),
 "transitions": PoolRealArray( 1 ),
 "values": [ {
 "args": [ 3 ],
@@ -797,7 +809,7 @@ tracks/8/loop_wrap = true
 tracks/8/imported = false
 tracks/8/enabled = true
 tracks/8/keys = {
-"times": PoolRealArray( 0.2 ),
+"times": PoolRealArray( 0.55 ),
 "transitions": PoolRealArray( 1 ),
 "values": [ {
 "args": [ 3 ],
@@ -906,13 +918,10 @@ animations = [ {
 extents = Vector2( 45, 60 )
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 166.268, 50.3433 )
+extents = Vector2( 314.801, 50.3433 )
 
 [sub_resource type="RectangleShape2D" id=27]
-extents = Vector2( 70, 50.343 )
-
-[sub_resource type="RectangleShape2D" id=28]
-extents = Vector2( 70, 50.343 )
+extents = Vector2( 75, 59.7548 )
 
 [sub_resource type="CapsuleShape2D" id=3]
 radius = 37.9007
@@ -957,10 +966,11 @@ shape = SubResource( 8 )
 [node name="SwordSprite" type="Sprite" parent="."]
 position = Vector2( -14, -19 )
 rotation = 0.349066
-scale = Vector2( 4, 4 )
+scale = Vector2( 4.5, 4.5 )
 texture = ExtResource( 4 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+playback_speed = 1.25
 anims/Death = SubResource( 6 )
 anims/EndAttackAnimation = SubResource( 26 )
 anims/RESET = SubResource( 7 )
@@ -990,28 +1000,22 @@ collision_layer = 129
 collision_mask = 129
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Left"]
-position = Vector2( -193.217, 0 )
+position = Vector2( -360, 0 )
 shape = SubResource( 2 )
 
 [node name="Right" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Right"]
-position = Vector2( 198.333, 0 )
+position = Vector2( 360, 0 )
 shape = SubResource( 2 )
 
-[node name="PlayerDetectorLeft" type="Area2D" parent="."]
+[node name="PlayerDetector" type="Area2D" parent="."]
 collision_layer = 129
 collision_mask = 129
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetectorLeft"]
-position = Vector2( -100, 0 )
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetector"]
+position = Vector2( -105, -9.41183 )
 shape = SubResource( 27 )
-
-[node name="PlayerDetectorRight" type="Area2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetectorRight"]
-position = Vector2( 100, 0 )
-shape = SubResource( 28 )
 
 [node name="Area2D" type="Area2D" parent="." groups=["Enemy"]]
 
@@ -1056,6 +1060,7 @@ texture_under = ExtResource( 6 )
 texture_progress = ExtResource( 7 )
 
 [node name="ArmorBar" type="TextureProgress" parent="."]
+visible = false
 margin_left = -47.4633
 margin_top = -67.3225
 margin_right = -17.4633
@@ -1122,14 +1127,12 @@ lifetime = 0.35
 initial_velocity = 85.0
 
 [node name="ComboAttack1CooldownTimer" type="Timer" parent="."]
-wait_time = 3.0
+wait_time = 4.0
 one_shot = true
 
 [connection signal="tree_exiting" from="." to="." method="_on_Goblin_tree_exiting"]
 [connection signal="area_exited" from="Left" to="." method="_on_Left_area_exited"]
 [connection signal="area_exited" from="Right" to="." method="_on_Right_area_exited"]
-[connection signal="body_entered" from="PlayerDetectorLeft" to="." method="_on_PlayerDetectorLeft_body_entered"]
-[connection signal="body_entered" from="PlayerDetectorRight" to="." method="_on_PlayerDetectorRight_body_entered"]
 [connection signal="area_entered" from="Area2D" to="." method="_on_Area2D_area_entered"]
 [connection signal="area_exited" from="Area2D" to="." method="_on_Area2D_area_exited"]
 [connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]

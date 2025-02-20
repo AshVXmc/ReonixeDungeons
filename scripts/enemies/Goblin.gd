@@ -21,8 +21,14 @@ const MAX_GRAVITY : int = 45
 var GRAVITY : int = MAX_GRAVITY
 var is_staggered : bool = false
 
-# child entity uses only.
+# for witch goblin only
 var is_casting : bool = false
+
+# for masked goblin only
+var is_casting_dash_attack : bool = false
+
+
+
 var debuff_damage_multiplier : float = 1
 
 const LOOT = preload("res://scenes/items/LootBag.tscn")
@@ -82,7 +88,8 @@ func _physics_process(delta):
 		$Sprite.flip_h = true
 	if !is_airborne:
 		velocity.y += GRAVITY
-	velocity = move_and_slide(velocity, FLOOR)
+	if !is_casting_dash_attack:
+		velocity = move_and_slide(velocity, FLOOR)
 	if !$Sprite.flip_h:
 		$OtherEnemyDetector.set_scale(Vector2(1,1))
 		$SpearThrustAttackCollision.set_scale(Vector2(1,1))
@@ -101,7 +108,7 @@ func _physics_process(delta):
 			$Sprite.play("Attacking")
 		if !$Area2D.is_in_group("Hostile"):
 			$Area2D.add_to_group("Hostile")
-	if is_on_floor() and !is_casting:
+	if is_on_floor() and !is_casting and !is_casting_dash_attack:
 		if !is_staggered and !$Area2D.overlaps_area(PLAYER) and !other_enemy_detector_is_overlapping_player() and !is_frozen and !dead and !is_airborne and weakref(PLAYER).get_ref() != null: 
 			if AREA_LEFT.overlaps_area(PLAYER) and !AREA_LEFT.overlaps_area(DECOY) and !AREA_LEFT.overlaps_area(DECOY2) and !AREA_LEFT.overlaps_area(DECOY3):
 				$Sprite.flip_h = false
@@ -123,10 +130,10 @@ func _physics_process(delta):
 				if $Sprite.flip_h:
 					yield(get_tree().create_timer(0.5),"timeout")
 					velocity.x = SPEED
-	if other_enemy_is_on_front():
+	if other_enemy_is_on_front() and !is_casting:
 		velocity.x = 0
 		
-	if $Area2D.overlaps_area(PLAYER) or other_enemy_is_on_front() and !is_staggered:
+	if !is_casting and $Area2D.overlaps_area(PLAYER) or other_enemy_is_on_front() and !is_staggered:
 
 		if $Sprite.flip_h:
 			velocity.x = -SPEED * 1
@@ -467,7 +474,7 @@ func _on_Left_area_exited(area):
 
 
 func _on_Right_area_exited(area):
-
+	
 	yield(get_tree().create_timer(2), "timeout")
 	velocity.x = 0
 

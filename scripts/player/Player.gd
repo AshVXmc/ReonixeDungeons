@@ -1770,7 +1770,6 @@ func dash():
 					$Sprite.play("BackwardsDash")
 					velocity = dashdirection.normalized() * -2000
 					if perfect_dash and !airborne_mode and is_on_floor():
-					
 						can_use_slash_flurry = true
 						#emit_signal("change_elegance"), "PerfectDash")
 						$DashCounterAttackTimer.start()
