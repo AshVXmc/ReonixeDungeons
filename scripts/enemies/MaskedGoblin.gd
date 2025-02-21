@@ -3,7 +3,9 @@ class_name MaskedGoblin extends Goblin
 var current_state setget set_current_state, get_current_state
 enum state  {
 	IDLE,
-	MELEE_ATTACK
+	MELEE_ATTACK,
+	DASHING,
+	PARRYING
 }
 
 enum {
@@ -25,7 +27,7 @@ func get_current_state() -> int:
 
 
 onready var player : Player = get_parent().get_node("Player")
-var is_dashing : bool = false
+
 
 
 func _ready():
@@ -55,19 +57,21 @@ func _physics_process(delta):
 			$AnimationPlayer.play("SwordIdleLeft")
 		else:
 			$AnimationPlayer.play("SwordIdleRight")
-	elif get_current_state() == state.MELEE_ATTACK:
+	if get_current_state() == state.MELEE_ATTACK:
 		pass
 		
 	if $HealthBar.value == $HealthBar.min_value:
 		is_dead = true
 		$AnimationPlayer.play("Death")
 	
-	if is_dashing:
+	if get_current_state() == state.DASHING:
 		velocity.x = 0
 		var dashdirection : int
 		dashdirection = LEFT if !$Sprite.flip_h else RIGHT
-		velocity.x = SPEED * 500 * dashdirection * delta
-		
+		velocity.x = SPEED * 600 * dashdirection * delta
+	
+	if get_current_state() == state.PARRYING:
+		velocity.x = 0
 		
 		
 func handle_combo_attack_area(combo_id : int):
@@ -98,7 +102,8 @@ func handle_combo_attack_area(combo_id : int):
 func end_attack_animation():
 	set_current_state(state.IDLE)
 	SPEED = MAX_SPEED
-	
+
+
 
 func generate_random_num(min_value : int, max_value : int) -> int:
 	var rng : RandomNumberGenerator = RandomNumberGenerator.new()
@@ -108,8 +113,9 @@ func generate_random_num(min_value : int, max_value : int) -> int:
 
 func attack(direction : int):
 	if $ComboAttack1CooldownTimer.is_stopped():
-		dash_attack(direction)
+#		dash_attack(direction)
 #		combo_attack_1(direction)
+		parry_attack(direction)
 		$ComboAttack1CooldownTimer.start()
 
 
@@ -134,25 +140,31 @@ func combo_attack_1(direction : int):
 
 
 func dash_attack(dash_direction : int):
-
-#	velocity.x = 0
-#	velocity.y = 0
-#
-#	var correction : int = 1
-#	if dash_direction == -1:
-#		correction = -1
-#	SPEED = MAX_SPEED * 16 * dash_direction * correction
-#	yield(get_tree().create_timer(0.6), "timeout")
-#	SPEED = MAX_SPEED
-
-	is_dashing = true
+	set_current_state(state.MELEE_ATTACK)
+	if dash_direction == LEFT:
+		$AnimationPlayer.play("SwordDashAttack_Left")
+	elif dash_direction == RIGHT:
+		$AnimationPlayer.play("SwordDashAttack_Right")
+	yield(get_tree().create_timer(0.3), "timeout")
+	set_current_state(state.DASHING)
 	yield(get_tree().create_timer(0.25), "timeout")
-	is_dashing = false
+	set_current_state(state.IDLE)
 	$AnimationPlayer.queue("EndAttackAnimation")
-	
-func parry_attack():
-	pass
 
+
+func parry_attack(parry_direction : int):
+	set_current_state(state.PARRYING)
+	if parry_direction == LEFT:
+		$AnimationPlayer.play("SwordParryStance_Left")
+	else:
+		pass
+	
+
+#	set_current_state(state.IDLE)
+#	$AnimationPlayer.queue("EndAttackAnimation")
+
+	
+	
 
 
 
