@@ -1,5 +1,8 @@
 class_name MaskedGoblin extends Goblin
 
+
+const ENEMY_SHOCKWAVE : PackedScene = preload("res://scenes/enemies/bosses/EnemyShockwave.tscn")
+
 var current_state setget set_current_state, get_current_state
 enum state  {
 	IDLE,
@@ -72,7 +75,9 @@ func _physics_process(delta):
 	
 	if get_current_state() == state.PARRYING:
 		velocity.x = 0
-		
+		if is_staggered:
+			retaliate(LEFT) if !$Sprite.flip_h else retaliate(RIGHT)
+			is_staggered = false
 		
 func handle_combo_attack_area(combo_id : int):
 	match combo_id:
@@ -91,12 +96,21 @@ func handle_combo_attack_area(combo_id : int):
 				if g != "Enemy":
 					$Area2D.remove_from_group(g)
 			$Area2D.add_to_group(str(atk_value * 1.5))
-			var enemy_shockwave = preload("res://scenes/enemies/bosses/EnemyShockwave.tscn").instance()
+			var enemy_shockwave = ENEMY_SHOCKWAVE.instance()
 			direction = -1
+			enemy_shockwave.set_form(enemy_shockwave.SHOCKWAVE)
 			get_parent().add_child(enemy_shockwave)
-			
 			enemy_shockwave.position = Vector2(global_position.x, global_position.y + 16)
-
+		4:
+			for g in $Area2D.get_groups():
+				if g != "Enemy":
+					$Area2D.remove_from_group(g)
+			$Area2D.add_to_group(str(atk_value * 1.5))
+			var enemy_shockwave = ENEMY_SHOCKWAVE.instance()
+			direction = -1
+			enemy_shockwave.set_form(enemy_shockwave.SLASHWAVE)
+			get_parent().add_child(enemy_shockwave)
+			enemy_shockwave.position = Vector2(global_position.x, global_position.y + 16)
 
 # utility function for an animationplayer node
 func end_attack_animation():
@@ -156,16 +170,18 @@ func parry_attack(parry_direction : int):
 	set_current_state(state.PARRYING)
 	if parry_direction == LEFT:
 		$AnimationPlayer.play("SwordParryStance_Left")
-	else:
-		pass
-	
+	elif parry_direction == RIGHT:
+		$AnimationPlayer.play("SwordParryStance_Right")
 
-#	set_current_state(state.IDLE)
-#	$AnimationPlayer.queue("EndAttackAnimation")
 
-	
-	
-
+func retaliate(retaliate_direction : int):
+	set_current_state(state.MELEE_ATTACK)
+	$AnimationPlayer.stop()
+	if retaliate_direction == LEFT:
+		$AnimationPlayer.play("SwordRetaliate_Left")
+	elif retaliate_direction == RIGHT:
+		$AnimationPlayer.play("SwordRetaliate_Right")
+	$AnimationPlayer.queue("EndAttackAnimation")
 
 
 
