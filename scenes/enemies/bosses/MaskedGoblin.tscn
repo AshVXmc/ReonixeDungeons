@@ -321,7 +321,7 @@ tracks/6/keys = {
 "times": PoolRealArray( 0.1 ),
 "transitions": PoolRealArray( 1 ),
 "values": [ {
-"args": [ 1 ],
+"args": [ 1, -1 ],
 "method": "handle_combo_attack_area"
 } ]
 }
@@ -412,7 +412,7 @@ tracks/6/keys = {
 "times": PoolRealArray( 0.1 ),
 "transitions": PoolRealArray( 1 ),
 "values": [ {
-"args": [ 1 ],
+"args": [ 1, 1 ],
 "method": "handle_combo_attack_area"
 } ]
 }
@@ -503,7 +503,7 @@ tracks/6/keys = {
 "times": PoolRealArray( 0.1 ),
 "transitions": PoolRealArray( 1 ),
 "values": [ {
-"args": [ 2 ],
+"args": [ 2, -1 ],
 "method": "handle_combo_attack_area"
 } ]
 }
@@ -594,7 +594,7 @@ tracks/6/keys = {
 "times": PoolRealArray( 0.1 ),
 "transitions": PoolRealArray( 1 ),
 "values": [ {
-"args": [ 2 ],
+"args": [ 2, 1 ],
 "method": "handle_combo_attack_area"
 } ]
 }
@@ -709,7 +709,7 @@ tracks/8/keys = {
 "times": PoolRealArray( 0.55 ),
 "transitions": PoolRealArray( 1 ),
 "values": [ {
-"args": [ 3 ],
+"args": [ 3, -1 ],
 "method": "handle_combo_attack_area"
 } ]
 }
@@ -824,7 +824,7 @@ tracks/8/keys = {
 "times": PoolRealArray( 0.55 ),
 "transitions": PoolRealArray( 1 ),
 "values": [ {
-"args": [ 3 ],
+"args": [ 3, 1 ],
 "method": "handle_combo_attack_area"
 } ]
 }
@@ -1352,7 +1352,7 @@ tracks/6/keys = {
 "times": PoolRealArray( 0.2 ),
 "transitions": PoolRealArray( 1 ),
 "values": [ {
-"args": [ 3 ],
+"args": [ 4, -1 ],
 "method": "handle_combo_attack_area"
 } ]
 }
@@ -1443,7 +1443,7 @@ tracks/6/keys = {
 "times": PoolRealArray( 0.2 ),
 "transitions": PoolRealArray( 1 ),
 "values": [ {
-"args": [ 3 ],
+"args": [ 4, 1 ],
 "method": "handle_combo_attack_area"
 } ]
 }

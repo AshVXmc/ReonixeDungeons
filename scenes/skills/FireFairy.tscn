@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://scenes/particles/FlameParticle.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/misc/fire_fairy_1.png" type="Texture" id=2]
@@ -41,6 +41,34 @@ tracks/0/keys = {
 "values": [ Color( 1, 1, 1, 1 ), Color( 1, 0.105882, 0.105882, 1 ), Color( 1, 1, 1, 1 ) ]
 }
 
+[sub_resource type="Animation" id=8]
+resource_name = "JointAttack"
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.15, 0.25, 0.4, 0.5, 0.65, 0.75, 0.9, 1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( -165, -100 ), Vector2( 165, 100 ), Vector2( -165, 100 ), Vector2( 165, -100 ), Vector2( 0, -200 ), Vector2( 0, 200 ), Vector2( -165, 0 ), Vector2( 165, 0 ), Vector2( 0, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.15, 0.25, 0.4, 0.5, 0.65, 0.75, 0.9, 1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ true, false, true, false, true, false, true, false, true ]
+}
+
 [sub_resource type="Animation" id=4]
 length = 0.001
 tracks/0/type = "value"
@@ -55,6 +83,18 @@ tracks/0/keys = {
 "update": 0,
 "values": [ ExtResource( 2 ) ]
 }
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -165, 0 ) ]
+}
 
 [sub_resource type="CircleShape2D" id=2]
 radius = 40.0
@@ -67,9 +107,12 @@ radius = 250.0
 
 [node name="FireFairy" type="Area2D" groups=["Fireball", "LightKnockback"]]
 script = ExtResource( 4 )
-__meta__ = {
-"_edit_group_": true
-}
+
+[node name="Sprite" type="Sprite" parent="."]
+self_modulate = Color( 1, 0.999999, 0.999999, 1 )
+position = Vector2( -165, 0 )
+scale = Vector2( 3.8, 3.8 )
+texture = ExtResource( 2 )
 
 [node name="FlameParticle" parent="." instance=ExtResource( 1 )]
 scale = Vector2( 3, 3 )
@@ -85,11 +128,6 @@ radial_accel = 10.19
 damping = 7.24
 hue_variation = -1.0
 
-[node name="Sprite" type="Sprite" parent="."]
-self_modulate = Color( 1, 0.999999, 0.999999, 1 )
-scale = Vector2( 3.8, 3.8 )
-texture = ExtResource( 2 )
-
 [node name="DestroyedTimer" type="Timer" parent="."]
 wait_time = 10.0
 one_shot = true
@@ -98,6 +136,7 @@ autostart = true
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/Flap = SubResource( 3 )
 anims/Flicker = SubResource( 7 )
+anims/JointAttack = SubResource( 8 )
 anims/RESET = SubResource( 4 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

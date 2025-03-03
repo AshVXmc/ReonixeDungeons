@@ -4,7 +4,7 @@
 [ext_resource path="res://scripts/enemies/EnemyShockwave.gd" type="Script" id=2]
 
 [node name="EnemyShockwave" type="Area2D"]
-position = Vector2( -1, 21 )
+position = Vector2( -1, 16 )
 script = ExtResource( 2 )
 __meta__ = {
 "_edit_group_": true
@@ -16,8 +16,8 @@ scale = Vector2( 0.496894, 0.734127 )
 polygon = PoolVector2Array( -80.1152, 85.0295, -49.1152, 56.0295, 0, 33.4234, 47.8848, 56.0295, 80.8848, 85.0295, 80.8848, 96.0295, -80.1152, 97.0295 )
 
 [node name="Sprite" type="Sprite" parent="."]
-position = Vector2( 0, -26.073 )
-scale = Vector2( 10, 10 )
+position = Vector2( 0, -106.036 )
+scale = Vector2( 14, 20 )
 texture = ExtResource( 1 )
 
 [node name="DestroyedTimer" type="Timer" parent="."]
@@ -29,7 +29,7 @@ autostart = true
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D"]
 position = Vector2( 0, -30 )
 scale = Vector2( 0.496894, 0.734127 )
-polygon = PoolVector2Array( -136.85, 91.2649, -72.4501, 50.4, 0, 33.4234, 76.4751, 53.1243, 138.863, 93.9892, 114.713, 114.422, -116.725, 113.059 )
+polygon = PoolVector2Array( -223.388, 89.9027, -136.85, 8.17297, 0, -49.0378, 138.863, 9.53514, 223.388, 89.9027, 199.238, 115.784, -189.175, 117.146 )
 
 [connection signal="body_entered" from="." to="." method="_on_EnemyShockwave_body_entered"]
 [connection signal="timeout" from="DestroyedTimer" to="." method="_on_DestroyedTimer_timeout"]

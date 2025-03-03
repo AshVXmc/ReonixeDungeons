@@ -16,7 +16,8 @@ func _ready():
 	add_to_group(str(Global.attack_power * (Global.player_skill_multipliers["FireFairy"] / 100)))
 	$AnimationPlayer.play("Flap")
 	$DestroyedTimer.wait_time = Global.player_skill_multipliers["FireFairyDuration"]
-	
+
+var is_joint_attacking : bool = false
 
 func start(_transform, _target):
 	global_transform = _transform
@@ -37,7 +38,7 @@ func seek():
 func _physics_process(delta):
 	if Input.is_action_just_pressed("secondary_skill"):
 		position = player.global_position
-	if !is_exploding:
+	if !is_exploding and !is_joint_attacking:
 		target = get_closest_enemy()
 		
 		if weakref(target).get_ref() != null and target and target.get_node("Area2D").overlaps_area($Detector):
@@ -80,7 +81,13 @@ func explode():
 	$FireDetonationParticle.emitting = true
 	yield(get_tree().create_timer(0.55), "timeout")
 	call_deferred('free')
-	
+
+func joint_attack():
+	is_joint_attacking = true
+
+
+
+
 func _on_FireFairy_body_entered(body):
 	if body.is_in_group("EnemyEntity") and !body.is_in_group("MarkedWithSulphuricSigil"):
 		var sigil = SULPHURIC_SIGIL.instance()
