@@ -1,30 +1,40 @@
 class_name SilverChest extends Node2D
 
 export var chestID : int
-export var Opals : int
-var hasbeenopened = false
+export var opals : int
+export var locked : bool = false
+var hasbeenopened : bool = false
 onready var AREA : Area2D = $Area2D
-onready var PLAYER = get_parent().get_node("Player").get_node("Area2D")
+onready var PLAYER : Area2D = get_parent().get_node("Player").get_node("Area2D")
 const OPENED_PARTICLES = preload("res://scenes/particles/ChestParticle.tscn")
-const OPENED_TEXTURE = preload("res://assets/chests/chest_silver_open.png")
-const CLOSED_TEXTURE = preload("res://assets/chests/chest_silver_closed.png")
+const OPENED_TEXTURE : StreamTexture = preload("res://assets/chests/chest_silver_open.png")
+const CLOSED_TEXTURE : StreamTexture = preload("res://assets/chests/chest_silver_closed.png")
+var LOCKED_TEXTURE : StreamTexture 
+
 signal give_opals(amount)
 signal autosave()
 func _ready():
+	
 	connect("give_opals", get_parent().get_node("Player"), "get_opals")
+	if locked:
+		LOCKED_TEXTURE = load("res://assets/chests/chest_silver_closed_locked.png")
+	
 	if !Global.opened_chests.has(chestID):
 		connect("autosave", get_parent().get_node("PauseUI/Pause") , "_on_SaveButton_pressed")
 		hasbeenopened = false
-		$Sprite.texture = CLOSED_TEXTURE
+		if locked:
+			$Sprite.texture = LOCKED_TEXTURE
+		else:
+			$Sprite.texture = CLOSED_TEXTURE
 	else:
 		hasbeenopened = true
 		$Sprite.texture = OPENED_TEXTURE
 	$Label.visible = false
 
 func _process(_delta):
-	if AREA.overlaps_area(PLAYER) and Input.is_action_just_pressed("ui_use") and !Global.opened_chests.has(chestID) and !hasbeenopened:
+	if !locked and AREA.overlaps_area(PLAYER) and Input.is_action_just_pressed("ui_use") and !Global.opened_chests.has(chestID) and !hasbeenopened:
 		Global.opened_chests.append(chestID)
-		emit_signal("give_opals", Opals)
+		emit_signal("give_opals", opals)
 		# Particles that show up when the chest is opened
 		var opened_particles = OPENED_PARTICLES.instance()
 		get_parent().add_child(opened_particles)

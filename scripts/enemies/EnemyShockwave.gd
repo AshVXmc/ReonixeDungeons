@@ -1,7 +1,7 @@
 class_name EnemyShockwave extends Area2D
 
 const TYPE : String = "Shockwave"
-const SPEED : int = 700
+const SPEED : int = 800
 var velocity = Vector2()
 var direction : int = 1
 var elemental_type : String = "Physical"
