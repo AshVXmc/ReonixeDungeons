@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/magic_type_icon.png-40115305ba3fc23567ed62acfb52af72.stex"
+path="res://.import/psychic_type_icon.png-07fd2e7aa3f712447e053cff9e0856b6.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/UI/magic_type_icon.png"
-dest_files=[ "res://.import/magic_type_icon.png-40115305ba3fc23567ed62acfb52af72.stex" ]
+source_file="res://assets/UI/psychic_type_icon.png"
+dest_files=[ "res://.import/psychic_type_icon.png-07fd2e7aa3f712447e053cff9e0856b6.stex" ]
 
 [params]
 

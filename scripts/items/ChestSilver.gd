@@ -14,7 +14,6 @@ var LOCKED_TEXTURE : StreamTexture
 signal give_opals(amount)
 signal autosave()
 func _ready():
-	
 	connect("give_opals", get_parent().get_node("Player"), "get_opals")
 	if locked:
 		LOCKED_TEXTURE = load("res://assets/chests/chest_silver_closed_locked.png")
@@ -50,3 +49,16 @@ func _on_Area2D_area_entered(area):
 
 func _on_Area2D_area_exited(area):
 	$Label.visible = false
+
+
+
+# when all associated enemies are defeated, unlocks this chest.
+# Enemies that are required to be defeated are marked with "Chest<ID>Enemy"
+func unlock():
+	pass
+	
+
+func _on_AnimationPlayer_animation_finished(anim_name):
+	if anim_name == "Unlock":
+		locked = false
+		$Sprite.texture = CLOSED_TEXTURE

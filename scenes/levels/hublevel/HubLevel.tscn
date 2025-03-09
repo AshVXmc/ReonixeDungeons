@@ -1,4 +1,4 @@
-[gd_scene load_steps=89 format=2]
+[gd_scene load_steps=90 format=2]
 
 [ext_resource path="res://assets/particles/smoke_particle.png" type="Texture" id=1]
 [ext_resource path="res://scripts/misc/HubLevelLibraryBookshelf.gd" type="Script" id=2]
@@ -74,6 +74,7 @@
 [ext_resource path="res://assets/terrain/lichen_ruins_spritesheet.png" type="Texture" id=72]
 [ext_resource path="res://scenes/NPC/BardNPC.tscn" type="PackedScene" id=73]
 [ext_resource path="res://shaders/outline2D_outer.gdshader" type="Shader" id=74]
+[ext_resource path="res://scenes/enemies/Goblin.tscn" type="PackedScene" id=75]
 [ext_resource path="res://scenes/minigames/BlackJackTable.tscn" type="PackedScene" id=76]
 
 [sub_resource type="ShaderMaterial" id=16]
@@ -700,6 +701,9 @@ limit_bottom = 1750
 drag_margin_h_enabled = true
 drag_margin_v_enabled = true
 editor_draw_limits = true
+
+[node name="Goblin" parent="." instance=ExtResource( 75 )]
+position = Vector2( 3192, 585 )
 
 [connection signal="area_entered" from="HubLibrary/BookOfShadowsPlayerDetectorArea" to="HubLibrary/BookOfShadowsPlayerDetectorArea" method="_on_BookshelfPlayerDetectorArea_area_entered"]
 [connection signal="area_exited" from="HubLibrary/BookOfShadowsPlayerDetectorArea" to="HubLibrary/BookOfShadowsPlayerDetectorArea" method="_on_BookshelfPlayerDetectorArea_area_exited"]

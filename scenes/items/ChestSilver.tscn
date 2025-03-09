@@ -1,7 +1,9 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://assets/chests/chest_silver_closed_locked.png" type="Texture" id=1]
 [ext_resource path="res://scripts/items/ChestSilver.gd" type="Script" id=2]
+[ext_resource path="res://assets/chests/chest_silver_closed.png" type="Texture" id=3]
+[ext_resource path="res://assets/chests/chest_silver_closed_locked_animation1.png" type="Texture" id=4]
 [ext_resource path="res://assets/fonts/Born2bSportyV2.ttf" type="DynamicFontData" id=5]
 
 [sub_resource type="RectangleShape2D" id=2]
@@ -12,6 +14,8 @@ font_data = ExtResource( 5 )
 
 [sub_resource type="Animation" id=4]
 resource_name = "Unlock"
+length = 0.35
+step = 0.05
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:texture")
 tracks/0/interp = 1
@@ -19,10 +23,21 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PoolRealArray( 0, 0.15, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
 "update": 1,
-"values": [ ExtResource( 1 ) ]
+"values": [ ExtResource( 1 ), ExtResource( 4 ), ExtResource( 3 ) ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray(  ),
+"transitions": PoolRealArray(  ),
+"values": [  ]
 }
 
 [node name="ChestSilver" type="Node2D"]
@@ -38,7 +53,7 @@ shape = SubResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="."]
 scale = Vector2( 1.2, 1.25 )
-texture = ExtResource( 1 )
+texture = ExtResource( 3 )
 
 [node name="Position2D" type="Position2D" parent="."]
 
@@ -59,3 +74,4 @@ anims/Unlock = SubResource( 4 )
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_Area2D_area_entered"]
 [connection signal="area_exited" from="Area2D" to="." method="_on_Area2D_area_exited"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
