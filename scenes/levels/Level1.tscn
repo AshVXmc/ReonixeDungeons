@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=2]
+[gd_scene load_steps=36 format=2]
 
 [ext_resource path="res://scripts/misc/Level.gd" type="Script" id=1]
 [ext_resource path="res://scenes/menus/DebugMenu.tscn" type="PackedScene" id=2]
@@ -24,6 +24,7 @@
 [ext_resource path="res://scenes/menus/StaminaBarUI.tscn" type="PackedScene" id=22]
 [ext_resource path="res://scenes/menus/ManaUI.tscn" type="PackedScene" id=23]
 [ext_resource path="res://scenes/menus/SkillsUI.tscn" type="PackedScene" id=24]
+[ext_resource path="res://scenes/items/ChestKey.tscn" type="PackedScene" id=25]
 [ext_resource path="res://assets/terrain/background_dungeons.png" type="Texture" id=26]
 [ext_resource path="res://scripts/terrain/FireDetector.gd" type="Script" id=27]
 [ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=29]
@@ -132,7 +133,7 @@ __meta__ = {
 
 [node name="ScreenShotHelperUI" parent="." instance=ExtResource( 10 )]
 
-[node name="IceBlockTileMap" type="TileMap" parent="." groups=["IceBlockTileMap"]]
+[node name="IceBlockTileMap" type="TileMap" parent="." groups=["IceBlockTileMap", "TileMap"]]
 tile_set = SubResource( 6 )
 cell_size = Vector2( 96, 96 )
 collision_layer = 4225
@@ -199,10 +200,13 @@ Destination = "res://scenes/levels/hublevel/HubLevel.tscn"
 [node name="Position2D" type="Position2D" parent="."]
 position = Vector2( -1139, 144 )
 
-[node name="ChestSilver" parent="." instance=ExtResource( 9 )]
+[node name="ChestSilver1" parent="." instance=ExtResource( 9 )]
 position = Vector2( -1229.82, 717.909 )
 chestID = 1
-Opals = 25
+lock_status = 1
+
+[node name="ChestKey1" parent="." instance=ExtResource( 25 )]
+position = Vector2( -1788, 705 )
 
 [node name="WallTorch" parent="." instance=ExtResource( 15 )]
 position = Vector2( -1103, 608 )

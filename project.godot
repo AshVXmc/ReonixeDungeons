@@ -165,6 +165,11 @@ _global_script_classes=[ {
 "path": "res://scripts/ui/CharactersUI.gd"
 }, {
 "base": "Node2D",
+"class": "ChestKey",
+"language": "GDScript",
+"path": "res://scripts/items/ChestKey.gd"
+}, {
+"base": "Node2D",
 "class": "CombatGuidebook",
 "language": "GDScript",
 "path": "res://scripts/terrain/CombatGuidebook.gd"
@@ -766,6 +771,7 @@ _global_script_class_icons={
 "CharacterSkillsControl": "",
 "CharacterTalentsControl": "",
 "CharactersUI": "",
+"ChestKey": "",
 "CombatGuidebook": "",
 "ConeOfCold": "",
 "CornucopiaGoblin": "",
