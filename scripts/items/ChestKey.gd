@@ -9,15 +9,8 @@ func _ready():
 	if Global.opened_chests.has(chest_keyID):
 		call_deferred('free')
 
-func reparent_to_player(new_parent : Player):
-	if get_parent() != null:
-		get_parent().remove_child(self)
-		new_parent.add_child(self)
-		
-#		print("New parent: " + str(get_parent()))
-#		print("Name under parent: " + str(name))
-
 
 func _on_Area2D_area_entered(area):
-	if area.is_in_group("Player"):
-		reparent_to_player(area.get_parent())
+	if area.is_in_group("Player") and area.get_parent() != null:
+		area.get_parent().add_to_group(str("HasChestKey_" + str(chest_keyID)))
+		call_deferred('free')

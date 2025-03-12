@@ -20,7 +20,7 @@ func _on_Area2D_area_entered(area):
 		broken = true
 #		self.play("Break")
 		$Area2D/CollisionShape2D.queue_free()
-		
+		print("BARREL BROKEN")
 		var rng := RandomNumberGenerator.new()
 		rng.randomize()
 		var opalamount : int = rng.randi_range(MIN,MAX)

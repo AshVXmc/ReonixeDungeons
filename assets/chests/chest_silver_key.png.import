@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/chest_key.png-8143f14558741de0f04322c94527a62d.stex"
+path="res://.import/chest_silver_key.png-9fe87dbc2e52cd427bb21d33ad2aee9d.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/chests/chest_key.png"
-dest_files=[ "res://.import/chest_key.png-8143f14558741de0f04322c94527a62d.stex" ]
+source_file="res://assets/chests/chest_silver_key.png"
+dest_files=[ "res://.import/chest_silver_key.png-9fe87dbc2e52cd427bb21d33ad2aee9d.stex" ]
 
 [params]
 

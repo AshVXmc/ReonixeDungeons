@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://assets/chests/chest_silver_closed_locked.png" type="Texture" id=1]
 [ext_resource path="res://scripts/items/ChestSilver.gd" type="Script" id=2]
 [ext_resource path="res://assets/chests/chest_silver_closed.png" type="Texture" id=3]
 [ext_resource path="res://assets/chests/chest_silver_closed_locked_animation1.png" type="Texture" id=4]
 [ext_resource path="res://assets/fonts/Born2bSportyV2.ttf" type="DynamicFontData" id=5]
+[ext_resource path="res://scenes/particles/DeathSmokeParticle.tscn" type="PackedScene" id=6]
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 12.1, 8.1 )
@@ -53,7 +54,7 @@ shape = SubResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="."]
 scale = Vector2( 1.2, 1.25 )
-texture = ExtResource( 3 )
+texture = ExtResource( 1 )
 
 [node name="Position2D" type="Position2D" parent="."]
 
@@ -71,6 +72,17 @@ scroll_active = false
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/Unlock = SubResource( 4 )
+
+[node name="OpenChestSmokeParticle" parent="." instance=ExtResource( 6 )]
+modulate = Color( 0.243137, 0.243137, 0.243137, 1 )
+scale = Vector2( 1, 1 )
+amount = 8
+lifetime = 0.4
+explosiveness = 0.9
+randomness = 0.0
+lifetime_randomness = 0.2
+initial_velocity = 40.0
+anim_speed_random = 0.25
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_Area2D_area_entered"]
 [connection signal="area_exited" from="Area2D" to="." method="_on_Area2D_area_exited"]

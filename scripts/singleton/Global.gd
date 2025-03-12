@@ -565,7 +565,7 @@ func reset_player_data():
 	Global.healthpot_amount = 1
 	Global.lifewine_amount = 0
 	Global.manapot_amount = 0
-	Global.opals_amount = 0 + 690
+	Global.opals_amount = 0
 	Global.crystals_amount = 0
 	Global.drops_inventory = {
 		"common_dust" : 0,

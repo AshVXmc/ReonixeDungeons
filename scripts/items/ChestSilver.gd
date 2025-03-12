@@ -39,15 +39,15 @@ func _ready():
 		hasbeenopened = false
 		if lock_status != LS.UNLOCKED:
 			$Sprite.texture = LOCKED_TEXTURE
-			if lock_status == LS.LOCKED_BY_KEY:
-				pass
-			
+		
 		else:
 			$Sprite.texture = CLOSED_TEXTURE
 			
 	else:
 		hasbeenopened = true
 		$Sprite.texture = OPENED_TEXTURE
+		$OpenChestSmokeParticle.call_deferred('free')
+		lock_status = LS.UNLOCKED
 	
 	$Label.visible = false
 
@@ -63,6 +63,12 @@ func _process(_delta):
 		opened_particles.one_shot = true
 		$Sprite.texture = OPENED_TEXTURE
 		emit_signal("autosave")
+	
+	if lock_status == LS.LOCKED_BY_KEY and AREA.overlaps_area(PLAYER):
+		if PLAYER.get_parent().is_in_group("HasChestKey_" + str(chestID)):
+			$AnimationPlayer.play("Unlock")
+			PLAYER.get_parent().remove_from_group("HasChestKey_" + str(chestID))
+#			print("KEY BROUGHT TO CHEST!")
 		
 func _on_Area2D_area_entered(area):
 	if area.is_in_group("Player") and !$Label.visible and !Global.opened_chests.has(chestID):
@@ -72,14 +78,8 @@ func _on_Area2D_area_exited(area):
 	$Label.visible = false
 
 
-
-# when all associated enemies are defeated, unlocks this chest.
-# Enemies that are required to be defeated are marked with "Chest<ID>Enemy"
-func unlock():
-	pass
-	
-
 func _on_AnimationPlayer_animation_finished(anim_name):
 	if anim_name == "Unlock":
+		$OpenChestSmokeParticle.emitting = true
 		lock_status = LS.UNLOCKED
 		$Sprite.texture = CLOSED_TEXTURE
