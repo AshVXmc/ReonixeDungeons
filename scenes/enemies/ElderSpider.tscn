@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://assets/enemies/elder_spider2.png" type="Texture" id=1]
 [ext_resource path="res://assets/enemies/elder_spider1.png" type="Texture" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://assets/UI/healthbar_enemy_empty.png" type="Texture" id=6]
 [ext_resource path="res://assets/enemies/elder_spider_attack_1.png" type="Texture" id=7]
 [ext_resource path="res://assets/enemies/elder_spider_attack_2.png" type="Texture" id=8]
+[ext_resource path="res://assets/enemies/components/WeaknessDisplayComponent.tscn" type="PackedScene" id=9]
 
 [sub_resource type="DynamicFont" id=3]
 size = 32
@@ -56,6 +57,10 @@ rect_pivot_offset = Vector2( 28, 16 )
 custom_fonts/font = SubResource( 3 )
 text = "Lv.1"
 align = 1
+
+[node name="WeaknessDisplayComponent" parent="." instance=ExtResource( 9 )]
+position = Vector2( -9.6, 29.6 )
+scale = Vector2( 1, 1 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 scale = Vector2( 5, 5 )

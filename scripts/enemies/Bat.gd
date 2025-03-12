@@ -20,11 +20,11 @@ var rng : RandomNumberGenerator = RandomNumberGenerator.new()
 var target = null
 var acceleration = Vector2()
 var is_staggered : bool = false
-var phys_res : float = 25
-var fire_res : float = 0
-var earth_res : float = 0 
-var ice_res : float = 0
-var magic_res : float = -50
+export (int) var phys_res : int = 0
+export (int) var fire_res : int = -33.3
+export (int) var earth_res : int = -33.3
+export (int) var ice_res : int = -33.3
+
 var is_frozen
 var is_attacking : bool
 

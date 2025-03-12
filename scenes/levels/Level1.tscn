@@ -162,7 +162,7 @@ tile_data = PoolIntArray( 262137, 0, 0, 327673, 0, 0, 655364, 0, 0, 655365, 0, 0
 script = ExtResource( 19 )
 
 [node name="FireDetector1" type="Area2D" parent="IceBlockTileMap"]
-position = Vector2( -621.844, 327.759 )
+position = Vector2( 531, 998 )
 script = ExtResource( 27 )
 __meta__ = {
 "_edit_group_": true
@@ -173,13 +173,35 @@ position = Vector2( -2, 8 )
 shape = SubResource( 5 )
 
 [node name="FireDetector2" type="Area2D" parent="IceBlockTileMap"]
-position = Vector2( -621.844, 423.759 )
+position = Vector2( 531, 1094 )
 script = ExtResource( 27 )
 __meta__ = {
 "_edit_group_": true
 }
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="IceBlockTileMap/FireDetector2"]
+position = Vector2( -2, 8 )
+shape = SubResource( 5 )
+
+[node name="FireDetector3" type="Area2D" parent="IceBlockTileMap"]
+position = Vector2( 436, 998 )
+script = ExtResource( 27 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="IceBlockTileMap/FireDetector3"]
+position = Vector2( -2, 8 )
+shape = SubResource( 5 )
+
+[node name="FireDetector4" type="Area2D" parent="IceBlockTileMap"]
+position = Vector2( 436, 1094 )
+script = ExtResource( 27 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="IceBlockTileMap/FireDetector4"]
 position = Vector2( -2, 8 )
 shape = SubResource( 5 )
 
@@ -214,8 +236,7 @@ position = Vector2( -1872, 608 )
 [node name="ChestSilver1" parent="." instance=ExtResource( 9 )]
 position = Vector2( 285, 1102 )
 chestID = 1
-opals = 10
-lock_status = 1
+opals = 12
 
 [node name="Barrel" parent="." instance=ExtResource( 12 )]
 position = Vector2( -716.319, 920.685 )
@@ -288,3 +309,5 @@ editor_draw_limits = true
 
 [connection signal="area_entered" from="IceBlockTileMap/FireDetector1" to="IceBlockTileMap/FireDetector1" method="_on_FireDetector1_area_entered"]
 [connection signal="area_entered" from="IceBlockTileMap/FireDetector2" to="IceBlockTileMap/FireDetector2" method="_on_FireDetector1_area_entered"]
+[connection signal="area_entered" from="IceBlockTileMap/FireDetector3" to="IceBlockTileMap/FireDetector3" method="_on_FireDetector1_area_entered"]
+[connection signal="area_entered" from="IceBlockTileMap/FireDetector4" to="IceBlockTileMap/FireDetector4" method="_on_FireDetector1_area_entered"]

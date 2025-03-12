@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://scripts/enemies/FireSlime.gd" type="Script" id=1]
 [ext_resource path="res://assets/enemies/fire_slime_2.png" type="Texture" id=2]
@@ -10,6 +10,7 @@
 [ext_resource path="res://assets/enemies/fire_slime_death.png" type="Texture" id=8]
 [ext_resource path="res://scenes/status_effects/FrozenStatus.tscn" type="PackedScene" id=9]
 [ext_resource path="res://scenes/status_effects/GroundedStatus.tscn" type="PackedScene" id=10]
+[ext_resource path="res://assets/enemies/components/WeaknessDisplayComponent.tscn" type="PackedScene" id=11]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 26.36, 15.1008 )
@@ -95,6 +96,9 @@ __meta__ = {
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 0.793701, -4.96062 )
 shape = SubResource( 1 )
+
+[node name="WeaknessDisplayComponent" parent="." instance=ExtResource( 11 )]
+position = Vector2( -5, 0 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 position = Vector2( 0, -29.326 )

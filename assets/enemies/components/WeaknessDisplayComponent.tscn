@@ -1,0 +1,22 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://scripts/enemies/components/WeaknessDisplayComponent.gd" type="Script" id=2]
+
+[node name="WeaknessDisplayComponent" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="WeaknessSprite1" type="Sprite" parent="."]
+position = Vector2( -85, -80 )
+scale = Vector2( 1.2, 1.2 )
+
+[node name="WeaknessSprite2" type="Sprite" parent="."]
+position = Vector2( -62, -80 )
+scale = Vector2( 1.2, 1.2 )
+
+[node name="WeaknessSprite3" type="Sprite" parent="."]
+position = Vector2( -62, -57 )
+scale = Vector2( 1.2, 1.2 )
+
+[node name="WeaknessSprite4" type="Sprite" parent="."]
+position = Vector2( -85, -57 )
+scale = Vector2( 1.2, 1.2 )

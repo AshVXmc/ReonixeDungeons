@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://assets/enemies/familiar1_2.png" type="Texture" id=1]
 [ext_resource path="res://scripts/enemies/Familiar.gd" type="Script" id=2]
 [ext_resource path="res://assets/enemies/familiar1_1.png" type="Texture" id=3]
+[ext_resource path="res://assets/enemies/components/WeaknessDisplayComponent.tscn" type="PackedScene" id=4]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 38.9119
@@ -30,6 +31,9 @@ script = ExtResource( 2 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )
 disabled = true
+
+[node name="WeaknessDisplayComponent" parent="." instance=ExtResource( 4 )]
+position = Vector2( -7, 0 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 scale = Vector2( 5, 5 )

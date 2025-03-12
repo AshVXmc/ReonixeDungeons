@@ -25,23 +25,27 @@ export var level : int = level_calc
 var HP : int = max_HP
 var is_frozen = false
 var is_airborne = false
-var phys_res : float = 0
-var fire_res : float = 0
-var earth_res : float = 0 
-var ice_res : float = 0
+export (int) var phys_res : int = -33.3
+export (int) var fire_res : int = 0
+export (int) var earth_res : int = -33.3
+export (int) var ice_res : int = 0
 var global_res : float = 0
 var debuff_damage_multiplier = 1
 var armor_strength_coefficient = 1
 var is_staggered : bool = false
-
+var weaknesses : Array = ["Physical", "Fire"]
 
 func _ready():
 	$JumpTimer.start()
 	if Cling == clingside.Down:
 		$LevelLabel.rect_rotation = 180
 		rotation_degrees = 180
+		$WeaknessDisplayComponent.rotation_degrees = 180
+		$WeaknessDisplayComponent.position.y = -110
+		$WeaknessDisplayComponent.position.x = 15
 	if Cling == clingside.Left:
 		rotation_degrees = 90
+#		$WeaknessDisplayComponent.rotation_degrees = 90
 	$LevelLabel.text = "Lv " + str(level)
 	$HealthBar.max_value = max_HP
 	

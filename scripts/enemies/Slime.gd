@@ -1,7 +1,7 @@
 class_name Slime extends KinematicBody2D
 
 var velocity : Vector2 = Vector2()
-var max_HP : int = Global.enemy_level_index * 25 + 28
+var max_HP : int = Global.enemy_level_index * 30 + 25
 const AIRBORNE_SPEED : int = -3360
 var level_calc : int = round(Global.enemy_level_index)
 export var level : int = level_calc
@@ -24,10 +24,10 @@ var is_staggered : bool = false
 var is_airborne : bool
 var elemental_type = "Physical"
 var atk_value = 1 * Global.enemy_level_index
-var phys_res : float = 25
-var fire_res : float = 0
-var earth_res : float = 0 
-var ice_res : float = 0
+export (int) var phys_res : int = -33.3
+export (int) var fire_res : int = -33.3
+export (int) var earth_res : int = 0
+export (int) var ice_res : int = 0
 var global_res : float = 0
 var armor_strength_coefficient = 1
 var debuff_damage_multiplier = 1

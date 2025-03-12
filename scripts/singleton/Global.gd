@@ -93,7 +93,7 @@ var player_skill_multipliers : Dictionary = {
 	"FireFairy": 32.0,
 	"FireFairyDetonation": 65.0,
 	"FireFairyDuration": 4.0,
-	"Fireball": 55.0,
+	"Fireball": 65.0,
 	"FireballCD": 7.0,
 	"FireballCharges": 3,
 	"FireballMaxCharges": 3,

@@ -3,7 +3,7 @@ class_name Goblin extends KinematicBody2D
 const DMG_INDICATOR : PackedScene = preload("res://scenes/particles/DamageIndicatorParticle.tscn")
 const SWORD_HIT_PARTICLE : PackedScene = preload("res://scenes/particles/SwordHitParticle.tscn")
 const DEATH_SMOKE : PackedScene = preload("res://scenes/particles/DeathSmokeParticle.tscn")
-var max_HP_calc : int = 65 + (Global.enemy_level_index * 17)
+var max_HP_calc : int = 72 + (Global.enemy_level_index * 18)
 var level_calc : int = round(Global.enemy_level_index)
 export var max_HP : int = max_HP_calc
 export var level : int = level_calc
@@ -51,12 +51,12 @@ export (int) var Armor_Durability = 100 # amount of poise/hits/elemental stacks 
 export (float, 1.0) var Armor_Strength = 0.9 # total damage reduction the shield gives (0 is none, 1 is 100% reduction)
 var previous_hit_id : String 
 var armor_strength_coefficient = 1 # default value so it doesn't throw an error
-							
+
 signal change_hitcount(amount)
-export (int) var phys_res : int = -35
-export (int) var fire_res : int = -35
-export (int) var earth_res : int = 0
-export (int) var ice_res : int = 0
+export (int) var phys_res : int = -33.3
+export (int) var fire_res : int = -33.3
+export (int) var earth_res : int = -33.3
+export (int) var ice_res : int = -33.3
 export (int) var global_res : int = 0
 var weaknesses : Array = ["Physical", "Fire"]
 
@@ -81,23 +81,10 @@ func _ready():
 	$HealthBar.max_value = max_HP
 	$HealthBar.value = $HealthBar.max_value
 	connect("change_hitcount", get_parent().get_node("EleganceMeterUI/Control"), "hitcount_changed")
-	update_weaknesses_display()
 
-func update_weaknesses_display():
-	var counter : int = 1
-	for elements in weaknesses:
-		match elements:
-			"Physical":
-				get_node("ElementalWeaknesses/WeaknessSprite" + str(counter)).texture = load("res://assets/UI/physical_type_icon.png")
-			"Fire":
-				get_node("ElementalWeaknesses/WeaknessSprite" + str(counter)).texture = load("res://assets/UI/fire_type_icon.png")
-			"Ice":
-				get_node("ElementalWeaknesses/WeaknessSprite" + str(counter)).texture = load("res://assets/UI/ice_type_icon.png")
-			"Earth":
-				get_node("ElementalWeaknesses/WeaknessSprite" + str(counter)).texture = load("res://assets/UI/earth_type_icon.png")
-			"Psychic":
-				get_node("ElementalWeaknesses/WeaknessSprite" + str(counter)).texture = load("res://assets/UI/psychic_type_icon.png")
-		counter += 1
+
+
+
 
 func _physics_process(delta):
 	if !is_airborne:

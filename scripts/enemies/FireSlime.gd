@@ -8,7 +8,11 @@ func _ready():
 	damage_immunity.fire = true
 	elemental_type = "Fire"
 	atk_value = 2 * Global.enemy_level_index + 2
-
+	
+	fire_res = 100
+	ice_res = -66.6 
+	$WeaknessDisplayComponent.update_weakness_display()
+	
 func parse_damage(staggers:bool = true):
 	if staggers:
 		is_staggered = true

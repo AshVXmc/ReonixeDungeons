@@ -729,6 +729,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/items/Wardrobe.gd"
 }, {
+"base": "Node2D",
+"class": "WeaknessDisplayComponent",
+"language": "GDScript",
+"path": "res://scripts/enemies/components/WeaknessDisplayComponent.gd"
+}, {
 "base": "Particles2D",
 "class": "WinterQueen",
 "language": "GDScript",
@@ -884,6 +889,7 @@ _global_script_class_icons={
 "TempusTardus": "",
 "TutorialLevel": "",
 "Wardrobe": "",
+"WeaknessDisplayComponent": "",
 "WinterQueen": "",
 "WitchGoblin": ""
 }
