@@ -1,11 +1,11 @@
 {
-	"color": "#ff0042f2",
-	"description": "",
-	"display_name": "",
+	"color": "#ffffd703",
+	"description": "For characters whose name must be unknown first.",
+	"display_name": "???",
 	"display_name_bool": true,
-	"id": "character-1673439491.json",
+	"id": "character-1741859999.json",
 	"mirror_portraits": false,
-	"name": "Player",
+	"name": "???",
 	"nickname": "",
 	"nickname_bool": false,
 	"offset_x": 0,
@@ -13,7 +13,7 @@
 	"portraits": [
 		{
 			"name": "Default",
-			"path": "res://assets/characters/player/player_idle.png"
+			"path": ""
 		}
 	],
 	"scale": 100,

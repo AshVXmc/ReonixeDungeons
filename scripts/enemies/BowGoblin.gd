@@ -3,7 +3,6 @@ class_name BowGoblin extends Goblin
 var is_shooting : bool = false
 const ARROW = preload("res://scenes/enemies/Arrow.tscn")
 
-
 func _ready():
 	$ShootArrowTimer.start()
 	# Overrides

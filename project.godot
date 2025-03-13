@@ -484,6 +484,16 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/misc/Level.gd"
 }, {
+"base": "Level",
+"class": "Level1",
+"language": "GDScript",
+"path": "res://scripts/levels/Level1.gd"
+}, {
+"base": "Level",
+"class": "Level3",
+"language": "GDScript",
+"path": "res://scripts/levels/Level3.gd"
+}, {
 "base": "Node2D",
 "class": "LevelTransporter",
 "language": "GDScript",
@@ -840,6 +850,8 @@ _global_script_class_icons={
 "LargeSlime": "",
 "LaserBeam": "",
 "Level": "",
+"Level1": "",
+"Level3": "",
 "LevelTransporter": "",
 "Librarian": "",
 "LoadDataHelper": "",
@@ -1125,6 +1137,11 @@ right_mouse={
 talent_skill={
 "deadzone": 0.5,
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":67,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
+}
+ui_open_cellphone={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":85,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
  ]
 }
 

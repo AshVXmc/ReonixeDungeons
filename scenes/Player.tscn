@@ -1,4 +1,4 @@
-[gd_scene load_steps=98 format=2]
+[gd_scene load_steps=99 format=2]
 
 [ext_resource path="res://spriteframes/Player_Default_spriteframes.tres" type="SpriteFrames" id=1]
 [ext_resource path="res://scripts/player/Player.gd" type="Script" id=2]
@@ -25,6 +25,7 @@
 [ext_resource path="res://scenes/particles/HealingParticle.tscn" type="PackedScene" id=23]
 [ext_resource path="res://assets/UI/chargebar_full.png" type="Texture" id=24]
 [ext_resource path="res://assets/particles/slow_particle_(snail_symbol).png" type="Texture" id=25]
+[ext_resource path="res://assets/UI/cellphone.png" type="Texture" id=26]
 
 [sub_resource type="RectangleShape2D" id=82]
 extents = Vector2( 34, 44.3992 )
@@ -3561,6 +3562,13 @@ texture = ExtResource( 3 )
 offset = Vector2( 0, -12 )
 flip_h = true
 flip_v = true
+
+[node name="CellphoneSprite" type="Sprite" parent="."]
+pause_mode = 2
+visible = false
+position = Vector2( 37, -16 )
+scale = Vector2( 4, 4 )
+texture = ExtResource( 26 )
 
 [node name="Sprite" type="AnimatedSprite" parent="."]
 scale = Vector2( 5, 5 )

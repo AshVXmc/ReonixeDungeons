@@ -191,7 +191,7 @@ func _ready():
 	
 	$EnergyMeter.visible = false
 #	$EnergyMeter.value = $EnergyMeter.min_value
-
+	$CellphoneSprite.visible = false
 	$SlashEffectSprite.visible = false
 	$AttackCollision.add_to_group(str(basic_attack_power))
 	$SwordSprite.flip_v = false
@@ -1919,7 +1919,13 @@ func useItems():
 #			heal_player("ManaPot")
 
 
-
+func update_cellphone_position():
+	if !$Sprite.flip_h:
+		$CellphoneSprite.position.x = 37
+		$CellphoneSprite.flip_h = false
+	else:
+		$CellphoneSprite.position.x = -37
+		$CellphoneSprite.flip_h = true
 func game_over():
 	get_parent().get_node("DebugMenu").get_node("Control").visible = false
 	is_dead = true

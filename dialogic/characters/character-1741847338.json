@@ -1,0 +1,21 @@
+{
+	"color": "#ff00e5f6",
+	"description": "",
+	"display_name": "Glaciela",
+	"display_name_bool": true,
+	"id": "character-1741847338.json",
+	"mirror_portraits": false,
+	"name": "Glaciela",
+	"nickname": "",
+	"nickname_bool": false,
+	"offset_x": -80,
+	"offset_y": -160,
+	"portraits": [
+		{
+			"name": "Default",
+			"path": "res://assets/characters/glaciela/glaciela_idle_1.png"
+		}
+	],
+	"scale": 1000,
+	"theme": ""
+}

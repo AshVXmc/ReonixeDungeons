@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=2]
+[gd_scene load_steps=33 format=2]
 
 [ext_resource path="res://assets/terrain/lichen_ruins_oneway_spritesheet.png" type="Texture" id=1]
 [ext_resource path="res://scenes/items/LevelTransporter.tscn" type="PackedScene" id=2]
@@ -15,7 +15,7 @@
 [ext_resource path="res://scenes/menus/PauseUI.tscn" type="PackedScene" id=13]
 [ext_resource path="res://scenes/misc/Light.tscn" type="PackedScene" id=14]
 [ext_resource path="res://scenes/NPC/ShopKeeperNPC.tscn" type="PackedScene" id=15]
-[ext_resource path="res://scripts/misc/Level.gd" type="Script" id=16]
+[ext_resource path="res://scripts/levels/Level3.gd" type="Script" id=16]
 [ext_resource path="res://assets/terrain/lichen_ruins_misc_spritesheet.png" type="Texture" id=17]
 [ext_resource path="res://assets/terrain/lichen_ruins_spritesheet.png" type="Texture" id=18]
 [ext_resource path="res://scenes/items/Sign.tscn" type="PackedScene" id=19]
@@ -26,6 +26,7 @@
 [ext_resource path="res://scenes/menus/ScreenshotHelper.tscn" type="PackedScene" id=24]
 [ext_resource path="res://scenes/menus/SkillsUI.tscn" type="PackedScene" id=25]
 [ext_resource path="res://scenes/tilemaps/WaterTileMap.tscn" type="PackedScene" id=26]
+[ext_resource path="res://scenes/menus/CellphoneUI.tscn" type="PackedScene" id=27]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
 points = PoolVector2Array( 96, 96, 0, 96, 0, 0, 96, 0 )
@@ -250,6 +251,8 @@ script = ExtResource( 16 )
 [node name="SkillsUI" parent="." instance=ExtResource( 25 )]
 
 [node name="InventoryUI" parent="." instance=ExtResource( 23 )]
+
+[node name="CellphoneUI" parent="." instance=ExtResource( 27 )]
 
 [node name="GameOverUI" parent="." instance=ExtResource( 22 )]
 

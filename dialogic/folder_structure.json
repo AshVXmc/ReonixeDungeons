@@ -12,6 +12,19 @@
 				"character-1713974045.json"
 			],
 			"folders": {
+				"Cutscenes": {
+					"files": [
+						"character-1741847338.json",
+						"character-1741859999.json"
+					],
+					"folders": {
+
+					},
+					"metadata": {
+						"color": null,
+						"folded": false
+					}
+				},
 				"Interactables": {
 					"files": [
 						"character-1683004135.json",
@@ -33,7 +46,7 @@
 							},
 							"metadata": {
 								"color": null,
-								"folded": false
+								"folded": true
 							}
 						}
 					},
@@ -81,6 +94,29 @@
 				"timeline-1713811224.json"
 			],
 			"folders": {
+				"Cutscenes": {
+					"files": [
+
+					],
+					"folders": {
+						"Level1": {
+							"files": [
+								"timeline-1741852178.json"
+							],
+							"folders": {
+
+							},
+							"metadata": {
+								"color": null,
+								"folded": false
+							}
+						}
+					},
+					"metadata": {
+						"color": null,
+						"folded": false
+					}
+				},
 				"Interactables": {
 					"files": [
 						"timeline-1683094805.json",

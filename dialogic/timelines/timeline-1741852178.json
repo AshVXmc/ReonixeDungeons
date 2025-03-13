@@ -1,0 +1,91 @@
+{
+	"events": [
+		{
+			"block_input": false,
+			"event_id": "dialogic_050",
+			"wait_time": 0
+		},
+		{
+			"character": "",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "(Your cellphone is ringing. You accept a call from an unknown number,)"
+		},
+		{
+			"character": "character-1741859999.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "He-Hello?  Can you hear me? You're the New Recruit for our Guild, correct? "
+		},
+		{
+			"animation": "[Default]",
+			"animation_length": 0,
+			"change_mirror_portrait": false,
+			"change_position": false,
+			"change_z_index": false,
+			"character": "character-1741847338.json",
+			"event_id": "dialogic_002",
+			"mirror_portrait": false,
+			"portrait": "Default",
+			"portrait_definition": "",
+			"position": {
+				"0": false,
+				"1": true,
+				"2": false,
+				"3": false,
+				"4": false
+			},
+			"type": 0,
+			"z_index": 0
+		},
+		{
+			"character": "character-1741847338.json",
+			"event_id": "dialogic_010",
+			"options": [
+
+			],
+			"portrait": "",
+			"question": "Ahem, let me introduce myself. I'm [color=#00e5f6]Glaciela[/color], the Liutenant of the guild. I'm here to assist you in your first dungeon mission. I assume you already know the [color=#ffd703]basics of combat[/color]?"
+		},
+		{
+			"choice": "I need a refresher...",
+			"condition": "",
+			"definition": "",
+			"event_id": "dialogic_011",
+			"value": ""
+		},
+		{
+			"character": "character-1741847338.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "That's no problem. I'll walk you through the default controls. Use [color=#ffd703]A[/color] and [color=#ffd703]D[/color] to move left and right, press [color=#ffd703]SPACE[/color] to jump and press [color=#ffd703]ENTER[/color] to attack enemies in your facing direction."
+		},
+		{
+			"character": "character-1741847338.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "On the top left of your screen is your Stamina Bar. You can press [color=#ffd703]SHIFT[/color] to dash backwards or in your moving direction, or press [color=#ffd703]SPACE[/color] in mid-air to double jump. Both of these actions consume stamina. Stamina regenerates over time."
+		},
+		{
+			"character": "character-1741847338.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "Damaging and defeating enemies grant Mana that you can use to cast Skills. Try killing the enemies in front of you!"
+		},
+		{
+			"choice": "Yup, I'm ready!",
+			"condition": "",
+			"definition": "",
+			"event_id": "dialogic_011",
+			"value": ""
+		},
+		{
+			"event_id": "dialogic_013"
+		}
+	],
+	"metadata": {
+		"dialogic-version": "1.4.5",
+		"file": "timeline-1741852178.json",
+		"name": "Level1_Intro"
+	}
+}
