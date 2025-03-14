@@ -24,7 +24,7 @@
 [ext_resource path="res://scenes/menus/StaminaBarUI.tscn" type="PackedScene" id=22]
 [ext_resource path="res://scenes/menus/ManaUI.tscn" type="PackedScene" id=23]
 [ext_resource path="res://scenes/menus/SkillsUI.tscn" type="PackedScene" id=24]
-[ext_resource path="res://scenes/menus/CellphoneUI.tscn" type="PackedScene" id=25]
+[ext_resource path="res://scenes/menus/cellphone/CellphoneUI.tscn" type="PackedScene" id=25]
 [ext_resource path="res://assets/terrain/background_dungeons.png" type="Texture" id=26]
 [ext_resource path="res://scripts/terrain/FireDetector.gd" type="Script" id=27]
 [ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=29]
@@ -91,7 +91,7 @@ extents = Vector2( 225, 10 )
 extents = Vector2( 45, 10 )
 
 [sub_resource type="RectangleShape2D" id=10]
-extents = Vector2( 10, 200 )
+extents = Vector2( 90, 200 )
 
 [node name="Level1" type="Node2D"]
 script = ExtResource( 1 )

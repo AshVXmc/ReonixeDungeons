@@ -76,7 +76,7 @@
 [ext_resource path="res://shaders/outline2D_outer.gdshader" type="Shader" id=74]
 [ext_resource path="res://scenes/enemies/Goblin.tscn" type="PackedScene" id=75]
 [ext_resource path="res://scenes/minigames/BlackJackTable.tscn" type="PackedScene" id=76]
-[ext_resource path="res://scenes/menus/CellphoneUI.tscn" type="PackedScene" id=77]
+[ext_resource path="res://scenes/menus/cellphone/CellphoneUI.tscn" type="PackedScene" id=77]
 
 [sub_resource type="ShaderMaterial" id=16]
 shader = ExtResource( 74 )

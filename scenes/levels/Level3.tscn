@@ -26,7 +26,7 @@
 [ext_resource path="res://scenes/menus/ScreenshotHelper.tscn" type="PackedScene" id=24]
 [ext_resource path="res://scenes/menus/SkillsUI.tscn" type="PackedScene" id=25]
 [ext_resource path="res://scenes/tilemaps/WaterTileMap.tscn" type="PackedScene" id=26]
-[ext_resource path="res://scenes/menus/CellphoneUI.tscn" type="PackedScene" id=27]
+[ext_resource path="res://scenes/menus/cellphone/CellphoneUI.tscn" type="PackedScene" id=27]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
 points = PoolVector2Array( 96, 96, 0, 96, 0, 0, 96, 0 )

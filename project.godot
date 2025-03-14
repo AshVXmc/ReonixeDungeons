@@ -130,6 +130,11 @@ _global_script_classes=[ {
 "path": "res://scripts/items/Cauldron.gd"
 }, {
 "base": "Control",
+"class": "Cellphone",
+"language": "GDScript",
+"path": "res://scenes/menus/cellphone/Cellphone.gd"
+}, {
+"base": "Control",
 "class": "ChaosMagicUI",
 "language": "GDScript",
 "path": "res://scripts/ui/ChaosMagicUI.gd"
@@ -779,6 +784,7 @@ _global_script_class_icons={
 "BurningStatus": "",
 "Card": "",
 "Cauldron": "",
+"Cellphone": "",
 "ChaosMagicUI": "",
 "CharacterGuideUI": "",
 "CharacterManager": "",
