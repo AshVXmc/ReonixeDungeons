@@ -309,6 +309,15 @@ __meta__ = {
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DialogueTriggerAreas/Level1_Intro_Area2D"]
 shape = SubResource( 10 )
 
+[node name="Level1_DontLeaveBeforeKillingEnemies_Area2D" type="Area2D" parent="DialogueTriggerAreas"]
+position = Vector2( 200, 531 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DialogueTriggerAreas/Level1_DontLeaveBeforeKillingEnemies_Area2D"]
+shape = SubResource( 10 )
+
 [node name="Player" parent="." instance=ExtResource( 29 )]
 position = Vector2( -1751, 701 )
 
@@ -329,3 +338,4 @@ editor_draw_limits = true
 [connection signal="area_entered" from="IceBlockTileMap/FireDetector3" to="IceBlockTileMap/FireDetector3" method="_on_FireDetector1_area_entered"]
 [connection signal="area_entered" from="IceBlockTileMap/FireDetector4" to="IceBlockTileMap/FireDetector4" method="_on_FireDetector1_area_entered"]
 [connection signal="area_entered" from="DialogueTriggerAreas/Level1_Intro_Area2D" to="." method="_on_Level1_Intro_Area2D_area_entered"]
+[connection signal="area_entered" from="DialogueTriggerAreas/Level1_DontLeaveBeforeKillingEnemies_Area2D" to="." method="_on_Level1_DontLeaveBeforeKillingEnemies_Area2D_area_entered"]

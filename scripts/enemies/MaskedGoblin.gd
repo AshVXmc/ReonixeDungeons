@@ -1,8 +1,6 @@
 class_name MaskedGoblin extends Goblin
 
-
 const ENEMY_SHOCKWAVE : PackedScene = preload("res://scenes/enemies/bosses/EnemyShockwave.tscn")
-
 var current_state setget set_current_state, get_current_state
 enum state  {
 	IDLE,
@@ -10,7 +8,6 @@ enum state  {
 	DASHING,
 	PARRYING
 }
-
 enum {
 	LEFT = -1, RIGHT = 1
 }
@@ -25,9 +22,6 @@ func set_current_state(new_value : int):
 
 func get_current_state() -> int:
 	return current_state
-	
-	
-
 
 onready var player : Player = get_parent().get_node("Player")
 
@@ -41,6 +35,11 @@ func _ready():
 	set_current_state(state.MELEE_ATTACK)
 	atk_value = 2.5 * Global.enemy_level_index + 1.25
 	set_current_state(state.IDLE)
+	
+	phys_res = 0
+	fire_res = -33.3
+	ice_res = 0
+	earth_res = 0
 
 
 func _physics_process(delta):

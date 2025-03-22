@@ -128,6 +128,7 @@ anims/NewNotification = SubResource( 3 )
 anims/RESET = SubResource( 4 )
 
 [node name="Control" type="Control" parent="Cellphone"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_right = 1040.0

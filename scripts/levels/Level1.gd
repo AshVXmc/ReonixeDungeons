@@ -43,3 +43,8 @@ func _on_Level1_Intro_Area2D_area_entered(area):
 		yield(get_tree().create_timer(1.0), "timeout")
 		trigger_dialogue("Level1_Intro")
 		$DialogueTriggerAreas/Level1_Intro_Area2D/CollisionShape2D.disabled = true
+
+
+func _on_Level1_DontLeaveBeforeKillingEnemies_Area2D_area_entered(area):
+	if area.is_in_group("Player"):
+		pass

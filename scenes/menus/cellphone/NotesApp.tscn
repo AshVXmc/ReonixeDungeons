@@ -1,14 +1,41 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://assets/UI/book_textbox.png" type="Texture" id=1]
+[ext_resource path="res://assets/UI/long_button.png" type="Texture" id=2]
+[ext_resource path="res://assets/UI/long_button_pressed.png" type="Texture" id=3]
+[ext_resource path="res://assets/fonts/Born2bSportyV2.ttf" type="DynamicFontData" id=4]
+[ext_resource path="res://scripts/ui/NotesAppControl.gd" type="Script" id=5]
+[ext_resource path="res://assets/UI/textbox.png" type="Texture" id=6]
+[ext_resource path="res://themes/Blur.tres" type="Material" id=7]
+
+[sub_resource type="DynamicFont" id=1]
+size = 32
+font_data = ExtResource( 4 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 32
+font_data = ExtResource( 4 )
 
 [node name="NotesApp" type="CanvasLayer"]
+
+[node name="Blur" type="ColorRect" parent="."]
+material = ExtResource( 7 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -1232.64
+margin_top = -639.091
+margin_right = 2007.36
+margin_bottom = 1520.91
+color = Color( 1, 1, 1, 0 )
 
 [node name="Control" type="Control" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
+script = ExtResource( 5 )
 
-[node name="NinePatchRect" type="NinePatchRect" parent="Control"]
+[node name="Choices_NinePatchRect" type="NinePatchRect" parent="Control"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -19,6 +46,151 @@ margin_right = 382.5
 margin_bottom = 257.5
 texture = ExtResource( 1 )
 
-[node name="Choices_VBoxContainer" type="VBoxContainer" parent="Control/NinePatchRect"]
-margin_right = 40.0
-margin_bottom = 40.0
+[node name="Choices_ScrollContainer" type="ScrollContainer" parent="Control/Choices_NinePatchRect"]
+anchor_left = 0.246
+anchor_top = 0.5
+anchor_right = 0.246
+anchor_bottom = 0.5
+margin_left = -125.19
+margin_top = -198.5
+margin_right = 124.81
+margin_bottom = 186.5
+rect_min_size = Vector2( 250, 385 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/Choices_NinePatchRect/Choices_ScrollContainer"]
+margin_right = 250.0
+margin_bottom = 385.0
+rect_min_size = Vector2( 250, 385 )
+
+[node name="TutorialMovement_Control" type="Control" parent="Control/Choices_NinePatchRect/Choices_ScrollContainer/VBoxContainer"]
+margin_right = 250.0
+margin_bottom = 62.0
+rect_min_size = Vector2( 250, 62 )
+
+[node name="TextureButton" type="TextureButton" parent="Control/Choices_NinePatchRect/Choices_ScrollContainer/VBoxContainer/TutorialMovement_Control"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -125.0
+margin_top = 3.0
+margin_right = 125.0
+margin_bottom = 65.0
+texture_normal = ExtResource( 2 )
+texture_pressed = ExtResource( 3 )
+expand = true
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Label" type="Label" parent="Control/Choices_NinePatchRect/Choices_ScrollContainer/VBoxContainer/TutorialMovement_Control/TextureButton"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -74.5
+margin_top = -16.0
+margin_right = 74.5
+margin_bottom = 16.0
+custom_fonts/font = SubResource( 1 )
+text = "Movement"
+align = 1
+
+[node name="TutorialMovement_Control2" type="Control" parent="Control/Choices_NinePatchRect/Choices_ScrollContainer/VBoxContainer"]
+margin_top = 66.0
+margin_right = 250.0
+margin_bottom = 128.0
+rect_min_size = Vector2( 250, 62 )
+
+[node name="TextureButton" type="TextureButton" parent="Control/Choices_NinePatchRect/Choices_ScrollContainer/VBoxContainer/TutorialMovement_Control2"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -125.0
+margin_right = 125.0
+margin_bottom = 62.0
+texture_normal = ExtResource( 2 )
+texture_pressed = ExtResource( 3 )
+expand = true
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Label" type="Label" parent="Control/Choices_NinePatchRect/Choices_ScrollContainer/VBoxContainer/TutorialMovement_Control2/TextureButton"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -85.0
+margin_top = -16.0
+margin_right = 85.0
+margin_bottom = 16.0
+custom_fonts/font = SubResource( 1 )
+text = "Combat: Part 1"
+align = 1
+
+[node name="DescriptionBoxNinePatchRect" type="NinePatchRect" parent="Control"]
+anchor_left = 0.628
+anchor_top = 0.5
+anchor_right = 0.628
+anchor_bottom = 0.5
+margin_left = -180.24
+margin_top = -199.0
+margin_right = 179.76
+margin_bottom = 201.0
+texture = ExtResource( 6 )
+patch_margin_left = 64
+patch_margin_top = 64
+patch_margin_right = 64
+patch_margin_bottom = 64
+
+[node name="Textbox_ScrollContainer" type="ScrollContainer" parent="Control/DescriptionBoxNinePatchRect"]
+anchor_left = 0.261
+anchor_top = 0.5
+anchor_right = 0.261
+anchor_bottom = 0.5
+margin_left = -98.46
+margin_top = -199.5
+margin_right = 266.54
+margin_bottom = 185.5
+rect_min_size = Vector2( 365, 385 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/DescriptionBoxNinePatchRect/Textbox_ScrollContainer"]
+margin_right = 365.0
+margin_bottom = 385.0
+rect_min_size = Vector2( 365, 385 )
+
+[node name="Control" type="Control" parent="Control/DescriptionBoxNinePatchRect/Textbox_ScrollContainer/VBoxContainer"]
+margin_right = 365.0
+margin_bottom = 385.0
+rect_min_size = Vector2( 365, 385 )
+
+[node name="Header" type="RichTextLabel" parent="Control/DescriptionBoxNinePatchRect/Textbox_ScrollContainer/VBoxContainer/Control"]
+margin_left = 18.0
+margin_top = 9.0
+margin_right = 354.0
+margin_bottom = 39.0
+rect_min_size = Vector2( 336, 30 )
+custom_fonts/normal_font = SubResource( 2 )
+bbcode_enabled = true
+bbcode_text = "[center]=== [color=#ffd703]Movement[/color] === [/center]
+"
+text = "=== Movement === 
+"
+scroll_active = false
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Control/DescriptionBoxNinePatchRect/Textbox_ScrollContainer/VBoxContainer/Control"]
+margin_left = 18.0
+margin_top = 42.0
+margin_right = 354.0
+margin_bottom = 382.0
+rect_min_size = Vector2( 336, 340 )
+custom_fonts/normal_font = SubResource( 2 )
+bbcode_enabled = true
+bbcode_text = "(You can change these keybinds in the [color=#ffd703]Settings[/color] option on the Main Menu,)
+
+
+"
+text = "(You can change these keybinds in the Settings option on the Main Menu,)
+
+
+"
+
+[connection signal="pressed" from="Control/Choices_NinePatchRect/Choices_ScrollContainer/VBoxContainer/TutorialMovement_Control/TextureButton" to="Control" method="_on_TutorialMovement_TextureButton_pressed"]

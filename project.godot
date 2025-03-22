@@ -570,6 +570,11 @@ _global_script_classes=[ {
 "path": "res://scripts/misc/MoteOfFlame.gd"
 }, {
 "base": "Control",
+"class": "NotesAppControl",
+"language": "GDScript",
+"path": "res://scripts/ui/NotesAppControl.gd"
+}, {
+"base": "Control",
 "class": "PerfectDash",
 "language": "GDScript",
 "path": "res://scripts/ui/PerfectDash.gd"
@@ -872,6 +877,7 @@ _global_script_class_icons={
 "MeteorStrike": "",
 "MonumentOfVictories": "",
 "MoteOfFlame": "",
+"NotesAppControl": "",
 "PerfectDash": "",
 "PiercingProjectile": "",
 "Player": "",

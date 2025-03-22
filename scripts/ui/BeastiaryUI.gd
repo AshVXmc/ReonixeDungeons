@@ -20,7 +20,7 @@ func _ready():
 	root_container.get_node("BeastInfoControl").visible = false
 	# Uses a JSON file to load info
 	var beastiaryinfo = File.new()
-	beastiaryinfo.open("res://scenes/levels/hublevel/BeastiaryInfo.json", File.READ)
+	beastiaryinfo.open("res://scripts/jsondata/BeastiaryInfo.json", File.READ)
 	dict_beastiary = parse_json(beastiaryinfo.get_as_text())
 
 func initialize_ui():

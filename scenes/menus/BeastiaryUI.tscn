@@ -53,18 +53,6 @@ margin_right = 534.0
 margin_bottom = 484.4
 script = ExtResource( 5 )
 
-[node name="Blur" type="ColorRect" parent="Control"]
-material = ExtResource( 2 )
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -1232.64
-margin_top = -639.091
-margin_right = 2007.36
-margin_bottom = 1520.91
-color = Color( 1, 1, 1, 0 )
-
 [node name="NinePatchRect" type="NinePatchRect" parent="Control"]
 anchor_left = 0.5
 anchor_top = 0.5
@@ -341,6 +329,18 @@ bbcode_enabled = true
 position = Vector2( 160, 260 )
 scale = Vector2( 10, 10 )
 texture = ExtResource( 7 )
+
+[node name="Blur" type="ColorRect" parent="Control"]
+material = ExtResource( 2 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -1232.64
+margin_top = -639.091
+margin_right = 2007.36
+margin_bottom = 1520.91
+color = Color( 1, 1, 1, 0 )
 
 [node name="CloseButton" type="TextureButton" parent="Control"]
 anchor_left = 0.5
