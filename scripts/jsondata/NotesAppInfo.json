@@ -2,5 +2,19 @@
     "TutorialMovement": {
         "Header": "[center]=== [color=#ffd703]Movement[/color] ===[/center]",
         "Description": "You can change these keybinds in the [color=#ffd703]Settings[/color] option on the Main Menu."
+    },
+    "CombatPart1": {
+        "Header": "[center]== [color=#ffd703]Combat (Part 1)[/color] ==[/center]",
+        "Description": "[color=maroon]Health[/color] is how much damage you can sustain. When it drops to 0, the character gets downed and you automatically switch to the next available character in your party. If all party members are downed, you'll receive a [color=#ffd703]Game Over[/color].",
+        "Description2": "[color=#89F336]Stamina[/color] is consumed by movement skills (e.g: Dashing, Double Jumping). It regenerates over time.",
+        "Description3": "[color=aqua]Mana[/color] is used to cast Skills. You gain [color=aqua]Mana[/color] by hitting enemies or picking up the [color=aqua]Mana bits[/color] they drop after death."
+    },
+    "CombatPart2": {
+        "Header": "[center]== [color=#ffd703]Combat (Part 2)[/color] ==[/center]",
+        "Description": "Each character has a distinct moveset and playstyle. Here are the general controls, which you can change in the in the [color=#ffd703]Settings[/color] option on the Main Menu.",
+        "Description2": "You can view each character's moveset by pressing ([color=#ffd703]%s[/color]) to open the pause menu and clicking [color=#cc338b]Moveset[/color]."
+    },
+    "Loadouts": {
+        "Header": "[center]=== [color=#ffd703]Combat[/color] ===[/center]"
     }
 }

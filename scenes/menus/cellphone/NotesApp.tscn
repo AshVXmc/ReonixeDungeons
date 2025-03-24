@@ -51,10 +51,10 @@ anchor_left = 0.246
 anchor_top = 0.5
 anchor_right = 0.246
 anchor_bottom = 0.5
-margin_left = -125.19
-margin_top = -198.5
-margin_right = 124.81
-margin_bottom = 186.5
+margin_left = -140.19
+margin_top = -202.5
+margin_right = 109.81
+margin_bottom = 182.5
 rect_min_size = Vector2( 250, 385 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Control/Choices_NinePatchRect/Choices_ScrollContainer"]
@@ -86,26 +86,27 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -74.5
+margin_left = -101.0
 margin_top = -16.0
-margin_right = 74.5
+margin_right = 101.0
 margin_bottom = 16.0
 custom_fonts/font = SubResource( 1 )
-text = "Movement"
+text = "Movement "
 align = 1
 
-[node name="TutorialMovement_Control2" type="Control" parent="Control/Choices_NinePatchRect/Choices_ScrollContainer/VBoxContainer"]
+[node name="CombatPart1_Control" type="Control" parent="Control/Choices_NinePatchRect/Choices_ScrollContainer/VBoxContainer"]
 margin_top = 66.0
 margin_right = 250.0
 margin_bottom = 128.0
 rect_min_size = Vector2( 250, 62 )
 
-[node name="TextureButton" type="TextureButton" parent="Control/Choices_NinePatchRect/Choices_ScrollContainer/VBoxContainer/TutorialMovement_Control2"]
+[node name="TextureButton" type="TextureButton" parent="Control/Choices_NinePatchRect/Choices_ScrollContainer/VBoxContainer/CombatPart1_Control"]
 anchor_left = 0.5
 anchor_right = 0.5
 margin_left = -125.0
+margin_top = -1.0
 margin_right = 125.0
-margin_bottom = 62.0
+margin_bottom = 61.0
 texture_normal = ExtResource( 2 )
 texture_pressed = ExtResource( 3 )
 expand = true
@@ -113,17 +114,50 @@ __meta__ = {
 "_edit_group_": true
 }
 
-[node name="Label" type="Label" parent="Control/Choices_NinePatchRect/Choices_ScrollContainer/VBoxContainer/TutorialMovement_Control2/TextureButton"]
+[node name="Label" type="Label" parent="Control/Choices_NinePatchRect/Choices_ScrollContainer/VBoxContainer/CombatPart1_Control/TextureButton"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -85.0
+margin_left = -90.0
 margin_top = -16.0
-margin_right = 85.0
+margin_right = 90.0
 margin_bottom = 16.0
 custom_fonts/font = SubResource( 1 )
-text = "Combat: Part 1"
+text = "Combat (Part 1)"
+align = 1
+
+[node name="CombatPart2_Control" type="Control" parent="Control/Choices_NinePatchRect/Choices_ScrollContainer/VBoxContainer"]
+margin_top = 132.0
+margin_right = 250.0
+margin_bottom = 194.0
+rect_min_size = Vector2( 250, 62 )
+
+[node name="TextureButton" type="TextureButton" parent="Control/Choices_NinePatchRect/Choices_ScrollContainer/VBoxContainer/CombatPart2_Control"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -125.0
+margin_top = -1.0
+margin_right = 125.0
+margin_bottom = 61.0
+texture_normal = ExtResource( 2 )
+texture_pressed = ExtResource( 3 )
+expand = true
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Label" type="Label" parent="Control/Choices_NinePatchRect/Choices_ScrollContainer/VBoxContainer/CombatPart2_Control/TextureButton"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -90.0
+margin_top = -16.0
+margin_right = 90.0
+margin_bottom = 16.0
+custom_fonts/font = SubResource( 1 )
+text = "Combat (Part 2)"
 align = 1
 
 [node name="DescriptionBoxNinePatchRect" type="NinePatchRect" parent="Control"]
@@ -131,9 +165,9 @@ anchor_left = 0.628
 anchor_top = 0.5
 anchor_right = 0.628
 anchor_bottom = 0.5
-margin_left = -180.24
+margin_left = -201.24
 margin_top = -199.0
-margin_right = 179.76
+margin_right = 188.76
 margin_bottom = 201.0
 texture = ExtResource( 6 )
 patch_margin_left = 64
@@ -142,32 +176,32 @@ patch_margin_right = 64
 patch_margin_bottom = 64
 
 [node name="Textbox_ScrollContainer" type="ScrollContainer" parent="Control/DescriptionBoxNinePatchRect"]
-anchor_left = 0.261
-anchor_top = 0.5
-anchor_right = 0.261
-anchor_bottom = 0.5
-margin_left = -98.46
-margin_top = -199.5
-margin_right = 266.54
-margin_bottom = 185.5
-rect_min_size = Vector2( 365, 385 )
+anchor_left = 0.5
+anchor_top = 0.484
+anchor_right = 0.5
+anchor_bottom = 0.484
+margin_left = -196.0
+margin_top = -192.6
+margin_right = 194.0
+margin_bottom = 192.4
+rect_min_size = Vector2( 390, 385 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Control/DescriptionBoxNinePatchRect/Textbox_ScrollContainer"]
-margin_right = 365.0
+margin_right = 390.0
 margin_bottom = 385.0
-rect_min_size = Vector2( 365, 385 )
+rect_min_size = Vector2( 390, 385 )
 
 [node name="Control" type="Control" parent="Control/DescriptionBoxNinePatchRect/Textbox_ScrollContainer/VBoxContainer"]
-margin_right = 365.0
+margin_right = 390.0
 margin_bottom = 385.0
 rect_min_size = Vector2( 365, 385 )
 
 [node name="Header" type="RichTextLabel" parent="Control/DescriptionBoxNinePatchRect/Textbox_ScrollContainer/VBoxContainer/Control"]
-margin_left = 18.0
+margin_left = 11.0
 margin_top = 9.0
-margin_right = 354.0
+margin_right = 381.0
 margin_bottom = 39.0
-rect_min_size = Vector2( 336, 30 )
+rect_min_size = Vector2( 370, 30 )
 custom_fonts/normal_font = SubResource( 2 )
 bbcode_enabled = true
 bbcode_text = "[center]=== [color=#ffd703]Movement[/color] === [/center]
@@ -177,20 +211,16 @@ text = "=== Movement ===
 scroll_active = false
 
 [node name="RichTextLabel" type="RichTextLabel" parent="Control/DescriptionBoxNinePatchRect/Textbox_ScrollContainer/VBoxContainer/Control"]
-margin_left = 18.0
+margin_left = 12.0
 margin_top = 42.0
-margin_right = 354.0
+margin_right = 382.0
 margin_bottom = 382.0
-rect_min_size = Vector2( 336, 340 )
+rect_min_size = Vector2( 370, 340 )
 custom_fonts/normal_font = SubResource( 2 )
 bbcode_enabled = true
-bbcode_text = "(You can change these keybinds in the [color=#ffd703]Settings[/color] option on the Main Menu,)
-
-
-"
-text = "(You can change these keybinds in the Settings option on the Main Menu,)
-
-
-"
+bbcode_text = "Select a tutorial you wish to view."
+text = "Select a tutorial you wish to view."
 
 [connection signal="pressed" from="Control/Choices_NinePatchRect/Choices_ScrollContainer/VBoxContainer/TutorialMovement_Control/TextureButton" to="Control" method="_on_TutorialMovement_TextureButton_pressed"]
+[connection signal="pressed" from="Control/Choices_NinePatchRect/Choices_ScrollContainer/VBoxContainer/CombatPart1_Control/TextureButton" to="Control" method="_on_CombatPart1_TextureButton_pressed"]
+[connection signal="pressed" from="Control/Choices_NinePatchRect/Choices_ScrollContainer/VBoxContainer/CombatPart2_Control/TextureButton" to="Control" method="_on_CombatPart2_TextureButton_pressed"]

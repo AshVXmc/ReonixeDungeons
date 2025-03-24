@@ -35,10 +35,34 @@ func set_description_header_content(new_header : String):
 	description_header.bbcode_text = new_header
 
 func _on_TutorialMovement_TextureButton_pressed():
-	
-	var left_and_right : String = "Left: [color=#ffd703]%s[/color], Right: [color=#ffd703]%s[/color]" % [InputMap.get_action_list("left")[0].as_text(), InputMap.get_action_list("right")[0].as_text()]
+	set_description_header_content(notes_dict["TutorialMovement"]["Header"])
 	set_description_textbox_content(
 		notes_dict["TutorialMovement"]["Description"]
-		+ "\n" + left_and_right 
+		+ "\n\n" + str("[color=#5DA271]Left[/color]: [color=#ffd703]%s[/color], [color=#5DA271]Right[/color]: [color=#ffd703]%s[/color]" % [InputMap.get_action_list("left")[0].as_text(), InputMap.get_action_list("right")[0].as_text()])
+		+ "\n" + str("[color=#5DA271]Jump[/color]: [color=#ffd703]%s[/color]" % InputMap.get_action_list("jump")[0].as_text())
+		+ "\n" + str("[color=#5DA271]Double Jump[/color]: [color=#ffd703]%s[/color] in mid-air. Consumes [color=#89F336]Stamina[/color]." % InputMap.get_action_list("jump")[0].as_text())
+		+ "\n" + str("[color=#5DA271]Dash[/color]: [color=#ffd703]%s[/color]. Consumes [color=#89F336]Stamina[/color]. Dashes backwards if standing still. [color=#ffd703]%s[/color] while moving to dash in your facing direction." % [InputMap.get_action_list("ui_dash")[0].as_text(), InputMap.get_action_list("ui_dash")[0].as_text()])
 	)
 
+
+func _on_CombatPart1_TextureButton_pressed():
+	set_description_header_content(notes_dict["CombatPart1"]["Header"])
+	set_description_textbox_content(
+		notes_dict["CombatPart1"]["Description"]
+		+ "\n\n" + notes_dict["CombatPart1"]["Description2"]
+		+ "\n\n" + notes_dict["CombatPart1"]["Description3"]
+	)
+
+
+func _on_CombatPart2_TextureButton_pressed():
+	set_description_header_content(notes_dict["CombatPart2"]["Header"])
+	set_description_textbox_content(
+		notes_dict["CombatPart2"]["Description"]
+		+ "\n" + str("[color=#5DA271]Attack[/color]: [color=#ffd703]%s[/color]" % InputMap.get_action_list("ui_attack")[0].as_text())
+		+ "\n" + str("[color=#5DA271]Charged Attack[/color]: Hold [color=#ffd703]%s[/color]" % InputMap.get_action_list("ui_attack")[0].as_text()) 
+		+ "\n" + str("[color=#5DA271]Primary Skill/Ultimate[/color]: [color=#ffd703]%s[/color]" % InputMap.get_action_list("primary_skill")[0].as_text()) 
+		+ "\n" + str("[color=#5DA271]Secondary Skill[/color]: [color=#ffd703]%s[/color]" % InputMap.get_action_list("secondary_skill")[0].as_text()) 
+		+ "\n" + str("[color=#5DA271]Tertiary Skill[/color]: [color=#ffd703]%s[/color]" % InputMap.get_action_list("tertiary_skill")[0].as_text()) 
+		+ "\n" + str("[color=#5DA271]Perk Skill[/color]: [color=#ffd703]%s[/color]" % InputMap.get_action_list("talent_skill")[0].as_text()) 
+		+ "\n\n" + notes_dict["CombatPart2"]["Description2"]
+	)
