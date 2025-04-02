@@ -9,6 +9,7 @@ func _ready():
 	$FreezeGaugeArea/CollisionShape2D.disabled = true
 	$Area2D.add_to_group(str(Global.glaciela_skill_multipliers["WinterQueen"] / 100 * Global.glaciela_attack))
 	$DestroyedTimer.wait_time = Global.glaciela_skill_multipliers["WinterQueenDuration"]
+	$FreezeGaugeArea.add_to_group(str(Global.glaciela_skill_multipliers["WinterQueenFreezeGauge"]))
 	yield(get_tree().create_timer(1), "timeout")
 	blizzard()
 func blizzard():

@@ -1,10 +1,11 @@
 class_name FrozenStatus extends Area2D
 
-# if the freeze stack reaches 100, the frozen debuff will be applied.
+# if the freeze stack reaches MAX_FREEZE_STACK, the frozen debuff will be applied.
 onready var freeze_stack = 0
-#var burn_immediately : bool = false
 const MAX_FREEZE_STACK = 1000
 export (bool) var is_frozen : bool = false
+
+
 
 # Maximum duration of the freeze effect
 # unused
@@ -56,4 +57,21 @@ func _on_Detector_area_entered(area):
 			# fire gauges that replenish an already depleting bar is only half as effective
 			freeze_stack += clamp(ice_gauge / 2, 0, MAX_FREEZE_STACK)
 		$FreezeBar.value = freeze_stack
-		
+	
+	if is_frozen:
+		if area.is_in_group("MediumPoiseDamage") or area.is_in_group("HeavyPoiseDamage"):
+			shatter()
+
+
+
+# deals ice damage in a small AoE and removes freeze.
+# Cannot crit.
+func shatter():
+	var damage : float = 20 * Global.character_level_data["Glaciela"][0] + 12
+	$ShatterDamageArea2D/CollisionShape2D.set_deferred("disabled", false)
+	$ShatterDamageArea2D.add_to_group(str(damage))
+	freeze_stack = 0
+	is_frozen = false
+	$AnimationPlayer.play("Shatter")
+	yield(get_tree().create_timer(0.2), "timeout")
+	$ShatterDamageArea2D/CollisionShape2D.set_deferred("disabled", true)

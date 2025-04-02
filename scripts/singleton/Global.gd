@@ -294,12 +294,13 @@ var glaciela_skill_multipliers : Dictionary = {
 	"TundraStarsIceDamageBonus": 48,
 	"AirborneDuration": 2.5,
 	"IceLance": 60.0,
-	"IceLanceFreezeGauge": 350.0,
+	"IceLanceFreezeGauge": 300.0,
 	"MaxTundraStars": 3,
 	"WinterQueen": 11.0,
 	"WinterQueenCost": 14,
 	"WinterQueenCD": 28.0,
 	"WinterQueenDuration": 7.2,
+	"WinterQueenFreezeGauge": 340,
 	"IceLanceCost": 3,
 	
 	"IceLanceCD": 11.0,
@@ -308,7 +309,7 @@ var glaciela_skill_multipliers : Dictionary = {
 	# for some reason it won't register any values below 100.
 	# so this is a fix. if it works, it works
 	"ConeOfCold": 100 * 0.25,
-	"ConeOfColdFreezeGauge": 100,
+	"ConeOfColdFreezeGauge": 85,
 	"ConeOfColdCD": 4,
 	"ConeOfColdResourceConsumption": 90, # per tick.
 	"ConeOfColdRegenRate": 0.95,

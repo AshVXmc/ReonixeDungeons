@@ -15,8 +15,8 @@ extents = Vector2( 27.0468, 31.8198 )
 emission_shape = 2
 emission_box_extents = Vector3( 15, 20, 1 )
 flag_disable_z = true
-gravity = Vector3( 0, 20, 0 )
-orbit_velocity = 0.0
+gravity = Vector3( 0, 0, 0 )
+orbit_velocity = 1.0
 orbit_velocity_random = 0.0
 
 [node name="GroundedStatus" type="Area2D" groups=["Grounded"]]
@@ -58,12 +58,12 @@ one_shot = true
 [node name="DecayDelayTimer" type="Timer" parent="."]
 
 [node name="GroundedParticles" type="Particles2D" parent="."]
-scale = Vector2( 2.5, 2.5 )
+scale = Vector2( 2, 2 )
 emitting = false
-amount = 7
-lifetime = 0.65
-explosiveness = 0.33
-randomness = 0.25
+amount = 4
+lifetime = 0.7
+explosiveness = 0.6
+randomness = 0.1
 process_material = SubResource( 3 )
 texture = ExtResource( 2 )
 

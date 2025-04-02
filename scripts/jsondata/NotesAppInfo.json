@@ -1,20 +1,39 @@
 {
     "TutorialMovement": {
-        "Header": "[center]=== [color=#ffd703]Movement[/color] ===[/center]",
+        "Header": "[center]== [color=#ffd703]Movement[/color] ==[/center]",
         "Description": "You can change these keybinds in the [color=#ffd703]Settings[/color] option on the Main Menu."
     },
     "CombatPart1": {
-        "Header": "[center]== [color=#ffd703]Combat (Part 1)[/color] ==[/center]",
+        "Header": "[center]== [color=#ffd703]Combat (Basics)[/color] ==[/center]",
         "Description": "[color=maroon]Health[/color] is how much damage you can sustain. When it drops to 0, the character gets downed and you automatically switch to the next available character in your party. If all party members are downed, you'll receive a [color=#ffd703]Game Over[/color].",
         "Description2": "[color=#89F336]Stamina[/color] is consumed by movement skills (e.g: Dashing, Double Jumping). It regenerates over time.",
         "Description3": "[color=aqua]Mana[/color] is used to cast Skills. You gain [color=aqua]Mana[/color] by hitting enemies or picking up the [color=aqua]Mana bits[/color] they drop after death."
     },
     "CombatPart2": {
-        "Header": "[center]== [color=#ffd703]Combat (Part 2)[/color] ==[/center]",
-        "Description": "Each character has a distinct moveset and playstyle. Here are the general controls, which you can change in the in the [color=#ffd703]Settings[/color] option on the Main Menu.",
-        "Description2": "You can view each character's moveset by pressing ([color=#ffd703]%s[/color]) to open the pause menu and clicking [color=#cc338b]Moveset[/color]."
+        "Header": "[center]== [color=#ffd703]Combat (Moveset)[/color] ==[/center]",
+        "Description": "Each character has a distinct moveset and playstyle. Here are the general controls, which you can change in the in the [color=#ffd703]'Settings'[/color] option on the Main Menu.",
+        "Description2": "You can view each character's moveset by pressing ([color=#ffd703]%s[/color]) to open the pause menu and clicking [color=#cc338b]'Moveset'[/color].",
+        "Description3": "Most attacks can [color=#ffd703]critically hit[/color], dealing more damage based on the attacker's [color=#ffd703]Crit Damage[/color]."
     },
-    "Loadouts": {
-        "Header": "[center]=== [color=#ffd703]Combat[/color] ===[/center]"
+    "CombatPart3": {
+        "Header": "[center]=== [color=#ffd703]Combat (Talents)[/color] ===[/center]",
+        "Description": "Each character has a range of [color=#ffd703]Talents[/color]. [color=#ffd703]Talents[/color] enhance your characters' skills and combat moveset. [color=#ffd703]Talents[/color] cost [color=#F0E68C]Talent Points[/color] to equip. [color=#ffd703]Talents[/color] are more powerful at higher point costs.",
+        "Description2": "You can access your [color=#ffd703]Talents[/color]loadout by interacting with the Dungeon Entrance, selecting [color=#ffd703]'Loadouts'[/color], and selecting [color=#ffd703]'Talents'[/color]."
+    },
+    "StatusEffects": {
+        "Header": "[center]=== [color=#ffd703]Status effects[/color] ===[/center]",
+        "Description": "Most elemental attacks ([color=#fd9628]Fire[/color]/[color=#7df0ff]Ice[/color]/[color=#deb600]Earth[/color]) build up ([color=#fd9628]Burn[/color]/[color=#7df0ff]Freeze[/color]/[color=#deb600]Grounded[/color]) meters. ",
+        "Description2": "When the meter is full, it inflicts a debuffing [color=#ffd703]Status Effect[/color] and the meter's value is steadily drained. ",
+        "Description3": "During this, the meter's value cannot be increased. When the meter is empty, the [color=#ffd703]Status Effect[/color] is dispelled.",
+        "Description4": "Damage dealt by [color=#ffd703]Status Effects[/color] cannot critically hit."
+    },
+    "Debuffs": {
+        "Header": "[center]=== [color=#ffd703]Debuffs[/color] ===[/center]",
+        "Description": "[color=#fd9628]Burning[/color] is triggered when the [color=#fd9628]Burn[/color] meter is full. While [color=#fd9628]burning[/color], enemies take [color=#fd9628]Fire[/color] damage over time.",
+        "Description2": "[color=#7df0ff]Frozen[/color] is triggered when the [color=#7df0ff]Freeze[/color] meter is full. While [color=#7df0ff]frozen[/color], enemies are immobilized. [color=#ffd703]Heavy/Charged[/color] attacks shatter [color=#7df0ff]Frozen[/color] enemies, dealing [color=#7df0ff]Ice[/color] damage and dispelling the debuff.",
+        "Description3": "[color=#deb600]Grounded[/color] is triggered when the [color=#deb600]Ground[/color] meter is full. While [color=#deb600]Grounded[/color], enemies take more damage.",
+        "Description4": ""
     }
+
+
 }

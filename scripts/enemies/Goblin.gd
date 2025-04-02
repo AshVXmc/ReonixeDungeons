@@ -278,7 +278,6 @@ func _on_Area2D_area_entered(area):
 					HP -= float(damage)
 					$HealthBar.value  -= float(damage)
 					if area.is_in_group("IsCritHit"):
-						
 						add_damage_particles("Fire", float(damage), true)
 					else:
 						add_damage_particles("Fire", float(damage), false)
@@ -302,7 +301,6 @@ func _on_Area2D_area_entered(area):
 					HP -= float(damage)
 					$HealthBar.value  -= float(damage)
 					if area.is_in_group("IsCritHit"):
-						
 						add_damage_particles("Ice", float(damage), true)
 					else:
 						add_damage_particles("Ice", float(damage), false)
@@ -312,6 +310,7 @@ func _on_Area2D_area_entered(area):
 					else:
 						parse_damage()
 					break
+		
 		if area.is_in_group("Earth"):
 			var groups : Array = area.get_groups()
 			for group_names in groups:
