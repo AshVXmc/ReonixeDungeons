@@ -29,8 +29,9 @@ func end_of_dialogue(timeline_name : String = ""):
 	$Player.is_shopping = false
 	get_tree().paused = false
 	$Player/CellphoneSprite.visible = false
-	if timeline_name == "Level1_Intro":
-		print("LEVEL 1 INTRO FINISHED")
+	if timeline_name == "Level1_DontLeaveBeforeKillingEnemies":
+		$Player.global_position.x = $DialogueTriggerAreas/Level1_Intro_Area2D.global_position.x
+		$Player.global_position.y = $DialogueTriggerAreas/Level1_Intro_Area2D.global_position.y + 180
 
 func _on_Level1_Intro_Area2D_area_entered(area):
 	if area.is_in_group("Player"):
@@ -47,4 +48,14 @@ func _on_Level1_Intro_Area2D_area_entered(area):
 
 func _on_Level1_DontLeaveBeforeKillingEnemies_Area2D_area_entered(area):
 	if area.is_in_group("Player"):
-		pass
+		if get_tree().get_nodes_in_group("Level1_DefeatEnemiesBeforeProceeding").empty():
+			$DialogueTriggerAreas/Level1_DontLeaveBeforeKillingEnemies_Area2D/CollisionShape2D.disabled = true
+		else:
+			$Player.is_shopping = true
+			trigger_dialogue("Level1_DontLeaveBeforeKillingEnemies")
+
+func _on_Level1_IceBlockedChest_area_entered(area):
+	if area.is_in_group("Player"):
+		$Player.is_shopping = true
+		trigger_dialogue("Level1_IceBlockedChest")
+		$DialogueTriggerAreas/Level1_IceBlockedChest/CollisionShape2D.disabled = true

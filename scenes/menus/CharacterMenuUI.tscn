@@ -2739,6 +2739,7 @@ align = 1
 autowrap = true
 
 [node name="AgnetteControl" type="Control" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl"]
+visible = false
 margin_right = 40.0
 margin_bottom = 40.0
 

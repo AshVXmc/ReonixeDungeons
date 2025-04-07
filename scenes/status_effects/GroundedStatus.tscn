@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://scripts/status_effects/GroundedStatus.gd" type="Script" id=1]
 [ext_resource path="res://assets/particles/meteor_burst_particle.png" type="Texture" id=2]
 [ext_resource path="res://assets/UI/burning_bar_background.png" type="Texture" id=3]
 [ext_resource path="res://assets/UI/grounded_bar_full.png" type="Texture" id=4]
+[ext_resource path="res://assets/particles/sword_slash_particle_1.png" type="Texture" id=5]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 19.875, 18.2558 )
@@ -12,6 +13,14 @@ extents = Vector2( 19.875, 18.2558 )
 extents = Vector2( 27.0468, 31.8198 )
 
 [sub_resource type="ParticlesMaterial" id=3]
+emission_shape = 2
+emission_box_extents = Vector3( 15, 20, 1 )
+flag_disable_z = true
+gravity = Vector3( 0, 0, 0 )
+orbit_velocity = 1.0
+orbit_velocity_random = 0.0
+
+[sub_resource type="ParticlesMaterial" id=4]
 emission_shape = 2
 emission_box_extents = Vector3( 15, 20, 1 )
 flag_disable_z = true
@@ -60,12 +69,23 @@ one_shot = true
 [node name="GroundedParticles" type="Particles2D" parent="."]
 scale = Vector2( 2, 2 )
 emitting = false
-amount = 4
+amount = 3
 lifetime = 0.7
 explosiveness = 0.6
 randomness = 0.1
 process_material = SubResource( 3 )
 texture = ExtResource( 2 )
+
+[node name="GroundedParticles2" type="Particles2D" parent="."]
+self_modulate = Color( 0.313726, 0.301961, 0.223529, 1 )
+scale = Vector2( 1.5, 1.5 )
+emitting = false
+amount = 3
+lifetime = 0.7
+explosiveness = 0.6
+randomness = 0.1
+process_material = SubResource( 4 )
+texture = ExtResource( 5 )
 
 [connection signal="area_entered" from="." to="." method="_on_GroundedStatus_area_entered"]
 [connection signal="timeout" from="DestroyedTimer" to="." method="_on_DestroyedTimer_timeout"]

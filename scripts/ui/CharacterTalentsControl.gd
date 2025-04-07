@@ -14,9 +14,10 @@ onready var agnette_talent_desc_text = $NinePatchRect/TalentTreeControl/AgnetteC
 
 func _ready():
 	initialize_ui()
-	update_player_description_text()
-	update_glaciela_description_text()
-	update_agnette_description_text()
+	
+	print("Cyclone slashes (bought/enabled): " + str(Global.player_talents["CycloneSlashes"]["unlocked"]) + str(Global.player_talents["CycloneSlashes"]["enabled"]))
+	print("Data Cyclone slashes (bought/enabled): " + str(Global.player_talents_data["CycloneSlashes"]["unlocked"]) + str(Global.player_talents_data["CycloneSlashes"]["enabled"]))
+	
 func update_player_description_text():
 	player_talent_desc_text.bbcode_text = player_talent_desc_text.bbcode_text.replacen(
 		"BURNING_BREATH_DMG", str(Global.player_talents["BurningBreath"]["attackpercentage"]))
@@ -70,7 +71,6 @@ func initialize_ui():
 
 	var counter2 : int = 1
 	for i in glaciela_talents_list:
-		
 		get_node("NinePatchRect/TalentTreeControl/GlacielaControl/ScrollContainer/VBoxContainer/TalentControl" + str(counter2) + "/GlacielaTalentButton/GlacielaCheckButton").visible = false
 		counter2 += 1
 	
@@ -94,13 +94,14 @@ func update_player_talent_tree_ui():
 		get_node("NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl" + str(labels_counter) + "/PlayerTalentButton/OpalsCostLabel").text = str(Global.player_talents[player_talents_list[labels_counter - 1]]["opalscost"])
 		get_node("NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl" + str(labels_counter) + "/PlayerTalentButton/SlotsCostLabel").text = "Slot cost: " + str(Global.player_talents[player_talents_list[labels_counter - 1]]["talentslotcost"])
 		labels_counter += 1
+		
 		if Global.player_talents[pt]["unlocked"]:
 			buy_player_talent(pt, pt_list_counter)
-			pt_list_counter += 1
 			if Global.player_talents[pt]["enabled"]:
 				cumulative_talent_slots_spending += Global.player_talents[pt]["talentslotcost"]
 				var order = player_talents_list.find(pt) + 1
 				get_node("NinePatchRect/TalentTreeControl/PlayerControl/ScrollContainer/VBoxContainer/TalentControl" + str(order) + "/PlayerTalentButton/PlayerCheckButton").pressed = true
+		pt_list_counter += 1
 	player_talent_slots_label.text = str(Global.player_talents["TalentSlots"]) + " / " + str(Global.player_talents["MaxTalentSlots"])
 
 
@@ -138,11 +139,12 @@ func update_glaciela_talent_tree_ui():
 		labels_counter += 1
 		if Global.glaciela_talents[gt]["unlocked"]:
 			buy_glaciela_talent(gt, gt_list_counter)
-			gt_list_counter += 1
+			
 			if Global.glaciela_talents[gt]["enabled"]:
 				cumulative_talent_slots_spending += Global.glaciela_talents[gt]["talentslotcost"]
 				var order = glaciela_talents_list.find(gt) + 1
 				get_node("NinePatchRect/TalentTreeControl/GlacielaControl/ScrollContainer/VBoxContainer/TalentControl" + str(order) + "/GlacielaTalentButton/GlacielaCheckButton").pressed = true
+		gt_list_counter += 1
 	glaciela_talent_slots_label.text = str(Global.glaciela_talents["TalentSlots"]) + " / " + str(Global.glaciela_talents["MaxTalentSlots"])
 
 

@@ -1,11 +1,6 @@
 {
 	"events": [
 		{
-			"block_input": false,
-			"event_id": "dialogic_050",
-			"wait_time": 0
-		},
-		{
 			"character": "",
 			"event_id": "dialogic_001",
 			"portrait": "",
@@ -18,8 +13,8 @@
 			"text": "He-Hello?  Can you hear me? You're the New Recruit for our Guild, correct? "
 		},
 		{
-			"animation": "[Default]",
-			"animation_length": 0,
+			"animation": "2-fade_in_up.gd",
+			"animation_length": 0.5,
 			"change_mirror_portrait": false,
 			"change_position": false,
 			"change_z_index": false,

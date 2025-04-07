@@ -16,6 +16,8 @@ gravity = Vector3( 0, -65, 0 )
 orbit_velocity = 0.0
 orbit_velocity_random = 0.0
 scale = 1.2
+hue_variation = 0.05
+hue_variation_random = 0.25
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 27.0468, 31.8198 )
@@ -35,6 +37,7 @@ autostart = true
 
 [node name="BurningParticles" type="Particles2D" parent="."]
 scale = Vector2( 2.6, 2.6 )
+amount = 9
 lifetime = 0.75
 process_material = SubResource( 4 )
 texture = ExtResource( 3 )

@@ -53,9 +53,9 @@ anchor_right = 0.246
 anchor_bottom = 0.5
 margin_left = -140.19
 margin_top = -202.5
-margin_right = 109.81
+margin_right = 121.81
 margin_bottom = 182.5
-rect_min_size = Vector2( 250, 385 )
+rect_min_size = Vector2( 262, 385 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Control/Choices_NinePatchRect/Choices_ScrollContainer"]
 margin_right = 250.0

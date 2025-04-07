@@ -4,18 +4,18 @@
 	"display_name": "",
 	"display_name_bool": true,
 	"id": "character-1673439491.json",
-	"mirror_portraits": false,
+	"mirror_portraits": true,
 	"name": "Player",
 	"nickname": "",
 	"nickname_bool": false,
-	"offset_x": 0,
-	"offset_y": 0,
+	"offset_x": -80,
+	"offset_y": -160,
 	"portraits": [
 		{
 			"name": "Default",
 			"path": "res://assets/characters/player/player_idle.png"
 		}
 	],
-	"scale": 100,
+	"scale": 1000,
 	"theme": ""
 }

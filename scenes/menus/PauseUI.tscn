@@ -435,7 +435,10 @@ Hold [ATK] when [color=purple]Energy[/color] is full
 
 [color=#ffd703]Fire Charm[/color]
 Hold [DASH] to send a charm forward. [DASH] to teleport to the charm's location. 
-Cooldown: FC_CD seconds"
+Cooldown: FC_CD seconds
+
+[center][color=red]Player's equipped talents[/color][/center]
+"
 text = "Player's moveset
 Basic Attack Combo
 [ATK], [ATK], [ATK], [ATK]
@@ -464,7 +467,10 @@ Dash Counter Attack
 
 Fire Charm
 Hold [DASH] to send a charm forward. [DASH] to teleport to the charm's location. 
-Cooldown: FC_CD seconds"
+Cooldown: FC_CD seconds
+
+Player's equipped talents
+"
 
 [node name="GlacielaMovesetList" type="RichTextLabel" parent="MovesetList"]
 visible = false
@@ -494,7 +500,7 @@ Hold [ATK]
 [ATK], [ATK], [ATK}, pause until a [color=yellow]yellow star[/color] appears, then [ATK]
 Consumes all stacks of [color=#c4fdff]Tundra Sigil[/color]. Each stack consumed grants a SP_ATK_1_BOOST% damage bonus to the attack.
 
-
+[center][color=#7df0ff]Glaciela's equipped talents[/color][/center]
  "
 text = "Glaciela's moveset
 Basic Attack Combo
@@ -512,7 +518,7 @@ Special Attack: Wintry Waltz
 [ATK], [ATK], [ATK}, pause until a yellow star appears, then [ATK]
 Consumes all stacks of Tundra Sigil. Each stack consumed grants a SP_ATK_1_BOOST% damage bonus to the attack.
 
-
+Glaciela's equipped talents
  "
 
 [node name="AgnetteMovesetList" type="RichTextLabel" parent="MovesetList"]

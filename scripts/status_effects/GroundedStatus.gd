@@ -4,7 +4,7 @@ onready var grounded_stack = 0
 #var burn_immediately : bool = false
 const MAX_GROUNDED_STACK = 1000
 export (bool) var is_grounded = false
-export (float) var damage_shred = 40.0 # percentage
+export (float) var damage_shred = 40.0 # in percent
 
 func _process(delta):
 	if grounded_stack == 0:
@@ -15,14 +15,16 @@ func _process(delta):
 	if grounded_stack >= MAX_GROUNDED_STACK and !is_grounded:
 		apply_grounded_status()
 		$GroundedParticles.emitting = true
+		$GroundedParticles2.emitting = true
 		is_grounded = true
 		$GroundedBar.visible = true
 	if is_grounded:
-		grounded_stack -= clamp(0, 5 , MAX_GROUNDED_STACK)
+		grounded_stack -= clamp(0, 2.5 , MAX_GROUNDED_STACK)
 	if is_grounded and grounded_stack <= 0:
 		is_grounded = false
 		grounded_stack = 0
 		$GroundedParticles.emitting = false
+		$GroundedParticles2.emitting = false
 		remove_grounded_status()
 	
 func _on_Detector_area_entered(area):

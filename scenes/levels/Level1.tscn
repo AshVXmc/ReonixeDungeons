@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=2]
+[gd_scene load_steps=39 format=2]
 
 [ext_resource path="res://scripts/levels/Level1.gd" type="Script" id=1]
 [ext_resource path="res://scenes/menus/DebugMenu.tscn" type="PackedScene" id=2]
@@ -92,6 +92,9 @@ extents = Vector2( 45, 10 )
 
 [sub_resource type="RectangleShape2D" id=10]
 extents = Vector2( 90, 200 )
+
+[sub_resource type="RectangleShape2D" id=11]
+extents = Vector2( 90, 72.5 )
 
 [node name="Level1" type="Node2D"]
 script = ExtResource( 1 )
@@ -253,10 +256,10 @@ position = Vector2( -330.102, 439.775 )
 [node name="Spider" parent="." instance=ExtResource( 3 )]
 position = Vector2( 152.44, 268.052 )
 
-[node name="Slime" parent="." instance=ExtResource( 4 )]
+[node name="Slime" parent="." groups=["Level1_DefeatEnemiesBeforeProceeding"] instance=ExtResource( 4 )]
 position = Vector2( -527, 432 )
 
-[node name="Slime2" parent="." instance=ExtResource( 4 )]
+[node name="Slime2" parent="." groups=["Level1_DefeatEnemiesBeforeProceeding"] instance=ExtResource( 4 )]
 position = Vector2( -527, 906 )
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
@@ -318,8 +321,17 @@ __meta__ = {
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DialogueTriggerAreas/Level1_DontLeaveBeforeKillingEnemies_Area2D"]
 shape = SubResource( 10 )
 
+[node name="Level1_IceBlockedChest" type="Area2D" parent="DialogueTriggerAreas"]
+position = Vector2( 715, 1110 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DialogueTriggerAreas/Level1_IceBlockedChest"]
+shape = SubResource( 11 )
+
 [node name="Player" parent="." instance=ExtResource( 29 )]
-position = Vector2( -1751, 701 )
+position = Vector2( -1524, 724 )
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position = Vector2( 9.72693, -62.0423 )
@@ -339,3 +351,4 @@ editor_draw_limits = true
 [connection signal="area_entered" from="IceBlockTileMap/FireDetector4" to="IceBlockTileMap/FireDetector4" method="_on_FireDetector1_area_entered"]
 [connection signal="area_entered" from="DialogueTriggerAreas/Level1_Intro_Area2D" to="." method="_on_Level1_Intro_Area2D_area_entered"]
 [connection signal="area_entered" from="DialogueTriggerAreas/Level1_DontLeaveBeforeKillingEnemies_Area2D" to="." method="_on_Level1_DontLeaveBeforeKillingEnemies_Area2D_area_entered"]
+[connection signal="area_entered" from="DialogueTriggerAreas/Level1_IceBlockedChest" to="." method="_on_Level1_IceBlockedChest_area_entered"]

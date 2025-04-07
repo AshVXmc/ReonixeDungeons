@@ -1,0 +1,67 @@
+{
+	"events": [
+		{
+			"animation": "2-fade_in_up.gd",
+			"animation_length": 0.5,
+			"change_mirror_portrait": false,
+			"change_z_index": false,
+			"character": "character-1741847338.json",
+			"event_id": "dialogic_002",
+			"mirror_portrait": false,
+			"portrait": "Default",
+			"portrait_definition": "",
+			"position": {
+				"0": false,
+				"1": true,
+				"2": false,
+				"3": false,
+				"4": false
+			},
+			"type": 0,
+			"z_index": 0
+		},
+		{
+			"character": "character-1741847338.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "I hid a treasure chest here. It seems like you found it rather quickly."
+		},
+		{
+			"animation": "2-fade_in_up.gd",
+			"animation_length": 0.5,
+			"change_mirror_portrait": false,
+			"change_z_index": false,
+			"character": "character-1673439491.json",
+			"event_id": "dialogic_002",
+			"mirror_portrait": false,
+			"portrait": "Default",
+			"portrait_definition": "",
+			"position": {
+				"0": false,
+				"1": false,
+				"2": false,
+				"3": true,
+				"4": false
+			},
+			"type": 0,
+			"z_index": 0
+		},
+		{
+			"character": "character-1673439491.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "Yeah, but its sealed behind ice. Is this another one of your tests?"
+		},
+		{
+			"character": "character-1741847338.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "I'm sure you're more than capable of getting through this simple obstacle. Use [color=#fd9628]Fire[/color] attacks  such as your [color=#ffd703]Fireball[/color] skill to melt down these ice blocks. Press [color=#ffd703]F[/color] (by default) to cast it."
+		}
+	],
+	"metadata": {
+		"dialogic-version": "1.4.5",
+		"file": "timeline-1743611053.json",
+		"name": "Level1_IceBlockedChest"
+	}
+}

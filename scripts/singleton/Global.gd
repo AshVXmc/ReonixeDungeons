@@ -137,14 +137,18 @@ var player_talents : Dictionary = {
 		"enabled" : false,
 		"opalscost": 100,
 		"talentslotcost": 1,
-		"category": "Moveset"
+		"category": "Moveset",
+		"name": "Cyclone Slashes",
+		"description": "Doing a charged attack after Basic Attack SEQ 2 unleashes a flurry of windblades to deal multiple instances of Physical DMG."
 	},
 	"SwiftThrust" : {
 		"unlocked" : false,
 		"enabled" : false,
 		"opalscost": 100,
 		"talentslotcost": 1,
-		"category": "Moveset"
+		"category": "Moveset",
+		"name": "Swift Thrust",
+		"description": "Airborne charged attacks can now be chained up to 2 times."
 	},
 	# Talent has not been implemented yet
 	"BurningBreath" : {
@@ -154,16 +158,19 @@ var player_talents : Dictionary = {
 		"talentslotcost": 2,
 		"attackpercentage": 70.0,
 		"cooldown": 10,
-		"category": "Passive"
+		"category": "Passive",
+		"name": "Burning Breath",
+		"description": "When you take damage, deal [color=#fd9628]Fire[/color] damage and apply [color=#fd9628]Burning[/color] to enemies in front of you."
 	},
-	# Talent has not been implemented yet
 	"InfernalMark" : {
 		"unlocked" : false,
 		"enabled" : false,
 		"opalscost": 100,
-		"DamageIncrease" : 75,
+		"DamageIncrease" : 16,
 		"talentslotcost": 3,
-		"category": "SecondarySkill"
+		"category": "SecondarySkill",
+		"name": "Infernal Mark",
+		"description": "Enemies marked with Sulphuric Sigil take more damage."
 	},
 	"SoulSiphon": {
 		"unlocked" : false,
@@ -172,7 +179,9 @@ var player_talents : Dictionary = {
 		"dropchance": 25,
 		"healthgranted" : 25,
 		"talentslotcost": 3,
-		"category": "Passive"
+		"category": "Passive",
+		"name": "Soul Siphon",
+		"description": "Upon death, enemies have a chance to drop a [color=#540d17]Soul Orb[/color]. The Player and him alone can pick up these orbs to restore health."
 	},
 	# allows pierce fireball
 	"PiercingFervor": {
@@ -181,7 +190,9 @@ var player_talents : Dictionary = {
 		"opalscost": 100,
 		"damagepenalty": 25.0,
 		"talentslotcost": 3,
-		"category": "TertiarySkill"
+		"category": "TertiarySkill",
+		"name": "Piercing Fervor",
+		"description": "Projectiles from the Fireball skill pierce enemies, but deal less damage."
 	},
 	"MeteorShower": {
 		"unlocked" : false,
@@ -190,8 +201,11 @@ var player_talents : Dictionary = {
 		"damage": 82.0,
 		"amount": 4,
 		"talentslotcost": 4,
-		"category": "PrimarySkill"
+		"category": "PrimarySkill",
+		"name": "Meteor Shower",
+		"description": "Casting Firesaw calls down blazing meteors, dealing significant [color=#fd9628]Fire[/color] damage."
 	},
+	
 	
 	
 	"BadBlood":{
@@ -200,7 +214,9 @@ var player_talents : Dictionary = {
 		"unlocked" : false,
 		"enabled" : false,
 		"opalscost": 100,
-		"cooldown": 20
+		"cooldown": 20,
+		"name": "TBA",
+		"description": "TBA"
 	}
 }
 
@@ -220,23 +236,29 @@ var glaciela_talents : Dictionary = {
 		"unlocked" : false,
 		"enabled" : false,
 		"opalscost": 100,
-		"talentslotcost": 1
+		"talentslotcost": 1,
+		"name": "Dance of Rime",
+		"description": "Doing the following attack sequence ([color=#ffd703]ATK[/color], [color=#ffd703]ATK[/color], [color=#ffd703]ATK[/color], pause until a [color=yellow]yellow star[/color] appears and press [color=#ffd703]ATK[/color]) unleashes a spear dance that deals multiple instances of [color=#7df0ff]Ice[/color] DMG and knocks enemies back."
 	},
 	# a stack of tundra sigil is consumed every time u take damage to reduce it
 	"WardOfBoreas": {
 		"unlocked" : false,
 		"enabled" : false,
 		"opalscost": 100,
-		"talentslotcost": 2,
-		"damagemitigation": 35.0
+		"talentslotcost": 1,
+		"damagemitigation": 35.0,
+		"name": "Ward of Boreas",
+		"description": "When you take damage, a stack of Tundra Star is consumed to reduce your damage taken."
 	},
 	# casting ult restores tundra stacks to full and fully restores cone of cold meter
 	"GiftOfTheStorm": {
 		"unlocked" : false,
 		"enabled" : false,
 		"opalscost": 100,
-		"talentslotcost": 2
-	},
+		"talentslotcost": 3,
+		"name": "Gift of the Storm",
+		"description": "Casting Winter Queen grants you the maximum amount of Tundra Stars and fully restores Cone Of Cold's meter."
+	}
 #	# like bap's immortality field, triggered during ult
 #	"SanctuaryOfSolstice": {
 #		"unlocked" : false,
@@ -375,15 +397,19 @@ var agnette_talents : Dictionary = {
 		"enabled": false,
 		"opalscost": 100,
 		"talentslotcost": 1,
-		"damagereduction": 20.0
+		"damagereduction": 16.0,
+		"name": "Stoneskin",
+		"description": "While charging your bow, you take less damage."
 	},
 	"VolleyShot" : {
 		"unlocked" : false,
 		"enabled": false,
 		"opalscost": 100,
-		"talentslotcost": 3,
+		"talentslotcost": 2,
 		"cooldown": 10.0,
-		"arrowdamagepercentage": 40.0
+		"arrowdamagepercentage": 40.0,
+		"name": "Volley Shot",
+		"description": "Your bow's Charged Attack fires 2 extra arrows that deal reduced damage. The Charge meter must be at least 70% full."
 	},
 	# raven dash to unleash lightning
 	"StormyTempest" : {
@@ -393,8 +419,9 @@ var agnette_talents : Dictionary = {
 		"cooldown": 4.0,
 		"opalscost": 100,
 		"talentslotcost": 3,
+		"name": "Stormy Tempest",
+		"description": "Dashing in [color=#1f1f1f]Raven form[/color] calls down lightning strikes that deal [color=#deb600]Earth[/color] damage.  "
 	},
-	
 	# bear can dash, releasing earthquakes 
 #	"RoaringTrample" : {
 #		"unlocked" : true,
@@ -497,11 +524,11 @@ var character_level_data : Dictionary = {
 	"Glaciela": [1, 250],
 	"Agnette": [1, 250]
 }
-var player_talents_data : Dictionary = player_talents
-var player_perks_data : Dictionary = player_perks
-var glaciela_talents_data : Dictionary = glaciela_talents
-# variables ending in _data contain the information that is saved on the save file.
-# variables ending without _data contain the default info (resets on new game)
+var player_talents_data : Dictionary = player_talents.duplicate()
+var player_perks_data : Dictionary = player_perks.duplicate()
+var glaciela_talents_data : Dictionary = glaciela_talents.duplicate()
+# variables ending without _data contain the information that is saved on the save file.
+# variables ending  with _data contain the default info 
 
 
 var enemies_killed : int
@@ -574,12 +601,13 @@ func reset_player_data():
 		"bat_wings": 0,
 		"sweet_herbs": 0
 	}
-	# the non-data variable is fixed
-	Global.player_talents_data = Global.player_talents
-	Global.player_perks_data = Global.player_perks
-	Global.glaciela_talents_data = Global.glaciela_talents
-	Global.equipped_character_skins_data = Global.equipped_character_skins
-	Global.enemies_encountered_data = Global.enemies_encountered
+
+	Global.player_talents = Global.player_talents_data.duplicate()
+	Global.player_perks = Global.player_perks_data.duplicate()
+	Global.glaciela_talents = Global.glaciela_talents_data.duplicate()
+	
+	Global.equipped_character_skins = Global.equipped_character_skins_data.duplicate()
+	Global.enemies_encountered = Global.enemies_encountered_data.duplicate()
 	Global.soul_token_amount = 0
 
 	Global.is_loading_a_save = false
@@ -665,10 +693,10 @@ func save_player_data():
 		"IceDMGBonus%": Global.damage_bonus["ice_dmg_bonus_%"],
 		"EarthDMGBonus%": Global.damage_bonus["earth_dmg_bonus_%"],\
 		
-		"PlayerTalentsData": Global.player_talents_data,
-		"GlacielaTalentsData": Global.glaciela_talents_data,
-		"PlayerPerks": Global.player_perks,
+		"PlayerTalents": Global.player_talents.duplicate(),
+		"GlacielaTalents": Global.glaciela_talents.duplicate(),
 		
+		"PlayerPerks": Global.player_perks,
 		"Lighting" : Global.lighting,
 		"Vsync" : Global.vsync,
 		"EnemiesKilled": Global.enemies_killed ,
