@@ -36,8 +36,9 @@ wait_time = 0.3
 autostart = true
 
 [node name="BurningParticles" type="Particles2D" parent="."]
+visible = false
 scale = Vector2( 2.6, 2.6 )
-amount = 9
+amount = 5
 lifetime = 0.75
 process_material = SubResource( 4 )
 texture = ExtResource( 3 )
@@ -54,6 +55,7 @@ scale = Vector2( 2, 2 )
 shape = SubResource( 1 )
 
 [node name="BurningBar" type="TextureProgress" parent="."]
+visible = false
 margin_left = -36.0
 margin_top = -130.0
 margin_right = -18.0

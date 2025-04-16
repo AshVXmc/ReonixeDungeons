@@ -20,7 +20,6 @@ var max_hearts : float
 var hearts : float
 var max_mana : float = 20
 var mana : float = max_mana
-
 var character_2_max_hearts : float
 var character2_hearts : float
 var character2_max_mana = max_mana
@@ -37,6 +36,8 @@ var elegance_rank : String
 var enemy_level_index : int = 1
 var max_endurance : int = 100
 var player_location_in_town 
+
+const TEMPUS_TARDUS_CD : int = 20
 #func _ready():
 #	#CREATE SAVE FILE
 #	var dir : Directory = Directory.new()
@@ -62,9 +63,9 @@ var equipped_character_skins : Dictionary = {
 }
 
 # attack_power is the player's atk
-var attack_power : int = 20
-var glaciela_attack : int = 20
-var agnette_attack : int = 20
+var attack_power : int = 14
+var glaciela_attack : int = 14
+var agnette_attack : int = 14
 var player_skill_multipliers : Dictionary = {
 	"BaseHearts": 2.5,
 	"BasicAttack": 25.0,
@@ -93,16 +94,17 @@ var player_skill_multipliers : Dictionary = {
 	"FireFairy": 32.0,
 	"FireFairyDetonation": 65.0,
 	"FireFairyDuration": 4.0,
-	"Fireball": 65.0,
-	"FireballCD": 7.0,
+	"Fireball": 48.0,
+	"FireballCD": 6,
 	"FireballCharges": 3,
 	"FireballMaxCharges": 3,
+	"FireballBurnGauge": 340,
 	"FireSawCost": 20,
 	"FireFairyCost": 3,
 	"FireballCost": 2,
 	"FireSawCD": 30.0,
 	"FireFairyCD": 10.0,
-	"FireCharmDuration": 6.0,
+	"FireCharmDuration": 6.5,
 	"FireCharmCD": 8.5,
 	"BasePhysRes": 0.0,
 	"BaseMagicRes": 0.0,
@@ -331,10 +333,10 @@ var glaciela_skill_multipliers : Dictionary = {
 	# for some reason it won't register any values below 100.
 	# so this is a fix. if it works, it works
 	"ConeOfCold": 100 * 0.25,
-	"ConeOfColdFreezeGauge": 85,
+	"ConeOfColdFreezeGauge": 145,
 	"ConeOfColdCD": 4,
 	"ConeOfColdResourceConsumption": 90, # per tick.
-	"ConeOfColdRegenRate": 0.95,
+	"ConeOfColdRegenRate": 1.3,
 	"ConeOfColdMovementSpeedPenalty": 65.0,
 	# minimum amount of mana to be able to channel it.
 	"ConeOfColdCost": 0,
@@ -520,9 +522,9 @@ var unlocked_skills : Dictionary = {
 var character_level_data : Dictionary = {
 	# [current level, number of currency needed to level up.
 	# for now, the currency is opals. May add other later
-	"Player": [1, 250],
-	"Glaciela": [1, 250],
-	"Agnette": [1, 250]
+	"Player": [1, 0, 20],
+	"Glaciela": [1, 0, 20],
+	"Agnette": [1, 0, 20]
 }
 var player_talents_data : Dictionary = player_talents.duplicate()
 var player_perks_data : Dictionary = player_perks.duplicate()

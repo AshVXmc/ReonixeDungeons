@@ -29,10 +29,13 @@ func end_of_dialogue(timeline_name : String = ""):
 	$Player.is_shopping = false
 	get_tree().paused = false
 	$Player/CellphoneSprite.visible = false
-	if timeline_name == "Level1_DontLeaveBeforeKillingEnemies":
-		$Player.global_position.x = $DialogueTriggerAreas/Level1_Intro_Area2D.global_position.x
-		$Player.global_position.y = $DialogueTriggerAreas/Level1_Intro_Area2D.global_position.y + 180
-
+	match timeline_name:
+		"Level1_DontLeaveBeforeKillingEnemies":
+			$Player.global_position.x = $DialogueTriggerAreas/Level1_Intro_Area2D.global_position.x
+			$Player.global_position.y = $DialogueTriggerAreas/Level1_Intro_Area2D.global_position.y + 180
+		"Level1_IceBlockedChest":
+			pass
+		
 func _on_Level1_Intro_Area2D_area_entered(area):
 	if area.is_in_group("Player"):
 		$Player.is_shopping = true
@@ -59,3 +62,6 @@ func _on_Level1_IceBlockedChest_area_entered(area):
 		$Player.is_shopping = true
 		trigger_dialogue("Level1_IceBlockedChest")
 		$DialogueTriggerAreas/Level1_IceBlockedChest/CollisionShape2D.disabled = true
+		# for some reason this still triggers the dialogue even though its disabled.
+		# delete the area node for now.
+		$DialogueTriggerAreas/Level1_IceBlockedChest.call_deferred('free')

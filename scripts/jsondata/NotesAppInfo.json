@@ -15,9 +15,15 @@
         "Description2": "You can view each character's moveset by pressing ([color=#ffd703]%s[/color]) to open the pause menu and clicking [color=#cc338b]'Moveset'[/color].",
         "Description3": "Most attacks can [color=#ffd703]critically hit[/color], dealing more damage based on the attacker's [color=#ffd703]Crit Damage[/color]."
     },
+    "CombatPart2_1": {
+        "Header": "[center]== [color=#ffd703]Combat (Evasion)[/color] ==[/center]", 
+        "Description": "Press [color=#5DA271]dash[/color] ([color=#ffd703]%s[/color]) to dodge backwards right before an enemy's attack is about to hit to trigger [color=#ffd703]Evasion[/color].",
+        "Description2": "Every character has a unique [color=#ffd703]Evasion skill[/color]. Press [color=#5DA271]attack[/color] ([color=#ffd703]%s[/color]) after triggering [color=#ffd703]Evasion[/color] to cast it.",
+        "Description3": "Additionally, [color=#ffd703]Tempus Targus[/color] will also be triggered, summoning a time-slowing sphere. This sphere [color=#F0E68C]dramatically slows down[/color] any enemies inside and stage timers. This effect has a %s second cooldown."
+    },
     "CombatPart3": {
         "Header": "[center]=== [color=#ffd703]Combat (Talents)[/color] ===[/center]",
-        "Description": "Each character has a range of [color=#ffd703]Talents[/color]. [color=#ffd703]Talents[/color] enhance your characters' skills and combat moveset. [color=#ffd703]Talents[/color] cost [color=#F0E68C]Talent Points[/color] to equip. [color=#ffd703]Talents[/color] are more powerful at higher point costs.",
+        "Description": "Each character has a range of [color=#ffd703]Talents[/color]. [color=#ffd703]Talents[/color] enhance your characters' skills and combat moveset. [color=#ffd703]Talents[/color] cost [color=#F0E68C]Talent Slots[/color] to equip. [color=#ffd703]Talents[/color] are more powerful at higher slot costs.",
         "Description2": "You can access your [color=#ffd703]Talents[/color]loadout by interacting with the Dungeon Entrance, selecting [color=#ffd703]'Loadouts'[/color], and selecting [color=#ffd703]'Talents'[/color]."
     },
     "StatusEffects": {

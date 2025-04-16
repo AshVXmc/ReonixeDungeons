@@ -19,6 +19,10 @@ var time_elapsed : float
 # e.g: [GOBLIN, BOW_GOBLIN] means a GOBLIN will be spawned in spawnpoint0 and a BOW_GOBLIn will 
 # be spawned in spawnpoint1.
 
+# 1 means normal time tick for the stage timer.
+# effects like tempus tardus sets the value to 0.2
+var time_slow_coefficient : float = 1
+const TEMPUS_TARDUS_TIMESLOW : float = 0.2
 
 var wave_batches : Dictionary = {
 	1 : {
@@ -69,7 +73,7 @@ func _process(delta):
 			else:
 				initiate_enemy_wave(STAGE, WAVE)
 	if wave_in_progress:
-		time_elapsed += delta
+		time_elapsed += delta * time_slow_coefficient
 		$LevelObjectiveUI.objective_active(
 			# Objective label
 			objective_label_text.format({

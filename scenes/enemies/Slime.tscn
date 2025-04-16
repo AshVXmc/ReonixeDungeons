@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://scripts/enemies/Slime.gd" type="Script" id=1]
 [ext_resource path="res://spriteframes/slime_spriteframes.tres" type="SpriteFrames" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://scenes/status_effects/FrozenStatus.tscn" type="PackedScene" id=6]
 [ext_resource path="res://scenes/status_effects/GroundedStatus.tscn" type="PackedScene" id=7]
 [ext_resource path="res://assets/enemies/components/WeaknessDisplayComponent.tscn" type="PackedScene" id=8]
+[ext_resource path="res://scenes/status_effects/BurningStatus.tscn" type="PackedScene" id=9]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 26.36, 15.1008 )
@@ -121,6 +122,8 @@ anims/Death = SubResource( 4 )
 
 [node name="GroundedStatus" parent="." instance=ExtResource( 7 )]
 damage_shred = 50.0
+
+[node name="BurningStatus" parent="." instance=ExtResource( 9 )]
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_Area2D_area_entered"]
 [connection signal="area_exited" from="Area2D" to="." method="_on_Area2D_area_exited"]

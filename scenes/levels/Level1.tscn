@@ -276,7 +276,7 @@ shape = SubResource( 1 )
 one_way_collision = true
 
 [node name="StaticBody2D2" type="StaticBody2D" parent="."]
-position = Vector2( 722, 772 )
+position = Vector2( 722, 771 )
 collision_layer = 129
 collision_mask = 129
 __meta__ = {

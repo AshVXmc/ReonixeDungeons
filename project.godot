@@ -739,6 +739,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/misc/TempusTardus.gd"
 }, {
+"base": "Timer",
+"class": "TempusTardusGlobalCD",
+"language": "GDScript",
+"path": "res://scripts/misc/TempusTardusGlobalCD.gd"
+}, {
 "base": "Level",
 "class": "TutorialLevel",
 "language": "GDScript",
@@ -911,6 +916,7 @@ _global_script_class_icons={
 "TalentRuneTablet": "",
 "TargetingMissile": "",
 "TempusTardus": "",
+"TempusTardusGlobalCD": "",
 "TutorialLevel": "",
 "Wardrobe": "",
 "WeaknessDisplayComponent": "",

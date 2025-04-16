@@ -40,7 +40,7 @@ extents = Vector2( 120, 57 )
 extents = Vector2( 62.9645, 57 )
 
 [sub_resource type="RectangleShape2D" id=32]
-extents = Vector2( 44.2602, 44.2034 )
+extents = Vector2( 55.5716, 48.2534 )
 
 [sub_resource type="RectangleShape2D" id=11]
 extents = Vector2( 44.7389, 44.625 )
@@ -3634,7 +3634,7 @@ disabled = true
 [node name="ChargedAttackCollision" type="Area2D" parent="." groups=["HeavyPoiseDamage", "SulphuricSigilTrigger", "SwordCharged"]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ChargedAttackCollision"]
-position = Vector2( 73.117, -1.69657 )
+position = Vector2( 85, -6 )
 shape = SubResource( 32 )
 disabled = true
 

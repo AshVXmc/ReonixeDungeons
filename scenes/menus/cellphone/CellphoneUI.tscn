@@ -128,7 +128,6 @@ anims/NewNotification = SubResource( 3 )
 anims/RESET = SubResource( 4 )
 
 [node name="Control" type="Control" parent="Cellphone"]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_right = 1040.0
@@ -191,18 +190,22 @@ __meta__ = {
 "_edit_group_": true
 }
 
-[node name="Label" type="Label" parent="Cellphone/Control/NinePatchRect/App_Notes"]
+[node name="RichTextLabel" type="RichTextLabel" parent="Cellphone/Control/NinePatchRect/App_Notes"]
 anchor_left = 0.5
-anchor_top = 1.19
+anchor_top = 1.0
 anchor_right = 0.5
-anchor_bottom = 1.19
-margin_left = -33.0
-margin_top = -16.0
-margin_right = 33.0
-margin_bottom = 16.0
-custom_fonts/font = SubResource( 6 )
-text = "Notes"
-align = 1
+anchor_bottom = 1.0
+margin_left = -75.5
+margin_top = 2.0
+margin_right = 75.5
+margin_bottom = 70.0
+custom_fonts/normal_font = SubResource( 6 )
+bbcode_enabled = true
+bbcode_text = "[center]Notes
+([color=#ffd703]Tutorials[/color])[/center]"
+text = "Notes
+(Tutorials)"
+scroll_active = false
 
 [node name="CloseButton" type="TextureButton" parent="Cellphone/Control"]
 margin_left = 341.0

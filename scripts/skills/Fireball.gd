@@ -12,10 +12,12 @@ var collision
 
 func _ready():
 	connect("add_mana_to_player", get_parent().get_node("Player"), "change_mana_value")
+	
 	if Global.player_talents["PiercingFervor"]["unlocked"] and Global.player_talents["PiercingFervor"]["enabled"]: 
 		add_to_group(str((1 - Global.player_talents["PiercingFervor"]["damagepenalty"] / 100) * Global.attack_power * (Global.player_skill_multipliers["Fireball"] / 100)))
 	else:
 		add_to_group(str(Global.attack_power * (Global.player_skill_multipliers["Fireball"] / 100)))
+	$FireGaugeArea.add_to_group(str(Global.player_skill_multipliers["FireballBurnGauge"]))
 #	print(get_groups())
 
 func _physics_process(delta):
