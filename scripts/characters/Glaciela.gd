@@ -927,6 +927,7 @@ func after_damaged():
 			dead(Global.equipped_characters[2])
 
 func dead(character_id):
+	
 	is_dead = true
 	get_parent().get_parent().is_invulnerable = true
 	$InvulnerabilityTimer.start()

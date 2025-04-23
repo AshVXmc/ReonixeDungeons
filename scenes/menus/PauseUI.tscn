@@ -418,17 +418,17 @@ bbcode_text = "[center][color=red]Player's moveset[/color][/center]
 Hold [ATK] after at least one basic attack
 
 [color=#ffd703]Knock-Up Charged Attack[/color] (Knocks enemies airborne)
-Hold [UP] and [Hold ATK]
+Hold [UP] and Hold [ATK]
 
 [color=#ffd703]Charged Attack: Bladestorm[/color]
 (Prerequisite: Cyclone Slashes talent)
-[ATK], [ATK], [ATK], [Hold ATK]
+[ATK], [ATK], [ATK], Hold [ATK]
 
 [color=#ffd703]EX Charged Attack[/color]
 Hold [ATK] when [color=purple]Energy[/color] is full
 
 [color=#ffd703]Aerial Charged Attack[/color]
-(While airborne) [Hold ATK] 
+(While airborne) Hold [ATK]
 
 [color=#ffd703]Dash Counter Attack[/color]
 [ATK] after a perfect dodge
@@ -450,17 +450,17 @@ Charged Attack
 Hold [ATK] after at least one basic attack
 
 Knock-Up Charged Attack (Knocks enemies airborne)
-Hold [UP] and [Hold ATK]
+Hold [UP] and Hold [ATK]
 
 Charged Attack: Bladestorm
 (Prerequisite: Cyclone Slashes talent)
-[ATK], [ATK], [ATK], [Hold ATK]
+[ATK], [ATK], [ATK], Hold [ATK]
 
 EX Charged Attack
 Hold [ATK] when Energy is full
 
 Aerial Charged Attack
-(While airborne) [Hold ATK] 
+(While airborne) Hold [ATK]
 
 Dash Counter Attack
 [ATK] after a perfect dodge

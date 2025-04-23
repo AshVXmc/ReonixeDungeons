@@ -45,6 +45,7 @@ func _on_TutorialMovement_TextureButton_pressed():
 	)
 	set_scrollcontainer_back_to_top()
 	print($Choices_NinePatchRect/Choices_ScrollContainer.get_v_scrollbar())
+
 func _on_CombatPart1_TextureButton_pressed():
 	set_scrollcontainer_back_to_top()
 	set_description_header_content(notes_dict["CombatPart1"]["Header"])

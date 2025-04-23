@@ -31,7 +31,7 @@ onready var agnette_sskill_text = $NinePatchRect/SkillsControl/AgnetteControl/Se
 onready var agnette_tskill = $NinePatchRect/SkillsControl/AgnetteControl/TertiarySkillScrollContainer
 onready var agnette_tskill_text = $NinePatchRect/SkillsControl/AgnetteControl/TertiarySkillScrollContainer/VBoxContainer/RichTextLabel
 
-
+var skills_info_dict : Dictionary
 
 signal player_node_update_perk_skill()
 signal skillsui_update_perk_skill_ui()
@@ -60,25 +60,41 @@ func _ready():
 	_on_Player_SkillTypeOptionButton_item_selected(0)
 	_on_GlacielaSkillTypeOptionButton_item_selected(0)
 	_on_AgnetteSkillTypeOptionButton_item_selected(0)
+	
+	var skills_info = File.new()
+	skills_info.open("res://scripts/jsondata/SkillsInfo.json", File.READ)
+	skills_info_dict = parse_json(skills_info.get_as_text())
 
 	update_player_description_text()
 	update_glaciela_description_text()
 	update_agnette_description_text()
-	
+
 	yield(get_tree().create_timer(0.1), "timeout")
 	update_perk_skill_selection_ui("Player", Global.player_skills["PerkSkill"])
 
 
 func update_player_description_text():
-	player_pskill_text.bbcode_text = player_pskill_text.bbcode_text.replace(
-		"FIRESAW_DUR", str(Global.player_skill_multipliers["FireSawDuration"]))
-	player_pskill_text.bbcode_text = player_pskill_text.bbcode_text.replace(
-		"FIRESAW_ATK", str(Global.player_skill_multipliers["FireSaw"]))
-	player_pskill_text.bbcode_text = player_pskill_text.bbcode_text.replace(
-		"FIRESAW_CD", str(Global.player_skill_multipliers["FireSawCD"]))
-	player_pskill_text.bbcode_text = player_pskill_text.bbcode_text.replace(
-		"FIRESAW_COST", str(Global.player_skill_multipliers["FireSawCost"]))
-
+#	player_pskill_text.bbcode_text = player_pskill_text.bbcode_text.replace(
+#		"FIRESAW_DUR", str(Global.player_skill_multipliers["FireSawDuration"]))
+#	player_pskill_text.bbcode_text = player_pskill_text.bbcode_text.replace(
+#		"FIRESAW_ATK", str(Global.player_skill_multipliers["FireSaw"]))
+#	player_pskill_text.bbcode_text = player_pskill_text.bbcode_text.replace(
+#		"FIRESAW_CD", str(Global.player_skill_multipliers["FireSawCD"]))
+#	player_pskill_text.bbcode_text = player_pskill_text.bbcode_text.replace(
+#		"FIRESAW_COST", str(Global.player_skill_multipliers["FireSawCost"]))
+	var pskill_header : String = skills_info_dict["Player"]["PrimarySkill"]["Header"]
+	var pskill_desc : String = skills_info_dict["Player"]["PrimarySkill"]["Description"]
+	var pskill_cd : String = skills_info_dict["Player"]["PrimarySkill"]["Cooldown"]
+	var pskill_manacost : String = skills_info_dict["Player"]["PrimarySkill"]["ManaCost"]
+	pskill_desc = pskill_desc.replace("FIRESAW_DUR", str(Global.player_skill_multipliers["FireSawDuration"]))
+	pskill_desc = pskill_desc.replace("FIRESAW_ATK", str(Global.player_skill_multipliers["FireSaw"]))
+	pskill_cd = pskill_cd.replace("FIRESAW_CD", str(Global.player_skill_multipliers["FireSawCD"]))
+	pskill_manacost = pskill_manacost.replace("FIRESAW_COST", str(Global.player_skill_multipliers["FireSawCost"]))
+	
+	
+	player_pskill_text.bbcode_text = pskill_header + "\n\n" + pskill_desc + "\n\n" + pskill_cd + "\n" + pskill_manacost
+	
+	
 	player_sskill_text.bbcode_text = player_sskill_text.bbcode_text.replace(
 		"FIREFAIRY_DUR", str(Global.player_skill_multipliers["FireFairyDuration"]))
 	player_sskill_text.bbcode_text = player_sskill_text.bbcode_text.replace(

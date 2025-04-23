@@ -784,6 +784,7 @@ func _on_Area2D_area_entered(area):
 #	if area.is_in_group("Enemy") and !get_parent().get_parent().is_invulnerable:
 #		$AnimationPlayer.play("Hurt")
 func after_damaged():
+	
 	get_parent().get_parent().inv_timer.start()
 	get_parent().get_parent().is_invulnerable = true
 	$InvulnerabilityTimer.start()
@@ -797,17 +798,18 @@ func after_damaged():
 		if Global.hearts <= 0:
 			dead(Global.equipped_characters[0])
 	elif Global.equipped_characters[1] == Global.current_character:
-		if Global.hearts <= 0:
+		if Global.character2_hearts <= 0:
 			dead(Global.equipped_characters[1])
 	elif Global.equipped_characters[2] == Global.current_character:
-		if Global.hearts <= 0:
+		if Global.character3_hearts <= 0:
 			dead(Global.equipped_characters[2])
 
 func dead(character_id):
+	
 	is_dead = true
 	get_parent().get_parent().is_invulnerable = true
 	$InvulnerabilityTimer.start()
-#	swap_to_nearby_alive_characters()
+#	get_parent().get_parent().swap_to_nearby_alive_characters()
 	if character_id == Global.equipped_characters[0]:
 		Global.alive[0] = false
 	elif character_id == Global.equipped_characters[1]:
@@ -836,7 +838,9 @@ func dead(character_id):
 			counter_sec += 1
 		get_parent().get_parent().get_parent().get_node("GameOverUI/GameOver").open_game_over_ui()
 
-
+func swap_to_nearby_alive_characters():
+	get_parent().get_parent().swap_to_nearby_alive_characters()
+	
 func add_hurt_particles(damage : float):
 	var hurt_particle = get_parent().get_parent().HURT_PARTICLE.instance()
 	hurt_particle.damage = damage * 2

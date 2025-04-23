@@ -4,7 +4,7 @@ func _ready():
 	get_tree().set_auto_accept_quit(false)
 	$Popup1.visible = false
 	$SaveLabel.visible = false
-	print(InputMap.get_action_list("ui_use")[0].as_text())
+#	print(InputMap.get_action_list("ui_use")[0].as_text())
 	
 func _process(delta):
 	$NewGame.text = "> New game" if $NewGame.is_hovered() else "New game" 

@@ -8,9 +8,9 @@ var character_health_data : Dictionary = {
 	"Agnette": 10
 }
 var character_defense_data : Dictionary = {
-	"Player": 12.0, 
-	"Glaciela": 21.0,
-	"Agnette": 6.0
+	"Player": 1.5, 
+	"Glaciela": 2.5,
+	"Agnette": 0.75
 }
 
 

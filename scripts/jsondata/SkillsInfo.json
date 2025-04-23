@@ -1,0 +1,11 @@
+{
+    "Player" : {
+        "PrimarySkill":{
+            "Header":"[color=#ffd703]Flaming FireSaw[/color]",
+            "Description":"Twin flame blades spin around you for FIRESAW_DUR seconds, dealing [u]FIRESAW_ATK% ATK[/u] as [color=#fd9628]Fire[/color] damage and applies stacks of [color=#fd9628]Burning[/color].",
+            "Cooldown": "Cooldown: FIRESAW_CD seconds",
+            "ManaCost": "Mana cost: FIRESAW_COST mana",
+            "Summary": "MARLONTOL"
+        }
+    }
+}

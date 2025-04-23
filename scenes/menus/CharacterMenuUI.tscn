@@ -508,16 +508,6 @@ rect_min_size = Vector2( 510, 1100 )
 custom_fonts/italics_font = SubResource( 2 )
 custom_fonts/normal_font = SubResource( 2 )
 bbcode_enabled = true
-bbcode_text = "[color=#ffd703]Flaming Firesaw[/color]
-Twin flame blades spin around you for FIRESAW_DUR seconds, dealing [u]FIRESAW_ATK% ATK[/u] as [color=#fd9628]Fire[/color] damage and applies stacks of [color=#fd9628]Burning[/color].
-
-Cooldown: FIRESAW_CD seconds
-Mana cost: FIRESAW_COST mana"
-text = "Flaming Firesaw
-Twin flame blades spin around you for FIRESAW_DUR seconds, dealing FIRESAW_ATK% ATK as Fire damage and applies stacks of Burning.
-
-Cooldown: FIRESAW_CD seconds
-Mana cost: FIRESAW_COST mana"
 scroll_active = false
 
 [node name="TalentControl1" type="Control" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/PlayerControl/PrimarySkillScrollContainer/VBoxContainer"]

@@ -26,6 +26,8 @@ func _ready():
 	
 	update_player_talents_info_text()
 	update_glaciela_talents_info_text()
+	
+	
 	$PlayerMovesetList.visible = true
 	$GlacielaMovesetList.visible = false
 	$AgnetteMovesetList.visible = false
