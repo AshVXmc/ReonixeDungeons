@@ -11,14 +11,17 @@ var acceleration = Vector2.ZERO
 var atkbonus : float
 signal add_mana_to_player(amount)
 var is_exploding = false
+var is_joint_attacking : bool = false
+
+
 func _ready():
 	connect("add_mana_to_player", player, "change_mana_value")
 	add_to_group(str(Global.attack_power * (Global.player_skill_multipliers["FireFairy"] / 100)))
 	$AnimationPlayer.play("Flap")
 	$DestroyedTimer.wait_time = Global.player_skill_multipliers["FireFairyDuration"]
-
-var is_joint_attacking : bool = false
-
+	$Sprite.position.x = 0
+	$Sprite.position.y = 0
+	$DestroyedTimer.start()
 func start(_transform, _target):
 	global_transform = _transform
 #	rotation += rand_range(-0.09, 0.09)
