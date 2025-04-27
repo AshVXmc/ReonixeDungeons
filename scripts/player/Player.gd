@@ -1572,10 +1572,12 @@ func swap_to_nearby_alive_characters():
 			emit_signal("force_character_swap", pos)
 			break
 
-
+func round_to_dec(num, digit) -> float:
+	return round(num * pow(10.0, digit)) / pow(10.0, digit)
+	
 func add_hurt_particles(damage : float):
 	var hurt_particle = HURT_PARTICLE.instance()
-	hurt_particle.damage = damage * 2
+	hurt_particle.damage = round_to_dec(damage * 2, 2)
 	get_parent().add_child(hurt_particle)
 	hurt_particle.position = global_position
 
@@ -1791,9 +1793,9 @@ func dash():
 			is_dashing = false
 
 func thrust_attack(special : bool = false):
+	# special = airborne thrust attack, not special = counter thrust attack
 	if !is_dash_counter_attacking and $DashCounterAttackDelayTimer.is_stopped():
 		is_invulnerable = true
-		print("THRUSTING TTTHTHHTTH")
 		is_dash_counter_attacking = true
 		$DashCounterAttackDelayTimer.start()
 		for n in $ThrustEffectArea.get_groups():
@@ -1802,10 +1804,16 @@ func thrust_attack(special : bool = false):
 				var crit_dmg = 1.0
 				if is_a_critical_hit():
 					crit_dmg = (Global.player_skill_multipliers["CritDamage"] / 100 + 1)
-					$ThrustEffectArea.add_to_group(str(ATTACK * (Global.player_skill_multipliers["ThrustChargedAttack"] / 100) * crit_dmg))
+					if special:
+						$ThrustEffectArea.add_to_group(str(ATTACK * (Global.player_skill_multipliers["CounterThrustAttack"] / 100) * crit_dmg))
+					else:
+						$ThrustEffectArea.add_to_group(str(ATTACK * (Global.player_skill_multipliers["ThrustChargedAttack"] / 100) * crit_dmg))
 					$ThrustEffectArea.add_to_group("IsCritHit")
 				else:
-					$ThrustEffectArea.add_to_group(str(ATTACK * (Global.player_skill_multipliers["ThrustChargedAttack"] / 100) * crit_dmg))
+					if special:
+						$ThrustEffectArea.add_to_group(str(ATTACK * (Global.player_skill_multipliers["CounterThrustAttack"] / 100) * crit_dmg))
+					else:
+						$ThrustEffectArea.add_to_group(str(ATTACK * (Global.player_skill_multipliers["ThrustChargedAttack"] / 100) * crit_dmg))
 					$ThrustEffectArea.remove_from_group("IsCritHit")
 				#emit_signal("change_elegance"), "ChargedAttackLight")
 		$ThrustEffectArea/CollisionShape2D.add_to_group("SulphuricSigilTrigger")

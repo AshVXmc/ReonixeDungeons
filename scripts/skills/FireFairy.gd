@@ -22,6 +22,10 @@ func _ready():
 	$Sprite.position.x = 0
 	$Sprite.position.y = 0
 	$DestroyedTimer.start()
+	
+	yield(get_tree().create_timer(1), "timeout")
+	joint_attack()
+
 func start(_transform, _target):
 	global_transform = _transform
 #	rotation += rand_range(-0.09, 0.09)
@@ -85,11 +89,13 @@ func explode():
 	yield(get_tree().create_timer(0.55), "timeout")
 	call_deferred('free')
 
+
 func joint_attack():
 	is_joint_attacking = true
+	$AnimationPlayer.play("JointAttack")
 
-
-
+func end_joint_attack():
+	is_joint_attacking = false
 
 func _on_FireFairy_body_entered(body):
 	if body.is_in_group("EnemyEntity") and !body.is_in_group("MarkedWithSulphuricSigil"):

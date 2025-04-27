@@ -8,9 +8,9 @@ var character_health_data : Dictionary = {
 	"Agnette": 10
 }
 var character_defense_data : Dictionary = {
-	"Player": 1.5, 
-	"Glaciela": 2.5,
-	"Agnette": 0.75
+	"Player": 1.6, 
+	"Glaciela": 2.6,
+	"Agnette": 0.85
 }
 
 
@@ -74,15 +74,16 @@ var player_skill_multipliers : Dictionary = {
 	"BasicAttack4": 65.0,
 	"ChargedAttack": 60.0,
 	"ThrustAttack": 80.0,
-	"ThrustChargedAttack": 88.0,
+	"ThrustChargedAttack": 75.0,
 	"UpwardsChargedAttack": 28.0, # x 2
 	"DownwardsChargedAttack": 56.0,
 	"SpecialChargedAttack": 50.0 ,# x 4
 	"SpecialChargedAttackFinalStrike": 180.0,
 	"CircularFlurryAttack": 40.0, # x 3
 	"PiercingProjectile": 95.0,
-	"EntryAttack": 50.0, # x 3
-	"CounterAttack": 42.0, # x 2
+	"EntryAttack": 50.0, 
+	"CounterThrustAttack": 45.0,
+	"CounterAttack": 32.0, # x 2
 	"AirborneBasicAttack": 30.0,
 	"AirborneBasicAttack2": 38.0,
 	"AirborneBasicAttack3": 48.0,

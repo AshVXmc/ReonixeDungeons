@@ -36,6 +36,7 @@ func update_player_description_text():
 	player_talent_desc_text.bbcode_text = player_talent_desc_text.bbcode_text.replacen(
 		"MS_DMG", str(Global.player_talents["MeteorShower"]["damage"]))
 	
+	print("UPDATE DESCRIPTION")
 	
 
 func update_glaciela_description_text():
@@ -79,6 +80,10 @@ func initialize_ui():
 		get_node("NinePatchRect/TalentTreeControl/AgnetteControl/ScrollContainer/VBoxContainer/TalentControl" + str(counter3) + "/AgnetteTalentButton/AgnetteCheckButton").visible = false
 		counter3 += 1
 	
+	update_player_description_text()
+	update_glaciela_description_text()
+	update_agnette_description_text()
+
 	update_player_talent_tree_ui()
 	update_glaciela_talent_tree_ui()
 	update_agnette_talent_tree_ui()

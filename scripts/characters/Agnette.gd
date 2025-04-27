@@ -841,9 +841,12 @@ func dead(character_id):
 func swap_to_nearby_alive_characters():
 	get_parent().get_parent().swap_to_nearby_alive_characters()
 	
+func round_to_dec(num, digit) -> float:
+	return round(num * pow(10.0, digit)) / pow(10.0, digit)
+	
 func add_hurt_particles(damage : float):
 	var hurt_particle = get_parent().get_parent().HURT_PARTICLE.instance()
-	hurt_particle.damage = damage * 2
+	hurt_particle.damage = round_to_dec(damage * 2, 2)
 	get_parent().get_parent().get_parent().add_child(hurt_particle)
 	hurt_particle.position = global_position
 

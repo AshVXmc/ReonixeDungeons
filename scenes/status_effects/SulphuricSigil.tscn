@@ -310,8 +310,8 @@ rotation = 0.349066
 texture = ExtResource( 3 )
 
 [node name="FirstSlash" type="Sprite" parent="."]
-rotation = 0.378155
-scale = Vector2( 1.56667, 3.23333 )
+rotation = 0.436332
+scale = Vector2( 1.33333, 3.4 )
 texture = ExtResource( 3 )
 
 [node name="SlashAnimationPlayer" type="AnimationPlayer" parent="."]
