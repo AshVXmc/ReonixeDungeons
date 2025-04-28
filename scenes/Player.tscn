@@ -3528,7 +3528,7 @@ scale = 1.5
 
 [node name="Player" type="KinematicBody2D" groups=["PlayerEntity"]]
 collision_layer = 128
-collision_mask = 144
+collision_mask = 145
 script = ExtResource( 2 )
 
 [node name="ChargingParticle" parent="." instance=ExtResource( 9 )]

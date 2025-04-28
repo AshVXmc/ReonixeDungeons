@@ -30,11 +30,14 @@ func regular_slash_animation():
 			yield(get_tree().create_timer(DEFAULT_ANIM_DURATION),"timeout")
 			call_deferred('free')
 			
-func horizontal_slash_animation():
+func horizontal_slash_animation(destroy_after_done : bool = true):
 	$SlashEffectPlayer.play("HorizontalSlash")
-	yield(get_tree().create_timer(DEFAULT_ANIM_DURATION), "timeout")
-	call_deferred('free')
-	
+	if destroy_after_done:
+		yield(get_tree().create_timer(DEFAULT_ANIM_DURATION), "timeout")
+		call_deferred('free')
+
+func stop_all_animations():
+	$AnimationPlayer.stop()
 func circular_flurry_animation():
 	$CircularFlurry.visible = true
 	$SlashEffectPlayer.play("CircularFlurry")

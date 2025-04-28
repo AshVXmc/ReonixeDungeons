@@ -9,6 +9,9 @@ export (Dictionary) var drops_table = {
 }
 onready var PLAYER = get_parent().get_node("Player")
 
+func _ready():
+	set_collision_mask_bit(1, true)
+	set_collision_mask_bit(5, true)
 
 func _on_Area2D_area_entered(area):
 	if area.is_in_group("Player"):

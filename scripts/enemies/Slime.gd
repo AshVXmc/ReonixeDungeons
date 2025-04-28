@@ -288,7 +288,7 @@ func drop_loot():
 	var loot = LOOT.instance()
 	var lootrng : RandomNumberGenerator = RandomNumberGenerator.new()
 	lootrng.randomize()
-	var randomint = lootrng.randi_range(1,2)
+	var randomint = lootrng.randi_range(1,1)
 	if randomint == 1:
 		get_parent().add_child(loot)
 		loot.position = $Position2D.global_position

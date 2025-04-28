@@ -7,11 +7,12 @@ var velocity = Vector2()
 var direction : int = 1
 var destroyed : bool = false
 signal add_mana_to_player(amount)
-
+signal add_energy_to_player(amount)
 var collision
 
 func _ready():
 	connect("add_mana_to_player", get_parent().get_node("Player"), "change_mana_value")
+	connect("add_energy_to_player", get_parent().get_node("Player"), "update_energy_meter")
 	
 	if Global.player_talents["PiercingFervor"]["unlocked"] and Global.player_talents["PiercingFervor"]["enabled"]: 
 		add_to_group(str((1 - Global.player_talents["PiercingFervor"]["damagepenalty"] / 100) * Global.attack_power * (Global.player_skill_multipliers["Fireball"] / 100)))
@@ -49,7 +50,8 @@ func _on_VisibilityNotifier2D_screen_exited():
 func _on_Fireball_area_entered(area):
 	if area.is_in_group("Enemy") or area.is_in_group("DestructableObject") or area.is_in_group("Campfire"):
 		add_burning_stack()
-		emit_signal("add_mana_to_player", 0.25)
+		emit_signal("add_mana_to_player", 0.4)
+		emit_signal("add_energy_to_player", 15)
 		if !Global.player_talents["PiercingFervor"]["enabled"]:
 			destroyed = true
 			$AnimatedSprite.play("Destroyed")
@@ -74,7 +76,6 @@ func _on_Fireball_body_entered(body):
 		if direction == 1:
 			cell = tilemap.world_to_map(self.global_position - Vector2(-40,0))
 		var tile_id : int = tilemap.get_cellv(cell)
-		print("fireball entered tilemap " + str(cell))
 		if tile_id == 0:
 			tilemap.set_cellv(cell, 1)
 		if tile_id == 1:
