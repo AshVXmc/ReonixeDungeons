@@ -71,8 +71,8 @@ var player_skill_multipliers : Dictionary = {
 	"BasicAttack": 25.0,
 	"BasicAttack2": 30.0,
 	"BasicAttack3": 35.0,
-	"BasicAttack4": 65.0,
-	"ChargedAttack": 60.0,
+	"BasicAttack4": 60.0,
+	"ChargedAttack": 75.0,
 	"ThrustAttack": 80.0,
 	"ThrustChargedAttack": 75.0,
 	"UpwardsChargedAttack": 28.0, # x 2
@@ -102,6 +102,7 @@ var player_skill_multipliers : Dictionary = {
 	"FireballBurnGauge": 340,
 	"FireSawCost": 20,
 	"FireFairyCost": 3,
+	"FireFairyJointAttackPoints": 2,
 	"FireballCost": 2,
 	"FireSawCD": 30.0,
 	"FireFairyCD": 12.0,

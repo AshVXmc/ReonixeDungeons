@@ -14,9 +14,8 @@ onready var agnette_talent_desc_text = $NinePatchRect/TalentTreeControl/AgnetteC
 
 func _ready():
 	initialize_ui()
-	
-	print("Cyclone slashes (bought/enabled): " + str(Global.player_talents["CycloneSlashes"]["unlocked"]) + str(Global.player_talents["CycloneSlashes"]["enabled"]))
-	print("Data Cyclone slashes (bought/enabled): " + str(Global.player_talents_data["CycloneSlashes"]["unlocked"]) + str(Global.player_talents_data["CycloneSlashes"]["enabled"]))
+	#print("Cyclone slashes (bought/enabled): " + str(Global.player_talents["CycloneSlashes"]["unlocked"]) + str(Global.player_talents["CycloneSlashes"]["enabled"]))
+	#print("Data Cyclone slashes (bought/enabled): " + str(Global.player_talents_data["CycloneSlashes"]["unlocked"]) + str(Global.player_talents_data["CycloneSlashes"]["enabled"]))
 	
 func update_player_description_text():
 	player_talent_desc_text.bbcode_text = player_talent_desc_text.bbcode_text.replacen(

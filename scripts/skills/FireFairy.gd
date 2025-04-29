@@ -13,6 +13,7 @@ signal add_mana_to_player(amount)
 var is_exploding = false
 var is_joint_attacking : bool = false
 
+var joint_attack_points : int = Global.player_skill_multipliers["FireFairyJointAttackPoints"]
 
 func _ready():
 	connect("add_mana_to_player", player, "change_mana_value")
@@ -76,7 +77,12 @@ func add_burning_stack():
 				e.add_child(burning_status)
 
 func _on_DestroyedTimer_timeout():
-	explode()
+	if !is_joint_attacking:
+		explode()
+	else:
+		yield(get_tree().create_timer($AnimationPlayer.get_animation("JointAttack").length), "timeout")
+		joint_attack_points = 0 # so the player can't squeeze another joint attack when the timer expires. sorry!
+		explode()
 
 func explode():
 	is_exploding = true

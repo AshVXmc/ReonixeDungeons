@@ -74,14 +74,7 @@ func _ready():
 
 
 func update_player_description_text():
-#	player_pskill_text.bbcode_text = player_pskill_text.bbcode_text.replace(
-#		"FIRESAW_DUR", str(Global.player_skill_multipliers["FireSawDuration"]))
-#	player_pskill_text.bbcode_text = player_pskill_text.bbcode_text.replace(
-#		"FIRESAW_ATK", str(Global.player_skill_multipliers["FireSaw"]))
-#	player_pskill_text.bbcode_text = player_pskill_text.bbcode_text.replace(
-#		"FIRESAW_CD", str(Global.player_skill_multipliers["FireSawCD"]))
-#	player_pskill_text.bbcode_text = player_pskill_text.bbcode_text.replace(
-#		"FIRESAW_COST", str(Global.player_skill_multipliers["FireSawCost"]))
+	# primary skill
 	var pskill_header : String = skills_info_dict["Player"]["PrimarySkill"]["Header"]
 	var pskill_desc : String = skills_info_dict["Player"]["PrimarySkill"]["Description"]
 	var pskill_cd : String = skills_info_dict["Player"]["PrimarySkill"]["Cooldown"]
@@ -91,28 +84,56 @@ func update_player_description_text():
 	pskill_cd = pskill_cd.replace("FIRESAW_CD", str(Global.player_skill_multipliers["FireSawCD"]))
 	pskill_manacost = pskill_manacost.replace("FIRESAW_COST", str(Global.player_skill_multipliers["FireSawCost"]))
 	
-	
 	player_pskill_text.bbcode_text = pskill_header + "\n\n" + pskill_desc + "\n\n" + pskill_cd + "\n" + pskill_manacost
 	
+	# secondary skill
+	var sskill_header : String = skills_info_dict["Player"]["SecondarySkill"]["Header"]
+	var sskill_desc : String = skills_info_dict["Player"]["SecondarySkill"]["Description"]
+	var sskill_desc_2 : String = skills_info_dict["Player"]["SecondarySkill"]["Description2"]
+	var sskill_desc_3 : String = skills_info_dict["Player"]["SecondarySkill"]["Description3"]
+	var sskill_cd : String = skills_info_dict["Player"]["SecondarySkill"]["Cooldown"]
+	var sskill_manacost : String = skills_info_dict["Player"]["SecondarySkill"]["ManaCost"]
+
+	sskill_desc = sskill_desc.replace("FIREFAIRY_DUR", str(Global.player_skill_multipliers["FireFairyDuration"]))
+	sskill_desc = sskill_desc.replace("FIREFAIRY_ATK", str(Global.player_skill_multipliers["FireFairy"]))
+	sskill_desc = sskill_desc.replace("FIREFAIRY_EX_ATK", str(Global.player_skill_multipliers["FireFairyDetonation"]))
+	sskill_desc_2 = sskill_desc_2.replace("MAX_JOINT_ATTACK_POINTS", str(Global.player_skill_multipliers["FireFairyJointAttackPoints"]))
+	# TODO
+#	sskill_desc_3 = sskill_desc_3.replace("MAX_JOINT_ATTACK_POINTS", str(Global.player_skill_multipliers["FireFairyJointAttackPoints"]))
 	
-	player_sskill_text.bbcode_text = player_sskill_text.bbcode_text.replace(
-		"FIREFAIRY_DUR", str(Global.player_skill_multipliers["FireFairyDuration"]))
-	player_sskill_text.bbcode_text = player_sskill_text.bbcode_text.replace(
-		"FIREFAIRY_ATK", str(Global.player_skill_multipliers["FireFairy"]))
-	player_sskill_text.bbcode_text = player_sskill_text.bbcode_text.replace(
-		"FIREFAIRY_EX_ATK", str(Global.player_skill_multipliers["FireFairyDetonation"]))
-	player_sskill_text.bbcode_text = player_sskill_text.bbcode_text.replace(
-		"FIREFAIRY_CD", str(Global.player_skill_multipliers["FireFairyCD"]))
-	player_sskill_text.bbcode_text = player_sskill_text.bbcode_text.replace(
-		"FIREFAIRY_COST", str(Global.player_skill_multipliers["FireFairyCost"]))
+	sskill_cd = sskill_cd.replace("FIREFAIRY_CD", str(Global.player_skill_multipliers["FireFairyCD"]))
+	sskill_manacost = sskill_manacost.replace("FIREFAIRY_COST", str(Global.player_skill_multipliers["FireFairyCost"]))
+
+	player_sskill_text.bbcode_text = sskill_header + "\n\n" + sskill_desc + "\n" + sskill_desc_2 + "\n" + sskill_desc_3 + "\n\n" + sskill_cd + "\n" + sskill_manacost
 	
-	player_tskill_text.bbcode_text = player_tskill_text.bbcode_text.replace(
-		"FIREBALL_ATK", str(Global.player_skill_multipliers["Fireball"]))
-	player_tskill_text.bbcode_text = player_tskill_text.bbcode_text.replace(
-		"FIREBALL_CHARGES", str(Global.player_skill_multipliers["FireballCharges"]))
-	player_tskill_text.bbcode_text = player_tskill_text.bbcode_text.replace(
-		"FIREBALL_CD", str(Global.player_skill_multipliers["FireballCD"]))
 	
+	# tertiary skill
+	var tskill_header : String = skills_info_dict["Player"]["TertiarySkill"]["Header"]
+	var tskill_desc : String = skills_info_dict["Player"]["TertiarySkill"]["Description"]
+	var tskill_cd : String = skills_info_dict["Player"]["TertiarySkill"]["Cooldown"]
+	tskill_desc = tskill_desc.replace("FIREBALL_ATK", str(Global.player_skill_multipliers["Fireball"]))
+	tskill_desc = tskill_desc.replace("FIREBALL_CHARGES", str(Global.player_skill_multipliers["FireballMaxCharges"]))
+	tskill_cd = tskill_cd.replace("FIREBALL_CD", str(Global.player_skill_multipliers["FireballCD"]))
+	player_tskill_text.bbcode_text = tskill_header + "\n\n" + tskill_desc + "\n\n" + tskill_cd + "\n"
+
+#	player_sskill_text.bbcode_text = player_sskill_text.bbcode_text.replace(
+#		"FIREFAIRY_DUR", str(Global.player_skill_multipliers["FireFairyDuration"]))
+#	player_sskill_text.bbcode_text = player_sskill_text.bbcode_text.replace(
+#		"FIREFAIRY_ATK", str(Global.player_skill_multipliers["FireFairy"]))
+#	player_sskill_text.bbcode_text = player_sskill_text.bbcode_text.replace(
+#		"FIREFAIRY_EX_ATK", str(Global.player_skill_multipliers["FireFairyDetonation"]))
+#	player_sskill_text.bbcode_text = player_sskill_text.bbcode_text.replace(
+#		"FIREFAIRY_CD", str(Global.player_skill_multipliers["FireFairyCD"]))
+#	player_sskill_text.bbcode_text = player_sskill_text.bbcode_text.replace(
+#		"FIREFAIRY_COST", str(Global.player_skill_multipliers["FireFairyCost"]))
+#
+#	player_tskill_text.bbcode_text = player_tskill_text.bbcode_text.replace(
+#		"FIREBALL_ATK", str(Global.player_skill_multipliers["Fireball"]))
+#	player_tskill_text.bbcode_text = player_tskill_text.bbcode_text.replace(
+#		"FIREBALL_CHARGES", str(Global.player_skill_multipliers["FireballCharges"]))
+#	player_tskill_text.bbcode_text = player_tskill_text.bbcode_text.replace(
+#		"FIREBALL_CD", str(Global.player_skill_multipliers["FireballCD"]))
+#
 	player_perkskill_text.bbcode_text = player_perkskill_text.bbcode_text.replace(
 		"CREATE_SUGAR_ROLL_CD", str(Global.player_perks["CreateSugarRoll"]["cooldown"]))
 	player_perkskill_text.bbcode_text = player_perkskill_text.bbcode_text.replace(
