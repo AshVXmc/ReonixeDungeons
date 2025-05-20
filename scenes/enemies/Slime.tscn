@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://scripts/enemies/Slime.gd" type="Script" id=1]
 [ext_resource path="res://spriteframes/slime_spriteframes.tres" type="SpriteFrames" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://scenes/status_effects/GroundedStatus.tscn" type="PackedScene" id=7]
 [ext_resource path="res://assets/enemies/components/WeaknessDisplayComponent.tscn" type="PackedScene" id=8]
 [ext_resource path="res://scenes/status_effects/BurningStatus.tscn" type="PackedScene" id=9]
+[ext_resource path="res://assets/misc/light_circle.png" type="Texture" id=10]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 26.36, 15.1008 )
@@ -66,7 +67,7 @@ shape = SubResource( 1 )
 position = Vector2( -5, 0 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
-position = Vector2( 0, -29.326 )
+position = Vector2( 0, -30 )
 scale = Vector2( 5, 5 )
 frames = ExtResource( 2 )
 animation = "dead"
@@ -124,6 +125,12 @@ anims/Death = SubResource( 4 )
 damage_shred = 50.0
 
 [node name="BurningStatus" parent="." instance=ExtResource( 9 )]
+
+[node name="Light2D" type="Light2D" parent="."]
+position = Vector2( 0, -30 )
+scale = Vector2( 6, 6 )
+texture = ExtResource( 10 )
+energy = 0.5
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_Area2D_area_entered"]
 [connection signal="area_exited" from="Area2D" to="." method="_on_Area2D_area_exited"]

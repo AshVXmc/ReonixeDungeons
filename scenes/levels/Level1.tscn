@@ -218,7 +218,6 @@ shape = SubResource( 5 )
 visible = false
 position = Vector2( 1725.87, 747.09 )
 scale = Vector2( 123.492, 44.8937 )
-energy = 0.65
 mode = 1
 
 [node name="LevelTransporterEnd" parent="." instance=ExtResource( 6 )]

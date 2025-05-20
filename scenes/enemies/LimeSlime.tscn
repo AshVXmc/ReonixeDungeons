@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://scripts/enemies/Slime.gd" type="Script" id=1]
 [ext_resource path="res://spriteframes/limeslime_spriteframes.tres" type="SpriteFrames" id=2]
 [ext_resource path="res://assets/enemies/components/WeaknessDisplayComponent.tscn" type="PackedScene" id=3]
+[ext_resource path="res://assets/misc/light_circle.png" type="Texture" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 26.36, 15.1008 )
@@ -48,6 +49,12 @@ wait_time = 0.3
 one_shot = true
 
 [node name="Position2D" type="Position2D" parent="."]
+
+[node name="Light2D" type="Light2D" parent="."]
+position = Vector2( 0, -30 )
+scale = Vector2( 6, 6 )
+texture = ExtResource( 4 )
+energy = 0.5
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_Area2D_area_entered"]
 [connection signal="timeout" from="HurtTimer" to="." method="_on_HurtTimer_timeout"]

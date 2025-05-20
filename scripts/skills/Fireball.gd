@@ -58,7 +58,6 @@ func _on_Fireball_area_entered(area):
 			$CollisionShape2D.disabled = true
 			yield(get_tree().create_timer(0.25), "timeout")
 			call_deferred('free')
-	
 
 func explode():
 	destroyed = true
@@ -80,13 +79,6 @@ func _on_Fireball_body_entered(body):
 			tilemap.set_cellv(cell, 1)
 		if tile_id == 1:
 			tilemap.set_cellv(cell, -1)
-		
-		
-		
-		
-	
-	if !Global.player_talents["PiercingFervor"]["enabled"]:
-		explode()
 
 func _on_DestroyedTimer_timeout():
 	explode()

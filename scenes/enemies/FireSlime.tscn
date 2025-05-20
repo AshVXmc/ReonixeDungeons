@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://scripts/enemies/FireSlime.gd" type="Script" id=1]
 [ext_resource path="res://assets/enemies/fire_slime_2.png" type="Texture" id=2]
@@ -11,6 +11,7 @@
 [ext_resource path="res://scenes/status_effects/FrozenStatus.tscn" type="PackedScene" id=9]
 [ext_resource path="res://scenes/status_effects/GroundedStatus.tscn" type="PackedScene" id=10]
 [ext_resource path="res://assets/enemies/components/WeaknessDisplayComponent.tscn" type="PackedScene" id=11]
+[ext_resource path="res://assets/misc/light_circle.png" type="Texture" id=12]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 26.36, 15.1008 )
@@ -170,6 +171,12 @@ align = 1
 [node name="FrozenStatus" parent="." instance=ExtResource( 9 )]
 
 [node name="GroundedStatus" parent="." instance=ExtResource( 10 )]
+
+[node name="Light2D" type="Light2D" parent="."]
+position = Vector2( 0, -30 )
+scale = Vector2( 6, 6 )
+texture = ExtResource( 12 )
+energy = 0.5
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_Area2D_area_entered"]
 [connection signal="area_exited" from="Area2D" to="." method="_on_Area2D_area_exited"]

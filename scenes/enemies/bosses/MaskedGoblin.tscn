@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=2]
+[gd_scene load_steps=52 format=2]
 
 [ext_resource path="res://scripts/enemies/MaskedGoblin.gd" type="Script" id=1]
 [ext_resource path="res://assets/enemies/bosses/masked_goblin_2.png" type="Texture" id=2]
@@ -15,6 +15,8 @@
 [ext_resource path="res://assets/fonts/Born2bSportyV2.ttf" type="DynamicFontData" id=13]
 [ext_resource path="res://scenes/status_effects/FrozenStatus.tscn" type="PackedScene" id=14]
 [ext_resource path="res://scenes/status_effects/GroundedStatus.tscn" type="PackedScene" id=15]
+[ext_resource path="res://assets/misc/light_circle.png" type="Texture" id=16]
+[ext_resource path="res://assets/enemies/bosses/flash_before_attacking_spritesheet.png" type="Texture" id=17]
 
 [sub_resource type="CapsuleShape2D" id=8]
 radius = 30.0
@@ -1469,6 +1471,30 @@ animations = [ {
 "speed": 6.0
 } ]
 
+[sub_resource type="AtlasTexture" id=34]
+atlas = ExtResource( 17 )
+region = Rect2( 0, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=35]
+atlas = ExtResource( 17 )
+region = Rect2( 16, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=36]
+atlas = ExtResource( 17 )
+region = Rect2( 32, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=37]
+atlas = ExtResource( 17 )
+region = Rect2( 48, 0, 16, 16 )
+
+[sub_resource type="SpriteFrames" id=38]
+animations = [ {
+"frames": [ SubResource( 34 ), SubResource( 35 ), SubResource( 36 ), SubResource( 37 ) ],
+"loop": true,
+"name": "flash",
+"speed": 5.0
+} ]
+
 [sub_resource type="RectangleShape2D" id=25]
 extents = Vector2( 45, 60 )
 
@@ -1544,7 +1570,14 @@ scale = Vector2( 5.25, 5.25 )
 frames = SubResource( 16 )
 animation = "Dead"
 
+[node name="AttackIndicatorFlashSprite" type="AnimatedSprite" parent="."]
+position = Vector2( -40.8333, -55.8333 )
+scale = Vector2( 5, 5 )
+frames = SubResource( 38 )
+animation = "flash"
+
 [node name="WeaknessDisplayComponent" parent="." instance=ExtResource( 8 )]
+position = Vector2( 0, -40.8334 )
 
 [node name="AttackArea2D" type="Area2D" parent="." groups=["Enemy", "Hostile"]]
 
@@ -1600,18 +1633,18 @@ one_shot = true
 
 [node name="LevelLabel" type="Label" parent="."]
 margin_left = -15.0
-margin_top = -118.0
+margin_top = -128.0
 margin_right = 41.0
-margin_bottom = -86.0
+margin_bottom = -96.0
 custom_fonts/font = SubResource( 15 )
 text = "Lv.1"
 align = 1
 
 [node name="HealthBar" type="TextureProgress" parent="."]
 margin_left = -46.6667
-margin_top = -91.1667
+margin_top = -101.167
 margin_right = -16.6667
-margin_bottom = -85.1666
+margin_bottom = -95.1666
 rect_scale = Vector2( 4, 4 )
 value = 100.0
 texture_under = ExtResource( 6 )
@@ -1693,6 +1726,12 @@ one_shot = true
 [node name="FrozenStatus" parent="." instance=ExtResource( 14 )]
 
 [node name="GroundedStatus" parent="." instance=ExtResource( 15 )]
+
+[node name="Light2D" type="Light2D" parent="."]
+position = Vector2( 0, -30 )
+scale = Vector2( 6, 6 )
+texture = ExtResource( 16 )
+energy = 0.5
 
 [connection signal="tree_exiting" from="." to="." method="_on_Goblin_tree_exiting"]
 [connection signal="area_exited" from="Left" to="." method="_on_Left_area_exited"]

@@ -28,9 +28,9 @@ anims/default = SubResource( 1 )
 
 [node name="Light2D" type="Light2D" parent="."]
 position = Vector2( 0, -25.8824 )
-scale = Vector2( 14, 14 )
+scale = Vector2( 10, 10 )
 texture = ExtResource( 2 )
-energy = 0.7
+energy = 0.65
 
 [node name="Sprite" type="Sprite" parent="."]
 scale = Vector2( 5, 5 )
