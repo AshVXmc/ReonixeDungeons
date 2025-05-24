@@ -16,7 +16,7 @@
 [ext_resource path="res://scenes/status_effects/FrozenStatus.tscn" type="PackedScene" id=14]
 [ext_resource path="res://scenes/status_effects/GroundedStatus.tscn" type="PackedScene" id=15]
 [ext_resource path="res://assets/misc/light_circle.png" type="Texture" id=16]
-[ext_resource path="res://assets/enemies/bosses/flash_before_attacking_spritesheet.png" type="Texture" id=17]
+[ext_resource path="res://assets/particles/flash_before_attacking_spritesheet.png" type="Texture" id=17]
 
 [sub_resource type="CapsuleShape2D" id=8]
 radius = 30.0
@@ -1490,9 +1490,9 @@ region = Rect2( 48, 0, 16, 16 )
 [sub_resource type="SpriteFrames" id=38]
 animations = [ {
 "frames": [ SubResource( 34 ), SubResource( 35 ), SubResource( 36 ), SubResource( 37 ) ],
-"loop": true,
+"loop": false,
 "name": "flash",
-"speed": 5.0
+"speed": 12.0
 } ]
 
 [sub_resource type="RectangleShape2D" id=25]
@@ -1540,7 +1540,7 @@ position = Vector2( 0.948333, -4 )
 shape = SubResource( 8 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-playback_speed = 1.25
+playback_speed = 1.15
 anims/Death = SubResource( 6 )
 anims/EndAttackAnimation = SubResource( 26 )
 anims/RESET = SubResource( 7 )
@@ -1571,8 +1571,9 @@ frames = SubResource( 16 )
 animation = "Dead"
 
 [node name="AttackIndicatorFlashSprite" type="AnimatedSprite" parent="."]
+visible = false
 position = Vector2( -40.8333, -55.8333 )
-scale = Vector2( 5, 5 )
+scale = Vector2( 2.5, 2.5 )
 frames = SubResource( 38 )
 animation = "flash"
 

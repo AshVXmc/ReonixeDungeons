@@ -41,7 +41,6 @@ func _ready():
 	ice_res = 0
 	earth_res = 0
 
-
 func _physics_process(delta):
 	if !$Sprite.flip_h:
 		$PlayerDetector.set_scale(Vector2(1,1))
@@ -128,11 +127,21 @@ func generate_random_num(min_value : int, max_value : int) -> int:
 
 func attack(direction : int):
 	if $ComboAttack1CooldownTimer.is_stopped():
-#		dash_attack(direction)
+		set_current_state(state.MELEE_ATTACK)
+		SPEED = 0
+		$AttackIndicatorFlashSprite.visible = true
+		$AttackIndicatorFlashSprite.play("flash")
+		yield(get_tree().create_timer(0.25), "timeout")
+		$AttackIndicatorFlashSprite.visible = false
 		combo_attack_1(direction)
-#		parry_attack(direction)
 		$ComboAttack1CooldownTimer.start()
+#		dash_attack(direction)
+#		parry_attack(direction)
+		
 
+
+func on_attack_indicator_flash_animation_finished():
+	pass
 
 
 func combo_attack_1(direction : int):
