@@ -1492,7 +1492,7 @@ animations = [ {
 "frames": [ SubResource( 34 ), SubResource( 35 ), SubResource( 36 ), SubResource( 37 ) ],
 "loop": false,
 "name": "flash",
-"speed": 12.0
+"speed": 14.0
 } ]
 
 [sub_resource type="RectangleShape2D" id=25]
@@ -1540,7 +1540,7 @@ position = Vector2( 0.948333, -4 )
 shape = SubResource( 8 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-playback_speed = 1.15
+playback_speed = 1.1
 anims/Death = SubResource( 6 )
 anims/EndAttackAnimation = SubResource( 26 )
 anims/RESET = SubResource( 7 )
@@ -1718,10 +1718,6 @@ emitting = true
 lifetime = 0.35
 initial_velocity = 85.0
 
-[node name="ComboAttack1CooldownTimer" type="Timer" parent="."]
-wait_time = 3.5
-one_shot = true
-
 [node name="BurningStatus" parent="." instance=ExtResource( 12 )]
 
 [node name="FrozenStatus" parent="." instance=ExtResource( 14 )]
@@ -1734,6 +1730,14 @@ scale = Vector2( 6, 6 )
 texture = ExtResource( 16 )
 energy = 0.5
 
+[node name="PauseAfterAttackingTimer" type="Timer" parent="."]
+wait_time = 1.5
+one_shot = true
+
+[node name="AttackCooldownTimer" type="Timer" parent="."]
+wait_time = 1.5
+one_shot = true
+
 [connection signal="tree_exiting" from="." to="." method="_on_Goblin_tree_exiting"]
 [connection signal="area_exited" from="Left" to="." method="_on_Left_area_exited"]
 [connection signal="area_exited" from="Right" to="." method="_on_Right_area_exited"]
@@ -1745,3 +1749,4 @@ energy = 0.5
 [connection signal="timeout" from="AttackingTimer" to="." method="_on_AttackingTimer_timeout"]
 [connection signal="area_entered" from="DownwardsEnemyDetector" to="." method="_on_DownwardsEnemyDetector_area_entered"]
 [connection signal="area_exited" from="DownwardsEnemyDetector" to="." method="_on_DownwardsEnemyDetector_area_exited"]
+[connection signal="timeout" from="PauseAfterAttackingTimer" to="." method="_on_PauseAfterAttackingTimer_timeout"]

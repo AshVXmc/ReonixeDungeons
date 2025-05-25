@@ -27,8 +27,8 @@ autostart = true
 [node name="Area2D" type="Area2D" parent="." groups=["Enemy", "Hostile"]]
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D"]
-position = Vector2( 0, -30 )
-scale = Vector2( 0.496894, 0.734127 )
+position = Vector2( -0.500007, -30 )
+scale = Vector2( 0.454646, 0.734127 )
 polygon = PoolVector2Array( -223.388, 89.9027, -136.85, 8.17297, 0, -49.0378, 138.863, 9.53514, 223.388, 89.9027, 199.238, 115.784, -189.175, 117.146 )
 
 [connection signal="body_entered" from="." to="." method="_on_EnemyShockwave_body_entered"]

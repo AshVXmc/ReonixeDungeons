@@ -11,6 +11,15 @@ enum state  {
 enum {
 	LEFT = -1, RIGHT = 1
 }
+enum ATTACK_PROBABILITY_WEIGHTS  {
+	COMBO_ATTACK_1 = 2
+	DASH_ATTACK = 2
+	PARRY_ATTACK = 0
+}
+
+onready var player : Player = get_parent().get_node("Player")
+
+# utility functions start
 func set_current_state(new_value : int):
 	current_state = new_value
 	
@@ -23,8 +32,11 @@ func set_current_state(new_value : int):
 func get_current_state() -> int:
 	return current_state
 
-onready var player : Player = get_parent().get_node("Player")
-
+func generate_random_num(min_value : int, max_value : int) -> int:
+	var rng : RandomNumberGenerator = RandomNumberGenerator.new()
+	rng.randomize()
+	return rng.randi_range(min_value, max_value)
+# utility functions end
 
 
 func _ready():
@@ -47,7 +59,7 @@ func _physics_process(delta):
 	else:
 		$PlayerDetector.set_scale(Vector2(-1,1))
 	
-	if player in $PlayerDetector.get_overlapping_bodies():
+	if player in $PlayerDetector.get_overlapping_bodies() and get_current_state() == state.IDLE and $AttackCooldownTimer.is_stopped():
 		if !$Sprite.flip_h:
 			attack(LEFT)
 		else:
@@ -114,30 +126,68 @@ func handle_combo_attack_area(combo_id : int, direction : int):
 
 # utility function for an animationplayer node
 func end_attack_animation():
+	# pause for a bit after attacking.
+	$PauseAfterAttackingTimer.start()
+	$AttackCooldownTimer.start()
+
+func _on_PauseAfterAttackingTimer_timeout():
 	set_current_state(state.IDLE)
 	SPEED = MAX_SPEED
 
-
-
-func generate_random_num(min_value : int, max_value : int) -> int:
-	var rng : RandomNumberGenerator = RandomNumberGenerator.new()
-	rng.randomize()
-	return rng.randi_range(min_value, max_value)
-
+	
+# OVERRIDE
+func parse_damage(staggers : bool = true):
+#	if staggers:
+#		is_staggered = true
+	emit_signal("change_hitcount", 1)
+	$Sprite.set_modulate(Color(1.4,0.5,0.3,1))
+	if $HurtTimer.is_stopped():
+		$HurtTimer.start()
+	if HP <= 0:
+		$Area2D/CollisionShape2D.disabled = true
+		$CollisionShape2D.disabled = true
+		$Left/CollisionShape2D.disabled = true
+		$Right/CollisionShape2D.disabled = true
+		dead = true
+		$AnimationPlayer.play("Death")
+# OVERRIDE
+func knockback(knockback_coefficient : float = 1):
+#	is_staggered = true
+#	if $Sprite.flip_h:
+#		velocity.x = -SPEED * knockback_coefficient
+#	else:
+#		velocity.x = SPEED * knockback_coefficient
+#	$HurtTimer.start()
+	pass
 
 func attack(direction : int):
-	if $ComboAttack1CooldownTimer.is_stopped():
+	if $AttackCooldownTimer.is_stopped():
 		set_current_state(state.MELEE_ATTACK)
 		SPEED = 0
 		$AttackIndicatorFlashSprite.visible = true
 		$AttackIndicatorFlashSprite.play("flash")
-		yield(get_tree().create_timer(0.25), "timeout")
+		yield(get_tree().create_timer(0.35), "timeout")
 		$AttackIndicatorFlashSprite.visible = false
-		combo_attack_1(direction)
-		$ComboAttack1CooldownTimer.start()
-#		dash_attack(direction)
-#		parry_attack(direction)
 		
+		var weight_sum : int = 0
+		var chosen_move : String 
+		for w in ATTACK_PROBABILITY_WEIGHTS:
+			weight_sum += ATTACK_PROBABILITY_WEIGHTS[w]
+		
+		var num : int = generate_random_num(0, weight_sum - 1)
+		for w in ATTACK_PROBABILITY_WEIGHTS:
+			if num < ATTACK_PROBABILITY_WEIGHTS[w]:
+				chosen_move = w
+				break
+			num -= ATTACK_PROBABILITY_WEIGHTS[w]
+		
+		match chosen_move:
+			"COMBO_ATTACK_1":
+				combo_attack_1(direction)
+			"DASH_ATTACK":
+				dash_attack(direction)
+			"PARRY_ATTACK":
+				parry_attack(direction)
 
 
 func on_attack_indicator_flash_animation_finished():
@@ -167,8 +217,10 @@ func dash_attack(dash_direction : int):
 	set_current_state(state.MELEE_ATTACK)
 	if dash_direction == LEFT:
 		$AnimationPlayer.play("SwordDashAttack_Left")
+		SPEED = MAX_SPEED * 2
 	elif dash_direction == RIGHT:
 		$AnimationPlayer.play("SwordDashAttack_Right")
+		SPEED = -MAX_SPEED * 2
 	yield(get_tree().create_timer(0.3), "timeout")
 	set_current_state(state.DASHING)
 	yield(get_tree().create_timer(0.25), "timeout")
@@ -178,6 +230,7 @@ func dash_attack(dash_direction : int):
 
 func parry_attack(parry_direction : int):
 	set_current_state(state.PARRYING)
+	SPEED = 0
 	if parry_direction == LEFT:
 		$AnimationPlayer.play("SwordParryStance_Left")
 	elif parry_direction == RIGHT:
@@ -186,12 +239,15 @@ func parry_attack(parry_direction : int):
 
 func retaliate(retaliate_direction : int):
 	set_current_state(state.MELEE_ATTACK)
+	SPEED = 0
 	$AnimationPlayer.stop()
 	if retaliate_direction == LEFT:
 		$AnimationPlayer.play("SwordRetaliate_Left")
 	elif retaliate_direction == RIGHT:
 		$AnimationPlayer.play("SwordRetaliate_Right")
 	$AnimationPlayer.queue("EndAttackAnimation")
+
+
 
 
 

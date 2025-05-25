@@ -82,8 +82,8 @@ var player_skill_multipliers : Dictionary = {
 	"CircularFlurryAttack": 40.0, # x 3
 	"PiercingProjectile": 95.0,
 	"EntryAttack": 50.0, 
-	"CounterThrustAttack": 45.0,
-	"CounterAttack": 32.0, # x 2
+	"CounterThrustAttack": 35.0,
+	"CounterAttack": 25.0, # x 2
 	"AirborneBasicAttack": 30.0,
 	"AirborneBasicAttack2": 38.0,
 	"AirborneBasicAttack3": 48.0,

@@ -720,13 +720,13 @@ func dash_counter_attack():
 		counterflurryeffect.player_counter_attack_animation()
 		yield(get_tree().create_timer(0.1), "timeout")
 		update_energy_meter(10)
-		change_mana_value(0.15)
+		change_mana_value(0.05)
 		yield(get_tree().create_timer(0.1), "timeout")
 		update_energy_meter(10)
-		change_mana_value(0.15)
+		change_mana_value(0.05)
 		yield(get_tree().create_timer(0.1), "timeout")
 		update_energy_meter(10)
-		change_mana_value(0.2)
+		change_mana_value(0.1)
 #		yield(get_tree().create_timer(0.4), "timeout")
 #		is_dash_counter_attacking = false
 func attack():
