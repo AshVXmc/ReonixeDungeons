@@ -1,6 +1,7 @@
 class_name MaskedGoblin extends Goblin
 
 const ENEMY_SHOCKWAVE : PackedScene = preload("res://scenes/enemies/bosses/EnemyShockwave.tscn")
+const SWORD_PROJECTILE : PackedScene = preload("res://scenes/enemies/bosses/MaskedGoblinSwordProjectile.tscn")
 var current_state setget set_current_state, get_current_state
 enum state  {
 	IDLE,
@@ -124,6 +125,13 @@ func handle_combo_attack_area(combo_id : int, direction : int):
 			get_parent().add_child(enemy_shockwave)
 			enemy_shockwave.position = Vector2(global_position.x, global_position.y + 16)
 
+func handle_dash_attack_area(direction : int):
+	for g in $Area2D.get_groups():
+		if g != "Enemy":
+			$Area2D.remove_from_group(g)
+	$Area2D.add_to_group(str(atk_value * 2))
+
+
 # utility function for an animationplayer node
 func end_attack_animation():
 	# pause for a bit after attacking.
@@ -217,10 +225,10 @@ func dash_attack(dash_direction : int):
 	set_current_state(state.MELEE_ATTACK)
 	if dash_direction == LEFT:
 		$AnimationPlayer.play("SwordDashAttack_Left")
-		SPEED = MAX_SPEED * 2
+		SPEED = MAX_SPEED * 1.2
 	elif dash_direction == RIGHT:
 		$AnimationPlayer.play("SwordDashAttack_Right")
-		SPEED = -MAX_SPEED * 2
+		SPEED = MAX_SPEED * 1.2
 	yield(get_tree().create_timer(0.3), "timeout")
 	set_current_state(state.DASHING)
 	yield(get_tree().create_timer(0.25), "timeout")

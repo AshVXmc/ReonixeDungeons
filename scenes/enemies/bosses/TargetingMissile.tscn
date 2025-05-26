@@ -1,9 +1,8 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://scripts/enemies/TargetingMissile.gd" type="Script" id=1]
 [ext_resource path="res://assets/UI/crosshair.png" type="Texture" id=2]
 [ext_resource path="res://assets/particles/portal_particle.png" type="Texture" id=3]
-[ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=4]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 121.096
@@ -77,8 +76,5 @@ one_shot = true
 explosiveness = 0.2
 process_material = SubResource( 4 )
 texture = ExtResource( 3 )
-
-[node name="Player" parent="." instance=ExtResource( 4 )]
-position = Vector2( 396.45, 114.035 )
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_Area2D_area_entered"]

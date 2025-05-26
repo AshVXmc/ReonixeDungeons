@@ -1,8 +1,9 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://scripts/misc/Level.gd" type="Script" id=1]
 [ext_resource path="res://scenes/menus/DebugMenu.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scenes/enemies/bosses/MaskedGoblin.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/enemies/bosses/MaskedGoblinSwordProjectile.tscn" type="PackedScene" id=4]
 [ext_resource path="res://scenes/menus/EleganceMeterUI.tscn" type="PackedScene" id=5]
 [ext_resource path="res://scenes/menus/HealthPotUI.tscn" type="PackedScene" id=7]
 [ext_resource path="res://scenes/menus/GameOver.tscn" type="PackedScene" id=8]
@@ -86,7 +87,6 @@ __meta__ = {
 visible = false
 position = Vector2( 1725.87, 747.09 )
 scale = Vector2( 123.492, 44.8937 )
-energy = 0.65
 mode = 1
 
 [node name="Player" parent="." instance=ExtResource( 29 )]
@@ -106,3 +106,6 @@ editor_draw_limits = true
 
 [node name="MaskedGoblin" parent="." instance=ExtResource( 3 )]
 position = Vector2( -134, 863 )
+
+[node name="MaskedGoblinSwordProjectile" parent="." instance=ExtResource( 4 )]
+position = Vector2( -631, 293 )
