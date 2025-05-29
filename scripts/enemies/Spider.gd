@@ -1,10 +1,7 @@
 class_name Spider extends KinematicBody2D
 
-
 enum clingside {Down, Left, Right, Up}
 export (clingside) var Cling
-
-
 
 var velocity : Vector2 = Vector2()
 var is_dead : bool = false 
@@ -19,7 +16,7 @@ var GRAVITY : int = -45
 const LOOT : PackedScene = preload("res://scenes/items/LootBag.tscn")
 const DEATH_SMOKE : PackedScene = preload("res://scenes/particles/DeathSmokeParticle.tscn")
 const DMG_INDICATOR : PackedScene = preload("res://scenes/particles/DamageIndicatorParticle.tscn")
-var max_HP : int = Global.enemy_level_index * 28 + 32
+var max_HP : int = Global.enemy_level_index * 25 + 30
 var level_calc : int = round(Global.enemy_level_index)
 export var level : int = level_calc
 var HP : int = max_HP

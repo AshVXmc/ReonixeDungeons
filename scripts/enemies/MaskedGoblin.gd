@@ -13,12 +13,13 @@ enum {
 	LEFT = -1, RIGHT = 1
 }
 enum ATTACK_PROBABILITY_WEIGHTS  {
-	COMBO_ATTACK_1 = 2
+	COMBO_ATTACK_1 = 0
 	DASH_ATTACK = 2
 	PARRY_ATTACK = 0
 }
 
 onready var player : Player = get_parent().get_node("Player")
+onready var boss_hp_bar_ui : Control = get_parent().get_node("BossHealthBarUI/Control")
 
 # utility functions start
 func set_current_state(new_value : int):
@@ -42,23 +43,32 @@ func generate_random_num(min_value : int, max_value : int) -> int:
 
 func _ready():
 	# Overrides
-	max_HP = max_HP_calc * 3
-	MAX_SPEED *= 1.6
+	max_HP = max_HP_calc * 2
+	HP = max_HP
+	$HealthBar.max_value = max_HP
+	$HealthBar.value = $HealthBar.max_value
+	MAX_SPEED *= 1
 	SPEED = MAX_SPEED
 	set_current_state(state.MELEE_ATTACK)
-	atk_value = 2.5 * Global.enemy_level_index + 1.25
+	atk_value = 1.5 * Global.enemy_level_index + 1
 	set_current_state(state.IDLE)
 	
 	phys_res = 0
 	fire_res = -33.3
 	ice_res = 0
 	earth_res = 0
+	
+	boss_hp_bar_ui.get_node("HealthBar").max_value = max_HP
+	boss_hp_bar_ui.get_node("HealthBar").value = max_HP
+	boss_hp_bar_ui.get_node("BossNameLabel").bbcode_text += "Masked Goblin"
 
 func _physics_process(delta):
 	if !$Sprite.flip_h:
 		$PlayerDetector.set_scale(Vector2(1,1))
 	else:
 		$PlayerDetector.set_scale(Vector2(-1,1))
+	
+	boss_hp_bar_ui.get_node("HealthBar").value = HP
 	
 	if player in $PlayerDetector.get_overlapping_bodies() and get_current_state() == state.IDLE and $AttackCooldownTimer.is_stopped():
 		if !$Sprite.flip_h:
@@ -89,7 +99,8 @@ func _physics_process(delta):
 		if is_staggered:
 			retaliate(LEFT) if !$Sprite.flip_h else retaliate(RIGHT)
 			is_staggered = false
-		
+	
+	
 func handle_combo_attack_area(combo_id : int, direction : int):
 	match combo_id:
 		1:
@@ -132,11 +143,12 @@ func handle_dash_attack_area(direction : int):
 	$Area2D.add_to_group(str(atk_value * 2))
 
 
-# utility function for an animationplayer node
+# utility function for animationplayer
 func end_attack_animation():
 	# pause for a bit after attacking.
 	$PauseAfterAttackingTimer.start()
 	$AttackCooldownTimer.start()
+	set_current_state(state.IDLE)
 
 func _on_PauseAfterAttackingTimer_timeout():
 	set_current_state(state.IDLE)
@@ -174,7 +186,7 @@ func attack(direction : int):
 		SPEED = 0
 		$AttackIndicatorFlashSprite.visible = true
 		$AttackIndicatorFlashSprite.play("flash")
-		yield(get_tree().create_timer(0.35), "timeout")
+		yield(get_tree().create_timer(0.5), "timeout")
 		$AttackIndicatorFlashSprite.visible = false
 		
 		var weight_sum : int = 0
@@ -210,13 +222,13 @@ func combo_attack_1(direction : int):
 		$AnimationPlayer.queue("SwordAttackCombo1_Left")
 		if generate_random_num(1, 1) == 1:
 			$AnimationPlayer.queue("SwordAttackCombo3_Left")
-		$AnimationPlayer.queue("EndAttackAnimation")
+#		$AnimationPlayer.queue("EndAttackAnimation")
 	elif direction == RIGHT:
 		$AnimationPlayer.play("SwordAttackCombo2_Right")
 		$AnimationPlayer.queue("SwordAttackCombo1_Right")
 		if generate_random_num(1, 1) == 1:
 			$AnimationPlayer.queue("SwordAttackCombo3_Right")
-		$AnimationPlayer.queue("EndAttackAnimation")
+#		$AnimationPlayer.queue("EndAttackAnimation")
 		
 
 
@@ -225,17 +237,39 @@ func dash_attack(dash_direction : int):
 	set_current_state(state.MELEE_ATTACK)
 	if dash_direction == LEFT:
 		$AnimationPlayer.play("SwordDashAttack_Left")
-		SPEED = MAX_SPEED * 1.2
 	elif dash_direction == RIGHT:
 		$AnimationPlayer.play("SwordDashAttack_Right")
-		SPEED = MAX_SPEED * 1.2
-	yield(get_tree().create_timer(0.3), "timeout")
+#	$AnimationPlayer.queue("EndAttackAnimation")
+
+# utility function for animationplayer.
+func set_dash_movement():
+	SPEED = MAX_SPEED * 1.35
 	set_current_state(state.DASHING)
-	yield(get_tree().create_timer(0.25), "timeout")
-	set_current_state(state.IDLE)
-	$AnimationPlayer.queue("EndAttackAnimation")
+
+func stop_dash_movement():
+	SPEED = 0
+
+#	set_current_state(state.MELEE_ATTACK)
+#	yield(get_tree().create_timer(0.2), "timeout")
+#	if dash_direction == LEFT:
+#		$AnimationPlayer.play("SwordDashAttack_Left")
+#		SPEED = MAX_SPEED * 1.35
+#	elif dash_direction == RIGHT:
+#		$AnimationPlayer.play("SwordDashAttack_Right")
+#		SPEED = MAX_SPEED * 1.35
+#	yield(get_tree().create_timer(0.1), "timeout")
+#	set_current_state(state.DASHING)
+#	yield(get_tree().create_timer(0.25), "timeout")
+#	$AnimationPlayer.queue("EndAttackAnimation")
+#	end_attack_animation()
 
 
+
+func summon_sword_projectiles_attack():
+	var sword_projectile : MaskedGoblinSwordProjectile = SWORD_PROJECTILE.instance()
+	
+	
+	
 func parry_attack(parry_direction : int):
 	set_current_state(state.PARRYING)
 	SPEED = 0
@@ -253,7 +287,7 @@ func retaliate(retaliate_direction : int):
 		$AnimationPlayer.play("SwordRetaliate_Left")
 	elif retaliate_direction == RIGHT:
 		$AnimationPlayer.play("SwordRetaliate_Right")
-	$AnimationPlayer.queue("EndAttackAnimation")
+#	$AnimationPlayer.queue("EndAttackAnimation")
 
 
 

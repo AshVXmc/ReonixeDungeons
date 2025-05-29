@@ -1,4 +1,4 @@
-[gd_scene load_steps=52 format=2]
+[gd_scene load_steps=51 format=2]
 
 [ext_resource path="res://scripts/enemies/MaskedGoblin.gd" type="Script" id=1]
 [ext_resource path="res://assets/enemies/bosses/masked_goblin_2.png" type="Texture" id=2]
@@ -50,23 +50,6 @@ tracks/1/keys = {
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
 "values": [ Color( 1, 1, 1, 1 ), Color( 0, 0, 0, 1 ) ]
-}
-
-[sub_resource type="Animation" id=26]
-resource_name = "EndAttackAnimation"
-tracks/0/type = "method"
-tracks/0/path = NodePath(".")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"values": [ {
-"args": [  ],
-"method": "end_attack_animation"
-} ]
 }
 
 [sub_resource type="Animation" id=7]
@@ -323,11 +306,14 @@ tracks/6/loop_wrap = true
 tracks/6/imported = false
 tracks/6/enabled = true
 tracks/6/keys = {
-"times": PoolRealArray( 0.1 ),
-"transitions": PoolRealArray( 1 ),
+"times": PoolRealArray( 0.1, 0.45 ),
+"transitions": PoolRealArray( 1, 1 ),
 "values": [ {
 "args": [ 1, -1 ],
 "method": "handle_combo_attack_area"
+}, {
+"args": [  ],
+"method": "end_attack_animation"
 } ]
 }
 
@@ -414,11 +400,14 @@ tracks/6/loop_wrap = true
 tracks/6/imported = false
 tracks/6/enabled = true
 tracks/6/keys = {
-"times": PoolRealArray( 0.1 ),
-"transitions": PoolRealArray( 1 ),
+"times": PoolRealArray( 0.1, 0.45 ),
+"transitions": PoolRealArray( 1, 1 ),
 "values": [ {
 "args": [ 1, 1 ],
 "method": "handle_combo_attack_area"
+}, {
+"args": [  ],
+"method": "end_attack_animation"
 } ]
 }
 
@@ -505,11 +494,14 @@ tracks/6/loop_wrap = true
 tracks/6/imported = false
 tracks/6/enabled = true
 tracks/6/keys = {
-"times": PoolRealArray( 0.1 ),
-"transitions": PoolRealArray( 1 ),
+"times": PoolRealArray( 0.1, 0.75 ),
+"transitions": PoolRealArray( 1, 1 ),
 "values": [ {
 "args": [ 2, -1 ],
 "method": "handle_combo_attack_area"
+}, {
+"args": [  ],
+"method": "end_attack_animation"
 } ]
 }
 
@@ -596,11 +588,14 @@ tracks/6/loop_wrap = true
 tracks/6/imported = false
 tracks/6/enabled = true
 tracks/6/keys = {
-"times": PoolRealArray( 0.1 ),
-"transitions": PoolRealArray( 1 ),
+"times": PoolRealArray( 0.1, 0.75 ),
+"transitions": PoolRealArray( 1, 1 ),
 "values": [ {
 "args": [ 2, 1 ],
 "method": "handle_combo_attack_area"
+}, {
+"args": [  ],
+"method": "end_attack_animation"
 } ]
 }
 
@@ -711,11 +706,14 @@ tracks/8/loop_wrap = true
 tracks/8/imported = false
 tracks/8/enabled = true
 tracks/8/keys = {
-"times": PoolRealArray( 0.55 ),
-"transitions": PoolRealArray( 1 ),
+"times": PoolRealArray( 0.55, 0.9 ),
+"transitions": PoolRealArray( 1, 1 ),
 "values": [ {
 "args": [ 3, -1 ],
 "method": "handle_combo_attack_area"
+}, {
+"args": [  ],
+"method": "end_attack_animation"
 } ]
 }
 
@@ -826,16 +824,20 @@ tracks/8/loop_wrap = true
 tracks/8/imported = false
 tracks/8/enabled = true
 tracks/8/keys = {
-"times": PoolRealArray( 0.55 ),
-"transitions": PoolRealArray( 1 ),
+"times": PoolRealArray( 0.55, 0.9 ),
+"transitions": PoolRealArray( 1, 1 ),
 "values": [ {
 "args": [ 3, 1 ],
 "method": "handle_combo_attack_area"
+}, {
+"args": [  ],
+"method": "end_attack_animation"
 } ]
 }
 
 [sub_resource type="Animation" id=28]
 resource_name = "SwordDashAttack_Left"
+length = 1.1
 step = 0.05
 tracks/0/type = "value"
 tracks/0/path = NodePath("SwordSprite:rotation_degrees")
@@ -844,7 +846,7 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.1, 0.85, 1 ),
+"times": PoolRealArray( 0, 0.1, 0.95, 1.1 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 0,
 "values": [ 20.0, -90.0, -90.0, 20.0 ]
@@ -856,7 +858,7 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 0.1, 0.4, 0.6, 0.8, 0.9, 1 ),
+"times": PoolRealArray( 0, 0.1, 0.4, 0.65, 0.9, 1, 1.1 ),
 "transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1 ),
 "update": 0,
 "values": [ Vector2( -23.5, 15 ), Vector2( 1, -10 ), Vector2( 50, -10 ), Vector2( 50, -10 ), Vector2( -30, -10 ), Vector2( -30, -10 ), Vector2( -23.5, 15 ) ]
@@ -883,7 +885,7 @@ tracks/3/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( -80, -6 ) ]
+"values": [ Vector2( -80, 6 ) ]
 }
 tracks/4/type = "value"
 tracks/4/path = NodePath("AttackArea2D/CollisionShape2D:disabled")
@@ -892,10 +894,10 @@ tracks/4/loop_wrap = true
 tracks/4/imported = false
 tracks/4/enabled = true
 tracks/4/keys = {
-"times": PoolRealArray( 0, 0.9, 1 ),
+"times": PoolRealArray( 0, 0.4, 1.1 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
-"values": [ false, true, false ]
+"values": [ true, false, true ]
 }
 tracks/5/type = "value"
 tracks/5/path = NodePath("AttackArea2D/CollisionShape2D:shape:extents")
@@ -907,7 +909,7 @@ tracks/5/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( 62, 60 ) ]
+"values": [ Vector2( 62, 40 ) ]
 }
 tracks/6/type = "method"
 tracks/6/path = NodePath(".")
@@ -916,16 +918,26 @@ tracks/6/loop_wrap = true
 tracks/6/imported = false
 tracks/6/enabled = true
 tracks/6/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PoolRealArray( 0, 0.4, 0.7, 1.1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
 "values": [ {
 "args": [ -1 ],
 "method": "handle_dash_attack_area"
+}, {
+"args": [  ],
+"method": "set_dash_movement"
+}, {
+"args": [  ],
+"method": "stop_dash_movement"
+}, {
+"args": [  ],
+"method": "end_attack_animation"
 } ]
 }
 
 [sub_resource type="Animation" id=29]
 resource_name = "SwordDashAttack_Right"
+length = 1.1
 step = 0.05
 tracks/0/type = "value"
 tracks/0/path = NodePath("SwordSprite:rotation_degrees")
@@ -934,7 +946,7 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.1, 0.9, 1 ),
+"times": PoolRealArray( 0, 0.1, 1, 1.1 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 0,
 "values": [ -20.0, 90.0, 90.0, -20.0 ]
@@ -946,7 +958,7 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 0.1, 0.4, 0.6, 0.8, 0.9, 1 ),
+"times": PoolRealArray( 0, 0.1, 0.4, 0.7, 0.9, 1, 1.1 ),
 "transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1 ),
 "update": 0,
 "values": [ Vector2( 23.5, 15 ), Vector2( -1, -10 ), Vector2( -50, -10 ), Vector2( -50, -10 ), Vector2( 30, -10 ), Vector2( 30, -10 ), Vector2( 23.5, 15 ) ]
@@ -973,7 +985,7 @@ tracks/3/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( -80, -6 ) ]
+"values": [ Vector2( -80, 6 ) ]
 }
 tracks/4/type = "value"
 tracks/4/path = NodePath("AttackArea2D/CollisionShape2D:disabled")
@@ -982,10 +994,10 @@ tracks/4/loop_wrap = true
 tracks/4/imported = false
 tracks/4/enabled = true
 tracks/4/keys = {
-"times": PoolRealArray( 0, 0.9, 1 ),
+"times": PoolRealArray( 0, 0.4, 1.1 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
-"values": [ false, true, false ]
+"values": [ true, false, true ]
 }
 tracks/5/type = "value"
 tracks/5/path = NodePath("AttackArea2D/CollisionShape2D:shape:extents")
@@ -997,7 +1009,7 @@ tracks/5/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( 62, 60 ) ]
+"values": [ Vector2( 62, 40 ) ]
 }
 tracks/6/type = "method"
 tracks/6/path = NodePath(".")
@@ -1006,11 +1018,20 @@ tracks/6/loop_wrap = true
 tracks/6/imported = false
 tracks/6/enabled = true
 tracks/6/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PoolRealArray( 0, 0.4, 0.7, 1.1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
 "values": [ {
 "args": [ 1 ],
 "method": "handle_dash_attack_area"
+}, {
+"args": [  ],
+"method": "set_dash_movement"
+}, {
+"args": [  ],
+"method": "stop_dash_movement"
+}, {
+"args": [  ],
+"method": "end_attack_animation"
 } ]
 }
 
@@ -1520,7 +1541,7 @@ animations = [ {
 "frames": [ SubResource( 34 ), SubResource( 35 ), SubResource( 36 ), SubResource( 37 ) ],
 "loop": false,
 "name": "flash",
-"speed": 14.0
+"speed": 12.0
 } ]
 
 [sub_resource type="RectangleShape2D" id=25]
@@ -1530,11 +1551,11 @@ extents = Vector2( 45, 60 )
 extents = Vector2( 314.801, 50.3433 )
 
 [sub_resource type="RectangleShape2D" id=27]
-extents = Vector2( 75, 59.7548 )
+extents = Vector2( 80.1667, 49.4608 )
 
-[sub_resource type="CapsuleShape2D" id=3]
-radius = 37.9007
-height = 41.7494
+[sub_resource type="CapsuleShape2D" id=39]
+radius = 16.0
+height = 32.0
 
 [sub_resource type="DynamicFont" id=15]
 size = 32
@@ -1570,7 +1591,6 @@ shape = SubResource( 8 )
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 playback_speed = 1.1
 anims/Death = SubResource( 6 )
-anims/EndAttackAnimation = SubResource( 26 )
 anims/RESET = SubResource( 7 )
 anims/SwordAttackCombo1_Left = SubResource( 19 )
 anims/SwordAttackCombo1_Right = SubResource( 20 )
@@ -1634,14 +1654,14 @@ collision_layer = 129
 collision_mask = 129
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetector"]
-position = Vector2( -105, -9.41183 )
+position = Vector2( -108.167, 0.294169 )
 shape = SubResource( 27 )
 
 [node name="Area2D" type="Area2D" parent="." groups=["Enemy"]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2( 0, -2.66667 )
-shape = SubResource( 3 )
+shape = SubResource( 39 )
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
 position = Vector2( -31.5393, 7.15712 )
@@ -1742,6 +1762,7 @@ one_shot = true
 [node name="StrongJumpParticle" parent="." instance=ExtResource( 5 )]
 position = Vector2( -55, 52 )
 scale = Vector2( 1.75, 1.75 )
+emitting = true
 lifetime = 0.35
 initial_velocity = 85.0
 
@@ -1758,11 +1779,11 @@ texture = ExtResource( 16 )
 energy = 0.5
 
 [node name="PauseAfterAttackingTimer" type="Timer" parent="."]
-wait_time = 1.5
+wait_time = 2.0
 one_shot = true
 
 [node name="AttackCooldownTimer" type="Timer" parent="."]
-wait_time = 1.5
+wait_time = 4.0
 one_shot = true
 
 [connection signal="tree_exiting" from="." to="." method="_on_Goblin_tree_exiting"]
