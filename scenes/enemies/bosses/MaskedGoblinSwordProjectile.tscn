@@ -4,10 +4,9 @@
 [ext_resource path="res://scripts/enemies/MaskedGoblinSwordProjectile.gd" type="Script" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 12, 60 )
+extents = Vector2( 12, 50 )
 
 [node name="MaskedGoblinSwordProjectile" type="Area2D"]
-position = Vector2( 155, 0 )
 collision_layer = 4225
 collision_mask = 129
 script = ExtResource( 2 )
@@ -23,7 +22,7 @@ rotation = -3.14159
 scale = Vector2( 5, 5 )
 texture = ExtResource( 1 )
 
-[node name="Area2D" type="Area2D" parent="." groups=["Enemy", "Hostile"]]
+[node name="Area2D" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource( 1 )

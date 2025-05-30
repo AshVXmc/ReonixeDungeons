@@ -109,6 +109,19 @@ editor_draw_limits = true
 [node name="MaskedGoblin" parent="." instance=ExtResource( 3 )]
 position = Vector2( -134, 863 )
 
-[node name="SwordProjectilePositions" type="Node2D" parent="."]
+[node name="Position2D_1" type="Position2D" parent="."]
 
-[node name="Position2D" type="Position2D" parent="SwordProjectilePositions"]
+[node name="Position2D_2" type="Position2D" parent="."]
+position = Vector2( -1008, 366 )
+
+[node name="Position2D_3" type="Position2D" parent="."]
+position = Vector2( -720, 461 )
+
+[node name="Position2D_4" type="Position2D" parent="."]
+position = Vector2( -336, 366 )
+
+[node name="Position2D_5" type="Position2D" parent="."]
+position = Vector2( -48, 366 )
+
+[node name="Position2D_6" type="Position2D" parent="."]
+position = Vector2( 240, 366 )

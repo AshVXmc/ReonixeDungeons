@@ -13,8 +13,8 @@ enum {
 	LEFT = -1, RIGHT = 1
 }
 enum ATTACK_PROBABILITY_WEIGHTS  {
-	COMBO_ATTACK_1 = 0
-	DASH_ATTACK = 2
+	COMBO_ATTACK_1 = 3
+	DASH_ATTACK = 3
 	PARRY_ATTACK = 0
 }
 
@@ -61,7 +61,10 @@ func _ready():
 	boss_hp_bar_ui.get_node("HealthBar").max_value = max_HP
 	boss_hp_bar_ui.get_node("HealthBar").value = max_HP
 	boss_hp_bar_ui.get_node("BossNameLabel").bbcode_text += "Masked Goblin"
-
+	
+	summon_sword_projectiles_attack()
+	
+	
 func _physics_process(delta):
 	if !$Sprite.flip_h:
 		$PlayerDetector.set_scale(Vector2(1,1))
@@ -148,7 +151,7 @@ func end_attack_animation():
 	# pause for a bit after attacking.
 	$PauseAfterAttackingTimer.start()
 	$AttackCooldownTimer.start()
-	set_current_state(state.IDLE)
+#	set_current_state(state.IDLE)
 
 func _on_PauseAfterAttackingTimer_timeout():
 	set_current_state(state.IDLE)
@@ -243,6 +246,9 @@ func dash_attack(dash_direction : int):
 
 # utility function for animationplayer.
 func set_dash_movement():
+	var tempus_tardus_slowing_factor : int = 1
+	if is_in_tempus_tardus:
+		tempus_tardus_slowing_factor = 0.05
 	SPEED = MAX_SPEED * 1.35
 	set_current_state(state.DASHING)
 
@@ -266,9 +272,9 @@ func stop_dash_movement():
 
 
 func summon_sword_projectiles_attack():
-	var sword_projectile : MaskedGoblinSwordProjectile = SWORD_PROJECTILE.instance()
-	
-	
+	var enemy_sword_projectile = SWORD_PROJECTILE.instance()
+	add_child(enemy_sword_projectile)
+	enemy_sword_projectile.global_position = get_parent().get_node("Position2D_3").global_position
 	
 func parry_attack(parry_direction : int):
 	set_current_state(state.PARRYING)

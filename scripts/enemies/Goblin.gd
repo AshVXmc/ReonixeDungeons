@@ -20,6 +20,7 @@ var SPEED : int = MAX_SPEED
 const MAX_GRAVITY : int = 45
 var GRAVITY : int = MAX_GRAVITY
 var is_staggered : bool = false
+var is_in_tempus_tardus : bool = false
 
 # for witch goblin only
 var is_casting : bool = false
@@ -336,7 +337,7 @@ func _on_Area2D_area_entered(area):
 			var groups : Array = area.get_groups()
 			for group_names in groups:
 				if $HitDelayTimer.is_stopped():
-					var damage = debuff_damage_multiplier * max_HP * 0.08
+					var damage = debuff_damage_multiplier * max_HP * 0.035
 #					print("AAAGH IT BURNS")
 #					var raw_damage = float(group_names)
 #					var damage_after_global_res = raw_damage - (raw_damage * (global_res / 100))
@@ -370,6 +371,7 @@ func _on_Area2D_area_entered(area):
 			velocity.y = 0
 			GRAVITY *= 0.05
 			$Sprite.speed_scale = 0.1
+			is_in_tempus_tardus = true
 		
 		if is_airborne:
 			if !area.is_in_group("NoAirborneKnockback") and area.is_in_group("LightPoiseDamage") or area.is_in_group("MediumPoiseDamage"):
@@ -491,6 +493,7 @@ func _on_Area2D_area_exited(area):
 		SPEED = MAX_SPEED
 		GRAVITY = MAX_GRAVITY
 		$Sprite.speed_scale = 1.0
+		is_in_tempus_tardus = false
 	if area.is_in_group("Frozen"):
 		is_frozen = false
 	if area.is_in_group("Airborne"):
