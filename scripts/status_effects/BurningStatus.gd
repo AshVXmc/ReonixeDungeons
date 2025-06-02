@@ -16,8 +16,8 @@ func _ready():
 		burn_immediately()
 	$CollisionShape2D.disabled = true
 	$BurningParticles.visible = false
-	# deals damage based on max HP
-#	add_to_group(str(Global.attack_power * BURN_MULTIPLIER))
+	# damage formula
+	add_to_group(str(Global.attack_power * (Global.player_skill_multipliers["BurningDamage"] / 100)))
 	if !get_parent().is_in_group("BurnStack"):
 		get_parent().add_to_group("Burnstack")
 
@@ -43,6 +43,7 @@ func _process(delta):
 		is_burning = false
 		burn_stack = 0
 		call_deferred('free')
+
 
 
 func _on_DamageTickTimer_timeout():

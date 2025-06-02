@@ -79,6 +79,8 @@ func _on_Fireball_body_entered(body):
 			tilemap.set_cellv(cell, 1)
 		if tile_id == 1:
 			tilemap.set_cellv(cell, -1)
-
+	
+	if body.is_in_group("Tilemap"):
+		explode()
 func _on_DestroyedTimer_timeout():
 	explode()

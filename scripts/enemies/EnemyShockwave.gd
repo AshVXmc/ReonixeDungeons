@@ -6,27 +6,13 @@ var velocity = Vector2()
 var direction : int = 1
 var elemental_type : String = "Physical"
 var atk_value : float = 2 * Global.enemy_level_index + 1.25
-const shockwave_texture : Texture = preload("res://assets/enemies/bosses/shockwave.png")
-const slashwave_texture : Texture = preload("res://assets/misc/super_slash_projectile.png")
-enum {
-	SHOCKWAVE,
-	SLASHWAVE
-}
-var form : int
-func set_form(new_form : int) -> void:
-	form = new_form
-	match form:
-		SHOCKWAVE:
-			$Sprite.texture = shockwave_texture
-		SLASHWAVE:
-			$Sprite.texture = slashwave_texture
+
+
+func _physics_process(delta):
 	if direction == 1:
 		$Sprite.flip_h = true
 	elif direction == -1:
 		$Sprite.flip_h = false
-
-
-func _physics_process(delta):
 	velocity.x = SPEED * delta * -direction
 	translate(velocity)
 	

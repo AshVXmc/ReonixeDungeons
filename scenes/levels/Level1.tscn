@@ -312,7 +312,7 @@ __meta__ = {
 shape = SubResource( 10 )
 
 [node name="Level1_DontLeaveBeforeKillingEnemies_Area2D" type="Area2D" parent="DialogueTriggerAreas"]
-position = Vector2( 200, 531 )
+position = Vector2( 319, 531 )
 __meta__ = {
 "_edit_group_": true
 }

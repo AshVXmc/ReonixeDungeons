@@ -13,14 +13,15 @@ enum {
 	LEFT = -1, RIGHT = 1
 }
 enum ATTACK_PROBABILITY_WEIGHTS  {
-	COMBO_ATTACK_1 = 3
-	DASH_ATTACK = 3
-	PARRY_ATTACK = 0
+	COMBO_ATTACK_1 = 0
+	DASH_ATTACK = 0
+	PARRY_ATTACK = 2
 }
 
 onready var player : Player = get_parent().get_node("Player")
-onready var boss_hp_bar_ui : Control = get_parent().get_node("BossHealthBarUI/Control")
+onready var boss_hp_bar_ui : BossHealthBar = get_parent().get_node("BossHealthBarUI/Control")
 
+var is_being_attacked : bool = false
 # utility functions start
 func set_current_state(new_value : int):
 	current_state = new_value
@@ -43,14 +44,14 @@ func generate_random_num(min_value : int, max_value : int) -> int:
 
 func _ready():
 	# Overrides
-	max_HP = max_HP_calc * 2
+	max_HP = max_HP_calc * 4.5
 	HP = max_HP
 	$HealthBar.max_value = max_HP
 	$HealthBar.value = $HealthBar.max_value
 	MAX_SPEED *= 1
 	SPEED = MAX_SPEED
 	set_current_state(state.MELEE_ATTACK)
-	atk_value = 1.5 * Global.enemy_level_index + 1
+	atk_value = 1.25 * Global.enemy_level_index + 0.75
 	set_current_state(state.IDLE)
 	
 	phys_res = 0
@@ -58,9 +59,18 @@ func _ready():
 	ice_res = 0
 	earth_res = 0
 	
-	boss_hp_bar_ui.get_node("HealthBar").max_value = max_HP
-	boss_hp_bar_ui.get_node("HealthBar").value = max_HP
-	boss_hp_bar_ui.get_node("BossNameLabel").bbcode_text += "Masked Goblin"
+	boss_hp_bar_ui.set_max_health_bar_value(max_HP)
+	boss_hp_bar_ui.set_health_bar_value(max_HP)
+	boss_hp_bar_ui.set_boss_name("Masked Goblin")
+	phys_res = -40
+	fire_res = -40
+	ice_res = 20
+	earth_res = 20
+	weaknesses = ["Physical", "Fire"]
+	for w in weaknesses:
+		boss_hp_bar_ui.add_weakness_display(w)
+	
+	$PlayerDetector/CollisionShape2D.disabled = false
 	
 	summon_sword_projectiles_attack()
 	
@@ -68,10 +78,12 @@ func _ready():
 func _physics_process(delta):
 	if !$Sprite.flip_h:
 		$PlayerDetector.set_scale(Vector2(1,1))
+		$ParryDetectorArea2D.set_scale(Vector2(1,1))
 	else:
 		$PlayerDetector.set_scale(Vector2(-1,1))
+		$ParryDetectorArea2D.set_scale(Vector2(-1,1))
+	boss_hp_bar_ui.set_health_bar_value(HP)
 	
-	boss_hp_bar_ui.get_node("HealthBar").value = HP
 	
 	if player in $PlayerDetector.get_overlapping_bodies() and get_current_state() == state.IDLE and $AttackCooldownTimer.is_stopped():
 		if !$Sprite.flip_h:
@@ -99,9 +111,9 @@ func _physics_process(delta):
 	
 	if get_current_state() == state.PARRYING:
 		velocity.x = 0
-		if is_staggered:
-			retaliate(LEFT) if !$Sprite.flip_h else retaliate(RIGHT)
-			is_staggered = false
+		if is_being_attacked:
+			retaliate(LEFT) if $Sprite.flip_h else retaliate(RIGHT)
+			is_being_attacked = false
 	
 	
 func handle_combo_attack_area(combo_id : int, direction : int):
@@ -124,9 +136,9 @@ func handle_combo_attack_area(combo_id : int, direction : int):
 			var enemy_shockwave = ENEMY_SHOCKWAVE.instance()
 			enemy_shockwave.direction = -direction 
 			print("current direction: " + str(direction))
-			enemy_shockwave.set_form(enemy_shockwave.SHOCKWAVE)
+#			enemy_shockwave.set_form(enemy_shockwave.SHOCKWAVE)
 			get_parent().add_child(enemy_shockwave)
-			enemy_shockwave.position = Vector2(global_position.x, global_position.y + 16)
+			enemy_shockwave.position = Vector2(global_position.x + (200 * direction), global_position.y + 16)
 		4:
 			for g in $Area2D.get_groups():
 				if g != "Enemy":
@@ -135,9 +147,9 @@ func handle_combo_attack_area(combo_id : int, direction : int):
 			var enemy_shockwave = ENEMY_SHOCKWAVE.instance()
 			enemy_shockwave.direction = direction
 #			direction = -1
-			enemy_shockwave.set_form(enemy_shockwave.SLASHWAVE)
+#			enemy_shockwave.set_form(enemy_shockwave.SLASHWAVE)
 			get_parent().add_child(enemy_shockwave)
-			enemy_shockwave.position = Vector2(global_position.x, global_position.y + 16)
+			enemy_shockwave.position = Vector2(global_position.x + (200 * direction), global_position.y + 16)
 
 func handle_dash_attack_area(direction : int):
 	for g in $Area2D.get_groups():
@@ -182,6 +194,8 @@ func knockback(knockback_coefficient : float = 1):
 #		velocity.x = SPEED * knockback_coefficient
 #	$HurtTimer.start()
 	pass
+
+
 
 func attack(direction : int):
 	if $AttackCooldownTimer.is_stopped():
@@ -288,6 +302,7 @@ func parry_attack(parry_direction : int):
 func retaliate(retaliate_direction : int):
 	set_current_state(state.MELEE_ATTACK)
 	SPEED = 0
+	is_being_attacked = false
 	$AnimationPlayer.stop()
 	if retaliate_direction == LEFT:
 		$AnimationPlayer.play("SwordRetaliate_Left")
@@ -297,7 +312,6 @@ func retaliate(retaliate_direction : int):
 
 
 
-
-
-
-
+func _on_ParryDetectorArea2D_area_entered(area):
+	if area.is_in_group("Sword") or area.is_in_group("SwordCharged") or area.is_in_group("Fireball") or area.is_in_group("Ice") or area.is_in_group("Earth") or area.is_in_group("Lightning"):
+		is_being_attacked = true

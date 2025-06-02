@@ -67,7 +67,7 @@ func _on_Detector_area_entered(area):
 # deals ice damage in a small AoE and removes freeze.
 # Cannot crit.
 func shatter():
-	var damage : float = 20 * Global.character_level_data["Glaciela"][0] + 12
+	var damage : float = Global.glaciela_attack * (Global.glaciela_skill_multipliers["FrozenShatterDamage"] / 100)
 	$ShatterDamageArea2D/CollisionShape2D.set_deferred("disabled", false)
 	$ShatterDamageArea2D.add_to_group(str(damage))
 	freeze_stack = 0

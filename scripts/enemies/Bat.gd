@@ -24,7 +24,8 @@ export (int) var phys_res : int = 0
 export (int) var fire_res : int = -33.3
 export (int) var earth_res : int = -33.3
 export (int) var ice_res : int = -33.3
-
+export (int) var global_res : int = 0
+var armor_strength_coefficient = 1
 var is_frozen
 var is_attacking : bool
 
@@ -192,14 +193,18 @@ func _on_Area2D_area_entered(area):
 		if area.is_in_group("FireGauge"):
 			pass
 		if area.is_in_group("Burning"):
-			print("Burning")
-			var damage = (0.025 * max_HP) + (Global.damage_bonus["fire_dmg_bonus_%"] / 100 * (0.025 * max_HP))
-			HP -= debuff_damage_multiplier * damage
-	
-			print("HP-" + str(damage))
-			$HealthBar.value -= debuff_damage_multiplier * damage
-			parse_status_effect_damage()
-			add_damage_particles("Fire", damage)
+			var groups : Array = area.get_groups()
+			for group_names in groups:
+				if $HitDelayTimer.is_stopped() and float(group_names) != 0:
+					var raw_damage = float(group_names)
+					var damage_after_global_res = raw_damage - (raw_damage * (global_res / 100))
+					var damage = round((damage_after_global_res - (damage_after_global_res * (fire_res / 100))) * armor_strength_coefficient)
+					HP -= float(damage)
+					$HealthBar.value  -= float(damage)
+					add_damage_particles("Fire", float(damage), false)
+					$HitDelayTimer.start()
+					parse_damage()
+					break
 		
 		if area.is_in_group("Player"):
 			is_staggered = true

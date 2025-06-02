@@ -56,8 +56,8 @@ var armor_strength_coefficient = 1 # default value so it doesn't throw an error
 signal change_hitcount(amount)
 export (int) var phys_res : int = -33.3
 export (int) var fire_res : int = -33.3
-export (int) var earth_res : int = -33.3
-export (int) var ice_res : int = -33.3
+export (int) var earth_res : int = 0
+export (int) var ice_res : int = 0
 export (int) var global_res : int = 0
 var weaknesses : Array = ["Physical", "Fire"]
 
@@ -336,20 +336,13 @@ func _on_Area2D_area_entered(area):
 		if area.is_in_group("Burning"):
 			var groups : Array = area.get_groups()
 			for group_names in groups:
-				if $HitDelayTimer.is_stopped():
-					var damage = debuff_damage_multiplier * max_HP * 0.035
-#					print("AAAGH IT BURNS")
-#					var raw_damage = float(group_names)
-#					var damage_after_global_res = raw_damage - (raw_damage * (global_res / 100))
-#					var damage = round((damage_after_global_res - (damage_after_global_res * (fire_res / 100))) * armor_strength_coefficient)
-#					print("HP reduced by " + str(damage))
+				if $HitDelayTimer.is_stopped() and float(group_names) != 0:
+					var raw_damage = float(group_names)
+					var damage_after_global_res = raw_damage - (raw_damage * (global_res / 100))
+					var damage = round((damage_after_global_res - (damage_after_global_res * (fire_res / 100))) * armor_strength_coefficient)
 					HP -= float(damage)
 					$HealthBar.value  -= float(damage)
-					if area.is_in_group("IsCritHit"):
-						
-						add_damage_particles("Fire", float(damage), true)
-					else:
-						add_damage_particles("Fire", float(damage), false)
+					add_damage_particles("Fire", float(damage), false)
 					$HitDelayTimer.start()
 					parse_damage(false)
 					break

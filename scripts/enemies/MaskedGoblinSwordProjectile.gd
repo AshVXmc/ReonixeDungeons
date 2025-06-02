@@ -8,7 +8,6 @@ var atk_value : float = 0 # to be set by the masked goblin.
 func _physics_process(delta):
 	velocity.y += SPEED
 	translate(velocity)
-	print("sword pos: " + str(position))
 
 func _on_MaskedGoblinSwordProjectile_area_entered(area):
 	if area.is_in_group("Player"):

@@ -72,7 +72,7 @@ var player_skill_multipliers : Dictionary = {
 	"BasicAttack2": 30.0,
 	"BasicAttack3": 35.0,
 	"BasicAttack4": 60.0,
-	"ChargedAttack": 75.0,
+	"ChargedAttack": 88.0,
 	"ThrustAttack": 80.0,
 	"ThrustChargedAttack": 75.0,
 	"UpwardsChargedAttack": 28.0, # x 2
@@ -108,6 +108,7 @@ var player_skill_multipliers : Dictionary = {
 	"FireFairyCD": 12.0,
 	"FireCharmDuration": 6.5,
 	"FireCharmCD": 8.5,
+	"BurningDamage": 25.0,
 	"BasePhysRes": 0.0,
 	"BaseMagicRes": 0.0,
 	"BaseFireRes": 0.0,
@@ -342,7 +343,7 @@ var glaciela_skill_multipliers : Dictionary = {
 	"ConeOfColdMovementSpeedPenalty": 65.0,
 	# minimum amount of mana to be able to channel it.
 	"ConeOfColdCost": 0,
-	
+	"FrozenShatterDamage": 180,
 	"SnowBoulder": 78.0,
 	"SnowBoulderCD": 30,
 	"BasePhysRes": 0.0,
