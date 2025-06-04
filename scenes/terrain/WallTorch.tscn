@@ -27,8 +27,8 @@ autoplay = "default"
 anims/default = SubResource( 1 )
 
 [node name="Light2D" type="Light2D" parent="."]
-position = Vector2( 0, -25.8824 )
-scale = Vector2( 10, 10 )
+position = Vector2( 0, -25 )
+scale = Vector2( 11, 11 )
 texture = ExtResource( 2 )
 energy = 0.65
 

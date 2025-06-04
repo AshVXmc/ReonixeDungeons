@@ -13,9 +13,10 @@ enum {
 	LEFT = -1, RIGHT = 1
 }
 enum ATTACK_PROBABILITY_WEIGHTS  {
-	COMBO_ATTACK_1 = 0
-	DASH_ATTACK = 0
-	PARRY_ATTACK = 2
+	COMBO_ATTACK_1 = 2
+	DASH_ATTACK = 2
+	PARRY_ATTACK = 1
+	SUMMON_SWORD_PROJECTILES_ATTACK = 1
 }
 
 onready var player : Player = get_parent().get_node("Player")
@@ -112,7 +113,7 @@ func _physics_process(delta):
 	if get_current_state() == state.PARRYING:
 		velocity.x = 0
 		if is_being_attacked:
-			retaliate(LEFT) if $Sprite.flip_h else retaliate(RIGHT)
+			retaliate(LEFT) if !$Sprite.flip_h else retaliate(RIGHT)
 			is_being_attacked = false
 	
 	
@@ -225,6 +226,8 @@ func attack(direction : int):
 				dash_attack(direction)
 			"PARRY_ATTACK":
 				parry_attack(direction)
+			"SUMMON_SWORD_PROJECTILES_ATTACK":
+				summon_sword_projectiles_attack()
 
 
 func on_attack_indicator_flash_animation_finished():
@@ -247,9 +250,6 @@ func combo_attack_1(direction : int):
 			$AnimationPlayer.queue("SwordAttackCombo3_Right")
 #		$AnimationPlayer.queue("EndAttackAnimation")
 		
-
-
-
 func dash_attack(dash_direction : int):
 	set_current_state(state.MELEE_ATTACK)
 	if dash_direction == LEFT:
@@ -290,6 +290,9 @@ func summon_sword_projectiles_attack():
 	add_child(enemy_sword_projectile)
 	enemy_sword_projectile.global_position = get_parent().get_node("Position2D_3").global_position
 	
+	yield(get_tree().create_timer(0.75), "timeout")
+	end_attack_animation()
+
 func parry_attack(parry_direction : int):
 	set_current_state(state.PARRYING)
 	SPEED = 0
