@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://scenes/particles/FlameParticle.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/misc/fire_fairy_1.png" type="Texture" id=2]
@@ -6,6 +6,8 @@
 [ext_resource path="res://scripts/skills/FireFairy.gd" type="Script" id=4]
 [ext_resource path="res://scenes/particles/FireDetonationParticle.tscn" type="PackedScene" id=5]
 [ext_resource path="res://scenes/particles/SwordSlashEffect.tscn" type="PackedScene" id=6]
+[ext_resource path="res://assets/UI/armorbar_empty.png" type="Texture" id=7]
+[ext_resource path="res://assets/UI/armorbar_fire.png" type="Texture" id=8]
 
 [sub_resource type="Animation" id=3]
 resource_name = "Flap"
@@ -220,7 +222,6 @@ radius = 250.0
 script = ExtResource( 4 )
 
 [node name="Sprite" type="Sprite" parent="."]
-self_modulate = Color( 1, 0.999999, 0.999999, 1 )
 position = Vector2( -165, 0 )
 scale = Vector2( 3.8, 3.8 )
 texture = ExtResource( 2 )
@@ -275,6 +276,15 @@ scale_amount = 1.5
 
 [node name="SwordSlashEffect" parent="." instance=ExtResource( 6 )]
 rotation = 0.418879
+
+[node name="MeterBar" type="TextureProgress" parent="."]
+margin_left = -52.5
+margin_top = -66.0
+margin_right = 52.5
+margin_bottom = -45.0
+texture_under = ExtResource( 7 )
+texture_progress = ExtResource( 8 )
+nine_patch_stretch = true
 
 [connection signal="area_entered" from="." to="." method="_on_FireFairy_area_entered"]
 [connection signal="body_entered" from="." to="." method="_on_FireFairy_body_entered"]

@@ -23,10 +23,10 @@ func _ready():
 	$Sprite.position.x = 0
 	$Sprite.position.y = 0
 	$DestroyedTimer.start()
-	
 	yield(get_tree().create_timer(1), "timeout")
 	joint_attack()
-
+	
+	print(get_path())
 func start(_transform, _target):
 	global_transform = _transform
 #	rotation += rand_range(-0.09, 0.09)
@@ -102,6 +102,9 @@ func joint_attack():
 
 func end_joint_attack():
 	is_joint_attacking = false
+
+func add_meter_value(amount : int):
+	$MeterBar.value += amount
 
 func _on_FireFairy_body_entered(body):
 	if body.is_in_group("EnemyEntity") and !body.is_in_group("MarkedWithSulphuricSigil"):

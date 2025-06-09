@@ -22,6 +22,7 @@ enum ATTACK_PROBABILITY_WEIGHTS  {
 onready var player : Player = get_parent().get_node("Player")
 onready var boss_hp_bar_ui : BossHealthBar = get_parent().get_node("BossHealthBarUI/Control")
 
+
 var is_being_attacked : bool = false
 # utility functions start
 func set_current_state(new_value : int):
@@ -84,7 +85,6 @@ func _physics_process(delta):
 		$PlayerDetector.set_scale(Vector2(-1,1))
 		$ParryDetectorArea2D.set_scale(Vector2(-1,1))
 	boss_hp_bar_ui.set_health_bar_value(HP)
-	
 	
 	if player in $PlayerDetector.get_overlapping_bodies() and get_current_state() == state.IDLE and $AttackCooldownTimer.is_stopped():
 		if !$Sprite.flip_h:
@@ -286,12 +286,13 @@ func stop_dash_movement():
 
 
 func summon_sword_projectiles_attack():
-	var enemy_sword_projectile = SWORD_PROJECTILE.instance()
-	add_child(enemy_sword_projectile)
-	enemy_sword_projectile.global_position = get_parent().get_node("Position2D_3").global_position
-	
+	for i in range(1, 7): # loop from values 1 to 6
+		var enemy_sword_projectile = SWORD_PROJECTILE.instance()
+		add_child(enemy_sword_projectile)
+		enemy_sword_projectile.global_position = get_parent().get_node("Position2D_" + str(i)).global_position
 	yield(get_tree().create_timer(0.75), "timeout")
 	end_attack_animation()
+
 
 func parry_attack(parry_direction : int):
 	set_current_state(state.PARRYING)

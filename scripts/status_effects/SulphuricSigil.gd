@@ -2,8 +2,8 @@ class_name SulphuricSigil extends Node2D
 
 
 onready var FIRE_DETIONATION_PARTICLE = preload("res://scenes/particles/FireDetonationParticle.tscn")
-
-
+signal add_meter_to_firefairy(amount)
+onready var fire_fairy = get_parent().get_parent().get_node("FireFairy")
 # Perform two slashes in an X-shaped pattern like ayato's C6 effect. Has a small CD
 onready var PLAYER = get_parent().get_parent().get_node("Player")
 
@@ -45,5 +45,10 @@ func trigger_slash():
 func _on_Area2D_area_entered(area):
 	if area.is_in_group("SulphuricSigilTrigger"):
 #		if Global.player_talents["HellishFervor"]["unlocked"] and Global.player_talents["HellishFervor"]["enabled"]:
-			trigger_slash()
-			get_parent().remove_from_group("MarkedWithSulphuricSigil")
+		trigger_slash()
+		get_parent().remove_from_group("MarkedWithSulphuricSigil")
+	
+	if area.is_in_group("Sword") or area.is_in_group("SwordCharged") or area.is_in_group("Fireball") or area.is_in_group("Ice") or area.is_in_group("Earth") or area.is_in_group("Lightning"):
+		connect("add_meter_to_firefairy", fire_fairy, "add_meter_value")
+		emit_signal("add_meter_to_firefairy", Global.player_skill_multipliers["FireFairyMeterGainFromSigil"])
+		print("ADD METER")

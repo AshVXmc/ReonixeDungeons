@@ -3631,7 +3631,7 @@ position = Vector2( 99.0355, -4 )
 shape = SubResource( 55 )
 disabled = true
 
-[node name="ChargedAttackCollision" type="Area2D" parent="." groups=["HeavyPoiseDamage", "SulphuricSigilTrigger", "SwordCharged"]]
+[node name="ChargedAttackCollision" type="Area2D" parent="." groups=["HeavyPoiseDamage", "SwordCharged"]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ChargedAttackCollision"]
 position = Vector2( 85, -6 )
@@ -4012,6 +4012,7 @@ one_shot = true
 [connection signal="area_entered" from="StabAttackCollision" to="." method="_on_StabAttackCollision_area_entered"]
 [connection signal="area_exited" from="StabAttackCollision" to="." method="_on_StabAttackCollision_area_exited"]
 [connection signal="area_entered" from="ChargedAttackCollision" to="." method="_on_ChargedAttackCollision_area_entered"]
+[connection signal="body_entered" from="ChargedAttackCollision" to="." method="_on_ChargedAttackCollision_body_entered"]
 [connection signal="area_entered" from="UpwardsChargedAttackCollision" to="." method="_on_ChargedAttackCollision_area_entered"]
 [connection signal="area_entered" from="DownwardsChargedAttackCollision" to="." method="_on_ChargedAttackCollision_area_entered"]
 [connection signal="area_entered" from="Area2D" to="." method="_on_Area2D_area_entered"]

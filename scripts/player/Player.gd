@@ -100,6 +100,7 @@ const MAXED_ENERGY_METER = preload("res://assets/UI/energy_meter_maxed.png")
 const ENERGY_METER = preload("res://assets/UI/energy_meter_partly_filled.png")
 const BURNING : PackedScene = preload("res://scenes/status_effects/BurningStatus.tscn")
 const BURNING_BREATH_TALENT : PackedScene = preload("res://scenes/particles/BurningBreathTalent.tscn")
+const SULPHURIC_SIGIL : PackedScene = preload("res://scenes/status_effects/SulphuricSigil.tscn")
 var burning_breath_timer 
 onready var FULL_CHARGE_METER = preload("res://assets/UI/chargebar_full.png")
 onready var CHARGING_CHARGE_METER = preload("res://assets/UI/chargebar_charging.png")
@@ -870,8 +871,11 @@ func teleport_to_firecharm():
 	tp_particle2.one_shot = true
 	get_parent().get_node("FireCharm").call_deferred('free')
 
-	
-	
+func _on_ChargedAttackCollision_body_entered(body):
+	if body.is_in_group("EnemyEntity") and !body.is_in_group("MarkedWithSulphuricSigil"):
+		var sigil = SULPHURIC_SIGIL.instance()
+		body.add_child(sigil)
+
 func charged_attack(type : String = "Ground"):
 	$InputPressTimer.stop()
 	$ChargingParticle.visible = true
@@ -882,9 +886,6 @@ func charged_attack(type : String = "Ground"):
 		$AnimationPlayer.play("ChargedAttackLeft")
 	yield(get_tree().create_timer(0.35), "timeout")
 	
-
-
-	
 	print("normal charged attack")
 	Input.action_release("ui_attack")
 	# the standard charged attack.
@@ -893,7 +894,7 @@ func charged_attack(type : String = "Ground"):
 		var ss_projectile = SUPER_SLASH_PROJECTILE.instance()
 		ss_projectile.position = $Position2D.global_position
 		get_parent().add_child(ss_projectile)
-		$ChargedAttackCollision.add_to_group("SulphuricSigilTrigger")
+#		$ChargedAttackCollision.add_to_group("SulphuricSigilTrigger")
 		
 		if $Sprite.flip_h:
 			ss_projectile.flip_projectile(-1)
@@ -917,7 +918,7 @@ func charged_attack(type : String = "Ground"):
 		#emit_signal("change_elegance"), "ChargedAttackLight")
 		sheathe_katana()
 		yield(get_tree().create_timer(0.15),"timeout")
-		$ChargedAttackCollision.remove_from_group("SulphuricSigilTrigger")
+#		$ChargedAttackCollision.remove_from_group("SulphuricSigilTrigger")
 		
 	# the judgement cut-like attack
 	elif type == "Circular":
@@ -2342,3 +2343,5 @@ func _on_HideEnergyMeterTimer_timeout():
 
 func _on_DashCounterAttackDelayTimer_timeout():
 	is_dash_counter_attacking = false
+
+
