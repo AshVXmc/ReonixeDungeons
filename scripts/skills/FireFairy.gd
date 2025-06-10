@@ -3,6 +3,7 @@ onready var player = get_parent().get_node("Player")
 const SULPHURIC_SIGIL = preload("res://scenes/status_effects/SulphuricSigil.tscn")
 const BURNING : PackedScene = preload("res://scenes/status_effects/BurningStatus.tscn")
 const SPEED = 350
+const MAXED_ENERGY_METER = preload("res://assets/UI/energy_meter_maxed.png")
 const steer_force = 325
 var attack : int = 5
 var target = null
@@ -104,7 +105,11 @@ func end_joint_attack():
 	is_joint_attacking = false
 
 func add_meter_value(amount : int):
-	$MeterBar.value += amount
+	if $MeterBar.value == $MeterBar.max_value:
+		$AnimationPlayer.play("Flicker")
+		$MeterBar.texture_progress = MAXED_ENERGY_METER
+	else:
+		$MeterBar.value += amount
 
 func _on_FireFairy_body_entered(body):
 	if body.is_in_group("EnemyEntity") and !body.is_in_group("MarkedWithSulphuricSigil"):

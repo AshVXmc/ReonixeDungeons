@@ -2940,7 +2940,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0, 0.1, 0.2 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
-"values": [ Vector2( -75, -84 ), Vector2( -100, -85 ), Vector2( -75, -84 ) ]
+"values": [ Vector2( -75, -85 ), Vector2( -100, -85 ), Vector2( -75, -85 ) ]
 }
 tracks/2/type = "value"
 tracks/2/path = NodePath("EnergyMeter:self_modulate")

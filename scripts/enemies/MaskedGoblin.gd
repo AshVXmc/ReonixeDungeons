@@ -63,7 +63,7 @@ func _ready():
 	
 	boss_hp_bar_ui.set_max_health_bar_value(max_HP)
 	boss_hp_bar_ui.set_health_bar_value(max_HP)
-	boss_hp_bar_ui.set_boss_name("Masked Goblin")
+	boss_hp_bar_ui.set_boss_name("Masked Goblin", level)
 	phys_res = -40
 	fire_res = -40
 	ice_res = 20

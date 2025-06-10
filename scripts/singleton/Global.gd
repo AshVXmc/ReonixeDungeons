@@ -90,23 +90,27 @@ var player_skill_multipliers : Dictionary = {
 	"AirborneBasicAttack4": 70.0,
 	"SulphuricSigilSingleSlash": 40.0, # x 2
 	"SlashFlurryEnergyCost": 200,
+	
 	"FireSaw": 80.0,
 	"FireSawDuration": 8.0,
+	"FireSawCost": 18,
+	"FireSawCD": 30.0,
+	
 	"FireFairy": 32.0,
 	"FireFairyDetonation": 65.0,
-	"FireFairyDuration": 7.5,
+	"FireFairyDuration": 11,
 	"FireFairyMeterGainFromSigil": 10.0,
+	"FireFairyCost": 3,
+	"FireFairyJointAttackPoints": 2,
+	"FireFairyCD": 16.0,
+	
 	"Fireball": 48.0,
 	"FireballCD": 6,
 	"FireballCharges": 3,
 	"FireballMaxCharges": 3,
 	"FireballBurnGauge": 340,
-	"FireSawCost": 20,
-	"FireFairyCost": 3,
-	"FireFairyJointAttackPoints": 2,
 	"FireballCost": 2,
-	"FireSawCD": 30.0,
-	"FireFairyCD": 12.0,
+	
 	"FireCharmDuration": 6.5,
 	"FireCharmCD": 8.5,
 	"BurningDamage": 25.0,

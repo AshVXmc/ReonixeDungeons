@@ -1608,6 +1608,15 @@ animations = [ {
 "speed": 12.0
 } ]
 
+[sub_resource type="DynamicFont" id=15]
+size = 32
+font_data = ExtResource( 13 )
+
+[sub_resource type="AtlasTexture" id=11]
+atlas = ExtResource( 10 )
+region = Rect2( 0, 0, 28, 4 )
+margin = Rect2( 1, 1, 1, 10 )
+
 [sub_resource type="RectangleShape2D" id=25]
 extents = Vector2( 45, 60 )
 
@@ -1623,15 +1632,6 @@ extents = Vector2( 85, 50 )
 [sub_resource type="CapsuleShape2D" id=39]
 radius = 7.5
 height = 48.0
-
-[sub_resource type="DynamicFont" id=15]
-size = 32
-font_data = ExtResource( 13 )
-
-[sub_resource type="AtlasTexture" id=11]
-atlas = ExtResource( 10 )
-region = Rect2( 0, 0, 28, 4 )
-margin = Rect2( 1, 1, 1, 10 )
 
 [sub_resource type="RectangleShape2D" id=9]
 extents = Vector2( 9.77439, 84.5919 )
@@ -1693,7 +1693,40 @@ frames = SubResource( 38 )
 animation = "flash"
 
 [node name="WeaknessDisplayComponent" parent="." instance=ExtResource( 8 )]
+visible = false
 position = Vector2( 0, -40.8334 )
+
+[node name="LevelLabel" type="Label" parent="."]
+visible = false
+margin_left = -15.0
+margin_top = -128.0
+margin_right = 41.0
+margin_bottom = -96.0
+custom_fonts/font = SubResource( 15 )
+text = "Lv.1"
+align = 1
+
+[node name="HealthBar" type="TextureProgress" parent="."]
+visible = false
+margin_left = -46.6667
+margin_top = -101.167
+margin_right = -16.6667
+margin_bottom = -95.1666
+rect_scale = Vector2( 4, 4 )
+value = 100.0
+texture_under = ExtResource( 6 )
+texture_progress = ExtResource( 7 )
+
+[node name="ArmorBar" type="TextureProgress" parent="."]
+visible = false
+margin_left = -47.4633
+margin_top = -67.3225
+margin_right = -17.4633
+margin_bottom = -61.3225
+rect_scale = Vector2( 3.5, 2.75 )
+value = 100.0
+texture_under = ExtResource( 9 )
+texture_progress = SubResource( 11 )
 
 [node name="AttackArea2D" type="Area2D" parent="." groups=["Enemy", "Hostile"]]
 
@@ -1754,36 +1787,6 @@ wait_time = 0.75
 one_shot = true
 
 [node name="Position2D" type="Position2D" parent="."]
-
-[node name="LevelLabel" type="Label" parent="."]
-margin_left = -15.0
-margin_top = -128.0
-margin_right = 41.0
-margin_bottom = -96.0
-custom_fonts/font = SubResource( 15 )
-text = "Lv.1"
-align = 1
-
-[node name="HealthBar" type="TextureProgress" parent="."]
-margin_left = -46.6667
-margin_top = -101.167
-margin_right = -16.6667
-margin_bottom = -95.1666
-rect_scale = Vector2( 4, 4 )
-value = 100.0
-texture_under = ExtResource( 6 )
-texture_progress = ExtResource( 7 )
-
-[node name="ArmorBar" type="TextureProgress" parent="."]
-visible = false
-margin_left = -47.4633
-margin_top = -67.3225
-margin_right = -17.4633
-margin_bottom = -61.3225
-rect_scale = Vector2( 3.5, 2.75 )
-value = 100.0
-texture_under = ExtResource( 9 )
-texture_progress = SubResource( 11 )
 
 [node name="OtherAirborneEntitiesDetector" type="Area2D" parent="."]
 
