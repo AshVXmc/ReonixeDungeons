@@ -1,0 +1,71 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://assets/particles/charging_particle.png" type="Texture" id=1]
+[ext_resource path="res://scripts/particles/StunnedParticles.gd" type="Script" id=2]
+
+[sub_resource type="Curve2D" id=1]
+_data = {
+"points": PoolVector2Array( 0, 0, 0, 0, -1, -29, 11.5494, -0.942809, -11.5494, 0.942809, -22, -29, 0, 0, 0, 0, -40, -23, 12.7279, -8.24958, -12.7279, 8.24958, -52, -15, 0, 0, 0, 0, -59, -6, 0, 0, 0, 0, -63, -2, 0, 0, 0, 0, -60, 2, 0, 0, 0, 0, -51, 14, 0, 0, 0, 0, -39, 23, 0, 0, 0, 0, -19, 29, 0, 0, 0, 0, 0, 28, 0, 0, 0, 0, 19, 29, 0, 0, 0, 0, 36, 23, 0, 0, 0, 0, 49, 13, 0, 0, 0, 0, 58, 2, 0, 0, 0, 0, 61, -3, 0, 0, 0, 0, 57, -8, 0, 0, 0, 0, 46, -18, 0, 0, 0, 0, 30, -27, 0, 0, 0, 0, 1, -30, 0, 0, 0, 0, -1, -29 )
+}
+
+[sub_resource type="Animation" id=2]
+resource_name = "Spin"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Path2D/PathFollow2D/Sprite:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 360.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Path2D2/PathFollow2D/Sprite:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 360.0 ]
+}
+
+[node name="StunnedParticle" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="Path2D" type="Path2D" parent="."]
+curve = SubResource( 1 )
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Path2D"]
+position = Vector2( -1, -29 )
+rotation = -3.07584
+rotate = false
+
+[node name="Sprite" type="Sprite" parent="Path2D/PathFollow2D"]
+rotation = 6.28319
+scale = Vector2( 3, 3 )
+texture = ExtResource( 1 )
+
+[node name="Path2D2" type="Path2D" parent="."]
+rotation = 3.14159
+curve = SubResource( 1 )
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Path2D2"]
+position = Vector2( -1, -29 )
+rotation = -3.07584
+rotate = false
+
+[node name="Sprite" type="Sprite" parent="Path2D2/PathFollow2D"]
+rotation = 6.28319
+scale = Vector2( 3, 3 )
+texture = ExtResource( 1 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "Spin"
+anims/Spin = SubResource( 2 )

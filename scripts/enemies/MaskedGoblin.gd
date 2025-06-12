@@ -2,9 +2,14 @@ class_name MaskedGoblin extends Goblin
 
 const ENEMY_SHOCKWAVE : PackedScene = preload("res://scenes/enemies/bosses/EnemyShockwave.tscn")
 const SWORD_PROJECTILE : PackedScene = preload("res://scenes/enemies/bosses/MaskedGoblinSwordProjectile.tscn")
+const MAX_STAGGER : int = 35
+const STAGGERED_STATE_GLOBAL_RES_SHRED : int = 20
+var stagger_value : int = MAX_STAGGER
 var current_state setget set_current_state, get_current_state
+var current_phase : int = 1
 enum state  {
 	IDLE,
+	STAGGERED,
 	MELEE_ATTACK,
 	DASHING,
 	PARRYING
@@ -46,7 +51,7 @@ func generate_random_num(min_value : int, max_value : int) -> int:
 
 func _ready():
 	# Overrides
-	max_HP = max_HP_calc * 4.5
+	max_HP = max_HP_calc * 8
 	HP = max_HP
 	$HealthBar.max_value = max_HP
 	$HealthBar.value = $HealthBar.max_value
@@ -56,18 +61,17 @@ func _ready():
 	atk_value = 1.25 * Global.enemy_level_index + 0.75
 	set_current_state(state.IDLE)
 	
-	phys_res = 0
-	fire_res = -33.3
-	ice_res = 0
-	earth_res = 0
-	
 	boss_hp_bar_ui.set_max_health_bar_value(max_HP)
 	boss_hp_bar_ui.set_health_bar_value(max_HP)
+	boss_hp_bar_ui.set_stagger_bar_max_value(MAX_STAGGER)
+	boss_hp_bar_ui.set_stagger_bar_value(MAX_STAGGER)
 	boss_hp_bar_ui.set_boss_name("Masked Goblin", level)
-	phys_res = -40
-	fire_res = -40
-	ice_res = 20
-	earth_res = 20
+	
+	phys_res = -20
+	fire_res = -20
+	ice_res = 0
+	earth_res = 0
+	global_res = 0
 	weaknesses = ["Physical", "Fire"]
 	for w in weaknesses:
 		boss_hp_bar_ui.add_weakness_display(w)
@@ -97,8 +101,8 @@ func _physics_process(delta):
 			$AnimationPlayer.play("SwordIdleLeft")
 		else:
 			$AnimationPlayer.play("SwordIdleRight")
-	if get_current_state() == state.MELEE_ATTACK:
-		pass
+#	if get_current_state() == state.MELEE_ATTACK:
+#		pass
 		
 	if $HealthBar.value == $HealthBar.min_value:
 		is_dead = true
@@ -196,7 +200,49 @@ func knockback(knockback_coefficient : float = 1):
 #	$HurtTimer.start()
 	pass
 
+# OVERRIDE
+func _on_Area2D_area_entered(area):
+	# call the function, else the override will exclude the code in the parent function.
+	._on_Area2D_area_entered(area) 
+	
+	# add code to the function instead of overriding everything
+	if get_current_state() != state.STAGGERED:
+		if stagger_value <= 0:
+			enter_staggered_state()
+		else:
+			# physical and fire weakness reduce the stagger bar
+			if area.is_in_group("Sword") or area.is_in_group("Fireball") or area.is_in_group("LightPoiseDamage") or area.is_in_group("MediumPoiseDamage"):
+				stagger_value -= 1
+			elif area.is_in_group("HeavyPoiseDamage") or area.is_in_group("SwordCharged"):
+				stagger_value -= 3
+				
+			boss_hp_bar_ui.set_stagger_bar_value(stagger_value)
 
+func enter_staggered_state():
+	is_staggered = true
+	set_current_state(state.STAGGERED)
+	global_res -= STAGGERED_STATE_GLOBAL_RES_SHRED
+	$StunnedParticle.visible = true
+	$StunnedParticle.play = true
+	$AnimationPlayer.stop()
+	$AttackingTimer.stop()
+	$PauseAfterAttackingTimer.stop()
+	$AttackCooldownTimer.stop()
+	$StaggeredTimer.start()
+	
+
+func _on_StaggeredTimer_timeout():
+	exit_staggered_state()
+
+func exit_staggered_state():
+	is_staggered = false
+	global_res += STAGGERED_STATE_GLOBAL_RES_SHRED
+	$StunnedParticle.visible = false
+	$StunnedParticle.play = false
+	stagger_value = MAX_STAGGER
+	boss_hp_bar_ui.set_stagger_bar_value(stagger_value)
+	set_current_state(state.IDLE)
+	$AttackingTimer.start()
 
 func attack(direction : int):
 	if $AttackCooldownTimer.is_stopped():
@@ -286,11 +332,21 @@ func stop_dash_movement():
 
 
 func summon_sword_projectiles_attack():
-	for i in range(1, 7): # loop from values 1 to 6
+	for i in range(1, 7): 
 		var enemy_sword_projectile = SWORD_PROJECTILE.instance()
+		# for some reason, using get_parent().add_child() makes it not work.
 		add_child(enemy_sword_projectile)
 		enemy_sword_projectile.global_position = get_parent().get_node("Position2D_" + str(i)).global_position
-	yield(get_tree().create_timer(0.75), "timeout")
+	
+	# 50% fixed chance to summon another round of sword rains
+	if generate_random_num(0, 2) == 1:
+		for i in range(8, 13): 
+			var enemy_sword_projectile = SWORD_PROJECTILE.instance()
+			# for some reason, using get_parent().add_child() makes it not work.
+			add_child(enemy_sword_projectile)
+			enemy_sword_projectile.global_position = get_parent().get_node("Position2D_" + str(i)).global_position
+	
+	yield(get_tree().create_timer(1.25), "timeout")
 	end_attack_animation()
 
 
@@ -315,7 +371,10 @@ func retaliate(retaliate_direction : int):
 #	$AnimationPlayer.queue("EndAttackAnimation")
 
 
-
 func _on_ParryDetectorArea2D_area_entered(area):
 	if area.is_in_group("Sword") or area.is_in_group("SwordCharged") or area.is_in_group("Fireball") or area.is_in_group("Ice") or area.is_in_group("Earth") or area.is_in_group("Lightning"):
 		is_being_attacked = true
+
+
+
+

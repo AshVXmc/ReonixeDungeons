@@ -5,15 +5,21 @@ var weakness_count : int = 0
 func _ready():
 	pass
 
-func set_max_health_bar_value(max_value):
+func set_max_health_bar_value(max_value : int):
 	$HealthBar.max_value = max_value
 
-func set_health_bar_value(value):
+func set_health_bar_value(value : int):
 	$HealthBar.value = value
 
 func set_boss_name(new_name : String, level : int):
 	var text : String = "[center][color=#ffd703]%s[/color] (Lv.%2.0f)" % [new_name, level]
 	$BossNameLabel.bbcode_text = text
+
+func set_stagger_bar_max_value(max_value : int):
+	$StaggerBar.max_value = max_value
+
+func set_stagger_bar_value(value : int):
+	$StaggerBar.value = value
 
 func add_weakness_display(weakness_type : String):
 	var new_wd_sprite = Sprite.new()

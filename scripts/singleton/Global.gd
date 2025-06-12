@@ -63,9 +63,9 @@ var equipped_character_skins : Dictionary = {
 }
 
 # attack_power is the player's atk
-var attack_power : int = 14
-var glaciela_attack : int = 14
-var agnette_attack : int = 14
+var attack_power : int = 16
+var glaciela_attack : int = 16
+var agnette_attack : int = 16
 var player_skill_multipliers : Dictionary = {
 	"BaseHearts": 2.5,
 	"BasicAttack": 25.0,
@@ -96,7 +96,7 @@ var player_skill_multipliers : Dictionary = {
 	"FireSawCost": 18,
 	"FireSawCD": 30.0,
 	
-	"FireFairy": 32.0,
+	"FireFairy": 16.0,
 	"FireFairyDetonation": 65.0,
 	"FireFairyDuration": 11,
 	"FireFairyMeterGainFromSigil": 10.0,

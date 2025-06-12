@@ -62,5 +62,5 @@ text = "Sample name (Lv.1)"
 scroll_active = false
 
 [node name="WeaknessDisplayPosition" type="Position2D" parent="Control"]
-position = Vector2( 396, 617 )
+position = Vector2( 396, 600 )
 scale = Vector2( 1.5, 1.5 )
