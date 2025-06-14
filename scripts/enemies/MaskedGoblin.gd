@@ -4,9 +4,11 @@ const ENEMY_SHOCKWAVE : PackedScene = preload("res://scenes/enemies/bosses/Enemy
 const SWORD_PROJECTILE : PackedScene = preload("res://scenes/enemies/bosses/MaskedGoblinSwordProjectile.tscn")
 const MAX_STAGGER : int = 35
 const STAGGERED_STATE_GLOBAL_RES_SHRED : int = 20
+const SUMMON_SWORD_POSITIONS : Array = [1,2,3,4,5,6,7,8,9]
 var stagger_value : int = MAX_STAGGER
 var current_state setget set_current_state, get_current_state
 var current_phase : int = 1
+
 enum state  {
 	IDLE,
 	STAGGERED,
@@ -58,7 +60,7 @@ func _ready():
 	MAX_SPEED *= 1
 	SPEED = MAX_SPEED
 	set_current_state(state.MELEE_ATTACK)
-	atk_value = 1.25 * Global.enemy_level_index + 0.75
+	atk_value = 1.3 * Global.enemy_level_index + 1
 	set_current_state(state.IDLE)
 	
 	boss_hp_bar_ui.set_max_health_bar_value(max_HP)
@@ -314,7 +316,6 @@ func set_dash_movement():
 
 func stop_dash_movement():
 	SPEED = 0
-
 #	set_current_state(state.MELEE_ATTACK)
 #	yield(get_tree().create_timer(0.2), "timeout")
 #	if dash_direction == LEFT:
@@ -330,23 +331,20 @@ func stop_dash_movement():
 #	end_attack_animation()
 
 
-
-func summon_sword_projectiles_attack():
-	for i in range(1, 7): 
+func summon_sword_projectiles_attack(sword_amount : int = 5):
+	var summon_sword_positions = SUMMON_SWORD_POSITIONS.duplicate()
+	randomize()
+	summon_sword_positions.shuffle()
+	
+	while sword_amount > 0:
 		var enemy_sword_projectile = SWORD_PROJECTILE.instance()
+		var position_index : int = summon_sword_positions.pop_back()
 		# for some reason, using get_parent().add_child() makes it not work.
 		add_child(enemy_sword_projectile)
-		enemy_sword_projectile.global_position = get_parent().get_node("Position2D_" + str(i)).global_position
+		enemy_sword_projectile.global_position = get_parent().get_node("Position2D_" + str(position_index)).global_position
+		sword_amount -= 1
 	
-	# 50% fixed chance to summon another round of sword rains
-	if generate_random_num(0, 2) == 1:
-		for i in range(8, 13): 
-			var enemy_sword_projectile = SWORD_PROJECTILE.instance()
-			# for some reason, using get_parent().add_child() makes it not work.
-			add_child(enemy_sword_projectile)
-			enemy_sword_projectile.global_position = get_parent().get_node("Position2D_" + str(i)).global_position
-	
-	yield(get_tree().create_timer(1.25), "timeout")
+	yield(get_tree().create_timer(1.35), "timeout")
 	end_attack_animation()
 
 

@@ -11,6 +11,13 @@ func load_data(savefile):
 	# Its so older save files are compatible.
 #			Global.max_hearts = player_data["MaxHealth"]
 #			Global.hearts = player_data["Health"]
+	Global.max_hearts = player_data["MaxHealth"]
+	Global.hearts = player_data["Health"]
+	Global.character_2_max_hearts = player_data["Char2MaxHealth"]
+	Global.character2_hearts = player_data["Char2Health"]
+	Global.character_3_max_hearts = player_data["Char3MaxHealth"]
+	Global.character3_hearts = player_data["Char3Health"]
+	
 	Global.max_mana = player_data["MaxMana"]
 	Global.mana = player_data["Mana"]
 	Global.attack_power = player_data["AttackPower"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=53 format=2]
+[gd_scene load_steps=54 format=2]
 
 [ext_resource path="res://scripts/enemies/MaskedGoblin.gd" type="Script" id=1]
 [ext_resource path="res://assets/enemies/bosses/masked_goblin_2.png" type="Texture" id=2]
@@ -1567,6 +1567,9 @@ tracks/7/keys = {
 "values": [ true ]
 }
 
+[sub_resource type="Animation" id=41]
+resource_name = "SwordThrowAttackLeft"
+
 [sub_resource type="SpriteFrames" id=16]
 animations = [ {
 "frames": [ ExtResource( 3 ), ExtResource( 2 ) ],
@@ -1674,6 +1677,7 @@ anims/SwordParryStance_Left = SubResource( 30 )
 anims/SwordParryStance_Right = SubResource( 31 )
 anims/SwordRetaliate_Left = SubResource( 32 )
 anims/SwordRetaliate_Right = SubResource( 33 )
+anims/SwordThrowAttackLeft = SubResource( 41 )
 
 [node name="SwordSprite" type="Sprite" parent="."]
 position = Vector2( -14, -30 )

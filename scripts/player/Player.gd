@@ -59,7 +59,7 @@ var can_be_knocked : bool = true
 const MAX_SPEED : int = 350
 var SPEED : int = MAX_SPEED
 const GRAVITY : int = 38
-var JUMP_POWER : int = -850 # for double jumping
+var JUMP_POWER : int = -900 # for double jumping
 var can_double_jump : bool = true
 var waiting_for_quickswap : bool = false
 var is_thrust_attacking : bool = false
@@ -721,10 +721,10 @@ func dash_counter_attack():
 		counterflurryeffect.player_counter_attack_animation()
 		yield(get_tree().create_timer(0.1), "timeout")
 		update_energy_meter(5)
-		change_mana_value(0.05)
+		change_mana_value(0.75)
 		yield(get_tree().create_timer(0.1), "timeout")
 		update_energy_meter(5)
-		change_mana_value(0.05)
+		change_mana_value(0.75)
 		yield(get_tree().create_timer(0.1), "timeout")
 		update_energy_meter(5)
 		change_mana_value(0.1)
@@ -1028,10 +1028,10 @@ func charged_attack(type : String = "Ground"):
 			num_of_slashes += 1
 		
 		#emit_signal("change_elegance"), "ChargedAttackLight")
-		change_mana_value(0.2)
+		change_mana_value(0.25)
 		yield(get_tree().create_timer(0.1), "timeout")
 		#emit_signal("change_elegance"), "ChargedAttackLight")
-		change_mana_value(0.2)
+		change_mana_value(0.25)
 		yield(get_tree().create_timer(0.1), "timeout")
 		#emit_signal("change_elegance"), "ChargedAttackLight")
 		change_mana_value(0.25)
@@ -1039,7 +1039,7 @@ func charged_attack(type : String = "Ground"):
 		#emit_signal("change_elegance"), "ChargedAttackLight")
 		change_mana_value(0.25)
 		yield(get_tree().create_timer(0.1), "timeout")
-		change_mana_value(0.4)
+		change_mana_value(0.5)
 		#emit_signal("change_elegance"), "ChargedAttackHeavy")
 		emit_signal("reduce_skill_cd", "Player", "PrimariesOnly", 4)
 		emit_signal("reduce_skill_cd", "Player", "SecondariesOnly", 2)

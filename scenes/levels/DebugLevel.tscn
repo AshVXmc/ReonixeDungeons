@@ -112,40 +112,31 @@ editor_draw_limits = true
 position = Vector2( -134, 893 )
 
 [node name="Position2D_1" type="Position2D" parent="."]
-position = Vector2( -1296, 366 )
+position = Vector2( -1098, 366 )
 
 [node name="Position2D_2" type="Position2D" parent="."]
-position = Vector2( -1008, 366 )
+position = Vector2( -951, 366 )
 
 [node name="Position2D_3" type="Position2D" parent="."]
-position = Vector2( -720, 366 )
+position = Vector2( -810, 366 )
 
-[node name="Position2D_4" type="Position2D" parent="."]
-position = Vector2( -336, 366 )
+[node name="Position2D_4_" type="Position2D" parent="."]
+position = Vector2( -663, 366 )
 
 [node name="Position2D_5" type="Position2D" parent="."]
-position = Vector2( -48, 366 )
-
-[node name="Position2D_6" type="Position2D" parent="."]
-position = Vector2( 240, 366 )
-
-[node name="Position2D_7" type="Position2D" parent="."]
-position = Vector2( -1155, 366 )
-
-[node name="Position2D_8" type="Position2D" parent="."]
-position = Vector2( -867, 366 )
-
-[node name="Position2D_9" type="Position2D" parent="."]
 position = Vector2( -528, 366 )
 
-[node name="Position2D_10" type="Position2D" parent="."]
-position = Vector2( -195, 366 )
+[node name="Position2D_6" type="Position2D" parent="."]
+position = Vector2( -375, 366 )
 
-[node name="Position2D_11" type="Position2D" parent="."]
-position = Vector2( 93, 366 )
+[node name="Position2D_7" type="Position2D" parent="."]
+position = Vector2( -234, 366 )
 
-[node name="Position2D_12" type="Position2D" parent="."]
-position = Vector2( 381, 366 )
+[node name="Position2D_8" type="Position2D" parent="."]
+position = Vector2( -87, 366 )
+
+[node name="Position2D_9" type="Position2D" parent="."]
+position = Vector2( 54, 366 )
 
 [node name="WallTorch" parent="." instance=ExtResource( 6 )]
 position = Vector2( -1008, 711 )

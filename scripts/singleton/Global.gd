@@ -652,12 +652,12 @@ func save_player_data():
 	var load_data : Dictionary = {
 		"Level" : Global.levelpath,
 		
-#		"MaxHealth": Global.max_hearts ,
-#		"Health" : Global.hearts ,
-#		"Char2MaxHealth": Global.character_2_max_hearts,
-#		"Char2Health": Global.character2_hearts,
-#		"Char3MaxHealth": Global.character_3_max_hearts,
-#		"Char3Health": Global.character3_hearts,
+		"MaxHealth": Global.max_hearts ,
+		"Health" : Global.hearts ,
+		"Char2MaxHealth": Global.character_2_max_hearts,
+		"Char2Health": Global.character2_hearts,
+		"Char3MaxHealth": Global.character_3_max_hearts,
+		"Char3Health": Global.character3_hearts,
 		
 		
 		"MaxMana" : Global.max_mana ,
