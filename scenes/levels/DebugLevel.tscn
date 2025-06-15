@@ -120,7 +120,7 @@ position = Vector2( -951, 366 )
 [node name="Position2D_3" type="Position2D" parent="."]
 position = Vector2( -810, 366 )
 
-[node name="Position2D_4_" type="Position2D" parent="."]
+[node name="Position2D_4" type="Position2D" parent="."]
 position = Vector2( -663, 366 )
 
 [node name="Position2D_5" type="Position2D" parent="."]

@@ -21,13 +21,13 @@ func _ready():
 	add_to_group(str(Global.attack_power * (Global.player_skill_multipliers["FireFairy"] / 100)))
 	$AnimationPlayer.play("Flap")
 	$DestroyedTimer.wait_time = Global.player_skill_multipliers["FireFairyDuration"]
+	$Sprite.visible = true
 	$Sprite.position.x = 0
 	$Sprite.position.y = 0
 	$DestroyedTimer.start()
 	yield(get_tree().create_timer(1), "timeout")
 	joint_attack()
-	
-	print(get_path())
+
 func start(_transform, _target):
 	global_transform = _transform
 #	rotation += rand_range(-0.09, 0.09)

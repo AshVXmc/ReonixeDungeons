@@ -2,7 +2,7 @@ class_name MaskedGoblin extends Goblin
 
 const ENEMY_SHOCKWAVE : PackedScene = preload("res://scenes/enemies/bosses/EnemyShockwave.tscn")
 const SWORD_PROJECTILE : PackedScene = preload("res://scenes/enemies/bosses/MaskedGoblinSwordProjectile.tscn")
-const MAX_STAGGER : int = 35
+const MAX_STAGGER : int = 5 # 36
 const STAGGERED_STATE_GLOBAL_RES_SHRED : int = 20
 const SUMMON_SWORD_POSITIONS : Array = [1,2,3,4,5,6,7,8,9]
 var stagger_value : int = MAX_STAGGER
@@ -20,10 +20,10 @@ enum {
 	LEFT = -1, RIGHT = 1
 }
 enum ATTACK_PROBABILITY_WEIGHTS  {
-	COMBO_ATTACK_1 = 2
-	DASH_ATTACK = 2
+	COMBO_ATTACK_1 = 0
+	DASH_ATTACK = 0
 	PARRY_ATTACK = 1
-	SUMMON_SWORD_PROJECTILES_ATTACK = 1
+	SUMMON_SWORD_PROJECTILES_ATTACK = 0
 }
 
 onready var player : Player = get_parent().get_node("Player")
@@ -57,7 +57,7 @@ func _ready():
 	HP = max_HP
 	$HealthBar.max_value = max_HP
 	$HealthBar.value = $HealthBar.max_value
-	MAX_SPEED *= 1
+	MAX_SPEED *= 1.1
 	SPEED = MAX_SPEED
 	set_current_state(state.MELEE_ATTACK)
 	atk_value = 1.3 * Global.enemy_level_index + 1
@@ -79,17 +79,15 @@ func _ready():
 		boss_hp_bar_ui.add_weakness_display(w)
 	
 	$PlayerDetector/CollisionShape2D.disabled = false
-	
-	summon_sword_projectiles_attack()
-	
-	
+
+
 func _physics_process(delta):
 	if !$Sprite.flip_h:
 		$PlayerDetector.set_scale(Vector2(1,1))
-		$ParryDetectorArea2D.set_scale(Vector2(1,1))
+#		$ParryDetectorArea2D.set_scale(Vector2(1,1))
 	else:
 		$PlayerDetector.set_scale(Vector2(-1,1))
-		$ParryDetectorArea2D.set_scale(Vector2(-1,1))
+#		$ParryDetectorArea2D.set_scale(Vector2(-1,1))
 	boss_hp_bar_ui.set_health_bar_value(HP)
 	
 	if player in $PlayerDetector.get_overlapping_bodies() and get_current_state() == state.IDLE and $AttackCooldownTimer.is_stopped():
@@ -103,13 +101,13 @@ func _physics_process(delta):
 			$AnimationPlayer.play("SwordIdleLeft")
 		else:
 			$AnimationPlayer.play("SwordIdleRight")
-#	if get_current_state() == state.MELEE_ATTACK:
-#		pass
 		
 	if $HealthBar.value == $HealthBar.min_value:
 		is_dead = true
 		$AnimationPlayer.play("Death")
 	
+	if get_current_state() == state.STAGGERED:
+		velocity.x = 0
 	if get_current_state() == state.DASHING:
 		velocity.x = 0
 		var dashdirection : int
@@ -168,8 +166,9 @@ func handle_dash_attack_area(direction : int):
 # utility function for animationplayer
 func end_attack_animation():
 	# pause for a bit after attacking.
-	$PauseAfterAttackingTimer.start()
-	$AttackCooldownTimer.start()
+	if get_current_state() != state.STAGGERED:
+		$PauseAfterAttackingTimer.start()
+		$AttackCooldownTimer.start()
 #	set_current_state(state.IDLE)
 
 func _on_PauseAfterAttackingTimer_timeout():
@@ -226,12 +225,16 @@ func enter_staggered_state():
 	global_res -= STAGGERED_STATE_GLOBAL_RES_SHRED
 	$StunnedParticle.visible = true
 	$StunnedParticle.play = true
-	$AnimationPlayer.stop()
+#	$AnimationPlayer.stop()
+	$AttackArea2D/CollisionShape2D.disabled = true
 	$AttackingTimer.stop()
 	$PauseAfterAttackingTimer.stop()
 	$AttackCooldownTimer.stop()
 	$StaggeredTimer.start()
-	
+	if !$Sprite.flip_h:
+		$AnimationPlayer.play("StaggeredLeft")
+	else:
+		$AnimationPlayer.play("StaggeredRight")
 
 func _on_StaggeredTimer_timeout():
 	exit_staggered_state()
@@ -239,12 +242,14 @@ func _on_StaggeredTimer_timeout():
 func exit_staggered_state():
 	is_staggered = false
 	global_res += STAGGERED_STATE_GLOBAL_RES_SHRED
+	$AnimationPlayer.stop() # stop the staggered animation
 	$StunnedParticle.visible = false
 	$StunnedParticle.play = false
 	stagger_value = MAX_STAGGER
 	boss_hp_bar_ui.set_stagger_bar_value(stagger_value)
 	set_current_state(state.IDLE)
 	$AttackingTimer.start()
+	
 
 func attack(direction : int):
 	if $AttackCooldownTimer.is_stopped():
@@ -276,6 +281,7 @@ func attack(direction : int):
 				parry_attack(direction)
 			"SUMMON_SWORD_PROJECTILES_ATTACK":
 				summon_sword_projectiles_attack()
+				
 
 
 func on_attack_indicator_flash_animation_finished():
@@ -311,7 +317,7 @@ func set_dash_movement():
 	var tempus_tardus_slowing_factor : int = 1
 	if is_in_tempus_tardus:
 		tempus_tardus_slowing_factor = 0.05
-	SPEED = MAX_SPEED * 1.35
+	SPEED = MAX_SPEED * 1.25
 	set_current_state(state.DASHING)
 
 func stop_dash_movement():
@@ -331,19 +337,23 @@ func stop_dash_movement():
 #	end_attack_animation()
 
 
-func summon_sword_projectiles_attack(sword_amount : int = 5):
-	var summon_sword_positions = SUMMON_SWORD_POSITIONS.duplicate()
-	randomize()
-	summon_sword_positions.shuffle()
-	
-	while sword_amount > 0:
-		var enemy_sword_projectile = SWORD_PROJECTILE.instance()
-		var position_index : int = summon_sword_positions.pop_back()
-		# for some reason, using get_parent().add_child() makes it not work.
-		add_child(enemy_sword_projectile)
-		enemy_sword_projectile.global_position = get_parent().get_node("Position2D_" + str(position_index)).global_position
-		sword_amount -= 1
-	
+func summon_sword_projectiles_attack(sword_amount : int = 4, wave_count : int = 2):
+	while wave_count > 0:
+		var summon_sword_positions : Array = SUMMON_SWORD_POSITIONS.duplicate()
+		var summon_sword_amount : int = sword_amount
+		randomize()
+		summon_sword_positions.shuffle()
+		while summon_sword_amount > 0:
+			var enemy_sword_projectile = SWORD_PROJECTILE.instance()
+			var position_index : int = summon_sword_positions.pop_back()
+			# for some reason, using get_parent().add_child() makes it not work.
+			enemy_sword_projectile.atk_value = atk_value 
+			add_child(enemy_sword_projectile)
+			enemy_sword_projectile.global_position = get_parent().get_node("Position2D_" + str(position_index)).global_position
+			summon_sword_amount -= 1
+		wave_count -= 1
+		yield(get_tree().create_timer(1.5), "timeout")
+		
 	yield(get_tree().create_timer(1.35), "timeout")
 	end_attack_animation()
 
@@ -372,7 +382,6 @@ func retaliate(retaliate_direction : int):
 func _on_ParryDetectorArea2D_area_entered(area):
 	if area.is_in_group("Sword") or area.is_in_group("SwordCharged") or area.is_in_group("Fireball") or area.is_in_group("Ice") or area.is_in_group("Earth") or area.is_in_group("Lightning"):
 		is_being_attacked = true
-
-
+		print("PARRY DETECTED")
 
 

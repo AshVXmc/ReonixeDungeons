@@ -48,6 +48,7 @@ rotation = -3.07584
 rotate = false
 
 [node name="Sprite" type="Sprite" parent="Path2D/PathFollow2D"]
+self_modulate = Color( 1, 0.980392, 0.392157, 1 )
 rotation = 6.28319
 scale = Vector2( 3, 3 )
 texture = ExtResource( 1 )
@@ -62,6 +63,7 @@ rotation = -3.07584
 rotate = false
 
 [node name="Sprite" type="Sprite" parent="Path2D2/PathFollow2D"]
+self_modulate = Color( 1, 0.980392, 0.392157, 1 )
 rotation = 6.28319
 scale = Vector2( 3, 3 )
 texture = ExtResource( 1 )

@@ -1,4 +1,4 @@
-[gd_scene load_steps=54 format=2]
+[gd_scene load_steps=56 format=2]
 
 [ext_resource path="res://scripts/enemies/MaskedGoblin.gd" type="Script" id=1]
 [ext_resource path="res://assets/enemies/bosses/masked_goblin_2.png" type="Texture" id=2]
@@ -234,6 +234,76 @@ tracks/14/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 0,
 "values": [ true ]
+}
+tracks/15/type = "value"
+tracks/15/path = NodePath("ParryDetectorArea2D/CollisionShape2D:position")
+tracks/15/interp = 1
+tracks/15/loop_wrap = true
+tracks/15/imported = false
+tracks/15/enabled = true
+tracks/15/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -56, -6 ) ]
+}
+
+[sub_resource type="Animation" id=42]
+resource_name = "StaggeredLeft"
+length = 0.5
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("SwordSprite:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 265.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("SwordSprite:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 28, 28 ) ]
+}
+
+[sub_resource type="Animation" id=43]
+resource_name = "StaggeredRight"
+length = 0.5
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("SwordSprite:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ -265.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("SwordSprite:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -14, 28 ) ]
 }
 
 [sub_resource type="Animation" id=19]
@@ -1235,10 +1305,22 @@ tracks/8/loop_wrap = true
 tracks/8/imported = false
 tracks/8/enabled = true
 tracks/8/keys = {
-"times": PoolRealArray( 0, 0.2, 1 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
 "update": 1,
-"values": [ true, false, true ]
+"values": [ false, true ]
+}
+tracks/9/type = "value"
+tracks/9/path = NodePath("ParryDetectorArea2D/CollisionShape2D:position")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -56, -6 ) ]
 }
 
 [sub_resource type="Animation" id=31]
@@ -1349,10 +1431,22 @@ tracks/8/loop_wrap = true
 tracks/8/imported = false
 tracks/8/enabled = true
 tracks/8/keys = {
-"times": PoolRealArray( 0, 0.2, 1 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
 "update": 1,
-"values": [ true, false, true ]
+"values": [ false, true ]
+}
+tracks/9/type = "value"
+tracks/9/path = NodePath("ParryDetectorArea2D/CollisionShape2D:position")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 56, -6 ) ]
 }
 
 [sub_resource type="Animation" id=32]
@@ -1625,7 +1719,7 @@ margin = Rect2( 1, 1, 1, 10 )
 extents = Vector2( 45, 60 )
 
 [sub_resource type="RectangleShape2D" id=40]
-extents = Vector2( 38, 60 )
+extents = Vector2( 42, 60 )
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 314.801, 50.3433 )
@@ -1663,6 +1757,8 @@ shape = SubResource( 8 )
 playback_speed = 1.1
 anims/Death = SubResource( 6 )
 anims/RESET = SubResource( 7 )
+anims/StaggeredLeft = SubResource( 42 )
+anims/StaggeredRight = SubResource( 43 )
 anims/SwordAttackCombo1_Left = SubResource( 19 )
 anims/SwordAttackCombo1_Right = SubResource( 20 )
 anims/SwordAttackCombo2_Left = SubResource( 21 )
@@ -1743,7 +1839,7 @@ disabled = true
 [node name="ParryDetectorArea2D" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ParryDetectorArea2D"]
-position = Vector2( -50, -6 )
+position = Vector2( -56, -6 )
 shape = SubResource( 40 )
 disabled = true
 

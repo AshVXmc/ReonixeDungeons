@@ -354,7 +354,6 @@ damping = 7.24
 hue_variation = -1.0
 
 [node name="Sprite" type="Sprite" parent="."]
-visible = false
 position = Vector2( -165, 0 )
 scale = Vector2( 3.8, 3.8 )
 texture = ExtResource( 2 )
