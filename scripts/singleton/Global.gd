@@ -102,6 +102,7 @@ var player_skill_multipliers : Dictionary = {
 	"FireFairyMeterGainFromSigil": 10.0,
 	"FireFairyCost": 3,
 	"FireFairyJointAttackPoints": 2,
+	"FireFairyJointAttackSlash": 89.0,
 	"FireFairyCD": 16.0,
 	
 	"Fireball": 48.0,

@@ -99,7 +99,7 @@ func update_player_description_text():
 	sskill_desc = sskill_desc.replace("FIREFAIRY_EX_ATK", str(Global.player_skill_multipliers["FireFairyDetonation"]))
 	sskill_desc_2 = sskill_desc_2.replace("MAX_JOINT_ATTACK_POINTS", str(Global.player_skill_multipliers["FireFairyJointAttackPoints"]))
 	# TODO
-#	sskill_desc_3 = sskill_desc_3.replace("MAX_JOINT_ATTACK_POINTS", str(Global.player_skill_multipliers["FireFairyJointAttackPoints"]))
+	sskill_desc_3 = sskill_desc_3.replace("FIREFAIRY_JOINT_ATK", str(Global.player_skill_multipliers["FireFairyJointAttackSlash"]))
 	
 	sskill_cd = sskill_cd.replace("FIREFAIRY_CD", str(Global.player_skill_multipliers["FireFairyCD"]))
 	sskill_manacost = sskill_manacost.replace("FIREFAIRY_COST", str(Global.player_skill_multipliers["FireFairyCost"]))

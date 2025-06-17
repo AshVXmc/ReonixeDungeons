@@ -10,8 +10,8 @@
         "SecondarySkill": {
             "Header":"[color=#ffd703]Fire Fairy[/color]",
             "Description":"Summon a fire fairy that automatically tracks enemies, dealing [u]FIREFAIRY_ATK% ATK[/u] as [color=#fd9628]Fire damage[/color]. At the end of its duration, it detonates and deals [u]FIREFAIRY_EX_ATK% ATK[/u] as [color=#fd9628]Fire[/color] damage. Recast the skill to teleport the fairy to your location. ",
-            "Description2": "Enemies hit are marked with [color=#F0E68C]Sulphuric Sigil[/color], and the fairy starts with MAX_JOINT_ATTACK_POINTS Joint Attack points.",
-            "Description3": "Doing a [insert attack type here] to an enemy marked with [color=#F0E68C]Sulphuric Sigil[/color] causes the fairy to perform a [color=#ffd703]Joint Attack[/color] to that enemy, dealing [u]FIREFAIRY_JOINT_ATK% ATK[/u] as [color=#fd9628]Fire[/color] damage.",
+            "Description2": "Enemies hit are marked with [color=#fd9628]Sulphuric Sigil[/color]. Hitting enemies marked with [color=#fd9628]Sulphuric Sigil[/color] fills up [color=#F0E68C]Meter[/color].",
+            "Description3": "When [color=#F0E68C]Meter[/color] is full, consumes all [color=#F0E68C]Meter[/color] value and automatically performs a [color=#ffd703]Joint Attack[/color], dealing [u]4xFIREFAIRY_JOINT_ATK% ATK[/u] as [color=#fd9628]Fire[/color] damage.",
             "Cooldown": "Cooldown: FIREFAIRY_CD seconds",
             "ManaCost": "Mana cost: FIREFAIRY_COST mana",
             "Duration": "Duration: FIREFAIRY_DUR seconds",

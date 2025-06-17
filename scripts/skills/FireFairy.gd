@@ -19,6 +19,7 @@ var joint_attack_points : int = Global.player_skill_multipliers["FireFairyJointA
 func _ready():
 	connect("add_mana_to_player", player, "change_mana_value")
 	add_to_group(str(Global.attack_power * (Global.player_skill_multipliers["FireFairy"] / 100)))
+	$JointAttackArea2D.add_to_group(str(Global.attack_power * (Global.player_skill_multipliers["FireFairyJointAttackSlash"] / 100)))
 	$AnimationPlayer.play("Flap")
 	$DestroyedTimer.wait_time = Global.player_skill_multipliers["FireFairyDuration"]
 	$Sprite.visible = true
@@ -26,7 +27,7 @@ func _ready():
 	$Sprite.position.y = 0
 	$DestroyedTimer.start()
 	yield(get_tree().create_timer(1), "timeout")
-	joint_attack()
+#	joint_attack()
 
 func start(_transform, _target):
 	global_transform = _transform
@@ -45,7 +46,7 @@ func seek():
 
 
 func _physics_process(delta):
-	if Input.is_action_just_pressed("secondary_skill"):
+	if Input.is_action_just_pressed("secondary_skill") and Global.current_character == "Player":
 		position = player.global_position
 	if !is_exploding and !is_joint_attacking:
 		target = get_closest_enemy()
@@ -100,7 +101,8 @@ func explode():
 func joint_attack():
 	is_joint_attacking = true
 	$AnimationPlayer.play("JointAttack")
-
+	$MeterBar.value = $MeterBar.min_value
+	
 func end_joint_attack():
 	is_joint_attacking = false
 
@@ -108,8 +110,10 @@ func add_meter_value(amount : int):
 	if $MeterBar.value == $MeterBar.max_value:
 		$AnimationPlayer.play("Flicker")
 		$MeterBar.texture_progress = MAXED_ENERGY_METER
+		joint_attack()
 	else:
-		$MeterBar.value += amount
+		if !is_joint_attacking:
+			$MeterBar.value += amount
 
 func _on_FireFairy_body_entered(body):
 	if body.is_in_group("EnemyEntity") and !body.is_in_group("MarkedWithSulphuricSigil"):

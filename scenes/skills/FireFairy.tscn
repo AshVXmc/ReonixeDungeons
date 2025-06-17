@@ -254,7 +254,7 @@ tracks/6/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ false ]
+"values": [ true ]
 }
 
 [sub_resource type="CircleShape2D" id=2]
@@ -355,7 +355,7 @@ hue_variation = -1.0
 
 [node name="Sprite" type="Sprite" parent="."]
 position = Vector2( -165, 0 )
-scale = Vector2( 3.8, 3.8 )
+scale = Vector2( 3.2, 3.2 )
 texture = ExtResource( 2 )
 
 [node name="DestroyedTimer" type="Timer" parent="."]
@@ -375,6 +375,7 @@ margin_left = -52.5
 margin_top = -65.0
 margin_right = 63.5
 margin_bottom = -43.0
+max_value = 110.0
 texture_under = ExtResource( 7 )
 texture_progress = ExtResource( 8 )
 nine_patch_stretch = true
@@ -397,6 +398,7 @@ shape = SubResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="JointAttackArea2D"]
 shape = SubResource( 11 )
+disabled = true
 
 [node name="ExplodeArea2D" type="Area2D" parent="." groups=["Fireball"]]
 
