@@ -9,9 +9,11 @@
         },
         "SecondarySkill": {
             "Header":"[color=#ffd703]Fire Fairy[/color]",
-            "Description":"Summon a fire fairy that automatically tracks enemies, dealing [u]FIREFAIRY_ATK% ATK[/u] as [color=#fd9628]Fire damage[/color]. At the end of its duration, it detonates and deals [u]FIREFAIRY_EX_ATK% ATK[/u] as [color=#fd9628]Fire[/color] damage. Recast the skill to teleport the fairy to your location. ",
-            "Description2": "Enemies hit are marked with [color=#fd9628]Sulphuric Sigil[/color]. Hitting enemies marked with [color=#fd9628]Sulphuric Sigil[/color] fills up [color=#F0E68C]Meter[/color].",
-            "Description3": "When [color=#F0E68C]Meter[/color] is full, consumes all [color=#F0E68C]Meter[/color] value and automatically performs a [color=#ffd703]Joint Attack[/color], dealing [u]4xFIREFAIRY_JOINT_ATK% ATK[/u] as [color=#fd9628]Fire[/color] damage.",
+            "Description":"Summon a fire fairy that automatically tracks enemies, dealing [u]FIREFAIRY_ATK% ATK[/u] as [color=#fd9628]Fire damage[/color]. The fairy prioritizes attacking enemies marked with [color=#fd9628]Sulphuric Sigil[/color]. ",
+            "Description2": "If there are currently no enemies marked with [color=#fd9628]Sulphuric Sigil[/color], the fairy marks an enemy it attacks. [color=red]Player[/color]'s [color=#ffd703]Charged Attack[/color] can mark enemies. [color=#fd9628]Sulphuric Sigil[/color] is only active on the latest enemy target it is afflicted to.",
+            "Description3": "Hitting enemies marked with [color=#fd9628]Sulphuric Sigil[/color] fills up [color=#F0E68C]Meter[/color]. When [color=#F0E68C]Meter[/color] is full, consumes all [color=#F0E68C]Meter[/color] value and automatically performs a [color=#ffd703]Joint Attack[/color], dealing [u]4xFIREFAIRY_JOINT_ATK% ATK[/u] as [color=#fd9628]Fire[/color] damage.",
+            "Description4": "At the end of its duration, it detonates and deals [u]FIREFAIRY_EX_ATK% ATK[/u] as [color=#fd9628]Fire[/color] damage. Recast the skill to teleport the fairy to your location. ",
+            
             "Cooldown": "Cooldown: FIREFAIRY_CD seconds",
             "ManaCost": "Mana cost: FIREFAIRY_COST mana",
             "Duration": "Duration: FIREFAIRY_DUR seconds",

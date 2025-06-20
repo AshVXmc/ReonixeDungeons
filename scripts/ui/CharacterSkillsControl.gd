@@ -91,20 +91,22 @@ func update_player_description_text():
 	var sskill_desc : String = skills_info_dict["Player"]["SecondarySkill"]["Description"]
 	var sskill_desc_2 : String = skills_info_dict["Player"]["SecondarySkill"]["Description2"]
 	var sskill_desc_3 : String = skills_info_dict["Player"]["SecondarySkill"]["Description3"]
+	var sskill_desc_4 : String = skills_info_dict["Player"]["SecondarySkill"]["Description4"]
 	var sskill_cd : String = skills_info_dict["Player"]["SecondarySkill"]["Cooldown"]
 	var sskill_manacost : String = skills_info_dict["Player"]["SecondarySkill"]["ManaCost"]
 
 	sskill_desc = sskill_desc.replace("FIREFAIRY_DUR", str(Global.player_skill_multipliers["FireFairyDuration"]))
 	sskill_desc = sskill_desc.replace("FIREFAIRY_ATK", str(Global.player_skill_multipliers["FireFairy"]))
-	sskill_desc = sskill_desc.replace("FIREFAIRY_EX_ATK", str(Global.player_skill_multipliers["FireFairyDetonation"]))
-	sskill_desc_2 = sskill_desc_2.replace("MAX_JOINT_ATTACK_POINTS", str(Global.player_skill_multipliers["FireFairyJointAttackPoints"]))
-	# TODO
 	sskill_desc_3 = sskill_desc_3.replace("FIREFAIRY_JOINT_ATK", str(Global.player_skill_multipliers["FireFairyJointAttackSlash"]))
+	sskill_desc_4 = sskill_desc_4.replace("FIREFAIRY_EX_ATK", str(Global.player_skill_multipliers["FireFairyDetonation"]))
+	sskill_desc_4 = sskill_desc_4.replace("MAX_JOINT_ATTACK_POINTS", str(Global.player_skill_multipliers["FireFairyJointAttackPoints"]))
+	# TODO
+
 	
 	sskill_cd = sskill_cd.replace("FIREFAIRY_CD", str(Global.player_skill_multipliers["FireFairyCD"]))
 	sskill_manacost = sskill_manacost.replace("FIREFAIRY_COST", str(Global.player_skill_multipliers["FireFairyCost"]))
 
-	player_sskill_text.bbcode_text = sskill_header + "\n\n" + sskill_desc + "\n" + sskill_desc_2 + "\n" + sskill_desc_3 + "\n\n" + sskill_cd + "\n" + sskill_manacost
+	player_sskill_text.bbcode_text = sskill_header + "\n\n" + sskill_desc + "\n\n" + sskill_desc_2 + "\n\n" + sskill_desc_3 + "\n\n" + sskill_desc_4 + "\n\n" + sskill_cd + "\n" + sskill_manacost
 	
 	
 	# tertiary skill

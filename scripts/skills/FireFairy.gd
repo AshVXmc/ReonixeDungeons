@@ -58,17 +58,30 @@ func _physics_process(delta):
 		#	rotation = velocity.angle()
 			position += velocity * delta
 func get_closest_enemy():
-	var enemies = get_tree().get_nodes_in_group("EnemyEntity")
+	var enemies : Array = get_tree().get_nodes_in_group("EnemyEntity")
+	var marked_enemies : Array = get_tree().get_nodes_in_group("MarkedWithSulphuricSigil")
+	var target_enemy 
 	if enemies.empty(): 
 		return null
-	var distances = []
-	for enemy in enemies:
-		var distance = player.global_position.distance_squared_to(enemy.global_position)
-		distances.append(distance)
-	var min_distance = distances.min()
-	var min_index = distances.find(min_distance)
-	var closest_enemy = enemies[min_index]
-	return closest_enemy
+	else:
+		if marked_enemies.empty():
+			var distances : Array = []
+			for enemy in enemies:
+				var distance : float = player.global_position.distance_squared_to(enemy.global_position)
+				distances.append(distance)
+			var min_distance : float = distances.min()
+			var min_index : int = distances.find(min_distance)
+			target_enemy = enemies[min_index]
+		else:
+			var distances : Array = []
+			for marked_enemy in marked_enemies:
+				var distance : float = player.global_position.distance_squared_to(marked_enemy.global_position)
+				distances.append(distance)
+			var min_distance : float = distances.min()
+			var min_index : int = distances.find(min_distance)
+			target_enemy = marked_enemies[min_index]
+
+	return target_enemy
 
 func add_burning_stack():
 	var enemy = get_overlapping_areas()
@@ -117,8 +130,10 @@ func add_meter_value(amount : int):
 
 func _on_FireFairy_body_entered(body):
 	if body.is_in_group("EnemyEntity") and !body.is_in_group("MarkedWithSulphuricSigil"):
-		var sigil = SULPHURIC_SIGIL.instance()
-		body.add_child(sigil)
+		pass
+#		var sigil = SULPHURIC_SIGIL.instance()
+#		body.add_child(sigil)
+
 	# handled with area2ds instead.
 #	if body.is_in_group("IceBlockTileMap"):
 #		var tilemap : TileMap = get_parent().get_node("IceBlockTileMap")

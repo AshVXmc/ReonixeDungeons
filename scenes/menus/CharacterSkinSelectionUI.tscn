@@ -1,0 +1,123 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://themes/Blur.tres" type="Material" id=1]
+[ext_resource path="res://assets/UI/textbox.png" type="Texture" id=2]
+[ext_resource path="res://assets/fonts/Born2bSportyV2.ttf" type="DynamicFontData" id=5]
+[ext_resource path="res://assets/UI/quiticon.png" type="Texture" id=6]
+[ext_resource path="res://assets/characters/player/player_idle.png" type="Texture" id=7]
+
+[sub_resource type="DynamicFont" id=1]
+size = 48
+font_data = ExtResource( 5 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 32
+font_data = ExtResource( 5 )
+
+[node name="CharacterSkinSelection" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_pivot_offset = Vector2( -345, -403 )
+
+[node name="Blur" type="ColorRect" parent="."]
+material = ExtResource( 1 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -1088.0
+margin_top = -902.0
+margin_right = 2368.0
+margin_bottom = 1406.0
+color = Color( 1, 1, 1, 0 )
+
+[node name="NinePatchRect" type="NinePatchRect" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -416.5
+margin_top = -210.0
+margin_right = 416.5
+margin_bottom = 210.0
+texture = ExtResource( 2 )
+patch_margin_left = 64
+patch_margin_top = 64
+patch_margin_right = 64
+patch_margin_bottom = 64
+
+[node name="Header" type="RichTextLabel" parent="NinePatchRect"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -306.0
+margin_top = 13.0
+margin_right = 306.0
+margin_bottom = 61.0
+custom_colors/default_color = Color( 1, 1, 1, 1 )
+custom_colors/selection_color = Color( 1, 0.843137, 0.0117647, 1 )
+custom_fonts/normal_font = SubResource( 1 )
+bbcode_enabled = true
+bbcode_text = "[center]=== [color=#ffd703]Character Talents[/color] ==="
+text = "=== Character Talents ==="
+scroll_active = false
+
+[node name="SkinSelectionControl" type="Control" parent="NinePatchRect"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -320.5
+margin_top = -210.0
+margin_right = 320.5
+margin_bottom = 210.0
+
+[node name="PlayerControl" type="Control" parent="NinePatchRect/SkinSelectionControl"]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="Sprite" type="Sprite" parent="NinePatchRect/SkinSelectionControl/PlayerControl"]
+position = Vector2( 14.5, 152 )
+scale = Vector2( 7, 7 )
+texture = ExtResource( 7 )
+
+[node name="ScrollContainer" type="ScrollContainer" parent="NinePatchRect/SkinSelectionControl/PlayerControl"]
+anchor_right = 9.487
+anchor_bottom = 6.204
+margin_left = 117.0
+margin_top = 72.0
+margin_right = 337.52
+margin_bottom = 1223.84
+rect_min_size = Vector2( 600, 1400 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="NinePatchRect/SkinSelectionControl/PlayerControl/ScrollContainer"]
+margin_right = 600.0
+margin_bottom = 2004.0
+rect_min_size = Vector2( 500, 0 )
+
+[node name="RichTextLabel" type="RichTextLabel" parent="NinePatchRect/SkinSelectionControl/PlayerControl/ScrollContainer/VBoxContainer"]
+margin_right = 600.0
+margin_bottom = 2000.0
+rect_min_size = Vector2( 600, 2000 )
+custom_fonts/normal_font = SubResource( 2 )
+bbcode_enabled = true
+bbcode_text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+scroll_active = false
+
+[node name="TalentControl1" type="Control" parent="NinePatchRect/SkinSelectionControl/PlayerControl/ScrollContainer/VBoxContainer"]
+margin_top = 2004.0
+margin_right = 600.0
+margin_bottom = 2004.0
+
+[node name="CloseButtonMainUI" type="TextureButton" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -416.0
+margin_top = -209.0
+margin_right = -376.0
+margin_bottom = -169.0
+rect_scale = Vector2( 1.5, 1.5 )
+texture_normal = ExtResource( 6 )
+expand = true

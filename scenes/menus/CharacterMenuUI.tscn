@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=2]
+[gd_scene load_steps=42 format=2]
 
 [ext_resource path="res://scripts/ui/CharacterTalentsControl.gd" type="Script" id=1]
 [ext_resource path="res://assets/characters/glaciela/glaciela_idle.png" type="Texture" id=2]
@@ -26,6 +26,7 @@
 [ext_resource path="res://assets/UI/bear_form_skill_icon.png" type="Texture" id=24]
 [ext_resource path="res://assets/UI/spikegrowth_skill_icon.png" type="Texture" id=25]
 [ext_resource path="res://assets/UI/raven_form_skill_icon.png" type="Texture" id=26]
+[ext_resource path="res://scenes/menus/CharacterSkinSelectionUI.tscn" type="PackedScene" id=27]
 
 [sub_resource type="DynamicFont" id=1]
 size = 48
@@ -112,10 +113,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -436.0
-margin_top = -268.0
-margin_right = 437.0
-margin_bottom = 240.0
+margin_left = -436.5
+margin_top = -276.0
+margin_right = 436.5
+margin_bottom = 276.0
 texture = ExtResource( 6 )
 patch_margin_left = 64
 patch_margin_top = 64
@@ -143,9 +144,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 margin_left = -436.5
-margin_top = -240.0
+margin_top = -277.0
 margin_right = -396.5
-margin_bottom = -200.0
+margin_bottom = -237.0
 rect_scale = Vector2( 1.5, 1.5 )
 texture_normal = ExtResource( 9 )
 expand = true
@@ -273,6 +274,31 @@ custom_fonts/font = SubResource( 10 )
 text = "Talents"
 align = 1
 
+[node name="PlayerOpenSkinsButton" type="TextureButton" parent="CharactersUI/NinePatchRect"]
+anchor_left = 0.215
+anchor_right = 0.215
+margin_left = -115.195
+margin_top = 454.0
+margin_right = -5.19501
+margin_bottom = 509.0
+rect_min_size = Vector2( 32, 16 )
+texture_normal = ExtResource( 5 )
+texture_pressed = ExtResource( 4 )
+texture_hover = ExtResource( 11 )
+expand = true
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="ButtonLabel" type="Label" parent="CharactersUI/NinePatchRect/PlayerOpenSkinsButton"]
+margin_left = 11.0
+margin_top = 12.0
+margin_right = 97.0
+margin_bottom = 44.0
+custom_fonts/font = SubResource( 10 )
+text = "Skins"
+align = 1
+
 [node name="GlacielaOpenSkillsButton" type="TextureButton" parent="CharactersUI/NinePatchRect"]
 anchor_left = 0.215
 anchor_right = 0.215
@@ -327,6 +353,31 @@ custom_fonts/font = SubResource( 10 )
 text = "Talents"
 align = 1
 
+[node name="GlacielaOpenSkinsButton" type="TextureButton" parent="CharactersUI/NinePatchRect"]
+anchor_left = 0.215
+anchor_right = 0.215
+margin_left = 92.805
+margin_top = 454.0
+margin_right = 202.805
+margin_bottom = 509.0
+rect_min_size = Vector2( 32, 16 )
+texture_normal = ExtResource( 5 )
+texture_pressed = ExtResource( 4 )
+texture_hover = ExtResource( 11 )
+expand = true
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="ButtonLabel" type="Label" parent="CharactersUI/NinePatchRect/GlacielaOpenSkinsButton"]
+margin_left = 11.0
+margin_top = 12.0
+margin_right = 97.0
+margin_bottom = 44.0
+custom_fonts/font = SubResource( 10 )
+text = "Skins"
+align = 1
+
 [node name="AgnetteOpenSkillsButton" type="TextureButton" parent="CharactersUI/NinePatchRect"]
 anchor_left = 0.215
 anchor_right = 0.215
@@ -379,6 +430,31 @@ margin_right = 97.0
 margin_bottom = 44.0
 custom_fonts/font = SubResource( 10 )
 text = "Talents"
+align = 1
+
+[node name="AgnetteOpenSkinsButton" type="TextureButton" parent="CharactersUI/NinePatchRect"]
+anchor_left = 0.215
+anchor_right = 0.215
+margin_left = 300.805
+margin_top = 454.0
+margin_right = 410.805
+margin_bottom = 509.0
+rect_min_size = Vector2( 32, 16 )
+texture_normal = ExtResource( 5 )
+texture_pressed = ExtResource( 4 )
+texture_hover = ExtResource( 11 )
+expand = true
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="ButtonLabel" type="Label" parent="CharactersUI/NinePatchRect/AgnetteOpenSkinsButton"]
+margin_left = 11.0
+margin_top = 12.0
+margin_right = 97.0
+margin_bottom = 44.0
+custom_fonts/font = SubResource( 10 )
+text = "Skins"
 align = 1
 
 [node name="CharacterSkillsControl" type="Control" parent="."]
@@ -3013,13 +3089,19 @@ rect_scale = Vector2( 1.5, 1.5 )
 texture_normal = ExtResource( 9 )
 expand = true
 
+[node name="CharacterSkinSelection" parent="." instance=ExtResource( 27 )]
+visible = false
+
 [connection signal="pressed" from="CharactersUI/NinePatchRect/CloseButtonMainUI" to="CharactersUI" method="_on_CloseButtonMainUI_pressed"]
 [connection signal="pressed" from="CharactersUI/NinePatchRect/PlayerOpenSkillsButton" to="CharactersUI" method="_on_PlayerOpenSkillsButton_pressed"]
 [connection signal="pressed" from="CharactersUI/NinePatchRect/PlayerOpenTalentButton" to="CharactersUI" method="_on_PlayerOpenTalentButton_pressed"]
+[connection signal="pressed" from="CharactersUI/NinePatchRect/PlayerOpenSkinsButton" to="CharactersUI" method="_on_PlayerOpenSkinsButton_pressed"]
 [connection signal="pressed" from="CharactersUI/NinePatchRect/GlacielaOpenSkillsButton" to="CharactersUI" method="_on_GlacielaOpenSkillsButton_pressed"]
 [connection signal="pressed" from="CharactersUI/NinePatchRect/GlacielaOpenTalentButton" to="CharactersUI" method="_on_GlacielaOpenTalentButton_pressed"]
+[connection signal="pressed" from="CharactersUI/NinePatchRect/GlacielaOpenSkinsButton" to="CharactersUI" method="_on_GlacielaOpenSkinsButton_pressed"]
 [connection signal="pressed" from="CharactersUI/NinePatchRect/AgnetteOpenSkillsButton" to="CharactersUI" method="_on_AgnetteOpenSkillsButton_pressed"]
 [connection signal="pressed" from="CharactersUI/NinePatchRect/AgnetteOpenTalentButton" to="CharactersUI" method="_on_AgnetteOpenTalentButton_pressed"]
+[connection signal="pressed" from="CharactersUI/NinePatchRect/AgnetteOpenSkinsButton" to="CharactersUI" method="_on_AgnetteOpenSkinsButton_pressed"]
 [connection signal="item_selected" from="CharacterSkillsControl/NinePatchRect/SkillsControl/PlayerControl/SkillTypeOptionButton" to="CharacterSkillsControl" method="_on_Player_SkillTypeOptionButton_item_selected"]
 [connection signal="item_selected" from="CharacterSkillsControl/NinePatchRect/SkillsControl/PlayerControl/PerkSkillScrollContainerControl/PerkSkillSelectionOption" to="CharacterSkillsControl" method="_on_Player_PerkSkillSelectionOption_item_selected"]
 [connection signal="item_selected" from="CharacterSkillsControl/NinePatchRect/SkillsControl/GlacielaControl/SkillTypeOptionButton" to="CharacterSkillsControl" method="_on_GlacielaSkillTypeOptionButton_item_selected"]

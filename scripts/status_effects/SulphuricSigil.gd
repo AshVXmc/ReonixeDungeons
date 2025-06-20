@@ -16,6 +16,7 @@ func set_attack_power():
 					
 
 func _ready():
+	remove_all_other_sigils()
 	set_attack_power()
 	$DurationTimer.start()
 	$SecondSlash.visible = false
@@ -25,7 +26,12 @@ func _ready():
 			get_parent().debuff_damage_multiplier += (Global.player_talents["InfernalMark"]["DamageIncrease"] / 100)
 #			print("huzzah: " + str(get_parent().global_res))
 	
-
+func remove_all_other_sigils():
+	var marked_enemies : Array = get_tree().get_nodes_in_group("MarkedWithSulphuricSigil")
+	for marked_enemy in marked_enemies:
+		marked_enemy.remove_from_group("MarkedWithSulphuricSigil")
+		marked_enemy.get_node_or_null("SulphuricSigil").call_deferred('free')
+		
 func _on_Area2D_body_entered(body):
 	if body.is_in_group("EnemyEntity"):
 		body.add_to_group("MarkedWithSulphuricSigil")
@@ -41,6 +47,7 @@ func trigger_slash():
 	if Global.player_talents["InfernalMark"]["unlocked"] and Global.player_talents["InfernalMark"]["enabled"]:
 		if weakref(get_parent()).get_ref() != null:
 			get_parent().debuff_damage_multiplier -= (Global.player_talents["InfernalMark"]["DamageIncrease"] / 100)
+
 
 func _on_Area2D_area_entered(area):
 	if area.is_in_group("SulphuricSigilTrigger"):

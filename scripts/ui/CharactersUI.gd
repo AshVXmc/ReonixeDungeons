@@ -70,25 +70,20 @@ func _on_AgnetteOpenSkillsButton_pressed():
 	get_parent().get_node("CharacterSkillsControl/NinePatchRect/SkillsControl/GlacielaControl").visible = false
 	get_parent().get_node("CharacterSkillsControl/NinePatchRect/SkillsControl/AgnetteControl").visible = true
 
+
+func _on_PlayerOpenSkinsButton_pressed():
+	pass # Replace with function body.
 	
+func _on_GlacielaOpenSkinsButton_pressed():
+	pass # Replace with function body.
+
+func _on_AgnetteOpenSkinsButton_pressed():
+	pass # Replace with function body.
+
 func _on_CloseButtonMainUI_pressed():
 	characterselection_ui.layer = 2
 	toggle_ui()
 	get_parent().get_parent().get_node("CharacterSelectionUI/Control").visible = true
-
-
-# debug
-#func _on_PlayerOpenSkillsButton_mouse_entered():
-#	print("HOVERED OVER")
-
-
-
-
-
-
-
-
-
 
 
 

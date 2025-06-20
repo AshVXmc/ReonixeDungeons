@@ -707,5 +707,8 @@ editor_draw_limits = true
 [node name="Goblin" parent="." instance=ExtResource( 75 )]
 position = Vector2( 3192, 585 )
 
+[node name="Goblin2" parent="." instance=ExtResource( 75 )]
+position = Vector2( 2793, 568 )
+
 [connection signal="area_entered" from="HubLibrary/BookOfShadowsPlayerDetectorArea" to="HubLibrary/BookOfShadowsPlayerDetectorArea" method="_on_BookshelfPlayerDetectorArea_area_entered"]
 [connection signal="area_exited" from="HubLibrary/BookOfShadowsPlayerDetectorArea" to="HubLibrary/BookOfShadowsPlayerDetectorArea" method="_on_BookshelfPlayerDetectorArea_area_exited"]
