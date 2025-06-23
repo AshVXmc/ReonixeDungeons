@@ -165,6 +165,11 @@ _global_script_classes=[ {
 "path": "res://scripts/ui/CharacterSkillsControl.gd"
 }, {
 "base": "Control",
+"class": "CharacterSkinSelectionUI",
+"language": "GDScript",
+"path": "res://scripts/ui/CharacterSkinSelectionUI.gd"
+}, {
+"base": "Control",
 "class": "CharacterTalentsControl",
 "language": "GDScript",
 "path": "res://scripts/ui/CharacterTalentsControl.gd"
@@ -811,6 +816,7 @@ _global_script_class_icons={
 "CharacterManager": "",
 "CharacterSelectionUI": "",
 "CharacterSkillsControl": "",
+"CharacterSkinSelectionUI": "",
 "CharacterTalentsControl": "",
 "CharactersUI": "",
 "ChestKey": "",

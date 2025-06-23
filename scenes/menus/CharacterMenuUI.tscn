@@ -1896,7 +1896,6 @@ patch_margin_right = 64
 patch_margin_bottom = 64
 
 [node name="PlayerControl" type="Control" parent="CharacterTalentsControl/NinePatchRect/TalentTreeControl"]
-visible = false
 margin_right = 40.0
 margin_bottom = 40.0
 
