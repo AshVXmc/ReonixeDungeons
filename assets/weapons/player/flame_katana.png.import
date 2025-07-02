@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/sword_2.png-fe0fac3cb63b3512e8084c25d2018641.stex"
+path="res://.import/flame_katana.png-9d2a407bfdc55b5349ddb6a847809b10.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/weapons/sword_2.png"
-dest_files=[ "res://.import/sword_2.png-fe0fac3cb63b3512e8084c25d2018641.stex" ]
+source_file="res://assets/weapons/player/flame_katana.png"
+dest_files=[ "res://.import/flame_katana.png-9d2a407bfdc55b5349ddb6a847809b10.stex" ]
 
 [params]
 

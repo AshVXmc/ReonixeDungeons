@@ -74,7 +74,7 @@
 [ext_resource path="res://assets/terrain/lichen_ruins_spritesheet.png" type="Texture" id=72]
 [ext_resource path="res://scenes/NPC/BardNPC.tscn" type="PackedScene" id=73]
 [ext_resource path="res://shaders/outline2D_outer.gdshader" type="Shader" id=74]
-[ext_resource path="res://scenes/enemies/Goblin.tscn" type="PackedScene" id=75]
+[ext_resource path="res://scenes/enemies/ElderSpider.tscn" type="PackedScene" id=75]
 [ext_resource path="res://scenes/minigames/BlackJackTable.tscn" type="PackedScene" id=76]
 [ext_resource path="res://scenes/menus/cellphone/CellphoneUI.tscn" type="PackedScene" id=77]
 
@@ -690,7 +690,7 @@ texture = ExtResource( 69 )
 position = Vector2( 3365, -1779 )
 
 [node name="Player" parent="." instance=ExtResource( 34 )]
-position = Vector2( 2945, 566 )
+position = Vector2( 3099, 594 )
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position = Vector2( -24.7189, -147.43 )
@@ -704,11 +704,8 @@ drag_margin_h_enabled = true
 drag_margin_v_enabled = true
 editor_draw_limits = true
 
-[node name="Goblin" parent="." instance=ExtResource( 75 )]
-position = Vector2( 3192, 585 )
-
-[node name="Goblin2" parent="." instance=ExtResource( 75 )]
-position = Vector2( 2793, 568 )
+[node name="ElderSpider" parent="." instance=ExtResource( 75 )]
+position = Vector2( 2925, 618 )
 
 [connection signal="area_entered" from="HubLibrary/BookOfShadowsPlayerDetectorArea" to="HubLibrary/BookOfShadowsPlayerDetectorArea" method="_on_BookshelfPlayerDetectorArea_area_entered"]
 [connection signal="area_exited" from="HubLibrary/BookOfShadowsPlayerDetectorArea" to="HubLibrary/BookOfShadowsPlayerDetectorArea" method="_on_BookshelfPlayerDetectorArea_area_exited"]

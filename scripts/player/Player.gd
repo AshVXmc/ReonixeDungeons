@@ -2066,6 +2066,10 @@ func add_shield_hp(value : float):
 	shield_hp += value
 	$Shield/ShieldHPBar.max_value = shield_hp
 	$Shield/ShieldHPBar.value += shield_hp
+	
+func change_weapon_skin(new_skin : Texture):
+	$SwordSprite.texture = new_skin
+
 # Timers
 func _on_InvulnerabilityTimer_timeout():
 	$HurtAnimationPlayer.play("RESET")

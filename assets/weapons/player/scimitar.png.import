@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/scimitar.png-a7728ca29cd51f1e7c315297683941cf.stex"
+path="res://.import/scimitar.png-b01b241d87e015d2f07adf925ca9cd16.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/weapons/scimitar.png"
-dest_files=[ "res://.import/scimitar.png-a7728ca29cd51f1e7c315297683941cf.stex" ]
+source_file="res://assets/weapons/player/scimitar.png"
+dest_files=[ "res://.import/scimitar.png-b01b241d87e015d2f07adf925ca9cd16.stex" ]
 
 [params]
 

@@ -1,2 +1,2 @@
-class_name GuardianGolem extends KinematicBody2D
+class_name GuardianGolem extends Goblin
 

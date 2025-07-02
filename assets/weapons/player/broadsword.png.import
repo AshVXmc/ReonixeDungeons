@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/greatsword.png-0c861736e79e83c405a65599550457f5.stex"
+path="res://.import/broadsword.png-45153dd2ea48edb8a6dc81b2fc594c73.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/weapons/greatsword.png"
-dest_files=[ "res://.import/greatsword.png-0c861736e79e83c405a65599550457f5.stex" ]
+source_file="res://assets/weapons/player/broadsword.png"
+dest_files=[ "res://.import/broadsword.png-45153dd2ea48edb8a6dc81b2fc594c73.stex" ]
 
 [params]
 

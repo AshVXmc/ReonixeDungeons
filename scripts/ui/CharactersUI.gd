@@ -72,7 +72,7 @@ func _on_AgnetteOpenSkillsButton_pressed():
 
 
 func _on_PlayerOpenSkinsButton_pressed():
-	pass # Replace with function body.
+	get_parent().get_node("CharacterSkinSelection").visible = true
 	
 func _on_GlacielaOpenSkinsButton_pressed():
 	pass # Replace with function body.
