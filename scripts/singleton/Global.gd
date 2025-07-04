@@ -133,6 +133,8 @@ enum player_skins  {
 	DEFAULT,
 	CYBER_NINJA
 }
+
+var current_player_weapon_skin : Texture
 var player_unlocked_skins = {
 	"CyberNinja": false
 }
@@ -612,10 +614,11 @@ func reset_player_data():
 		"bat_wings": 0,
 		"sweet_herbs": 0
 	}
-
+	
 	Global.player_talents = Global.player_talents_data.duplicate()
 	Global.player_perks = Global.player_perks_data.duplicate()
 	Global.glaciela_talents = Global.glaciela_talents_data.duplicate()
+	Global.current_player_weapon_skin = load("res://assets/characters/player/katana.png")
 	
 	Global.equipped_character_skins = Global.equipped_character_skins_data.duplicate()
 	Global.enemies_encountered = Global.enemies_encountered_data.duplicate()
@@ -660,6 +663,7 @@ func save_player_data():
 		"Char3MaxHealth": Global.character_3_max_hearts,
 		"Char3Health": Global.character3_hearts,
 		
+		"CurrentPlayerWeaponSkin": Global.current_player_weapon_skin,
 		
 		"MaxMana" : Global.max_mana ,
 		"Mana" : Global.mana ,

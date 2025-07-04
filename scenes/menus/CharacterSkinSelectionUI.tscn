@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://themes/Blur.tres" type="Material" id=1]
 [ext_resource path="res://assets/UI/textbox.png" type="Texture" id=2]
@@ -12,7 +12,11 @@
 [ext_resource path="res://scripts/ui/CharacterSkinSelectionUI.gd" type="Script" id=10]
 [ext_resource path="res://assets/characters/player/katana.png" type="Texture" id=11]
 [ext_resource path="res://assets/weapons/player/scimitar.png" type="Texture" id=12]
-[ext_resource path="res://assets/weapons/player/broadsword.png" type="Texture" id=13]
+[ext_resource path="res://assets/weapons/player/masked_goblin_sword.png" type="Texture" id=13]
+[ext_resource path="res://assets/weapons/player/lightfall.png" type="Texture" id=14]
+[ext_resource path="res://assets/weapons/player/rapier.png" type="Texture" id=15]
+[ext_resource path="res://assets/weapons/player/wooden_sword.png" type="Texture" id=16]
+[ext_resource path="res://assets/weapons/player/hooksword.png" type="Texture" id=17]
 
 [sub_resource type="DynamicFont" id=1]
 size = 48
@@ -49,10 +53,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -478.0
-margin_top = -248.5
-margin_right = 478.0
-margin_bottom = 248.5
+margin_left = -490.0
+margin_top = -301.5
+margin_right = 490.0
+margin_bottom = 301.5
 texture = ExtResource( 2 )
 patch_margin_left = 64
 patch_margin_top = 64
@@ -89,13 +93,13 @@ margin_right = 40.0
 margin_bottom = 40.0
 
 [node name="WeaponSprite" type="Sprite" parent="NinePatchRect/SkinSelectionControl/PlayerControl"]
-position = Vector2( 20, 117 )
+position = Vector2( 20, 71 )
 rotation = 0.523599
 scale = Vector2( 5, 5 )
 texture = ExtResource( 11 )
 
 [node name="CharacterSprite" type="Sprite" parent="NinePatchRect/SkinSelectionControl/PlayerControl"]
-position = Vector2( -55, 145 )
+position = Vector2( -55, 99 )
 scale = Vector2( 7, 7 )
 texture = ExtResource( 7 )
 
@@ -104,19 +108,19 @@ anchor_left = 10.5
 anchor_top = 4.812
 anchor_right = 10.5
 anchor_bottom = 4.812
-margin_left = -328.0
-margin_top = -162.48
-margin_right = 342.0
-margin_bottom = 162.52
-rect_min_size = Vector2( 670, 325 )
+margin_left = -345.0
+margin_top = -218.48
+margin_right = 373.0
+margin_bottom = 291.52
+rect_min_size = Vector2( 710, 325 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="NinePatchRect/SkinSelectionControl/PlayerControl/ScrollContainer"]
-margin_right = 670.0
-margin_bottom = 116.0
-rect_min_size = Vector2( 670, 0 )
+margin_right = 700.0
+margin_bottom = 1000.0
+rect_min_size = Vector2( 700, 1000 )
 
 [node name="RichTextLabel" type="RichTextLabel" parent="NinePatchRect/SkinSelectionControl/PlayerControl/ScrollContainer/VBoxContainer"]
-margin_right = 670.0
+margin_right = 700.0
 margin_bottom = 100.0
 rect_min_size = Vector2( 600, 100 )
 custom_fonts/normal_font = SubResource( 2 )
@@ -127,7 +131,7 @@ scroll_active = false
 
 [node name="WeaponSkin1" type="Control" parent="NinePatchRect/SkinSelectionControl/PlayerControl/ScrollContainer/VBoxContainer"]
 margin_top = 104.0
-margin_right = 670.0
+margin_right = 700.0
 margin_bottom = 104.0
 
 [node name="WeaponNameLabel" type="Label" parent="NinePatchRect/SkinSelectionControl/PlayerControl/ScrollContainer/VBoxContainer/WeaponSkin1"]
@@ -188,7 +192,7 @@ text = "Equip"
 
 [node name="WeaponSkin2" type="Control" parent="NinePatchRect/SkinSelectionControl/PlayerControl/ScrollContainer/VBoxContainer"]
 margin_top = 108.0
-margin_right = 670.0
+margin_right = 700.0
 margin_bottom = 108.0
 
 [node name="WeaponNameLabel" type="Label" parent="NinePatchRect/SkinSelectionControl/PlayerControl/ScrollContainer/VBoxContainer/WeaponSkin2"]
@@ -200,7 +204,7 @@ margin_right = 248.875
 margin_bottom = -29.0
 custom_colors/font_color = Color( 1, 0.843137, 0.0117647, 1 )
 custom_fonts/font = SubResource( 3 )
-text = "Flame Katana"
+text = "Inferno"
 align = 1
 
 [node name="NinePatchRect" type="NinePatchRect" parent="NinePatchRect/SkinSelectionControl/PlayerControl/ScrollContainer/VBoxContainer/WeaponSkin2"]
@@ -249,7 +253,7 @@ text = "Equip"
 
 [node name="WeaponSkin3" type="Control" parent="NinePatchRect/SkinSelectionControl/PlayerControl/ScrollContainer/VBoxContainer"]
 margin_top = 112.0
-margin_right = 670.0
+margin_right = 700.0
 margin_bottom = 112.0
 
 [node name="WeaponNameLabel" type="Label" parent="NinePatchRect/SkinSelectionControl/PlayerControl/ScrollContainer/VBoxContainer/WeaponSkin3"]
@@ -310,7 +314,7 @@ text = "Equip"
 
 [node name="WeaponSkin4" type="Control" parent="NinePatchRect/SkinSelectionControl/PlayerControl/ScrollContainer/VBoxContainer"]
 margin_top = 116.0
-margin_right = 670.0
+margin_right = 700.0
 margin_bottom = 116.0
 
 [node name="WeaponNameLabel" type="Label" parent="NinePatchRect/SkinSelectionControl/PlayerControl/ScrollContainer/VBoxContainer/WeaponSkin4"]
@@ -322,7 +326,7 @@ margin_right = 589.85
 margin_bottom = -37.0
 custom_colors/font_color = Color( 1, 0.843137, 0.0117647, 1 )
 custom_fonts/font = SubResource( 3 )
-text = "Broadsword"
+text = "Lightfall"
 align = 1
 
 [node name="NinePatchRect" type="NinePatchRect" parent="NinePatchRect/SkinSelectionControl/PlayerControl/ScrollContainer/VBoxContainer/WeaponSkin4"]
@@ -341,7 +345,7 @@ __meta__ = {
 position = Vector2( 50.475, 50 )
 rotation = 0.785398
 scale = Vector2( 3.4, 3.4 )
-texture = ExtResource( 13 )
+texture = ExtResource( 14 )
 
 [node name="4_PlayerWeaponSkinEquipButton" type="TextureButton" parent="NinePatchRect/SkinSelectionControl/PlayerControl/ScrollContainer/VBoxContainer/WeaponSkin4"]
 anchor_left = 0.083
@@ -369,15 +373,259 @@ margin_bottom = 16.0
 custom_fonts/font = SubResource( 3 )
 text = "Equip"
 
+[node name="WeaponSkin5" type="Control" parent="NinePatchRect/SkinSelectionControl/PlayerControl/ScrollContainer/VBoxContainer"]
+margin_top = 120.0
+margin_right = 700.0
+margin_bottom = 120.0
+
+[node name="WeaponNameLabel" type="Label" parent="NinePatchRect/SkinSelectionControl/PlayerControl/ScrollContainer/VBoxContainer/WeaponSkin5"]
+anchor_left = 0.126
+anchor_right = 0.126
+margin_left = -102.2
+margin_top = 173.0
+margin_right = 102.8
+margin_bottom = 205.0
+custom_colors/font_color = Color( 1, 0.843137, 0.0117647, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Wooden Sword"
+align = 1
+
+[node name="NinePatchRect" type="NinePatchRect" parent="NinePatchRect/SkinSelectionControl/PlayerControl/ScrollContainer/VBoxContainer/WeaponSkin5"]
+anchor_left = 0.126
+anchor_right = 0.126
+margin_left = -51.125
+margin_top = 212.0
+margin_right = 48.875
+margin_bottom = 312.0
+texture = ExtResource( 8 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Sprite" type="Sprite" parent="NinePatchRect/SkinSelectionControl/PlayerControl/ScrollContainer/VBoxContainer/WeaponSkin5/NinePatchRect"]
+position = Vector2( 50.475, 50 )
+rotation = 0.785398
+scale = Vector2( 3.4, 3.4 )
+texture = ExtResource( 16 )
+
+[node name="5_PlayerWeaponSkinEquipButton" type="TextureButton" parent="NinePatchRect/SkinSelectionControl/PlayerControl/ScrollContainer/VBoxContainer/WeaponSkin5"]
+anchor_left = 0.083
+anchor_right = 0.083
+margin_left = -22.11
+margin_top = 322.0
+margin_right = 77.89
+margin_bottom = 372.0
+texture_normal = ExtResource( 3 )
+texture_pressed = ExtResource( 4 )
+expand = true
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Label" type="Label" parent="NinePatchRect/SkinSelectionControl/PlayerControl/ScrollContainer/VBoxContainer/WeaponSkin5/5_PlayerWeaponSkinEquipButton"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -31.0
+margin_top = -16.0
+margin_right = 31.0
+margin_bottom = 16.0
+custom_fonts/font = SubResource( 3 )
+text = "Equip"
+
+[node name="WeaponSkin6" type="Control" parent="NinePatchRect/SkinSelectionControl/PlayerControl/ScrollContainer/VBoxContainer"]
+margin_top = 124.0
+margin_right = 700.0
+margin_bottom = 124.0
+
+[node name="WeaponNameLabel" type="Label" parent="NinePatchRect/SkinSelectionControl/PlayerControl/ScrollContainer/VBoxContainer/WeaponSkin6"]
+anchor_left = 0.126
+anchor_right = 0.126
+margin_left = 92.875
+margin_top = 169.0
+margin_right = 248.875
+margin_bottom = 201.0
+custom_colors/font_color = Color( 1, 0.843137, 0.0117647, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Rapier"
+align = 1
+
+[node name="NinePatchRect" type="NinePatchRect" parent="NinePatchRect/SkinSelectionControl/PlayerControl/ScrollContainer/VBoxContainer/WeaponSkin6"]
+anchor_left = 0.126
+anchor_right = 0.126
+margin_left = 119.875
+margin_top = 208.0
+margin_right = 219.875
+margin_bottom = 308.0
+texture = ExtResource( 8 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Sprite" type="Sprite" parent="NinePatchRect/SkinSelectionControl/PlayerControl/ScrollContainer/VBoxContainer/WeaponSkin6/NinePatchRect"]
+position = Vector2( 50.475, 50 )
+rotation = 0.785398
+scale = Vector2( 3.4, 3.4 )
+texture = ExtResource( 15 )
+
+[node name="6_PlayerWeaponSkinEquipButton" type="TextureButton" parent="NinePatchRect/SkinSelectionControl/PlayerControl/ScrollContainer/VBoxContainer/WeaponSkin6"]
+anchor_left = 0.083
+anchor_right = 0.083
+margin_left = 148.89
+margin_top = 318.0
+margin_right = 248.89
+margin_bottom = 368.0
+texture_normal = ExtResource( 3 )
+texture_pressed = ExtResource( 4 )
+expand = true
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Label" type="Label" parent="NinePatchRect/SkinSelectionControl/PlayerControl/ScrollContainer/VBoxContainer/WeaponSkin6/6_PlayerWeaponSkinEquipButton"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -31.0
+margin_top = -16.0
+margin_right = 31.0
+margin_bottom = 16.0
+custom_fonts/font = SubResource( 3 )
+text = "Equip"
+
+[node name="WeaponSkin7" type="Control" parent="NinePatchRect/SkinSelectionControl/PlayerControl/ScrollContainer/VBoxContainer"]
+margin_top = 128.0
+margin_right = 700.0
+margin_bottom = 128.0
+
+[node name="WeaponNameLabel" type="Label" parent="NinePatchRect/SkinSelectionControl/PlayerControl/ScrollContainer/VBoxContainer/WeaponSkin7"]
+anchor_left = 0.126
+anchor_right = 0.126
+margin_left = 260.85
+margin_top = 165.0
+margin_right = 416.85
+margin_bottom = 197.0
+custom_colors/font_color = Color( 1, 0.843137, 0.0117647, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Hooksword"
+align = 1
+
+[node name="NinePatchRect" type="NinePatchRect" parent="NinePatchRect/SkinSelectionControl/PlayerControl/ScrollContainer/VBoxContainer/WeaponSkin7"]
+anchor_left = 0.126
+anchor_right = 0.126
+margin_left = 290.875
+margin_top = 204.0
+margin_right = 390.875
+margin_bottom = 304.0
+texture = ExtResource( 8 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Sprite" type="Sprite" parent="NinePatchRect/SkinSelectionControl/PlayerControl/ScrollContainer/VBoxContainer/WeaponSkin7/NinePatchRect"]
+position = Vector2( 50.475, 50 )
+rotation = 0.785398
+scale = Vector2( 3.4, 3.4 )
+texture = ExtResource( 17 )
+
+[node name="7_PlayerWeaponSkinEquipButton" type="TextureButton" parent="NinePatchRect/SkinSelectionControl/PlayerControl/ScrollContainer/VBoxContainer/WeaponSkin7"]
+anchor_left = 0.083
+anchor_right = 0.083
+margin_left = 319.89
+margin_top = 314.0
+margin_right = 419.89
+margin_bottom = 364.0
+texture_normal = ExtResource( 3 )
+texture_pressed = ExtResource( 4 )
+expand = true
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Label" type="Label" parent="NinePatchRect/SkinSelectionControl/PlayerControl/ScrollContainer/VBoxContainer/WeaponSkin7/7_PlayerWeaponSkinEquipButton"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -31.0
+margin_top = -16.0
+margin_right = 31.0
+margin_bottom = 16.0
+custom_fonts/font = SubResource( 3 )
+text = "Equip"
+
+[node name="WeaponSkin8" type="Control" parent="NinePatchRect/SkinSelectionControl/PlayerControl/ScrollContainer/VBoxContainer"]
+margin_top = 132.0
+margin_right = 700.0
+margin_bottom = 132.0
+
+[node name="WeaponNameLabel" type="Label" parent="NinePatchRect/SkinSelectionControl/PlayerControl/ScrollContainer/VBoxContainer/WeaponSkin8"]
+anchor_left = 0.126
+anchor_right = 0.126
+margin_left = 418.825
+margin_top = 161.0
+margin_right = 604.825
+margin_bottom = 201.0
+custom_colors/font_color = Color( 1, 0.843137, 0.0117647, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Masked Rogue"
+align = 1
+
+[node name="NinePatchRect" type="NinePatchRect" parent="NinePatchRect/SkinSelectionControl/PlayerControl/ScrollContainer/VBoxContainer/WeaponSkin8"]
+anchor_left = 0.126
+anchor_right = 0.126
+margin_left = 461.875
+margin_top = 200.0
+margin_right = 561.875
+margin_bottom = 300.0
+texture = ExtResource( 8 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Sprite" type="Sprite" parent="NinePatchRect/SkinSelectionControl/PlayerControl/ScrollContainer/VBoxContainer/WeaponSkin8/NinePatchRect"]
+position = Vector2( 50.475, 50 )
+rotation = 0.785398
+scale = Vector2( 3.4, 3.4 )
+texture = ExtResource( 13 )
+
+[node name="8_PlayerWeaponSkinEquipButton" type="TextureButton" parent="NinePatchRect/SkinSelectionControl/PlayerControl/ScrollContainer/VBoxContainer/WeaponSkin8"]
+anchor_left = 0.083
+anchor_right = 0.083
+margin_left = 490.89
+margin_top = 310.0
+margin_right = 590.89
+margin_bottom = 360.0
+texture_normal = ExtResource( 3 )
+texture_pressed = ExtResource( 4 )
+expand = true
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Label" type="Label" parent="NinePatchRect/SkinSelectionControl/PlayerControl/ScrollContainer/VBoxContainer/WeaponSkin8/8_PlayerWeaponSkinEquipButton"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -31.0
+margin_top = -16.0
+margin_right = 31.0
+margin_bottom = 16.0
+custom_fonts/font = SubResource( 3 )
+text = "Equip"
+
 [node name="CloseButtonMainUI" type="TextureButton" parent="."]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -478.0
-margin_top = -248.0
-margin_right = -438.0
-margin_bottom = -208.0
+margin_left = -490.0
+margin_top = -301.0
+margin_right = -450.0
+margin_bottom = -261.0
 rect_scale = Vector2( 1.5, 1.5 )
 texture_normal = ExtResource( 6 )
 expand = true

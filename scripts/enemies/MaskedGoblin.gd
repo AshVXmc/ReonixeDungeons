@@ -2,7 +2,7 @@ class_name MaskedGoblin extends Goblin
 
 const ENEMY_SHOCKWAVE : PackedScene = preload("res://scenes/enemies/bosses/EnemyShockwave.tscn")
 const SWORD_PROJECTILE : PackedScene = preload("res://scenes/enemies/bosses/MaskedGoblinSwordProjectile.tscn")
-const MAX_STAGGER : int = 5 # 36
+const MAX_STAGGER : int = 40
 const STAGGERED_STATE_GLOBAL_RES_SHRED : int = 20
 const SUMMON_SWORD_POSITIONS : Array = [1,2,3,4,5,6,7,8,9]
 var stagger_value : int = MAX_STAGGER

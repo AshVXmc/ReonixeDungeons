@@ -1,4 +1,4 @@
-[gd_scene load_steps=99 format=2]
+[gd_scene load_steps=98 format=2]
 
 [ext_resource path="res://spriteframes/Player_Default_spriteframes.tres" type="SpriteFrames" id=1]
 [ext_resource path="res://scripts/player/Player.gd" type="Script" id=2]
@@ -17,7 +17,6 @@
 [ext_resource path="res://scripts/player/AnimationManager.gd" type="Script" id=15]
 [ext_resource path="res://assets/misc/animated/sword_slash_anim_2.png" type="Texture" id=16]
 [ext_resource path="res://assets/misc/animated/sword_slash_anim_1.png" type="Texture" id=17]
-[ext_resource path="res://assets/characters/player/katana_sheath.png" type="Texture" id=18]
 [ext_resource path="res://assets/UI/energy_meter_partly_filled.png" type="Texture" id=19]
 [ext_resource path="res://assets/UI/energy_meter_empty.png" type="Texture" id=20]
 [ext_resource path="res://scenes/particles/TeleportingParticles.tscn" type="PackedScene" id=21]
@@ -3008,7 +3007,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( 13, 18 ) ]
+"values": [ Vector2( 6, 8 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("KatanaSheathSprite:flip_h")
@@ -3032,7 +3031,7 @@ tracks/2/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ true ]
+"values": [ false ]
 }
 tracks/3/type = "value"
 tracks/3/path = NodePath("KatanaSheathSprite:rotation_degrees")
@@ -3044,7 +3043,7 @@ tracks/3/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ -75.0 ]
+"values": [ 120.0 ]
 }
 tracks/4/type = "value"
 tracks/4/path = NodePath("KatanaSheathSprite:show_behind_parent")
@@ -3257,7 +3256,7 @@ tracks/4/keys = {
 "values": [ false ]
 }
 tracks/5/type = "value"
-tracks/5/path = NodePath("KatanaSheathSprite:texture")
+tracks/5/path = NodePath("SwordSprite:rotation_degrees")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/imported = false
@@ -3266,10 +3265,10 @@ tracks/5/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ ExtResource( 18 ) ]
+"values": [ -105.0 ]
 }
 tracks/6/type = "value"
-tracks/6/path = NodePath("SwordSprite:rotation_degrees")
+tracks/6/path = NodePath("SwordSprite:position")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/imported = false
@@ -3278,10 +3277,10 @@ tracks/6/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ -105.0 ]
+"values": [ Vector2( 90, -8 ) ]
 }
 tracks/7/type = "value"
-tracks/7/path = NodePath("SwordSprite:position")
+tracks/7/path = NodePath("SwordSprite:visible")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/imported = false
@@ -3290,27 +3289,15 @@ tracks/7/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( 90, -8 ) ]
+"values": [ true ]
 }
 tracks/8/type = "value"
-tracks/8/path = NodePath("SwordSprite:visible")
+tracks/8/path = NodePath("SwordSprite:show_behind_parent")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/imported = false
 tracks/8/enabled = true
 tracks/8/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ true ]
-}
-tracks/9/type = "value"
-tracks/9/path = NodePath("SwordSprite:show_behind_parent")
-tracks/9/interp = 1
-tracks/9/loop_wrap = true
-tracks/9/imported = false
-tracks/9/enabled = true
-tracks/9/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
@@ -3331,7 +3318,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( -13, 18 ) ]
+"values": [ Vector2( -6, 8 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("KatanaSheathSprite:flip_h")
@@ -3367,7 +3354,7 @@ tracks/3/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ -105.0 ]
+"values": [ -120.0 ]
 }
 tracks/4/type = "value"
 tracks/4/path = NodePath("KatanaSheathSprite:show_behind_parent")
@@ -3602,7 +3589,7 @@ texture = ExtResource( 4 )
 position = Vector2( -13, 18 )
 rotation = -1.309
 scale = Vector2( 3, 4 )
-texture = ExtResource( 18 )
+texture = ExtResource( 3 )
 flip_h = true
 flip_v = true
 

@@ -31,6 +31,8 @@ var debuff_damage_multiplier = 1
 var armor_strength_coefficient = 1
 var is_staggered : bool = false
 var weaknesses : Array = ["Physical", "Fire"]
+var elemental_type : String = "Physical"
+var atk_value : float = 2 * Global.enemy_level_index + 1
 
 func _ready():
 	$JumpTimer.start()
@@ -45,7 +47,7 @@ func _ready():
 #		$WeaknessDisplayComponent.rotation_degrees = 90
 	$LevelLabel.text = "Lv " + str(level)
 	$HealthBar.max_value = max_HP
-	
+	$Area2D.add_to_group(str(atk_value))
 func _physics_process(delta):
 	if Cling == clingside.Down:
 		if direction == 1 and !is_dead:

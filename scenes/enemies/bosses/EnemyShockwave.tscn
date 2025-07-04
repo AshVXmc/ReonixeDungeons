@@ -24,7 +24,7 @@ texture = ExtResource( 1 )
 wait_time = 3.0
 autostart = true
 
-[node name="Area2D" type="Area2D" parent="." groups=["Enemy", "Hostile"]]
+[node name="Area2D" type="Area2D" parent="." groups=["Enemy"]]
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D"]
 position = Vector2( -0.999995, -30 )

@@ -34,6 +34,8 @@ extents = Vector2( 34.1214, 22.5793 )
 
 [node name="ElderSpider" type="KinematicBody2D" groups=["Enemy", "EnemyEntity"]]
 scale = Vector2( 1.25, 1.25 )
+collision_layer = 4
+collision_mask = 11
 script = ExtResource( 3 )
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]

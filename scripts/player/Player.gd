@@ -59,7 +59,7 @@ var can_be_knocked : bool = true
 const MAX_SPEED : int = 350
 var SPEED : int = MAX_SPEED
 const GRAVITY : int = 38
-var JUMP_POWER : int = -900 # for double jumping
+var JUMP_POWER : int = -980 # for double jumping
 var can_double_jump : bool = true
 var waiting_for_quickswap : bool = false
 var is_thrust_attacking : bool = false
@@ -186,7 +186,7 @@ func _ready():
 		$Sprite.visible = true
 	update_perk_skill()
 	change_skin(Global.equipped_character_skins["Player"])
-
+	change_weapon_skin(Global.current_player_weapon_skin)
 #	perkskill_ui = get_parent().get_node("SkillsUI/Control/PerkSkill/Player/CreateSugarRoll/TextureProgress")
 	$TalentsNode2D/BurningBreathCDTimer.wait_time = Global.player_talents["BurningBreath"]["cooldown"]
 	
@@ -293,25 +293,26 @@ func change_skin(skin_name : String):
 		"DEFAULT_SKIN":
 			$Sprite.frames = DEFAULT_SKIN
 			$SwordSprite.texture = KATANA
-			$KatanaSheathSprite.texture = SHEATHED
+#			$KatanaSheathSprite.texture = SHEATHED
 			$Sprite.scale.x = 5
 			$Sprite.scale.y = 5
 			$Sprite.position.y = 0
 		"WHITE_MAGE_SKIN":
 			$Sprite.frames = WHITE_MAGE_SKIN
 			$SwordSprite.texture = KATANA
-			$KatanaSheathSprite.texture = SHEATHED
+#			$KatanaSheathSprite.texture = SHEATHED
 			$Sprite.scale.x = 5
 			$Sprite.scale.y = 5
 			$Sprite.position.y = 0
 		"CYBER_NINJA_SKIN":
 			$Sprite.frames = CYBER_NINJA_SKIN
 			$SwordSprite.texture = KATANA_CYBERNINJA
-			$KatanaSheathSprite.texture = SHEATHED_CYBERNINJA
+#			$KatanaSheathSprite.texture = SHEATHED_CYBERNINJA
 			$Sprite.scale.x = 6
 			$Sprite.scale.y = 6
 			$Sprite.position.y = -10
 	Global.equipped_character_skins["Player"] = skin_name
+
 func quickswap_event(trigger_name : String):
 	match trigger_name:
 		"Glaciela":
@@ -360,11 +361,13 @@ func _physics_process(_delta):
 	if Global.current_character != "Player":
 		$EnergyMeter.visible = false
 #	if !is_sheathing:
+	
 	if !$Sprite.flip_h:
 		$KatanaSheathPlayer.play("RightDefault")
 	else:
 		$KatanaSheathPlayer.play("LeftDefault")
-
+	
+		
 	$Shield.visible = true if shield_hp > 0 else false
 #	if Input.is_action_just_pressed("slot_1"):
 #		if facing == left:
@@ -374,7 +377,7 @@ func _physics_process(_delta):
 	# Makes sure the player is alive to use any movement controls
 	if !is_dead or Global.current_character != "Player":
 		if !is_invulnerable and !is_healing and !is_shopping and !is_frozen:
-			$KatanaSheathSprite.visible = true if Global.current_character == "Player" else false
+#			$KatanaSheathSprite.visible = true if Global.current_character == "Player" else false
 			target = get_closest_enemy()
 			# Function calls
 			if !is_charging:
@@ -464,7 +467,10 @@ func _physics_process(_delta):
 #							if can_fly:
 #								velocity.y = JUMP_POWER * 1.2
 #							else:
-							velocity.y = JUMP_POWER
+							if !is_on_floor():
+								velocity.y = JUMP_POWER * 0.7
+							else:
+								velocity.y = JUMP_POWER
 							is_jumping = true
 							$Sprite.play("Idle")
 							yield(get_tree().create_timer(0.2), "timeout")
@@ -739,6 +745,10 @@ func attack():
 		else:
 			play_attack_animation("Right")
 		is_attacking = true
+		if $KatanaSheatheWindowTimer.is_stopped():
+			$KatanaSheathSprite.visible = false
+			$KatanaSheatheWindowTimer.start()
+		
 		$AttackCollision/CollisionShape2D.disabled = false
 		$MeleeTimer.start()
 		$AttackTimer.start()
@@ -777,6 +787,9 @@ func stab_attack():
 		else:
 			$AnimationPlayer.play("SwordStabLeft")
 		is_attacking = true
+		if $KatanaSheatheWindowTimer.is_stopped():
+			$KatanaSheathSprite.visible = false
+			$KatanaSheatheWindowTimer.start()
 		is_switch_in_attacking = true
 		$StabAttackCollision/CollisionShape2D.disabled = false
 
@@ -804,6 +817,9 @@ func switch_in_attack():
 			
 			pass
 		is_attacking = true
+		if $KatanaSheatheWindowTimer.is_stopped():
+			$KatanaSheathSprite.visible = false
+			$KatanaSheatheWindowTimer.start()
 		is_switch_in_attacking = true
 		$SwitchAttackCollision/CollisionShape2D.disabled = false
 		# 0.7 is the duration of the animation
@@ -916,7 +932,7 @@ func charged_attack(type : String = "Ground"):
 		get_parent().add_child(hitparticle)
 		hitparticle.position = $Position2D.global_position
 		#emit_signal("change_elegance"), "ChargedAttackLight")
-		sheathe_katana()
+		
 		yield(get_tree().create_timer(0.15),"timeout")
 #		$ChargedAttackCollision.remove_from_group("SulphuricSigilTrigger")
 		
@@ -1053,7 +1069,7 @@ func charged_attack(type : String = "Ground"):
 		if !is_flurry_attacking:
 			energy_full = false
 			update_energy_meter(10)
-		sheathe_katana()
+		
 	elif "SpecialAerial":
 		pass
 	cam_shake = true
@@ -1203,20 +1219,6 @@ func downwards_charged_attack():
 	
 
 
-func sheathe_katana():
-	yield(get_tree().create_timer(2), "timeout")
-	if weakref(get_closest_enemy()).get_ref() != null and global_position.distance_to(get_closest_enemy().global_position) > 100 or get_closest_enemy() == null:
-		if Global.current_character == "Player" and !is_attacking and !is_sheathing and $KatanaSheatheWindowTimer.is_stopped():
-			is_sheathing = true
-#			if !$Sprite.flip_h:
-#				$KatanaSheathPlayer.play("RightDefaultSheath")
-#			else:
-#				$KatanaSheathPlayer.play("LeftDefaultSheath")
-#
-			
-			print("SHEATHING")
-			$KatanaSheatheWindowTimer.start()
-
 func calculate_damage(slash_animation : String , slash_direction_animation : String, attack_string : String, airborne_attack_string : String, hit_id : String = ""):
 	$ResetAttackStringTimer.stop()
 	$AnimationPlayer.play(slash_animation)
@@ -1241,7 +1243,7 @@ func calculate_damage(slash_animation : String , slash_direction_animation : Str
 				$AttackCollision.add_to_group(str(ATTACK * (Global.player_skill_multipliers[airborne_attack_string] / 100) * crit_dmg))
 			break
 	
-	sheathe_katana()
+	
 	$ResetAttackStringTimer.start()
 
 func play_attack_animation(direction : String):
@@ -1283,7 +1285,7 @@ func play_attack_animation(direction : String):
 							$AttackCollision.add_to_group(str(ATTACK * (Global.player_skill_multipliers["AirborneBasicAttack4"] / 100 * crit_dmg)))
 						break
 
-				sheathe_katana()
+				
 				yield(get_tree().create_timer($MeleeTimer.wait_time), "timeout")
 				$AttackCollision.remove_from_group("Airborne")
 				attack_string_count = 4
@@ -1321,7 +1323,7 @@ func play_attack_animation(direction : String):
 							$AttackCollision.add_to_group(str(ATTACK * (Global.player_skill_multipliers["AirborneBasicAttack4"] / 100 * crit_dmg)))
 							print("b")
 						break
-				sheathe_katana()
+				
 				yield(get_tree().create_timer($MeleeTimer.wait_time), "timeout")
 				attack_string_count = 4
 				mana_absorption_counter = mana_absorption_counter_max
@@ -1885,7 +1887,7 @@ func thrust_attack(special : bool = false):
 			if !is_flurry_attacking:
 				update_energy_meter(15)
 		
-		sheathe_katana()
+		
 	
 func knock_airborne(target):
 	if target and weakref(target).get_ref() != null and !target.is_in_group("IsAirborne") and !target.get_parent().is_in_group("Armored"):
@@ -2069,7 +2071,7 @@ func add_shield_hp(value : float):
 	
 func change_weapon_skin(new_skin : Texture):
 	$SwordSprite.texture = new_skin
-
+	$KatanaSheathSprite.texture = new_skin
 # Timers
 func _on_InvulnerabilityTimer_timeout():
 	$HurtAnimationPlayer.play("RESET")
@@ -2259,8 +2261,6 @@ func _on_WalkParticleTimer_timeout():
 		walkparticle.position = $ParticlePosition.global_position
 
 
-func _on_KatanaSheatheWindowTimer_timeout():
-	is_sheathing = false
 
 
 func _on_AirborneMaxDuration_timeout():
@@ -2349,3 +2349,8 @@ func _on_DashCounterAttackDelayTimer_timeout():
 	is_dash_counter_attacking = false
 
 
+
+
+func _on_KatanaSheatheWindowTimer_timeout():
+	if !is_attacking:
+		$KatanaSheathSprite.visible = true

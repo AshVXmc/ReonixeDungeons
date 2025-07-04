@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/broadsword.png-45153dd2ea48edb8a6dc81b2fc594c73.stex"
+path="res://.import/rapier.png-bb9a635f915738a634dcf826c1e70f8a.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/weapons/player/broadsword.png"
-dest_files=[ "res://.import/broadsword.png-45153dd2ea48edb8a6dc81b2fc594c73.stex" ]
+source_file="res://assets/weapons/player/rapier.png"
+dest_files=[ "res://.import/rapier.png-bb9a635f915738a634dcf826c1e70f8a.stex" ]
 
 [params]
 

@@ -29,20 +29,11 @@ func on_PlayerWeaponSkinEquipButton_pressed(which_button : TextureButton):
 	var index : int = int(which_button.name[0])
 	var weapon_sprite = player_vbox.get_node("WeaponSkin" + str(index) + "/NinePatchRect/Sprite")
 	$NinePatchRect/SkinSelectionControl/PlayerControl/WeaponSprite.texture = weapon_sprite.texture
-	var new_skin : Texture 
-	match index:
-		1:
-			new_skin = load("res://assets/player/katana.png")
-		2:
-			new_skin = load("res://assets/weapons/player/flame_katana.png")
-		3:
-			new_skin = load("res://assets/weapons/player/scimitar.png")
-		4:
-			new_skin = load("res://assets/weapons/player/broadsword.png")
-	
-	
+	var new_skin : Texture = $NinePatchRect/SkinSelectionControl/PlayerControl/ScrollContainer/VBoxContainer.get_node(
+		"WeaponSkin" + str(index) + "/NinePatchRect/Sprite").texture
 	if new_skin != null:
 		emit_signal("change_player_weapon_skin", new_skin)
+		Global.current_player_weapon_skin = new_skin
 	# debug, comment out later
 	print(index)
 

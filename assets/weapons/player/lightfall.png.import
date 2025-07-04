@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/sword_2.png-6dedc7845927e538984763d60e4c19f0.stex"
+path="res://.import/lightfall.png-c7f6cba5ca764fb8560f958cf8a20f2b.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/weapons/player/sword_2.png"
-dest_files=[ "res://.import/sword_2.png-6dedc7845927e538984763d60e4c19f0.stex" ]
+source_file="res://assets/weapons/player/lightfall.png"
+dest_files=[ "res://.import/lightfall.png-c7f6cba5ca764fb8560f958cf8a20f2b.stex" ]
 
 [params]
 
