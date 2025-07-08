@@ -308,6 +308,12 @@ value = 100.0
 texture_under = ExtResource( 9 )
 texture_progress = SubResource( 11 )
 
+[node name="ArmorSprite" type="Sprite" parent="."]
+visible = false
+self_modulate = Color( 1, 1, 1, 0.490196 )
+scale = Vector2( 6, 6 )
+texture = ExtResource( 11 )
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/Death = SubResource( 6 )
 anims/RESET = SubResource( 7 )
@@ -328,12 +334,6 @@ cast_to = Vector2( 0, 200 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DownwardsEnemyDetector"]
 position = Vector2( 1.7017, 43.6481 )
 shape = SubResource( 10 )
-
-[node name="ArmorSprite" type="Sprite" parent="."]
-visible = false
-self_modulate = Color( 1, 1, 1, 0.490196 )
-scale = Vector2( 6, 6 )
-texture = ExtResource( 11 )
 
 [node name="OtherEnemyDetector" type="Area2D" parent="." groups=["OtherEnemyDetector"]]
 

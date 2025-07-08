@@ -1,24 +1,16 @@
-class_name Goblin extends KinematicBody2D
+class_name Goblin extends BaseEnemy
 
 const DMG_INDICATOR : PackedScene = preload("res://scenes/particles/DamageIndicatorParticle.tscn")
 const SWORD_HIT_PARTICLE : PackedScene = preload("res://scenes/particles/SwordHitParticle.tscn")
 const DEATH_SMOKE : PackedScene = preload("res://scenes/particles/DeathSmokeParticle.tscn")
-var max_HP_calc : int = 72 + (Global.enemy_level_index * 18)
-var level_calc : int = round(Global.enemy_level_index)
-export var max_HP : int = max_HP_calc
-export var level : int = level_calc
-var atk_value : float = 2.25 * Global.enemy_level_index + 1
-onready var HP : int = max_HP
+
 export var flipped : bool = false
 var velocity = Vector2()
 var direction : int = 1
 var is_dead : bool = false 
-const TYPE : String = "Enemy"
+
 const FLOOR = Vector2(0, -1)
-var MAX_SPEED : int = 125
-var SPEED : int = MAX_SPEED
-const MAX_GRAVITY : int = 45
-var GRAVITY : int = MAX_GRAVITY
+
 var is_staggered : bool = false
 var is_in_tempus_tardus : bool = false
 
@@ -30,7 +22,6 @@ var is_casting_dash_attack : bool = false
 
 
 
-var debuff_damage_multiplier : float = 1
 
 const LOOT = preload("res://scenes/items/LootBag.tscn")
 onready var AREA_LEFT : Area2D = $Left
@@ -47,29 +38,39 @@ var dead : bool = false
 
 const AIRBORNE_SPEED : int = -4000
 export var Armored : bool = false
-export (String, "Physical", "Magical", "Fire", "Ice", "Earth") var Armor_Type = "Physical"
-export (int) var Armor_Durability = 100 # amount of poise/hits/elemental stacks needed to break the shield
-export (float, 1.0) var Armor_Strength = 0.9 # total damage reduction the shield gives (0 is none, 1 is 100% reduction)
+
 var previous_hit_id : String 
-var armor_strength_coefficient = 1 # default value so it doesn't throw an error
+
 
 signal change_hitcount(amount)
-export (int) var phys_res : int = -33.3
-export (int) var fire_res : int = -33.3
-export (int) var earth_res : int = 0
-export (int) var ice_res : int = 0
-export (int) var global_res : int = 0
-var weaknesses : Array = ["Physical", "Fire"]
 
-#var overlaps_enemy_while_midair : bool = false
-var elemental_type : String = "Physical"
+
 
 signal on_death()
 
 func _ready():
+	max_HP_calc = 72 + (Global.enemy_level_index * 18)
+	level_calc = round(Global.enemy_level_index)
+	max_HP = max_HP_calc
+	HP = max_HP
+	level = level_calc
+	atk_value = 2.25 * Global.enemy_level_index + 1
+	MAX_SPEED = 125
+	SPEED = MAX_SPEED
+	MAX_GRAVITY = 45
+	GRAVITY = MAX_GRAVITY
+	phys_res = -33.3
+	fire_res = -33.3
+	earth_res = 0
+	ice_res = 0
+	global_res = 0
+	weaknesses = ["Physical", "Fire"]
+	elemental_type = "Physical"
+	debuff_damage_multiplier = 1
 	
 	$LevelLabel.text = "Lv " + str(level)
-	$SpearThrustAttackWarning.visible = false
+	if self.name == "Goblin":
+		$SpearThrustAttackWarning.visible = false
 	if Armored:
 		$ArmorBar.visible = true
 		$ArmorBar.max_value = Armor_Durability

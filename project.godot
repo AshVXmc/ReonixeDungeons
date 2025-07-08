@@ -59,12 +59,17 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/NPCs/BardNPC.gd"
 }, {
+"base": "KinematicBody2D",
+"class": "BaseEnemy",
+"language": "GDScript",
+"path": "res://scenes/enemies/base/BaseEnemy.gd"
+}, {
 "base": "Area2D",
 "class": "BasicAttackBuff",
 "language": "GDScript",
 "path": "res://scripts/status_effects/BasicAttackBuff.gd"
 }, {
-"base": "KinematicBody2D",
+"base": "BaseEnemy",
 "class": "Bat",
 "language": "GDScript",
 "path": "res://scripts/enemies/Bat.gd"
@@ -399,7 +404,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/characters/GlacielaPuppet.gd"
 }, {
-"base": "KinematicBody2D",
+"base": "BaseEnemy",
 "class": "Goblin",
 "language": "GDScript",
 "path": "res://scripts/enemies/Goblin.gd"
@@ -689,7 +694,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/ui/SkillsUI.gd"
 }, {
-"base": "KinematicBody2D",
+"base": "BaseEnemy",
 "class": "Slime",
 "language": "GDScript",
 "path": "res://scripts/enemies/Slime.gd"
@@ -709,7 +714,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/skills/SoulOrb.gd"
 }, {
-"base": "KinematicBody2D",
+"base": "BaseEnemy",
 "class": "Spider",
 "language": "GDScript",
 "path": "res://scripts/enemies/Spider.gd"
@@ -795,6 +800,7 @@ _global_script_class_icons={
 "Arrow": "",
 "AttackBuff": "",
 "BardNPC": "",
+"BaseEnemy": "",
 "BasicAttackBuff": "",
 "Bat": "",
 "BatProjectile": "",

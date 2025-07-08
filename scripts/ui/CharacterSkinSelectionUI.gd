@@ -19,8 +19,11 @@ func initialize_ui():
 		 # 2 is the index position of the playerweaponskin button
 		var button = player_vbox.get_node("WeaponSkin" + str(player_weapon_skin_counter) + "/" + str(player_weapon_skin_counter) +"_PlayerWeaponSkinEquipButton")
 		button.connect("pressed", self, "on_PlayerWeaponSkinEquipButton_pressed", [button])
+		if !Global.player_unlocked_weapon_skins[player_weapon_skin_counter - 1]:
+			lock_skin(player_weapon_skin_counter)
 		player_weapon_skin_counter += 1
-
+		
+		
 	connect("change_player_weapon_skin", PLAYER, "change_weapon_skin")
 
 # NOTE: do not connect this function through the editor.
@@ -37,8 +40,18 @@ func on_PlayerWeaponSkinEquipButton_pressed(which_button : TextureButton):
 	# debug, comment out later
 	print(index)
 
+func unlock_skin(skin_index : int):
+	var control_node : Control = player_vbox.get_node("WeaponSkin" + str(skin_index))
+	control_node.get_node("NinePatchRect/Sprite").visible = true
+	control_node.get_node("WeaponNameLabel").visible = true
+	control_node.get_node(str(skin_index) + "_PlayerWeaponSkinEquipButton").visible = true
 
-
+func lock_skin(skin_index : int):
+	var control_node : Control = player_vbox.get_node("WeaponSkin" + str(skin_index))
+	control_node.get_node("NinePatchRect/Sprite").visible = true
+	control_node.get_node("WeaponNameLabel").visible = true
+	control_node.get_node(str(skin_index) + "_PlayerWeaponSkinEquipButton").visible = true
+	
 func _on_CloseButtonMainUI_pressed():
 	visible = false
 	get_parent().get_node("CharactersUI").visible = true

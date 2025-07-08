@@ -1,46 +1,370 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=28 format=2]
 
 [ext_resource path="res://scripts/enemies/GuardianGolem.gd" type="Script" id=1]
-[ext_resource path="res://assets/enemies/bosses/alpha_guardian_walk.png" type="Texture" id=2]
-[ext_resource path="res://assets/enemies/bosses/alpha_guardian.png" type="Texture" id=3]
+[ext_resource path="res://assets/enemies/guardian_golem.png" type="Texture" id=2]
+[ext_resource path="res://scenes/status_effects/GroundedStatus.tscn" type="PackedScene" id=3]
+[ext_resource path="res://assets/UI/healthbar_enemy_empty.png" type="Texture" id=4]
 [ext_resource path="res://assets/enemies/components/WeaknessDisplayComponent.tscn" type="PackedScene" id=5]
+[ext_resource path="res://assets/UI/healthbar_enemy_full.png" type="Texture" id=6]
+[ext_resource path="res://assets/fonts/Born2bSportyV2.ttf" type="DynamicFontData" id=7]
+[ext_resource path="res://assets/UI/armorbar_empty.png" type="Texture" id=8]
+[ext_resource path="res://assets/UI/armorbar_colours.png" type="Texture" id=9]
+[ext_resource path="res://assets/misc/physical_armor.png" type="Texture" id=10]
+[ext_resource path="res://assets/enemies/guardian_golem_walk.png" type="Texture" id=11]
+[ext_resource path="res://assets/misc/light_circle.png" type="Texture" id=14]
+[ext_resource path="res://scenes/status_effects/FrozenStatus.tscn" type="PackedScene" id=15]
+[ext_resource path="res://scenes/status_effects/BurningStatus.tscn" type="PackedScene" id=16]
 
-[sub_resource type="SpriteFrames" id=1]
+[sub_resource type="CapsuleShape2D" id=1]
+radius = 30.0
+height = 52.0
+
+[sub_resource type="SpriteFrames" id=2]
 animations = [ {
-"frames": [  ],
+"frames": [ ExtResource( 11 ), ExtResource( 2 ) ],
 "loop": true,
-"name": "Deactivated",
+"name": "Attacking",
+"speed": 6.0
+}, {
+"frames": [ ExtResource( 2 ) ],
+"loop": true,
+"name": "Dead",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 3 ), ExtResource( 2 ) ],
+"frames": [ ExtResource( 2 ) ],
 "loop": true,
-"name": "Default",
-"speed": 5.0
+"name": "Idle",
+"speed": 6.0
 } ]
 
-[sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 40.5733, 80.3356 )
-
 [sub_resource type="RectangleShape2D" id=3]
-extents = Vector2( 70.8264, 120.332 )
+extents = Vector2( 166.268, 50.3433 )
+
+[sub_resource type="CapsuleShape2D" id=4]
+radius = 37.9007
+height = 41.7494
+
+[sub_resource type="DynamicFont" id=5]
+size = 32
+font_data = ExtResource( 7 )
+
+[sub_resource type="AtlasTexture" id=6]
+atlas = ExtResource( 9 )
+region = Rect2( 0, 0, 28, 4 )
+margin = Rect2( 1, 1, 1, 10 )
+
+[sub_resource type="Animation" id=7]
+resource_name = "Death"
+length = 0.25
+step = 0.05
+tracks/0/type = "method"
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0.25 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "death"
+} ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite:self_modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 0, 0, 0, 1 ) ]
+}
+
+[sub_resource type="Animation" id=8]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("SpearThrustAttackWarning:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0.513726 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("SpearThrustAttackWarning:color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 0.196078, 0, 1 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("SpearThrustAttackWarning:rect_position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -112, -45 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("SpearThrustAttackWarning:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ true ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("SpearThrustAttackCollision/CollisionShape2D:disabled")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ true ]
+}
+
+[sub_resource type="Animation" id=9]
+resource_name = "SpearThrustAttackLeft"
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("SpearThrustAttackWarning:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.13, 0.3, 0.45, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0.313726 ), Color( 1, 1, 1, 0.627451 ), Color( 1, 1, 1, 0.313726 ), Color( 1, 1, 1, 0.627451 ), Color( 1, 1, 1, 0.313726 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("SpearThrustAttackWarning:color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.01 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 0.196078, 0, 1 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("SpearThrustAttackWarning:rect_position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -112, -45 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("SpearThrustAttackWarning:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.75, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ true, false, true ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("SpearThrustAttackCollision/CollisionShape2D:disabled")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+
+[sub_resource type="RectangleShape2D" id=10]
+extents = Vector2( 9.77439, 84.5919 )
+
+[sub_resource type="RectangleShape2D" id=11]
+extents = Vector2( 21.1124, 12.1701 )
+
+[sub_resource type="RectangleShape2D" id=12]
+extents = Vector2( 9.93562, 41.0079 )
+
+[sub_resource type="RectangleShape2D" id=13]
+extents = Vector2( 32, 49 )
 
 [node name="GuardianGolem" type="KinematicBody2D"]
 script = ExtResource( 1 )
 
-[node name="WeaknessDisplayComponent" parent="." instance=ExtResource( 5 )]
-position = Vector2( -5, 0 )
-
-[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
-scale = Vector2( 7.5, 7.5 )
-frames = SubResource( 1 )
-animation = "Default"
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 2.06261, 39.6644 )
-shape = SubResource( 2 )
+position = Vector2( 0.948333, -4 )
+shape = SubResource( 1 )
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="Sprite" type="AnimatedSprite" parent="."]
+position = Vector2( 0, -28 )
+scale = Vector2( 5.25, 5.25 )
+frames = SubResource( 2 )
+animation = "Dead"
+
+[node name="WeaknessDisplayComponent" parent="." instance=ExtResource( 5 )]
+
+[node name="Left" type="Area2D" parent="."]
+collision_layer = 129
+collision_mask = 129
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Left"]
+position = Vector2( -193.217, 0 )
+shape = SubResource( 3 )
+
+[node name="Right" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Right"]
+position = Vector2( 198.333, 0 )
+shape = SubResource( 3 )
+
+[node name="Area2D" type="Area2D" parent="." groups=["Enemy"]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2( 3.48599, -0.22818 )
-shape = SubResource( 3 )
+position = Vector2( 0, -2.66667 )
+shape = SubResource( 4 )
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+position = Vector2( -31.5393, 7.15712 )
+scale = Vector2( 1.5, 1 )
+enabled = true
+collision_mask = 3075
+collide_with_areas = true
+
+[node name="HurtTimer" type="Timer" parent="."]
+wait_time = 0.35
+one_shot = true
+
+[node name="AttackingTimer" type="Timer" parent="."]
+wait_time = 0.75
+one_shot = true
+
+[node name="Position2D" type="Position2D" parent="."]
+
+[node name="LevelLabel" type="Label" parent="."]
+margin_left = -15.0
+margin_top = -118.0
+margin_right = 41.0
+margin_bottom = -86.0
+custom_fonts/font = SubResource( 5 )
+text = "Lv.1"
+align = 1
+
+[node name="HealthBar" type="TextureProgress" parent="."]
+margin_left = -47.0
+margin_top = -91.0
+margin_right = -17.0
+margin_bottom = -84.9999
+rect_scale = Vector2( 4, 4 )
+value = 100.0
+texture_under = ExtResource( 4 )
+texture_progress = ExtResource( 6 )
+
+[node name="ArmorBar" type="TextureProgress" parent="."]
+margin_left = -47.4633
+margin_top = -67.3225
+margin_right = -17.4633
+margin_bottom = -61.3225
+rect_scale = Vector2( 3.5, 2.75 )
+value = 100.0
+texture_under = ExtResource( 8 )
+texture_progress = SubResource( 6 )
+
+[node name="ArmorSprite" type="Sprite" parent="."]
+visible = false
+self_modulate = Color( 1, 1, 1, 0.490196 )
+scale = Vector2( 6, 6 )
+texture = ExtResource( 10 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/Death = SubResource( 7 )
+anims/RESET = SubResource( 8 )
+anims/SpearThrustAttackLeft = SubResource( 9 )
+
+[node name="OtherAirborneEntitiesDetector" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="OtherAirborneEntitiesDetector"]
+position = Vector2( 0.225614, -136.453 )
+shape = SubResource( 10 )
+
+[node name="AirborneRaycast" type="RayCast2D" parent="."]
+enabled = true
+cast_to = Vector2( 0, 200 )
+
+[node name="DownwardsEnemyDetector" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DownwardsEnemyDetector"]
+position = Vector2( 1.7017, 43.6481 )
+shape = SubResource( 11 )
+
+[node name="OtherEnemyDetector" type="Area2D" parent="." groups=["OtherEnemyDetector"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="OtherEnemyDetector"]
+position = Vector2( -44.3286, 0.422605 )
+shape = SubResource( 12 )
+
+[node name="SpearThrustAttackWarning" type="ColorRect" parent="."]
+self_modulate = Color( 1, 1, 1, 0.513726 )
+margin_left = -112.0
+margin_top = -45.0
+margin_right = -48.0
+margin_bottom = 53.0
+color = Color( 1, 0.196078, 0, 1 )
+
+[node name="SpearThrustAttackCollision" type="Area2D" parent="." groups=["Enemy"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SpearThrustAttackCollision"]
+position = Vector2( -79.9338, 3.80636 )
+shape = SubResource( 13 )
+disabled = true
+
+[node name="HitDelayTimer" type="Timer" parent="."]
+wait_time = 0.06
+one_shot = true
+
+[node name="BurningStatus" parent="." instance=ExtResource( 16 )]
+
+[node name="FrozenStatus" parent="." instance=ExtResource( 15 )]
+
+[node name="GroundedStatus" parent="." instance=ExtResource( 3 )]
+damage_shred = 50.0
+
+[node name="Light2D" type="Light2D" parent="."]
+position = Vector2( 0, -30 )
+scale = Vector2( 6, 6 )
+texture = ExtResource( 14 )
+energy = 0.5

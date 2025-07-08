@@ -1,19 +1,17 @@
-class_name Slime extends KinematicBody2D
+class_name Slime extends BaseEnemy
 
 var velocity : Vector2 = Vector2()
-var max_HP : int = Global.enemy_level_index * 30 + 25
+
 const AIRBORNE_SPEED : int = -3360
-var level_calc : int = round(Global.enemy_level_index)
-export var level : int = level_calc
-var HP : int = max_HP
+
+
+
 var is_dead : bool = false 
 var direction : int = 1
-const TYPE : String = "Enemy"
+
 const FLOOR = Vector2(0, -1)
-const MAX_SPEED : int = 100
-var SPEED : int = MAX_SPEED
-const MAX_GRAVITY : int = 45
-var GRAVITY : int = MAX_GRAVITY
+
+
 const LOOT : PackedScene = preload("res://scenes/items/LootBag.tscn")
 var rng : RandomNumberGenerator = RandomNumberGenerator.new()
 const DEATH_SMOKE : PackedScene = preload("res://scenes/particles/DeathSmokeParticle.tscn")
@@ -22,15 +20,9 @@ var is_frozen : bool = false
 const DMG_INDICATOR : PackedScene = preload("res://scenes/particles/DamageIndicatorParticle.tscn")
 var is_staggered : bool = false
 var is_airborne : bool
-var elemental_type = "Physical"
-var atk_value = 1 * Global.enemy_level_index
-export (int) var phys_res : int = -33.3
-export (int) var fire_res : int = -33.3
-export (int) var earth_res : int = 0
-export (int) var ice_res : int = 0
-var global_res : float = 0
-var armor_strength_coefficient = 1
-var debuff_damage_multiplier = 1
+
+
+
 var damage_immunity : Dictionary = {
 	fire = false,
 	ice = false,
@@ -39,8 +31,27 @@ var damage_immunity : Dictionary = {
 }
 
 func _ready():
+	max_HP_calc = Global.enemy_level_index * 20 + 20
+	level_calc = round(Global.enemy_level_index)
+	max_HP = max_HP_calc
+	HP = max_HP
+	level = level_calc
+	atk_value = 1 * Global.enemy_level_index
+	MAX_SPEED = 100
+	SPEED = MAX_SPEED
+	MAX_GRAVITY = 45
+	GRAVITY = MAX_GRAVITY
+	phys_res = -33.3
+	fire_res = -33.3
+	earth_res = 0
+	ice_res = 0
+	global_res = 0
+	weaknesses = ["Physical"]
+	elemental_type = "Physical"
+	debuff_damage_multiplier = 1
 	$LevelLabel.text = "Lv " + str(level)
 	$HealthBar.max_value = max_HP
+	
 func _physics_process(delta):
 	if !is_dead:
 		if !is_airborne:

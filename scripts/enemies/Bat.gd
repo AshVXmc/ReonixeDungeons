@@ -1,36 +1,50 @@
-class_name Bat extends KinematicBody2D
+class_name Bat extends BaseEnemy
 
-const TYPE : String = "Enemy"
+
 const DMG_INDICATOR : PackedScene = preload("res://scenes/particles/DamageIndicatorParticle.tscn")
-var SPEED : int = 3.5
+
 var steer_force = 120
 var velocity: Vector2 = Vector2.ZERO
-onready var max_HP : int = 50 + (Global.enemy_level_index * 10)
-onready var level : int = round(Global.enemy_level_index)
-var atk_value : float = 1 * Global.enemy_level_index
-onready var HP : int = max_HP
+
+
+
+
 var is_dead : bool = false
 var direction : int = 1
 var is_near_player : bool = false
 var player = null
-var debuff_damage_multiplier : float = 1
+
 const LOOT : PackedScene = preload("res://scenes/items/LootBag.tscn")
 const PROJECTILE : PackedScene = preload("res://scenes/misc/BatProjectile.tscn")
 var rng : RandomNumberGenerator = RandomNumberGenerator.new()
 var target = null
 var acceleration = Vector2()
 var is_staggered : bool = false
-export (int) var phys_res : int = 0
-export (int) var fire_res : int = -33.3
-export (int) var earth_res : int = -33.3
-export (int) var ice_res : int = -33.3
-export (int) var global_res : int = 0
-var armor_strength_coefficient = 1
+
+
 var is_frozen
 var is_attacking : bool
 
 # NOTE: Collision mask for the raycast2d is set to 8 since layer 8 is exclusive to the player/
 func _ready():
+	max_HP_calc = 50 + (Global.enemy_level_index * 10)
+	level_calc = round(Global.enemy_level_index)
+	max_HP = max_HP_calc
+	HP = max_HP
+	level = level_calc
+	atk_value = 1 * Global.enemy_level_index
+	MAX_SPEED = 3.5
+	SPEED = MAX_SPEED
+#	MAX_GRAVITY = 45
+#	GRAVITY = MAX_GRAVITY
+	phys_res = 0
+	fire_res = -33.3
+	earth_res = -33.3
+	ice_res = -33.3
+	global_res = 0
+	weaknesses = ["Fire", "Ice", "Earth"]
+	elemental_type = "Physical"
+	debuff_damage_multiplier = 1
 	$LevelLabel.text = "Lv " + str(level)
 	$AnimatedSprite.play("Idle")
 	$HealthBar.max_value = max_HP

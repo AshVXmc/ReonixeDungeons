@@ -1,4 +1,4 @@
-class_name Spider extends KinematicBody2D
+class_name Spider extends BaseEnemy
 
 enum clingside {Down, Left, Right, Up}
 export (clingside) var Cling
@@ -7,34 +7,40 @@ var velocity : Vector2 = Vector2()
 var is_dead : bool = false 
 var direction : int = 1
 var jumping : int = 1
-const TYPE : String = "Enemy"
+var is_staggered : bool = false
 const FLOOR_DOWN = Vector2(0, 1)
 const FLOOR_LEFT = Vector2(-1, 0)
 const FLOOR_UP = Vector2(0, -1)
-var SPEED : int = -100
-var GRAVITY : int = -45
+
+
 const LOOT : PackedScene = preload("res://scenes/items/LootBag.tscn")
 const DEATH_SMOKE : PackedScene = preload("res://scenes/particles/DeathSmokeParticle.tscn")
 const DMG_INDICATOR : PackedScene = preload("res://scenes/particles/DamageIndicatorParticle.tscn")
-var max_HP : int = Global.enemy_level_index * 22 + 30
-var level_calc : int = round(Global.enemy_level_index)
-export var level : int = level_calc
-var HP : int = max_HP
+
 var is_frozen = false
 var is_airborne = false
-export (int) var phys_res : int = -33.3
-export (int) var fire_res : int = 0
-export (int) var earth_res : int = -33.3
-export (int) var ice_res : int = 0
-var global_res : float = 0
-var debuff_damage_multiplier = 1
-var armor_strength_coefficient = 1
-var is_staggered : bool = false
-var weaknesses : Array = ["Physical", "Fire"]
-var elemental_type : String = "Physical"
-var atk_value : float = 2 * Global.enemy_level_index + 1
+
 
 func _ready():
+	max_HP_calc = Global.enemy_level_index * 22 + 30
+	level_calc = round(Global.enemy_level_index)
+	max_HP = max_HP_calc
+	HP = max_HP
+	level = level_calc
+	atk_value = 2 * Global.enemy_level_index + 1
+	MAX_SPEED = -100
+	SPEED = MAX_SPEED
+	MAX_GRAVITY = -45
+	GRAVITY = MAX_GRAVITY
+	phys_res = -33.3
+	fire_res = 0
+	earth_res = -33.3
+	ice_res = 0
+	global_res = 0
+	weaknesses = ["Physical", "Earth"]
+	elemental_type = "Physical"
+	debuff_damage_multiplier = 1
+	
 	$JumpTimer.start()
 	if Cling == clingside.Down:
 		$LevelLabel.rect_rotation = 180
@@ -265,10 +271,10 @@ func parse_damage(staggers:bool = true):
 		
 func knockback(knockback_coefficient : float = 1):
 	is_staggered = true
-#	if $AnimatedSprite.flip_h:
-#		velocity.x = -SPEED * knockback_coefficient
-#	else:
-#		velocity.x = SPEED * knockback_coefficient
+	if $AnimatedSprite.flip_h:
+		velocity.x = -SPEED * knockback_coefficient * 3
+	else:
+		velocity.x = SPEED * knockback_coefficient * 3
 	$HurtTimer.start()
 
 func add_damage_particles(type : String, dmg : int, is_crit : bool):

@@ -18,6 +18,7 @@ func load_data(savefile):
 	Global.character_3_max_hearts = player_data["Char3MaxHealth"]
 	Global.character3_hearts = player_data["Char3Health"]
 	Global.current_player_weapon_skin = player_data["CurrentPlayerWeaponSkin"]
+	Global.player_unlocked_weapon_skins = player_data["PlayerUnlockedWeaponSkins"]
 	Global.max_mana = player_data["MaxMana"]
 	Global.mana = player_data["Mana"]
 	Global.attack_power = player_data["AttackPower"]

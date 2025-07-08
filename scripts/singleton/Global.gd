@@ -134,10 +134,18 @@ enum player_skins  {
 	CYBER_NINJA
 }
 
+
 var current_player_weapon_skin : Texture
 var player_unlocked_skins = {
 	"CyberNinja": false
 }
+
+# indexes (control node numbers) of the weapons matter
+var player_unlocked_weapon_skins : Array = [
+	true, false, false, false,
+	false, false, false, false,
+	false, false, false, false,
+]
 
 # player talents are passive skills
 # valid categories: Primary Skill, Secondary Skill, Tertiary Skill, Moveset, Perk skill, Passive
@@ -619,7 +627,11 @@ func reset_player_data():
 	Global.player_perks = Global.player_perks_data.duplicate()
 	Global.glaciela_talents = Global.glaciela_talents_data.duplicate()
 	Global.current_player_weapon_skin = load("res://assets/characters/player/katana.png")
-	
+	Global.player_unlocked_weapon_skins = [
+		true, false, false, false,
+		false, false, false, false,
+		false, false, false, false,
+	]
 	Global.equipped_character_skins = Global.equipped_character_skins_data.duplicate()
 	Global.enemies_encountered = Global.enemies_encountered_data.duplicate()
 	Global.soul_token_amount = 0
@@ -664,7 +676,7 @@ func save_player_data():
 		"Char3Health": Global.character3_hearts,
 		
 		"CurrentPlayerWeaponSkin": Global.current_player_weapon_skin,
-		
+		"PlayerUnlockedWeaponSkins": Global.player_unlocked_weapon_skins,
 		"MaxMana" : Global.max_mana ,
 		"Mana" : Global.mana ,
 		"Char2MaxMana": Global.character2_max_mana,
