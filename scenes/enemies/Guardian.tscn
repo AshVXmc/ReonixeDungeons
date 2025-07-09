@@ -1,0 +1,280 @@
+[gd_scene load_steps=28 format=2]
+
+[ext_resource path="res://assets/enemies/guardian_golem.png" type="Texture" id=1]
+[ext_resource path="res://scripts/enemies/GuardianGolem.gd" type="Script" id=2]
+[ext_resource path="res://assets/enemies/guardian_golem_walk.png" type="Texture" id=3]
+[ext_resource path="res://assets/UI/healthbar_enemy_empty.png" type="Texture" id=6]
+[ext_resource path="res://assets/UI/healthbar_enemy_full.png" type="Texture" id=7]
+[ext_resource path="res://assets/enemies/components/WeaknessDisplayComponent.tscn" type="PackedScene" id=8]
+[ext_resource path="res://assets/UI/armorbar_empty.png" type="Texture" id=9]
+[ext_resource path="res://assets/UI/armorbar_colours.png" type="Texture" id=10]
+[ext_resource path="res://assets/misc/physical_armor.png" type="Texture" id=11]
+[ext_resource path="res://scenes/status_effects/BurningStatus.tscn" type="PackedScene" id=12]
+[ext_resource path="res://assets/fonts/Born2bSportyV2.ttf" type="DynamicFontData" id=13]
+[ext_resource path="res://scenes/status_effects/FrozenStatus.tscn" type="PackedScene" id=14]
+[ext_resource path="res://scenes/status_effects/GroundedStatus.tscn" type="PackedScene" id=15]
+[ext_resource path="res://assets/misc/light_circle.png" type="Texture" id=16]
+
+[sub_resource type="CapsuleShape2D" id=8]
+radius = 38.0
+height = 117.0
+
+[sub_resource type="SpriteFrames" id=16]
+animations = [ {
+"frames": [ ExtResource( 1 ), ExtResource( 3 ) ],
+"loop": true,
+"name": "Attacking",
+"speed": 6.0
+}, {
+"frames": [ ExtResource( 1 ) ],
+"loop": true,
+"name": "Dead",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 1 ) ],
+"loop": true,
+"name": "Idle",
+"speed": 6.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 166.268, 50.3433 )
+
+[sub_resource type="CapsuleShape2D" id=3]
+radius = 37.9007
+height = 41.7494
+
+[sub_resource type="Animation" id=6]
+resource_name = "Death"
+length = 0.25
+step = 0.05
+tracks/0/type = "method"
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0.25 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "death"
+} ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite:self_modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 0, 0, 0, 1 ) ]
+}
+
+[sub_resource type="Animation" id=7]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("SpearThrustAttackCollision/CollisionShape2D:disabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ true ]
+}
+
+[sub_resource type="Animation" id=13]
+resource_name = "SpearThrustAttackLeft"
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("SpearThrustAttackCollision/CollisionShape2D:disabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+
+[sub_resource type="RectangleShape2D" id=9]
+extents = Vector2( 9.77439, 40.796 )
+
+[sub_resource type="RectangleShape2D" id=10]
+extents = Vector2( 21.1124, 12.1701 )
+
+[sub_resource type="RectangleShape2D" id=12]
+extents = Vector2( 9.93562, 41.0079 )
+
+[sub_resource type="RectangleShape2D" id=14]
+extents = Vector2( 32, 49 )
+
+[sub_resource type="DynamicFont" id=17]
+size = 32
+font_data = ExtResource( 13 )
+
+[sub_resource type="AtlasTexture" id=18]
+atlas = ExtResource( 10 )
+region = Rect2( 0, 0, 28, 4 )
+margin = Rect2( 1, 1, 1, 10 )
+
+[node name="Guardian" type="KinematicBody2D" groups=["CanBeHealed", "Enemy", "EnemyEntity"]]
+collision_layer = 4
+collision_mask = 11
+script = ExtResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0, -40 )
+shape = SubResource( 8 )
+
+[node name="Sprite" type="AnimatedSprite" parent="."]
+position = Vector2( 0, -52 )
+scale = Vector2( 7, 7 )
+frames = SubResource( 16 )
+animation = "Dead"
+
+[node name="WeaknessDisplayComponent" parent="." instance=ExtResource( 8 )]
+
+[node name="Left" type="Area2D" parent="."]
+collision_layer = 129
+collision_mask = 129
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Left"]
+position = Vector2( -225, 0 )
+shape = SubResource( 2 )
+
+[node name="Right" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Right"]
+position = Vector2( 225, 0 )
+shape = SubResource( 2 )
+
+[node name="Area2D" type="Area2D" parent="." groups=["Enemy"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2( 0, -2.66667 )
+shape = SubResource( 3 )
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+position = Vector2( -31.5393, 7.15712 )
+scale = Vector2( 1.5, 1 )
+enabled = true
+collision_mask = 3075
+collide_with_areas = true
+
+[node name="HurtTimer" type="Timer" parent="."]
+wait_time = 0.35
+one_shot = true
+
+[node name="AttackingTimer" type="Timer" parent="."]
+wait_time = 0.75
+one_shot = true
+
+[node name="Position2D" type="Position2D" parent="."]
+
+[node name="ArmorSprite" type="Sprite" parent="."]
+visible = false
+self_modulate = Color( 1, 1, 1, 0.490196 )
+scale = Vector2( 6, 6 )
+texture = ExtResource( 11 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/Death = SubResource( 6 )
+anims/RESET = SubResource( 7 )
+anims/SpearThrustAttackLeft = SubResource( 13 )
+
+[node name="OtherAirborneEntitiesDetector" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="OtherAirborneEntitiesDetector"]
+position = Vector2( 0, -190 )
+shape = SubResource( 9 )
+
+[node name="AirborneRaycast" type="RayCast2D" parent="."]
+enabled = true
+cast_to = Vector2( 0, 200 )
+
+[node name="DownwardsEnemyDetector" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DownwardsEnemyDetector"]
+position = Vector2( 1.7017, 43.6481 )
+shape = SubResource( 10 )
+
+[node name="OtherEnemyDetector" type="Area2D" parent="." groups=["OtherEnemyDetector"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="OtherEnemyDetector"]
+position = Vector2( -57.3286, 0.422605 )
+shape = SubResource( 12 )
+
+[node name="SpearThrustAttackCollision" type="Area2D" parent="." groups=["Enemy"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SpearThrustAttackCollision"]
+position = Vector2( -79.9338, 3.80636 )
+shape = SubResource( 14 )
+disabled = true
+
+[node name="HitDelayTimer" type="Timer" parent="."]
+wait_time = 0.06
+one_shot = true
+
+[node name="BurningStatus" parent="." instance=ExtResource( 12 )]
+
+[node name="FrozenStatus" parent="." instance=ExtResource( 14 )]
+
+[node name="GroundedStatus" parent="." instance=ExtResource( 15 )]
+damage_shred = 50.0
+
+[node name="Light2D" type="Light2D" parent="."]
+position = Vector2( 0, -85 )
+scale = Vector2( 6, 6 )
+texture = ExtResource( 16 )
+energy = 0.3
+
+[node name="LevelLabel" type="Label" parent="."]
+margin_left = -27.0
+margin_top = -236.0
+margin_right = 29.0
+margin_bottom = -204.0
+custom_fonts/font = SubResource( 17 )
+text = "Lv.1"
+align = 1
+
+[node name="HealthBar" type="TextureProgress" parent="."]
+margin_left = -59.0
+margin_top = -209.0
+margin_right = -29.0
+margin_bottom = -203.0
+rect_scale = Vector2( 4.35, 4 )
+value = 100.0
+texture_under = ExtResource( 6 )
+texture_progress = ExtResource( 7 )
+
+[node name="ArmorBar" type="TextureProgress" parent="."]
+margin_left = -59.0
+margin_top = -185.0
+margin_right = -29.0
+margin_bottom = -179.0
+rect_scale = Vector2( 4, 2.75 )
+value = 100.0
+texture_under = ExtResource( 9 )
+texture_progress = SubResource( 18 )
+
+[connection signal="tree_exiting" from="." to="." method="_on_Goblin_tree_exiting"]
+[connection signal="area_exited" from="Left" to="." method="_on_Left_area_exited"]
+[connection signal="area_exited" from="Right" to="." method="_on_Right_area_exited"]
+[connection signal="area_entered" from="Area2D" to="." method="_on_Area2D_area_entered"]
+[connection signal="area_exited" from="Area2D" to="." method="_on_Area2D_area_exited"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_Area2D_body_exited"]
+[connection signal="timeout" from="HurtTimer" to="." method="_on_HurtTimer_timeout"]
+[connection signal="timeout" from="AttackingTimer" to="." method="_on_AttackingTimer_timeout"]
+[connection signal="area_entered" from="DownwardsEnemyDetector" to="." method="_on_DownwardsEnemyDetector_area_entered"]
+[connection signal="area_exited" from="DownwardsEnemyDetector" to="." method="_on_DownwardsEnemyDetector_area_exited"]

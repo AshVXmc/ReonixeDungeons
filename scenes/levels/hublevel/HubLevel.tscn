@@ -74,7 +74,7 @@
 [ext_resource path="res://assets/terrain/lichen_ruins_spritesheet.png" type="Texture" id=72]
 [ext_resource path="res://scenes/NPC/BardNPC.tscn" type="PackedScene" id=73]
 [ext_resource path="res://shaders/outline2D_outer.gdshader" type="Shader" id=74]
-[ext_resource path="res://scenes/enemies/GuardianGolem.tscn" type="PackedScene" id=75]
+[ext_resource path="res://scenes/enemies/Guardian.tscn" type="PackedScene" id=75]
 [ext_resource path="res://scenes/minigames/BlackJackTable.tscn" type="PackedScene" id=76]
 [ext_resource path="res://scenes/menus/cellphone/CellphoneUI.tscn" type="PackedScene" id=77]
 
@@ -704,8 +704,8 @@ drag_margin_h_enabled = true
 drag_margin_v_enabled = true
 editor_draw_limits = true
 
-[node name="GuardianGolem" parent="." instance=ExtResource( 75 )]
-position = Vector2( 2828, 486 )
+[node name="Guardian" parent="." instance=ExtResource( 75 )]
+position = Vector2( 2889, 571 )
 
 [connection signal="area_entered" from="HubLibrary/BookOfShadowsPlayerDetectorArea" to="HubLibrary/BookOfShadowsPlayerDetectorArea" method="_on_BookshelfPlayerDetectorArea_area_entered"]
 [connection signal="area_exited" from="HubLibrary/BookOfShadowsPlayerDetectorArea" to="HubLibrary/BookOfShadowsPlayerDetectorArea" method="_on_BookshelfPlayerDetectorArea_area_exited"]

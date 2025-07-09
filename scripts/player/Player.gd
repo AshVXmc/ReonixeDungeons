@@ -1120,9 +1120,10 @@ func charge_meter():
 				
 
 func upwards_charged_attack():
-	if target and target != null and weakref(target).get_ref() != null and !target.is_in_group("Projectile"): 
+	if target and target != null and weakref(target.get_node("Area2D")).get_ref() != null and !target.is_in_group("Projectile"): 
 		if target.get_node("Area2D").overlaps_area($ChargedAttackDetector) and !target.get_node("Area2D").is_in_group("IsAirborne"):
 			knock_airborne(target.get_node("Area2D"))
+			
 
 	$ChargingParticle.visible = true
 	resist_interruption = true
