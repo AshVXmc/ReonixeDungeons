@@ -51,7 +51,7 @@ func _ready():
 	debuff_damage_multiplier = 1
 	$LevelLabel.text = "Lv " + str(level)
 	$HealthBar.max_value = max_HP
-	
+	$HealthBar.value = $HealthBar.max_value
 func _physics_process(delta):
 	if !is_dead:
 		if !is_airborne:

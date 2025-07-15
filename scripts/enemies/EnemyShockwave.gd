@@ -1,7 +1,7 @@
 class_name EnemyShockwave extends Area2D
 
 const TYPE : String = "Shockwave"
-const SPEED : int = 1125
+var speed : int = 1125
 var velocity = Vector2()
 var direction : int = 1
 var elemental_type : String = "Physical"
@@ -13,7 +13,7 @@ func _physics_process(delta):
 		$Sprite.flip_h = true
 	elif direction == -1:
 		$Sprite.flip_h = false
-	velocity.x = SPEED * delta * -direction
+	velocity.x = speed * delta * -direction
 	translate(velocity)
 	
 

@@ -248,6 +248,8 @@ func _ready():
 	elif Global.equipped_characters == [2]:
 		emit_signal("mana_changed", Global.character3_mana)
 	
+	print("info: ")
+	print(Global.current_player_weapon_skin)
 # warning-ignore:return_value_discarded
 	connect("healthpot_obtained", Global, "sync_playerHealthpots")
 	emit_signal("healthpot_obtained", Global.healthpot_amount)
@@ -1529,7 +1531,7 @@ func after_damaged():
 	elif Global.equipped_characters[2] == Global.current_character:
 		if Global.character3_hearts <= 0:
 			dead(Global.equipped_characters[2])
-
+#	$SwordSprite.visible = true
 func dead(character_id):
 	is_dead = true
 	is_invulnerable = true
@@ -2070,9 +2072,9 @@ func add_shield_hp(value : float):
 	$Shield/ShieldHPBar.max_value = shield_hp
 	$Shield/ShieldHPBar.value += shield_hp
 	
-func change_weapon_skin(new_skin : Texture):
-	$SwordSprite.texture = new_skin
-	$KatanaSheathSprite.texture = new_skin
+func change_weapon_skin(resource_path : String):
+	$SwordSprite.texture = load(resource_path)
+	$KatanaSheathSprite.texture = load(resource_path)
 # Timers
 func _on_InvulnerabilityTimer_timeout():
 	$HurtAnimationPlayer.play("RESET")

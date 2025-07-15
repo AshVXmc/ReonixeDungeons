@@ -135,7 +135,7 @@ enum player_skins  {
 }
 
 
-var current_player_weapon_skin : Texture
+var current_player_weapon_skin : String
 var player_unlocked_skins = {
 	"CyberNinja": false
 }
@@ -626,7 +626,7 @@ func reset_player_data():
 	Global.player_talents = Global.player_talents_data.duplicate()
 	Global.player_perks = Global.player_perks_data.duplicate()
 	Global.glaciela_talents = Global.glaciela_talents_data.duplicate()
-	Global.current_player_weapon_skin = load("res://assets/characters/player/katana.png")
+	Global.current_player_weapon_skin = "res://assets/characters/player/katana.png"
 	Global.player_unlocked_weapon_skins = [
 		true, false, false, false,
 		false, false, false, false,

@@ -34,9 +34,10 @@ func on_PlayerWeaponSkinEquipButton_pressed(which_button : TextureButton):
 	$NinePatchRect/SkinSelectionControl/PlayerControl/WeaponSprite.texture = weapon_sprite.texture
 	var new_skin : Texture = $NinePatchRect/SkinSelectionControl/PlayerControl/ScrollContainer/VBoxContainer.get_node(
 		"WeaponSkin" + str(index) + "/NinePatchRect/Sprite").texture
+	var resource_path : String = $NinePatchRect/SkinSelectionControl/PlayerControl/ScrollContainer/VBoxContainer.get_node("WeaponSkin" + str(index) + "/NinePatchRect/Sprite").texture.get_path()
 	if new_skin != null:
-		emit_signal("change_player_weapon_skin", new_skin)
-		Global.current_player_weapon_skin = new_skin
+		emit_signal("change_player_weapon_skin", resource_path)
+		Global.current_player_weapon_skin = resource_path
 	# debug, comment out later
 	print(index)
 

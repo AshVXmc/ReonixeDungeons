@@ -53,6 +53,7 @@ func _ready():
 #		$WeaknessDisplayComponent.rotation_degrees = 90
 	$LevelLabel.text = "Lv " + str(level)
 	$HealthBar.max_value = max_HP
+	$HealthBar.value = $HealthBar.max_value
 	$Area2D.add_to_group(str(atk_value))
 func _physics_process(delta):
 	if Cling == clingside.Down:

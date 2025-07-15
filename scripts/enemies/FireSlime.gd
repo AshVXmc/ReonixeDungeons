@@ -12,6 +12,8 @@ func _ready():
 	fire_res = 100
 	ice_res = -66.6 
 	$WeaknessDisplayComponent.update_weakness_display()
+	$HealthBar.max_value = max_HP
+	$HealthBar.value = $HealthBar.max_value
 	
 func parse_damage(staggers:bool = true):
 	if staggers:

@@ -26,7 +26,7 @@ enum ATTACK_PROBABILITY_WEIGHTS  {
 	SUMMON_SWORD_PROJECTILES_ATTACK = 0
 }
 
-onready var player : Player = get_parent().get_node("Player")
+onready var player = get_parent().get_node("Player")
 onready var boss_hp_bar_ui : BossHealthBar = get_parent().get_node("BossHealthBarUI/Control")
 
 

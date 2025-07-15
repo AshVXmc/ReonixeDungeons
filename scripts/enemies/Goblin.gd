@@ -7,14 +7,13 @@ const DEATH_SMOKE : PackedScene = preload("res://scenes/particles/DeathSmokePart
 export var flipped : bool = false
 var velocity = Vector2()
 var direction : int = 1
-var is_dead : bool = false 
 
 const FLOOR = Vector2(0, -1)
 
 var is_staggered : bool = false
 var is_in_tempus_tardus : bool = false
 
-# for witch goblin only
+# for witch goblin only (or golem?)
 var is_casting : bool = false
 
 # for masked goblin only
@@ -105,7 +104,8 @@ func _physics_process(delta):
 	else:
 		$OtherEnemyDetector.set_scale(Vector2(-1,1))
 		$SpearThrustAttackCollision.set_scale(Vector2(-1,1))
-	if 80 >= velocity.x and velocity.x >= 0:
+	
+	if (MAX_SPEED * 0.6) >= velocity.x and velocity.x >= 0:
 		yield(get_tree().create_timer(0.1), "timeout")
 		if !is_casting:
 			$Sprite.play("Idle")
@@ -412,13 +412,17 @@ func parse_damage(staggers : bool = true):
 	$Sprite.set_modulate(Color(1.4,0.5,0.3,1))
 	if $HurtTimer.is_stopped():
 		$HurtTimer.start()
-	if HP <= 0:
-		$Area2D/CollisionShape2D.disabled = true
-		$CollisionShape2D.disabled = true
-		$Left/CollisionShape2D.disabled = true
-		$Right/CollisionShape2D.disabled = true
-		dead = true
-		$AnimationPlayer.play("Death")
+	if HP <= 0 and !dead:
+		start_death_sequence()
+
+func start_death_sequence():
+	dead = true
+	$Area2D/CollisionShape2D.disabled = true
+	$CollisionShape2D.disabled = true
+	$Left/CollisionShape2D.disabled = true
+	$Right/CollisionShape2D.disabled = true
+	$AnimationPlayer.play("Death")
+
 func death():
 	$Sprite.visible = false
 	$Area2D.remove_from_group("Hostile")
@@ -453,13 +457,8 @@ func parse_status_effect_damage():
 	$Sprite.set_modulate(Color(1.4,0.5,0.3,1))
 	if $HurtTimer.is_stopped():
 		$HurtTimer.start()
-	if HP <= 0:
-		$Area2D/CollisionShape2D.disabled = true
-		$CollisionShape2D.disabled = true
-		$Left/CollisionShape2D.disabled = true
-		$Right/CollisionShape2D.disabled = true
-		dead = true
-		$AnimationPlayer.play("Death")
+	if HP <= 0 and !dead:
+		start_death_sequence()
 		
 func _on_HurtTimer_timeout():
 	is_staggered = false

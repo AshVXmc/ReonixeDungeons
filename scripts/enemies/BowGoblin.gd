@@ -8,7 +8,9 @@ func _ready():
 	# Overrides
 	max_HP = max_HP_calc * 0.75
 	SPEED = MAX_SPEED / 4
-
+	$HealthBar.max_value = max_HP
+	$HealthBar.value = $HealthBar.max_value
+	
 func shoot_arrow():
 	is_shooting = true
 	$ShootArrowTimer.stop()
