@@ -1,11 +1,15 @@
 class_name GuardianGolem extends Goblin
 
 const ENEMY_SHOCKWAVE : PackedScene = preload("res://scenes/enemies/bosses/EnemyShockwave.tscn")
+onready var player : Player = get_parent().get_node("Player")
 enum state  {
 	IDLE,
 	WALKING,
 	PUNCHING,
 	STOMPING
+}
+enum {
+	LEFT = -1, RIGHT = 1
 }
 var current_state setget set_current_state, get_current_state
 func set_current_state(new_value : int):
@@ -40,11 +44,15 @@ func _ready():
 	$Sprite.self_modulate = Color(1,1,1,1)
 	$DeathSprite.visible = false
 	$DeathSprite.texture = null
-	# FOR TESTING
-	yield(get_tree().create_timer(2), "timeout")
-	stomp_attack()
+	$PlayerDetector/CollisionShape2D.disabled = false
+
 # OVERRIDE
 func _physics_process(delta):
+	if !$Sprite.flip_h:
+		$PlayerDetector.set_scale(Vector2(1,1))
+#		$ParryDetectorArea2D.set_scale(Vector2(1,1))
+	else:
+		$PlayerDetector.set_scale(Vector2(-1,1))
 	if (MAX_SPEED * 0.6) >= velocity.x and velocity.x >= 0:
 		yield(get_tree().create_timer(0.1), "timeout")
 		if !dead and !is_casting and get_current_state() == state.IDLE:
@@ -59,7 +67,12 @@ func _physics_process(delta):
 			$Area2D.add_to_group("Hostile")
 	if get_current_state() == state.IDLE and !dead:
 		$Sprite.play("Idle")
-	
+	if player in $PlayerDetector.get_overlapping_bodies() and get_current_state() != state.PUNCHING and get_current_state() != state.STOMPING and $AttackCooldownTimer.is_stopped():
+		print("detected player")
+		if !$Sprite.flip_h:
+			attack(LEFT)
+		else:
+			attack(RIGHT)
 	if get_current_state() == state.PUNCHING and !dead :
 		velocity.x = 0
 	if get_current_state() == state.STOMPING and !dead:
@@ -82,16 +95,29 @@ func start_death_sequence():
 	else:
 		$DeathSprite.flip_h = true
 
+func attack(direction : int):
+	if $AttackCooldownTimer.is_stopped():
+		stomp_attack()
 
+# call this on the "_on_Sprite_animation_finished" function
+func end_attack_animation(delay_in_seconds : float = 0):
+	$Sprite.stop()
+	set_current_state(state.WALKING)
+	is_casting = false
+	yield(get_tree().create_timer(delay_in_seconds), "timeout")
+
+		
 func stomp_attack():
-	set_current_state(state.PUNCHING)
-	is_casting = true
-	$Sprite.play("StompAttack")
+	if get_current_state() != state.PUNCHING and $Sprite.animation != "StompAttack":
+		set_current_state(state.PUNCHING)
+		is_casting = true
+		$Sprite.play("StompAttack")
 
 func _on_Sprite_animation_finished():
 #	if $Sprite.animation == "StompWindup":
 #		$Sprite.play("StompAttack")
 	if $Sprite.animation == "StompAttack" and !dead:
+		$AttackCooldownTimer.start()
 		$StrongJumpParticle.emitting = true
 		yield(get_tree().create_timer(0.15), "timeout")
 		if !dead:
@@ -101,10 +127,8 @@ func _on_Sprite_animation_finished():
 			else:
 				summon_shockwave(-1 * direction)
 				$StrongJumpParticle.position.x = 35
+			end_attack_animation(0.5)
 			
-			$Sprite.stop()
-			set_current_state(state.WALKING)
-			is_casting = false
 
 		
 func summon_shockwave(direction : int):

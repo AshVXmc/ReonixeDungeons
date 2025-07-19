@@ -452,7 +452,6 @@ func death():
 	call_deferred('free')
 	print("reached")
 	Global.enemies_killed += 1
-
 func parse_status_effect_damage():
 	$Sprite.set_modulate(Color(1.4,0.5,0.3,1))
 	if $HurtTimer.is_stopped():

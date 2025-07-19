@@ -29,8 +29,9 @@ enum ATTACK_PROBABILITY_WEIGHTS  {
 onready var player = get_parent().get_node("Player")
 onready var boss_hp_bar_ui : BossHealthBar = get_parent().get_node("BossHealthBarUI/Control")
 
-
 var is_being_attacked : bool = false
+var is_dead : bool = false
+
 # utility functions start
 func set_current_state(new_value : int):
 	current_state = new_value
