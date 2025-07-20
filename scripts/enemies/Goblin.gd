@@ -48,7 +48,7 @@ signal change_hitcount(amount)
 signal on_death()
 
 func _ready():
-	max_HP_calc = 72 + (Global.enemy_level_index * 18)
+	max_HP_calc = 50 + (Global.enemy_level_index * 16)
 	level_calc = round(Global.enemy_level_index)
 	max_HP = max_HP_calc
 	HP = max_HP

@@ -1,27 +1,19 @@
 class_name Slime extends BaseEnemy
 
-var velocity : Vector2 = Vector2()
-
-const AIRBORNE_SPEED : int = -3360
-
-
-
-var is_dead : bool = false 
-var direction : int = 1
-
-const FLOOR = Vector2(0, -1)
-
-
-const LOOT : PackedScene = preload("res://scenes/items/LootBag.tscn")
-var rng : RandomNumberGenerator = RandomNumberGenerator.new()
 const DEATH_SMOKE : PackedScene = preload("res://scenes/particles/DeathSmokeParticle.tscn")
 const FROZEN = preload("res://scenes/status_effects/FrozenStatus.tscn")
-var is_frozen : bool = false
 const DMG_INDICATOR : PackedScene = preload("res://scenes/particles/DamageIndicatorParticle.tscn")
+const LOOT : PackedScene = preload("res://scenes/items/LootBag.tscn")
+const AIRBORNE_SPEED : int = -3360
+const FLOOR = Vector2(0, -1)
+
+var velocity : Vector2 = Vector2()
+var is_dead : bool = false 
+var direction : int = 1
+var rng : RandomNumberGenerator = RandomNumberGenerator.new()
+var is_frozen : bool = false
 var is_staggered : bool = false
 var is_airborne : bool
-
-
 
 var damage_immunity : Dictionary = {
 	fire = false,
@@ -31,7 +23,7 @@ var damage_immunity : Dictionary = {
 }
 
 func _ready():
-	max_HP_calc = Global.enemy_level_index * 20 + 20
+	max_HP_calc = Global.enemy_level_index * 15 + 15
 	level_calc = round(Global.enemy_level_index)
 	max_HP = max_HP_calc
 	HP = max_HP

@@ -176,7 +176,7 @@ align = 1
 position = Vector2( 0, -30 )
 scale = Vector2( 6, 6 )
 texture = ExtResource( 12 )
-energy = 0.5
+energy = 0.35
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_Area2D_area_entered"]
 [connection signal="area_exited" from="Area2D" to="." method="_on_Area2D_area_exited"]

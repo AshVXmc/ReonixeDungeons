@@ -18,7 +18,7 @@ func get_current_state() -> int:
 	return current_state
 
 func _ready():
-	max_HP_calc = 10 #100 + (Global.enemy_level_index * 20)
+	max_HP_calc = 70 + (Global.enemy_level_index * 20)
 	level_calc = round(Global.enemy_level_index)
 	max_HP = max_HP_calc
 	HP = max_HP
@@ -134,8 +134,10 @@ func _on_Sprite_animation_finished():
 func summon_shockwave(direction : int):
 	var enemy_shockwave = ENEMY_SHOCKWAVE.instance()
 	enemy_shockwave.direction = direction
-	enemy_shockwave.scale = Vector2(0.7,0.85)
-	enemy_shockwave.speed *= 0.75 
+	enemy_shockwave.scale = Vector2(0.7,1)
+	enemy_shockwave.speed *= 0.65
+	enemy_shockwave.get_node("Area2D").add_to_group("Hostile")
+	enemy_shockwave.get_node("Area2D").add_to_group(str(10))
 	get_parent().add_child(enemy_shockwave)
 	enemy_shockwave.position = Vector2(global_position.x + (-100 * direction), global_position.y + 10) 
 

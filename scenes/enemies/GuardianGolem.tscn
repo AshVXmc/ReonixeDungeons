@@ -350,7 +350,7 @@ damage_shred = 50.0
 position = Vector2( 0, -85 )
 scale = Vector2( 6, 6 )
 texture = ExtResource( 16 )
-energy = 0.3
+energy = 0.4
 
 [node name="LevelLabel" type="Label" parent="."]
 margin_left = -27.0
