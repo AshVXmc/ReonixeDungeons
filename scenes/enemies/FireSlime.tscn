@@ -95,7 +95,7 @@ __meta__ = {
 }
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 0.793701, -4.96062 )
+position = Vector2( 0, -6 )
 shape = SubResource( 1 )
 
 [node name="WeaknessDisplayComponent" parent="." instance=ExtResource( 11 )]

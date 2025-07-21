@@ -48,7 +48,7 @@ animations = [ {
 "frames": [ ExtResource( 1 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 5 ), ExtResource( 5 ), ExtResource( 5 ), ExtResource( 4 ), ExtResource( 1 ) ],
 "loop": false,
 "name": "StompAttack",
-"speed": 20.0
+"speed": 18.0
 } ]
 
 [sub_resource type="Animation" id=6]

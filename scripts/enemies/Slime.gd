@@ -23,7 +23,7 @@ var damage_immunity : Dictionary = {
 }
 
 func _ready():
-	max_HP_calc = Global.enemy_level_index * 15 + 15
+	max_HP_calc = Global.enemy_level_index * 15 + 12
 	level_calc = round(Global.enemy_level_index)
 	max_HP = max_HP_calc
 	HP = max_HP
@@ -64,7 +64,7 @@ func _physics_process(delta):
 		$RayCast2D.position.x *= -1
 	if !is_dead and !is_frozen and !is_staggered and !is_airborne:
 		velocity.x = SPEED * direction
-		
+
 		velocity.y += GRAVITY
 	if 80 >= velocity.x and velocity.x >= 0:
 		yield(get_tree().create_timer(0.1), "timeout")
@@ -266,8 +266,7 @@ func parse_damage(staggers:bool = true):
 	$AnimatedSprite.set_modulate(Color(2,0.5,0.3,1))
 	$HurtTimer.start()
 	if HP <= 0:
-		drop_loot()
-		death()
+		start_death_animation()
 func parse_status_effect_damage():
 	$AnimatedSprite.set_modulate(Color(2,0.5,0.3,1))
 	$HurtTimer.start()
@@ -289,16 +288,21 @@ func drop_loot():
 		get_parent().add_child(loot)
 		loot.position = $Position2D.global_position
 
-func death():
+func start_death_animation():
 	is_dead = true
+	is_staggered = true
+	$Area2D/CollisionShape2D.disabled = true
+	SPEED = 0
 	$AnimatedSprite.stop()
 	$AnimatedSprite.play("dead")
 	$AnimationPlayer.play("Death")
+	
+
+func death():
 	var deathparticle = DEATH_SMOKE.instance()
 	deathparticle.emitting = true
 	deathparticle.position = global_position
 	get_parent().add_child(deathparticle)
-	yield(get_tree().create_timer(0.3), "timeout")
 	if Global.player_talents["SoulSiphon"]["unlocked"] and Global.player_talents["SoulSiphon"]["enabled"]:
 		var rng = RandomNumberGenerator.new()
 		rng.randomize()
@@ -307,10 +311,12 @@ func death():
 			var soul_orb = preload("res://scenes/skills/SoulOrb.tscn").instance()
 			get_parent().add_child(soul_orb)
 			soul_orb.position = global_position
+	drop_loot()
 	drop_mana_bits(2)
 	call_deferred('free')
 	Global.enemies_killed += 1
-	
+
+
 
 func drop_mana_bits(amount : int):
 	var counter : int = 0

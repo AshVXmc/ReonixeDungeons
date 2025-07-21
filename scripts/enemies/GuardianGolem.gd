@@ -119,7 +119,7 @@ func _on_Sprite_animation_finished():
 	if $Sprite.animation == "StompAttack" and !dead:
 		$AttackCooldownTimer.start()
 		$StrongJumpParticle.emitting = true
-		yield(get_tree().create_timer(0.15), "timeout")
+		yield(get_tree().create_timer(0.25), "timeout")
 		if !dead:
 			if !$Sprite.flip_h:
 				summon_shockwave(direction)
