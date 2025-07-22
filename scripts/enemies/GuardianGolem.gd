@@ -1,6 +1,7 @@
 class_name GuardianGolem extends Goblin
 
 const ENEMY_SHOCKWAVE : PackedScene = preload("res://scenes/enemies/bosses/EnemyShockwave.tscn")
+const ENERGY_GRENADE : PackedScene = preload("res://scenes/enemies/GuardianGolemEnergyGrenade.tscn")
 onready var player : Player = get_parent().get_node("Player")
 enum state  {
 	IDLE,
@@ -18,7 +19,7 @@ func get_current_state() -> int:
 	return current_state
 
 func _ready():
-	max_HP_calc = 70 + (Global.enemy_level_index * 20)
+	max_HP_calc = 60 + (Global.enemy_level_index * 20)
 	level_calc = round(Global.enemy_level_index)
 	max_HP = max_HP_calc
 	HP = max_HP
@@ -45,12 +46,13 @@ func _ready():
 	$DeathSprite.visible = false
 	$DeathSprite.texture = null
 	$PlayerDetector/CollisionShape2D.disabled = false
+	
+	
 
 # OVERRIDE
 func _physics_process(delta):
 	if !$Sprite.flip_h:
 		$PlayerDetector.set_scale(Vector2(1,1))
-#		$ParryDetectorArea2D.set_scale(Vector2(1,1))
 	else:
 		$PlayerDetector.set_scale(Vector2(-1,1))
 	if (MAX_SPEED * 0.6) >= velocity.x and velocity.x >= 0:
@@ -97,7 +99,7 @@ func start_death_sequence():
 
 func attack(direction : int):
 	if $AttackCooldownTimer.is_stopped():
-		stomp_attack()
+		punch_attack()
 
 # call this on the "_on_Sprite_animation_finished" function
 func end_attack_animation(delay_in_seconds : float = 0):
@@ -108,14 +110,35 @@ func end_attack_animation(delay_in_seconds : float = 0):
 
 		
 func stomp_attack():
-	if get_current_state() != state.PUNCHING and $Sprite.animation != "StompAttack":
-		set_current_state(state.PUNCHING)
+	if get_current_state() != state.STOMPING and $Sprite.animation != "StompAttack":
+		set_current_state(state.STOMPING)
 		is_casting = true
 		$Sprite.play("StompAttack")
 
+func punch_attack(grenade_count : int = 2):
+	if get_current_state() != state.PUNCHING and $Sprite.animation != "Punch":
+		set_current_state(state.PUNCHING)
+		is_casting = true
+		$Sprite.play("Punch")
+		
+		while grenade_count > 0:
+			var energy_grenade : GuardianGolemEnergyGrenade = ENERGY_GRENADE.instance()
+			var direction : int 
+			if !$Sprite.flip_h:
+				direction = -1
+			else:
+				direction = 1
+			var rng : RandomNumberGenerator = RandomNumberGenerator.new()
+			rng.randomize()
+			var coefficient : float = rng.randf_range(4.5, 8.5)
+			var distance : float = position.distance_to(player.position)
+			energy_grenade.force_magnitude = coefficient * direction * distance 
+			get_parent().add_child(energy_grenade)
+			energy_grenade.position = $EnergyGrenadeSummonPosition2D.global_position
+			yield(get_tree().create_timer(0.35), "timeout")
+			grenade_count -= 1
+
 func _on_Sprite_animation_finished():
-#	if $Sprite.animation == "StompWindup":
-#		$Sprite.play("StompAttack")
 	if $Sprite.animation == "StompAttack" and !dead:
 		$AttackCooldownTimer.start()
 		$StrongJumpParticle.emitting = true
@@ -128,18 +151,21 @@ func _on_Sprite_animation_finished():
 				summon_shockwave(-1 * direction)
 				$StrongJumpParticle.position.x = 35
 			end_attack_animation(0.5)
-			
-
+	if $Sprite.animation == "Punch" and !dead:
+		$AttackCooldownTimer.start()
+		end_attack_animation(0)
 		
 func summon_shockwave(direction : int):
 	var enemy_shockwave = ENEMY_SHOCKWAVE.instance()
 	enemy_shockwave.direction = direction
 	enemy_shockwave.scale = Vector2(0.7,1)
-	enemy_shockwave.speed *= 0.65
+	enemy_shockwave.speed *= 0.67
 	enemy_shockwave.get_node("Area2D").add_to_group("Hostile")
 	enemy_shockwave.get_node("Area2D").add_to_group(str(10))
 	get_parent().add_child(enemy_shockwave)
 	enemy_shockwave.position = Vector2(global_position.x + (-100 * direction), global_position.y + 10) 
+
+
 
 # OVERRIDE
 func knockback(knockback_coefficient : float = 1):
