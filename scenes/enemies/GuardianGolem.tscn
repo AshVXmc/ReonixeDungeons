@@ -245,7 +245,6 @@ position = Vector2( 0, -40 )
 shape = SubResource( 8 )
 
 [node name="Sprite" type="AnimatedSprite" parent="."]
-visible = false
 position = Vector2( 0, -52 )
 scale = Vector2( 7, 7 )
 frames = SubResource( 16 )

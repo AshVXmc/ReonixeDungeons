@@ -123,16 +123,15 @@ func punch_attack(grenade_count : int = 2):
 		
 		while grenade_count > 0:
 			var energy_grenade : GuardianGolemEnergyGrenade = ENERGY_GRENADE.instance()
-			var direction : int 
+			var direction : int = 1
 			if !$Sprite.flip_h:
 				direction = -1
-			else:
-				direction = 1
-			var rng : RandomNumberGenerator = RandomNumberGenerator.new()
-			rng.randomize()
-			var coefficient : float = rng.randf_range(4.5, 8.5)
+#			var rng : RandomNumberGenerator = RandomNumberGenerator.new()
+#			rng.randomize()
+
 			var distance : float = position.distance_to(player.position)
-			energy_grenade.force_magnitude = coefficient * direction * distance 
+			energy_grenade.force_magnitude =  direction * (distance * (distance * 0.042)) 
+			print("FM: " + str(energy_grenade.force_magnitude))
 			get_parent().add_child(energy_grenade)
 			energy_grenade.position = $EnergyGrenadeSummonPosition2D.global_position
 			yield(get_tree().create_timer(0.35), "timeout")
