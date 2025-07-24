@@ -126,12 +126,10 @@ func punch_attack(grenade_count : int = 2):
 			var direction : int = 1
 			if !$Sprite.flip_h:
 				direction = -1
-#			var rng : RandomNumberGenerator = RandomNumberGenerator.new()
-#			rng.randomize()
 
 			var distance : float = position.distance_to(player.position)
-			energy_grenade.force_magnitude =  direction * (distance * (distance * 0.042)) 
-			print("FM: " + str(energy_grenade.force_magnitude))
+			energy_grenade.force_magnitude =  direction * (distance * (distance * 0.031)) 
+			energy_grenade.atk_value = atk_value 
 			get_parent().add_child(energy_grenade)
 			energy_grenade.position = $EnergyGrenadeSummonPosition2D.global_position
 			yield(get_tree().create_timer(0.35), "timeout")
