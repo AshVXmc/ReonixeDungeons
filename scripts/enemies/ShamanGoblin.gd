@@ -8,18 +8,17 @@ var casting_healing : bool = false
 onready var player = get_parent().get_node("Player/Area2D")
 onready var tp_anchor_name : String = "Anchor" + name
 
-func _ready():
-	# Overrides
-	MAX_SPEED = MAX_SPEED / 3 * -1
-	SPEED = MAX_SPEED
-	$HealingOrbTimer.start()
-
-	
 class InjuredEnemySorter:
 	static func sort_by_injury(hp1, hp2):
 		if hp1[0] < hp2[0]:
 			return true
 		return false
+
+func _ready():
+	# Overrides
+	MAX_SPEED = MAX_SPEED / 3 * -1
+	SPEED = MAX_SPEED
+	$HealingOrbTimer.start()
 
 func get_closest_injured_enemy():
 	var enemies = get_tree().get_nodes_in_group("CanBeHealed")

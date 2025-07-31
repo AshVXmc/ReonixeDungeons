@@ -235,7 +235,7 @@ anim_speed = 2.0
 [sub_resource type="RectangleShape2D" id=21]
 extents = Vector2( 160, 50 )
 
-[node name="Guardian" type="KinematicBody2D" groups=["AirborneImmune", "CanBeHealed", "Enemy", "EnemyEntity"]]
+[node name="GuardianGolem" type="KinematicBody2D" groups=["AirborneImmune", "CanBeHealed", "Enemy", "EnemyEntity"]]
 collision_layer = 4
 collision_mask = 11
 script = ExtResource( 2 )

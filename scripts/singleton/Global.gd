@@ -558,17 +558,17 @@ var masked_goblin_defeated : bool
 
 # Beastiary unlock
 var enemies_encountered : Dictionary = {
-	"Slime": false,
-	"FireSlime": false,
-	"Bat": false,
-	"Spider": false,
-	"ElderSpider": false,
-	"Goblin": false,
-	"BowGoblin": false,
-	"ShamanGoblin": false,
-	"WitchGoblin": false
+	"Slime": 0,
+	"FireSlime": 0,
+	"Bat": 0,
+	"Spider": 0,
+	"ElderSpider": 0,
+	"Goblin": 0,
+	"BowGoblin": 0,
+	"ShamanGoblin": 0,
+	"WitchGoblin": 0
 }
-var enemies_encountered_data : Dictionary = enemies_encountered
+var enemies_encountered_data : Dictionary = enemies_encountered.duplicate()
 
 # Unsaved conditions
 var godmode : bool = false

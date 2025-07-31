@@ -42,7 +42,6 @@ font_data = ExtResource( 1 )
 pause_mode = 2
 
 [node name="Control" type="Control" parent="."]
-visible = false
 anchor_left = 0.5
 anchor_top = 0.33
 anchor_right = 0.5
@@ -52,6 +51,18 @@ margin_top = -237.6
 margin_right = 534.0
 margin_bottom = 484.4
 script = ExtResource( 5 )
+
+[node name="Blur" type="ColorRect" parent="Control"]
+material = ExtResource( 2 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -1232.64
+margin_top = -639.091
+margin_right = 2007.36
+margin_bottom = 1520.91
+color = Color( 1, 1, 1, 0 )
 
 [node name="NinePatchRect" type="NinePatchRect" parent="Control"]
 anchor_left = 0.5
@@ -102,6 +113,7 @@ text = "Select a creature you would like to learn about."
 scroll_active = false
 
 [node name="ButtonGoblin" type="TextureButton" parent="Control/NinePatchRect/ButtonsControl"]
+visible = false
 anchor_left = 0.219
 anchor_top = 0.424
 anchor_right = 0.219
@@ -123,6 +135,7 @@ scale = Vector2( 1.5, 1.5 )
 texture = ExtResource( 7 )
 
 [node name="ButtonSlime" type="TextureButton" parent="Control/NinePatchRect/ButtonsControl"]
+visible = false
 anchor_left = 0.219
 anchor_top = 0.424
 anchor_right = 0.219
@@ -144,6 +157,7 @@ scale = Vector2( 1.5, 1.5 )
 texture = ExtResource( 12 )
 
 [node name="ButtonFireSlime" type="TextureButton" parent="Control/NinePatchRect/ButtonsControl"]
+visible = false
 anchor_left = 0.219
 anchor_top = 0.424
 anchor_right = 0.219
@@ -165,6 +179,7 @@ scale = Vector2( 1.5, 1.5 )
 texture = ExtResource( 11 )
 
 [node name="ButtonBowGoblin" type="TextureButton" parent="Control/NinePatchRect/ButtonsControl"]
+visible = false
 anchor_left = 0.219
 anchor_top = 0.424
 anchor_right = 0.219
@@ -186,6 +201,7 @@ scale = Vector2( 1.5, 1.5 )
 texture = ExtResource( 8 )
 
 [node name="ButtonBat" type="TextureButton" parent="Control/NinePatchRect/ButtonsControl"]
+visible = false
 anchor_left = 0.219
 anchor_top = 0.424
 anchor_right = 0.219
@@ -207,6 +223,7 @@ scale = Vector2( 1.5, 1.5 )
 texture = ExtResource( 9 )
 
 [node name="ButtonSpider" type="TextureButton" parent="Control/NinePatchRect/ButtonsControl"]
+visible = false
 anchor_left = 0.219
 anchor_top = 0.424
 anchor_right = 0.219
@@ -228,6 +245,7 @@ scale = Vector2( 1.75, 1.75 )
 texture = ExtResource( 14 )
 
 [node name="ButtonElderSpider" type="TextureButton" parent="Control/NinePatchRect/ButtonsControl"]
+visible = false
 anchor_left = 0.219
 anchor_top = 0.424
 anchor_right = 0.219
@@ -249,6 +267,7 @@ scale = Vector2( 1.75, 1.75 )
 texture = ExtResource( 15 )
 
 [node name="ButtonShamanGoblin" type="TextureButton" parent="Control/NinePatchRect/ButtonsControl"]
+visible = false
 anchor_left = 0.222
 anchor_top = 0.431
 anchor_right = 0.222
@@ -270,6 +289,7 @@ scale = Vector2( 1.5, 1.5 )
 texture = ExtResource( 10 )
 
 [node name="ButtonWitchGoblin" type="TextureButton" parent="Control/NinePatchRect/ButtonsControl"]
+visible = false
 anchor_left = 0.222
 anchor_top = 0.431
 anchor_right = 0.222
@@ -329,18 +349,6 @@ bbcode_enabled = true
 position = Vector2( 160, 260 )
 scale = Vector2( 10, 10 )
 texture = ExtResource( 7 )
-
-[node name="Blur" type="ColorRect" parent="Control"]
-material = ExtResource( 2 )
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -1232.64
-margin_top = -639.091
-margin_right = 2007.36
-margin_bottom = 1520.91
-color = Color( 1, 1, 1, 0 )
 
 [node name="CloseButton" type="TextureButton" parent="Control"]
 anchor_left = 0.5
