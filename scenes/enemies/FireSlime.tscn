@@ -1,88 +1,81 @@
 [gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://scripts/enemies/FireSlime.gd" type="Script" id=1]
-[ext_resource path="res://assets/enemies/fire_slime_2.png" type="Texture" id=2]
+[ext_resource path="res://spriteframes/slime_spriteframes.tres" type="SpriteFrames" id=2]
 [ext_resource path="res://assets/UI/healthbar_enemy_full.png" type="Texture" id=3]
 [ext_resource path="res://assets/UI/healthbar_enemy_empty.png" type="Texture" id=4]
-[ext_resource path="res://assets/enemies/fire_slime_1.png" type="Texture" id=5]
 [ext_resource path="res://scenes/particles/FireDetonationParticle.tscn" type="PackedScene" id=6]
 [ext_resource path="res://assets/fonts/Born2bSportyV2.ttf" type="DynamicFontData" id=7]
-[ext_resource path="res://assets/enemies/fire_slime_death.png" type="Texture" id=8]
+[ext_resource path="res://assets/enemies/palettes/fire_slime_palette.png" type="Texture" id=8]
 [ext_resource path="res://scenes/status_effects/FrozenStatus.tscn" type="PackedScene" id=9]
 [ext_resource path="res://scenes/status_effects/GroundedStatus.tscn" type="PackedScene" id=10]
 [ext_resource path="res://assets/enemies/components/WeaknessDisplayComponent.tscn" type="PackedScene" id=11]
 [ext_resource path="res://assets/misc/light_circle.png" type="Texture" id=12]
 
+[sub_resource type="Shader" id=6]
+code = "shader_type canvas_item;
+
+uniform sampler2D palette;
+uniform bool skip_first_row = true;
+uniform bool use_palette_alpha = false;
+uniform float fps = 6;
+
+void fragment() {
+	vec4 original_color = texture(TEXTURE, UV);
+	ivec3 colori = ivec3(round(original_color.rgb * 255.0));
+	
+	ivec2 color_count = textureSize(palette, 0);
+	
+	float idx = -1.0;
+	for (int i = 0; i < color_count.x; i++) {
+		vec3 color2 = texture(palette, vec2(float(i) / float(color_count.x - 1), 0)).rgb;
+		ivec3 colori2 = ivec3(round(color2 * 255.0));
+		
+		if (colori == colori2) {
+			idx = float(i);
+			break;
+		}
+	}
+	
+	if (idx >= 0.0) {
+		vec2 uv;
+		uv.x = idx / float(color_count.x - 1);
+		uv.y = (mod(TIME * fps, max(float(color_count.y - 1 - int(skip_first_row)), 1.0)) + float(skip_first_row))  / float(color_count.y - 1);
+		
+		vec4 palette_color = texture(palette, uv);
+		COLOR = vec4(palette_color.rgb, mix(original_color.a, palette_color.a, float(use_palette_alpha)));
+	} else {
+		COLOR = original_color;
+	}
+}"
+
+[sub_resource type="ShaderMaterial" id=7]
+shader = SubResource( 6 )
+shader_param/skip_first_row = true
+shader_param/use_palette_alpha = false
+shader_param/fps = 6.0
+shader_param/palette = ExtResource( 8 )
+
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 26.36, 15.1008 )
-
-[sub_resource type="SpriteFrames" id=3]
-animations = [ {
-"frames": [ ExtResource( 2 ), ExtResource( 5 ), ExtResource( 8 ) ],
-"loop": true,
-"name": "dead",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 5 ), ExtResource( 2 ) ],
-"loop": true,
-"name": "slimeanim",
-"speed": 4.0
-} ]
 
 [sub_resource type="CapsuleShape2D" id=2]
 radius = 24.1874
 height = 20.9775
 
-[sub_resource type="Animation" id=7]
-resource_name = "Death"
+[sub_resource type="Animation" id=8]
 length = 0.3
 step = 0.05
-tracks/0/type = "value"
-tracks/0/path = NodePath("AnimatedSprite:self_modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.25 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 1 ), Color( 0, 0, 0, 1 ) ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("AnimatedSprite:visible")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0.3 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ false ]
-}
 
 [sub_resource type="Animation" id=4]
 resource_name = "explode"
 length = 0.4
 loop = true
-tracks/0/type = "value"
-tracks/0/path = NodePath("AnimatedSprite:self_modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.2, 0.4 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 1 ), Color( 1, 0.498039, 0.301961, 1 ), Color( 1, 1, 1, 1 ) ]
-}
 
 [sub_resource type="CircleShape2D" id=5]
 radius = 150.0
 
-[sub_resource type="DynamicFont" id=6]
+[sub_resource type="DynamicFont" id=9]
 size = 32
 font_data = ExtResource( 7 )
 
@@ -94,18 +87,22 @@ __meta__ = {
 "_edit_group_": true
 }
 
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+visible = false
+material = SubResource( 7 )
+position = Vector2( 0, -30 )
+scale = Vector2( 5, 5 )
+frames = ExtResource( 2 )
+animation = "dead"
+frame = 2
+playing = true
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 0, -6 )
 shape = SubResource( 1 )
 
 [node name="WeaknessDisplayComponent" parent="." instance=ExtResource( 11 )]
 position = Vector2( -5, 0 )
-
-[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
-position = Vector2( 0, -29.326 )
-scale = Vector2( 5, 5 )
-frames = SubResource( 3 )
-animation = "slimeanim"
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
 position = Vector2( 32, 0 )
@@ -141,7 +138,7 @@ wait_time = 0.06
 one_shot = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/Death = SubResource( 7 )
+anims/Death = SubResource( 8 )
 anims/explode = SubResource( 4 )
 
 [node name="FireDetonationParticle" parent="." instance=ExtResource( 6 )]
@@ -164,7 +161,7 @@ margin_left = -28.0
 margin_top = -96.0
 margin_right = 28.0
 margin_bottom = -64.0
-custom_fonts/font = SubResource( 6 )
+custom_fonts/font = SubResource( 9 )
 text = "Lv.1"
 align = 1
 

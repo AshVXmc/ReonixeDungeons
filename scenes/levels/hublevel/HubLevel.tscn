@@ -1,4 +1,4 @@
-[gd_scene load_steps=93 format=2]
+[gd_scene load_steps=91 format=2]
 
 [ext_resource path="res://assets/particles/smoke_particle.png" type="Texture" id=1]
 [ext_resource path="res://scripts/misc/HubLevelLibraryBookshelf.gd" type="Script" id=2]
@@ -77,8 +77,6 @@
 [ext_resource path="res://scenes/enemies/GuardianGolem.tscn" type="PackedScene" id=75]
 [ext_resource path="res://scenes/minigames/BlackJackTable.tscn" type="PackedScene" id=76]
 [ext_resource path="res://scenes/menus/cellphone/CellphoneUI.tscn" type="PackedScene" id=77]
-[ext_resource path="res://scenes/enemies/ShamanGoblin.tscn" type="PackedScene" id=78]
-[ext_resource path="res://scenes/enemies/Goblin.tscn" type="PackedScene" id=79]
 
 [sub_resource type="ShaderMaterial" id=16]
 shader = ExtResource( 74 )
@@ -212,6 +210,7 @@ position = Vector2( 1544.87, 432.386 )
 [node name="Light2D" parent="." instance=ExtResource( 37 )]
 position = Vector2( 1725.87, 747.09 )
 scale = Vector2( 123.492, 44.8937 )
+energy = 0.52
 mode = 1
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
@@ -691,7 +690,7 @@ texture = ExtResource( 69 )
 position = Vector2( 3365, -1779 )
 
 [node name="Player" parent="." instance=ExtResource( 34 )]
-position = Vector2( 3386, 602 )
+position = Vector2( 916.79, -1499.65 )
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position = Vector2( -24.7189, -147.43 )
@@ -707,12 +706,6 @@ editor_draw_limits = true
 
 [node name="Guardian" parent="." instance=ExtResource( 75 )]
 position = Vector2( 2461, 601 )
-
-[node name="ShamanGoblin" parent="." instance=ExtResource( 78 )]
-position = Vector2( 4051, 509 )
-
-[node name="Goblin" parent="." instance=ExtResource( 79 )]
-position = Vector2( 3663, 587 )
 
 [connection signal="area_entered" from="HubLibrary/BookOfShadowsPlayerDetectorArea" to="HubLibrary/BookOfShadowsPlayerDetectorArea" method="_on_BookshelfPlayerDetectorArea_area_entered"]
 [connection signal="area_exited" from="HubLibrary/BookOfShadowsPlayerDetectorArea" to="HubLibrary/BookOfShadowsPlayerDetectorArea" method="_on_BookshelfPlayerDetectorArea_area_exited"]

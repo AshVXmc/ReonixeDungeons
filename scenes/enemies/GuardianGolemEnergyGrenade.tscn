@@ -1,10 +1,8 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://assets/enemies/guardian_golem_energy_grenade.png" type="Texture" id=1]
 [ext_resource path="res://scripts/enemies/GuardianGolemEnergyGrenade.gd" type="Script" id=2]
 [ext_resource path="res://assets/enemies/guardian_golem_energy_grenade_glowing.png" type="Texture" id=3]
-[ext_resource path="res://assets/particles/poison_smoke_particle.png" type="Texture" id=4]
-[ext_resource path="res://scenes/particles/FireDetonationParticle.tscn" type="PackedScene" id=5]
 [ext_resource path="res://assets/misc/light_circle.png" type="Texture" id=6]
 
 [sub_resource type="CircleShape2D" id=1]
@@ -80,18 +78,6 @@ texture = ExtResource( 3 )
 environment = SubResource( 4 )
 
 [node name="ExplodeTimer" type="Timer" parent="."]
-
-[node name="DetonationParticle" parent="." instance=ExtResource( 5 )]
-self_modulate = Color( 1, 0, 1, 1 )
-scale = Vector2( 6, 6 )
-lifetime = 0.16
-explosiveness = 0.51
-lifetime_randomness = 0.0
-texture = ExtResource( 4 )
-initial_velocity = 80.0
-hue_variation = 0.0
-hue_variation_random = 0.0
-hue_variation_curve = null
 
 [node name="Light2D" type="Light2D" parent="."]
 scale = Vector2( 2, 2 )

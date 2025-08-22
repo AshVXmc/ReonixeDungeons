@@ -559,13 +559,13 @@ var masked_goblin_defeated : bool
 # Beastiary unlock
 var enemies_encountered : Dictionary = {
 	"Slime": 0,
-	"FireSlime": 0,
+	"FireSlime": 1,
 	"Bat": 0,
 	"Spider": 0,
-	"ElderSpider": 0,
+	"ElderSpider": 1,
 	"Goblin": 0,
 	"BowGoblin": 0,
-	"ShamanGoblin": 0,
+	"ShamanGoblin": 2,
 	"WitchGoblin": 0
 }
 var enemies_encountered_data : Dictionary = enemies_encountered.duplicate()

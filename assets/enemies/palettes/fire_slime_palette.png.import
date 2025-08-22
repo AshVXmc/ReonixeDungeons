@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/fire_slime_death.png-99276029ccb229937172e19c3b8b8555.stex"
+path="res://.import/fire_slime_palette.png-cd2880134f724d7f675546b13f563aa2.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/enemies/fire_slime_death.png"
-dest_files=[ "res://.import/fire_slime_death.png-99276029ccb229937172e19c3b8b8555.stex" ]
+source_file="res://assets/enemies/palettes/fire_slime_palette.png"
+dest_files=[ "res://.import/fire_slime_palette.png-cd2880134f724d7f675546b13f563aa2.stex" ]
 
 [params]
 

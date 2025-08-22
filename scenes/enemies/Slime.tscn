@@ -101,13 +101,6 @@ __meta__ = {
 "_edit_group_": true
 }
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 0, -6 )
-shape = SubResource( 1 )
-
-[node name="WeaknessDisplayComponent" parent="." instance=ExtResource( 8 )]
-position = Vector2( -5, 0 )
-
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 position = Vector2( 0, -30 )
 scale = Vector2( 5, 5 )
@@ -115,6 +108,13 @@ frames = ExtResource( 2 )
 animation = "dead"
 frame = 2
 playing = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0, -6 )
+shape = SubResource( 1 )
+
+[node name="WeaknessDisplayComponent" parent="." instance=ExtResource( 8 )]
+position = Vector2( -5, 0 )
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
 position = Vector2( 32, 0 )

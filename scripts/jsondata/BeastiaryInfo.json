@@ -32,7 +32,7 @@
     "FireSlime": {
         "Name": "Fire Slime",
         "Description": "Slimes move back-and-forth in a horizontal line, damaging you on contact. Fire slimes are immune to Fire damage and explode in a burst of flames shortly after death.",
-        "Flavortext": "Their volatile, explosive properties are speculated to be due to prolonged stays in hot environments such as volcanoes and deserts."
+        "Flavortext": "Fire slimes are not made of lava or any kind of molten rock. Instead, they are conglomerates of magical fire that are held together by mana."
     },
     "Spider": {
         "Name": "Spider",

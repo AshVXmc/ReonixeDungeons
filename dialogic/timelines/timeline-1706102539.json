@@ -115,6 +115,13 @@
 			"text": "Gaining the trust of a familiar is a varied process. Some met them in the wild and befriended them. Some summoned them via a ritual and struck a deal in exchange for their aid."
 		},
 		{
+			"choice": "Leave",
+			"condition": "",
+			"definition": "",
+			"event_id": "dialogic_011",
+			"value": ""
+		},
+		{
 			"event_id": "dialogic_013"
 		}
 	],

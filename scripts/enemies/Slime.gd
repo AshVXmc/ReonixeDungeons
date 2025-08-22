@@ -263,12 +263,12 @@ func knockback(knockback_coefficient : float = 1):
 func parse_damage(staggers:bool = true):
 	if staggers:
 		is_staggered = true
-	$AnimatedSprite.set_modulate(Color(2,0.5,0.3,1))
+#	$AnimatedSprite.set_modulate(Color(2,0.5,0.3,1))
 	$HurtTimer.start()
 	if HP <= 0:
 		start_death_animation()
 func parse_status_effect_damage():
-	$AnimatedSprite.set_modulate(Color(2,0.5,0.3,1))
+#	$AnimatedSprite.set_modulate(Color(2,0.5,0.3,1))
 	$HurtTimer.start()
 	
 func add_damage_particles(type : String, dmg : int, is_crit : bool):

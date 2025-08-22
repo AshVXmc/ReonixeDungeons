@@ -6,7 +6,7 @@ var bow_goblin_icon : StreamTexture = preload("res://assets/enemies/bow_goblin1.
 var bat_icon : StreamTexture = preload("res://assets/enemies/bat_1.png")
 var shaman_goblin_icon : StreamTexture = preload("res://assets/enemies/goblin_shaman_1.png")
 var slime_icon : StreamTexture = preload("res://assets/enemies/slime1.png")
-var fire_slime_icon : StreamTexture = preload("res://assets/enemies/fire_slime_1.png")
+#var fire_slime_icon : StreamTexture = preload("res://assets/enemies/fire_slime_1.png")
 var witch_goblin_icon : StreamTexture = preload("res://assets/enemies/witch_goblin_summoning_1.png")
 var spider_icon : StreamTexture = preload("res://assets/enemies/spider1.png")
 var elder_spider_icon : StreamTexture = preload("res://assets/enemies/elder_spider1.png")
@@ -32,7 +32,9 @@ func initialize_ui():
 	
 func update_beastiary_content():
 	for enemy in Global.enemies_encountered_data:
-		print(Global.enemies_encountered_data[enemy])
+		if Global.enemies_encountered_data[enemy] > 0:
+			get_node("NinePatchRect/ButtonsControl/Button" + str(enemy)).visible = true
+ 
 
 func close_ui():
 	visible = false
@@ -66,7 +68,7 @@ func open_beast_info_screen(beast_name : String):
 		"Slime":
 			root_container.get_node("BeastInfoControl/Sprite").texture = slime_icon
 		"FireSlime":
-			root_container.get_node("BeastInfoControl/Sprite").texture = fire_slime_icon
+			root_container.get_node("BeastInfoControl/Sprite").texture = slime_icon # user paletteswapshader
 		"Spider":
 			root_container.get_node("BeastInfoControl/Sprite").texture = spider_icon
 		"ElderSpider":
