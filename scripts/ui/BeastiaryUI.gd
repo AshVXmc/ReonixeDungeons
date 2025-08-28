@@ -11,6 +11,7 @@ var witch_goblin_icon : StreamTexture = preload("res://assets/enemies/witch_gobl
 var spider_icon : StreamTexture = preload("res://assets/enemies/spider1.png")
 var elder_spider_icon : StreamTexture = preload("res://assets/enemies/elder_spider1.png")
 
+
 # in case i want to make a vbox the root node for scrolling (scalability baby)
 onready var root_container : NinePatchRect = $NinePatchRect
 
@@ -53,7 +54,9 @@ func _process(delta):
 func open_beast_info_screen(beast_name : String):
 	root_container.get_node("ButtonsControl").visible = false
 	root_container.get_node("BeastInfoControl/Name").text = dict_beastiary[beast_name]["Name"]
-	root_container.get_node("BeastInfoControl/Description").bbcode_text = dict_beastiary[beast_name]["Description"] + "[color=maroon][u][indent]" + dict_beastiary[beast_name]["Flavortext"] 
+	
+	root_container.get_node("BeastInfoControl/Description").bbcode_text = dict_beastiary[beast_name]["Description"] + "\n\nYou have encountered and defeated this enemy " + str(Global.enemies_encountered[beast_name]) + " times." + "[color=maroon][u][indent]" + dict_beastiary[beast_name]["Flavortext"]
+#	root_container.get_node("BeastInfoControl/Sprite").material = null
 	match beast_name:
 		"Goblin":
 			root_container.get_node("BeastInfoControl/Sprite").texture = goblin_icon
@@ -69,6 +72,7 @@ func open_beast_info_screen(beast_name : String):
 			root_container.get_node("BeastInfoControl/Sprite").texture = slime_icon
 		"FireSlime":
 			root_container.get_node("BeastInfoControl/Sprite").texture = slime_icon # user paletteswapshader
+			root_container.get_node("BeastInfoControl/Sprite").material = load("res://shaders/FireSlmeShader.tres")
 		"Spider":
 			root_container.get_node("BeastInfoControl/Sprite").texture = spider_icon
 		"ElderSpider":

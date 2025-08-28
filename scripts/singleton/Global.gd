@@ -557,8 +557,9 @@ var enemies_killed : int
 var masked_goblin_defeated : bool
 
 # Beastiary unlock
+# <enemy_name> : <no_of_enemies_vanquished>
 var enemies_encountered : Dictionary = {
-	"Slime": 0,
+	"Slime": 1,
 	"FireSlime": 1,
 	"Bat": 0,
 	"Spider": 0,

@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://assets/fonts/Born2bSportyV2.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://themes/Blur.tres" type="Material" id=2]
@@ -10,7 +10,7 @@
 [ext_resource path="res://assets/enemies/bow_goblin1.png" type="Texture" id=8]
 [ext_resource path="res://assets/enemies/bat_1.png" type="Texture" id=9]
 [ext_resource path="res://assets/enemies/goblin_shaman_1.png" type="Texture" id=10]
-[ext_resource path="res://assets/enemies/palettes/fire_slime_palette.png" type="Texture" id=11]
+[ext_resource path="res://shaders/FireSlmeShader.tres" type="Material" id=11]
 [ext_resource path="res://assets/enemies/slime1.png" type="Texture" id=12]
 [ext_resource path="res://assets/enemies/witch_goblin_1.png" type="Texture" id=13]
 [ext_resource path="res://assets/enemies/spider1.png" type="Texture" id=14]
@@ -23,50 +23,6 @@ font_data = ExtResource( 1 )
 [sub_resource type="DynamicFont" id=2]
 size = 32
 font_data = ExtResource( 1 )
-
-[sub_resource type="Shader" id=6]
-code = "shader_type canvas_item;
-
-uniform sampler2D palette;
-uniform bool skip_first_row = true;
-uniform bool use_palette_alpha = false;
-uniform float fps = 6;
-
-void fragment() {
-	vec4 original_color = texture(TEXTURE, UV);
-	ivec3 colori = ivec3(round(original_color.rgb * 255.0));
-	
-	ivec2 color_count = textureSize(palette, 0);
-	
-	float idx = -1.0;
-	for (int i = 0; i < color_count.x; i++) {
-		vec3 color2 = texture(palette, vec2(float(i) / float(color_count.x - 1), 0)).rgb;
-		ivec3 colori2 = ivec3(round(color2 * 255.0));
-		
-		if (colori == colori2) {
-			idx = float(i);
-			break;
-		}
-	}
-	
-	if (idx >= 0.0) {
-		vec2 uv;
-		uv.x = idx / float(color_count.x - 1);
-		uv.y = (mod(TIME * fps, max(float(color_count.y - 1 - int(skip_first_row)), 1.0)) + float(skip_first_row))  / float(color_count.y - 1);
-		
-		vec4 palette_color = texture(palette, uv);
-		COLOR = vec4(palette_color.rgb, mix(original_color.a, palette_color.a, float(use_palette_alpha)));
-	} else {
-		COLOR = original_color;
-	}
-}"
-
-[sub_resource type="ShaderMaterial" id=7]
-shader = SubResource( 6 )
-shader_param/skip_first_row = true
-shader_param/use_palette_alpha = false
-shader_param/fps = 6.0
-shader_param/palette = ExtResource( 11 )
 
 [sub_resource type="DynamicFont" id=3]
 size = 48
@@ -218,7 +174,7 @@ __meta__ = {
 }
 
 [node name="Sprite" type="Sprite" parent="Control/NinePatchRect/ButtonsControl/ButtonFireSlime"]
-material = SubResource( 7 )
+material = ExtResource( 11 )
 position = Vector2( 20.4, 20 )
 scale = Vector2( 1.5, 1.5 )
 texture = ExtResource( 12 )
@@ -393,7 +349,7 @@ bbcode_enabled = true
 [node name="Sprite" type="Sprite" parent="Control/NinePatchRect/BeastInfoControl"]
 position = Vector2( 160, 260 )
 scale = Vector2( 10, 10 )
-texture = ExtResource( 7 )
+texture = ExtResource( 12 )
 
 [node name="CloseButton" type="TextureButton" parent="Control"]
 anchor_left = 0.5
