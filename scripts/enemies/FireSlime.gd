@@ -27,7 +27,8 @@ func parse_damage(staggers:bool = true):
 func parse_status_effect_damage():
 	$AnimatedSprite.set_modulate(Color(1,0.5,0.3,1))
 	$HurtTimer.start()
-	
+
+
 func death():
 	is_dead = true
 #	call_deferred('free')
@@ -56,3 +57,4 @@ func self_destruct():
 	yield(get_tree().create_timer(0.5), "timeout")
 	call_deferred('free')
 	Global.enemies_killed += 1
+	Global.enemies_encountered["FireSlime"] += 1

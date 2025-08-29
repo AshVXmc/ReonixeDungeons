@@ -32,10 +32,11 @@ func initialize_ui():
 	update_beastiary_content()
 	
 func update_beastiary_content():
-	for enemy in Global.enemies_encountered_data:
-		if Global.enemies_encountered_data[enemy] > 0:
+	for enemy in Global.enemies_encountered:
+		if Global.enemies_encountered[enemy] > 0:
 			get_node("NinePatchRect/ButtonsControl/Button" + str(enemy)).visible = true
- 
+	# debug
+	print(Global.enemies_encountered)
 
 func close_ui():
 	visible = false
@@ -78,6 +79,8 @@ func open_beast_info_screen(beast_name : String):
 		"ElderSpider":
 			root_container.get_node("BeastInfoControl/Sprite").texture = elder_spider_icon
 	root_container.get_node("BeastInfoControl").visible = true
+	
+	
 	
 func _on_CloseButton_pressed():
 	if root_container.get_node("BeastInfoControl").visible:

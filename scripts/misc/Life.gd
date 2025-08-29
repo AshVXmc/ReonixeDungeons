@@ -6,10 +6,13 @@ var heart_size : int = 96 * 0.1
 func _ready():
 	$HeartSlot.rect_size.x = Global.max_hearts * heart_size 
 	$Hearts.rect_size.x = Global.hearts * heart_size
+	$HealthLabel1.text = str(Global.max_hearts)
 	$HeartSlot2.rect_size.x = Global.character_2_max_hearts * heart_size
 	$Hearts2.rect_size.x = Global.character2_hearts * heart_size
+	$HealthLabel2.text = str(Global.character_2_max_hearts)
 	$HeartSlot3.rect_size.x = Global.character_3_max_hearts * heart_size
 	$Hearts3.rect_size.x = Global.character3_hearts * heart_size
+	$HealthLabel3.text = str(Global.character_3_max_hearts)
 func _process(delta):
 	
 	if Global.current_character == Global.equipped_characters[0]:

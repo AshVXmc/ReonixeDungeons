@@ -1,8 +1,13 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://scripts/misc/Life.gd" type="Script" id=1]
 [ext_resource path="res://assets/UI/heart_bar.png" type="Texture" id=2]
 [ext_resource path="res://assets/UI/heart_slot.png" type="Texture" id=3]
+[ext_resource path="res://assets/fonts/Born2bSportyV2.ttf" type="DynamicFontData" id=4]
+
+[sub_resource type="DynamicFont" id=1]
+size = 32
+font_data = ExtResource( 4 )
 
 [node name="HeartUI" type="CanvasLayer"]
 
@@ -77,3 +82,48 @@ stretch_mode = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="HealthLabel1" type="Label" parent="Life"]
+visible = false
+anchor_left = 0.524
+anchor_top = 0.495
+anchor_right = 0.524
+anchor_bottom = 0.495
+margin_left = -33.708
+margin_top = -16.035
+margin_right = 30.292
+margin_bottom = 15.965
+custom_colors/font_color = Color( 1, 0.843137, 0.0117647, 1 )
+custom_fonts/font = SubResource( 1 )
+text = "10"
+align = 1
+
+[node name="HealthLabel2" type="Label" parent="Life"]
+visible = false
+anchor_left = 0.524
+anchor_top = 0.495
+anchor_right = 0.524
+anchor_bottom = 0.495
+margin_left = -33.708
+margin_top = -16.035
+margin_right = 30.292
+margin_bottom = 15.965
+custom_colors/font_color = Color( 1, 0.843137, 0.0117647, 1 )
+custom_fonts/font = SubResource( 1 )
+text = "10"
+align = 1
+
+[node name="HealthLabel3" type="Label" parent="Life"]
+visible = false
+anchor_left = 0.524
+anchor_top = 0.495
+anchor_right = 0.524
+anchor_bottom = 0.495
+margin_left = -33.708
+margin_top = -16.035
+margin_right = 30.292
+margin_bottom = 15.965
+custom_colors/font_color = Color( 1, 0.843137, 0.0117647, 1 )
+custom_fonts/font = SubResource( 1 )
+text = "10"
+align = 1

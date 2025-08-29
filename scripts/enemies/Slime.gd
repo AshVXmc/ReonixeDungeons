@@ -315,7 +315,7 @@ func death():
 	drop_mana_bits(2)
 	call_deferred('free')
 	Global.enemies_killed += 1
-
+	Global.enemies_encountered["Slime"] += 1
 
 
 func drop_mana_bits(amount : int):
