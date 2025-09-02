@@ -46,7 +46,7 @@ func _ready():
 	$DeathSprite.visible = false
 	$DeathSprite.texture = null
 	$PlayerDetector/CollisionShape2D.disabled = false
-	
+	$StrongJumpParticle.emitting = false
 	
 
 # OVERRIDE

@@ -114,6 +114,10 @@ one_shot = true
 
 [node name="GroundedStatus" parent="." instance=ExtResource( 7 )]
 
+[node name="VisibilityEnabler2D" type="VisibilityEnabler2D" parent="."]
+process_parent = true
+physics_process_parent = true
+
 [connection signal="area_entered" from="Area2D" to="." method="_on_Area2D_area_entered"]
 [connection signal="area_exited" from="Area2D" to="." method="_on_Area2D_area_exited"]
 [connection signal="body_entered" from="Detector" to="." method="_on_Detector_body_entered"]

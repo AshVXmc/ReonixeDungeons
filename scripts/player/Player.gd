@@ -355,7 +355,7 @@ func get_closest_enemy() -> Node2D:
 	return closest_enemy
 	
 func _physics_process(_delta):
-	
+
 #	if Global.current_character == "Player":
 #		$EnergyMeter.visible = true
 #	else:
@@ -363,13 +363,13 @@ func _physics_process(_delta):
 	if Global.current_character != "Player":
 		$EnergyMeter.visible = false
 #	if !is_sheathing:
-	
+
 	if !$Sprite.flip_h:
 		$KatanaSheathPlayer.play("RightDefault")
 	else:
 		$KatanaSheathPlayer.play("LeftDefault")
-	
-		
+
+
 	$Shield.visible = true if shield_hp > 0 else false
 #	if Input.is_action_just_pressed("slot_1"):
 #		if facing == left:
@@ -424,7 +424,7 @@ func _physics_process(_delta):
 						$UpwardsChargedAttackCollision.set_scale(Vector2(-1,1))
 						$DownwardsChargedAttackCollision.set_scale(Vector2(-1,1))
 						$EnemyEvasionArea.set_scale(Vector2(-1,1))
-						
+
 					elif facing == right:
 						Input.action_release("left")
 #						attack_string_count = 4
@@ -443,7 +443,7 @@ func _physics_process(_delta):
 							$DashParticlePosition.position.x *= -1
 						if Input.is_action_just_released("right"):
 							$Sprite.play("Walk")
-							
+
 						$AttackCollision.set_scale(Vector2(1,1))
 						$ChargedAttackCollision.set_scale(Vector2(1,1))
 						$ChargedAttackDetector.set_scale(Vector2(1,1))
@@ -452,7 +452,7 @@ func _physics_process(_delta):
 						$UpwardsChargedAttackCollision.set_scale(Vector2(1,1))
 						$DownwardsChargedAttackCollision.set_scale(Vector2(1,1))
 						$EnemyEvasionArea.set_scale(Vector2(1,1))
-				
+
 					# Jump controls (ground)
 					if Input.is_action_just_pressed("jump") and $DoubleJumpDelayTimer.is_stopped() and !can_fly and !mobility_lock and !is_attacking and !is_frozen and !underwater and !Input.is_action_pressed("ui_dash"):
 						if can_double_jump or is_on_floor():
@@ -489,9 +489,9 @@ func _physics_process(_delta):
 						water_jump_particle.position = $ParticlePosition.global_position
 						velocity.y = JUMP_POWER / 1.5
 						$Sprite.play("Idle")
-					
+
 	#				is_attacking = false
-					
+
 				# Movement calculations
 	#			if !is_dashing and !is_gliding:
 	#				velocity.y += GRAVITY
@@ -547,12 +547,12 @@ func _physics_process(_delta):
 	$AtkBuffParticle.visible = true if buffed_from_attack_crystals else false
 	$WeakenParticles.visible = true if !$WeakenedTimer.is_stopped() else false
 	charge_meter()
-	
+
 	$Sprite.visible = true if Global.current_character == "Player" else false
 	if Global.current_character != "Player":
 		mana_absorption_counter = mana_absorption_counter_max
 		restore_mana_for_all_parties = 2
-		
+
 
 
 func set_attack_power(type : String ,amount : float, duration : float, from_crystal : bool = true):

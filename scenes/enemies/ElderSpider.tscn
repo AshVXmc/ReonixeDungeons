@@ -112,5 +112,9 @@ __meta__ = {
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SpitAttackArea2D"]
 shape = SubResource( 4 )
 
+[node name="VisibilityEnabler2D" type="VisibilityEnabler2D" parent="."]
+process_parent = true
+physics_process_parent = true
+
 [connection signal="area_entered" from="Area2D" to="." method="_on_Area2D_area_entered"]
 [connection signal="timeout" from="HurtTimer" to="." method="_on_HurtTimer_timeout"]
