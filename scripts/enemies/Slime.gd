@@ -44,6 +44,7 @@ func _ready():
 	$LevelLabel.text = "Lv " + str(level)
 	$HealthBar.max_value = max_HP
 	$HealthBar.value = $HealthBar.max_value
+	enemy_name = "Slime"
 func _physics_process(delta):
 	if !is_dead:
 		if !is_airborne:
@@ -315,7 +316,7 @@ func death():
 	drop_mana_bits(2)
 	call_deferred('free')
 	Global.enemies_killed += 1
-	Global.enemies_encountered["Slime"] += 1
+	Global.enemies_encountered[enemy_name] += 1
 
 
 func drop_mana_bits(amount : int):

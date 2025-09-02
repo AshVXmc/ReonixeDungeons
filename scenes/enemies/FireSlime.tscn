@@ -73,7 +73,7 @@ length = 0.4
 loop = true
 
 [sub_resource type="CircleShape2D" id=5]
-radius = 150.0
+radius = 125.0
 
 [sub_resource type="DynamicFont" id=9]
 size = 32

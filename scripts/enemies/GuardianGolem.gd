@@ -41,12 +41,13 @@ func _ready():
 	set_current_state(state.WALKING)
 	$HealthBar.max_value = max_HP
 	$HealthBar.value = $HealthBar.max_value
+	enemy_name = "GuardianGolem"
 	$Sprite.visible = true
 	$Sprite.self_modulate = Color(1,1,1,1)
 	$DeathSprite.visible = false
 	$DeathSprite.texture = null
 	$PlayerDetector/CollisionShape2D.disabled = false
-	$StrongJumpParticle.emitting = false
+	$DestroyedParticles2D.visible = false
 	
 
 # OVERRIDE

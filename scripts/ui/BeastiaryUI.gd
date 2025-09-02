@@ -10,7 +10,7 @@ var slime_icon : StreamTexture = preload("res://assets/enemies/slime1.png")
 var witch_goblin_icon : StreamTexture = preload("res://assets/enemies/witch_goblin_summoning_1.png")
 var spider_icon : StreamTexture = preload("res://assets/enemies/spider1.png")
 var elder_spider_icon : StreamTexture = preload("res://assets/enemies/elder_spider1.png")
-
+var guardian_golem_icon : StreamTexture = preload("res://assets/enemies/guardian_golem.png")
 
 # in case i want to make a vbox the root node for scrolling (scalability baby)
 onready var root_container : NinePatchRect = $NinePatchRect
@@ -78,6 +78,8 @@ func open_beast_info_screen(beast_name : String):
 			root_container.get_node("BeastInfoControl/Sprite").texture = spider_icon
 		"ElderSpider":
 			root_container.get_node("BeastInfoControl/Sprite").texture = elder_spider_icon
+		"GuardianGolem":
+			root_container.get_node("BeastInfoControl/Sprite").texture = guardian_golem_icon
 	root_container.get_node("BeastInfoControl").visible = true
 	
 	
@@ -115,3 +117,7 @@ func _on_ButtonSpider_pressed():
 
 func _on_ButtonElderSpider_pressed():
 	open_beast_info_screen("ElderSpider")
+
+
+func _on_ButtonGuardianGolem_pressed():
+	open_beast_info_screen("GuardianGolem")

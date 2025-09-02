@@ -22,6 +22,8 @@ export (int) var global_res : int = 0
 var elemental_type : String = "Physical"
 var weaknesses : Array = ["Physical", "Fire"]
 
+var enemy_name : String 
+
 # optional?
 export (String, "Physical", "Magical", "Fire", "Ice", "Earth") var Armor_Type = "Physical"
 export (int) var Armor_Durability = 100 # amount of poise/hits/elemental stacks needed to break the shield

@@ -31,7 +31,7 @@
     },
     "FireSlime": {
         "Name": "Fire Slime",
-        "Description": "Slimes move back-and-forth in a horizontal line, damaging you on contact. Fire slimes are immune to Fire damage and explode in a burst of flames shortly after death.",
+        "Description": "Slimes move back-and-forth in a horizontal line, damaging you on contact. They are immune to Fire damage and explode in a burst of flames shortly after death.",
         "Flavortext": "Fire slimes are not made of lava or any kind of molten rock. Instead, they are conglomerates of magical fire that are held together by mana."
     },
     "Spider": {
@@ -43,6 +43,11 @@
         "Name": "Elder Spider",
         "Description": "Elder spiders cling to floors or ceilings, crawling in their facing direction, damaging you on contact and creating webs to ensnare you.",
         "Flavortext": "As they mature, spiders start to produce and weave durable silk to create a nest or capture prey. Their skin also grows thicker, forming a carapace that protects them."
+    },
+    "GuardianGolem": {
+        "Name": "Guardian Golem",
+        "Description": "Guardians attack on sight, lobbing energy grenades at you. Their large mass prevents them from being knocked back or airborne.",
+        "Flavortext": "These towering automatons were constructed to protect adventurers and townspeople who venture down the dungeons. Dark mana corrupted the magic that powers them, turning them against the people they were supposed to protect."
     }
 
 }

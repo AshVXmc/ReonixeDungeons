@@ -11,6 +11,7 @@ func _ready():
 	HP = max_HP
 	$HealthBar.max_value = max_HP
 	$HealthBar.value = $HealthBar.max_value
+	enemy_name = "WitchGoblin"
 	SPEED = MAX_SPEED / 2.1
 	is_casting = true
 	cast_spell()

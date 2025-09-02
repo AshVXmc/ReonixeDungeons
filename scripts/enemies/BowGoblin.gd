@@ -2,7 +2,7 @@ class_name BowGoblin extends Goblin
 
 var is_shooting : bool = false
 const ARROW = preload("res://scenes/enemies/Arrow.tscn")
-
+var is_dead : bool = false
 func _ready():
 	$ShootArrowTimer.start()
 	# Overrides
@@ -10,6 +10,7 @@ func _ready():
 	SPEED = MAX_SPEED / 4
 	$HealthBar.max_value = max_HP
 	$HealthBar.value = $HealthBar.max_value
+	enemy_name = "BowGoblin"
 	
 func shoot_arrow():
 	is_shooting = true

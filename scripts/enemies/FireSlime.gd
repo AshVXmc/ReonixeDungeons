@@ -8,7 +8,7 @@ func _ready():
 	damage_immunity.fire = true
 	elemental_type = "Fire"
 	atk_value = 2 * Global.enemy_level_index + 2
-	
+	enemy_name = "FireSlime"
 	fire_res = 100
 	ice_res = -66.6 
 	$WeaknessDisplayComponent.update_weakness_display()
@@ -45,7 +45,7 @@ func self_destruct():
 	$FireDetonationParticle.emitting = true
 #	$AnimatedSprite.visible = false
 	$ExplosionArea2D/CollisionShape2D.disabled = false
-	yield(get_tree().create_timer(0.4), "timeout")
+	yield(get_tree().create_timer(0.3), "timeout")
 	$AnimatedSprite.stop()
 	$AnimationPlayer.stop()
 	$AnimatedSprite.play("dead")
@@ -54,7 +54,7 @@ func self_destruct():
 	deathparticle.emitting = true
 	deathparticle.position = global_position
 	get_parent().add_child(deathparticle)
-	yield(get_tree().create_timer(0.5), "timeout")
+	yield(get_tree().create_timer(0.4), "timeout")
 	call_deferred('free')
 	Global.enemies_killed += 1
-	Global.enemies_encountered["FireSlime"] += 1
+	Global.enemies_encountered[enemy_name] += 1

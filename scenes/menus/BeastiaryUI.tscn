@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://assets/fonts/Born2bSportyV2.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://themes/Blur.tres" type="Material" id=2]
@@ -15,6 +15,7 @@
 [ext_resource path="res://assets/enemies/witch_goblin_1.png" type="Texture" id=13]
 [ext_resource path="res://assets/enemies/spider1.png" type="Texture" id=14]
 [ext_resource path="res://assets/enemies/elder_spider1.png" type="Texture" id=15]
+[ext_resource path="res://assets/enemies/guardian_golem.png" type="Texture" id=16]
 
 [sub_resource type="DynamicFont" id=1]
 size = 48
@@ -311,6 +312,26 @@ position = Vector2( 20.4, 20 )
 scale = Vector2( 1.35, 1.35 )
 texture = ExtResource( 13 )
 
+[node name="ButtonGuardianGolem" type="TextureButton" parent="Control/NinePatchRect/ButtonsControl"]
+anchor_left = 0.222
+anchor_top = 0.431
+anchor_right = 0.222
+anchor_bottom = 0.431
+margin_left = 347.4
+margin_top = 25.5
+margin_right = 387.4
+margin_bottom = 65.5
+rect_scale = Vector2( 2, 2 )
+texture_normal = ExtResource( 6 )
+expand = true
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Sprite" type="Sprite" parent="Control/NinePatchRect/ButtonsControl/ButtonGuardianGolem"]
+position = Vector2( 20.4, 20 )
+texture = ExtResource( 16 )
+
 [node name="BeastInfoControl" type="Control" parent="Control/NinePatchRect"]
 visible = false
 margin_right = 40.0
@@ -373,4 +394,5 @@ expand = true
 [connection signal="pressed" from="Control/NinePatchRect/ButtonsControl/ButtonElderSpider" to="Control" method="_on_ButtonElderSpider_pressed"]
 [connection signal="pressed" from="Control/NinePatchRect/ButtonsControl/ButtonShamanGoblin" to="Control" method="_on_ButtonShamanGoblin_pressed"]
 [connection signal="pressed" from="Control/NinePatchRect/ButtonsControl/ButtonWitchGoblin" to="Control" method="_on_ButtonWitchGoblin_pressed"]
+[connection signal="pressed" from="Control/NinePatchRect/ButtonsControl/ButtonGuardianGolem" to="Control" method="_on_ButtonGuardianGolem_pressed"]
 [connection signal="pressed" from="Control/CloseButton" to="Control" method="_on_CloseButton_pressed"]

@@ -567,7 +567,8 @@ var enemies_encountered : Dictionary = {
 	"Goblin": 0,
 	"BowGoblin": 0,
 	"ShamanGoblin": 0,
-	"WitchGoblin": 0
+	"WitchGoblin": 0,
+	"GuardianGolem": 0,
 }
 var enemies_encountered_data : Dictionary = enemies_encountered.duplicate()
 

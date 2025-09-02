@@ -18,6 +18,7 @@ func _ready():
 	# Overrides
 	MAX_SPEED = MAX_SPEED / 3 * -1
 	SPEED = MAX_SPEED
+	enemy_name = "ShamanGoblin"
 	$HealingOrbTimer.start()
 
 func get_closest_injured_enemy():

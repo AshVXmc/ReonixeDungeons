@@ -70,64 +70,76 @@ tracks/0/keys = {
 } ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("DestroyedParticles2D:emitting")
+tracks/1/path = NodePath("DeathSprite:texture")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 0.1, 0.25 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 1,
-"values": [ false, true, false ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath("DeathSprite:texture")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
 "times": PoolRealArray( 0, 0.25, 0.5, 0.75 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 1,
 "values": [ ExtResource( 23 ), ExtResource( 23 ), ExtResource( 22 ), ExtResource( 21 ) ]
 }
-tracks/3/type = "value"
-tracks/3/path = NodePath("DeathSprite:visible")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/keys = {
+tracks/2/type = "value"
+tracks/2/path = NodePath("DeathSprite:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
 "times": PoolRealArray( 0, 1.1 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 1,
 "values": [ true, false ]
 }
-tracks/4/type = "value"
-tracks/4/path = NodePath("Sprite:visible")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/keys = {
+tracks/3/type = "value"
+tracks/3/path = NodePath("Sprite:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
 "values": [ false ]
 }
+tracks/4/type = "value"
+tracks/4/path = NodePath("DeathSprite:self_modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 0.9, 1.1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 0.27451, 0.27451, 0.27451, 1 ) ]
+}
 tracks/5/type = "value"
-tracks/5/path = NodePath("DeathSprite:self_modulate")
+tracks/5/path = NodePath("DestroyedParticles2D:emitting")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/imported = false
 tracks/5/enabled = true
 tracks/5/keys = {
-"times": PoolRealArray( 0, 0.9, 1.1 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 0.27451, 0.27451, 0.27451, 1 ) ]
+"times": PoolRealArray( 0.15 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("DestroyedParticles2D:visible")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
 }
 
 [sub_resource type="Animation" id=7]
@@ -163,6 +175,30 @@ tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ true ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("DestroyedParticles2D:emitting")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("DestroyedParticles2D:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
@@ -216,6 +252,9 @@ atlas = ExtResource( 10 )
 region = Rect2( 0, 0, 28, 4 )
 margin = Rect2( 1, 1, 1, 10 )
 
+[sub_resource type="RectangleShape2D" id=21]
+extents = Vector2( 160, 50 )
+
 [sub_resource type="CanvasItemMaterial" id=19]
 particles_animation = true
 particles_anim_h_frames = 3
@@ -232,9 +271,6 @@ orbit_velocity_random = 0.0
 scale = 1.2
 anim_speed = 2.0
 
-[sub_resource type="RectangleShape2D" id=21]
-extents = Vector2( 160, 50 )
-
 [node name="GuardianGolem" type="KinematicBody2D" groups=["AirborneImmune", "CanBeHealed", "Enemy", "EnemyEntity"]]
 collision_layer = 4
 collision_mask = 11
@@ -245,6 +281,7 @@ position = Vector2( 0, -40 )
 shape = SubResource( 8 )
 
 [node name="Sprite" type="AnimatedSprite" parent="."]
+visible = false
 position = Vector2( 0, -52 )
 scale = Vector2( 7, 7 )
 frames = SubResource( 16 )
@@ -385,17 +422,6 @@ position = Vector2( -35, 50 )
 amount = 5
 lifetime = 0.65
 
-[node name="DestroyedParticles2D" type="Particles2D" parent="."]
-material = SubResource( 19 )
-scale = Vector2( 4.5, 4.5 )
-emitting = false
-amount = 20
-lifetime = 0.75
-one_shot = true
-preprocess = 0.15
-process_material = SubResource( 20 )
-texture = ExtResource( 20 )
-
 [node name="AttackCooldownTimer" type="Timer" parent="."]
 wait_time = 4.0
 one_shot = true
@@ -410,6 +436,17 @@ shape = SubResource( 21 )
 
 [node name="EnergyGrenadeSummonPosition2D" type="Position2D" parent="."]
 position = Vector2( 0, -83 )
+
+[node name="DestroyedParticles2D" type="Particles2D" parent="."]
+material = SubResource( 19 )
+scale = Vector2( 4.5, 4.5 )
+emitting = false
+amount = 20
+lifetime = 0.75
+one_shot = true
+preprocess = 0.15
+process_material = SubResource( 20 )
+texture = ExtResource( 20 )
 
 [node name="VisibilityEnabler2D" type="VisibilityEnabler2D" parent="."]
 process_parent = true

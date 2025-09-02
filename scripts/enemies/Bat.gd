@@ -49,6 +49,7 @@ func _ready():
 	$AnimatedSprite.play("Idle")
 	$HealthBar.max_value = max_HP
 	$HealthBar.value = $HealthBar.max_value
+	enemy_name = "Bat"
 
 func _physics_process(delta):
 	
@@ -244,6 +245,8 @@ func parse_damage():
 	if HP <= 0:
 		drop_loot()
 		drop_mana_bits(2)
+		Global.enemies_killed += 1
+		Global.enemies_encountered[enemy_name] += 1
 		call_deferred('free')
 func drop_loot():
 	var loot = LOOT.instance()

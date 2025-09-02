@@ -13,6 +13,8 @@ const FLOOR = Vector2(0, -1)
 var is_staggered : bool = false
 var is_in_tempus_tardus : bool = false
 
+
+
 # for witch goblin only (or golem?)
 var is_casting : bool = false
 
@@ -66,7 +68,7 @@ func _ready():
 	weaknesses = ["Physical", "Fire"]
 	elemental_type = "Physical"
 	debuff_damage_multiplier = 1
-	
+	enemy_name = "Goblin"
 	$LevelLabel.text = "Lv " + str(level)
 	if self.name == "Goblin":
 		$SpearThrustAttackWarning.visible = false
@@ -452,6 +454,8 @@ func death():
 	call_deferred('free')
 	print("reached")
 	Global.enemies_killed += 1
+	Global.enemies_encountered[enemy_name] += 1
+
 func parse_status_effect_damage():
 	$Sprite.set_modulate(Color(1.4,0.5,0.3,1))
 	if $HurtTimer.is_stopped():
