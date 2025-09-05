@@ -55,7 +55,7 @@ func _on_Area2D_area_entered(area):
 		trigger_slash()
 		get_parent().remove_from_group("MarkedWithSulphuricSigil")
 	
-	if area.is_in_group("Sword") or area.is_in_group("SwordCharged") or area.is_in_group("Fireball") or area.is_in_group("Ice") or area.is_in_group("Earth") or area.is_in_group("Lightning"):
-		connect("add_meter_to_firefairy", fire_fairy, "add_meter_value")
-		emit_signal("add_meter_to_firefairy", Global.player_skill_multipliers["FireFairyMeterGainFromSigil"])
-		print("ADD METER")
+#	if area.is_in_group("Sword") or area.is_in_group("SwordCharged") or area.is_in_group("Fireball") or area.is_in_group("Ice") or area.is_in_group("Earth") or area.is_in_group("Lightning"):
+#		connect("add_meter_to_firefairy", fire_fairy, "add_meter_value")
+#		emit_signal("add_meter_to_firefairy", Global.player_skill_multipliers["FireFairyMeterGainFromSigil"])
+#		print("ADD METER")

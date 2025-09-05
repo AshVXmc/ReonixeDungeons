@@ -619,6 +619,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/player/SkillManager.gd"
 }, {
+"base": "Level",
+"class": "PlayerTutorialLevel",
+"language": "GDScript",
+"path": "res://scripts/levels/PlayerTutorialLevel.gd"
+}, {
 "base": "Control",
 "class": "PrimarySkillManager",
 "language": "GDScript",
@@ -917,6 +922,7 @@ _global_script_class_icons={
 "PiercingProjectile": "",
 "Player": "",
 "PlayerSkillManager": "",
+"PlayerTutorialLevel": "",
 "PrimarySkillManager": "",
 "RainOfArrows": "",
 "RavenProjectile": "",

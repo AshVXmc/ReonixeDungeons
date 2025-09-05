@@ -75,7 +75,7 @@ tracks/1/keys = {
 }
 
 [sub_resource type="CircleShape2D" id=3]
-radius = 25.0
+radius = 35.0
 
 [sub_resource type="Animation" id=4]
 length = 0.001
@@ -293,7 +293,7 @@ texture = ExtResource( 2 )
 anims/Destroy = SubResource( 8 )
 anims/RESET = SubResource( 2 )
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="Area2D" type="Area2D" parent="." groups=["SulphuricSigil"]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource( 3 )

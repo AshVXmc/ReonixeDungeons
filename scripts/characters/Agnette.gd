@@ -265,7 +265,7 @@ func _input(event):
 			$ChargedAttackBar.value = $ChargedAttackBar.min_value
 			$BowAnimationPlayer.play("BowAttackRight")
 		if current_form == forms.BEAR and event.is_action_pressed("ui_dash") and get_parent().get_parent().get_node("DashInputPressTimer").is_stopped():
-			if Global.agnette_talents["RoaringTrample"]["enabled"] and Global.agnette_talents["RoaringTrample"]["unlocked"]:
+#			if Global.agnette_talents["RoaringTrample"]["enabled"] and Global.agnette_talents["RoaringTrample"]["unlocked"]:
 				get_parent().get_parent().dash()
 		
 

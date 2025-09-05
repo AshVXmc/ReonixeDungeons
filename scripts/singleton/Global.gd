@@ -98,9 +98,9 @@ var player_skill_multipliers : Dictionary = {
 	
 	"FireFairy": 16.0,
 	"FireFairyDetonation": 65.0,
-	"FireFairyDuration": 11,
+	"FireFairyDuration": 10,
 	"FireFairyMeterGainFromSigil": 10.0,
-	"FireFairyCost": 3,
+	"FireFairyCost": 0,
 	"FireFairyJointAttackPoints": 2,
 	"FireFairyJointAttackSlash": 89.0,
 	"FireFairyCD": 16.0,

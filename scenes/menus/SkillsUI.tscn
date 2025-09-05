@@ -367,6 +367,7 @@ __meta__ = {
 }
 
 [node name="CostLabel" type="Label" parent="Control/SecondarySkill/Player/FireFairy"]
+visible = false
 margin_left = 285.0
 margin_top = 208.0
 margin_right = 319.0

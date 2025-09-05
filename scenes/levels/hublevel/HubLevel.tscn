@@ -1,4 +1,4 @@
-[gd_scene load_steps=93 format=2]
+[gd_scene load_steps=92 format=2]
 
 [ext_resource path="res://assets/particles/smoke_particle.png" type="Texture" id=1]
 [ext_resource path="res://scripts/misc/HubLevelLibraryBookshelf.gd" type="Script" id=2]
@@ -77,8 +77,7 @@
 [ext_resource path="res://scenes/enemies/GuardianGolem.tscn" type="PackedScene" id=75]
 [ext_resource path="res://scenes/minigames/BlackJackTable.tscn" type="PackedScene" id=76]
 [ext_resource path="res://scenes/menus/cellphone/CellphoneUI.tscn" type="PackedScene" id=77]
-[ext_resource path="res://scenes/enemies/Slime.tscn" type="PackedScene" id=78]
-[ext_resource path="res://scenes/enemies/FireSlime.tscn" type="PackedScene" id=79]
+[ext_resource path="res://scenes/enemies/Goblin.tscn" type="PackedScene" id=78]
 
 [sub_resource type="ShaderMaterial" id=16]
 shader = ExtResource( 74 )
@@ -706,14 +705,11 @@ drag_margin_h_enabled = true
 drag_margin_v_enabled = true
 editor_draw_limits = true
 
-[node name="Guardian" parent="." instance=ExtResource( 75 )]
-position = Vector2( 2461, 601 )
+[node name="Goblin" parent="." instance=ExtResource( 78 )]
+position = Vector2( 3506, 534 )
 
-[node name="Slime" parent="." instance=ExtResource( 78 )]
-position = Vector2( 1024, -1501.27 )
-
-[node name="FireSlime" parent="." instance=ExtResource( 79 )]
-position = Vector2( 1389, -1498.89 )
+[node name="GuardianGolem" parent="." instance=ExtResource( 75 )]
+position = Vector2( 3734, 580 )
 
 [connection signal="area_entered" from="HubLibrary/BookOfShadowsPlayerDetectorArea" to="HubLibrary/BookOfShadowsPlayerDetectorArea" method="_on_BookshelfPlayerDetectorArea_area_entered"]
 [connection signal="area_exited" from="HubLibrary/BookOfShadowsPlayerDetectorArea" to="HubLibrary/BookOfShadowsPlayerDetectorArea" method="_on_BookshelfPlayerDetectorArea_area_exited"]

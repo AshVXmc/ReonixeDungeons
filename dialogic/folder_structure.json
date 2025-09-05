@@ -8,7 +8,8 @@
 				"character-1673352342.json",
 				"character-1673447896.json",
 				"character-1713797814.json",
-				"character-1713974045.json"
+				"character-1713974045.json",
+				"character-1757081643.json"
 			],
 			"folders": {
 				"Cutscenes": {
@@ -128,6 +129,29 @@
 					],
 					"folders": {
 
+					},
+					"metadata": {
+						"color": null,
+						"folded": false
+					}
+				},
+				"Tutorials": {
+					"files": [
+
+					],
+					"folders": {
+						"Player": {
+							"files": [
+								"timeline-1757081924.json"
+							],
+							"folders": {
+
+							},
+							"metadata": {
+								"color": null,
+								"folded": false
+							}
+						}
 					},
 					"metadata": {
 						"color": null,
