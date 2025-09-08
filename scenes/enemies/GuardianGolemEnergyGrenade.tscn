@@ -78,6 +78,7 @@ texture = ExtResource( 3 )
 environment = SubResource( 4 )
 
 [node name="ExplodeTimer" type="Timer" parent="."]
+one_shot = true
 
 [node name="Light2D" type="Light2D" parent="."]
 scale = Vector2( 2, 2 )

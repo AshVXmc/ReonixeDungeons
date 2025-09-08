@@ -12,6 +12,11 @@ enum state  {
 enum {
 	LEFT = -1, RIGHT = 1
 }
+
+var grenade_inventory : Array = [null, null]
+signal destroy_grenade()
+
+
 var current_state setget set_current_state, get_current_state
 func set_current_state(new_value : int):
 	current_state = new_value
@@ -80,6 +85,9 @@ func _physics_process(delta):
 		velocity.x = 0
 	if get_current_state() == state.STOMPING and !dead:
 		velocity.x = 0
+	
+	if HP <= 0:
+		emit_signal("destroy_grenade")
 
 # OVERRIDE
 func start_death_sequence():
@@ -121,21 +129,32 @@ func punch_attack(grenade_count : int = 2):
 		set_current_state(state.PUNCHING)
 		is_casting = true
 		$Sprite.play("Punch")
-		
-		while grenade_count > 0:
-			var energy_grenade : GuardianGolemEnergyGrenade = ENERGY_GRENADE.instance()
+		var counter : int = 0
+		while counter < grenade_count:
+			var energy_grenade : GuardianGolemEnergyGrenade 
+			
+			if grenade_inventory[counter] == null:
+				energy_grenade = ENERGY_GRENADE.instance()
+				grenade_inventory[counter] = energy_grenade
+			else:
+				energy_grenade = grenade_inventory[counter]
+			connect("destroy_grenade", energy_grenade, "destroy")
 			var direction : int = 1
 			if !$Sprite.flip_h:
 				direction = -1
-
+			
 			var distance : float = position.distance_to(player.position)
-			energy_grenade.force_magnitude =  direction * (distance * (distance * 0.031)) 
-			energy_grenade.atk_value = atk_value 
+			energy_grenade.force_magnitude =  direction * (distance * (distance * 0.0325)) 
+			energy_grenade.atk_value = atk_value
+			
 			get_parent().add_child(energy_grenade)
 			energy_grenade.position = $EnergyGrenadeSummonPosition2D.global_position
+			energy_grenade.start_detonation()
 			yield(get_tree().create_timer(0.35), "timeout")
-			grenade_count -= 1
+			counter += 1
 
+
+	
 func _on_Sprite_animation_finished():
 	if $Sprite.animation == "StompAttack" and !dead:
 		$AttackCooldownTimer.start()
@@ -174,5 +193,4 @@ func knockback(knockback_coefficient : float = 1):
 #		velocity.x = SPEED * knockback_coefficient
 #	$HurtTimer.start()
 	pass
-
 
