@@ -9,6 +9,7 @@ const ARROW = preload("res://scenes/skills/AgnetteArrow.tscn")
 const SEEKING_ARROW = preload("res://scenes/skills/SeekingArrow.tscn")
 const RAVEN_PROJECTILE = preload("res://scenes/skills/RavenProjectile.tscn")
 const RAVEN_TEMPEST = preload("res://scenes/skills/RavenTempest.tscn")
+const VERTICAL_FLYING_SPEED : int = 300
 signal skill_used(skill_name)
 signal mana_changed(amount, character)
 signal life_changed(amount, character)
@@ -73,7 +74,7 @@ onready var crit_damage : float = Global.glaciela_skill_multipliers["CritDamage"
 onready var pskill_ui : TextureProgress = get_parent().get_parent().get_parent().get_node("SkillsUI/Control/PrimarySkill/Agnette/BearForm/TextureProgress")
 onready var sskill_ui : TextureProgress = get_parent().get_parent().get_parent().get_node("SkillsUI/Control/SecondarySkill/Agnette/RavenForm/TextureProgress")
 onready var tskill_ui : TextureProgress = get_parent().get_parent().get_parent().get_node("SkillsUI/Control/TertiarySkill/Agnette/SpikeGrowth/TextureProgress")
-
+onready var stamina_bar_ui : TextureProgress = get_parent().get_parent().get_parent().get_node("StaminaBarUI/StaminaBarUI/TextureProgress")
 var bear_is_attacking : bool = false
 var raven_is_attacking : bool = false
 var facing
@@ -120,6 +121,7 @@ func _ready():
 		$TalentsNode2D/VolleyShootCooldownTimer.wait_time = Global.agnette_talents["VolleyShot"]["cooldown"]
 	if Global.agnette_talents["StormyTempest"]["unlocked"] and Global.agnette_talents["StormyTempest"]["enabled"]:
 		$TalentsNode2D/StormyTempestCDTimer.wait_time = Global.agnette_talents["StormyTempest"]["cooldown"]
+
 func _physics_process(delta):
 	target = get_closest_enemy()
 	if !$AnimatedSprite.flip_h:
@@ -194,7 +196,15 @@ func _physics_process(delta):
 		$WeakenParticles.visible = true if !$WeakenedTimer.is_stopped() else false
 		use_skill()
 #		print(is_charging)
-
+	if current_form == forms.RAVEN and get_parent().get_parent().can_fly:
+		if get_parent().get_parent().stamina_bar_ui.value > Global.agnette_skill_multipliers["RavenFormFlightStaminaCost"] * 3 and Input.is_action_pressed("ui_up") or Input.is_action_pressed("jump"):
+			get_parent().get_parent().velocity.y = -VERTICAL_FLYING_SPEED
+			get_parent().get_parent().stamina_bar_ui.value -=  Global.agnette_skill_multipliers["RavenFormFlightStaminaCost"]
+		elif Input.is_action_pressed("ui_down"):
+			get_parent().get_parent().velocity.y = VERTICAL_FLYING_SPEED
+		else:
+			get_parent().get_parent().velocity.y = 0
+	
 	if Global.current_character != "Agnette":
 		if current_form == forms.BEAR:
 			wild_shape(forms.ARCHER, forms.BEAR)
@@ -206,7 +216,7 @@ func _physics_process(delta):
 #		if Input.is_action_just_pressed("primary_skill") and !Input.is_action_just_pressed("secondary_skill"):
 #			print("skill emitted")
 #			emit_signal("skill_used", "IceLance")
-
+		
 func play_animated_sprite(anim_name : String):
 	match anim_name:
 		"Default":
@@ -368,6 +378,7 @@ func wild_shape(target_form : int, previous_form : int = -1):
 #			$AnimatedSprite.position = Vector2(0,-29)
 			$Area2D/CollisionShape2D.shape.extents = Vector2(45,54)
 			$AnimatedSprite.scale = Vector2(3.75,3.75)
+			# enables the use of "ui_up" to fly up
 			get_parent().get_parent().can_fly = true
 			$RavenFormNodes/RavenHealthBar.max_value = Global.character_health_data["Agnette"] * (Global.agnette_skill_multipliers["RavenFormHealth"] / 100)
 			$RavenFormNodes/RavenHealthBar.value = $RavenFormNodes/RavenHealthBar.max_value
@@ -1016,7 +1027,7 @@ func _on_BearInputPressTimer_timeout():
 func _on_RavenInputPressTimer_timeout():
 	if Input.is_action_pressed("ui_attack") and current_form == forms.RAVEN:
 		raven_charged_attack()
-		print("POOOPOPOPO")
+
 func _on_RavenAttackCollision_area_entered(area):
 	pass # Replace with function body.
 

@@ -109,7 +109,7 @@ var player_skill_multipliers : Dictionary = {
 	"FireballCD": 6,
 	"FireballCharges": 3,
 	"FireballMaxCharges": 3,
-	"FireballBurnGauge": 340,
+	"FireballBurnGauge": 300,
 	"FireballCost": 2,
 	
 	"FireCharmDuration": 6.5,
@@ -396,11 +396,13 @@ var agnette_skill_multipliers = {
 	"BearFormShockwaveMaxHits": 5,
 	
 	"RavenFormCost": 0,
-	"RavenFormCD": 16,
-	"RavenFormDuration": 8.5,
+	"RavenFormCD": 14,
+	"RavenFormDuration": 6,
 	"RavenFormHealth": 65.0,
 	"RavenFormPeckAttack": 58.0,
 	"RavenFormBombardmentAttack": 64.0,
+	"RavenFormFlightStaminaCost": 12,
+	
 	"SpikeGrowth": 15.0,
 	"SpikeGrowthCD": 10,
 	"SpikeGrowthCharges": 2,

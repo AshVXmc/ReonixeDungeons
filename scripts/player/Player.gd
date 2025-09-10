@@ -121,7 +121,7 @@ var is_healing : bool = false
 var is_shopping : bool = false
 var is_frozen : bool = false
 var can_fly : bool = false
-const VERTICAL_FLYING_SPEED : int = 300
+
 var is_using_primary_skill : bool = false
 var is_using_secondary_skill : bool = false
 var glider_equipped : bool = false
@@ -495,13 +495,7 @@ func _physics_process(_delta):
 				# Movement calculations
 	#			if !is_dashing and !is_gliding:
 	#				velocity.y += GRAVITY
-				if can_fly:
-					if Input.is_action_pressed("ui_up") or Input.is_action_pressed("jump"):
-						velocity.y = -VERTICAL_FLYING_SPEED
-					elif Input.is_action_pressed("ui_down"):
-						velocity.y = VERTICAL_FLYING_SPEED
-					else:
-						velocity.y = 0
+				
 				if is_jumping and velocity.y >= 0:
 					is_jumping = false
 				velocity = move_and_slide(velocity,Vector2.UP)

@@ -144,13 +144,15 @@ func punch_attack(grenade_count : int = 2):
 				direction = -1
 			
 			var distance : float = position.distance_to(player.position)
-			energy_grenade.force_magnitude =  direction * (distance * (distance * 0.0325)) 
-			energy_grenade.atk_value = atk_value
+			if is_instance_valid(energy_grenade) and energy_grenade != null:
+				energy_grenade.force_magnitude =  direction * (distance * (distance * 0.0325)) 
+				energy_grenade.atk_value = atk_value
+				
+				get_parent().add_child(energy_grenade)
+				energy_grenade.position = $EnergyGrenadeSummonPosition2D.global_position
+				energy_grenade.start_detonation()
+				yield(get_tree().create_timer(0.35), "timeout")
 			
-			get_parent().add_child(energy_grenade)
-			energy_grenade.position = $EnergyGrenadeSummonPosition2D.global_position
-			energy_grenade.start_detonation()
-			yield(get_tree().create_timer(0.35), "timeout")
 			counter += 1
 
 

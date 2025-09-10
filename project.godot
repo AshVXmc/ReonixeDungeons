@@ -998,11 +998,9 @@ singletons=[  ]
 [global]
 
 window=false
-fps=false
 export=false
 frame=false
 advanced=false
-"Max FPS"=false
 
 [importer_defaults]
 
