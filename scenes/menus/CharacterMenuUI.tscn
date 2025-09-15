@@ -1510,19 +1510,19 @@ custom_fonts/italics_font = SubResource( 2 )
 custom_fonts/normal_font = SubResource( 2 )
 bbcode_enabled = true
 bbcode_text = "[color=#ffd703]Raven Form[/color]
-Shapeshift into a cunning [color=#1f1f1f]Raven[/color] for RF_DUR seconds. It has RF_HP% of Agnette's Max HP as its HP. 
+Shapeshift into a [color=#1f1f1f]Raven[/color] for RF_DUR seconds. It has RF_HP% of Agnette's Max HP as its HP. 
 
 [color=#1f1f1f]Raven form[/color]
-	You gain the ability to fly, and you cannot shoot arrows. Press [UI_UP] or [UI_JUMP] to ascend and [UI_DOWN] to descend. You can peck  in melee range with your beak to deal [u]RF_PECK% ATK[/u] as Physical damage, and your Charged Attack drops a rock below you, dealing [u]RF_ROCK% ATK[/u] as [color=#deb600]Earth[/color] damage and builds up [color=#deb600]Grounded[/color] stacks.
+Your basic attacks are pecks that deal [u]RF_PECK% ATK[/u] as Physical damage. While airborne, your basic attack drops stone that deals [u]RF_ROCK% ATK[/u] as [color=#deb600]Earth[/color] damage and builds up [color=#deb600]Grounded[/color] stacks.
 
 You revert to your [color=#668709]Archer[/color] form when the duration ends, if you switch to another character, or if you drop to 0 HP.
 Cooldown: RF_CD seconds
 Mana cost: RF_COST mana"
 text = "Raven Form
-Shapeshift into a cunning Raven for RF_DUR seconds. It has RF_HP% of Agnette's Max HP as its HP. 
+Shapeshift into a Raven for RF_DUR seconds. It has RF_HP% of Agnette's Max HP as its HP. 
 
 Raven form
-	You gain the ability to fly, and you cannot shoot arrows. Press [UI_UP] or [UI_JUMP] to ascend and [UI_DOWN] to descend. You can peck  in melee range with your beak to deal RF_PECK% ATK as Physical damage, and your Charged Attack drops a rock below you, dealing RF_ROCK% ATK as Earth damage and builds up Grounded stacks.
+Your basic attacks are pecks that deal RF_PECK% ATK as Physical damage. While airborne, your basic attack drops stone that deals RF_ROCK% ATK as Earth damage and builds up Grounded stacks.
 
 You revert to your Archer form when the duration ends, if you switch to another character, or if you drop to 0 HP.
 Cooldown: RF_CD seconds

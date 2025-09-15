@@ -10,6 +10,8 @@ const SEEKING_ARROW = preload("res://scenes/skills/SeekingArrow.tscn")
 const RAVEN_PROJECTILE = preload("res://scenes/skills/RavenProjectile.tscn")
 const RAVEN_TEMPEST = preload("res://scenes/skills/RavenTempest.tscn")
 const VERTICAL_FLYING_SPEED : int = 300
+const JUMP_POWER_PENALTY : int = -50 # decrement jump power by this value
+#const GRAVITY_PENALTY : int = -15
 signal skill_used(skill_name)
 signal mana_changed(amount, character)
 signal life_changed(amount, character)
@@ -192,6 +194,9 @@ func _physics_process(delta):
 			
 			if !Input.is_action_pressed("ui_attack") and !$RavenFormNodes/RavenInputPressTimer.is_stopped():
 				$RavenFormNodes/RavenInputPressTimer.stop()
+			
+			
+			get_parent().get_parent().glide()
 				
 		$WeakenParticles.visible = true if !$WeakenedTimer.is_stopped() else false
 		use_skill()
@@ -245,9 +250,11 @@ func _input(event):
 #				if Global.agnette_talents["PrimalRegrowth"]["enabled"] and Global.agnette_talents["PrimalRegrowth"]["unlocked"]:
 #					heal_in_wild_shape_form(forms.BEAR, 4)
 		if current_form == forms.RAVEN and event.is_action_pressed("ui_attack") and $RavenFormNodes/RavenInputPressTimer.is_stopped() and !is_charging:
-			raven_attack()
+			if get_parent().get_parent().is_on_floor():
+				raven_attack()
+			else:
+				raven_charged_attack()
 			$RavenFormNodes/RavenInputPressTimer.start()
-		
 		if event.is_action_pressed("heal"):
 			if Global.healthpot_amount > 0:
 				heal("Agnette", 5)
@@ -332,6 +339,10 @@ func wild_shape(target_form : int, previous_form : int = -1):
 	current_form = target_form
 	
 	$WildShapeParticles.emitting = true
+	if previous_form == forms.RAVEN:
+		get_parent().get_parent().JUMP_POWER += JUMP_POWER_PENALTY
+#		get_parent().get_parent().is_gliding = false
+#		get_parent().get_parent().GRAVITY += GRAVITY_PENALTY
 	match target_form:
 		forms.ARCHER:
 			is_wild_shaping = true
@@ -379,7 +390,10 @@ func wild_shape(target_form : int, previous_form : int = -1):
 			$Area2D/CollisionShape2D.shape.extents = Vector2(45,54)
 			$AnimatedSprite.scale = Vector2(3.75,3.75)
 			# enables the use of "ui_up" to fly up
-			get_parent().get_parent().can_fly = true
+#			get_parent().get_parent().can_fly = true
+			get_parent().get_parent().JUMP_POWER -= JUMP_POWER_PENALTY
+#			get_parent().get_parent().GRAVITY -= GRAVITY_PENALTY
+#			get_parent().get_parent().is_gliding = true
 			$RavenFormNodes/RavenHealthBar.max_value = Global.character_health_data["Agnette"] * (Global.agnette_skill_multipliers["RavenFormHealth"] / 100)
 			$RavenFormNodes/RavenHealthBar.value = $RavenFormNodes/RavenHealthBar.max_value
 			$RavenFormNodes/RavenHealthBar.visible = true
@@ -1026,7 +1040,8 @@ func _on_BearInputPressTimer_timeout():
 
 func _on_RavenInputPressTimer_timeout():
 	if Input.is_action_pressed("ui_attack") and current_form == forms.RAVEN:
-		raven_charged_attack()
+		pass
+#		raven_charged_attack()
 
 func _on_RavenAttackCollision_area_entered(area):
 	pass # Replace with function body.

@@ -58,8 +58,8 @@ var knockback_power : int = 800
 var can_be_knocked : bool = true
 const MAX_SPEED : int = 350
 var SPEED : int = MAX_SPEED
-const GRAVITY : int = 38
-var JUMP_POWER : int = -980 # for double jumping
+var GRAVITY : int = 38
+var JUMP_POWER : int = -750 # for double jumping
 var can_double_jump : bool = true
 var waiting_for_quickswap : bool = false
 var is_thrust_attacking : bool = false
@@ -470,9 +470,9 @@ func _physics_process(_delta):
 #								velocity.y = JUMP_POWER * 1.2
 #							else:
 							if !is_on_floor():
-								velocity.y = JUMP_POWER * 0.7
+								velocity.y = JUMP_POWER 
 							else:
-								velocity.y = JUMP_POWER
+								velocity.y = JUMP_POWER * 1.2
 							is_jumping = true
 							$Sprite.play("Idle")
 							yield(get_tree().create_timer(0.2), "timeout")
@@ -1143,7 +1143,7 @@ func upwards_charged_attack():
 	is_doing_charged_attack = true
 	cam_shake = true
 	velocity.y = 0
-	velocity.y = -1065
+	velocity.y = JUMP_POWER * 1.3
 	var sjp = STRONG_JUMP_PARTICLE.instance()
 	get_parent().add_child(sjp)
 	sjp.position = $ParticlePosition.global_position
@@ -1893,26 +1893,25 @@ func knock_airborne(target):
 			target.get_parent().add_child(airborne_status)
 			$KnockAirborneICD.start()
 
-#func glide():
-#	# Press SPACE while in mid-air to temporarily glide
-#	if Input.is_action_just_pressed("jump") and !is_on_floor():
-##		if !Global.godmode:
-##			$GlideTimer.start(0)
-#		is_gliding = true
-#		if is_on_floor() or is_on_wall() or is_on_ceiling():
-##			$GlideTimer.stop()
-#			is_gliding = false
-#			velocity.y += GRAVITY * 3
-#		if is_gliding:
-#			velocity.y = 0
-#			velocity.y += GRAVITY * 0.75
-#		print("GLIDDINH")
-#	# Stop gliding
-#	if Input.is_action_just_released("jump") or is_on_floor():
-#		$GlideTimer.stop()
-#		is_gliding = false
-##		if !airborne_mode:
-#		velocity.y += GRAVITY * 3
+func glide():
+	# Press SPACE while in mid-air to temporarily glide
+	if Input.is_action_just_pressed("jump") and !is_on_floor():
+#		if !Global.godmode:
+#			$GlideTimer.start(0)
+		is_gliding = true
+		if is_on_floor() or is_on_wall() or is_on_ceiling():
+#			$GlideTimer.stop()
+			is_gliding = false
+			velocity.y += GRAVITY * 3
+		if is_gliding:
+			velocity.y = 0
+			velocity.y += GRAVITY * 1.6
+	# Stop gliding
+	if Input.is_action_just_released("jump") or is_on_floor():
+		$GlideTimer.stop()
+		is_gliding = false
+#		if !airborne_mode:
+		velocity.y += GRAVITY * 3
 
 
 func useItems():
@@ -2226,8 +2225,9 @@ func update_energy_meter(value : int):
 
 func _on_InputPressTimer_timeout():
 	if !Input.is_action_pressed("ui_dash") and !is_quickswap_attacking and !mobility_lock:
-		if Input.is_action_pressed("ui_up") and is_on_floor():
+		if Input.is_action_pressed("ui_up") and is_on_floor() and stamina_bar_ui.value >= Global.player_skill_multipliers["UpwardsChargedAttackStaminaCost"]:
 			upwards_charged_attack()
+			stamina_bar_ui.value -= Global.player_skill_multipliers["UpwardsChargedAttackStaminaCost"]
 		if Input.is_action_pressed("ui_down") and airborne_mode and !is_on_floor():
 			downwards_charged_attack()
 		
