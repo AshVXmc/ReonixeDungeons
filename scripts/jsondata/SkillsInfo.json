@@ -2,7 +2,7 @@
     "Player" : {
         "PrimarySkill":{
             "Header":"[color=#ffd703]Flaming FireSaw[/color]",
-            "Description":"Twin flame blades spin around you for FIRESAW_DUR seconds, dealing [u]FIRESAW_ATK% ATK[/u] as [color=#fd9628]Fire[/color] damage and applies stacks of [color=#fd9628]Burning[/color].",
+            "Description":"Summon twin flame blades that spin around you for FIRESAW_DUR seconds, dealing [u]FIRESAW_ATK% ATK[/u] as [color=#fd9628]Fire[/color] damage and applies stacks of [color=#fd9628]Burning[/color].",
             "Cooldown": "Cooldown: FIRESAW_CD seconds",
             "ManaCost": "Mana cost: FIRESAW_COST mana",
             "Summary": "Unleash two spinning flame blades that deal [color=#fd9628]Fire[/color] damage and apply [color=#fd9628]Burning[/color] stacks."
@@ -21,9 +21,11 @@
         },
         "TertiarySkill": {
             "Header":"[color=#ffd703]Fireball[/color]",
-            "Description":"Shoot a flaming orb that travels forward in a straight line, dealing [u]FIREBALL_ATK% ATK[/u] as [color=#fd9628]Fire[/color] damage. You can hold up to FIREBALL_CHARGES charges.",
+            "Description":"Shoot a fireball that travels forward, dealing [u]FIREBALL_ATK% ATK[/u] as [color=#fd9628]Fire[/color] damage. Starts with FIREBALL_CHARGES charges.",
             "Cooldown": "Cooldown: FIREBALL_CD seconds",
             "Summary": ""
         }
+    },
+    "Glaciela": {
     }
 }
