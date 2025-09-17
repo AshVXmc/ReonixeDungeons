@@ -1141,6 +1141,7 @@ func upwards_charged_attack():
 	is_charging = false
 #			airborne_mode = false
 	is_doing_charged_attack = true
+	can_double_jump = false
 	cam_shake = true
 	velocity.y = 0
 	velocity.y = JUMP_POWER * 1.3

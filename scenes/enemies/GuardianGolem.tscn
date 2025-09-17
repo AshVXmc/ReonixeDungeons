@@ -228,8 +228,8 @@ extents = Vector2( 166.268, 50.3433 )
 extents = Vector2( 166.268, 50.3433 )
 
 [sub_resource type="CapsuleShape2D" id=3]
-radius = 37.9007
-height = 41.7494
+radius = 34.0
+height = 62.6667
 
 [sub_resource type="RectangleShape2D" id=9]
 extents = Vector2( 9.77439, 40.796 )
@@ -316,7 +316,7 @@ shape = SubResource( 23 )
 [node name="Area2D" type="Area2D" parent="." groups=["Enemy"]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2( 0, -2.66667 )
+position = Vector2( 0, -10.6667 )
 shape = SubResource( 3 )
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
