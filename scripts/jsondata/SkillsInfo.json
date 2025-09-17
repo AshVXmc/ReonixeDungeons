@@ -27,5 +27,51 @@
         }
     },
     "Glaciela": {
+        "PrimarySkill": {
+            "Header": "[color=#ffd703]Winter Queen[/color]",
+            "Description": "Call upon your patron familiar to unleash a blizzard in an area of effect, dealing [u]WQ_ATK% ATK[/u] as [color=#7df0ff]Ice[/color] damage per tick and gradually [color=#7df0ff]Freezing[/color] enemies caught in the storm. The blizzard lasts for WQ_DUR seconds.",
+            "Cooldown": "Cooldown: WQ_CD seconds",
+            "ManaCost": "Mana cost: WQ_COST mana",
+            "Summary": ""
+        },
+        "SecondarySkill": {
+            "Header": "[color=#ffd703]Ice Lance[/color]",
+            "Description": "Hurl a double-bladed frost lance in your facing direction, dealing [u]ICELANCE_ATK% ATK[/u] as [color=#7df0ff]Ice[/color] damage to enemies. After it reaches maximum range, it homes back to you to deal further [color=#7df0ff]Ice[/color] damage. Each hit fills up ICELANCE_FREEZE_GAUGE% of the enemy's [color=#7df0ff]Freeze[/color] gauge. Recast the skill to recall the lance.",
+            "Description2": "Consumes all stacks of [color=#c4fdff]Tundra Stars[/color], granting a ICELANCE_DMG_BONUS% damage bonus per stack.",
+            "Cooldown": "Cooldown: ICELANCE_CD seconds",
+            "ManaCost": "Mana cost: ICELANCE_COST mana"
+        },
+        "TertiarySkill": {
+            "Header": "[color=#ffd703]Cone Of Cold[/color]",
+            "Description": "Shoot forth a torrent of cold air in a cone-shaped area in your facing direction that deals [u]COC_ATK% ATK[/u] as [color=#7df0ff]Ice[/color] damage per tick and fills up COC_FREEZE_GAUGE% of the enemy's [color=#7df0ff]Freeze[/color] gauge. While casting, your movement speed is reduced by COC_MOV_SPD_PENALTY%.",
+            "Description2": "Usage drains a resource meter. The skill enters cooldown when you recast it, change characters, or fully deplete the meter. While inactive, the resource meter regenerates over time.",
+            "Cooldown": "Cooldown: COC_CD seconds"
+        }
+    },
+    "Agnette": {
+        "PrimarySkill": {
+            "Header": "[color=#ffd703]Bear Form[/color]",
+            "Header2": "[color=#3b1c06]Bear form[/color]",
+            "Description": "You gain knockback resistance, but you cannot dash, jump or shoot arrows, and your speed is reduced by BF_SPD_PEN%. You attack with your claws in melee range to deal [u]BF_ATK% ATK[/u] as Physical damage. Your Charged Attack unleashes a landslide that deals [u]BF_CATK% ATK[/u] as [color=#deb600]Earth[/color] damage and knocks enemies back.",
+            "Description2": "You revert to your [color=#668709]Archer[/color] form when the duration ends, if you switch to another character, or if you drop to 0 HP.",
+            "Cooldown": "Cooldown: BF_CD seconds",
+            "ManaCost": "Mana cost: BF_COST mana"
+        },
+        "SecondarySkill": {
+            "Header": "[color=#ffd703]Raven Form[/color]",
+            "Description": "Shapeshift into a [color=#1f1f1f]Raven[/color] for RF_DUR seconds. It has RF_HP% of Agnette's Max HP as its HP. ",
+            "Header2": "[color=#1f1f1f]Raven form[/color]",
+            "Description2": "Your basic attacks are pecks that deal [u]RF_PECK% ATK[/u] as Physical damage. While airborne, your basic attack drops stone that deals [u]RF_ROCK% ATK[/u] as [color=#deb600]Earth[/color] damage and builds up [color=#deb600]Grounded[/color] stacks.",
+            "Description3": "You revert to your [color=#668709]Archer[/color] form when the duration ends, if you switch to another character, or if you drop to 0 HP.",
+            "Cooldown": "Cooldown: RF_CD seconds",
+            "ManaCost": "Mana cost: RF_COST mana"
+        },
+        "TertiarySkill": {
+            "Header": "[color=#ffd703]Spike Growth[/color]",
+            "Description": "Lay down a patch of thorny vines and spikes. Enemies in its area are dealt [u]SG_DMG% ATK[/u] as [color=#deb600]Earth[/color] damage over time and builds up their [color=#deb600]Grounded[/color] stacks. Only SG_CHARGES spike patches may exist at any given time.",
+            "Cooldown": "Cooldown: SG_CD seconds",
+            "Duration": "Duration: SG_DUR seconds per spike patch",
+            "MaxCharges": "Max charges: SG_CHARGES charges"
+        }
     }
 }
