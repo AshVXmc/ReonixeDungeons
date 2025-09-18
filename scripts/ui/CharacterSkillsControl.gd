@@ -118,24 +118,7 @@ func update_player_description_text():
 	tskill_cd = tskill_cd.replace("FIREBALL_CD", str(Global.player_skill_multipliers["FireballCD"]))
 	player_tskill_text.bbcode_text = tskill_header + "\n\n" + tskill_desc + "\n\n" + tskill_cd + "\n"
 
-#	player_sskill_text.bbcode_text = player_sskill_text.bbcode_text.replace(
-#		"FIREFAIRY_DUR", str(Global.player_skill_multipliers["FireFairyDuration"]))
-#	player_sskill_text.bbcode_text = player_sskill_text.bbcode_text.replace(
-#		"FIREFAIRY_ATK", str(Global.player_skill_multipliers["FireFairy"]))
-#	player_sskill_text.bbcode_text = player_sskill_text.bbcode_text.replace(
-#		"FIREFAIRY_EX_ATK", str(Global.player_skill_multipliers["FireFairyDetonation"]))
-#	player_sskill_text.bbcode_text = player_sskill_text.bbcode_text.replace(
-#		"FIREFAIRY_CD", str(Global.player_skill_multipliers["FireFairyCD"]))
-#	player_sskill_text.bbcode_text = player_sskill_text.bbcode_text.replace(
-#		"FIREFAIRY_COST", str(Global.player_skill_multipliers["FireFairyCost"]))
-#
-#	player_tskill_text.bbcode_text = player_tskill_text.bbcode_text.replace(
-#		"FIREBALL_ATK", str(Global.player_skill_multipliers["Fireball"]))
-#	player_tskill_text.bbcode_text = player_tskill_text.bbcode_text.replace(
-#		"FIREBALL_CHARGES", str(Global.player_skill_multipliers["FireballCharges"]))
-#	player_tskill_text.bbcode_text = player_tskill_text.bbcode_text.replace(
-#		"FIREBALL_CD", str(Global.player_skill_multipliers["FireballCD"]))
-#
+	
 	player_perkskill_text.bbcode_text = player_perkskill_text.bbcode_text.replace(
 		"CREATE_SUGAR_ROLL_CD", str(Global.player_perks["CreateSugarRoll"]["cooldown"]))
 	player_perkskill_text.bbcode_text = player_perkskill_text.bbcode_text.replace(
@@ -144,80 +127,97 @@ func update_player_description_text():
 		"CHAOS_MAGIC_CD", str(Global.player_perks["ChaosMagic"]["cooldown"]))
 	
 func update_glaciela_description_text():
-	glaciela_pskill_text.bbcode_text = glaciela_pskill_text.bbcode_text.replace(
-		"WQ_ATK", str(Global.glaciela_skill_multipliers["WinterQueen"]))
-	glaciela_pskill_text.bbcode_text = glaciela_pskill_text.bbcode_text.replace(
-		"WQ_CD", str(Global.glaciela_skill_multipliers["WinterQueenCD"]))
-	glaciela_pskill_text.bbcode_text = glaciela_pskill_text.bbcode_text.replace(
-		"WQ_COST", str(Global.glaciela_skill_multipliers["WinterQueenCost"]))
-	glaciela_pskill_text.bbcode_text = glaciela_pskill_text.bbcode_text.replace(
-		"WQ_DUR", str(Global.glaciela_skill_multipliers["WinterQueenDuration"]))
+	var pskill_header : String = skills_info_dict["Glaciela"]["PrimarySkill"]["Header"]
+	var pskill_desc : String = skills_info_dict["Glaciela"]["PrimarySkill"]["Description"]
+	var pskill_cd : String = skills_info_dict["Glaciela"]["PrimarySkill"]["Cooldown"]
+	var pskill_manacost : String = skills_info_dict["Glaciela"]["PrimarySkill"]["ManaCost"]
+	pskill_desc = pskill_desc.replace("WQ_DUR", str(Global.glaciela_skill_multipliers["WinterQueenDuration"]))
+	pskill_desc = pskill_desc.replace("WQ_ATK", str(Global.glaciela_skill_multipliers["WinterQueen"]))
+	pskill_cd = pskill_cd.replace("WQ_CD", str(Global.glaciela_skill_multipliers["WinterQueenCD"]))
+	pskill_manacost = pskill_manacost.replace("WQ_COST", str(Global.glaciela_skill_multipliers["WinterQueenCost"]))
 	
+	glaciela_pskill_text.bbcode_text = pskill_header + "\n\n" + pskill_desc + "\n\n" + pskill_cd + "\n" + pskill_manacost
 	
-	glaciela_sskill_text.bbcode_text = glaciela_sskill_text.bbcode_text.replace(
-		"ICELANCE_ATK", str(Global.glaciela_skill_multipliers["IceLance"]))
-	glaciela_sskill_text.bbcode_text = glaciela_sskill_text.bbcode_text.replace(
-		"ICELANCE_FREEZE_GAUGE", str(Global.glaciela_skill_multipliers["IceLanceFreezeGauge"] / 10))
-	glaciela_sskill_text.bbcode_text = glaciela_sskill_text.bbcode_text.replace(
-		"ICELANCE_DMG_BONUS", str(Global.glaciela_skill_multipliers["IceLanceDamageBonusPerTundraSigil"]))
-	glaciela_sskill_text.bbcode_text = glaciela_sskill_text.bbcode_text.replace(
-		"ICELANCE_CD", str(Global.glaciela_skill_multipliers["IceLanceCD"]))
-	glaciela_sskill_text.bbcode_text = glaciela_sskill_text.bbcode_text.replace(
-		"ICELANCE_COST", str(Global.glaciela_skill_multipliers["IceLanceCost"]))
+	var sskill_header : String = skills_info_dict["Glaciela"]["SecondarySkill"]["Header"]
+	var sskill_desc : String = skills_info_dict["Glaciela"]["SecondarySkill"]["Description"]
+	var sskill_desc_2 : String = skills_info_dict["Glaciela"]["SecondarySkill"]["Description2"]
+	var sskill_cd : String = skills_info_dict["Glaciela"]["SecondarySkill"]["Cooldown"]
+	var sskill_manacost : String = skills_info_dict["Glaciela"]["SecondarySkill"]["ManaCost"]
 	
-	glaciela_tskill_text.bbcode_text = glaciela_tskill_text.bbcode_text.replace(
-		"COC_ATK", str(Global.glaciela_skill_multipliers["ConeOfCold"]))
-	glaciela_tskill_text.bbcode_text = glaciela_tskill_text.bbcode_text.replace(
-		"COC_FREEZE_GAUGE", str(Global.glaciela_skill_multipliers["ConeOfColdFreezeGauge"] / 10))
-	glaciela_tskill_text.bbcode_text = glaciela_tskill_text.bbcode_text.replace(
-		"COC_CD", str(Global.glaciela_skill_multipliers["ConeOfColdCD"]))
-	glaciela_tskill_text.bbcode_text = glaciela_tskill_text.bbcode_text.replace(
-		"COC_MOV_SPD_PENALTY", str(Global.glaciela_skill_multipliers["ConeOfColdMovementSpeedPenalty"]))
+	sskill_desc = sskill_desc.replace("ICELANCE_ATK", str(Global.glaciela_skill_multipliers["IceLance"]))
+	sskill_desc = sskill_desc.replace("ICELANCE_FREEZE_GAUGE", str(Global.glaciela_skill_multipliers["IceLanceFreezeGauge"]))
+	sskill_desc_2 = sskill_desc_2.replace("ICELANCE_DMG_BONUS", str(Global.glaciela_skill_multipliers["IceLanceDamageBonusPerTundraSigil"]))
+	sskill_cd = sskill_cd.replace("ICELANCE_CD", str(Global.glaciela_skill_multipliers["IceLanceCD"]))
+	
+	glaciela_sskill_text.bbcode_text = sskill_header + "\n\n" + sskill_desc + "\n\n" + sskill_desc_2 + "\n\n" + sskill_cd + "\n" + sskill_manacost
+
+	var tskill_header : String = skills_info_dict["Glaciela"]["TertiarySkill"]["Header"]
+	var tskill_desc : String = skills_info_dict["Glaciela"]["TertiarySkill"]["Description"]
+	var tskill_desc_2 : String = skills_info_dict["Glaciela"]["TertiarySkill"]["Description2"]
+	var tskill_cd : String = skills_info_dict["Glaciela"]["TertiarySkill"]["Cooldown"]
+
+	glaciela_tskill_text.bbcode_text = tskill_header + "\n\n" + tskill_desc + "\n\n" + tskill_desc_2 + "\n\n" + tskill_cd + "\n" 
+
+	
 
 func update_agnette_description_text():
-	agnette_pskill_text.bbcode_text = agnette_pskill_text.bbcode_text.replace(
-		"BF_DUR", str(Global.agnette_skill_multipliers["BearFormDuration"]))
-	agnette_pskill_text.bbcode_text = agnette_pskill_text.bbcode_text.replace(
-		"BF_HP", str(Global.agnette_skill_multipliers["BearFormHealth"]))
-	agnette_pskill_text.bbcode_text = agnette_pskill_text.bbcode_text.replace(
-		"BF_SPD_PEN", str(Global.agnette_skill_multipliers["BearFormMovementSpeedPenalty"]))
-	agnette_pskill_text.bbcode_text = agnette_pskill_text.bbcode_text.replace(
-		"BF_CD", str(Global.agnette_skill_multipliers["BearFormCD"]))
-	agnette_pskill_text.bbcode_text = agnette_pskill_text.bbcode_text.replace(
-		"BF_COST", str(Global.agnette_skill_multipliers["BearFormCost"]))
-	agnette_pskill_text.bbcode_text = agnette_pskill_text.bbcode_text.replace(
-		"BF_ATK", str(Global.agnette_skill_multipliers["BearFormAttack1"]))
-	agnette_pskill_text.bbcode_text = agnette_pskill_text.bbcode_text.replace(
-		"BF_CATK", str(Global.agnette_skill_multipliers["BearFormShockwave"]))
+	var pskill_header : String = skills_info_dict["Agnette"]["PrimarySkill"]["Header"]
+	var pskill_header_2 : String = skills_info_dict["Agnette"]["PrimarySkill"]["Header2"]
+	var pskill_desc : String = skills_info_dict["Agnette"]["PrimarySkill"]["Description"]
+	var pskill_desc_2 : String = skills_info_dict["Agnette"]["PrimarySkill"]["Description2"]
+	var pskill_cd : String = skills_info_dict["Agnette"]["PrimarySkill"]["Cooldown"]
+	var pskill_manacost : String = skills_info_dict["Agnette"]["PrimarySkill"]["ManaCost"]
+	pskill_desc = pskill_desc.replace("BF_SPD_PEN", str(Global.agnette_skill_multipliers["BearFormMovementSpeedPenalty"]))
+	pskill_desc = pskill_desc.replace("BF_ATK", str(Global.agnette_skill_multipliers["BearFormAttack1"]))
+	pskill_desc = pskill_desc.replace("BF_CATK", str(Global.agnette_skill_multipliers["BearFormShockwave"]))
+	pskill_cd = pskill_cd.replace("BF_CD", str(Global.agnette_skill_multipliers["BearFormCD"]))
+	pskill_cd = pskill_cd.replace("BF_COST", str(Global.agnette_skill_multipliers["BearFormCost"]))
+
 	
-	agnette_tskill_text.bbcode_text = agnette_tskill_text.bbcode_text.replace(
-		"SG_DMG", str(Global.agnette_skill_multipliers["SpikeGrowth"]))
-	agnette_tskill_text.bbcode_text = agnette_tskill_text.bbcode_text.replace(
-		"SG_CHARGES", str(Global.agnette_skill_multipliers["SpikeGrowthCharges"]))
-	agnette_tskill_text.bbcode_text = agnette_tskill_text.bbcode_text.replace(
-		"SG_CD", str(Global.agnette_skill_multipliers["SpikeGrowthCD"]))
-	agnette_tskill_text.bbcode_text = agnette_tskill_text.bbcode_text.replace(
-		"SG_DUR", str(Global.agnette_skill_multipliers["SpikeGrowthDuration"]))
 	
-	agnette_sskill_text.bbcode_text = agnette_sskill_text.bbcode_text.replace(
-		"RF_DUR", str(Global.agnette_skill_multipliers["RavenFormDuration"]))
-	agnette_sskill_text.bbcode_text = agnette_sskill_text.bbcode_text.replace(
-		"RF_HP", str(Global.agnette_skill_multipliers["RavenFormHealth"]))
-	agnette_sskill_text.bbcode_text = agnette_sskill_text.bbcode_text.replace(
-		"RF_CD", str(Global.agnette_skill_multipliers["RavenFormCD"]))
-	agnette_sskill_text.bbcode_text = agnette_sskill_text.bbcode_text.replace(
-		"RF_COST", str(Global.agnette_skill_multipliers["RavenFormCost"]))
-	agnette_sskill_text.bbcode_text = agnette_sskill_text.bbcode_text.replace(
-		"UI_UP", "[color=#ffd073]" + InputMap.get_action_list("ui_up")[0].as_text() + "[/color]")
-	agnette_sskill_text.bbcode_text = agnette_sskill_text.bbcode_text.replace(
-		"UI_DOWN", "[color=#ffd073]" + InputMap.get_action_list("ui_down")[0].as_text() + "[/color]")
-	agnette_sskill_text.bbcode_text = agnette_sskill_text.bbcode_text.replace(
-		"UI_JUMP", "[color=#ffd073]" + InputMap.get_action_list("jump")[0].as_text() + "[/color]")
-	agnette_sskill_text.bbcode_text = agnette_sskill_text.bbcode_text.replace(
-		"RF_PECK", str(Global.agnette_skill_multipliers["RavenFormPeckAttack"]))
-	agnette_sskill_text.bbcode_text = agnette_sskill_text.bbcode_text.replace(
-		"RF_ROCK", str(Global.agnette_skill_multipliers["RavenFormBombardmentAttack"]))
-	
+#	agnette_pskill_text.bbcode_text = agnette_pskill_text.bbcode_text.replace(
+#		"BF_DUR", str(Global.agnette_skill_multipliers["BearFormDuration"]))
+#	agnette_pskill_text.bbcode_text = agnette_pskill_text.bbcode_text.replace(
+#		"BF_HP", str(Global.agnette_skill_multipliers["BearFormHealth"]))
+#	agnette_pskill_text.bbcode_text = agnette_pskill_text.bbcode_text.replace(
+#		"BF_SPD_PEN", str(Global.agnette_skill_multipliers["BearFormMovementSpeedPenalty"]))
+#	agnette_pskill_text.bbcode_text = agnette_pskill_text.bbcode_text.replace(
+#		"BF_CD", str(Global.agnette_skill_multipliers["BearFormCD"]))
+#	agnette_pskill_text.bbcode_text = agnette_pskill_text.bbcode_text.replace(
+#		"BF_COST", str(Global.agnette_skill_multipliers["BearFormCost"]))
+#	agnette_pskill_text.bbcode_text = agnette_pskill_text.bbcode_text.replace(
+#		"BF_ATK", str(Global.agnette_skill_multipliers["BearFormAttack1"]))
+#	agnette_pskill_text.bbcode_text = agnette_pskill_text.bbcode_text.replace(
+#		"BF_CATK", str(Global.agnette_skill_multipliers["BearFormShockwave"]))
+#
+#	agnette_tskill_text.bbcode_text = agnette_tskill_text.bbcode_text.replace(
+#		"SG_DMG", str(Global.agnette_skill_multipliers["SpikeGrowth"]))
+#	agnette_tskill_text.bbcode_text = agnette_tskill_text.bbcode_text.replace(
+#		"SG_CHARGES", str(Global.agnette_skill_multipliers["SpikeGrowthCharges"]))
+#	agnette_tskill_text.bbcode_text = agnette_tskill_text.bbcode_text.replace(
+#		"SG_CD", str(Global.agnette_skill_multipliers["SpikeGrowthCD"]))
+#	agnette_tskill_text.bbcode_text = agnette_tskill_text.bbcode_text.replace(
+#		"SG_DUR", str(Global.agnette_skill_multipliers["SpikeGrowthDuration"]))
+#
+#	agnette_sskill_text.bbcode_text = agnette_sskill_text.bbcode_text.replace(
+#		"RF_DUR", str(Global.agnette_skill_multipliers["RavenFormDuration"]))
+#	agnette_sskill_text.bbcode_text = agnette_sskill_text.bbcode_text.replace(
+#		"RF_HP", str(Global.agnette_skill_multipliers["RavenFormHealth"]))
+#	agnette_sskill_text.bbcode_text = agnette_sskill_text.bbcode_text.replace(
+#		"RF_CD", str(Global.agnette_skill_multipliers["RavenFormCD"]))
+#	agnette_sskill_text.bbcode_text = agnette_sskill_text.bbcode_text.replace(
+#		"RF_COST", str(Global.agnette_skill_multipliers["RavenFormCost"]))
+#	agnette_sskill_text.bbcode_text = agnette_sskill_text.bbcode_text.replace(
+#		"UI_UP", "[color=#ffd073]" + InputMap.get_action_list("ui_up")[0].as_text() + "[/color]")
+#	agnette_sskill_text.bbcode_text = agnette_sskill_text.bbcode_text.replace(
+#		"UI_DOWN", "[color=#ffd073]" + InputMap.get_action_list("ui_down")[0].as_text() + "[/color]")
+#	agnette_sskill_text.bbcode_text = agnette_sskill_text.bbcode_text.replace(
+#		"UI_JUMP", "[color=#ffd073]" + InputMap.get_action_list("jump")[0].as_text() + "[/color]")
+#	agnette_sskill_text.bbcode_text = agnette_sskill_text.bbcode_text.replace(
+#		"RF_PECK", str(Global.agnette_skill_multipliers["RavenFormPeckAttack"]))
+#	agnette_sskill_text.bbcode_text = agnette_sskill_text.bbcode_text.replace(
+#		"RF_ROCK", str(Global.agnette_skill_multipliers["RavenFormBombardmentAttack"]))
+#
 	
 # access the update_perk_skill function in player
 # access the update_perk_skill_ui function in skillsui

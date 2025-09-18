@@ -332,22 +332,23 @@ var glaciela_skill_multipliers : Dictionary = {
 	"SpecialAttack2_1": 16.0,
 	"SpecialAttack2_2": 22.0,
 	"SpecialAttack2_3": 40.0,
-	"IceLanceDamageBonusPerTundraSigil": 85,
+	
 	"TundraSigilFreezeStackBonus": 30,
 	"TundraSigilManaBonus": 0.75,
 	"TundraStarsIceDamageBonus": 48,
 	"AirborneDuration": 2.5,
 	"IceLance": 60.0,
 	"IceLanceFreezeGauge": 300.0,
+	"IceLanceDamageBonusPerTundraSigil": 85,
+	"IceLanceCost": 3,
+	"IceLanceCD": 11.0,
 	"MaxTundraStars": 3,
 	"WinterQueen": 11.0,
 	"WinterQueenCost": 14,
 	"WinterQueenCD": 28.0,
 	"WinterQueenDuration": 7.2,
 	"WinterQueenFreezeGauge": 340,
-	"IceLanceCost": 3,
 	
-	"IceLanceCD": 11.0,
 	
 	
 	# for some reason it won't register any values below 100.
