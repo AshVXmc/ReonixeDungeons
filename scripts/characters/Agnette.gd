@@ -202,9 +202,9 @@ func _physics_process(delta):
 		use_skill()
 #		print(is_charging)
 	if current_form == forms.RAVEN and get_parent().get_parent().can_fly:
-		if get_parent().get_parent().stamina_bar_ui.value > Global.agnette_skill_multipliers["RavenFormFlightStaminaCost"] * 3 and Input.is_action_pressed("ui_up") or Input.is_action_pressed("jump"):
+		if get_parent().get_parent().stamina_bar_ui.get_stamina_value() > Global.agnette_skill_multipliers["RavenFormFlightStaminaCost"] * 3 and Input.is_action_pressed("ui_up") or Input.is_action_pressed("jump"):
 			get_parent().get_parent().velocity.y = -VERTICAL_FLYING_SPEED
-			get_parent().get_parent().stamina_bar_ui.value -=  Global.agnette_skill_multipliers["RavenFormFlightStaminaCost"]
+			get_parent().get_parent().stamina_bar_ui.consume_stamina(Global.agnette_skill_multipliers["RavenFormFlightStaminaCost"])
 		elif Input.is_action_pressed("ui_down"):
 			get_parent().get_parent().velocity.y = VERTICAL_FLYING_SPEED
 		else:

@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://scripts/levels/PlayerTutorialLevel.gd" type="Script" id=1]
 [ext_resource path="res://scenes/menus/DebugMenu.tscn" type="PackedScene" id=2]
@@ -20,6 +20,9 @@
 [ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=29]
 [ext_resource path="res://tilesets/one_way_tilesets.tres" type="TileSet" id=30]
 [ext_resource path="res://scenes/menus/OpalsUI.tscn" type="PackedScene" id=31]
+
+[sub_resource type="CanvasItemMaterial" id=2]
+light_mode = 1
 
 [sub_resource type="DynamicFont" id=1]
 size = 48
@@ -110,6 +113,7 @@ drag_margin_v_enabled = true
 editor_draw_limits = true
 
 [node name="TutorialRichTextLabel1" type="RichTextLabel" parent="."]
+material = SubResource( 2 )
 margin_left = -950.0
 margin_top = 750.0
 margin_right = -547.0
@@ -123,6 +127,7 @@ A to move backward."
 scroll_active = false
 
 [node name="TutorialRichTextLabel2" type="RichTextLabel" parent="."]
+material = SubResource( 2 )
 margin_left = -312.0
 margin_top = 1007.0
 margin_right = 238.0

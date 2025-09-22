@@ -27,4 +27,10 @@ nine_patch_stretch = true
 wait_time = 0.4
 autostart = true
 
+[node name="DelayBeforeStartRegenTimer" type="Timer" parent="StaminaBarUI"]
+wait_time = 1.5
+one_shot = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="StaminaBarUI"]
+
 [connection signal="timeout" from="StaminaBarUI/RegenTimer" to="StaminaBarUI" method="_on_RegenTimer_timeout"]

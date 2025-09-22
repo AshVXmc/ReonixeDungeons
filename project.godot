@@ -734,6 +734,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/skills/SpikeTrap.gd"
 }, {
+"base": "Control",
+"class": "StaminaBarUI",
+"language": "GDScript",
+"path": "res://scripts/UI/StaminaBarUI.gd"
+}, {
 "base": "RigidBody2D",
 "class": "SugarRoll",
 "language": "GDScript",
@@ -945,6 +950,7 @@ _global_script_class_icons={
 "SoulOrb": "",
 "Spider": "",
 "SpikeTrap": "",
+"StaminaBarUI": "",
 "SugarRoll": "",
 "SulphuricSigil": "",
 "SuperSlashProjectile": "",

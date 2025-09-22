@@ -59,7 +59,7 @@ var can_be_knocked : bool = true
 const MAX_SPEED : int = 350
 var SPEED : int = MAX_SPEED
 var GRAVITY : int = 38
-var JUMP_POWER : int = -750 # for double jumping
+var JUMP_POWER : int = -755 # for double jumping
 var can_double_jump : bool = true
 var waiting_for_quickswap : bool = false
 var is_thrust_attacking : bool = false
@@ -162,7 +162,7 @@ onready var sskill_ui : TextureProgress =  get_parent().get_node("SkillsUI/Contr
 onready var tskill_ui : TextureProgress = get_parent().get_node("SkillsUI/Control/TertiarySkill/Player/Fireball/TextureProgress")
 onready var perkskill_ui : TextureProgress 
 onready var chaos_magic : PackedScene = preload("res://scenes/menus/ChaosMagicUI.tscn")
-onready var stamina_bar_ui : TextureProgress = get_parent().get_node("StaminaBarUI/StaminaBarUI/TextureProgress")
+onready var stamina_bar_ui : StaminaBarUI = get_parent().get_node("StaminaBarUI/StaminaBarUI")
 onready var crit_rate : float = Global.player_skill_multipliers["CritRate"]
 onready var crit_damage : float = Global.player_skill_multipliers["CritDamage"]
 # when a flash appears after the 3rd string of basic attack, tap to thrust through enemies
@@ -456,9 +456,9 @@ func _physics_process(_delta):
 					# Jump controls (ground)
 					if Input.is_action_just_pressed("jump") and $DoubleJumpDelayTimer.is_stopped() and !can_fly and !mobility_lock and !is_attacking and !is_frozen and !underwater and !Input.is_action_pressed("ui_dash"):
 						if can_double_jump or is_on_floor():
-							if !is_on_floor() and stamina_bar_ui.value >= DOUBLE_JUMP_STAMINA_COST: 
+							if !is_on_floor() and stamina_bar_ui.get_stamina_value() >= DOUBLE_JUMP_STAMINA_COST: 
 								can_double_jump = false
-								stamina_bar_ui.value -= DOUBLE_JUMP_STAMINA_COST
+								stamina_bar_ui.consume_stamina(DOUBLE_JUMP_STAMINA_COST)
 							$DashAfterJumpingDelayTimer.start()
 							$DoubleJumpDelayTimer.start()
 							# Particles
@@ -1742,14 +1742,14 @@ func _on_RightDectector_area_entered(area):
 
 
 func dash():
-	if stamina_bar_ui.value >= DASH_STAMINA_COST and !is_frozen and !is_thrust_attacking and !$DashCooldown.is_stopped() and $DashAfterJumpingDelayTimer.is_stopped():
+	if stamina_bar_ui.get_stamina_value() >= DASH_STAMINA_COST and !is_frozen and !is_thrust_attacking and !$DashCooldown.is_stopped() and $DashAfterJumpingDelayTimer.is_stopped():
 		if $DashUseTimer.is_stopped():
 			can_dash = true
 		if !$Sprite.flip_h:
 			dashdirection = Vector2(1,0)
 		if $Sprite.flip_h:
 			dashdirection = Vector2(-1, 0)
-		stamina_bar_ui.value -= DASH_STAMINA_COST
+		stamina_bar_ui.consume_stamina(DASH_STAMINA_COST)
 		if can_dash and $DashUseTimer.is_stopped():
 			attack_string_count = 4
 			mana_absorption_counter = mana_absorption_counter_max
@@ -2226,9 +2226,10 @@ func update_energy_meter(value : int):
 
 func _on_InputPressTimer_timeout():
 	if !Input.is_action_pressed("ui_dash") and !is_quickswap_attacking and !mobility_lock:
-		if Input.is_action_pressed("ui_up") and is_on_floor() and stamina_bar_ui.value >= Global.player_skill_multipliers["UpwardsChargedAttackStaminaCost"]:
+		if Input.is_action_pressed("ui_up") and is_on_floor() and stamina_bar_ui.get_stamina_value() >= Global.player_skill_multipliers["UpwardsChargedAttackStaminaCost"]:
 			upwards_charged_attack()
-			stamina_bar_ui.value -= Global.player_skill_multipliers["UpwardsChargedAttackStaminaCost"]
+			stamina_bar_ui.consume_stamina(Global.player_skill_multipliers["UpwardsChargedAttackStaminaCost"])
+			
 		if Input.is_action_pressed("ui_down") and airborne_mode and !is_on_floor():
 			downwards_charged_attack()
 		
@@ -2244,7 +2245,12 @@ func _on_InputPressTimer_timeout():
 						thrust_attack()
 				else:
 					if is_on_floor():
-						charged_attack("Circular") if attack_string_count == 1 and Global.player_talents["CycloneSlashes"]["unlocked"] and Global.player_talents["CycloneSlashes"]["enabled"] else charged_attack("Ground")
+						if attack_string_count == 1 and Global.player_talents["CycloneSlashes"]["unlocked"] and Global.player_talents["CycloneSlashes"]["enabled"]:
+							charged_attack("Circular") 
+						else:
+							if stamina_bar_ui.get_stamina_value() >= Global.player_skill_multipliers["ChargedAttackStaminaCost"]:
+								charged_attack("Ground")
+							
 
 func _on_DashInputPressTimer_timeout():
 	if Global.current_character == "Player" and !mobility_lock and Input.is_action_pressed("ui_dash") and !Input.is_action_pressed("ui_attack") and !is_quickswap_attacking:
