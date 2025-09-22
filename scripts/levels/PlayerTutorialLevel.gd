@@ -2,7 +2,8 @@ class_name PlayerTutorialLevel extends Level
 
 # OVERRIDE
 func _ready():
-	start_dialogue("PlayerTutorial1")
+	pass
+#	start_dialogue("PlayerTutorial1")
 
 func start_dialogue(dialogue_name : String, end_dialogue_function : String = ""):
 	var BOOKSHELF_DIALOGUE = Dialogic.start(dialogue_name)

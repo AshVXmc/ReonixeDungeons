@@ -472,7 +472,7 @@ func _physics_process(_delta):
 							if !is_on_floor():
 								velocity.y = JUMP_POWER 
 							else:
-								velocity.y = JUMP_POWER * 1.2
+								velocity.y = JUMP_POWER * 1.275
 							is_jumping = true
 							$Sprite.play("Idle")
 							yield(get_tree().create_timer(0.2), "timeout")
