@@ -42,7 +42,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 0.3 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ Vector2( 8, 8 ), Vector2( 5, 5 ) ]
+"values": [ Vector2( 6, 6 ), Vector2( 3, 3 ) ]
 }
 
 [node name="EleganceMeterUI" type="CanvasLayer"]
@@ -63,10 +63,10 @@ anchor_left = 23.95
 anchor_top = 15.075
 anchor_right = 23.95
 anchor_bottom = 15.075
-margin_left = -28.0597
-margin_top = -97.3835
-margin_right = -4.05969
-margin_bottom = -72.3835
+margin_left = -15.0598
+margin_top = -34.3834
+margin_right = 8.94019
+margin_bottom = -9.38342
 rect_scale = Vector2( 5, 5 )
 texture_under = ExtResource( 4 )
 texture_progress = ExtResource( 2 )
@@ -92,9 +92,9 @@ anchor_top = 12.05
 anchor_right = 21.6
 anchor_bottom = 12.05
 margin_left = 132.086
-margin_top = -15.6105
+margin_top = 47.3895
 margin_right = 300.086
-margin_bottom = 32.3895
+margin_bottom = 95.3895
 custom_fonts/font = SubResource( 2 )
 text = "hits"
 
@@ -104,9 +104,9 @@ anchor_top = 12.05
 anchor_right = 21.6
 anchor_bottom = 12.05
 margin_left = -11.9139
-margin_top = -39.6105
+margin_top = 23.3895
 margin_right = 120.086
-margin_bottom = 40.3895
+margin_bottom = 103.39
 custom_fonts/font = SubResource( 1 )
 text = "0"
 align = 2
