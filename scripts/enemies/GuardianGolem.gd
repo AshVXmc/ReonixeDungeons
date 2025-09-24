@@ -34,10 +34,10 @@ func _ready():
 	SPEED = MAX_SPEED
 	MAX_GRAVITY = 45
 	GRAVITY = MAX_GRAVITY
-	phys_res = -33.3
-	fire_res = -33.3
-	earth_res = 0
-	ice_res = 0
+	phys_res = 0
+	fire_res = -25.0
+	earth_res = -25.0
+	ice_res = -25.0
 	global_res = 0
 	weaknesses = ["Physical", "Fire"]
 	elemental_type = "Physical"

@@ -9,7 +9,7 @@
 radius = 23.0
 
 [sub_resource type="CircleShape2D" id=2]
-radius = 85.0
+radius = 77.0
 
 [sub_resource type="Animation" id=3]
 resource_name = "Flicker"

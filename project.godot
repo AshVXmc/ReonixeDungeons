@@ -737,7 +737,7 @@ _global_script_classes=[ {
 "base": "Control",
 "class": "StaminaBarUI",
 "language": "GDScript",
-"path": "res://scripts/UI/StaminaBarUI.gd"
+"path": "res://scripts/ui/StaminaBarUI.gd"
 }, {
 "base": "RigidBody2D",
 "class": "SugarRoll",

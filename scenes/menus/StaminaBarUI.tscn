@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://assets/UI/stamina_bar_full.png" type="Texture" id=1]
-[ext_resource path="res://scripts/UI/StaminaBarUI.gd" type="Script" id=2]
+[ext_resource path="res://scripts/ui/StaminaBarUI.gd" type="Script" id=2]
 [ext_resource path="res://assets/UI/stamina_bar_empty.png" type="Texture" id=3]
 
 [node name="StaminaBarUI" type="CanvasLayer"]

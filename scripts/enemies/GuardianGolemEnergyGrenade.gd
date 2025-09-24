@@ -66,7 +66,7 @@ func _on_ExplodeTimer_timeout():
 
 func purge_status_effects():
 	for node in get_children():
-		if node.is_in_group("Burning")  or node.is_in_group("Frozen") or node.is_in_group("Grounded"):
-			pass
+		if node.is_in_group("Burning") or node.is_in_group("Frozen") or node.is_in_group("Grounded"):
+			node.call_deferred('free')
 
 

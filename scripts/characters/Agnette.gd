@@ -77,6 +77,7 @@ onready var pskill_ui : TextureProgress = get_parent().get_parent().get_parent()
 onready var sskill_ui : TextureProgress = get_parent().get_parent().get_parent().get_node("SkillsUI/Control/SecondarySkill/Agnette/RavenForm/TextureProgress")
 onready var tskill_ui : TextureProgress = get_parent().get_parent().get_parent().get_node("SkillsUI/Control/TertiarySkill/Agnette/SpikeGrowth/TextureProgress")
 onready var stamina_bar_ui : TextureProgress = get_parent().get_parent().get_parent().get_node("StaminaBarUI/StaminaBarUI/TextureProgress")
+onready var arrow : AgnetteArrow = ARROW.instance()
 var bear_is_attacking : bool = false
 var raven_is_attacking : bool = false
 var facing
@@ -499,13 +500,22 @@ func spawn_arrow(charge_value : int = 0, earth_damage : bool = false, is_up : bo
 	if charge_value >= 50:
 		charged_bonus = 1.35 + (2.25 * charge_value / 100)
 	var crit_dmg : float = 1.0
-	var arrow = ARROW.instance()
 	
-#
+#	var arrow = ARROW.instance()
+	arrow.activate()
+#	arrow.get_node("Timer").start()
+	
+	print("current agnette pos: " + str(global_position))
+	print("arrow pos: " + str(arrow.global_position))
+
+	
 	get_parent().get_parent().get_parent().add_child(arrow)
 	if earth_damage:
 		arrow.get_node("Area2D").remove_from_group("Sword")
 		arrow.get_node("Area2D").add_to_group("Earth")
+	else:
+		arrow.get_node("Area2D").remove_from_group("Earth")
+		arrow.get_node("Area2D").add_to_group("Sword")
 	if is_a_critical_hit():
 		crit_dmg = (Global.agnette_skill_multipliers["CritDamage"] / 100 + 1)
 		arrow.get_node("Area2D").add_to_group("IsCritHit")
@@ -516,21 +526,26 @@ func spawn_arrow(charge_value : int = 0, earth_damage : bool = false, is_up : bo
 	elif is_down:
 		arrow.down = true
 	var mult : int = 4 - attack_string_count + 1
-	arrow.get_node("Area2D").add_to_group(str(charged_bonus * ATTACK * (Global.agnette_skill_multipliers["Arrow" + str(mult)] / 100) * crit_dmg))
+	var final_calc : int = round(charged_bonus * ATTACK * (Global.agnette_skill_multipliers["Arrow" + str(mult)] / 100) * crit_dmg)
+	arrow.get_node("Area2D").add_to_group(str(final_calc))
 	
 	if !$AnimatedSprite.flip_h:
 		arrow.position.x = global_position.x + 40
 		arrow.position.y = global_position.y
+		arrow.x_direction = arrow.RIGHT
 	else:
 		arrow.position.x = global_position.x - 40
 		arrow.position.y = global_position.y
-		arrow.x_direction = -1
+		arrow.x_direction = arrow.LEFT
 #	print("atk string: " + str(attack_string_count))
 	attack_string_count -= 1
 	attack_string_count = clamp(attack_string_count, 0, 4)
 	if attack_string_count == 0:
 		attack_string_count = 4
 
+func return_arrow_to_agnette():
+	$AgnetteArrow.position = position
+	print("arrow return")
 func spread_shot_arrow():
 	pass
 

@@ -1,36 +1,66 @@
 class_name AgnetteArrow extends KinematicBody2D
 
-const MAX_SPEED : int = 800
+const MAX_SPEED : int = 750
+const TYPE = "Physical"
+const AIRBORNE_STATUS : PackedScene = preload("res://scenes/status_effects/AirborneStatus.tscn")
+enum {
+	LEFT = -1
+	RIGHT = 1
+}
+
 var SPEED : int = MAX_SPEED
 var velocity := Vector2()
-export (int) var x_direction = 1
-const TYPE = "Physical"
+var is_active : bool = false
 
+signal add_mana_to_agnette(amount)
+
+onready var mana_granted : float = 0.2
+onready var agnette = get_parent()
+
+export (bool) var knocks_enemies_airborne = false
+export (int) var x_direction = 1
 export (bool) var up : bool = false
 export (bool) var down : bool = false
-signal add_mana_to_agnette(amount)
-onready var mana_granted : float = 0.2
-const AIRBORNE_STATUS : PackedScene = preload("res://scenes/status_effects/AirborneStatus.tscn")
-export (bool) var knocks_enemies_airborne = false
+
 
 
 func _ready():
-	connect("add_mana_to_agnette", get_parent().get_node("Player/CharacterManager/Agnette"), "change_mana_value")
+#	deactivate()
+	connect("add_mana_to_agnette", agnette, "change_mana_value")
+	print("INSTANCED ARROW")
 	if TYPE == "Earth":
 		mana_granted = 0.5
+	
 func _physics_process(delta):
 #	position += transform.x * SPEED * delta * x_direction
-	$Sprite.flip_h = true if x_direction < 0 else false
-	velocity.x = SPEED * delta * x_direction
-	
-	if up:
-		velocity.y = -3 * x_direction
-		rotation_degrees = -30
-	elif down:
-		velocity.y = 3 * x_direction
-		rotation_degrees = 30
-	translate(velocity)
+	if is_active:
+		$Sprite.flip_h = true if x_direction < 0 else false
+		velocity.x = SPEED * delta * x_direction
+		
+		if up:
+			velocity.y = -3 * x_direction
+			rotation_degrees = -30
+		elif down:
+			velocity.y = 3 * x_direction
+			rotation_degrees = 30
+		translate(velocity)
+		
 
+func activate():
+	is_active = true
+	$CollisionShape2D.disabled = false
+	$Area2D/CollisionShape2D.disabled = false
+	$Sprite.visible = true
+	$Timer.start()
+#	print("activated arrow")
+
+func deactivate():
+	is_active = false
+	$CollisionShape2D.disabled = true
+	$Area2D/CollisionShape2D.disabled = true
+#	$Sprite.visible = false
+	position = agnette.position
+#	print("deactivated arrow")
 
 func flip_arrow_direction(fb_direction : int):
 	# SouthEast = 5
@@ -46,18 +76,21 @@ func knock_airborne(target):
 func _on_Area2D_area_entered(area):
 	if area.is_in_group("Enemy"):
 		emit_signal("add_mana_to_agnette", mana_granted)
-		call_deferred('free')
+		deactivate()
+		
 
 
 func _on_Area2D_body_entered(body):
 	if body.is_in_group("Tilemap") and !up and !down:
-		call_deferred('free')
+		deactivate()
+		
 	if body.is_in_group("Enemy") and knocks_enemies_airborne:
 		knock_airborne(body.get_node("Area2D"))
 
 
 func _on_Timer_timeout():
-	call_deferred('free')
+	deactivate()
+	
 
 
 
