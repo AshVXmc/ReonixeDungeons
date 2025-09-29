@@ -1508,7 +1508,7 @@ func attack_knock():
 	var KNOCK_POWER : int = 75
 	velocity.x = -KNOCK_POWER if !$Sprite.flip_h else KNOCK_POWER
 
-func after_damaged():
+func after_damaged(can_die : bool = true):
 	inv_timer.start() 
 	$HurtAnimationPlayer.play("Hurt")
 	is_invulnerable = true
@@ -1516,16 +1516,16 @@ func after_damaged():
 	$Sprite.play("Hurt")
 	if !Global.godmode:
 		$KnockbackTimer.start()
-		
-	if Global.equipped_characters[0] == Global.current_character:
-		if Global.hearts <= 0:
-			dead(Global.equipped_characters[0])
-	elif Global.equipped_characters[1] == Global.current_character:
-		if Global.character2_hearts <= 0:
-			dead(Global.equipped_characters[1])
-	elif Global.equipped_characters[2] == Global.current_character:
-		if Global.character3_hearts <= 0:
-			dead(Global.equipped_characters[2])
+	if can_die:
+		if Global.equipped_characters[0] == Global.current_character:
+			if Global.hearts <= 0:
+				dead(Global.equipped_characters[0])
+		elif Global.equipped_characters[1] == Global.current_character:
+			if Global.character2_hearts <= 0:
+				dead(Global.equipped_characters[1])
+		elif Global.equipped_characters[2] == Global.current_character:
+			if Global.character3_hearts <= 0:
+				dead(Global.equipped_characters[2])
 #	$SwordSprite.visible = true
 func dead(character_id):
 	is_dead = true

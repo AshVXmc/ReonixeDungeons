@@ -1,10 +1,14 @@
 class_name PlayerTutorialLevel extends Level
 
+const NUM_OF_LABELS : int = 3
+
 # OVERRIDE
 func _ready():
-	pass
-#	start_dialogue("PlayerTutorial1")
-#	make_label_appear($TutorialRichTextLabel1)
+	var counter : int = 2
+	while counter <= NUM_OF_LABELS:
+		get_node("TutorialRichTextLabel" +  str(counter)).set_self_modulate(Color(1,1,1,0))
+		counter += 1
+
 
 func start_dialogue(dialogue_name : String, end_dialogue_function : String = ""):
 	var BOOKSHELF_DIALOGUE = Dialogic.start(dialogue_name)
@@ -39,3 +43,16 @@ func _on_Tutorial3TriggerArea2D_area_entered(area):
 	if area.is_in_group("Player") and !$Tutorial3TriggerArea2D/CollisionShape2D.disabled:
 		make_label_appear($TutorialRichTextLabel3)
 		$Tutorial3TriggerArea2D/CollisionShape2D.disabled = true
+
+
+
+func _on_SpikesArea2D_1_area_entered(area):
+	if area.is_in_group("Player"):
+		area.get_parent().after_damaged(false)
+		area.get_parent().position = $SpikesTeleportPosition2D_1.global_position
+
+
+func _on_Tutorial4TriggerArea2D_area_entered(area):
+	if area.is_in_group("Player") and !$Tutorial4TriggerArea2D/CollisionShape2D.disabled:
+		make_label_appear($TutorialRichTextLabel4)
+		$Tutorial4TriggerArea2D/CollisionShape2D.disabled = true
