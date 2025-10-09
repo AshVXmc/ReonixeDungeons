@@ -61,18 +61,19 @@ func _physics_process(delta):
 		$PlayerDetector.set_scale(Vector2(1,1))
 	else:
 		$PlayerDetector.set_scale(Vector2(-1,1))
-	if (MAX_SPEED * 0.6) >= velocity.x and velocity.x >= 0:
-		yield(get_tree().create_timer(0.1), "timeout")
-		if !dead and !is_casting and get_current_state() == state.IDLE:
-			$Sprite.play("Idle")
-		if $Area2D.is_in_group("Hostile"):
-			$Area2D.remove_from_group("Hostile") 
-	else:
-		yield(get_tree().create_timer(0.1), "timeout")
-		if !dead and !is_casting and get_current_state() == state.WALKING:
-			$Sprite.play("Attacking")
-		if !$Area2D.is_in_group("Hostile"):
-			$Area2D.add_to_group("Hostile")
+	if !dead:
+		if (MAX_SPEED * 0.6) >= velocity.x and velocity.x >= 0:
+			yield(get_tree().create_timer(0.1), "timeout")
+			if !dead and !is_casting and get_current_state() == state.IDLE:
+				$Sprite.play("Idle")
+			if $Area2D.is_in_group("Hostile"):
+				$Area2D.remove_from_group("Hostile") 
+		else:
+			yield(get_tree().create_timer(0.1), "timeout")
+			if !dead and !is_casting and get_current_state() == state.WALKING:
+				$Sprite.play("Attacking")
+			if !$Area2D.is_in_group("Hostile"):
+				$Area2D.add_to_group("Hostile")
 	if get_current_state() == state.IDLE and !dead:
 		$Sprite.play("Idle")
 	if player in $PlayerDetector.get_overlapping_bodies() and get_current_state() != state.PUNCHING and get_current_state() != state.STOMPING and $AttackCooldownTimer.is_stopped():

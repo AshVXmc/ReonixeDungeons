@@ -1,6 +1,6 @@
 class_name PlayerTutorialLevel extends Level
 
-const NUM_OF_LABELS : int = 3
+const NUM_OF_LABELS : int = 4
 
 # OVERRIDE
 func _ready():

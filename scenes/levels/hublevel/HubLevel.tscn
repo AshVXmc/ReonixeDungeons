@@ -1,12 +1,11 @@
-[gd_scene load_steps=91 format=2]
+[gd_scene load_steps=90 format=2]
 
 [ext_resource path="res://assets/particles/smoke_particle.png" type="Texture" id=1]
 [ext_resource path="res://scripts/misc/HubLevelLibraryBookshelf.gd" type="Script" id=2]
 [ext_resource path="res://scripts/misc/HubLevel.gd" type="Script" id=3]
 [ext_resource path="res://assets/terrain/deep_woods/deep_woods_spritesheet.png" type="Texture" id=4]
-[ext_resource path="res://assets/terrain/deep_woods/background_deep_woods.png" type="Texture" id=5]
+[ext_resource path="res://assets/terrain/deep_woods/background_deep_woods_2.png" type="Texture" id=5]
 [ext_resource path="res://tilesets/HubLevelTileset.tres" type="TileSet" id=6]
-[ext_resource path="res://assets/terrain/deep_woods/tree_1.png" type="Texture" id=7]
 [ext_resource path="res://assets/terrain/hub_level/prop_armor_stands.png" type="Texture" id=8]
 [ext_resource path="res://assets/terrain/hub_level/prop_cashiertable.png" type="Texture" id=9]
 [ext_resource path="res://assets/terrain/hub_level/prop_weapons.png" type="Texture" id=10]
@@ -217,11 +216,11 @@ mode = 1
 
 [node name="Background1" type="ParallaxLayer" parent="ParallaxBackground"]
 z_as_relative = false
-motion_mirroring = Vector2( 1937.76, 0 )
+motion_mirroring = Vector2( 1340, 0 )
 
 [node name="Sprite" type="Sprite" parent="ParallaxBackground/Background1"]
-position = Vector2( -73.729, -410.428 )
-scale = Vector2( 20.1855, 18.1016 )
+position = Vector2( -73.729, -291.428 )
+scale = Vector2( 14, 16 )
 texture = ExtResource( 5 )
 centered = false
 __meta__ = {
@@ -247,17 +246,6 @@ tile_data = PoolIntArray( -1769395, 13, 0, -1769394, 13, 0, -1769393, 13, 0, -17
 
 [node name="DungeonEntrance" parent="." instance=ExtResource( 24 )]
 position = Vector2( 3208.3, 491.095 )
-
-[node name="Tree" type="Sprite" parent="."]
-position = Vector2( 3504.14, 512 )
-scale = Vector2( 10, 10 )
-texture = ExtResource( 7 )
-
-[node name="Tree2" type="Sprite" parent="."]
-position = Vector2( 2974.61, 512 )
-scale = Vector2( 10, 10 )
-texture = ExtResource( 7 )
-flip_h = true
 
 [node name="Portal" parent="." instance=ExtResource( 21 )]
 position = Vector2( 148, 521.818 )
