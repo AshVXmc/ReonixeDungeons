@@ -65,6 +65,11 @@ func _ready():
 	
 	update_perk_skill_ui()
 	update_character_ui()
+	
+	$Characters/Slot3/Character3.scale.x = 3.5
+	$Characters/Slot3/Character3.scale.y = 3.5
+
+	
 #func update_maximum_endurance_ui():
 #	$EnduranceMeter/TextureProgress.max_value = Global.max_endurance
 func update_perk_skill_ui():

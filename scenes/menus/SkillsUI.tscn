@@ -804,12 +804,12 @@ margin_right = -1010.49
 margin_bottom = -123.008
 
 [node name="Character1" type="Sprite" parent="Control/Characters/Slot1"]
-position = Vector2( 1042, 157 )
-scale = Vector2( 4, 4 )
+position = Vector2( 1042, 140 )
+scale = Vector2( 3.5, 3.5 )
 texture = ExtResource( 9 )
 
 [node name="KeyIcon1" type="Sprite" parent="Control/Characters/Slot1"]
-position = Vector2( 987.295, 155.987 )
+position = Vector2( 987.295, 138.987 )
 scale = Vector2( 2, 2 )
 texture = ExtResource( 4 )
 
@@ -817,9 +817,9 @@ texture = ExtResource( 4 )
 anchor_left = -3.732
 anchor_right = -3.732
 margin_left = 1131.28
-margin_top = 142.0
+margin_top = 125.0
 margin_right = 1143.28
-margin_bottom = 174.0
+margin_bottom = 157.0
 custom_colors/font_color = Color( 0.192157, 0.372549, 1, 1 )
 custom_fonts/font = SubResource( 3 )
 text = "1"
@@ -835,12 +835,12 @@ margin_right = -1007.75
 margin_bottom = -218.0
 
 [node name="Character2" type="Sprite" parent="Control/Characters/Slot2"]
-position = Vector2( 1042, 243 )
-scale = Vector2( 4, 4 )
+position = Vector2( 1042, 223 )
+scale = Vector2( 3.5, 3.5 )
 texture = ExtResource( 9 )
 
 [node name="KeyIcon2" type="Sprite" parent="Control/Characters/Slot2"]
-position = Vector2( 987.295, 241.987 )
+position = Vector2( 987.295, 223 )
 scale = Vector2( 2, 2 )
 texture = ExtResource( 4 )
 
@@ -848,9 +848,9 @@ texture = ExtResource( 4 )
 anchor_left = -3.732
 anchor_right = -3.732
 margin_left = 1129.28
-margin_top = 228.0
+margin_top = 208.0
 margin_right = 1143.28
-margin_bottom = 260.0
+margin_bottom = 240.0
 custom_colors/font_color = Color( 0.192157, 0.372549, 1, 1 )
 custom_fonts/font = SubResource( 3 )
 text = "2"
@@ -866,22 +866,22 @@ margin_right = -1009.56
 margin_bottom = -306.992
 
 [node name="Character3" type="Sprite" parent="Control/Characters/Slot3"]
-position = Vector2( 1042, 333 )
+position = Vector2( 1042, 306 )
 scale = Vector2( 4, 4 )
 texture = ExtResource( 9 )
 
 [node name="KeyIcon3" type="Sprite" parent="Control/Characters/Slot3"]
-position = Vector2( 987.295, 330.987 )
+position = Vector2( 987.295, 306 )
 scale = Vector2( 2, 2 )
 texture = ExtResource( 4 )
 
 [node name="KeyBind3" type="Label" parent="Control/Characters/Slot3"]
 anchor_left = -3.732
 anchor_right = -3.732
-margin_left = 1128.28
-margin_top = 317.0
-margin_right = 1142.28
-margin_bottom = 349.0
+margin_left = 1129.28
+margin_top = 292.0
+margin_right = 1143.28
+margin_bottom = 324.0
 custom_colors/font_color = Color( 0.192157, 0.372549, 1, 1 )
 custom_fonts/font = SubResource( 3 )
 text = "3"

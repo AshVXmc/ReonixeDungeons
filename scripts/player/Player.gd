@@ -1779,7 +1779,7 @@ func dash():
 				else:
 					velocity.y = 0
 					$Sprite.play("Dash")
-					velocity = dashdirection.normalized() * 2800
+					velocity = dashdirection.normalized() * 3000
 			
 			if Input.is_action_pressed("ui_down") and !is_on_floor():
 				airborne_mode = false
