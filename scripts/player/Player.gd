@@ -60,7 +60,10 @@ const MAX_SPEED : int = 350
 var SPEED : int = MAX_SPEED
 var GRAVITY : int = 38
 var JUMP_POWER : int = -755 # for double jumping
-var can_double_jump : bool = true
+const DASH_POWER : int = 3180
+#var can_double_jump : bool = true
+var jump_counter : int = 0
+const MAX_JUMPS : int = 2
 var waiting_for_quickswap : bool = false
 var is_thrust_attacking : bool = false
 var energy_full : bool 
@@ -455,46 +458,13 @@ func _physics_process(_delta):
 
 					# Jump controls (ground)
 					if Input.is_action_just_pressed("jump") and $DoubleJumpDelayTimer.is_stopped() and !can_fly and !mobility_lock and !is_attacking and !is_frozen and !underwater and !Input.is_action_pressed("ui_dash"):
-						if can_double_jump or is_on_floor():
-							if !is_on_floor() and stamina_bar_ui.get_stamina_value() >= DOUBLE_JUMP_STAMINA_COST: 
-								can_double_jump = false
-								stamina_bar_ui.consume_stamina(DOUBLE_JUMP_STAMINA_COST)
-							$DashAfterJumpingDelayTimer.start()
-							$DoubleJumpDelayTimer.start()
-							# Particles
-							var jump_particle : JumpParticle = JUMP_PARTICLE.instance()
-							jump_particle.emitting = true
-							get_parent().add_child(jump_particle)
-							jump_particle.position = $ParticlePosition.global_position
-#							if can_fly:
-#								velocity.y = JUMP_POWER * 1.2
-#							else:
-							if !is_on_floor():
-								velocity.y = JUMP_POWER 
-							else:
-								velocity.y = JUMP_POWER * 1.275
-							is_jumping = true
-							$Sprite.play("Idle")
-							yield(get_tree().create_timer(0.2), "timeout")
-							var trail_particle = TRAIL_PARTICLE.instance()
-							trail_particle.emitting = true
-							trail_particle.one_shot = true
-							get_parent().add_child(trail_particle)
-							trail_particle.position = $ParticlePosition.global_position
-					# Jump controls (water)
-					if Input.is_action_just_pressed("jump") and underwater and !is_attacking and !is_frozen:
-						var water_jump_particle = WATER_JUMP_PARTICLE.instance()
-						water_jump_particle.emitting = true
-						get_parent().add_child(water_jump_particle)
-						water_jump_particle.position = $ParticlePosition.global_position
-						velocity.y = JUMP_POWER / 1.5
-						$Sprite.play("Idle")
+						if is_on_floor():
+							jump_counter = 0
+							
+						if jump_counter < MAX_JUMPS:
+							jump()
+							jump_counter += 1
 
-	#				is_attacking = false
-
-				# Movement calculations
-	#			if !is_dashing and !is_gliding:
-	#				velocity.y += GRAVITY
 				
 				if is_jumping and velocity.y >= 0:
 					is_jumping = false
@@ -513,8 +483,8 @@ func _physics_process(_delta):
 				velocity.y += GRAVITY
 		if airborne_mode:
 			velocity.y = 0
-		if !can_double_jump and is_on_floor():
-			can_double_jump = true
+#		if !can_double_jump and is_on_floor():
+#			can_double_jump = true
 
 	if is_healing:
 		$Sprite.play("Healing")
@@ -547,6 +517,27 @@ func _physics_process(_delta):
 		mana_absorption_counter = mana_absorption_counter_max
 		restore_mana_for_all_parties = 2
 
+func jump(boost_modifier : float = 1):
+	$DashAfterJumpingDelayTimer.start()
+	$DoubleJumpDelayTimer.start()
+	# Particles
+	var jump_particle : JumpParticle = JUMP_PARTICLE.instance()
+	jump_particle.emitting = true
+	get_parent().add_child(jump_particle)
+	jump_particle.position = $ParticlePosition.global_position
+	velocity.y = JUMP_POWER * boost_modifier
+#	if !is_on_floor():
+#		velocity.y = JUMP_POWER 
+#	else:
+#		velocity.y = JUMP_POWER * 1.275
+	is_jumping = true
+	$Sprite.play("Idle")
+	yield(get_tree().create_timer(0.2), "timeout")
+	var trail_particle = TRAIL_PARTICLE.instance()
+	trail_particle.emitting = true
+	trail_particle.one_shot = true
+	get_parent().add_child(trail_particle)
+	trail_particle.position = $ParticlePosition.global_position
 
 
 func set_attack_power(type : String ,amount : float, duration : float, from_crystal : bool = true):
@@ -1141,7 +1132,7 @@ func upwards_charged_attack():
 	is_charging = false
 #			airborne_mode = false
 	is_doing_charged_attack = true
-	can_double_jump = false
+#	can_double_jump = false
 	cam_shake = true
 	velocity.y = 0
 	velocity.y = JUMP_POWER * 1.3
@@ -1771,7 +1762,7 @@ func dash():
 				if !Input.is_action_pressed("right") and !Input.is_action_pressed("left"):
 					velocity.y = 0
 					$Sprite.play("BackwardsDash")
-					velocity = dashdirection.normalized() * -2000
+					velocity = dashdirection.normalized() * -DASH_POWER * 0.67
 					if perfect_dash and !airborne_mode and is_on_floor():
 						can_use_slash_flurry = true
 						#emit_signal("change_elegance"), "PerfectDash")
@@ -1779,7 +1770,7 @@ func dash():
 				else:
 					velocity.y = 0
 					$Sprite.play("Dash")
-					velocity = dashdirection.normalized() * 3000
+					velocity = dashdirection.normalized() * DASH_POWER
 			
 			if Input.is_action_pressed("ui_down") and !is_on_floor():
 				airborne_mode = false

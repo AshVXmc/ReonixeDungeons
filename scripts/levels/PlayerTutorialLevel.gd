@@ -10,6 +10,7 @@ func _ready():
 		counter += 1
 
 
+
 func start_dialogue(dialogue_name : String, end_dialogue_function : String = ""):
 	var BOOKSHELF_DIALOGUE = Dialogic.start(dialogue_name)
 	if end_dialogue_function != "":
@@ -29,21 +30,7 @@ func make_label_appear(label_node : RichTextLabel):
 	animation.track_insert_key(self_modulate_track_index, 0, Color(1,1,1,0))
 	animation.track_insert_key(self_modulate_track_index, anim_length, Color(1,1,1,1)) 
 	animation.loop = false
-	
 	$TutorialAnimationPlayer.play(anim_name)
-
-
-func _on_Tutorial2TriggerArea2D_area_entered(area):
-	if area.is_in_group("Player") and !$Tutorial2TriggerArea2D/CollisionShape2D.disabled:
-		make_label_appear($TutorialRichTextLabel2)
-		$Tutorial2TriggerArea2D/CollisionShape2D.disabled = true
-
-
-func _on_Tutorial3TriggerArea2D_area_entered(area):
-	if area.is_in_group("Player") and !$Tutorial3TriggerArea2D/CollisionShape2D.disabled:
-		make_label_appear($TutorialRichTextLabel3)
-		$Tutorial3TriggerArea2D/CollisionShape2D.disabled = true
-
 
 
 func _on_SpikesArea2D_1_area_entered(area):
@@ -52,7 +39,23 @@ func _on_SpikesArea2D_1_area_entered(area):
 		area.get_parent().position = $SpikesTeleportPosition2D_1.global_position
 
 
+func _on_Tutorial2TriggerArea2D_area_entered(area):
+	if area.is_in_group("Player") and !$Tutorial2TriggerArea2D/CollisionShape2D.disabled:
+		make_label_appear($TutorialRichTextLabel2)
+		$Tutorial2TriggerArea2D/CollisionShape2D.disabled = true
+
+func _on_Tutorial3TriggerArea2D_area_entered(area):
+	if area.is_in_group("Player") and !$Tutorial3TriggerArea2D/CollisionShape2D.disabled:
+		make_label_appear($TutorialRichTextLabel3)
+		$Tutorial3TriggerArea2D/CollisionShape2D.disabled = true
+
 func _on_Tutorial4TriggerArea2D_area_entered(area):
 	if area.is_in_group("Player") and !$Tutorial4TriggerArea2D/CollisionShape2D.disabled:
 		make_label_appear($TutorialRichTextLabel4)
 		$Tutorial4TriggerArea2D/CollisionShape2D.disabled = true
+
+func _on_Tutorial5TriggerArea2D_area_entered(area):
+	if area.is_in_group("Player"):
+		area.get_parent().after_damaged(false)
+		area.get_parent().position = $SpikesTeleportPosition2D_1.global_position
+
