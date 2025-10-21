@@ -55,7 +55,6 @@ func _on_Tutorial4TriggerArea2D_area_entered(area):
 		$Tutorial4TriggerArea2D/CollisionShape2D.disabled = true
 
 func _on_Tutorial5TriggerArea2D_area_entered(area):
-	if area.is_in_group("Player"):
-		area.get_parent().after_damaged(false)
-		area.get_parent().position = $SpikesTeleportPosition2D_1.global_position
-
+	if area.is_in_group("Player") and !$Tutorial5TriggerArea2D/CollisionShape2D.disabled:
+		make_label_appear($TutorialRichTextLabel5)
+		$Tutorial5TriggerArea2D/CollisionShape2D.disabled = true
