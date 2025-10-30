@@ -11,7 +11,10 @@ const RAVEN_PROJECTILE = preload("res://scenes/skills/RavenProjectile.tscn")
 const RAVEN_TEMPEST = preload("res://scenes/skills/RavenTempest.tscn")
 const VERTICAL_FLYING_SPEED : int = 300
 const JUMP_POWER_PENALTY : int = -50 # decrement jump power by this value
-#const GRAVITY_PENALTY : int = -15
+
+var MAX_AMMO : int = Global.agnette_max_ammo
+var current_ammo = MAX_AMMO
+
 signal skill_used(skill_name)
 signal mana_changed(amount, character)
 signal life_changed(amount, character)
@@ -24,6 +27,8 @@ signal ready_to_be_switched_in(character)
 signal change_elegance(action_name)
 signal change_hitcount(amount)
 signal update_spikegrowth_charges_ui(charges)
+signal update_arrow_ammo_ui(new_arrow_ammo_amount)
+signal update_max_arrow_ammo_ui(new_max_arrow_ammo_amount)
 var target
 var airborne_mode : bool = false
 var basicatkbuffmulti : float = 0
@@ -98,7 +103,6 @@ func _ready():
 	if Global.equipped_characters.has("Player"):
 		connect("trigger_quickswap", get_parent().get_parent(), "quickswap_event")
 
-
 	connect("action", Global, "parse_action")
 	connect("change_elegance", get_parent().get_parent().get_parent().get_node("EleganceMeterUI/Control"), "elegance_changed")
 	connect("change_hitcount", get_parent().get_parent().get_parent().get_node("EleganceMeterUI/Control"), "hitcount_changed")
@@ -113,6 +117,9 @@ func _ready():
 #	connect("skill_used", get_parent().get_parent().get_parent().get_node("SkillsUI/Control"), "on_skill_used")
 	connect("update_spikegrowth_charges_ui", get_parent().get_parent().get_parent().get_node("SkillsUI/Control"), "update_spikegrowth_skill_ui")
 	connect("skill_used", get_parent().get_parent().get_node("SkillManager"), "on_skill_used")
+	connect("update_max_arrow_ammo_ui", get_parent().get_parent().get_parent().get_node("SkillsUI/AgnetteArrowAmmoUI/AgnetteArrowControl"), "update_max_arrow_ammo_count")
+	connect("update_arrow_ammo_ui", get_parent().get_parent().get_parent().get_node("SkillsUI/AgnetteArrowAmmoUI/AgnetteArrowControl"), "update_arrow_ammo_ui")
+
 	$StrongJumpParticle.visible = false
 	play_animated_sprite("Default")
 	$BearFormDurationTimer.wait_time = Global.agnette_skill_multipliers["BearFormDuration"]
@@ -134,7 +141,8 @@ func _physics_process(delta):
 	
 	if $ChargedAttackBar.value > $ChargedAttackBar.min_value and Global.current_character != "Agnette":
 		is_charging = false
-		toggle_charged_attack_snare(false)
+		if $SelfSnareArea.is_in_group("AgnetteChargedAttackSnareOn"):
+			toggle_charged_attack_snare(false)
 		$ChargedAttackBarFillTimer.stop()
 		$ChargedAttackBar.value = $ChargedAttackBar.min_value
 	
@@ -161,7 +169,7 @@ func _physics_process(delta):
 				play_animated_sprite("Default")
 			else:
 				play_animated_sprite("Walk")
-				
+	
 
 		if current_form == forms.ARCHER:
 			if Input.is_action_just_pressed("ui_dash") and !get_parent().get_parent().can_dash and !get_parent().get_parent().get_node("DashUseTimer").is_stopped():
@@ -178,6 +186,7 @@ func _physics_process(delta):
 			else:
 				$BowSprite.flip_h = false
 				$BowSprite.position.x = -40
+			
 		if current_form == forms.BEAR:
 			
 			if !$AnimatedSprite.flip_h:
@@ -222,7 +231,7 @@ func _physics_process(delta):
 #		if Input.is_action_just_pressed("primary_skill") and !Input.is_action_just_pressed("secondary_skill"):
 #			print("skill emitted")
 #			emit_signal("skill_used", "IceLance")
-		
+
 func play_animated_sprite(anim_name : String):
 	match anim_name:
 		"Default":
@@ -241,8 +250,10 @@ func play_animated_sprite(anim_name : String):
 func _input(event):
 	if Global.current_character == "Agnette":
 		if current_form == forms.ARCHER and event.is_action_pressed("ui_attack") and !is_charging:
-			attack()
-			$InputPressTimer.start()
+			print("cur ammo: " + str(current_ammo))
+			if current_ammo > 0:
+				attack()
+				$InputPressTimer.start()
 		if current_form == forms.BEAR: 
 			if event.is_action_pressed("ui_attack") and $BearFormNodes/BearInputPressTimer.is_stopped() and !is_charging:
 				bear_attack()
@@ -259,7 +270,8 @@ func _input(event):
 		if event.is_action_pressed("heal"):
 			if Global.healthpot_amount > 0:
 				heal("Agnette", 5)
-		if event.is_action_pressed("ui_dash") and !get_parent().get_parent().mobility_lock and $DashInputPressTimer.is_stopped():
+		if !is_charging and event.is_action_pressed("ui_dash") and !get_parent().get_parent().mobility_lock and $DashInputPressTimer.is_stopped():
+			
 			get_parent().get_parent().dash()
 			if current_form == forms.RAVEN and Global.agnette_talents["StormyTempest"]["unlocked"] and Global.agnette_talents["StormyTempest"]["enabled"] and $TalentsNode2D/StormyTempestCDTimer.is_stopped():
 				var tempest = RAVEN_TEMPEST.instance()
@@ -273,7 +285,8 @@ func _input(event):
 		# CHARGED ATTACK
 		if event.is_action_released("ui_attack"):
 			if is_charging:
-				toggle_charged_attack_snare(false)
+				if $SelfSnareArea.is_in_group("AgnetteChargedAttackSnareOn"):
+					toggle_charged_attack_snare(false)
 			
 			is_charging = false
 			if current_form == forms.ARCHER:
@@ -437,19 +450,21 @@ func toggle_bear_form_snare(active : bool):
 
 func charged_attack():
 	# the arrow deals earth damage and builds earth trauma
-	if $ShootTimer.is_stopped():
+	if $ShootTimer.is_stopped() and current_ammo > 0:
 		if $ChargedAttackBar.value >= $ChargedAttackBar.max_value * 0.7:
-			spawn_arrow($ChargedAttackBar.value, true)
+			shoot_arrow($ChargedAttackBar.value, true)
 			if Global.agnette_talents["VolleyShot"]["unlocked"] and Global.agnette_talents["VolleyShot"]["enabled"] and $TalentsNode2D/VolleyShootCooldownTimer.is_stopped():
-				spawn_arrow($ChargedAttackBar.value * (Global.agnette_talents["VolleyShot"]["arrowdamagepercentage"] / 100), true, true, false)
-				spawn_arrow($ChargedAttackBar.value * (Global.agnette_talents["VolleyShot"]["arrowdamagepercentage"] / 100), true, false, true)
+				shoot_arrow($ChargedAttackBar.value * (Global.agnette_talents["VolleyShot"]["arrowdamagepercentage"] / 100), true, true, false)
+				shoot_arrow($ChargedAttackBar.value * (Global.agnette_talents["VolleyShot"]["arrowdamagepercentage"] / 100), true, false, true)
 				$TalentsNode2D/VolleyShootCooldownTimer.start()
 			attack_string_count = 4
 			
 			
 		else:
-			spawn_arrow($ChargedAttackBar.value)
+			shoot_arrow($ChargedAttackBar.value)
 		$ShootTimer.start()
+
+
 
 func charged_dash():
 	$DashInputPressTimer.stop()
@@ -481,20 +496,22 @@ func set_attack_power(type : String ,amount : float, duration : float, from_crys
 	if from_crystal:
 		buffed_from_attack_crystals = false
 func attack():
-	if Global.current_character == "Agnette" and $ShootTimer.is_stopped():
+	if Global.current_character == "Agnette" and $ShootTimer.is_stopped() and current_ammo > 0:
 #		if get_parent().get_parent().is_on_floor():
 		airborne_mode = true
 		$AirborneTimer.start()
 		$BowAnimationPlayer.play("BowAttackRight")
-		spawn_arrow()
+		shoot_arrow()
 		$ResetAttackStringTimer.stop()
-
 		$ShootTimer.start()
-		
 		$ResetAttackStringTimer.start()
 
+func increase_max_arrow_ammo_capacity(new_max_arrow_ammo):
+	Global.agnette_max_ammo = new_max_arrow_ammo
+	MAX_AMMO = new_max_arrow_ammo
+	emit_signal("update_max_arrow_ammo_ui", new_max_arrow_ammo)
 
-func spawn_arrow(charge_value : int = 0, earth_damage : bool = false, is_up : bool = false, is_down : bool = false):
+func shoot_arrow(charge_value : int = 0, earth_damage : bool = false, is_up : bool = false, is_down : bool = false):
 	var charged_bonus : float = 1 + (1.25 * charge_value / 100)
 #	print("charge value: " + str(charge_value))
 	if charge_value >= 50:
@@ -542,7 +559,14 @@ func spawn_arrow(charge_value : int = 0, earth_damage : bool = false, is_up : bo
 	attack_string_count = clamp(attack_string_count, 0, 4)
 	if attack_string_count == 0:
 		attack_string_count = 4
+	
+	update_arrow_ammo_count(-1)
+	$DelayBeforeReloadTimer.start()
 
+func update_arrow_ammo_count(amount : int):
+	current_ammo = clamp(current_ammo + amount, 0, MAX_AMMO)
+	emit_signal("update_arrow_ammo_ui", current_ammo)
+	
 func return_arrow_to_agnette():
 	$AgnetteArrow.position = position
 	print("arrow return")
@@ -847,6 +871,8 @@ func after_damaged():
 func dead(character_id):
 	
 	is_dead = true
+	if $SelfSnareArea.is_in_group("AgnetteChargedAttackSnareOn"):
+		toggle_charged_attack_snare(false)
 	get_parent().get_parent().is_invulnerable = true
 	$InvulnerabilityTimer.start()
 #	get_parent().get_parent().swap_to_nearby_alive_characters()
@@ -922,6 +948,8 @@ func take_damage(damage : float):
 					Global.character3_hearts -= stoneskin_mult * damage * (1 - def)
 					add_hurt_particles(stoneskin_mult * damage * (1 - def))
 					emit_signal("life_changed", Global.character3_hearts, "Agnette")
+			if $SelfSnareArea.is_in_group("AgnetteChargedAttackSnareOn"):
+				toggle_charged_attack_snare(false)
 		elif current_form == forms.BEAR:
 			
 			$BearFormNodes/BearHealthBar.value -= damage
@@ -937,6 +965,13 @@ func take_damage(damage : float):
 				$HurtAnimationPlayer.play("BeastDeath")
 #				yield(get_tree().create_timer(0.4), "timeout")
 				wild_shape(forms.ARCHER, forms.RAVEN)
+
+func _on_ReloadTimer_timeout():
+	if $DelayBeforeReloadTimer.is_stopped():
+		update_arrow_ammo_count(1)
+	
+
+
 func _on_ResetAttackStringTimer_timeout():
 	attack_string_count = 4
 
@@ -1000,7 +1035,8 @@ func _on_InvulnerabilityTimer_timeout():
 
 func _on_DashInputPressTimer_timeout():
 	if Global.current_character == "Agnette" and !get_parent().get_parent().mobility_lock and Input.is_action_pressed("ui_dash") and !Input.is_action_pressed("ui_attack"):
-		charged_dash()
+		if !is_charging:
+			charged_dash()
 
 
 
@@ -1008,9 +1044,10 @@ func _on_ShootTimer_timeout():
 	pass # Replace with function body.
 
 func _on_InputPressTimer_timeout():
-	if Input.is_action_pressed("ui_attack"):
+	if Input.is_action_pressed("ui_attack") and current_ammo > 0:
 		is_charging = true
 		$ChargedAttackBarFillTimer.start()
+#		if $SelfSnareArea.is_in_group("AgnetteChargedAttackSnareOff"):
 		toggle_charged_attack_snare(true)
 		$BowAnimationPlayer.play("BowAttackRightCharged")
 		$MaxChargeHoldTimer.start()
@@ -1023,10 +1060,11 @@ func _on_ChargedAttackBarFillTimer_timeout():
 
 
 func _on_MaxChargeHoldTimer_timeout():
-	if is_charging:
+	if $SelfSnareArea.is_in_group("AgnetteChargedAttackSnareOn"):
 		toggle_charged_attack_snare(false)
+	if is_charging:
 		is_charging = false
-		if current_form == forms.ARCHER:
+		if current_form == forms.ARCHER and current_ammo > 0:
 			charged_attack()
 		$ChargedAttackBarFillTimer.stop()
 		$ChargedAttackBar.value = $ChargedAttackBar.min_value
@@ -1073,3 +1111,5 @@ func _on_RavenFormDurationTimer_timeout():
 
 func _on_RavenAttackTimer_timeout():
 	$RavenFormNodes/AttackCollision/CollisionShape2D.disabled = true
+
+

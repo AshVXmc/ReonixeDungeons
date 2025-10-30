@@ -55,3 +55,4 @@ func load_data(savefile):
 	Global.enemy_level_index = player_data["EnemyLevelIndex"]
 	Global.character_level_data = player_data["CharacterLevelData"]
 	Global.character_defense_data = player_data["CharacterDefenseData"]
+	Global.agnette_max_ammo = player_data["AgnetteMaxAmmo"]

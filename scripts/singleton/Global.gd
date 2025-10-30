@@ -67,6 +67,7 @@ var equipped_character_skins : Dictionary = {
 var attack_power : int = 16
 var glaciela_attack : int = 16
 var agnette_attack : int = 16
+var agnette_max_ammo : int = 5
 var player_skill_multipliers : Dictionary = {
 	"BaseHearts": 2.5,
 	"BasicAttack": 25.0,
@@ -656,6 +657,7 @@ func reset_player_data():
 		"Glaciela": [1, 0, 20],
 		"Agnette": [1, 0, 20]
 	}
+	Global.agnette_max_ammo = 4
 	Global.vsync = false
 	Global.activated_portals.clear()
 
@@ -738,7 +740,8 @@ func save_player_data():
 		"EnemiesKilled": Global.enemies_killed ,
 		"MaskedGoblinDefeated" : Global.masked_goblin_defeated,
 		"ActivatedPortals": Global.activated_portals,
-		"CharacterLevelData": Global.character_level_data
+		"CharacterLevelData": Global.character_level_data,
+		"AgnetteMaxAmmo": Global.agnette_max_ammo
 	}
 
 	var savefile : File = File.new()

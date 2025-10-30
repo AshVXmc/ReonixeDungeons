@@ -15,8 +15,8 @@ script = ExtResource( 2 )
 [node name="TextureProgress" type="TextureProgress" parent="StaminaBarUI"]
 margin_left = -140.0
 margin_top = 100.0
-margin_right = -20.0
-margin_bottom = 124.0
+margin_right = 10.0
+margin_bottom = 130.0
 max_value = 250.0
 value = 250.0
 texture_under = ExtResource( 3 )

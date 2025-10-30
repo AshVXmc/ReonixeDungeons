@@ -531,10 +531,10 @@ position = Vector2( -1.43051e-06, 0 )
 amount = 4
 
 [node name="ChargedAttackBar" type="TextureProgress" parent="."]
-margin_left = -60.0534
-margin_top = -86.9925
-margin_right = 59.9466
-margin_bottom = -62.9925
+margin_left = -60.0
+margin_top = -85.0
+margin_right = 60.0
+margin_bottom = -61.0
 texture_under = ExtResource( 7 )
 texture_progress = ExtResource( 10 )
 nine_patch_stretch = true
@@ -645,13 +645,13 @@ anims/RavenPeckAttackRight = SubResource( 38 )
 [node name="BowSprite" type="Sprite" parent="."]
 position = Vector2( 40, 0 )
 scale = Vector2( 5, 5 )
-texture = ExtResource( 9 )
+texture = ExtResource( 12 )
 flip_h = true
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 scale = Vector2( 5.25, 5.25 )
 frames = SubResource( 1 )
-animation = "RavenDefault"
+animation = "Default"
 
 [node name="BowAnimationPlayer" type="AnimationPlayer" parent="."]
 anims/BowAttackRight = SubResource( 20 )
@@ -748,7 +748,7 @@ shape = SubResource( 24 )
 disabled = true
 
 [node name="MaxChargeHoldTimer" type="Timer" parent="."]
-wait_time = 3.5
+wait_time = 2.5
 one_shot = true
 
 [node name="WildShapeParticles" type="Particles2D" parent="."]
@@ -776,6 +776,14 @@ amount = 4
 one_shot = false
 process_material = SubResource( 33 )
 texture = ExtResource( 24 )
+
+[node name="ReloadTimer" type="Timer" parent="."]
+wait_time = 5.0
+autostart = true
+
+[node name="DelayBeforeReloadTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
 
 [node name="TalentsNode2D" type="Node2D" parent="."]
 
@@ -808,3 +816,5 @@ one_shot = true
 [connection signal="timeout" from="MaxChargeHoldTimer" to="." method="_on_MaxChargeHoldTimer_timeout"]
 [connection signal="timeout" from="BearFormDurationTimer" to="." method="_on_BearFormDurationTimer_timeout"]
 [connection signal="timeout" from="RavenFormDurationTimer" to="." method="_on_RavenFormDurationTimer_timeout"]
+[connection signal="timeout" from="ReloadTimer" to="." method="_on_ReloadTimer_timeout"]
+[connection signal="timeout" from="DelayBeforeReloadTimer" to="." method="_on_ReloadTimer_timeout"]

@@ -1,0 +1,56 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://assets/fonts/Born2bSportyV2.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://assets/UI/agnette_arrow_ammo_bar.png" type="Texture" id=2]
+[ext_resource path="res://scripts/misc/AgnetteArrowControl.gd" type="Script" id=3]
+
+[sub_resource type="DynamicFont" id=3]
+size = 48
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 48
+font_data = ExtResource( 1 )
+
+[node name="AgnetteArrowAmmoUI" type="CanvasLayer"]
+
+[node name="AgnetteArrowControl" type="Control" parent="."]
+margin_left = 148.0
+margin_right = 188.0
+margin_bottom = 40.0
+script = ExtResource( 3 )
+
+[node name="TextureRect" type="TextureRect" parent="AgnetteArrowControl"]
+margin_left = -142.0
+margin_top = 196.0
+margin_right = -130.0
+margin_bottom = 208.0
+rect_scale = Vector2( 3, 3 )
+texture = ExtResource( 2 )
+expand = true
+
+[node name="RichTextLabel" type="RichTextLabel" parent="AgnetteArrowControl"]
+margin_left = -100.0
+margin_top = 195.0
+margin_right = 3.0
+margin_bottom = 247.0
+custom_fonts/normal_font = SubResource( 3 )
+bbcode_enabled = true
+bbcode_text = "4/[color=#ffd703]4[/color]"
+text = "4/4"
+scroll_active = false
+
+[node name="OpalsObtainedLabel" type="Label" parent="AgnetteArrowControl"]
+visible = false
+margin_left = -130.0
+margin_top = 208.0
+margin_right = -41.0
+margin_bottom = 307.0
+rect_scale = Vector2( 0.75, 0.75 )
+custom_colors/font_color = Color( 1, 0.803922, 0.0313726, 1 )
+custom_fonts/font = SubResource( 2 )
+text = "+0
+"
+__meta__ = {
+"_edit_use_anchors_": false
+}
