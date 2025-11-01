@@ -488,7 +488,6 @@ margin_right = 36.0
 margin_bottom = -2.0
 
 [node name="Player" type="Control" parent="Control/TertiarySkill"]
-visible = false
 margin_right = 40.0
 margin_bottom = 40.0
 
@@ -498,23 +497,23 @@ margin_bottom = 40.0
 
 [node name="Sprite" type="Sprite" parent="Control/TertiarySkill/Player/Fireball"]
 self_modulate = Color( 1, 1, 1, 0.333333 )
-position = Vector2( 370, 190 )
+position = Vector2( 400, 190 )
 scale = Vector2( 4, 4 )
 texture = ExtResource( 7 )
 
 [node name="TextureProgress" type="TextureProgress" parent="Control/TertiarySkill/Player/Fireball"]
-margin_left = 330.0
+margin_left = 360.0
 margin_top = 150.0
-margin_right = 350.0
+margin_right = 380.0
 margin_bottom = 170.0
 rect_scale = Vector2( 4, 4 )
 texture_progress = ExtResource( 7 )
 fill_mode = 5
 
 [node name="Label" type="Label" parent="Control/TertiarySkill/Player/Fireball"]
-margin_left = 350.0
+margin_left = 380.0
 margin_top = 170.0
-margin_right = 392.0
+margin_right = 422.0
 margin_bottom = 218.0
 custom_fonts/font = SubResource( 1 )
 text = "15.0"
@@ -522,25 +521,24 @@ align = 1
 valign = 1
 
 [node name="ManaSlot" type="TextureRect" parent="Control/TertiarySkill/Player/Fireball"]
-margin_left = 386.0
+margin_left = 416.0
 margin_top = 215.0
-margin_right = 434.0
+margin_right = 464.0
 margin_bottom = 231.0
 texture = ExtResource( 10 )
 expand = true
 stretch_mode = 2
 
 [node name="ManaIcon" type="TextureRect" parent="Control/TertiarySkill/Player/Fireball"]
-margin_left = 386.0
+margin_left = 416.0
 margin_top = 215.0
-margin_right = 434.0
+margin_right = 464.0
 margin_bottom = 231.0
 texture = ExtResource( 11 )
 expand = true
 stretch_mode = 2
 
 [node name="Glaciela" type="Control" parent="Control/TertiarySkill"]
-visible = false
 margin_right = 40.0
 margin_bottom = 40.0
 
@@ -550,23 +548,23 @@ margin_bottom = 40.0
 
 [node name="Sprite" type="Sprite" parent="Control/TertiarySkill/Glaciela/ConeOfCold"]
 self_modulate = Color( 1, 1, 1, 0.333333 )
-position = Vector2( 370, 190 )
+position = Vector2( 400, 190 )
 scale = Vector2( 4, 4 )
 texture = ExtResource( 15 )
 
 [node name="TextureProgress" type="TextureProgress" parent="Control/TertiarySkill/Glaciela/ConeOfCold"]
-margin_left = 330.0
+margin_left = 360.0
 margin_top = 150.0
-margin_right = 350.0
+margin_right = 380.0
 margin_bottom = 170.0
 rect_scale = Vector2( 4, 4 )
 texture_progress = ExtResource( 15 )
 fill_mode = 5
 
 [node name="ConeOfColdResource" type="TextureProgress" parent="Control/TertiarySkill/Glaciela/ConeOfCold"]
-margin_left = 386.0
+margin_left = 416.0
 margin_top = 215.0
-margin_right = 434.0
+margin_right = 464.0
 margin_bottom = 255.0
 max_value = 1000.0
 value = 1000.0
@@ -574,9 +572,9 @@ texture_under = ExtResource( 16 )
 texture_progress = ExtResource( 17 )
 
 [node name="Label" type="Label" parent="Control/TertiarySkill/Glaciela/ConeOfCold"]
-margin_left = 350.0
+margin_left = 380.0
 margin_top = 170.0
-margin_right = 392.0
+margin_right = 422.0
 margin_bottom = 218.0
 custom_fonts/font = SubResource( 1 )
 text = "15.0"
@@ -668,23 +666,23 @@ margin_bottom = 40.0
 
 [node name="Sprite" type="Sprite" parent="Control/PerkSkill/Player/CreateSugarRoll"]
 self_modulate = Color( 1, 1, 1, 0.333333 )
-position = Vector2( 500, 190 )
+position = Vector2( 530, 190 )
 scale = Vector2( 4, 4 )
 texture = ExtResource( 12 )
 
 [node name="TextureProgress" type="TextureProgress" parent="Control/PerkSkill/Player/CreateSugarRoll"]
-margin_left = 460.0
+margin_left = 490.0
 margin_top = 150.0
-margin_right = 480.0
+margin_right = 510.0
 margin_bottom = 170.0
 rect_scale = Vector2( 4, 4 )
 texture_progress = ExtResource( 12 )
 fill_mode = 5
 
 [node name="Label" type="Label" parent="Control/PerkSkill/Player/CreateSugarRoll"]
-margin_left = 471.0
+margin_left = 500.0
 margin_top = 170.0
-margin_right = 530.0
+margin_right = 559.0
 margin_bottom = 218.0
 custom_fonts/font = SubResource( 1 )
 text = "60.0"
@@ -698,23 +696,23 @@ margin_bottom = 40.0
 
 [node name="Sprite" type="Sprite" parent="Control/PerkSkill/Player/ChaosMagic"]
 self_modulate = Color( 1, 1, 1, 0.333333 )
-position = Vector2( 500, 190 )
+position = Vector2( 530, 190 )
 scale = Vector2( 4, 4 )
 texture = ExtResource( 14 )
 
 [node name="TextureProgress" type="TextureProgress" parent="Control/PerkSkill/Player/ChaosMagic"]
-margin_left = 460.0
+margin_left = 490.0
 margin_top = 150.0
-margin_right = 480.0
+margin_right = 510.0
 margin_bottom = 170.0
 rect_scale = Vector2( 4, 4 )
 texture_progress = ExtResource( 14 )
 fill_mode = 5
 
 [node name="Label" type="Label" parent="Control/PerkSkill/Player/ChaosMagic"]
-margin_left = 471.0
+margin_left = 500.0
 margin_top = 170.0
-margin_right = 530.0
+margin_right = 559.0
 margin_bottom = 218.0
 custom_fonts/font = SubResource( 1 )
 text = "60.0"
@@ -745,9 +743,9 @@ texture_progress = ExtResource( 21 )
 fill_mode = 5
 
 [node name="Label" type="Label" parent="Control/PerkSkill/Glaciela/SnowBoulder"]
-margin_left = 501.0
+margin_left = 500.0
 margin_top = 170.0
-margin_right = 560.0
+margin_right = 559.0
 margin_bottom = 218.0
 custom_fonts/font = SubResource( 1 )
 text = "60.0"

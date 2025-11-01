@@ -1,4 +1,4 @@
-[gd_scene load_steps=90 format=2]
+[gd_scene load_steps=91 format=2]
 
 [ext_resource path="res://assets/particles/smoke_particle.png" type="Texture" id=1]
 [ext_resource path="res://scripts/misc/HubLevelLibraryBookshelf.gd" type="Script" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://assets/terrain/deep_woods/deep_woods_spritesheet.png" type="Texture" id=4]
 [ext_resource path="res://assets/terrain/deep_woods/background_deep_woods_2.png" type="Texture" id=5]
 [ext_resource path="res://tilesets/HubLevelTileset.tres" type="TileSet" id=6]
+[ext_resource path="res://scenes/items/LootBag.tscn" type="PackedScene" id=7]
 [ext_resource path="res://assets/terrain/hub_level/prop_armor_stands.png" type="Texture" id=8]
 [ext_resource path="res://assets/terrain/hub_level/prop_cashiertable.png" type="Texture" id=9]
 [ext_resource path="res://assets/terrain/hub_level/prop_weapons.png" type="Texture" id=10]
@@ -694,6 +695,10 @@ editor_draw_limits = true
 
 [node name="GuardianGolem" parent="." instance=ExtResource( 75 )]
 position = Vector2( 3734, 580 )
+
+[node name="LootBag" parent="." instance=ExtResource( 7 )]
+position = Vector2( 3048, 558 )
+opals_amount = 200
 
 [connection signal="area_entered" from="HubLibrary/BookOfShadowsPlayerDetectorArea" to="HubLibrary/BookOfShadowsPlayerDetectorArea" method="_on_BookshelfPlayerDetectorArea_area_entered"]
 [connection signal="area_exited" from="HubLibrary/BookOfShadowsPlayerDetectorArea" to="HubLibrary/BookOfShadowsPlayerDetectorArea" method="_on_BookshelfPlayerDetectorArea_area_exited"]
