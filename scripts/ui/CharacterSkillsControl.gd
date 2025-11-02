@@ -4,6 +4,7 @@ onready var player_skill_type_option_button = $NinePatchRect/SkillsControl/Playe
 onready var glaciela_skill_type_option_button = $NinePatchRect/SkillsControl/GlacielaControl/SkillTypeOptionButton
 onready var agnette_skill_type_option_button = $NinePatchRect/SkillsControl/AgnetteControl/SkillTypeOptionButton
 
+onready var player_moveset_text = $NinePatchRect/SkillsControl/PlayerControl/MovesetsScrollContainer/VBoxContainer/RichTextLabel
 onready var player_pskill = $NinePatchRect/SkillsControl/PlayerControl/PrimarySkillScrollContainer
 onready var player_pskill_text = $NinePatchRect/SkillsControl/PlayerControl/PrimarySkillScrollContainer/VBoxContainer/RichTextLabel
 onready var player_sskill = $NinePatchRect/SkillsControl/PlayerControl/SecondarySkillScrollContainer
@@ -32,26 +33,30 @@ onready var agnette_tskill = $NinePatchRect/SkillsControl/AgnetteControl/Tertiar
 onready var agnette_tskill_text = $NinePatchRect/SkillsControl/AgnetteControl/TertiarySkillScrollContainer/VBoxContainer/RichTextLabel
 
 var skills_info_dict : Dictionary
+var movesets_info_dict : Dictionary
 
 signal player_node_update_perk_skill()
 signal skillsui_update_perk_skill_ui()
 
 func _ready():
-
-	player_skill_type_option_button.add_item("Primary", 0)
-	player_skill_type_option_button.add_item("Secondary", 1)
-	player_skill_type_option_button.add_item("Tertiary", 2)
-	player_skill_type_option_button.add_item("Perk", 3)
 	
-	glaciela_skill_type_option_button.add_item("Primary", 0)
-	glaciela_skill_type_option_button.add_item("Secondary", 1)
-	glaciela_skill_type_option_button.add_item("Tertiary", 2)
-	glaciela_skill_type_option_button.add_item("Perk", 3)
+	player_skill_type_option_button.add_item("Movesets", 0)
+	player_skill_type_option_button.add_item("Primary", 1)
+	player_skill_type_option_button.add_item("Secondary", 2)
+	player_skill_type_option_button.add_item("Tertiary", 3)
+	player_skill_type_option_button.add_item("Perk", 4)
 	
-	agnette_skill_type_option_button.add_item("Primary", 0)
-	agnette_skill_type_option_button.add_item("Secondary", 1)
-	agnette_skill_type_option_button.add_item("Tertiary", 2)
-	agnette_skill_type_option_button.add_item("Perk", 3)
+	glaciela_skill_type_option_button.add_item("Movesets", 0)
+	glaciela_skill_type_option_button.add_item("Primary", 1)
+	glaciela_skill_type_option_button.add_item("Secondary", 2)
+	glaciela_skill_type_option_button.add_item("Tertiary", 3)
+	glaciela_skill_type_option_button.add_item("Perk", 4)
+	
+	agnette_skill_type_option_button.add_item("Movesets", 0)
+	agnette_skill_type_option_button.add_item("Primary", 1)
+	agnette_skill_type_option_button.add_item("Secondary", 2)
+	agnette_skill_type_option_button.add_item("Tertiary", 3)
+	agnette_skill_type_option_button.add_item("Perk", 4)
 	
 	player_perkskill_optionbutton.add_item("Create Sugar Roll", 0)
 	player_perkskill_optionbutton.add_item("Chaos Magic", 1)
@@ -65,6 +70,10 @@ func _ready():
 	skills_info.open("res://scripts/jsondata/SkillsInfo.json", File.READ)
 	skills_info_dict = parse_json(skills_info.get_as_text())
 
+	var movesets_info = File.new()
+	movesets_info.open("res://scripts/jsondata/MovesetsInfo.json", File.READ)
+	movesets_info_dict = parse_json(movesets_info.get_as_text())
+	
 	update_player_description_text()
 	update_glaciela_description_text()
 	update_agnette_description_text()
@@ -74,6 +83,13 @@ func _ready():
 
 
 func update_player_description_text():
+	# movesets
+	var basic_attack : String = movesets_info_dict["Player"]["BasicAttack"]["Header"] + "\n" + movesets_info_dict["Player"]["BasicAttack"]["Description"]
+	var aerial_basic_attack : String = movesets_info_dict["Player"]["AerialBasicAttack"]["Header"] + "\n" + movesets_info_dict["Player"]["AerialBasicAttack"]["Description"]
+	player_moveset_text.bbcode_text = movesets_info_dict["Player"]["Header"] + "\n\n" + basic_attack + "\n\n" + aerial_basic_attack
+	
+	# WIP ETC ETC
+	
 	# primary skill
 	var pskill_header : String = skills_info_dict["Player"]["PrimarySkill"]["Header"]
 	var pskill_desc : String = skills_info_dict["Player"]["PrimarySkill"]["Description"]
@@ -241,22 +257,22 @@ func update_perk_skill_selection_ui(character_name : String, perk_name : String)
 
 func _on_Player_SkillTypeOptionButton_item_selected(index):
 	match index:
-		0:
+		1:
 			player_pskill.visible = true
 			player_sskill.visible = false
 			player_tskill.visible = false
 			player_perkskill.visible = false
-		1:
+		2:
 			player_pskill.visible = false
 			player_sskill.visible = true
 			player_tskill.visible = false
 			player_perkskill.visible = false
-		2:
+		3:
 			player_pskill.visible = false
 			player_sskill.visible = false
 			player_tskill.visible = true
 			player_perkskill.visible = false
-		3:
+		4:
 			player_pskill.visible = false
 			player_sskill.visible = false
 			player_tskill.visible = false
@@ -277,30 +293,30 @@ func _on_Player_PerkSkillSelectionOption_item_selected(index):
 
 func _on_GlacielaSkillTypeOptionButton_item_selected(index):
 	match index:
-		0:
+		1:
 			glaciela_pskill.visible = true
 			glaciela_sskill.visible = false
 			glaciela_tskill.visible = false
-		1:
+		2:
 			glaciela_pskill.visible = false
 			glaciela_sskill.visible = true
 			glaciela_tskill.visible = false
-		2:
+		3:
 			glaciela_pskill.visible = false
 			glaciela_sskill.visible = false
 			glaciela_tskill.visible = true
 
 func _on_AgnetteSkillTypeOptionButton_item_selected(index):
 	match index:
-		0:
+		1:
 			agnette_pskill.visible = true
 			agnette_sskill.visible = false
 			agnette_tskill.visible = false
-		1:
+		2:
 			agnette_pskill.visible = false
 			agnette_sskill.visible = true
 			agnette_tskill.visible = false
-		2:
+		3:
 			agnette_pskill.visible = false
 			agnette_sskill.visible = false
 			agnette_tskill.visible = true

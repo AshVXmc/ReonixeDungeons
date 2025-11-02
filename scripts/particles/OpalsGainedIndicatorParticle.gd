@@ -9,7 +9,7 @@ var friction : int = 35
 var direction_shift : Vector2 = Vector2()
 
 func play_opals_gained_animation():
-	$RichTextLabel/Opal.position.x = 40 + (14 * len(str(opals_gained - 2)))
+	$RichTextLabel/Opal.position.x = 40 + (14 * (len(str(opals_gained)) - 1))
 	$RichTextLabel.bbcode_text = "+" + str(opals_gained)
 	print("opal: " + $RichTextLabel.bbcode_text)
 	$AnimationPlayer.play("opals_gained_indicator")

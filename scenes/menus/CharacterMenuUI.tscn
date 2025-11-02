@@ -458,7 +458,6 @@ text = "Skins"
 align = 1
 
 [node name="CharacterSkillsControl" type="Control" parent="."]
-visible = false
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -531,7 +530,6 @@ patch_margin_right = 64
 patch_margin_bottom = 64
 
 [node name="PlayerControl" type="Control" parent="CharacterSkillsControl/NinePatchRect/SkillsControl"]
-visible = false
 margin_right = 40.0
 margin_bottom = 40.0
 
@@ -561,6 +559,29 @@ margin_right = 162.0
 margin_bottom = 327.0
 custom_fonts/font = SubResource( 11 )
 flat = true
+
+[node name="MovesetsScrollContainer" type="ScrollContainer" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/PlayerControl"]
+anchor_right = 21.766
+anchor_bottom = 15.255
+margin_left = 197.0
+margin_top = 79.0
+margin_right = 16.36
+margin_bottom = -168.2
+rect_min_size = Vector2( 566, 355 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/PlayerControl/MovesetsScrollContainer"]
+margin_right = 510.0
+margin_bottom = 1100.0
+rect_min_size = Vector2( 510, 1100 )
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/PlayerControl/MovesetsScrollContainer/VBoxContainer"]
+margin_right = 510.0
+margin_bottom = 1100.0
+rect_min_size = Vector2( 510, 1100 )
+custom_fonts/italics_font = SubResource( 2 )
+custom_fonts/normal_font = SubResource( 2 )
+bbcode_enabled = true
+scroll_active = false
 
 [node name="PrimarySkillScrollContainer" type="ScrollContainer" parent="CharacterSkillsControl/NinePatchRect/SkillsControl/PlayerControl"]
 visible = false

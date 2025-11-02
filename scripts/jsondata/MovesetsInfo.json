@@ -1,0 +1,33 @@
+{
+    "Player": {
+        "Header": "[center][color=red]Player's moveset[/color][/center]",
+        "BasicAttack" : {
+            "Header": "[color=#ffd703]Basic Attack Combo[/color]",
+            "Description": "[ATK], [ATK], [ATK], [ATK]"
+        },
+        "AerialBasicAttack" : {
+            "Header": "[color=#ffd703]Aerial Basic Attack Combo[/color]",
+            "Description": "(While airborne) [ATK], [ATK], [ATK], [ATK]"
+        },
+        "ChargedAttack" : {
+            "Header": "[color=#ffd703]Charged Attack[/color]",
+            "Description": "Hold [ATK] after at least one basic attack"
+        },
+        "KnockUpChargedAttack" : {
+            "Header": "[color=#ffd703]Knock-Up Charged Attack[/color] (Knocks enemies airborne)]",
+            "Description": "Hold [ATK] while holding [UP]"
+        },
+        "AerialChargedAttack" : {
+            "Header": "[color=#ffd703]Aerial Charged Attack[/color]",
+            "Description": "(While airborne) Hold [ATK]"
+        },
+        "EXChargedAttack" : {
+            "Header": "[color=#ffd703]EX Charged Attack[/color]",
+            "Description": "Hold [ATK] when [color=purple]Energy[/color] is full"
+        },
+        "DashCounterAttack" : {
+            "Header": "[color=#ffd703]Dash Counter Attack[/color]",
+            "Description": "[ATK] after a perfect dodge"
+        }
+    }
+}
