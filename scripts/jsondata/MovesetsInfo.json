@@ -2,8 +2,8 @@
     "Player": {
         "Header": "[center][color=red]Player's moveset[/color][/center]",
         "BasicAttack" : {
-            "Header": "[color=#ffd703]Basic Attack Combo[/color]",
-            "Description": "[ATK], [ATK], [ATK], [ATK]"
+            "Header": "[color=#ffd703]Basic Attack Combo[/color]. 4-hit combo.",
+            "Description": "4-hit combo. [ATK], [ATK], [ATK], [ATK]"
         },
         "AerialBasicAttack" : {
             "Header": "[color=#ffd703]Aerial Basic Attack Combo[/color]",
@@ -14,7 +14,7 @@
             "Description": "Hold [ATK] after at least one basic attack"
         },
         "KnockUpChargedAttack" : {
-            "Header": "[color=#ffd703]Knock-Up Charged Attack[/color] (Knocks enemies airborne)]",
+            "Header": "[color=#ffd703]Knock-Up Charged Attack[/color]",
             "Description": "Hold [ATK] while holding [UP]"
         },
         "AerialChargedAttack" : {
@@ -28,6 +28,8 @@
         "DashCounterAttack" : {
             "Header": "[color=#ffd703]Dash Counter Attack[/color]",
             "Description": "[ATK] after a perfect dodge"
-        }
+        },
+		"CycloneSlashesAttack" :{
+		}
     }
 }

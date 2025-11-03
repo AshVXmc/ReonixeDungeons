@@ -4,7 +4,7 @@ onready var player_skill_type_option_button = $NinePatchRect/SkillsControl/Playe
 onready var glaciela_skill_type_option_button = $NinePatchRect/SkillsControl/GlacielaControl/SkillTypeOptionButton
 onready var agnette_skill_type_option_button = $NinePatchRect/SkillsControl/AgnetteControl/SkillTypeOptionButton
 
-onready var player_moveset_text = $NinePatchRect/SkillsControl/PlayerControl/MovesetsScrollContainer/VBoxContainer/RichTextLabel
+onready var player_moveset_text_label = $NinePatchRect/SkillsControl/PlayerControl/MovesetsScrollContainer/VBoxContainer/RichTextLabel
 onready var player_pskill = $NinePatchRect/SkillsControl/PlayerControl/PrimarySkillScrollContainer
 onready var player_pskill_text = $NinePatchRect/SkillsControl/PlayerControl/PrimarySkillScrollContainer/VBoxContainer/RichTextLabel
 onready var player_sskill = $NinePatchRect/SkillsControl/PlayerControl/SecondarySkillScrollContainer
@@ -84,11 +84,19 @@ func _ready():
 
 func update_player_description_text():
 	# movesets
+	var player_moveset_text : String 
 	var basic_attack : String = movesets_info_dict["Player"]["BasicAttack"]["Header"] + "\n" + movesets_info_dict["Player"]["BasicAttack"]["Description"]
 	var aerial_basic_attack : String = movesets_info_dict["Player"]["AerialBasicAttack"]["Header"] + "\n" + movesets_info_dict["Player"]["AerialBasicAttack"]["Description"]
-	player_moveset_text.bbcode_text = movesets_info_dict["Player"]["Header"] + "\n\n" + basic_attack + "\n\n" + aerial_basic_attack
+	var charged_attack : String = movesets_info_dict["Player"]["ChargedAttack"]["Header"] + "\n" + movesets_info_dict["Player"]["ChargedAttack"]["Description"]
+	var aerial_charged_attack : String = movesets_info_dict["Player"]["AerialChargedAttack"]["Header"] + "\n" + movesets_info_dict["Player"]["AerialChargedAttack"]["Description"]
+	var knockup_charged_attack : String = movesets_info_dict["Player"]["KnockUpChargedAttack"]["Header"] + "\n" + movesets_info_dict["Player"]["KnockUpChargedAttack"]["Description"]
+	var ex_charged_attack : String = movesets_info_dict["Player"]["EXChargedAttack"]["Header"] + "\n" + movesets_info_dict["Player"]["EXChargedAttack"]["Description"]
+	var dash_counter_attack : String = movesets_info_dict["Player"]["DashCounterAttack"]["Header"] + "\n" + movesets_info_dict["Player"]["DashCounterAttack"]["Description"]
+	player_moveset_text = movesets_info_dict["Player"]["Header"] + "\n\n" + basic_attack + "\n\n" + aerial_basic_attack + "\n\n" + charged_attack + "\n\n" + aerial_charged_attack + "\n\n" + knockup_charged_attack + "\n\n" + ex_charged_attack + "\n\n" + dash_counter_attack
+	player_moveset_text_label.bbcode_text = player_moveset_text
+
+	# movesets from talent
 	
-	# WIP ETC ETC
 	
 	# primary skill
 	var pskill_header : String = skills_info_dict["Player"]["PrimarySkill"]["Header"]
