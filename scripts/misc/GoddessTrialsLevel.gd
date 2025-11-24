@@ -1,4 +1,4 @@
-class_name EndlessLevel extends Level
+class_name GoddessTrialsLevel extends Level
 # NAME IDEAS
 # The Palace of Trials
 var WAVE : int = 1

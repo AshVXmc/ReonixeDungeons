@@ -25,7 +25,7 @@ func dialog_listener(string):
 
 func start_ui():
 	character_selection_ui.layer = 3
-	get_parent().get_node("DungeonEntrance").destination = "res://scenes/levels/EndlessLevel.tscn"
+	get_parent().get_node("DungeonEntrance").destination = "res://scenes/levels/GoddessTrialsLevel.tscn"
 	character_selection_ui.get_node("Control").initialize_ui()
 	get_tree().paused = true
 

@@ -299,11 +299,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/ui/EleganceMeterUI.gd"
 }, {
-"base": "Level",
-"class": "EndlessLevel",
-"language": "GDScript",
-"path": "res://scripts/misc/EndlessLevel.gd"
-}, {
 "base": "KinematicBody2D",
 "class": "EnemyEldritchBlast",
 "language": "GDScript",
@@ -413,6 +408,11 @@ _global_script_classes=[ {
 "class": "Goblin",
 "language": "GDScript",
 "path": "res://scripts/enemies/Goblin.gd"
+}, {
+"base": "Level",
+"class": "GoddessTrialsLevel",
+"language": "GDScript",
+"path": "res://scripts/misc/GoddessTrialsLevel.gd"
 }, {
 "base": "Node2D",
 "class": "GoldenChest",
@@ -873,7 +873,6 @@ _global_script_class_icons={
 "ElderSpider": "",
 "EldritchHex": "",
 "EleganceMeterUI": "",
-"EndlessLevel": "",
 "EnemyEldritchBlast": "",
 "EnemyHealingOrb": "",
 "EnemyShockwave": "",
@@ -896,6 +895,7 @@ _global_script_class_icons={
 "Glaciela": "",
 "GlacielaPuppet": "",
 "Goblin": "",
+"GoddessTrialsLevel": "",
 "GoldenChest": "",
 "GreenFruit": "",
 "GroundedStatus": "",

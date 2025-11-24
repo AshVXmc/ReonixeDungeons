@@ -1,6 +1,6 @@
 [gd_scene load_steps=24 format=2]
 
-[ext_resource path="res://scripts/misc/EndlessLevel.gd" type="Script" id=1]
+[ext_resource path="res://scripts/misc/GoddessTrialsLevel.gd" type="Script" id=1]
 [ext_resource path="res://scenes/menus/DebugMenu.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scenes/menus/LevelObjectiveUI.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scenes/menus/StaminaBarUI.tscn" type="PackedScene" id=4]
@@ -26,7 +26,7 @@
 [sub_resource type="RectangleShape2D" id=4]
 extents = Vector2( 187.75, 10 )
 
-[node name="EndlessLevel" type="Node2D" groups=["LevelHasStageTimer"]]
+[node name="GoddessTrialsLevel" type="Node2D" groups=["LevelHasStageTimer"]]
 script = ExtResource( 1 )
 
 [node name="LevelObjectiveUI" parent="." instance=ExtResource( 3 )]

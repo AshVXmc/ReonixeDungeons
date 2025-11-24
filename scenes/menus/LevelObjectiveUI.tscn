@@ -37,10 +37,10 @@ anchor_bottom = 1.0
 [node name="ObjectiveLabel" type="Label" parent="ObjectiveUI"]
 anchor_left = 0.5
 anchor_right = 0.5
-margin_left = -525.0
-margin_top = 220.0
-margin_right = -160.0
-margin_bottom = 252.0
+margin_left = -526.0
+margin_top = 647.0
+margin_right = -161.0
+margin_bottom = 679.0
 custom_fonts/font = SubResource( 2 )
 text = "Defeat all enemies (0/2)"
 
@@ -51,9 +51,9 @@ anchor_bottom = 1.0
 [node name="TimerLabel" type="Label" parent="TimerUI"]
 anchor_left = 0.5
 anchor_right = 0.5
-margin_left = -525.0
-margin_top = 250.0
-margin_right = -127.0
-margin_bottom = 317.0
+margin_left = -526.0
+margin_top = 677.0
+margin_right = -128.0
+margin_bottom = 744.0
 custom_fonts/font = SubResource( 2 )
 text = "Time elapsed: = 00:00"
