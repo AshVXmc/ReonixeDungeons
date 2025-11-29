@@ -12,12 +12,14 @@ const GLACIELA_ICON = preload("res://assets/UI/glaciela_character_icon.png")
 const AGNETTE_ICON = preload("res://assets/UI/agnette_character_icon.png")
 const EMPTY_ICON = preload("res://assets/UI/empty_character_icon.png")
 signal chosen_party_members(slot_one, slot_two, slot_three)
+
 onready var charactermenu_ui = get_parent().get_parent().get_node("CharacterMenuUI/CharactersUI")
 func _ready():
 	visible = false
 	$CharacterOptionsList.visible = false
 	# Comment the initialize UI function when done.
 #	initialize_ui()
+	# this connects to a dungeon entrance node
 	connect("chosen_party_members", get_parent().get_parent(), "load_next_scene")
 	update_equipped_characters_ui()
 # FOR DEBUGGING PURPOSES
@@ -82,7 +84,7 @@ func _on_CloseButtonMainUI_pressed():
 	yield(get_tree().create_timer(0.05), "timeout")
 	visible = false
 	get_tree().paused = false
-	equipped_characters = Global.equipped_characters
+#	equipped_characters = Global.equipped_characters
 
 
 func _on_CloseButtonCharacterOptionsListUI_pressed():
@@ -107,6 +109,7 @@ func pick_character(character : String):
 		equipped_characters.insert(picked_slot - 1, character)
 		$CharacterOptionsList.visible = false
 	update_equipped_characters_ui()
+	Global.equipped_characters = equipped_characters
 	picked_slot = 0
 
 func _on_CharacterPlayer_pressed():

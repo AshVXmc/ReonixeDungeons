@@ -5,6 +5,7 @@ onready var transition : CanvasLayer= get_parent().get_node("SceneTransition")
 onready var colorrect : ColorRect = get_parent().get_node("SceneTransition/ColorRect")
 onready var character_selection_ui : CanvasLayer = get_parent().get_node("DungeonEntrance/CharacterSelectionUI")
 onready var character_menu_ui : CanvasLayer = get_parent().get_node("DungeonEntrance/CharacterMenuUI")
+onready var stage_selection_ui : Control = $GoddessTrialsLevelSelectionUI/Control
 onready var destination : String = get_parent().get_node("DungeonEntrance").destination
 var is_opened : bool = false
 
@@ -24,9 +25,10 @@ func dialog_listener(string):
 		
 
 func start_ui():
-	character_selection_ui.layer = 3
+	character_selection_ui.layer = 5
 	get_parent().get_node("DungeonEntrance").destination = "res://scenes/levels/GoddessTrialsLevel.tscn"
-	character_selection_ui.get_node("Control").initialize_ui()
+	stage_selection_ui.open_ui()
+#	character_selection_ui.get_node("Control").initialize_ui()
 	get_tree().paused = true
 
 func close_ui():

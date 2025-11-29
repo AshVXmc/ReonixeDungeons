@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://assets/terrain/hub_level/monument_of_victories.png" type="Texture" id=1]
 [ext_resource path="res://assets/particles/smoke_particle.png" type="Texture" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://scripts/terrain/MonumentOfVictories.gd" type="Script" id=4]
 [ext_resource path="res://assets/misc/light_circle.png" type="Texture" id=5]
 [ext_resource path="res://shaders/outline2D_outer.gdshader" type="Shader" id=6]
+[ext_resource path="res://scenes/menus/GoddessTrialsLevelSelectionUI.tscn" type="PackedScene" id=7]
 [ext_resource path="res://scenes/menus/CharacterSelectionUI.tscn" type="PackedScene" id=15]
 [ext_resource path="res://scenes/menus/CharacterMenuUI.tscn" type="PackedScene" id=16]
 
@@ -20,6 +21,12 @@ extents = Vector2( 61.056, 62.0495 )
 [node name="MonumentOfVictories" type="Node2D"]
 script = ExtResource( 4 )
 dialogic_timeline = "MonumentOfVictories"
+
+[node name="CharacterSelectionUI" parent="." instance=ExtResource( 15 )]
+
+[node name="CharacterMenuUI" parent="." instance=ExtResource( 16 )]
+
+[node name="GoddessTrialsLevelSelectionUI" parent="." instance=ExtResource( 7 )]
 
 [node name="SmokeParticles" type="CPUParticles2D" parent="."]
 position = Vector2( -124, 104 )
@@ -121,7 +128,3 @@ position = Vector2( 36, 108 )
 scale = Vector2( 1.79861, 1.86857 )
 texture = ExtResource( 5 )
 energy = 0.4
-
-[node name="CharacterSelectionUI" parent="." instance=ExtResource( 15 )]
-
-[node name="CharacterMenuUI" parent="." instance=ExtResource( 16 )]

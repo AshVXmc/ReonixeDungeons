@@ -414,6 +414,16 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/misc/GoddessTrialsLevel.gd"
 }, {
+"base": "Reference",
+"class": "GoddessTrialsLevelSelectionUI",
+"language": "GDScript",
+"path": "res://scripts/ui/GoddessTrialsLevelSelectionUI.gd"
+}, {
+"base": "Node2D",
+"class": "GoddessTrialsShrine",
+"language": "GDScript",
+"path": "res://scripts/items/GoddessTrialsShrine.gd"
+}, {
 "base": "Node2D",
 "class": "GoldenChest",
 "language": "GDScript",
@@ -563,11 +573,6 @@ _global_script_classes=[ {
 "class": "ManaBits",
 "language": "GDScript",
 "path": "res://scripts/misc/ManaBits.gd"
-}, {
-"base": "Node2D",
-"class": "ManaShrine",
-"language": "GDScript",
-"path": "res://scripts/items/ManaShrine.gd"
 }, {
 "base": "Goblin",
 "class": "MaskedGoblin",
@@ -896,6 +901,8 @@ _global_script_class_icons={
 "GlacielaPuppet": "",
 "Goblin": "",
 "GoddessTrialsLevel": "",
+"GoddessTrialsLevelSelectionUI": "",
+"GoddessTrialsShrine": "",
 "GoldenChest": "",
 "GreenFruit": "",
 "GroundedStatus": "",
@@ -926,7 +933,6 @@ _global_script_class_icons={
 "MagicPedestal": "",
 "MainMenu": "",
 "ManaBits": "",
-"ManaShrine": "",
 "MaskedGoblin": "",
 "MaskedGoblinSwordProjectile": "",
 "MeteorShower": "",

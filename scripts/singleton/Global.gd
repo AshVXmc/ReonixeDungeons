@@ -1,5 +1,13 @@
 extends Node 
 
+
+
+# IMPORTANT
+# variables ending without _data contain the information that is saved on the save file.
+# variables ending with _data contain the default info 
+
+
+
 var can_open_pause_menu : bool = false
 # GLOBALLY ACCESSED VARIABLES
 var character_health_data : Dictionary = {
@@ -556,9 +564,6 @@ var character_level_data : Dictionary = {
 var player_talents_data : Dictionary = player_talents.duplicate()
 var player_perks_data : Dictionary = player_perks.duplicate()
 var glaciela_talents_data : Dictionary = glaciela_talents.duplicate()
-# variables ending without _data contain the information that is saved on the save file.
-# variables ending  with _data contain the default info 
-
 
 var enemies_killed : int
 # Boss Victories
@@ -579,6 +584,26 @@ var enemies_encountered : Dictionary = {
 	"GuardianGolem": 0,
 }
 var enemies_encountered_data : Dictionary = enemies_encountered.duplicate()
+
+# Goddess Trials
+
+var goddess_trials_stages : Dictionary = {
+	"CurrentStage": 1, # will be accesssed by the goddess trials components
+	"Stage1": {
+		"Cleared": false,
+		"ClearTime": 0,
+	},
+	"Stage2": {
+		"Cleared": false,
+		"ClearTime": 0,
+	},
+	"Stage3": {
+		"Cleared": false,
+		"ClearTime": 0,
+	}
+}
+var goddess_trials_stages_data : Dictionary = goddess_trials_stages.duplicate()
+
 
 # Unsaved conditions
 var godmode : bool = false
@@ -644,6 +669,7 @@ func reset_player_data():
 	]
 	Global.equipped_character_skins = Global.equipped_character_skins_data.duplicate()
 	Global.enemies_encountered = Global.enemies_encountered_data.duplicate()
+	Global.goddess_trials_stages = Global.goddess_trials_stages_data.duplicate()
 	Global.soul_token_amount = 0
 
 	Global.is_loading_a_save = false
@@ -741,7 +767,8 @@ func save_player_data():
 		"MaskedGoblinDefeated" : Global.masked_goblin_defeated,
 		"ActivatedPortals": Global.activated_portals,
 		"CharacterLevelData": Global.character_level_data,
-		"AgnetteMaxAmmo": Global.agnette_max_ammo
+		"AgnetteMaxAmmo": Global.agnette_max_ammo,
+		"GoddessTrialsStages": Global.goddess_trials_stages
 	}
 
 	var savefile : File = File.new()

@@ -1,6 +1,5 @@
 class_name GoddessTrialsLevel extends Level
-# NAME IDEAS
-# The Palace of Trials
+
 var WAVE : int = 1
 var STAGE : int = 1
 const GOBLIN = preload("res://scenes/enemies/Goblin.tscn")
@@ -114,5 +113,6 @@ func pick_random_from_array(arr : Array):
 func end_challenge():
 	challenge_ended = true
 	wave_in_progress = false
+	WAVE = 1
 	print("CHALLENGE DONE")
 

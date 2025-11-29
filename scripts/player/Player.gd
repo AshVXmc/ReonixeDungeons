@@ -461,7 +461,7 @@ func _physics_process(_delta):
 						if is_on_floor():
 							jump_counter = 0
 							
-						if jump_counter < MAX_JUMPS:
+						if jump_counter < MAX_JUMPS and stamina_bar_ui.get_stamina_value() >= DOUBLE_JUMP_STAMINA_COST:
 							jump()
 							jump_counter += 1
 
@@ -530,6 +530,7 @@ func jump(boost_modifier : float = 1):
 #		velocity.y = JUMP_POWER 
 #	else:
 #		velocity.y = JUMP_POWER * 1.275
+	stamina_bar_ui.consume_stamina(DOUBLE_JUMP_STAMINA_COST)
 	is_jumping = true
 	$Sprite.play("Idle")
 	yield(get_tree().create_timer(0.2), "timeout")
@@ -538,7 +539,7 @@ func jump(boost_modifier : float = 1):
 	trail_particle.one_shot = true
 	get_parent().add_child(trail_particle)
 	trail_particle.position = $ParticlePosition.global_position
-
+	
 
 func set_attack_power(type : String ,amount : float, duration : float, from_crystal : bool = true):
 		if from_crystal:
