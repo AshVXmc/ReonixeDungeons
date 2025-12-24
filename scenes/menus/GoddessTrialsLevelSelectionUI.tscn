@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://assets/UI/keybind_button.png" type="Texture" id=1]
 [ext_resource path="res://assets/UI/quiticon.png" type="Texture" id=2]
@@ -8,6 +8,10 @@
 [ext_resource path="res://assets/UI/button.png" type="Texture" id=6]
 [ext_resource path="res://assets/fonts/Born2bSportyV2.ttf" type="DynamicFontData" id=7]
 [ext_resource path="res://scripts/UI/GoddessTrialsLevelSelectionUI.gd" type="Script" id=8]
+[ext_resource path="res://assets/UI/long_button.png" type="Texture" id=9]
+[ext_resource path="res://assets/UI/keybind_long_button.png" type="Texture" id=10]
+[ext_resource path="res://assets/UI/long_button_pressed.png" type="Texture" id=11]
+[ext_resource path="res://assets/enemies/slime1.png" type="Texture" id=12]
 
 [sub_resource type="DynamicFont" id=3]
 size = 32
@@ -59,7 +63,7 @@ anchor_bottom = 0.5
 margin_left = -320.0
 margin_top = -275.0
 margin_right = 320.0
-margin_bottom = 275.0
+margin_bottom = 324.0
 texture = ExtResource( 3 )
 patch_margin_left = 64
 patch_margin_top = 64
@@ -70,13 +74,13 @@ patch_margin_bottom = 64
 margin_left = 230.0
 margin_top = 96.0
 margin_right = 850.0
-margin_bottom = 616.0
-rect_min_size = Vector2( 620, 530 )
+margin_bottom = 676.0
+rect_min_size = Vector2( 620, 580 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Control/ScrollContainer"]
 margin_right = 620.0
-margin_bottom = 620.0
-rect_min_size = Vector2( 620, 620 )
+margin_bottom = 580.0
+rect_min_size = Vector2( 620, 580 )
 
 [node name="Header" type="RichTextLabel" parent="Control/ScrollContainer/VBoxContainer"]
 margin_right = 620.0
@@ -148,12 +152,91 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 margin_left = -285.0
-margin_top = 30.0
+margin_top = 35.0
 margin_right = -168.0
-margin_bottom = 78.0
+margin_bottom = 83.0
 custom_fonts/font = SubResource( 6 )
 text = "Stage 1"
 align = 1
+
+[node name="Widget" type="NinePatchRect" parent="Control/ScrollContainer/VBoxContainer/StageControl1"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -150.0
+margin_top = 17.0
+margin_right = 290.0
+margin_bottom = 165.0
+texture = ExtResource( 3 )
+patch_margin_left = 64
+patch_margin_top = 64
+patch_margin_right = 64
+patch_margin_bottom = 64
+
+[node name="DetailsButton" type="TextureButton" parent="Control/ScrollContainer/VBoxContainer/StageControl1/Widget"]
+anchor_top = 0.5
+anchor_bottom = 0.5
+margin_left = 10.0
+margin_top = 9.0
+margin_right = 120.0
+margin_bottom = 64.0
+texture_normal = ExtResource( 6 )
+texture_pressed = ExtResource( 5 )
+texture_hover = ExtResource( 1 )
+expand = true
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Label" type="Label" parent="Control/ScrollContainer/VBoxContainer/StageControl1/Widget/DetailsButton"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -58.5
+margin_top = -16.0
+margin_right = 58.5
+margin_bottom = 16.0
+custom_fonts/font = SubResource( 5 )
+text = "Details"
+align = 1
+
+[node name="ClearRecordButton" type="TextureButton" parent="Control/ScrollContainer/VBoxContainer/StageControl1/Widget"]
+anchor_top = 0.5
+anchor_bottom = 0.5
+margin_left = 120.0
+margin_top = 9.0
+margin_right = 340.0
+margin_bottom = 64.0
+texture_normal = ExtResource( 9 )
+texture_pressed = ExtResource( 11 )
+texture_hover = ExtResource( 10 )
+expand = true
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Label" type="Label" parent="Control/ScrollContainer/VBoxContainer/StageControl1/Widget/ClearRecordButton"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -78.0
+margin_top = -16.5
+margin_right = 78.0
+margin_bottom = 16.5
+custom_fonts/font = SubResource( 5 )
+text = "Clear Record"
+align = 1
+
+[node name="InitialEnemySpritePosition2D" type="Position2D" parent="Control/ScrollContainer/VBoxContainer/StageControl1/Widget"]
+position = Vector2( 48, 44 )
+
+[node name="EnemySprite_1" type="Sprite" parent="Control/ScrollContainer/VBoxContainer/StageControl1/Widget"]
+position = Vector2( 48, 45 )
+scale = Vector2( 3.8, 3.8 )
+texture = ExtResource( 12 )
 
 [node name="StageControl2" type="Control" parent="Control/ScrollContainer/VBoxContainer"]
 margin_top = 45.0
@@ -163,10 +246,10 @@ margin_bottom = 45.0
 [node name="EnterStageButton2" type="TextureButton" parent="Control/ScrollContainer/VBoxContainer/StageControl2"]
 anchor_top = 0.5
 anchor_bottom = 0.5
-margin_left = 37.0
-margin_top = 299.0
-margin_right = 147.0
-margin_bottom = 354.0
+margin_left = 28.0
+margin_top = 230.0
+margin_right = 138.0
+margin_bottom = 285.0
 texture_normal = ExtResource( 6 )
 texture_pressed = ExtResource( 5 )
 texture_hover = ExtResource( 1 )
@@ -193,10 +276,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = 11.0
-margin_top = 249.0
-margin_right = 128.0
-margin_bottom = 316.0
+margin_left = -285.0
+margin_top = 185.0
+margin_right = -168.0
+margin_bottom = 252.0
 custom_fonts/font = SubResource( 6 )
 text = "Stage 2
 "
@@ -210,10 +293,10 @@ margin_bottom = 49.0
 [node name="EnterStageButton2" type="TextureButton" parent="Control/ScrollContainer/VBoxContainer/StageControl3"]
 anchor_top = 0.5
 anchor_bottom = 0.5
-margin_left = 42.0
-margin_top = 511.0
-margin_right = 152.0
-margin_bottom = 566.0
+margin_left = 28.0
+margin_top = 380.0
+margin_right = 138.0
+margin_bottom = 435.0
 texture_normal = ExtResource( 6 )
 texture_pressed = ExtResource( 5 )
 texture_hover = ExtResource( 1 )
@@ -240,13 +323,12 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = 16.0
-margin_top = 461.0
-margin_right = 133.0
-margin_bottom = 528.0
+margin_left = -285.0
+margin_top = 335.0
+margin_right = -168.0
+margin_bottom = 402.0
 custom_fonts/font = SubResource( 6 )
-text = "Stage 2
-"
+text = "Stage 3"
 align = 1
 
 [node name="CloseButtonMainUI" type="TextureButton" parent="Control"]
@@ -263,5 +345,7 @@ texture_normal = ExtResource( 2 )
 expand = true
 
 [connection signal="pressed" from="Control/ScrollContainer/VBoxContainer/StageControl1/EnterStageButton1" to="Control" method="_on_EnterStageButton_pressed" binds= [ 1 ]]
+[connection signal="pressed" from="Control/ScrollContainer/VBoxContainer/StageControl1/Widget/DetailsButton" to="Control" method="_on_EnterStageButton_pressed" binds= [ 1 ]]
+[connection signal="pressed" from="Control/ScrollContainer/VBoxContainer/StageControl1/Widget/ClearRecordButton" to="Control" method="_on_EnterStageButton_pressed" binds= [ 1 ]]
 [connection signal="pressed" from="Control/ScrollContainer/VBoxContainer/StageControl2/EnterStageButton2" to="Control" method="_on_EnterStageButton_pressed" binds= [ 2 ]]
 [connection signal="pressed" from="Control/CloseButtonMainUI" to="Control" method="_on_CloseButtonMainUI_pressed"]

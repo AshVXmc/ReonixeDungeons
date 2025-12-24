@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=2]
+[gd_scene load_steps=33 format=2]
 
 [ext_resource path="res://scripts/ui/SkillsUI.gd" type="Script" id=1]
 [ext_resource path="res://assets/UI/firesaw_skill_icon.png" type="Texture" id=2]
@@ -22,6 +22,7 @@
 [ext_resource path="res://assets/UI/raven_form_skill_icon.png" type="Texture" id=20]
 [ext_resource path="res://assets/UI/snow_boulder_skill_icon.png" type="Texture" id=21]
 [ext_resource path="res://scenes/menus/AgnetteArrowAmmoUI.tscn" type="PackedScene" id=22]
+[ext_resource path="res://assets/UI/healthbar_circular_character_icon.png" type="Texture" id=23]
 
 [sub_resource type="DynamicFont" id=1]
 size = 32
@@ -814,6 +815,16 @@ custom_colors/font_color = Color( 0.192157, 0.372549, 1, 1 )
 custom_fonts/font = SubResource( 3 )
 text = "1"
 
+[node name="CircularHealthBar" type="TextureProgress" parent="Control/Characters/Slot1"]
+margin_left = 1007.0
+margin_top = 105.0
+margin_right = 1077.0
+margin_bottom = 175.0
+value = 100.0
+texture_progress = ExtResource( 23 )
+fill_mode = 5
+nine_patch_stretch = true
+
 [node name="Slot2" type="Control" parent="Control/Characters"]
 anchor_left = 21.199
 anchor_top = 5.375
@@ -845,6 +856,16 @@ custom_colors/font_color = Color( 0.192157, 0.372549, 1, 1 )
 custom_fonts/font = SubResource( 3 )
 text = "2"
 
+[node name="CircularHealthBar" type="TextureProgress" parent="Control/Characters/Slot2"]
+margin_left = 1007.0
+margin_top = 188.0
+margin_right = 1077.0
+margin_bottom = 258.0
+value = 100.0
+texture_progress = ExtResource( 23 )
+fill_mode = 5
+nine_patch_stretch = true
+
 [node name="Slot3" type="Control" parent="Control/Characters"]
 anchor_left = 21.236
 anchor_top = 7.229
@@ -875,6 +896,16 @@ margin_bottom = 324.0
 custom_colors/font_color = Color( 0.192157, 0.372549, 1, 1 )
 custom_fonts/font = SubResource( 3 )
 text = "3"
+
+[node name="CircularHealthBar" type="TextureProgress" parent="Control/Characters/Slot3"]
+margin_left = 1007.0
+margin_top = 271.0
+margin_right = 1077.0
+margin_bottom = 341.0
+value = 100.0
+texture_progress = ExtResource( 23 )
+fill_mode = 5
+nine_patch_stretch = true
 
 [node name="Flicker1" type="AnimationPlayer" parent="Control/Characters"]
 anims/Flicker = SubResource( 5 )

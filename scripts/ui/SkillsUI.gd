@@ -69,6 +69,13 @@ func _ready():
 	$Characters/Slot3/Character3.scale.x = 3.5
 	$Characters/Slot3/Character3.scale.y = 3.5
 
+func update_circular_health_bar_max_value(new_max_value : int, character_index : int):
+	get_node("Characters/Slot" + str(character_index) + "/CircularHealthBar").max_value = new_max_value
+	
+func update_circular_health_bar_ui(amount : int, character_index : int):
+	print("CIRCULAR HEALTH BAR SIGNAL CONNECTED")
+	
+	
 	
 #func update_maximum_endurance_ui():
 #	$EnduranceMeter/TextureProgress.max_value = Global.max_endurance

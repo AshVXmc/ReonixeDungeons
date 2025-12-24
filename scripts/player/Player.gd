@@ -460,10 +460,16 @@ func _physics_process(_delta):
 					if Input.is_action_just_pressed("jump") and $DoubleJumpDelayTimer.is_stopped() and !can_fly and !mobility_lock and !is_attacking and !is_frozen and !underwater and !Input.is_action_pressed("ui_dash"):
 						if is_on_floor():
 							jump_counter = 0
-							
-						if jump_counter < MAX_JUMPS and stamina_bar_ui.get_stamina_value() >= DOUBLE_JUMP_STAMINA_COST:
-							jump()
-							jump_counter += 1
+						
+						if jump_counter < MAX_JUMPS:
+							if jump_counter == 0:
+								jump()
+								jump_counter += 1
+							elif jump_counter > 0 and stamina_bar_ui.get_stamina_value() >= DOUBLE_JUMP_STAMINA_COST:
+								jump()
+								stamina_bar_ui.consume_stamina(DOUBLE_JUMP_STAMINA_COST)
+								jump_counter += 1
+
 
 				
 				if is_jumping and velocity.y >= 0:
@@ -530,7 +536,7 @@ func jump(boost_modifier : float = 1):
 #		velocity.y = JUMP_POWER 
 #	else:
 #		velocity.y = JUMP_POWER * 1.275
-	stamina_bar_ui.consume_stamina(DOUBLE_JUMP_STAMINA_COST)
+	
 	is_jumping = true
 	$Sprite.play("Idle")
 	yield(get_tree().create_timer(0.2), "timeout")

@@ -585,21 +585,23 @@ var enemies_encountered : Dictionary = {
 }
 var enemies_encountered_data : Dictionary = enemies_encountered.duplicate()
 
-# Goddess Trials
-
+# Goddess Trials record
 var goddess_trials_stages : Dictionary = {
 	"CurrentStage": 1, # will be accesssed by the goddess trials components
 	"Stage1": {
 		"Cleared": false,
 		"ClearTime": 0,
+		"ClearedWithTeam": ["", "", ""]
 	},
 	"Stage2": {
 		"Cleared": false,
 		"ClearTime": 0,
+		"ClearedWithTeam": ["", "", ""]
 	},
 	"Stage3": {
 		"Cleared": false,
 		"ClearTime": 0,
+		"ClearedWithTeam": ["", "", ""]
 	}
 }
 var goddess_trials_stages_data : Dictionary = goddess_trials_stages.duplicate()

@@ -12,8 +12,9 @@ onready var character_selection_ui : CharacterSelectionUI = get_parent().get_par
 # to access the dungeon entrance "load_scene
 
 const GODDESS_TRIALS_LEVEL_PATH : String = "res://scenes/levels/GoddessTrialsLevel.tscn"
+
 func _ready():
-	pass
+	close_ui()
 
 func _on_EnterStageButton_pressed(extra_arg_0):
 	# extra_arg_0 is a positive integer bigger than 0
@@ -30,7 +31,6 @@ func _on_EnterStageButton_pressed(extra_arg_0):
 #	start_challenge(extra_arg_0)
 
 func load_next_scene(slot_one : String, slot_two : String, slot_three : String):
-	print("ACCESSED LOAD NEXT SCENE")
 	colorrect.visible = true
 	Global.equipped_characters = [slot_one, slot_two, slot_three]
 

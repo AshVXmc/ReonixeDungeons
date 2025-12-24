@@ -1,7 +1,7 @@
 extends Control
 
 var heart_size : int = 96 * 0.1
-
+signal update_circular_health_bar(amount, character)
 
 func _ready():
 	$HeartSlot.rect_size.x = Global.max_hearts * heart_size 
@@ -13,6 +13,14 @@ func _ready():
 	$HeartSlot3.rect_size.x = Global.character_3_max_hearts * heart_size
 	$Hearts3.rect_size.x = Global.character3_hearts * heart_size
 	$HealthLabel3.text = str(Global.character_3_max_hearts)
+	
+	connect("update_circular_health_bar", get_parent().get_parent().get_node("SkillsUI/Control"), "update_circular_health_bar_ui")
+	connect("update_circular_health_bar", get_parent().get_parent().get_node("SkillsUI/Control"), "update_circular_health_bar_max_value")
+	
+	# update_circular_health_bar_ui(amount : int, character_index : int):
+#	emit_signal("update_circular_health_bar", 1,1)
+	
+	
 func _process(delta):
 	
 	if Global.current_character == Global.equipped_characters[0]:
