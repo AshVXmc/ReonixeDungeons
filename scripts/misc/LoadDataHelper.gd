@@ -57,3 +57,4 @@ func load_data(savefile):
 	Global.character_defense_data = player_data["CharacterDefenseData"]
 	Global.agnette_max_ammo = player_data["AgnetteMaxAmmo"]
 	Global.goddess_trials_stages = player_data["GoddessTrialsStages"]
+	Global.player_inventory = player_data["PlayerInventory"]

@@ -118,7 +118,6 @@ texture = ExtResource( 6 )
 pause_mode = 2
 
 [node name="Control" type="Control" parent="Plaque"]
-visible = false
 anchor_left = 0.5
 anchor_top = 0.33
 anchor_right = 0.5

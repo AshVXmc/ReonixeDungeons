@@ -11,6 +11,7 @@
 [ext_resource path="res://scenes/status_effects/BurningStatus.tscn" type="PackedScene" id=9]
 [ext_resource path="res://assets/misc/light_circle.png" type="Texture" id=10]
 
+
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 26.36, 15.1008 )
 

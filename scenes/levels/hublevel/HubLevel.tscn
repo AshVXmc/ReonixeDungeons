@@ -196,7 +196,6 @@ position = Vector2( 1798, 598 )
 [node name="HealthPotUI" parent="." instance=ExtResource( 32 )]
 
 [node name="InventoryUI" parent="." instance=ExtResource( 15 )]
-visible = false
 
 [node name="CellphoneUI" parent="." instance=ExtResource( 77 )]
 

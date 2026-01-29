@@ -16,6 +16,7 @@
 [ext_resource path="res://scenes/status_effects/FrozenStatus.tscn" type="PackedScene" id=14]
 [ext_resource path="res://assets/misc/light_circle.png" type="Texture" id=15]
 
+
 [sub_resource type="CapsuleShape2D" id=8]
 radius = 30.0
 height = 52.0

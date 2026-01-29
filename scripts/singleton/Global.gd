@@ -606,6 +606,26 @@ var goddess_trials_stages : Dictionary = {
 }
 var goddess_trials_stages_data : Dictionary = goddess_trials_stages.duplicate()
 
+# Inventory
+
+var player_inventory : Dictionary = {
+	# Flavor the item names in the local scene, not in dict keys. 
+	# e.g: HealingPotion_Small_Single => Diet healing potion , 
+	# HealingPotion_Medium_Single = Healing potion (TM)
+	# HealingPotion_Small_All = Multi-pack healing potions
+	"Consumables": {
+		"HealingPotion_Small_Single" : 0,
+		"HealingPotion_Medium_Single": 0,
+		"HealingPotion_Small_All": 0,
+			
+	
+	},
+	"KeyItems": {
+		
+	}
+}
+var player_inventory_data : Dictionary = player_inventory.duplicate()
+
 
 # Unsaved conditions
 var godmode : bool = false
@@ -673,7 +693,7 @@ func reset_player_data():
 	Global.enemies_encountered = Global.enemies_encountered_data.duplicate()
 	Global.goddess_trials_stages = Global.goddess_trials_stages_data.duplicate()
 	Global.soul_token_amount = 0
-
+	Global.player_inventory = Global.player_inventory_data.duplicate()
 	Global.is_loading_a_save = false
 	Global.max_item_storage = 5
 	Global.lighting = true
@@ -770,7 +790,8 @@ func save_player_data():
 		"ActivatedPortals": Global.activated_portals,
 		"CharacterLevelData": Global.character_level_data,
 		"AgnetteMaxAmmo": Global.agnette_max_ammo,
-		"GoddessTrialsStages": Global.goddess_trials_stages
+		"GoddessTrialsStages": Global.goddess_trials_stages,
+		"PlayerInventory": Global.player_inventory
 	}
 
 	var savefile : File = File.new()

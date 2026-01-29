@@ -17,6 +17,7 @@
 [ext_resource path="res://scenes/status_effects/GroundedStatus.tscn" type="PackedScene" id=15]
 [ext_resource path="res://assets/misc/light_circle.png" type="Texture" id=16]
 
+
 [sub_resource type="CapsuleShape2D" id=8]
 radius = 30.0
 height = 52.0

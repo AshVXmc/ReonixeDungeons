@@ -1,0 +1,45 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://assets/UI/hotbar.png" type="Texture" id=1]
+[ext_resource path="res://assets/misc/health_pot.png" type="Texture" id=2]
+[ext_resource path="res://scripts/ui/InventoryItemSlot.gd" type="Script" id=3]
+[ext_resource path="res://assets/fonts/Born2bSportyV2.ttf" type="DynamicFontData" id=4]
+
+[sub_resource type="DynamicFont" id=1]
+size = 32
+font_data = ExtResource( 4 )
+
+[node name="InventoryItemSlotCanvasLayer" type="CanvasLayer"]
+
+[node name="Control" type="Control" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+script = ExtResource( 3 )
+
+[node name="InventoryItemSlotTextureRect" type="TextureRect" parent="Control"]
+margin_right = 80.0
+margin_bottom = 80.0
+texture = ExtResource( 1 )
+expand = true
+
+[node name="ItemTextureRect" type="TextureRect" parent="Control"]
+anchor_left = 0.037
+anchor_top = 0.056
+anchor_right = 0.037
+anchor_bottom = 0.056
+margin_left = 13.52
+margin_top = 12.76
+margin_right = 63.52
+margin_bottom = 62.76
+texture = ExtResource( 2 )
+expand = true
+
+[node name="ItemCountLabel" type="Label" parent="Control"]
+margin_left = 55.0
+margin_top = 49.0
+margin_right = 81.0
+margin_bottom = 116.0
+custom_fonts/font = SubResource( 1 )
+text = "0
+"
+align = 1

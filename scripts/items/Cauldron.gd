@@ -23,6 +23,7 @@ func _ready():
 	$Label.visible = false
 	$Keybind.visible = false
 	$Plaque/Control.visible = false
+
 func _process(delta):
 	if $Area2D.overlaps_area(PLAYER):
 		$Label.visible = true

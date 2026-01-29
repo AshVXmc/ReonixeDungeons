@@ -3,6 +3,7 @@
 [ext_resource path="res://assets/particles/smoke_particle_spritesheet.png" type="Texture" id=1]
 [ext_resource path="res://scripts/particles/JumpParticle.gd" type="Script" id=2]
 
+
 [sub_resource type="CanvasItemMaterial" id=1]
 particles_animation = true
 particles_anim_h_frames = 3

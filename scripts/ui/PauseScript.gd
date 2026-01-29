@@ -38,23 +38,25 @@ func _notification(what):
 
 func _process(delta):
 	if Input.is_action_just_pressed("ui_cancel") and !get_parent().get_parent().get_node("Player").is_shopping:
-		get_parent().layer = 5
-		get_parent().get_parent().get_node("DebugMenu").get_node("Control").visible = false
-		get_tree().paused = true
-		visible = true
-#		if visible:
-#			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
-#		else:
-#			Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
+		if !visible:
+			pause_game()
+		else:
+			resume_game()
+
 	elif Input.is_action_just_pressed("ui_debug"):
 		get_tree().paused = false
 		visible = false
 	
-#	if visible and Input.is_action_just_pressed("ui_cancel"):
-#		resume_game()
+	
 
 func _on_ResumeButton_pressed():
 	resume_game()
+
+func pause_game():
+	get_parent().layer = 5
+	get_parent().get_parent().get_node("DebugMenu").get_node("Control").visible = false
+	get_tree().paused = true
+	visible = true
 	
 func resume_game():
 	get_tree().paused = false
@@ -82,9 +84,8 @@ func _on_QuitButton_pressed():
 
 func quit_game():
 	get_parent().layer = 1
-	if get_tree().paused:
-		get_tree().paused = false
-		get_tree().change_scene("res://scenes/menus/MainMenu.tscn")
+	get_tree().paused = false
+	get_tree().change_scene("res://scenes/menus/MainMenu.tscn")
 
 func _on_Lighting_toggled(button_pressed : bool):
 	if get_parent().get_parent().get_node("Light2D").visible:
