@@ -17,29 +17,30 @@ margin_bottom = 40.0
 script = ExtResource( 3 )
 
 [node name="InventoryItemSlotTextureRect" type="TextureRect" parent="Control"]
-margin_right = 80.0
-margin_bottom = 80.0
+margin_right = 90.0
+margin_bottom = 90.0
 texture = ExtResource( 1 )
 expand = true
 
 [node name="ItemTextureRect" type="TextureRect" parent="Control"]
-anchor_left = 0.037
-anchor_top = 0.056
-anchor_right = 0.037
-anchor_bottom = 0.056
-margin_left = 13.52
-margin_top = 12.76
-margin_right = 63.52
-margin_bottom = 62.76
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -25.0
+margin_top = -25.0
+margin_right = 35.0
+margin_bottom = 35.0
 texture = ExtResource( 2 )
 expand = true
 
 [node name="ItemCountLabel" type="Label" parent="Control"]
-margin_left = 55.0
-margin_top = 49.0
-margin_right = 81.0
-margin_bottom = 116.0
+margin_left = 50.0
+margin_top = 55.0
+margin_right = 86.0
+margin_bottom = 122.0
+rect_scale = Vector2( 1.25, 1.25 )
 custom_fonts/font = SubResource( 1 )
-text = "0
+text = "00
 "
 align = 1

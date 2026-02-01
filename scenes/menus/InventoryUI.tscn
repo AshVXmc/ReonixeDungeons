@@ -130,18 +130,18 @@ anchor_left = 8.415
 anchor_top = 2.546
 anchor_right = 8.415
 anchor_bottom = 2.546
-margin_left = -3608.45
-margin_top = -790.99
-margin_right = -3198.45
-margin_bottom = -495.99
-rect_min_size = Vector2( 410, 295 )
+margin_left = -3854.07
+margin_top = -952.204
+margin_right = -3404.07
+margin_bottom = -552.204
+rect_min_size = Vector2( 450, 400 )
 scroll_horizontal_enabled = false
 scroll_vertical_enabled = false
 
 [node name="VBoxContainer" type="VBoxContainer" parent="InventoryControl/BelongingsControl/NinePatchRect/ScrollContainer"]
 margin_right = 410.0
-margin_bottom = 500.0
-rect_min_size = Vector2( 410, 500 )
+margin_bottom = 400.0
+rect_min_size = Vector2( 410, 400 )
 
 [node name="InventoryGridContainer" type="GridContainer" parent="InventoryControl/BelongingsControl/NinePatchRect/ScrollContainer/VBoxContainer"]
 margin_right = 410.0
@@ -153,12 +153,12 @@ offset = Vector2( 410, 200 )
 transform = Transform2D( 1, 0, 0, 1, 410, 200 )
 
 [node name="InventoryItemSlotCanvasLayer2" parent="InventoryControl/BelongingsControl/NinePatchRect/ScrollContainer/VBoxContainer/InventoryGridContainer" instance=ExtResource( 9 )]
-offset = Vector2( 490, 200 )
-transform = Transform2D( 1, 0, 0, 1, 490, 200 )
+offset = Vector2( 500, 200 )
+transform = Transform2D( 1, 0, 0, 1, 500, 200 )
 
 [node name="InventoryItemSlotCanvasLayer3" parent="InventoryControl/BelongingsControl/NinePatchRect/ScrollContainer/VBoxContainer/InventoryGridContainer" instance=ExtResource( 9 )]
-offset = Vector2( 570, 200 )
-transform = Transform2D( 1, 0, 0, 1, 570, 200 )
+offset = Vector2( 590, 200 )
+transform = Transform2D( 1, 0, 0, 1, 590, 200 )
 
 [node name="ConsumablesTextureButton" type="TextureButton" parent="InventoryControl/BelongingsControl/NinePatchRect"]
 anchor_left = -0.151
@@ -166,9 +166,9 @@ anchor_top = 0.095
 anchor_right = -0.151
 anchor_bottom = 0.095
 margin_left = -60.07
-margin_top = -29.925
+margin_top = -30.53
 margin_right = 59.93
-margin_bottom = 30.075
+margin_bottom = 29.47
 texture_normal = ExtResource( 8 )
 texture_pressed = ExtResource( 6 )
 expand = true
@@ -189,15 +189,15 @@ custom_fonts/font = SubResource( 3 )
 text = "Potions"
 align = 1
 
-[node name="KeyItemsTextureButton" type="TextureButton" parent="InventoryControl/BelongingsControl/NinePatchRect"]
+[node name="MaterialsTextureButton" type="TextureButton" parent="InventoryControl/BelongingsControl/NinePatchRect"]
 anchor_left = -0.151
 anchor_top = 0.095
 anchor_right = -0.151
 anchor_bottom = 0.095
 margin_left = -60.07
-margin_top = 40.075
+margin_top = 39.47
 margin_right = 59.93
-margin_bottom = 100.075
+margin_bottom = 99.47
 texture_normal = ExtResource( 8 )
 texture_pressed = ExtResource( 6 )
 expand = true
@@ -205,7 +205,37 @@ __meta__ = {
 "_edit_group_": true
 }
 
-[node name="Label" type="Label" parent="InventoryControl/BelongingsControl/NinePatchRect/KeyItemsTextureButton"]
+[node name="Label" type="Label" parent="InventoryControl/BelongingsControl/NinePatchRect/MaterialsTextureButton"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -51.0
+margin_top = -14.0
+margin_right = 63.0
+margin_bottom = 18.0
+rect_scale = Vector2( 0.9, 0.9 )
+custom_fonts/font = SubResource( 3 )
+text = "Materials"
+align = 1
+
+[node name="MiscTextureButton" type="TextureButton" parent="InventoryControl/BelongingsControl/NinePatchRect"]
+anchor_left = -0.151
+anchor_top = 0.095
+anchor_right = -0.151
+anchor_bottom = 0.095
+margin_left = -60.07
+margin_top = 109.47
+margin_right = 59.93
+margin_bottom = 169.47
+texture_normal = ExtResource( 8 )
+texture_pressed = ExtResource( 6 )
+expand = true
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Label" type="Label" parent="InventoryControl/BelongingsControl/NinePatchRect/MiscTextureButton"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5

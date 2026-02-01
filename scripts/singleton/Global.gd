@@ -7,7 +7,7 @@ extends Node
 # variables ending with _data contain the default info 
 
 
-
+var item : Resource = preload("res://scripts/resources/Item.gd")
 var can_open_pause_menu : bool = false
 # GLOBALLY ACCESSED VARIABLES
 var character_health_data : Dictionary = {
@@ -609,19 +609,10 @@ var goddess_trials_stages_data : Dictionary = goddess_trials_stages.duplicate()
 # Inventory
 
 var player_inventory : Dictionary = {
-	# Flavor the item names in the local scene, not in dict keys. 
-	# e.g: HealingPotion_Small_Single => Diet healing potion , 
-	# HealingPotion_Medium_Single = Healing potion (TM)
-	# HealingPotion_Small_All = Multi-pack healing potions
-	"Consumables": {
-		"HealingPotion_Small_Single" : 0,
-		"HealingPotion_Medium_Single": 0,
-		"HealingPotion_Small_All": 0,
-			
-	
-	},
-	"KeyItems": {
-		
+	# item.gd : <count of items>
+	"Potions": {
+		Item.databank_of_items.HealthPotion : 0,
+		Item.databank_of_items.LargeHealthPotion : 0,
 	}
 }
 var player_inventory_data : Dictionary = player_inventory.duplicate()
