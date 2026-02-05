@@ -611,8 +611,9 @@ var goddess_trials_stages_data : Dictionary = goddess_trials_stages.duplicate()
 var player_inventory : Dictionary = {
 	# item.gd : <count of items>
 	"Potions": {
-		Item.databank_of_items.HealthPotion : 0,
-		Item.databank_of_items.LargeHealthPotion : 0,
+		"HealthPotion" : 0,
+		"LargeHealthPotion" : 0,
+		"ManaPotion" : 0,
 	}
 }
 var player_inventory_data : Dictionary = player_inventory.duplicate()

@@ -5,6 +5,8 @@ onready var opened = preload("res://assets/misc/item_pouch_opened.png")
 onready var player : KinematicBody2D = get_parent().get_parent().get_node("Player")
 onready var inventory_grid_container : GridContainer = $BelongingsControl/NinePatchRect/ScrollContainer/VBoxContainer/InventoryGridContainer
 
+
+
 func _ready():
 	visible = false
 	get_parent().get_node("Bag/BagSprite").texture = closed
@@ -19,6 +21,10 @@ func _process(delta):
 	if Input.is_action_just_pressed("ui_cancel") and visible:
 		close_menu()
 
+func update_inventory_ui():
+	for category in Global.player_inventory:
+		for item_type in category:
+			pass
 
 func show_inventory_item_slots():
 	for child in inventory_grid_container.get_children():
