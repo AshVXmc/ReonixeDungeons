@@ -5,7 +5,7 @@ onready var opened = preload("res://assets/misc/item_pouch_opened.png")
 onready var player : KinematicBody2D = get_parent().get_parent().get_node("Player")
 onready var inventory_grid_container : GridContainer = $BelongingsControl/NinePatchRect/ScrollContainer/VBoxContainer/InventoryGridContainer
 
-
+const MAX_INVENTORY_SLOTS : int = 3
 
 func _ready():
 	visible = false
@@ -22,9 +22,10 @@ func _process(delta):
 		close_menu()
 
 func update_inventory_ui():
-	for category in Global.player_inventory:
-		for item_type in category:
-			pass
+	pass
+	
+func obtain_item(obtained_item):
+	pass
 
 func show_inventory_item_slots():
 	for child in inventory_grid_container.get_children():

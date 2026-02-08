@@ -115,9 +115,9 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = 380.0
+margin_left = 332.0
 margin_top = 170.0
-margin_right = 838.0
+margin_right = 802.0
 margin_bottom = 544.0
 texture = ExtResource( 3 )
 patch_margin_left = 64
@@ -132,7 +132,7 @@ anchor_right = 8.415
 anchor_bottom = 2.546
 margin_left = -3854.07
 margin_top = -952.204
-margin_right = -3404.07
+margin_right = -3392.07
 margin_bottom = -552.204
 rect_min_size = Vector2( 450, 400 )
 scroll_horizontal_enabled = false
@@ -148,17 +148,25 @@ margin_right = 410.0
 margin_bottom = 295.0
 rect_min_size = Vector2( 400, 295 )
 
-[node name="InventoryItemSlotCanvasLayer" parent="InventoryControl/BelongingsControl/NinePatchRect/ScrollContainer/VBoxContainer/InventoryGridContainer" instance=ExtResource( 9 )]
-offset = Vector2( 410, 200 )
-transform = Transform2D( 1, 0, 0, 1, 410, 200 )
+[node name="InventoryItemSlotCanvasLayer1" parent="InventoryControl/BelongingsControl/NinePatchRect/ScrollContainer/VBoxContainer/InventoryGridContainer" instance=ExtResource( 9 )]
+offset = Vector2( 362, 200 )
+transform = Transform2D( 1, 0, 0, 1, 362, 200 )
 
 [node name="InventoryItemSlotCanvasLayer2" parent="InventoryControl/BelongingsControl/NinePatchRect/ScrollContainer/VBoxContainer/InventoryGridContainer" instance=ExtResource( 9 )]
-offset = Vector2( 500, 200 )
-transform = Transform2D( 1, 0, 0, 1, 500, 200 )
+offset = Vector2( 452, 200 )
+transform = Transform2D( 1, 0, 0, 1, 452, 200 )
 
 [node name="InventoryItemSlotCanvasLayer3" parent="InventoryControl/BelongingsControl/NinePatchRect/ScrollContainer/VBoxContainer/InventoryGridContainer" instance=ExtResource( 9 )]
-offset = Vector2( 590, 200 )
-transform = Transform2D( 1, 0, 0, 1, 590, 200 )
+offset = Vector2( 542, 200 )
+transform = Transform2D( 1, 0, 0, 1, 542, 200 )
+
+[node name="InventoryItemSlotCanvasLayer4" parent="InventoryControl/BelongingsControl/NinePatchRect/ScrollContainer/VBoxContainer/InventoryGridContainer" instance=ExtResource( 9 )]
+offset = Vector2( 632, 200 )
+transform = Transform2D( 1, 0, 0, 1, 632, 200 )
+
+[node name="InventoryItemSlotCanvasLayer5" parent="InventoryControl/BelongingsControl/NinePatchRect/ScrollContainer/VBoxContainer/InventoryGridContainer" instance=ExtResource( 9 )]
+offset = Vector2( 722, 200 )
+transform = Transform2D( 1, 0, 0, 1, 722, 200 )
 
 [node name="ConsumablesTextureButton" type="TextureButton" parent="InventoryControl/BelongingsControl/NinePatchRect"]
 anchor_left = -0.151

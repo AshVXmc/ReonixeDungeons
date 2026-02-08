@@ -608,7 +608,16 @@ var goddess_trials_stages_data : Dictionary = goddess_trials_stages.duplicate()
 
 # Inventory
 
-var player_inventory : Dictionary = {
+var current_player_inventory : Dictionary = {
+	"Slot1" : null,
+	"Slot2" : null,
+	"Slot3" : null,
+	"Slot4" : null,
+	"Slot5" : null
+}
+var current_player_inventory_data : Dictionary = current_player_inventory.duplicate()
+
+var player_owned_inventory_items : Dictionary = {
 	# item.gd : <count of items>
 	"Potions": {
 		"HealthPotion" : 0,
@@ -616,7 +625,7 @@ var player_inventory : Dictionary = {
 		"ManaPotion" : 0,
 	}
 }
-var player_inventory_data : Dictionary = player_inventory.duplicate()
+var player_owned_inventory_items_data : Dictionary = player_owned_inventory_items.duplicate()
 
 
 # Unsaved conditions
@@ -685,7 +694,8 @@ func reset_player_data():
 	Global.enemies_encountered = Global.enemies_encountered_data.duplicate()
 	Global.goddess_trials_stages = Global.goddess_trials_stages_data.duplicate()
 	Global.soul_token_amount = 0
-	Global.player_inventory = Global.player_inventory_data.duplicate()
+	Global.current_player_inventory = Global.current_player_inventory_data.duplicate()
+	Global.player_owned_inventory_items = Global.player_owned_inventory_items_data.duplicate()
 	Global.is_loading_a_save = false
 	Global.max_item_storage = 5
 	Global.lighting = true
@@ -783,7 +793,8 @@ func save_player_data():
 		"CharacterLevelData": Global.character_level_data,
 		"AgnetteMaxAmmo": Global.agnette_max_ammo,
 		"GoddessTrialsStages": Global.goddess_trials_stages,
-		"PlayerInventory": Global.player_inventory
+		"CurrentPlayerInventory": Global.current_player_inventory,
+		"PlayerOwnedInventoryItems": Global.player_owned_inventory_items
 	}
 
 	var savefile : File = File.new()

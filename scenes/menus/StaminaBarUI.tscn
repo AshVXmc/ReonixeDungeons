@@ -24,7 +24,7 @@ texture_progress = ExtResource( 1 )
 nine_patch_stretch = true
 
 [node name="RegenTimer" type="Timer" parent="StaminaBarUI"]
-wait_time = 0.4
+wait_time = 0.3
 autostart = true
 
 [node name="DelayBeforeStartRegenTimer" type="Timer" parent="StaminaBarUI"]
