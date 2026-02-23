@@ -609,11 +609,13 @@ var goddess_trials_stages_data : Dictionary = goddess_trials_stages.duplicate()
 # Inventory
 
 var current_player_inventory : Dictionary = {
-	"Slot1" : null,
-	"Slot2" : null,
-	"Slot3" : null,
-	"Slot4" : null,
-	"Slot5" : null
+	"Potions": {
+		"Slot1" : null,
+		"Slot2" : null,
+		"Slot3" : null,
+		"Slot4" : null,
+		"Slot5" : null
+	}
 }
 var current_player_inventory_data : Dictionary = current_player_inventory.duplicate()
 

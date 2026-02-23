@@ -14,8 +14,10 @@ func hide_self():
 	get_parent().layer = 1
 	visible = false
 
-func add_obtained_item_to_inventory(obtained_item, amount : int):
+func add_obtained_item_to_inventory(obtained_item : Item, amount : int):
 	pass
+	# case: item does not yet exist in the inventory. 
+	
 
 func clear_contained_item():
 	contained_item = null
