@@ -607,21 +607,39 @@ var goddess_trials_stages : Dictionary = {
 var goddess_trials_stages_data : Dictionary = goddess_trials_stages.duplicate()
 
 # Inventory
-
 var current_player_inventory : Dictionary = {
-	"Potions": {
-		"Slot1" : null,
-		"Slot2" : null,
-		"Slot3" : null,
-		"Slot4" : null,
-		"Slot5" : null
+	# SAMPLE INVENTORY (EXAMPLE)
+
+	
+	"PotionsCategory": {
+		"Slot1" : {
+			"ContainedItem" : null,
+			"ContainedItemAmount" : 1
+		},
+		"Slot2" : {
+			"ContainedItem" : null,
+			"ContainedItemAmount" : 0
+		},
+		"Slot3": {
+			"ContainedItem" : null,
+			"ContainedItemAmount" : 0
+		},
+		"Slot4": {
+			"ContainedItem" : null,
+			"ContainedItemAmount" : 0
+		},
+		"Slot5": {
+			"ContainedItem" : null,
+			"ContainedItemAmount" : 0
+		}
 	}
 }
 var current_player_inventory_data : Dictionary = current_player_inventory.duplicate()
 
+# Cross-referenced by "current_player_inventory". 
 var player_owned_inventory_items : Dictionary = {
 	# item.gd : <count of items>
-	"Potions": {
+	"PotionsCategory": {
 		"HealthPotion" : 0,
 		"LargeHealthPotion" : 0,
 		"ManaPotion" : 0,

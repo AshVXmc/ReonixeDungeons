@@ -5,12 +5,15 @@ onready var opened = preload("res://assets/misc/item_pouch_opened.png")
 onready var player : KinematicBody2D = get_parent().get_parent().get_node("Player")
 onready var inventory_grid_container : GridContainer = $BelongingsControl/NinePatchRect/ScrollContainer/VBoxContainer/InventoryGridContainer
 
-const MAX_INVENTORY_SLOTS : int = 3
+const item = preload("res://scripts/resources/Item.gd")
+
+const MAX_INVENTORY_SLOTS : int = 5
+
 
 func _ready():
 	visible = false
 	get_parent().get_node("Bag/BagSprite").texture = closed
-
+	add_item_to_inventory(item.new(item.ID.HEALTH_POTION), 1)
 
 func _process(delta):
 	if Input.is_action_just_pressed("ui_toggle_inventory") and !player.is_shopping:
@@ -24,7 +27,11 @@ func _process(delta):
 func update_inventory_ui():
 	pass
 	
-func obtain_item(obtained_item):
+func add_item_to_inventory(obtained_item, amount : int):
+	# case: item does not yet exist in the inventory (new time)
+	print("ADDED NEW ITEM: " + str(amount) + " " + obtained_item.get_name())
+	# TODO: sync ith inventoryitemslot? update the global dict first though
+
 	pass
 
 func show_inventory_item_slots():

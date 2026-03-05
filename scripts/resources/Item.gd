@@ -1,11 +1,11 @@
 class_name Item extends Resource
 
-export(String) var item_id # use to identify the item
+
+export(int) var item_id # use to identify the item
 export(String) var item_name # can be changed for flavor
-export(String) var item_category 
+export(int) var item_category 
 export(String) var item_description 
 export(String) var item_texture_path
-export(int) var item_count
 
 enum ID {
 	HEALTH_POTION,
@@ -37,18 +37,27 @@ const TEXTURE_PATH := {
 	MANA_POTION = "res://assets/misc/mana_pot.png"
 }
 
-const databank_of_items : Dictionary = {
-	"HealthPotion" : [ID.HEALTH_POTION, NAME.HEALTH_POTION, CATEGORY.POTIONS, DESCRIPTION.HEALTH_POTION, TEXTURE_PATH.HEALTH_POTION],
-	"LargeHealthPotion" : [ID.LARGE_HEALTH_POTION, NAME.LARGE_HEALTH_POTION, CATEGORY.POTIONS, DESCRIPTION.LARGE_HEALTH_POTION, TEXTURE_PATH.LARGE_HEALTH_POTION],
-	"ManaPotion": [ID.MANA_POTION, NAME.MANA_POTION, CATEGORY.POTIONS, DESCRIPTION.MANA_POTION, TEXTURE_PATH.MANA_POTION]
-}
+func get_name():
+	return item_name
 
-func _init(p_item_id = null, p_item_name = null, p_item_category = null, p_item_description = null, p_item_texture_path = null, p_item_count = null):
-	item_id = p_item_id
-	item_name = p_item_name
-	item_category = p_item_category
-	item_description = p_item_description
-	item_texture_path = p_item_texture_path
-	item_count = p_item_count
+func get_category():
+	return item_category
+
+func get_description():
+	return item_description
+	
+func get_item_texture_path():
+	return item_texture_path
+
+func _init(identifier = ""):
+	match identifier:
+		ID.HEALTH_POTION:
+			item_name = NAME.HEALTH_POTION
+			item_category = CATEGORY.POTIONS
+			item_description = DESCRIPTION.HEALTH_POTION
+			item_texture_path = TEXTURE_PATH.HEALTH_POTION
+
+	
+
 
 
