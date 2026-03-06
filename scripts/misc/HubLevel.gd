@@ -1,7 +1,6 @@
 class_name HubLevel extends Node2D
 
 
-
 func _ready():
 	# Disabling this feature, but keeping it here if needed.
 #	if Global.is_loading_a_save:

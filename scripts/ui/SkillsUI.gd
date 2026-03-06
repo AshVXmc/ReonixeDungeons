@@ -68,6 +68,8 @@ func _ready():
 	
 	$Characters/Slot3/Character3.scale.x = 3.5
 	$Characters/Slot3/Character3.scale.y = 3.5
+	
+	set_initial_circular_health_bar()
 
 func update_circular_health_bar_max_value(new_max_value : int, character_index : int):
 	get_node("Characters/Slot" + str(character_index) + "/CircularHealthBar").max_value = new_max_value
@@ -555,3 +557,30 @@ func trigger_global_silence_ui(duration : float):
 	$SilenceOverlay.visible = true
 	yield(get_tree().create_timer(duration), "timeout")
 	$SilenceOverlay.visible = false
+
+func set_initial_circular_health_bar():
+	if Global.equipped_characters[0] != "":
+		$Characters/Slot1/CircularHealthBar.max_value = Global.max_hearts
+		$Characters/Slot1/CircularHealthBar.value = Global.max_hearts
+	else:
+		$Characters/Slot1/CircularHealthBar.value = $Characters/Slot1/CircularHealthBar.min_value
+	
+	if Global.equipped_characters[1] != "":
+		$Characters/Slot2/CircularHealthBar.max_value = Global.character_2_max_hearts
+		$Characters/Slot2/CircularHealthBar.value = Global.character2_hearts
+	else:
+		$Characters/Slot2/CircularHealthBar.value = $Characters/Slot2/CircularHealthBar.min_value
+	
+	if Global.equipped_characters[2] != "":
+		$Characters/Slot3/CircularHealthBar.max_value = Global.character_3_max_hearts
+		$Characters/Slot3/CircularHealthBar.value = Global.character3_hearts
+	else:
+		$Characters/Slot3/CircularHealthBar.value = $Characters/Slot3/CircularHealthBar.min_value
+
+func on_player_life_changed(hearts : float, character : String):
+	if character == Global.equipped_characters[0]:
+		$Characters/Slot1/CircularHealthBar.value = hearts
+	elif character == Global.equipped_characters[1]:
+		$Characters/Slot2/CircularHealthBar.value = hearts 
+	elif character == Global.equipped_characters[2]:
+		$Characters/Slot3/CircularHealthBar.value = hearts 

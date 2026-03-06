@@ -227,6 +227,7 @@ func _ready():
 	connect("reduce_skill_cd", get_parent().get_node("SkillsUI/Control"), "reduce_skill_cooldown")
 # warning-ignore:return_value_discarded
 	connect("life_changed", get_parent().get_node("HeartUI/Life"), "on_player_life_changed")
+	connect("life_changed", get_parent().get_node("SkillsUI/Control"), "on_player_life_changed")
 # warning-ignore:return_value_discarded
 	connect("mana_changed", get_parent().get_node("ManaUI/Mana"), "on_player_mana_changed")
 # warning-ignore:return_value_discarded
