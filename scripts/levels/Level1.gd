@@ -65,3 +65,6 @@ func _on_Level1_IceBlockedChest_area_entered(area):
 		# for some reason this still triggers the dialogue even though its disabled.
 		# delete the area node for now.
 		$DialogueTriggerAreas/Level1_IceBlockedChest.call_deferred('free')
+
+func change_tile(map_x, map_y, new_tile_id):
+	pass
