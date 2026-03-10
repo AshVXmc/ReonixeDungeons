@@ -1,0 +1,44 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://scenes/particles/PuzzlePipesFurnaceBurningParticles.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scripts/terrain/puzzles/FurnacePuzzleFireSetpiece.gd" type="Script" id=2]
+[ext_resource path="res://assets/misc/light_circle.png" type="Texture" id=3]
+
+[sub_resource type="RectangleShape2D" id=1]
+
+[sub_resource type="ParticlesMaterial" id=2]
+emission_shape = 2
+emission_box_extents = Vector3( 15, 10, 1 )
+flag_disable_z = true
+direction = Vector3( 0, 0, 0 )
+gravity = Vector3( 0, 50, 0 )
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+scale = 1.2
+hue_variation = 0.3
+hue_variation_random = 0.25
+
+[node name="FurnacePuzzleFireSetpiece" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+collision_layer = 129
+collision_mask = 129
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2( 0, 10 )
+shape = SubResource( 1 )
+
+[node name="PuzzlePipesFurnaceBurningParticles" parent="." instance=ExtResource( 1 )]
+amount = 64
+lifetime = 1.2
+speed_scale = 2.0
+explosiveness = 0.0
+randomness = 0.0
+process_material = SubResource( 2 )
+
+[node name="Light2D" type="Light2D" parent="."]
+position = Vector2( 0, 20.5 )
+scale = Vector2( 0.5, 0.708333 )
+texture = ExtResource( 3 )
+energy = 0.65

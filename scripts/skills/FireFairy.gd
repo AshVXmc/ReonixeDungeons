@@ -1,4 +1,5 @@
 class_name FireFairy extends Area2D
+
 onready var player = get_parent().get_node("Player")
 const SULPHURIC_SIGIL = preload("res://scenes/status_effects/SulphuricSigil.tscn")
 const BURNING : PackedScene = preload("res://scenes/status_effects/BurningStatus.tscn")
@@ -57,6 +58,11 @@ func _physics_process(delta):
 			velocity = velocity.clamped(SPEED)
 		#	rotation = velocity.angle()
 			position += velocity * delta
+		
+		if weakref(target).get_ref() == null:
+			pass
+			# follow player?
+		
 func get_closest_enemy():
 	var enemies : Array = get_tree().get_nodes_in_group("EnemyEntity")
 	var marked_enemies : Array = get_tree().get_nodes_in_group("MarkedWithSulphuricSigil")

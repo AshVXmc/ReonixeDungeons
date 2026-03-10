@@ -15,5 +15,6 @@ func _on_Area2D_area_entered(area):
 
 func turn_furnace_off():
 	is_on = false
+	$Light2D.visible = false
 	tilemap.set_cellv(furnace_cell_pos, 10 + 1)
-	$PuzzlePipesFurnaceBurningParticles1.emitting = false
+	$PuzzlePipesFurnaceBurningParticles.emitting = false

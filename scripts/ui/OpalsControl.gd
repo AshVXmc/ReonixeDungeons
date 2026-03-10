@@ -11,5 +11,4 @@ func on_player_opals_obtained(amount_added : int):
 #	$OpalsObtainedLabel.text = "+" + str(amount_added)
 	yield(get_tree().create_timer(1.5), "timeout")
 #	$OpalsObtainedLabel.visible = false
-	print("chigga")
 

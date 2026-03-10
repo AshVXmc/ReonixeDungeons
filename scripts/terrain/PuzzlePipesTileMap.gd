@@ -8,5 +8,5 @@ func _input(event):
 		var cell_pos = world_to_map(mouse_pos)
 		var cell_tile_id = get_cellv(cell_pos)
 
-		print("Cell ID at " + str(cell_pos) + " is " + str(cell_tile_id))
+		print("(From PuzzlePipesTileMap.gd) Cell ID at " + str(cell_pos) + " is " + str(cell_tile_id))
 
