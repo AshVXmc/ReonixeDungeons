@@ -208,7 +208,7 @@ func _ready():
 	$ChargeBar.value = 0
 	$SwordSprite.visible = false
 	$ChargeBar.visible = false
-	$FireCharmTimer.wait_time = Global.player_skill_multipliers["FireCharmCD"]
+#	$FireCharmTimer.wait_time = Global.player_skill_multipliers["FireCharmCD"]
 	connect("force_character_swap", get_node("CharacterManager"), "swap_character")
 	connect("change_elegance", get_parent().get_node("EleganceMeterUI/Control"), "elegance_changed")
 	connect("change_hitcount", get_parent().get_node("EleganceMeterUI/Control"), "hitcount_changed")
@@ -844,10 +844,10 @@ func _input(event):
 					thrust_attack(true)
 			$InputPressTimer.start()
 		if event.is_action_pressed("ui_dash") and !mobility_lock and $DashInputPressTimer.is_stopped() and !is_quickswap_attacking:
-			if get_parent().has_node("FireCharm") and weakref(get_parent().get_node("FireCharm")).get_ref() != null:
-				teleport_to_firecharm()
-			else:
-				dash()
+#			if get_parent().has_node("FireCharm") and weakref(get_parent().get_node("FireCharm")).get_ref() != null:
+#				teleport_to_firecharm()
+#			else:
+			dash()
 			$DashInputPressTimer.start()
 		if event.is_action_pressed("ui_down") and airborne_mode:
 			airborne_mode = false
@@ -857,30 +857,30 @@ func _input(event):
 
 func charged_dash():
 	$DashInputPressTimer.stop()
-	if $FireCharmTimer.is_stopped():
-		var fc = preload("res://scenes/skills/FireCharm.tscn").instance()
-		get_parent().add_child(fc)
-		fc.position = global_position
-		if $Sprite.flip_h:
-			fc.x_direction *= -1
-		$FireCharmTimer.start()
+#	if $FireCharmTimer.is_stopped():
+#		var fc = preload("res://scenes/skills/FireCharm.tscn").instance()
+#		get_parent().add_child(fc)
+#		fc.position = global_position
+#		if $Sprite.flip_h:
+#			fc.x_direction *= -1
+#		$FireCharmTimer.start()
 
 
-func teleport_to_firecharm():
-	var teleport_destination : Vector2 = get_parent().get_node("FireCharm").global_position
-	var tp_particle = TELEPORTING_PARTICLE.instance()
-	var tp_particle2 = TELEPORTING_PARTICLE.instance()
-	get_parent().add_child(tp_particle)
-	tp_particle.position = global_position
-	tp_particle.emitting = true
-	tp_particle.one_shot = true
-	position.x = teleport_destination.x
-	position.y = teleport_destination.y 
-	get_parent().add_child(tp_particle2)
-	tp_particle2.position = get_parent().get_node("FireCharm").global_position
-	tp_particle2.emitting = true
-	tp_particle2.one_shot = true
-	get_parent().get_node("FireCharm").call_deferred('free')
+#func teleport_to_firecharm():
+#	var teleport_destination : Vector2 = get_parent().get_node("FireCharm").global_position
+#	var tp_particle = TELEPORTING_PARTICLE.instance()
+#	var tp_particle2 = TELEPORTING_PARTICLE.instance()
+#	get_parent().add_child(tp_particle)
+#	tp_particle.position = global_position
+#	tp_particle.emitting = true
+#	tp_particle.one_shot = true
+#	position.x = teleport_destination.x
+#	position.y = teleport_destination.y 
+#	get_parent().add_child(tp_particle2)
+#	tp_particle2.position = get_parent().get_node("FireCharm").global_position
+#	tp_particle2.emitting = true
+#	tp_particle2.one_shot = true
+#	get_parent().get_node("FireCharm").call_deferred('free')
 
 func _on_ChargedAttackCollision_body_entered(body):
 	if body.is_in_group("EnemyEntity") and !body.is_in_group("MarkedWithSulphuricSigil"):

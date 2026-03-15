@@ -8,7 +8,7 @@ func _ready():
 func setup_fire():
 	$StaticBody2D/CollisionShape2D.position.x = 0
 	$StaticBody2D/CollisionShape2D.position.y = 10 * fire_height_in_tiles
-	$StaticBody2D/CollisionShape2D.shape.extents.x = 10
+	$StaticBody2D/CollisionShape2D.shape.extents.x = 8
 	$StaticBody2D/CollisionShape2D.shape.extents.y = 10 * fire_height_in_tiles
 	
 	# 4 tiles: pos y 40.5, scale y 1.444
@@ -23,4 +23,9 @@ func setup_fire():
 	# 2 tiles: lifetime 1.8
 	# 1 tile: lifetime 1.2
 	$PuzzlePipesFurnaceBurningParticles.lifetime = 0.4 * fire_height_in_tiles + 0.85
-	
+	# turn it on
+	$PuzzlePipesFurnaceBurningParticles.emitting = true
+
+func turn_off_fire():
+	$PuzzlePipesFurnaceBurningParticles.emitting = false
+	$StaticBody2D/CollisionShape2D.disabled = true

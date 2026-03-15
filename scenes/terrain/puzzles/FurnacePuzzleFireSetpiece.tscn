@@ -30,6 +30,7 @@ position = Vector2( 0, 10 )
 shape = SubResource( 1 )
 
 [node name="PuzzlePipesFurnaceBurningParticles" parent="." instance=ExtResource( 1 )]
+emitting = false
 amount = 64
 lifetime = 1.2
 speed_scale = 2.0

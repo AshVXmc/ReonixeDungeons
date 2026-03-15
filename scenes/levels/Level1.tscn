@@ -487,6 +487,8 @@ __meta__ = {
 
 [node name="FurnacePuzzleSetpiece1" parent="PuzzlePipesTileMap" instance=ExtResource( 32 )]
 position = Vector2( 344, 73 )
+furnace_puzzle_fire_setpiece_name = "FurnacePuzzleFireSetpiece1"
+puzzle_pipe_tile_coordinates = [ Vector2( 21, 3 ), Vector2( 21, 2 ), Vector2( 21, 1 ), Vector2( 22, 1 ), Vector2( 23, 1 ), Vector2( 24, 1 ), Vector2( 25, 1 ), Vector2( 26, 1 ), Vector2( 27, 1 ), Vector2( 28, 1 ), Vector2( 28, 2 ) ]
 
 [node name="FurnacePuzzleFireSetpiece1" parent="PuzzlePipesTileMap" instance=ExtResource( 34 )]
 position = Vector2( 456, 48 )
