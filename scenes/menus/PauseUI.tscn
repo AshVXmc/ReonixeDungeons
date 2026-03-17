@@ -531,6 +531,7 @@ bbcode_text = "[center][color=#deb600]Agnette''s moveset[/color][/center]
 
 [color=#ffd703]Charged Attack[/color] ([color=#668709]Archer[/color] form)
 Hold [ATK]
+Cannot jump  or dashwhile charging.
 
 [color=#ffd703]Basic Attack[/color] ([color=#3b1c06]Bear[/color] form)
 [ATK]
@@ -544,6 +545,7 @@ Basic Attack Combo (Archer form)
 
 Charged Attack (Archer form)
 Hold [ATK]
+Cannot jump  or dashwhile charging.
 
 Basic Attack (Bear form)
 [ATK]

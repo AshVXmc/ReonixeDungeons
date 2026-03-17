@@ -36,7 +36,11 @@ func _on_CloseButton_pressed():
 	visible = false
 	get_parent().get_node("Pause").visible = true
 
-
+func _input(event):
+	if event.is_action_pressed("ui_cancel") and visible:
+		visible = false
+		get_parent().get_node("Pause").visible = true
+		
 func update_player_talents_info_text():
 	# restore the moveset text to default
 	$PlayerMovesetList.bbcode_text = player_moveset_text

@@ -37,7 +37,7 @@ func _notification(what):
 		quit_game()
 
 func _process(delta):
-	if Input.is_action_just_pressed("ui_cancel") and !get_parent().get_parent().get_node("Player").is_shopping:
+	if Input.is_action_just_pressed("ui_cancel") and !get_parent().get_node("MovesetList").visible and !get_parent().get_parent().get_node("Player").is_shopping:
 		if !visible:
 			pause_game()
 		else:

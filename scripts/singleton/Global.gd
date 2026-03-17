@@ -82,7 +82,7 @@ var player_skill_multipliers : Dictionary = {
 	"BasicAttack2": 30.0,
 	"BasicAttack3": 35.0,
 	"BasicAttack4": 60.0,
-	"ChargedAttack": 105.0,
+	"ChargedAttack": 220.0,
 	"ChargedAttackStaminaCost": 100,
 	"ThrustAttack": 80.0,
 	"ThrustChargedAttack": 75.0,
@@ -418,7 +418,7 @@ var agnette_skill_multipliers = {
 	
 	
 	"SpikeGrowth": 15.0,
-	"SpikeGrowthCD": 10,
+	"SpikeGrowthCD": 14,
 	"SpikeGrowthCharges": 2,
 	"SpikeGrowthDuration": 5,
 	"SpikeGrowthMaxCharges": 2,

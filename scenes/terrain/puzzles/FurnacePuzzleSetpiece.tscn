@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://scenes/particles/PuzzlePipesFurnaceBurningParticles.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scripts/terrain/puzzles/FurnacePuzzleSetpiece.gd" type="Script" id=2]
 [ext_resource path="res://assets/misc/light_circle.png" type="Texture" id=3]
+[ext_resource path="res://assets/particles/smoke_particle.png" type="Texture" id=4]
 
 [sub_resource type="ParticlesMaterial" id=2]
 emission_shape = 2
@@ -15,6 +16,15 @@ scale = 1.2
 hue_variation = 0.05
 hue_variation_random = 0.25
 
+[sub_resource type="ParticlesMaterial" id=3]
+emission_shape = 2
+emission_box_extents = Vector3( 15, 10, 1 )
+flag_disable_z = true
+gravity = Vector3( 0, -65, 0 )
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+scale = 1.2
+
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 5, 5 )
 
@@ -22,8 +32,17 @@ extents = Vector2( 5, 5 )
 script = ExtResource( 2 )
 
 [node name="PuzzlePipesFurnaceBurningParticles" parent="." instance=ExtResource( 1 )]
-amount = 8
+amount = 6
 process_material = SubResource( 2 )
+
+[node name="PuzzlePipesFurnaceSmokeParticles" parent="." instance=ExtResource( 1 )]
+self_modulate = Color( 0.486275, 0.486275, 0.486275, 1 )
+emitting = false
+amount = 6
+lifetime = 1.25
+one_shot = true
+process_material = SubResource( 3 )
+texture = ExtResource( 4 )
 
 [node name="Area2D" type="Area2D" parent="."]
 

@@ -2,6 +2,7 @@ extends Node2D
 
 var is_on : bool = true
 
+
 onready var tilemap = get_parent()
 onready var furnace_cell_pos = tilemap.world_to_map(self.position)
 onready var furnace_cell_current_id = tilemap.get_cellv(furnace_cell_pos) 
@@ -30,12 +31,16 @@ enum TILE_ID {
 	ACTIVE_BOTTOM_EXHAUST,
 	ACTIVE_RIGHT_EXHAUST,
 	ACTIVE_LEFT_EXHAUST,
+	CLOSED_FURNACE_ON,
+	CLOSED_FURNACE_OFF
 }
 # NOTE : left mouse click on a puzzle pipe tile to print its coordinates (PuzzlePipesTileMap.gd)
 
 
 func _on_Area2D_area_entered(area):
-	if area.is_in_group("Player"):
+	if is_on and area.is_in_group("Ice"):
+		is_on = false
+		yield(get_tree().create_timer(0.4), "timeout")
 		turn_furnace_off()
 
 
@@ -44,9 +49,9 @@ func turn_furnace_off():
 	$Light2D.visible = false
 	tilemap.set_cellv(furnace_cell_pos, 10 + 1)
 	$PuzzlePipesFurnaceBurningParticles.emitting = false
+	$PuzzlePipesFurnaceSmokeParticles.emitting = true
+	get_parent().get_node(furnace_puzzle_fire_setpiece_name).turn_off_fire()
 	
-	if furnace_puzzle_fire_setpiece_name != null:
-		get_parent().get_node(furnace_puzzle_fire_setpiece_name).turn_off_fire()
 	turn_active_pipes_off()
 
 func turn_active_pipes_off():

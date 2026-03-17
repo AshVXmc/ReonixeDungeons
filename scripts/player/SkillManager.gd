@@ -133,7 +133,7 @@ func on_skill_used (
 				skills_ui.coneofcold_active = false
 		"SnowBoulder":
 			var snow_boulder = preload("res://scenes/skills/SnowBoulder.tscn").instance()
-			snow_boulder.direction = direction
+			snow_boulder.direction = -direction
 			get_parent().get_parent().add_child(snow_boulder)
 			snow_boulder.position = global_position
 		"BearForm":

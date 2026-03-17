@@ -146,9 +146,11 @@ collision_mask = 4096
 script = ExtResource( 2 )
 
 [node name="Particles2D" type="Particles2D" parent="."]
+visible = false
 position = Vector2( -12, 50 )
 rotation = 0.261799
 scale = Vector2( 2, 2 )
+emitting = false
 lifetime = 0.8
 process_material = SubResource( 6 )
 texture = ExtResource( 3 )

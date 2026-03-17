@@ -120,6 +120,7 @@ var collided : bool = false
 var is_dashing : bool = false
 var is_gliding : bool = false
 var can_dash : bool = false
+var can_jump : bool = true
 var is_healing : bool = false
 var is_shopping : bool = false
 var is_frozen : bool = false
@@ -462,7 +463,7 @@ func _physics_process(_delta):
 						if is_on_floor():
 							jump_counter = 0
 						
-						if jump_counter < MAX_JUMPS:
+						if jump_counter < MAX_JUMPS and can_jump:
 							if jump_counter == 0:
 								jump()
 								jump_counter += 1
@@ -896,7 +897,7 @@ func charged_attack(type : String = "Ground"):
 	else:
 		$AnimationPlayer.play("ChargedAttackLeft")
 	yield(get_tree().create_timer(0.35), "timeout")
-	
+
 	print("normal charged attack")
 	Input.action_release("ui_attack")
 	# the standard charged attack.

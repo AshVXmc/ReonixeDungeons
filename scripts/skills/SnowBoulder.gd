@@ -5,7 +5,7 @@ var direction : int = 1
 var destroyed : bool = false
 const SPEED : int = 360
 const GRAVITY : int = 8
-const decrement_constant : float = 0.3
+const decrement_constant : float = 0.6
 
 func _ready():
 	$Area2D.add_to_group(str(Global.glaciela_attack * Global.glaciela_skill_multipliers["SnowBoulder"] / 100))
