@@ -42,10 +42,10 @@ func _process(delta):
 			pause_game()
 		else:
 			resume_game()
-
-	elif Input.is_action_just_pressed("ui_debug"):
-		get_tree().paused = false
-		visible = false
+#
+#	elif Input.is_action_just_pressed("ui_debug"):
+#		get_tree().paused = false
+#		visible = false
 	
 	
 
@@ -57,10 +57,12 @@ func pause_game():
 	get_parent().get_parent().get_node("DebugMenu").get_node("Control").visible = false
 	get_tree().paused = true
 	visible = true
+	Global.game_paused_by = "PauseUI"
 	
 func resume_game():
 	get_tree().paused = false
 	visible = false
+	Global.game_paused_by = ""
 	get_parent().layer = 1
 
 func _on_SaveButton_pressed():

@@ -12,17 +12,17 @@ const MAX_INVENTORY_SLOTS : int = 5
 
 func _ready():
 	visible = false
-	get_parent().get_node("Bag/BagSprite").texture = closed
+	get_parent().get_node("InventoryIcon/BagSprite").texture = closed
 	add_item_to_inventory(item.new(item.ID.HEALTH_POTION), 1)
 
 func _process(delta):
-	if Input.is_action_just_pressed("ui_toggle_inventory") and !player.is_shopping:
-		if !visible:
+	if !visible:
+		if Input.is_action_just_pressed("ui_toggle_inventory") and Global.game_paused_by == "":
 			open_menu()
-		else:
+	else:
+		if Input.is_action_just_pressed("ui_toggle_inventory") or Input.is_action_just_pressed("ui_cancel"):
 			close_menu()
-	if Input.is_action_just_pressed("ui_cancel") and visible:
-		close_menu()
+
 
 func update_inventory_ui():
 	pass
@@ -46,10 +46,12 @@ func open_menu():
 	get_parent().layer = 5
 	get_tree().paused = true
 	show_inventory_item_slots()
+	Global.game_paused_by = "InventoryUI"
 	visible = true
 	
 func close_menu():
 	get_parent().layer = 1
 	get_tree().paused = false
 	hide_inventory_item_slots()
+	Global.game_paused_by = ""
 	visible = false

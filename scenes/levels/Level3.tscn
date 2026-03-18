@@ -26,7 +26,7 @@
 [ext_resource path="res://scenes/menus/ScreenshotHelper.tscn" type="PackedScene" id=24]
 [ext_resource path="res://scenes/menus/SkillsUI.tscn" type="PackedScene" id=25]
 [ext_resource path="res://scenes/tilemaps/WaterTileMap.tscn" type="PackedScene" id=26]
-[ext_resource path="res://scenes/menus/cellphone/CellphoneUI.tscn" type="PackedScene" id=27]
+[ext_resource path="res://scenes/menus/guidebook/GuidebookUI.tscn" type="PackedScene" id=27]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
 points = PoolVector2Array( 96, 96, 0, 96, 0, 0, 96, 0 )
@@ -252,7 +252,7 @@ script = ExtResource( 16 )
 
 [node name="InventoryUI" parent="." instance=ExtResource( 23 )]
 
-[node name="CellphoneUI" parent="." instance=ExtResource( 27 )]
+[node name="GuidebookUI" parent="." instance=ExtResource( 27 )]
 
 [node name="GameOverUI" parent="." instance=ExtResource( 22 )]
 
@@ -291,7 +291,6 @@ __meta__ = {
 visible = false
 position = Vector2( 1751.34, 769.09 )
 scale = Vector2( 123.492, 44.8937 )
-energy = 0.65
 mode = 1
 
 [node name="TileMap" type="TileMap" parent="."]

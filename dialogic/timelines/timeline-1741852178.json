@@ -71,7 +71,7 @@
 			"character": "character-1741847338.json",
 			"event_id": "dialogic_001",
 			"portrait": "",
-			"text": "I've logged my instructions to your [color=#ffd703]Cellphone[/color]'s Notes app, which you can open by pressing [color=#ffd703]U[/color] by default. Now, proceed by killing those enemies in front of you!"
+			"text": "I've logged my instructions to your [color=#ffd703]Guidebook[/color], which you can open by pressing [color=#ffd703]U[/color] by default. Now, proceed by killing those enemies in front of you!"
 		},
 		{
 			"choice": "Yup, I'm ready!",
@@ -84,7 +84,7 @@
 			"character": "character-1741847338.json",
 			"event_id": "dialogic_001",
 			"portrait": "",
-			"text": "That's great! Now, proceed by killing those enemies in front of you. Remember, you can press [color=#ffd703]U[/color] (by default) to open your [color=#ffd703]Cellphone[/color] and read the instructions I gave you on your Notes app."
+			"text": "That's great! Now, proceed by killing those enemies in front of you. Remember, you can press [color=#ffd703]U[/color] (by default) to open your [color=#ffd703]Guidebook[/color] and read the instructions I gave you!"
 		},
 		{
 			"event_id": "dialogic_013"

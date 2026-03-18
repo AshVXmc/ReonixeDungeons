@@ -76,7 +76,7 @@
 [ext_resource path="res://shaders/outline2D_outer.gdshader" type="Shader" id=74]
 [ext_resource path="res://scenes/enemies/GuardianGolem.tscn" type="PackedScene" id=75]
 [ext_resource path="res://scenes/minigames/BlackJackTable.tscn" type="PackedScene" id=76]
-[ext_resource path="res://scenes/menus/cellphone/CellphoneUI.tscn" type="PackedScene" id=77]
+[ext_resource path="res://scenes/menus/guidebook/GuidebookUI.tscn" type="PackedScene" id=77]
 
 [sub_resource type="ShaderMaterial" id=16]
 shader = ExtResource( 74 )
@@ -197,7 +197,7 @@ position = Vector2( 1798, 598 )
 
 [node name="InventoryUI" parent="." instance=ExtResource( 15 )]
 
-[node name="CellphoneUI" parent="." instance=ExtResource( 77 )]
+[node name="GuidebookUI" parent="." instance=ExtResource( 77 )]
 
 [node name="MonumentOfVictories" parent="." instance=ExtResource( 39 )]
 position = Vector2( 1544.87, 432.386 )

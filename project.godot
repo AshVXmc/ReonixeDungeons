@@ -145,19 +145,9 @@ _global_script_classes=[ {
 "path": "res://scripts/items/Cauldron.gd"
 }, {
 "base": "Control",
-"class": "Cellphone",
-"language": "GDScript",
-"path": "res://scenes/menus/cellphone/Cellphone.gd"
-}, {
-"base": "Control",
 "class": "ChaosMagicUI",
 "language": "GDScript",
 "path": "res://scripts/ui/ChaosMagicUI.gd"
-}, {
-"base": "Control",
-"class": "CharacterGuideUI",
-"language": "GDScript",
-"path": "res://scripts/ui/CharacterGuideUI.gd"
 }, {
 "base": "Node2D",
 "class": "CharacterManager",
@@ -193,11 +183,6 @@ _global_script_classes=[ {
 "class": "ChestKey",
 "language": "GDScript",
 "path": "res://scripts/items/ChestKey.gd"
-}, {
-"base": "Node2D",
-"class": "CombatGuidebook",
-"language": "GDScript",
-"path": "res://scripts/terrain/CombatGuidebook.gd"
 }, {
 "base": "Node2D",
 "class": "ConeOfCold",
@@ -444,6 +429,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/enemies/GuardianGolemEnergyGrenade.gd"
 }, {
+"base": "Control",
+"class": "GuidebookUI",
+"language": "GDScript",
+"path": "res://scripts/ui/GuidebookUI.gd"
+}, {
 "base": "Node2D",
 "class": "HealIndicator",
 "language": "GDScript",
@@ -492,7 +482,7 @@ _global_script_classes=[ {
 "base": "Control",
 "class": "InventoryUI",
 "language": "GDScript",
-"path": "res://scripts/ui/InventoryUI.gd"
+"path": "res://scripts/ui/InventoryControl.gd"
 }, {
 "base": "Resource",
 "class": "Item",
@@ -608,11 +598,6 @@ _global_script_classes=[ {
 "class": "MoteOfFlame",
 "language": "GDScript",
 "path": "res://scripts/misc/MoteOfFlame.gd"
-}, {
-"base": "Control",
-"class": "NotesAppControl",
-"language": "GDScript",
-"path": "res://scripts/ui/NotesAppControl.gd"
 }, {
 "base": "Node2D",
 "class": "OpalsGainedIndicatorParticle",
@@ -852,9 +837,7 @@ _global_script_class_icons={
 "BurningStatus": "",
 "Card": "",
 "Cauldron": "",
-"Cellphone": "",
 "ChaosMagicUI": "",
-"CharacterGuideUI": "",
 "CharacterManager": "",
 "CharacterSelectionUI": "",
 "CharacterSkillsControl": "",
@@ -862,7 +845,6 @@ _global_script_class_icons={
 "CharacterTalentsControl": "",
 "CharactersUI": "",
 "ChestKey": "",
-"CombatGuidebook": "",
 "ConeOfCold": "",
 "CornucopiaGoblin": "",
 "DTS": "",
@@ -912,6 +894,7 @@ _global_script_class_icons={
 "GroundedStatus": "",
 "GuardianGolem": "",
 "GuardianGolemEnergyGrenade": "",
+"GuidebookUI": "",
 "HealIndicator": "",
 "HealthPack": "",
 "HistoryRow": "",
@@ -945,7 +928,6 @@ _global_script_class_icons={
 "MeteorStrike": "",
 "MonumentOfVictories": "",
 "MoteOfFlame": "",
-"NotesAppControl": "",
 "OpalsGainedIndicatorParticle": "",
 "PerfectDash": "",
 "PiercingProjectile": "",
@@ -1224,9 +1206,9 @@ talent_skill={
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":67,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
  ]
 }
-ui_open_cellphone={
+ui_open_guidebook={
 "deadzone": 0.5,
-"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":85,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":71,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
  ]
 }
 

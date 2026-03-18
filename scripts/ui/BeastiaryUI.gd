@@ -42,7 +42,6 @@ func close_ui():
 	visible = false
 	get_tree().paused = false
 	get_parent().layer = 1
-	Global.can_open_pause_menu = true
 
 func _process(delta):
 	if visible and Input.is_action_just_pressed("ui_cancel"):

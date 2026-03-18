@@ -8,7 +8,7 @@ extends Node
 
 
 var item : Resource = preload("res://scripts/resources/Item.gd")
-var can_open_pause_menu : bool = false
+var game_paused_by : String = ""
 # GLOBALLY ACCESSED VARIABLES
 var character_health_data : Dictionary = {
 	"Player": 10, 
@@ -683,6 +683,7 @@ func assign_mana_points():
 # if enemy type is same as character type or doesn't counter anything, deal 100% dmg.
 # if character type counters enemy type, deal 50% dmg
 func reset_player_data():
+	Global.game_paused_by = ""
 	Global.equipped_characters = ["Player", "Glaciela", "Agnette"]
 	assign_health_points()
 	Global.alive = [true, true, true]
