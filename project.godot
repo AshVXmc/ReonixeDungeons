@@ -479,7 +479,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/ui/InventoryItemSlot.gd"
 }, {
-"base": "Control",
+"base": "Reference",
 "class": "InventoryUI",
 "language": "GDScript",
 "path": "res://scripts/ui/InventoryControl.gd"
