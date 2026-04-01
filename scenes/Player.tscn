@@ -24,7 +24,7 @@
 [ext_resource path="res://scenes/particles/HealingParticle.tscn" type="PackedScene" id=23]
 [ext_resource path="res://assets/UI/chargebar_full.png" type="Texture" id=24]
 [ext_resource path="res://assets/particles/slow_particle_(snail_symbol).png" type="Texture" id=25]
-[ext_resource path="res://assets/UI/cellphone.png" type="Texture" id=26]
+[ext_resource path="res://assets/UI/guidebook.png" type="Texture" id=26]
 
 [sub_resource type="RectangleShape2D" id=82]
 extents = Vector2( 34, 44.3992 )
@@ -3993,6 +3993,10 @@ one_shot = true
 [node name="DoubleJumpDelayTimer" type="Timer" parent="."]
 wait_time = 0.25
 one_shot = true
+
+[node name="GlideRayCast2D" type="RayCast2D" parent="."]
+enabled = true
+cast_to = Vector2( 0, 250 )
 
 [connection signal="timeout" from="CharacterManager/SwapCooldownTimer" to="CharacterManager" method="_on_SwapCooldownTimer_timeout"]
 [connection signal="area_entered" from="AttackCollision" to="." method="_on_AttackCollision_area_entered"]

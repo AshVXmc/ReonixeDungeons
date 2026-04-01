@@ -413,8 +413,8 @@ var agnette_skill_multipliers = {
 	"RavenFormDuration": 7,
 	"RavenFormHealth": 65.0,
 	"RavenFormPeckAttack": 58.0,
-	"RavenFormBombardmentAttack": 64.0,
-	"RavenFormFlightStaminaCost": 5,
+	"RavenFormBombardmentAttack": 100.0,
+	"RavenFormFlightStaminaCost": 20,
 	
 	
 	"SpikeGrowth": 15.0,

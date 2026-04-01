@@ -1537,7 +1537,7 @@ Shapeshift into a [color=#1f1f1f]Raven[/color] for RF_DUR seconds. It has RF_HP%
 
 [color=#1f1f1f]Raven form[/color]
 Your basic attacks are pecks that deal [u]RF_PECK% ATK[/u] as Physical damage. 
-While airborne, your basic attack drops stone that deals [u]RF_ROCK% ATK[/u] as [color=#deb600]Earth[/color] damage and builds up [color=#deb600]Grounded[/color] stacks.
+While airborne, your basic attack drops stone that deals [u]RF_ROCK% ATK[/u] as [color=#deb600]Earth[/color] damage and builds up [color=#deb600]Grounded[/color] stacks. During [color=#1f1f1f]Raven[/color] form, you fall slowly.
 
 You revert to your [color=#668709]Archer[/color] form when the duration ends, if you switch to another character, or if you drop to 0 HP.
 Cooldown: RF_CD seconds
@@ -1547,7 +1547,7 @@ Shapeshift into a Raven for RF_DUR seconds. It has RF_HP% of Agnette's Max HP as
 
 Raven form
 Your basic attacks are pecks that deal RF_PECK% ATK as Physical damage. 
-While airborne, your basic attack drops stone that deals RF_ROCK% ATK as Earth damage and builds up Grounded stacks.
+While airborne, your basic attack drops stone that deals RF_ROCK% ATK as Earth damage and builds up Grounded stacks. During Raven form, you fall slowly.
 
 You revert to your Archer form when the duration ends, if you switch to another character, or if you drop to 0 HP.
 Cooldown: RF_CD seconds

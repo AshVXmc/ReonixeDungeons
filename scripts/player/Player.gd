@@ -1895,8 +1895,10 @@ func knock_airborne(target):
 			$KnockAirborneICD.start()
 
 func glide():
-	# Press SPACE while in mid-air to temporarily glide
-	if Input.is_action_just_pressed("jump") and !is_on_floor():
+	# Use a raycast that detects floor
+	# how to use: call this function in a physics process
+	# Omg i'm gliding
+	if !$GlideRayCast2D.is_colliding() and !is_gliding:
 #		if !Global.godmode:
 #			$GlideTimer.start(0)
 		is_gliding = true
@@ -1906,9 +1908,9 @@ func glide():
 			velocity.y += GRAVITY * 3
 		if is_gliding:
 			velocity.y = 0
-			velocity.y += GRAVITY * 1.6
+			velocity.y += GRAVITY * 2
 	# Stop gliding
-	if Input.is_action_just_released("jump") or is_on_floor():
+	if is_on_floor():
 		$GlideTimer.stop()
 		is_gliding = false
 #		if !airborne_mode:

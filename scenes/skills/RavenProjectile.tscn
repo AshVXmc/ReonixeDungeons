@@ -1,7 +1,7 @@
 [gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://assets/misc/meteor.png" type="Texture" id=1]
-[ext_resource path="res://assets/UI/earth_type_icon.png" type="Texture" id=2]
+[ext_resource path="res://assets/characters/agnette/raven_projectile.png" type="Texture" id=2]
 [ext_resource path="res://assets/particles/meteor_burst_particle.png" type="Texture" id=3]
 [ext_resource path="res://scripts/skills/RavenProjectile.gd" type="Script" id=4]
 

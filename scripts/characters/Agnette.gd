@@ -211,20 +211,21 @@ func _physics_process(delta):
 			if !Input.is_action_pressed("ui_attack") and !$RavenFormNodes/RavenInputPressTimer.is_stopped():
 				$RavenFormNodes/RavenInputPressTimer.stop()
 			
-			
 			get_parent().get_parent().glide()
 				
 		$WeakenParticles.visible = true if !$WeakenedTimer.is_stopped() else false
 		use_skill()
 #		print(is_charging)
-	if current_form == forms.RAVEN and get_parent().get_parent().can_fly:
-		if get_parent().get_parent().stamina_bar_ui.get_stamina_value() > Global.agnette_skill_multipliers["RavenFormFlightStaminaCost"] * 3 and Input.is_action_pressed("ui_up") or Input.is_action_pressed("jump"):
-			get_parent().get_parent().velocity.y = -VERTICAL_FLYING_SPEED
-			get_parent().get_parent().stamina_bar_ui.consume_stamina(Global.agnette_skill_multipliers["RavenFormFlightStaminaCost"])
-		elif Input.is_action_pressed("ui_down"):
-			get_parent().get_parent().velocity.y = VERTICAL_FLYING_SPEED
-		else:
-			get_parent().get_parent().velocity.y = 0
+
+
+#		if current_form == forms.RAVEN and get_parent().get_parent().can_fly:
+#			if get_parent().get_parent().stamina_bar_ui.get_stamina_value() > Global.agnette_skill_multipliers["RavenFormFlightStaminaCost"] and Input.is_action_pressed("ui_up") or Input.is_action_pressed("jump"):
+#				get_parent().get_parent().velocity.y = -VERTICAL_FLYING_SPEED
+#				get_parent().get_parent().stamina_bar_ui.consume_stamina(Global.agnette_skill_multipliers["RavenFormFlightStaminaCost"])
+#			elif Input.is_action_pressed("ui_down"):
+#				get_parent().get_parent().velocity.y = VERTICAL_FLYING_SPEED
+#			else:
+#				get_parent().get_parent().velocity.y = 0
 	
 	if Global.current_character != "Agnette":
 		if current_form == forms.BEAR:
@@ -295,8 +296,9 @@ func _input(event):
 #					toggle_charged_attack_snare(false)
 			
 			is_charging = false
-			get_parent().get_parent().can_jump = false
+			
 			if current_form == forms.ARCHER:
+				get_parent().get_parent().can_jump = false
 				charged_attack()
 			
 			$ChargedAttackBarFillTimer.stop()
@@ -309,9 +311,9 @@ func _input(event):
 
 func use_skill():
 	if Global.current_character == "Agnette" and !is_charging and !get_parent().get_parent().is_frozen:
-		if pskill_ui.value >= pskill_ui.max_value and Input.is_action_just_pressed("primary_skill") and current_form != forms.BEAR:
+		if current_form != forms.RAVEN and pskill_ui.value >= pskill_ui.max_value and Input.is_action_just_pressed("primary_skill") and current_form != forms.BEAR:
 			use_primary_skill()
-		if sskill_ui.value >= sskill_ui.max_value and Input.is_action_just_pressed("secondary_skill") and current_form != forms.RAVEN:
+		if current_form != forms.BEAR and sskill_ui.value >= sskill_ui.max_value and Input.is_action_just_pressed("secondary_skill") and current_form != forms.RAVEN:
 			use_secondary_skill()
 		if Input.is_action_just_pressed("tertiary_skill"):
 			use_tertiary_skill()
@@ -361,9 +363,8 @@ func wild_shape(target_form : int, previous_form : int = -1):
 	
 	$WildShapeParticles.emitting = true
 	if previous_form == forms.RAVEN:
-		get_parent().get_parent().JUMP_POWER += JUMP_POWER_PENALTY
-#		get_parent().get_parent().is_gliding = false
-#		get_parent().get_parent().GRAVITY += GRAVITY_PENALTY
+		get_parent().get_parent().is_gliding = false
+
 	match target_form:
 		forms.ARCHER:
 			is_wild_shaping = true
@@ -379,6 +380,7 @@ func wild_shape(target_form : int, previous_form : int = -1):
 				toggle_bear_form_snare(false)
 				$BearFormNodes/BearHealthBar.visible = false
 			$RavenFormNodes/RavenHealthBar.visible = false
+
 			$BowSprite.visible = true
 			$AnimatedSprite.stop()
 			$AnimatedSprite.play("Default")
@@ -392,12 +394,13 @@ func wild_shape(target_form : int, previous_form : int = -1):
 			$Area2D/CollisionShape2D.shape.extents = Vector2(85,54)
 			$AnimatedSprite.scale = Vector2(6,6)
 			get_parent().get_parent().mobility_lock = true
-			get_parent().get_parent().can_fly = false
+#			get_parent().get_parent().can_fly = false
 			toggle_bear_form_snare(true)
 			$BearFormNodes/BearHealthBar.max_value = Global.character_health_data["Agnette"] * (Global.agnette_skill_multipliers["BearFormHealth"] / 100)
 			$BearFormNodes/BearHealthBar.value = $BearFormNodes/BearHealthBar.max_value
 			$BearFormNodes/BearHealthBar.visible = true
 			$RavenFormNodes/RavenHealthBar.visible = false
+
 			$BowSprite.visible = false
 			$AnimatedSprite.stop()
 			$AnimatedSprite.play("BearDefault")
@@ -412,12 +415,13 @@ func wild_shape(target_form : int, previous_form : int = -1):
 			$AnimatedSprite.scale = Vector2(3.75,3.75)
 			# enables the use of "ui_up" to fly up
 #			get_parent().get_parent().can_fly = true
-			get_parent().get_parent().JUMP_POWER -= JUMP_POWER_PENALTY
+#			get_parent().get_parent().JUMP_POWER -= JUMP_POWER_PENALTY
 #			get_parent().get_parent().GRAVITY -= GRAVITY_PENALTY
 #			get_parent().get_parent().is_gliding = true
 			$RavenFormNodes/RavenHealthBar.max_value = Global.character_health_data["Agnette"] * (Global.agnette_skill_multipliers["RavenFormHealth"] / 100)
 			$RavenFormNodes/RavenHealthBar.value = $RavenFormNodes/RavenHealthBar.max_value
 			$RavenFormNodes/RavenHealthBar.visible = true
+			
 			if previous_form == forms.BEAR:
 				toggle_bear_form_snare(false)
 				$BearFormNodes/BearHealthBar.visible = false
@@ -631,6 +635,9 @@ func raven_charged_attack():
 	var rp = RAVEN_PROJECTILE.instance()
 	get_parent().get_parent().get_parent().add_child(rp)
 	rp.position = global_position
+
+
+
 
 
 func is_a_critical_hit() -> bool:

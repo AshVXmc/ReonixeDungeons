@@ -194,6 +194,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/enemies/CornucopiaGoblin.gd"
 }, {
+"base": "KinematicBody2D",
+"class": "DPSTestDummy",
+"language": "GDScript",
+"path": "res://scripts/terrain/DPSTestDummy.gd"
+}, {
 "base": "Reference",
 "class": "DTS",
 "language": "GDScript",
@@ -479,7 +484,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/ui/InventoryItemSlot.gd"
 }, {
-"base": "Reference",
+"base": "Control",
 "class": "InventoryUI",
 "language": "GDScript",
 "path": "res://scripts/ui/InventoryControl.gd"
@@ -847,6 +852,7 @@ _global_script_class_icons={
 "ChestKey": "",
 "ConeOfCold": "",
 "CornucopiaGoblin": "",
+"DPSTestDummy": "",
 "DTS": "",
 "DamageBonusBuff": "",
 "DamageIndicator": "",

@@ -32,7 +32,7 @@ func add_item_to_inventory(obtained_item, amount : int):
 	print("ADDED NEW ITEM: " + str(amount) + " " + obtained_item.get_name())
 	# TODO: sync ith inventoryitemslot? update the global dict first though
 
-	pass
+	
 
 func show_inventory_item_slots():
 	for child in inventory_grid_container.get_children():

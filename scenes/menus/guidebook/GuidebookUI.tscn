@@ -1,7 +1,7 @@
 [gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://assets/UI/book_textbox.png" type="Texture" id=1]
-[ext_resource path="res://assets/UI/cellphone.png" type="Texture" id=2]
+[ext_resource path="res://assets/UI/guidebook.png" type="Texture" id=2]
 [ext_resource path="res://assets/UI/icon_empty.png" type="Texture" id=3]
 [ext_resource path="res://assets/UI/textbox.png" type="Texture" id=4]
 [ext_resource path="res://assets/UI/long_button.png" type="Texture" id=5]
@@ -161,15 +161,15 @@ anchor_left = 0.246
 anchor_top = 0.5
 anchor_right = 0.246
 anchor_bottom = 0.5
-margin_left = -167.19
-margin_top = -218.5
-margin_right = 94.81
-margin_bottom = 166.5
+margin_left = -167.416
+margin_top = -218.0
+margin_right = 94.584
+margin_bottom = 207.0
 rect_min_size = Vector2( 262, 385 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="GuidebookControl/Choices_NinePatchRect/Choices_ScrollContainer"]
 margin_right = 250.0
-margin_bottom = 458.0
+margin_bottom = 524.0
 rect_min_size = Vector2( 250, 385 )
 
 [node name="TutorialMovement_Control" type="Control" parent="GuidebookControl/Choices_NinePatchRect/Choices_ScrollContainer/VBoxContainer"]
@@ -402,6 +402,39 @@ custom_fonts/font = SubResource( 5 )
 text = "Debuffs"
 align = 1
 
+[node name="Debuffs_Control2" type="Control" parent="GuidebookControl/Choices_NinePatchRect/Choices_ScrollContainer/VBoxContainer"]
+margin_top = 462.0
+margin_right = 250.0
+margin_bottom = 524.0
+rect_min_size = Vector2( 250, 62 )
+
+[node name="TextureButton" type="TextureButton" parent="GuidebookControl/Choices_NinePatchRect/Choices_ScrollContainer/VBoxContainer/Debuffs_Control2"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -125.0
+margin_top = -1.0
+margin_right = 125.0
+margin_bottom = 61.0
+texture_normal = ExtResource( 5 )
+texture_pressed = ExtResource( 7 )
+expand = true
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Label" type="Label" parent="GuidebookControl/Choices_NinePatchRect/Choices_ScrollContainer/VBoxContainer/Debuffs_Control2/TextureButton"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -141.0
+margin_top = -16.0
+margin_right = 141.0
+margin_bottom = 16.0
+custom_fonts/font = SubResource( 5 )
+text = "Debuffs"
+align = 1
+
 [node name="DescriptionBoxNinePatchRect" type="NinePatchRect" parent="GuidebookControl"]
 anchor_left = 0.628
 anchor_top = 0.5
@@ -482,4 +515,5 @@ expand = true
 [connection signal="pressed" from="GuidebookControl/Choices_NinePatchRect/Choices_ScrollContainer/VBoxContainer/CombatPart3_Control/TextureButton" to="GuidebookControl" method="_on_CombatPart3_TextureButton_pressed"]
 [connection signal="pressed" from="GuidebookControl/Choices_NinePatchRect/Choices_ScrollContainer/VBoxContainer/StatusEffects_Control/TextureButton" to="GuidebookControl" method="_on_StatusEffects_TextureButton_pressed"]
 [connection signal="pressed" from="GuidebookControl/Choices_NinePatchRect/Choices_ScrollContainer/VBoxContainer/Debuffs_Control/TextureButton" to="GuidebookControl" method="_on_Debuffs_TextureButton_pressed"]
+[connection signal="pressed" from="GuidebookControl/Choices_NinePatchRect/Choices_ScrollContainer/VBoxContainer/Debuffs_Control2/TextureButton" to="GuidebookControl" method="_on_Debuffs_TextureButton_pressed"]
 [connection signal="pressed" from="GuidebookControl/CloseButtonMainUI" to="GuidebookControl" method="_on_CloseButtonMainUI_pressed"]
