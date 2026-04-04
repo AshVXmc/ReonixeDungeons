@@ -1,4 +1,4 @@
-class_name DPSTestDummy extends KinematicBody2D
+class_name DPSCounterUI extends Control
 
 
 # Declare member variables here. Examples:

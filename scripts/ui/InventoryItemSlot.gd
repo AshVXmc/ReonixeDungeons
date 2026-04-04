@@ -2,6 +2,7 @@ class_name InventoryItemSlot extends Control
 
 const item = preload("res://scripts/resources/Item.gd")
 var contained_item : Item
+var item_count : int = 0
 
 func _ready():
 	hide_self()
@@ -15,26 +16,28 @@ func hide_self():
 	visible = false
 
 
-	
+
 
 func clear_contained_item():
 	contained_item = null
 	$ItemTextureRect.texture = null
+	item_count = 0
 	$ItemCountLabel.text = ""
 
 func register_contained_item(new_item : Item):
 	contained_item = new_item
 	$ItemTextureRect.texture = load(new_item.item_texture_path)
-	$ItemCountLabel.text = str(new_item.item_count)
-	
+
 func increment_item_count(added_value : int):
 	if contained_item == null:
 		return
-	contained_item.item_count += added_value
+	item_count += added_value
+	$ItemCountLabel.text = str(item_count)
 
 func decrement_item_count(reduced_value : int):
 	if contained_item == null:
 		return
-	contained_item.item_count -= reduced_value
+	item_count -= reduced_value
+	$ItemCountLabel.text = str(item_count)
 
 

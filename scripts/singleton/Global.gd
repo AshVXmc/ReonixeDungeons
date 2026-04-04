@@ -614,7 +614,7 @@ var current_player_inventory : Dictionary = {
 	"PotionsCategory": {
 		"Slot1" : {
 			"ContainedItem" : null,
-			"ContainedItemAmount" : 1
+			"ContainedItemAmount" : 0
 		},
 		"Slot2" : {
 			"ContainedItem" : null,

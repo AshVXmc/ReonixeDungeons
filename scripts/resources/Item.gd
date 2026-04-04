@@ -13,6 +13,7 @@ enum ID {
 	MANA_POTION
 }
 
+# NOTE: Names have to be distinct from each other.
 const NAME := {
 	HEALTH_POTION = "Health Potion",
 	LARGE_HEALTH_POTION = "Large Health Potion",
@@ -33,10 +34,13 @@ const DESCRIPTION := {
 
 const TEXTURE_PATH := {
 	HEALTH_POTION = "res://assets/misc/health_pot.png",
-	LARGE_HEALTH_POTION = "res://assets/misc/health_pot.png",
+	LARGE_HEALTH_POTION = "res://assets/misc/large_health_pot.png",
 	MANA_POTION = "res://assets/misc/mana_pot.png"
 }
 
+func get_id():
+	return item_id
+ 
 func get_name():
 	return item_name
 
@@ -52,11 +56,17 @@ func get_item_texture_path():
 func _init(identifier = ""):
 	match identifier:
 		ID.HEALTH_POTION:
+			item_id = ID.HEALTH_POTION
 			item_name = NAME.HEALTH_POTION
 			item_category = CATEGORY.POTIONS
 			item_description = DESCRIPTION.HEALTH_POTION
 			item_texture_path = TEXTURE_PATH.HEALTH_POTION
-
+		ID.LARGE_HEALTH_POTION:
+			item_id = ID.LARGE_HEALTH_POTION
+			item_name = NAME.LARGE_HEALTH_POTION
+			item_category = CATEGORY.POTIONS
+			item_description = DESCRIPTION.LARGE_HEALTH_POTION
+			item_texture_path = TEXTURE_PATH.LARGE_HEALTH_POTION
 	
 
 
