@@ -9,7 +9,7 @@ onready var inventory_grid_container : GridContainer = $BelongingsControl/NinePa
 const item = preload("res://scripts/resources/Item.gd")
 
 const MAX_INVENTORY_SLOTS : int = 5
-
+const SLOT_INDEX_POSITION_IN_STRING : int = 4
 
 func _ready():
 	visible = false
@@ -18,6 +18,8 @@ func _ready():
 	add_item_to_inventory(item.new(item.ID.HEALTH_POTION), 2)
 	add_item_to_inventory(item.new(item.ID.LARGE_HEALTH_POTION), 1)
 	
+	yield(get_tree().create_timer(2),"timeout")
+	remove_item_from_inventory(item.new(item.ID.HEALTH_POTION), 1)
 	
 func _process(delta):
 	if !visible:
@@ -45,12 +47,12 @@ func add_item_to_inventory(obtained_item : item, amount : int):
 		if Global.current_player_inventory[item_category][item_slot]["ContainedItem"] == null:
 			Global.current_player_inventory[item_category][item_slot]["ContainedItem"] = obtained_item
 			Global.current_player_inventory[item_category][item_slot]["ContainedItemAmount"] += amount
-			slot_index = int(item_slot.substr(4))
+			slot_index = int(item_slot.substr(SLOT_INDEX_POSITION_IN_STRING))
 			is_new_item = false
 			break
 		elif Global.current_player_inventory[item_category][item_slot]["ContainedItem"].get_id() == obtained_item.get_id():
 			Global.current_player_inventory[item_category][item_slot]["ContainedItemAmount"] += amount
-			slot_index = int(item_slot.substr(4))
+			slot_index = int(item_slot.substr(SLOT_INDEX_POSITION_IN_STRING))
 			is_new_item = true
 			break
 		
@@ -71,14 +73,37 @@ func add_item_to_inventory(obtained_item : item, amount : int):
 
 # assumes the item exists in the inventory, with a quantity > 0
 func remove_item_from_inventory(removed_item : item, amount : int):
-	var item_category : String
+	var item_category : String = ""
+	var slot_index : int = -1
 	match removed_item.get_category():
 		item.CATEGORY.POTIONS:
 			item_category = "PotionsCategory"
 	
 	for item_slot in Global.current_player_inventory[item_category]:
 		if Global.current_player_inventory[item_category][item_slot]["ContainedItem"].get_id() == removed_item.get_id():
-			pass
+			Global.current_player_inventory[item_category][item_slot]["ContainedItemAmount"] -= amount
+			slot_index = int(item_slot.substr(4))
+			
+			# check if the item count is now 0
+			if Global.current_player_inventory[item_category][item_slot]["ContainedItemAmount"] <= 0:
+				pass
+			
+			break
+	
+	# update inventory slot ui
+	var slot_control : InventoryItemSlot = inventory_grid_container.get_node("InventoryItemSlotCanvasLayer" + str(slot_index) + "/Control")
+	slot_control.decrement_item_count(amount)
+	
+	# debug, print inventory contents
+	print("REMOVED ITEM: " + str(amount) + " " + removed_item.get_name())
+	print("CURRENT INVENTORY: ")
+	for i in Global.current_player_inventory["PotionsCategory"]:
+		if Global.current_player_inventory["PotionsCategory"][i]["ContainedItem"] == null:
+			print(i + " null")
+		else:
+			print(i + " " + str(Global.current_player_inventory["PotionsCategory"][i]["ContainedItemAmount"]) + " " + Global.current_player_inventory["PotionsCategory"][i]["ContainedItem"].get_name())
+
+
 
 func item_exists_in_inventory(item : item) -> bool:
 	return true
