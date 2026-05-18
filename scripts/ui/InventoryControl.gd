@@ -20,6 +20,8 @@ func _ready():
 	
 	yield(get_tree().create_timer(2),"timeout")
 	remove_item_from_inventory(item.new(item.ID.HEALTH_POTION), 1)
+	remove_item_from_inventory(item.new(item.ID.HEALTH_POTION), 1)
+	remove_item_from_inventory(item.new(item.ID.HEALTH_POTION), 1)
 	
 func _process(delta):
 	if !visible:
@@ -29,11 +31,7 @@ func _process(delta):
 		if Input.is_action_just_pressed("ui_toggle_inventory") or Input.is_action_just_pressed("ui_cancel"):
 			close_menu()
 
-# usually called at game init
-func update_inventory_ui():
-	for item_category in Global.current_player_inventory:
-		for item_slot in Global.current_player_inventory[item_category]:
-			pass
+
 	
 func add_item_to_inventory(obtained_item : item, amount : int):
 	var item_category : String = ""
@@ -64,12 +62,7 @@ func add_item_to_inventory(obtained_item : item, amount : int):
 
 	# debug, print inventory contents
 	print("ADDED NEW ITEM: " + str(amount) + " " + obtained_item.get_name())
-	print("CURRENT INVENTORY: ")
-	for i in Global.current_player_inventory["PotionsCategory"]:
-		if Global.current_player_inventory["PotionsCategory"][i]["ContainedItem"] == null:
-			print(i + " null")
-		else:
-			print(i + " " + str(Global.current_player_inventory["PotionsCategory"][i]["ContainedItemAmount"]) + " " + Global.current_player_inventory["PotionsCategory"][i]["ContainedItem"].get_name())
+	print_inventory_contents()
 
 # assumes the item exists in the inventory, with a quantity > 0
 func remove_item_from_inventory(removed_item : item, amount : int):
@@ -83,29 +76,44 @@ func remove_item_from_inventory(removed_item : item, amount : int):
 		if Global.current_player_inventory[item_category][item_slot]["ContainedItem"].get_id() == removed_item.get_id():
 			Global.current_player_inventory[item_category][item_slot]["ContainedItemAmount"] -= amount
 			slot_index = int(item_slot.substr(4))
-			
-			# check if the item count is now 0
-			if Global.current_player_inventory[item_category][item_slot]["ContainedItemAmount"] <= 0:
-				pass
-			
 			break
 	
 	# update inventory slot ui
 	var slot_control : InventoryItemSlot = inventory_grid_container.get_node("InventoryItemSlotCanvasLayer" + str(slot_index) + "/Control")
 	slot_control.decrement_item_count(amount)
 	
+	# if the item count is 0, clear item from the slot. 
+	if Global.current_player_inventory[item_category]["Slot" + str(slot_index)]["ContainedItemAmount"] <= 0:
+		Global.current_player_inventory[item_category]["Slot" + str(slot_index)]["ContainedItem"] = null
+		Global.current_player_inventory[item_category]["Slot" + str(slot_index)]["ContainedItemAmount"] = 0
+		slot_control.clear_contained_item()
+		
+		# TODO: rearrange items after deleting an item that gets reduced to 0
+		var current_misplaced_empty_slot_index : int = 1
+		for item_slot in Global.current_player_inventory[item_category]:
+			if current_misplaced_empty_slot_index + 1 >= MAX_INVENTORY_SLOTS:
+				break
+				
+			if Global.current_player_inventory[item_category]["Slot" + str(current_misplaced_empty_slot_index)]["ContainedItemAmount"] <= 0 and Global.current_player_inventory[item_category]["Slot" + str(current_misplaced_empty_slot_index + 1)]["ContainedItem"] != null: 
+				Global.current_player_inventory[item_category]["Slot" + str(current_misplaced_empty_slot_index)]["ContainedItem"] = Global.current_player_inventory[item_category]["Slot" + str(current_misplaced_empty_slot_index + 1)]["ContainedItem"]
+				Global.current_player_inventory[item_category]["Slot" + str(current_misplaced_empty_slot_index)]["ContainedItemAmount"] = Global.current_player_inventory[item_category]["Slot" + str(current_misplaced_empty_slot_index + 1)]["ContainedItemAmount"]
+				
+				var current_slot_control : InventoryItemSlot = inventory_grid_container.get_node("InventoryItemSlotCanvasLayer" + str(current_misplaced_empty_slot_index) + "/Control")
+				current_slot_control.register_contained_item(Global.current_player_inventory[item_category]["Slot" + str(current_misplaced_empty_slot_index)]["ContainedItem"])
+				current_slot_control.increment_item_count(Global.current_player_inventory[item_category]["Slot" + str(current_misplaced_empty_slot_index)]["ContainedItemAmount"])
+				
+			current_misplaced_empty_slot_index += 1
+				
+		
+		
 	# debug, print inventory contents
 	print("REMOVED ITEM: " + str(amount) + " " + removed_item.get_name())
-	print("CURRENT INVENTORY: ")
-	for i in Global.current_player_inventory["PotionsCategory"]:
-		if Global.current_player_inventory["PotionsCategory"][i]["ContainedItem"] == null:
-			print(i + " null")
-		else:
-			print(i + " " + str(Global.current_player_inventory["PotionsCategory"][i]["ContainedItemAmount"]) + " " + Global.current_player_inventory["PotionsCategory"][i]["ContainedItem"].get_name())
-
-
+	print_inventory_contents()
+	
+	
 
 func item_exists_in_inventory(item : item) -> bool:
+	# TODO
 	return true
 
 
@@ -116,6 +124,15 @@ func show_inventory_item_slots():
 func hide_inventory_item_slots():
 	for child in inventory_grid_container.get_children():
 		child.get_node("Control").hide_self()
+
+# UTILITY FUNCTION
+func print_inventory_contents():
+	print("CURRENT INVENTORY: ")
+	for i in Global.current_player_inventory["PotionsCategory"]:
+		if Global.current_player_inventory["PotionsCategory"][i]["ContainedItem"] == null:
+			print(i + " null")
+		else:
+			print(i + " " + str(Global.current_player_inventory["PotionsCategory"][i]["ContainedItemAmount"]) + " " + Global.current_player_inventory["PotionsCategory"][i]["ContainedItem"].get_name())
 
 func open_menu():
 	get_parent().layer = 5
