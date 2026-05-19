@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://assets/UI/hotbar.png" type="Texture" id=1]
+[ext_resource path="res://assets/UI/inventory_slot_selector.png" type="Texture" id=2]
 [ext_resource path="res://scripts/ui/InventoryItemSlot.gd" type="Script" id=3]
 [ext_resource path="res://assets/fonts/Born2bSportyV2.ttf" type="DynamicFontData" id=4]
 
@@ -11,15 +12,22 @@ font_data = ExtResource( 4 )
 [node name="InventoryItemSlotCanvasLayer" type="CanvasLayer"]
 
 [node name="Control" type="Control" parent="."]
-visible = false
 margin_right = 40.0
 margin_bottom = 40.0
 script = ExtResource( 3 )
 
 [node name="InventoryItemSlotTextureRect" type="TextureRect" parent="Control"]
+visible = false
 margin_right = 90.0
 margin_bottom = 90.0
 texture = ExtResource( 1 )
+expand = true
+
+[node name="SelectorTextureRect" type="TextureRect" parent="Control"]
+visible = false
+margin_right = 90.0
+margin_bottom = 90.0
+texture = ExtResource( 2 )
 expand = true
 
 [node name="ItemTextureRect" type="TextureRect" parent="Control"]

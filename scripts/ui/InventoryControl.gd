@@ -5,11 +5,15 @@ onready var opened = preload("res://assets/misc/item_pouch_opened.png")
 onready var player : KinematicBody2D = get_parent().get_parent().get_node("Player")
 onready var inventory_grid_container : GridContainer = $BelongingsControl/NinePatchRect/ScrollContainer/VBoxContainer/InventoryGridContainer
 
+onready var currently_selected_slot_index : int = 1
 
 const item = preload("res://scripts/resources/Item.gd")
-
 const MAX_INVENTORY_SLOTS : int = 5
+const MAX_INVENTORY_SLOTS_ROWS : int = 5
+const MAX_INVENTORY_SLOTS_COLUMNS : int = 1
+
 const SLOT_INDEX_POSITION_IN_STRING : int = 4
+
 
 func _ready():
 	visible = false
@@ -18,10 +22,11 @@ func _ready():
 	add_item_to_inventory(item.new(item.ID.HEALTH_POTION), 2)
 	add_item_to_inventory(item.new(item.ID.LARGE_HEALTH_POTION), 1)
 	
-	yield(get_tree().create_timer(2),"timeout")
-	remove_item_from_inventory(item.new(item.ID.HEALTH_POTION), 1)
-	remove_item_from_inventory(item.new(item.ID.HEALTH_POTION), 1)
-	remove_item_from_inventory(item.new(item.ID.HEALTH_POTION), 1)
+#	yield(get_tree().create_timer(2),"timeout")
+#	remove_item_from_inventory(item.new(item.ID.HEALTH_POTION), 1)
+#	remove_item_from_inventory(item.new(item.ID.HEALTH_POTION), 1)
+#	remove_item_from_inventory(item.new(item.ID.HEALTH_POTION), 1)
+	
 	
 func _process(delta):
 	if !visible:
@@ -30,8 +35,12 @@ func _process(delta):
 	else:
 		if Input.is_action_just_pressed("ui_toggle_inventory") or Input.is_action_just_pressed("ui_cancel"):
 			close_menu()
-
-
+	
+	if visible:
+		if Input.is_action_just_pressed("right") and currently_selected_slot_index < MAX_INVENTORY_SLOTS_ROWS:
+			currently_selected_slot_index += 1
+		elif Input.is_action_just_pressed("left") and currently_selected_slot_index > 1:
+			currently_selected_slot_index -= 1
 	
 func add_item_to_inventory(obtained_item : item, amount : int):
 	var item_category : String = ""
@@ -89,23 +98,26 @@ func remove_item_from_inventory(removed_item : item, amount : int):
 		slot_control.clear_contained_item()
 		
 		# TODO: rearrange items after deleting an item that gets reduced to 0
-		var current_misplaced_empty_slot_index : int = 1
+		var current_misplaced_empty_slot_index : int = slot_index
 		for item_slot in Global.current_player_inventory[item_category]:
 			if current_misplaced_empty_slot_index + 1 >= MAX_INVENTORY_SLOTS:
 				break
 				
-			if Global.current_player_inventory[item_category]["Slot" + str(current_misplaced_empty_slot_index)]["ContainedItemAmount"] <= 0 and Global.current_player_inventory[item_category]["Slot" + str(current_misplaced_empty_slot_index + 1)]["ContainedItem"] != null: 
-				Global.current_player_inventory[item_category]["Slot" + str(current_misplaced_empty_slot_index)]["ContainedItem"] = Global.current_player_inventory[item_category]["Slot" + str(current_misplaced_empty_slot_index + 1)]["ContainedItem"]
-				Global.current_player_inventory[item_category]["Slot" + str(current_misplaced_empty_slot_index)]["ContainedItemAmount"] = Global.current_player_inventory[item_category]["Slot" + str(current_misplaced_empty_slot_index + 1)]["ContainedItemAmount"]
-				
-				var current_slot_control : InventoryItemSlot = inventory_grid_container.get_node("InventoryItemSlotCanvasLayer" + str(current_misplaced_empty_slot_index) + "/Control")
-				current_slot_control.register_contained_item(Global.current_player_inventory[item_category]["Slot" + str(current_misplaced_empty_slot_index)]["ContainedItem"])
-				current_slot_control.increment_item_count(Global.current_player_inventory[item_category]["Slot" + str(current_misplaced_empty_slot_index)]["ContainedItemAmount"])
-				
+			if Global.current_player_inventory[item_category]["Slot" + str(current_misplaced_empty_slot_index)]["ContainedItemAmount"] <= 0: 
+				if Global.current_player_inventory[item_category]["Slot" + str(current_misplaced_empty_slot_index + 1)]["ContainedItem"] != null:
+					Global.current_player_inventory[item_category]["Slot" + str(current_misplaced_empty_slot_index)]["ContainedItem"] = Global.current_player_inventory[item_category]["Slot" + str(current_misplaced_empty_slot_index + 1)]["ContainedItem"]
+					Global.current_player_inventory[item_category]["Slot" + str(current_misplaced_empty_slot_index)]["ContainedItemAmount"] = Global.current_player_inventory[item_category]["Slot" + str(current_misplaced_empty_slot_index + 1)]["ContainedItemAmount"]
+					
+					var current_slot_control : InventoryItemSlot = inventory_grid_container.get_node("InventoryItemSlotCanvasLayer" + str(current_misplaced_empty_slot_index) + "/Control")
+					current_slot_control.register_contained_item(Global.current_player_inventory[item_category]["Slot" + str(current_misplaced_empty_slot_index)]["ContainedItem"])
+					current_slot_control.increment_item_count(Global.current_player_inventory[item_category]["Slot" + str(current_misplaced_empty_slot_index)]["ContainedItemAmount"])
+					
+					var next_slot_control : InventoryItemSlot = inventory_grid_container.get_node("InventoryItemSlotCanvasLayer" + str(current_misplaced_empty_slot_index + 1) + "/Control")
+					next_slot_control.clear_contained_item()
+			
 			current_misplaced_empty_slot_index += 1
-				
-		
-		
+
+
 	# debug, print inventory contents
 	print("REMOVED ITEM: " + str(amount) + " " + removed_item.get_name())
 	print_inventory_contents()
@@ -124,6 +136,11 @@ func show_inventory_item_slots():
 func hide_inventory_item_slots():
 	for child in inventory_grid_container.get_children():
 		child.get_node("Control").hide_self()
+
+func update_inventory_item_slot_selector(new_item_slot_index : int):
+	inventory_grid_container.get_node("InventoryItemSlotCanvasLayer" + str(currently_selected_slot_index) + "/Control/SelectorTextureRect").visible = false
+	currently_selected_slot_index = new_item_slot_index
+	inventory_grid_container.get_node("InventoryItemSlotCanvasLayer" + str(new_item_slot_index) + "/Control/SelectorTextureRect").visible = true
 
 # UTILITY FUNCTION
 func print_inventory_contents():
