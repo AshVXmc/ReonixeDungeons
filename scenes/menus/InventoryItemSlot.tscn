@@ -17,7 +17,6 @@ margin_bottom = 40.0
 script = ExtResource( 3 )
 
 [node name="InventoryItemSlotTextureRect" type="TextureRect" parent="Control"]
-visible = false
 margin_right = 90.0
 margin_bottom = 90.0
 texture = ExtResource( 1 )

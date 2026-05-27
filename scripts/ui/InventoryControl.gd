@@ -27,7 +27,9 @@ func _ready():
 #	remove_item_from_inventory(item.new(item.ID.HEALTH_POTION), 1)
 #	remove_item_from_inventory(item.new(item.ID.HEALTH_POTION), 1)
 	
-	
+	inventory_grid_container.get_node("InventoryItemSlotCanvasLayer" + str(currently_selected_slot_index) + "/Control/SelectorTextureRect").visible = true
+	update_item_description_text(inventory_grid_container.get_node("InventoryItemSlotCanvasLayer" + str(currently_selected_slot_index) + "/Control").get_contained_item())
+
 func _process(delta):
 	if !visible:
 		if Input.is_action_just_pressed("ui_toggle_inventory") and Global.game_paused_by == "":
@@ -35,13 +37,31 @@ func _process(delta):
 	else:
 		if Input.is_action_just_pressed("ui_toggle_inventory") or Input.is_action_just_pressed("ui_cancel"):
 			close_menu()
-	
+		
 	if visible:
+		
+		# Handle directional key inputs
 		if Input.is_action_just_pressed("right") and currently_selected_slot_index < MAX_INVENTORY_SLOTS_ROWS:
+			inventory_grid_container.get_node("InventoryItemSlotCanvasLayer" + str(currently_selected_slot_index) + "/Control/SelectorTextureRect").visible = false
 			currently_selected_slot_index += 1
+			inventory_grid_container.get_node("InventoryItemSlotCanvasLayer" + str(currently_selected_slot_index) + "/Control/SelectorTextureRect").visible = true
+			update_item_description_text(inventory_grid_container.get_node("InventoryItemSlotCanvasLayer" + str(currently_selected_slot_index) + "/Control").get_contained_item())
 		elif Input.is_action_just_pressed("left") and currently_selected_slot_index > 1:
+			inventory_grid_container.get_node("InventoryItemSlotCanvasLayer" + str(currently_selected_slot_index) + "/Control/SelectorTextureRect").visible = false
 			currently_selected_slot_index -= 1
-	
+			inventory_grid_container.get_node("InventoryItemSlotCanvasLayer" + str(currently_selected_slot_index) + "/Control/SelectorTextureRect").visible = true
+			update_item_description_text(inventory_grid_container.get_node("InventoryItemSlotCanvasLayer" + str(currently_selected_slot_index) + "/Control").get_contained_item())
+		elif Input.is_action_just_pressed("ui_down") and currently_selected_slot_index < MAX_INVENTORY_SLOTS_COLUMNS:
+			pass
+		elif Input.is_action_just_pressed("ui_up") and currently_selected_slot_index > 1:
+			pass
+		
+
+func _gui_input(event):
+	# WIP mouse input
+	if event is InputEventMouseButton and event.button_index == BUTTON_LEFT and event.pressed:
+		print("Clicked on this UI node: ", self.name)
+
 func add_item_to_inventory(obtained_item : item, amount : int):
 	var item_category : String = ""
 	var slot_index : int = -1
@@ -137,10 +157,8 @@ func hide_inventory_item_slots():
 	for child in inventory_grid_container.get_children():
 		child.get_node("Control").hide_self()
 
-func update_inventory_item_slot_selector(new_item_slot_index : int):
-	inventory_grid_container.get_node("InventoryItemSlotCanvasLayer" + str(currently_selected_slot_index) + "/Control/SelectorTextureRect").visible = false
-	currently_selected_slot_index = new_item_slot_index
-	inventory_grid_container.get_node("InventoryItemSlotCanvasLayer" + str(new_item_slot_index) + "/Control/SelectorTextureRect").visible = true
+func update_item_description_text(new_item : item):
+	$BelongingsControl/DescriptionNinePatchRect/ScrollContainer/VBoxContainer/RichTextLabel.bbcode_text = new_item.get_description()
 
 # UTILITY FUNCTION
 func print_inventory_contents():

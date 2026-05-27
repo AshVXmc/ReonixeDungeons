@@ -16,8 +16,6 @@ func hide_self():
 	visible = false
 
 
-
-
 func clear_contained_item():
 	contained_item = null
 	$ItemTextureRect.texture = null
@@ -40,4 +38,6 @@ func decrement_item_count(reduced_value : int):
 	item_count -= reduced_value
 	$ItemCountLabel.text = str(item_count)
 
+func get_contained_item():
+	return contained_item
 

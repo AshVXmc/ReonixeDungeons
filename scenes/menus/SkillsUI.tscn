@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=2]
+[gd_scene load_steps=32 format=2]
 
 [ext_resource path="res://scripts/ui/SkillsUI.gd" type="Script" id=1]
 [ext_resource path="res://assets/UI/firesaw_skill_icon.png" type="Texture" id=2]
@@ -21,7 +21,6 @@
 [ext_resource path="res://assets/UI/spikegrowth_skill_icon.png" type="Texture" id=19]
 [ext_resource path="res://assets/UI/raven_form_skill_icon.png" type="Texture" id=20]
 [ext_resource path="res://assets/UI/snow_boulder_skill_icon.png" type="Texture" id=21]
-[ext_resource path="res://scenes/menus/AgnetteArrowAmmoUI.tscn" type="PackedScene" id=22]
 [ext_resource path="res://assets/UI/healthbar_circular_character_icon.png" type="Texture" id=23]
 
 [sub_resource type="DynamicFont" id=1]
@@ -943,7 +942,5 @@ texture = ExtResource( 13 )
 position = Vector2( 496, 148 )
 scale = Vector2( 3.85, 3.85 )
 texture = ExtResource( 13 )
-
-[node name="AgnetteArrowAmmoUI" parent="." instance=ExtResource( 22 )]
 
 [connection signal="timeout" from="Control/CooldownTickTimer" to="Control" method="_on_CooldownTickTimer_timeout"]

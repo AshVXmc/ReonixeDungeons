@@ -6,9 +6,6 @@ onready var player : KinematicBody2D = get_parent().get_parent().get_node("Playe
 # HOW TO MAKE THE UI STILL RESPONSIVE EVEN WHEN PAUSED
 # Go to the node's "Pause Mode" property, change to "Process"
 func _ready():
-	
-
-	
 	connect("playerpos", Global, "player_position")
 	if Global.lighting:
 		$Lighting.pressed = false
