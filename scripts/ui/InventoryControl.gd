@@ -158,8 +158,19 @@ func hide_inventory_item_slots():
 		child.get_node("Control").hide_self()
 
 func update_item_description_text(new_item : item):
+	# Invalid call. Nonexistent function 'get_description' in base 'Nil'.
+	if new_item == null:
+		$BelongingsControl/DescriptionNinePatchRect/ScrollContainer/VBoxContainer/RichTextLabel.bbcode_text = ""
+		return
 	$BelongingsControl/DescriptionNinePatchRect/ScrollContainer/VBoxContainer/RichTextLabel.bbcode_text = new_item.get_description()
 
+func update_footer_text():
+	var text : String = "[center][color=#ffd703]LEFT[/color] and [color=#ffd703]RIGHT[/color] to move, [color=#ffd703]ATTACK[/color] to select."
+	text = text.replace("LEFT", str(InputMap.get_action_list("left")[0].as_text()))
+	text = text.replace("RIGHT", str(InputMap.get_action_list("right")[0].as_text()))
+	text = text.replace("ATTACK", str(InputMap.get_action_list("ui_attack")[0].as_text()))
+	$Footer.bbcode_text = text
+	
 # UTILITY FUNCTION
 func print_inventory_contents():
 	print("CURRENT INVENTORY: ")
@@ -174,8 +185,9 @@ func open_menu():
 	get_tree().paused = true
 	show_inventory_item_slots()
 	Global.game_paused_by = "InventoryUI"
+	update_footer_text()
 	visible = true
-	
+
 func close_menu():
 	get_parent().layer = 1
 	get_tree().paused = false
