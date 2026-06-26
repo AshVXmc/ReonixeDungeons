@@ -680,6 +680,11 @@ _global_script_classes=[ {
 "path": "res://scripts/skills/SeekingArrow.gd"
 }, {
 "base": "Control",
+"class": "SelectCharacterAsTargetControl",
+"language": "GDScript",
+"path": "res://scripts/ui/SelectCharacterAsTargetControl.gd"
+}, {
+"base": "Control",
 "class": "SetKeybinds",
 "language": "GDScript",
 "path": "res://scripts/ui/SetKeybind.gd"
@@ -959,6 +964,7 @@ _global_script_class_icons={
 "RegenHealthNode": "",
 "ScreenShotHelperUI": "",
 "SeekingArrow": "",
+"SelectCharacterAsTargetControl": "",
 "SetKeybinds": "",
 "ShamanGoblin": "",
 "ShieldGoblin": "",

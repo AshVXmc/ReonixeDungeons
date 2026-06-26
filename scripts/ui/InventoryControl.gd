@@ -39,7 +39,6 @@ func _process(delta):
 			close_menu()
 		
 	if visible:
-		
 		# Handle directional key inputs
 		if Input.is_action_just_pressed("right") and currently_selected_slot_index < MAX_INVENTORY_SLOTS_ROWS:
 			inventory_grid_container.get_node("InventoryItemSlotCanvasLayer" + str(currently_selected_slot_index) + "/Control/SelectorTextureRect").visible = false
@@ -55,12 +54,10 @@ func _process(delta):
 			pass
 		elif Input.is_action_just_pressed("ui_up") and currently_selected_slot_index > 1:
 			pass
+		elif Input.is_action_just_pressed("ui_attack"):
+			print("currently selected item: " + str(inventory_grid_container.get_node("InventoryItemSlotCanvasLayer" + str(currently_selected_slot_index) + "/Control").get_contained_item().get_name()))
 		
 
-func _gui_input(event):
-	# WIP mouse input
-	if event is InputEventMouseButton and event.button_index == BUTTON_LEFT and event.pressed:
-		print("Clicked on this UI node: ", self.name)
 
 func add_item_to_inventory(obtained_item : item, amount : int):
 	var item_category : String = ""
