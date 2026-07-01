@@ -1,8 +1,6 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=9 format=2]
 
-[ext_resource path="res://assets/UI/agnette_character_icon.png" type="Texture" id=1]
-[ext_resource path="res://assets/UI/player_character_icon.png" type="Texture" id=2]
-[ext_resource path="res://assets/UI/glaciela_character_icon.png" type="Texture" id=3]
+[ext_resource path="res://assets/UI/empty_character_icon.png" type="Texture" id=2]
 [ext_resource path="res://assets/UI/quiticon.png" type="Texture" id=4]
 [ext_resource path="res://assets/UI/textbox.png" type="Texture" id=5]
 [ext_resource path="res://themes/Blur.tres" type="Material" id=6]
@@ -93,7 +91,7 @@ margin_top = -95.0
 margin_right = -30.0
 margin_bottom = -75.0
 rect_scale = Vector2( 5, 5 )
-texture_normal = ExtResource( 3 )
+texture_normal = ExtResource( 2 )
 
 [node name="CircularHealthBar" type="TextureProgress" parent="Character2"]
 margin_right = 20.0
@@ -109,7 +107,7 @@ margin_top = -75.0
 margin_right = 137.0
 margin_bottom = -55.0
 rect_scale = Vector2( 5, 5 )
-texture_normal = ExtResource( 1 )
+texture_normal = ExtResource( 2 )
 
 [node name="CircularHealthBar" type="TextureProgress" parent="Character3"]
 margin_right = 20.0
@@ -130,6 +128,5 @@ margin_right = -192.0
 margin_bottom = -139.0
 texture_normal = ExtResource( 4 )
 expand = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
+
+[connection signal="pressed" from="CloseButtonCharacterOptionsListUI" to="." method="_on_CloseButtonCharacterOptionsListUI_pressed"]
