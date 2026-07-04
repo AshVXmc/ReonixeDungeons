@@ -6,7 +6,7 @@ var direction_shift : Vector2 = Vector2()
 onready var damage : float
 
 func _ready():
-	$Label.text = "-" + str(damage)
+	$Label.text = "-" + str(int(damage))
 	direction_shift = Vector2(rand_range(-1,1), rand_range(-1,1))
 
 

@@ -253,8 +253,8 @@ func _ready():
 	elif Global.equipped_characters == [2]:
 		emit_signal("mana_changed", Global.character3_mana)
 	
-	print("info: ")
-	print(Global.current_player_weapon_skin)
+#	print("info: ")
+#	print(Global.current_player_weapon_skin)
 # warning-ignore:return_value_discarded
 	connect("healthpot_obtained", Global, "sync_playerHealthpots")
 	emit_signal("healthpot_obtained", Global.healthpot_amount)
@@ -521,10 +521,13 @@ func _physics_process(_delta):
 	charge_meter()
 
 	$Sprite.visible = true if Global.current_character == "Player" else false
+	
 	if Global.current_character != "Player":
 		mana_absorption_counter = mana_absorption_counter_max
 		restore_mana_for_all_parties = 2
-
+		$KatanaSheathSprite.visible = false
+	
+	
 func jump(boost_modifier : float = 1):
 	$DashAfterJumpingDelayTimer.start()
 	$DoubleJumpDelayTimer.start()
@@ -1911,11 +1914,12 @@ func glide():
 			velocity.y += GRAVITY * 2
 	# Stop gliding
 	if is_on_floor():
-		$GlideTimer.stop()
-		is_gliding = false
-#		if !airborne_mode:
-		velocity.y += GRAVITY * 3
+		stop_glide()
 
+func stop_glide():
+	$GlideTimer.stop()
+	is_gliding = false
+	velocity.y += GRAVITY * 3
 
 func useItems():
 	pass
@@ -2133,8 +2137,10 @@ func _on_ManaHealTimer_timeout():
 		emit_signal("mana_changed", Global.mana, Global.current_character)
 		Global.manapot_amount -= 1
 		emit_signal("manapot_obtained", Global.manapot_amount)
+
 func _on_AnimationPlayer_animation_finished(anim_name):
 	$SwordSprite.visible = false
+
 func _on_GlideTimer_timeout():
 	if is_gliding and glider_equipped:
 		Global.mana -= 1

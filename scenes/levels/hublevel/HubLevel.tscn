@@ -1,4 +1,4 @@
-[gd_scene load_steps=90 format=2]
+[gd_scene load_steps=91 format=2]
 
 [ext_resource path="res://assets/particles/smoke_particle.png" type="Texture" id=1]
 [ext_resource path="res://scripts/misc/HubLevelLibraryBookshelf.gd" type="Script" id=2]
@@ -68,6 +68,7 @@
 [ext_resource path="res://assets/terrain/hub_level/prop_tavern_desk_2.png" type="Texture" id=66]
 [ext_resource path="res://assets/terrain/hub_level/prop_tavern_desk_3.png" type="Texture" id=67]
 [ext_resource path="res://assets/terrain/hub_level/prop_tavern_desk_4.png" type="Texture" id=68]
+[ext_resource path="res://scenes/enemies/Goblin.tscn" type="PackedScene" id=69]
 [ext_resource path="res://scenes/NPC/AlchemistNPC.tscn" type="PackedScene" id=70]
 [ext_resource path="res://scenes/levels/hublevel/Wardrobe.tscn" type="PackedScene" id=71]
 [ext_resource path="res://assets/terrain/lichen_ruins_spritesheet.png" type="Texture" id=72]
@@ -690,6 +691,9 @@ position = Vector2( 3734, 580 )
 [node name="LootBag" parent="." instance=ExtResource( 7 )]
 position = Vector2( 3048, 558 )
 opals_amount = 200
+
+[node name="Goblin" parent="." instance=ExtResource( 69 )]
+position = Vector2( 3120, 577 )
 
 [connection signal="area_entered" from="HubLibrary/BookOfShadowsPlayerDetectorArea" to="HubLibrary/BookOfShadowsPlayerDetectorArea" method="_on_BookshelfPlayerDetectorArea_area_entered"]
 [connection signal="area_exited" from="HubLibrary/BookOfShadowsPlayerDetectorArea" to="HubLibrary/BookOfShadowsPlayerDetectorArea" method="_on_BookshelfPlayerDetectorArea_area_exited"]

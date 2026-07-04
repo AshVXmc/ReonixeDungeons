@@ -85,6 +85,7 @@ onready var stamina_bar_ui : TextureProgress = get_parent().get_parent().get_par
 onready var arrow : AgnetteArrow = ARROW.instance()
 var bear_is_attacking : bool = false
 var raven_is_attacking : bool = false
+var raven_is_gliding : bool = false
 var facing
 enum {
 	left, right
@@ -211,7 +212,12 @@ func _physics_process(delta):
 			if !Input.is_action_pressed("ui_attack") and !$RavenFormNodes/RavenInputPressTimer.is_stopped():
 				$RavenFormNodes/RavenInputPressTimer.stop()
 			
-			get_parent().get_parent().glide()
+			if Input.is_action_pressed("jump"):
+				get_parent().get_parent().glide()
+				raven_is_gliding = true
+			if Input.is_action_just_released("jump") and raven_is_gliding:
+				raven_is_gliding = false
+				get_parent().get_parent().stop_glide()
 				
 		$WeakenParticles.visible = true if !$WeakenedTimer.is_stopped() else false
 		use_skill()

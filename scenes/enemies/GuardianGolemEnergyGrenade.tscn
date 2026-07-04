@@ -55,7 +55,7 @@ script = ExtResource( 2 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )
 
-[node name="ExplosionArea2D" type="Area2D" parent="." groups=["Enemy", "Hostile"]]
+[node name="ExplosionArea2D" type="Area2D" parent="." groups=["Enemy", "Hostile", "NotConsideredRealEnemy"]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ExplosionArea2D"]
 shape = SubResource( 2 )

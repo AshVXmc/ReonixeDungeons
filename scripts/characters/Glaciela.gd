@@ -592,8 +592,8 @@ func charged_attack(airborne_duration : float = 1, type : int = 1):
 		else:
 			$AnimationPlayer.play("ChargedAttackLeft")
 
-		if target and target != null and weakref(target).get_ref() != null: 
-			if !target.is_in_group("Armored") and target.get_node("Area2D").overlaps_area($ChargedAttackCollision): 
+		if target and target != null and weakref(target).get_ref() != null:
+			if !target.is_in_group("NotConsideredRealEnemy") and !target.is_in_group("Armored") and target.get_node("Area2D").overlaps_area($ChargedAttackCollision): 
 				if !target.get_node("Area2D").is_in_group("IsAirborne") and !get_parent().get_parent().airborne_mode:
 					for groups in $ChargedAttackCollision.get_groups():
 						if float(groups) != 0:
