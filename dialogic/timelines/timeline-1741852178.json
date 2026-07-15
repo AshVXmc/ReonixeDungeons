@@ -71,7 +71,7 @@
 			"character": "character-1741847338.json",
 			"event_id": "dialogic_001",
 			"portrait": "",
-			"text": "I've logged my instructions to your [color=#ffd703]Guidebook[/color], which you can open by pressing [color=#ffd703]U[/color] by default. Now, proceed by killing those enemies in front of you!"
+			"text": "I've logged my instructions to your [color=#ffd703]Guidebook[/color], which you can open by pressing [color=#ffd703]G[/color] by default. Now, proceed by killing those enemies in front of you!"
 		},
 		{
 			"choice": "Yup, I'm ready!",

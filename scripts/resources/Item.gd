@@ -27,8 +27,8 @@ enum CATEGORY {
 }
 
 const DESCRIPTION := {
-	HEALTH_POTION = "An oddly sweet elixir. Restores a small amount of health.",
-	LARGE_HEALTH_POTION = "An oddly sweet elixir, upsized. Restores a moderate amount of health",
+	HEALTH_POTION = "Restores a small amount of health to one character.",
+	LARGE_HEALTH_POTION = "Restores a moderate amount of health to one character.",
 	MANA_POTION = "It glows in the dark. Restores MANA_RESTORED Mana to the on-field character."
 }
 

@@ -1,6 +1,6 @@
 class_name StaminaBarUI extends Control
 
-const REGEN_VALUE : int = 15
+const REGEN_VALUE : float = 12.5
 
 # utility
 func get_stamina_value() -> int:

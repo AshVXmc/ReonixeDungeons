@@ -1,5 +1,6 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=11 format=2]
 
+[ext_resource path="res://assets/UI/icon_empty.png" type="Texture" id=1]
 [ext_resource path="res://assets/UI/empty_character_icon.png" type="Texture" id=2]
 [ext_resource path="res://assets/UI/quiticon.png" type="Texture" id=4]
 [ext_resource path="res://assets/UI/textbox.png" type="Texture" id=5]
@@ -10,6 +11,9 @@
 
 [sub_resource type="DynamicFont" id=6]
 size = 48
+font_data = ExtResource( 7 )
+
+[sub_resource type="DynamicFont" id=7]
 font_data = ExtResource( 7 )
 
 [node name="SelectCharacterAsTargetControl" type="Control"]
@@ -30,10 +34,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -1621.0
-margin_top = -1021.0
-margin_right = 1619.0
-margin_bottom = 1139.0
+margin_left = -1646.0
+margin_top = -1063.0
+margin_right = 1594.0
+margin_bottom = 1097.0
 color = Color( 1, 1, 1, 0 )
 
 [node name="NinePatchRect" type="NinePatchRect" parent="."]
@@ -44,7 +48,7 @@ anchor_bottom = 0.5
 margin_left = -232.0
 margin_top = -178.0
 margin_right = 232.0
-margin_bottom = 43.0
+margin_bottom = 50.0
 texture = ExtResource( 5 )
 patch_margin_left = 32
 patch_margin_top = 32
@@ -68,19 +72,38 @@ scroll_active = false
 
 [node name="Character1" type="TextureButton" parent="."]
 margin_left = -177.0
-margin_top = -75.0
+margin_top = -89.0
 margin_right = -157.0
-margin_bottom = -55.0
+margin_bottom = -69.0
 rect_scale = Vector2( 5, 5 )
 texture_normal = ExtResource( 2 )
 
 [node name="CircularHealthBar" type="TextureProgress" parent="Character1"]
 margin_right = 20.0
 margin_bottom = 20.0
-value = 100.0
+value = 14.0
 texture_progress = ExtResource( 8 )
 fill_mode = 5
 nine_patch_stretch = true
+
+[node name="IconEmpty" type="Sprite" parent="Character1"]
+position = Vector2( 10, 24.5 )
+scale = Vector2( 0.45, 0.45 )
+texture = ExtResource( 1 )
+
+[node name="Keybind" type="Label" parent="Character1"]
+anchor_left = -3.732
+anchor_right = -3.732
+margin_left = 83.14
+margin_top = 20.6
+margin_right = 87.14
+margin_bottom = 36.6
+rect_scale = Vector2( 0.5, 0.5 )
+custom_colors/font_color = Color( 0.192157, 0.372549, 1, 1 )
+custom_fonts/font = SubResource( 7 )
+text = "1"
+align = 1
+valign = 1
 
 [node name="Character2" type="TextureButton" parent="."]
 anchor_left = 0.5
@@ -88,35 +111,71 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 margin_left = -50.0
-margin_top = -95.0
+margin_top = -109.0
 margin_right = -30.0
-margin_bottom = -75.0
+margin_bottom = -89.0
 rect_scale = Vector2( 5, 5 )
 texture_normal = ExtResource( 2 )
 
 [node name="CircularHealthBar" type="TextureProgress" parent="Character2"]
 margin_right = 20.0
 margin_bottom = 20.0
-value = 100.0
 texture_progress = ExtResource( 8 )
 fill_mode = 5
 nine_patch_stretch = true
 
+[node name="IconEmpty" type="Sprite" parent="Character2"]
+position = Vector2( 10, 24.5 )
+scale = Vector2( 0.45, 0.45 )
+texture = ExtResource( 1 )
+
+[node name="Keybind" type="Label" parent="Character2"]
+anchor_left = -3.732
+anchor_right = -3.732
+margin_left = 82.94
+margin_top = 20.6
+margin_right = 89.94
+margin_bottom = 36.6
+rect_scale = Vector2( 0.5, 0.5 )
+custom_colors/font_color = Color( 0.192157, 0.372549, 1, 1 )
+custom_fonts/font = SubResource( 7 )
+text = "2"
+align = 1
+valign = 1
+
 [node name="Character3" type="TextureButton" parent="."]
 margin_left = 117.0
-margin_top = -75.0
+margin_top = -89.0
 margin_right = 137.0
-margin_bottom = -55.0
+margin_bottom = -69.0
 rect_scale = Vector2( 5, 5 )
 texture_normal = ExtResource( 2 )
 
 [node name="CircularHealthBar" type="TextureProgress" parent="Character3"]
 margin_right = 20.0
 margin_bottom = 20.0
-value = 100.0
 texture_progress = ExtResource( 8 )
 fill_mode = 5
 nine_patch_stretch = true
+
+[node name="IconEmpty" type="Sprite" parent="Character3"]
+position = Vector2( 10, 24.5 )
+scale = Vector2( 0.45, 0.45 )
+texture = ExtResource( 1 )
+
+[node name="Keybind" type="Label" parent="Character3"]
+anchor_left = -3.732
+anchor_right = -3.732
+margin_left = 82.94
+margin_top = 20.6
+margin_right = 89.94
+margin_bottom = 36.6
+rect_scale = Vector2( 0.5, 0.5 )
+custom_colors/font_color = Color( 0.192157, 0.372549, 1, 1 )
+custom_fonts/font = SubResource( 7 )
+text = "3"
+align = 1
+valign = 1
 
 [node name="CloseButtonCharacterOptionsListUI" type="TextureButton" parent="."]
 anchor_left = 0.5
@@ -130,4 +189,7 @@ margin_bottom = -139.0
 texture_normal = ExtResource( 4 )
 expand = true
 
+[connection signal="pressed" from="Character1" to="." method="_on_Character1_pressed"]
+[connection signal="pressed" from="Character2" to="." method="_on_Character2_pressed"]
+[connection signal="pressed" from="Character3" to="." method="_on_Character3_pressed"]
 [connection signal="pressed" from="CloseButtonCharacterOptionsListUI" to="." method="_on_CloseButtonCharacterOptionsListUI_pressed"]

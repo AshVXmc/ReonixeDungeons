@@ -56,7 +56,7 @@ var dashdirection : Vector2 = Vector2(1,0)
 
 var knockback_power : int = 800
 var can_be_knocked : bool = true
-const MAX_SPEED : int = 350
+const MAX_SPEED : int = 360
 var SPEED : int = MAX_SPEED
 var GRAVITY : int = 38
 var JUMP_POWER : int = -800 # for double jumping

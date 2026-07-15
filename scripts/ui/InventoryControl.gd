@@ -4,7 +4,6 @@ onready var closed = preload("res://assets/misc/item_pouch.png")
 onready var opened = preload("res://assets/misc/item_pouch_opened.png")
 onready var player : KinematicBody2D = get_parent().get_parent().get_node("Player")
 onready var inventory_grid_container : GridContainer = $BelongingsControl/NinePatchRect/ScrollContainer/VBoxContainer/InventoryGridContainer
-
 onready var currently_selected_slot_index : int = 1
 
 const item = preload("res://scripts/resources/Item.gd")
@@ -56,7 +55,7 @@ func _process(delta):
 			pass
 		elif Input.is_action_just_pressed("ui_attack"):
 			print("currently selected item: " + str(inventory_grid_container.get_node("InventoryItemSlotCanvasLayer" + str(currently_selected_slot_index) + "/Control").get_contained_item().get_name()))
-		
+			# TODO: write code for the logic of consuming item
 
 
 func add_item_to_inventory(obtained_item : item, amount : int):
@@ -178,16 +177,19 @@ func print_inventory_contents():
 			print(i + " " + str(Global.current_player_inventory["PotionsCategory"][i]["ContainedItemAmount"]) + " " + Global.current_player_inventory["PotionsCategory"][i]["ContainedItem"].get_name())
 
 func open_menu():
-	get_parent().layer = 5
+	visible = true
 	get_tree().paused = true
 	show_inventory_item_slots()
-	Global.game_paused_by = "InventoryUI"
 	update_footer_text()
-	visible = true
+	get_parent().layer = 5
+	player.is_shopping = true
+	Global.game_paused_by = "InventoryUI"
 
 func close_menu():
-	get_parent().layer = 1
-	get_tree().paused = false
-	hide_inventory_item_slots()
-	Global.game_paused_by = ""
 	visible = false
+	hide_inventory_item_slots()
+	get_tree().paused = false
+	get_parent().layer = 0
+	player.is_shopping = false
+	Global.game_paused_by = ""
+	
