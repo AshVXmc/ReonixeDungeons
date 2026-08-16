@@ -54,8 +54,11 @@ func _process(delta):
 		elif Input.is_action_just_pressed("ui_up") and currently_selected_slot_index > 1:
 			pass
 		elif Input.is_action_just_pressed("ui_attack"):
-			print("currently selected item: " + str(inventory_grid_container.get_node("InventoryItemSlotCanvasLayer" + str(currently_selected_slot_index) + "/Control").get_contained_item().get_name()))
-			# TODO: write code for the logic of consuming item
+			var item = inventory_grid_container.get_node("InventoryItemSlotCanvasLayer" + str(currently_selected_slot_index) + "/Control").get_contained_item()
+			if item != null:
+				print("currently selected item: " + str(item.get_name()))
+				# TODO: write code for the logic of consuming item
+				remove_item_from_inventory(item, 1)
 
 
 func add_item_to_inventory(obtained_item : item, amount : int):
@@ -129,6 +132,9 @@ func remove_item_from_inventory(removed_item : item, amount : int):
 					current_slot_control.increment_item_count(Global.current_player_inventory[item_category]["Slot" + str(current_misplaced_empty_slot_index)]["ContainedItemAmount"])
 					
 					var next_slot_control : InventoryItemSlot = inventory_grid_container.get_node("InventoryItemSlotCanvasLayer" + str(current_misplaced_empty_slot_index + 1) + "/Control")
+					Global.current_player_inventory[item_category]["Slot" + str(current_misplaced_empty_slot_index + 1)]["ContainedItem"] = null
+					Global.current_player_inventory[item_category]["Slot" + str(current_misplaced_empty_slot_index + 1)]["ContainedItemAmount"] = 0
+					
 					next_slot_control.clear_contained_item()
 			
 			current_misplaced_empty_slot_index += 1
