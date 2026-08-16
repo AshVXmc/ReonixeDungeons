@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://scenes/menus/InventoryUI.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/menus/GameOver.tscn" type="PackedScene" id=2]
@@ -10,7 +10,6 @@
 [ext_resource path="res://scenes/menus/HeartUI.tscn" type="PackedScene" id=8]
 [ext_resource path="res://scenes/menus/ManaUI.tscn" type="PackedScene" id=9]
 [ext_resource path="res://scenes/menus/OpalsUI.tscn" type="PackedScene" id=10]
-[ext_resource path="res://scenes/menus/HealthPotUI.tscn" type="PackedScene" id=11]
 [ext_resource path="res://scenes/menus/guidebook/GuidebookUI.tscn" type="PackedScene" id=12]
 [ext_resource path="res://scenes/menus/SkillsUI.tscn" type="PackedScene" id=13]
 [ext_resource path="res://scenes/menus/DebugMenu.tscn" type="PackedScene" id=14]
@@ -37,8 +36,6 @@ script = ExtResource( 19 )
 [node name="ManaUI" parent="." instance=ExtResource( 9 )]
 
 [node name="OpalsUI" parent="." instance=ExtResource( 10 )]
-
-[node name="HealthPotUI" parent="." instance=ExtResource( 11 )]
 
 [node name="InventoryUI" parent="." instance=ExtResource( 1 )]
 

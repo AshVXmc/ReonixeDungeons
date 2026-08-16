@@ -483,7 +483,7 @@ var enemy_skill_multipliers : Dictionary = {
 
 var charged_attack_multiplier : float = 2
 var base_damage_taken : int = 5
-var healthpot_amount : int = 5
+#var healthpot_amount : int = 5
 var lifewine_amount : int = 0
 var manapot_amount : int = 0
 
@@ -690,7 +690,7 @@ func reset_player_data():
 	Global.mana = 0
 	Global.character2_mana = 0
 	Global.character3_mana = 0
-	Global.healthpot_amount = 1
+#	Global.healthpot_amount = 1
 	Global.lifewine_amount = 0
 	Global.manapot_amount = 0
 	Global.opals_amount = 0
@@ -773,7 +773,7 @@ func save_player_data():
 		"CharacterDefenseData": Global.character_defense_data,
 		"EnemiesEncounteredData": Global.enemies_encountered_data,
 		"EnemyLevelIndex": Global.enemy_level_index,
-		"Healthpot": Global.healthpot_amount ,
+		
 		"LifeWine" : Global.lifewine_amount,
 		"Manapot":  Global.manapot_amount,
 		"Opals" : Global.opals_amount ,
@@ -835,8 +835,8 @@ func sync_hearts(player_hearts : float):
 	player_hearts = Global.hearts
 func sync_mana(player_mana : int):
 	player_mana = Global.mana
-func sync_playerHealthpots(player_healthpot : int):
-	player_healthpot = Global.healthpot_amount
+#func sync_playerHealthpots(player_healthpot : int):
+#	player_healthpot = Global.healthpot_amount
 func sync_playerLifeWines(player_lifewine : int):
 	player_lifewine = Global.lifewine_amount
 func sync_playerManapots(player_manapot : int):

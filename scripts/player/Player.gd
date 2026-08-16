@@ -48,7 +48,7 @@ onready var inv_timer : Timer = $InvulnerabilityTimer
 onready var fb_timer : Timer = $FireballTimer
 var knockdir : Vector2 = Vector2.ZERO
 var velocity : Vector2 = Vector2(0,0)
-var healthpot_amount : int = Global.healthpot_amount
+#var healthpot_amount : int = Global.healthpot_amount
 var collision : KinematicCollision2D
 const TYPE : String = "Player"
 const AIRBORNE_STATUS : PackedScene = preload("res://scenes/status_effects/AirborneStatus.tscn")
@@ -232,7 +232,7 @@ func _ready():
 # warning-ignore:return_value_discarded
 	connect("mana_changed", get_parent().get_node("ManaUI/Mana"), "on_player_mana_changed")
 # warning-ignore:return_value_discarded
-	connect("healthpot_obtained", get_parent().get_node("HealthPotUI/HealthPotControl"), "on_player_healthpot_obtained")
+#	connect("healthpot_obtained", get_parent().get_node("HealthPotUI/HealthPotControl"), "on_player_healthpot_obtained")
 # warning-ignore:return_value_discarded
 	connect("lifewine_obtained", get_parent().get_node("LifeWineUI/LifeWineControl"), "on_player_lifewine_obtained")
 # warning-ignore:return_value_discarded
@@ -256,8 +256,8 @@ func _ready():
 #	print("info: ")
 #	print(Global.current_player_weapon_skin)
 # warning-ignore:return_value_discarded
-	connect("healthpot_obtained", Global, "sync_playerHealthpots")
-	emit_signal("healthpot_obtained", Global.healthpot_amount)
+#	connect("healthpot_obtained", Global, "sync_playerHealthpots")
+#	emit_signal("healthpot_obtained", Global.healthpot_amount)
 # warning-ignore:return_value_discarded
 	connect("lifewine_obtained", Global, "sync_playerLifeWines")
 	emit_signal("lifewine_obtained", Global.lifewine_amount)
@@ -855,9 +855,9 @@ func _input(event):
 			$DashInputPressTimer.start()
 		if event.is_action_pressed("ui_down") and airborne_mode:
 			airborne_mode = false
-		if event.is_action_pressed("heal"):
-			if Global.healthpot_amount > 0:
-				heal("Player", 5)
+#		if event.is_action_pressed("heal"):
+#			if Global.healthpot_amount > 0:
+#				heal("Player", 5)
 
 func charged_dash():
 	$DashInputPressTimer.stop()
@@ -1332,9 +1332,9 @@ func play_attack_animation(direction : String):
 func _on_Area2D_area_entered(area : Area2D):
 	
 	if Global.current_character == "Player":
-		if area.is_in_group("HealthPot"):
-			Global.healthpot_amount += 1
-			emit_signal("healthpot_obtained", Global.healthpot_amount)
+#		if area.is_in_group("HealthPot"):
+#			Global.healthpot_amount += 1
+#			emit_signal("healthpot_obtained", Global.healthpot_amount)
 		if area.is_in_group("LootBag"):
 			
 			on_loot_bag_obtained(
@@ -1490,10 +1490,10 @@ func heal(character : String = "Player", heal_amount : float = 0, heal_to_max : 
 			Global.character3_hearts = Global.character_3_max_hearts 
 		emit_signal("life_changed", Global.character3_hearts, character)
 	
-	if !heal_to_max and consumes_potion:
-		Global.healthpot_amount -= 1
-		emit_signal("healthpot_obtained", Global.healthpot_amount)
-	
+#	if !heal_to_max and consumes_potion:
+#		Global.healthpot_amount -= 1
+#		emit_signal("healthpot_obtained", Global.healthpot_amount)
+#
 
 	
 func _on_Area2D_area_exited(area):
@@ -1969,39 +1969,8 @@ func on_loot_bag_obtained(opals : int = 0, common_dust : int = 0, goblin_scales 
 	emit_signal("ingredient_obtained", "bat_wings", bat_wings)
 	Global.drops_inventory["sweet_herbs"] += sweet_herbs
 	emit_signal("ingredient_obtained", "sweet_herbs", sweet_herbs)
-func on_Item_bought(item_name : String, item_price : int):
-	Global.opals_amount -= item_price
-	emit_signal("opals_obtained", Global.opals_amount)
-	match item_name:
-		"HealthPot":
-			Global.healthpot_amount += 1
-			emit_signal("healthpot_obtained", Global.healthpot_amount)
-		"ManaPot":
-			Global.manapot_amount += 1
-			emit_signal("manapot_obtained", Global.manapot_amount)
-		"LifeWine":
-			Global.lifewine_amount += 1
-			emit_signal("lifewine_obtained", Global.lifewine_amount)
-		"ItemPouch_1":
-			pass
-#func on_Item_crafted(item_name : String, common_dust : int, goblin_scales : int):
-#	print("signal sent")
-#	Global.common_monster_dust_amount -= common_dust
-#	Global.goblin_scales_amount -= goblin_scales
-#	emit_signal("common_monster_dust_obtained", Global.common_monster_dust_amount)
-#	emit_signal("goblin_scales_obtained", Global.goblin_scales_amount)
-#	match item_name:
-#		"HealthPot":
-#			Global.healthpot_amount += 1
-#			emit_signal("healthpot_obtained", Global.healthpot_amount)
-#		"ManaPot":
-#			Global.manapot_amount += 1
-#			emit_signal("manapot_obtained", Global.manapot_amount)
-#		"LifeWine":
-#			Global.lifewine_amount += 1
-#			emit_signal("lifewine_obtained", Global.lifewine_amount)
-#		"ItemPouch_1":
-#			pass
+
+
 
 
 func debug_commands(cmd : String):
@@ -2013,14 +1982,7 @@ func debug_commands(cmd : String):
 		"freeze":
 			is_frozen = true if !is_frozen else false
 		"fillall":
-			Global.healthpot_amount += Global.max_item_storage - Global.healthpot_amount
-			emit_signal("healthpot_obtained", Global.healthpot_amount)
-			Global.manapot_amount += Global.max_item_storage - Global.manapot_amount
-			emit_signal("manapot_obtained", Global.manapot_amount)
-			Global.lifewine_amount += Global.max_item_storage - Global.lifewine_amount
-			emit_signal("lifewine_obtained", Global.lifewine_amount)
-			Global.crystals_amount += Global.max_item_storage - Global.crystals_amount
-			emit_signal("crystals_obtained", Global.crystals_amount)
+			pass
 		"opalall":
 			Global.opals_amount += 999 - Global.opals_amount
 			emit_signal("opals_obtained", Global.opals_amount)
@@ -2109,16 +2071,7 @@ func _on_KnockbackCooldownTimer_timeout():
 func _on_DashUseTimer_timeout():
 	can_dash = true 
 
-func _on_HealingTimer_timeout():
-	is_healing = false
-	if Global.healthpot_amount > 0:
-		if Global.max_hearts - Global.hearts == 0.5:
-			Global.hearts += 0.5
-		else:
-			Global.hearts += 1
-		emit_signal("life_changed", Global.hearts)
-		Global.healthpot_amount -= 1
-		emit_signal("healthpot_obtained", Global.healthpot_amount)
+
 
 func _on_FullHealTimer_timeout():
 	is_healing = false

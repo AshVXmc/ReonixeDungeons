@@ -107,9 +107,9 @@ func _ready():
 	connect("action", Global, "parse_action")
 	connect("change_elegance", get_parent().get_parent().get_parent().get_node("EleganceMeterUI/Control"), "elegance_changed")
 	connect("change_hitcount", get_parent().get_parent().get_parent().get_node("EleganceMeterUI/Control"), "hitcount_changed")
-	connect("healthpot_obtained", get_parent().get_node("HealthPotUI/HealthPotControl"), "on_player_healthpot_obtained")
-	connect("healthpot_obtained", Global, "sync_playerHealthpots")
-	emit_signal("healthpot_obtained", Global.healthpot_amount)
+#	connect("healthpot_obtained", get_parent().get_node("HealthPotUI/HealthPotControl"), "on_player_healthpot_obtained")
+#	connect("healthpot_obtained", Global, "sync_playerHealthpots")
+#	emit_signal("healthpot_obtained", Global.healthpot_amount)
 	connect("life_changed", Global, "sync_hearts")
 	connect("life_changed", get_parent().get_node("HeartUI/Life"), "on_player_life_changed")
 	connect("perfect_dash",  get_parent().get_parent().get_parent().get_node("PauseUI/PerfectDash"), "trigger_perfect_dash_animation")
@@ -280,9 +280,9 @@ func _input(event):
 			else:
 				raven_charged_attack()
 			$RavenFormNodes/RavenInputPressTimer.start()
-		if event.is_action_pressed("heal"):
-			if Global.healthpot_amount > 0:
-				heal("Agnette", 5)
+#		if event.is_action_pressed("heal"):
+#			if Global.healthpot_amount > 0:
+#				heal("Agnette", 5)
 		if !is_charging and event.is_action_pressed("ui_dash") and !get_parent().get_parent().mobility_lock and $DashInputPressTimer.is_stopped():
 			
 			get_parent().get_parent().dash()
@@ -698,9 +698,9 @@ func heal(character : String = "Agnette", heal_amount : float = 0, heal_to_max :
 			Global.character3_hearts = Global.character_3_max_hearts
 		emit_signal("life_changed", Global.character3_hearts, character)
 		
-	if !heal_to_max and consumes_potion:
-		Global.healthpot_amount -= 1
-		emit_signal("healthpot_obtained", Global.healthpot_amount)
+#	if !heal_to_max and consumes_potion:
+#		Global.healthpot_amount -= 1
+#		emit_signal("healthpot_obtained", Global.healthpot_amount)
 	
 
 func heal_in_wild_shape_form(form : int, heal_amount : float = 0):
@@ -813,9 +813,9 @@ func _on_Area2D_area_entered(area):
 		var slowdown_coefficient : float = Global.agnette_skill_multipliers["BearFormMovementSpeedPenalty"] / 100
 		get_parent().get_parent().SPEED += get_parent().get_parent().MAX_SPEED * slowdown_coefficient
 	if Global.current_character == "Agnette":
-		if area.is_in_group("HealthPot"):
-			Global.healthpot_amount += 1
-			emit_signal("healthpot_obtained", Global.healthpot_amount)
+#		if area.is_in_group("HealthPot"):
+#			Global.healthpot_amount += 1
+#			emit_signal("healthpot_obtained", Global.healthpot_amount)
 		if area.is_in_group("LifeWine"):
 			Global.lifewine_amount += 1
 			emit_signal("lifewine_obtained", Global.lifewine_amount)
