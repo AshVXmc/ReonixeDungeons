@@ -11,7 +11,7 @@ var currently_selected_item : item
 
 func _ready():
 	update_ui()
-	visible = false
+#	visible = false
 
 func update_ui():
 	var index : int = 1
@@ -43,8 +43,9 @@ func close_ui():
 	visible = false
 
 func consume_item(selected_character : String):
-	if currently_selected_item.get_name() == "Health Potion":
-		print(selected_character + "receives healing potion!")
+	if currently_selected_item != null:
+		if currently_selected_item.get_id() == item.ID.HEALTH_POTION:
+			print(selected_character + "receives healing potion!")
 
 
 

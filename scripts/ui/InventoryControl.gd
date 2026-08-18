@@ -34,8 +34,9 @@ func _process(delta):
 		if Input.is_action_just_pressed("ui_toggle_inventory") and Global.game_paused_by == "":
 			open_menu()
 	else:
-		if Input.is_action_just_pressed("ui_toggle_inventory") or Input.is_action_just_pressed("ui_cancel"):
-			close_menu()
+		if !$SelectCharacterAsTargetControl.visible:
+			if Input.is_action_just_pressed("ui_toggle_inventory") or Input.is_action_just_pressed("ui_cancel"):
+				close_menu()
 		
 	if visible:
 		# Handle directional key inputs
@@ -57,9 +58,15 @@ func _process(delta):
 			var item = inventory_grid_container.get_node("InventoryItemSlotCanvasLayer" + str(currently_selected_slot_index) + "/Control").get_contained_item()
 			if item != null:
 				print("currently selected item: " + str(item.get_name()))
-				# TODO: write code for the logic of consuming item
-				remove_item_from_inventory(item, 1)
-
+				$SelectCharacterAsTargetControl.open_ui(item)
+				hide_inventory_item_slots()
+#				remove_item_from_inventory(item, 1)
+		
+	if $SelectCharacterAsTargetControl.visible:
+		if Input.is_action_just_pressed("ui_cancel") or Input.is_action_just_pressed("ui_toggle_inventory"):
+			$SelectCharacterAsTargetControl.close_ui()
+			show_inventory_item_slots()
+			
 
 func add_item_to_inventory(obtained_item : item, amount : int):
 	var item_category : String = ""
