@@ -133,6 +133,10 @@ func _ready():
 	if Global.agnette_talents["StormyTempest"]["unlocked"] and Global.agnette_talents["StormyTempest"]["enabled"]:
 		$TalentsNode2D/StormyTempestCDTimer.wait_time = Global.agnette_talents["StormyTempest"]["cooldown"]
 
+func switched_in(character, prev_facing):
+	if character == "Agnette":
+		facing = prev_facing
+
 func _physics_process(delta):
 	target = get_closest_enemy()
 	if !$AnimatedSprite.flip_h:
@@ -159,9 +163,9 @@ func _physics_process(delta):
 			
 		elif Input.is_action_pressed("right") and !Input.is_action_pressed("left") and !get_parent().get_parent().is_attacking and !get_parent().get_parent().is_knocked_back and !get_parent().get_parent().is_dashing:
 			facing = right
-			
-		else:
-			facing = null
+#
+#		else:
+#			facing = null
 		if facing == left:
 			Input.action_release("right")
 			$AnimatedSprite.flip_h = true

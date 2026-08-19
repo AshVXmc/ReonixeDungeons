@@ -38,6 +38,11 @@ const TEXTURE_PATH := {
 	MANA_POTION = "res://assets/misc/mana_pot.png"
 }
 
+const health_restored := {
+	HEALTH_POTION = 2,
+	LARGE_HEALTH_POTION = 5
+}
+
 func get_id():
 	return item_id
  

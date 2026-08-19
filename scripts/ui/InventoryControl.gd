@@ -66,7 +66,18 @@ func _process(delta):
 		if Input.is_action_just_pressed("ui_cancel") or Input.is_action_just_pressed("ui_toggle_inventory"):
 			$SelectCharacterAsTargetControl.close_ui()
 			show_inventory_item_slots()
-			
+		
+		# handle inputting 1, 2 or 3
+		if Input.is_action_just_pressed("slot_1"):
+			var item = inventory_grid_container.get_node("InventoryItemSlotCanvasLayer" + str(currently_selected_slot_index) + "/Control").get_contained_item()
+			consume_item(item, Global.equipped_characters[0])
+	
+
+func consume_item(item : item, character : String):
+	match item.get_id():
+		item.ID.HEALTH_POTION:
+			player.heal(character, item.health_restored.HEALTH_POTION)
+			remove_item_from_inventory(item, 1)
 
 func add_item_to_inventory(obtained_item : item, amount : int):
 	var item_category : String = ""
@@ -206,3 +217,7 @@ func close_menu():
 	player.is_shopping = false
 	Global.game_paused_by = ""
 	
+
+
+func _on_CloseButtonMainUI_pressed():
+	close_menu()

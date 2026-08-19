@@ -5,7 +5,7 @@ var glaciela = GLACIELA.instance()
 var AGNETTE : PackedScene = preload("res://scenes/characters/Agnette.tscn")
 var agnette = AGNETTE.instance()
 var PLAYER : PackedScene
-signal switch_in_signal(character)
+signal switch_in_signal(character, prev_facing)
 
 
 
@@ -18,6 +18,10 @@ func connect_for_switch_in_signals(charname : String):
 	match charname:
 		"Player":
 			connect("switch_in_signal", get_parent(), "switched_in")
+		"Glaciela":
+			connect("switch_in_signal", get_node("Glaciela"), "switched_in")
+		"Agnette":
+			connect("switch_in_signal", get_node("Agnette"), "switched_in")
 
 
 func update_party(character : String):
@@ -70,6 +74,7 @@ func swap_character(index_pressed : int):
 			swap_out_character(Global.equipped_characters[1])
 			print(Global.current_character)
 			emit_signal("switch_in_signal", Global.equipped_characters[2])
+	
 func change_teammates():
 	if $SwapCooldownTimer.is_stopped():
 		if Input.is_action_just_pressed("slot_1") and Global.equipped_characters[0] != "":

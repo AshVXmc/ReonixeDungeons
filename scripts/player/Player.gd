@@ -327,7 +327,7 @@ func quickswap_event(trigger_name : String):
 			
 
 # Trigger when player is switched in
-func switched_in(character):
+func switched_in(character, prev_facing):
 	if character == "Player":
 		$EnergyMeter.visible = true
 		$HideEnergyMeterTimer.start()
@@ -335,6 +335,7 @@ func switched_in(character):
 			print("SWITCH in ATTACK")
 			switch_in_attack()
 			waiting_for_quickswap = false
+		facing = prev_facing
 
 # WOO YEAH BABY
 func quickswap_attack(trigger_name : String = ""):
@@ -401,8 +402,8 @@ func _physics_process(_delta):
 					facing = left
 				elif Input.is_action_pressed("right") and !Input.is_action_pressed("left") and !is_attacking and !is_knocked_back and !is_dashing:
 					facing = right
-				else:
-					facing = null 
+#				else:
+#					facing = null 
 				if !is_doing_charged_attack:
 					if facing == left:
 						velocity.x = -SPEED
@@ -1462,7 +1463,7 @@ func take_damage(damage : float):
 				emit_signal("life_changed", Global.character3_hearts, "Player")
 #		print(shield_hp)
 
-func heal(character : String = "Player", heal_amount : float = 0, heal_to_max : bool = false, consumes_potion : bool = true):
+func heal(character : String = "Player", heal_amount : float = 0, heal_to_max : bool = false):
 	# heal amount in percentage based on max HP
 	print("HEALLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL")
 	if Global.equipped_characters[0] == character:

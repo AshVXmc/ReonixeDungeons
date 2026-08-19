@@ -121,8 +121,14 @@ func update_tundra_star_ui():
 		$WardOfBoreasSprite.visible = true
 	else:
 		$WardOfBoreasSprite.visible = false
-	
+
+
+func switched_in(character, prev_facing):
+	if character == "Glaciela":
+		facing = prev_facing
+
 func _physics_process(delta):
+	print(facing)
 	target = get_closest_enemy()
 	if !$AnimatedSprite.flip_h:
 		$EnemyEvasionArea.set_scale(Vector2(1,1))
@@ -137,8 +143,8 @@ func _physics_process(delta):
 			facing = left
 		elif Input.is_action_pressed("right") and !Input.is_action_pressed("left") and !get_parent().get_parent().is_attacking and !get_parent().get_parent().is_knocked_back and !get_parent().get_parent().is_dashing:
 			facing = right
-		else:
-			facing = null 
+#		else:
+#			facing = null 
 		if facing == left:
 			Input.action_release("right")
 			$AnimatedSprite.flip_h = true

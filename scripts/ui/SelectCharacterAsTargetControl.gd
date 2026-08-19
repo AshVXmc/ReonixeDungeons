@@ -50,7 +50,8 @@ func consume_item(selected_character : String):
 
 
 func _on_CloseButtonCharacterOptionsListUI_pressed():
-	pass
+	close_ui()
+	get_parent().show_inventory_item_slots()
 
 func _on_Character1_pressed():
 	consume_item(Global.equipped_characters[0])
