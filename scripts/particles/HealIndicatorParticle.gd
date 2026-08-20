@@ -6,7 +6,7 @@ var direction_shift : Vector2 = Vector2()
 onready var heal_amount : float
 
 func _ready():
-	$Label.text = "+" + str(heal_amount)
+	$Label.text = "+" + str(round(heal_amount))
 	direction_shift = Vector2(rand_range(-1,1), rand_range(-1,1))
 
 

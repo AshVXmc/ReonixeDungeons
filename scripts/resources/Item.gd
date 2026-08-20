@@ -58,6 +58,9 @@ func get_description():
 func get_item_texture_path():
 	return item_texture_path
 
+func get_amount_of_healing_granted():
+	return 0
+
 func _init(identifier = ""):
 	match identifier:
 		ID.HEALTH_POTION:

@@ -52,6 +52,14 @@ func _process(delta):
 	change_teammates()
 
 func swap_character(index_pressed : int):
+	var previous_character_facing : int
+	match Global.current_character:
+		"Player":
+			previous_character_facing = int(!get_parent().get_node("Sprite").flip_h)
+		"Glaciela":
+			previous_character_facing = int(!get_node("Glaciela").get_node("AnimatedSprite").flip_h) 
+		"Agnette":
+			previous_character_facing = int(!get_node("Agnette").get_node("AnimatedSprite").flip_h) 
 	match index_pressed:
 		1:
 			Global.current_character = Global.equipped_characters[0]
@@ -59,21 +67,21 @@ func swap_character(index_pressed : int):
 			swap_out_character(Global.equipped_characters[1])
 			swap_out_character(Global.equipped_characters[2])
 			print(Global.current_character)
-			emit_signal("switch_in_signal", Global.equipped_characters[0])
+			emit_signal("switch_in_signal", Global.equipped_characters[0], previous_character_facing)
 		2:
 			Global.current_character = Global.equipped_characters[1]
 			swap_in_character(Global.equipped_characters[1])
 			swap_out_character(Global.equipped_characters[0])
 			swap_out_character(Global.equipped_characters[2])
 			print(Global.current_character)
-			emit_signal("switch_in_signal", Global.equipped_characters[1])
+			emit_signal("switch_in_signal", Global.equipped_characters[1], previous_character_facing)
 		3:
 			Global.current_character = Global.equipped_characters[2]
 			swap_in_character(Global.equipped_characters[2])
 			swap_out_character(Global.equipped_characters[0])
 			swap_out_character(Global.equipped_characters[1])
 			print(Global.current_character)
-			emit_signal("switch_in_signal", Global.equipped_characters[2])
+			emit_signal("switch_in_signal", Global.equipped_characters[2], previous_character_facing)
 	
 func change_teammates():
 	if $SwapCooldownTimer.is_stopped():

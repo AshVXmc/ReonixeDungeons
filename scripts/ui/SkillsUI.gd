@@ -580,7 +580,15 @@ func set_initial_circular_health_bar():
 func on_player_life_changed(hearts : float, character : String):
 	if character == Global.equipped_characters[0]:
 		$Characters/Slot1/CircularHealthBar.value = hearts
+		if $Characters/Slot1/CircularHealthBar.value <= $Characters/Slot1/CircularHealthBar.min_value:
+			$Characters/Slot1/Character1.self_modulate = Color(0.5, 0.5, 0.5)
 	elif character == Global.equipped_characters[1]:
 		$Characters/Slot2/CircularHealthBar.value = hearts 
+		if $Characters/Slot2/CircularHealthBar.value <= $Characters/Slot2/CircularHealthBar.min_value:
+			$Characters/Slot2/Character2.self_modulate = Color(0.5, 0.5, 0.5)
 	elif character == Global.equipped_characters[2]:
-		$Characters/Slot3/CircularHealthBar.value = hearts 
+		$Characters/Slot3/CircularHealthBar.value = hearts
+		if $Characters/Slot3/CircularHealthBar.value <= $Characters/Slot3/CircularHealthBar.min_value:
+			$Characters/Slot3/Character1.self_modulate = Color(0.5, 0.5, 0.5)
+	# handle death
+	

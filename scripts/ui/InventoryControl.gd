@@ -57,7 +57,7 @@ func _process(delta):
 		elif Input.is_action_just_pressed("ui_attack"):
 			var item = inventory_grid_container.get_node("InventoryItemSlotCanvasLayer" + str(currently_selected_slot_index) + "/Control").get_contained_item()
 			if item != null:
-				print("currently selected item: " + str(item.get_name()))
+#				print("currently selected item: " + str(item.get_name()))
 				$SelectCharacterAsTargetControl.open_ui(item)
 				hide_inventory_item_slots()
 #				remove_item_from_inventory(item, 1)
@@ -68,16 +68,58 @@ func _process(delta):
 			show_inventory_item_slots()
 		
 		# handle inputting 1, 2 or 3
-		if Input.is_action_just_pressed("slot_1"):
-			var item = inventory_grid_container.get_node("InventoryItemSlotCanvasLayer" + str(currently_selected_slot_index) + "/Control").get_contained_item()
-			consume_item(item, Global.equipped_characters[0])
-	
+		if $ItemConsumptionDelayTimer.is_stopped():
+			if Input.is_action_just_pressed("slot_1"):
+				var item = inventory_grid_container.get_node("InventoryItemSlotCanvasLayer" + str(currently_selected_slot_index) + "/Control").get_contained_item()
+				consume_item(item, 0)
+				$ItemConsumptionDelayTimer.start()
+			elif Input.is_action_just_pressed("slot_2"):
+				var item = inventory_grid_container.get_node("InventoryItemSlotCanvasLayer" + str(currently_selected_slot_index) + "/Control").get_contained_item()
+				consume_item(item, 1)
+				$ItemConsumptionDelayTimer.start()
+			elif Input.is_action_just_pressed("slot_3"):
+				var item = inventory_grid_container.get_node("InventoryItemSlotCanvasLayer" + str(currently_selected_slot_index) + "/Control").get_contained_item()
+				consume_item(item, 2)
+				$ItemConsumptionDelayTimer.start()
 
-func consume_item(item : item, character : String):
+func consume_item(item : item, character_index : int):
 	match item.get_id():
 		item.ID.HEALTH_POTION:
-			player.heal(character, item.health_restored.HEALTH_POTION)
-			remove_item_from_inventory(item, 1)
+			parse_healing_item_consumption(item, character_index)
+		item.ID.LARGE_HEALTH_POTION:
+			parse_healing_item_consumption(item, character_index)
+		
+func parse_healing_item_consumption(healing_item : item, character_index : int):
+	if !Global.alive[character_index]:
+		return
+	match character_index:
+		0:
+			if Global.hearts == Global.max_hearts:
+				$SelectCharacterAsTargetControl/FullHealthWarningRichTextLabel.visible = true
+				return
+		1:
+			if Global.character2_hearts == Global.character_2_max_hearts:
+				$SelectCharacterAsTargetControl/FullHealthWarningRichTextLabel.visible = true
+				return
+		2:
+			if Global.character3_hearts == Global.character_3_max_hearts:
+				$SelectCharacterAsTargetControl/FullHealthWarningRichTextLabel.visible = true
+				return
+	$SelectCharacterAsTargetControl/FullHealthWarningRichTextLabel.visible = false
+	match healing_item.get_id():
+		item.ID.HEALTH_POTION:
+			player.heal(Global.equipped_characters[character_index], healing_item.health_restored.HEALTH_POTION)
+		item.ID.LARGE_HEALTH_POTION:
+			player.heal(Global.equipped_characters[character_index], healing_item.health_restored.LARGE_HEALTH_POTION)
+		_:
+			print("Not a valid healing item. (Source: InventoryControl.gd)")
+	$SelectCharacterAsTargetControl.update_ui()
+	remove_item_from_inventory(healing_item, 1)
+	
+	# TODO: close character selection ui if item amount reaches 0
+	if !item_exists_in_inventory(healing_item):
+		show_inventory_item_slots()
+		$SelectCharacterAsTargetControl.close_ui()
 
 func add_item_to_inventory(obtained_item : item, amount : int):
 	var item_category : String = ""
@@ -104,11 +146,9 @@ func add_item_to_inventory(obtained_item : item, amount : int):
 	var slot_control : InventoryItemSlot = inventory_grid_container.get_node("InventoryItemSlotCanvasLayer" + str(slot_index) + "/Control")
 	slot_control.register_contained_item(obtained_item)
 	slot_control.increment_item_count(amount)
-	
-
 	# debug, print inventory contents
-	print("ADDED NEW ITEM: " + str(amount) + " " + obtained_item.get_name())
-	print_inventory_contents()
+#	print("ADDED NEW ITEM: " + str(amount) + " " + obtained_item.get_name())
+#	print_inventory_contents()
 
 # assumes the item exists in the inventory, with a quantity > 0
 func remove_item_from_inventory(removed_item : item, amount : int):
@@ -156,17 +196,21 @@ func remove_item_from_inventory(removed_item : item, amount : int):
 					next_slot_control.clear_contained_item()
 			
 			current_misplaced_empty_slot_index += 1
-
-
 	# debug, print inventory contents
-	print("REMOVED ITEM: " + str(amount) + " " + removed_item.get_name())
-	print_inventory_contents()
+#	print("REMOVED ITEM: " + str(amount) + " " + removed_item.get_name())
+#	print_inventory_contents()
 	
 	
 
-func item_exists_in_inventory(item : item) -> bool:
-	# TODO
-	return true
+func item_exists_in_inventory(target_item : item) -> bool:
+	match target_item.get_category():
+		item.CATEGORY.POTIONS:
+			for item_slot in Global.current_player_inventory["PotionsCategory"]:
+				if Global.current_player_inventory["PotionsCategory"][item_slot]["ContainedItem"] == null:
+					continue
+				if Global.current_player_inventory["PotionsCategory"][item_slot]["ContainedItem"].get_id() == target_item.get_id() and Global.current_player_inventory["PotionsCategory"][item_slot]["ContainedItemAmount"] > 0:
+					return true
+	return false
 
 
 func show_inventory_item_slots():

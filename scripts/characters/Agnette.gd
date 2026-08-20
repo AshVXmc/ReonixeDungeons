@@ -112,6 +112,7 @@ func _ready():
 #	emit_signal("healthpot_obtained", Global.healthpot_amount)
 	connect("life_changed", Global, "sync_hearts")
 	connect("life_changed", get_parent().get_node("HeartUI/Life"), "on_player_life_changed")
+	connect("life_changed", get_parent().get_parent().get_parent().get_node("SkillsUI/Control"), "on_player_life_changed")
 	connect("perfect_dash",  get_parent().get_parent().get_parent().get_node("PauseUI/PerfectDash"), "trigger_perfect_dash_animation")
 	connect("life_changed", get_parent().get_parent().get_parent().get_node("HeartUI/Life"), "on_player_life_changed")
 	connect("mana_changed", get_parent().get_parent().get_parent().get_node("ManaUI/Mana"), "on_player_mana_changed")

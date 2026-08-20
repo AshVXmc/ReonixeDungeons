@@ -29,11 +29,20 @@ func update_ui():
 	# update circular health bar
 	$Character1/CircularHealthBar.max_value = Global.max_hearts
 	$Character1/CircularHealthBar.value = Global.hearts
-	$Character2/CircularHealthBar.max_value = Global.character2_hearts
-	$Character2/CircularHealthBar.value = Global.character_2_max_hearts
-	$Character3/CircularHealthBar.max_value = Global.character3_hearts
-	$Character3/CircularHealthBar.value = Global.character_3_max_hearts
-
+	$Character2/CircularHealthBar.max_value = Global.character_2_max_hearts
+	$Character2/CircularHealthBar.value = Global.character2_hearts
+	$Character3/CircularHealthBar.max_value = Global.character_3_max_hearts
+	$Character3/CircularHealthBar.value = Global.character3_hearts
+	
+	# if dead
+	if $Character1/CircularHealthBar.value <= $Character1/CircularHealthBar.min_value:
+		$Character1.self_modulate = Color(0.5, 0.5, 0.5)
+	if $Character2/CircularHealthBar.value <= $Character2/CircularHealthBar.min_value:
+		$Character2.self_modulate = Color(0.5, 0.5, 0.5)
+	if $Character3/CircularHealthBar.value <= $Character3/CircularHealthBar.min_value:
+		$Character3.self_modulate = Color(0.5, 0.5, 0.5)
+	
+	print(str($Character1/CircularHealthBar.min_value) + "skibidi")
 func open_ui(selected_item : item):
 	update_ui()
 	visible = true
@@ -41,6 +50,7 @@ func open_ui(selected_item : item):
 
 func close_ui():
 	visible = false
+	$FullHealthWarningRichTextLabel.visible = false
 
 func consume_item(selected_character : String):
 	if currently_selected_item != null:

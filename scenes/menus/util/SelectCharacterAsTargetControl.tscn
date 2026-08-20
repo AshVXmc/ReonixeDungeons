@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://assets/UI/icon_empty.png" type="Texture" id=1]
 [ext_resource path="res://assets/UI/empty_character_icon.png" type="Texture" id=2]
@@ -16,8 +16,11 @@ font_data = ExtResource( 7 )
 [sub_resource type="DynamicFont" id=7]
 font_data = ExtResource( 7 )
 
+[sub_resource type="DynamicFont" id=8]
+size = 32
+font_data = ExtResource( 7 )
+
 [node name="SelectCharacterAsTargetControl" type="Control"]
-visible = false
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -188,6 +191,22 @@ margin_right = -192.0
 margin_bottom = -139.0
 texture_normal = ExtResource( 4 )
 expand = true
+
+[node name="FullHealthWarningRichTextLabel" type="RichTextLabel" parent="."]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -340.0
+margin_top = 65.0
+margin_right = 340.0
+margin_bottom = 115.0
+custom_fonts/normal_font = SubResource( 8 )
+bbcode_enabled = true
+bbcode_text = "[center][color=red]This character's health is full.[/color]"
+text = "This character's health is full."
+scroll_active = false
 
 [connection signal="pressed" from="Character1" to="." method="_on_Character1_pressed"]
 [connection signal="pressed" from="Character2" to="." method="_on_Character2_pressed"]

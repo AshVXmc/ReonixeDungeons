@@ -11,9 +11,9 @@ var item : Resource = preload("res://scripts/resources/Item.gd")
 var game_paused_by : String = ""
 # GLOBALLY ACCESSED VARIABLES
 var character_health_data : Dictionary = {
-	"Player": 10, 
-	"Glaciela": 10,
-	"Agnette": 10
+	"Player": 9, 
+	"Glaciela": 9,
+	"Agnette": 9
 }
 var character_defense_data : Dictionary = {
 	"Player": 1.6, 

@@ -348,7 +348,7 @@ func quickswap_attack(trigger_name : String = ""):
 	
 
 func get_closest_enemy() -> Node2D:
-	var enemies = get_tree().get_nodes_in_group("Enemy")
+	var enemies = get_tree().get_nodes_in_group("EnemyEntity")
 	if enemies.empty(): 
 		return null
 	var distances = []
@@ -402,8 +402,8 @@ func _physics_process(_delta):
 					facing = left
 				elif Input.is_action_pressed("right") and !Input.is_action_pressed("left") and !is_attacking and !is_knocked_back and !is_dashing:
 					facing = right
-#				else:
-#					facing = null 
+				else:
+					facing = null 
 				if !is_doing_charged_attack:
 					if facing == left:
 						velocity.x = -SPEED
@@ -2144,11 +2144,11 @@ func _on_EnemyEvasionArea_area_exited(area):
 			Engine.time_scale = 0.5
 			yield(get_tree().create_timer(0.1), "timeout")
 			Engine.time_scale = 1.0
-			if $TempusTardusTriggerCD.is_stopped():
-				var tempus_targus = TEMPUS_TARGUS.instance()
-				get_parent().add_child(tempus_targus)
-				tempus_targus.position = global_position
-				$TempusTardusTriggerCD.start()
+#			if $TempusTardusTriggerCD.is_stopped():
+#				var tempus_targus = TEMPUS_TARGUS.instance()
+#				get_parent().add_child(tempus_targus)
+#				tempus_targus.position = global_position
+#				$TempusTardusTriggerCD.start()
 	#		knock_airborne(area, 4)
 	#		Input.action_press("jump")
 	#		
