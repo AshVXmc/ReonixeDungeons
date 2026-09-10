@@ -182,32 +182,59 @@ margin_right = 450.0
 margin_bottom = 400.0
 rect_min_size = Vector2( 450, 400 )
 
-[node name="InventoryGridContainer" type="GridContainer" parent="InventoryControl/BelongingsControl/NinePatchRect/ScrollContainer/VBoxContainer"]
+[node name="PotionsInventoryGridContainer" type="GridContainer" parent="InventoryControl/BelongingsControl/NinePatchRect/ScrollContainer/VBoxContainer"]
 margin_right = 450.0
 margin_bottom = 295.0
 rect_min_size = Vector2( 400, 295 )
 
-[node name="InventoryItemSlotCanvasLayer1" parent="InventoryControl/BelongingsControl/NinePatchRect/ScrollContainer/VBoxContainer/InventoryGridContainer" instance=ExtResource( 9 )]
+[node name="InventoryItemSlotCanvasLayer1" parent="InventoryControl/BelongingsControl/NinePatchRect/ScrollContainer/VBoxContainer/PotionsInventoryGridContainer" instance=ExtResource( 9 )]
 offset = Vector2( 362, 134 )
 transform = Transform2D( 1, 0, 0, 1, 362, 134 )
 
-[node name="InventoryItemSlotCanvasLayer2" parent="InventoryControl/BelongingsControl/NinePatchRect/ScrollContainer/VBoxContainer/InventoryGridContainer" instance=ExtResource( 9 )]
+[node name="InventoryItemSlotCanvasLayer2" parent="InventoryControl/BelongingsControl/NinePatchRect/ScrollContainer/VBoxContainer/PotionsInventoryGridContainer" instance=ExtResource( 9 )]
 offset = Vector2( 452, 134 )
 transform = Transform2D( 1, 0, 0, 1, 452, 134 )
 
-[node name="InventoryItemSlotCanvasLayer3" parent="InventoryControl/BelongingsControl/NinePatchRect/ScrollContainer/VBoxContainer/InventoryGridContainer" instance=ExtResource( 9 )]
+[node name="InventoryItemSlotCanvasLayer3" parent="InventoryControl/BelongingsControl/NinePatchRect/ScrollContainer/VBoxContainer/PotionsInventoryGridContainer" instance=ExtResource( 9 )]
 offset = Vector2( 542, 134 )
 transform = Transform2D( 1, 0, 0, 1, 542, 134 )
 
-[node name="InventoryItemSlotCanvasLayer4" parent="InventoryControl/BelongingsControl/NinePatchRect/ScrollContainer/VBoxContainer/InventoryGridContainer" instance=ExtResource( 9 )]
+[node name="InventoryItemSlotCanvasLayer4" parent="InventoryControl/BelongingsControl/NinePatchRect/ScrollContainer/VBoxContainer/PotionsInventoryGridContainer" instance=ExtResource( 9 )]
 offset = Vector2( 632, 134 )
 transform = Transform2D( 1, 0, 0, 1, 632, 134 )
 
-[node name="InventoryItemSlotCanvasLayer5" parent="InventoryControl/BelongingsControl/NinePatchRect/ScrollContainer/VBoxContainer/InventoryGridContainer" instance=ExtResource( 9 )]
+[node name="InventoryItemSlotCanvasLayer5" parent="InventoryControl/BelongingsControl/NinePatchRect/ScrollContainer/VBoxContainer/PotionsInventoryGridContainer" instance=ExtResource( 9 )]
 offset = Vector2( 722, 134 )
 transform = Transform2D( 1, 0, 0, 1, 722, 134 )
 
-[node name="ConsumablesTextureButton" type="TextureButton" parent="InventoryControl/BelongingsControl/NinePatchRect"]
+[node name="SpellScrollsInventoryGridContainer" type="GridContainer" parent="InventoryControl/BelongingsControl/NinePatchRect/ScrollContainer/VBoxContainer"]
+visible = false
+margin_top = 299.0
+margin_right = 450.0
+margin_bottom = 594.0
+rect_min_size = Vector2( 400, 295 )
+
+[node name="InventoryItemSlotCanvasLayer1" parent="InventoryControl/BelongingsControl/NinePatchRect/ScrollContainer/VBoxContainer/SpellScrollsInventoryGridContainer" instance=ExtResource( 9 )]
+offset = Vector2( 362, 134 )
+transform = Transform2D( 1, 0, 0, 1, 362, 134 )
+
+[node name="InventoryItemSlotCanvasLayer2" parent="InventoryControl/BelongingsControl/NinePatchRect/ScrollContainer/VBoxContainer/SpellScrollsInventoryGridContainer" instance=ExtResource( 9 )]
+offset = Vector2( 452, 134 )
+transform = Transform2D( 1, 0, 0, 1, 452, 134 )
+
+[node name="InventoryItemSlotCanvasLayer3" parent="InventoryControl/BelongingsControl/NinePatchRect/ScrollContainer/VBoxContainer/SpellScrollsInventoryGridContainer" instance=ExtResource( 9 )]
+offset = Vector2( 542, 134 )
+transform = Transform2D( 1, 0, 0, 1, 542, 134 )
+
+[node name="InventoryItemSlotCanvasLayer4" parent="InventoryControl/BelongingsControl/NinePatchRect/ScrollContainer/VBoxContainer/SpellScrollsInventoryGridContainer" instance=ExtResource( 9 )]
+offset = Vector2( 632, 134 )
+transform = Transform2D( 1, 0, 0, 1, 632, 134 )
+
+[node name="InventoryItemSlotCanvasLayer5" parent="InventoryControl/BelongingsControl/NinePatchRect/ScrollContainer/VBoxContainer/SpellScrollsInventoryGridContainer" instance=ExtResource( 9 )]
+offset = Vector2( 722, 134 )
+transform = Transform2D( 1, 0, 0, 1, 722, 134 )
+
+[node name="PotionsTextureButton" type="TextureButton" parent="InventoryControl/BelongingsControl/NinePatchRect"]
 anchor_left = -0.151
 anchor_top = 0.095
 anchor_right = -0.151
@@ -223,7 +250,7 @@ __meta__ = {
 "_edit_group_": true
 }
 
-[node name="Label" type="Label" parent="InventoryControl/BelongingsControl/NinePatchRect/ConsumablesTextureButton"]
+[node name="Label" type="Label" parent="InventoryControl/BelongingsControl/NinePatchRect/PotionsTextureButton"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -236,7 +263,7 @@ custom_fonts/font = SubResource( 3 )
 text = "Potions"
 align = 1
 
-[node name="MaterialsTextureButton" type="TextureButton" parent="InventoryControl/BelongingsControl/NinePatchRect"]
+[node name="SpellScrollsTextureButton" type="TextureButton" parent="InventoryControl/BelongingsControl/NinePatchRect"]
 anchor_left = -0.151
 anchor_top = 0.095
 anchor_right = -0.151
@@ -252,18 +279,17 @@ __meta__ = {
 "_edit_group_": true
 }
 
-[node name="Label" type="Label" parent="InventoryControl/BelongingsControl/NinePatchRect/MaterialsTextureButton"]
+[node name="Label" type="Label" parent="InventoryControl/BelongingsControl/NinePatchRect/SpellScrollsTextureButton"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -51.0
-margin_top = -14.0
-margin_right = 63.0
-margin_bottom = 18.0
-rect_scale = Vector2( 0.9, 0.9 )
+margin_left = -57.0
+margin_top = -16.0
+margin_right = 57.0
+margin_bottom = 16.0
 custom_fonts/font = SubResource( 3 )
-text = "Materials"
+text = "Scrolls"
 align = 1
 
 [node name="MiscTextureButton" type="TextureButton" parent="InventoryControl/BelongingsControl/NinePatchRect"]
@@ -342,3 +368,5 @@ wait_time = 0.1
 one_shot = true
 
 [connection signal="pressed" from="InventoryControl/CloseButtonMainUI" to="InventoryControl" method="_on_CloseButtonMainUI_pressed"]
+[connection signal="pressed" from="InventoryControl/BelongingsControl/NinePatchRect/PotionsTextureButton" to="InventoryControl" method="_on_PotionsTextureButton_pressed"]
+[connection signal="pressed" from="InventoryControl/BelongingsControl/NinePatchRect/SpellScrollsTextureButton" to="InventoryControl" method="_on_SpellScrollsTextureButton_pressed"]

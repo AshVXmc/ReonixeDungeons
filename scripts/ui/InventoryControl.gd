@@ -3,7 +3,7 @@ class_name InventoryUI extends Control
 onready var closed = preload("res://assets/misc/item_pouch.png")
 onready var opened = preload("res://assets/misc/item_pouch_opened.png")
 onready var player : KinematicBody2D = get_parent().get_parent().get_node("Player")
-onready var inventory_grid_container : GridContainer = $BelongingsControl/NinePatchRect/ScrollContainer/VBoxContainer/InventoryGridContainer
+onready var inventory_grid_container : GridContainer = $BelongingsControl/NinePatchRect/ScrollContainer/VBoxContainer/PotionsInventoryGridContainer
 onready var currently_selected_slot_index : int = 1
 
 const item = preload("res://scripts/resources/Item.gd")
@@ -13,14 +13,19 @@ const MAX_INVENTORY_SLOTS_COLUMNS : int = 1
 
 const SLOT_INDEX_POSITION_IN_STRING : int = 4
 
+enum INVENTORY_CATEGORY {
+	POTIONS,
+	SPELL_SCROLLS
+}
 
 func _ready():
 	visible = false
 	get_parent().get_node("InventoryIcon/BagSprite").texture = closed
+
 	add_item_to_inventory(item.new(item.ID.HEALTH_POTION), 1)
 	add_item_to_inventory(item.new(item.ID.HEALTH_POTION), 2)
 	add_item_to_inventory(item.new(item.ID.LARGE_HEALTH_POTION), 1)
-	
+	hide_inventory_item_slots()
 #	yield(get_tree().create_timer(2),"timeout")
 #	remove_item_from_inventory(item.new(item.ID.HEALTH_POTION), 1)
 #	remove_item_from_inventory(item.new(item.ID.HEALTH_POTION), 1)
@@ -128,6 +133,8 @@ func add_item_to_inventory(obtained_item : item, amount : int):
 	match obtained_item.get_category():
 		item.CATEGORY.POTIONS:
 			item_category = "PotionsCategory"
+			update_current_inventory_category(INVENTORY_CATEGORY.POTIONS)
+		
 	
 	for item_slot in Global.current_player_inventory[item_category]:
 		if Global.current_player_inventory[item_category][item_slot]["ContainedItem"] == null:
@@ -199,8 +206,6 @@ func remove_item_from_inventory(removed_item : item, amount : int):
 	# debug, print inventory contents
 #	print("REMOVED ITEM: " + str(amount) + " " + removed_item.get_name())
 #	print_inventory_contents()
-	
-	
 
 func item_exists_in_inventory(target_item : item) -> bool:
 	match target_item.get_category():
@@ -234,7 +239,30 @@ func update_footer_text():
 	text = text.replace("RIGHT", str(InputMap.get_action_list("right")[0].as_text()))
 	text = text.replace("ATTACK", str(InputMap.get_action_list("ui_attack")[0].as_text()))
 	$Footer.bbcode_text = text
-	
+
+func update_current_inventory_category(new_category : int):
+	match new_category:
+		INVENTORY_CATEGORY.POTIONS:
+			inventory_grid_container.get_node("InventoryItemSlotCanvasLayer" + str(currently_selected_slot_index) + "/Control/SelectorTextureRect").visible = false
+			currently_selected_slot_index = 1
+			inventory_grid_container.get_node("InventoryItemSlotCanvasLayer" + str(currently_selected_slot_index) + "/Control/SelectorTextureRect").visible = true
+			hide_inventory_item_slots()
+			inventory_grid_container = $BelongingsControl/NinePatchRect/ScrollContainer/VBoxContainer/PotionsInventoryGridContainer
+			show_inventory_item_slots()
+			inventory_grid_container.get_node("InventoryItemSlotCanvasLayer" + str(currently_selected_slot_index) + "/Control/SelectorTextureRect").visible = false
+			currently_selected_slot_index = 1
+			inventory_grid_container.get_node("InventoryItemSlotCanvasLayer" + str(currently_selected_slot_index) + "/Control/SelectorTextureRect").visible = true
+		INVENTORY_CATEGORY.SPELL_SCROLLS:
+			inventory_grid_container.get_node("InventoryItemSlotCanvasLayer" + str(currently_selected_slot_index) + "/Control/SelectorTextureRect").visible = false
+			currently_selected_slot_index = 1
+			inventory_grid_container.get_node("InventoryItemSlotCanvasLayer" + str(currently_selected_slot_index) + "/Control/SelectorTextureRect").visible = true
+			hide_inventory_item_slots()
+			inventory_grid_container = $BelongingsControl/NinePatchRect/ScrollContainer/VBoxContainer/SpellScrollsInventoryGridContainer
+			show_inventory_item_slots()
+			inventory_grid_container.get_node("InventoryItemSlotCanvasLayer" + str(currently_selected_slot_index) + "/Control/SelectorTextureRect").visible = false
+			currently_selected_slot_index = 1
+			inventory_grid_container.get_node("InventoryItemSlotCanvasLayer" + str(currently_selected_slot_index) + "/Control/SelectorTextureRect").visible = true
+
 # UTILITY FUNCTION
 func print_inventory_contents():
 	print("CURRENT INVENTORY: ")
@@ -260,8 +288,14 @@ func close_menu():
 	get_parent().layer = 0
 	player.is_shopping = false
 	Global.game_paused_by = ""
-	
 
 
 func _on_CloseButtonMainUI_pressed():
 	close_menu()
+
+func _on_PotionsTextureButton_pressed():
+	update_current_inventory_category(INVENTORY_CATEGORY.POTIONS)
+
+func _on_SpellScrollsTextureButton_pressed():
+	update_current_inventory_category(INVENTORY_CATEGORY.SPELL_SCROLLS)
+

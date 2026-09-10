@@ -632,6 +632,28 @@ var current_player_inventory : Dictionary = {
 			"ContainedItem" : null,
 			"ContainedItemAmount" : 0
 		}
+	},
+	"SpellScrollsCategory": {
+		"Slot1" : {
+			"ContainedItem" : null,
+			"ContainedItemAmount" : 0
+		},
+		"Slot2" : {
+			"ContainedItem" : null,
+			"ContainedItemAmount" : 0
+		},
+		"Slot3": {
+			"ContainedItem" : null,
+			"ContainedItemAmount" : 0
+		},
+		"Slot4": {
+			"ContainedItem" : null,
+			"ContainedItemAmount" : 0
+		},
+		"Slot5": {
+			"ContainedItem" : null,
+			"ContainedItemAmount" : 0
+		}
 	}
 }
 var current_player_inventory_data : Dictionary = current_player_inventory.duplicate()
@@ -643,6 +665,9 @@ var player_owned_inventory_items : Dictionary = {
 		"HealthPotion" : 0,
 		"LargeHealthPotion" : 0,
 		"ManaPotion" : 0,
+	},
+	"SpellScrollsCategory": {
+		"RevivifySpellScrolls": 0
 	}
 }
 var player_owned_inventory_items_data : Dictionary = player_owned_inventory_items.duplicate()
