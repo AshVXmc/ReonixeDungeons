@@ -25,6 +25,7 @@ func _ready():
 	add_item_to_inventory(item.new(item.ID.HEALTH_POTION), 1)
 	add_item_to_inventory(item.new(item.ID.HEALTH_POTION), 2)
 	add_item_to_inventory(item.new(item.ID.LARGE_HEALTH_POTION), 1)
+	add_item_to_inventory(item.new(item.ID.REVIVIFY_SPELL_SCROLL), 1)
 	hide_inventory_item_slots()
 #	yield(get_tree().create_timer(2),"timeout")
 #	remove_item_from_inventory(item.new(item.ID.HEALTH_POTION), 1)
@@ -34,6 +35,15 @@ func _ready():
 	inventory_grid_container.get_node("InventoryItemSlotCanvasLayer" + str(currently_selected_slot_index) + "/Control/SelectorTextureRect").visible = true
 	update_item_description_text(inventory_grid_container.get_node("InventoryItemSlotCanvasLayer" + str(currently_selected_slot_index) + "/Control").get_contained_item())
 
+# warning-ignore:unused_argument
+# warning-ignore:unused_argument
+# warning-ignore:unused_argument
+# warning-ignore:unused_argument
+# warning-ignore:unused_argument
+# warning-ignore:unused_argument
+# warning-ignore:unused_argument
+# warning-ignore:unused_argument
+# warning-ignore:unused_argument
 func _process(delta):
 	if !visible:
 		if Input.is_action_just_pressed("ui_toggle_inventory") and Global.game_paused_by == "":
@@ -129,13 +139,15 @@ func parse_healing_item_consumption(healing_item : item, character_index : int):
 func add_item_to_inventory(obtained_item : item, amount : int):
 	var item_category : String = ""
 	var slot_index : int = -1
+# warning-ignore:unused_variable
 	var is_new_item : bool = true
 	match obtained_item.get_category():
 		item.CATEGORY.POTIONS:
 			item_category = "PotionsCategory"
 			update_current_inventory_category(INVENTORY_CATEGORY.POTIONS)
-		
-	
+		item.CATEGORY.SPELL_SCROLLS:
+			item_category = "SpellScrollsCategory"
+			update_current_inventory_category(INVENTORY_CATEGORY.SPELL_SCROLLS)
 	for item_slot in Global.current_player_inventory[item_category]:
 		if Global.current_player_inventory[item_category][item_slot]["ContainedItem"] == null:
 			Global.current_player_inventory[item_category][item_slot]["ContainedItem"] = obtained_item
@@ -150,7 +162,7 @@ func add_item_to_inventory(obtained_item : item, amount : int):
 			break
 		
 	# update inventory slot ui
-	var slot_control : InventoryItemSlot = inventory_grid_container.get_node("InventoryItemSlotCanvasLayer" + str(slot_index) + "/Control")
+	var slot_control = inventory_grid_container.get_node("InventoryItemSlotCanvasLayer" + str(slot_index) + "/Control")
 	slot_control.register_contained_item(obtained_item)
 	slot_control.increment_item_count(amount)
 	# debug, print inventory contents
@@ -164,7 +176,8 @@ func remove_item_from_inventory(removed_item : item, amount : int):
 	match removed_item.get_category():
 		item.CATEGORY.POTIONS:
 			item_category = "PotionsCategory"
-	
+		item.CATEGORY.SPELL_SCROLLS:
+			item_category = "SpellScrollsCategory"
 	for item_slot in Global.current_player_inventory[item_category]:
 		if Global.current_player_inventory[item_category][item_slot]["ContainedItem"].get_id() == removed_item.get_id():
 			Global.current_player_inventory[item_category][item_slot]["ContainedItemAmount"] -= amount
@@ -172,7 +185,7 @@ func remove_item_from_inventory(removed_item : item, amount : int):
 			break
 	
 	# update inventory slot ui
-	var slot_control : InventoryItemSlot = inventory_grid_container.get_node("InventoryItemSlotCanvasLayer" + str(slot_index) + "/Control")
+	var slot_control = inventory_grid_container.get_node("InventoryItemSlotCanvasLayer" + str(slot_index) + "/Control")
 	slot_control.decrement_item_count(amount)
 	
 	# if the item count is 0, clear item from the slot. 
@@ -192,11 +205,11 @@ func remove_item_from_inventory(removed_item : item, amount : int):
 					Global.current_player_inventory[item_category]["Slot" + str(current_misplaced_empty_slot_index)]["ContainedItem"] = Global.current_player_inventory[item_category]["Slot" + str(current_misplaced_empty_slot_index + 1)]["ContainedItem"]
 					Global.current_player_inventory[item_category]["Slot" + str(current_misplaced_empty_slot_index)]["ContainedItemAmount"] = Global.current_player_inventory[item_category]["Slot" + str(current_misplaced_empty_slot_index + 1)]["ContainedItemAmount"]
 					
-					var current_slot_control : InventoryItemSlot = inventory_grid_container.get_node("InventoryItemSlotCanvasLayer" + str(current_misplaced_empty_slot_index) + "/Control")
+					var current_slot_control = inventory_grid_container.get_node("InventoryItemSlotCanvasLayer" + str(current_misplaced_empty_slot_index) + "/Control")
 					current_slot_control.register_contained_item(Global.current_player_inventory[item_category]["Slot" + str(current_misplaced_empty_slot_index)]["ContainedItem"])
 					current_slot_control.increment_item_count(Global.current_player_inventory[item_category]["Slot" + str(current_misplaced_empty_slot_index)]["ContainedItemAmount"])
 					
-					var next_slot_control : InventoryItemSlot = inventory_grid_container.get_node("InventoryItemSlotCanvasLayer" + str(current_misplaced_empty_slot_index + 1) + "/Control")
+					var next_slot_control = inventory_grid_container.get_node("InventoryItemSlotCanvasLayer" + str(current_misplaced_empty_slot_index + 1) + "/Control")
 					Global.current_player_inventory[item_category]["Slot" + str(current_misplaced_empty_slot_index + 1)]["ContainedItem"] = null
 					Global.current_player_inventory[item_category]["Slot" + str(current_misplaced_empty_slot_index + 1)]["ContainedItemAmount"] = 0
 					
@@ -214,6 +227,12 @@ func item_exists_in_inventory(target_item : item) -> bool:
 				if Global.current_player_inventory["PotionsCategory"][item_slot]["ContainedItem"] == null:
 					continue
 				if Global.current_player_inventory["PotionsCategory"][item_slot]["ContainedItem"].get_id() == target_item.get_id() and Global.current_player_inventory["PotionsCategory"][item_slot]["ContainedItemAmount"] > 0:
+					return true
+		item.CATEGORY.SPELL_SCROLLS:
+			for item_slot in Global.current_player_inventory["SpellScrollsCategory"]:
+				if Global.current_player_inventory["SpellScrollsCategory"][item_slot]["ContainedItem"] == null:
+					continue
+				if Global.current_player_inventory["SpellScrollsCategory"][item_slot]["ContainedItem"].get_id() == target_item.get_id() and Global.current_player_inventory["SpellScrollsCategory"][item_slot]["ContainedItemAmount"] > 0:
 					return true
 	return false
 

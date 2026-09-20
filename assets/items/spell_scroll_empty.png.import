@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/large_health_pot.png-6ab24a1406560eda2bd1a2d6ee42dbc6.stex"
+path="res://.import/spell_scroll_empty.png-35b80a8114f28dec78799c76b7c421c1.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/misc/large_health_pot.png"
-dest_files=[ "res://.import/large_health_pot.png-6ab24a1406560eda2bd1a2d6ee42dbc6.stex" ]
+source_file="res://assets/items/spell_scroll_empty.png"
+dest_files=[ "res://.import/spell_scroll_empty.png-35b80a8114f28dec78799c76b7c421c1.stex" ]
 
 [params]
 
