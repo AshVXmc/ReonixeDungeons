@@ -29,10 +29,10 @@ enum CATEGORY {
 }
 
 const DESCRIPTION := {
-	HEALTH_POTION = "[color=#ffd703]Health Potion[/color]: Restores a small amount of health to one character.",
-	LARGE_HEALTH_POTION = "[color=#ffd703]Large Health Potion[/color]: Restores a moderate amount of health to one character.",
-	MANA_POTION = "[color=#ffd703]Mana Potion[/color]: It glows in the dark. Restores MANA_RESTORED Mana to the on-field character.",
-	REVIVIFY_SPELL_SCROLL = "[color=#ffd703]Revivify Spell Scroll[/color]: lorem ipsum"
+	HEALTH_POTION = "[color=#ffd703]Health Potion[/color]: Restores a small amount of health to one character. [i]Slightly sweet. Does not contain snake oil.[/i]",
+	LARGE_HEALTH_POTION = "[color=#ffd703]Large Health Potion[/color]: Restores a moderate amount of health to one character. [i]A moderate source of calories. Not a meal replacement.[/i]",
+	MANA_POTION = "[color=#ffd703]Mana Potion[/color]: It glows in the dark. Restores MANA_RESTORED Mana to the on-field character. [i]Highly reactive. Consume immediately upon opening.[/i]",
+	REVIVIFY_SPELL_SCROLL = "[color=#ffd703]Revivify Spell Scroll[/color]: Revives a character. [i]Likely stolen from a cleric's collection of scriptures.[/i]"
 }
 
 const TEXTURE_PATH := {
