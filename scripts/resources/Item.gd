@@ -29,10 +29,10 @@ enum CATEGORY {
 }
 
 const DESCRIPTION := {
-	HEALTH_POTION = "[color=#ffd703]Health Potion[/color]: Restores a small amount of health to one character. [i]Slightly sweet. Does not contain snake oil.[/i]",
-	LARGE_HEALTH_POTION = "[color=#ffd703]Large Health Potion[/color]: Restores a moderate amount of health to one character. [i]A moderate source of calories. Not a meal replacement.[/i]",
-	MANA_POTION = "[color=#ffd703]Mana Potion[/color]: It glows in the dark. Restores MANA_RESTORED Mana to the on-field character. [i]Highly reactive. Consume immediately upon opening.[/i]",
-	REVIVIFY_SPELL_SCROLL = "[color=#ffd703]Revivify Spell Scroll[/color]: Revives a character. [i]Likely stolen from a cleric's collection of scriptures.[/i]"
+	HEALTH_POTION = "[color=#ffd703]Health Potion[/color]:Restores a small amount of health to one character. [color=gray]Slightly sweet. Does not contain snake oil.[/color=gray]",
+	LARGE_HEALTH_POTION = "[color=#ffd703]Large Health Potion[/color]: Restores a moderate amount of health to one character. [color=gray]A moderate source of calories. Not a meal replacement.[/color=gray]",
+	MANA_POTION = "[color=#ffd703]Mana Potion[/color]: It glows in the dark. Restores MANA_RESTORED Mana to the on-field character. [color=gray]Highly reactive. Consume immediately upon opening.[/color=gray]",
+	REVIVIFY_SPELL_SCROLL = "[color=#ffd703]Revivify Spell Scroll[/color]: Revives a character. [color=gray]Likely stolen from a cleric's collection of scriptures.[/color=gray]"
 }
 
 const TEXTURE_PATH := {
