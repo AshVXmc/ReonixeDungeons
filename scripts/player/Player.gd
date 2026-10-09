@@ -54,7 +54,7 @@ const TYPE : String = "Player"
 const AIRBORNE_STATUS : PackedScene = preload("res://scenes/status_effects/AirborneStatus.tscn")
 var dashdirection : Vector2 = Vector2(1,0)
 
-var knockback_power : int = 800
+var knockback_power : int = 620
 var can_be_knocked : bool = true
 const MAX_SPEED : int = 360
 var SPEED : int = MAX_SPEED
