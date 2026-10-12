@@ -193,7 +193,7 @@ margin_bottom = -139.0
 texture_normal = ExtResource( 4 )
 expand = true
 
-[node name="FullHealthWarningRichTextLabel" type="RichTextLabel" parent="."]
+[node name="WarningRichTextLabel" type="RichTextLabel" parent="."]
 visible = false
 anchor_left = 0.5
 anchor_top = 0.5
@@ -205,8 +205,6 @@ margin_right = 340.0
 margin_bottom = 115.0
 custom_fonts/normal_font = SubResource( 8 )
 bbcode_enabled = true
-bbcode_text = "[center][color=red]This character's health is full.[/color]"
-text = "This character's health is full."
 scroll_active = false
 
 [connection signal="pressed" from="Character1" to="." method="_on_Character1_pressed"]

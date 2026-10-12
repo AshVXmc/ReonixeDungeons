@@ -6,12 +6,14 @@ export(String) var item_name # can be changed for flavor
 export(int) var item_category 
 export(String) var item_description 
 export(String) var item_texture_path
+export(bool) var only_usable_when_dead = false
 
 enum ID {
 	HEALTH_POTION,
 	LARGE_HEALTH_POTION,
 	MANA_POTION,
-	REVIVIFY_SPELL_SCROLL
+	REVIVIFY_SPELL_SCROLL,
+	DUSTY_SCARF
 }
 
 # NOTE: Names have to be distinct from each other.
@@ -19,32 +21,36 @@ const NAME := {
 	HEALTH_POTION = "Health Potion",
 	LARGE_HEALTH_POTION = "Large Health Potion",
 	MANA_POTION = "Mana Potion",
-	REVIVIFY_SPELL_SCROLL = "Revivify Spell Scroll"
+	REVIVIFY_SPELL_SCROLL = "Revivify Spell Scroll",
+	DUSTY_SCARF = "Dusty Scarf"
 }
 
 enum CATEGORY {
 	POTIONS,
+	ARMOR,
 	SPELL_SCROLLS,
-	MISCELLANEOUS
 }
 
 const DESCRIPTION := {
-	HEALTH_POTION = "[color=#ffd703]Health Potion[/color]:Restores a small amount of health to one character. [color=gray]Slightly sweet. Does not contain snake oil.[/color=gray]",
-	LARGE_HEALTH_POTION = "[color=#ffd703]Large Health Potion[/color]: Restores a moderate amount of health to one character. [color=gray]A moderate source of calories. Not a meal replacement.[/color=gray]",
-	MANA_POTION = "[color=#ffd703]Mana Potion[/color]: It glows in the dark. Restores MANA_RESTORED Mana to the on-field character. [color=gray]Highly reactive. Consume immediately upon opening.[/color=gray]",
-	REVIVIFY_SPELL_SCROLL = "[color=#ffd703]Revivify Spell Scroll[/color]: Revives a character. [color=gray]Likely stolen from a cleric's collection of scriptures.[/color=gray]"
+	HEALTH_POTION = "[color=#ffd703]Health Potion[/color]: Restores a small amount of health to one character. [color=gray]Does not contain snake oil.[/color]",
+	LARGE_HEALTH_POTION = "[color=#ffd703]Large Health Potion[/color]: Restores a moderate amount of health to one character. [color=gray]Not a meal replacement.[/color]",
+	MANA_POTION = "[color=#ffd703]Mana Potion[/color]: It glows in the dark. Restores MANA_RESTORED Mana to the on-field character. [color=gray]Highly reactive. Consume immediately upon opening.[/color]",
+	REVIVIFY_SPELL_SCROLL = "[color=#ffd703]Revivify Spell Scroll[/color]: Revives a character. [color=gray]Likely stolen from a cleric's collection of scriptures.[/color]",
+	DUSTY_SCARF = "a scarf lmao"
 }
 
 const TEXTURE_PATH := {
 	HEALTH_POTION = "res://assets/items/health_pot.png",
 	LARGE_HEALTH_POTION = "res://assets/items/large_health_pot.png",
 	MANA_POTION = "res://assets/items/mana_pot.png",
-	REVIVIFY_SPELL_SCROLL = "res://assets/items/spell_scroll_revivify.png"
+	REVIVIFY_SPELL_SCROLL = "res://assets/items/spell_scroll_revivify.png",
+	DUSTY_SCARF = "res://assets/items/mana_pot.png"
 }
 
 const health_restored := {
 	HEALTH_POTION = 2,
-	LARGE_HEALTH_POTION = 5
+	LARGE_HEALTH_POTION = 5,
+	REVIVIFY_SPELL_SCROLL = 1
 }
 
 func get_id():
@@ -91,6 +97,13 @@ func _init(identifier = ""):
 			item_category = CATEGORY.SPELL_SCROLLS
 			item_description = DESCRIPTION.REVIVIFY_SPELL_SCROLL
 			item_texture_path = TEXTURE_PATH.REVIVIFY_SPELL_SCROLL
+			only_usable_when_dead = true
+		ID.DUSTY_SCARF:
+			item_id = ID.DUSTY_SCARF
+			item_name = NAME.DUSTY_SCARF
+			item_category = CATEGORY.ARMOR
+			item_description = DESCRIPTION.DUSTY_SCARF
+			item_texture_path = TEXTURE_PATH.DUSTY_SCARF
 	
 
 

@@ -1,6 +1,7 @@
 class_name CharactersUI extends Control
 
 onready var characterselection_ui = get_parent().get_parent().get_node("CharacterSelectionUI")
+onready var inventory_ui = get_parent().get_parent().get_parent().get_node("InventoryUI/InventoryControl")
 
 func _ready():
 #	visible = true
@@ -86,5 +87,5 @@ func _on_CloseButtonMainUI_pressed():
 	get_parent().get_parent().get_node("CharacterSelectionUI/Control").visible = true
 
 
-
-
+func _on_PlayerOpenArmorButton_pressed():
+	inventory_ui.open_menu()

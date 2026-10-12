@@ -50,7 +50,7 @@ func open_ui(selected_item : item):
 
 func close_ui():
 	visible = false
-	$FullHealthWarningRichTextLabel.visible = false
+	$WarningRichTextLabel.visible = false
 
 func consume_item(selected_character : String):
 	if currently_selected_item != null:

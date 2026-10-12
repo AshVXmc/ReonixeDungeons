@@ -11,9 +11,9 @@ var item : Resource = preload("res://scripts/resources/Item.gd")
 var game_paused_by : String = ""
 # GLOBALLY ACCESSED VARIABLES
 var character_health_data : Dictionary = {
-	"Player": 9, 
-	"Glaciela": 9,
-	"Agnette": 9
+	"Player": 10, 
+	"Glaciela": 10,
+	"Agnette": 10
 }
 var character_defense_data : Dictionary = {
 	"Player": 1.6, 
@@ -631,6 +631,24 @@ var current_player_inventory : Dictionary = {
 		"Slot5": {
 			"ContainedItem" : null,
 			"ContainedItemAmount" : 0
+		}
+	},
+	
+	"ArmorCategory": {
+		"Slot1" : {
+			"ContainedItem" : null,
+		},
+		"Slot2" : {
+			"ContainedItem" : null,
+		},
+		"Slot3": {
+			"ContainedItem" : null,
+		},
+		"Slot4": {
+			"ContainedItem" : null,
+		},
+		"Slot5": {
+			"ContainedItem" : null,
 		}
 	},
 	"SpellScrollsCategory": {

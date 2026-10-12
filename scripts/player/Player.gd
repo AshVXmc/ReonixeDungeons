@@ -1437,28 +1437,28 @@ func take_damage(damage : float):
 		
 		if Global.equipped_characters[0] == "Player":
 			if shield_hp > 0:
-				shield_hp = clamp(shield_hp - damage, 0, 999)
+				shield_hp = clamp(shield_hp - round(damage), 0, 999)
 				$Shield/ShieldHPBar.value = shield_hp
 			else:
-				Global.hearts -= damage * (1 - def)
-				add_hurt_particles(damage * (1 - def))
+				Global.hearts -= round(damage * (1 - def))
+				add_hurt_particles(round(damage * (1 - def)))
 				emit_signal("life_changed", Global.hearts, "Player")
 		elif Global.equipped_characters[1] == "Player":
 			if shield_hp > 0:
-				shield_hp = clamp(shield_hp - damage, 0, 999)
+				shield_hp = clamp(shield_hp - round(damage), 0, 999)
 				$Shield/ShieldHPBar.value = shield_hp
 			else:
-				Global.character2_hearts -= damage * (1 - def) 
-				add_hurt_particles(damage * (1 - def))
+				Global.character2_hearts -= round(damage * (1 - def))
+				add_hurt_particles(round(damage * (1 - def)))
 				#emit_signal("change_elegance"), "Hit")
 				emit_signal("life_changed", Global.character2_hearts, "Player")
 		elif Global.equipped_characters[2] == "Player":
 			if shield_hp > 0:
-				shield_hp = clamp(shield_hp - damage, 0, 999)
+				shield_hp = clamp(shield_hp - round(damage), 0, 999)
 				$Shield/ShieldHPBar.value = shield_hp
 			else:
-				Global.character3_hearts -= damage * (1 - def)
-				add_hurt_particles(damage * (1 - def))
+				Global.character3_hearts -= round(damage * (1 - def))
+				add_hurt_particles(round(damage * (1 - def)))
 				#emit_signal("change_elegance"), "Hit")
 				emit_signal("life_changed", Global.character3_hearts, "Player")
 #		print(shield_hp)
@@ -1530,6 +1530,8 @@ func after_damaged(can_die : bool = true):
 		elif Global.equipped_characters[2] == Global.current_character:
 			if Global.character3_hearts <= 0:
 				dead(Global.equipped_characters[2])
+	
+	print("PLAYER HEALTH: " + str(float(Global.hearts)))
 #	$SwordSprite.visible = true
 func dead(character_id):
 	is_dead = true

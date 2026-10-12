@@ -131,7 +131,14 @@ bbcode_text = "[center][color=#ffd703]LEFT[/color] and [color=#ffd703]RIGHT[/col
 text = "LEFT and RIGHT to move, ATTACK to select."
 scroll_active = false
 
-[node name="CloseButtonMainUI" type="TextureButton" parent="InventoryControl"]
+[node name="BelongingsControl" type="Control" parent="InventoryControl"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CloseButtonMainUI" type="TextureButton" parent="InventoryControl/BelongingsControl"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -143,13 +150,6 @@ margin_bottom = -257.0
 rect_scale = Vector2( 1.5, 1.5 )
 texture_normal = ExtResource( 11 )
 expand = true
-
-[node name="BelongingsControl" type="Control" parent="InventoryControl"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-__meta__ = {
-"_edit_group_": true
-}
 
 [node name="NinePatchRect" type="NinePatchRect" parent="InventoryControl/BelongingsControl"]
 anchor_left = 0.5
@@ -209,6 +209,33 @@ transform = Transform2D( 1, 0, 0, 1, 632, 134 )
 offset = Vector2( 722, 134 )
 transform = Transform2D( 1, 0, 0, 1, 722, 134 )
 
+[node name="ArmorInventoryGridContainer" type="GridContainer" parent="InventoryControl/BelongingsControl/NinePatchRect/ScrollContainer/VBoxContainer"]
+visible = false
+margin_top = 299.0
+margin_right = 450.0
+margin_bottom = 594.0
+rect_min_size = Vector2( 400, 295 )
+
+[node name="InventoryItemSlotCanvasLayer1" parent="InventoryControl/BelongingsControl/NinePatchRect/ScrollContainer/VBoxContainer/ArmorInventoryGridContainer" instance=ExtResource( 9 )]
+offset = Vector2( 362, 134 )
+transform = Transform2D( 1, 0, 0, 1, 362, 134 )
+
+[node name="InventoryItemSlotCanvasLayer2" parent="InventoryControl/BelongingsControl/NinePatchRect/ScrollContainer/VBoxContainer/ArmorInventoryGridContainer" instance=ExtResource( 9 )]
+offset = Vector2( 452, 134 )
+transform = Transform2D( 1, 0, 0, 1, 452, 134 )
+
+[node name="InventoryItemSlotCanvasLayer3" parent="InventoryControl/BelongingsControl/NinePatchRect/ScrollContainer/VBoxContainer/ArmorInventoryGridContainer" instance=ExtResource( 9 )]
+offset = Vector2( 542, 134 )
+transform = Transform2D( 1, 0, 0, 1, 542, 134 )
+
+[node name="InventoryItemSlotCanvasLayer4" parent="InventoryControl/BelongingsControl/NinePatchRect/ScrollContainer/VBoxContainer/ArmorInventoryGridContainer" instance=ExtResource( 9 )]
+offset = Vector2( 632, 134 )
+transform = Transform2D( 1, 0, 0, 1, 632, 134 )
+
+[node name="InventoryItemSlotCanvasLayer5" parent="InventoryControl/BelongingsControl/NinePatchRect/ScrollContainer/VBoxContainer/ArmorInventoryGridContainer" instance=ExtResource( 9 )]
+offset = Vector2( 722, 134 )
+transform = Transform2D( 1, 0, 0, 1, 722, 134 )
+
 [node name="SpellScrollsInventoryGridContainer" type="GridContainer" parent="InventoryControl/BelongingsControl/NinePatchRect/ScrollContainer/VBoxContainer"]
 visible = false
 margin_top = 299.0
@@ -265,7 +292,7 @@ custom_fonts/font = SubResource( 3 )
 text = "Potions"
 align = 1
 
-[node name="SpellScrollsTextureButton" type="TextureButton" parent="InventoryControl/BelongingsControl/NinePatchRect"]
+[node name="ArmorTextureButton" type="TextureButton" parent="InventoryControl/BelongingsControl/NinePatchRect"]
 anchor_left = -0.151
 anchor_top = 0.095
 anchor_right = -0.151
@@ -274,6 +301,35 @@ margin_left = -60.07
 margin_top = 39.47
 margin_right = 59.93
 margin_bottom = 99.47
+texture_normal = ExtResource( 8 )
+texture_pressed = ExtResource( 6 )
+expand = true
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Label" type="Label" parent="InventoryControl/BelongingsControl/NinePatchRect/ArmorTextureButton"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -57.0
+margin_top = -16.0
+margin_right = 57.0
+margin_bottom = 16.0
+custom_fonts/font = SubResource( 3 )
+text = "Armor"
+align = 1
+
+[node name="SpellScrollsTextureButton" type="TextureButton" parent="InventoryControl/BelongingsControl/NinePatchRect"]
+anchor_left = -0.151
+anchor_top = 0.095
+anchor_right = -0.151
+anchor_bottom = 0.095
+margin_left = -60.07
+margin_top = 109.47
+margin_right = 59.93
+margin_bottom = 169.47
 texture_normal = ExtResource( 8 )
 texture_pressed = ExtResource( 6 )
 expand = true
@@ -292,35 +348,6 @@ margin_right = 57.0
 margin_bottom = 16.0
 custom_fonts/font = SubResource( 3 )
 text = "Scrolls"
-align = 1
-
-[node name="MiscTextureButton" type="TextureButton" parent="InventoryControl/BelongingsControl/NinePatchRect"]
-anchor_left = -0.151
-anchor_top = 0.095
-anchor_right = -0.151
-anchor_bottom = 0.095
-margin_left = -60.07
-margin_top = 109.47
-margin_right = 59.93
-margin_bottom = 169.47
-texture_normal = ExtResource( 8 )
-texture_pressed = ExtResource( 6 )
-expand = true
-__meta__ = {
-"_edit_group_": true
-}
-
-[node name="Label" type="Label" parent="InventoryControl/BelongingsControl/NinePatchRect/MiscTextureButton"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -57.0
-margin_top = -16.0
-margin_right = 57.0
-margin_bottom = 16.0
-custom_fonts/font = SubResource( 3 )
-text = "Misc."
 align = 1
 
 [node name="DescriptionNinePatchRect" type="NinePatchRect" parent="InventoryControl/BelongingsControl"]
@@ -369,6 +396,7 @@ bbcode_enabled = true
 wait_time = 0.1
 one_shot = true
 
-[connection signal="pressed" from="InventoryControl/CloseButtonMainUI" to="InventoryControl" method="_on_CloseButtonMainUI_pressed"]
+[connection signal="pressed" from="InventoryControl/BelongingsControl/CloseButtonMainUI" to="InventoryControl" method="_on_CloseButtonMainUI_pressed"]
 [connection signal="pressed" from="InventoryControl/BelongingsControl/NinePatchRect/PotionsTextureButton" to="InventoryControl" method="_on_PotionsTextureButton_pressed"]
+[connection signal="pressed" from="InventoryControl/BelongingsControl/NinePatchRect/ArmorTextureButton" to="InventoryControl" method="_on_ArmorTextureButton_pressed"]
 [connection signal="pressed" from="InventoryControl/BelongingsControl/NinePatchRect/SpellScrollsTextureButton" to="InventoryControl" method="_on_SpellScrollsTextureButton_pressed"]

@@ -144,8 +144,8 @@ func _physics_process(delta):
 			facing = left
 		elif Input.is_action_pressed("right") and !Input.is_action_pressed("left") and !get_parent().get_parent().is_attacking and !get_parent().get_parent().is_knocked_back and !get_parent().get_parent().is_dashing:
 			facing = right
-#		else:
-#			facing = null 
+		else:
+			facing = null 
 		if facing == left:
 			Input.action_release("right")
 			$AnimatedSprite.flip_h = true
@@ -997,27 +997,27 @@ func take_damage(damage : float):
 			
 		if Global.equipped_characters[0] == "Glaciela":
 			if get_parent().get_parent().shield_hp > 0:
-				get_parent().get_parent().shield_hp = clamp(get_parent().get_parent().shield_hp - damage, 0, 999)
+				get_parent().get_parent().shield_hp = clamp(get_parent().get_parent().shield_hp - round(damage), 0, 999)
 				get_parent().get_parent().get_node("Shield/ShieldHPBar").value = get_parent().get_parent().shield_hp
 			else:
-				Global.hearts -= damage
-				add_hurt_particles(damage)
+				Global.hearts -= round(damage)
+				add_hurt_particles(round(damage))
 				emit_signal("life_changed", Global.hearts, "Glaciela")
 		elif Global.equipped_characters[1] == "Glaciela":
 			if get_parent().get_parent().shield_hp > 0:
-				get_parent().get_parent().shield_hp = clamp(get_parent().get_parent().shield_hp - damage, 0, 999)
+				get_parent().get_parent().shield_hp = clamp(get_parent().get_parent().shield_hp - round(damage), 0, 999)
 				get_parent().get_parent().get_node("Shield/ShieldHPBar").value = get_parent().get_parent().shield_hp
 			else:
-				Global.character2_hearts -= damage
-				add_hurt_particles(damage)
+				Global.character2_hearts -= round(damage)
+				add_hurt_particles(round(damage))
 				emit_signal("life_changed", Global.character2_hearts, "Glaciela")
 		elif Global.equipped_characters[2] == "Glaciela":
 			if get_parent().get_parent().shield_hp > 0:
-				get_parent().get_parent().shield_hp = clamp(get_parent().get_parent().shield_hp - damage, 0, 999)
+				get_parent().get_parent().shield_hp = clamp(get_parent().get_parent().shield_hp - round(damage), 0, 999)
 				get_parent().get_parent().get_node("Shield/ShieldHPBar").value = get_parent().get_parent().shield_hp
 			else:
-				Global.character3_hearts -= damage
-				add_hurt_particles(damage)
+				Global.character3_hearts -= round(damage)
+				add_hurt_particles(round(damage))
 				emit_signal("life_changed", Global.character3_hearts, "Glaciela")
 
 	

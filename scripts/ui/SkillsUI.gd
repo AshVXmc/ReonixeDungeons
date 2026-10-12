@@ -589,6 +589,14 @@ func on_player_life_changed(hearts : float, character : String):
 	elif character == Global.equipped_characters[2]:
 		$Characters/Slot3/CircularHealthBar.value = hearts
 		if $Characters/Slot3/CircularHealthBar.value <= $Characters/Slot3/CircularHealthBar.min_value:
-			$Characters/Slot3/Character1.self_modulate = Color(0.5, 0.5, 0.5)
+			$Characters/Slot3/Character3.self_modulate = Color(0.5, 0.5, 0.5)
 	# handle death
-	
+
+func on_player_revival(character : String):
+	if character == Global.equipped_characters[0]:
+		$Characters/Slot1/Character1.self_modulate = Color(1,1,1)
+	elif character == Global.equipped_characters[1]:
+		$Characters/Slot1/Character2.self_modulate = Color(1,1,1)
+	elif character == Global.equipped_characters[2]:
+		$Characters/Slot1/Character3.self_modulate = Color(1,1,1)
+

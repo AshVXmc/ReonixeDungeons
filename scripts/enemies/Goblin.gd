@@ -55,7 +55,7 @@ func _ready():
 	max_HP = max_HP_calc
 	HP = max_HP
 	level = level_calc
-	atk_value = 2.25 * Global.enemy_level_index + 1
+	atk_value = 2.5 * Global.enemy_level_index + 1
 	MAX_SPEED = 125
 	SPEED = MAX_SPEED
 	MAX_GRAVITY = 45

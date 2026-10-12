@@ -4,8 +4,10 @@ onready var closed = preload("res://assets/misc/item_pouch.png")
 onready var opened = preload("res://assets/misc/item_pouch_opened.png")
 onready var player : KinematicBody2D = get_parent().get_parent().get_node("Player")
 onready var inventory_grid_container : GridContainer = $BelongingsControl/NinePatchRect/ScrollContainer/VBoxContainer/PotionsInventoryGridContainer
+onready var skills_ui : Control = get_parent().get_parent().get_node("SkillsUI/Control")
 onready var currently_selected_slot_index : int = 1
-
+const FULL_HEALTH_WARNING_TEXT : String = "[center][color=red]This character's health is full.[/color]"
+const CHARACTER_STILL_ALIVE_WARNING_TEXT : String = "[center][color=red]Can only be used on a downed character.[/color]"
 const item = preload("res://scripts/resources/Item.gd")
 const MAX_INVENTORY_SLOTS : int = 5
 const MAX_INVENTORY_SLOTS_ROWS : int = 5
@@ -15,6 +17,7 @@ const SLOT_INDEX_POSITION_IN_STRING : int = 4
 
 enum INVENTORY_CATEGORY {
 	POTIONS,
+	ARMOR,
 	SPELL_SCROLLS
 }
 
@@ -23,9 +26,12 @@ func _ready():
 	get_parent().get_node("InventoryIcon/BagSprite").texture = closed
 
 	add_item_to_inventory(item.new(item.ID.HEALTH_POTION), 1)
-	add_item_to_inventory(item.new(item.ID.HEALTH_POTION), 2)
+	add_item_to_inventory(item.new(item.ID.HEALTH_POTION), 1)
 	add_item_to_inventory(item.new(item.ID.LARGE_HEALTH_POTION), 1)
 	add_item_to_inventory(item.new(item.ID.REVIVIFY_SPELL_SCROLL), 1)
+	add_item_to_inventory(item.new(item.ID.DUSTY_SCARF), 1, false)
+	add_item_to_inventory(item.new(item.ID.DUSTY_SCARF), 1, false)
+	
 	hide_inventory_item_slots()
 #	yield(get_tree().create_timer(2),"timeout")
 #	remove_item_from_inventory(item.new(item.ID.HEALTH_POTION), 1)
@@ -103,24 +109,50 @@ func consume_item(item : item, character_index : int):
 			parse_healing_item_consumption(item, character_index)
 		item.ID.LARGE_HEALTH_POTION:
 			parse_healing_item_consumption(item, character_index)
+		item.ID.REVIVIFY_SPELL_SCROLL:
+			parse_revival_item_consumption(item, character_index)
+
+func parse_revival_item_consumption(revival_item: item, character_index : int):
+	if revival_item.only_usable_when_dead:
+		if Global.alive[character_index]:
+			$SelectCharacterAsTargetControl/WarningRichTextLabel.bbcode_text = CHARACTER_STILL_ALIVE_WARNING_TEXT
+			$SelectCharacterAsTargetControl/WarningRichTextLabel.visible = true
+			return
+	
+		match Global.equipped_characters[character_index]:
+			"Player":
+				player.is_dead = false
+				Global.alive[character_index] = true
+				player.heal(Global.equipped_characters[character_index], revival_item.health_restored.REVIVIFY_SPELL_SCROLL)
+				skills_ui.on_player_revival("Player")
+				$SelectCharacterAsTargetControl.update_ui()
+				remove_item_from_inventory(revival_item, 1)
+				if !item_exists_in_inventory(revival_item):
+					show_inventory_item_slots()
+					$SelectCharacterAsTargetControl.close_ui()
+			# for modularity. as more characters are added, i might not need to add anything down here.
+			_:
+				pass
 		
+
 func parse_healing_item_consumption(healing_item : item, character_index : int):
 	if !Global.alive[character_index]:
 		return
+	$SelectCharacterAsTargetControl/WarningRichTextLabel.bbcode_text = FULL_HEALTH_WARNING_TEXT
 	match character_index:
 		0:
 			if Global.hearts == Global.max_hearts:
-				$SelectCharacterAsTargetControl/FullHealthWarningRichTextLabel.visible = true
+				$SelectCharacterAsTargetControl/WarningRichTextLabel.visible = true
 				return
 		1:
 			if Global.character2_hearts == Global.character_2_max_hearts:
-				$SelectCharacterAsTargetControl/FullHealthWarningRichTextLabel.visible = true
+				$SelectCharacterAsTargetControl/WarningRichTextLabel.visible = true
 				return
 		2:
 			if Global.character3_hearts == Global.character_3_max_hearts:
-				$SelectCharacterAsTargetControl/FullHealthWarningRichTextLabel.visible = true
+				$SelectCharacterAsTargetControl/WarningRichTextLabel.visible = true
 				return
-	$SelectCharacterAsTargetControl/FullHealthWarningRichTextLabel.visible = false
+	$SelectCharacterAsTargetControl/WarningRichTextLabel.visible = false
 	match healing_item.get_id():
 		item.ID.HEALTH_POTION:
 			player.heal(Global.equipped_characters[character_index], healing_item.health_restored.HEALTH_POTION)
@@ -136,11 +168,9 @@ func parse_healing_item_consumption(healing_item : item, character_index : int):
 		show_inventory_item_slots()
 		$SelectCharacterAsTargetControl.close_ui()
 
-func add_item_to_inventory(obtained_item : item, amount : int):
+func add_item_to_inventory(obtained_item : item, amount : int, is_stackable : bool = true):
 	var item_category : String = ""
 	var slot_index : int = -1
-# warning-ignore:unused_variable
-	var is_new_item : bool = true
 	match obtained_item.get_category():
 		item.CATEGORY.POTIONS:
 			item_category = "PotionsCategory"
@@ -148,18 +178,25 @@ func add_item_to_inventory(obtained_item : item, amount : int):
 		item.CATEGORY.SPELL_SCROLLS:
 			item_category = "SpellScrollsCategory"
 			update_current_inventory_category(INVENTORY_CATEGORY.SPELL_SCROLLS)
+		item.CATEGORY.ARMOR:
+			item_category = "ArmorCategory"
+			update_current_inventory_category(INVENTORY_CATEGORY.ARMOR)
 	for item_slot in Global.current_player_inventory[item_category]:
-		if Global.current_player_inventory[item_category][item_slot]["ContainedItem"] == null:
-			Global.current_player_inventory[item_category][item_slot]["ContainedItem"] = obtained_item
-			Global.current_player_inventory[item_category][item_slot]["ContainedItemAmount"] += amount
-			slot_index = int(item_slot.substr(SLOT_INDEX_POSITION_IN_STRING))
-			is_new_item = false
-			break
-		elif Global.current_player_inventory[item_category][item_slot]["ContainedItem"].get_id() == obtained_item.get_id():
-			Global.current_player_inventory[item_category][item_slot]["ContainedItemAmount"] += amount
-			slot_index = int(item_slot.substr(SLOT_INDEX_POSITION_IN_STRING))
-			is_new_item = true
-			break
+		if is_stackable:
+			if Global.current_player_inventory[item_category][item_slot]["ContainedItem"] == null:
+				Global.current_player_inventory[item_category][item_slot]["ContainedItem"] = obtained_item
+				Global.current_player_inventory[item_category][item_slot]["ContainedItemAmount"] += amount
+				slot_index = int(item_slot.substr(SLOT_INDEX_POSITION_IN_STRING))
+				break
+			elif Global.current_player_inventory[item_category][item_slot]["ContainedItem"].get_id() == obtained_item.get_id():
+				Global.current_player_inventory[item_category][item_slot]["ContainedItemAmount"] += amount
+				slot_index = int(item_slot.substr(SLOT_INDEX_POSITION_IN_STRING))
+				break
+		else:
+			if Global.current_player_inventory[item_category][item_slot]["ContainedItem"] == null:
+				Global.current_player_inventory[item_category][item_slot]["ContainedItem"] = obtained_item
+				slot_index = int(item_slot.substr(SLOT_INDEX_POSITION_IN_STRING))
+				break
 		
 	# update inventory slot ui
 	var slot_control = inventory_grid_container.get_node("InventoryItemSlotCanvasLayer" + str(slot_index) + "/Control")
@@ -178,6 +215,8 @@ func remove_item_from_inventory(removed_item : item, amount : int):
 			item_category = "PotionsCategory"
 		item.CATEGORY.SPELL_SCROLLS:
 			item_category = "SpellScrollsCategory"
+		item.CATEGORY.ARMOR:
+			item_category = "ArmorCategory"
 	for item_slot in Global.current_player_inventory[item_category]:
 		if Global.current_player_inventory[item_category][item_slot]["ContainedItem"].get_id() == removed_item.get_id():
 			Global.current_player_inventory[item_category][item_slot]["ContainedItemAmount"] -= amount
@@ -193,8 +232,6 @@ func remove_item_from_inventory(removed_item : item, amount : int):
 		Global.current_player_inventory[item_category]["Slot" + str(slot_index)]["ContainedItem"] = null
 		Global.current_player_inventory[item_category]["Slot" + str(slot_index)]["ContainedItemAmount"] = 0
 		slot_control.clear_contained_item()
-		
-		# TODO: rearrange items after deleting an item that gets reduced to 0
 		var current_misplaced_empty_slot_index : int = slot_index
 		for item_slot in Global.current_player_inventory[item_category]:
 			if current_misplaced_empty_slot_index + 1 >= MAX_INVENTORY_SLOTS:
@@ -233,6 +270,12 @@ func item_exists_in_inventory(target_item : item) -> bool:
 				if Global.current_player_inventory["SpellScrollsCategory"][item_slot]["ContainedItem"] == null:
 					continue
 				if Global.current_player_inventory["SpellScrollsCategory"][item_slot]["ContainedItem"].get_id() == target_item.get_id() and Global.current_player_inventory["SpellScrollsCategory"][item_slot]["ContainedItemAmount"] > 0:
+					return true
+		item.CATEGORY.ARMOR:
+			for item_slot in Global.current_player_inventory["ArmorCategory"]:
+				if Global.current_player_inventory["ArmorCategory"][item_slot]["ContainedItem"] == null:
+					continue
+				if Global.current_player_inventory["ArmorCategory"][item_slot]["ContainedItem"].get_id() == target_item.get_id():
 					return true
 	return false
 
@@ -281,6 +324,16 @@ func update_current_inventory_category(new_category : int):
 			inventory_grid_container.get_node("InventoryItemSlotCanvasLayer" + str(currently_selected_slot_index) + "/Control/SelectorTextureRect").visible = false
 			currently_selected_slot_index = 1
 			inventory_grid_container.get_node("InventoryItemSlotCanvasLayer" + str(currently_selected_slot_index) + "/Control/SelectorTextureRect").visible = true
+		INVENTORY_CATEGORY.ARMOR:
+			inventory_grid_container.get_node("InventoryItemSlotCanvasLayer" + str(currently_selected_slot_index) + "/Control/SelectorTextureRect").visible = false
+			currently_selected_slot_index = 1
+			inventory_grid_container.get_node("InventoryItemSlotCanvasLayer" + str(currently_selected_slot_index) + "/Control/SelectorTextureRect").visible = true
+			hide_inventory_item_slots()
+			inventory_grid_container = $BelongingsControl/NinePatchRect/ScrollContainer/VBoxContainer/ArmorInventoryGridContainer
+			show_inventory_item_slots()
+			inventory_grid_container.get_node("InventoryItemSlotCanvasLayer" + str(currently_selected_slot_index) + "/Control/SelectorTextureRect").visible = false
+			currently_selected_slot_index = 1
+			inventory_grid_container.get_node("InventoryItemSlotCanvasLayer" + str(currently_selected_slot_index) + "/Control/SelectorTextureRect").visible = true
 
 # UTILITY FUNCTION
 func print_inventory_contents():
@@ -315,6 +368,12 @@ func _on_CloseButtonMainUI_pressed():
 func _on_PotionsTextureButton_pressed():
 	update_current_inventory_category(INVENTORY_CATEGORY.POTIONS)
 
+func _on_ArmorTextureButton_pressed():
+	update_current_inventory_category(INVENTORY_CATEGORY.ARMOR)
+
 func _on_SpellScrollsTextureButton_pressed():
 	update_current_inventory_category(INVENTORY_CATEGORY.SPELL_SCROLLS)
+
+
+
 
