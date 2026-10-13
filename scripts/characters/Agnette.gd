@@ -895,13 +895,10 @@ func after_damaged():
 			dead(Global.equipped_characters[2])
 
 func dead(character_id):
-	
 	is_dead = true
-#	if $SelfSnareArea.is_in_group("AgnetteChargedAttackSnareOn"):
-#		toggle_charged_attack_snare(false)
 	get_parent().get_parent().is_invulnerable = true
 	$InvulnerabilityTimer.start()
-#	get_parent().get_parent().swap_to_nearby_alive_characters()
+	swap_to_nearby_alive_characters()
 	if character_id == Global.equipped_characters[0]:
 		Global.alive[0] = false
 	elif character_id == Global.equipped_characters[1]:

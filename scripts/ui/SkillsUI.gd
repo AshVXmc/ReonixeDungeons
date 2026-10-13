@@ -596,7 +596,7 @@ func on_player_revival(character : String):
 	if character == Global.equipped_characters[0]:
 		$Characters/Slot1/Character1.self_modulate = Color(1,1,1)
 	elif character == Global.equipped_characters[1]:
-		$Characters/Slot1/Character2.self_modulate = Color(1,1,1)
+		$Characters/Slot2/Character2.self_modulate = Color(1,1,1)
 	elif character == Global.equipped_characters[2]:
-		$Characters/Slot1/Character3.self_modulate = Color(1,1,1)
+		$Characters/Slot3/Character3.self_modulate = Color(1,1,1)
 

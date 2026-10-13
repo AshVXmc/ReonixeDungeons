@@ -131,8 +131,30 @@ func parse_revival_item_consumption(revival_item: item, character_index : int):
 					show_inventory_item_slots()
 					$SelectCharacterAsTargetControl.close_ui()
 			# for modularity. as more characters are added, i might not need to add anything down here.
-			_:
-				pass
+			"Glaciela":
+				player.get_node("CharacterManager/Glaciela").is_dead = false
+				Global.alive[character_index] = true
+				player.get_node("CharacterManager/Glaciela").heal(Global.equipped_characters[character_index], revival_item.health_restored.REVIVIFY_SPELL_SCROLL)
+				player.get_node("CharacterManager/Glaciela/AnimatedSprite").self_modulate = Color(1,1,1)
+				skills_ui.on_player_revival("Glaciela")
+				$SelectCharacterAsTargetControl.update_ui()
+				remove_item_from_inventory(revival_item, 1)
+				if !item_exists_in_inventory(revival_item):
+					show_inventory_item_slots()
+					$SelectCharacterAsTargetControl.close_ui()
+			"Agnette":
+				player.get_node("CharacterManager/Agnette").is_dead = false
+				Global.alive[character_index] = true
+				player.get_node("CharacterManager/Agnette").heal(Global.equipped_characters[character_index], revival_item.health_restored.REVIVIFY_SPELL_SCROLL)
+				player.get_node("CharacterManager/Agnette/AnimatedSprite").self_modulate = Color(1,1,1)
+				skills_ui.on_player_revival("Agnette")
+				$SelectCharacterAsTargetControl.update_ui()
+				remove_item_from_inventory(revival_item, 1)
+				if !item_exists_in_inventory(revival_item):
+					show_inventory_item_slots()
+					$SelectCharacterAsTargetControl.close_ui()
+			# for modularity. as more characters are added, i might not need to add anything down here.
+			
 		
 
 func parse_healing_item_consumption(healing_item : item, character_index : int):
@@ -201,7 +223,8 @@ func add_item_to_inventory(obtained_item : item, amount : int, is_stackable : bo
 	# update inventory slot ui
 	var slot_control = inventory_grid_container.get_node("InventoryItemSlotCanvasLayer" + str(slot_index) + "/Control")
 	slot_control.register_contained_item(obtained_item)
-	slot_control.increment_item_count(amount)
+	if is_stackable:
+		slot_control.increment_item_count(amount)
 	# debug, print inventory contents
 #	print("ADDED NEW ITEM: " + str(amount) + " " + obtained_item.get_name())
 #	print_inventory_contents()
