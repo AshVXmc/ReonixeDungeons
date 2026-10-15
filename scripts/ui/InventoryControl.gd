@@ -12,9 +12,9 @@ const item = preload("res://scripts/resources/Item.gd")
 const MAX_INVENTORY_SLOTS : int = 5
 const MAX_INVENTORY_SLOTS_ROWS : int = 5
 const MAX_INVENTORY_SLOTS_COLUMNS : int = 1
-
 const SLOT_INDEX_POSITION_IN_STRING : int = 4
-
+const COLOR_YELLOW : Color = Color(1, 0.84, 0.01)
+const COLOR_WHITE : Color = Color(1, 1, 1)
 enum INVENTORY_CATEGORY {
 	POTIONS,
 	ARMOR,
@@ -82,7 +82,12 @@ func _process(delta):
 				$SelectCharacterAsTargetControl.open_ui(item)
 				hide_inventory_item_slots()
 #				remove_item_from_inventory(item, 1)
-		
+		elif Input.is_action_just_pressed("slot_1"):
+			update_current_inventory_category(INVENTORY_CATEGORY.POTIONS)
+		elif Input.is_action_just_pressed("slot_2"):
+			update_current_inventory_category(INVENTORY_CATEGORY.ARMOR)
+		elif Input.is_action_just_pressed("slot_3"):
+			update_current_inventory_category(INVENTORY_CATEGORY.SPELL_SCROLLS)
 	if $SelectCharacterAsTargetControl.visible:
 		if Input.is_action_just_pressed("ui_cancel") or Input.is_action_just_pressed("ui_toggle_inventory"):
 			$SelectCharacterAsTargetControl.close_ui()
@@ -328,6 +333,9 @@ func update_footer_text():
 func update_current_inventory_category(new_category : int):
 	match new_category:
 		INVENTORY_CATEGORY.POTIONS:
+			$BelongingsControl/NinePatchRect/PotionsTextureButton/Label.add_color_override("font_color", COLOR_YELLOW)
+			$BelongingsControl/NinePatchRect/ArmorTextureButton/Label.add_color_override("font_color", COLOR_WHITE)
+			$BelongingsControl/NinePatchRect/SpellScrollsTextureButton/Label.add_color_override("font_color", COLOR_WHITE)
 			inventory_grid_container.get_node("InventoryItemSlotCanvasLayer" + str(currently_selected_slot_index) + "/Control/SelectorTextureRect").visible = false
 			currently_selected_slot_index = 1
 			inventory_grid_container.get_node("InventoryItemSlotCanvasLayer" + str(currently_selected_slot_index) + "/Control/SelectorTextureRect").visible = true
@@ -338,6 +346,9 @@ func update_current_inventory_category(new_category : int):
 			currently_selected_slot_index = 1
 			inventory_grid_container.get_node("InventoryItemSlotCanvasLayer" + str(currently_selected_slot_index) + "/Control/SelectorTextureRect").visible = true
 		INVENTORY_CATEGORY.SPELL_SCROLLS:
+			$BelongingsControl/NinePatchRect/PotionsTextureButton/Label.add_color_override("font_color", COLOR_WHITE)
+			$BelongingsControl/NinePatchRect/ArmorTextureButton/Label.add_color_override("font_color", COLOR_WHITE)
+			$BelongingsControl/NinePatchRect/SpellScrollsTextureButton/Label.add_color_override("font_color", COLOR_YELLOW)
 			inventory_grid_container.get_node("InventoryItemSlotCanvasLayer" + str(currently_selected_slot_index) + "/Control/SelectorTextureRect").visible = false
 			currently_selected_slot_index = 1
 			inventory_grid_container.get_node("InventoryItemSlotCanvasLayer" + str(currently_selected_slot_index) + "/Control/SelectorTextureRect").visible = true
@@ -348,6 +359,9 @@ func update_current_inventory_category(new_category : int):
 			currently_selected_slot_index = 1
 			inventory_grid_container.get_node("InventoryItemSlotCanvasLayer" + str(currently_selected_slot_index) + "/Control/SelectorTextureRect").visible = true
 		INVENTORY_CATEGORY.ARMOR:
+			$BelongingsControl/NinePatchRect/PotionsTextureButton/Label.add_color_override("font_color", COLOR_WHITE)
+			$BelongingsControl/NinePatchRect/ArmorTextureButton/Label.add_color_override("font_color", COLOR_YELLOW)
+			$BelongingsControl/NinePatchRect/SpellScrollsTextureButton/Label.add_color_override("font_color", COLOR_WHITE)
 			inventory_grid_container.get_node("InventoryItemSlotCanvasLayer" + str(currently_selected_slot_index) + "/Control/SelectorTextureRect").visible = false
 			currently_selected_slot_index = 1
 			inventory_grid_container.get_node("InventoryItemSlotCanvasLayer" + str(currently_selected_slot_index) + "/Control/SelectorTextureRect").visible = true

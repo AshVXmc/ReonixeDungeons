@@ -1,8 +1,6 @@
 class_name SkillsUI extends Control
 
-
 signal ability_on_cooldown(ability_name, attack_bonus)
-
 
 const playericon = preload("res://assets/UI/player_character_icon.png")
 const glacielaicon = preload("res://assets/UI/glaciela_character_icon.png")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://assets/misc/item_pouch.png" type="Texture" id=1]
 [ext_resource path="res://assets/fonts/Born2bSportyV2.ttf" type="DynamicFontData" id=2]
@@ -21,6 +21,10 @@ size = 32
 font_data = ExtResource( 2 )
 
 [sub_resource type="DynamicFont" id=5]
+size = 32
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=6]
 size = 32
 font_data = ExtResource( 2 )
 
@@ -134,9 +138,6 @@ scroll_active = false
 [node name="BelongingsControl" type="Control" parent="InventoryControl"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-__meta__ = {
-"_edit_group_": true
-}
 
 [node name="CloseButtonMainUI" type="TextureButton" parent="InventoryControl/BelongingsControl"]
 anchor_left = 0.5
@@ -275,9 +276,22 @@ margin_bottom = 29.47
 texture_normal = ExtResource( 8 )
 texture_pressed = ExtResource( 6 )
 expand = true
-__meta__ = {
-"_edit_group_": true
-}
+
+[node name="KeyIcon" type="Sprite" parent="InventoryControl/BelongingsControl/NinePatchRect/PotionsTextureButton"]
+position = Vector2( -2.95996, 30 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 7 )
+
+[node name="KeyBind" type="Label" parent="InventoryControl/BelongingsControl/NinePatchRect/PotionsTextureButton"]
+anchor_left = -3.732
+anchor_right = -3.732
+margin_left = 438.84
+margin_top = 16.0
+margin_right = 446.84
+margin_bottom = 48.0
+custom_colors/font_color = Color( 0.192157, 0.372549, 1, 1 )
+custom_fonts/font = SubResource( 6 )
+text = "1"
 
 [node name="Label" type="Label" parent="InventoryControl/BelongingsControl/NinePatchRect/PotionsTextureButton"]
 anchor_left = 0.5
@@ -308,6 +322,22 @@ __meta__ = {
 "_edit_group_": true
 }
 
+[node name="KeyIcon" type="Sprite" parent="InventoryControl/BelongingsControl/NinePatchRect/ArmorTextureButton"]
+position = Vector2( -2.95996, 30 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 7 )
+
+[node name="KeyBind" type="Label" parent="InventoryControl/BelongingsControl/NinePatchRect/ArmorTextureButton"]
+anchor_left = -3.732
+anchor_right = -3.732
+margin_left = 436.84
+margin_top = 16.0
+margin_right = 450.84
+margin_bottom = 48.0
+custom_colors/font_color = Color( 0.192157, 0.372549, 1, 1 )
+custom_fonts/font = SubResource( 6 )
+text = "2"
+
 [node name="Label" type="Label" parent="InventoryControl/BelongingsControl/NinePatchRect/ArmorTextureButton"]
 anchor_left = 0.5
 anchor_top = 0.5
@@ -336,6 +366,22 @@ expand = true
 __meta__ = {
 "_edit_group_": true
 }
+
+[node name="KeyIcon" type="Sprite" parent="InventoryControl/BelongingsControl/NinePatchRect/SpellScrollsTextureButton"]
+position = Vector2( -2.95996, 30 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 7 )
+
+[node name="KeyBind" type="Label" parent="InventoryControl/BelongingsControl/NinePatchRect/SpellScrollsTextureButton"]
+anchor_left = -3.732
+anchor_right = -3.732
+margin_left = 436.84
+margin_top = 16.0
+margin_right = 450.84
+margin_bottom = 48.0
+custom_colors/font_color = Color( 0.192157, 0.372549, 1, 1 )
+custom_fonts/font = SubResource( 6 )
+text = "3"
 
 [node name="Label" type="Label" parent="InventoryControl/BelongingsControl/NinePatchRect/SpellScrollsTextureButton"]
 anchor_left = 0.5
