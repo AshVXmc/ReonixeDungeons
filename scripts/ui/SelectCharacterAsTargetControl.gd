@@ -52,22 +52,22 @@ func close_ui():
 	visible = false
 	$WarningRichTextLabel.visible = false
 
-func consume_item(selected_character : String):
-	if currently_selected_item != null:
-		if currently_selected_item.get_id() == item.ID.HEALTH_POTION:
-			print(selected_character + "receives healing potion!")
-
+#func consume_item(selected_character : String):
+#	if currently_selected_item != null:
+#		if currently_selected_item.get_id() == item.ID.HEALTH_POTION:
+#			print(selected_character + "receives healing potion!")
+#
 
 
 func _on_CloseButtonCharacterOptionsListUI_pressed():
 	close_ui()
 	get_parent().show_inventory_item_slots()
 
-func _on_Character1_pressed():
-	consume_item(Global.equipped_characters[0])
-
-func _on_Character2_pressed():
-	consume_item(Global.equipped_characters[1])
-
-func _on_Character3_pressed():
-	consume_item(Global.equipped_characters[2])
+#func _on_Character1_pressed():
+#	consume_item(Global.equipped_characters[0])
+#
+#func _on_Character2_pressed():
+#	consume_item(Global.equipped_characters[1])
+#
+#func _on_Character3_pressed():
+#	consume_item(Global.equipped_characters[2])

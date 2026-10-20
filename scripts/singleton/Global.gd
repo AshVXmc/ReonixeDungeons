@@ -71,6 +71,8 @@ var equipped_character_skins : Dictionary = {
 	"Agnette": "DEFAULT_SKIN"
 }
 
+
+
 # attack_power is the player's atk
 var attack_power : int = 16
 var glaciela_attack : int = 16
@@ -690,6 +692,12 @@ var player_owned_inventory_items : Dictionary = {
 }
 var player_owned_inventory_items_data : Dictionary = player_owned_inventory_items.duplicate()
 
+var equipped_character_armor : Dictionary = {
+	"Player": null,
+	"Glaciela": null,
+	"Agnette": null
+}
+var equipped_character_armor_data : Dictionary = equipped_character_armor.duplicate()
 
 # Unsaved conditions
 var godmode : bool = false
@@ -760,6 +768,7 @@ func reset_player_data():
 	Global.soul_token_amount = 0
 	Global.current_player_inventory = Global.current_player_inventory_data.duplicate()
 	Global.player_owned_inventory_items = Global.player_owned_inventory_items_data.duplicate()
+	Global.equipped_character_armor = Global.equipped_character_armor_data.duplicate()
 	Global.is_loading_a_save = false
 	Global.max_item_storage = 5
 	Global.lighting = true
@@ -858,7 +867,8 @@ func save_player_data():
 		"AgnetteMaxAmmo": Global.agnette_max_ammo,
 		"GoddessTrialsStages": Global.goddess_trials_stages,
 		"CurrentPlayerInventory": Global.current_player_inventory,
-		"PlayerOwnedInventoryItems": Global.player_owned_inventory_items
+		"PlayerOwnedInventoryItems": Global.player_owned_inventory_items,
+		"EquippedCharacterArmor": Global.equipped_character_armor_data
 	}
 
 	var savefile : File = File.new()

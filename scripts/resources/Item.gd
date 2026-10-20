@@ -44,13 +44,17 @@ const TEXTURE_PATH := {
 	LARGE_HEALTH_POTION = "res://assets/items/large_health_pot.png",
 	MANA_POTION = "res://assets/items/mana_pot.png",
 	REVIVIFY_SPELL_SCROLL = "res://assets/items/spell_scroll_revivify.png",
-	DUSTY_SCARF = "res://assets/items/mana_pot.png"
+	DUSTY_SCARF = "res://assets/armor/dusty_scarf.png"
 }
 
 const health_restored := {
 	HEALTH_POTION = 2,
 	LARGE_HEALTH_POTION = 5,
 	REVIVIFY_SPELL_SCROLL = 1
+}
+
+const armor_defense_granted := {
+	DUSTY_SCARF = 1,
 }
 
 func get_id():

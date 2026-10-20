@@ -9,6 +9,9 @@ onready var currently_selected_slot_index : int = 1
 const FULL_HEALTH_WARNING_TEXT : String = "[center][color=red]This character's health is full.[/color]"
 const CHARACTER_STILL_ALIVE_WARNING_TEXT : String = "[center][color=red]Can only be used on a downed character.[/color]"
 const item = preload("res://scripts/resources/Item.gd")
+const PLAYER_SPRITE = preload("res://assets/characters/player/player_idle.png")
+const GLACIELA_SPRITE = preload("res://assets/characters/glaciela/glaciela_idle.png")
+const AGNETTE_SPRITE = preload("res://assets/characters/agnette/agnette_dash.png")
 const MAX_INVENTORY_SLOTS : int = 5
 const MAX_INVENTORY_SLOTS_ROWS : int = 5
 const MAX_INVENTORY_SLOTS_COLUMNS : int = 1
@@ -82,12 +85,13 @@ func _process(delta):
 				$SelectCharacterAsTargetControl.open_ui(item)
 				hide_inventory_item_slots()
 #				remove_item_from_inventory(item, 1)
-		elif Input.is_action_just_pressed("slot_1"):
-			update_current_inventory_category(INVENTORY_CATEGORY.POTIONS)
-		elif Input.is_action_just_pressed("slot_2"):
-			update_current_inventory_category(INVENTORY_CATEGORY.ARMOR)
-		elif Input.is_action_just_pressed("slot_3"):
-			update_current_inventory_category(INVENTORY_CATEGORY.SPELL_SCROLLS)
+		if !$SelectCharacterAsTargetControl.visible:
+			if Input.is_action_just_pressed("slot_1"):
+				update_current_inventory_category(INVENTORY_CATEGORY.POTIONS)
+			elif Input.is_action_just_pressed("slot_2"):
+				update_current_inventory_category(INVENTORY_CATEGORY.ARMOR)
+			elif Input.is_action_just_pressed("slot_3"):
+				update_current_inventory_category(INVENTORY_CATEGORY.SPELL_SCROLLS)
 	if $SelectCharacterAsTargetControl.visible:
 		if Input.is_action_just_pressed("ui_cancel") or Input.is_action_just_pressed("ui_toggle_inventory"):
 			$SelectCharacterAsTargetControl.close_ui()
@@ -109,13 +113,14 @@ func _process(delta):
 				$ItemConsumptionDelayTimer.start()
 
 func consume_item(item : item, character_index : int):
-	match item.get_id():
-		item.ID.HEALTH_POTION:
-			parse_healing_item_consumption(item, character_index)
-		item.ID.LARGE_HEALTH_POTION:
-			parse_healing_item_consumption(item, character_index)
-		item.ID.REVIVIFY_SPELL_SCROLL:
+	if item.get_category() == item.CATEGORY.POTIONS:
+		parse_healing_item_consumption(item, character_index)
+	if item.get_category() == item.CATEGORY.SPELL_SCROLLS:
+		if item.get_id() == item.ID.REVIVIFY_SPELL_SCROLL:
 			parse_revival_item_consumption(item, character_index)
+	# TODO: handle armor equipping
+	if item.get_category() == item.CATEGORY.ARMOR:
+		parse_armor_item_equipping(item, character_index)
 
 func parse_revival_item_consumption(revival_item: item, character_index : int):
 	if revival_item.only_usable_when_dead:
@@ -159,8 +164,6 @@ func parse_revival_item_consumption(revival_item: item, character_index : int):
 					show_inventory_item_slots()
 					$SelectCharacterAsTargetControl.close_ui()
 			# for modularity. as more characters are added, i might not need to add anything down here.
-			
-		
 
 func parse_healing_item_consumption(healing_item : item, character_index : int):
 	if !Global.alive[character_index]:
@@ -195,6 +198,15 @@ func parse_healing_item_consumption(healing_item : item, character_index : int):
 		show_inventory_item_slots()
 		$SelectCharacterAsTargetControl.close_ui()
 
+func parse_armor_item_equipping(armor_item : item, character_index : int):
+	print("equipping " + str(armor_item.get_name()))
+	var character : String = Global.equipped_characters[character_index]
+	Global.equipped_character_armor[character] = armor_item
+	
+	print("Equipped " + str(Global.equipped_character_armor[character].get_name()) + " on " + character)
+#	$SelectCharacterAsTargetControl.close_ui()
+	
+	
 func add_item_to_inventory(obtained_item : item, amount : int, is_stackable : bool = true):
 	var item_category : String = ""
 	var slot_index : int = -1
@@ -341,6 +353,7 @@ func update_current_inventory_category(new_category : int):
 			inventory_grid_container.get_node("InventoryItemSlotCanvasLayer" + str(currently_selected_slot_index) + "/Control/SelectorTextureRect").visible = true
 			hide_inventory_item_slots()
 			inventory_grid_container = $BelongingsControl/NinePatchRect/ScrollContainer/VBoxContainer/PotionsInventoryGridContainer
+			update_item_description_text(inventory_grid_container.get_node("InventoryItemSlotCanvasLayer" + str(currently_selected_slot_index) + "/Control").get_contained_item())
 			show_inventory_item_slots()
 			inventory_grid_container.get_node("InventoryItemSlotCanvasLayer" + str(currently_selected_slot_index) + "/Control/SelectorTextureRect").visible = false
 			currently_selected_slot_index = 1
@@ -354,6 +367,7 @@ func update_current_inventory_category(new_category : int):
 			inventory_grid_container.get_node("InventoryItemSlotCanvasLayer" + str(currently_selected_slot_index) + "/Control/SelectorTextureRect").visible = true
 			hide_inventory_item_slots()
 			inventory_grid_container = $BelongingsControl/NinePatchRect/ScrollContainer/VBoxContainer/SpellScrollsInventoryGridContainer
+			update_item_description_text(inventory_grid_container.get_node("InventoryItemSlotCanvasLayer" + str(currently_selected_slot_index) + "/Control").get_contained_item())
 			show_inventory_item_slots()
 			inventory_grid_container.get_node("InventoryItemSlotCanvasLayer" + str(currently_selected_slot_index) + "/Control/SelectorTextureRect").visible = false
 			currently_selected_slot_index = 1
@@ -367,6 +381,7 @@ func update_current_inventory_category(new_category : int):
 			inventory_grid_container.get_node("InventoryItemSlotCanvasLayer" + str(currently_selected_slot_index) + "/Control/SelectorTextureRect").visible = true
 			hide_inventory_item_slots()
 			inventory_grid_container = $BelongingsControl/NinePatchRect/ScrollContainer/VBoxContainer/ArmorInventoryGridContainer
+			update_item_description_text(inventory_grid_container.get_node("InventoryItemSlotCanvasLayer" + str(currently_selected_slot_index) + "/Control").get_contained_item())
 			show_inventory_item_slots()
 			inventory_grid_container.get_node("InventoryItemSlotCanvasLayer" + str(currently_selected_slot_index) + "/Control/SelectorTextureRect").visible = false
 			currently_selected_slot_index = 1

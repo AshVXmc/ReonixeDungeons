@@ -186,6 +186,7 @@ margin_bottom = 400.0
 rect_min_size = Vector2( 450, 400 )
 
 [node name="PotionsInventoryGridContainer" type="GridContainer" parent="InventoryControl/BelongingsControl/NinePatchRect/ScrollContainer/VBoxContainer"]
+visible = false
 margin_right = 450.0
 margin_bottom = 295.0
 rect_min_size = Vector2( 400, 295 )
