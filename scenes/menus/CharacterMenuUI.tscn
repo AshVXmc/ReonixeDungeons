@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=2]
+[gd_scene load_steps=43 format=2]
 
 [ext_resource path="res://scripts/ui/CharacterTalentsControl.gd" type="Script" id=1]
 [ext_resource path="res://assets/characters/glaciela/glaciela_idle.png" type="Texture" id=2]
@@ -27,6 +27,7 @@
 [ext_resource path="res://assets/UI/spikegrowth_skill_icon.png" type="Texture" id=25]
 [ext_resource path="res://assets/UI/raven_form_skill_icon.png" type="Texture" id=26]
 [ext_resource path="res://scenes/menus/CharacterSkinSelectionUI.tscn" type="PackedScene" id=27]
+[ext_resource path="res://scenes/menus/ArmorInventoryControl.tscn" type="PackedScene" id=28]
 
 [sub_resource type="DynamicFont" id=1]
 size = 48
@@ -113,9 +114,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 margin_left = -435.0
-margin_top = -272.5
+margin_top = -272.0
 margin_right = 435.0
-margin_bottom = 272.5
+margin_bottom = 334.0
 texture = ExtResource( 6 )
 patch_margin_left = 64
 patch_margin_top = 64
@@ -296,6 +297,31 @@ margin_right = 97.0
 margin_bottom = 44.0
 custom_fonts/font = SubResource( 10 )
 text = "Skins"
+align = 1
+
+[node name="PlayerOpenArmorButton" type="TextureButton" parent="CharactersUI/NinePatchRect"]
+anchor_left = 0.215
+anchor_right = 0.215
+margin_left = -115.195
+margin_top = 525.0
+margin_right = -5.19501
+margin_bottom = 580.0
+rect_min_size = Vector2( 32, 16 )
+texture_normal = ExtResource( 5 )
+texture_pressed = ExtResource( 4 )
+texture_hover = ExtResource( 11 )
+expand = true
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="ButtonLabel" type="Label" parent="CharactersUI/NinePatchRect/PlayerOpenArmorButton"]
+margin_left = 11.0
+margin_top = 12.0
+margin_right = 97.0
+margin_bottom = 44.0
+custom_fonts/font = SubResource( 10 )
+text = "Armor"
 align = 1
 
 [node name="GlacielaOpenSkillsButton" type="TextureButton" parent="CharactersUI/NinePatchRect"]
@@ -3116,10 +3142,13 @@ expand = true
 [node name="CharacterSkinSelection" parent="." instance=ExtResource( 27 )]
 visible = false
 
+[node name="ArmorInventoryControl" parent="." instance=ExtResource( 28 )]
+
 [connection signal="pressed" from="CharactersUI/NinePatchRect/CloseButtonMainUI" to="CharactersUI" method="_on_CloseButtonMainUI_pressed"]
 [connection signal="pressed" from="CharactersUI/NinePatchRect/PlayerOpenSkillsButton" to="CharactersUI" method="_on_PlayerOpenSkillsButton_pressed"]
 [connection signal="pressed" from="CharactersUI/NinePatchRect/PlayerOpenTalentButton" to="CharactersUI" method="_on_PlayerOpenTalentButton_pressed"]
 [connection signal="pressed" from="CharactersUI/NinePatchRect/PlayerOpenSkinsButton" to="CharactersUI" method="_on_PlayerOpenSkinsButton_pressed"]
+[connection signal="pressed" from="CharactersUI/NinePatchRect/PlayerOpenArmorButton" to="CharactersUI" method="_on_PlayerOpenArmorButton_pressed"]
 [connection signal="pressed" from="CharactersUI/NinePatchRect/GlacielaOpenSkillsButton" to="CharactersUI" method="_on_GlacielaOpenSkillsButton_pressed"]
 [connection signal="pressed" from="CharactersUI/NinePatchRect/GlacielaOpenTalentButton" to="CharactersUI" method="_on_GlacielaOpenTalentButton_pressed"]
 [connection signal="pressed" from="CharactersUI/NinePatchRect/GlacielaOpenSkinsButton" to="CharactersUI" method="_on_GlacielaOpenSkinsButton_pressed"]

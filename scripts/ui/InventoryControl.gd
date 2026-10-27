@@ -28,14 +28,9 @@ func _ready():
 	visible = false
 	get_parent().get_node("InventoryIcon/BagSprite").texture = closed
 
-	add_item_to_inventory(item.new(item.ID.HEALTH_POTION), 1)
-	add_item_to_inventory(item.new(item.ID.HEALTH_POTION), 1)
-	add_item_to_inventory(item.new(item.ID.LARGE_HEALTH_POTION), 1)
-	add_item_to_inventory(item.new(item.ID.REVIVIFY_SPELL_SCROLL), 1)
-	add_item_to_inventory(item.new(item.ID.DUSTY_SCARF), 1, false)
-	add_item_to_inventory(item.new(item.ID.DUSTY_SCARF), 1, false)
 	
-	hide_inventory_item_slots()
+	
+	
 #	yield(get_tree().create_timer(2),"timeout")
 #	remove_item_from_inventory(item.new(item.ID.HEALTH_POTION), 1)
 #	remove_item_from_inventory(item.new(item.ID.HEALTH_POTION), 1)
@@ -43,7 +38,9 @@ func _ready():
 	
 	inventory_grid_container.get_node("InventoryItemSlotCanvasLayer" + str(currently_selected_slot_index) + "/Control/SelectorTextureRect").visible = true
 	update_item_description_text(inventory_grid_container.get_node("InventoryItemSlotCanvasLayer" + str(currently_selected_slot_index) + "/Control").get_contained_item())
+	
 
+	hide_inventory_item_slots()
 # warning-ignore:unused_argument
 # warning-ignore:unused_argument
 # warning-ignore:unused_argument
@@ -53,7 +50,17 @@ func _ready():
 # warning-ignore:unused_argument
 # warning-ignore:unused_argument
 # warning-ignore:unused_argument
+
 func _process(delta):
+	# debug: press P to add item. 
+	if Input.is_action_just_pressed("filler_button"):
+		add_item_to_inventory(item.new(item.ID.HEALTH_POTION), 1)
+		add_item_to_inventory(item.new(item.ID.HEALTH_POTION), 1)
+		add_item_to_inventory(item.new(item.ID.LARGE_HEALTH_POTION), 1)
+		add_item_to_inventory(item.new(item.ID.REVIVIFY_SPELL_SCROLL), 1)
+		add_item_to_inventory(item.new(item.ID.DUSTY_SCARF), 1, false)
+		add_item_to_inventory(item.new(item.ID.DUSTY_SCARF), 1, false)
+	
 	if !visible:
 		if Input.is_action_just_pressed("ui_toggle_inventory") and Global.game_paused_by == "":
 			open_menu()
@@ -250,15 +257,20 @@ func add_item_to_inventory(obtained_item : item, amount : int, is_stackable : bo
 				Global.current_player_inventory[item_category][item_slot]["ContainedItemAmount"] += amount
 				slot_index = int(item_slot.substr(SLOT_INDEX_POSITION_IN_STRING))
 				break
+#			print("potions: " + str(Global.current_player_inventory["PotionsCategory"]))
+			
 		else:
 			if Global.current_player_inventory[item_category][item_slot]["ContainedItem"] == null:
 				Global.current_player_inventory[item_category][item_slot]["ContainedItem"] = obtained_item
 				slot_index = int(item_slot.substr(SLOT_INDEX_POSITION_IN_STRING))
+#				print("armor: " + str(Global.current_player_inventory["ArmorCategory"]))
 				break
 		
 	# update inventory slot ui
+
 	var slot_control = inventory_grid_container.get_node("InventoryItemSlotCanvasLayer" + str(slot_index) + "/Control")
 	slot_control.register_contained_item(obtained_item)
+	
 	if is_stackable:
 		slot_control.increment_item_count(amount)
 	# debug, print inventory contents

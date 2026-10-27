@@ -86,6 +86,5 @@ func _on_CloseButtonMainUI_pressed():
 	toggle_ui()
 	get_parent().get_parent().get_node("CharacterSelectionUI/Control").visible = true
 
-
 func _on_PlayerOpenArmorButton_pressed():
-	inventory_ui.open_menu()
+	get_parent().get_node("ArmorInventoryControl").open_ui()

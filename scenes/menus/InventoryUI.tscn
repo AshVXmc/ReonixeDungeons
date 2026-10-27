@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://assets/misc/item_pouch.png" type="Texture" id=1]
 [ext_resource path="res://assets/fonts/Born2bSportyV2.ttf" type="DynamicFontData" id=2]
@@ -11,7 +11,6 @@
 [ext_resource path="res://scenes/menus/InventoryItemSlot.tscn" type="PackedScene" id=9]
 [ext_resource path="res://scenes/menus/util/SelectCharacterAsTargetControl.tscn" type="PackedScene" id=10]
 [ext_resource path="res://assets/UI/quiticon.png" type="Texture" id=11]
-[ext_resource path="res://scenes/menus/ArmorInventoryGridContainer.tscn" type="PackedScene" id=12]
 
 [sub_resource type="DynamicFont" id=1]
 size = 48
@@ -212,7 +211,90 @@ transform = Transform2D( 1, 0, 0, 1, 632, 134 )
 offset = Vector2( 722, 134 )
 transform = Transform2D( 1, 0, 0, 1, 722, 134 )
 
-[node name="ArmorInventoryGridContainer" parent="InventoryControl/BelongingsControl/NinePatchRect/ScrollContainer/VBoxContainer" instance=ExtResource( 12 )]
+[node name="ArmorInventoryGridContainer" type="GridContainer" parent="InventoryControl/BelongingsControl/NinePatchRect/ScrollContainer/VBoxContainer"]
+margin_right = 450.0
+margin_bottom = 295.0
+rect_min_size = Vector2( 400, 295 )
+
+[node name="InventoryItemSlotCanvasLayer1" parent="InventoryControl/BelongingsControl/NinePatchRect/ScrollContainer/VBoxContainer/ArmorInventoryGridContainer" instance=ExtResource( 9 )]
+offset = Vector2( 362, 134 )
+transform = Transform2D( 1, 0, 0, 1, 362, 134 )
+
+[node name="InventoryItemSlotCanvasLayer2" parent="InventoryControl/BelongingsControl/NinePatchRect/ScrollContainer/VBoxContainer/ArmorInventoryGridContainer" instance=ExtResource( 9 )]
+offset = Vector2( 452, 134 )
+transform = Transform2D( 1, 0, 0, 1, 452, 134 )
+
+[node name="InventoryItemSlotCanvasLayer3" parent="InventoryControl/BelongingsControl/NinePatchRect/ScrollContainer/VBoxContainer/ArmorInventoryGridContainer" instance=ExtResource( 9 )]
+offset = Vector2( 542, 134 )
+transform = Transform2D( 1, 0, 0, 1, 542, 134 )
+
+[node name="InventoryItemSlotCanvasLayer4" parent="InventoryControl/BelongingsControl/NinePatchRect/ScrollContainer/VBoxContainer/ArmorInventoryGridContainer" instance=ExtResource( 9 )]
+offset = Vector2( 632, 134 )
+transform = Transform2D( 1, 0, 0, 1, 632, 134 )
+
+[node name="InventoryItemSlotCanvasLayer5" parent="InventoryControl/BelongingsControl/NinePatchRect/ScrollContainer/VBoxContainer/ArmorInventoryGridContainer" instance=ExtResource( 9 )]
+offset = Vector2( 722, 134 )
+transform = Transform2D( 1, 0, 0, 1, 722, 134 )
+
+[node name="InventoryItemSlotCanvasLayer6" parent="InventoryControl/BelongingsControl/NinePatchRect/ScrollContainer/VBoxContainer/ArmorInventoryGridContainer" instance=ExtResource( 9 )]
+offset = Vector2( 362, 224 )
+transform = Transform2D( 1, 0, 0, 1, 362, 224 )
+
+[node name="InventoryItemSlotCanvasLayer7" parent="InventoryControl/BelongingsControl/NinePatchRect/ScrollContainer/VBoxContainer/ArmorInventoryGridContainer" instance=ExtResource( 9 )]
+offset = Vector2( 452, 224 )
+transform = Transform2D( 1, 0, 0, 1, 452, 224 )
+
+[node name="InventoryItemSlotCanvasLayer8" parent="InventoryControl/BelongingsControl/NinePatchRect/ScrollContainer/VBoxContainer/ArmorInventoryGridContainer" instance=ExtResource( 9 )]
+offset = Vector2( 542, 224 )
+transform = Transform2D( 1, 0, 0, 1, 542, 224 )
+
+[node name="InventoryItemSlotCanvasLayer9" parent="InventoryControl/BelongingsControl/NinePatchRect/ScrollContainer/VBoxContainer/ArmorInventoryGridContainer" instance=ExtResource( 9 )]
+offset = Vector2( 632, 224 )
+transform = Transform2D( 1, 0, 0, 1, 632, 224 )
+
+[node name="InventoryItemSlotCanvasLayer10" parent="InventoryControl/BelongingsControl/NinePatchRect/ScrollContainer/VBoxContainer/ArmorInventoryGridContainer" instance=ExtResource( 9 )]
+offset = Vector2( 722, 224 )
+transform = Transform2D( 1, 0, 0, 1, 722, 224 )
+
+[node name="InventoryItemSlotCanvasLayer11" parent="InventoryControl/BelongingsControl/NinePatchRect/ScrollContainer/VBoxContainer/ArmorInventoryGridContainer" instance=ExtResource( 9 )]
+offset = Vector2( 362, 314 )
+transform = Transform2D( 1, 0, 0, 1, 362, 314 )
+
+[node name="InventoryItemSlotCanvasLayer12" parent="InventoryControl/BelongingsControl/NinePatchRect/ScrollContainer/VBoxContainer/ArmorInventoryGridContainer" instance=ExtResource( 9 )]
+offset = Vector2( 452, 314 )
+transform = Transform2D( 1, 0, 0, 1, 452, 314 )
+
+[node name="InventoryItemSlotCanvasLayer13" parent="InventoryControl/BelongingsControl/NinePatchRect/ScrollContainer/VBoxContainer/ArmorInventoryGridContainer" instance=ExtResource( 9 )]
+offset = Vector2( 542, 314 )
+transform = Transform2D( 1, 0, 0, 1, 542, 314 )
+
+[node name="InventoryItemSlotCanvasLayer14" parent="InventoryControl/BelongingsControl/NinePatchRect/ScrollContainer/VBoxContainer/ArmorInventoryGridContainer" instance=ExtResource( 9 )]
+offset = Vector2( 632, 314 )
+transform = Transform2D( 1, 0, 0, 1, 632, 314 )
+
+[node name="InventoryItemSlotCanvasLayer15" parent="InventoryControl/BelongingsControl/NinePatchRect/ScrollContainer/VBoxContainer/ArmorInventoryGridContainer" instance=ExtResource( 9 )]
+offset = Vector2( 722, 314 )
+transform = Transform2D( 1, 0, 0, 1, 722, 314 )
+
+[node name="InventoryItemSlotCanvasLayer16" parent="InventoryControl/BelongingsControl/NinePatchRect/ScrollContainer/VBoxContainer/ArmorInventoryGridContainer" instance=ExtResource( 9 )]
+offset = Vector2( 362, 404 )
+transform = Transform2D( 1, 0, 0, 1, 362, 404 )
+
+[node name="InventoryItemSlotCanvasLayer17" parent="InventoryControl/BelongingsControl/NinePatchRect/ScrollContainer/VBoxContainer/ArmorInventoryGridContainer" instance=ExtResource( 9 )]
+offset = Vector2( 452, 404 )
+transform = Transform2D( 1, 0, 0, 1, 452, 404 )
+
+[node name="InventoryItemSlotCanvasLayer18" parent="InventoryControl/BelongingsControl/NinePatchRect/ScrollContainer/VBoxContainer/ArmorInventoryGridContainer" instance=ExtResource( 9 )]
+offset = Vector2( 542, 404 )
+transform = Transform2D( 1, 0, 0, 1, 542, 404 )
+
+[node name="InventoryItemSlotCanvasLayer19" parent="InventoryControl/BelongingsControl/NinePatchRect/ScrollContainer/VBoxContainer/ArmorInventoryGridContainer" instance=ExtResource( 9 )]
+offset = Vector2( 632, 404 )
+transform = Transform2D( 1, 0, 0, 1, 632, 404 )
+
+[node name="InventoryItemSlotCanvasLayer20" parent="InventoryControl/BelongingsControl/NinePatchRect/ScrollContainer/VBoxContainer/ArmorInventoryGridContainer" instance=ExtResource( 9 )]
+offset = Vector2( 722, 404 )
+transform = Transform2D( 1, 0, 0, 1, 722, 404 )
 
 [node name="SpellScrollsInventoryGridContainer" type="GridContainer" parent="InventoryControl/BelongingsControl/NinePatchRect/ScrollContainer/VBoxContainer"]
 visible = false

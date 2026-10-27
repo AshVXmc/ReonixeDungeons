@@ -610,9 +610,6 @@ var goddess_trials_stages_data : Dictionary = goddess_trials_stages.duplicate()
 
 # Inventory
 var current_player_inventory : Dictionary = {
-	# SAMPLE INVENTORY (EXAMPLE)
-
-	
 	"PotionsCategory": {
 		"Slot1" : {
 			"ContainedItem" : null,
@@ -679,18 +676,18 @@ var current_player_inventory : Dictionary = {
 var current_player_inventory_data : Dictionary = current_player_inventory.duplicate()
 
 # Cross-referenced by "current_player_inventory". 
-var player_owned_inventory_items : Dictionary = {
-	# item.gd : <count of items>
-	"PotionsCategory": {
-		"HealthPotion" : 0,
-		"LargeHealthPotion" : 0,
-		"ManaPotion" : 0,
-	},
-	"SpellScrollsCategory": {
-		"RevivifySpellScrolls": 0
-	}
-}
-var player_owned_inventory_items_data : Dictionary = player_owned_inventory_items.duplicate()
+#var player_owned_inventory_items : Dictionary = {
+#	# item.gd : <count of items>
+#	"PotionsCategory": {
+#		"HealthPotion" : 0,
+#		"LargeHealthPotion" : 0,
+#		"ManaPotion" : 0,
+#	},
+#	"SpellScrollsCategory": {
+#		"RevivifySpellScrolls": 0
+#	}
+#}
+#var player_owned_inventory_items_data : Dictionary = player_owned_inventory_items.duplicate()
 
 var equipped_character_armor : Dictionary = {
 	"Player": null,
@@ -767,7 +764,7 @@ func reset_player_data():
 	Global.goddess_trials_stages = Global.goddess_trials_stages_data.duplicate()
 	Global.soul_token_amount = 0
 	Global.current_player_inventory = Global.current_player_inventory_data.duplicate()
-	Global.player_owned_inventory_items = Global.player_owned_inventory_items_data.duplicate()
+#	Global.player_owned_inventory_items = Global.player_owned_inventory_items_data.duplicate()
 	Global.equipped_character_armor = Global.equipped_character_armor_data.duplicate()
 	Global.is_loading_a_save = false
 	Global.max_item_storage = 5
@@ -867,7 +864,7 @@ func save_player_data():
 		"AgnetteMaxAmmo": Global.agnette_max_ammo,
 		"GoddessTrialsStages": Global.goddess_trials_stages,
 		"CurrentPlayerInventory": Global.current_player_inventory,
-		"PlayerOwnedInventoryItems": Global.player_owned_inventory_items,
+#		"PlayerOwnedInventoryItems": Global.player_owned_inventory_items,
 		"EquippedCharacterArmor": Global.equipped_character_armor_data
 	}
 
