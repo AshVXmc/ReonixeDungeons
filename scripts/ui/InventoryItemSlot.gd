@@ -41,3 +41,11 @@ func decrement_item_count(reduced_value : int):
 func get_contained_item():
 	return contained_item
 
+func set_equipping_character_sprite(sprite : Texture):
+	$EquippingCharacterSprite.texture = sprite
+
+func clear_equipping_character_sprite():
+	print("cleared sprite of slot " + get_parent().name)
+	$EquippingCharacterSprite.texture = null
+
+

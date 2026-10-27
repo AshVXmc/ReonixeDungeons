@@ -101,26 +101,25 @@ func _process(delta):
 		if $ItemConsumptionDelayTimer.is_stopped():
 			if Input.is_action_just_pressed("slot_1"):
 				var item = inventory_grid_container.get_node("InventoryItemSlotCanvasLayer" + str(currently_selected_slot_index) + "/Control").get_contained_item()
-				consume_item(item, 0)
+				consume_item(item, 0, currently_selected_slot_index)
 				$ItemConsumptionDelayTimer.start()
 			elif Input.is_action_just_pressed("slot_2"):
 				var item = inventory_grid_container.get_node("InventoryItemSlotCanvasLayer" + str(currently_selected_slot_index) + "/Control").get_contained_item()
-				consume_item(item, 1)
+				consume_item(item, 1, currently_selected_slot_index)
 				$ItemConsumptionDelayTimer.start()
 			elif Input.is_action_just_pressed("slot_3"):
 				var item = inventory_grid_container.get_node("InventoryItemSlotCanvasLayer" + str(currently_selected_slot_index) + "/Control").get_contained_item()
-				consume_item(item, 2)
+				consume_item(item, 2, currently_selected_slot_index)
 				$ItemConsumptionDelayTimer.start()
 
-func consume_item(item : item, character_index : int):
+func consume_item(item : item, character_index : int, slot_index : int):
 	if item.get_category() == item.CATEGORY.POTIONS:
 		parse_healing_item_consumption(item, character_index)
 	if item.get_category() == item.CATEGORY.SPELL_SCROLLS:
 		if item.get_id() == item.ID.REVIVIFY_SPELL_SCROLL:
 			parse_revival_item_consumption(item, character_index)
-	# TODO: handle armor equipping
 	if item.get_category() == item.CATEGORY.ARMOR:
-		parse_armor_item_equipping(item, character_index)
+		parse_armor_item_equipping(item, character_index, slot_index)
 
 func parse_revival_item_consumption(revival_item: item, character_index : int):
 	if revival_item.only_usable_when_dead:
@@ -193,20 +192,40 @@ func parse_healing_item_consumption(healing_item : item, character_index : int):
 	$SelectCharacterAsTargetControl.update_ui()
 	remove_item_from_inventory(healing_item, 1)
 	
-	# TODO: close character selection ui if item amount reaches 0
+
 	if !item_exists_in_inventory(healing_item):
 		show_inventory_item_slots()
 		$SelectCharacterAsTargetControl.close_ui()
 
-func parse_armor_item_equipping(armor_item : item, character_index : int):
-	print("equipping " + str(armor_item.get_name()))
+func parse_armor_item_equipping(armor_item : item, character_index : int, slot_index : int):
+	if armor_item.get_is_equipped_on() != "":
+		return
+	# TODO: handle swapping armor between two distinct characters
+	
 	var character : String = Global.equipped_characters[character_index]
+	for inventory_item_slot in $BelongingsControl/NinePatchRect/ScrollContainer/VBoxContainer/ArmorInventoryGridContainer.get_children():
+		if inventory_item_slot.get_node("Control").get_contained_item() != null:
+			if inventory_item_slot.get_node("Control").get_contained_item().get_is_equipped_on() == character:
+				inventory_item_slot.get_node("Control").get_contained_item().clear_is_equipped_on()
+				inventory_item_slot.get_node("Control").clear_equipping_character_sprite()
+				break
 	Global.equipped_character_armor[character] = armor_item
+	armor_item.is_equipped_on = character
+	print("Equipped " + str(Global.equipped_character_armor[character].get_name()) + " on " + character + ", in slot index " + str(slot_index))
 	
-	print("Equipped " + str(Global.equipped_character_armor[character].get_name()) + " on " + character)
-#	$SelectCharacterAsTargetControl.close_ui()
+	var sprite : Texture
+	match character:
+		"Player":
+			sprite = PLAYER_SPRITE
+		"Glaciela":
+			sprite = GLACIELA_SPRITE
+		"Agnette":
+			sprite = AGNETTE_SPRITE
+	inventory_grid_container.get_node("InventoryItemSlotCanvasLayer" + str(currently_selected_slot_index) + "/Control").set_equipping_character_sprite(sprite)
+	show_inventory_item_slots()
+	$SelectCharacterAsTargetControl.close_ui()
 	
-	
+
 func add_item_to_inventory(obtained_item : item, amount : int, is_stackable : bool = true):
 	var item_category : String = ""
 	var slot_index : int = -1

@@ -84,7 +84,7 @@ var player_skill_multipliers : Dictionary = {
 	"BasicAttack2": 30.0,
 	"BasicAttack3": 35.0,
 	"BasicAttack4": 60.0,
-	"ChargedAttack": 220.0,
+	"ChargedAttack": 160.0,
 	"ChargedAttackStaminaCost": 100,
 	"ThrustAttack": 80.0,
 	"ThrustChargedAttack": 75.0,

@@ -7,6 +7,8 @@ export(int) var item_category
 export(String) var item_description 
 export(String) var item_texture_path
 export(bool) var only_usable_when_dead = false
+export(String) var is_equipped_on = "" # for armor items only
+
 
 enum ID {
 	HEALTH_POTION,
@@ -75,6 +77,12 @@ func get_item_texture_path():
 func get_amount_of_healing_granted():
 	return 0
 
+func get_is_equipped_on():
+	return is_equipped_on
+
+func clear_is_equipped_on():
+	is_equipped_on = ""
+	
 func _init(identifier = ""):
 	match identifier:
 		ID.HEALTH_POTION:
