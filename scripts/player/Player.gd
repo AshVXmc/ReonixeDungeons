@@ -361,7 +361,6 @@ func get_closest_enemy() -> Node2D:
 	return closest_enemy
 	
 func _physics_process(_delta):
-
 #	if Global.current_character == "Player":
 #		$EnergyMeter.visible = true
 #	else:

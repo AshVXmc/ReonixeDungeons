@@ -8,7 +8,7 @@ extends Control
 onready var transition : CanvasLayer = get_parent().get_parent().get_parent().get_node("SceneTransition")
 # Dependency
 onready var colorrect : ColorRect = get_parent().get_parent().get_parent().get_node("SceneTransition/ColorRect")
-onready var character_selection_ui : CharacterSelectionUI = get_parent().get_parent().get_node("CharacterSelectionUI/Control")
+onready var character_selection_ui := get_parent().get_parent().get_parent().get_node("DungeonEntrance/CharacterSelectionUI/Control")
 # to access the dungeon entrance "load_scene
 
 const GODDESS_TRIALS_LEVEL_PATH : String = "res://scenes/levels/GoddessTrialsLevel.tscn"

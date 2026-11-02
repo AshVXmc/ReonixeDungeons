@@ -2,13 +2,22 @@ extends Control
 onready var currently_selected_slot_index : int = 1
 const MAX_INVENTORY_SLOTS_ROWS : int = 5
 const MAX_INVENTORY_SLOTS_COLUMNS : int = 3
+const item = preload("res://scripts/resources/Item.gd")
+const SLOT_INDEX_POSITION_IN_STRING : int = 4
+
+
 
 func _ready():
+	print("hi im an armor inventory control")
 	visible = false
 	hide_inventory_item_slots()
 	$ScrollContainer/VBoxContainer/ArmorInventoryGridContainer.get_node("InventoryItemSlotCanvasLayer" + str(currently_selected_slot_index) + "/Control/SelectorTextureRect").visible = true
-	
+
+
 func _process(delta):
+	if Input.is_action_just_pressed("filler_button"):
+		add_armor_to_inventory(item.new(item.ID.DUSTY_SCARF), 1, false)
+
 	if !visible:
 		if Input.is_action_just_pressed("ui_toggle_inventory") and Global.game_paused_by == "":
 			open_ui()
@@ -60,7 +69,22 @@ func _process(delta):
 				var item = $ScrollContainer/VBoxContainer/ArmorInventoryGridContainer.get_node("InventoryItemSlotCanvasLayer" + str(currently_selected_slot_index) + "/Control").get_contained_item()
 				consume_item(item, 2, currently_selected_slot_index)
 				$ItemConsumptionDelayTimer.start()
+				
+func add_armor_to_inventory(obtained_item : item, amount : int, is_stackable : bool = true):
+	var slot_index : int = -1
 
+	for item_slot in Global.current_player_inventory["ArmorCategory"]:
+		if Global.current_player_inventory["ArmorCategory"][item_slot]["ContainedItem"] == null:
+			Global.current_player_inventory["ArmorCategory"][item_slot]["ContainedItem"] = obtained_item
+			slot_index = int(item_slot.substr(SLOT_INDEX_POSITION_IN_STRING))
+			print("armor: " + str(Global.current_player_inventory["ArmorCategory"]))
+			break
+		
+	var slot_control = $ScrollContainer/VBoxContainer/ArmorInventoryGridContainer.get_node("InventoryItemSlotCanvasLayer" + str(slot_index) + "/Control")
+	slot_control.register_contained_item(obtained_item)
+	
+	
+		
 func consume_item(item, character_index : int, slot_index : int):
 	pass
 	# TODO

@@ -53,13 +53,13 @@ func _ready():
 
 func _process(delta):
 	# debug: press P to add item. 
-	if Input.is_action_just_pressed("filler_button"):
-		add_item_to_inventory(item.new(item.ID.HEALTH_POTION), 1)
-		add_item_to_inventory(item.new(item.ID.HEALTH_POTION), 1)
-		add_item_to_inventory(item.new(item.ID.LARGE_HEALTH_POTION), 1)
-		add_item_to_inventory(item.new(item.ID.REVIVIFY_SPELL_SCROLL), 1)
-		add_item_to_inventory(item.new(item.ID.DUSTY_SCARF), 1, false)
-		add_item_to_inventory(item.new(item.ID.DUSTY_SCARF), 1, false)
+#	if Input.is_action_just_pressed("filler_button"):
+#		add_item_to_inventory(item.new(item.ID.HEALTH_POTION), 1)
+#		add_item_to_inventory(item.new(item.ID.HEALTH_POTION), 1)
+#		add_item_to_inventory(item.new(item.ID.LARGE_HEALTH_POTION), 1)
+#		add_item_to_inventory(item.new(item.ID.REVIVIFY_SPELL_SCROLL), 1)
+#		add_item_to_inventory(item.new(item.ID.DUSTY_SCARF), 1, false)
+#		add_item_to_inventory(item.new(item.ID.DUSTY_SCARF), 1, false)
 	
 	if !visible:
 		if Input.is_action_just_pressed("ui_toggle_inventory") and Global.game_paused_by == "":
