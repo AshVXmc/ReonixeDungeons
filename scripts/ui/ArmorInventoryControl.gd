@@ -4,7 +4,9 @@ const MAX_INVENTORY_SLOTS_ROWS : int = 5
 const MAX_INVENTORY_SLOTS_COLUMNS : int = 3
 const item = preload("res://scripts/resources/Item.gd")
 const SLOT_INDEX_POSITION_IN_STRING : int = 4
-
+const PLAYER_SPRITE = preload("res://assets/characters/player/player_idle.png")
+const GLACIELA_SPRITE = preload("res://assets/characters/glaciela/glaciela_idle.png")
+const AGNETTE_SPRITE = preload("res://assets/characters/agnette/agnette_dash.png")
 
 
 func _ready():
@@ -49,7 +51,8 @@ func _process(delta):
 				$SelectCharacterAsTargetControl.open_ui(item)
 				hide_inventory_item_slots()
 #				remove_item_from_inventory(item, 1)
-		
+		elif Input.is_action_just_pressed("ui_dash"):
+			pass
 	if $SelectCharacterAsTargetControl.visible:
 		if Input.is_action_just_pressed("ui_cancel") or Input.is_action_just_pressed("ui_toggle_inventory"):
 			$SelectCharacterAsTargetControl.close_ui()
@@ -59,15 +62,15 @@ func _process(delta):
 		if $ItemConsumptionDelayTimer.is_stopped():
 			if Input.is_action_just_pressed("slot_1"):
 				var item = $ScrollContainer/VBoxContainer/ArmorInventoryGridContainer.get_node("InventoryItemSlotCanvasLayer" + str(currently_selected_slot_index) + "/Control").get_contained_item()
-				consume_item(item, 0, currently_selected_slot_index)
+				equip_armor(item, 0, currently_selected_slot_index)
 				$ItemConsumptionDelayTimer.start()
 			elif Input.is_action_just_pressed("slot_2"):
 				var item = $ScrollContainer/VBoxContainer/ArmorInventoryGridContainer.get_node("InventoryItemSlotCanvasLayer" + str(currently_selected_slot_index) + "/Control").get_contained_item()
-				consume_item(item, 1, currently_selected_slot_index)
+				equip_armor(item, 1, currently_selected_slot_index)
 				$ItemConsumptionDelayTimer.start()
 			elif Input.is_action_just_pressed("slot_3"):
 				var item = $ScrollContainer/VBoxContainer/ArmorInventoryGridContainer.get_node("InventoryItemSlotCanvasLayer" + str(currently_selected_slot_index) + "/Control").get_contained_item()
-				consume_item(item, 2, currently_selected_slot_index)
+				equip_armor(item, 2, currently_selected_slot_index)
 				$ItemConsumptionDelayTimer.start()
 				
 func add_armor_to_inventory(obtained_item : item, amount : int, is_stackable : bool = true):
@@ -85,9 +88,29 @@ func add_armor_to_inventory(obtained_item : item, amount : int, is_stackable : b
 	
 	
 		
-func consume_item(item, character_index : int, slot_index : int):
+func equip_armor(armor_item : item, character_index : int, slot_index : int):
+	var character : String = Global.equipped_characters[character_index]
+	Global.equipped_character_armor[character] = armor_item
+	print("Armor item: " + armor_item.get_name() + " equipped on " + character)
+	var sprite : Texture
+	match character:
+		"Player":
+			sprite = PLAYER_SPRITE
+		"Glaciela":
+			sprite = GLACIELA_SPRITE
+		"Agnette":
+			sprite = AGNETTE_SPRITE
+	$ScrollContainer/VBoxContainer/ArmorInventoryGridContainer.get_node("InventoryItemSlotCanvasLayer" + str(currently_selected_slot_index) + "/Control").set_equipping_character_sprite(sprite)
+	show_inventory_item_slots()
+	$SelectCharacterAsTargetControl.visible = false
+	
+# TODO
+func unequip_armor():
 	pass
-	# TODO
+
+func delete_armor():
+	pass
+
 func update_item_description_text(new_item):
 	# Invalid call. Nonexistent function 'get_description' in base 'Nil'.
 	if new_item == null:

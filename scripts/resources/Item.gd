@@ -33,13 +33,6 @@ enum CATEGORY {
 	SPELL_SCROLLS,
 }
 
-const DESCRIPTION := {
-	HEALTH_POTION = "[color=#ffd703]Health Potion[/color]: Restores a small amount of health to one character. [color=gray]Does not contain snake oil.[/color]",
-	LARGE_HEALTH_POTION = "[color=#ffd703]Large Health Potion[/color]: Restores a moderate amount of health to one character. [color=gray]Not a meal replacement.[/color]",
-	MANA_POTION = "[color=#ffd703]Mana Potion[/color]: It glows in the dark. Restores MANA_RESTORED Mana to the on-field character. [color=gray]Highly reactive. Consume immediately upon opening.[/color]",
-	REVIVIFY_SPELL_SCROLL = "[color=#ffd703]Revivify Spell Scroll[/color]: Revives a character. [color=gray]Likely stolen from a cleric's collection of scriptures.[/color]",
-	DUSTY_SCARF = "a scarf lmao"
-}
 
 const TEXTURE_PATH := {
 	HEALTH_POTION = "res://assets/items/health_pot.png",
@@ -57,6 +50,14 @@ const health_restored := {
 
 const armor_defense_granted := {
 	DUSTY_SCARF = 1,
+}
+
+const DESCRIPTION := {
+	HEALTH_POTION = "[color=#ffd703]Health Potion[/color]: Restores a small amount of health to one character. [color=gray]Does not contain snake oil.[/color]",
+	LARGE_HEALTH_POTION = "[color=#ffd703]Large Health Potion[/color]: Restores a moderate amount of health to one character. [color=gray]Not a meal replacement.[/color]",
+	MANA_POTION = "[color=#ffd703]Mana Potion[/color]: It glows in the dark. Restores MANA_RESTORED Mana to the on-field character. [color=gray]Highly reactive. Consume immediately upon opening.[/color]",
+	REVIVIFY_SPELL_SCROLL = "[color=#ffd703]Revivify Spell Scroll[/color]: Revives a character. [color=gray]Likely stolen from a cleric's collection of scriptures.[/color]",
+	DUSTY_SCARF = "[color=#ffd703]Dusty Scarf[/color]: +%d DEF" % armor_defense_granted.DUSTY_SCARF
 }
 
 func get_id():

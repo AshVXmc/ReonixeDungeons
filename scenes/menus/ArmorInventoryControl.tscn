@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://scripts/ui/ArmorInventoryControl.gd" type="Script" id=1]
 [ext_resource path="res://scenes/menus/InventoryItemSlot.tscn" type="PackedScene" id=2]
@@ -16,8 +16,11 @@ font_data = ExtResource( 4 )
 size = 32
 font_data = ExtResource( 4 )
 
+[sub_resource type="DynamicFont" id=3]
+size = 32
+font_data = ExtResource( 4 )
+
 [node name="ArmorInventoryControl" type="Control"]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 rect_min_size = Vector2( 400, 295 )
@@ -29,9 +32,9 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -1151.0
+margin_left = -1146.0
 margin_top = -881.0
-margin_right = 2089.0
+margin_right = 2094.0
 margin_bottom = 1279.0
 color = Color( 1, 1, 1, 0 )
 
@@ -43,7 +46,7 @@ anchor_bottom = 0.5
 margin_left = -350.0
 margin_top = -298.0
 margin_right = 350.0
-margin_bottom = 191.0
+margin_bottom = 212.0
 texture = ExtResource( 3 )
 patch_margin_left = 64
 patch_margin_top = 64
@@ -206,6 +209,21 @@ rect_min_size = Vector2( 680, 108 )
 custom_fonts/normal_font = SubResource( 2 )
 bbcode_enabled = true
 
+[node name="Footer" type="RichTextLabel" parent="."]
+anchor_left = 0.5
+anchor_top = 0.735
+anchor_right = 0.5
+anchor_bottom = 0.735
+margin_left = -303.0
+margin_top = -32.2
+margin_right = 303.0
+margin_bottom = 31.8
+custom_fonts/normal_font = SubResource( 3 )
+bbcode_enabled = true
+bbcode_text = "[center][color=#ffd703]LEFT[/color] & [color=#ffd703]RIGHT[/color] to move, [color=#ffd703]ATTACK[/color] to equip/unequip. [color=#ffd703]DASH[/color] to delete."
+text = "LEFT & RIGHT to move, ATTACK to equip/unequip. DASH to delete."
+scroll_active = false
+
 [node name="SelectCharacterAsTargetControl" parent="." instance=ExtResource( 5 )]
 
 [node name="ItemConsumptionDelayTimer" type="Timer" parent="."]
@@ -217,10 +235,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -456.0
-margin_top = -248.0
-margin_right = -416.0
-margin_bottom = -208.0
+margin_left = -350.0
+margin_top = -298.0
+margin_right = -310.0
+margin_bottom = -258.0
 rect_scale = Vector2( 1.5, 1.5 )
 texture_normal = ExtResource( 7 )
 expand = true

@@ -220,6 +220,7 @@ func parse_armor_item_equipping(armor_item : item, character_index : int, slot_i
 	armor_item.is_equipped_on = character
 	print("Equipped " + str(Global.equipped_character_armor[character].get_name()) + " on " + character + ", in slot index " + str(slot_index))
 	
+	
 	var sprite : Texture
 	match character:
 		"Player":
@@ -231,7 +232,6 @@ func parse_armor_item_equipping(armor_item : item, character_index : int, slot_i
 	inventory_grid_container.get_node("InventoryItemSlotCanvasLayer" + str(currently_selected_slot_index) + "/Control").set_equipping_character_sprite(sprite)
 	show_inventory_item_slots()
 	$SelectCharacterAsTargetControl.close_ui()
-	
 
 func add_item_to_inventory(obtained_item : item, amount : int, is_stackable : bool = true):
 	var item_category : String = ""
