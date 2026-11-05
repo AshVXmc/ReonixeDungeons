@@ -3,6 +3,7 @@ class_name InventoryItemSlot extends Control
 const item = preload("res://scripts/resources/Item.gd")
 var contained_item : Item
 var item_count : int = 0
+var character_that_has_this_armor_equipped = null
 
 func _ready():
 	hide_self()
@@ -44,6 +45,14 @@ func get_contained_item():
 func set_equipping_character_sprite(sprite : Texture):
 	$EquippingCharacterSprite.texture = sprite
 
+func get_character_that_has_this_armor_equipped():
+	return character_that_has_this_armor_equipped
+
+func set_character_that_has_this_armor_equipped(new_character : String):
+	character_that_has_this_armor_equipped = new_character
+
+func clear_character_that_has_this_armor_equipped():
+	character_that_has_this_armor_equipped = null
 func clear_equipping_character_sprite():
 	print("cleared sprite of slot " + get_parent().name)
 	$EquippingCharacterSprite.texture = null

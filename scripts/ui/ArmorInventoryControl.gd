@@ -51,8 +51,8 @@ func _process(delta):
 				$SelectCharacterAsTargetControl.open_ui(item)
 				hide_inventory_item_slots()
 #				remove_item_from_inventory(item, 1)
-		elif Input.is_action_just_pressed("ui_dash"):
-			pass
+		elif Input.is_action_just_pressed("ui_dash") and !$SelectCharacterAsTargetControl.visible:
+			unequip_armor(currently_selected_slot_index)
 	if $SelectCharacterAsTargetControl.visible:
 		if Input.is_action_just_pressed("ui_cancel") or Input.is_action_just_pressed("ui_toggle_inventory"):
 			$SelectCharacterAsTargetControl.close_ui()
@@ -89,8 +89,10 @@ func add_armor_to_inventory(obtained_item : item, amount : int, is_stackable : b
 	
 		
 func equip_armor(armor_item : item, character_index : int, slot_index : int):
+	var inventory_item_slot : InventoryItemSlot = $ScrollContainer/VBoxContainer/ArmorInventoryGridContainer.get_node("InventoryItemSlotCanvasLayer" + str(slot_index) + "/Control")
 	var character : String = Global.equipped_characters[character_index]
 	Global.equipped_character_armor[character] = armor_item
+	inventory_item_slot.set_character_that_has_this_armor_equipped(character)
 	print("Armor item: " + armor_item.get_name() + " equipped on " + character)
 	var sprite : Texture
 	match character:
@@ -105,8 +107,16 @@ func equip_armor(armor_item : item, character_index : int, slot_index : int):
 	$SelectCharacterAsTargetControl.visible = false
 	
 # TODO
-func unequip_armor():
-	pass
+func unequip_armor(slot_index : int):
+	var inventory_item_slot : InventoryItemSlot = $ScrollContainer/VBoxContainer/ArmorInventoryGridContainer.get_node("InventoryItemSlotCanvasLayer" + str(slot_index) + "/Control")
+	var character : String = inventory_item_slot.get_character_that_has_this_armor_equipped()
+	Global.equipped_character_armor[character] = null
+	inventory_item_slot.clear_character_that_has_this_armor_equipped()
+	inventory_item_slot.clear_equipping_character_sprite()
+	$ScrollContainer/VBoxContainer/ArmorInventoryGridContainer.get_node("InventoryItemSlotCanvasLayer" + str(currently_selected_slot_index) + "/Control").clear_equipping_character_sprite()
+	show_inventory_item_slots()
+	$SelectCharacterAsTargetControl.visible = false
+	
 
 func delete_armor():
 	pass

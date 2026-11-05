@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://scripts/ui/ArmorInventoryControl.gd" type="Script" id=1]
 [ext_resource path="res://scenes/menus/InventoryItemSlot.tscn" type="PackedScene" id=2]
@@ -18,6 +18,10 @@ font_data = ExtResource( 4 )
 
 [sub_resource type="DynamicFont" id=3]
 size = 32
+font_data = ExtResource( 4 )
+
+[sub_resource type="DynamicFont" id=4]
+size = 48
 font_data = ExtResource( 4 )
 
 [node name="ArmorInventoryControl" type="Control"]
@@ -224,12 +228,6 @@ bbcode_text = "[center][color=#ffd703]LEFT[/color] & [color=#ffd703]RIGHT[/color
 text = "LEFT & RIGHT to move, ATTACK to equip/unequip. DASH to delete."
 scroll_active = false
 
-[node name="SelectCharacterAsTargetControl" parent="." instance=ExtResource( 5 )]
-
-[node name="ItemConsumptionDelayTimer" type="Timer" parent="."]
-wait_time = 0.1
-one_shot = true
-
 [node name="CloseButtonMainUI" type="TextureButton" parent="."]
 anchor_left = 0.5
 anchor_top = 0.5
@@ -242,5 +240,64 @@ margin_bottom = -258.0
 rect_scale = Vector2( 1.5, 1.5 )
 texture_normal = ExtResource( 7 )
 expand = true
+
+[node name="SelectCharacterAsTargetControl" parent="." instance=ExtResource( 5 )]
+
+[node name="ConfirmDecisionControl" type="Control" parent="."]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -20.0
+margin_top = -20.0
+margin_right = 20.0
+margin_bottom = 20.0
+
+[node name="Blur" type="ColorRect" parent="ConfirmDecisionControl"]
+material = ExtResource( 6 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -1646.0
+margin_top = -1063.0
+margin_right = 1594.0
+margin_bottom = 1097.0
+color = Color( 1, 1, 1, 0 )
+
+[node name="NinePatchRect" type="NinePatchRect" parent="ConfirmDecisionControl"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -232.0
+margin_top = -178.0
+margin_right = 232.0
+margin_bottom = 50.0
+texture = ExtResource( 3 )
+patch_margin_left = 32
+patch_margin_top = 32
+patch_margin_right = 32
+patch_margin_bottom = 32
+
+[node name="Header" type="RichTextLabel" parent="ConfirmDecisionControl"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -181.0
+margin_top = -168.0
+margin_right = 181.0
+margin_bottom = -76.0
+custom_fonts/normal_font = SubResource( 4 )
+bbcode_enabled = true
+bbcode_text = "[center][color=#ffd703]Delete[/color] <insert item here>"
+text = "Delete <insert item here>"
+scroll_active = false
+
+[node name="ItemConsumptionDelayTimer" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
 
 [connection signal="pressed" from="CloseButtonMainUI" to="." method="_on_CloseButtonMainUI_pressed"]
